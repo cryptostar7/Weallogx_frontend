@@ -1,0 +1,2514 @@
+:root {
+  --blue-clr: #004885;
+  --blue-clr-2: #23669E;
+}
+/* history simulation dark mose css start here */
+.dark-blue #reviewProgress li.active,
+.dark-blue #reviewProgress li.done,
+.dark-blue #reviewProgress li.working {
+  color: var(--blue-clr-2);
+}
+.dark-blue #reviewProgress li.done:before {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue #reviewProgress li.working:before {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue #reviewProgress li.done:after,
+.dark-blue #reviewProgress li.active:before,
+.dark-blue #reviewProgress li.active:after,
+.dark-blue #reviewProgress li.working:before,
+.dark-blue #reviewProgress li.working:after {
+  background: var(--blue-clr-2);
+}
+.dark-blue .summarySmallBorder {
+  background: var(--blue-clr-2);
+}
+.dark-blue .drag-drop-heading::before {
+  background-color: var(--blue-clr);
+}
+.dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active {
+  background: var(--blue-clr-2);
+}
+.dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active .form-check-input {
+  background-image: url("../images/icons/blue-radio.svg");
+}
+.dark-blue .form-next-btn:focus,
+.dark-blue .form-next-btn.active {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .form-next-btn:hover {
+  background-color: var(--blue-clr);
+}
+.dark-blue .right-action-btn-div .plus-sign {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .new-btn {
+  background: var(--blue-clr-2);
+}
+.dark-blue .new-btn:hover {
+  background: var(--blue-clr);
+}
+.dark-blue .list-item .list-item-detail p::before {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .list-item-actions .scenario-add-report-btn {
+  background-color: var(--blue-clr);
+  color: #fff;
+}
+.dark-blue .list-item-actions .scenario-add-report-btn:hover {
+  background-color: var(--blue-clr-2);
+  color: #fff;
+}
+.dark-blue .large-add-btn span {
+  background: var(--blue-clr);
+}
+.dark-blue .large-add-btn:hover span {
+  background: var(--blue-clr-2);
+}
+.dark-blue .form-wrapper-inner {
+  background: #34383D;
+}
+.dark-blue .newScenarioVehicleInner {
+  background: transparent !important;
+}
+.dark-blue .historical-yes-div svg rect {
+  fill: #53A9F1;
+}
+.dark-blue .historical-no-div svg rect {
+  fill: #53A9F1 !important;
+}
+.dark-blue .comparative-vehicle-tabs {
+  border-bottom: 1px solid #515151 !important;
+}
+.dark-blue .comparative-vehicle-tab-wrapper {
+  background: #2E3135;
+}
+.dark-blue .form-subheading {
+  color: #ffffff;
+}
+.dark-blue .form-group label {
+  color: #ffffff;
+}
+.dark-blue .form-group .form-control {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: white;
+}
+.dark-blue .form-group .form-control:focus {
+  border: 1px solid #23669E;
+}
+.dark-blue .tax-rate-tabs {
+  background: #2E3135;
+}
+.dark-blue .tax-rate-tabs .nav-item button.nav-link {
+  color: #ffffff;
+}
+.dark-blue .tax-rate-tabs .nav-item button.nav-link.active {
+  color: #ffffff;
+  background: #23669E;
+}
+.dark-blue .boxTickImage circle {
+  fill: transparent;
+  stroke: #ABD5F9;
+}
+.dark-blue .boxTickImage rect {
+  stroke: #ABD5F9;
+}
+/* ---- */
+.dark-blue .IndexStrategyBtn [type="radio"]:checked+label {
+  background: var(--blue-clr-2);
+  color: white;
+}
+.dark-blue .skipScenarioBtn {
+  color: var(--blue-clr-2);
+}
+.dark-blue #range1::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress1), #E9E9E9 var(--range-progress1));
+}
+.dark-blue #range1::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress1), #E9E9E9 var(--range-progress1));
+}
+.dark-blue #range1::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range1::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip1 span {
+  color: var(--blue-clr-2);
+}
+.dark-blue #range2::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress2), #E9E9E9 var(--range-progress2));
+}
+.dark-blue #range2::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress2), #E9E9E9 var(--range-progress2));
+}
+.dark-blue #range2::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range2::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip2 span {
+  color: var(--blue-clr-2);
+}
+.dark-blue #range3::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress3), #E9E9E9 var(--range-progress3));
+}
+.dark-blue#range3::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress3), #E9E9E9 var(--range-progress3));
+}
+.dark-blue #range3::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range3::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip3 span {
+  color: var(--blue-clr-2);
+}
+.dark-blue #range4::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress4), #E9E9E9 var(--range-progress4));
+}
+.dark-blue #range4::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress4), #E9E9E9 var(--range-progress4));
+}
+.dark-blue #range4::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range4::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip4 span {
+  color: var(--blue-clr-2);
+}
+.dark-blue #range5::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress5), #E9E9E9 var(--range-progress5));
+}
+.dark-blue #range5::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress5), #E9E9E9 var(--range-progress5));
+}
+.dark-blue #range5::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range5::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip5 span {
+  color: #fff;
+}
+.dark-blue #range6::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress6), #E9E9E9 var(--range-progress6));
+}
+.dark-blue #range6::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress6), #E9E9E9 var(--range-progress6));
+}
+.dark-blue #range6::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range6::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip6 span {
+  color: #fff;
+}
+.dark-blue #range7::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress7), #E9E9E9 var(--range-progress7));
+}
+.dark-blue #range7::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress7), #E9E9E9 var(--range-progress7));
+}
+.dark-blue #range7::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue #range7::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip7 span {
+  color: #fff;
+}
+.dark-blue #range8::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress8), #E9E9E9 var(--range-progress8));
+}
+.dark-blue #range8::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress8), #E9E9E9 var(--range-progress8));
+}
+.dark-blue #range8::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue .dark-blue #range8::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip8 span {
+  color: #fff;
+}
+.dark-blue #range9::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress9), #E9E9E9 var(--range-progress9));
+}
+.dark-blue #range9::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress9), #E9E9E9 var(--range-progress9));
+}
+.dark-blue #range9::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue .dark-blue #range9::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip9 span {
+  color: #fff;
+}
+.dark-blue #range10::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress10), #E9E9E9 var(--range-progress10));
+}
+.dark-blue #range10::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress10), #E9E9E9 var(--range-progress10));
+}
+.dark-blue #range10::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue .dark-blue #range10::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip10 span {
+  color: #fff;
+}
+.dark-blue #range11::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress11), #E9E9E9 var(--range-progress11));
+}
+.dark-blue #range11::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress11), #E9E9E9 var(--range-progress11));
+}
+.dark-blue #range11::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue .dark-blue #range11::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip11 span {
+  color: #fff;
+}
+.dark-blue #range12::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress12), #E9E9E9 var(--range-progress12));
+}
+.dark-blue #range12::-moz-range-track {
+  background: linear-gradient(90deg, var(--blue-clr-2) var(--range-progress12), #E9E9E9 var(--range-progress12));
+}
+.dark-blue #range12::-webkit-slider-thumb {
+  background: var(--blue-clr-2);
+}
+.dark-blue .dark-blue #range12::-moz-range-thumb {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue #tooltip12 span {
+  color: #fff;
+}
+.dark-blue .enhancementFixedSheduleBtn div.active {
+  background: var(--blue-clr-2);
+  color: white;
+}
+.dark-blue .fixeValueYearRadio label:hover input~.fixedStartYear {
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
+  color: white;
+}
+.dark-blue .fixeValueYearRadio label input:checked~.fixedStartYear {
+  background: var(--blue-clr-2);
+  color: white;
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .feesRadioDiv label:hover input~.fixedStartYear {
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
+  color: white;
+}
+.dark-blue .feesRadioDiv label input:checked~.fixedStartYear {
+  background: var(--blue-clr-2);
+  color: white;
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .strategyWeight .mainResizeDiv {
+  background: var(--blue-clr-2);
+  color: white;
+}
+.dark-blue .strategyWeight .mainResizeDiv:first-child {
+  background: var(--blue-clr-2);
+}
+.dark-blue .strategyWeight .mainResizeDiv:last-child {
+  background: var(--blue-clr-2);
+}
+.dark-blue .AdtnlCmprtVhclBtn {
+  color: var(--blue-clr-2);
+  background: #2E3135;
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .AdtnlCmprtVhclBtn:hover {
+  color: #ffffff;
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .indexStrategyallDivs.active.accordion-button:not(.collapsed) {
+  background: var(--blue-clr-2);
+}
+.dark-blue .indexStrategyallDivs.active .indexStrategyheadBrdr div {
+  background: #ABD5F9;
+}
+.dark-blue .ChooseTimePeriodInputs label input:checked~.timePeriodYear {
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .ChooseTimePeriodInputs label:hover input~.timePeriodYear {
+  border: 1.5px solid var(--blue-clr-2);
+}
+.dark-blue .autocomplete-items,
+.dark-blue .autocomplete1-items,
+.dark-blue .autocomplete2-items,
+.dark-blue .autocomplete3-items,
+.dark-blue .autocomplete4-items,
+.dark-blue .autocomplete5-items,
+.dark-blue .autocomplete6-items,
+.dark-blue .autocomplete7-items,
+.dark-blue .autocomplete8-items,
+.dark-blue .autocomplete9-items,
+.dark-blue .autocomplete10-items,
+.dark-blue .autocomplete11-items,
+.dark-blue .autocomplete12-items {
+  border: 1px solid #515151;
+}
+.dark-blue .autocomplete-items div,
+.dark-blue .autocomplete1-items div,
+.dark-blue .autocomplete2-items div,
+.dark-blue .autocomplete3-items div,
+.dark-blue .autocomplete4-items div,
+.dark-blue .autocomplete5-items div,
+.dark-blue .autocomplete6-items div,
+.dark-blue .autocomplete7-items div,
+.dark-blue .autocomplete8-items div,
+.dark-blue .autocomplete9-items div,
+.dark-blue .autocomplete10-items div,
+.dark-blue .autocomplete11-items div,
+.dark-blue .autocomplete12-items div {
+  background-color: #34383D;
+  color: #ffffff;
+  border-left: 1.25px solid #34383D;
+  border-right: 1.25px solid #34383D;
+}
+.dark-blue .autocomplete-items div:first-child,
+.dark-blue .autocomplete1-items div:first-child,
+.dark-blue .autocomplete2-items div:first-child,
+.dark-blue .autocomplete3-items div:first-child,
+.dark-blue .autocomplete4-items div:first-child,
+.dark-blue .autocomplete5-items div:first-child,
+.dark-blue .autocomplete6-items div:first-child,
+.dark-blue .autocomplete7-items div:first-child,
+.dark-blue .autocomplete8-items div:first-child,
+.dark-blue .autocomplete9-items div:first-child,
+.dark-blue .autocomplete10-items div:first-child,
+.dark-blue .autocomplete11-items div:first-child,
+.dark-blue .autocomplete12-items div:first-child {
+  border-top: 1.25px solid #34383D;
+  border-left: 1.25px solid #34383D;
+  border-right: 1.25px solid #34383D;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.dark-blue .autocomplete-items div:last-child,
+.dark-blue .autocomplete1-items div:last-child,
+.dark-blue .autocomplete2-items div:last-child,
+.dark-blue .autocomplete3-items div:last-child,
+.dark-blue .autocomplete4-items div:last-child,
+.dark-blue .autocomplete5-items div:last-child,
+.dark-blue .autocomplete6-items div:last-child,
+.dark-blue .autocomplete7-items div:last-child,
+.dark-blue .autocomplete8-items div:last-child,
+.dark-blue .autocomplete9-items div:last-child,
+.dark-blue .autocomplete10-items div:last-child,
+.dark-blue .autocomplete11-items div:last-child,
+.dark-blue .autocomplete12-items div:last-child {
+  border-bottom: 1.25px solid #34383D;
+  border-left: 1.25px solid #34383D;
+  border-right: 1.25px solid #34383D;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.dark-blue .autocomplete-items div:hover,
+.dark-blue .autocomplete1-items div:hover,
+.dark-blue .autocomplete2-items div:hover,
+.dark-blue .autocomplete3-items div:hover,
+.dark-blue .autocomplete4-items div:hover,
+.dark-blue .autocomplete5-items div:hover,
+.dark-blue .autocomplete6-items div:hover,
+.dark-blue .autocomplete7-items div:hover,
+.dark-blue .autocomplete8-items div:hover,
+.dark-blue .autocomplete9-items div:hover,
+.dark-blue .autocomplete10-items div:hover,
+.dark-blue .autocomplete11-items div:hover,
+.dark-blue .autocomplete12-items div:hover {
+  background-color: #2E3135;
+}
+.dark-blue .autocomplete2-items div:first-child {
+  border: none;
+}
+.dark-blue .autocomplete-active {
+  background-color: #2E3135 !important;
+}
+.dark-blue .simpleTaxRateImg rect {
+  stroke: #ffffff;
+}
+.dark-blue .scheduleTaxRateImg rect {
+  stroke: #ffffff;
+}
+.dark-blue .tax-rate-table thead tr th {
+  background: #2E3135;
+  color: #ffffff;
+  border: 1px solid #607586;
+  border-bottom: none !important;
+}
+.dark-blue .tax-rate-table tbody tr td {
+  background: transparent;
+  color: #ffffff;
+  border-right-color: #607586;
+  border: 1px solid #607586;
+  border-bottom-color: #607586;
+  border-left-color: #607586;
+  border-top: none;
+}
+.dark-blue .grey-clr-2 {
+  color: #6D6D6D;
+}
+.dark-blue .copyPaste rect {
+  stroke: #ffffff;
+  fill: #ffffff;
+}
+.dark-blue .uploadFromFile rect {
+  stroke: #ffffff;
+}
+.dark-blue .drag-drop-label {
+  background: #2E3135;
+}
+.dark-blue .drag-drop-heading {
+  color: #ffffff;
+}
+.drag-drop-label .uploadFileTxtPara {
+  color: #ffffff !important;
+}
+.dark-blue .chevron-span svg path {
+  fill: #ffffff;
+}
+.dark-blue .no-file-span {
+  color: #ffffff;
+}
+.dark-blue .copy-paste-area {
+  background: transparent;
+}
+.dark-blue .illustration-data-table-div {
+  color: #ffffff;
+}
+.dark-blue .form-subheading::before {
+  background-color: #ABD5F9;
+}
+.dark-blue .custom-switch .form-check-label {
+  color: #ffffff
+}
+.dark-blue .illustration-data-wrapper {
+  background: #34383D;
+}
+.dark-blue .illustrative-data-table tbody tr td {
+  background: #292B2F;
+  border: 1px solid #353B46;
+  color: white;
+}
+.dark-blue .illustrative-data-table thead tr th {
+  background: #313438;
+  color: #ffffff;
+  border: 1px solid #353B46;
+}
+.dark-blue .caution-dropdown .dropdown-menu {
+  background: #202124;
+  color: #ffffff;
+}
+.dark-blue #cautionDropdown {
+  border: 1px solid #ffffff;
+  color: #DA1159;
+  background: transparent;
+}
+.dark-blue .col-delete-btn {
+  border: 1px solid #9D9D9D;
+  background: transparent;
+}
+.dark-blue .form-select {
+  color: #6D6D6D;
+  background-color: #2E3135;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  border: 1px solid #515151;
+}
+.dark-blue .summaryMainDiv {
+  background: #242629;
+  border-bottom: #353B46;
+}
+.dark-blue .summaryMainDiv p {
+  color: white;
+}
+.dark-blue .commonBgColor {
+  background: #202124;
+}
+.dark-blue .historicalTopPara1 {
+  color: #ffffff;
+}
+.dark-blue .historical-yesNo-mainDiv {
+  background: #2E3135;
+}
+.dark-blue .historical-mainSection {
+  background: #202124;
+}
+.dark-blue .historical-yes-div {
+  background: #34383D;
+}
+.dark-blue .twoBtnSwtchMainDiv div {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue .twoBtnSwtchMainDiv div.active {
+  background: #23669E;
+  color: #ffffff;
+}
+.dark-blue .strategyAllocation form select {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #6D6D6D;
+}
+.dark-blue .strategyAllocation form select:focus {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: white;
+}
+.dark-blue .strategyWeightPara {
+  color: white;
+}
+.dark-blue .strategyWeight {
+  background: #2E3135;
+}
+.dark-blue .mainResizeparaPer1 {
+  background: #202124;
+  border: 0.5px solid #353B46;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .mainResizeparaPer1 {
+  background: #202124;
+  border: 0.5px solid #353B46;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .mainResizeparaPer2 {
+  background: #202124;
+  border: 0.5px solid #353B46;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .strategyErrorPara {
+  color: #DA1159;
+}
+.dark-blue .historical-no-div {
+  background: #34383D;
+}
+.dark-blue .historicalYesNoTxt {
+  color: #ffffff;
+}
+.dark-blue .historicalAllSetPara {
+  color: #ffffff;
+}
+.dark-blue .afterYesMdlPara {
+  color: #ffffff
+}
+.dark-blue .twoBtnSwtchMainDiv {
+  background: #2E3135;
+}
+.dark-blue .historical-no-div svg rect {
+  fill: #34383D;
+}
+.dark-blue .historicalYesNoTxt svg rect {
+  fill: #ffffff;
+}
+.dark-blue .form-back-btn:hover {
+  background: #2E3135;
+}
+.dark-blue .form-back-btn:focus {
+  background: #2E3135;
+}
+.dark-blue .reviewProgressMainDiv {
+  border-top: 1px solid #353B46;
+  border-bottom: 1px solid #353B46;
+  background: #202124;
+}
+.dark-blue #reviewProgress li {
+  color: white !important;
+}
+.dark-blue #reviewProgress li.done:before {
+  outline: 3px solid #202124;
+}
+.dark-blue .main-form-heading {
+  border-bottom: 1.25px solid #353B46;
+  color: #ffffff;
+}
+.dark-blue .main-tab-heading::before {
+  background-color: #ABD5F9;
+}
+.dark-blue .main-form-div {
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .historical-paraCheckBox {
+  color: #ffffff;
+}
+.dark-blue .custom-switch .form-check-input {
+  background-color: #515151;
+  border-radius: 6.5rem;
+  border: 0;
+}
+.dark-blue .custom-switch .form-check-input:checked,
+.dark-blue .custom-switch .form-check-input:checked:focus {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .after-yes-middle-div {
+  background: #292B2F;
+  border: 1px solid #353B46;
+  box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
+}
+.dark-blue .numberIndexStrtegiesPara {
+  color: #ffffff;
+}
+.dark-blue .multiRadioBtnMainDiv {
+  background: #2E3135;
+}
+.dark-blue .eachRadioBtnBgDiv.active {
+  background: #23669E;
+  ;
+}
+.dark-blue .historicalRadioNumberPara {
+  color: #ffffff;
+}
+.dark-blue .radioClassDarkMode .form-check-input:checked,
+.dark-blue .radioClassDarkMode .form-check-input:checked {
+  background-color: #ffffff !important;
+}
+.dark-blue .radioClassDarkMode .form-check-input:checked,
+.dark-blue .radioClassDarkMode .form-check-input:checked:focus {
+  background-color: #ffffff;
+  background-image: url("../images/icons/blue-radio.svg");
+}
+.dark-blue .radioClassDarkMode .form-check-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e");
+}
+.dark-blue .historicalYesDivCommon {
+  background: #2E3135;
+  border: 1.25px solid #353B46;
+}
+.dark-blue .indexStrategyPara {
+  color: white;
+}
+.dark-blue .indexStrategyBorder p {
+  background: #ABD5F9;
+}
+.dark-blue .labelOptional {
+  color: #6D6D6D !important;
+}
+.dark-blue .indexStrategyheadBrdr p {
+  color: #ffffff;
+}
+.dark-blue .indexStrategyheadBrdr div {
+  background: #A1A1A1;
+}
+.dark-blue .strategyAllocation label {
+  color: #FFFF;
+}
+.dark-blue .strategyAllocation label {
+  color: #FFFF;
+}
+.dark-blue .indexStrategyallDivs {
+  background: #34383D;
+}
+.dark-blue .indexStrategyallDivs.active {
+  background: #23669E;
+}
+.dark-blue .indexStrategyallDivs svg rect {
+  fill: #FFFFFF;
+}
+.dark-blue .indexStrategyallDivs.accordion-button::after {
+  content: "";
+  background-image: url('../images/icons/down-arrow.svg');
+  background-size: auto;
+  background-position: 50% 50%;
+}
+.dark-blue .historicalSelectField {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: white;
+}
+.dark-blue .buttonSaveRadioPara {
+  color: #FFFFFF;
+}
+.dark-blue .form-next-btn:disabled,
+.dark-blue .form-next-btn.disabled {
+  background: #2E3135;
+  color: #A0A0A0
+}
+.dark-blue .form-back-btn {
+  color: #A5A5A5;
+}
+.dark-blue .skipHistoricalBtn {
+  background: #242629;
+  border: 0.75px solid #FFFFFF;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+}
+.dark-blue .analysisParametersContent {
+  background: #34383D;
+  border: 1px solid #353B46;
+}
+.dark-blue .formParabrdrLavelDiv p:first-child {
+  color: #ffffff;
+}
+.dark-blue .formParabrdrLavelDiv p:last-child {
+  background: #ABD5F9;
+}
+.dark-blue .timePeriodYear {
+  color: #ffffff;
+}
+.dark-blue .ChooseTimePeriodInputs label.disabled {
+  background: #34383D;
+  border: 1px solid #515151;
+}
+.dark-blue .ChooseTimePeriodInputs label {
+  background: #34383D;
+  border: 1px solid #515151;
+}
+.dark-blue .saveZIndexTempContent label {
+  color: #FFFFFF;
+}
+.dark-blue .saveZIndexTempContent input {
+  background: #2E3135;
+  border: 1px solid #515151;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 15px;
+}
+.dark-blue .or-div {
+  color: #6D6D6D;
+}
+.dark-blue .customAmountInputDiv label {
+  border: none;
+  color: white !important;
+}
+.dark-blue .customAmountInputDiv input {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #ffffff;
+  background-image: url('../images/icons/dark-mode-percent.svg');
+  background-repeat: no-repeat;
+  background-position: 88% 50%;
+  padding-right: 23%;
+  padding-left: 5%;
+}
+.dark-blue .customAmountInputDiv input:focus {
+  border: 1.5px solid #23669E;
+}
+.dark-blue .info-icon-img {
+  display: none;
+}
+.dark-blue .dark-info-icon-img {
+  display: unset;
+}
+.dark-blue .dark-info-icon-img:hover~.info-message-analyze {
+  display: block !important;
+}
+.dark-blue .info-message-analyze {
+  background: #202124;
+  color: #FFFFFF;
+}
+.dark-blue .dark-info-icon-img:hover~.info-message-segment {
+  display: block !important;
+}
+.dark-blue .info-message-segment {
+  background: #202124;
+  color: #FFFFFF;
+}
+
+.dark-blue .dark-info-icon-img:hover~.info-message-participationRate {
+  display: block !important;
+}
+.dark-blue .info-message-participationRate {
+  background: #202124;
+  color: #FFFFFF;
+}
+.dark-blue .IndexStrategyBtn {
+  background: #2E3135;
+}
+.dark-blue .IndexStrategyBtn label {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue #tooltip1 span {
+  color: #FFFFFF;
+}
+.dark-blue #tooltip2 span {
+  color: #FFFFFF;
+}
+.dark-blue #tooltip3 span {
+  color: #FFFFFF;
+}
+.dark-blue #tooltip4 span {
+  color: #FFFFFF;
+}
+.dark-blue .enhancementFixedSheduleBtn {
+  background: #2E3135;
+  box-shadow: none;
+}
+.dark-blue .enhancementFixedSheduleBtn div {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue .enhancementFixedSheduleBtn div.active {
+  background: #23669E;
+}
+.dark-blue .nav-tabs {
+  border: none;
+}
+.dark-blue .schduleTableDiv table {
+  background: #2E3135;
+  border: 1px solid #515151;
+  color: #ffffff;
+}
+.dark-blue .schduleTableDiv table th {
+  background: #2E3135;
+  color: #FFFFFF;
+  border: none;
+}
+.dark-blue .schduleTableDiv table td {
+  color: white;
+}
+.dark-blue .schduleTableDiv .table tbody tr td {
+  color: white;
+}
+.dark-blue .innerTableInputTd input {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 400;
+}
+.dark-blue .schduleTableDiv .table td {
+  border: 1px solid #515151;
+}
+.dark-blue .amountInnerTableInputTd input {
+  background: #2E3135;
+  border: 1px solid #515151;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+}
+.dark-blue .amountInnerTableInputTd label:focus {
+  color: rgb(177, 177, 177);
+}
+.dark-blue .multiplierInputDiv label {
+  color: #ffffff;
+}
+.dark-blue .fixeValueYearRadio {
+  background: #2E3135;
+}
+.dark-blue .fixedStartYear {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue .multiplierInputDiv input {
+  background: #34383D;
+  border: 1px solid #515151;
+}
+.dark-blue .multiplierInputDiv input:focus {
+  background: #34383D;
+  border: 1.5px solid var(--green-clr);
+}
+.dark-blue .feesRadioDiv {
+  background: #2E3135;
+}
+.dark-blue .loan-Intrest-para {
+  color: #ffffff;
+}
+/* history simulation dark mose css end here */
+/* Index page dark mose css start here */
+/* Index page dark mose css start here */
+.dark-blue .report-top-navbar {
+  background: #202124;
+  border-bottom: 2px solid #353B46;
+}
+.dark-blue .main-section {
+  background: #202124;
+}
+.dark-blue .sidebar {
+  background: #202124;
+}
+.dark-blue .sidebar-nav .nav-link {
+  background: #2A2D36;
+  color: #ABD5F9;
+  border: 1px solid transparent;
+}
+.dark-blue .sidebar-nav .nav-link:hover {
+  background-color: var(--blue-clr);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.dark-blue .sidebar-nav .nav-link.active {
+  background-color: #23669E;
+  color: #fff;
+}
+.dark-blue .sidebar-nav .nav-link.active:hover {
+  background-color: #23669E;
+  color: #fff;
+}
+.dark-blue .sidebar-nav .nav-link.active svg path {
+  fill: #fff;
+}
+.dark-blue .sidebar-nav .nav-link svg path {
+  fill: #ABD5F9;
+}
+.dark-blue .sidebar-nav .nav-link svg circle {
+  stroke: #ABD5F9;
+}
+.dark-blue .sidebar-nav .nav-link svg rect {
+  fill: #ABD5F9;
+}
+.dark-blue .section-heading-div {
+  background: #242629;
+  color: #ffffff;
+}
+.dark-blue .search-bar-div input.form-control {
+  background: #2E3135;
+  border: none;
+  color: #ffffff;
+}
+.dark-blue .search-bar-div input.form-control:focus {
+  background: #2E3135;
+  border: none;
+  color: #ffffff;
+}
+.dark-blue .sort-dropdown-div .dropdown-toggle {
+  background: #2E3135;
+  border: none;
+  color: #ffffff;
+}
+.dark-blue .sort-dropdown-div .dropdown-toggle::after {
+  content: url("../images/icons/dark-chevrolet.svg") !important;
+  border: 0;
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.35rem;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu {
+  background: #2E3135;
+  color: white;
+  border: 1.5px solid #353B46;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item {
+  color: white;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item:hover {
+  background: #1e1f20;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active {
+  background: #202124;
+}
+.dark-blue .client-list-ul .nav-item {
+  background: #292B2F;
+  border: 1.5px solid #353B46;
+  color: #23669E;
+}
+.dark-blue .client-list-ul .client-name .name-initial-circle {
+  background: #23669E;
+  color: #ffffff;
+}
+.dark-blue .client-name a {
+  color: #ffffff !important;
+}
+.dark-blue .client-list-ul .client-name .nav-link svg rect {
+  fill: #ffffff;
+}
+.dark-blue .client-list-ul .client-name:hover .nav-link svg {
+  transform: translateX(-3px);
+  transition: 0.1s ease-in all;
+}
+.dark-blue .right-action-btn-div .right-action-btn.collapsed {
+  background: #373737;
+  border: none;
+  color: #FFFFFF;
+}
+.dark-blue .right-action-btn-div .right-action-btn.collapsed svg path {
+  fill: white;
+}
+.dark-blue .right-action-btn-div .right-action-btn.collapsed svg {
+  transform: rotate(0deg);
+  margin-bottom: 0.35rem;
+}
+.dark-blue .right-action-btn-div .right-action-btn {
+  background: #656565;
+  border: #656565;
+  color: #ffffff;
+}
+.dark-blue .right-action-btn-div .right-action-btn:hover {
+  background-color: #656565;
+  color: white;
+  border: none;
+}
+.dark-blue .right-action-btn-div .right-action-btn svg {
+  position: relative;
+  top: 3px;
+  transform: rotate(180deg);
+  margin-bottom: 0.35rem;
+}
+.dark-blue .right-action-btn-div .right-action-btn svg path {
+  fill: white;
+}
+.dark-blue .ScenariosHeadingTxt {
+  color: white;
+}
+.dark-blue .ScenariosHeadingTxt svg rect {
+  fill: white;
+}
+.dark-blue .list-item {
+  background-color: #2E3135;
+  border: 1.5px solid #353B46;
+}
+.dark-blue .list-item * {
+  color: #ffffff;
+}
+.dark-blue .round-btn {
+  background: #2E3135;
+  border: 1px solid #434D5B;
+  color: #ABD5F9;
+}
+.dark-blue .round-btn:hover {
+  background: #23669E;
+  border: 1px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .round-btn:hover {
+  background: #23669E;
+  border: 1px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .round-btn svg path {
+  fill: #ABD5F9;
+}
+.dark-blue .round-btn:hover svg path {
+  fill: #ffffff;
+}
+.dark-blue .round-btn:hover svg rect {
+  stroke: #ffffff;
+}
+.dark-blue .round-btn svg rect {
+  stroke: #ABD5F9;
+}
+.dark-blue .list-item-actions label {
+  color: #ABD5F9;
+}
+.dark-blue .view-btn:hover {
+  color: #ffffff;
+}
+.dark-blue .list-item-actions svg path {
+  fill: #ABD5F9;
+}
+.dark-blue .report-scenario-span {
+  background-color: #353B46;
+}
+.dark-blue .report-scenario-span:hover {
+  background-color: rgb(55, 55, 55);
+}
+.dark-blue .darkmodecls {
+  color: #ABD5F9;
+}
+.dark-blue .darkmodecls svg path {
+  fill: #ABD5F9;
+}
+.dark-blue .side-client-label {
+  color: white;
+}
+.dark-blue .side-client-label svg {
+  fill: white;
+}
+.dark-blue .side-client-label .btn {
+  background: #ffffff;
+}
+.dark-blue .main-cleint-name-div {
+  background: #202124;
+  border-bottom: 1.25px solid #353B46;
+}
+.dark-blue .common-round-btn {
+  color: #23669E;
+  background: transparent;
+  border: 1px solid #23669E;
+}
+.dark-blue .common-round-btn svg rect,
+.dark-blue .common-round-btn svg path {
+  flex-shrink: 0;
+  fill: #FFFFFF
+}
+.dark-blue .common-round-btn:hover {
+  border: 1px solid #23669E;
+  color: #ffffff;
+  background: #23669E;
+  border: 1px solid #23669E;
+}
+.dark-blue .main-client-initials {
+  background: #23669E;
+  border: 1px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .main-client-heading {
+  color: #ffffff;
+}
+.dark-blue .main-client-age-label {
+  background: #373737;
+  color: #ffffff;
+}
+.dark-blue .list-wrapper {
+  background: #242629;
+  color: #ffffff;
+  border: 1.25px solid #353B46;
+}
+.dark-blue .clientAllListItem {
+  border: none !important;
+  background: none !important;
+}
+.dark-blue .large-add-btn {
+  background: #2E3135;
+  border: 1px solid #515151;
+}
+.dark-blue .offcanvTopDiv {
+  background: #202124;
+}
+.dark-blue .dark-user-logo-icon circle {
+  fill: var(--blue-clr-2);
+}
+.dark-blue .dark-user-logo-icon ellipse {
+  fill: #ffffff;
+}
+.dark-blue .offcanBtnDiv .SaveAddBtn{
+background:var(--blue-clr-2);
+}
+.dark-blue .offcanBtnDiv .SaveAddBtn:hover{
+  border:1px solid var(--blue-clr-2);
+  background:transparent;
+  color:var(--blue-clr-2) ;
+  }
+.dark-blue .offcanBtnDiv .SaveclsBtn{
+  border: 1px solid var(--blue-clr-2);
+  color: var(--blue-clr-2);
+}
+.dark-blue .offcanBtnDiv .SaveclsBtn:hover{
+  background:var(--blue-clr-2);
+  color: #fff;
+}
+.dark-blue .offcanvas-body {
+  background: #2E3135;
+}
+.dark-blue .offcanInputDiv label {
+  color: #ffffff;
+}
+.dark-blue .offcanInputDiv input {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: white;
+}
+.dark-blue .offcanInputDiv input:focus {
+  border: 1px solid #23669E;
+}
+.dark-blue .SaveclsBtn {
+  background: #2E3135;
+}
+.dark-blue .modal-content {
+  background: #353B46;
+  color: white;
+}
+.dark-blue .modal-cancel-btn {
+  border: 1px solid #23669E;
+  background: transparent;
+  color: #23669E;
+}
+.dark-blue .modal-cancel-btn:hover {
+  background: #23669E;
+  color: #ffffff;
+}
+/* Report buider dark css start */
+.dark-blue .deleteButtonAncor {
+  border: 1px solid #6D6D6D;
+}
+.dark-blue .modalSharePara {
+  color: white;
+}
+.dark-blue .modalShareLinksPara {
+  color: white;
+}
+.dark-blue .modalSmallborder {
+  background: #ABD5F9;
+}
+.dark-blue .modalShareReportForm label {
+  color: #fff;
+}
+.dark-blue .modalShareReportForm input,
+.dark-blue .modalShareReportForm textarea {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+.dark-blue .includePdfTxtModal {
+  color: white;
+}
+.dark-blue .backToscenario {
+  color: #ABD5F9;
+}
+.dark-blue .backToscenario svg rect {
+  fill: #ABD5F9;
+}
+.dark-blue .backToscenario:hover svg rect {
+  fill: #23669E;
+}
+.dark-blue .backToscenario:hover {
+  color: #23669E;
+}
+.dark-blue .saveReportBtn {
+  background: transparent;
+  border: 1.5px solid #23669E;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .saveReportBtn:hover {
+  background: #23669E;
+  border: 1.5px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .dwnldReportBtn {
+  background: transparent;
+  border: 1.5px solid #23669E;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .dwnldReportBtn:hover {
+  background: #23669E;
+  border: 1.5px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .dwnldReportBtn svg rect {
+  fill: white;
+}
+.dark-blue .frwrdReportBtn {
+  background: transparent;
+  border: 1.5px solid #23669E;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.dark-blue .frwrdReportBtn:hover {
+  background: #23669E;
+  border: 1.5px solid #23669E;
+  color: #ffffff;
+}
+.dark-blue .frwrdReportBtn svg rect {
+  fill: white;
+}
+.dark-blue .frwrdReportBtn svg path {
+  stroke: white;
+}
+.dark-blue .presentationModeBtn {
+  background: #23669E;
+}
+.dark-blue .presentationModeBtn:hover {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #23669E;
+}
+.dark-blue .presentationModeBtn svg rect {
+  stroke: white;
+  fill: transparent;
+}
+.dark-blue .reportBuilderLft1 {
+  background: #202124 !important;
+}
+.dark-blue .reportBuilderLft2 {
+  background: #202124 !important;
+}
+.dark-blue .reportBuilderLftSwtch {
+  background: #2A2D36;
+}
+.dark-blue .reportSwtchLeft {
+  color: #6D6D6D;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  margin: 0 0.5rem;
+}
+.dark-blue .reportSwtchLeft:hover {
+  color: #6D6D6D;
+}
+.dark-blue .reportSwtchLeft.active {
+  background: #23669E;
+  border-radius: 100px;
+  color: #ffffff;
+}
+.dark-blue .reportBuilderLftInner {
+  background: #202124;
+  border: 0.5px solid #484848;
+}
+.dark-blue .reportBuilderLftInner.active {
+  background: #202124;
+}
+.dark-blue .lftRadioBtnDiv {
+  display: flex;
+  align-items: center;
+}
+.dark-blue .reportBuilderLftInner .lftRadioBtnDiv label {
+  color: #6D6D6D;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0.5rem;
+}
+.dark-blue .reportBuilderLftInner.active .lftRadioBtnDiv label {
+  color: #ffffff;
+}
+.dark-blue .sidebar-arrow {
+  border-color: #23669E !important;
+}
+.dark-blue .sidebar-arrow svg rect {
+  fill: transparent;
+  stroke: #23669E !important;
+}
+.dark-blue .layer {
+  background-color: #515151;
+}
+/* Button 1 */
+.dark-blue #button-1 .knobs:before {
+  background-color: #2A2D36;
+}
+.dark-blue #button-1 .checkbox:checked+.knobs:before {
+  background-color: #ffffff;
+}
+.dark-blue #button-1 .checkbox:checked~.layer {
+  background-color: #23669E;
+}
+.dark-blue .sidebar-arrow {
+  background: transparent;
+  border: 1.5px solid #20866E;
+}
+.dark-blue .deactiveColor rect {
+  fill: #6D6D6D;
+}
+.dark-blue .leftLinesColor rect {
+  fill: #ABD5F9;
+}
+.dark-blue .reportBuilderBr {
+  background: #23669E;
+  border: 1px solid #23669E;
+  color: white;
+}
+.dark-blue .reportBuilderBrTxt {
+  color: #ffffff;
+}
+.dark-blue .reportBuilderBrTxt span {
+  color: #6D6D6D;
+}
+.dark-blue .ComparativeTableMainDiv {
+  background: #FFFFFF;
+  border: 1px solid #34383D;
+  border-top: 10px solid #34383D;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.dark-blue .ComparativeTableMainDiv.active {
+  border: 1px solid #23669E;
+  border-top: 10px solid #23669E;
+}
+.dark-blue .collapseDivHr {
+  border-top: 1px solid #23669E;
+}
+.dark-blue .rghtTopHeadcommon {
+  color: white;
+}
+.dark-blue .ComparativeTableMainDiv {
+  background: #242629;
+}
+.dark-blue .layer2 {
+  width: 100%;
+  background-color: #515151;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+/* Button 1 */
+.dark-blue #button-2 .knobs2:before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 15px;
+  height: 15px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  background-color: #2A2D36;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+.dark-blue #button-2 .checkbox2:checked+.knobs2:before {
+  content: "";
+  left: 18px;
+  background-color: #ffffff;
+}
+.dark-blue #button-2 .checkbox2:checked~.layer2 {
+  background-color: #23669E;
+}
+.dark-blue #button-2 .knobs2,
+.dark-blue #button-2 .knobs:before,
+.dark-blue #button-2 .layer2 {
+  transition: 0.3s ease all;
+}
+.dark-blue .collapseDivmdlHd {
+  color: #ffffff;
+}
+.dark-blue .showAssetsTxt {
+  color: #ffffff;
+}
+.dark-blue .SwtchBtnRprtBldr {
+  background: #2E3135;
+}
+.dark-blue .SwtchBtnRprtBldr div {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue .SwtchBtnRprtBldr div.active {
+  background: #23669E;
+  color: #FFFFFF;
+}
+.dark-blue .mltplSwtchDiv {
+  background: #2E3135;
+}
+.dark-blue .mltplSwtchDiv div {
+  background: #2E3135;
+  color: #ffffff;
+}
+.dark-blue .mltplSwtchDiv div.active {
+  background: #2E3135;
+  border: 1.25px solid #53A9F1;
+  color: #53A9F1;
+}
+.dark-blue .lifeProPlus {
+  background: #292B2F;
+  border: 1px solid #353B46;
+}
+.dark-blue .dblLineAbslt {
+  background: #292B2F;
+  border: 1px solid #353B46;
+  border-bottom: none;
+}
+.dark-blue .viewBtnAccount {
+  background: transparent;
+}
+.dark-blue .viewBtnAccount svg path,
+.dark-blue .viewBtnAccount svg circle {
+  fill: transparent;
+}
+.dark-blue .editBtnAccount {
+  background: transparent;
+}
+.dark-blue .editBtnAccount svg path,
+.dark-blue .editBtnAccount svg rect {
+  fill: transparent;
+}
+.dark-blue .deleteBtnAccount {
+  background: transparent;
+}
+.dark-blue .deleteBtnAccount svg path,
+.dark-blue .deleteBtnAccount svg circle {
+  fill: transparent;
+}
+.dark-blue .lifeProPlusPara2 {
+  color: #ffffff;
+}
+.dark-blue .viewBtnIra {
+  background: transparent;
+}
+.dark-blue .viewBtnIra svg path,
+.dark-blue .viewBtnIra svg circle {
+  fill: transparent;
+}
+.dark-blue .editBtnIra {
+  background: transparent;
+}
+.dark-blue .editBtnIra svg path,
+.dark-blue .editBtnIra svg rect {
+  fill: transparent;
+}
+.dark-blue .deleteBtnIra {
+  background: transparent;
+}
+.dark-blue .deleteBtnIra svg path,
+.dark-blue .deleteBtnIra svg circle {
+  fill: transparent;
+}
+.dark-blue .viewBtnAnnuity {
+  background: transparent;
+}
+.dark-blue .viewBtnAnnuity svg path,
+.dark-blue .viewBtnAnnuity svg circle {
+  fill: transparent;
+}
+.dark-blue .editBtnAnnuity {
+  background: transparent;
+}
+.dark-blue .editBtnAnnuity svg path,
+.dark-blue .editBtnAnnuity svg rect {
+  fill: transparent;
+}
+.dark-blue .deleteBtnAnnuity {
+  background: transparent;
+}
+.dark-blue .deleteBtnAnnuity svg path,
+.dark-blue .deleteBtnAnnuity svg circle {
+  fill: transparent;
+}
+.dark-blue .lifeProBtmDiv {
+  background: #2E3135;
+  border: 0.5px solid #353B46;
+}
+.dark-blue .hideBtnAccount {
+  background: transparent;
+}
+.dark-blue .hideBtnAccount svg path,
+.dark-blue .hideBtnAccount svg circle {
+  fill: transparent;
+}
+.dark-blue .hideBtnIra {
+  background: transparent;
+}
+.dark-blue .hideBtnIra svg path,
+.dark-blue .hideBtnIra svg circle {
+  fill: transparent;
+}
+.dark-blue .hideBtnAnnuity {
+  background: transparent;
+}
+.dark-blue .hideBtnAnnuity svg path,
+.dark-blue .hideBtnAnnuity svg circle {
+  fill: transparent;
+}
+.dark-blue .reportTablesDiv .table tbody tr td {
+  color: white;
+  border: 1px solid #313D39;
+  border-top: none;
+}
+.dark-blue .reportTablesDiv1 .table tbody tr td {
+  background: #292B2F;
+}
+.dark-blue .reportTablesDiv2 .table tbody tr td {
+  background: #292B2F;
+}
+.dark-blue .reportTablesDiv3 .table tbody tr td {
+  background: #24292D;
+}
+.dark-blue .reportTablesDiv4 .table tbody tr td {
+  background: #262B29;
+}
+.dark-blue .reportTablesDiv5 .table tbody tr td {
+  background: #29272A;
+}
+.dark-blue .reportTablesDiv6 .table tbody tr td {
+  background: #2A2727;
+}
+.dark-blue .reportTablesDiv1 table thead th {
+  border: 1px solid #313D39;
+  border-bottom: none;
+}
+.dark-blue .reportTablesDiv3 .table th {
+  border-left: 1px solid #0F8266;
+}
+.dark-blue .reportTablesDiv4 .table th {
+  border-left: 1px solid #2977BF;
+}
+.dark-blue .reportTablesDiv5 .table th {
+  border-left: 1px solid #914DC6;
+}
+.dark-blue .reportTablesDiv6 .table th {
+  border-left: 1px solid #F64E4E;
+}
+.dark-blue .reportTablesDiv .table th:first-child {
+  border-left: none;
+}
+.dark-blue .reportTablesDiv .table {
+  border: none;
+  border-color: transparent;
+  background: transparent;
+}
+.dark-blue .secondTable tr td {
+  border: 1px solid #353B46 !important
+}
+.dark-blue .secondTable tr:first-child td {
+  border-top: none;
+}
+.compSumAnlysPara {
+  color: #ffffff;
+}
+.dark-blue .reportTablesDiv1 table thead th {
+  background: #313438 !important;
+}
+.dark-blue .reportTablesDiv2 table thead th {
+  background: #313438 !important;
+}
+.dark-blue .reportTablesDiv3 table thead th {
+  background: #23669E !important;
+}
+.dark-blue .reportTablesDiv4 table thead th {
+  background: #0F8266 !important;
+}
+.dark-blue .reportTablesDiv5 table thead th {
+  background: #8137BB !important;
+}
+.dark-blue .reportTablesDiv6 table thead th {
+  background: #DA4343 !important;
+}
+.dark-blue .secondTable tr:first-child td:first-child {
+  border-top: 1px solid #353B46 !important;
+}
+.dark-blue .totalValueTd {
+  color: white !important;
+}
+.dark-blue .shortFallTd {
+  color: #DA1159 !important;
+}
+/* after hide tables 1 */
+.dark-blue .reportTablesDiv .table6Hide th,
+.dark-blue .reportTablesDiv .table6Hide td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table6Hide thead th {
+  background:
+    #2E3135 !important;
+  opacity: 0.6;
+  border: 1px solid #292c30;
+}
+.dark-blue .reportTablesDiv .table6Hide thead th {
+  background: #313438;
+}
+.dark-blue .reportTablesDiv .table6Hide tbody td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table6Hide tr td {
+  border: 1px solid #222425 !important
+}
+/* after hide tables 1 */
+/* after hide tables 2 */
+.dark-blue .reportTablesDiv .table5Hide th,
+.dark-blue .reportTablesDiv .table5Hide td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table5Hide thead th {
+  background:
+    #2E3135 !important;
+  opacity: 0.6;
+  border: 1px solid #292c30;
+}
+.dark-blue .reportTablesDiv .table5Hide thead th {
+  background: #313438;
+}
+.dark-blue .reportTablesDiv .table5Hide tbody td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table5Hide tr td {
+  border: 1px solid #222425 !important
+}
+/* after hide tables 2 */
+/* after hide tables 3 */
+.dark-blue .reportTablesDiv .table4Hide th,
+.dark-blue .reportTablesDiv .table4Hide td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table4Hide thead th {
+  background:
+    #2E3135 !important;
+  opacity: 0.6;
+  border: 1px solid #292c30;
+}
+.dark-blue .reportTablesDiv .table4Hide thead th {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table4Hide tbody td {
+  color: #3a3d41 !important;
+}
+.dark-blue .reportTablesDiv .table4Hide tr td {
+  border: 1px solid #222425 !important
+}
+/* after hide tables 3 */
+/* background change on hide */
+.dark-blue .reportTablesDiv4 .table4Hide tbody tr td {
+  background: #3031315e;
+}
+.dark-blue .reportTablesDiv5 .table5Hide tbody tr td {
+  background: #3031315e;
+}
+.dark-blue .reportTablesDiv6 .table6Hide tbody tr td {
+  background: #3031315e;
+}
+/* background change on hide */
+/* button disable */
+.dark-blue .disableBtnsIra {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsIra svg path,
+.dark-blue .disableBtnsIra svg rect {
+  stroke: #3a3d41;
+}
+.dark-blue .disableBtnsAccount {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsAccount svg path,
+.dark-blue .disableBtnsAccount svg rect {
+  stroke: #3a3d41;
+}
+.dark-blue .disableBtnsAnnuity {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsAnnuity svg path,
+.dark-blue .disableBtnsAnnuity svg rect {
+  stroke: #3a3d41;
+}
+/*  */
+.dark-blue .comparativeSeeAllBtn button {
+  background: #34383D;
+  border: 1px solid #34383D;
+  color: #53A9F1;
+}
+.dark-blue .comparativeSeeAllBtn button:hover {
+  background: #43484e;
+  border: 1px solid #43484e;
+}
+.dark-blue .distributionCard1 {
+  background: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .distrbnCard1paras p:first-child {
+  color: white;
+}
+.dark-blue .distrbnCard1paras p:nth-child(2) {
+  color: #53A9F1;
+}
+.dark-blue .carValue1 {
+  color: #53A9F1;
+}
+.dark-blue .distrbnCard1paras .CardProgressnym {
+  color: #53A9F1;
+}
+.dark-blue .redRadioSwtchpara {
+  color: #F04F4F !important;
+}
+.dark-blue .voiletRadioSwtchpara {
+  color: #B556FF !important;
+}
+.dark-blue .blueRadioSwtchpara {
+  color: #26AB8B !important;
+}
+.dark-blue .redProgress1 {
+  background: #DA4343 !important;
+}
+.dark-blue .redProgress2 {
+  background: #F04F4F !important;
+}
+.dark-blue .voiletProgress1 {
+  background:
+    #8137BB !important;
+}
+.dark-blue .voiletProgress2 {
+  background: #B556FF !important;
+}
+.dark-blue .blueProgress1 {
+  background: #0F8266 !important;
+}
+.dark-blue .blueProgress2 {
+  background: #26AB8B !important;
+}
+.dark-blue .equalDistCard1 {
+  border-top: 6px solid #23669E;
+}
+.dark-blue .equalDistCard2 {
+  border-top: 6px solid #0F8266;
+}
+.dark-blue .equalDistCard3 {
+  border-top: 6px solid #8137BB;
+}
+.dark-blue .equalDistCard4 {
+  border-top: 6px solid#DA4343;
+}
+/* green */
+.dark-blue .deleteBtnGreen {
+  border: 1px solid#53A9F1;
+}
+.dark-blue .deleteBtnGreen svg path {
+  stroke: #53A9F1;
+}
+.dark-blue .deleteBtnGreen svg rect {
+  fill: #53A9F1;
+}
+/* blue */
+.dark-blue .deleteBtnBlue {
+  border: 1px solid #26AB8B;
+}
+.dark-blue .deleteBtnBlue svg path {
+  stroke: #26AB8B;
+}
+.dark-blue .deleteBtnBlue svg rect {
+  fill: #26AB8B;
+}
+/* voilet */
+.dark-blue .deleteBtnVoilet {
+  border: 1px solid#B556FF;
+}
+.dark-blue .deleteBtnVoilet svg path {
+  stroke: #B556FF;
+}
+.dark-blue .deleteBtnVoilet svg rect {
+  fill: #B556FF;
+}
+/* red */
+.dark-blue .deleteBtnRed {
+  border: 1px solid#F04F4F;
+}
+.dark-blue .deleteBtnRed svg path {
+  stroke: #F04F4F;
+}
+.dark-blue .deleteBtnRed svg rect {
+  fill: #F04F4F;
+}
+.dark-blue .commonRedRadioSwtchpara {
+  color: #DA1159;
+}
+.dark-blue .blueProgress1 {
+  background: #0F8266;
+}
+.dark-blue .greenProgress1 {
+  background: #23669E;
+}
+.dark-blue .CardProgress {
+  background: #53A9F1;
+}
+.dark-blue .greenRadioSwtch .checkbox2:checked~.layer2 {
+  background-color: #23669E !important;
+}
+.dark-blue .blueRadioSwtch .checkbox2:checked~.layer2 {
+  background-color: #26AB8B !important;
+}
+.dark-blue .voiletRadioSwtch .checkbox2:checked~.layer2 {
+  background-color: #8137BB !important;
+}
+.dark-blue .redRadioSwtch .checkbox2:checked~.layer2 {
+  background-color: #DA4343 !important;
+}
+.dark-blue .AddNoteBtn {
+  background: #2E3135;
+  border: 1px solid #6D6D6D;
+}
+.dark-blue .AddNoteBtn:hover {
+  background: #484d53;
+  border: 1px solid #484d53;
+}
+.dark-blue .CardProgressBig2 {
+  background: #0F8266;
+}
+.dark-blue .progressBarOvrwrt2 {
+  background: #20A584;
+}
+.dark-blue .CardProgressBig1 {
+  background: #23669E;
+}
+.dark-blue .progressBarOvrwrt1 {
+  background: #208DE8;
+}
+.dark-blue .CardProgressBig3 {
+  background: #8137BB;
+}
+.dark-blue .progressBarOvrwrt3 {
+  background: #9837E3;
+}
+.dark-blue .CardProgressBig4 {
+  background: #DA4343;
+}
+.dark-blue .progressBarOvrwrt4 {
+  background: #F65454;
+}
+.dark-blue .mainProgrssBarDiv {
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .mainProgBrdrPara {
+  color: #ffffff;
+}
+.dark-blue .mainProgBrdr {
+  border: 1px solid #353B46;
+}
+.dark-blue .progressBarEachDiv {
+  background: #2E3135;
+}
+.dark-blue .progressBarEachBtm {
+  background: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .progressBarBtnDiv p:nth-child(1) {
+  color: #6D6D6D;
+}
+.dark-blue .progressBarBtnDiv p:nth-child(2) {
+  color: #FFFFFF;
+}
+.dark-blue .cumulativeValuesProgrees {
+  background-image: url('../images/icons/dark-progressbar-design.svg');
+  overflow: hidden;
+  background-repeat: repeat;
+}
+.dark-blue .CompMainProgrssBarDiv {
+  background: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .comulativeProgBrdrPara {
+  color: white;
+}
+.dark-blue .comulativeProgBrdr {
+  border-bottom: 1px solid #353B46;
+}
+.dark-blue .shortFallCount p:first-child {
+  color: #8C8C8C;
+}
+.dark-blue .shortFallCount p:last-child {
+  color: #ffffff;
+}
+.dark-blue .cumulativeProgAccount {
+  background: #0F8266;
+}
+.dark-blue .BottomcumulativeAccount {
+  background: #20A584;
+}
+.dark-blue .cumulativeProgLifePro {
+  background: #23669E;
+}
+.dark-blue .BottomcumulativeLifePro {
+  background: #208DE8;
+}
+.dark-blue .cumulativeProgIra {
+  background: #8137BB;
+}
+.dark-blue .BottomcumulativeIra {
+  background: #9453C8;
+}
+.dark-blue .cumulativeProgAnnuity {
+  background: #DA4343;
+}
+.dark-blue .BottomcumulativeAnnuity {
+  background: #F04F4F;
+}
+.dark-blue .blankMultiDiv {
+  background: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .blankSingleiDiv {
+  background: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .rightLeftDoubleLIneDegine svg rect {
+  fill: #6D6D6D;
+}
+/* report buider dark css end */
+/* Review summary dark css start */
+.dark-blue .summary-heading p span {
+  color: #ffffff;
+}
+.dark-blue .summary-heading p {
+  color: #53A9F1;
+}
+.dark-blue .summary-editBox {
+  background: #2E3135;
+  border: 1px solid #53A9F1;
+  border-top: 8px solid #53A9F1;
+}
+.dark-blue .summaryInputsDiv label {
+  color: #ffffff;
+  padding-bottom: 0.2rem;
+}
+.dark-blue .summaryInputsDiv input {
+  border-top: 1px solid #515151;
+  background: transparent;
+  color: #ffffff;
+}
+.dark-blue .compVehcleCol {
+  background: #34383D;
+  border: 1.5px solid #353B46;
+}
+.dark-blue .compVehcleColPara {
+  color: #ffffff;
+}
+.dark-blue .historyHead2 p {
+  color: #53A9F1;
+}
+.dark-blue .compVehcleBorder {
+  background: #ABD5F9;
+}
+.dark-blue .SaveCloseButton {
+  display: flex;
+  justify-content: center;
+}
+.dark-blue .SaveCloseButton button {
+  background: var(--blue-clr-2);
+  color: #ffffff;
+  padding: 0.5rem 3rem;
+  border-radius: 1000px;
+}
+.dark-blue .SaveCloseButton button:hover {
+  background: var(--blue-clr);
+  color: #ffffff;
+}
+.dark-blue .BuildSaveCloseButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+}
+.dark-blue .BuildSaveCloseButton button {
+  background: #242629;
+  border: 0.75px solid #FFFFFF;
+  box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 1000px;
+  padding: 0.5rem 1.6rem;
+  color: white;
+}
+.dark-blue .BuildSaveCloseButton button:hover {
+  border: 1px solid #23669E;
+  color: #23669E;
+}
+.dark-blue .ScenarioLeft {
+  background: #292B2F;
+  border: 1px solid #292B2F;
+}
+.dark-blue .ScenarioLeft .commonTabactive {
+  background: #2E3135;
+  border-left: 1px solid #2E3135;
+}
+.dark-blue .ScenarioLeft .commonTabactive.active {
+  background: #292B2F;
+  border-left: 1px solid #292B2F;
+}
+.dark-blue .scenarioTabMainDiv {
+  background: #292B2F;
+}
+.dark-blue .ScenarioLeft .active {
+  background: none;
+}
+.dark-blue .summaryMainDiv h5 {
+  color: #53A9F1 !important;
+}
+.dark-blue .Schedule-para {
+  color: #ffffff;
+  display: flex;
+}
+.dark-blue .editBtnCommon svg rect {
+  fill: none;
+  stroke: #53A9F1;
+}
+.dark-blue .editBtnCommon svg path {
+  fill: #53A9F1;
+  stroke: #53A9F1;
+}
+.dark-blue .editBtnCommon {
+  background: transparent;
+  border: 1px solid #53A9F1;
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dark-blue .editBtnCommon:hover {
+  background: #53A9F1;
+  border: 1px solid #53A9F1;
+}
+.dark-blue .editBtnCommon:hover svg rect {
+  fill: none;
+  stroke: #ffffff;
+}
+.dark-blue .editBtnCommon:hover svg path {
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+.dark-blue .illusnTableMainDiv {
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .illusnTableMainDiv button {
+  border: 2px solid #34383D;
+  background: #34383D;
+  color: #53A9F1 !important;
+}
+.dark-blue .illusnTableMainDiv button:hover {
+  border: 2px solid #353B46;
+  background:
+    #353B46;
+  color: #53A9F1 !important;
+}
+.dark-blue .reportbuilderRightInner {
+  background: #242629;
+}
+.dark-blue .illusnTableMainDiv .table thead {
+  border: 1px solid #3E4247;
+}
+.dark-blue .illusnTableMainDiv .table th {
+  background: #313438;
+  border: 1px solid #3E4247;
+  color: #ffffff;
+}
+.dark-blue .illusnTableMainDiv .table tbody tr td {
+  background: #292B2F;
+  border: 1px solid #353B46;
+  color: #ffffff;
+}
+.dark-blue .historyHead2 .hisBorder {
+  background: #53A9F1;
+}
+.dark-blue .illustrationPdfAncor {
+  text-decoration: none;
+}
+.dark-blue .illustrationPdfDiv {
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+}
+.dark-blue .illustrationPdfDiv:hover {
+  background: #53A9F1;
+  border: 1px solid #53A9F1;
+}
+.dark-blue .illustrationPdfDiv span {
+  color: #FFFFFF !important;
+}
+.dark-blue .illustrationPdfDiv svg rect {
+  fill: none;
+  stroke: #ffffff;
+}
+.dark-blue .schedule-icon-btn {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+.dark-blue .schedule-icon-btn svg rect {
+  stroke: #53A9F1;
+}
+.dark-blue .schedule-icon-btn:hover {
+  background: #53A9F1;
+  border: 1px solid #53A9F1;
+}
+.dark-blue .schedule-icon-btn:hover svg rect {
+  stroke: #ffffff;
+}
+.dark-blue .modalTableDiv .table td {
+  border: 1px solid #fff;
+}
+.dark-blue .modalTableDiv .table th {
+  background: #313438;
+  color: #ffffff;
+  border-bottom: 1px solid #fff;
+}
+.dark-blue .modalTableDiv .table tbody tr td {
+  color: #ffffff;
+}
+.dark-blue .ModalHeasingPara {
+  color: #ffffff
+}
+.dark-blue .btnWhite-darkTheme {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}
+.dark-blue .rightInnerDarkbg {
+  background: #242629;
+}
+.dark-blue .listWrapperDarkBg {
+  background: #292B2F;
+}
+.dark-blue .lifeProPlusPara1 {
+  font-weight: 600;
+  font-size: 9px;
+  color: #53A9F1;
+}
+.dark-blue .lifeProPlusPara3 {
+  font-weight: 600;
+  font-size: 9px;
+  color: #26AB8B;
+}
+.dark-blue .lifeProBtmDiv1 p {
+  font-weight: 700;
+  font-size: 17px;
+  color: #53A9F1;
+  margin: 0;
+}
+.dark-blue .lifeProBtmDiv2 p {
+  font-weight: 700;
+  font-size: 17px;
+  color: #26AB8B;
+  margin: 0;
+}
+.dark-blue .lifeProEditBtn rect {
+  stroke: #53A9F1;
+}
+.dark-blue .lifeProEditBtn path {
+  fill: #53A9F1;
+  stroke: #53A9F1;
+}
+.dark-blue .viewBtnAccount svg path,
+.dark-blue .viewBtnAccount svg circle {
+  stroke: #26AB8B;
+}
+.dark-blue .editBtnAccount svg path,
+.dark-blue .editBtnAccount svg circle,
+.dark-blue .editBtnAccount svg rect {
+  stroke: #26AB8B;
+}
+.dark-blue .deleteBtnAccount svg path,
+.dark-blue .deleteBtnAccount svg circle,
+.dark-blue .deleteBtnAccount svg rect {
+  stroke: #26AB8B;
+}
+.dark-blue .hideBtnAccount svg path,
+.dark-blue .hideBtnAccount svg circle,
+.dark-blue .hideBtnAccount svg rect {
+  stroke: #26AB8B;
+}
+.dark-blue .disableBtnsAccount {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsAccount svg path,
+.dark-blue .disableBtnsAccount svg rect {
+  stroke: #3a3d41;
+}
+.dark-blue .viewBtnAccount:hover {
+  color: #26AB8B;
+}
+.dark-blue .hideBtnAccount:hover.hideBtnAccount::before {
+  color: #26AB8B;
+}
+.dark-blue .editBtnAccount:hover.editBtnAccount::before {
+  color: #26AB8B;
+}
+.dark-blue .deleteBtnAccount:hover.deleteBtnAccount::before {
+  color: #26AB8B;
+}
+/* ira buttons modify start */
+.dark-blue .lifeProPlusPara5 {
+  color: #B556FF;
+}
+.dark-blue .lifeProEditBtn rect {
+  stroke: #53A9F1;
+}
+.dark-blue .lifeProEditBtn path {
+  fill: #53A9F1;
+  stroke: #53A9F1;
+}
+.dark-blue .viewBtnIra svg path,
+.dark-blue .viewBtnIra svg circle {
+  stroke: #B556FF;
+}
+.dark-blue .editBtnIra svg path,
+.dark-blue .editBtnIra svg circle,
+.dark-blue .editBtnIra svg rect {
+  stroke: #B556FF;
+}
+.dark-blue .deleteBtnIra svg path,
+.dark-blue .deleteBtnIra svg circle,
+.dark-blue .deleteBtnIra svg rect {
+  stroke: #B556FF;
+}
+.dark-blue .hideBtnIra svg path,
+.dark-blue .hideBtnIra svg circle,
+.dark-blue .hideBtnIra svg rect {
+  stroke: #B556FF;
+}
+.dark-blue .disableBtnsIra {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsIra svg path,
+.dark-blue .disableBtnsIra svg rect {
+  stroke: #3a3d41;
+}
+.dark-blue .viewBtnIra:hover {
+  color: #B556FF;
+}
+.dark-blue .hideBtnIra:hover.hideBtnIra::before {
+  color: #B556FF;
+}
+.dark-blue .editBtnIra:hover.editBtnIra::before {
+  color: #B556FF;
+}
+.dark-blue .deleteBtnIra:hover.deleteBtnIra::before {
+  color: #B556FF;
+}
+.dark-blue .lifeProBtmDiv3 p {
+  color: #B556FF;
+}
+/* ira buttons modify end */
+/* annuity buttons modify start */
+.dark-blue .lifeProPlusPara7 {
+  color: #F04F4F;
+}
+.dark-blue .lifeProEditBtn rect {
+  stroke: #53A9F1;
+}
+.dark-blue .lifeProEditBtn path {
+  fill: #53A9F1;
+  stroke: #53A9F1;
+}
+.dark-blue .viewBtnAnnuity svg path,
+.dark-blue .viewBtnAnnuity svg circle {
+  stroke: #F04F4F;
+}
+.dark-blue .editBtnAnnuity svg path,
+.dark-blue .editBtnAnnuity svg circle,
+.dark-blue .editBtnAnnuity svg rect {
+  stroke: #F04F4F;
+}
+.dark-blue .deleteBtnAnnuity svg path,
+.dark-blue .deleteBtnAnnuity svg circle,
+.dark-blue .deleteBtnAnnuity svg rect {
+  stroke: #F04F4F;
+}
+.dark-blue .hideBtnAnnuity svg path,
+.dark-blue .hideBtnAnnuity svg circle,
+.dark-blue .hideBtnAnnuity svg rect {
+  stroke: #F04F4F;
+}
+.dark-blue .disableBtnsAnnuity {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .disableBtnsAnnuity svg path,
+.dark-blue .disableBtnsAnnuity svg rect {
+  stroke: #3a3d41;
+}
+.dark-blue .viewBtnAnnuity:hover {
+  color: #F04F4F;
+}
+.dark-blue .hideBtnAnnuity:hover.hideBtnAnnuity::before {
+  color: #F04F4F;
+}
+.dark-blue .editBtnAnnuity:hover.editBtnAnnuity::before {
+  color: #F04F4F;
+}
+.dark-blue .deleteBtnAnnuity:hover.deleteBtnAnnuity::before {
+  color: #F04F4F;
+}
+.dark-blue .lifeProBtmDiv4 p {
+  color: #F04F4F;
+}
+/* annuity buttons modify */
+.dark-blue .table4CmnClr *,
+.dark-blue .table5CmnClr *,
+.dark-blue .table6CmnClr * {
+  color: #3a3d41 !important;
+}
+.dark-blue .common-modal .yes-delete-btn {
+  min-width: 225px;
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .common-modal .yes-delete-btn:hover {
+  background-color: var(--blue-clr);
+}
+.dark-blue .copyBtnModal {
+  background: var(--blue-clr-2);
+}
+.dark-blue .copyBtnModal:hover {
+  background: var(--blue-clr);
+}
+.dark-blue .autocomplete-items {
+  border: 1px solid #515151;
+}
+.dark-blue .client-icon-offcanvas circle {
+  fill: var(--blue-clr-2);
+}
+.dark-blue .client-icon-offcanvas ellipse {
+  fill: var(--blue-clr);
+}
+.dark-blue .creditBonusInputDiv input {
+  background-image: url("../images/icons/dark-percent.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: 88% 50% !important;
+}
+
+.dark-blue .review-progress li.active .nav-link,
+.dark-blue .review-progress li.done .nav-link {
+  color: #fff;
+}
+.dark-blue .review-progress li.active .nav-link:before {
+  border: 3px solid transparent;
+  color: white;
+}
+.dark-blue .review-progress li.done .nav-link:before {
+  content: url("../images/icons/check-white.svg");
+  outline: 3px solid #fff;
+  background-color: var(--blue-clr-2);
+  outline-offset: -6px;
+}
+.dark-blue .review-progress li:after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: #f2f2f2;
+  position: absolute;
+  left: -50%;
+  top: 16px;
+  z-index: -1;
+}
+.dark-blue .review-progress li:first-child:after {
+  display: none;
+}
+.dark-blue .review-progress li.done:after,
+.dark-blue .review-progress li.active .nav-link:before,
+.dark-blue .review-progress li.active:after {
+  background: var(--blue-clr-2);
+}
+.dark-blue .modalParaReportBuilder{
+color: #fff;
+}
+.dark-blue .modalformDiv label{
+  color: #fff;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active{
+border: 1px solid var(--blue-clr-2);
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active::after {
+  content: url(../images/icons/check-blue.svg);
+  position: absolute;
+  right: 0.85rem;
+}
+
+.dark-blue .SaveCloseButton .btn{
+  background:  var(--blue-clr-2);
+}
+
+/* Review summary dark css end */
+.dark-blue .theme-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--blue-clr-2);
+  color: var(--blue-clr-2);
+}
