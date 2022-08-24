@@ -1,0 +1,210 @@
+@media (max-width:992px) {
+    .reportBuilderNav {
+        display: none !important;
+    }
+
+    #mainSection {
+        margin-top: 0;
+        width: fit-content;
+    }
+
+    .right-area {
+        height: 100%;
+    }
+
+    .saveReportBtn {
+        margin: 0;
+        width: 100%;
+    }
+
+    .themeBtnDropResponsive {
+        margin: 0;
+        width: 100%;
+    }
+
+    .prstnBtnResponsive {
+        margin: 0 !important;
+        width: 100% !important;
+        margin: 0.5rem 0 !important;
+    }
+
+    .common-modal-responsive {
+        padding-right: 1rem !important;
+        padding: 1rem;
+    }
+
+    .menu-icon-report-btn {
+        border: none;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .menu-icon-report-btn:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .theme-dropdown-responsive {
+        width: 100%;
+    }
+}
+
+@media (max-width:768px) {
+
+    .lifeProPlus {
+        height: 262px !important;
+        margin-bottom: 1rem;
+    }
+
+    .reportTablesDiv1 {
+        margin-top: 17.4rem;
+    }
+
+    .reportTablesDiv2 {
+        margin-top: 17.4rem;
+    }
+
+    .SummaryTableDiv1 {
+        margin-top: 0;
+    }
+
+    .collapseDivmdlHd {
+        font-weight: 700;
+        font-size: 14px;
+        position: absolute;
+        left: 0;
+        transform: translate(0);
+    }
+
+    .mainProgrssBarDiv {
+        overflow: scroll !important;
+        width: 100%;
+    }
+
+    .mainProgrssBarDiv::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .progressBarEachDivMain {
+        margin-left: 0.5rem;
+    }
+
+    .CompMainProgrssBarDiv {
+        overflow: scroll !important;
+        width: 100%;
+    }
+
+    .CompMainProgrssBarDiv::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .reportTablesDiv.reportTablesDiv4 {
+        margin-top: 1.5rem;
+    }
+
+    .reportTablesDiv.reportTablesDiv5 {
+        margin-top: 1.5rem;
+    }
+
+    .reportTablesDiv.reportTablesDiv6 {
+        margin-top: 1.5rem;
+    }
+
+    .CompProgressAbsltCls {
+        left: 50px;
+    }
+
+    .cumulativeValuesProgrees {
+        margin-left: 0.5rem;
+    }
+
+    .progressAbsltCls {
+        left: 70px;
+    }
+
+    .mainProgBrdr {
+        width: 100% !important;
+    }
+
+    .blankMultiDiv {
+        margin-top: 1rem;
+    }
+
+    .form-wrapper {
+        padding: 1rem;
+    }
+
+    .illustration-data-wrapper {
+        padding: 1rem;
+    }
+
+    .illustrativeTablemainDiv {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .illustrativeTablemainDiv::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .illustrativeTablemainDiv table {
+        width: 1600px;
+    }
+
+    .historical-yesNo-mainDiv {
+        padding: 5rem;
+    }
+    .form-wrapper-responsive{
+        padding: 1rem;
+    }
+    .containerWidth{
+        width: 100%;
+        padding: 0;
+    }
+    .skipScenarioBtn{
+        position: unset;
+        margin-top: 5rem;
+    }
+    .backHistoricalBtn{
+        position: unset;
+        margin-top: 5rem;
+    }
+    .after-yes-middle-div{
+        padding: 5rem 1rem;
+    }
+    .form-wrapper-inner{
+        padding: 0.85rem;
+    }
+}
+
+@media (max-width:576px) {
+    .client-list-div.less-gap {
+        padding-inline: 0.5rem;
+    }
+
+    .historical-yesNo-mainDiv {
+        padding: 3rem;
+    }
+
+    .historicalYesNoTxt {
+        top: 80%;
+    }
+}
+
+@media (max-width:419px) {
+    .topClientDiv {
+        margin-top: 1.5rem;
+    }
+    .historical-yesNo-mainDiv {
+        padding: 2rem;
+    }
+
+    .historicalYesNoTxt {
+        top: 82%;
+        font-size: 16px;
+    }
+}
