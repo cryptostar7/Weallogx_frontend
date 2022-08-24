@@ -1,83 +1,167 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
 <template>
-    <nav class="navbar navbar-expand-lg fixed-top top-navbar report-top-navbar">
-        <div class="container-fluid px-0">
-            <a class="navbar-brand" href="index.html"><img src="@/assets/images/logo.png" class="img-fluid"
-                    alt="Wealthlogix Logo" /></a>
+  <nav class="navbar navbar-expand-lg fixed-top top-navbar report-top-navbar">
+    <div class="container-fluid px-0">
+      <RouterLink to="/">
+        <a class="navbar-brand" href="javascript:void()"><img
+            src="@/assets/images/logo.png"
+            class="img-fluid"
+            alt="Wealthlogix Logo"
+        /></a>
+      </RouterLink>
 
-            <div class="collapse navbar-collapse overWriteNavCollapse show" id="navbar">
-                <div class="dropdown theme-btn-dropdown ms-auto">
-                    <button class="btn theme-btn dropdown-toggle no-after" role="button" id="newDropdownBtn2"
-                        data-bs-toggle="dropdown" aria-label="false">Theme
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="newDropdownBtn2">
-                        <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                                href="javascript:void(0)" data-mode="light-green">
-
-                                <span>Light Mode Green</span>
-                                <div class="round ms-2 light-mode-green">
-                                    <input type="radio" name="modeRadio" id="light-green" />
-                                    <label for="light-green"></label>
-                                </div>
-
-                            </a></li>
-                        <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                                href="javascript:void(0)" data-mode="light-blue">
-
-                                <span>Light Mode Blue</span>
-                                <div class="round ms-2 light-mode-blue">
-                                    <input type="radio" name="modeRadio" id="light-blue" />
-                                    <label for="light-blue"></label>
-                                </div>
-
-                            </a></li>
-                        <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                                href="javascript:void(0)" data-mode="dark-green">
-
-                                <span>Dark Mode Green</span>
-                                <div class="round ms-2 dark-mode-green">
-                                    <input type="radio" name="modeRadio" id="dark-green" />
-                                    <label for="dark-green"></label>
-                                </div>
-
-                            </a></li>
-                        <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                                href="javascript:void(0)" data-mode="dark-blue">
-
-                                <span>Dark Mode Blue</span>
-                                <div class="round ms-2 dark-mode-blue">
-                                    <input type="radio" name="modeRadio" id="dark-blue" />
-                                    <label for="dark-blue"></label>
-                                </div>
-
-                            </a></li>
-                    </ul>
+      <div
+        class="collapse navbar-collapse overWriteNavCollapse show"
+        id="navbar"
+      >
+        <div class="dropdown theme-btn-dropdown ms-auto">
+          <button
+            class="btn theme-btn dropdown-toggle no-after"
+            role="button"
+            id="newDropdownBtn2"
+            data-bs-toggle="dropdown"
+            aria-label="false"
+          >
+            Theme
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="newDropdownBtn2">
+            <li>
+              <a
+                class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
+                href="javascript:void(0)"
+                data-mode="light-green"
+              >
+                <span>Light Mode Green</span>
+                <div class="round ms-2 light-mode-green">
+                  <input type="radio" name="modeRadio" id="light-green" />
+                  <label for="light-green"></label>
                 </div>
-                <ul class="navbar-nav ms-auto my-2 my-lg-0">
-
-                    <li class="nav-item dropdown top-user-dropdown ms-4">
-                        <a class="nav-link dropdown-toggle no-after" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <span><img src="@/assets/images/icons/user.svg" class="img-fluid" alt="User" /></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="javascript:void(0)">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <button id="menuBtn" class="btn menu-btn d-block d-xl-none">
-                    <svg class="menu-icon bi bi-list" xmlns="http://www.w3.org/2000/svg" width="28" height="28"
-                        fill="#b1b0b0" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                    </svg>
-
-                    <svg class="close-icon d-none bi bi-x-lg" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                        fill="#b1b0b0" viewBox="0 0 16 16">
-                        <path
-                            d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z" />
-                    </svg>
-                </button>
-            </div>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
+                href="javascript:void(0)"
+                data-mode="light-blue"
+              >
+                <span>Light Mode Blue</span>
+                <div class="round ms-2 light-mode-blue">
+                  <input type="radio" name="modeRadio" id="light-blue" />
+                  <label for="light-blue"></label>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
+                href="javascript:void(0)"
+                data-mode="dark-green"
+              >
+                <span>Dark Mode Green</span>
+                <div class="round ms-2 dark-mode-green">
+                  <input type="radio" name="modeRadio" id="dark-green" />
+                  <label for="dark-green"></label>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
+                href="javascript:void(0)"
+                data-mode="dark-blue"
+              >
+                <span>Dark Mode Blue</span>
+                <div class="round ms-2 dark-mode-blue">
+                  <input type="radio" name="modeRadio" id="dark-blue" />
+                  <label for="dark-blue"></label>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
-    </nav>
+        <ul class="navbar-nav ms-auto my-2 my-lg-0">
+          <li class="nav-item dropdown top-user-dropdown ms-4">
+            <a
+              class="nav-link dropdown-toggle no-after"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span
+                ><img
+                  src="@/assets/images/icons/user.svg"
+                  class="img-fluid"
+                  alt="User"
+              /></span>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdown"
+            >
+              <li>
+                <a class="dropdown-item" href="javascript:void(0)">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <button id="menuBtn" class="btn menu-btn d-block d-xl-none">
+          <svg
+            class="menu-icon bi bi-list"
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            fill="#b1b0b0"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+
+          <svg
+            class="close-icon d-none bi bi-x-lg"
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            fill="#b1b0b0"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
 </template>
+<script>
+export default {
+  mounted() {
+    let mode = localStorage.getItem("mode");
+    document.body.classList.add(mode);
+    const modeSwitchDropdown = document.querySelector(".theme-btn-dropdown");
+    const modeBtns = modeSwitchDropdown.querySelectorAll(".dropdown-item");
+    modeBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.body.className = "";
+        let mode = this.getAttribute("data-mode");
+        localStorage.setItem("mode", mode);
+        document.body.classList.add(mode);
+        document.cookie = "mode=" + mode;
+        let radio = document.getElementById(mode);
+        if (radio.checked) {
+          radio.checked = false;
+        } else {
+          radio.checked = true;
+        }
+      });
+    });
+  },
+};
+</script>

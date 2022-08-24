@@ -9,10 +9,8 @@ import "./assets/css/dark-green.css";
 import "./assets/css/light-blue.css";
 import "./assets/css/dark-blue.css";
 import "./assets/css/responsive.css";
-
 import "./assets/js/popper.min.js";
 import "./assets/js/bootstrap.min.js";
-import "./assets/js/mode-switch.js";
 
 const app = createApp(App);
 

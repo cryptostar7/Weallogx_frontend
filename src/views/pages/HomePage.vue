@@ -11,37 +11,37 @@ import EditClientCanvasModal from "../components/modal/EditClientCanvasModal.vue
 </script>
 
 <template>
-  <NavbarComponent />
-  <MainSection />
+  <navbar-component />
+  <main-section />
   <!-- Delete Client Modal -->
-  <DeleteClientModal />
+  <delete-client-modal />
   <!-- Delete Scenario Modal -->
-  <DeleteScenarioModal />
+  <delete-scenario-modal />
 
   <!-- Delete Report Modal -->
-  <DeleteReportModal />
+  <delete-report-modal />
 
   <!-- Add Client Canvas -->
-  <AddClientModal />
+  <add-client-modal />
   <!-- End of Add Client Canvas -->
 
   <!-- Share  Modal start -->
-  <ShareModal />
+  <share-modal />
   <!-- Share Modal  end-->
 
   <!-- Report Buider Name Change Modal start -->
-  <ReportBuilderNameChangeModal />
+  <report-builder-name-change-modal />
   <!-- Report Buider Name Change Modal  end-->
 
   <!-- Edit Client Canvas -->
-  <EditClientCanvasModal />
+  <edit-client-canvas-modal />
   <!-- End of Edit Client Canvas -->
 </template>
 
 <script>
 export default {
+  components: { NavbarComponent, DeleteReportModal, AddClientModal, ReportBuilderNameChangeModal, EditClientCanvasModal, ShareModal, DeleteScenarioModal, DeleteClientModal, MainSection },
   mounted() {
-    console.log(`the component is now mounted.`);
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");
     const menuIcon = menuBtn.querySelector(".menu-icon");
@@ -170,8 +170,6 @@ export default {
 
     // When clicked on VIEW MORE or VIEW LESS button
     var viewBtns = document.querySelectorAll(".view-btn");
-    console.log(viewBtns);
-
     viewBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         btn.classList.toggle("viewing");
