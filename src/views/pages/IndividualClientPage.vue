@@ -5,22 +5,25 @@ import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import EditClientCanvasModal from '../components/modal/EditClientCanvasModal.vue';
 import DeleteReportModal from '../components/modal/DeleteReportModal.vue';
+import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
 </script>
 <template>
   <navbar-component />
   <main-section />
   <!-- Delete Client Modal -->
-  <delete-client-modal />
+  <delete-client-modal />      
   <!-- Delete Scenario Modal -->
-  <delete-scenario-modal />
-  <!-- Delete Report Modal -->
-  <delete-report-modal />
+  <delete-scenario-modal />          
+  <!-- Delete Report Modal --> 
+  <delete-report-modal />       
   <!-- Edit Client Canvas -->
-  <edit-client-canvas-modal />
+  <edit-client-canvas-modal />   
+  <!-- Clone Scenario Modal start -->
+  <clone-scenario-modal />       
 </template>
 <script>
 export default {
-  components: { EditClientCanvasModal, DeleteReportModal, DeleteScenarioModal, DeleteClientModal, NavbarComponent, MainSection },
+  components: { EditClientCanvasModal, DeleteReportModal, DeleteScenarioModal, DeleteClientModal, NavbarComponent, MainSection, CloneScenarioModal },
   mounted() {
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");

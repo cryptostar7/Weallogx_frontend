@@ -1,6 +1,5 @@
 <script setup>
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import MainSection from "../components/homepage/MainSection.vue";
 import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
@@ -8,13 +7,18 @@ import AddClientModal from "../components/modal/AddClientModal.vue";
 import ShareModal from "../components/modal/ShareModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 import EditClientCanvasModal from "../components/modal/EditClientCanvasModal.vue";
+import MainSection from '../components/homepage/MainSection.vue';
+import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
 </script>
 
 <template>
   <navbar-component />
+  
   <main-section />
+
   <!-- Delete Client Modal -->
   <delete-client-modal />
+
   <!-- Delete Scenario Modal -->
   <delete-scenario-modal />
 
@@ -23,24 +27,23 @@ import EditClientCanvasModal from "../components/modal/EditClientCanvasModal.vue
 
   <!-- Add Client Canvas -->
   <add-client-modal />
-  <!-- End of Add Client Canvas -->
 
-  <!-- Share  Modal start -->
+  <!-- Share  Modal  -->
   <share-modal />
-  <!-- Share Modal  end-->
 
-  <!-- Report Buider Name Change Modal start -->
+  <!-- Report Buider Name Change Modal  -->
   <report-builder-name-change-modal />
-  <!-- Report Buider Name Change Modal  end-->
 
   <!-- Edit Client Canvas -->
   <edit-client-canvas-modal />
-  <!-- End of Edit Client Canvas -->
+
+  <!-- Clone Scenario Modal start -->
+<clone-scenario-modal />
 </template>
 
 <script>
 export default {
-  components: { NavbarComponent, DeleteReportModal, AddClientModal, ReportBuilderNameChangeModal, EditClientCanvasModal, ShareModal, DeleteScenarioModal, DeleteClientModal, MainSection },
+  components: { NavbarComponent, DeleteReportModal, AddClientModal, ReportBuilderNameChangeModal, EditClientCanvasModal, ShareModal, DeleteScenarioModal, DeleteClientModal, MainSection, CloneScenarioModal },
   mounted() {
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");

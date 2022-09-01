@@ -4,12 +4,13 @@ import { RouterLink } from "vue-router";
 <template>
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
-       <ul class="mt-1 review-progress" id="reviewProgress">
+      <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done"><router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link></li>
         <li class="done"><router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link></li>
         <li class="done"><router-link to="/comparative-vehicles" class="nav-link p-0">Comparative Vehicles</router-link></li>
         <li class="active"><router-link to="/historical-simulations" class="nav-link p-0">Historical Simulations</router-link></li>
       </ul>
+
       <router-link to="/" class="btn mt-1 ms-1">
         <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
       </router-link>
@@ -61,7 +62,6 @@ import { RouterLink } from "vue-router";
                       </div>
                       <div class="tab-pane fade" id="v-pills-indexStrategy" role="tabpanel"
                         aria-labelledby="v-pills-indexStrategy-tab">
-
                         <div class="container">
                           <div class="row">
                             <div class="col-md-8 offset-md-2 strategyAllocation">
@@ -84,7 +84,6 @@ import { RouterLink } from "vue-router";
                                           d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
                                           fill="black" />
                                       </svg>
-
                                     </span>
                                   </div>
                                 </div>
@@ -92,7 +91,6 @@ import { RouterLink } from "vue-router";
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>

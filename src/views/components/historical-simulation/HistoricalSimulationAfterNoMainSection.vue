@@ -27,9 +27,9 @@ import { RouterLink } from "vue-router";
               <p class="historicalAllSetPara">Your Scenario is all set!</p>
               
               <div class="text-center mt-30">
-                <router-link to="/review-summary" class="nav-link btn form-next-btn fs-14 active">Review</router-link>
+                <router-link to="review-summary" class="nav-link btn form-next-btn fs-14 active">Review</router-link>
                 <span class="d-block mb-2"></span>
-                <router-link to="/historical-simulations" class="nav-link btn form-back-btn fs-14 active"><img
+                <router-link to="historical-simulations" class="nav-link btn form-back-btn fs-14 active"><img
                     src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
               </div>
             </div>

@@ -1,3 +1,6 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
 <template lang="">
     <section class="main-section">
     <div class="inner-section">
@@ -7,7 +10,7 @@
           <ul class="nav flex-column flex-nowrap h-100 sidebar-nav">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="javascript:void(0)">
-                <label class="cursor-pointer otherModecls">
+                <label class="cursor-pointer otherModecls position-relative d-flex">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none">
                     <path
                       d="M2.7998 1.90405C2.7998 1.35177 2.35209 0.904053 1.7998 0.904053C1.24752 0.904053 0.799805 1.35177 0.799805 1.90405V17.9041C0.799805 18.4563 1.24752 18.9041 1.7998 18.9041C2.35209 18.9041 2.7998 18.4563 2.7998 17.9041V1.90405Z"
@@ -34,16 +37,16 @@
                       d="M11.7998 11.9041C12.9044 11.9041 13.7998 11.0086 13.7998 9.90405C13.7998 8.79948 12.9044 7.90405 11.7998 7.90405C10.6952 7.90405 9.7998 8.79948 9.7998 9.90405C9.7998 11.0086 10.6952 11.9041 11.7998 11.9041Z"
                       fill="black" />
                   </svg>
-                  Comparative Analysis
+                  <p class="comparativeAnlsysTxt">Comparative Analysis</p>
                 </label>
 
-                <label class="side-client-label semi-bold-fw fs-14">
+                <label class="side-client-label indivisualLftArrow semi-bold-fw fs-14">
                   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M0 7.5903V0.866386C0 0.696202 0.0693989 0.533377 0.192168 0.415519C0.434019 0.183342 0.815982 0.183342 1.05783 0.41552L4.78358 3.99224C4.92184 4.12497 5 4.30834 5 4.5C5 4.69166 4.92184 4.87503 4.78358 5.00776L1.44977 8.20822C1.03756 8.60394 0.36082 8.49277 0.0968658 7.98598C0.0332282 7.8638 0 7.72807 0 7.5903Z"
-                      fill="#8F8F8F" />
+                      fill="#8f8f8f" />
                   </svg>
-                  <span>Briant, Roger</span>
+                  <span>Bryant, Roger</span>
                   <button class="btn"><img src="@/assets/images/icons/cross-small.svg" class="img-fluid" alt="Chevron"></button>
                 </label>
               </a>
@@ -95,25 +98,27 @@
           <div class="right-area-wrapper pt-0">
             <div class="main-cleint-name-div mb-3 rightInnerDarkbg">
               <div class="mb-3" id="upperGoBackBtn">
-                <RouterLink to="/" class="btn common-round-btn">
+                <router-link to="/" class="btn common-round-btn">
                   <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="7.52051" y="15.0483" width="10.0006" height="2.5" rx="1.25"
                       transform="rotate(-135 7.52051 15.0483)" fill="black" />
                     <rect x="0.450195" y="7.87451" width="9.99563" height="2.5" rx="1.25"
                       transform="rotate(-45 0.450195 7.87451)" fill="black" />
                   </svg>
-                </RouterLink>
+
+                </router-link>
               </div>
               <div class="d-flex flex-wrap flex-md-nowrap topClientDiv">
                 <div class="me-10 d-none" id="lowerGoBackBtn">
-                  <RouterLink to="/" class="btn common-round-btn">
+                  <router-link to="/" class="btn common-round-btn">
                     <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <rect x="7.52051" y="15.0483" width="10.0006" height="2.5" rx="1.25"
                         transform="rotate(-135 7.52051 15.0483)" fill="black" />
                       <rect x="0.450195" y="7.87451" width="9.99563" height="2.5" rx="1.25"
                         transform="rotate(-45 0.450195 7.87451)" fill="black" />
                     </svg>
-                  </RouterLink>
+
+                  </router-link>
                 </div>
                 <div class="d-flex">
                   <span class="main-client-initials fs-16 medium-fw"><span class="initial-text">Br</span></span>
@@ -152,7 +157,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -171,7 +176,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -183,8 +188,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -276,7 +281,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
 
@@ -300,7 +305,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -318,7 +323,7 @@
                                       </svg>&nbsp;
                                       3/12/22</label>
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -330,7 +335,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -416,7 +421,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -435,7 +440,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -447,7 +452,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -533,7 +538,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                     <br>
                                     <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -554,7 +559,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -566,7 +571,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -652,7 +657,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -671,7 +676,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -683,7 +688,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -769,7 +774,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -788,7 +793,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -800,7 +805,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -886,7 +891,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -905,7 +910,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -917,7 +922,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1009,7 +1014,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -1028,7 +1033,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1040,8 +1045,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -1133,7 +1138,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
                           <div class="collapse" id="innerReportCollapse2">
@@ -1160,7 +1165,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -1179,7 +1184,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1191,8 +1196,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -1284,7 +1289,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
                           <div class="collapse" id="innerReportCollapse3">
@@ -1307,7 +1312,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -1325,7 +1330,7 @@
                                       </svg>&nbsp;
                                       3/12/22</label>
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1337,7 +1342,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1423,7 +1428,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -1442,7 +1447,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1454,7 +1459,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1540,7 +1545,7 @@
                               <div class="list-item">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                     <br>
                                     <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -1561,7 +1566,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1573,7 +1578,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1659,7 +1664,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -1678,7 +1683,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1690,7 +1695,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1776,7 +1781,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -1795,7 +1800,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1807,7 +1812,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1893,7 +1898,7 @@
                               <div class="list-item d-none">
                                 <div class="list-item-inner">
                                   <div class="list-item-detail">
-                                    <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                                     <label class="medium-fw">Report description goes here</label>
                                   </div>
                                   <div class="list-item-actions">
@@ -1912,7 +1917,7 @@
                                       3/12/22</label>
 
                                     <div class="round-btns">
-                                      <button class="btn round-btn">
+                                      <router-link to="/report-builder" class="btn round-btn">
                                         <span>Edit</span>
                                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1924,7 +1929,7 @@
                                             d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                             fill="#9D9D9D" />
                                         </svg>
-                                      </button>
+                                      </router-link>
                                       <button class="btn round-btn">
                                         <span>Share</span>
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2016,7 +2021,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -2035,7 +2040,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2047,8 +2052,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -2140,7 +2145,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
                           <div class="collapse" id="innerReportCollapse4">
@@ -2167,7 +2172,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -2186,7 +2191,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2198,8 +2203,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -2291,7 +2296,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
                           <div class="collapse" id="innerReportCollapse5">
@@ -2318,7 +2323,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">Allianz Parse</router-link></p>
                               <label class="medium-fw">ALLIANZ PARSE 34 YEARS</label>
                             </div>
                             <div class="list-item-actions">
@@ -2337,7 +2342,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/create-new-scenario" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2349,8 +2354,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#cloneScenarioModal">
                                   <span>Clone</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <mask id="path-1-inside-1_904_53" fill="white">
@@ -2442,7 +2447,7 @@
                                   </svg>
                                 </button>
                               </div>
-                              <button class="btn scenario-add-report-btn">+ Add Report</button>
+                              <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                             </div>
                           </div>
                           <div class="collapse" id="innerReportCollapse6">
@@ -2488,7 +2493,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -2508,7 +2513,7 @@
                                 </svg>&nbsp;
                                 3/12/22</label>
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2520,7 +2525,7 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2606,7 +2611,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -2627,7 +2632,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2639,7 +2644,7 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2725,7 +2730,7 @@
                         <div class="list-item">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -2746,7 +2751,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2758,7 +2763,7 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2844,7 +2849,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -2865,7 +2870,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2877,7 +2882,7 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -2963,7 +2968,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -2984,7 +2989,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2996,7 +3001,7 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -3082,7 +3087,7 @@
                         <div class="list-item d-none">
                           <div class="list-item-inner">
                             <div class="list-item-detail">
-                              <p class="semi-bold-fw fs-18 mb-0">Allianz Parse Report</p>
+                              <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/report-builder">Allianz Parse Report</router-link></p>
                               <label class="medium-fw">Report description goes here</label>
                               <br>
                               <span class="report-scenario-span mt-1">Scenario - Allianz Parse</span>
@@ -3103,7 +3108,7 @@
                                 3/12/22</label>
 
                               <div class="round-btns">
-                                <button class="btn round-btn">
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Edit</span>
                                   <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -3115,8 +3120,8 @@
                                       d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
-                                <button class="btn round-btn">
+                                </router-link>
+                                <router-link to="/report-builder" class="btn round-btn">
                                   <span>Share</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                     <path
@@ -3129,7 +3134,7 @@
                                       d="M7.20551 3.97937H11.4655C11.8932 3.97937 12.24 4.32614 12.24 4.75391C12.24 5.18167 11.8932 5.52844 11.4655 5.52844H7.20652L7.20551 4.75391C7.2056 5.52844 7.20628 5.52844 7.20652 5.52844L7.19716 5.52853L7.15489 5.52937C7.11593 5.53037 7.05607 5.53243 6.9783 5.53669C6.82253 5.54522 6.59626 5.56249 6.32331 5.59734C5.77338 5.66754 5.05393 5.80661 4.34549 6.07775C3.63432 6.34994 2.97401 6.73998 2.49606 7.28866C2.03145 7.82202 1.7063 8.54126 1.7063 9.55555V13.0569C1.7063 13.4847 1.35953 13.8314 0.931763 13.8314C0.503998 13.8314 0.157227 13.4847 0.157227 13.0569V9.55555C0.157227 8.16939 0.616292 7.0882 1.32801 6.27117C2.02639 5.46945 2.93451 4.95913 3.79178 4.63103C4.65178 4.30187 5.50076 4.1407 6.12715 4.06074C6.44237 4.0205 6.70624 4.0002 6.89357 3.98994C6.98734 3.9848 7.06226 3.98216 7.11521 3.9808C7.14169 3.98013 7.1627 3.97977 7.17786 3.97958L7.19616 3.9794L7.20194 3.97938L7.20397 3.97937L7.20551 3.97937C7.20584 3.97937 7.20541 3.97937 7.20551 4.75391V3.97937Z"
                                       fill="#9D9D9D" />
                                   </svg>
-                                </button>
+                                </router-link>
                                 <button class="btn round-btn">
                                   <span>Present</span>
                                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -3210,7 +3215,6 @@
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </main>

@@ -353,9 +353,6 @@ body::-webkit-scrollbar {
 .sidebar-nav .nav-link.active svg path {
   fill: #000;
 }
-.sidebar-nav .nav-link .indivisualLftArrow svg path {
-  fill: #8F8F8F;
-}
 .sidebar-nav .nav-link svg {
   margin-right: 0.875rem;
   position: relative;
@@ -917,40 +914,6 @@ body::-webkit-scrollbar {
 .common-modal .modal-cancel-btn:hover {
   background-color: #f4f4f4;
 }
-.indexSenarioBg{   
-background: #F9F9F9!important;
-padding:0.8rem 0.75rem;
-border-radius:0 0 0.5rem 0.5rem;
-margin-top:0;
-}
-
-.report-round-btn:not(.collapsed) svg path{
- fill: black;
-}
-.report-round-btn:hover:not(.collapsed) svg path{
-  fill: #fff;
- }
-.round-btn:hover:not(.collapsed)  {
-  background-color: var(--green-clr);
-}
-.round-btn:hover:not(.collapsed) span{
-color: #fff;
-}
-.indexSenarioInnerBg{
-  background: white;
-  padding: 0.5rem 0.75rem;
-  border-radius:0.5rem;
-}
-.clientNamePara{
-  color: #000;
-}
-.clientNamePara a{
-  color: #000;
-  text-decoration: none;
-}
-.clientNamePara:hover a{
-  color: var(--green-clr);
-}
 /* End of Choose Client */
 /* Individual Client */
 .side-client-label {
@@ -1133,7 +1096,7 @@ color: #fff;
   background: #FFFFFF;
   color: var(--green-clr);
 }
-.SaveAddBtn.btnDisabled {
+.SaveAddBtn.disabled {
   background: #EDEDED;
   border: 1.5px solid #EDEDED;
   color: #A0A0A0;
@@ -1152,7 +1115,7 @@ color: #fff;
   background: var(--green-clr);
   color: #ffffff;
 }
-.SaveclsBtn.btnDisabled {
+.SaveclsBtn.disabled {
   background: #FFFFFF;
   border: 1.5px solid #A0A0A0;
   color: #A0A0A0;
@@ -2421,9 +2384,6 @@ color: #fff;
     inset: 0;
     left: var(--sidebar-width);
     background-color: rgba(0, 0, 0, 0.25);
-  }
-  .reportSideBar{
-    left: 0!important;
   }
 }
 @media screen and (max-width: 1200px) {
@@ -4889,17 +4849,4 @@ input[type=number] {
 }
 .customInputWidth input {
   width: 95px;
-}
-.comparativeAnlsysTxt{
-  padding: 0;
-  margin: 0;
-  margin-bottom: 0.2rem;
-}
-.comparativeAnlsysTxt::before{
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 2px;
-  top: 75%;
-  background-color: #0E6651;
 }

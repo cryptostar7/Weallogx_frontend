@@ -28,27 +28,11 @@ export default {
         vehicleInputCheckboxes[i].checked = false;
       }
     }
-    // vehicleInputCheckboxes.forEach(function(checkbox, index){
-    //     if(index == 1){
-    //         continue;
-    //     }else{
-    //         checkbox.checked = false;
-    //     }
-
-    // });
 
     const templateNameDiv = document.getElementById("templateNameDiv");
     const scheduleTemplateCheckbox = document.getElementById(
       "scheduleTemplateCheckbox"
     );
-
-    //   scheduleTemplateCheckbox.addEventListener("click", function(e){
-    //     if(e.target.checked){
-    //       templateNameDiv.style.display = "block";
-    //     }else{
-    //       templateNameDiv.style.display = "none";
-    //     }
-    //   });
 
     // Percentage Inputs
     const percentInputs = document.querySelectorAll(".percent-input");
@@ -576,26 +560,8 @@ export default {
       VehicleType2
     );
 
-    function saveVehicleRadio2() {
-      var saveTemplateRadio = document.getElementById("saveVehicleTempName2");
-      if (saveTemplateRadio.checked) {
-        document.getElementById("vehicleTempName2").style.display = "unset";
-      } else {
-        document.getElementById("vehicleTempName2").style.display = "none";
-      }
-    }
-    function capitalGainTax2() {
-      var capitalGainTax2 = document.getElementById("capitalGainTax2");
-      if (capitalGainTax2.checked) {
-        document
-          .getElementById("capitalGainTaxInputs2")
-          .classList.remove("capitalDisplayNone");
-      } else {
-        document
-          .getElementById("capitalGainTaxInputs2")
-          .classList.add("capitalDisplayNone");
-      }
-    }
+
+
 
     const VehicleType3 = ["Taxable", "Pre-Tax", "Tax-Deferred"];
 
@@ -772,26 +738,7 @@ export default {
       VehicleType3
     );
 
-    function saveVehicleRadio3() {
-      var saveTemplateRadio = document.getElementById("saveVehicleTempName3");
-      if (saveTemplateRadio.checked) {
-        document.getElementById("vehicleTempName3").style.display = "unset";
-      } else {
-        document.getElementById("vehicleTempName3").style.display = "none";
-      }
-    }
-    function capitalGainTax3() {
-      var capitalGainTax3 = document.getElementById("capitalGainTax3");
-      if (capitalGainTax3.checked) {
-        document
-          .getElementById("capitalGainTaxInputs3")
-          .classList.remove("capitalDisplayNone");
-      } else {
-        document
-          .getElementById("capitalGainTaxInputs3")
-          .classList.add("capitalDisplayNone");
-      }
-    }
+    
 
     // Use Existing Comparative Vehicle 1
     const historyIndex = ["Vehicle 1", "Vehicle 2", "Vehicle 3", "Vehicle 4"];

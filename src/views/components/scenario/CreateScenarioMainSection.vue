@@ -5,14 +5,14 @@ import { RouterLink } from "vue-router";
   <section class="main-section">
     <div class="reviewProgressMainDiv py-5">
       <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="active"><RouterLink to="/create-new-scenario" class="nav-link p-0">Scenario Details</RouterLink></li>
+        <li class="active"><router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link></li>
         <li class=""><a href="javascript:void(0)" class="nav-link p-0">Illustration Data</a></li>
         <li class=""><a href="javascript:void(0)" class="nav-link p-0">Comparative Vehicles</a></li>
         <li class=""><a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a></li>
       </ul>
-      <RouterLink to="/">
+      <router-link to="/">
         <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
-      </RouterLink>
+      </router-link>
     </div>
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
@@ -141,7 +141,7 @@ import { RouterLink } from "vue-router";
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Second Tax Rate Year</label>
-                        <select name="" id="secondTaxRateYear" class="form-select form-control">
+                        <select name="" id="secondTaxRateYear" class="form-select form-control" disabled>
                           <option value="">1</option>
                           <option value="">2</option>
                           <option value="">3</option>
@@ -177,7 +177,7 @@ import { RouterLink } from "vue-router";
                     </div>
 
                     <div class="form-group max-width-320">
-                      <table class="table tax-rate-table text-center">
+                      <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                         <thead>
                           <tr>
                             <th width="50%">Year</th>
@@ -186,256 +186,8 @@ import { RouterLink } from "vue-router";
                         </thead>
                         <tbody>
                           <tr>
-                            <td>
-                              <div class="fs-15">1</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">2</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">3</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">4</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">5</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">6</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">7</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">8</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">9</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">10</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">11</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">12</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">13</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">14</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">15</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">16</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">17</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">18</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">19</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">20</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">21</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">22</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">23</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">24</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>                      
-                            <td>
-                              <div class="fs-15">25</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">26</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">27</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="fs-15">28</div>
-                            </td>
-                            <td>
-                              <div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span
-                                  class="percent-span">%</span></div>
-                            </td>
+                            <td><br></td>
+                            <td><br></td>
                           </tr>
                         </tbody>
                       </table>
@@ -457,7 +209,7 @@ import { RouterLink } from "vue-router";
               </div>
 
               <div class="text-center mt-30">
-                <router-link to="illustration-data" class="nav-link btn form-next-btn active fs-14"
+                <router-link to="/illustration-data" class="nav-link btn form-next-btn active fs-14"
                   disabled="true">Next</router-link>
               </div>
             </div>
@@ -469,6 +221,7 @@ import { RouterLink } from "vue-router";
 </template>
 <script>
 export default {
+  components: {RouterLink},
     mounted() {
       const templateNameDiv = document.getElementById("templateNameDiv");
     const scheduleTemplateCheckbox = document.getElementById("scheduleTemplateCheckbox");

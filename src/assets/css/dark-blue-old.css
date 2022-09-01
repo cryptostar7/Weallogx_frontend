@@ -56,21 +56,21 @@
   background: var(--blue-clr);
 }
 .dark-blue .list-item .list-item-detail p::before {
-  background-color:#abd5f9;
+  background-color: var(--blue-clr-2);
 }
 .dark-blue .list-item-actions .scenario-add-report-btn {
-  background-color: var(--blue-clr-2);
-  color: #fff;
-}
-.dark-blue .list-item-actions .scenario-add-report-btn:hover {
   background-color: var(--blue-clr);
   color: #fff;
 }
+.dark-blue .list-item-actions .scenario-add-report-btn:hover {
+  background-color: var(--blue-clr-2);
+  color: #fff;
+}
 .dark-blue .large-add-btn span {
-  background: var(--blue-clr-2);
+  background: var(--blue-clr);
 }
 .dark-blue .large-add-btn:hover span {
-  background: var(--blue-clr);
+  background: var(--blue-clr-2);
 }
 .dark-blue .form-wrapper-inner {
   background: #34383D;
@@ -1206,7 +1206,22 @@
 .dark-blue .dark-user-logo-icon ellipse {
   fill: #ffffff;
 }
-
+.dark-blue .offcanBtnDiv .SaveAddBtn{
+background:var(--blue-clr-2);
+}
+.dark-blue .offcanBtnDiv .SaveAddBtn:hover{
+  border:1px solid var(--blue-clr-2);
+  background:transparent;
+  color:var(--blue-clr-2) ;
+  }
+.dark-blue .offcanBtnDiv .SaveclsBtn{
+  border: 1px solid var(--blue-clr-2);
+  color: var(--blue-clr-2);
+}
+.dark-blue .offcanBtnDiv .SaveclsBtn:hover{
+  background:var(--blue-clr-2);
+  color: #fff;
+}
 .dark-blue .offcanvas-body {
   background: #2E3135;
 }
@@ -1221,43 +1236,8 @@
 .dark-blue .offcanInputDiv input:focus {
   border: 1px solid #23669E;
 }
-.dark-blue .offcanBtnDiv .SaveAddBtn {
-  background: var(--blue-clr-2);
-  border: 1.5px solid var(--blue-clr-2);
-  border-radius: 8px;
-  padding: 0.7rem 0;
-  color: #ffffff;
-}
-.dark-blue .offcanBtnDiv .SaveAddBtn:hover {
-  background:transparent;
-  color: var(--blue-clr-2);
-}
-.dark-blue .SaveAddBtn.btnDisabled {
-  background: #EDEDED;
-  border: 1.5px solid #EDEDED;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
-}
-.dark-blue .offcanBtnDiv .SaveclsBtn {
-  background: #FFFFFF;
-  border: 1.5px solid var(--blue-clr-2);
-  border-radius: 8px;
-  padding: 0.7rem 0;
-  color: var(--blue-clr-2);
-}
-.dark-blue .offcanBtnDiv .SaveclsBtn:hover {
-  background: var(--blue-clr);
-  color: #ffffff;
-}
-.dark-blue .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
-  border: 1.5px solid #A0A0A0;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
+.dark-blue .SaveclsBtn {
+  background: #2E3135;
 }
 .dark-blue .modal-content {
   background: #353B46;
@@ -2531,53 +2511,15 @@ border: 1px solid var(--blue-clr-2);
 .dark-blue .SaveCloseButton .btn{
   background:  var(--blue-clr-2);
 }
-
-/* Review summary dark css end */
-.dark-blue .theme-btn {
-  background-color: #ffffff;
-  border: 1px solid var(--blue-clr-2);
-  color: var(--blue-clr-2);
-}
-
-.dark-blue .distributionProg * {
-  background: #2E3135!important;
-  color: #2E3135;
-}
-.dark-blue .disableAllProgress * {
-  background: #2E3135!important;
-  color:#2E3135;
-}
-.dark-blue .boxProgress *,
-.dark-blue .boxProgress {
-  background: #55575a!important;
-  color: #2E3135;
-}
-.dark-blue .cumulativeProg .cumulativeprogreeDivcommon *,
-.dark-blue .cumulativeProg .cumulativeprogreeDivcommon,
-.dark-blue .cumulativeProg .shortFallCount p {
-  display: none;
-}
 .dark-blue .indexSenarioBg{
   background: unset!important;
   }
   .dark-blue .indexSenarioInnerBg{
     background: unset;
   }
-  .dark-blue .report-round-btn:not(.collapsed) span{
-    color: #abd5f9;
-   }
-   .dark-blue .report-round-btn:hover:not(.collapsed) span{
-    color: #fff;
-   }
-   .dark-blue .comparativeAnlsysTxt::before{
-    background-color:#abd5f9;
-  }
-  .dark-blue .reporth4Head{
-color: white;
-  }
-  .dark-blue .reporth4Head svg rect{
-    fill: white;
-      }
-      .dark-blue .clientNamePara:hover a{
-        color: var(--blue-clr-2);
-      }
+/* Review summary dark css end */
+.dark-blue .theme-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--blue-clr-2);
+  color: var(--blue-clr-2);
+}

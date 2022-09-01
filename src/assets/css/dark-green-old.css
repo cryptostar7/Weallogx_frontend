@@ -1122,43 +1122,8 @@
   border: 1px solid #26AB8B;
 }
 
-.dark-green .offcanBtnDiv .SaveAddBtn {
-  background: #26AB8B;
-  border: 1.5px solid #26AB8B;
-  border-radius: 8px;
-  padding: 0.7rem 0;
-  color: #ffffff;
-}
-.dark-green .offcanBtnDiv .SaveAddBtn:hover {
-  background: transparent;
-  color: var(--green-clr-2);
-}
-.dark-green .SaveAddBtn.btnDisabled {
-  background: #EDEDED;
-  border: 1.5px solid #EDEDED;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
-}
-.dark-green .offcanBtnDiv .SaveclsBtn {
-  background: transparent;
-  border: 1.5px solid #26AB8B;
-  border-radius: 8px;
-  padding: 0.7rem 0;
-  color: #26AB8B;
-}
-.dark-green .offcanBtnDiv .SaveclsBtn:hover {
-  background: var(--green-clr-2);
-  color: #ffffff;
-}
-.dark-green .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
-  border: 1.5px solid #A0A0A0;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
+.dark-green .SaveclsBtn {
+  background: #2E3135;
 }
 
 .dark-green .modal-content {
@@ -3066,6 +3031,25 @@
   background: #26AB8B;
 }
 
+.dark-green .offcanBtnDiv .SaveAddBtn {
+  background: #26AB8B;
+}
+
+.dark-green .offcanBtnDiv .SaveAddBtn:hover {
+  border: 1px solid #26AB8B;
+  background: transparent;
+  color: #26AB8B;
+}
+
+.dark-green .offcanBtnDiv .SaveclsBtn {
+  border: 1px solid #26AB8B;
+  color: #26AB8B;
+}
+
+.dark-green .offcanBtnDiv .SaveclsBtn:hover {
+  background: #26AB8B;
+  color: #fff;
+}
 
 .dark-green .modalParaReportBuilder {
   color: #fff;
@@ -3088,61 +3072,3 @@
 .dark-green .SaveCloseButton .btn{
   background:  #26AB8B;
 }
-
-.dark-green .distributionProg * {
-  background: #2E3135!important;
-  color: #2E3135;
-}
-.dark-green .disableAllProgress * {
-  background: #2E3135!important;
-  color:#2E3135;
-}
-.dark-green .boxProgress *,
-.dark-green .boxProgress {
-  background:#55575a!important;
-  color: #2E3135;
-}
-.dark-green .cumulativeProg .cumulativeprogreeDivcommon *,
-.dark-green .cumulativeProg .cumulativeprogreeDivcommon,
-.dark-green .cumulativeProg .shortFallCount p {
-  display: none;
-}
-.dark-green .indexSenarioBg{
-  background: unset!important;
-  }
-  .dark-green .indexSenarioInnerBg{
-    background: unset;
-  }
-  .dark-green .report-round-btn:not(.collapsed) span{
-    color: #abf9c9;
-   }
-   .dark-green .report-round-btn:hover:not(.collapsed) span{
-    color: #fff;
-   }
-   .dark-green .list-item-actions .scenario-add-report-btn{
-    background-color:#26AB8B ;
-   }
-   .dark-green .list-item-actions:hover .scenario-add-report-btn{
-    background-color:var(--green-clr) ;
-   }
-   .dark-green .large-add-btn span{
-    background-color:#26AB8B;
-   }
-   .dark-green .large-add-btn span:hover{
-    background-color:var(--green-clr);
-   }
-   .dark-green .list-item .list-item-detail p::before {
-    background-color: #abf9c9;
-}
-.dark-green .comparativeAnlsysTxt::before{
-  background-color:#abf9c9;
-}
-.dark-green .reporth4Head{
-  color: white;
-    }
-    .dark-green .reporth4Head svg rect{
-      fill: white;
-        }
-        .dark-green  .clientNamePara:hover a{
-          color:#26AB8B;
-        }

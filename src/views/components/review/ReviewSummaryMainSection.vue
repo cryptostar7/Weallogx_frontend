@@ -2,7 +2,7 @@
 import { RouterLink } from "vue-router";
 </script>
 <template>
-    <section>
+      <section>
         <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
             <ul class="mt-1 review-progress" id="reviewProgress">
               <li class="done"><router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link></li>
@@ -206,7 +206,6 @@ import { RouterLink } from "vue-router";
                                             <td data-label="Death Benefit">$448,774</td>
                                             <td data-label="Total Policy Charges">$5,000</td>
                                         </tr>
-
                                         <tr>
                                             <td data-label="Year">1</td>
                                             <td data-label="Age">34</td>
@@ -263,7 +262,8 @@ import { RouterLink } from "vue-router";
                                     fill="#0E6651" stroke="#0E6651" stroke-width="1.5" />
                                 <path d="M6.5 13.5L7.5 10L9.5 12L6.5 13.5Z" fill="#0E6651" />
                             </svg>
-                        </button></router-link>
+                        </button>
+                    </router-link>
                 </div>
                 <div class="container-fluid summary-editBox py-4">
                     <form action="">
@@ -950,12 +950,15 @@ import { RouterLink } from "vue-router";
                 </div>
             </div>
             <div class="SaveCloseButton">
-                <router-link to="/" class="btn">Save & Close</router-link>
+                <router-link to="/index" class="btn">Save & Close</router-link>
             </div>
             <div class="BuildSaveCloseButton">
                 <router-link to="/report-builder" class="btn">Save & Build Report</router-link>
             </div>
+            <!-- Historical Vehicles end -->
         </div>
+
+
     </section>
 </template>
 <script>

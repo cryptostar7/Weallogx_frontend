@@ -311,50 +311,29 @@
   background-color: var(--blue-clr);
   color: #fff;
 }
-.light-blue .large-add-btn span:hover {
-  background-color: var(--blue-clr-2);
-  color: #fff;
-}
 .light-blue .offcanvTopDiv {
   background: var(--blue-clr);
 }
 .light-blue .offcanBtnDiv .SaveAddBtn {
   background: var(--blue-clr);
   border: 1.5px solid var(--blue-clr);
-  border-radius: 8px;
-  padding: 0.7rem 0;
   color: #ffffff;
 }
 .light-blue .offcanBtnDiv .SaveAddBtn:hover {
   background: #FFFFFF;
   color: var(--blue-clr);
 }
-.light-blue .SaveAddBtn.btnDisabled {
-  background: #EDEDED;
-  border: 1.5px solid #EDEDED;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
-}
 .light-blue .offcanBtnDiv .SaveclsBtn {
   background: #FFFFFF;
   border: 1.5px solid var(--blue-clr);
-  border-radius: 8px;
-  padding: 0.7rem 0;
   color: var(--blue-clr);
 }
 .light-blue .offcanBtnDiv .SaveclsBtn:hover {
   background: var(--blue-clr);
   color: #ffffff;
 }
-.light-blue .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
-  border: 1.5px solid #A0A0A0;
-  color: #A0A0A0;
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
+.light-blue .form-group .form-control:focus {
+  border-color: var(--blue-clr);
 }
 .light-blue .form-subheading::before {
   background-color: var(--blue-clr);
@@ -521,7 +500,23 @@
   fill: #004885 !important;
 }
 /* report buider css start */
-
+.light-blue .RadioBtnGreen .checkbox2:checked~.layer2 {
+  background-color: #089875 !important;
+}
+.light-blue .offcanBtnDiv .SaveAddBtn {
+  background: var(--blue-clr);
+  border: 1.5px solid var(--blue-clr);
+}
+.light-blue .offcanBtnDiv .SaveAddBtn:hover {
+  color: var(--blue-clr);
+}
+.light-blue .offcanBtnDiv .SaveclsBtn {
+  border: 1.5px solid var(--blue-clr);
+  color: var(--blue-clr);
+}
+.light-blue .offcanBtnDiv .SaveclsBtn:hover {
+  background: var(--blue-clr);
+}
 /* Review summary start */
 /*reviewProgress*/
 .light-blue .editBtnCommon svg rect {
@@ -779,21 +774,6 @@ background: #F5F5F5;
 .light-blue .SaveCloseButton .btn{
   background:  var(--blue-clr);
 }
-.light-blue .comparativeAnlsysTxt::before{
-  background-color:var(--blue-clr);
-}
 .light-blue .copyBtnModal{
-  background: var(--blue-clr);
-  }
-  .light-blue .modalSmallborder {
-    background: var(--blue-clr)!important;
-  }
-  .light-blue .darkmodecls{
-    color: var(--blue-clr);
-  }
-  .light-blue .darkmodecls svg path{
-    fill: var(--blue-clr);
-  }
-  .light-blue .clientNamePara:hover a{
-    color: var(--blue-clr);
-  }
+background: var(--blue-clr-2)!important;
+}
