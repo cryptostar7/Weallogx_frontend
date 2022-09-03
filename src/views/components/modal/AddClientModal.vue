@@ -15,33 +15,68 @@
       <h5 class="fs-38 bold-fw">Add Client</h5>
     </div>
     <div class="offcanvas-body">
-      <form action="">
+      <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
         <div class="offcanvasBodyContent">
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">First Name</label>
-            <input type="text" id="fname" class="form-control CanvasinputField" />
+            <Field type="text" name="firstName" id="fname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.firstName}}</p>
           </div>
           <div class="offcanInputDiv">
-            <label for="lname" class="form-label">Middle Name</label>
-            <label for="lname" class="optionalLabel">Optional</label>
-            <input type="text" id="lname" class="form-control CanvasinputField">
+            <label for="mname" class="form-label">Middle Name</label>
+            <label for="mname" class="optionalLabel">Optional</label>
+            <Field type="text" name="middleName" id="mname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.middleName}}</p>
           </div>
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">Last Name</label>
-            <input type="text" id="fname" class="form-control CanvasinputField">
+            <Field type="text" name="lastName" id="fname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.lastName}}</p>
             <!-- <p class="inputError">Client already exists. <span>Add Middle Name</span>.</p> -->
           </div>
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">Age <span class="ms-1">Match year 1 age on illustration</span></label>
-            <input type="text" id="fname" class="form-control CanvasinputField">
+            <Field type="text" name="age" id="fname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.age}}</p>
           </div>
-
           <div class="offcanBtnDiv">
-            <input type="submit" class="btn form-control SaveAddBtn disabled" value="Save & Add New Scenario">
-            <input type="submit" class="btn form-control mt-3 SaveclsBtn disabled" value="Save & Close">
+            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario">
+            <input type="submit" class="btn form-control mt-3 SaveclsBtn" value="Save & Close">
           </div>
         </div>
-      </form>
+      </Form>
     </div>
   </div>
 </template>
+<script>
+import { Form, Field } from 'vee-validate';
+import * as Yup from 'yup';
+export default {
+     components: {
+        Form,
+        Field
+    },
+   data() {
+        const schema = Yup.object().shape({
+            firstName: Yup.string()
+                .required('First Name is required.'),
+            middleName: Yup.string(),
+            lastName: Yup.string()
+                .required('Last name is required.'),
+            age: Yup.string()
+                .required('Age is required.')
+        });
+        return { 
+            schema 
+        }
+   },
+    methods: {
+        onSubmit(values) {
+            console.log(values);
+        }
+    }
+}
+</script>
+<style lang="">
+  
+</style>

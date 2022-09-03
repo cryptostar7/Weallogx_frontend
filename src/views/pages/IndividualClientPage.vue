@@ -55,7 +55,7 @@ export default {
           navItem.classList.remove("hovered");
         } else {
           navItem.classList.add("hovered");
-        }
+        }             
       });
     });
 
