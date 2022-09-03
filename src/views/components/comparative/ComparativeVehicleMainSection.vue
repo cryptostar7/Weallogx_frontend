@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import SelectDropdown from '../common/SelectDropdown.vue';
 </script>
 <template>
   <section class="main-section">
@@ -50,7 +51,7 @@ import { RouterLink } from "vue-router";
                 <h4 class="form-subheading fs-22 fw-bold">
                   Comparative Vehicles
                 </h4>
-                <div class="form-group less pt-3">
+                <!-- <div class="form-group less pt-3">
                   <label
                     for="existingComparativeVehiclePortfolio"
                     class="fs-14 bold-fw"
@@ -82,8 +83,14 @@ import { RouterLink } from "vue-router";
                       </svg>
                     </span>
                   </div>
-                </div>
-
+                </div> -->
+                <SelectDropdown 
+                  :list="comparativeVehiclePortfolios"
+                  label="Use Existing Comparative Vehicle Portfolio"
+                  id="existingComparativeVehiclePortfolio"
+                  class="form-group less pt-3"
+                  @alertTest="alertTest"
+                />
                 <div
                   class="
                     comparative-vehicle-tab-wrapper
@@ -189,8 +196,16 @@ import { RouterLink } from "vue-router";
                       role="tabpanel"
                       aria-labelledby="vehicleType1-tab"
                     >
+
+                    <SelectDropdown
+                      :list="VehicleType1"
+                      label="Vehicle Type 1"
+                      id="comparativeVehicleType"
+                      class="form-group less pt-3"
+                     />
+
                       <!-- --- -->
-                      <div class="form-group less pt-3">
+                      <!-- <div class="form-group less pt-3">
                         <label
                           for="comparativeVehicleType"
                           class="fs-14 bold-fw"
@@ -222,7 +237,7 @@ import { RouterLink } from "vue-router";
                             </svg>
                           </span>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- --- -->
 
                       <!-- vehicle type taxable area start here-->
@@ -442,8 +457,15 @@ import { RouterLink } from "vue-router";
                       role="tabpanel"
                       aria-labelledby="vehicleType2-tab"
                     >
+
+                    <SelectDropdown
+                      :list="VehicleType2"
+                      label="Vehicle Type 2"
+                      id="comparativeVehicleType2"
+                      class="form-group less pt-3"
+                     />
                       <!-- --- -->
-                      <div class="form-group less pt-3">
+                      <!-- <div class="form-group less pt-3">
                         <label
                           for="comparativeVehicleType2"
                           class="fs-14 bold-fw"
@@ -475,7 +497,7 @@ import { RouterLink } from "vue-router";
                             </svg>
                           </span>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- --- -->
 
                       <!-- vehicle type taxable area start here-->
@@ -696,7 +718,15 @@ import { RouterLink } from "vue-router";
                       role="tabpanel"
                       aria-labelledby="vehicleType3-tab"
                     >
-                      <div class="form-group less pt-3">
+
+                    <SelectDropdown
+                      :list="VehicleType3"
+                      label="Vehicle Type 3"
+                      id="comparativeVehicleType3"
+                      class="form-group less pt-3"
+                     />
+
+                      <!-- <div class="form-group less pt-3">
                         <label
                           for="comparativeVehicleType3"
                           class="fs-14 bold-fw"
@@ -728,7 +758,7 @@ import { RouterLink } from "vue-router";
                             </svg>
                           </span>
                         </div>
-                      </div>
+                      </div> -->
                       <!-- --- -->
 
                       <!-- vehicle type taxable area start here-->
@@ -1042,8 +1072,27 @@ import { RouterLink } from "vue-router";
 </template>
 <script>
 export default {
-  components: {RouterLink},
+  components: {RouterLink, SelectDropdown},
+  data() {
+    return {
+      comparativeVehiclePortfolios: [
+        "Portfolio 1",
+        "Portfolio 2",
+        "Portfolio 3",
+        "Portfolio 4",
+        "Portfolio 5",
+        "Portfolio 6",
+      ],
+      VehicleType1 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
+      VehicleType2 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
+      VehicleType3 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
+    }
+  },
+
   methods: {
+    alertTest: function (myProp=null){
+     console.log('emit test', myProp);
+    },
     capitalGainTax1: function () {
       var capitalGainTax1 = document.getElementById("capitalGainTax1");
       if (capitalGainTax1.checked) {

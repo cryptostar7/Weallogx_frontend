@@ -186,12 +186,13 @@ export default {
         closeAllLists(e.target);
       });
     }
-    autocomplete(
-      document.getElementById("existingComparativeVehiclePortfolio"),
-      comparativeVehiclePortfolios
-    );
 
-    const VehicleType = ["Taxable", "Pre-Tax", "Tax-Deferred"];
+    // autocomplete(
+    //   document.getElementById("existingComparativeVehiclePortfolio"),
+    //   comparativeVehiclePortfolios
+    // );
+
+    // const VehicleType = ["Taxable", "Pre-Tax", "Tax-Deferred"];
 
     // Autocomplete1 dropdown for Clien List
     function autocomplete1(inps, arrs) {
@@ -360,10 +361,10 @@ export default {
       });
     }
 
-    autocomplete1(
-      document.getElementById("comparativeVehicleType"),
-      VehicleType
-    );
+    // autocomplete1(
+    //   document.getElementById("comparativeVehicleType"),
+    //   VehicleType
+    // );
 
     function saveVehicleRadio1() {
       var saveTemplateRadio = document.getElementById("saveVehicleTempName1");
@@ -555,15 +556,12 @@ export default {
       });
     }
 
-    autocomplete1(
-      document.getElementById("comparativeVehicleType2"),
-      VehicleType2
-    );
+    // autocomplete1(
+    //   document.getElementById("comparativeVehicleType2"),
+    //   VehicleType2
+    // );
 
-
-
-
-    const VehicleType3 = ["Taxable", "Pre-Tax", "Tax-Deferred"];
+    // const VehicleType3 = ["Taxable", "Pre-Tax", "Tax-Deferred"];
 
     // Autocomplete1 dropdown for Clien List
     function autocomplete3(inpsas, arrsas) {
@@ -733,10 +731,10 @@ export default {
       });
     }
 
-    autocomplete3(
-      document.getElementById("comparativeVehicleType3"),
-      VehicleType3
-    );
+    // autocomplete3(
+    //   document.getElementById("comparativeVehicleType3"),
+    //   VehicleType3
+    // );
 
     
 
