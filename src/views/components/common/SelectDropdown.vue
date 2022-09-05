@@ -1,6 +1,6 @@
 <template lang="">
    <div :class="this.class ?? 'form-group'">
-        <label :label="this.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{this.label}}</label>
+        <label :label="this.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{this.label ?? ''}}</label>
         <div class="p-relative">
         <input type="text" :id="this.id ?? 'customSelectDropdown'" v-model="selectText" @keyup="setSortList" @focus="handleDropdown" placeholder="Select or Start Typing"
             class="form-control pe-5 autocomplete customSelectDropdown" autocomplete="off">
@@ -15,7 +15,7 @@
             </svg>
         </span>
         <div v-if="dropdown" class="autocomplete-items">
-            <div v-for="(item, index) in selectList" :key="index">{{item}}</div>
+            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item)">{{item}}</div>
         </div>
         </div>
     </div>
@@ -34,24 +34,32 @@ export default {
       },
     };
   },
-  updated(){
-    console.log('updated');
-  },
   methods: {
-    setSortList: function (e) {
+    setSortList: function (e=null) {
       this.selectList = selectAutocomplete(e.target.value, this.list);
     },
-    handleDropdown:function(){
-        this.dropdown = true;
+    handleDropdown: function () {
+      this.dropdown = true;
     },
-    closeDropdown: function(){
-        this.dropdown = false;
-    }
+    setInputData: function (value) {
+      this.selectText = value;
+      this.$emit('setVehicleType', value);
+    },
+    closeDropdown: function (e=null) {
+      if (e) {
+        if (!e.target.className.includes("customSelectDropdown")) {
+          this.dropdown = false;
+        } else {
+          if (e.target.id !== this.id) {
+            this.dropdown = false;
+          }
+        }
+      }
+    },
   },
-   mounted() {
+  mounted() {
     this.selectList = this.list;
-    // document.addEventListener("click", (e) => !e.target.className.includes('customSelectDropdown') ? this.closeDropdown : false);
-    // document.addEventListener("click", this.closeDropdown);
+    document.addEventListener("click", this.closeDropdown);
   },
 };
 </script>

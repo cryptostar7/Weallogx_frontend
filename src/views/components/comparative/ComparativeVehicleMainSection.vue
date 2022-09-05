@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import SelectDropdown from '../common/SelectDropdown.vue';
+import SelectDropdown from "../common/SelectDropdown.vue";
 </script>
 <template>
   <section class="main-section">
@@ -51,52 +51,14 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                 <h4 class="form-subheading fs-22 fw-bold">
                   Comparative Vehicles
                 </h4>
-                <!-- <div class="form-group less pt-3">
-                  <label
-                    for="existingComparativeVehiclePortfolio"
-                    class="fs-14 bold-fw"
-                    >Use Existing Comparative Vehicle Portfolio</label
-                  >
-                  <div class="p-relative">
-                    <input
-                      type="text"
-                      id="existingComparativeVehiclePortfolio"
-                      placeholder="Select"
-                      class="form-control pe-5 autocomplete"
-                    />
-                    <span class="chevron-span">
-                      <svg
-                        width="12"
-                        height="8"
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                          fill="black"
-                        />
-                        <path
-                          d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                          fill="black"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </div> -->
-                <SelectDropdown 
+                <SelectDropdown
                   :list="comparativeVehiclePortfolios"
                   label="Use Existing Comparative Vehicle Portfolio"
                   id="existingComparativeVehiclePortfolio"
                   class="form-group less pt-3"
-                  @alertTest="alertTest"
                 />
                 <div
-                  class="
-                    comparative-vehicle-tab-wrapper
-                    noVehicleTyupeSelectPadd
-                    mb-3
-                  "
+                  :class="`comparative-vehicle-tab-wrapper ${this.vehicle.type ? '' : 'noVehicleTyupeSelectPadd'} mb-3`"
                   id="noVehicleTyupeSelectPadd"
                 >
                   <ul
@@ -196,52 +158,15 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                       role="tabpanel"
                       aria-labelledby="vehicleType1-tab"
                     >
-
-                    <SelectDropdown
-                      :list="VehicleType1"
-                      label="Vehicle Type 1"
-                      id="comparativeVehicleType"
-                      class="form-group less pt-3"
-                     />
-
-                      <!-- --- -->
-                      <!-- <div class="form-group less pt-3">
-                        <label
-                          for="comparativeVehicleType"
-                          class="fs-14 bold-fw"
-                          >Vehicle Type 1</label
-                        >
-                        <div class="p-relative">
-                          <input
-                            type="text"
-                            id="comparativeVehicleType"
-                            placeholder="Select"
-                            class="form-control pe-5 autocomplete"
-                          />
-                          <span class="chevron-span">
-                            <svg
-                              width="12"
-                              height="8"
-                              viewBox="0 0 12 8"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div> -->
-                      <!-- --- -->
-
+                      <SelectDropdown
+                        :list="VehicleType1"
+                        label="Vehicle Type 1"
+                        id="comparativeVehicleType"
+                        class="form-group less pt-3"
+                        @setVehicleType="setVehicleType"
+                      />
                       <!-- vehicle type taxable area start here-->
-                      <div class="vehicleaTypeArea mt-4" id="taxableArea1">
+                      <div :class="`${this.vehicle.type ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea1">
                         <div class="form-group">
                           <label for="existingScenario" class="fs-14 bold-fw"
                             >Use Existing Comparative Vehicle</label
@@ -353,23 +278,25 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                               custom-switch
                               preAfeCapitalSwtch
                             "
+                            :style="{'pointer-events': this.vehicle.type === 'Taxable' ? 'unset' : 'none'}"
                           >
                             <input
                               class="form-check-input"
                               type="checkbox"
                               role="switch"
                               id="capitalGainTax1"
+                              :checked="this.vehicle.type === 'Taxable' ? false : true"
                               @change="capitalGainTax1()"
                             />
                             <label
                               class="form-check-label fs-12 semi-bold-fw mb-0"
                               for="capitalGainTax1"
                               id="capitalGainLabel1"
-                              >Capital Gains Tax</label
+                              >{{ this.vehicle.type === 'Taxable' ? 'Capital Gains Tax':'Pre Age 59 ½ Penalty' }}</label
                             >
                           </div>
                           <div
-                            class="form-group-wrapper capitalDisplayNone pt-2"
+                            :class="`form-group-wrapper ${this.vehicle.type ? 'capitalDisplayNone' : ''} pt-2`"
                             id="capitalGainTaxInputs1"
                           >
                             <div class="form-group pb-0 m-0">
@@ -457,48 +384,12 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                       role="tabpanel"
                       aria-labelledby="vehicleType2-tab"
                     >
-
-                    <SelectDropdown
-                      :list="VehicleType2"
-                      label="Vehicle Type 2"
-                      id="comparativeVehicleType2"
-                      class="form-group less pt-3"
-                     />
-                      <!-- --- -->
-                      <!-- <div class="form-group less pt-3">
-                        <label
-                          for="comparativeVehicleType2"
-                          class="fs-14 bold-fw"
-                          >Vehicle Type 2</label
-                        >
-                        <div class="p-relative">
-                          <input
-                            type="text"
-                            id="comparativeVehicleType2"
-                            placeholder="Select"
-                            class="form-control pe-5 autocomplete"
-                          />
-                          <span class="chevron-span">
-                            <svg
-                              width="12"
-                              height="8"
-                              viewBox="0 0 12 8"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div> -->
-                      <!-- --- -->
+                      <SelectDropdown
+                        :list="VehicleType2"
+                        label="Vehicle Type 2"
+                        id="comparativeVehicleType2"
+                        class="form-group less pt-3"
+                      />
 
                       <!-- vehicle type taxable area start here-->
                       <div class="vehicleaTypeArea" id="taxableArea2">
@@ -718,48 +609,12 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                       role="tabpanel"
                       aria-labelledby="vehicleType3-tab"
                     >
-
-                    <SelectDropdown
-                      :list="VehicleType3"
-                      label="Vehicle Type 3"
-                      id="comparativeVehicleType3"
-                      class="form-group less pt-3"
-                     />
-
-                      <!-- <div class="form-group less pt-3">
-                        <label
-                          for="comparativeVehicleType3"
-                          class="fs-14 bold-fw"
-                          >Vehicle Type 3</label
-                        >
-                        <div class="p-relative">
-                          <input
-                            type="text"
-                            id="comparativeVehicleType3"
-                            placeholder="Select"
-                            class="form-control pe-5 autocomplete"
-                          />
-                          <span class="chevron-span">
-                            <svg
-                              width="12"
-                              height="8"
-                              viewBox="0 0 12 8"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                                fill="black"
-                              />
-                              <path
-                                d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                                fill="black"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                      </div> -->
-                      <!-- --- -->
+                      <SelectDropdown
+                        :list="VehicleType3"
+                        label="Vehicle Type 3"
+                        id="comparativeVehicleType3"
+                        class="form-group less pt-3"
+                      />
 
                       <!-- vehicle type taxable area start here-->
                       <div class="vehicleaTypeArea" id="taxableArea3">
@@ -804,7 +659,6 @@ import SelectDropdown from '../common/SelectDropdown.vue';
                           <label for="scenarioName" class="fs-12 medium-fw"
                             >Name</label
                           >
-
                           <input
                             type="text"
                             id="scenarioName"
@@ -1072,9 +926,12 @@ import SelectDropdown from '../common/SelectDropdown.vue';
 </template>
 <script>
 export default {
-  components: {RouterLink, SelectDropdown},
+  components: { RouterLink, SelectDropdown },
   data() {
     return {
+      vehicle: {
+        type:false,
+      },
       comparativeVehiclePortfolios: [
         "Portfolio 1",
         "Portfolio 2",
@@ -1083,15 +940,16 @@ export default {
         "Portfolio 5",
         "Portfolio 6",
       ],
-      VehicleType1 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
-      VehicleType2 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
-      VehicleType3 : ["Taxable", "Pre-Tax", "Tax-Deferred"],
-    }
+      VehicleType1: ["Taxable", "Pre-Tax", "Tax-Deferred"],
+      VehicleType2: ["Taxable", "Pre-Tax", "Tax-Deferred"],
+      VehicleType3: ["Taxable", "Pre-Tax", "Tax-Deferred"],
+    };
   },
 
   methods: {
-    alertTest: function (myProp=null){
-     console.log('emit test', myProp);
+    setVehicleType: function (selectedVehicleType = null) {
+      this.vehicle.type = selectedVehicleType;
+    
     },
     capitalGainTax1: function () {
       var capitalGainTax1 = document.getElementById("capitalGainTax1");

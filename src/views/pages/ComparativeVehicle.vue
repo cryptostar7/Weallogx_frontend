@@ -366,195 +366,195 @@ export default {
     //   VehicleType
     // );
 
-    function saveVehicleRadio1() {
-      var saveTemplateRadio = document.getElementById("saveVehicleTempName1");
-      if (saveTemplateRadio.checked) {
-        document.getElementById("vehicleTempName1").style.display = "unset";
-      } else {
-        document.getElementById("vehicleTempName1").style.display = "none";
-      }
-    }
-    function capitalGainTax1() {
-      var capitalGainTax1 = document.getElementById("capitalGainTax1");
-      if (capitalGainTax1.checked) {
-        document
-          .getElementById("capitalGainTaxInputs1")
-          .classList.remove("capitalDisplayNone");
-      } else {
-        document
-          .getElementById("capitalGainTaxInputs1")
-          .classList.add("capitalDisplayNone");
-      }
-    }
+    // function saveVehicleRadio1() {
+    //   var saveTemplateRadio = document.getElementById("saveVehicleTempName1");
+    //   if (saveTemplateRadio.checked) {
+    //     document.getElementById("vehicleTempName1").style.display = "unset";
+    //   } else {
+    //     document.getElementById("vehicleTempName1").style.display = "none";
+    //   }
+    // }
+    // function capitalGainTax1() {
+    //   var capitalGainTax1 = document.getElementById("capitalGainTax1");
+    //   if (capitalGainTax1.checked) {
+    //     document
+    //       .getElementById("capitalGainTaxInputs1")
+    //       .classList.remove("capitalDisplayNone");
+    //   } else {
+    //     document
+    //       .getElementById("capitalGainTaxInputs1")
+    //       .classList.add("capitalDisplayNone");
+    //   }
+    // }
 
-    const VehicleType2 = ["Taxable", "Pre-Tax", "Tax-Deferred"];
+    // const VehicleType2 = ["Taxable", "Pre-Tax", "Tax-Deferred"];
 
     // Autocomplete1 dropdown for Clien List
-    function autocomplete1(inps, arrsa) {
-      var currentFocus;
-      inps.addEventListener("focus", function (e) {
-        console.log("focused");
-        var a,
-          b,
-          i,
-          val = this.value;
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete2-list");
-        a.setAttribute("class", "autocomplete2-items");
-        this.parentNode.appendChild(a);
-        for (i = 0; i < arrsa.length; i++) {
-          b = document.createElement("DIV");
-          b.innerHTML = arrsa[i];
-          b.innerHTML += "<input type='hidden' value='" + arrsa[i] + "'>";
-          b.addEventListener("click", function (e) {
-            inps.value = this.getElementsByTagName("input")[0].value;
-            inps.value;
+    // function autocomplete1(inps, arrsa) {
+    //   var currentFocus;
+    //   inps.addEventListener("focus", function (e) {
+    //     console.log("focused");
+    //     var a,
+    //       b,
+    //       i,
+    //       val = this.value;
+    //     a = document.createElement("DIV");
+    //     a.setAttribute("id", this.id + "autocomplete2-list");
+    //     a.setAttribute("class", "autocomplete2-items");
+    //     this.parentNode.appendChild(a);
+    //     for (i = 0; i < arrsa.length; i++) {
+    //       b = document.createElement("DIV");
+    //       b.innerHTML = arrsa[i];
+    //       b.innerHTML += "<input type='hidden' value='" + arrsa[i] + "'>";
+    //       b.addEventListener("click", function (e) {
+    //         inps.value = this.getElementsByTagName("input")[0].value;
+    //         inps.value;
 
-            // show form div according to vehicle type
-            if (inps.value == "Tax-Deferred") {
-              document
-                .getElementById("noVehicleTyupeSelectPadd")
-                .classList.remove("noVehicleTyupeSelectPadd");
-              document
-                .getElementById("taxableArea2")
-                .classList.remove("vehicleaTypeArea");
-              document
-                .getElementById("capitalGainTaxInputs2")
-                .classList.add("capitalDisplayNone");
-              document.getElementById("capitalGainLabel2").innerHTML =
-                "Pre Age 59 ½ Penalty";
-              document.getElementById("capitalGainTax2").checked = true;
-              document.querySelector(
-                ".preAfeCapitalSwtch2"
-              ).style.pointerEvents = "none";
-            } else if (inps.value == "Taxable") {
-              document.getElementById("capitalGainTax2").checked = false;
-              document
-                .getElementById("noVehicleTyupeSelectPadd")
-                .classList.remove("noVehicleTyupeSelectPadd");
-              document
-                .getElementById("taxableArea2")
-                .classList.remove("vehicleaTypeArea");
-              document.getElementById("capitalGainLabel2").innerHTML =
-                "Capital Gains Tax";
-              document.querySelector(
-                ".preAfeCapitalSwtch2"
-              ).style.pointerEvents = "unset";
-            } else if (inps.value == "Pre-Tax") {
-              document
-                .getElementById("noVehicleTyupeSelectPadd")
-                .classList.remove("noVehicleTyupeSelectPadd");
-              document
-                .getElementById("taxableArea2")
-                .classList.remove("vehicleaTypeArea");
-              document
-                .getElementById("capitalGainTaxInputs2")
-                .classList.add("capitalDisplayNone");
-              document.getElementById("capitalGainLabel2").innerHTML =
-                "Pre Age 59 ½ Penalty";
-              document.getElementById("capitalGainTax2").checked = true;
-              document.querySelector(
-                ".preAfeCapitalSwtch2"
-              ).style.pointerEvents = "none";
-            } else {
-              document
-                .getElementById("noVehicleTyupeSelectPadd")
-                .classList.remove("noVehicleTyupeSelectPadd");
-              document
-                .getElementById("taxableArea2")
-                .classList.remove("vehicleaTypeArea");
-              document
-                .getElementById("capitalGainTaxInputs2")
-                .classList.remove("capitalDisplayNone");
-              document.querySelector(
-                ".preAfeCapitalSwtch2"
-              ).style.pointerEvents = "unset";
-            }
-            // show form div according to vehicle type
+    //         // show form div according to vehicle type
+    //         if (inps.value == "Tax-Deferred") {
+    //           document
+    //             .getElementById("noVehicleTyupeSelectPadd")
+    //             .classList.remove("noVehicleTyupeSelectPadd");
+    //           document
+    //             .getElementById("taxableArea2")
+    //             .classList.remove("vehicleaTypeArea");
+    //           document
+    //             .getElementById("capitalGainTaxInputs2")
+    //             .classList.add("capitalDisplayNone");
+    //           document.getElementById("capitalGainLabel2").innerHTML =
+    //             "Pre Age 59 ½ Penalty";
+    //           document.getElementById("capitalGainTax2").checked = true;
+    //           document.querySelector(
+    //             ".preAfeCapitalSwtch2"
+    //           ).style.pointerEvents = "none";
+    //         } else if (inps.value == "Taxable") {
+    //           document.getElementById("capitalGainTax2").checked = false;
+    //           document
+    //             .getElementById("noVehicleTyupeSelectPadd")
+    //             .classList.remove("noVehicleTyupeSelectPadd");
+    //           document
+    //             .getElementById("taxableArea2")
+    //             .classList.remove("vehicleaTypeArea");
+    //           document.getElementById("capitalGainLabel2").innerHTML =
+    //             "Capital Gains Tax";
+    //           document.querySelector(
+    //             ".preAfeCapitalSwtch2"
+    //           ).style.pointerEvents = "unset";
+    //         } else if (inps.value == "Pre-Tax") {
+    //           document
+    //             .getElementById("noVehicleTyupeSelectPadd")
+    //             .classList.remove("noVehicleTyupeSelectPadd");
+    //           document
+    //             .getElementById("taxableArea2")
+    //             .classList.remove("vehicleaTypeArea");
+    //           document
+    //             .getElementById("capitalGainTaxInputs2")
+    //             .classList.add("capitalDisplayNone");
+    //           document.getElementById("capitalGainLabel2").innerHTML =
+    //             "Pre Age 59 ½ Penalty";
+    //           document.getElementById("capitalGainTax2").checked = true;
+    //           document.querySelector(
+    //             ".preAfeCapitalSwtch2"
+    //           ).style.pointerEvents = "none";
+    //         } else {
+    //           document
+    //             .getElementById("noVehicleTyupeSelectPadd")
+    //             .classList.remove("noVehicleTyupeSelectPadd");
+    //           document
+    //             .getElementById("taxableArea2")
+    //             .classList.remove("vehicleaTypeArea");
+    //           document
+    //             .getElementById("capitalGainTaxInputs2")
+    //             .classList.remove("capitalDisplayNone");
+    //           document.querySelector(
+    //             ".preAfeCapitalSwtch2"
+    //           ).style.pointerEvents = "unset";
+    //         }
+    //         // show form div according to vehicle type
 
-            closeAllLists();
-          });
-          a.appendChild(b);
-        }
-      });
+    //         closeAllLists();
+    //       });
+    //       a.appendChild(b);
+    //     }
+    //   });
 
-      inps.addEventListener("input", function (e) {
-        var a,
-          b,
-          i,
-          val = this.value;
-        closeAllLists();
-        if (!val) {
-          return false;
-        }
-        currentFocus = -1;
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete2-list");
-        a.setAttribute("class", "autocomplete2-items");
-        this.parentNode.appendChild(a);
-        for (i = 0; i < arrsa.length; i++) {
-          if (
-            arrsa[i].substr(0, val.length).toUpperCase() == val.toUpperCase() ||
-            arrsa[i].toUpperCase().includes(val.toUpperCase())
-          ) {
-            b = document.createElement("DIV");
-            b.innerHTML = arrsa[i].substr(0, val.length);
-            b.innerHTML += arrsa[i].substr(val.length);
-            b.innerHTML += "<input type='hidden' value='" + arrsa[i] + "'>";
-            b.addEventListener("click", function (e) {
-              inps.value = this.getElementsByTagName("input")[0].value;
+    //   inps.addEventListener("input", function (e) {
+    //     var a,
+    //       b,
+    //       i,
+    //       val = this.value;
+    //     closeAllLists();
+    //     if (!val) {
+    //       return false;
+    //     }
+    //     currentFocus = -1;
+    //     a = document.createElement("DIV");
+    //     a.setAttribute("id", this.id + "autocomplete2-list");
+    //     a.setAttribute("class", "autocomplete2-items");
+    //     this.parentNode.appendChild(a);
+    //     for (i = 0; i < arrsa.length; i++) {
+    //       if (
+    //         arrsa[i].substr(0, val.length).toUpperCase() == val.toUpperCase() ||
+    //         arrsa[i].toUpperCase().includes(val.toUpperCase())
+    //       ) {
+    //         b = document.createElement("DIV");
+    //         b.innerHTML = arrsa[i].substr(0, val.length);
+    //         b.innerHTML += arrsa[i].substr(val.length);
+    //         b.innerHTML += "<input type='hidden' value='" + arrsa[i] + "'>";
+    //         b.addEventListener("click", function (e) {
+    //           inps.value = this.getElementsByTagName("input")[0].value;
 
-              closeAllLists();
-            });
-            a.appendChild(b);
-          }
-        }
-      });
+    //           closeAllLists();
+    //         });
+    //         a.appendChild(b);
+    //       }
+    //     }
+    //   });
 
-      /* Execute a function presses a key on the keyboard: */
-      inps.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete2-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-          currentFocus++;
-          addActive(x);
-        } else if (e.keyCode == 38) {
-          currentFocus--;
-          addActive(x);
-        } else if (e.keyCode == 13) {
-          e.preventDefault();
-          if (currentFocus > -1) {
-            if (x) x[currentFocus].click();
-          }
-        }
-      });
+    //   /* Execute a function presses a key on the keyboard: */
+    //   inps.addEventListener("keydown", function (e) {
+    //     var x = document.getElementById(this.id + "autocomplete2-list");
+    //     if (x) x = x.getElementsByTagName("div");
+    //     if (e.keyCode == 40) {
+    //       currentFocus++;
+    //       addActive(x);
+    //     } else if (e.keyCode == 38) {
+    //       currentFocus--;
+    //       addActive(x);
+    //     } else if (e.keyCode == 13) {
+    //       e.preventDefault();
+    //       if (currentFocus > -1) {
+    //         if (x) x[currentFocus].click();
+    //       }
+    //     }
+    //   });
 
-      function addActive(x) {
-        if (!x) return false;
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = x.length - 1;
-        x[currentFocus].classList.add("autocomplete-active");
-      }
+    //   function addActive(x) {
+    //     if (!x) return false;
+    //     removeActive(x);
+    //     if (currentFocus >= x.length) currentFocus = 0;
+    //     if (currentFocus < 0) currentFocus = x.length - 1;
+    //     x[currentFocus].classList.add("autocomplete-active");
+    //   }
 
-      function removeActive(x) {
-        for (var i = 0; i < x.length; i++) {
-          x[i].classList.remove("autocomplete-active");
-        }
-      }
+    //   function removeActive(x) {
+    //     for (var i = 0; i < x.length; i++) {
+    //       x[i].classList.remove("autocomplete-active");
+    //     }
+    //   }
 
-      function closeAllLists(elmnt) {
-        var x = document.getElementsByClassName("autocomplete2-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inps) {
-            x[i].parentNode.removeChild(x[i]);
-          }
-        }
-      }
-      document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-      });
-    }
+    //   function closeAllLists(elmnt) {
+    //     var x = document.getElementsByClassName("autocomplete2-items");
+    //     for (var i = 0; i < x.length; i++) {
+    //       if (elmnt != x[i] && elmnt != inps) {
+    //         x[i].parentNode.removeChild(x[i]);
+    //       }
+    //     }
+    //   }
+    //   document.addEventListener("click", function (e) {
+    //     closeAllLists(e.target);
+    //   });
+    // }
 
     // autocomplete1(
     //   document.getElementById("comparativeVehicleType2"),
