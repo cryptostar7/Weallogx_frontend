@@ -43,7 +43,7 @@ export default {
     },
     setInputData: function (value) {
       this.selectText = value;
-      this.$emit('setVehicleType', value);
+      this.$emit('onSelectItem', value);
     },
     closeDropdown: function (e=null) {
       if (e) {
