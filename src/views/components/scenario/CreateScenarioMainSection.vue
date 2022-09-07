@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
+import { putPercentage, putYears } from '../../../services/put-percentage';
 import SelectDropdown from "../common/SelectDropdown.vue";
 </script>
 <template>
@@ -115,8 +116,9 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       <input
                         type="text"
                         id="illustratedAge"
-                        value=""
+                        v-model="illustrateYear"
                         class="form-control year-input"
+                        @keyup="setYears"
                       />
                       <span class="year-span">years</span>
                     </div>
@@ -255,6 +257,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="firstTaxRate"
                             class="form-control percent-input"
+                            v-model="firstTaxRate"
                             required
                           />
                           <span class="percent-span">%</span>
@@ -268,8 +271,8 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           <input
                             type="text"
                             id="secondTaxRate"
-                            class="form-control percent-input"
-                            required
+                            :class="`form-control ${firstTaxRate ? '':'percent-input'}`"
+                            :disabled="firstTaxRate ? false : true"
                           />
                           <span class="percent-span">%</span>
                         </div>
@@ -322,9 +325,9 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td><br /></td>
-                            <td><br /></td>
+                          <tr v-for="index in Number(illustrateYear)" :key="index">
+                            <td><div class="fs-15">{{index}}</div></td>
+                            <td><div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span class="percent-span">%</span></div></td>
                           </tr>
                         </tbody>
                       </table>
@@ -334,6 +337,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             class="form-check-input"
                             type="checkbox"
                             role="switch"
+                            v-model="saveTemplate"
                             id="scheduleTemplateCheckbox"
                           />
                           <label
@@ -346,7 +350,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         <div
                           class="form-group pt-2"
                           id="templateNameDiv"
-                          style="display: none"
+                          :style="{'display': saveTemplate ? '' : 'none'}"
                         >
                           <label for="templateName" class="fs-12 medium-fw"
                             >Template Name</label
@@ -409,91 +413,26 @@ export default {
         "Schedule 4",
         "Schedule 5",
       ],
+      saveTemplate:false,
+      illustrateYear:'',
+      firstTaxRate:'',
     };
   },
+  methods:{
+    setYears: function (e){
+      // return false;
+      // this.illustrateYear = putLabel(e.target.value, 'Year');
+    },
+    checkStatus: function(){
+       console.log(this.illustrateYear); 
+    }
+  },
+  updated(){
+    putPercentage();
+  },
   mounted() {
-    const templateNameDiv = document.getElementById("templateNameDiv");
-    const scheduleTemplateCheckbox = document.getElementById(
-      "scheduleTemplateCheckbox"
-    );
-
-    scheduleTemplateCheckbox.addEventListener("click", function (e) {
-      if (e.target.checked) {
-        templateNameDiv.style.display = "block";
-      } else {
-        templateNameDiv.style.display = "none";
-      }
-    });
-    
-    // Percentage Inputs
-    const percentInputs = document.querySelectorAll(".percent-input");
-
-    percentInputs.forEach(function (percentInput) {
-      percentInput.addEventListener("input", function (e) {
-        let parentDiv = e.target.closest(".percent-input-div");
-        let len = e.target.value.length;
-        if (len > 3) {
-          actualValue = e.target.value.slice(0, len - 1);
-          e.target.value = actualValue;
-          alert("Please enter valid percentage value.");
-          return false;
-        }
-        if (len == 0) {
-          e.target.value = "";
-          parentDiv.classList.remove("hide-percent");
-        } else {
-          e.target.value = `${e.target.value}%`;
-          let valuewithPercent = `${e.target.value.split("%").join("")}%`;
-          e.target.value = valuewithPercent;
-          parentDiv.classList.add("hide-percent");
-        }
-      });
-
-      percentInput.addEventListener("keydown", function (e) {
-        let parentDiv = e.target.closest(".percent-input-div");
-        if (e.keyCode == 8) {
-          let len = e.target.value.length;
-          valueAfterDelete = e.target.value.slice(0, len - 2);
-          let valuewithPercent = `${valueAfterDelete}%`;
-          e.target.value = valuewithPercent;
-
-          if (len <= 2) {
-            e.target.value = "";
-            parentDiv.classList.remove("hide-percent");
-          } else {
-            parentDiv.classList.add("hide-percent");
-          }
-        }
-      });
-    });
-
-    // Year Input
-    // Percentage Inputs
-    const yearInputs = document.querySelectorAll(".year-input");
-
-    yearInputs.forEach(function (yearInput) {
-      yearInput.addEventListener("focus", function (e) {
-        let yearValue = e.target.value.replace("years", "").trim();
-        let parentDiv = e.target.closest(".year-input-div");
-        parentDiv.classList.remove("hide-year");
-        e.target.value = yearValue;
-        console.log(yearValue);
-        e.target.type = "number";
-      });
-
-      yearInput.addEventListener("focusout", function (e) {
-        e.target.type = "text";
-        let parentDiv = e.target.closest(".year-input-div");
-        let len = e.target.value.trim().length;
-        if (len == 0) {
-          e.target.value = "";
-          parentDiv.classList.remove("hide-year");
-        } else {
-          e.target.value = `${e.target.value} years`;
-          parentDiv.classList.add("hide-year");
-        }
-      });
-    });
+    putPercentage();
+    putYears();
   },
 };
 </script>

@@ -1704,7 +1704,7 @@ import { RouterLink } from "vue-router";
                                                 class="form-control percent-input" required><span
                                                 class="percent-span">%</span></div>
                                           </td>
-                                        </tr>
+                                        </tr>            
                                         <tr>
                                           <td data-label="Year">4</td>
                                           <td data-label="Rate" class="innerTableInputTd">

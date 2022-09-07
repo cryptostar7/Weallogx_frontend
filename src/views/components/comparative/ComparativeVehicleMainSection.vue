@@ -67,7 +67,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                     class="nav nav-tabs comparative-vehicle-tabs"
                     role="tablist"
                   >
-                    <li class="nav-item" role="presentation" @click="setVehicleTab(1)">
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                      @click="setVehicleTab(1)"
+                    >
                       <button
                         :class="`nav-link ${
                           tab !== 1 && tabs.vehicle1 ? 'activeOnly' : 'active'
@@ -97,7 +101,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         </div>
                       </button>
                     </li>
-                    <li class="nav-item" role="presentation" @click="setVehicleTab(2)">
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                      @click="setVehicleTab(2)"
+                    >
                       <button
                         :class="`nav-link ${
                           tab !== 2 && tabs.vehicle2 ? 'activeOnly' : ''
@@ -127,7 +135,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         </div>
                       </button>
                     </li>
-                    <li class="nav-item" role="presentation" @click="setVehicleTab(3)">
+                    <li
+                      class="nav-item"
+                      role="presentation"
+                      @click="setVehicleTab(3)"
+                    >
                       <button
                         :class="`nav-link ${
                           tab !== 3 && tabs.vehicle3 ? 'activeOnly' : ''
@@ -189,7 +201,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           id="comparativeVehicleType"
                           @onSelectItem="historyIndex1"
                         />
-
                         <span class="or-text-span">or</span>
                         <h4 class="form-subheading fs-14 fw-bold">
                           Create From Scratch
@@ -938,6 +949,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
   </section>
 </template>
 <script>
+import {putPercentage} from "../../../services/put-percentage.js";
 export default {
   components: { RouterLink, SelectDropdown },
   data() {
@@ -983,15 +995,17 @@ export default {
       },
     };
   },
-
+  mounted() {
+  putPercentage();
+  },
   methods: {
     setVehicleTab: function (val) {
       this.vehicle.tab = Number(val);
-      if(val === '2'){
-      this.tabs.vehicle3 = true;
+      if (val === "2") {
+        this.tabs.vehicle3 = true;
       }
-      if(val === '3'){
-      this.tabs.vehicle2 = true;
+      if (val === "3") {
+        this.tabs.vehicle2 = true;
       }
     },
     setActiveTab1: function () {
