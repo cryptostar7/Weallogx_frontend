@@ -101,6 +101,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       class="form-check-input"
                       type="checkbox"
                       role="switch"
+                      v-model="saveinsuranseTemplate"
                       id="scheduleTemplateCheckbox"
                     />
                     <label
@@ -113,7 +114,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                   <div
                     class="form-group pt-2"
                     id="templateNameDiv"
-                    style="display: none"
+                    :style="{'display': saveinsuranseTemplate ? '' : 'none'}"
                   >
                     <label for="templateName" class="fs-12 medium-fw"
                       >Template Name</label
@@ -1036,6 +1037,7 @@ export default {
   components: { RouterLink, SelectDropdown },
   data() {
     return {
+      saveinsuranseTemplate:false,
       existingInsuranceList: [
         "Vehicle One",
         "Vehicle Two",
@@ -1057,19 +1059,6 @@ export default {
     };
   },
   mounted() {
-    const templateNameDiv = document.getElementById("templateNameDiv");
-    const scheduleTemplateCheckbox = document.getElementById(
-      "scheduleTemplateCheckbox"
-    );
-
-    scheduleTemplateCheckbox.addEventListener("click", function (e) {
-      if (e.target.checked) {
-        templateNameDiv.style.display = "block";
-      } else {
-        templateNameDiv.style.display = "none";
-      }
-    });
-
     // Uploading file
     let uploadingInput = document.getElementById("uploading");
     let fileName = document.getElementById("fileName");

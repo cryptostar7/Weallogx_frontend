@@ -7,13 +7,13 @@ import AddClientModal from "../components/modal/AddClientModal.vue";
 import ShareModal from "../components/modal/ShareModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 import EditClientCanvasModal from "../components/modal/EditClientCanvasModal.vue";
-import MainSection from '../components/homepage/MainSection.vue';
-import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
+import MainSection from "../components/homepage/MainSection.vue";
+import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
 </script>
 
 <template>
   <navbar-component />
-  
+
   <main-section />
 
   <!-- Delete Client Modal -->
@@ -38,12 +38,24 @@ import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
   <edit-client-canvas-modal />
 
   <!-- Clone Scenario Modal start -->
-<clone-scenario-modal />
+  <clone-scenario-modal />
 </template>
 
 <script>
 export default {
-  components: { NavbarComponent, DeleteReportModal, AddClientModal, ReportBuilderNameChangeModal, EditClientCanvasModal, ShareModal, DeleteScenarioModal, DeleteClientModal, MainSection, CloneScenarioModal },
+  components: {
+    NavbarComponent,
+    DeleteReportModal,
+    AddClientModal,
+    ReportBuilderNameChangeModal,
+    EditClientCanvasModal,
+    ShareModal,
+    DeleteScenarioModal,
+    DeleteClientModal,
+    MainSection,
+    CloneScenarioModal,
+  },
+ 
   mounted() {
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");

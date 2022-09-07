@@ -325,6 +325,10 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           </tr>
                         </thead>
                         <tbody>
+                          <tr v-if="!Number(illustrateYear)">
+                            <td><br /></td>
+                            <td><br /></td>
+                          </tr>
                           <tr v-for="index in Number(illustrateYear)" :key="index">
                             <td><div class="fs-15">{{index}}</div></td>
                             <td><div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span class="percent-span">%</span></div></td>
@@ -417,15 +421,6 @@ export default {
       illustrateYear:'',
       firstTaxRate:'',
     };
-  },
-  methods:{
-    setYears: function (e){
-      // return false;
-      // this.illustrateYear = putLabel(e.target.value, 'Year');
-    },
-    checkStatus: function(){
-       console.log(this.illustrateYear); 
-    }
   },
   updated(){
     putPercentage();
