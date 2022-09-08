@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="collapse" id="innerReportCollapse1">
+    <div class="collapse" :id="collapseId">
         <div class="inner-report-div border-top">
             <h4 class="green-clr fs-16 bold-fw darkmodecls">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,9 +16,6 @@
                 &nbsp;Reports
             </h4>
             <ScenarioReportRow :senarioReports="senarioReports" />
-            <div class="text-center">
-                <button role="button" class="btn d-inline-block view-btn">+ View More</button>
-            </div>
         </div>
     </div>
 </template>
@@ -26,14 +23,16 @@
 import ScenarioReportRow from "../homepage/ScenarioReportRow.vue"
 export default {
     components:{ScenarioReportRow},
-    props: ['senarioReports'],
+    props: ['senarioReports', 'collapseCustomId'],
     data(){
        return {
         senarioReportItems:[],
+        collapseId:'',
         }
     },
     mounted(){
-        this.senarioReportItems = this.$props.senarioReports
+        this.senarioReportItems = this.$props.senarioReports;
+        this.collapseId = this.$props.collapseCustomId;
     }
 };
 </script>
