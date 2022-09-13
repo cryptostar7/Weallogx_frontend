@@ -2,7 +2,7 @@
     <div class="section-heading-div d-flex justify-content-between gap-20 flex-wrap flex-lg-nowrap align-items-center">
         <h2 class="fs-40 bold-fw main-tab-heading me-2">Choose Client</h2>
         <div class="search-bar-div flex-1">
-        <input type="text" class="form-control search-bar-input" placeholder="Search">
+        <input type="text" class="form-control search-bar-input" @keyup="(e) => $emit('updateList', e.target.value)"  placeholder="Search">
         <span class="search-icon-span"><img src="@/assets/images/icons/search.svg" aria-checked="img-fluid"
             alt="Search"></span>
         </div>
@@ -23,6 +23,7 @@
                 <span>Report</span></router-link></li>
         </ul>
         </div>
+        
         <div class="sort-dropdown-div d-flex align-items-center">
         <label class="bold-fw me-2">Sort</label>
         <div class="dropdown sort-dropdown">
@@ -32,17 +33,18 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="sortingBtn">
             <li><a class="dropdown-item semi-bold-fw active" data-sort="ascending"
-                href="javascript:void(0)">Last Name (A-Z)</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="javascript:void(0)">Last Name (Z-A)</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="javascript:void(0)">Last Edited</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="javascript:void(0)">First Edited</a></li>
+                href="javascript:void(0)" @click="$emit('sortAsc')">Last Name (A-Z)</a></li>
+            <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="javascript:void(0)" @click="$emit('sortDesc')">Last Name (Z-A)</a></li>
+            <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="javascript:void(0)" @click="$emit('oldModified')">Last Edited</a></li>
+            <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="javascript:void(0)" @click="$emit('newModified')">First Edited</a></li>
             </ul>
         </div>
         </div>
     </div>
 </template>
 <script>
-export default {};
+export default {
+};
 </script>
 <style lang="">
 </style>

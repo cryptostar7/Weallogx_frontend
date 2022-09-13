@@ -7,14 +7,14 @@ import AddClientModal from "../components/modal/AddClientModal.vue";
 import ShareModal from "../components/modal/ShareModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 import EditClientCanvasModal from "../components/modal/EditClientCanvasModal.vue";
-import MainSection from "../components/homepage/MainSection.vue";
+import HomepageMainSection from "../components/homepage/HomepageMainSection.vue";
 import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
 </script>
 
 <template>
   <navbar-component />
 
-  <main-section />
+  <homepage-main-section />
 
   <!-- Delete Client Modal -->
   <delete-client-modal />
@@ -52,7 +52,7 @@ export default {
     ShareModal,
     DeleteScenarioModal,
     DeleteClientModal,
-    MainSection,
+    HomepageMainSection,
     CloneScenarioModal,
   },
  

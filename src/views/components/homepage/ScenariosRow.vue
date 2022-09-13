@@ -19,7 +19,6 @@
                         </svg>&nbsp;
                         {{item.created_at}}
                     </label>
-
                     <div class="round-btns">
                         <router-link to="/create-new-scenario" class="btn round-btn">
                             <span>Edit</span>
@@ -124,7 +123,7 @@
                             </svg>
                         </button>
                     </div>
-                    <a href="report-builder.html" class="btn scenario-add-report-btn">+ Add Report</a>
+                    <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
             <SenarioReports :senarioReports="item.reports" :collapseCustomId="`innerReportCollapse${index}`"/>

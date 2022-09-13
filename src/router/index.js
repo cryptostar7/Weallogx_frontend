@@ -15,7 +15,7 @@ const router = createRouter({
       component: () => import("../views/pages/DemoView.vue"),
     },
     {
-      path: "/individual-client",
+      path: "/individual-client/:id",
       name: "individual client",
       component: () => import("../views/pages/IndividualClientPage.vue"),
     },

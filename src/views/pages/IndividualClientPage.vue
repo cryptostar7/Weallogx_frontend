@@ -1,6 +1,6 @@
 <script setup>
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import MainSection from "../components/individual-client/MainSection.vue";
+import IndividualMainSection from "../components/individual-client/IndividualMainSection.vue";
 import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import EditClientCanvasModal from '../components/modal/EditClientCanvasModal.vue';
@@ -9,7 +9,7 @@ import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
 </script>
 <template>
   <navbar-component />
-  <main-section />
+  <individual-main-section />
   <!-- Delete Client Modal -->
   <delete-client-modal />      
   <!-- Delete Scenario Modal -->
@@ -23,7 +23,7 @@ import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
 </template>
 <script>
 export default {
-  components: { EditClientCanvasModal, DeleteReportModal, DeleteScenarioModal, DeleteClientModal, NavbarComponent, MainSection, CloneScenarioModal },
+  components: { EditClientCanvasModal, DeleteReportModal, DeleteScenarioModal, DeleteClientModal, NavbarComponent, IndividualMainSection, CloneScenarioModal },
   mounted() {
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");

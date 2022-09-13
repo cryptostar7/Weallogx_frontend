@@ -75,7 +75,7 @@ import { RouterLink } from "vue-router";
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <div class="form-group less pt-3">
+                                <!-- <div class="form-group less pt-3">
                                   <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
                                     <label for="existingComparativeVehiclePortfolio" class="fs-14 bold-fw">Use Existing
                                       Index Strategy</label>
@@ -94,10 +94,16 @@ import { RouterLink } from "vue-router";
                                           d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
                                           fill="black" />
                                       </svg>
-
                                     </span>
                                   </div>
-                                </div>
+                                </div> -->
+
+                                  <SelectDropdown
+                                    :list="dropdown.historyIndex"
+                                    label="Use Existing Index Strategy"
+                                    id="existingComparativeVehiclePortfolio"
+                                    class="form-group less pt-3"
+                                  />
                               </form>
                             </div>
                           </div>
@@ -3681,8 +3687,22 @@ import { RouterLink } from "vue-router";
   </section>
 </template>
 <script>
+
+import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { RouterLink },
+  components: { RouterLink, SelectDropdown },
+  data(){
+    return {
+      dropdown:{
+        historyIndex : [
+          "S&P 500",
+          "Blended Index",
+          "Bloomberg US Dynamic Balance II ER",
+          "PIMCO Tactical Balanced ER",
+        ]
+      },
+    }
+  },
   methods: {
     radioBtnOnOff1: function () {
       var isCheked1 = document.getElementById(1);
@@ -4174,7 +4194,7 @@ export default {
     });
 
 
-    autocomplete2(document.getElementById("historyIndex"), historyIndex);
+    // autocomplete2(document.getElementById("historyIndex"), historyIndex);
 
     // index vehicle list 2
     const historyIndex2 = [

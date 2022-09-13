@@ -1,9 +1,9 @@
 <template lang="">
-    <li v-for="(item, index) in clientList" :key="index" class="nav-item p-0 p-0" id="parentCollapse1">
+    <li v-for="(item, index) in filteredList" :key="index" class="nav-item p-0 p-0" id="parentCollapse1">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
-                <span class="name-initial-circle">All</span>
-                <router-link to="/individual-client" class="nav-link px-0">
+                <span class="name-initial-circle">{{sortName(item.name)}}</span>
+                <router-link :to="`/individual-client/${index}`" class="nav-link px-0">
                 <span class="name-span">{{ item.name }}</span>
                     <svg width="9" height="12" viewBox="0 0 9 12" fill="none" class="ms-1"
                         xmlns="http://www.w3.org/2000/svg">
@@ -90,8 +90,10 @@
 import ScenariosRow from "../homepage/ScenariosRow.vue";
 import config from "../../../services/config.js";
 import ReportRow from "../homepage/ReportRow.vue";
+import getSortName from "../../../services/sort_name.js";
+
 export default {
-  props: ["clients"],
+  props: ["clients", "search"],
   components: { ScenariosRow, ReportRow },
   data() {
     return {
@@ -104,9 +106,17 @@ export default {
     this.clientList = this.$props.clients;
   },
   methods: {
-    viewMore: function () {
-      this.senarioLimits = this.senarioLimits + config.SCENARIO_VIEW_MORE;
-      this.reportLimit = this.reportLimit + config.SCENARIO_VIEW_MORE;
+    sortName: function (name) {
+       return getSortName(name);
+    },
+  },
+  computed: {
+    filteredList() {
+      return this.clientList.filter((item) => {
+        return item.name
+          .toLowerCase()
+          .includes(this.$props.search.toLowerCase());
+      });
     },
   },
 };
