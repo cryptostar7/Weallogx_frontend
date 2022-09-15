@@ -1,8 +1,12 @@
 <template lang="">
-   <div :class="this.class ?? 'form-group'">
-        <label :label="this.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{this.label ?? ''}}</label>
+   <div :class="$props.class ?? 'form-group'">
+        <label v-if="$props.label && !$props.optional" :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
+        <div v-if="$props.label && $props.optional" class="d-flex justify-content-between align-items-center mt-4 mb-1">
+          <label :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
+          <label class="labelOptional">OPTIONAL</label>
+        </div>
         <div class="p-relative">
-        <input type="text" :id="this.id ?? 'customSelectDropdown'" v-model="selectText" @keyup="setSortList" @focus="handleDropdown" placeholder="Select or Start Typing"
+        <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="selectText" @keyup="setSortList" @focus="handleDropdown" placeholder="Select or Start Typing"
             class="form-control pe-5 autocomplete customSelectDropdown" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +28,7 @@
 import { selectAutocomplete } from "../../../../src/services/custom-select-dropdown.js";
 
 export default {
-  props: ["list", "label", "id", "class"],
+  props: ["list", "label", "id", "class", "optional"],
   data() {
     return {
       selectList: [],
@@ -58,7 +62,8 @@ export default {
     },
   },
   mounted() {
-    this.selectList = this.list;
+    console.log(this.$props.optional);
+    this.selectList = this.$props.list;
     document.addEventListener("click", this.closeDropdown);
   },
 };

@@ -13,12 +13,16 @@ export const putPercentage = () => {
             }
             if (len == 0) {
                 e.target.value = "";
-                parentDiv.classList.remove("hide-percent");
+                if (parentDiv) {
+                    parentDiv.classList.remove("hide-percent");
+                }
             } else {
                 e.target.value = `${e.target.value}%`;
                 let valuewithPercent = `${e.target.value.split("%").join("")}%`;
                 e.target.value = valuewithPercent;
-                parentDiv.classList.add("hide-percent");
+                if (parentDiv) {
+                    parentDiv.classList.add("hide-percent");
+                }
             }
         });
 
@@ -31,9 +35,13 @@ export const putPercentage = () => {
                 e.target.value = valuewithPercent;
                 if (len <= 2) {
                     e.target.value = "";
-                    parentDiv.classList.remove("hide-percent");
+                    if (parentDiv) {
+                        parentDiv.classList.remove("hide-percent");
+                    }
                 } else {
-                    parentDiv.classList.add("hide-percent");
+                    if (parentDiv) {
+                        parentDiv.classList.add("hide-percent");
+                    }
                 }
             }
         });
@@ -41,29 +49,29 @@ export const putPercentage = () => {
     return true;
 }
 export const putYears = () => {
-       const yearInputs = document.querySelectorAll(".year-input");
+    const yearInputs = document.querySelectorAll(".year-input");
     yearInputs.forEach(function (yearInput) {
-      yearInput.addEventListener("focus", function(e){
-        let yearValue = e.target.value.replace("years", "").trim();
-        let parentDiv = e.target.closest(".year-input-div");
-        parentDiv.classList.remove("hide-year");
-        e.target.value = yearValue;
-        e.target.type = 'number';
-      });
+        yearInput.addEventListener("focus", function (e) {
+            let yearValue = e.target.value.replace("years", "").trim();
+            let parentDiv = e.target.closest(".year-input-div");
+            parentDiv.classList.remove("hide-year");
+            e.target.value = yearValue;
+            e.target.type = 'number';
+        });
 
-      yearInput.addEventListener("focusout", function (e) {
-        e.target.type = 'text';
-        let parentDiv = e.target.closest(".year-input-div");
-        let yearValue = e.target.value.replace("years", "").trim();
-        let len = e.target.value.trim().length;
-        if (len == 0) {
-          e.target.value = "";
-          parentDiv.classList.remove("hide-year");
-        } else {
-          e.target.value = `${e.target.value} years`;
-          parentDiv.classList.add("hide-year");
-        }
-      });
+        yearInput.addEventListener("focusout", function (e) {
+            e.target.type = 'text';
+            let parentDiv = e.target.closest(".year-input-div");
+            let yearValue = e.target.value.replace("years", "").trim();
+            let len = e.target.value.trim().length;
+            if (len == 0) {
+                e.target.value = "";
+                parentDiv.classList.remove("hide-year");
+            } else {
+                e.target.value = `${e.target.value} years`;
+                parentDiv.classList.add("hide-year");
+            }
+        });
     });
 }
 export const getNumber = (_str) => {
