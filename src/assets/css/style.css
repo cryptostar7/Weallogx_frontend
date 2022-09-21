@@ -2804,12 +2804,7 @@ color: #fff;
   position: relative;
   top: 2px;
 }
-.commonAllDivs {
-  display: none;
-}
-#commonAllDivs1 {
-  display: block;
-}
+
 .historicalYesDivCommon {
   background: #FFFFFF;
   border: 1.25px solid #DFDFDF;

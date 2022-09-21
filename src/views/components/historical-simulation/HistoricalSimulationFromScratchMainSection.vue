@@ -34,33 +34,30 @@
                     <p class="numberIndexStrtegiesPara">Number of Index Strategies</p>
                     <div class="d-flex justify-content-center">
                       <div class="multiRadioBtnMainDiv">
-                        <label for="1" class="eachRadioBtnBgDiv active" id="historicalTopCheckBoxDiv1">
+                        <label for="tab1" :class="`eachRadioBtnBgDiv ${activeTab === 1 && 'active'}`" id="historicalTopCheckBoxDiv1">
                           <div class="form-check form-switch custom-switch radioClassDarkMode ms-2">
-                            <input class="form-check-input" type="checkbox" role="switch" id="1" checked
-                              @change="radioBtnOnOff1()">
+                            <input class="form-check-input" @change="setActiveTab(1)" type="checkbox" role="switch" id="tab1" checked >
                           </div>
                           <p class="historicalRadioNumberPara">1</p>
                         </label>
                         <!--  -->
-                        <label for="2" class="eachRadioBtnBgDiv" id="historicalTopCheckBoxDiv2">
+                        <label for="tab2" :class="`eachRadioBtnBgDiv ${activeTab === 2 && 'active'}`" id="historicalTopCheckBoxDiv2">
                           <div class="form-check form-switch custom-switch radioClassDarkMode ms-2">
-                            <input class="form-check-input" type="checkbox" role="switch" id="2"
-                              @change="radioBtnOnOff2()">
+                            <input class="form-check-input" type="checkbox" @change="setActiveTab(2)" role="switch" id="tab2" >
                           </div>
                           <p class="historicalRadioNumberPara">2</p>
                         </label>
                         <!--  -->
-                        <label class="eachRadioBtnBgDiv" for="3" id="historicalTopCheckBoxDiv3">
+                        <label :class="`eachRadioBtnBgDiv ${activeTab === 3 && 'active'}`" for="tab3" id="historicalTopCheckBoxDiv3">
                           <div class="form-check form-switch custom-switch radioClassDarkMode ms-2">
-                            <input class="form-check-input" type="checkbox" role="switch" id="3"
-                              @change="radioBtnOnOff3() ">
+                            <input class="form-check-input" type="checkbox" @change="setActiveTab(3)" role="switch" id="tab3">
                           </div>
                           <p class="historicalRadioNumberPara">3</p>
                         </label>
                       </div>
                     </div>
                     <!-- tab 1 start -->
-                    <div class="commonAllDivs" id="commonAllDivs1">
+                    <div :class="`commonAllDivs ${activeTab !== 1 && 'd-none'}`" >
                       <div class="historicalYesDivCommon mt-4">
                         <p class="indexStrategyPara">Index Strategy #1</p>
                         <div class="indexStrategyBorder">
@@ -89,25 +86,25 @@
                       </div>
                     </div>
                     <!-- tab 1 end -->
-                    <div class="commonAllDivs" id="commonAllDivs2">
+                    <div :class="`commonAllDivs ${activeTab !== 2 && 'd-none'}`">
                       <p class="strategyWeightPara">Strategy Weight</p>
                       <div class="d-flex align-items-center flex-column justify-content-center ">
                         <div class="strategyWeight mid d-flex">
-                          <div id="strategyMidWeight1" class="mainResizeDiv position-relative">#1
+                          <div id="strategyMidWeight1" :style="{width: range1.midRange1.replace('%', '')+'%'}" class="mainResizeDiv position-relative">#1
                             <div class="resizing-right-div resizing-right-div-1"><img
                                 src="@/assets/images/icons/tinny-arrow-left.svg" alt="">&nbsp;&nbsp;<img
                                 src="@/assets/images/icons/tinny-arrow-right.svg" alt="Chevron"></div>
                           </div>
-                          <div id="strategyMidWeight2" class="position-relative mainResizeDiv">#2
+                          <div id="strategyMidWeight2" :style="{width: range1.midRange2.replace('%', '')+'%'}" class="position-relative mainResizeDiv">#2
                           </div>
-                          <input type="range" min="1" max="100" value="50" id="midRange" class="strategy-range-input">
+                          <input ref="midRangeInput" v-model="range1.midRange" type="range" min="1" max="100" id="midRange" class="strategy-range-input">
                         </div>
                         <div class="mid-sw-inputs d-flex align-items-center justify-content-between w-100 w-max-427 mt-3">
                           <div id="swInputDivMid1" class="sw-input-div d-flex justify-content-center">
-                            <input id="swInputMid1" type="text" class="form-control range-input" value="50%">
+                            <input ref="swInputMid1" v-model="range1.midRange1" type="text" class="form-control range-input" >
                           </div>
                           <div id="swInputDivMid2" class="sw-input-div d-flex justify-content-center">
-                            <input id="swInputMid2" type="text" class="form-control range-input" value="50%">
+                            <input ref="swInputMid2" v-model="range1.midRange2" type="text" class="form-control range-input">
                           </div>
                         </div>
                       </div>
@@ -115,7 +112,7 @@
 
                       <div class="historicalYesDivCommon margin-top-3">
                         <p class="indexStrategyPara">Index Strategy #2</p>
-                        <div class="indexStrategyBorder">
+                        <div class="indexStrategyBorder">           
                           <p></p>
                         </div>
                         <div class="container mb-4">
@@ -125,7 +122,7 @@
                                 <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
                                   <label for="allocation">Choose Existing Index Strategy Allocation</label>
                                   <label class="labelOptional">OPTIONAL</label>
-                                </div>
+                                </div>                   
                                 <div class="p-relative form-group">
                                   <input type="text" id="existingComparativeVehiclePortfolioTab2"
                                     placeholder="Select or Start Typing" class="form-control pe-5 autocomplete">
@@ -139,7 +136,6 @@
                                         d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
                                         fill="black" />
                                     </svg>
-
                                   </span>
                                 </div>
                               </form>
@@ -174,7 +170,7 @@
                     </div>
 
                     <!-- tab 2 end -->
-                    <div class="commonAllDivs" id="commonAllDivs3">
+                    <div :class="`commonAllDivs ${activeTab !== 3 && 'd-none'}`">
                       <p class="strategyWeightPara">Strategy Weight</p>
                       <div class="d-flex align-items-center flex-column justify-content-center ">
                         <div class="strategyWeight d-flex">
@@ -189,8 +185,7 @@
                                 src="@/assets/images/icons/tinny-arrow-right.svg" alt="Chevron"></div>
                             <!-- <p class="mainResizeparaPer2">33.33%</p> -->
                           </div>
-                          <div id="strategyWeight3" class="mainResizeDiv position-relative">#3
-                          </div>
+                          <div id="strategyWeight3" class="mainResizeDiv position-relative">#3</div>
                           <input type="range" min="1" max="100" value="50" id="exampleRange1"
                             class="strategy-range-input strategy-range-input-1">
                           <input type="range" min="1" max="100" value="50" id="exampleRange2"
@@ -317,6 +312,18 @@ export default {
   components: { RouterLink, SelectDropdown, GrowthParameters, AnalysisParameters, EnhancementsComponent, FeesComponent, SaveStrategyTemplate },
   data(){
     return {
+      activeTab:1,
+      range1:{
+        midRange:50,
+        midRange1:'50.00%',
+        midRange2:'50.00%',
+      },      
+       range2:{
+        midRange:50,
+        midRange1:'33.33%',
+        midRange2:'33.33%',
+        midRange3:'33.33%',
+      },      
       dropdown: {
         historyIndex : [
           "S&P 500",
@@ -341,10 +348,68 @@ export default {
   },
   mounted() {
     putPercentage();
+
+    // straight weight range 1
+    this.$refs.midRangeInput.addEventListener('input', (e) => {
+      this.range1.midRange1 = Number(e.target.value).toFixed(2)+'%';
+      this.range1.midRange2 = (100 - Number(e.target.value)).toFixed(2)+'%';
+    })  
+
+    this.$refs.swInputMid1.addEventListener('focus', (e) => {
+      this.range1.midRange1 = e.target.value.replace('%', '');
+    })
+
+    this.$refs.swInputMid1.addEventListener('blur', (e) => {
+      if(e.target.value){
+        this.range1.midRange1 = Number(e.target.value.replace('%', '')).toFixed(2)+'%';
+      }else{
+        this.range1.midRange1 = '0%';
+      }
+    })
+
+    this.$refs.swInputMid1.addEventListener('input', (e) => {
+      var text = e.target.value.replace('%', '');
+      var value = Number(text);
+      var str = Number(text).toString();
+      if (Number(value) > 99) {
+        this.range1.midRange1 =  (str.slice(0, str.length - 1)).toString();
+      }else{
+        this.range1.midRange2 = (100 - value).toFixed(2).toString()+'%';
+      }
+    })
+
+    this.$refs.swInputMid2.addEventListener('focus', (e) => {
+      this.range1.midRange2 = e.target.value.replace('%', '');
+    })
+
+    this.$refs.swInputMid2.addEventListener('blur', (e) => {
+      if(e.target.value){
+        this.range1.midRange2 = Number(e.target.value.replace('%', '')).toFixed(2)+'%';
+      }else{
+        this.range1.midRange2 = '0%';
+      }
+    })
+
+    this.$refs.swInputMid2.addEventListener('input', (e) => {
+      var text = e.target.value.replace('%', '');
+      var value = Number(text);
+      var str = Number(text).toString();
+      if (Number(value) > 99) {
+        this.range1.midRange2 =  (str.slice(0, str.length - 1)).toString();
+      }else{
+        this.range1.midRange1 = (100 - value).toFixed(2).toString()+'%';
+      }
+    })
   },
   updated(){
     putPercentage();
   },
+  methods:{
+    setActiveTab:function(tab){
+      console.log(tab);
+      this.activeTab = tab;
+    }
+  }
 };
 </script>
 <style lang="">
