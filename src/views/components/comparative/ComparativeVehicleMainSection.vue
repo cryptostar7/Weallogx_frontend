@@ -387,7 +387,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="vehicleTemplateName"
                             class="form-control"
-                            value="MF 6.5% ret 1.5% fee no cap gains"
+                            value=""
                           />
                         </div>
                       </div>
@@ -613,7 +613,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="vehicleTemplateName"
                             class="form-control"
-                            value="MF 6.5% ret 1.5% fee no cap gains"
+                            value=""
                           />
                         </div>
                       </div>
@@ -839,7 +839,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="vehicleTemplateName"
                             class="form-control"
-                            value="MF 6.5% ret 1.5% fee no cap gains"
+                            value=""
                           />
                         </div>
                       </div>

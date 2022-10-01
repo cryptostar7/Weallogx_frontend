@@ -21,10 +21,10 @@
 <div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent "
     data-bs-parent="#accordionFlushExample">
     <form action="javascript:void(0)">
-    <div class=" mb-1">
+      <div class="formParabrdrLavelDiv mb-1">
         <p>index</p>
         <p></p>
-    </div>
+      </div>
     <SelectDropdown
         :list="dropdown.historyIndex2"
         id="historyIndexLabel2"
@@ -132,7 +132,7 @@ export default {
     updateRollingPeriod: function (val) {
       this.rollingPeriod1.value = val;
       this.customRollingPeriod1 = "";
-      this.$refs.input.value = '';
+      this.$refs.input.value = "";
       if (val === this.dropdown.historyIndex[0]) {
         this.rollingPeriod1.time = 50;
       }

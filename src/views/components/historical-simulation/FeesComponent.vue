@@ -28,7 +28,7 @@
         <div
             class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 1 ? `${item === MaxPremiumCharge ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" name="premiumChargetab1" class="d-none" :checked="!customPremiumCharge && !index ? true : false">
+            <input type="radio" name="premiumChargetab1" class="d-none" :checked="!index ? true : false">
             <span class="fixedStartYear">{{item}}%</span>
             </label>
         </div>
@@ -98,7 +98,7 @@
             <div
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                 <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 1 ? `${item === MaxPerformanceMultiplierFee ? 'ms-1':'mx-1'}`:''">
-                <input type="radio" name="perfMultiplier1" class="d-none" :checked="index < 1 ? true : false">
+                <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="index === 1 ? true : false" :dataTest="index === 0 ? true : false"  class="d-none" />
                 <span class="fixedStartYear">{{item}}%</span>
                 </label>
             </div>
@@ -217,7 +217,7 @@
 </template>
 <script>
 export default {
-    
+    props:['currentTab'],
     data() {
         return {
             MaxPremiumCharge:8,

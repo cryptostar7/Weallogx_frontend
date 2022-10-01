@@ -104,7 +104,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                     <input
                       type="text"
                       id="clientAge"
-                      value="68 years old"
+                      value=""
                       class="form-control"
                     />
                   </div>
@@ -285,8 +285,9 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           name=""
                           id="secondTaxRateYear"
                           class="form-select form-control"
-                          disabled
+                          :disabled="firstTaxRate ? false : true"
                         >
+                          <option value=""></option>
                           <option value="">1</option>
                           <option value="">2</option>
                           <option value="">3</option>
@@ -363,7 +364,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="templateName"
                             class="form-control"
-                            value="28 year descending schedule"
+                            value=""
                           />
                         </div>
                       </div>

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     setSortList: function (e=null) {
-      this.selectList = selectAutocomplete(e.target.value, this.list);
+      this.selectList = selectAutocomplete(e.target.value, this.$props.list);
     },
     handleDropdown: function () {
       this.dropdown = true;
