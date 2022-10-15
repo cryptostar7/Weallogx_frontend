@@ -176,7 +176,7 @@
                         <analysis-parameters />
                         <growth-parameters />
                         <enhancements-component />
-                        <fees-component :currentTab="activeTab" />
+                        <fees-component :currentTab="1" />
                         <save-strategy-template />
                       </div>
                     </div>
@@ -211,7 +211,7 @@
                         <analysis-parameters />
                         <growth-parameters />
                         <enhancements-component />
-                        <fees-component :currentTab="activeTab" />
+                        <fees-component :currentTab="2" />
                         <save-strategy-template />
                       </div>
                       <div class="d-flex justify-content-center mt-4 mx-4">
@@ -281,7 +281,7 @@
                         <analysis-parameters />
                         <growth-parameters />
                         <enhancements-component />
-                        <fees-component :currentTab="activeTab"/>
+                        <fees-component :currentTab="3"/>
                         <save-strategy-template />
                       </div>
 

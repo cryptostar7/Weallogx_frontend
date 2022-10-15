@@ -28,7 +28,7 @@
         <div
             class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 1 ? `${item === MaxPremiumCharge ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" name="premiumChargetab1" class="d-none" :checked="!index ? true : false">
+            <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && !index ? true : false">
             <span class="fixedStartYear">{{item}}%</span>
             </label>
         </div>
@@ -44,9 +44,9 @@
         </div>
         <div class="d-flex align-items-center mt-2">
         <div class="form-check form-switch custom-switch ms-2">
-            <input class="form-check-input" type="checkbox" role="switch" id="premiuscharge1">
+            <input class="form-check-input" type="checkbox" role="switch" :id="`premiuscharge${currentTab}`">
         </div>
-        <label for="premiuscharge1" class="buttonSaveRadioPara">Same in All Years</label>
+        <label :for="`premiuscharge${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
         </div>
         <div class="formParabrdrLavelDiv mt-4">
         <p>Loan Interest Rate</p>
@@ -56,7 +56,7 @@
         <div
             class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxLoanInterest" :key="index" :class="index > 1 ? `${item === MaxLoanInterest ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" name="loanInterest1" class="d-none" :checked="index < 1 ? true : false">
+            <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && !index ? true : false">
             <span class="fixedStartYear">{{item}}%</span>
             </label>
         </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
             <label for="customAmount">Custom Amount</label>
-            <input type="text" class="bonus-input">
+            <input type="text" v-model="customInterestAmount" class="bonus-input">
             </div>
         </div>
         </div>
@@ -98,7 +98,7 @@
             <div
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                 <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 1 ? `${item === MaxPerformanceMultiplierFee ? 'ms-1':'mx-1'}`:''">
-                <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="index === 1 ? true : false" :dataTest="index === 0 ? true : false"  class="d-none" />
+                <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && !index ? true : false" class="d-none" />
                 <span class="fixedStartYear">{{item}}%</span>
                 </label>
             </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" class="bonus-input">
+                <input type="text" class="bonus-input" v-model="customPerformanceFeeAmount">
                 </div>
             </div>
             </div>
@@ -125,17 +125,9 @@
             <div class="d-flex justify-content-between align-items-center parent-radio-div">
             <div
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                <label>
-                <input type="radio" name="flatCredit1" class="d-none" checked>
-                <span class="fixedStartYear">1%</span>
-                </label>
-                <label class="mx-1">
-                <input type="radio" name="flatCredit1" class="d-none">
-                <span class="fixedStartYear">2%</span>
-                </label>
-                <label>
-                <input type="radio" name="flatCredit1" class="d-none">
-                <span class="fixedStartYear">3%</span>
+                <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'mx-1':''">
+                <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && !index ? true : false">
+                <span class="fixedStartYear">{{item}}%</span>
                 </label>
             </div>
             <div class="d-flex align-items-center">
@@ -144,7 +136,7 @@
                 </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" class="bonus-input">
+                <input type="text" class="bonus-input" v-model="customFlatAmount">
                 </div>
             </div>
             </div>
@@ -183,18 +175,12 @@
             <div class="d-flex justify-content-between align-items-center parent-radio-div">
             <div
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                <label class="w-100">
-                <input type="radio" name="highCapFee" class="d-none">
-                <span class="fixedStartYear w-100">1%</span>
+                <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'w-100' : 'w-100 mx-2'">
+                <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && !index ? true : false">
+                <span class="fixedStartYear w-100">{{item}}%</span>
                 </label>
-                <label class="w-100 mx-2">
-                <input type="radio" name="highCapFee" class="d-none" checked>
-                <span class="fixedStartYear w-100">2%</span>
-                </label>
-                <label class="w-100">
-                <input type="radio" name="highCapFee" class="d-none">
-                <span class="fixedStartYear w-100">3%</span>
-                </label>
+               
+
             </div>
             <div class="d-flex align-items-center">
                 <div class="or-div">
@@ -202,7 +188,7 @@
                 </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" class="bonus-input">
+                <input type="text" class="bonus-input" v-model="customHipCapAmount">
                 </div>
             </div>
             </div>
@@ -225,6 +211,10 @@ export default {
             MaxPerformanceMultiplierFee:8,
             sameInAllYearTax:true,
             customPremiumCharge:'',
+            customInterestAmount:'',
+            customPerformanceFeeAmount:'',
+            customFlatAmount:'',
+            customHipCapAmount:'',
         }
     },
 }

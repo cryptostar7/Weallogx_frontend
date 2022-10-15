@@ -50,7 +50,6 @@ import { RouterLink } from "vue-router";
                     </p>
                   </div>
                 </router-link>
-
                 <router-link to="/historical-simulations-after-no">
                   <div class="historical-yesNo-mainDiv ms-4">
                     <div class="historical-no-div">
