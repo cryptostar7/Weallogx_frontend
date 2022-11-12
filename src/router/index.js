@@ -15,6 +15,16 @@ const router = createRouter({
       component: () => import("../views/pages/DemoView.vue"),
     },
     {
+      path: "/demo1",
+      name: "demo1",
+      component: () => import("../views/pages/DemoView1.vue"),
+    },
+    {
+      path: "/demo",
+      name: "demo",
+      component: () => import("../views/pages/DemoView.vue"),
+    },
+    {
       path: "/individual-client/:id",
       name: "individual client",
       component: () => import("../views/pages/IndividualClientPage.vue"),
@@ -63,7 +73,8 @@ const router = createRouter({
       path: "/report-builder",
       name: "report builder",
       component: () => import("../views/pages/ReportBuilderPage.vue"),
-    },    
+    }, 
+
   ],
 });
 

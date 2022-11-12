@@ -32,13 +32,13 @@
           <div class="right-area-wrapper">
             <client-detail-component />
             <div class="tab-wrapper-1" v-if="sidebar.currentTab === 'comparative'">
-              <draggable class="dragArea list-group w-full" :list="list" @change="log">
-              <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :status="component.active"/>
+              <draggable class="dragArea list-group w-full" :list="list.comparative" @change="log">
+              <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" />
              </draggable>
             </div>
             <div class="tab-wrapper-2" v-if="sidebar.currentTab === 'historical'">
-              <draggable class="dragArea list-group w-full" :list="list" @change="log">
-                <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id"/>
+              <draggable class="dragArea list-group w-full" :list="list.historical" @change="log">
+                <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
                </draggable>
             </div>
           </div>
@@ -68,34 +68,12 @@ export default {
     return {
       enabled: true,
       dragging: false,
-      list: {
-        comparative: [
-          { id: 1, name: "Comparative Table", active: true },
-          { id: 2, name: "Comparative Graph", active: true },
-          { id: 3, name: "Making Things Equal", active: true },
-          { id: 4, name: "Comulative Values", active: true },
-          { id: 5, name: "Lagacy", active: true },
-          { id: 6, name: "Fee Analysis", active: true },
-        ],
-        historical: [
-          { id: 1, name: "Comparative Table", active: true },
-          { id: 2, name: "Income Analysis", active: true },
-          { id: 3, name: "IRR Analysis", active: true },
-          { id: 4, name: "Total Values", active: true },
-          { id: 5, name: "Cumulative Values", active: true },
-          { id: 6, name: "Comparative Values", active: true },
-        ],
-      },
+      list: this.$store.state.data.reportTabs,
       sidebar: {
         collapse: false,
         currentTab: "comparative",
       },
     };
-  },
-  methods: {
-    log(event) {
-      console.log(event);
-    },
   },
 };
 </script>

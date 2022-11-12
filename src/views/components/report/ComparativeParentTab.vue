@@ -1,10 +1,10 @@
 <template lang="">
-    <comparative-tab-comparative-table  v-if="tabID === 1" :status="status"/>
-    <comparative-tab-comparative-graph  v-if="tabID === 2"/>
-    <comparative-tab-making-things-equal  v-if="tabID === 3"/>
-    <comparative-tab-comulative-values  v-if="tabID === 4"/>
-    <comparative-tab-legacy  v-if="tabID === 5"/>
-    <comparative-tab-fee-analysis  v-if="tabID === 6"/>
+    <comparative-tab-comparative-table  v-if="tabID === 1" :keyId="keyId"/>
+    <comparative-tab-comparative-graph  v-if="tabID === 2" :keyId="keyId"/>
+    <comparative-tab-making-things-equal  v-if="tabID === 3" :keyId="keyId"/>
+    <comparative-tab-comulative-values  v-if="tabID === 4" :keyId="keyId"/>
+    <comparative-tab-legacy  v-if="tabID === 5" :keyId="keyId"/>
+    <comparative-tab-fee-analysis  v-if="tabID === 6" :keyId="keyId"/>
 </template>
 <script>
 import ComparativeTabComparativeTable from "./comparative-components/ComparativeTabComparativeTable.vue";
@@ -15,7 +15,7 @@ import ComparativeTabLegacy from "./comparative-components/ComparativeTabLegacy.
 import ComparativeTabFeeAnalysis from "./comparative-components/ComparativeTabFeeAnalysis.vue";
 
 export default {
-  props: ["tabID", 'status'],
+  props: ["tabID", 'keyId'],
   components: {
     ComparativeTabComparativeTable,
     ComparativeTabComparativeGraph,

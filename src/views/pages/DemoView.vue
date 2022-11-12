@@ -1,8 +1,6 @@
 <template lang="">
   <div>
-    <div class="" style="width:200px; border:2px solid black">
-      <span draggable="true" ref="ref1" class="btn">drag</span>
-    </div>
+    
   </div>
 </template>
 <script>

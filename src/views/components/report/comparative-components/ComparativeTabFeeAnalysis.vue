@@ -1,15 +1,15 @@
 <template lang="">
     <div class="empty" data-class="empty-wrapper" data-empty="5">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="6">
-        <div class="report-client-list-div tab-id-6" id="feeAnalysisTabView">
-        <div class="ComparativeTableMainDiv active rightDivTop6">
+        <div :class="`report-client-list-div tab-id-6 ${activeTabs[keyId] ? '':'presentdeActive'}`" id="feeAnalysisTabView">
+        <div :class="`ComparativeTableMainDiv rightDivTop6 ${activeTabs[keyId] ? 'active':''}`">
             <div class="d-flex justify-content-between px-3 py-2 bb-grey">
             <div class="d-flex align-items-center">
                 <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                    <input id="rightCheckBox6" type="checkbox" checked
+                    <input id="rightCheckBox6" type="checkbox" :checked="activeTabs[keyId]"
                     class="checkbox2 commonRadioBtn1 rightCheckBox6" rightCheckAttr="6"
-                    onchange="rightCheckbox(this,event)" />
+                     @change="() => $store.dispatch('toggleReportTabByID', keyId)"/>
                     <div class="knobs2"></div>
                     <div class="layer2"></div>
                 </div>
@@ -23,7 +23,7 @@
                 </svg>
             </div>
             </div>
-            <div class="collapseDivMain collapseDiv6">
+            <div class="collapseDivMain collapseDiv6"  :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <hr class="collapseDivHr">
             <div class="px-3 pt-3 pb-2">
                 <div class="d-flex justify-content-center">
@@ -807,7 +807,14 @@
     </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["keyId"],
+  data() {
+    return {
+      activeTabs: this.$store.state.data.reportTabs.active,
+    };
+  },
+};
 </script>
 <style lang="">
 </style>
