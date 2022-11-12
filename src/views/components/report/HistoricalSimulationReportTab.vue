@@ -1,8 +1,8 @@
 <template lang="">
-  <section class="main-section widthClass mainsectionjs2 lftComulativeHistoricalTab2 sectionCommonJs2">
+  <section :class="`main-section widthClass mainsectionjs2 lftComulativeHistoricalTab2 sectionCommonJs2 ${sidebar.collapse ? 'active':''}`" :style="{display:sidebar.currentTab === 'historical' ? 'block':'none'}">
     <div class="inner-section reportbuilderRightInner">
       <div class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg">
-        <button class="sidebar-arrow" onclick="sideBarCollapse(this,event)" sideColapseAttr="2"><svg
+        <button class="sidebar-arrow" sideColapseAttr="2" @click="() => sidebar.collapse = !sidebar.collapse" :style="{transform:sidebar.collapse ?'rotate(180deg)':'rotate(360deg)'}"><svg
             class="sidebarArrowImgJs2" width="7" height="11" viewBox="0 0 7 11" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <rect x="0.25" y="5.45312" width="7" height="1.5" rx="0.75" transform="rotate(-45 0.25 5.45312)"
@@ -11,11 +11,11 @@
               fill="#23669E" />
           </svg>
         </button>
-        <div class="position-sticky h-100 sidebar-inner sidebarInnerJs2 px-0 py-0 position-relative">
+        <div class="position-sticky h-100 sidebar-inner sidebarInnerJs2 px-0 py-0 position-relative" :style="{display: sidebar.collapse ? 'none' : 'block'}">
           <div class="reportBuilderLft1 px-10 py-4 ">
             <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
-              <button class="btn reportSwtchLeft" onclick="leftTabSwitch2()">Comparative Analysis</button>
+              <button class="btn reportSwtchLeft" @click="() => sidebar.currentTab = 'comparative'">Comparative Analysis</button>
               <button class="btn reportSwtchLeft active">Historical Simulations</button>
             </div>
           </div>
@@ -6376,7 +6376,7 @@
 </template>
 <script>
 export default {
-    
+  props: ["sidebar"]
 }
 </script>
 <style lang="">

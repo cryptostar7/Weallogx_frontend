@@ -23,7 +23,7 @@ export default {
     return{ 
       sidebar:{
         collapse:false,
-        currentTab:false,
+        currentTab:'comparative',
       }
     }
   },

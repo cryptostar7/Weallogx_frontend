@@ -1,5 +1,5 @@
 <template lang="">
-  <section :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${sidebar.collapse ? 'active':''}`">
+  <section :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${sidebar.collapse ? 'active':''}`" :style="{display:sidebar.currentTab === 'comparative' ? 'block':'none'}" >
     <div class="inner-section reportbuilderRightInner">
       <div class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg">
         <button class="sidebar-arrow" @click="() => sidebar.collapse = !sidebar.collapse" sideColapseAttr="1" :style="{transform:sidebar.collapse ?'rotate(180deg)':'rotate(360deg)'}"><svg
@@ -15,9 +15,9 @@
           <div class="reportBuilderLft1 px-10 py-4">
             <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
-              <button class="btn reportSwtchLeft ">Comparative
+              <button class="btn reportSwtchLeft active">Comparative
                 Analysis</button>
-              <button class="btn reportSwtchLeft active" onclick="leftTabSwitch1()">Historical
+              <button class="btn reportSwtchLeft" @click="() => sidebar.currentTab = 'historical'">Historical
                 Simulations</button>
             </div>
           </div>
