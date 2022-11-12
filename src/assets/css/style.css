@@ -2804,7 +2804,12 @@ color: #fff;
   position: relative;
   top: 2px;
 }
-
+.commonAllDivs {
+  display: none;
+}
+#commonAllDivs1 {
+  display: block;
+}
 .historicalYesDivCommon {
   background: #FFFFFF;
   border: 1.25px solid #DFDFDF;
@@ -3189,7 +3194,7 @@ input[type=number] {
 #range1 {
   -webkit-appearance: none;
   width: 100%;
-  /* background: transparent; */
+  background: transparent;
 }
 #range1:focus {
   outline: none;
@@ -4540,14 +4545,18 @@ input[type=number] {
   font-size: 11px;
   color: #9D9D9D;
 }
-
+#flat-credit-fee-radio-table {
+  display: none;
+}
 #flat-credit-fee-radio-table2 {
   display: none;
 }
 #flat-credit-fee-radio-table3 {
   display: none;
 }
-
+.saveZIndexTempContent {
+  display: none;
+}
 .saveZIndexTempContent label {
   font-weight: 600;
   font-size: 12px;
@@ -4870,6 +4879,14 @@ input[type=number] {
   display: none;
 }
 /* End of Create New Scenario - Comparative Vehicle*/
+#enhancements1Content,
+#enhancements2Content,
+#enhancements3Content,
+#enhancements4Content,
+#enhancements5Content,
+#enhancements6Content {
+  display: none;
+}
 .customInputWidth input {
   width: 95px;
 }
@@ -4885,4 +4902,18 @@ input[type=number] {
   height: 2px;
   top: 75%;
   background-color: #0E6651;
+}
+
+
+
+
+
+/* Chart Related CSS */
+.graph-container-div{
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #DFDFDF;
+  border-radius: 12px;
+  padding: 30px 28px 8px;
+  width: 100%;
 }

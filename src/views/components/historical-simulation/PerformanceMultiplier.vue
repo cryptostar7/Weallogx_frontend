@@ -2,16 +2,16 @@
     <div class="enhancementsContent pb-5">
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                <div class="active" id="nav-fixedValue-tab" data-bs-toggle="tab" data-bs-target="#nav-fixedValue"
-                    role="tab" aria-controls="nav-fixedValue" aria-selected="true">Fixed Value</div>
-                <div class="" id="nav-schedule-tab" data-bs-toggle="tab" data-bs-target="#nav-schedule" role="tab"
-                    aria-controls="nav-schedule" aria-selected="false">Schedule</div>
+                <div class="active" :id="`nav-fixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-fixedValue${currentTab}`"
+                    role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true">Fixed Value</div>
+                <div class="" id="nav-schedule-tab" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab"
+                    :aria-controls="`nav-schedule${currentTab}`" aria-selected="false">Schedule</div>
 
             </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-fixedValue" role="tabpanel"
-                aria-labelledby="nav-fixedValue-tab">
+            <div class="tab-pane fade show active" :id="`nav-fixedValue${currentTab}`" role="tabpanel"
+                :aria-labelledby="`nav-fixedValue-tab${currentTab}`">
                 <form action="javascript:void(0)">
 
                     <div class="multiplierInputDiv form-group mt-3">
@@ -41,7 +41,7 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
+            <div class="tab-pane fade" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
                 <div class="d-flex justify-content-center w-100">
                     <div class="schduleTableDiv mt-5 ">
                         <table class="table">
@@ -68,6 +68,7 @@
 </template>
 <script>
 export default {
+  props: ["currentTab"],
   data() {
     return {
       maxYear: 5,

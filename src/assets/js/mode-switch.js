@@ -36,5 +36,46 @@ modeBtns.forEach(function(btn){
         }else{
             radio.checked = true;
         }
-    })
+
+        if(mode == "light-blue" || mode == "dark-blue"){
+            console.log("Yes");
+            comparativeValuesData.datasets[0].borderColor = "#1660A4";
+            comparativeValuesData.datasets[1].borderColor = "#0E6651";
+            comparativeValues2Data.datasets[0].borderColor = "#1660A4";
+            comparativeValues2Data.datasets[1].borderColor = "#0E6651";
+            totalValueData.datasets[0].borderColor = "#1660A4";
+            totalValueData.datasets[1].borderColor = "#0E6651";
+            annualFeesData.datasets[0].borderColor = "#1660A4";
+            annualFeesData.datasets[1].borderColor = "#0E6651";
+            cumulativeFeesData.datasets[0].borderColor = "#1660A4";
+            cumulativeFeesData.datasets[0].backgroundColor = "rgba(22, 96, 164, .3)";
+            cumulativeFeesData.datasets[1].borderColor = "#0E6651";
+            cumulativeFeesData.datasets[1].backgroundColor = "rgba(14, 102, 81, .5)";
+            comparativeValuesChart.update();
+            comparativeValues2Chart.update();
+            totalValueChart.update();
+            annualFeesChart.update();
+            cumulativeFeesChart.update();
+          }else if(mode == "light-green" || mode == "dark-green"){
+            console.log("No");
+            comparativeValuesData.datasets[0].borderColor = "#0E6651";
+            comparativeValuesData.datasets[1].borderColor = "#1660A4";
+            comparativeValues2Data.datasets[0].borderColor = "#0E6651";
+            comparativeValues2Data.datasets[1].borderColor = "#1660A4";
+            totalValueData.datasets[0].borderColor = "#0E6651";
+            totalValueData.datasets[1].borderColor = "#1660A4";
+            annualFeesData.datasets[0].borderColor = "#0E6651";
+            annualFeesData.datasets[1].borderColor = "#1660A4";
+            cumulativeFeesData.datasets[0].borderColor = "#0E6651";
+            cumulativeFeesData.datasets[0].backgroundColor = "rgba(14, 102, 81, .5)";
+            cumulativeFeesData.datasets[1].borderColor = "#1660A4";
+            cumulativeFeesData.datasets[1].backgroundColor = "rgba(22, 96, 164, .3)";
+             comparativeValuesChart.update();
+            comparativeValues2Chart.update();
+            totalValueChart.update();
+            annualFeesChart.update();
+            cumulativeFeesChart.update();
+          }
+    });
 });
+

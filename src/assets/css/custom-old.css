@@ -287,12 +287,10 @@ body::-webkit-scrollbar {
   background: #FFFFFF;
   color: var(--green-clr);
 }
-.offcanBtnDiv .SaveAddBtnDsbl {
+.offcanBtnDiv .btnDisabled {
   background: #EDEDED;
-  ;
   border: 1.5px solid #EDEDED;
-  color:
-    #A0A0A0;
+  color:#A0A0A0;
   pointer-events: none;
   cursor: default;
   opacity: .6;
@@ -315,6 +313,14 @@ body::-webkit-scrollbar {
   pointer-events: none;
   cursor: default;
   opacity: .6;
+}
+.SaveclsBtn.btnDisabled {
+  background: #FFFFFF;
+  border: 1.5px solid #A0A0A0;
+  color: #A0A0A0;
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
 }
 /* Review summary start */
 /*reviewProgress*/
@@ -519,6 +525,9 @@ body::-webkit-scrollbar {
     font-size: 15px;
     font-weight: bold;
     text-align: left;
+  }
+  .reportSideBar{
+    left:unset;
   }
 }
 /* responsive end*/
@@ -1747,13 +1756,15 @@ body::-webkit-scrollbar {
   background: #FFFFFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 12px 12px 90px 12px;
+  padding: 32px 12px 90px 12px;
   width: 100%;
 }
 .mainProgBrdrPara {
   font-weight: 500;
   font-size: 11px;
   margin: 0;
+  width: 50px;
+  text-align: right;
 }
 .mainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
@@ -1764,9 +1775,9 @@ body::-webkit-scrollbar {
 .progressBarEachDiv {
   position: relative;
   width: 66px;
-  height: 193px;
+  height: 242px;
   background: #E9E9E9;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px;
   display: flex;
   align-items: flex-end;
   margin-left: 5px;
@@ -1787,7 +1798,7 @@ body::-webkit-scrollbar {
   justify-content: space-between;
 }
 .mainProgBrdrDivs {
-  margin-bottom: 9px;
+  margin-bottom: 16px;
 }
 .progressBarbtmNum {
   background: #25967B;
@@ -1845,7 +1856,6 @@ body::-webkit-scrollbar {
 @media (max-width:1500px) {
   .progressBarEachDiv {
     width: 50px;
-    height: 193px;
   }
   .progressBarbtmNum {
     font-size: 8px !important;
@@ -2094,7 +2104,7 @@ body::-webkit-scrollbar {
   background: #FFFFFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 26px 12px 39px 12px;
+  padding: 32px 12px 39px 12px;
   width: 100%;
 }
 .CompProgressAbsltCls {
@@ -2107,13 +2117,15 @@ body::-webkit-scrollbar {
   justify-content: space-between;
 }
 .comulativeProgBrdrDivs {
-  margin-bottom: 9px;
+  margin-bottom: 16px;
 }
 .comulativeProgBrdrPara {
   font-weight: 500;
   font-size: 11px;
   margin: 0;
   white-space: nowrap;
+  width: 50px;
+  text-align: right;
 }
 .comulativeProgBrdr {
   border-bottom: 1px solid #E9E9E9;
@@ -2123,9 +2135,10 @@ body::-webkit-scrollbar {
 }
 .cumulativeValuesProgrees {
   width: 146px;
-  height: 265px;
+  height: 320px;
   background-image: url('../images/icons/progreess-bar-design.svg');
-  background-repeat: repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
   display: flex;
   align-items: flex-end;
@@ -2411,6 +2424,14 @@ Blank div css end here
   font-weight: var(--semi-bold-fw);
 }
 /* Theme selector css end here */
+.dragBtn{
+  cursor:all-scroll;
+}
+.empty .fill , .empty {
+  background: transparent!important;
+  border-radius: 20px;
+  padding: 0;
+}
 .AdtnlCmprtVhclBtn {
   padding: 0.75rem 2rem;
   background: #FFF;
@@ -2442,4 +2463,23 @@ Blank div css end here
 }
 .w-max-427 {
   max-width: 427px;
+}
+
+.distributionProg * {
+  background: #E9E9E9 !important;
+  color: #E9E9E9;
+}
+.disableAllProgress * {
+  background: #E9E9E9 !important;
+  color: #E9E9E9;
+}
+.boxProgress *,
+.boxProgress {
+  background: #E9E9E9 !important;
+  color: #E9E9E9;
+}
+.cumulativeProg .cumulativeprogreeDivcommon *,
+.cumulativeProg .cumulativeprogreeDivcommon,
+.cumulativeProg .shortFallCount p {
+  display: none;
 }

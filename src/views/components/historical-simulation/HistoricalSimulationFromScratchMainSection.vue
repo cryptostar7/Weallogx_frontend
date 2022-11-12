@@ -173,9 +173,9 @@
                             </div>
                           </div>
                         </div>
-                        <analysis-parameters />
+                        <analysis-parameters :currentTab="1" />
                         <growth-parameters />
-                        <enhancements-component />
+                        <enhancements-component :currentTab="1"/>
                         <fees-component :currentTab="1" />
                         <save-strategy-template />
                       </div>
@@ -208,9 +208,9 @@
                             </div>
                           </div>
                         </div>
-                        <analysis-parameters />
+                        <analysis-parameters :currentTab="2" />
                         <growth-parameters />
-                        <enhancements-component />
+                        <enhancements-component :currentTab="2"/>
                         <fees-component :currentTab="2" />
                         <save-strategy-template />
                       </div>
@@ -278,9 +278,9 @@
                             </div>
                           </div>
                         </div>
-                        <analysis-parameters />
+                        <analysis-parameters  :currentTab="3" />
                         <growth-parameters />
-                        <enhancements-component />
+                        <enhancements-component :currentTab="3"/>
                         <fees-component :currentTab="3"/>
                         <save-strategy-template />
                       </div>

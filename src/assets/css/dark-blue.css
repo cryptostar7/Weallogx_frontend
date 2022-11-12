@@ -2,6 +2,15 @@
   --blue-clr: #004885;
   --blue-clr-2: #23669E;
 }
+.dark-blue .navbar-brand .logo-blue{
+  display: none;
+}
+.dark-blue .navbar-brand .logo-green{
+  display: none;
+}
+.dark-blue .navbar-brand .logo-dark{
+  display: block;
+}
 /* history simulation dark mose css start here */
 .dark-blue #reviewProgress li.active,
 .dark-blue #reviewProgress li.done,
@@ -27,7 +36,7 @@
 .dark-blue .drag-drop-heading::before {
   background-color: var(--blue-clr);
 }
-.dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.activeOnly .form-check-input{
+.dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.activeOnly .form-check-input {
   background-color: var(--blue-clr);
 }
 .dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active {
@@ -56,7 +65,7 @@
   background: var(--blue-clr);
 }
 .dark-blue .list-item .list-item-detail p::before {
-  background-color:#abd5f9;
+  background-color: #abd5f9;
 }
 .dark-blue .list-item-actions .scenario-add-report-btn {
   background-color: var(--blue-clr-2);
@@ -91,10 +100,10 @@
   background: #2E3135;
 }
 .dark-blue .form-subheading {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .form-group label {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .form-group .form-control {
   background: #34383D;
@@ -108,10 +117,10 @@
   background: #2E3135;
 }
 .dark-blue .tax-rate-tabs .nav-item button.nav-link {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .tax-rate-tabs .nav-item button.nav-link.active {
-  color: #ffffff;
+  color: #fff;
   background: #23669E;
 }
 .dark-blue .boxTickImage circle {
@@ -361,7 +370,7 @@
   border: 1.5px solid var(--blue-clr-2);
 }
 .dark-blue .AdtnlCmprtVhclBtn:hover {
-  color: #ffffff;
+  color: #fff;
   background: var(--blue-clr-2);
   border: 1.5px solid var(--blue-clr-2);
 }
@@ -406,7 +415,7 @@
 .dark-blue .autocomplete11-items div,
 .dark-blue .autocomplete12-items div {
   background-color: #34383D;
-  color: #ffffff;
+  color: #fff;
   border-left: 1.25px solid #34383D;
   border-right: 1.25px solid #34383D;
 }
@@ -470,20 +479,20 @@
   background-color: #2E3135 !important;
 }
 .dark-blue .simpleTaxRateImg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .scheduleTaxRateImg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .tax-rate-table thead tr th {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid #607586;
   border-bottom: none !important;
 }
 .dark-blue .tax-rate-table tbody tr td {
   background: transparent;
-  color: #ffffff;
+  color: #fff;
   border-right-color: #607586;
   border: 1px solid #607586;
   border-bottom-color: #607586;
@@ -494,38 +503,38 @@
   color: #6D6D6D;
 }
 .dark-blue .copyPaste rect {
-  stroke: #ffffff;
-  fill: #ffffff;
+  stroke: #fff;
+  fill: #fff;
 }
 .dark-blue .uploadFromFile rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .drag-drop-label {
   background: #2E3135;
 }
 .dark-blue .drag-drop-heading {
-  color: #ffffff;
+  color: #fff;
 }
 .drag-drop-label .uploadFileTxtPara {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 .dark-blue .chevron-span svg path {
-  fill: #ffffff;
+  fill: #fff;
 }
 .dark-blue .no-file-span {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .copy-paste-area {
   background: transparent;
 }
 .dark-blue .illustration-data-table-div {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .form-subheading::before {
   background-color: #ABD5F9;
 }
 .dark-blue .custom-switch .form-check-label {
-  color: #ffffff
+  color: #fff
 }
 .dark-blue .illustration-data-wrapper {
   background: #34383D;
@@ -537,15 +546,15 @@
 }
 .dark-blue .illustrative-data-table thead tr th {
   background: #313438;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid #353B46;
 }
 .dark-blue .caution-dropdown .dropdown-menu {
   background: #202124;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue #cautionDropdown {
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   color: #DA1159;
   background: transparent;
 }
@@ -570,7 +579,7 @@
   background: #202124;
 }
 .dark-blue .historicalTopPara1 {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .historical-yesNo-mainDiv {
   background: #2E3135;
@@ -583,11 +592,11 @@
 }
 .dark-blue .twoBtnSwtchMainDiv div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .twoBtnSwtchMainDiv div.active {
   background: #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .strategyAllocation form select {
   background: #34383D;
@@ -609,19 +618,19 @@
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .mainResizeparaPer1 {
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .mainResizeparaPer2 {
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .strategyErrorPara {
   color: #DA1159;
@@ -630,13 +639,13 @@
   background: #34383D;
 }
 .dark-blue .historicalYesNoTxt {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .historicalAllSetPara {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .afterYesMdlPara {
-  color: #ffffff
+  color: #fff
 }
 .dark-blue .twoBtnSwtchMainDiv {
   background: #2E3135;
@@ -645,7 +654,7 @@
   fill: #34383D;
 }
 .dark-blue .historicalYesNoTxt svg rect {
-  fill: #ffffff;
+  fill: #fff;
 }
 .dark-blue .form-back-btn:hover {
   background: #2E3135;
@@ -666,7 +675,7 @@
 }
 .dark-blue .main-form-heading {
   border-bottom: 1.25px solid #353B46;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .main-tab-heading::before {
   background-color: #ABD5F9;
@@ -676,7 +685,7 @@
   border: 1px solid #353B46;
 }
 .dark-blue .historical-paraCheckBox {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .custom-switch .form-check-input {
   background-color: #515151;
@@ -693,7 +702,7 @@
   box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
 }
 .dark-blue .numberIndexStrtegiesPara {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .multiRadioBtnMainDiv {
   background: #2E3135;
@@ -703,15 +712,15 @@
   ;
 }
 .dark-blue .historicalRadioNumberPara {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .radioClassDarkMode .form-check-input:checked,
 .dark-blue .radioClassDarkMode .form-check-input:checked {
-  background-color: #ffffff !important;
+  background-color: #fff !important;
 }
 .dark-blue .radioClassDarkMode .form-check-input:checked,
 .dark-blue .radioClassDarkMode .form-check-input:checked:focus {
-  background-color: #ffffff;
+  background-color: #fff;
   background-image: url("../images/icons/blue-radio.svg");
 }
 .dark-blue .radioClassDarkMode .form-check-input {
@@ -731,7 +740,7 @@
   color: #6D6D6D !important;
 }
 .dark-blue .indexStrategyheadBrdr p {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .indexStrategyheadBrdr div {
   background: #A1A1A1;
@@ -749,7 +758,7 @@
   background: #23669E;
 }
 .dark-blue .indexStrategyallDivs svg rect {
-  fill: #FFFFFF;
+  fill: #FFF;
 }
 .dark-blue .indexStrategyallDivs.accordion-button::after {
   content: "";
@@ -763,7 +772,7 @@
   color: white;
 }
 .dark-blue .buttonSaveRadioPara {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .form-next-btn:disabled,
 .dark-blue .form-next-btn.disabled {
@@ -775,7 +784,7 @@
 }
 .dark-blue .skipHistoricalBtn {
   background: #242629;
-  border: 0.75px solid #FFFFFF;
+  border: 0.75px solid #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
 }
 .dark-blue .analysisParametersContent {
@@ -783,13 +792,13 @@
   border: 1px solid #353B46;
 }
 .dark-blue .formParabrdrLavelDiv p:first-child {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .formParabrdrLavelDiv p:last-child {
   background: #ABD5F9;
 }
 .dark-blue .timePeriodYear {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .ChooseTimePeriodInputs label.disabled {
   background: #34383D;
@@ -800,14 +809,13 @@
   border: 1px solid #515151;
 }
 .dark-blue .saveZIndexTempContent label {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .saveZIndexTempContent input {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #FFFFFF;
+  color: #FFF;
   font-weight: 400;
-  font-size: 15px;
 }
 .dark-blue .or-div {
   color: #6D6D6D;
@@ -819,7 +827,7 @@
 .dark-blue .customAmountInputDiv input {
   background: #34383D;
   border: 1px solid #515151;
-  color: #ffffff;
+  color: #fff;
   background-image: url('../images/icons/dark-mode-percent.svg');
   background-repeat: no-repeat;
   background-position: 88% 50%;
@@ -840,41 +848,40 @@
 }
 .dark-blue .info-message-analyze {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .dark-info-icon-img:hover~.info-message-segment {
   display: block !important;
 }
 .dark-blue .info-message-segment {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
-
 .dark-blue .dark-info-icon-img:hover~.info-message-participationRate {
   display: block !important;
 }
 .dark-blue .info-message-participationRate {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .IndexStrategyBtn {
   background: #2E3135;
 }
 .dark-blue .IndexStrategyBtn label {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue #tooltip1 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue #tooltip2 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue #tooltip3 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue #tooltip4 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .enhancementFixedSheduleBtn {
   background: #2E3135;
@@ -882,7 +889,7 @@
 }
 .dark-blue .enhancementFixedSheduleBtn div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .enhancementFixedSheduleBtn div.active {
   background: #23669E;
@@ -893,11 +900,11 @@
 .dark-blue .schduleTableDiv table {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .schduleTableDiv table th {
   background: #2E3135;
-  color: #FFFFFF;
+  color: #FFF;
   border: none;
 }
 .dark-blue .schduleTableDiv table td {
@@ -909,8 +916,7 @@
 .dark-blue .innerTableInputTd input {
   background: #34383D;
   border: 1px solid #515151;
-  color: #FFFFFF;
-  font-size: 15px;
+  color: #FFF;
   font-weight: 400;
 }
 .dark-blue .schduleTableDiv .table td {
@@ -919,22 +925,21 @@
 .dark-blue .amountInnerTableInputTd input {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #ffffff;
-  font-size: 15px;
+  color: #fff;
   font-weight: 400;
 }
 .dark-blue .amountInnerTableInputTd label:focus {
   color: rgb(177, 177, 177);
 }
 .dark-blue .multiplierInputDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .fixeValueYearRadio {
   background: #2E3135;
 }
 .dark-blue .fixedStartYear {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .multiplierInputDiv input {
   background: #34383D;
@@ -948,7 +953,7 @@
   background: #2E3135;
 }
 .dark-blue .loan-Intrest-para {
-  color: #ffffff;
+  color: #fff;
 }
 /* history simulation dark mose css end here */
 /* Index page dark mose css start here */
@@ -958,7 +963,7 @@
   border-bottom: 2px solid #353B46;
 }
 .dark-blue .main-section {
-  background: #202124;
+  background: #242629;
 }
 .dark-blue .sidebar {
   background: #202124;
@@ -994,22 +999,22 @@
 }
 .dark-blue .section-heading-div {
   background: #242629;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .search-bar-div input.form-control {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .search-bar-div input.form-control:focus {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .sort-dropdown-div .dropdown-toggle {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .sort-dropdown-div .dropdown-toggle::after {
   content: url("../images/icons/dark-chevrolet.svg") !important;
@@ -1039,13 +1044,13 @@
 }
 .dark-blue .client-list-ul .client-name .name-initial-circle {
   background: #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .client-name a {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 .dark-blue .client-list-ul .client-name .nav-link svg rect {
-  fill: #ffffff;
+  fill: #fff;
 }
 .dark-blue .client-list-ul .client-name:hover .nav-link svg {
   transform: translateX(-3px);
@@ -1054,7 +1059,7 @@
 .dark-blue .right-action-btn-div .right-action-btn.collapsed {
   background: #373737;
   border: none;
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .right-action-btn-div .right-action-btn.collapsed svg path {
   fill: white;
@@ -1066,7 +1071,7 @@
 .dark-blue .right-action-btn-div .right-action-btn {
   background: #656565;
   border: #656565;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .right-action-btn-div .right-action-btn:hover {
   background-color: #656565;
@@ -1093,7 +1098,7 @@
   border: 1.5px solid #353B46;
 }
 .dark-blue .list-item * {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .round-btn {
   background: #2E3135;
@@ -1103,21 +1108,21 @@
 .dark-blue .round-btn:hover {
   background: #23669E;
   border: 1px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .round-btn:hover {
   background: #23669E;
   border: 1px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .round-btn svg path {
   fill: #ABD5F9;
 }
 .dark-blue .round-btn:hover svg path {
-  fill: #ffffff;
+  fill: #fff;
 }
 .dark-blue .round-btn:hover svg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .round-btn svg rect {
   stroke: #ABD5F9;
@@ -1126,7 +1131,7 @@
   color: #ABD5F9;
 }
 .dark-blue .view-btn:hover {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .list-item-actions svg path {
   fill: #ABD5F9;
@@ -1150,7 +1155,7 @@
   fill: white;
 }
 .dark-blue .side-client-label .btn {
-  background: #ffffff;
+  background: #fff;
 }
 .dark-blue .main-cleint-name-div {
   background: #202124;
@@ -1164,29 +1169,29 @@
 .dark-blue .common-round-btn svg rect,
 .dark-blue .common-round-btn svg path {
   flex-shrink: 0;
-  fill: #FFFFFF
+  fill: #FFF
 }
 .dark-blue .common-round-btn:hover {
   border: 1px solid #23669E;
-  color: #ffffff;
+  color: #fff;
   background: #23669E;
   border: 1px solid #23669E;
 }
 .dark-blue .main-client-initials {
   background: #23669E;
   border: 1px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .main-client-heading {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .main-client-age-label {
   background: #373737;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .list-wrapper {
   background: #242629;
-  color: #ffffff;
+  color: #fff;
   border: 1.25px solid #353B46;
 }
 .dark-blue .clientAllListItem {
@@ -1204,14 +1209,13 @@
   fill: var(--blue-clr-2);
 }
 .dark-blue .dark-user-logo-icon ellipse {
-  fill: #ffffff;
+  fill: #fff;
 }
-
 .dark-blue .offcanvas-body {
   background: #2E3135;
 }
 .dark-blue .offcanInputDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .offcanInputDiv input {
   background: #34383D;
@@ -1226,10 +1230,10 @@
   border: 1.5px solid var(--blue-clr-2);
   border-radius: 8px;
   padding: 0.7rem 0;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .offcanBtnDiv .SaveAddBtn:hover {
-  background:transparent;
+  background: transparent;
   color: var(--blue-clr-2);
 }
 .dark-blue .SaveAddBtn.btnDisabled {
@@ -1241,7 +1245,7 @@
   opacity: 0.6;
 }
 .dark-blue .offcanBtnDiv .SaveclsBtn {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid var(--blue-clr-2);
   border-radius: 8px;
   padding: 0.7rem 0;
@@ -1249,10 +1253,10 @@
 }
 .dark-blue .offcanBtnDiv .SaveclsBtn:hover {
   background: var(--blue-clr);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid #A0A0A0;
   color: #A0A0A0;
   pointer-events: none;
@@ -1264,13 +1268,13 @@
   color: white;
 }
 .dark-blue .modal-cancel-btn {
-  border: 1px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
   background: transparent;
-  color: #23669E;
+  color: var(--blue-clr-2);
 }
 .dark-blue .modal-cancel-btn:hover {
-  background: #23669E;
-  color: #ffffff;
+  background: var(--blue-clr-2);
+  color: #fff;
 }
 /* Report buider dark css start */
 .dark-blue .deleteButtonAncor {
@@ -1313,23 +1317,23 @@
   background: transparent;
   border: 1.5px solid #23669E;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .saveReportBtn:hover {
   background: #23669E;
   border: 1.5px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .dwnldReportBtn {
   background: transparent;
   border: 1.5px solid #23669E;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .dwnldReportBtn:hover {
   background: #23669E;
   border: 1.5px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .dwnldReportBtn svg rect {
   fill: white;
@@ -1338,12 +1342,12 @@
   background: transparent;
   border: 1.5px solid #23669E;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .frwrdReportBtn:hover {
   background: #23669E;
   border: 1.5px solid #23669E;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .frwrdReportBtn svg rect {
   fill: white;
@@ -1352,12 +1356,12 @@
   stroke: white;
 }
 .dark-blue .presentationModeBtn {
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 .dark-blue .presentationModeBtn:hover {
   background: transparent;
-  color: #ffffff;
-  border: 1px solid #23669E;
+  color: #fff;
+  border: 1px solid var(--blue-clr-2);
 }
 .dark-blue .presentationModeBtn svg rect {
   stroke: white;
@@ -1374,18 +1378,14 @@
 }
 .dark-blue .reportSwtchLeft {
   color: #6D6D6D;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 0.5rem 0.8rem;
-  margin: 0 0.5rem;
 }
 .dark-blue .reportSwtchLeft:hover {
   color: #6D6D6D;
 }
 .dark-blue .reportSwtchLeft.active {
-  background: #23669E;
+  background: var(--blue-clr-2);
   border-radius: 100px;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .reportBuilderLftInner {
   background: #202124;
@@ -1400,19 +1400,41 @@
 }
 .dark-blue .reportBuilderLftInner .lftRadioBtnDiv label {
   color: #6D6D6D;
-  font-size: 13px;
   font-weight: 600;
   margin: 0.5rem;
 }
 .dark-blue .reportBuilderLftInner.active .lftRadioBtnDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .sidebar-arrow {
-  border-color: #23669E !important;
+  border-color: var(--blue-clr-2) !important;
 }
 .dark-blue .sidebar-arrow svg rect {
   fill: transparent;
-  stroke: #23669E !important;
+  stroke: var(--blue-clr-2) !important;
+}
+.dark-blue .sidebar-arrow:hover {
+   background-color: var(--blue-clr-2) !important;
+}
+.dark-blue .sidebar-arrow:hover svg rect {
+  fill: #fff;
+  stroke: #fff !important;
+}
+.dark-blue.presentationModeCommon .sidebar-arrow {
+  border: 1.5px solid #fff;
+  background-color: #fff;
+}
+.dark-blue.presentationModeCommon .sidebar-arrow:hover {
+  border: 1.5px solid #fff;
+  background-color: #26AB8B;
+}
+.dark-blue.presentationModeCommon .sidebar-arrow:hover svg {
+  fill: #fff;
+  stroke: #fff;
+}
+.dark-blue.presentationModeCommon .sidebar-arrow:hover  svg rect {
+  stroke: #fff;
+  fill: #fff;
 }
 .dark-blue .layer {
   background-color: #515151;
@@ -1422,10 +1444,10 @@
   background-color: #2A2D36;
 }
 .dark-blue #button-1 .checkbox:checked+.knobs:before {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .dark-blue #button-1 .checkbox:checked~.layer {
-  background-color: #23669E;
+  background-color: var(--blue-clr-2);
 }
 .dark-blue .sidebar-arrow {
   background: transparent;
@@ -1438,29 +1460,29 @@
   fill: #ABD5F9;
 }
 .dark-blue .reportBuilderBr {
-  background: #23669E;
-  border: 1px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
   color: white;
 }
 .dark-blue .reportBuilderBrTxt {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .reportBuilderBrTxt span {
   color: #6D6D6D;
 }
 .dark-blue .ComparativeTableMainDiv {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #34383D;
   border-top: 10px solid #34383D;
   border-radius: 12px;
   overflow: hidden;
 }
 .dark-blue .ComparativeTableMainDiv.active {
-  border: 1px solid #23669E;
-  border-top: 10px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
+  border-top: 10px solid var(--blue-clr-2);
 }
 .dark-blue .collapseDivHr {
-  border-top: 1px solid #23669E;
+  border-top: 1px solid var(--blue-clr-2);
 }
 .dark-blue .rghtTopHeadcommon {
   color: white;
@@ -1492,10 +1514,10 @@
 .dark-blue #button-2 .checkbox2:checked+.knobs2:before {
   content: "";
   left: 18px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .dark-blue #button-2 .checkbox2:checked~.layer2 {
-  background-color: #23669E;
+  background-color: var(--blue-clr-2);
 }
 .dark-blue #button-2 .knobs2,
 .dark-blue #button-2 .knobs:before,
@@ -1503,28 +1525,28 @@
   transition: 0.3s ease all;
 }
 .dark-blue .collapseDivmdlHd {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .showAssetsTxt {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .SwtchBtnRprtBldr {
   background: #2E3135;
 }
 .dark-blue .SwtchBtnRprtBldr div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .SwtchBtnRprtBldr div.active {
-  background: #23669E;
-  color: #FFFFFF;
+  background: var(--blue-clr-2);
+  color: #FFF;
 }
 .dark-blue .mltplSwtchDiv {
   background: #2E3135;
 }
 .dark-blue .mltplSwtchDiv div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .mltplSwtchDiv div.active {
   background: #2E3135;
@@ -1562,7 +1584,7 @@
   fill: transparent;
 }
 .dark-blue .lifeProPlusPara2 {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .viewBtnIra {
   background: transparent;
@@ -1658,11 +1680,8 @@
   border: 1px solid #313D39;
   border-bottom: none;
 }
-.dark-blue .reportTablesDiv3 .table th {
-  border-left: 1px solid #0F8266;
-}
 .dark-blue .reportTablesDiv4 .table th {
-  border-left: 1px solid #2977BF;
+  border-left: 1px solid #14A17F;
 }
 .dark-blue .reportTablesDiv5 .table th {
   border-left: 1px solid #914DC6;
@@ -1684,8 +1703,8 @@
 .dark-blue .secondTable tr:first-child td {
   border-top: none;
 }
-.compSumAnlysPara {
-  color: #ffffff;
+.dark-blue .compSumAnlysPara {
+  color: #fff;
 }
 .dark-blue .reportTablesDiv1 table thead th {
   background: #313438 !important;
@@ -1694,7 +1713,7 @@
   background: #313438 !important;
 }
 .dark-blue .reportTablesDiv3 table thead th {
-  background: #23669E !important;
+  background: var(--blue-clr-2) !important;
 }
 .dark-blue .reportTablesDiv4 table thead th {
   background: #0F8266 !important;
@@ -1839,6 +1858,9 @@
 .dark-blue .distrbnCard1paras .CardProgressnym {
   color: #53A9F1;
 }
+.dark-blue .CardProgressnym{
+  color: #53A9F1;
+}
 .dark-blue .redRadioSwtchpara {
   color: #F04F4F !important;
 }
@@ -1868,7 +1890,7 @@
   background: #26AB8B !important;
 }
 .dark-blue .equalDistCard1 {
-  border-top: 6px solid #23669E;
+  border-top: 6px solid var(--blue-clr-2);
 }
 .dark-blue .equalDistCard2 {
   border-top: 6px solid #0F8266;
@@ -1926,13 +1948,16 @@
   background: #0F8266;
 }
 .dark-blue .greenProgress1 {
-  background: #23669E;
+  background: #1A89EE !important;
 }
+.dark-blue .greenProgress1.switchBg .CardProgress{
+  background-color: #23669E !important;
+} 
 .dark-blue .CardProgress {
   background: #53A9F1;
 }
 .dark-blue .greenRadioSwtch .checkbox2:checked~.layer2 {
-  background-color: #23669E !important;
+  background-color: var(--blue-clr-2) !important;
 }
 .dark-blue .blueRadioSwtch .checkbox2:checked~.layer2 {
   background-color: #26AB8B !important;
@@ -1980,10 +2005,10 @@
   border: 1px solid #353B46;
 }
 .dark-blue .mainProgBrdrPara {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .mainProgBrdr {
-  border: 1px solid #353B46;
+  border-color: #353B46;
 }
 .dark-blue .progressBarEachDiv {
   background: #2E3135;
@@ -1996,15 +2021,19 @@
   color: #6D6D6D;
 }
 .dark-blue .progressBarBtnDiv p:nth-child(2) {
-  color: #FFFFFF;
+  color: #FFF;
 }
 .dark-blue .cumulativeValuesProgrees {
   background-image: url('../images/icons/dark-progressbar-design.svg');
   overflow: hidden;
   background-repeat: repeat;
 }
+.dark-blue .cumulativeValuesProgrees.bigbarsmaincolorDisable {
+  background-image: none;
+  background-color: #55575a;
+}
 .dark-blue .CompMainProgrssBarDiv {
-  background: #2E3135;
+  background: #242629;
   border: 1px solid #353B46;
 }
 .dark-blue .comulativeProgBrdrPara {
@@ -2017,7 +2046,7 @@
   color: #8C8C8C;
 }
 .dark-blue .shortFallCount p:last-child {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .cumulativeProgAccount {
   background: #0F8266;
@@ -2057,7 +2086,7 @@
 /* report buider dark css end */
 /* Review summary dark css start */
 .dark-blue .summary-heading p span {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .summary-heading p {
   color: #53A9F1;
@@ -2068,20 +2097,20 @@
   border-top: 8px solid #53A9F1;
 }
 .dark-blue .summaryInputsDiv label {
-  color: #ffffff;
+  color: #fff;
   padding-bottom: 0.2rem;
 }
 .dark-blue .summaryInputsDiv input {
   border-top: 1px solid #515151;
   background: transparent;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .compVehcleCol {
   background: #34383D;
   border: 1.5px solid #353B46;
 }
 .dark-blue .compVehcleColPara {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .historyHead2 p {
   color: #53A9F1;
@@ -2095,13 +2124,13 @@
 }
 .dark-blue .SaveCloseButton button {
   background: var(--blue-clr-2);
-  color: #ffffff;
+  color: #fff;
   padding: 0.5rem 3rem;
   border-radius: 1000px;
 }
 .dark-blue .SaveCloseButton button:hover {
   background: var(--blue-clr);
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .BuildSaveCloseButton {
   display: flex;
@@ -2111,7 +2140,7 @@
 }
 .dark-blue .BuildSaveCloseButton button {
   background: #242629;
-  border: 0.75px solid #FFFFFF;
+  border: 0.75px solid #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 1000px;
   padding: 0.5rem 1.6rem;
@@ -2143,7 +2172,7 @@
   color: #53A9F1 !important;
 }
 .dark-blue .Schedule-para {
-  color: #ffffff;
+  color: #fff;
   display: flex;
 }
 .dark-blue .editBtnCommon svg rect {
@@ -2170,11 +2199,11 @@
 }
 .dark-blue .editBtnCommon:hover svg rect {
   fill: none;
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .editBtnCommon:hover svg path {
-  fill: #ffffff;
-  stroke: #ffffff;
+  fill: #fff;
+  stroke: #fff;
 }
 .dark-blue .illusnTableMainDiv {
   background: #242629;
@@ -2200,12 +2229,12 @@
 .dark-blue .illusnTableMainDiv .table th {
   background: #313438;
   border: 1px solid #3E4247;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .illusnTableMainDiv .table tbody tr td {
   background: #292B2F;
   border: 1px solid #353B46;
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .historyHead2 .hisBorder {
   background: #53A9F1;
@@ -2222,15 +2251,15 @@
   border: 1px solid #53A9F1;
 }
 .dark-blue .illustrationPdfDiv span {
-  color: #FFFFFF !important;
+  color: #FFF !important;
 }
 .dark-blue .illustrationPdfDiv svg rect {
   fill: none;
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .schedule-icon-btn {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   border-radius: 50%;
   height: 28px;
   width: 28px;
@@ -2247,21 +2276,21 @@
   border: 1px solid #53A9F1;
 }
 .dark-blue .schedule-icon-btn:hover svg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 .dark-blue .modalTableDiv .table td {
   border: 1px solid #fff;
 }
 .dark-blue .modalTableDiv .table th {
   background: #313438;
-  color: #ffffff;
+  color: #fff;
   border-bottom: 1px solid #fff;
 }
 .dark-blue .modalTableDiv .table tbody tr td {
-  color: #ffffff;
+  color: #fff;
 }
 .dark-blue .ModalHeasingPara {
-  color: #ffffff
+  color: #fff
 }
 .dark-blue .btnWhite-darkTheme {
   background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
@@ -2274,23 +2303,19 @@
 }
 .dark-blue .lifeProPlusPara1 {
   font-weight: 600;
-  font-size: 9px;
   color: #53A9F1;
 }
 .dark-blue .lifeProPlusPara3 {
   font-weight: 600;
-  font-size: 9px;
   color: #26AB8B;
 }
 .dark-blue .lifeProBtmDiv1 p {
   font-weight: 700;
-  font-size: 17px;
   color: #53A9F1;
   margin: 0;
 }
 .dark-blue .lifeProBtmDiv2 p {
   font-weight: 700;
-  font-size: 17px;
   color: #26AB8B;
   margin: 0;
 }
@@ -2480,7 +2505,6 @@
   background-repeat: no-repeat !important;
   background-position: 88% 50% !important;
 }
-
 .dark-blue .review-progress li.active .nav-link,
 .dark-blue .review-progress li.done .nav-link {
   color: #fff;
@@ -2513,71 +2537,519 @@
 .dark-blue .review-progress li.active:after {
   background: var(--blue-clr-2);
 }
-.dark-blue .modalParaReportBuilder{
-color: #fff;
-}
-.dark-blue .modalformDiv label{
+.dark-blue .modalParaReportBuilder {
   color: #fff;
 }
-.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active{
-border: 1px solid var(--blue-clr-2);
+.dark-blue .modalformDiv label {
+  color: #fff;
+}
+.dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active {
+  border: 1px solid var(--blue-clr-2);
 }
 .dark-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active::after {
   content: url(../images/icons/check-blue.svg);
   position: absolute;
   right: 0.85rem;
 }
-
-.dark-blue .SaveCloseButton .btn{
-  background:  var(--blue-clr-2);
+.dark-blue .SaveCloseButton .btn {
+  background: var(--blue-clr-2);
 }
-
 /* Review summary dark css end */
 .dark-blue .theme-btn {
-  background-color: #ffffff;
+  background-color: transparent;
   border: 1px solid var(--blue-clr-2);
   color: var(--blue-clr-2);
 }
-
+.dark-blue .theme-btn:hover {
+  background-color: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
+  color: #fff;
+}
 .dark-blue .distributionProg * {
-  background: #2E3135!important;
+  background: #2E3135 !important;
   color: #2E3135;
 }
 .dark-blue .disableAllProgress * {
-  background: #2E3135!important;
-  color:#2E3135;
+  background: #2E3135 !important;
+  color: #2E3135;
 }
 .dark-blue .boxProgress *,
 .dark-blue .boxProgress {
-  background: #55575a!important;
+  background: #55575a !important;
   color: #2E3135;
 }
+.dark-blue .boxProgress.switchBg .CardProgress{
+  background: #55575a !important;
+}
+
 .dark-blue .cumulativeProg .cumulativeprogreeDivcommon *,
 .dark-blue .cumulativeProg .cumulativeprogreeDivcommon,
 .dark-blue .cumulativeProg .shortFallCount p {
   display: none;
 }
-.dark-blue .indexSenarioBg{
-  background: unset!important;
-  }
-  .dark-blue .indexSenarioInnerBg{
-    background: unset;
-  }
-  .dark-blue .report-round-btn:not(.collapsed) span{
-    color: #abd5f9;
-   }
-   .dark-blue .report-round-btn:hover:not(.collapsed) span{
-    color: #fff;
-   }
-   .dark-blue .comparativeAnlsysTxt::before{
-    background-color:#abd5f9;
-  }
-  .dark-blue .reporth4Head{
-color: white;
-  }
-  .dark-blue .reporth4Head svg rect{
-    fill: white;
-      }
-      .dark-blue .clientNamePara:hover a{
-        color: var(--blue-clr-2);
-      }
+.dark-blue .indexSenarioBg {
+  background: unset !important;
+}
+.dark-blue .indexSenarioInnerBg {
+  background: unset;
+}
+.dark-blue .report-round-btn:not(.collapsed) span {
+  color: #abd5f9;
+}
+.dark-blue .report-round-btn:hover:not(.collapsed) span {
+  color: #fff;
+}
+.dark-blue .comparativeAnlsysTxt::before {
+  background-color: #abd5f9;
+}
+.dark-blue .reporth4Head {
+  color: white;
+}
+.dark-blue .reporth4Head svg rect {
+  fill: white;
+}
+.dark-blue .clientNamePara:hover a {
+  color: var(--blue-clr-2);
+}
+.dark-blue .medianBottomTxt * {
+  color: #cdcdcd !important;
+}
+/* new css start */
+.dark-blue .viewBtnLirp svg path,
+.dark-blue .viewBtnLirp svg circle {
+  stroke: #23669E;
+  fill: transparent;
+}
+.dark-blue .viewBtnLirp {
+  background: transparent;
+  color: #53A9F1;
+}
+.dark-blue .editBtnLirp svg path,
+.dark-blue .editBtnLirp svg rect {
+  stroke: #23669E;
+  fill: transparent;
+}
+.dark-blue .editBtnLirp {
+  background: transparent;
+  color: #23669E;
+}
+.dark-blue .deleteBtnLirp {
+  background: transparent;
+  color: #23669E;
+}
+.dark-blue .editBtnLirp {
+  background: transparent;
+  color: #53A9F1;
+}
+.dark-blue .deleteBtnLirp {
+  background: transparent;
+  color: #53A9F1;
+}
+.dark-blue .lirpPara8 {
+  color: #53A9F1;
+}
+.dark-blue .lirpPara2 {
+  color: #fff;
+}
+.dark-blue .lirpBtmDiv8 p {
+  color: #53A9F1;
+}
+.dark-blue .reportTablesDiv8 table thead th {
+  background: var(--blue-clr-2) !important;
+}
+.dark-blue .reportTablesDiv8 .table tbody tr td {
+  background: #262B29;
+}
+.dark-blue .reportTablesDiv7 .table tbody tr td {
+  background: #262B29;
+}
+.dark-blue .viewBtnMedian svg path,
+.dark-blue .viewBtnMedian svg circle {
+  stroke: #E8662F;
+  fill: transparent;
+}
+.dark-blue .viewBtnMedian {
+  background: transparent;
+  color: #E8662F;
+}
+.dark-blue .editBtnMedian svg path,
+.dark-blue .editBtnMedian svg rect {
+  stroke: #E8662F;
+  fill: transparent;
+}
+.dark-blue .editBtnMedian {
+  background: transparent;
+  color: #E8662F;
+}
+.dark-blue .deleteBtnMedian svg path,
+.dark-blue .deleteBtnMedian svg rect {
+  stroke: #E8662F !important;
+  fill: transparent;
+}
+.dark-blue .deleteBtnMedian {
+  background: transparent;
+  color: #E8662F;
+}
+.dark-blue .seeAllBtnMainDiv {
+  background: #242629;
+}
+.dark-blue .reportBuilderLft1 {
+  border-right: 1px solid #353B46;
+}
+.dark-blue .reportBuilderLft2 {
+  border-right: 1px solid #353B46;
+}
+.dark-blue .compGraphtopParaTwo p:nth-child(2) {
+  color: #fff;
+}
+.dark-blue .bgChangerComGraph1 p:nth-child(2) {
+  color: #53a9f1;
+}
+.dark-blue .bgChangerComGraph2 p:nth-child(2) {
+  color: #26AB8B;
+}
+.dark-blue .bgChangerComGraph3 p:nth-child(2) {
+  color: #B556FF;
+}
+.dark-blue .bgChangerComGraph4 p:nth-child(2) {
+  color: #F04F4F;
+}
+.dark-blue .disableGroupedBar * {
+  background: #2e3135 !important;
+  color: #2e3135 !important;
+}
+.dark-blue .bigbarsmaincolorDisable * {
+  background: transparent;
+  color: transparent;
+}
+.dark-blue .legacyCardPara {
+  color: #fff;
+}
+.dark-blue .legacyCardPara2 {
+  color: #fff;
+}
+.dark-blue .feeMainProgBrdr {
+  border-bottom: 1px solid #353B46;
+}
+.dark-blue .feeMainProgrssBarDiv {
+  background: #242629;
+  border: 1px solid #353b46;
+}
+.dark-blue .CardProgressBar .lineUnderBars {
+  background-color: #4d4d4d !important;
+}
+.dark-blue .feeBlueBar1 {
+  background: #0E6651 !important;
+}
+.dark-blue .feeBlueNumBar1 {
+  background: #1D856C;
+}
+.dark-blue .feeBlueBar2 {
+  background: #209579 !important;
+}
+.dark-blue .feeBlueNumBar2 {
+  background: #30AD8F;
+}
+.dark-blue .feeBlueBar3 {
+  background: #3ECAA8 !important;
+}
+.dark-blue .feeBlueNumBar3 {
+  background: #39BE9E;
+}
+/*  */
+.dark-blue .feeGreenBar1 {
+  background: #1660A4 !important;
+}
+.dark-blue .feeGreenNumBar1 {
+  background: #0C4A83;
+}
+.dark-blue .feeGreenBar2 {
+  background: #207ACD !important;
+}
+.dark-blue .feeGreenNumBar2 {
+  background: #1768B2;
+}
+.dark-blue .feeGreenBar3 {
+  background: #1A89EE !important;
+}
+.dark-blue .feeGreenNumBar3 {
+  background: #0F7ADC;
+}
+.dark-blue .viewBtnLirp svg path,
+.dark-blue .viewBtnLirp svg circle {
+  stroke: #53A9F1;
+}
+.dark-blue .editBtnLirp svg path,
+.dark-blue .editBtnLirp svg rect {
+  stroke: #53A9F1;
+}
+.dark-blue .deleteBtnLirp svg path,
+.dark-blue .deleteBtnLirp svg rect {
+  stroke: #53A9F1;
+}
+.dark-blue .reportTablesDiv8 table thead th:last-child {
+  border-left-color: #2977BF;
+}
+.dark-blue .reportTablesDiv3 .table th {
+  border-left-color: #2977BF;
+}
+.dark-blue .reportTablesDiv7 table thead th:last-child {
+  border-left-color: #DE835C;
+}
+.dark-blue .surplusTdMain {
+  color: #26ab8b !important;
+}
+.dark-blue .surplusTd {
+  color: #26ab8b !important;
+}
+.dark-blue .orangeProgress2 {
+  background: #F67F4C;
+}
+.dark-blue .bgImgNoneAndTabRadius {
+  background: none;
+}
+.dark-blue .eachBarMainBgNone {
+  background: none;
+}
+.dark-blue .irrMainProgrssBarDiv {
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .irrCardParaGreen1 {
+  color: #1a89ee;
+}
+.dark-blue .irrCardParaGreen2 {
+  color: #256fb3;
+}
+.dark-blue .irrCardParaBlue1 {
+  color: #26ab8b;
+}
+.dark-blue .irrCardParaBlue2 {
+  color: #209579;
+}
+.dark-blue .equalDistCard5 {
+  border-top: 6px solid rgb(232, 102, 47);
+}
+.dark-blue .deleteBtnOrange path,
+.deleteBtnOrange rect {
+  stroke: #e8662f;
+}
+.dark-blue .deleteButtonMedian {
+  border: 1px solid #e8662f;
+  width: 21px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dark-blue .commonTableCls .tablesCmnClr * {
+  color: #3a3d41;
+}
+.dark-blue .commonTableCls .commonBottomTxt * {
+  color: #3a3d41 !important;
+}
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide th,
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide td {
+  color: #3a3d41 !important;
+}
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide thead th {
+  background: #2E3135 !important;
+}
+.dark-blue .commonTableCls.tableCommonColor {
+  background: #F6F6F6;
+}
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonForDisable td {
+  background: #3031315e;
+}
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonForDisable th {
+  border-left-color: #353B46 !important;
+}
+.dark-blue .commonTableCls .disableBtnsForAll {
+  pointer-events: none;
+  cursor: default;
+}
+.dark-blue .commonTableCls .disableBtnsForAll svg path,
+.dark-blue .commonTableCls .disableBtnsForAll svg rect {
+  stroke: #3a3d41 !important;
+}
+.dark-blue .commonTableCls .table tbody tr td {
+  border-left-color: #353B46;
+}
+.dark-blue .commonTableCls .hideBtnLirp {
+  background: transparent;
+}
+.dark-blue .commonTableCls .hideBtnLirp:hover.hideBtnLirp::before {
+  color: #53a9f1;
+}
+.dark-blue .commonTableCls .hideBtnLirp:hover {
+  border: 1px solid #BBBBBB;
+  background: transparent;
+}
+.dark-blue .commonTableCls .hideBtnLirp svg path,
+.dark-blue .hideBtnLirp svg circle,
+.dark-blue .hideBtnLirp svg rect {
+  stroke: #53a9f1 !important;
+  fill: transparent;
+}
+.dark-blue .hideBtnLirp svg rect {
+  fill: #53a9f1;
+}
+.dark-blue .commonTableCls .deleteBtnLirp svg path {
+  stroke: #3a3d41 !important;
+}
+.dark-blue .commonTableCls .hideBtnMedian svg path,
+.dark-blue .hideBtnMedian svg circle,
+.dark-blue .hideBtnMedian svg rect {
+  stroke: #E8662F;
+  fill: transparent;
+}
+.dark-blue .commonTableCls .hideBtnMedian svg rect {
+  fill: #53a9f1;
+}
+.dark-blue .commonTableCls .deleteBtnMedian {
+  background: transparent;
+}
+.dark-blue .irrvaluebarbg3 {
+  background: #30AD8F;
+}
+.dark-blue .irrBarHeight3 {
+  background: #209579;
+  border-radius: 8px;
+}
+/*  */
+.dark-blue .irrvaluebarbg4 {
+  background: #25967B;
+}
+.dark-blue .irrBarHeight4 {
+  background: #0E6651;
+  border-radius: 8px;
+}
+/*  */
+.dark-blue .irrvaluebarbg1 {
+  background: #0F7ADC;
+}
+.dark-blue .irrBarHeight1 {
+  background: #1A89EE;
+}
+/*  */
+.dark-blue .irrvaluebarbg2 {
+  background: #287BC7;
+}
+.dark-blue .irrBarHeight2 {
+  background: #1660A4;
+}
+/*  */
+.dark-blue .compGraphSmallBdrClr1 p {
+  background: #287BC7;
+}
+.dark-blue .compGraphSmallBdrClr2 p {
+  background: #25967B;
+}
+.dark-blue .fullScreenCloseBtn svg rect {
+  stroke: #fff !important;
+}
+.dark-blue .fullScreenOpenBtn svg path {
+  fill: #fff !important;
+}
+.dark-blue .commonTableCls .deleteBtnLirp svg path {
+  stroke: #3a3d41 !important;
+}
+.dark-blue .hideBtnMedian:hover {
+  background: transparent;
+}
+.dark-blue .tableCommonForDisable .table th {
+  border-left-color: #292c30 !important;
+}
+.dark-blue .reportTablesDiv .table td {
+  border: 0.5px solid #353B46  !important;
+}
+.dark-blue .reportTablesDiv .table tbody tr td:last-child {
+  border-right: 0.5px solid #353B46 !important;
+}
+.dark-blue .heading-tr::before {
+  border-left: 1px solid #353B46;
+}
+.dark-blue .heading-tr::after {
+  border-left: 1px solid #353B46;
+}
+.dark-blue.presentationModeCommon .reportBuilderLftInner {
+  background: #202124;
+  border: 0.5px solid transparent!important;
+}
+.dark-blue.presentationModeCommon .reportBuilderLftInner.active{
+  background:#202124;
+  border-radius: 0;  
+}
+
+.dark-blue.presentationModeCommon .reportBuilderLftInner.active .lftRadioBtnDiv label{
+color: #fff;
+}
+.dark-blue.presentationModeCommon .reportBuilderLftInner.active:hover{
+background:var(--blue-clr-2);
+}
+.dark-blue.presentationModeCommon .reportBuilderLftInner.linkActive{
+  background:var(--blue-clr-2);
+}
+.dark-blue.presentationModeCommon .reportSwtchLeft.active{
+  background: var(--blue-clr-2) ;
+  color: #fff;
+}
+.dark-blue.presentationModeCommon .reportBuilderLftSwtch{
+  background: transparent;
+  border: 1.5px solid #3a8fdf;
+} 
+.dark-blue .add-note-input-div .add-note-para{
+  background-color: #ddd;
+}
+.dark-blue .graph-container-div{
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .disclosure-div{
+  background: #242629;
+  border: 1px solid #353B46;
+}
+.dark-blue .disclosure-header-div {
+  border-bottom: 1px solid #353B46;
+}
+.dark-blue .disclosure-div p, .dark-blue .disclosure-textarea{
+  color: #a0a0a0;
+}
+.dark-blue .disclosure-heading{
+  color: #fff;
+}
+.dark-blue .disclosure-text-wrapper.editable{
+  background-color: rgba(0,0,0,.75);
+}
+.dark-blue .disclosure-footer{
+   border-top: 1px solid #353B46;
+}
+.dark-blue .bold-one{
+  color: #a0a0a0;
+}
+.dark-blue .distributionCard1.inactive .compGraphtopPara p, .dark-blue .distributionCard1.inactive .compGraphtopParaTwo p{
+  color: #55575a;
+}
+.dark-blue .distributionCard1.inactive .cardProjectTag, .dark-blue .distributionCard1.inactive .CardProgressnym, .dark-blue .distributionCard1.inactive span, .dark-blue .distributionCard1.inactive .legacyCardPara, .dark-blue .distributionCard1.inactive .legacyCardPara2,  .dark-blue .distributionCard1.inactive .comValCardPara1{
+  color: #55575a !important;
+}
+.dark-blue .distributionCard1.inactive .irrCardPara1, .dark-blue .distributionCard1.inactive .irrCardParaGreen1, .dark-blue .distributionCard1.inactive .irrCardParaGreen2, .dark-blue .distributionCard1.inactive .irrCardParaBlue1, .dark-blue .distributionCard1.inactive .irrCardParaBlue2, .dark-blue .distributionCard1.inactive .irrCardParaVoilet1, .dark-blue .distributionCard1.inactive .irrCardParaVoilet2, .dark-blue .distributionCard1.inactive .irrCardParaOrange1, .dark-blue .distributionCard1.inactive .irrCardParaOrange2, .dark-blue .distributionCard1.inactive .irrCardParaRed1, .dark-blue .distributionCard1.inactive .irrCardParaRed2{
+  color: #55575a !important;
+}
+.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr1 p, .dark-blue .distributionCard1.inactive .compGraphSmallBdrClr2 p, .dark-blue .distributionCard1.inactive .compGraphSmallBdrClr3 p, .dark-blue .distributionCard1.inactive .compGraphSmallBdrClr4 p{
+  background-color: #55575a !important;;
+  background: #55575a !important;;
+}
+.dark-blue .progressBarEachBtm.comparative .bar-container{
+  background-color: #2E3135;
+  border: 1px solid #353B46;
+}
+.dark-blue .bar-container .progressBarBtnDiv p{
+  color: #fff;
+}
+.dark-blue .blueProgress1.switchBg .blueProgress2{
+  background-color: #0E6651 !important;
+}

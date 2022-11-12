@@ -64,16 +64,16 @@
     <div class="d-flex justify-content-center align-items-center px-4">
         <div class="IndexStrategyBtn w-100">
         <div class="w-100">
-            <input type="radio" name="indexStrategy" id="index" checked>
-            <label for="index">Index </label>
+            <input type="radio" name="indexStrategy" :id="`index${currentTab}`" checked>
+            <label :for="`index${currentTab}`">Index </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="indexStrategy" id="strategy">
-            <label for="strategy">Strategy </label>
+            <input type="radio" name="indexStrategy" :id="`strategy${currentTab}`">
+            <label :for="`strategy${currentTab}`">Strategy </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="indexStrategy" id="distributions">
-            <label for="distributions">Distributions </label>
+            <input type="radio" name="indexStrategy" :id="`distributions${currentTab}`">
+            <label :for="`distributions${currentTab}`">Distributions </label>
         </div>
         </div>
     </div>
@@ -84,16 +84,16 @@
     <div class="d-flex justify-content-center align-items-center px-4">
         <div class="IndexStrategyBtn w-100">
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" id="monthlyAverageValue1" checked>
-            <label for="monthlyAverageValue1">Monthly Average Value </label>
+            <input type="radio" name="CreditBaseMethod1" :id="`monthlyAverageValue${currentTab}`" checked>
+            <label :for="`monthlyAverageValue${currentTab}`">Monthly Average Value </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" id="beginningValue1">
-            <label for="beginningValue1">Beginning Value</label>
+            <input type="radio" name="CreditBaseMethod1" :id="`beginningValue${currentTab}`">
+            <label :for="`beginningValue${currentTab}`">Beginning Value</label>
         </div>
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" id="yearValue1">
-            <label for="yearValue1">End of Year Value</label>
+            <input type="radio" name="CreditBaseMethod1" :id="`yearValue${currentTab}`">
+            <label :for="`yearValue${currentTab}`">End of Year Value</label>
         </div>
         </div>
     </div>
@@ -104,6 +104,7 @@
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
   components: { SelectDropdown },
+  props:['currentTab'],
   data() {
     return {
       dropdown: {
