@@ -1,7 +1,7 @@
 <template lang="">
   <div class="empty" data-class="empty-wrapper" data-empty="4">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="5">
-      <div :class="`report-client-list-div tab-id-5 ${activeTabs[keyId] ? '':'presentdeActive'}`" id="legacyTabView">
+      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`" id="legacyTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop5 ${activeTabs[keyId] ? 'active':''}`">
           <div class="d-flex justify-content-between px-3 py-2 bb-grey">
             <div class="d-flex align-items-center">
