@@ -27,7 +27,8 @@
           </div>
           <div>
             <div
-              class="commonCollapse comparativeLessDiv comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1"  :style="{display:activeTabs[keyId] ? 'block':'none'}">
+              :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`"
+              :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
               <div class="px-3 py-3">
                 <div class="position-relative">
@@ -148,161 +149,15 @@
                         <div class="reportTablesDiv reportTablesDiv1">
                           <table class="table">
                             <thead class="heading-tr">
-                              <th>Yr</th>
-                              <th>Age</th>
+                              <tr>
+                                <th>Yr</th>
+                                <th>Age</th>
+                              </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="table1Td" data-label="Year">1</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">2</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">3</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">4</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">5</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">6</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">7</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">8</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">9</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">10</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">11</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">12</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">13</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">14</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">15</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">16</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">17</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">18</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">19</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">20</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">21</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">22</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">23</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">24</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">25</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">26</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">27</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">28</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">29</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">30</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">31</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">32</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">33</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">34</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">35</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">36</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">37</td>
-                                <td class="table1Td" data-label="Age">34</td>
-                              </tr>
-                              <tr>
-                                <td class="table1Td" data-label="Year">38</td>
-                                <td class="table1Td" data-label="Age">34</td>
+                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
+                                <td class="table1Td" data-label="Year">{{item.year}}</td>
+                                <td class="table1Td" data-label="Age">{{item.age}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -311,122 +166,13 @@
                         <div class="reportTablesDiv ms-2 reportTablesDiv2">
                           <table class="table">
                             <thead class="heading-tr">
-                              <th>Deposits</th>
+                              <tr>
+                                <th>Deposits</th>
+                              </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
-                              </tr>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
+                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
+                                <td data-label="Year">{{item.deposits}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -467,928 +213,111 @@
                         </div>
                         <table class="table table3 mt-1 w-100">
                           <thead class="heading-tr">
-                            <th>Distributions</th>
-                            <th>Account Value</th>
-                            <th>Surrender Value</th>
-                            <th>Death Benefit</th>
+                            <tr>
+                              <th>Distributions</th>
+                              <th>Account Value</th>
+                              <th>Surrender Value</th>
+                              <th>Death Benefit</th>
+                            </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
-                            </tr>
-                            <tr>
-                              <td class="blankTd" data-label="blank">-</td>
-                              <td data-label="acount">$65,777</td>
-                              <td data-label="surrender">$65,777</td>
-                              <td data-label="death">$65,777</td>
+                            <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
+                              <td class="blankTd" data-label="blank">{{item.distributions || '-'}}</td>
+                              <td data-label="acount">{{item.account_value}}</td>
+                              <td data-label="surrender">{{item.surrender_value}}</td>
+                              <td data-label="death">{{item.death_benifit}}</td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
-                    <div class="col-4 col-md-2 px-1 drag-col">
-                      <div class="empty-inner" data-empty="1">
-                        <div class="fill-inner" draggable="true" data-fill="1">
-                          <div class="commonTableMainTopDiv1">
-                            <div class="reportTablesDiv reportTablesDiv4">
-                              <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                <div class="dblLineAbslt">
-                                  <img src="@/assets/images/icons/double-line.svg" alt="line">
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
-                                      <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
-                                        <input type="checkbox" class="checkbox2 commonRadioBtn1" checked="true"
-                                          hideattr="1" onclick="tableDivHide(this, event)">
-                                        <div class="knobs2"></div>
-                                        <div class="layer2"></div>
+                    <div class="col-12 col-md-6">
+                      <draggable v-model="draggableColumns" tag="div" class="row">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`col-md-4 px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                          <div class="empty-inner" data-empty="1">
+                            <div class="fill-inner" draggable="true" data-fill="1">
+                              <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
+                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
+                                  <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
+                                    <div class="dblLineAbslt">
+                                      <img src="@/assets/images/icons/double-line.svg" alt="line">
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <div
+                                          class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
+                                          <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
+                                            <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`"
+                                              :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
+                                            <div class="knobs2"></div>
+                                            <div class="layer2"></div>
+                                          </div>
+                                          <div class="d-flex align-items-center">
+                                            <a href="javascript:void(0)"
+                                              class="editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
+                                                height="13" viewBox="0 0 13 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
+                                                  fill="white" stroke="#1660A4" stroke-width="1.15" />
+                                                <path
+                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 1es0.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                                  stroke="#1660A4" stroke-width="1.25" />
+                                              </svg>
+                                            </a>
+                                            <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
+                                              data-bs-toggle="modal"
+                                              class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
+                                                height="13" viewBox="0 0 12 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
+                                                  stroke="#1660A4" stroke-width="1.25" />
+                                                <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
+                                                  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
+                                              </svg>
+                                            </a>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="d-flex align-items-center">
-                                        <a href="javascript:void(0)"
-                                          class="editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
-                                            height="13" viewBox="0 0 13 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
-                                              fill="white" stroke="#1660A4" stroke-width="1.15" />
-                                            <path
-                                              d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                              stroke="#1660A4" stroke-width="1.25" />
-                                          </svg>
-                                        </a>
-                                        <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
-                                          data-bs-toggle="modal" class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg
-                                            width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                              d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                              stroke="#1660A4" stroke-width="1.25" />
-                                            <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                              transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
-                                          </svg>
-                                        </a>
+                                    </div>
+                                    <div class="row eachCardParaRow">
+                                      <div class="col-md-5">
+                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">RoR</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].ror}}</p>
+                                      </div>
+                                      <div class="col-md-7">
+                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">IRR</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].irr}}</p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
+                                          <p>{{target_analysis.data[header.id].type}}</p>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                                <div class="row eachCardParaRow">
-                                  <div class="col-md-5">
-                                    <p class="lifeProPlusPara3" id="acountColorCommon">RoR</p>
-                                    <p class="lifeProPlusPara2" id="acountColorCommon">6.50%</p>
-                                  </div>
-                                  <div class="col-md-7">
-                                    <p class="lifeProPlusPara3" id="acountColorCommon">IRR</p>
-                                    <p class="lifeProPlusPara2" id="acountColorCommon">3.82%</p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="lifeProBtmDiv lifeProBtmDiv2 commonBottomTxt">
-                                      <p>Account</p>
-                                    </div>
-                                  </div>
+                                  <table class="table tableCommonForDisable  mt-1 tableCommonHide">
+                                    <thead class="heading-tr">
+                                      <tr>
+                                        <th>Distributions</th>
+                                        <th>Net Balance</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
+                                        <td class="blankTd" data-label="blank">{{item.distributions || '-'}}</td>
+                                        <td data-label="acount">{{item.net_balance}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
                               </div>
-                              <table class="table tableCommonForDisable  mt-1 tableCommonHide">
-                                <thead class="heading-tr">
-                                  <th>Distributions</th>
-                                  <th>Net Balance</th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                </tbody>
-                              </table>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-4 col-md-2 px-1 drag-col">
-                      <div class="empty-inner" data-empty="2">
-                        <div class="fill-inner" draggable="true" data-fill="2">
-                          <div class="commonTableMainTopDiv2">
-                            <div class="reportTablesDiv reportTablesDiv5">
-                              <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                <div class="dblLineAbslt">
-                                  <img src="@/assets/images/icons/double-line.svg" alt="line">
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
-                                      <div class="radioBtnDiv r2 voiletRadioSwtch" id="button-2">
-                                        <input type="checkbox" class="checkbox2 commonRadioBtn1" checked="true"
-                                          hideattr="2" onclick="tableDivHide(this, event)">
-                                        <div class="knobs2"></div>
-                                        <div class="layer2"></div>
-                                      </div>
-                                      <div class="d-flex align-items-center">
-                                        <a href="javascript:void(0)"
-                                          class="editBtnIra mx-2 disableBtnsForAll">&nbsp;<svg width="13" height="13"
-                                            viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
-                                              fill="white" stroke="#763CA3" stroke-width="1.15" />
-                                            <path
-                                              d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                              stroke="#763CA3" stroke-width="1.15" />
-                                          </svg>
-                                        </a>
-                                        <a href="javascript:void(0)" data-bs-target="#deleteIraModal"
-                                          data-bs-toggle="modal" class="deleteBtnIra disableBtnsForAll">&nbsp;<svg
-                                            width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                              d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                              stroke="#763CA3" stroke-width="1.25" />
-                                            <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                              transform="rotate(90 8.35156 5.41406)" fill="#763CA3" />
-                                          </svg>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row eachCardParaRow">
-                                  <div class="col-md-5">
-                                    <p class="lifeProPlusPara5">RoR</p>
-                                    <p class="lifeProPlusPara2">6.50%</p>
-                                  </div>
-                                  <div class="col-md-7">
-                                    <p class="lifeProPlusPara5">IRR</p>
-                                    <p class="lifeProPlusPara2">3.82%</p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="lifeProBtmDiv lifeProBtmDiv3 commonBottomTxt">
-                                      <p>401K / IRA</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <table class="table tableCommonForDisable  mt-1 tableCommonHide">
-                                <thead class="heading-tr">
-                                  <th>Distributions</th>
-                                  <th>Net Balance</th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4 col-md-2 px-1 drag-col">
-                      <div class="empty-inner" data-empty="3">
-                        <div class="fill-inner" draggable="true" data-fill="3">
-                          <div class="commonTableMainTopDiv3">
-                            <div class="reportTablesDiv reportTablesDiv6">
-                              <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                <div class="dblLineAbslt">
-                                  <img src="@/assets/images/icons/double-line.svg" alt="line">
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
-                                      <div class="radioBtnDiv r2 redRadioSwtch" id="button-2">
-                                        <input type="checkbox" class="checkbox2 commonRadioBtn1" checked="true"
-                                          hideattr="3" onclick="tableDivHide(this, event)">
-                                        <div class="knobs2"></div>
-                                        <div class="layer2"></div>
-                                      </div>
-                                      <div class="d-flex align-items-center">
-                                        <a href="javascript:void(0)"
-                                          class="editBtnAnnuity mx-2 disableBtnsForAll">&nbsp;<svg width="13"
-                                            height="13" viewBox="0 0 13 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
-                                              fill="white" stroke="#9D2B2B" stroke-width="1.15" />
-                                            <path
-                                              d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                              stroke="#9D2B2B" stroke-width="1.15" />
-                                            <path d="M4.80078 8.50156L5.33049 6.96094L6.40078 8.02L4.80078 8.50156Z"
-                                              stroke="#9D2B2B" stroke-width="1.15" />
-                                          </svg>
-                                        </a>
-                                        <a href="javascript:void(0)" data-bs-target="#deleteAnnuityModal"
-                                          data-bs-toggle="modal" class="deleteBtnAnnuity disableBtnsForAll">&nbsp;<svg
-                                            width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                              d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                              stroke="#9D2B2B" stroke-width="1.25" />
-                                            <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                              transform="rotate(90 8.35156 5.41406)" fill="#9D2B2B" />
-                                          </svg>
-                                        </a>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="row eachCardParaRow">
-                                  <div class="col-md-5">
-                                    <p class="lifeProPlusPara7">RoR</p>
-                                    <p class="lifeProPlusPara2">6.50%</p>
-                                  </div>
-                                  <div class="col-md-7">
-                                    <p class="lifeProPlusPara7">IRR</p>
-                                    <p class="lifeProPlusPara2">3.82%</p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-12">
-                                    <div class="lifeProBtmDiv lifeProBtmDiv4 commonBottomTxt">
-                                      <p>Annuity</p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <table class="table tableCommonForDisable mt-1 tableCommonHide">
-                                <thead class="heading-tr">
-                                  <th>Distributions</th>
-                                  <th>Net Balance</th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                  <tr>
-                                    <td class="blankTd" data-label="blank">-</td>
-                                    <td data-label="acount">$65,777</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      </draggable>
                     </div>
                   </div>
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
@@ -1398,16 +327,14 @@
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <th width="80" style="background: none!important;border: none !important;">
-                              </th>
-                              <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">
-                                Deposits</th>
+                              <th width="80" style="background: none!important;border: none !important;"></th>
+                              <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
                             </thead>
                             <tbody>
                               <tr>
                                 <td class="table1Td tableotalTd text-start" data-label="Year">Totals
                                 </td>
-                                <td class="table1Td" data-label="Age">$328,885</td>
+                                <td class="table1Td" data-label="Age">{{summary_data.deposits.totals}}</td>
                               </tr>
                               <tr>
                                 <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value
@@ -1425,22 +352,22 @@
                         <div class="reportTablesDiv reportTablesDiv3">
                           <table class="table table3 mt-1 secondTable summaryTableFont">
                             <thead class="heading-tr">
-                              <th colspan="2" style="border-radius:6px;vertical-align: middle;">
-                                Distributions
-                              </th>
+                              <tr>
+                                <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                              </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td data-label="surrender">$65,777</td>
-                                <td class="blankTd w-75" data-label="blank">-</td>
+                                <td data-label="surrender">{{summary_data.data[0].distribution.total || '-'}}</td>
+                                <td class="blankTd w-75" data-label="blank">{{summary_data.data[0].net_balance.total || '-'}}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">$65,777</td>
-                                <td class="blankTd" data-label="blank">-</td>
+                                <td data-label="surrender">{{summary_data.data[0].distribution.total_value || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{summary_data.data[0].net_balance.total_value || '-'}}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">-</td>
-                                <td class="blankTd" data-label="blank">-</td>
+                                <td data-label="surrender">{{summary_data.data[0].distribution.shortfall || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{summary_data.data[0].net_balance.shortfall || '-'}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -1448,79 +375,29 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div class="col-4 px-1 commonBottomTableMainTopDiv1 summary-draggable">
-                            <div class="reportTablesDiv reportTablesDiv4">
+                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
+                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
-                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
+                                 <tr>
+                                   <th colspan="2" style="border-radius:6px;vertical-align: middle;">
                                     Distributions
                                   </th>
+                                 </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
+                                    <td width="50%" data-label="acount">{{summary_data.data[header.id].distribution.total || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.total || '-'}}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
+                                    <td width="50%" data-label="acount">{{summary_data.data[header.id].distribution.total_value || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.total_value || '-'}}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">$65,777
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{summary_data.data[header.id].distribution.shortfall || '-'}}
                                     </td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                          <div class="col-4 px-1 commonBottomTableMainTopDiv2 summary-draggable">
-                            <div class="reportTablesDiv reportTablesDiv5">
-                              <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
-                                <thead class="heading-tr">
-                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
-                                    Distributions
-                                  </th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                  <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                  <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">$670,443
-                                    </td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                          <div class="col-4 px-1 commonBottomTableMainTopDiv3 summary-draggable">
-                            <div class="reportTablesDiv reportTablesDiv6">
-                              <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
-                                <thead class="heading-tr">
-                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
-                                    Distributions
-                                  </th>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                  <tr>
-                                    <td width="50%" data-label="acount">$65,777</td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
-                                  </tr>
-                                  <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">$65,777
-                                    </td>
-                                    <td width="50%" class="blankTd" data-label="blank">-</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.shortfall || '-'}}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -1535,20 +412,19 @@
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
                   <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn">
-                    <button class="btn form-control" onclick="showMore()">+ SEE ALL</button>
-                  </div>
-                  <div class="comparativeSeeAllBtn container-fluid" id="comparativeSeeLessBtn">
-                    <button class="btn form-control" onclick="showLess()">- SEE Less</button>
+                    <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
                   </div>
                 </div>
               </div>
-              <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
+            
+            </div>
+              <div :class="`bottom-disclosure pt-0 px-3 ${activeTabs[keyId] ? 'd-block':'d-none'}`" id="disclosure1" data-dc="1">
                 <div class="container-fluid">
                   <div class="disclosure-div">
                     <div class="disclosure-header-div d-flex align-items-center justify-content-between">
                       <h4 class="disclosure-heading">Disclosure</h4>
                       <div class="disclosure-right-actions">
-                        <button class="btn round-btn disclosure-edit">
+                        <button class="btn round-btn disclosure-edit" v-if="!saveDisclosure">
                           <span>Edit</span>
                           <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -1561,7 +437,7 @@
                               fill="#9D9D9D"></path>
                           </svg>
                         </button>
-                        <button class="btn round-btn disclosure-save d-none">
+                        <button class="btn round-btn disclosure-save " v-if="saveDisclosure" @click="() => saveDisclosure=false">
                           <span>Save</span>
                           <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
                             <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
@@ -1572,8 +448,8 @@
                         </button>
                       </div>
                     </div>
-                    <div class="disclosure-text-wrapper">
-                      <div class="disclosure-textarea" contenteditable="true">
+                    <div :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable':''}`">
+                      <div class="disclosure-textarea" contenteditable="true" @focus="handleDisclosure()">
                         This program illustrates the current values and assumptions of an Indexed Universal
                         Life (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV)
                         are for illustrative and educational purposes only, and are intended to produce
@@ -1630,7 +506,6 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1638,14 +513,269 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ["keyId"],
-    data() {
-      return {
-        activeTabs: this.$store.state.data.reportTabs.active,
-      };
+import { VueDraggableNext } from "vue-draggable-next";
+
+export default {
+  props: ["keyId"],
+  components: {
+    draggable: VueDraggableNext,
+  },
+  data() {
+    return {
+      activeTabs: this.$store.state.data.reportTabs.active,
+      saveDisclosure:false,
+      draggableColumns: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+      ],
+      showAll: false,
+      target_analysis: {
+        distributions: [
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+        ],
+        data: [
+          {
+            id: 0,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "LifePro+",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 1,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "Account",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 2,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "401K/IRR",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 3,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "Annuity",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+        ],
+      },
+      summary_data: {
+        deposits: { totals: "328885", total_values: "", shortfall: "" },
+        data: [
+          {
+            id: 0,
+            distribution: {
+              total: 6577,
+              total_value: "6577",
+              shortfall: "",
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 1,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 6577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 2,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 68577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 3,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 62577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+        ],
+      },
+    };
+  },
+  methods: {
+    handleDisclosure: function() {
+      this.saveDisclosure = true; 
     },
-  };
+  },
+};
 </script>
-<style lang="">
-</style>

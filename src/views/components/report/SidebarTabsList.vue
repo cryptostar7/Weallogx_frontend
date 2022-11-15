@@ -3,7 +3,7 @@
         <div class="reportBldrLftscroll checkbox-wrapper-2">
             <draggable class="dragArea list-group w-full" :list="list" @change="log">
                 <div class="empty" data-empty="0" v-for="element in list" :key="element.id">
-                    <div class="fill" draggable="true" data-fill="1">
+                    <div class="fill" data-fill="1">
                         <div :class="`reportBuilderLftInner px-10 mb-3 rightCollapseDivs7 ${activeTabs[element.key] ? 'active':''}`" @click="handleTabs(element.key)">
                             <div class="lftRadioBtnDiv">
                                 <div class="button-cover">

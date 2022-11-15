@@ -1,4 +1,4 @@
-<template lang="">
+        +/<template lang="">
   <div class="empty" data-class="empty-wrapper" data-empty="1">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
@@ -33,7 +33,7 @@
                     <div class="distributionCard1 equalDistCard1 position-relative w-100">
                       <div class="d-flex justify-content-between">
                         <div class="distrbnCard1paras">
-                          <p>Longevity</p>
+         *                <p>Longevity</p>
                           <p>LIRP Balance</p>
                         </div>
                         <div class="d-flex">

@@ -1,13 +1,13 @@
 <template lang="">
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar">
     <div class="container-fluid">
-      <a class="navbar-brand backToscenario" href="index.html">
+      <router-link class="navbar-brand backToscenario" to="/">
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect y="4.9502" width="7" height="2" rx="1" transform="rotate(-45 0 4.9502)" fill="black" />
           <rect x="1.41406" y="3.84473" width="7" height="2" rx="1" transform="rotate(45 1.41406 3.84473)"
             fill="black" />
         </svg>
-        Back to Scenario</a>
+        Back to Scenario</router-link>
       <button class="navbar-toggler menu-icon-report-btn" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
