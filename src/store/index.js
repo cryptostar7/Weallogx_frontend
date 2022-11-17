@@ -36,6 +36,19 @@ const store = createStore({
                     hst_comparative_values: true,
                 }
             },
+            disclosure: {
+                comparative_msg: 'This program illustrates the current values and assumptions of an Indexed Universal Life (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV) are for illustrative and educational purposes only, and are intended to produce insight and discussion points between you and a licensed agent. No claim is made that the IUL is superior to the CVs. Guarantees backed by the claims paying ability of the underwriting insurance company. These graphics and illustrations do not constitute tax, legal or accounting advice. Please consult your own legal or tax counsel to confirm how tax treatment applies to you. The hypothetical results are for illustrative purposes only and should not be deemed a representation of past or future results. Your experience may and likely will vary materially from these results. Tax-free access to cash values are typically done through a policy loan which can reduce death benefits, cash values, incur interest and could cause the policy to lapse. Additional premium payments may be needed to keep the policy in force and in the event of a lapse, outstanding policy loans in excess of unrecovered basis will be subject to ordinary income taxes. Tax laws are subject to change. These values are not guaranteed. Policies still incur costs and charges each year for administration and insurance. This could cause the cash value to go down. You may also lose cash value by surrendering the policy. Life Insurance costs, caps, and participation rates can be changed at the discretion of the insurance company within certain limits, which can positively or adversely affect the performance of the policy.Neither this software nor the presenting agent in any way guarantees future performance, and this presentation is null and void unless accompanied by an approved illustration from the insurance company presented.',
+                historical_msg: 'This program illustrates the current values and assumptions of an Indexed Universal Life (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV) are for illustrative and educational purposes only, and are intended to produce insight and discussion points between you and a licensed agent. No claim is made that the IUL is superior to the CVs. Guarantees backed by the claims paying ability of the underwriting insurance company. These graphics and illustrations do not constitute tax, legal or accounting advice. Please consult your own legal or tax counsel to confirm how tax treatment applies to you. The hypothetical results are for illustrative purposes only and should not be deemed a representation of past or future results. Your experience may and likely will vary materially from these results. Tax-free access to cash values are typically done through a policy loan which can reduce death benefits, cash values, incur interest and could cause the policy to lapse. Additional premium payments may be needed to keep the policy in force and in the event of a lapse, outstanding policy loans in excess of unrecovered basis will be subject to ordinary income taxes. Tax laws are subject to change. These values are not guaranteed. Policies still incur costs and charges each year for administration and insurance. This could cause the cash value to go down. You may also lose cash value by surrendering the policy. Life Insurance costs, caps, and participation rates can be changed at the discretion of the insurance company within certain limits, which can positively or adversely affect the performance of the policy.Neither this software nor the presenting agent in any way guarantees future performance, and this presentation is null and void unless accompanied by an approved illustration from the insurance company presented.',
+            }
+        },
+        app: {
+            themes: [
+                { name: 'Light Mode Green', value: 'light-green', color:'green' },
+                { name: 'Light Mode Blue', value: 'light-blue', color:'blue' },
+                { name: 'Dark Mode Green', value: 'dark-green', color:'green' },
+                { name: 'Dark Mode Blue', value: 'dark-blue', color:'blue' },
+            ],
+            current_theme: localStorage.getItem("mode") || 'light-green'
         },
     },
     getters: {
@@ -47,11 +60,20 @@ const store = createStore({
         setActiveReportTab(state, payload) {
             state.data.reportTabs.active[payload] = !state.data.reportTabs.active[payload];
         },
+        setTheme(state, type) {
+            state.app.current_theme = type;
+        }
     },
     actions: {
         toggleReportTabByID(context, payload) {
             context.commit("setActiveReportTab", payload);
-        }
+        },
+        theme(context, payload) {
+            localStorage.setItem("mode", payload);
+            document.body.className = "";
+            document.body.classList.add(payload);
+            context.commit("setTheme", payload);
+        },
     }
 })
 export default store;

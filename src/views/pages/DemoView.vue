@@ -1,34 +1,16 @@
 <template lang="">
   <div>
-    <table>
-      <thead class="thead-dark">
-        <draggable v-model="headers" tag="tr">
-          <th v-for="header in headers" :key="header" scope="col">
-            {{ header }}
-          </th>
-        </draggable>
-      </thead>
-    </table>
+    <h3 @click="updateTheme()">Submit</h3>
   </div>
 </template>
 <script>
-import { VueDraggableNext } from "vue-draggable-next";
-
+import axios from "axios";
 export default {
-  components: {
-    draggable: VueDraggableNext,
-  },
-  data() {
-    return {
-      headers: ["id", "name", "sport"],
-      dragging: false,
-    };
-  },
+  name: "App",
   methods: {
-    log(event) {
-      console.log(event);
-    },
+   updateTheme: function(){
+    this.$store.dispatch('theme', 'light-green');
+   }
   },
 };
 </script>
-<style lang=""></style>

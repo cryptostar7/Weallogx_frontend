@@ -1,15 +1,3 @@
-<script setup>
-import DeleteAccountModal from "../components/modal/DeleteAccountModal.vue";
-import DeleteAnnuityModal from "../components/modal/DeleteAnnuityModal.vue";
-import DeleteEraModal from "../components/modal/DeleteEraModal.vue";
-import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
-import DisclosureModal from "../components/modal/DisclosureModal.vue";
-import ShareModal from "../components/modal/ShareModal.vue";
-import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
-import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import ReportPageHeader from "../components/common/ReportPageHeader.vue";
-import "../../assets/js/chart.min";
-</script>
 <template>
   <!-- <navbar-component /> -->
   <report-page-header />
@@ -24,23 +12,27 @@ import "../../assets/js/chart.min";
   <report-builder-name-change-modal />
   <!-- Share report Modal start -->
   <share-modal />
-  <!-- Disclosure Required -->
-  <disclosure-modal />
-  <!-- Disclosure Required Ends -->
-
 </template>
 <script>
+import DeleteAccountModal from "../components/modal/DeleteAccountModal.vue";
+import DeleteAnnuityModal from "../components/modal/DeleteAnnuityModal.vue";
+import DeleteEraModal from "../components/modal/DeleteEraModal.vue";
+import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
+import ShareModal from "../components/modal/ShareModal.vue";
+import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
+import NavbarComponent from "./../components/common/NavbarComponent.vue";
+import ReportPageHeader from "../components/common/ReportPageHeader.vue";
+import "../../assets/js/chart.min";
 export default {
   components: {
-    NavbarComponent,
-    ReportPageHeader,
-    ReportBuilderMainSection,
     DeleteAccountModal,
-    DeleteEraModal,
     DeleteAnnuityModal,
+    DeleteEraModal,
     ReportBuilderNameChangeModal,
     ShareModal,
-    DisclosureModal,
+    ReportBuilderMainSection,
+    NavbarComponent,
+    ReportPageHeader,
   },
 };
 </script>

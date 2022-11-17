@@ -89,13 +89,6 @@
 <script>
 export default {
     props:['client'],
-    data(){
-      return {
-      }
-    },
-    mounted(){
-      console.log(this.client);
-    }
 }
 </script>
 <style lang="">

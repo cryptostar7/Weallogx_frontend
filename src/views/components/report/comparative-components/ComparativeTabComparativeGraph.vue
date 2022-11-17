@@ -1,4 +1,4 @@
-        +/<template lang="">
+<template lang="">
   <div class="empty" data-class="empty-wrapper" data-empty="1">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
@@ -33,7 +33,7 @@
                     <div class="distributionCard1 equalDistCard1 position-relative w-100">
                       <div class="d-flex justify-content-between">
                         <div class="distrbnCard1paras">
-         *                <p>Longevity</p>
+                          <p>Longevity</p>
                           <p>LIRP Balance</p>
                         </div>
                         <div class="d-flex">
@@ -274,146 +274,7 @@
                 </div>
               </div>
             </div>
-            <div class="container-fluid d-none">
-              <div class="disclosure-div px-3 py-1">
-                <p>This program illustrates the current values and assumptions of an Indexed Universal Life
-                  (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV) are for
-                  illustrative and educational purposes only, and are intended to produce insight and
-                  discussion points between you and a licensed agent. No claim is made that the IUL is
-                  superior to the CVs. Guarantees backed by the claims paying ability of the underwriting
-                  insurance company. These graphics and illustrations do not constitute tax, legal or
-                  accounting advice. Please consult your own legal or tax counsel to confirm how tax
-                  treatment applies to you. The hypothetical results are for illustrative purposes only and
-                  should not be deemed a representation of past or future results. Your experience may and
-                  likely will vary materially from these results. Tax-free access to cash values are
-                  typically done through a policy loan which can reduce death benefits, cash values, incur
-                  interest and could cause the policy to lapse. Additional premium payments may be needed to
-                  keep the policy in force and in the event of a lapse, outstanding policy loans in excess
-                  of unrecovered basis will be subject to ordinary income taxes. Tax laws are subject to
-                  change. These values are not guaranteed. Policies still incur costs and charges each year
-                  for administration and insurance. This could cause the cash value to go down. You may also
-                  lose cash value by surrendering the policy. Life Insurance costs, caps, and participation
-                  rates can be changed at the discretion of the insurance company within certain limits,
-                  which can positively or adversely affect the performance of the policy.Neither this
-                  software nor the presenting agent in any way guarantees future performance, and this
-                  presentation is null and void unless accompanied by an approved illustration from the
-                  insurance company presented.</p>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <h6 class="bold-one">Fees assumed:</h6>
-                    <div>
-                      <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                        <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                        <span>Annuity: <b>2.3%</b> per annum; </span>
-                        <span>LIRP: actual current costs of insurance, as per the carrier
-                          illustration</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div>
-                      <h6 class="bold-one">Taxes assumed: </h6>
-                      <p><span><b>27%</b> years <b>1-6</b>;</span>
-                        <span><b>35%</b> years <b>7+</b>;</span>
-                        <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                        <span>Capital gains ratio: <b>50%</b>;</span>
-                        <span>Capital gains tax rate: <b>20%</b>;</span>
-                        <!-- If taxes are scheduled, then the last line is simply: -->
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <p><span>Taxes assumed: <b>Per schedule</b></span></p>
-              </div>
-            </div>
-            <div class="bottom-disclosure px-3" id="disclosure2" data-dc="2">
-              <div class="container-fluid">
-                <div class="disclosure-div">
-                  <div class="disclosure-header-div d-flex align-items-center justify-content-between">
-                    <h4 class="disclosure-heading">Disclosure</h4>
-                    <div class="disclosure-right-actions">
-                      <button class="btn round-btn disclosure-edit">
-                        <span>Edit</span>
-                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z"
-                            fill="#9D9D9D"></path>
-                          <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D">
-                          </path>
-                          <path
-                            d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
-                            fill="#9D9D9D"></path>
-                        </svg>
-                      </button>
-                      <button class="btn round-btn disclosure-save d-none">
-                        <span>Save</span>
-                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
-                          <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
-                            transform="rotate(135 15.6938 2.42676)" fill="#9D9D9D" />
-                          <rect x="5.74683" y="12.4258" width="7.78182" height="2.12203" rx="1.06101"
-                            transform="rotate(-135 5.74683 12.4258)" fill="#9D9D9D" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="disclosure-text-wrapper">
-                    <div class="disclosure-textarea" contenteditable="true">
-                      This program illustrates the current values and assumptions of an Indexed Universal Life
-                      (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV) are for
-                      illustrative and educational purposes only, and are intended to produce insight and
-                      discussion points between you and a licensed agent. No claim is made that the IUL is
-                      superior to the CVs. Guarantees backed by the claims paying ability of the underwriting
-                      insurance company. These graphics and illustrations do not constitute tax, legal or
-                      accounting advice. Please consult your own legal or tax counsel to confirm how tax
-                      treatment applies to you. The hypothetical results are for illustrative purposes only
-                      and should not be deemed a representation of past or future results. Your experience may
-                      and likely will vary materially from these results. Tax-free access to cash values are
-                      typically done through a policy loan which can reduce death benefits, cash values, incur
-                      interest and could cause the policy to lapse. Additional premium payments may be needed
-                      to keep the policy in force and in the event of a lapse, outstanding policy loans in
-                      excess of unrecovered basis will be subject to ordinary income taxes. Tax laws are
-                      subject to change. These values are not guaranteed. Policies still incur costs and
-                      charges each year for administration and insurance. This could cause the cash value to
-                      go down. You may also lose cash value by surrendering the policy. Life Insurance costs,
-                      caps, and participation rates can be changed at the discretion of the insurance company
-                      within certain limits, which can positively or adversely affect the performance of the
-                      policy.Neither this software nor the presenting agent in any way guarantees future
-                      performance, and this presentation is null and void unless accompanied by an approved
-                      illustration from the insurance company presented.
-                    </div>
-                  </div>
-                  <div class="disclosure-footer">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <h6 class="bold-one">Fees assumed:</h6>
-                        <div>
-                          <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                            <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                            <span>Annuity: <b>2.3%</b> per annum; </span>
-                            <span>LIRP: actual current costs of insurance, as per the carrier
-                              illustration</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div>
-                          <h6 class="bold-one">Taxes assumed: </h6>
-                          <p><span><b>27%</b> years <b>1-6</b>;</span>
-                            <span><b>35%</b> years <b>7+</b>;</span>
-                            <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                            <span>Capital gains ratio: <b>50%</b>;</span>
-                            <span>Capital gains tax rate: <b>20%</b>;</span>
-                            <!-- If taxes are scheduled, then the last line is simply: -->
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <p><span>Taxes assumed: <b>Per schedule</b></span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <comparative-disclosure-component />
           </div>
         </div>
       </div>
@@ -421,14 +282,289 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ["keyId"],
-    data() {
-      return {
-        activeTabs: this.$store.state.data.reportTabs.active,
-      };
-    },
-  };
+import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
+export default {
+  props: ["keyId"],
+  components:{ComparativeDisclosureComponent},
+  data() {
+    return {
+      activeTabs: this.$store.state.data.reportTabs.active,
+      currentTheme:this.$store.state.app.current_theme,
+    };
+  },
+
+  mounted() {
+
+    const getOrCreateLegendList = (chart, id) => {
+      const legendContainer = document.getElementById(id);
+      return legendContainer;
+    };
+
+    const comparativeValuesLabels = [1, 5, 10, 15, 20, 25, 30, 35];
+
+    const comparativeValuesData = {
+      labels: comparativeValuesLabels,
+      datasets: [
+        {
+          borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4" : '#0E6651',
+          borderWidth: 4,
+          radius: 0,
+          data: [
+            600000,
+            1250000,
+            2500000,
+            3000000,
+            2000000,
+            1500000,
+            1000000,
+            500000,
+          ],
+        },
+        {
+          borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#0E6651" : '#1660A4',
+          borderWidth: 4,
+          radius: 0,
+          data: [
+            1700000,
+            2200000,
+            3200000,
+            3500000,
+            4300000,
+            2800000,
+            3100000,
+            2900000,
+          ],
+        },
+        {
+          borderColor: "#763CA3",
+          borderWidth: 4,
+          radius: 0,
+          data: [
+            1900000,
+            2600000,
+            4000000,
+            480000,
+            900000,
+            1300000,
+            4500000,
+            3300000,
+          ],
+        },
+        {
+          borderColor: "#9D2B2B",
+          borderWidth: 4,
+          radius: 0,
+          data: [
+            2500000,
+            2800000,
+            4800000,
+            4500000,
+            1500000,
+            2900000,
+            3300000,
+            4000000,
+          ],
+        },
+        {
+          // borderColor: '#0E6651',
+          backgroundColor: "rgba(14, 103, 82, .4)",
+          // borderWidth: 4,
+          radius: 0,
+          data: [
+            2900000,
+            3100000,
+            3500000,
+            4000000,
+            3000000,
+            5000000,
+            3500000,
+            2500000,
+          ],
+          type: "bar",
+          borderRadius: 2,
+          // borderSkipped: false,
+        },
+        {
+          backgroundColor: "rgba(131, 159, 175, .6)",
+          // borderWidth: 4,
+          radius: 2,
+          data: [
+            1400000,
+            1500000,
+            1700000,
+            2000000,
+            1500000,
+            2500000,
+            2400000,
+            2300000,
+          ],
+          type: "bar",
+          borderRadius: 2,
+        },
+      ],
+    };
+
+    const htmlLegendPlugin0 = {
+      id: "comparativeValues1",
+      afterUpdate(chart, args, options) {
+        const ul = getOrCreateLegendList(chart, options.containerID);
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        let checkboxes = document
+          .getElementById(options.containerID)
+          .querySelectorAll("input[type=checkbox]");
+        items.forEach((item, index) => {
+          checkboxes[index].onclick = e => {
+            if (index < 4) {
+              let distributionCard = e.target.closest(".distributionCard1");
+              distributionCard.classList.toggle("inactive");
+            }
+            const { type } = chart.config;
+            if (type === "pie" || type === "doughnut") {
+              // Pie and doughnut charts only have a single dataset and visibility is per item
+              chart.toggleDataVisibility(item.index);
+            } else {
+              chart.setDatasetVisibility(
+                item.datasetIndex,
+                !chart.isDatasetVisible(item.datasetIndex)
+              );
+            }
+            chart.update();
+          };
+        });
+      },
+      hideAll(chart, options) {
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach((item, index) => {
+          const { type } = chart.config;
+          if (type === "pie" || type === "doughnut") {
+            // Pie and doughnut charts only have a single dataset and visibility is per item
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(
+              item.datasetIndex,
+              !chart.isDatasetVisible(item.datasetIndex)
+            );
+          }
+          chart.update();
+        });
+      },
+    };
+
+    const comparativeValuesConfig = {
+      type: "line",
+      data: comparativeValuesData,
+      options: {
+        interaction: {
+          intersect: false,
+          mode: "index",
+        },
+        font: {
+          size: 16,
+          color: "#000",
+        },
+        responsive: true,
+        plugins: {
+          comparativeValues1: {
+            containerID: "comparativeValuesFluid",
+          },
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false,
+              drawBorder: false,
+              color: "transparent",
+            },
+            ticks: {
+              font: {
+                size: 11,
+                family: "Inter",
+                weight: "500",
+              },
+            },
+          },
+          y: {
+            grid: {
+              borderColor: "#E9E9E9",
+              drawBorder: false,
+            },
+            min: 0,
+            max: 5000000,
+            // stacked: true,
+            ticks: {
+              padding: 8,
+              stepSize: 1250000,
+              callback: function(value, index, ticks) {
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(",");
+                return "$" + value;
+              },
+              font: {
+                size: 11,
+                family: "Inter",
+                weight: "500",
+              },
+            },
+          },
+          y1: {
+            type: "linear",
+            display: true,
+            position: "right",
+
+            // grid line settings
+            grid: {
+              drawOnChartArea: false, // only want the grid lines for one axis to show up
+              borderColor: "#E9E9E9",
+              drawBorder: false,
+              // tickLength: 5
+            },
+            min: 0,
+            max: 1000000,
+            ticks: {
+              padding: 8,
+              stepSize: 250000,
+              callback: function(value, index, ticks) {
+                value = value.toString();
+                value = value.split(/(?=(?:...)*$)/);
+                value = value.join(",");
+                return "$" + value;
+              },
+              font: {
+                size: 11,
+                family: "Inter",
+                weight: "500",
+              },
+            },
+          },
+        },
+      },
+      plugins: [htmlLegendPlugin0],
+    };
+
+    const comparativeValuesChart = new Chart(
+      document.getElementById("comparativeValuesChart"),
+      comparativeValuesConfig
+    );
+     var redioInp = document.querySelector('.dropdown-menu');
+      redioInp.addEventListener('click', function (e) {
+      let screenMode = localStorage.getItem("mode");
+      if(screenMode == "light-blue" || screenMode == "dark-blue"){
+        comparativeValuesData.datasets[0].borderColor = "#1660A4";
+        comparativeValuesData.datasets[1].borderColor = "#0E6651";
+        comparativeValuesChart.update();
+      }else{
+        comparativeValuesData.datasets[0].borderColor = "#0E6651";
+        comparativeValuesData.datasets[1].borderColor = "#1660A4";
+        comparativeValuesChart.update();
+      }
+    });
+  }
+
+};
 </script>
 <style lang="">
 </style>

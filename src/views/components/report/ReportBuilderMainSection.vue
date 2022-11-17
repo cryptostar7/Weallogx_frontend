@@ -76,6 +76,12 @@ export default {
       },
     };
   },
+    mounted() {
+    console.log(this.$appTheme());
+  },
+  updated() {
+    console.log(this.$appTheme());
+  },
 };
 </script>
 <style lang="">

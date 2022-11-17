@@ -50,45 +50,7 @@
             </a>
           </li>
         </ul>
-        <div class="dropdown theme-btn-dropdown ms-auto text-center">
-          <button class="btn theme-btn themeBtnDropResponsive dropdown-toggle no-after" role="button"
-            id="newDropdownBtn2" data-bs-toggle="dropdown" aria-label="false">Theme
-          </button>
-          <ul class="dropdown-menu theme-dropdown-responsive" aria-labelledby="newDropdownBtn2">
-            <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                href="javascript:void(0)" data-mode="light-green">
-                <span>Light Mode Green</span>
-                <div class="round ms-2 light-mode-green">
-                  <input type="radio" name="modeRadio" id="light-green" />
-                  <label for="light-green"></label>
-                </div>
-              </a></li>
-            <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                href="javascript:void(0)" data-mode="light-blue">
-                <span>Light Mode Blue</span>
-                <div class="round ms-2 light-mode-blue">
-                  <input type="radio" name="modeRadio" id="light-blue" />
-                  <label for="light-blue"></label>
-                </div>
-              </a></li>
-            <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                href="javascript:void(0)" data-mode="dark-green">
-                <span>Dark Mode Green</span>
-                <div class="round ms-2 dark-mode-green">
-                  <input type="radio" name="modeRadio" id="dark-green" />
-                  <label for="dark-green"></label>
-                </div>
-              </a></li>
-            <li><a class="dropdown-item semi-bold-fw d-flex justify-content-between align-items-center"
-                href="javascript:void(0)" data-mode="dark-blue">
-                <span>Dark Mode Blue</span>
-                <div class="round ms-2 dark-mode-blue">
-                  <input type="radio" name="modeRadio" id="dark-blue" />
-                  <label for="dark-blue"></label>
-                </div>
-              </a></li>
-          </ul>
-        </div>
+        <theme-dropdown type="2"/>
         <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive">
           <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="path-1-inside-1_1_94760" fill="white">
@@ -121,61 +83,10 @@
   </nav>
 </template>
 <script>
+import ThemeDropdown from "./ThemeDropdown.vue";
+
 export default {
-  mounted() {
-    let mode = localStorage.getItem("mode");
-    document.body.classList.add(mode);
-
-    let openModalWithClientCreation = localStorage.getItem(
-      "openModalWithClientCreation"
-    );
-    let openModalWithScenarioCreation = localStorage.getItem(
-      "openModalWithScenarioCreation"
-    );
-    let openModalWithReportChange = localStorage.getItem(
-      "openModalWithReportChange"
-    );
-
-    if (openModalWithClientCreation == "Yes") {
-      var myModal = new bootstrap.Modal(
-        document.getElementById("reportCreateModal2")
-      );
-      myModal.show();
-      localStorage.setItem("openModalWithClientCreation", "No");
-    }
-    if (openModalWithScenarioCreation == "Yes") {
-      var myModal = new bootstrap.Modal(
-        document.getElementById("reportCreateModal")
-      );
-      myModal.show();
-      localStorage.setItem("openModalWithScenarioCreation", "No");
-    }
-    if (openModalWithReportChange == "Yes") {
-      var myModal = new bootstrap.Modal(
-        document.getElementById("reportNameChangeModal")
-      );
-      myModal.show();
-      localStorage.setItem("openModalWithReportChange", "No");
-    }
-
-    const modeSwitchDropdown = document.querySelector(".theme-btn-dropdown");
-    const modeBtns = modeSwitchDropdown.querySelectorAll(".dropdown-item");
-    modeBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        document.body.className = "";
-        let mode = this.getAttribute("data-mode");
-        localStorage.setItem("mode", mode);
-        document.body.classList.add(mode);
-        document.cookie = "mode=" + mode;
-        let radio = document.getElementById(mode);
-        if (radio.checked) {
-          radio.checked = false;
-        } else {
-          radio.checked = true;
-        }
-      });
-    });
-  },
+  components:{ThemeDropdown},
 };
 </script>
 <style lang="">

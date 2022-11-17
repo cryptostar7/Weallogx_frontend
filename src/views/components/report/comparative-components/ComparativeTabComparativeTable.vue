@@ -172,7 +172,7 @@
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in target_analysis.distributions" :key="index">
-                                <td data-label="Year">{{item.deposits}}</td>
+                                <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -222,10 +222,10 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td class="blankTd" data-label="blank">{{item.distributions || '-'}}</td>
-                              <td data-label="acount">{{item.account_value}}</td>
-                              <td data-label="surrender">{{item.surrender_value}}</td>
-                              <td data-label="death">{{item.death_benifit}}</td>
+                              <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
+                              <td data-label="acount">{{$numFormatWithDollar(item.account_value)}}</td>
+                              <td data-label="surrender">{{$numFormatWithDollar(item.surrender_value)}}</td>
+                              <td data-label="death">{{$numFormatWithDollar(item.death_benifit)}}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -260,7 +260,7 @@
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
                                                   fill="white" stroke="#1660A4" stroke-width="1.15" />
                                                 <path
-                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 1es0.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
                                                   stroke="#1660A4" stroke-width="1.25" />
                                               </svg>
                                             </a>
@@ -307,8 +307,8 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td class="blankTd" data-label="blank">{{item.distributions || '-'}}</td>
-                                        <td data-label="acount">{{item.net_balance}}</td>
+                                        <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
+                                        <td data-label="acount">{{$numFormatWithDollar(item.net_balance)}}</td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -334,7 +334,7 @@
                               <tr>
                                 <td class="table1Td tableotalTd text-start" data-label="Year">Totals
                                 </td>
-                                <td class="table1Td" data-label="Age">{{summary_data.deposits.totals}}</td>
+                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
                               </tr>
                               <tr>
                                 <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value
@@ -358,16 +358,16 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td data-label="surrender">{{summary_data.data[0].distribution.total || '-'}}</td>
-                                <td class="blankTd w-75" data-label="blank">{{summary_data.data[0].net_balance.total || '-'}}</td>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.total) || '-'}}</td>
+                                <td class="blankTd w-75" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total) || '-'}}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{summary_data.data[0].distribution.total_value || '-'}}</td>
-                                <td class="blankTd" data-label="blank">{{summary_data.data[0].net_balance.total_value || '-'}}</td>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'}}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{summary_data.data[0].distribution.shortfall || '-'}}</td>
-                                <td class="blankTd" data-label="blank">{{summary_data.data[0].net_balance.shortfall || '-'}}</td>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-'}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -387,17 +387,17 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{summary_data.data[header.id].distribution.total || '-'}}</td>
-                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.total || '-'}}</td>
+                                    <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-'}}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{summary_data.data[header.id].distribution.total_value || '-'}}</td>
-                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.total_value || '-'}}</td>
+                                    <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'}}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{summary_data.data[header.id].distribution.shortfall || '-'}}
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'}}
                                     </td>
-                                    <td width="50%" class="blankTd" data-label="blank">{{summary_data.data[header.id].net_balance.shortfall || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'}}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -416,96 +416,8 @@
                   </div>
                 </div>
               </div>
-            
             </div>
-              <div :class="`bottom-disclosure pt-0 px-3 ${activeTabs[keyId] ? 'd-block':'d-none'}`" id="disclosure1" data-dc="1">
-                <div class="container-fluid">
-                  <div class="disclosure-div">
-                    <div class="disclosure-header-div d-flex align-items-center justify-content-between">
-                      <h4 class="disclosure-heading">Disclosure</h4>
-                      <div class="disclosure-right-actions">
-                        <button class="btn round-btn disclosure-edit" v-if="!saveDisclosure">
-                          <span>Edit</span>
-                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z"
-                              fill="#9D9D9D"></path>
-                            <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D">
-                            </path>
-                            <path
-                              d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
-                              fill="#9D9D9D"></path>
-                          </svg>
-                        </button>
-                        <button class="btn round-btn disclosure-save " v-if="saveDisclosure" @click="() => saveDisclosure=false">
-                          <span>Save</span>
-                          <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
-                            <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
-                              transform="rotate(135 15.6938 2.42676)" fill="#9D9D9D" />
-                            <rect x="5.74683" y="12.4258" width="7.78182" height="2.12203" rx="1.06101"
-                              transform="rotate(-135 5.74683 12.4258)" fill="#9D9D9D" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <div :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable':''}`">
-                      <div class="disclosure-textarea" contenteditable="true" @focus="handleDisclosure()">
-                        This program illustrates the current values and assumptions of an Indexed Universal
-                        Life (IUL) cash value insurance policy. Comparisons made to Comparative Vehicles (CV)
-                        are for illustrative and educational purposes only, and are intended to produce
-                        insight and discussion points between you and a licensed agent. No claim is made that
-                        the IUL is superior to the CVs. Guarantees backed by the claims paying ability of the
-                        underwriting insurance company. These graphics and illustrations do not constitute
-                        tax, legal or accounting advice. Please consult your own legal or tax counsel to
-                        confirm how tax treatment applies to you. The hypothetical results are for
-                        illustrative purposes only and should not be deemed a representation of past or future
-                        results. Your experience may and likely will vary materially from these results.
-                        Tax-free access to cash values are typically done through a policy loan which can
-                        reduce death benefits, cash values, incur interest and could cause the policy to
-                        lapse. Additional premium payments may be needed to keep the policy in force and in
-                        the event of a lapse, outstanding policy loans in excess of unrecovered basis will be
-                        subject to ordinary income taxes. Tax laws are subject to change. These values are not
-                        guaranteed. Policies still incur costs and charges each year for administration and
-                        insurance. This could cause the cash value to go down. You may also lose cash value by
-                        surrendering the policy. Life Insurance costs, caps, and participation rates can be
-                        changed at the discretion of the insurance company within certain limits, which can
-                        positively or adversely affect the performance of the policy.Neither this software nor
-                        the presenting agent in any way guarantees future performance, and this presentation
-                        is null and void unless accompanied by an approved illustration from the insurance
-                        company presented.
-                      </div>
-                    </div>
-                    <div class="disclosure-footer">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <h6 class="bold-one">Fees assumed:</h6>
-                          <div>
-                            <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                              <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                              <span>Annuity: <b>2.3%</b> per annum; </span>
-                              <span>LIRP: actual current costs of insurance, as per the carrier
-                                illustration</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div>
-                            <h6 class="bold-one">Taxes assumed: </h6>
-                            <p><span><b>27%</b> years <b>1-6</b>;</span>
-                              <span><b>35%</b> years <b>7+</b>;</span>
-                              <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                              <span>Capital gains ratio: <b>50%</b>;</span>
-                              <span>Capital gains tax rate: <b>20%</b>;</span>
-                              <!-- If taxes are scheduled, then the last line is simply: -->
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <p><span>Taxes assumed: <b>Per schedule</b></span></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <comparative-disclosure-component v-if="activeTabs[keyId]" />
           </div>
         </div>
       </div>
@@ -514,16 +426,16 @@
 </template>
 <script>
 import { VueDraggableNext } from "vue-draggable-next";
+import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
 
 export default {
   props: ["keyId"],
   components: {
-    draggable: VueDraggableNext,
+    ComparativeDisclosureComponent, draggable: VueDraggableNext,
   },
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      saveDisclosure:false,
       draggableColumns: [
         { id: 1, active: true },
         { id: 2, active: true },
@@ -772,10 +684,6 @@ export default {
       },
     };
   },
-  methods: {
-    handleDisclosure: function() {
-      this.saveDisclosure = true; 
-    },
-  },
+ 
 };
 </script>
