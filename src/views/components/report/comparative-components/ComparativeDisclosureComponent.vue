@@ -36,6 +36,11 @@
         </div>
         <div class="disclosure-footer">
             <div class="row">
+            <div class="col-md-12 pb-3" v-if="feetab">
+              <p class="mb-1"><b>Total Value</b> means cumulative net distributions plus ending account value or death benefit. In other words, what you get out of the account.</p>
+              <p class="mb-1"><b>Value Efficiency</b> means the ratio of total value to comprehensive fees. In other words, for every dollar of fees, what is the return you get for that fee in terms of total value?</p>
+              <p class="mb-1"><b>Fees</b> include recurring fees (such as management fees and asset fees), transaction fees, and taxes. For the LIRP, fees include all current costs of insurance, including administrative, mortality, and coverage expenses, as detailed by the illustration.</p>
+            </div>  
             <div class="col-md-6">
                 <h6 class="bold-one">Fees assumed:</h6>
                 <div>
@@ -93,6 +98,7 @@
 <script>
 
 export default {
+  props:['feetab'],
   data() {
     return {
       saveDisclosure: false,

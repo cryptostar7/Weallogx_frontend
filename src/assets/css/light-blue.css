@@ -849,15 +849,16 @@
 .light-blue .reportTablesDiv3 .table th {
   border-left-color: #2977BF;
 }
-.light-blue .viewBtnAccount svg path,
-.light-blue .viewBtnAccount svg circle,
-.light-blue .editBtnAccount svg rect,
-.light-blue .editBtnAccount svg path,
-.light-blue .deleteBtnAccount svg path {
-  stroke: #0E6651;
+.light-blue .switch1 .editBtnAccount svg rect,
+.light-blue .switch1 .editBtnAccount svg path,
+.light-blue .switch1 .deleteBtnAccount svg path {
+  stroke: #089875;
 }
-.light-blue .deleteBtnAccount svg rect {
-  fill: #0E6651;
+.light-blue .switch1 .deleteBtnAccount svg rect {
+  fill: #089875;
+}
+.light-blue .switch1 .editBtnAccount, .light-blue .switch1 .deleteBtnAccount{
+  color: #089875;
 }
 .light-blue .lifeProPlusPara3 {
   color: #089875;
@@ -882,13 +883,13 @@
 .light-blue .commonTableCls .reportTablesDiv4 .table th {
   border-left-color: #DFDFDF;
 }
-.light-blue .viewBtnAccount:hover {
+.light-blue .switch1 .viewBtnAccount:hover {
   color: #2E7665;
 }
-.light-blue .editBtnAccount:hover {
+.light-blue .switch1 .editBtnAccount:hover {
   color: #2E7665;
 }
-.light-blue .deleteBtnAccount:hover {
+.light-blue .switch1 .deleteBtnAccount:hover {
   color: #2E7665;
 }
 .light-blue .equalDistCard1 {
@@ -901,7 +902,7 @@
   color: #1660A4;
 }
 .light-blue .equalDistCard2 {
-  border-top-color: #0E6651;
+  border-top-color: #089875;
 }
 .light-blue .distrbnCard2paras p:last-child {
   color: #0E6651 !important;
@@ -910,10 +911,10 @@
   color: #0E6651 !important;
 }
 .light-blue .bgChangerComGraph2 p:nth-child(2) {
-  color: #0E6651;
+  color: #089875;
 }
-.light-blue .blueRadioSwtch .checkbox2:checked~.layer2 {
-  background: #0E6651 !important;
+.light-blue .switch1 .checkbox2:checked~.layer2 {
+  background: #089875 !important;
 }
 .light-blue .greenProgress1 {
   background: #1660A4;
@@ -934,7 +935,7 @@
   color: #9D2B2B !important;
 }
 .light-blue .blueRadioSwtchpara {
-  color: #0E6651 !important;
+  color: #089875 !important;
 }
 .light-blue .greenProgress1.switchBg {
   background: #287BC7 !important;
@@ -946,10 +947,10 @@
   background: #1660A4 !important;
 }
 .light-blue .blueProgress1 {
-  background: #25967B !important;
+  background: #089875 !important;
 }
 .light-blue .blueProgress1 .CardProgress{
-  background: #0E6651 !important;
+  background: #10B78E !important;
 }
 .light-blue .boxProgress * {
   color: rgb(233, 233, 233);
@@ -971,10 +972,10 @@
   background: #287BC7;
 }
 .light-blue .cumulativeProgAccount {
-  background: #0E6651;
+  background: #089875;
 }
 .light-blue .BottomcumulativeAccount {
-  background: #25967B;
+  background: #10B78E;
 }
 .light-blue .bigbarsmaincolorDisable * {
   background: transparent;
@@ -987,10 +988,10 @@
   background: #287BC7;
 }
 .light-blue .CardProgressBig2 {
-  background: #0E6651 !important;
+  background: #089875 !important;
 }
 .light-blue .progressBarOvrwrt2 {
-  background: #25967B;
+  background: #10B78E;
 }
 .light-blue .orangeProgress1.switchBg .orangeProgress2 {
   background: #E8662F;

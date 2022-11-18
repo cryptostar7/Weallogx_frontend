@@ -1291,7 +1291,7 @@ body::-webkit-scrollbar {
 .borderRghtTopNone {
   border-top-right-radius: 0;
 }
-.blueRadioSwtch .checkbox2:checked~.layer2 {
+.switch1 .checkbox2:checked~.layer2 {
   background-color: #1660A4 !important;
 }
 .blueRadioSwtchpara {
@@ -1316,8 +1316,35 @@ body::-webkit-scrollbar {
   background: #1660A4 !important;
 }
 /*  */
-.voiletRadioSwtch .checkbox2:checked~.layer2 {
+.switch2 .checkbox2:checked~.layer2 {
   background-color: #763CA3 !important;
+}
+.switch2 .editBtn rect, .switch2 .editBtn path{
+  stroke: #763CA3;
+}
+.switch2 .deleteBtn path{
+  stroke: #763CA3;
+}
+.switch2 .deleteBtn rect{
+  fill: #763CA3;
+}
+.switch3 .editBtn rect, .switch3 .editBtn path{
+  stroke: #9D2B2B;
+}
+.switch3 .deleteBtn path{
+  stroke: #9D2B2B;
+}
+.switch3 .deleteBtn rect{
+  fill: #9D2B2B;
+}
+.switch3.extra .editBtn rect, .switch3.extra .editBtn path{
+  stroke: #E8662F;
+}
+.switch3.extra .deleteBtn path{
+  stroke: #E8662F;
+}
+.switch3.extra .deleteBtn rect{
+  fill: #E8662F;
 }
 .voiletRadioSwtchpara {
   color: #763CA3 !important;
@@ -1335,7 +1362,10 @@ body::-webkit-scrollbar {
   background: #763CA3 !important;
 }
 /*  */
-.redRadioSwtch .checkbox2:checked~.layer2 {
+.switch3 .checkbox2:checked~.layer2 {
+  background-color: #9D2B2B !important;
+}
+.switch4.extra .checkbox2:checked~.layer2 {
   background-color: #9D2B2B !important;
 }
 .redRadioSwtchpara {
@@ -1684,13 +1714,26 @@ body::-webkit-scrollbar {
 /* Blue edit start */
 .editBtnAccount {
   text-decoration: none;
-  background: #FFF;
+/*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
+  color: #0E3C66;
+}
+.switch2 .editBtnAccount {
+  color: #763CA3;
+}
+.switch3 .editBtnAccount {
+  color: #9D2B2B;
+}
+.switch3.extra .editBtnAccount {
+  color: #E8662F;
+}
+.switch4.extra .editBtnAccount {
+  color: #9D2B2B;
 }
 .editBtnAccount:hover.editBtnAccount::before {
   content: 'Edit';
@@ -1702,12 +1745,11 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
   border: 1px solid #BBBBBB;
-  background: #FFF;
+/*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0.5rem;
   white-space: nowrap;
   text-decoration: none;
-  color: #1660A4;
 }
 /* Blue edit end */
 /* Blue delete start */
@@ -1720,6 +1762,19 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
+  color: #0E3C66;
+}
+.switch2 .deleteBtnAccount {
+  color: #763CA3;
+}
+.switch3 .deleteBtnAccount {
+  color: #9D2B2B;
+}
+.switch3.extra .deleteBtnAccount {
+  color: #E8662F;
+}
+.switch4.extra .deleteBtnAccount {
+  color: #9D2B2B;
 }
 .deleteBtnAccount:hover.deleteBtnAccount::before {
   content: 'Delete';
@@ -1735,7 +1790,9 @@ body::-webkit-scrollbar {
   padding: 0.1rem 0.5rem;
   white-space: nowrap;
   text-decoration: none;
-  color: #1660A4;
+}
+.editBtn svg rect, .editBtn svg path{
+  fill: transparent;
 }
 /* blue delete end */
 /* -------------------------- */
@@ -1847,14 +1904,15 @@ body::-webkit-scrollbar {
   padding: 3px 3px 0px 5px;
 }
 .reportTablesDiv .table td {
-  padding: 0 5px;
-  min-height: 50px;
+  padding: 0 7px;
+  height: 35px;
   border: 0.5px solid #DFDFDF !important;
   border-bottom: 0 !important;
   border-right: 0 !important;
   text-align: right;
   vertical-align: middle;
   word-break: break-all;
+  line-height: 1;
 }
 .reportTablesDiv .table tbody tr:last-child td {
    border-bottom: 0.5px solid #DFDFDF !important;
@@ -2310,7 +2368,7 @@ body::-webkit-scrollbar {
     text-align: left;
   }
   .reportSideBar {
-    left: calc(-1*var(--sidebar-width) + 20px) !important
+    left: calc(-1*var(--sidebar-width) + 20px)
   }
   .report-builder-right-area{
     margin-left: 0;
@@ -2743,10 +2801,10 @@ Blank div css end here
 ---------- -----------*/
 @media (max-width:1400px) {
   .reportTablesDiv .table th {
-    font-size: 10px !important;
+    font-size: 12px !important;
   }
   .reportTablesDiv .table tbody tr td {
-    font-size: 10px !important;
+    font-size: 12px !important;
   }
 }
 .secondTable {
@@ -3148,7 +3206,7 @@ Blank div css end here
 .equalDistCard5 {
   border-top: 6px solid #E8662F;
 }
-.orangeRadioSwtch .checkbox2:checked~.layer2 {
+.switch3.extra .checkbox2:checked~.layer2 {
   background-color: #E8662F !important;
 }
 .orangeRadioSwtchpara {
@@ -3990,4 +4048,22 @@ Blank div css end here
 .w-60{
   width: 60%;
   flex-basis: 60%;
+}
+.tableClr0 table tbody tr td{
+  background-color: #FAFFFE;
+}
+.tableClr1 table tbody tr td{
+  background-color: #F9FCFF;
+}
+.tableClr2 table tbody tr td{
+  background-color: #FEFAFF;
+}
+.tableClr3 table tbody tr td{
+  background-color: #FFFAF7;
+}
+.tableClr3.extra table tbody tr td{
+  background-color: #F9F8F8;
+}
+.tableClr4 table tbody tr td{
+  background-color: #FFFAF7;
 }

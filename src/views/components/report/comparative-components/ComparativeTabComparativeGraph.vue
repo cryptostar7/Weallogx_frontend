@@ -29,58 +29,16 @@
             <div class="px-3 pt-3" id="comparativeValuesFluid">
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard1 position-relative w-100">
+                  <div class="flex-1" v-for="(item, index) in data" :key="index">
+                    <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100`">
                       <div class="d-flex justify-content-between">
                         <div class="distrbnCard1paras">
                           <p>Longevity</p>
-                          <p>LIRP Balance</p>
+                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
-                            <div class="radioBtnDiv greenRadioSwtch r2" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between">
-                        <div class="compGraphtopPara bgChangerComGraph1">
-                          <p>Longevity</p>
-                          <p>30 Years+</p>
-                        </div>
-                        <div class="compGraphtopPara bgChangerComGraph1">
-                          <p class="text-end">Cumulative Income</p>
-                          <p class="text-end">$5,000,000</p>
-                        </div>
-                      </div>
-                      <div class="compGraphSmallBdr compGraphSmallBdrClr1 pt-1 mb-two">
-                        <p></p>
-                      </div>
-                      <div class="d-flex">
-                        <div class="compGraphtopParaTwo">
-                          <p>Rate of Return</p>
-                          <p>10.15%</p>
-                        </div>
-                        <div class="compGraphtopParaTwo cardParLeftMar">
-                          <p>IRR</p>
-                          <p>9.57%</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard2 position-relative w-100">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Longevity</p>
-                          <p class="blueRadioSwtchpara">Brokerage Account Balance</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
+                            <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
                               <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
@@ -102,11 +60,11 @@
                       <div class="d-flex justify-content-between">
                         <div class="compGraphtopPara bgChangerComGraph2">
                           <p>Longevity</p>
-                          <p>22 Years</p>
+                          <p>{{item.longevity_year}}</p>
                         </div>
                         <div class="compGraphtopPara bgChangerComGraph2">
                           <p class="text-end">Cumulative Income</p>
-                          <p class="text-end">$5,000,000</p>
+                          <p class="text-end">{{$numFormatWithDollar(item.cumulative_income)}}</p>
                         </div>
                       </div>
                       <div class="compGraphSmallBdr compGraphSmallBdrClr2 pt-1 mb-two">
@@ -115,117 +73,11 @@
                       <div class="d-flex">
                         <div class="compGraphtopParaTwo">
                           <p>Rate of Return</p>
-                          <p>10.15%</p>
+                          <p>{{item.ror}}</p>
                         </div>
                         <div class="compGraphtopParaTwo cardParLeftMar">
                           <p>IRR</p>
-                          <p>9.57%</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard3 position-relative w-100">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Longevity</p>
-                          <p class="voiletRadioSwtchpara">401K/IRA Balance</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 voiletRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnVoilet" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between">
-                        <div class="compGraphtopPara bgChangerComGraph3">
-                          <p>Longevity</p>
-                          <p>22 Years</p>
-                        </div>
-                        <div class="compGraphtopPara bgChangerComGraph3">
-                          <p class="text-end">Cumulative Income</p>
-                          <p class="text-end">$5,000,000</p>
-                        </div>
-                      </div>
-                      <div class="compGraphSmallBdr compGraphSmallBdrClr3 pt-1 mb-two">
-                        <p></p>
-                      </div>
-                      <div class="d-flex">
-                        <div class="compGraphtopParaTwo">
-                          <p>Avg Return</p>
-                          <p>10.15%</p>
-                        </div>
-                        <div class="compGraphtopParaTwo cardParLeftMar">
-                          <p>CAGR</p>
-                          <p>9.57%</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard4 position-relative w-100">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Longevity</p>
-                          <p class="redRadioSwtchpara">Annuity Balance</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 redRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnRed" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between">
-                        <div class="compGraphtopPara bgChangerComGraph4">
-                          <p>Longevity</p>
-                          <p>22 Years</p>
-                        </div>
-                        <div class="compGraphtopPara bgChangerComGraph4">
-                          <p class="text-end">Cumulative Income</p>
-                          <p class="text-end">$5,000,000</p>
-                        </div>
-                      </div>
-                      <div class="compGraphSmallBdr compGraphSmallBdrClr4 pt-1 mb-two">
-                        <p></p>
-                      </div>
-                      <div class="d-flex">
-                        <div class="compGraphtopParaTwo">
-                          <p>Avg Return</p>
-                          <p>10.15%</p>
-                        </div>
-                        <div class="compGraphtopParaTwo cardParLeftMar">
-                          <p>CAGR</p>
-                          <p>9.57%</p>
+                          <p>{{item.irr}}</p>
                         </div>
                       </div>
                     </div>
@@ -285,16 +137,52 @@
 import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
 export default {
   props: ["keyId"],
-  components:{ComparativeDisclosureComponent},
+  components: { ComparativeDisclosureComponent },
+
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      currentTheme:this.$store.state.app.current_theme,
+      currentTheme: this.$store.state.app.current_theme,
+      cards: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+        { id: 4, active: true },
+      ],
+      data: [
+        {
+          type: "LIRP Balance",
+          longevity_year: "65 Years",
+          cumulative_income: 5000000,
+          ror: "45%",
+          irr: "45%",
+        },
+        {
+          type: "Brokerage Account Balance",
+          longevity_year: "61 Years",
+          cumulative_income: 5000000,
+          ror: "21%",
+          irr: "21%",
+        },
+        {
+          type: "401/IRA Balance",
+          longevity_year: "35 Years",
+          cumulative_income: 5000000,
+          ror: "98%",
+          irr: "98%",
+        },
+        {
+          type: "Annuity Balance",
+          longevity_year: "75 Years",
+          cumulative_income: 5000000,
+          ror: "65%",
+          irr: "65%",
+        },
+      ],
     };
   },
 
   mounted() {
-
     const getOrCreateLegendList = (chart, id) => {
       const legendContainer = document.getElementById(id);
       return legendContainer;
@@ -306,7 +194,10 @@ export default {
       labels: comparativeValuesLabels,
       datasets: [
         {
-          borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4" : '#0E6651',
+          borderColor:
+            this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
+              ? "#1660A4"
+              : "#0E6651",
           borderWidth: 4,
           radius: 0,
           data: [
@@ -321,7 +212,10 @@ export default {
           ],
         },
         {
-          borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#0E6651" : '#1660A4',
+          borderColor:
+            this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
+              ? "#0E6651"
+              : "#1660A4",
           borderWidth: 4,
           radius: 0,
           data: [
@@ -549,21 +443,20 @@ export default {
       document.getElementById("comparativeValuesChart"),
       comparativeValuesConfig
     );
-     var redioInp = document.querySelector('.dropdown-menu');
-      redioInp.addEventListener('click', function (e) {
+    var redioInp = document.querySelector(".dropdown-menu");
+    redioInp.addEventListener("click", function(e) {
       let screenMode = localStorage.getItem("mode");
-      if(screenMode == "light-blue" || screenMode == "dark-blue"){
+      if (screenMode == "light-blue" || screenMode == "dark-blue") {
         comparativeValuesData.datasets[0].borderColor = "#1660A4";
         comparativeValuesData.datasets[1].borderColor = "#0E6651";
         comparativeValuesChart.update();
-      }else{
+      } else {
         comparativeValuesData.datasets[0].borderColor = "#0E6651";
         comparativeValuesData.datasets[1].borderColor = "#1660A4";
         comparativeValuesChart.update();
       }
     });
-  }
-
+  },
 };
 </script>
 <style lang="">

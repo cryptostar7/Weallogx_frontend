@@ -245,7 +245,7 @@
                                     <div class="row">
                                       <div class="col-12">
                                         <div
-                                          class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
+                                          :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
                                           <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
                                             <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`"
                                               :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
@@ -254,7 +254,7 @@
                                           </div>
                                           <div class="d-flex align-items-center">
                                             <a href="javascript:void(0)"
-                                              class="editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
+                                              class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
                                                 height="13" viewBox="0 0 13 13" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
@@ -266,7 +266,7 @@
                                             </a>
                                             <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
                                               data-bs-toggle="modal"
-                                              class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
+                                              class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
                                                 height="13" viewBox="0 0 12 13" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -541,7 +541,7 @@ export default {
             id: 2,
             ror: "6.15%",
             irr: "5.65%",
-            type: "401K/IRR",
+            type: "401K/IRA",
             list: [
               {
                 distributions: "",

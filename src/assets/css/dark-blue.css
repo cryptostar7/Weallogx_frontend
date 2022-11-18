@@ -1565,69 +1565,69 @@
 .dark-blue .viewBtnAccount {
   background: transparent;
 }
-.dark-blue .viewBtnAccount svg path,
+/*.dark-blue .viewBtnAccount svg path,
 .dark-blue .viewBtnAccount svg circle {
   fill: transparent;
-}
-.dark-blue .editBtnAccount {
+}*/
+/*.dark-blue .editBtnAccount {
   background: transparent;
-}
-.dark-blue .editBtnAccount svg path,
+}*/
+/*.dark-blue .editBtnAccount svg path,
 .dark-blue .editBtnAccount svg rect {
   fill: transparent;
-}
+}*/
 .dark-blue .deleteBtnAccount {
   background: transparent;
 }
-.dark-blue .deleteBtnAccount svg path,
+/*.dark-blue .deleteBtnAccount svg path,
 .dark-blue .deleteBtnAccount svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .lifeProPlusPara2 {
   color: #fff;
 }
 .dark-blue .viewBtnIra {
   background: transparent;
 }
-.dark-blue .viewBtnIra svg path,
+/*.dark-blue .viewBtnIra svg path,
 .dark-blue .viewBtnIra svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .editBtnIra {
   background: transparent;
 }
-.dark-blue .editBtnIra svg path,
+/*.dark-blue .editBtnIra svg path,
 .dark-blue .editBtnIra svg rect {
   fill: transparent;
-}
+}*/
 .dark-blue .deleteBtnIra {
   background: transparent;
 }
-.dark-blue .deleteBtnIra svg path,
+/*.dark-blue .deleteBtnIra svg path,
 .dark-blue .deleteBtnIra svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .viewBtnAnnuity {
   background: transparent;
 }
-.dark-blue .viewBtnAnnuity svg path,
+/*.dark-blue .viewBtnAnnuity svg path,
 .dark-blue .viewBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .editBtnAnnuity {
   background: transparent;
 }
-.dark-blue .editBtnAnnuity svg path,
+/*.dark-blue .editBtnAnnuity svg path,
 .dark-blue .editBtnAnnuity svg rect {
   fill: transparent;
-}
+}*/
 .dark-blue .deleteBtnAnnuity {
   background: transparent;
 }
-.dark-blue .deleteBtnAnnuity svg path,
+/*.dark-blue .deleteBtnAnnuity svg path,
 .dark-blue .deleteBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .lifeProBtmDiv {
   background: #2E3135;
   border: 0.5px solid #353B46;
@@ -1635,24 +1635,24 @@
 .dark-blue .hideBtnAccount {
   background: transparent;
 }
-.dark-blue .hideBtnAccount svg path,
+/*.dark-blue .hideBtnAccount svg path,
 .dark-blue .hideBtnAccount svg circle {
   fill: transparent;
-}
-.dark-blue .hideBtnIra {
+}*/
+/*.dark-blue .hideBtnIra {
   background: transparent;
-}
-.dark-blue .hideBtnIra svg path,
+}*/
+/*.dark-blue .hideBtnIra svg path,
 .dark-blue .hideBtnIra svg circle {
   fill: transparent;
-}
-.dark-blue .hideBtnAnnuity {
+}*/
+/*.dark-blue .hideBtnAnnuity {
   background: transparent;
-}
-.dark-blue .hideBtnAnnuity svg path,
+}*/
+/*.dark-blue .hideBtnAnnuity svg path,
 .dark-blue .hideBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-blue .reportTablesDiv .table tbody tr td {
   color: white;
   border: 1px solid #313D39;
@@ -1959,13 +1959,13 @@
 .dark-blue .greenRadioSwtch .checkbox2:checked~.layer2 {
   background-color: var(--blue-clr-2) !important;
 }
-.dark-blue .blueRadioSwtch .checkbox2:checked~.layer2 {
+.dark-blue .switch1 .checkbox2:checked~.layer2 {
   background-color: #26AB8B !important;
 }
-.dark-blue .voiletRadioSwtch .checkbox2:checked~.layer2 {
+.dark-blue .switch2 .checkbox2:checked~.layer2 {
   background-color: #8137BB !important;
 }
-.dark-blue .redRadioSwtch .checkbox2:checked~.layer2 {
+.dark-blue .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
 .dark-blue .AddNoteBtn {
@@ -2183,6 +2183,9 @@
   fill: #53A9F1;
   stroke: #53A9F1;
 }
+.dark-blue .switch1 .deleteBtn svg path {
+  stroke: #26AB8B;
+}
 .dark-blue .editBtnCommon {
   background: transparent;
   border: 1px solid #53A9F1;
@@ -2326,24 +2329,25 @@
   fill: #53A9F1;
   stroke: #53A9F1;
 }
-.dark-blue .viewBtnAccount svg path,
+/*.dark-blue .viewBtnAccount svg path,
 .dark-blue .viewBtnAccount svg circle {
   stroke: #26AB8B;
-}
-.dark-blue .editBtnAccount svg path,
-.dark-blue .editBtnAccount svg circle,
-.dark-blue .editBtnAccount svg rect {
+}*/
+.dark-blue .switch1 .editBtnAccount svg path,
+.dark-blue .switch1 .editBtnAccount svg circle,
+.dark-blue .switch1 .editBtnAccount svg rect {
   stroke: #26AB8B;
 }
-.dark-blue .deleteBtnAccount svg path,
-.dark-blue .deleteBtnAccount svg circle,
-.dark-blue .deleteBtnAccount svg rect {
+.dark-blue .switch1 .deleteBtnAccount svg path,
+.dark-blue .switch1 .deleteBtnAccount svg circle,
+.dark-blue .switch1 .deleteBtnAccount svg rect {
   stroke: #26AB8B;
 }
-.dark-blue .hideBtnAccount svg path,
-.dark-blue .hideBtnAccount svg circle,
-.dark-blue .hideBtnAccount svg rect {
-  stroke: #26AB8B;
+.dark-blue .switch2 .editBtn rect, .dark-blue .switch2 .editBtn path, .dark-blue .switch2 .deleteBtn rect, .dark-blue .switch2 .deleteBtn path {
+  stroke: #B556FF;
+}
+.dark-blue .switch2 .editBtn rect, .dark-blue .switch2 .editBtn path, .dark-blue .switch2 .deleteBtn rect, .dark-blue .switch2 .deleteBtn path {
+  stroke: #B556FF;
 }
 .dark-blue .disableBtnsAccount {
   pointer-events: none;
@@ -2353,17 +2357,29 @@
 .dark-blue .disableBtnsAccount svg rect {
   stroke: #3a3d41;
 }
-.dark-blue .viewBtnAccount:hover {
+/*.dark-blue .viewBtnAccount:hover {
   color: #26AB8B;
 }
 .dark-blue .hideBtnAccount:hover.hideBtnAccount::before {
   color: #26AB8B;
-}
-.dark-blue .editBtnAccount:hover.editBtnAccount::before {
+}*/
+.dark-blue .editBtnAccount{
   color: #26AB8B;
 }
-.dark-blue .deleteBtnAccount:hover.deleteBtnAccount::before {
+.dark-blue .deleteBtnAccount{
   color: #26AB8B;
+}
+.dark-blue .switch1.extra .editBtn svg path, .dark-blue .switch1.extra .editBtn svg path{
+  stroke: #26AB8B;
+}
+.dark-blue .switch1.extra .deleteBtn svg path, .dark-blue .switch1.extra .deleteBtn svg path{
+  stroke: #26AB8B;
+}
+.dark-blue .switch2 .editBtnAccount{
+  color: #B556FF;
+}
+.dark-blue .switch2 .deleteBtnAccount{
+  color: #B556FF;
 }
 /* ira buttons modify start */
 .dark-blue .lifeProPlusPara5 {

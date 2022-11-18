@@ -1256,10 +1256,13 @@
 .dark-green .deleteBtnAccount {
   background: transparent;
 }
-.dark-green .deleteBtnAccount svg path,
+.dark-green .switch2 .editBtnAccount, .dark-green .switch2 .deleteBtnAccount {
+  color: #B556FF;
+}
+/*.dark-green .deleteBtnAccount svg path,
 .dark-green .deleteBtnAccount svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .lifeProPlusPara1 {
   color: #26AB8B;
 }
@@ -1272,10 +1275,10 @@
 .dark-green .viewBtnIra {
   background: transparent;
 }
-.dark-green .viewBtnIra svg path,
+/*.dark-green .viewBtnIra svg path,
 .dark-green .viewBtnIra svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .editBtnIra {
   background: transparent;
 }
@@ -1286,31 +1289,31 @@
 .dark-green .deleteBtnIra {
   background: transparent;
 }
-.dark-green .deleteBtnIra svg path,
+/*.dark-green .deleteBtnIra svg path,
 .dark-green .deleteBtnIra svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .viewBtnAnnuity {
   background: transparent;
 }
-.dark-green .viewBtnAnnuity svg path,
+/*.dark-green .viewBtnAnnuity svg path,
 .dark-green .viewBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .editBtnAnnuity {
   background: transparent;
 }
-.dark-green .editBtnAnnuity svg path,
+/*.dark-green .editBtnAnnuity svg path,
 .dark-green .editBtnAnnuity svg rect {
   fill: transparent;
-}
+}*/
 .dark-green .deleteBtnAnnuity {
   background: transparent;
 }
-.dark-green .deleteBtnAnnuity svg path,
+/*.dark-green .deleteBtnAnnuity svg path,
 .dark-green .deleteBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .lifeProBtmDiv {
   background: #2E3135;
   border: 0.5px solid #353B46;
@@ -1318,24 +1321,24 @@
 .dark-green .hideBtnAccount {
   background: transparent;
 }
-.dark-green .hideBtnAccount svg path,
+/*.dark-green .hideBtnAccount svg path,
 .dark-green .hideBtnAccount svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .hideBtnIra {
   background: transparent;
 }
-.dark-green .hideBtnIra svg path,
+/*.dark-green .hideBtnIra svg path,
 .dark-green .hideBtnIra svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .hideBtnAnnuity {
   background: transparent;
 }
-.dark-green .hideBtnAnnuity svg path,
+/*.dark-green .hideBtnAnnuity svg path,
 .dark-green .hideBtnAnnuity svg circle {
   fill: transparent;
-}
+}*/
 .dark-green .reportTablesDiv .table tbody tr td {
   color: white;
   border: 1px solid #313D39;
@@ -1636,13 +1639,13 @@
 .dark-green .greenRadioSwtch .checkbox2:checked~.layer2 {
   background-color: #26AB8B !important;
 }
-.dark-green .blueRadioSwtch .checkbox2:checked~.layer2 {
+.dark-green .switch1 .checkbox2:checked~.layer2 {
   background-color: #23669E !important;
 }
-.dark-green .voiletRadioSwtch .checkbox2:checked~.layer2 {
+.dark-green .switch2 .checkbox2:checked~.layer2 {
   background-color: #8137BB !important;
 }
-.dark-green .redRadioSwtch .checkbox2:checked~.layer2 {
+.dark-green .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
 .dark-green .AddNoteBtn {
@@ -1987,25 +1990,35 @@
 .dark-green .lifeProPlusPara3 {
   color: #53a9f1;
 }
-.dark-green .viewBtnAccount svg path,
+/*.dark-green .viewBtnAccount svg path,
 .dark-green .viewBtnAccount svg circle {
   stroke: #53a9f1;
-}
-.dark-green .editBtnAccount svg path,
-.dark-green .editBtnAccount svg circle,
-.dark-green .editBtnAccount svg rect {
+}*/
+.dark-green .switch1 .editBtnAccount svg path,
+.dark-green .switch1 .editBtnAccount svg circle,
+.dark-green .switch1 .editBtnAccount svg rect {
   stroke: #53a9f1;
 }
-.dark-green .deleteBtnAccount svg path,
-.dark-green .deleteBtnAccount svg circle,
-.dark-green .deleteBtnAccount svg rect {
+.dark-green .switch1 .deleteBtnAccount svg path,
+.dark-green .switch1 .deleteBtnAccount svg circle,
+.dark-green .switch1 .deleteBtnAccount svg rect {
   stroke: #53a9f1;
 }
-.dark-green .hideBtnAccount svg path,
+.dark-green .switch2 .editBtnAccount svg path,
+.dark-green .switch2 .editBtnAccount svg circle,
+.dark-green .switch2 .editBtnAccount svg rect {
+  stroke: #B556FF;
+}
+.dark-green .switch2 .deleteBtnAccount svg path,
+.dark-green .switch2 .deleteBtnAccount svg circle,
+.dark-green .switch2 .deleteBtnAccount svg rect {
+  stroke: #B556FF;
+}
+/*.dark-green .hideBtnAccount svg path,
 .dark-green .hideBtnAccount svg circle,
 .dark-green .hideBtnAccount svg rect {
   stroke: #53a9f1;
-}
+}*/
 .dark-green .disableBtnsAccount {
   pointer-events: none;
   cursor: default;
@@ -2014,16 +2027,16 @@
 .dark-green .disableBtnsAccount svg rect {
   stroke: #3a3d41;
 }
-.dark-green .viewBtnAccount:hover {
+/*.dark-green .viewBtnAccount:hover {
+  color: #53a9f1;
+}*/
+/*.dark-green .hideBtnAccount:hover.hideBtnAccount::before {
+  color: #53a9f1;
+}*/
+.dark-green .switch1 .editBtnAccount:hover.editBtnAccount::before {
   color: #53a9f1;
 }
-.dark-green .hideBtnAccount:hover.hideBtnAccount::before {
-  color: #53a9f1;
-}
-.dark-green .editBtnAccount:hover.editBtnAccount::before {
-  color: #53a9f1;
-}
-.dark-green .deleteBtnAccount:hover.deleteBtnAccount::before {
+.dark-green .switch1 .deleteBtnAccount:hover.deleteBtnAccount::before {
   color: #53a9f1;
 }
 .dark-green .lifeProBtmDiv2 p {
@@ -2547,11 +2560,11 @@
   color: #26AB8B;
 }
 /* new css start */
-.dark-green .viewBtnLirp svg path,
+/*.dark-green .viewBtnLirp svg path,
 .dark-green .viewBtnLirp svg circle {
   stroke: #26AB8B;
   fill: transparent;
-}
+}*/
 .dark-green .viewBtnLirp {
   background: transparent;
   color: #26AB8B;
@@ -2559,17 +2572,16 @@
 .dark-green .editBtnLirp svg path,
 .dark-green .editBtnLirp svg rect {
   stroke: #26AB8B;
-  fill: transparent;
 }
 .dark-green .editBtnLirp {
   background: transparent;
   color: #26AB8B;
 }
-.dark-green .deleteBtnLirp svg path,
+/*.dark-green .deleteBtnLirp svg path,
 .dark-green .deleteBtnLirp svg rect {
   stroke: #26AB8B !important;
   fill: transparent;
-}
+}*/
 .dark-green .deleteBtnLirp {
   background: transparent;
   color: #26AB8B;
@@ -2595,7 +2607,7 @@
 .dark-green .viewBtnMedian svg path,
 .dark-green .viewBtnMedian svg circle {
   stroke: #E8662F;
-  fill: transparent;
+/*  fill: transparent;*/
 }
 .dark-green .viewBtnMedian {
   background: transparent;
@@ -2604,7 +2616,7 @@
 .dark-green .editBtnMedian svg path,
 .dark-green .editBtnMedian svg rect {
   stroke: #E8662F;
-  fill: transparent;
+/*  fill: transparent;*/
 }
 .dark-green .editBtnMedian {
   background: transparent;
@@ -2613,7 +2625,7 @@
 .dark-green .deleteBtnMedian svg path,
 .dark-green .deleteBtnMedian svg rect {
   stroke: #E8662F !important;
-  fill: transparent;
+/*  fill: transparent;*/
 }
 .dark-green .deleteBtnMedian {
   background: transparent;
@@ -2739,19 +2751,19 @@
 .dark-green .commonTableCls .hideBtnLirp {
   background: transparent;
 }
-.dark-green .commonTableCls .hideBtnLirp:hover.hideBtnLirp::before {
+/*.dark-green .commonTableCls .hideBtnLirp:hover.hideBtnLirp::before {
   color: #26ab8b;
-}
-.dark-green .commonTableCls .hideBtnLirp:hover {
+}*/
+/*.dark-green .commonTableCls .hideBtnLirp:hover {
   border: 1px solid #BBBBBB;
   background: transparent;
-}
-.dark-green .commonTableCls .hideBtnLirp svg path,
+}*/
+/*.dark-green .commonTableCls .hideBtnLirp svg path,
 .dark-green .hideBtnLirp svg circle,
 .dark-green .hideBtnLirp svg rect {
   stroke: #26AB8B;
   fill: transparent;
-}
+}*/
 .dark-green .hideBtnLirp svg rect {
   fill: #53a9f1;
 }
@@ -2759,12 +2771,12 @@
 .dark-green .commonTableCls .deleteBtnLirp svg rect {
   stroke: #3a3d41 !important;
 }
-.dark-green .commonTableCls .hideBtnMedian svg path,
+/*.dark-green .commonTableCls .hideBtnMedian svg path,
 .dark-green .hideBtnMedian svg circle,
 .dark-green .hideBtnMedian svg rect {
   stroke: #E8662F;
   fill: transparent;
-}
+}*/
 .dark-green .commonTableCls .hideBtnMedian svg rect {
   fill: #53a9f1;
 }
