@@ -1,4 +1,4 @@
-name: Push-to-AWS-EC2-Prod
+name: Push to staging wlxvue.bizbybot.com 
 
 # Trigger deployment only on push to master branch
 on:
@@ -8,7 +8,7 @@ on:
   
 jobs:
   deploy:
-    name: Deploy to EC2 on main branch push
+    name: Deploy to DO on main branch push
     runs-on: ubuntu-latest
 
     steps:
