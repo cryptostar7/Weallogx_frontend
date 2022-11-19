@@ -10,17 +10,14 @@ jobs:
   deploy:
     name: Push to staging from devwork branch
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout the files
-      
-        uses: actions/checkout@v2
-        uses: actions/setup-node@master
-        run: npm install
-        run: npm run build
-        
-      - name: Deploy to staging server
-        uses: easingthemes/ssh-deploy@main
+steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+      - name: Installing project dependencies
+      - run: npm install
+      - name: Building the project
+      - run: npm run build
+    uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
