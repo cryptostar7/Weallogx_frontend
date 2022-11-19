@@ -1234,6 +1234,12 @@ body::-webkit-scrollbar {
   color: #E8662F;
   margin: 0;
 }
+.lifeProPlusPara9 {
+  font-weight: 600;
+  font-size: 9px;
+  color: #9D2B2B;
+  margin: 0;
+}
 .lifeProBtmDiv {
   background: #FFF;
   border: 0.5px solid #BBBBBB;

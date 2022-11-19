@@ -332,17 +332,14 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td class="table1Td tableotalTd text-start" data-label="Year">Totals
-                                </td>
+                                <td class="table1Td tableotalTd text-start" data-label="Year">Totals</td>
                                 <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value
-                                </td>
+                                <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value</td>
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">
-                                  Shortfall</td>
+                                <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">Shortfall</td>
                               </tr>
                             </tbody>
                           </table>
@@ -380,7 +377,7 @@
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                  <tr>
-                                   <th colspan="2" style="border-radius:6px;vertical-align: middle;">
+                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
                                     Distributions
                                   </th>
                                  </tr>
@@ -395,8 +392,7 @@
                                     <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'}}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'}}
-                                    </td>
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'}}</td>
                                     <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'}}</td>
                                   </tr>
                                 </tbody>
@@ -431,7 +427,8 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 export default {
   props: ["keyId"],
   components: {
-    ComparativeDisclosureComponent, draggable: VueDraggableNext,
+    ComparativeDisclosureComponent,
+    draggable: VueDraggableNext,
   },
   data() {
     return {
@@ -684,6 +681,5 @@ export default {
       },
     };
   },
- 
 };
 </script>

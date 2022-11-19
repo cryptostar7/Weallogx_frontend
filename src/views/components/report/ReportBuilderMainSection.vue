@@ -72,7 +72,7 @@ export default {
       list: this.$store.state.data.reportTabs,
       sidebar: {
         collapse: false,
-        currentTab: "comparative",
+        currentTab: "historical",
       },
     };
   },
