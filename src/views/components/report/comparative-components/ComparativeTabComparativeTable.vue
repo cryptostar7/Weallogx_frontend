@@ -1,0 +1,685 @@
+<template lang="">
+  <div class="empty" data-class="empty-wrapper" data-empty="0">
+    <div class="fill" data-class="empty-fill" draggable="true" data-fill="1">
+      <div :class="`report-client-list-div tab-id-1 ${activeTabs[keyId] ? '':'presentdeActive'}`"
+        id="comparativeTableTabView">
+        <div :class="`ComparativeTableMainDiv rightDivTop1 ${activeTabs[keyId] ? 'active':''}`">
+          <div class="d-flex justify-content-between px-3 py-2 bb-grey">
+            <div class="d-flex align-items-center">
+              <div class="button-cover2 prstnRadioBtnHide">
+                <div class="radioBtnDiv r2" id="button-2">
+                  <input id="rightCheckBox1" type="checkbox" class="checkbox2 rightCheckBox1"
+                    :checked="activeTabs[keyId]" rightCheckAttr="1"
+                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <div class="knobs2"></div>
+                  <div class="layer2"></div>
+                </div>
+              </div>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative
+                Table</label>
+            </div>
+            <div class="rightLeftDoubleLIneDegine">
+              <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
+                <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div
+              :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`"
+              :style="{display:activeTabs[keyId] ? 'block':'none'}">
+              <hr class="collapseDivHr">
+              <div class="px-3 py-3">
+                <div class="position-relative">
+                  <div class="d-flex align-items-center  float-end">
+                    <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
+                      <input type="checkbox" class="checkbox2 showAssetsCheckBox" id="showAssets" />
+                      <div class="knobs2"></div>
+                      <div class="layer2"></div>
+                    </div>
+                    <label for="showAssets"
+                      class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show
+                      assets one by one</label>
+                  </div>
+                  <div class="collapseDivmdlHd text-center">Target Analysis</div>
+                </div><br>
+                <div class="d-flex justify-content-center mt-2">
+                  <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"
+                      role="tab" aria-controls="v-pills-distribution" aria-selected="true">
+                      Distribution
+                    </div>
+                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab"
+                      aria-controls="v-pills-rate-of-return" aria-selected="false">Rate of Return
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="v-pills-distribution" role="tabpanel"
+                    aria-labelledby="pills-home-tab">
+                    <div class="d-flex justify-content-center mt-2">
+                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
+                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"
+                          data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default"
+                          aria-selected="true">Amount</div>
+                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity"
+                          type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                          Longevity
+                        </div>
+                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"
+                          type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending
+                          Value</div>
+                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"
+                          type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death
+                          Benefit</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-rate-of-return" role="tabpanel"
+                    aria-labelledby="pills-home-tab">
+                    <div class="d-flex justify-content-center mt-2">
+                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
+                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"
+                          data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default"
+                          aria-selected="true">Default</div>
+                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity"
+                          type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                          Longevity
+                        </div>
+                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"
+                          type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending
+                          Value</div>
+                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"
+                          type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death
+                          Benefit</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container-fluid table-fluid mt-5">
+                  <div class="row tablesMainDiv">
+                    <div class="col-3 col-md-2 pe-1">
+                      <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
+                        <div class="dblLineAbslt">
+                          <img src="@/assets/images/icons/double-line.svg" alt="line">
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="d-flex alig-items-center justify-content-between mt-2 allActionBtns">
+                              <div class="radioBtnDiv r2 voiletRadioSwtch" id="button-2">
+                                <input type="checkbox" class="checkbox2" checked="true">
+                                <div class="knobs2"></div>
+                                <div class="layer2"></div>
+                              </div>
+                              <div class="d-flex align-items-center">
+                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"
+                                  class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12" height="13"
+                                    viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
+                                      stroke="#1660A4" stroke-width="1.25"></path>
+                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
+                                      transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
+                                  </svg>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row eachCardParaRow">
+                          <div class="col-md-5">
+                            <p class="lifeProPlusPara3" id="acountColorCommon">RoR</p>
+                            <p class="lifeProPlusPara2" id="acountColorCommon">6.50%</p>
+                          </div>
+                          <div class="col-md-7">
+                            <p class="lifeProPlusPara3" id="acountColorCommon">IRR</p>
+                            <p class="lifeProPlusPara2" id="acountColorCommon">3.82%</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="lifeProBtmDiv lifeProBtmDiv2 commonBottomTxt">
+                              <p>Account</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mt-1">
+                        <div class="reportTablesDiv reportTablesDiv1">
+                          <table class="table">
+                            <thead class="heading-tr">
+                              <tr>
+                                <th>Yr</th>
+                                <th>Age</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
+                                <td class="table1Td" data-label="Year">{{item.year}}</td>
+                                <td class="table1Td" data-label="Age">{{item.age}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- 1 end -->
+                        <div class="reportTablesDiv ms-2 reportTablesDiv2">
+                          <table class="table">
+                            <thead class="heading-tr">
+                              <tr>
+                                <th>Deposits</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
+                                <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-9 col-md-4 px-1">
+                      <div class="reportTablesDiv reportTablesDiv3">
+                        <div class="lifeProPlus">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0">
+                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
+                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
+                                      stroke="#1660A4" stroke-width="1.15"></rect>
+                                    <path
+                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                      stroke="#1660A4" stroke-width="1.25"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row eachCardParaRow">
+                            <div class="col-md-5">
+                              <p class="lifeProPlusPara1">RATE OF RETURN (RoR)</p>
+                              <p class="lifeProPlusPara2">6.15%</p>
+                            </div>
+                            <div class="col-md-7">
+                              <p class="lifeProPlusPara1">INTERNAL RATE OF RETURN (IRR)</p>
+                              <p class="lifeProPlusPara2">5.65%</p>
+                            </div>
+                          </div>
+                          <div class="lifeProBtmDiv lifeProBtmDiv1">
+                            <p>LifePro+</p>
+                          </div>
+                        </div>
+                        <table class="table table3 mt-1 w-100">
+                          <thead class="heading-tr">
+                            <tr>
+                              <th>Distributions</th>
+                              <th>Account Value</th>
+                              <th>Surrender Value</th>
+                              <th>Death Benefit</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
+                              <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
+                              <td data-label="acount">{{$numFormatWithDollar(item.account_value)}}</td>
+                              <td data-label="surrender">{{$numFormatWithDollar(item.surrender_value)}}</td>
+                              <td data-label="death">{{$numFormatWithDollar(item.death_benifit)}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <draggable v-model="draggableColumns" tag="div" class="row">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`col-md-4 px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                          <div class="empty-inner" data-empty="1">
+                            <div class="fill-inner" draggable="true" data-fill="1">
+                              <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
+                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
+                                  <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
+                                    <div class="dblLineAbslt">
+                                      <img src="@/assets/images/icons/double-line.svg" alt="line">
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <div
+                                          :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
+                                          <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
+                                            <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`"
+                                              :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
+                                            <div class="knobs2"></div>
+                                            <div class="layer2"></div>
+                                          </div>
+                                          <div class="d-flex align-items-center">
+                                            <a href="javascript:void(0)"
+                                              class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
+                                                height="13" viewBox="0 0 13 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
+                                                  fill="white" stroke="#1660A4" stroke-width="1.15" />
+                                                <path
+                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                                  stroke="#1660A4" stroke-width="1.25" />
+                                              </svg>
+                                            </a>
+                                            <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
+                                              data-bs-toggle="modal"
+                                              class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
+                                                height="13" viewBox="0 0 12 13" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
+                                                  stroke="#1660A4" stroke-width="1.25" />
+                                                <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
+                                                  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
+                                              </svg>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row eachCardParaRow">
+                                      <div class="col-md-5">
+                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">RoR</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].ror}}</p>
+                                      </div>
+                                      <div class="col-md-7">
+                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">IRR</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].irr}}</p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
+                                          <p>{{target_analysis.data[header.id].type}}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <table class="table tableCommonForDisable  mt-1 tableCommonHide">
+                                    <thead class="heading-tr">
+                                      <tr>
+                                        <th>Distributions</th>
+                                        <th>Net Balance</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
+                                        <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
+                                        <td data-label="acount">{{$numFormatWithDollar(item.net_balance)}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </draggable>
+                    </div>
+                  </div>
+                  <p class="compSumAnlysPara mt-2">Summary Analysis</p>
+                  <div class="mt-2 summary-analysis">
+                    <div class="row">
+                      <div class="col-3 col-md-2 px-1">
+                        <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
+                          <table class="table mt-1 secondTable td-first summaryTableFont">
+                            <thead>
+                              <th width="80" style="background: none!important;border: none !important;"></th>
+                              <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td class="table1Td tableotalTd text-start" data-label="Year">Totals</td>
+                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                              </tr>
+                              <tr>
+                                <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value</td>
+                              </tr>
+                              <tr>
+                                <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">Shortfall</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-9 col-md-4 px-1">
+                        <div class="reportTablesDiv reportTablesDiv3">
+                          <table class="table table3 mt-1 secondTable summaryTableFont">
+                            <thead class="heading-tr">
+                              <tr>
+                                <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.total) || '-'}}</td>
+                                <td class="blankTd w-75" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total) || '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'}}</td>
+                              </tr>
+                              <tr>
+                                <td data-label="surrender">{{$numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-'}}</td>
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-'}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="row summary-row">
+                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
+                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
+                              <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
+                                <thead class="heading-tr">
+                                 <tr>
+                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
+                                    Distributions
+                                  </th>
+                                 </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-'}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'}}</td>
+                                    <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-5">
+                <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
+                  <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn">
+                    <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <comparative-disclosure-component v-if="activeTabs[keyId]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { VueDraggableNext } from "vue-draggable-next";
+import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
+
+export default {
+  props: ["keyId"],
+  components: {
+    ComparativeDisclosureComponent,
+    draggable: VueDraggableNext,
+  },
+  data() {
+    return {
+      activeTabs: this.$store.state.data.reportTabs.active,
+      draggableColumns: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+      ],
+      showAll: false,
+      target_analysis: {
+        distributions: [
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+        ],
+        data: [
+          {
+            id: 0,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "LifePro+",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 1,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "Account",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 2,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "401K/IRA",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 3,
+            ror: "6.15%",
+            irr: "5.65%",
+            type: "Annuity",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+        ],
+      },
+      summary_data: {
+        deposits: { totals: "328885", total_values: "", shortfall: "" },
+        data: [
+          {
+            id: 0,
+            distribution: {
+              total: 6577,
+              total_value: "6577",
+              shortfall: "",
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 1,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 6577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 2,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 68577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 3,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 62577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+        ],
+      },
+    };
+  },
+};
+</script>

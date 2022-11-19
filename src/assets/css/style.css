@@ -64,6 +64,10 @@ body::-webkit-scrollbar {
 .form-select:focus {
   box-shadow: none;
 }
+.form-select:disabled{
+  background-color: #f4f4f4;
+  border-color: #f1f1f1 !important;
+}
 .no-before::before {
   display: none;
 }
@@ -349,6 +353,9 @@ body::-webkit-scrollbar {
 .sidebar-nav .nav-link.active svg path {
   fill: #000;
 }
+.sidebar-nav .nav-link .indivisualLftArrow svg path {
+  fill: #8F8F8F;
+}
 .sidebar-nav .nav-link svg {
   margin-right: 0.875rem;
   position: relative;
@@ -480,7 +487,7 @@ body::-webkit-scrollbar {
   font-weight: var(--semi-bold-fw);
 }
 .sort-dropdown-div .dropdown-toggle::after {
-  content: url("../../src/assets/images/icons/chevron-down.svg");
+  content: url("../images/icons/chevron-down.svg");
   border: 0;
   position: absolute;
   right: 0.75rem;
@@ -512,7 +519,7 @@ body::-webkit-scrollbar {
   margin-left: 3px;
 }
 .sort-dropdown-div .dropdown-menu .dropdown-item.active::after {
-  content: url("../../src/assets/images/icons/check-green.svg");
+  content: url("../images/icons/check-green.svg");
   position: absolute;
   right: 0.85rem;
 }
@@ -606,13 +613,13 @@ body::-webkit-scrollbar {
 .right-action-btn-div .right-action-btn.collapsed {
   background: #FFF;
 }
-.right-action-btn-div .right-action-btn.collapsed img {
+.right-action-btn-div .right-action-btn.collapsed svg {
   transform: rotate(0deg);
 }
 .right-action-btn-div .right-action-btn:hover {
   background-color: #f5f5f5;
 }
-.right-action-btn-div .right-action-btn img {
+.right-action-btn-div .right-action-btn svg {
   position: relative;
   top: 3px;
   transform: rotate(180deg);
@@ -910,6 +917,40 @@ body::-webkit-scrollbar {
 .common-modal .modal-cancel-btn:hover {
   background-color: #f4f4f4;
 }
+.indexSenarioBg{   
+background: #F9F9F9!important;
+padding:0.8rem 0.75rem;
+border-radius:0 0 0.5rem 0.5rem;
+margin-top:0;
+}
+
+.report-round-btn:not(.collapsed) svg path{
+ fill: black;
+}
+.report-round-btn:hover:not(.collapsed) svg path{
+  fill: #fff;
+ }
+.round-btn:hover:not(.collapsed)  {
+  background-color: var(--green-clr);
+}
+.round-btn:hover:not(.collapsed) span{
+color: #fff;
+}
+.indexSenarioInnerBg{
+  background: white;
+  padding: 0.5rem 0.75rem;
+  border-radius:0.5rem;
+}
+.clientNamePara{
+  color: #000;
+}
+.clientNamePara a{
+  color: #000;
+  text-decoration: none;
+}
+.clientNamePara:hover a{
+  color: var(--green-clr);
+}
 /* End of Choose Client */
 /* Individual Client */
 .side-client-label {
@@ -942,7 +983,7 @@ body::-webkit-scrollbar {
   padding-bottom: 0.625rem;
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: #f8f8f8;
   z-index: 1;
   border-bottom: 1px solid #E4E4E4;
 }
@@ -1092,7 +1133,7 @@ body::-webkit-scrollbar {
   background: #FFFFFF;
   color: var(--green-clr);
 }
-.SaveAddBtn.disabled {
+.SaveAddBtn.btnDisabled {
   background: #EDEDED;
   border: 1.5px solid #EDEDED;
   color: #A0A0A0;
@@ -1111,7 +1152,7 @@ body::-webkit-scrollbar {
   background: var(--green-clr);
   color: #ffffff;
 }
-.SaveclsBtn.disabled {
+.SaveclsBtn.btnDisabled {
   background: #FFFFFF;
   border: 1.5px solid #A0A0A0;
   color: #A0A0A0;
@@ -2028,7 +2069,7 @@ body::-webkit-scrollbar {
   color: white
 }
 .review-progress li.done .nav-link:before {
-  content: url("../../src/assets/images/icons/check-white.svg");
+  content: url("../images/icons/check-white.svg");
   outline: 3px solid #fff;
   background-color: var(--green-clr);
   outline-offset: -6px;
@@ -2381,6 +2422,9 @@ body::-webkit-scrollbar {
     left: var(--sidebar-width);
     background-color: rgba(0, 0, 0, 0.25);
   }
+  .reportSideBar{
+    left: 0!important;
+  }
 }
 @media screen and (max-width: 1200px) {
   .illusnTableMainDiv .table thead {
@@ -2713,7 +2757,7 @@ body::-webkit-scrollbar {
   color: #000000;
 }
 .historicalSelectField {
-  background-image: url("../../src/assets/images/icons/select-down-chev.svg");
+  background-image: url("../images/icons/select-down-chev.svg");
   background-repeat: no-repeat;
   background-position: 96% 20px;
   font-weight: 600;
@@ -2844,13 +2888,13 @@ body::-webkit-scrollbar {
 }
 .indexStrategyallDivs.accordion-button::after {
   content: "";
-  background-image: url("../../src/assets/images/icons/down-black-arrow.svg");
+  background-image: url("../images/icons/down-black-arrow.svg");
   background-size: auto;
   background-position: 50% 50%;
 }
 .indexStrategyallDivs.active.accordion-button::after {
   content: "";
-  background-image: url("../../src/assets/images/icons/down-arrow.svg");
+  background-image: url("../images/icons/down-arrow.svg");
   background-size: auto;
   background-position: 50% 50%;
 }
@@ -2960,7 +3004,7 @@ input[type=number] {
   border-radius: 5px;
   width: 95px;
   height: 42px;
-  background-image: url("../../src/assets/images/icons/percent-icon.svg");
+  background-image: url("../images/icons/percent-icon.svg");
   background-repeat: no-repeat;
   background-position: 88% 50%;
   padding-right: 23%;
@@ -2975,7 +3019,7 @@ input[type=number] {
   border-radius: 5px;
   width: 182px;
   height: 42px;
-  background-image: url("../../src/assets/images/icons/percent-icon.svg");
+  background-image: url("../images/icons/percent-icon.svg");
   background-repeat: no-repeat;
   background-position: 88% 50%;
   padding-right: 5%;
@@ -4845,4 +4889,31 @@ input[type=number] {
 }
 .customInputWidth input {
   width: 95px;
+}
+.comparativeAnlsysTxt{
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.2rem;
+}
+.comparativeAnlsysTxt::before{
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  top: 75%;
+  background-color: #0E6651;
+}
+
+
+
+
+
+/* Chart Related CSS */
+.graph-container-div{
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #DFDFDF;
+  border-radius: 12px;
+  padding: 30px 28px 8px;
+  width: 100%;
 }
