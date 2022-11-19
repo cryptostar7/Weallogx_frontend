@@ -11,7 +11,7 @@ jobs:
     name: Push to staging from devwork branch
     runs-on: ubuntu-latest
 steps:
-      - uses: actions/checkout@master
+      uses: actions/checkout@v2
       - uses: actions/setup-node@master
       - name: Installing project dependencies
       run: npm install
