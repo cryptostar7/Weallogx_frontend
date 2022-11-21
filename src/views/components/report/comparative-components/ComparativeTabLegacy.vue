@@ -38,7 +38,7 @@
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
-                              <input type="checkbox" :class="`checkbox2 commonRadioBtn1 lagecyBigBaCard${1+index}`" :checked="cards[index].active" v-model="cards[index].active"  />
+                              <input type="checkbox" :class="`checkbox2 commonRadioBtn1 lagecyBigBaCard${1+index}`" :checked="cards[index].active" v-model="cards[index].active"/>
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
                             </div>

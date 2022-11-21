@@ -109,14 +109,14 @@
                           <table class="table">
                             <thead class="heading-tr">
                               <tr>
-                              <th>Yr</th>
-                              <th>Age</th>
+                                <th>Yr</th>
+                                <th>Age</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="table1Td" data-label="Year">1</td>
-                                <td class="table1Td" data-label="Age">34</td>
+                              <tr v-for="(item, index) in distributions" :key="index">
+                                <td class="table1Td" data-label="Year">{{item.year}}</td>
+                                <td class="table1Td" data-label="Age">{{item.age}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -130,8 +130,8 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td data-label="Year">$65,777</td>
+                              <tr v-for="(item, index) in distributions" :key="index">
+                                <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -163,15 +163,15 @@
                             <div class="row eachCardParaRow">
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">Illustration Rate</p>
-                                <p class="lirpPara2 m-0 mb-1">6.12%</p>
+                                <p class="lirpPara2 m-0 mb-1">{{data[0].illustration_rate}}</p>
                               </div>
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">Illustration CAGR</p>
-                                <p class="lirpPara2 m-0 mb-1">6.12%</p>
+                                <p class="lirpPara2 m-0 mb-1">{{data[0].illustration_carg}}</p>
                               </div>
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">IRR</p>
-                                <p class="lirpPara2 m-0 mb-1">5.28%</p>
+                                <p class="lirpPara2 m-0 mb-1">{{data[0].irr}}</p>
                               </div>
                             </div>
                             <div class="row">
@@ -190,9 +190,9 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td class="blankTd" data-label="blank">-</td>
-                                <td data-label="acount">$65,777</td>
+                              <tr v-for="(item, index) in data[0].list" :key="index">
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.net_balance)}}</td>
+                                <td data-label="acount">{{$numFormatWithDollar(item.distributions)}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -202,10 +202,10 @@
                     <!-- draggable column -->
                     <div class="col">
                         <draggable v-model="draggableColumns" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-3  px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`col-3  px-1 drag-col ${header.active ? '' : 'order-last'}`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
-                                <div :class="`commonTableMainTopDiv${4+header.id}`">
+                                <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
                                   <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                                     <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
                                       <div class="dblLineAbslt">
@@ -215,13 +215,13 @@
                                         <div class="col-12">
                                           <div
                                             class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
-                                            <div :class="`radioBtnDiv r2 switch${header.id} ${header.id > 2 ? 'extra':''}`" id="button-2">
-                                              <input type="checkbox" class="checkbox2 commonRadioBtn2" checked="true">
+                                            <div :class="`radioBtnDiv r2 switch${header.id} extra`" id="button-2">
+                                              <input type="checkbox" class="checkbox2 commonRadioBtn2"  :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
                                               <div class="knobs2"></div>
                                               <div class="layer2"></div>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                              <a href="javascript:void(0)" class="editBtnAccount disableBtnsForAll">&nbsp;<svg
+                                              <a href="javascript:void(0)" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;<svg
                                                   width="13" height="13" viewBox="0 0 13 13" fill="none"
                                                   xmlns="http://www.w3.org/2000/svg">
                                                   <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
@@ -252,7 +252,7 @@
                                       <div class="row">
                                         <div class="col-12">
                                           <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                            <p>TSA - Most Recent</p>
+                                            <p>{{data[header.id].type}}</p>
                                           </div>
                                         </div>
                                       </div>
@@ -266,7 +266,7 @@
                                       </thead>
                                       <tbody>
                                         <tr v-for="(item, index) in data[header.id].list" :key="index">
-                                          <td class="blankTd" data-label="blank">-</td>
+                                          <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.net_balance)}}</td>
                                           <td data-label="acount">{{$numFormatWithDollar(item.distributions)}}</td>
                                         </tr>
                                       </tbody>
@@ -335,7 +335,7 @@
                       </div>
                       <div class="col-12 col-md-8">
                         <div class="row summary-row">
-                          <div v-for="(header, index) in draggableColumns" :key="index" class="col-3 px-1 commonBottomTableMainTopDiv5 summary-draggable">
+                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 px-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
@@ -374,7 +374,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <historical-disclosure-component /> -->
+              <historical-disclosure-component />
             </div>
           </div>
         </div>
@@ -399,19 +399,26 @@ export default {
         { id: 3, active: true },
         { id: 4, active: true },
       ],
+      distributions: [
+        { year: 1, age: 28, deposits: "65777" },
+        { year: 1, age: 28, deposits: "65777" },
+        { year: 1, age: 28, deposits: "65777" },
+        { year: 1, age: 28, deposits: "65777" },
+        { year: 1, age: 28, deposits: "65777" },
+      ],
       data: [
         {
           illustration_rate: "6.25%",
           illustration_carg: "3.65%",
           strategy_average: "8.15%",
           strategy_carg: "1.14%",
-          irr: "5.66%",
+          irr: "5.76%",
           list: [
-            { distributions: 45455, net_balance: 25456 },
-            { distributions: 45684, net_balance: 64564 },
-            { distributions: 66544, net_balance: 15644 },
-            { distributions: 95645, net_balance: 35745 },
-            { distributions: 95564, net_balance: 45611 },
+            { distributions: 45455, net_balance: "" },
+            { distributions: 45684, net_balance: "" },
+            { distributions: 66544, net_balance: "" },
+            { distributions: 95645, net_balance: "" },
+            { distributions: 95564, net_balance: "" },
           ],
         },
         {
@@ -421,11 +428,11 @@ export default {
           strategy_carg: "2.14%",
           irr: "5.66%",
           list: [
-            { distributions: 16546, net_balance: 54544 },
-            { distributions: 65414, net_balance: 54775 },
-            { distributions: 66544, net_balance: 55414 },
-            { distributions: 32145, net_balance: 22857 },
-            { distributions: 32322, net_balance: 89951 },
+            { distributions: 16546, net_balance: "" },
+            { distributions: 65414, net_balance: "" },
+            { distributions: 66544, net_balance: "" },
+            { distributions: 32145, net_balance: "" },
+            { distributions: 32322, net_balance: "" },
           ],
         },
         {
@@ -435,11 +442,11 @@ export default {
           strategy_carg: "4.14%",
           irr: "3.66%",
           list: [
-            { distributions: 22223, net_balance: 74661 },
-            { distributions: 64544, net_balance: 66544 },
-            { distributions: 66544, net_balance: 66544 },
-            { distributions: 32144, net_balance: 64545 },
-            { distributions: 94456, net_balance: 77566 },
+            { distributions: 22223, net_balance: "" },
+            { distributions: 64544, net_balance: "" },
+            { distributions: 66544, net_balance: "" },
+            { distributions: 32144, net_balance: "" },
+            { distributions: 94456, net_balance: "" },
           ],
         },
         {
@@ -449,11 +456,11 @@ export default {
           strategy_carg: "4.25%",
           irr: "5.11%",
           list: [
-            { distributions: 12554, net_balance: 63644 },
-            { distributions: 89822, net_balance: 22144 },
-            { distributions: 88456, net_balance: 22445 },
-            { distributions: 33445, net_balance: 89981 },
-            { distributions: 78746, net_balance: 89554 },
+            { distributions: 12554, net_balance: "" },
+            { distributions: 89822, net_balance: "" },
+            { distributions: 88456, net_balance: "" },
+            { distributions: 33445, net_balance: "" },
+            { distributions: 78746, net_balance: "" },
           ],
         },
         {
@@ -463,11 +470,11 @@ export default {
           strategy_carg: "4.14%",
           irr: "5.66%",
           list: [
-            { distributions: 65445, net_balance: 56454 },
-            { distributions: 97842, net_balance: 23664 },
-            { distributions: 54555, net_balance: 12554 },
-            { distributions: 23554, net_balance: 66114 },
-            { distributions: 92112, net_balance: 54776 },
+            { distributions: 65445, net_balance: "" },
+            { distributions: 97842, net_balance: "" },
+            { distributions: 54555, net_balance: "" },
+            { distributions: 23554, net_balance: "" },
+            { distributions: 92112, net_balance: "" },
           ],
         },
       ],
@@ -526,7 +533,7 @@ export default {
               surplus: "",
             },
           },
-           {
+          {
             id: 4,
             distribution: {
               total: 3377,

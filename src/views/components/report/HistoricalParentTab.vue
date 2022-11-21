@@ -8,11 +8,11 @@
 </template>
 <script>
 import HistoricalComparativeTableTab from "./historical-components/HistoricalComparativeTableTab.vue";
-import HistoricalComparativeValuesTab from "./historical-components/HistoricalComparativeValuesTab.vue";
-import HistoricalCumulativeValuesTab from "./historical-components/HistoricalCumulativeValuesTab.vue";
 import HistoricalIncomeAnalysisTab from "./historical-components/HistoricalIncomeAnalysisTab.vue";
 import HistoricalIrrAnalysisTab from "./historical-components/HistoricalIRRAnalysisTab.vue";
 import HistoricalTotalValuesTab from "./historical-components/HistoricalTotalValuesTab.vue";
+import HistoricalCumulativeValuesTab from "./historical-components/HistoricalCumulativeValuesTab.vue";
+import HistoricalComparativeValuesTab from "./historical-components/HistoricalComparativeValuesTab.vue";
 
 
 export default {
