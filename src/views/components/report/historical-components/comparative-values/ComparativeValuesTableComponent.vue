@@ -1,15 +1,15 @@
 <template lang="">
   <div class="tab-pane fade show active" id="v-pills-compTable" role="tabpanel" aria-labelledby="pills-home-tab">
     <div class="d-flex justify-content-center mt-2">
-      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
+      <div class="nav mltplSwtchDiv nav-pills">
         <div class="active" id="v-pills-mostRecent-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mostRecent"
-          type="button" role="tab" aria-controls="v-pills-mostRecent" aria-selected="true">Most Recent</div>
+          type="button" role="tab" aria-controls="v-pills-mostRecent" aria-selected="true" @click="() => tsa_type = 'most_recent'">Most Recent</div>
         <div id="v-pills-worst-tab" data-bs-toggle="pill" data-bs-target="#v-pills-worst" type="button" role="tab"
-          aria-controls="v-pills-worst" aria-selected="true">Worst</div>
+          aria-controls="v-pills-worst" aria-selected="true" @click="() => tsa_type = 'worst'">Worst</div>
         <div id="v-pills-median-tab" data-bs-toggle="pill" data-bs-target="#v-pills-median" type="button" role="tab"
-          aria-controls="v-pills-median" aria-selected="true">Median</div>
+          aria-controls="v-pills-median" aria-selected="true" @click="() => tsa_type = 'median'">Median</div>
         <div id="v-pills-best-tab" data-bs-toggle="pill" data-bs-target="#v-pills-best" type="button" role="tab"
-          aria-controls="v-pills-best" aria-selected="true">Best</div>
+          aria-controls="v-pills-best" aria-selected="true" @click="() => tsa_type = 'best'">Best</div>
       </div>
     </div>
     <!-- Comparative Values Table starts  -->
@@ -105,8 +105,7 @@
               <div class="col-md-3 pe-1">
                 <div class="tab-content">
                   <!-- most recent tab -->
-                  <div class="tab-pane fade show active" id="v-pills-mostRecent" role="tabpanel"
-                    aria-labelledby="pills-home-tab">
+                  <div class="tab-pane fade show active" >
                     <div class="reportTablesDiv reportTablesDiv8">
                       <div class="lifeProPlus position-relative tablesCmnClr">
                         <div class="row">
@@ -129,21 +128,21 @@
                         <div class="row eachCardParaRow">
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">Strategy Avg</p>
-                            <p class="lirpPara2 m-0 mb-1">10.15%</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].strategy_average}}</p>
                           </div>
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
-                            <p class="lirpPara2 m-0 mb-1">9.57%</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].strategy_cagr}}</p>
                           </div>
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">IRR</p>
-                            <p class="lirpPara2 m-0 mb-1">8.09%</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].irr}}</p>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12">
                             <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>TSA- Most Recent</p>
+                              <p>{{table.data[0].catogories[tsa_type].type}}</p>
                             </div>
                           </div>
                         </div>
@@ -156,187 +155,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="blankTd" data-label="blank">-</td>
-                            <td data-label="acount">$65,777</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- Worst recent tab -->
-                  <div class="tab-pane fade" id="v-pills-worst" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="reportTablesDiv reportTablesDiv8">
-                      <div class="lifeProPlus position-relative tablesCmnClr">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
-                              <div class="d-flex w-100 justify-content-end align-items-center">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                      stroke="#1660A4" stroke-width="1.15" />
-                                    <path
-                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                      stroke="#1660A4" stroke-width="1.25" />
-                                  </svg>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row eachCardParaRow">
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strategy Avg</p>
-                            <p class="lirpPara2 m-0 mb-1">10.15%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
-                            <p class="lirpPara2 m-0 mb-1">9.57%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">IRR</p>
-                            <p class="lirpPara2 m-0 mb-1">8.09%</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>TSA- Worst</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <table class="table tableCommonForDisable  mt-1 tableCommonHide">
-                        <thead class="heading-tr">
-                          <tr>
-                            <th>Distributions</th>
-                            <th>Account Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="blankTd" data-label="blank">-</td>
-                            <td data-label="acount">$65,777</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- Median recent tab -->
-                  <div class="tab-pane fade" id="v-pills-median" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="reportTablesDiv reportTablesDiv8">
-                      <div class="lifeProPlus position-relative tablesCmnClr">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
-                              <div class="d-flex w-100 justify-content-end align-items-center">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                      stroke="#1660A4" stroke-width="1.15" />
-                                    <path
-                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                      stroke="#1660A4" stroke-width="1.25" />
-                                  </svg>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row eachCardParaRow">
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strategy Avg</p>
-                            <p class="lirpPara2 m-0 mb-1">10.15%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
-                            <p class="lirpPara2 m-0 mb-1">9.57%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">IRR</p>
-                            <p class="lirpPara2 m-0 mb-1">8.09%</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>TSA- Median</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <table class="table tableCommonForDisable  mt-1 tableCommonHide">
-                        <thead class="heading-tr">
-                          <tr>
-                            <th>Distributions</th>
-                            <th>Account Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="blankTd" data-label="blank">-</td>
-                            <td data-label="acount">$65,777</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!-- Best recent tab -->
-                  <div class="tab-pane fade" id="v-pills-best" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="reportTablesDiv reportTablesDiv8">
-                      <div class="lifeProPlus position-relative tablesCmnClr">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
-                              <div class="d-flex w-100 justify-content-end align-items-center">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                      stroke="#1660A4" stroke-width="1.15" />
-                                    <path
-                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                      stroke="#1660A4" stroke-width="1.25" />
-                                  </svg>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row eachCardParaRow">
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strategy Avg</p>
-                            <p class="lirpPara2 m-0 mb-1">10.15%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
-                            <p class="lirpPara2 m-0 mb-1">9.57%</p>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">IRR</p>
-                            <p class="lirpPara2 m-0 mb-1">8.09%</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>TSA- Best</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <table class="table tableCommonForDisable  mt-1 tableCommonHide">
-                        <thead class="heading-tr">
-                          <tr>
-                            <th>Distributions</th>
-                            <th>Account Value</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="blankTd" data-label="blank">-</td>
-                            <td data-label="acount">$65,777</td>
-                          </tr>
+                            <tr v-for="(item, index) in table.data[0].catogories[tsa_type].list" :key="index">
+                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions)}}</td>
+                                <td data-label="acount">{{$numFormatWithDollar(item.account_value)}}</td>
+                            </tr>
                         </tbody>
                       </table>
                     </div>
@@ -507,36 +329,32 @@
                             <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-md-4 px-1 commonBottomTableMainTopDiv${8+header.id} summary-draggable`">
                                 <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                                     <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
-                                    <thead class="heading-tr">
-                                       <tr>
-                                         <th colspan="2" style="border-radius:6px;vertical-align: middle;">
-                                        Distributions
-                                        </th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <td width="50%" data-label="acount">$65,777</td>
-                                        <td width="50%" class="blankTd" data-label="blank">-</td>
-                                        </tr>
-                                        <tr>
-                                        <td width="50%" data-label="acount">$65,777</td>
-                                        <td width="50%" class="blankTd" data-label="blank">-</td>
-                                        </tr>
-                                        <tr>
-                                        <td width="50%" class="shortFallValueTd" data-label="acount">$670,443</td>
-                                        <td width="50%" class="blankTd" data-label="blank">-</td>
-                                        </tr>
-                                    </tbody>
+                                        <thead class="heading-tr">
+                                            <tr>
+                                                <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%" data-label="acount">$65,777</td>
+                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%" data-label="acount">$65,777</td>
+                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="50%" class="shortFallValueTd" data-label="acount">$670,443</td>
+                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
-                                </div>
+                            </div>
                          </div>
                     </div>
                 </div>
             </div>
-
-
           </div>
         <div class="mt-2 pt-5">
           <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
@@ -551,265 +369,279 @@
   </div>
 </template>
 <script>
-  import { VueDraggableNext } from "vue-draggable-next";
+import { VueDraggableNext } from "vue-draggable-next";
 
-  export default {
-    components: { draggable: VueDraggableNext },
-    data() {
-      return {
-        draggableColumns: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
+export default {
+  components: { draggable: VueDraggableNext },
+  data() {
+    return {
+      draggableColumns: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+      ],
+      showAll: false,
+      tsa_type:'most_recent',
+      table: {
+        distributions: [
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: "65777" },
         ],
-        showAll: false,
-        table: {
-          distributions: [
-            { year: 1, age: 28, deposits: "65777" },
-            { year: 1, age: 28, deposits: "65777" },
-            { year: 1, age: 28, deposits: "65777" },
-            { year: 1, age: 28, deposits: "65777" },
-            { year: 1, age: 28, deposits: "65777" },
-          ],
-          data: [
-            {
-              id: 0,
-              strategy_average: "6.15%",
-              strategy_cagr: "6.15%",
-              irr: "5.65%",
-              type: "TSA- Most Recent",
-              list: [
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-              ],
-            },
-            {
-              id: 1,
-              strategy_average: "6.15%",
-              strategy_cagr: "6.15%",
-              irr: "5.65%",
-              type: "Brokerage Account",
-              list: [
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-              ],
-            },
-            {
-              id: 2,
-              strategy_average: "6.15%",
-              strategy_cagr: "6.15%",
-              irr: "5.65%",
-              type: "401K/IRA",
-              list: [
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-              ],
-            },
-            {
-              id: 3,
-              strategy_average: "6.15%",
-              strategy_cagr: "6.15%",
-              irr: "5.65%",
-              type: "Annuity",
-              list: [
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-                {
-                  distributions: "",
-                  account_value: 65777,
-                  surrender_value: 65777,
-                  death_benifit: 65777,
-                  net_balance: 65777,
-                },
-              ],
-            },
-          ],
-        },
-        summary_data: {
-          deposits: { totals: "328885", total_values: "", shortfall: "" },
-          data: [
-            {
-              id: 0,
-              distribution: {
-                total: 6577,
-                total_value: "6577",
-                shortfall: "",
+        data: [
+          {
+            id:0,
+            catogories: {
+              most_recent: {
+                strategy_average: "8.15%",
+                strategy_cagr: "1.14%",
+                irr: "5.76%",
+                type: "TSA - Most Recent",
+                list: [
+                  { distributions: 12354, net_balance: "" },
+                  { distributions: 45684, net_balance: "" },
+                  { distributions: 66544, net_balance: "" },
+                  { distributions: 95645, net_balance: "" },
+                  { distributions: 95564, net_balance: "" },
+                ],
               },
-              net_balance: {
-                total: "",
-                total_value: "",
-                shortfall: "",
+              worst: {
+                strategy_average: "6.15%",
+                strategy_cagr: "3.14%",
+                irr: "2.76%",
+                type: "TSA - Worst",
+                list: [
+                  { distributions: 89745, net_balance: "" },
+                  { distributions: 45684, net_balance: "" },
+                  { distributions: 66544, net_balance: "" },
+                  { distributions: 95645, net_balance: "" },
+                  { distributions: 95564, net_balance: "" },
+                ],
+              },
+              median: { 
+                strategy_average: "4.15%",
+                strategy_cagr: "6.14%",
+                irr: "1.76%",
+                type: "TSA - Median",
+                list: [
+                  { distributions: 33148, net_balance: "" },
+                  { distributions: 45684, net_balance: "" },
+                  { distributions: 66544, net_balance: "" },
+                  { distributions: 95645, net_balance: "" },
+                  { distributions: 95564, net_balance: "" },
+                ],
+              },
+              best: {
+                strategy_average: "7.15%",
+                strategy_cagr: "5.14%",
+                irr: "1.76%",
+                type: "TSA - Best",
+                list: [
+                  { distributions: 25466, net_balance: "" },
+                  { distributions: 45684, net_balance: "" },
+                  { distributions: 66544, net_balance: "" },
+                  { distributions: 95645, net_balance: "" },
+                  { distributions: 95564, net_balance: "" },
+                ],
               },
             },
-            {
-              id: 1,
-              distribution: {
-                total: 6577,
-                total_value: 6577,
-                shortfall: 6577,
+          },
+          {
+            id: 1,
+            strategy_average: "6.15%",
+            strategy_cagr: "6.15%",
+            irr: "5.65%",
+            type: "Brokerage Account",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
               },
-              net_balance: {
-                total: "",
-                total_value: "",
-                shortfall: "",
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
               },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 2,
+            strategy_average: "6.15%",
+            strategy_cagr: "6.15%",
+            irr: "5.65%",
+            type: "401K/IRA",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+          {
+            id: 3,
+            strategy_average: "6.15%",
+            strategy_cagr: "6.15%",
+            irr: "5.65%",
+            type: "Annuity",
+            list: [
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+              {
+                distributions: "",
+                account_value: 65777,
+                surrender_value: 65777,
+                death_benifit: 65777,
+                net_balance: 65777,
+              },
+            ],
+          },
+        ],
+      },
+      summary_data: {
+        deposits: { totals: "328885", total_values: "", shortfall: "" },
+        data: [
+          {
+            id: 0,
+            distribution: {
+              total: 6577,
+              total_value: "6577",
+              shortfall: "",
             },
-            {
-              id: 2,
-              distribution: {
-                total: 6577,
-                total_value: 6577,
-                shortfall: 68577,
-              },
-              net_balance: {
-                total: "",
-                total_value: "",
-                shortfall: "",
-              },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
             },
-            {
-              id: 3,
-              distribution: {
-                total: 6577,
-                total_value: 6577,
-                shortfall: 62577,
-              },
-              net_balance: {
-                total: "",
-                total_value: "",
-                shortfall: "",
-              },
+          },
+          {
+            id: 1,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 6577,
             },
-          ],
-        },
-      };
-    },
-  };
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 2,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 68577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+          {
+            id: 3,
+            distribution: {
+              total: 6577,
+              total_value: 6577,
+              shortfall: 62577,
+            },
+            net_balance: {
+              total: "",
+              total_value: "",
+              shortfall: "",
+            },
+          },
+        ],
+      },
+    };
+  },
+};
 </script>
 <style lang="">
 </style>

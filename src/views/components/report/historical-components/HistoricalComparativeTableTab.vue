@@ -413,6 +413,7 @@ export default {
           strategy_average: "8.15%",
           strategy_carg: "1.14%",
           irr: "5.76%",
+          type: "Allianz - LIRP",
           list: [
             { distributions: 45455, net_balance: "" },
             { distributions: 45684, net_balance: "" },
@@ -427,6 +428,7 @@ export default {
           strategy_average: "8.95%",
           strategy_carg: "2.14%",
           irr: "5.66%",
+          type: "TSA - Worst",
           list: [
             { distributions: 16546, net_balance: "" },
             { distributions: 65414, net_balance: "" },
@@ -441,6 +443,7 @@ export default {
           strategy_average: "8.95%",
           strategy_carg: "4.14%",
           irr: "3.66%",
+          type: "TSA - Most Recent",
           list: [
             { distributions: 22223, net_balance: "" },
             { distributions: 64544, net_balance: "" },
@@ -455,6 +458,7 @@ export default {
           strategy_average: "8.11%",
           strategy_carg: "4.25%",
           irr: "5.11%",
+          type: "TSA - Median",
           list: [
             { distributions: 12554, net_balance: "" },
             { distributions: 89822, net_balance: "" },
@@ -469,6 +473,7 @@ export default {
           strategy_average: "8.95%",
           strategy_carg: "4.14%",
           irr: "5.66%",
+          type: "TSA - Best",
           list: [
             { distributions: 65445, net_balance: "" },
             { distributions: 97842, net_balance: "" },

@@ -76,7 +76,6 @@
                 </div>
               </div>
             </div>
-
             <historical-disclosure-component />
           </div>
         </div>
