@@ -4,7 +4,7 @@ name: Push-to-AWS-EC2-Prod
 on:
   push:
     branches:
-      - ci-cd-nginx
+      - devwork
   
 jobs:
   build-and-deploy:
