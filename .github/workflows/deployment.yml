@@ -18,15 +18,14 @@ jobs:
     - run: npm install
     - run: npm run build
     
-       artifacts:
-    paths:
-      - dist/
-    only:
-     - devwork
-
-     - name: ssh deploy on aws ec2
-       uses: easingthemes/ssh-deploy@v2.1.4
-       env:
+    - name: ssh deploy on aws ec2
+      uses: easingthemes/ssh-deploy@v2.1.4
+      
+    - name: post deployment
+  script:
+    - apt-get update -y
+    - mv dist/* /var/www/wlxvue.bizbybot.com/
+      env:
           SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
