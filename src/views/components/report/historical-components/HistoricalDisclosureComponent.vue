@@ -4,7 +4,7 @@
       <div class="disclosure-header-div d-flex align-items-center justify-content-between">
         <h4 class="disclosure-heading">Disclosure</h4>
         <div class="disclosure-right-actions">
-          <button class="btn round-btn disclosure-edit">
+          <button class="btn round-btn disclosure-edit"  v-if="!saveDisclosure" @click="() => this.saveDisclosure = true" >
             <span>Edit</span>
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -17,7 +17,7 @@
                 fill="#9D9D9D"></path>
             </svg>
           </button>
-          <button class="btn round-btn disclosure-save d-none">
+          <button class="btn round-btn disclosure-save" v-if="saveDisclosure" @click="saveMessage()">
             <span>Save</span>
             <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
               <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
@@ -28,37 +28,8 @@
           </button>
         </div>
       </div>
-      <div class="disclosure-text-wrapper">
-        <div class="disclosure-textarea" contenteditable="true">
-          This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does
-          not exist and cannot be purchased in the real world. It is not a real world insurance policy. It
-          is 
-          not an official illustration. You may not assume the data presented here relating to the TSA
-          infers
-          or expresses any guarantee of how a real world insurance policy would perform. Comparisons made to
-          the official <b>Pacific Life</b> illustration(s), which use hypothetical assumptions that are not
-          guaranteed, are designed to be educational and instructive as to how the insurance policies
-          compared
-          <b>may have</b> performed through different historical periods. The data uses the raw returns of
-          the
-          <b>S&P 500</b>, and simulates the potential returns that the insurance policy <b>may have</b>
-          achieved if the current cap rates, participation rates, floors, fees, and borrowing costs were in
-          place during the historical periods tested. Cap rates, participation rates, and policy fees can
-          and
-          do change. We analyzed <b>546 40</b>-year periods of the index. In the case where a time period
-          portrayed is greater than <b>40</b> years, the data was looped for purposes of the simulation.
-          This
-          simulation of a TSA took the actual current monthly fees of the <b>Pacific Life</b> insurance
-          policy
-          and increased them by 15%. All distributions assume the use of an index/participating loan. We
-          assumed a <b>5.4%</b> borrowing rate in the simulation of the TSA. Presented here are the most
-          recent, worst, median, and best <b>40</b>-year periods with respect to the insurance policy’s
-          intended allocation in the <b>S&P 500</b> index strategy. However, these results are not the
-          results
-          of an actual insurance policy, but those of the TSA, which does not exist in the real world. It is
-          entirely possible that the real world experience of the actual policy could be even worse than the
-          worst <b>40</b>-year period analyzed, just as it is entirely possible that the real world policy
-          could perform better than the best <b>40</b>-year period analyzed.
+      <div :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable':''}`">
+        <div class="disclosure-textarea" contenteditable="true" ref="editableDiv" @focus="() => this.saveDisclosure = true" @input="handleDisclosure()">
         </div>
       </div>
       <div class="disclosure-footer">
@@ -90,9 +61,61 @@
       </div>
     </div>
   </div>
+
+  
+ <!-- Disclosure Required -->
+
+  <div class="modal fade common-modal disclosure-modal" id="disclosureRequiredModal" ref="disclosureModal" tabindex="-1" aria-labelledby="disclosureRequiredLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <h5 class="modal-title fs-24 semi-bold-fw" id="disclosureRequiredLabel">Disclosure Required</h5>
+          <p class="fs-14">A discourse is required. You may use the default disclosure <br> or use your own.</p>
+          <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
+            <button type="button" class="btn yes-delete-btn" @click="setDefaultMessage()" data-bs-dismiss="modal" aria-label="Close">Use Default</button>
+            <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal" aria-label="Close" @click="() => $refs.editableDiv.focus()">Use My Own</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disclosure Required Ends -->
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      saveDisclosure: false,
+      disclosure_msg: "",
+    };
+  },
+  mounted() {
+    this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
+    this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+  },
+  methods: {
+    handleDisclosure: function() {
+      if (!this.$refs.editableDiv.innerHTML) {
+        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      }
+    },
+    setDefaultMessage: function() {
+      this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+    },
+    saveMessage: function() {
+      if (!this.$refs.editableDiv.innerHTML) {
+        return new bootstrap.Modal(this.$refs.disclosureModal).show();
+      }
+      this.saveDisclosure = false;
+    },
+  },
+};
 </script>
 <style lang="">
 </style>

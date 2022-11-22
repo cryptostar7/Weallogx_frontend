@@ -167,10 +167,10 @@
               </div>
               <div class="col-md-9 pe-3">
                 <draggable v-model="draggableColumns" tag="div" class="row">
-                    <div v-for="(header, index) in draggableColumns" :key="0" class="px-1 col-md-4 drag-col">
+                    <div v-for="(header, index) in draggableColumns" :key="index" :class="`px-1 col-md-4 drag-col ${header.active ? '':'order-last'}`">
                       <div class="empty-inner" data-empty="1">
                         <div class="fill-inner" draggable="true" data-fill="1">
-                          <div :class="`commonTableMainTopDiv${8+header.id}`">
+                          <div :class="`commonTableMainTopDiv${8+header.id} ${header.active ? '':'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
                                 <div class="dblLineAbslt">
@@ -180,7 +180,7 @@
                                   <div class="col-12">
                                     <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
                                       <div :class="`radioBtnDiv r2 switch${header.id}`" id="button-2">
-                                        <input type="checkbox" class="checkbox2 commonRadioBtn2" checked>
+                                        <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="header.active" @change="() => header.active = !header.active">
                                         <div class="knobs2"></div>
                                         <div class="layer2"></div>
                                       </div>
@@ -283,7 +283,7 @@
                     <tr>
                       <td class="table1Td" data-label="Year" style="border:none">Totals
                       </td>
-                      <td class="table1Td" data-label="Age">$459,000</td>
+                      <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
                     </tr>
                     <tr>
                       <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value
@@ -309,16 +309,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td width="50%" data-label="acount">$1,9680780</td>
-                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total)}}</td>
+                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total)}}</td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount">$2,115,171</td>
-                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total_value)}}</td>
+                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total_value)}}</td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount"> - </td>
-                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.shortfall)}}</td>
+                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)}}</td>
                                 </tr>
                             </tbody>
                             </table>
@@ -336,16 +336,16 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td width="50%" data-label="acount">$65,777</td>
-                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
+                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total)}}</td>
                                             </tr>
                                             <tr>
-                                                <td width="50%" data-label="acount">$65,777</td>
-                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total_value)}}</td>
+                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value)}}</td>
                                             </tr>
                                             <tr>
-                                                <td width="50%" class="shortFallValueTd" data-label="acount">$670,443</td>
-                                                <td width="50%" class="blankTd" data-label="blank">-</td>
+                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall)}}</td>
+                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall)}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -583,13 +583,13 @@ export default {
         ],
       },
       summary_data: {
-        deposits: { totals: "328885", total_values: "", shortfall: "" },
+        deposits: { totals: 328885, total_values: "", shortfall: "" },
         data: [
           {
             id: 0,
             distribution: {
               total: 6577,
-              total_value: "6577",
+              total_value: 6577,
               shortfall: "",
             },
             net_balance: {
