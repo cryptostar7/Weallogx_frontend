@@ -19,8 +19,7 @@ jobs:
     - run: npm run build
     - name: Run script file
       run: |
-       apt-get update -y 
-       mv dist/* /var/www/wlxvue.bizbybot.com/
+        mv dist/* /var/www/wlxvue.bizbybot.com/
         shell: bash
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
