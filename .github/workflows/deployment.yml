@@ -20,14 +20,14 @@ jobs:
   
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
-      
-    - name: Run script file
-      run: |
-        mv dist/* /var/www/wlxvue.bizbybot.com/
-        shell: bash
-        
+            
       env:
           SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR_M }}
+          
+    - name: Run script file
+      run: |
+        mv dist/* /var/www/wlxvue.bizbybot.com/
+        shell: bash
