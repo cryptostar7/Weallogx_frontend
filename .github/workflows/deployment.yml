@@ -18,15 +18,15 @@ jobs:
     - run: npm install
     - run: npm run build
     
-    artifacts:
+       artifacts:
     paths:
       - dist/
-  only:
-  - master
+    only:
+     - devwork
 
-    - name: ssh deploy on aws ec2
-      uses: easingthemes/ssh-deploy@v2.1.4
-      env:
+     - name: ssh deploy on aws ec2
+       uses: easingthemes/ssh-deploy@v2.1.4
+       env:
           SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
