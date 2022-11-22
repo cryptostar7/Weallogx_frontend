@@ -17,12 +17,15 @@ jobs:
         node-version: 14.x
     - run: npm install
     - run: npm run build
+  
+    - name: ssh deploy on aws ec2
+      uses: easingthemes/ssh-deploy@v2.1.4
+      
     - name: Run script file
       run: |
         mv dist/* /var/www/wlxvue.bizbybot.com/
         shell: bash
-    - name: ssh deploy on aws ec2
-      uses: easingthemes/ssh-deploy@v2.1.4
+        
       env:
           SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
