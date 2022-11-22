@@ -17,6 +17,13 @@ jobs:
         node-version: 14.x
     - run: npm install
     - run: npm run build
+    
+    artifacts:
+    paths:
+      - dist/
+  only:
+  - master
+
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
       env:
