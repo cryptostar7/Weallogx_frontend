@@ -243,7 +243,7 @@
                             </div>
                           </div>
                           <div class="mt-2 d-flex ">
-                            <div :class="`CardProgressBar lightProgress${1+index} groupBoxProgressCommon${1+index}  ${cards.distributions[index].active ? '':'boxProgress'}`">
+                            <div :class="`CardProgressBar lightProgress${1+index} groupBoxProgressCommon${1+index}  ${cards.rate_of_returns[index].active ? '':'boxProgress'}`">
                               <div :class="`CardProgress darkProgress${1+index}`"></div>
                               <p class="lineUnderBars"></p>
                             </div>

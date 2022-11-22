@@ -48,6 +48,7 @@ const store = createStore({
                 { name: 'Dark Mode Green', value: 'dark-green', color:'green' },
                 { name: 'Dark Mode Blue', value: 'dark-blue', color:'blue' },
             ],
+            presentation_mode:false,
             current_theme: localStorage.getItem("mode") || 'light-green'
         },
     },
@@ -62,6 +63,9 @@ const store = createStore({
         },
         setTheme(state, type) {
             state.app.current_theme = type;
+        }, 
+        setPresentationMode(state, status) {
+            state.app.presentation_mode = status;
         }
     },
     actions: {
@@ -74,6 +78,14 @@ const store = createStore({
             document.body.classList.add(payload);
             context.commit("setTheme", payload);
         },
+        presentation(context, payload){
+            if(payload){
+                document.body.classList.add('presentationModeCommon');
+            }else{
+                document.body.classList.remove('presentationModeCommon');
+            }
+            context.commit("setPresentationMode", payload);
+        }
     }
 })
 export default store;

@@ -1,5 +1,5 @@
 <template lang="">
-  <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar">
+  <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
       <router-link class="navbar-brand backToscenario" to="/">
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@
           </li>
         </ul>
         <theme-dropdown type="2"/>
-        <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive">
+        <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive" @click="() => $store.dispatch('presentation', true)">
           <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="path-1-inside-1_1_94760" fill="white">
               <rect x="1" y="0.75" width="15" height="13" rx="1" />
@@ -81,12 +81,76 @@
       </div>
     </div>
   </nav>
+
+  <nav class="navbar navbar-expand-lg fixed-top report-top-navbar presentation_navbar" :style="{display:$store.state.app.presentation_mode ? 'block':'none'}">
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">
+        <img src="@/assets/images/wlx-logo-green.png" class="img-fluid logo-green" alt="WealthLogix Logo" width="170">
+        <img src="@/assets/images/wlx-logo-blue.png" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170">
+        <img src="@/assets/images/wlx-logo-dark.png" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170">
+      </router-link>
+      <button class="navbar-toggler menu-icon-report-btn" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <svg  xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#b1b0b0"
+          class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="dropdown theme-btn-dropdown ms-auto text-center">
+          <a href="javascript:void(0)" @click="openFullscreen();"
+            class="fullScreenOpenBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center">
+            <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1.76139 2.59722C1.76139 1.94556 2.29028 1.41667 2.94195 1.41667H4.83084C5.0187 1.41667 5.19887 1.34204 5.3317 1.2092C5.46454 1.07636 5.53917 0.896195 5.53917 0.708333C5.53917 0.520472 5.46454 0.340304 5.3317 0.207466C5.19887 0.0746277 5.0187 0 4.83084 0H2.94195C2.25312 0 1.59251 0.273635 1.10544 0.760709C0.618362 1.24778 0.344727 1.9084 0.344727 2.59722V4.48611C0.344727 4.67397 0.419354 4.85414 0.552192 4.98698C0.685031 5.11982 0.865198 5.19444 1.05306 5.19444C1.24092 5.19444 1.42109 5.11982 1.55393 4.98698C1.68677 4.85414 1.76139 4.67397 1.76139 4.48611V2.59722ZM1.76139 14.4028C1.76139 15.0544 2.29028 15.5833 2.94195 15.5833H4.83084C5.0187 15.5833 5.19887 15.658 5.3317 15.7908C5.46454 15.9236 5.53917 16.1038 5.53917 16.2917C5.53917 16.4795 5.46454 16.6597 5.3317 16.7925C5.19887 16.9254 5.0187 17 4.83084 17H2.94195C2.25312 17 1.59251 16.7264 1.10544 16.2393C0.618362 15.7522 0.344727 15.0916 0.344727 14.4028V12.5139C0.344727 12.326 0.419354 12.1459 0.552192 12.013C0.685031 11.8802 0.865198 11.8056 1.05306 11.8056C1.24092 11.8056 1.42109 11.8802 1.55393 12.013C1.68677 12.1459 1.76139 12.326 1.76139 12.5139V14.4028ZM14.7475 1.41667C15.3992 1.41667 15.9281 1.94556 15.9281 2.59722V4.48611C15.9281 4.67397 16.0027 4.85414 16.1355 4.98698C16.2684 5.11982 16.4485 5.19444 16.6364 5.19444C16.8243 5.19444 17.0044 5.11982 17.1373 4.98698C17.2701 4.85414 17.3447 4.67397 17.3447 4.48611V2.59722C17.3447 1.9084 17.0711 1.24778 16.584 0.760709C16.0969 0.273635 15.4363 0 14.7475 0H12.8586C12.6708 0 12.4906 0.0746277 12.3577 0.207466C12.2249 0.340304 12.1503 0.520472 12.1503 0.708333C12.1503 0.896195 12.2249 1.07636 12.3577 1.2092C12.4906 1.34204 12.6708 1.41667 12.8586 1.41667H14.7475ZM15.9281 14.4028C15.9281 15.0544 15.3992 15.5833 14.7475 15.5833H12.8586C12.6708 15.5833 12.4906 15.658 12.3577 15.7908C12.2249 15.9236 12.1503 16.1038 12.1503 16.2917C12.1503 16.4795 12.2249 16.6597 12.3577 16.7925C12.4906 16.9254 12.6708 17 12.8586 17H14.7475C15.4363 17 16.0969 16.7264 16.584 16.2393C17.0711 15.7522 17.3447 15.0916 17.3447 14.4028V12.5139C17.3447 12.326 17.2701 12.1459 17.1373 12.013C17.0044 11.8802 16.8243 11.8056 16.6364 11.8056C16.4485 11.8056 16.2684 11.8802 16.1355 12.013C16.0027 12.1459 15.9281 12.326 15.9281 12.5139V14.4028Z"
+                fill="black" />
+            </svg>
+          </a>
+        </div>
+        <a href="javascript:void(0)" @click="backToNormal()"
+          class="fullScreenCloseBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center fullScreenCloseBtnHide">
+          <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.0459" y="0.000915527" width="21.6354" height="2.40393" rx="1.20197"
+              transform="rotate(45 2.0459 0.000915527)" fill="black" />
+            <rect x="17.3433" y="1.70058" width="21.6354" height="2.40393" rx="1.20197"
+              transform="rotate(135 17.3433 1.70058)" fill="black" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
 
 export default {
   components:{ThemeDropdown},
+  methods:{
+    openFullscreen: function() {
+      var elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    },
+     backToNormal: function() {
+      this.$store.dispatch('presentation', false)
+      if(document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if(document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if(document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+  }
 };
 </script>
 <style lang="">
