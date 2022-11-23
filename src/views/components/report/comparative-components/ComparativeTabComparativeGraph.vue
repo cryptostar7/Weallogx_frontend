@@ -17,7 +17,7 @@
               </div>
               <label for="rightCheckBox2" class="rghtTopHeadcommon">Comparative Graph</label>
             </div>
-            <div class="rightLeftDoubleLIneDegine">
+            <div class="rightLeftDoubleLIneDegine"> 
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
                 <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
@@ -30,7 +30,7 @@
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div class="flex-1" v-for="(item, index) in data" :key="index">
-                    <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100`">
+                    <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '':'inactive'}`">
                       <div class="d-flex justify-content-between">
                         <div class="distrbnCard1paras">
                           <p>Longevity</p>
@@ -39,7 +39,7 @@
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
+                              <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active != cards[index].active" />
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
                             </div>
@@ -138,7 +138,6 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 export default {
   props: ["keyId"],
   components: { ComparativeDisclosureComponent },
-
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
@@ -308,10 +307,10 @@ export default {
           .querySelectorAll("input[type=checkbox]");
         items.forEach((item, index) => {
           checkboxes[index].onclick = e => {
-            if (index < 4) {
-              let distributionCard = e.target.closest(".distributionCard1");
-              distributionCard.classList.toggle("inactive");
-            }
+            // if (index < 4) {
+            //   let distributionCard = e.target.closest(".distributionCard1");
+            //   distributionCard.classList.toggle("inactive");
+            // }
             const { type } = chart.config;
             if (type === "pie" || type === "doughnut") {
               // Pie and doughnut charts only have a single dataset and visibility is per item
@@ -456,6 +455,23 @@ export default {
         comparativeValuesChart.update();
       }
     });
+  },
+
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets1
+      ) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

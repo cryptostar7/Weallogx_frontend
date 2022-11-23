@@ -100,7 +100,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="dropdown theme-btn-dropdown ms-auto text-center">
-          <a href="javascript:void(0)" @click="openFullscreen();"
+          <a href="javascript:void(0)" @click="handleFullscreen();"
             class="fullScreenOpenBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center">
             <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -109,6 +109,7 @@
             </svg>
           </a>
         </div>
+        
         <a href="javascript:void(0)" @click="backToNormal()"
           class="fullScreenCloseBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center fullScreenCloseBtnHide">
           <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -128,29 +129,18 @@
 import ThemeDropdown from "./ThemeDropdown.vue";
 
 export default {
-  components:{ThemeDropdown},
-  methods:{
-    openFullscreen: function() {
-      var elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-      }
+  components: { ThemeDropdown },
+  methods: {
+    handleFullscreen: function() {
+      this.$store.dispatch("fullScreen");
     },
-     backToNormal: function() {
-      this.$store.dispatch('presentation', false)
-      if(document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if(document.webkitExitFullscreen) { /* Safari */
-        document.webkitExitFullscreen();
-      } else if(document.msExitFullscreen) { /* IE11 */
-        document.msExitFullscreen();
+    backToNormal: function() {
+      if (this.$store.state.app.full_screen) {
+        this.$store.dispatch("fullScreen");
       }
-    }
-  }
+      this.$store.dispatch("presentation", false);
+    },
+  },
 };
 </script>
 <style lang="">

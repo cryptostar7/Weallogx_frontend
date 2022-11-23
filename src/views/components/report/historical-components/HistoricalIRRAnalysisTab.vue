@@ -156,6 +156,22 @@ export default {
       ],
     };
   },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
+  },
 };
 </script>
 <style lang="">

@@ -1,10 +1,9 @@
 <template lang="">
-  <section
-    :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${sidebar.collapse ? 'active':''}`">
+  <section :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${sidebar.collapse ? 'active':''}`">
     <div class="inner-section reportbuilderRightInner" id="fsdfasdf">
       <div class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg">
         <button class="sidebar-arrow" @click="() => sidebar.collapse = !sidebar.collapse" sideColapseAttr="1"
-          :style="{transform:sidebar.collapse ?'rotate(180deg)':'rotate(360deg)'}"><svg class="sidebarArrowImgJs1"
+          :style="{transform:sidebar.collapse ? 'rotate(180deg)' : 'rotate(360deg)'}"><svg class="sidebarArrowImgJs1"
             width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.25" y="5.45312" width="7" height="1.5" rx="0.75" transform="rotate(-45 0.25 5.45312)"
               fill="#23669E" />
@@ -31,12 +30,12 @@
         <div class="right-area-inner p-relative">
           <div class="right-area-wrapper">
             <client-detail-component />
-            <div class="tab-wrapper-1" v-if="sidebar.currentTab === 'comparative'">
+            <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
               <draggable class="dragArea list-group w-full" :list="list.comparative" @change="log">
               <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" />
              </draggable>
             </div>
-            <div class="tab-wrapper-2" v-if="sidebar.currentTab === 'historical'">
+            <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`">
               <draggable class="dragArea list-group w-full" :list="list.historical" @change="log">
                 <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
                </draggable>

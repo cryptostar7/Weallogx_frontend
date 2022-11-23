@@ -19,12 +19,14 @@
 </template>
 <script>
 export default {
-    props:['type'],
-    mounted(){
-        document.body.classList.add(this.$store.state.app.current_theme);
-    },
-}
+  props: ["type"],
+  mounted() {
+    document.body.classList.add(this.$store.state.app.current_theme);
+    if (this.$store.state.app.full_screen) {
+      this.$store.dispatch("fullScreen");
+    }
+  },
+};
 </script>
 <style lang="">
-    
 </style>

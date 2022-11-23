@@ -123,34 +123,50 @@ export default {
           type: "LIRP",
           annual_income: 45000,
           total_income: 4504500,
-          income_in_percent:'45%',
+          income_in_percent: "45%",
         },
         {
           type: "Most Recent",
           annual_income: 33000,
           total_income: 3303300,
-          income_in_percent:'33%',
+          income_in_percent: "33%",
         },
         {
           type: "Worst",
           annual_income: 55624,
           total_income: 5565564,
-          income_in_percent:'55%',
+          income_in_percent: "55%",
         },
         {
           type: "Mediam",
           annual_income: 25645,
           total_income: 2562565,
-          income_in_percent:'25%',
+          income_in_percent: "25%",
         },
         {
           type: "Best",
           annual_income: 25645,
           total_income: 2562565,
-          income_in_percent:'25%',
+          income_in_percent: "25%",
         },
       ],
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

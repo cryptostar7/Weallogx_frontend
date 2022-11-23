@@ -158,60 +158,73 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        cards: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
-          { id: 4, active: true },
-        ],
-        data: [
-          {
-            type: "LifePro+",
-            value_efficiency_ratio: "1:6:15",
-            value_efficiency:454516,
-            total_fees: 544565,
-            total_value: 256556,
-            value_efficiency_in_percent:'30%',
-            total_fee_in_percent:'50%',
-            total_value_in_percent:'70%',
-          },
-          {
-            type: "Brokerage Account",
-            value_efficiency_ratio: "1:6:15",
-            value_efficiency:454516,
-            total_fees: 564640,
-            total_value: 656455,
-            value_efficiency_in_percent:'30%',
-            total_fee_in_percent:'65%',
-            total_value_in_percent:'20%',
-          },
-          {
-            type: "401/IRA",
-            value_efficiency_ratio: "1:6:15",
-            value_efficiency:454516,
-            total_fees: 478922,
-            total_value: 685455,
-            value_efficiency_in_percent:'40%',
-            total_fee_in_percent:'58%',
-            total_value_in_percent:'35%',
-          },
-          {
-            type: "Annuity",
-            value_efficiency_ratio: "1:6:15",
-            value_efficiency:454516,
-            total_fees: 845645,
-            total_value: 465402,
-            value_efficiency_in_percent:'19%',
-            total_fee_in_percent:'48%',
-            total_value_in_percent:'25%',
-          },
-        ],
-      };
+export default {
+  data() {
+    return {
+      cards: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+        { id: 4, active: true },
+      ],
+      data: [
+        {
+          type: "LifePro+",
+          value_efficiency_ratio: "1:6:15",
+          value_efficiency: 454516,
+          total_fees: 544565,
+          total_value: 256556,
+          value_efficiency_in_percent: "30%",
+          total_fee_in_percent: "50%",
+          total_value_in_percent: "70%",
+        },
+        {
+          type: "Brokerage Account",
+          value_efficiency_ratio: "1:6:15",
+          value_efficiency: 454516,
+          total_fees: 564640,
+          total_value: 656455,
+          value_efficiency_in_percent: "30%",
+          total_fee_in_percent: "65%",
+          total_value_in_percent: "20%",
+        },
+        {
+          type: "401/IRA",
+          value_efficiency_ratio: "1:6:15",
+          value_efficiency: 454516,
+          total_fees: 478922,
+          total_value: 685455,
+          value_efficiency_in_percent: "40%",
+          total_fee_in_percent: "58%",
+          total_value_in_percent: "35%",
+        },
+        {
+          type: "Annuity",
+          value_efficiency_ratio: "1:6:15",
+          value_efficiency: 454516,
+          total_fees: 845645,
+          total_value: 465402,
+          value_efficiency_in_percent: "19%",
+          total_fee_in_percent: "48%",
+          total_value_in_percent: "25%",
+        },
+      ],
+    };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (this.$store.state.app.presentation_mode && this.$store.state.app.show_assets1) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      }else{
+         this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
     },
-  };
+  },
+};
 </script>
 <style lang="">
 </style>

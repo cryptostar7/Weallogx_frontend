@@ -62,7 +62,6 @@
     </div>
   </div>
 
-  
  <!-- Disclosure Required -->
 
   <div class="modal fade common-modal disclosure-modal" id="disclosureRequiredModal" ref="disclosureModal" tabindex="-1" aria-labelledby="disclosureRequiredLabel"

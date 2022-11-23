@@ -1,7 +1,7 @@
 <template lang="">
   <div class="empty" data-class="empty-wrapper" data-empty="0">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="1">
-      <div :class="`report-client-list-div tab-id-1 ${activeTabs[keyId] ? '':'presentdeActive'}`"
+      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
         id="comparativeTableTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop1 ${activeTabs[keyId] ? 'active':''}`">
           <div class="d-flex justify-content-between px-3 py-2 bb-grey">
@@ -34,7 +34,7 @@
                 <div class="position-relative">
                   <div class="d-flex align-items-center  float-end">
                     <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
-                      <input type="checkbox" class="checkbox2 showAssetsCheckBox" id="showAssets" />
+                      <input type="checkbox" class="checkbox2 showAssetsCheckBox" id="showAssets" @change="() => $store.dispatch('toggleAssets1')"/>
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
@@ -200,11 +200,11 @@
                           <div class="row eachCardParaRow">
                             <div class="col-md-5">
                               <p class="lifeProPlusPara1">RATE OF RETURN (RoR)</p>
-                              <p class="lifeProPlusPara2">6.15%</p>
+                              <p class="lifeProPlusPara2">{{target_analysis.data[0].ror}}</p>
                             </div>
                             <div class="col-md-7">
                               <p class="lifeProPlusPara1">INTERNAL RATE OF RETURN (IRR)</p>
-                              <p class="lifeProPlusPara2">5.65%</p>
+                              <p class="lifeProPlusPara2">{{target_analysis.data[0].irr}}</p>
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1">
@@ -232,15 +232,15 @@
                       </div>
                     </div>
                     <div class="col-12 col-md-6">
-                      <draggable v-model="draggableColumns" tag="div" class="row">
-                        <div v-for="header in draggableColumns" :key="header.id" :class="`col-md-4 px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                      <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item col-md-4 px-1 drag-col ${header.active ? '' : 'order-last'}`">
                           <div class="empty-inner" data-empty="1">
-                            <div class="fill-inner" draggable="true" data-fill="1">
+                            <div class="fill-inner" data-fill="1">
                               <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
                                 <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                                   <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                    <div class="dblLineAbslt">
-                                      <img src="@/assets/images/icons/double-line.svg" alt="line">
+                                    <div class="dblLineAbslt" :style="{'cursor': !$store.state.app.presentation_mode ? 'move' : 'default'}">
+                                      <img src="@/assets/images/icons/double-line.svg" alt="line" v-if="!$store.state.app.presentation_mode">
                                     </div>
                                     <div class="row">
                                       <div class="col-12">
@@ -441,11 +441,11 @@ export default {
       showAll: false,
       target_analysis: {
         distributions: [
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
+          { year: 1, age: 28, deposits: 65777 },
+          { year: 1, age: 28, deposits: 65777 },
+          { year: 1, age: 28, deposits: 65777 },
+          { year: 1, age: 28, deposits: 65777 },
+          { year: 1, age: 28, deposits: 65777 },
         ],
         data: [
           {
@@ -680,6 +680,22 @@ export default {
         ],
       },
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets1
+      ) {
+        this.draggableColumns.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.draggableColumns.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

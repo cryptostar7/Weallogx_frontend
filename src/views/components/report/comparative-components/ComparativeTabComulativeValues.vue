@@ -284,6 +284,28 @@ export default {
       },
     };
   },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets1
+      ) {
+        this.cards.cumulative_income.forEach(element => {
+          element.active = false;
+        });
+        this.cards.total_value.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.cumulative_income.forEach(element => {
+          element.active = true;
+        });
+        this.cards.total_value.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
+  },
 };
 </script>
 <style lang="">

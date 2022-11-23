@@ -4,7 +4,7 @@
             <draggable class="dragArea list-group w-full" :list="list" @change="log">
                 <div class="empty" data-empty="0" v-for="element in list" :key="element.id">
                     <div class="fill" data-fill="1">
-                        <div :class="`reportBuilderLftInner px-10 mb-3 rightCollapseDivs7 ${activeTabs[element.key] ? 'active':''}`" @click="handleTabs(element.key)">
+                        <div :class="`reportBuilderLftInner px-10 mb-3 rightCollapseDivs7 ${activeTabs[element.key] ? 'active':''} ${element.key === presentation_tab ? 'linkActive':''}`" @click="handleTabs(element.key)">
                             <div class="lftRadioBtnDiv">
                                 <div class="button-cover">
                                     <div class="button r" id="button-1">
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
+      presentation_tab:'',
     };
   },
   methods: {
@@ -46,6 +47,7 @@ export default {
     },
     handleTabs: function (id) {
       const element = document.querySelector("." + id);
+      this.presentation_tab = id;
       element.scrollIntoView({ behavior: "smooth" });
     },
   },

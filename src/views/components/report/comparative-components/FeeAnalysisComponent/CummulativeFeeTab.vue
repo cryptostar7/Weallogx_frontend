@@ -4,7 +4,7 @@
     <div class="container-fluid" id="cumulativeFeesFluid">
         <div class="d-flex justify-content-between flex-gap-12">
             <div class="mt-3 flex-1" v-for="(item, index) in data" :key="index">
-                <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100`">
+                <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100  ${cards[index].active ? '':'inactive'}`">
                     <div class="d-flex justify-content-between pb-1">
                     <div class="distrbnCard1paras">
                         <p>Cumulative Fees</p>
@@ -13,7 +13,7 @@
                     <div class="d-flex">
                         <div class="button-cover2">
                         <div :class="`radioBtnDiv switch${index} r2`" id="button-2">
-                            <input type="checkbox" class="checkbox2 commonRadioBtn1" checked />
+                            <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active != cards[index].active" />
                             <div class="knobs2"></div>
                             <div class="layer2"></div>
                         </div>
@@ -98,8 +98,8 @@ export default {
 
         items.forEach((item, index) => {
           checkboxes[index].onclick = e => {
-            let distributionCard = e.target.closest(".distributionCard1");
-            distributionCard.classList.toggle("inactive");
+            // let distributionCard = e.target.closest(".distributionCard1");
+            // distributionCard.classList.toggle("inactive");
             const { type } = chart.config;
             if (type === "pie" || type === "doughnut") {
               // Pie and doughnut charts only have a single dataset and visibility is per item
@@ -276,6 +276,22 @@ export default {
     });
 
     cumulativeFeesData;
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets1
+      ) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

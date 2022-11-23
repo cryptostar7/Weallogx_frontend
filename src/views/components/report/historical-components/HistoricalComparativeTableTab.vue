@@ -32,7 +32,7 @@
                 <div class="position-relative">
                   <div class="d-flex align-items-center  float-end">
                     <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
-                      <input type="checkbox" class="checkbox2 showAssetsCheckBox2" id="showAssets2">
+                      <input type="checkbox" class="checkbox2 showAssetsCheckBox2" id="showAssets2" @change="() => $store.dispatch('toggleAssets2')">
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
@@ -201,15 +201,15 @@
                     </div>
                     <!-- draggable column -->
                     <div class="col">
-                        <draggable v-model="draggableColumns" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`col-3  px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                        <draggable v-model="draggableColumns"  :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3  px-1 drag-col ${header.active ? '' : 'order-last'}`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
                                 <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
                                   <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                                     <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                      <div class="dblLineAbslt">
-                                        <img src="@/assets/images/icons/double-line.svg" alt="line">
+                                      <div class="dblLineAbslt" :style="{'cursor': !$store.state.app.presentation_mode ? 'move' : 'default'}">
+                                        <img src="@/assets/images/icons/double-line.svg" alt="line"  v-if="!$store.state.app.presentation_mode">
                                       </div>
                                       <div class="row">
                                         <div class="col-12">
@@ -554,6 +554,22 @@ export default {
         ],
       },
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.draggableColumns.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.draggableColumns.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

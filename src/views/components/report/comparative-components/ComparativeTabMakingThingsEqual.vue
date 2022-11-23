@@ -393,17 +393,35 @@ import AddNoteInputComponent from "../comman/AddNoteInputComponent.vue";
 
 export default {
   props: ["keyId"],
-  components:{ComparativeDisclosureComponent, AddNoteInputComponent},
+  components: { ComparativeDisclosureComponent, AddNoteInputComponent },
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      cards:{
-        distributions:[{id:1, active:true}, {id:2, active:true}, {id:3, active:true}, {id:4, active:true}],
-        rate_of_returns:[{id:1, active:true}, {id:2, active:true}, {id:3, active:true}, {id:4, active:true}],
+      cards: {
+        distributions: [
+          { id: 1, active: true },
+          { id: 2, active: true },
+          { id: 3, active: true },
+          { id: 4, active: true },
+        ],
+        rate_of_returns: [
+          { id: 1, active: true },
+          { id: 2, active: true },
+          { id: 3, active: true },
+          { id: 4, active: true },
+        ],
       },
-      graphs:{
-        distributions:{longevity:true, ending_value:true, death_benifit:true},
-        rate_of_returns:{longevity:true, ending_value:true, death_benifit:true},
+      graphs: {
+        distributions: {
+          longevity: true,
+          ending_value: true,
+          death_benifit: true,
+        },
+        rate_of_returns: {
+          longevity: true,
+          ending_value: true,
+          death_benifit: true,
+        },
       },
       data: {
         distribution: [
@@ -472,6 +490,28 @@ export default {
         ],
       },
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets1
+      ) {
+        this.cards.distributions.forEach(element => {
+          element.active = false;
+        });
+        this.cards.rate_of_returns.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.distributions.forEach(element => {
+          element.active = true;
+        });
+        this.cards.rate_of_returns.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

@@ -166,15 +166,15 @@
                 </div>
               </div>
               <div class="col-md-9 pe-3">
-                <draggable v-model="draggableColumns" tag="div" class="row">
-                    <div v-for="(header, index) in draggableColumns" :key="index" :class="`px-1 col-md-4 drag-col ${header.active ? '':'order-last'}`">
+                <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
+                    <div v-for="(header, index) in draggableColumns" :key="index" :class="`drag-item px-1 col-md-4 drag-col ${header.active ? '':'order-last'}`">
                       <div class="empty-inner" data-empty="1">
                         <div class="fill-inner" draggable="true" data-fill="1">
                           <div :class="`commonTableMainTopDiv${8+header.id} ${header.active ? '':'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                <div class="dblLineAbslt">
-                                  <img src="@/assets/images/icons/double-line.svg" alt="line">
+                                <div class="dblLineAbslt" :style="{'cursor': !$store.state.app.presentation_mode ? 'move' : 'default'}">
+                                  <img src="@/assets/images/icons/double-line.svg" alt="line"  v-if="!$store.state.app.presentation_mode">
                                 </div>
                                 <div class="row">
                                   <div class="col-12">
@@ -275,9 +275,11 @@
               <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                 <table class="table mt-1 secondTable td-first summaryTableFont">
                   <thead>
+                    <tr>
                     <th width="80" style="background: none!important; border: none;"></th>
                     <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">
                       Deposits</th>
+                      </tr>
                   </thead>
                   <tbody>
                     <tr>
@@ -326,8 +328,8 @@
                     </div>
                     <div class="col-md-9 pe-3">
                          <div class="row">
-                            <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-md-4 px-1 commonBottomTableMainTopDiv${8+header.id} summary-draggable`">
-                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
+                            <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-md-4 px-1 commonBottomTableMainTopDiv${8+header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
+                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
                                     <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                         <thead class="heading-tr">
                                             <tr>
@@ -370,7 +372,6 @@
 </template>
 <script>
 import { VueDraggableNext } from "vue-draggable-next";
-
 export default {
   components: { draggable: VueDraggableNext },
   data() {
@@ -381,7 +382,7 @@ export default {
         { id: 3, active: true },
       ],
       showAll: false,
-      tsa_type:'most_recent',
+      tsa_type: "most_recent",
       table: {
         distributions: [
           { year: 1, age: 28, deposits: "65777" },
@@ -392,7 +393,7 @@ export default {
         ],
         data: [
           {
-            id:0,
+            id: 0,
             catogories: {
               most_recent: {
                 strategy_average: "8.15%",
@@ -420,7 +421,7 @@ export default {
                   { distributions: 95564, net_balance: "" },
                 ],
               },
-              median: { 
+              median: {
                 strategy_average: "4.15%",
                 strategy_cagr: "6.14%",
                 irr: "1.76%",
@@ -640,6 +641,22 @@ export default {
         ],
       },
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.draggableColumns.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.draggableColumns.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

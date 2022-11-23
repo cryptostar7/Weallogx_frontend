@@ -121,7 +121,7 @@
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
-                                <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
+                                <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch3 extra':''}`" id="button-2">
                                   <input type="checkbox" :class="`checkbox2 commonRadioBtn2 bigBaCard${23+index}`" :checked="cards.total_income[index].active" v-model="cards.total_income[index].active" />
                                   <div class="knobs2"></div>
                                   <div class="layer2"></div>
@@ -146,7 +146,7 @@
                             </div>
                             <div class="position-up">
                               <p class="ms-2 comValCardPara1">Total Value</p>
-                              <p class="ms-2 CardProgressnym blueRadioSwtchpara">${{item.income}} </p>
+                              <p class="ms-2 CardProgressnym blueRadioSwtchpara">{{$numFormatWithDollar(item.income)}} </p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -270,6 +270,28 @@ export default {
         ],
       },
     };
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.cards.cummulative_income.forEach(element => {
+          element.active = false;
+        });
+        this.cards.total_income.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.cummulative_income.forEach(element => {
+          element.active = true;
+        });
+        this.cards.total_income.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
   },
 };
 </script>

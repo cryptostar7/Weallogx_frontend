@@ -43,19 +43,22 @@ const store = createStore({
         },
         app: {
             themes: [
-                { name: 'Light Mode Green', value: 'light-green', color:'green' },
-                { name: 'Light Mode Blue', value: 'light-blue', color:'blue' },
-                { name: 'Dark Mode Green', value: 'dark-green', color:'green' },
-                { name: 'Dark Mode Blue', value: 'dark-blue', color:'blue' },
+                { name: 'Light Mode Green', value: 'light-green', color: 'green' },
+                { name: 'Light Mode Blue', value: 'light-blue', color: 'blue' },
+                { name: 'Dark Mode Green', value: 'dark-green', color: 'green' },
+                { name: 'Dark Mode Blue', value: 'dark-blue', color: 'blue' },
             ],
-            presentation_mode:false,
+            presentation_mode: false,
+            show_assets1: false,
+            show_assets2: false,
+            full_screen: false,
             current_theme: localStorage.getItem("mode") || 'light-green'
         },
     },
     getters: {
         checkActiveTab: (state) => (id) => {
             return state.data.reportTabs.active[id];
-        }
+        },
     },
     mutations: {
         setActiveReportTab(state, payload) {
@@ -63,7 +66,34 @@ const store = createStore({
         },
         setTheme(state, type) {
             state.app.current_theme = type;
-        }, 
+        },
+        setFullScreen(state) {
+            state.app.full_screen = !state.app.full_screen;
+            if (state.app.full_screen) {
+                var elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE11 */
+                    elem.msRequestFullscreen();
+                }
+            } else {
+                if (document) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) { /* IE11 */
+                    document.msExitFullscreen();
+                }
+            }
+        },
+        setShowAsset1(state) {
+            state.app.show_assets1 = !state.app.show_assets1;
+        },
+        setShowAsset2(state) {
+            state.app.show_assets2 = !state.app.show_assets2;
+        },
         setPresentationMode(state, status) {
             state.app.presentation_mode = status;
         }
@@ -72,16 +102,25 @@ const store = createStore({
         toggleReportTabByID(context, payload) {
             context.commit("setActiveReportTab", payload);
         },
+        toggleAssets1(context) {
+            context.commit("setShowAsset1");
+        },
+        toggleAssets2(context) {
+            context.commit("setShowAsset2");
+        },
+        fullScreen(context) {
+            context.commit("setFullScreen");
+        },
         theme(context, payload) {
             localStorage.setItem("mode", payload);
             document.body.className = "";
             document.body.classList.add(payload);
             context.commit("setTheme", payload);
         },
-        presentation(context, payload){
-            if(payload){
+        presentation(context, payload) {
+            if (payload) {
                 document.body.classList.add('presentationModeCommon');
-            }else{
+            } else {
                 document.body.classList.remove('presentationModeCommon');
             }
             context.commit("setPresentationMode", payload);
