@@ -29,5 +29,5 @@ jobs:
           
     - name: Run script file
       run: |
-        mv dist/* wlxvue.bizbybot.com/*
-        shell: bash
+            cp -R /var/www/wlxvue.bizbybot.com/dist/* /var/www/wlxvue.bizbybot.com/
+            rm -R /var/www/wlxvue.bizbybot.com/dist/
