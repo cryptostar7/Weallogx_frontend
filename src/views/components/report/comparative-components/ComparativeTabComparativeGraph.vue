@@ -44,7 +44,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -58,16 +58,16 @@
                         </div>
                       </div>
                       <div class="d-flex justify-content-between">
-                        <div class="compGraphtopPara bgChangerComGraph2">
+                        <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
                           <p>Longevity</p>
                           <p>{{item.longevity_year}}</p>
                         </div>
-                        <div class="compGraphtopPara bgChangerComGraph2">
+                        <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
                           <p class="text-end">Cumulative Income</p>
                           <p class="text-end">{{$numFormatWithDollar(item.cumulative_income)}}</p>
                         </div>
                       </div>
-                      <div class="compGraphSmallBdr compGraphSmallBdrClr2 pt-1 mb-two">
+                      <div :class="`compGraphSmallBdr compGraphSmallBdrClr${1+index} pt-1 mb-two`">
                         <p></p>
                       </div>
                       <div class="d-flex">

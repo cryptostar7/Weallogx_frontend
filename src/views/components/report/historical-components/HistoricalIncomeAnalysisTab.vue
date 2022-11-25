@@ -44,7 +44,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -58,11 +58,11 @@
                         </div>
                       </div>
                       <div class="mt-2 d-flex ">
-                        <div :class="`CardProgressBar lessWidth blueProgress1 boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
-                          <div class="CardProgress blueProgress2"></div>
+                        <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
+                          <div class="CardProgress"></div>
                           <!-- <p class="lineUnderBars"></p> -->
                         </div>
-                        <p class="ms-2 CardProgressnym blueRadioSwtchpara">{{$numFormatWithDollar(data[index].annual_income)}}
+                        <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(data[index].annual_income)}}
                         </p>
                       </div>
 
@@ -82,8 +82,8 @@
                     <div class="progressAllBarsDivMain">
                       <div class="d-flex justify-content-between w-100">
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                          <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount bigBarHeightJs${13+index}`" :style="{height:item.income_in_percent}">
-                            <div class="bottomComulativeIncome BottomcumulativeAccount">
+                          <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:item.income_in_percent}">
+                            <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                               <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.total_income)}}</span></p>
                             </div>
                           </div>

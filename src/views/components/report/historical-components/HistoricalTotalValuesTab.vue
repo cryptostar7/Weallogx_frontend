@@ -44,7 +44,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -58,11 +58,11 @@
                         </div>
                       </div>
                       <div class="mt-2 d-flex ">
-                        <div :class="`CardProgressBar lessWidth blueProgress1 boxProgressCommon${14+index} totalValueProgress${1+index} ${cards[index].active ? '':'boxProgress'}`">
-                          <div class="CardProgress blueProgress2"></div>
+                        <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${14+index} totalValueProgress${1+index} ${cards[index].active ? '':'boxProgress'}`">
+                          <div class="CardProgress"></div>
                           <p class="lineUnderBars"></p>
                         </div>
-                        <p class="ms-2 CardProgressnym blueRadioSwtchpara">{{$numFormatWithDollar(item.total_value)}}
+                        <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(item.total_value)}}
                         </p>
                       </div>
                       <add-note-input-component :historical="true"/>
