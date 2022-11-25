@@ -131,10 +131,20 @@ export default {
             // Pie and doughnut charts only have a single dataset and visibility is per item
             chart.toggleDataVisibility(item.index);
           } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              !chart.isDatasetVisible(item.datasetIndex)
-            );
+            chart.setDatasetVisibility(item.datasetIndex, false);
+          }
+          chart.update();
+        });
+      },
+      showAll(chart, options) {
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach((item, index) => {
+          const { type } = chart.config;
+          if (type === "pie" || type === "doughnut") {
+            // Pie and doughnut charts only have a single dataset and visibility is per item
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(item.datasetIndex, true);
           }
           chart.update();
         });
@@ -261,6 +271,27 @@ export default {
         annualFeesChart.update();
       }
     });
+
+    var assestShowHide = document.querySelector(".showAssetsCheckBox");
+    document
+      .querySelector(".presentationModeBtn")
+      .addEventListener("click", function() {
+        if (assestShowHide.classList.contains("on")) {
+          htmlLegendPlugin1.hideAll(
+            annualFeesChart,
+            annualFeesConfig.options
+          );
+        }
+      });
+
+    document
+      .querySelector(".fullScreenCloseBtn")
+      .addEventListener("click", function() {
+        htmlLegendPlugin1.showAll(
+          annualFeesChart,
+          annualFeesConfig.options
+        );
+      });
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {

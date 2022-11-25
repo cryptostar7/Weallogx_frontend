@@ -130,7 +130,7 @@
               <div class="d-flex">
                 <div class="button-cover2" id="button-2">
                   <div class="radioBtnDiv  r2">
-                    <input type="checkbox" class="checkbox2 commonRadioBtn2" checked="">
+                    <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="graphs.annual_contribution" @change="graphs.annual_contribution = !graphs.annual_contribution">
                     <div class="knobs2"></div>
                     <div class="layer2"></div>
                   </div>
@@ -147,7 +147,7 @@
               <div class="d-flex">
                 <div class="button-cover2" id="button-2">
                   <div class="radioBtnDiv  r2">
-                    <input type="checkbox" class="checkbox2 commonRadioBtn2" checked="">
+                    <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="graphs.annual_distribution" @change="graphs.annual_distribution = !graphs.annual_distribution">
                     <div class="knobs2"></div>
                     <div class="layer2"></div>
                   </div>
@@ -174,6 +174,10 @@ export default {
         { id: 3, active: true },
       ],
       tsa_type: "most_recent",
+      graphs: {
+        annual_contribution: true,
+        annual_distribution: true,
+      },
       data: [
         {
           categories: {
@@ -295,10 +299,20 @@ export default {
             // Pie and doughnut charts only have a single dataset and visibility is per item
             chart.toggleDataVisibility(item.index);
           } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              !chart.isDatasetVisible(item.datasetIndex)
-            );
+            chart.setDatasetVisibility(item.datasetIndex, false);
+          }
+          chart.update();
+        });
+      },
+      showAll(chart, options) {
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach((item, index) => {
+          const { type } = chart.config;
+          if (type === "pie" || type === "doughnut") {
+            // Pie and doughnut charts only have a single dataset and visibility is per item
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(item.datasetIndex, true);
           }
           chart.update();
         });
@@ -528,6 +542,28 @@ export default {
         comparativeValues2Chart.update();
       }
     });
+
+    var assestShowHide2 = document.querySelector(".showAssetsCheckBox2");
+
+    document
+      .querySelector(".presentationModeBtn")
+      .addEventListener("click", function() {
+        if (assestShowHide2.classList.contains("on")) {
+          htmlLegendPlugin4.hideAll(
+            comparativeValues2Chart,
+            comparativeValues2Config.options
+          );
+        }
+      });
+
+    document
+      .querySelector(".fullScreenCloseBtn")
+      .addEventListener("click", function() {
+        htmlLegendPlugin4.showAll(
+          comparativeValues2Chart,
+          comparativeValues2Config.options
+        );
+      });
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -537,10 +573,14 @@ export default {
       ) {
         this.cards.forEach(element => {
           element.active = false;
+          this.graphs.annual_contribution = false;
+          this.graphs.annual_distribution = false;
         });
       } else {
         this.cards.forEach(element => {
           element.active = true;
+          this.graphs.annual_contribution = true;
+          this.graphs.annual_distribution = true;
         });
       }
     },

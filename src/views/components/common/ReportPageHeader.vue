@@ -110,7 +110,7 @@
           </a>
         </div>
         
-        <a href="javascript:void(0)" @click="backToNormal()"
+        <a href="javascript:void(0)" @click="backToNormal()" ref="fullScreenCloseBtn"
           class="fullScreenCloseBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center fullScreenCloseBtnHide">
           <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2.0459" y="0.000915527" width="21.6354" height="2.40393" rx="1.20197"
@@ -140,6 +140,11 @@ export default {
       }
       this.$store.dispatch("presentation", false);
     },
+  },
+  beforeUnmount() {
+    if(this.$store.state.app.presentation_mode){
+      this.$refs.fullScreenCloseBtn.click();
+    }
   },
 };
 </script>

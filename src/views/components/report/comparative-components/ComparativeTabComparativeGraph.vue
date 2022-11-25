@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="empty" data-class="empty-wrapper" data-empty="1">
+  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="1">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
         id="comparativeGraphTabView">
@@ -95,7 +95,7 @@
                       <div class="d-flex">
                         <div class="button-cover2" id="button-2">
                           <div class="radioBtnDiv  r2">
-                            <input type="checkbox" class="checkbox2 commonRadioBtn1" checked="">
+                            <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="graphs.annual_contribution" @change="graphs.annual_contribution = !graphs.annual_contribution">
                             <div class="knobs2"></div>
                             <div class="layer2"></div>
                           </div>
@@ -112,7 +112,7 @@
                       <div class="d-flex">
                         <div class="button-cover2" id="button-2">
                           <div class="radioBtnDiv  r2">
-                            <input type="checkbox" class="checkbox2 commonRadioBtn1" checked="">
+                            <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="graphs.annual_distribution" @change="graphs.annual_distribution = !graphs.annual_distribution">
                             <div class="knobs2"></div>
                             <div class="layer2"></div>
                           </div>
@@ -135,6 +135,7 @@
 </template>
 <script>
 import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
+
 export default {
   props: ["keyId"],
   components: { ComparativeDisclosureComponent },
@@ -148,6 +149,10 @@ export default {
         { id: 3, active: true },
         { id: 4, active: true },
       ],
+      graphs: {
+        annual_contribution: true,
+        annual_distribution: true,
+      },
       data: [
         {
           type: "LIRP Balance",
@@ -335,7 +340,23 @@ export default {
           } else {
             chart.setDatasetVisibility(
               item.datasetIndex,
-              !chart.isDatasetVisible(item.datasetIndex)
+              false
+            );
+          }
+          chart.update();
+        });
+      },
+      showAll(chart, options) {
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach((item, index) => {
+          const { type } = chart.config;
+          if (type === "pie" || type === "doughnut") {
+            // Pie and doughnut charts only have a single dataset and visibility is per item
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(
+              item.datasetIndex,
+              true
             );
           }
           chart.update();
@@ -455,6 +476,32 @@ export default {
         comparativeValuesChart.update();
       }
     });
+
+    var assestShowHide = document.querySelector(".showAssetsCheckBox");
+
+    assestShowHide.addEventListener("click", e => {
+      e.target.classList.toggle("on");
+    });
+
+    document
+      .querySelector(".presentationModeBtn")
+      .addEventListener("click", function() {
+        if (assestShowHide.classList.contains("on")) {
+          htmlLegendPlugin0.hideAll(
+            comparativeValuesChart,
+            comparativeValuesConfig.options
+          );
+        }
+      });
+
+    document
+      .querySelector(".fullScreenCloseBtn")
+      .addEventListener("click", function() {
+        htmlLegendPlugin0.showAll(
+          comparativeValuesChart,
+          comparativeValuesConfig.options
+        );
+      });
   },
 
   watch: {
@@ -466,10 +513,14 @@ export default {
         this.cards.forEach(element => {
           element.active = false;
         });
+        this.graphs.annual_contribution = false;
+        this.graphs.annual_distribution = false;
       } else {
         this.cards.forEach(element => {
           element.active = true;
         });
+        this.graphs.annual_contribution = true;
+        this.graphs.annual_distribution = true;
       }
     },
   },

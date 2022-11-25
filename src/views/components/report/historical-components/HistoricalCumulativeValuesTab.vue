@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="empty" data-class="empty-wrapper" data-empty="4">
+  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="4">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="5">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop11 ${activeTabs[keyId] ? 'active':''}`">

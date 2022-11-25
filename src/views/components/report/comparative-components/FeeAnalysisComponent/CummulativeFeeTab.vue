@@ -124,7 +124,23 @@ export default {
           } else {
             chart.setDatasetVisibility(
               item.datasetIndex,
-              !chart.isDatasetVisible(item.datasetIndex)
+              false
+            );
+          }
+          chart.update();
+        });
+      },
+       showAll(chart, options) {
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach((item, index) => {
+          const { type } = chart.config;
+          if (type === "pie" || type === "doughnut") {
+            // Pie and doughnut charts only have a single dataset and visibility is per item
+            chart.toggleDataVisibility(item.index);
+          } else {
+            chart.setDatasetVisibility(
+              item.datasetIndex,
+              true
             );
           }
           chart.update();
@@ -275,7 +291,20 @@ export default {
       }
     });
 
-    cumulativeFeesData;
+    var assestShowHide = document.querySelector(".showAssetsCheckBox");
+    document
+      .querySelector(".presentationModeBtn")
+      .addEventListener("click", function() {
+        if (assestShowHide.classList.contains("on")) {
+          htmlLegendPlugin2.hideAll(cumulativeFeesChart, cumulativeFeesConfig.options);
+        }
+      });
+
+    document
+      .querySelector(".fullScreenCloseBtn")
+      .addEventListener("click", function() {
+        htmlLegendPlugin2.showAll(cumulativeFeesChart, cumulativeFeesConfig.options);
+      });
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
