@@ -27,7 +27,7 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR_M }}
           
-    - name: Run script file
-      run: |
-            cp -R /var/www/wlxvue.bizbybot.com/dist/* /var/www/wlxvue.bizbybot.com/
-            rm -R /var/www/wlxvue.bizbybot.com/dist/
+   # - name: Run script file
+    #  run: |
+           # cp -R /var/www/wlxvue.bizbybot.com/dist/* /var/www/wlxvue.bizbybot.com/
+          #  rm -R /var/www/wlxvue.bizbybot.com/dist/

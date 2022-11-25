@@ -844,7 +844,7 @@
   color: #004885;
 }
 .light-blue .reportTablesDiv3 table thead th {
-  background: #004885 !important;
+  background: #1660A4 !important;
 }
 .light-blue .reportTablesDiv3 .table th {
   border-left-color: #2977BF;
@@ -852,25 +852,25 @@
 .light-blue .switch1 .editBtnAccount svg rect,
 .light-blue .switch1 .editBtnAccount svg path,
 .light-blue .switch1 .deleteBtnAccount svg path {
-  stroke: #089875;
+  stroke: #0E6651;
 }
 .light-blue .switch1 .deleteBtnAccount svg rect {
-  fill: #089875;
+  fill: #0E6651;
 }
 .light-blue .switch1 .editBtnAccount, .light-blue .switch1 .deleteBtnAccount{
-  color: #089875;
+  color: #0E6651;
 }
 .light-blue .lifeProPlusPara3 {
-  color: #089875;
+  color: #0E6651;
 }
 .light-blue .lifeProBtmDiv2 p {
-  color: #089875;
+  color: #0E6651;
 }
 .light-blue .reportTablesDiv4 table thead th {
-  background: #089875 !important;
+  background: #0E6651 !important;
 }
 .light-blue .reportTablesDiv4 .table th {
-  border-left-color: #2C997E;
+  border-left-color: #2E7665;
 }
 .light-blue .commonTableCls .editBtnAccount svg rect,
 .light-blue .commonTableCls .editBtnAccount svg path,
@@ -902,7 +902,7 @@
   color: #1660A4;
 }
 .light-blue .equalDistCard2 {
-  border-top-color: #089875;
+  border-top-color: #0E6651;
 }
 .light-blue .distrbnCard2paras p:last-child {
   color: #0E6651 !important;
@@ -911,10 +911,10 @@
   color: #0E6651 !important;
 }
 .light-blue .bgChangerComGraph2 p:nth-child(2) {
-  color: #089875;
+  color: #0E6651;
 }
 .light-blue .switch1 .checkbox2:checked~.layer2 {
-  background: #089875 !important;
+  background: #0E6651 !important;
 }
 .light-blue .greenProgress1 {
   background: #1660A4;
@@ -935,7 +935,7 @@
   color: #9D2B2B !important;
 }
 .light-blue .blueRadioSwtchpara {
-  color: #089875 !important;
+  color: #0E6651 !important;
 }
 .light-blue .greenProgress1.switchBg {
   background: #287BC7 !important;
@@ -947,7 +947,7 @@
   background: #1660A4 !important;
 }
 .light-blue .blueProgress1 {
-  background: #089875 !important;
+  background: #0E6651 !important;
 }
 .light-blue .blueProgress1 .CardProgress{
   background: #10B78E !important;
@@ -965,14 +965,32 @@
 .light-blue .boxProgress .CardProgress {
   background: rgb(233, 233, 233) !important;
 }
-.light-blue .cumulativeProgLifePro {
+.light-blue .cumulativeProgLifePro1 {
   background: #1660A4;
 }
-.light-blue .BottomcumulativeLifePro {
+.light-blue .cumulativeProgLifePro2 {
+  background: #0E6651;
+}
+.light-blue .cumulativeProgLifePro3 {
+  background: #763CA3;
+}
+.light-blue .cumulativeProgLifePro4 {
+  background: #9D2B2B;
+}
+.light-blue .BottomcumulativeLifePro1 {
   background: #287BC7;
 }
+.light-blue .BottomcumulativeLifePro2 {
+  background: #25967B;
+}
+.light-blue .BottomcumulativeLifePro3 {
+  background: #9453C8;
+}
+.light-blue .BottomcumulativeLifePro4 {
+  background: #C04141;
+}
 .light-blue .cumulativeProgAccount {
-  background: #089875;
+  background: #0E6651;
 }
 .light-blue .BottomcumulativeAccount {
   background: #10B78E;
@@ -988,7 +1006,7 @@
   background: #287BC7;
 }
 .light-blue .CardProgressBig2 {
-  background: #089875 !important;
+  background: #0E6651 !important;
 }
 .light-blue .progressBarOvrwrt2 {
   background: #10B78E;
@@ -1118,4 +1136,58 @@
 }
 .light-blue .backToscenario:hover svg rect {
   fill: #23669E;
+}
+
+.light-blue .cardRadioSwtchpara1{
+  color: #1660A4!important;
+}
+.light-blue .cardRadioSwtchpara2{
+  color:#0E6651!important;
+}
+.light-blue .cardRadioSwtchpara3{
+  color:#763CA3!important;
+}
+.light-blue .cardRadioSwtchpara4{
+  color: #9D2B2B!important;
+}
+.light-blue .compGraphSmallBdrClr1 p{
+  background: #287BC7;
+}
+
+.light-blue .makeEqualPara2{
+  color: #0E6651!important;
+}
+.light-blue .makeEqualPara1{
+  color: #1660A4!important;
+}
+.light-blue .makeEqualPara3{
+  color: #763CA3!important;
+}
+.light-blue .makeEqualPara4{
+  color: #9D2B2B!important;
+}
+
+.light-blue .lightProgress2{
+  background: #209579;
+}
+.light-blue .lightProgress2 div{
+  background: #0E6651;
+}
+.light-blue .lightProgress1{
+  background: #1A89EE;
+}
+.light-blue .lightProgress1 div{
+  background: #1660A4;
+}
+.light-blue .lightProgress3{
+  background: #B770EF;
+}
+.light-blue .lightProgress3 div{
+  background: #763CA3;
+}
+.light-blue .lightProgress4{
+  background: #CA3939;
+}
+.light-blue .lightProgress4 div{
+  background: #9D2B2B;
 }

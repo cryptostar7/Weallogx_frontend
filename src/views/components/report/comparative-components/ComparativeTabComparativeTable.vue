@@ -317,7 +317,7 @@
                             </div>
                           </div>
                         </div>
-                      </draggable>
+                      </draggable> 
                     </div>
                   </div>
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
@@ -372,8 +372,8 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
-                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                  <tr>

@@ -220,7 +220,7 @@
                                               <div class="knobs2"></div>
                                               <div class="layer2"></div>
                                             </div>
-                                            <div class="d-flex align-items-center">
+                                            <div :class="`d-flex align-items-center switch${header.id}`">
                                               <a href="javascript:void(0)" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;<svg
                                                   width="13" height="13" viewBox="0 0 13 13" fill="none"
                                                   xmlns="http://www.w3.org/2000/svg">

@@ -56,7 +56,7 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                                 data-bs-toggle="modal">
                                 <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
@@ -70,13 +70,13 @@
                             </div>
                           </div>
                           <div class="pt-2 mt-auto d-flex">
-                            <div :class="`pos-top CardProgressBar lessWidth blueProgress1 boxProgressCommon${18+index} ${cards.cummulative_income[index].active ? '' : 'boxProgress'}`">
-                              <div class="CardProgress blueProgress2"></div>
+                            <div :class="`pos-top CardProgressBar lightProgress${1+index} lessWidth boxProgressCommon${18+index} ${cards.cummulative_income[index].active ? '' : 'boxProgress'}`">
+                              <div class="CardProgress"></div>
                               <!-- <p class="lineUnderBars"></p> -->
                             </div>
                             <div>
                               <p class="ms-2 comValCardPara1 position-up">Cumulative Income</p>
-                              <p class="ms-2 CardProgressnym blueRadioSwtchpara position-up">{{$numFormatWithDollar(item.income)}}</p>
+                              <p :class="`ms-2 CardProgressnym  cardRadioSwtchpara${1+index} position-up`">{{$numFormatWithDollar(item.income)}}</p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -96,8 +96,8 @@
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.cummulative_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${18+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${18+index} eachBarMainBgNone ${cards.cummulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount bigBarHeightJs${18+index}`" :style="{height:item.income_in_percent}">
-                                <div class="bottomComulativeIncome BottomcumulativeAccount">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${18+index}`" :style="{height:item.income_in_percent}">
+                                <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${18+index}`">{{$numFormat(item.income)}}</span></p>
                                 </div>
                               </div>
@@ -140,13 +140,13 @@
                             </div>
                           </div>
                           <div class="mt-2 d-flex">
-                            <div :class="`CardProgressBar lessWidth blueProgress1 boxProgressCommon${23+index}  ${cards.total_income[index].active ? '' : 'boxProgress'}`">
-                              <div class="CardProgress blueProgress2"></div>
+                            <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${23+index}  ${cards.total_income[index].active ? '' : 'boxProgress'}`">
+                              <div class="CardProgress"></div>
                               <p class="lineUnderBars"></p>
                             </div>
                             <div class="position-up">
                               <p class="ms-2 comValCardPara1">Total Value</p>
-                              <p class="ms-2 CardProgressnym blueRadioSwtchpara">{{$numFormatWithDollar(item.income)}} </p>
+                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(item.income)}} </p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -166,8 +166,8 @@
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.total_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${23+index} cumulativeProgCommon2 bigBarsAreaJsCls${23+index} eachBarMainBgNone ${cards.total_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount bigBarHeightJs${23+index}`"  :style="{height:item.income_in_percent}">
-                                <div class="bottomComulativeIncome BottomcumulativeAccount">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${23+index}`"  :style="{height:item.income_in_percent}">
+                                <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${23+index}`">{{$numFormat(item.income)}}</span></p>
                                 </div>
                               </div>

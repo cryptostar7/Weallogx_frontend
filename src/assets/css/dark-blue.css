@@ -1902,44 +1902,54 @@
   border-top: 6px solid#DA4343;
 }
 /* green */
-.dark-blue .deleteBtnGreen {
-  border: 1px solid#53A9F1;
-}
-.dark-blue .deleteBtnGreen svg path {
-  stroke: #53A9F1;
-}
-.dark-blue .deleteBtnGreen svg rect {
-  fill: #53A9F1;
-}
-/* blue */
-.dark-blue .deleteBtnBlue {
+.dark-blue .deleteBtn2 {
   border: 1px solid #26AB8B;
 }
-.dark-blue .deleteBtnBlue svg path {
+.dark-blue .deleteBtn2 svg path {
   stroke: #26AB8B;
 }
-.dark-blue .deleteBtnBlue svg rect {
+.dark-blue .deleteBtn2 svg rect {
   fill: #26AB8B;
 }
-/* voilet */
-.dark-blue .deleteBtnVoilet {
-  border: 1px solid#B556FF;
+/* blue */
+.dark-blue .deleteBtn1 {
+  border: 1px solid #53A9F1;
 }
-.dark-blue .deleteBtnVoilet svg path {
+.dark-blue .deleteBtn1 svg path {
+  stroke: #53A9F1;
+}
+.dark-blue .deleteBtn1 svg rect {
+  fill: #53A9F1;
+}
+/* voilet */
+.dark-blue .deleteBtn3 {
+  border: 1px solid #B556FF;
+}
+.dark-blue .deleteBtn3 svg path {
   stroke: #B556FF;
 }
-.dark-blue .deleteBtnVoilet svg rect {
+.dark-blue .deleteBtn3 svg rect {
   fill: #B556FF;
 }
 /* red */
-.dark-blue .deleteBtnRed {
-  border: 1px solid#F04F4F;
+.dark-blue .deleteBtn4 {
+  border: 1px solid #F04F4F;
 }
-.dark-blue .deleteBtnRed svg path {
+.dark-blue .deleteBtn4 svg path {
   stroke: #F04F4F;
 }
-.dark-blue .deleteBtnRed svg rect {
+.dark-blue .deleteBtn4 svg rect {
   fill: #F04F4F;
+}
+/* orane */
+.dark-blue .deleteBtn5 {
+  border: 1px solid #E8662F;
+}
+.dark-blue .deleteBtn5 svg path {
+  stroke: #E8662F;
+}
+.dark-blue .deleteBtn5 svg rect {
+  fill: #E8662F;
 }
 .dark-blue .commonRedRadioSwtchpara {
   color: #DA1159;
@@ -1953,9 +1963,6 @@
 .dark-blue .greenProgress1.switchBg .CardProgress{
   background-color: #23669E !important;
 } 
-.dark-blue .CardProgress {
-  background: #53A9F1;
-}
 .dark-blue .greenRadioSwtch .checkbox2:checked~.layer2 {
   background-color: var(--blue-clr-2) !important;
 }
@@ -2054,12 +2061,35 @@
 .dark-blue .BottomcumulativeAccount {
   background: #20A584;
 }
-.dark-blue .cumulativeProgLifePro {
-  background: #23669E;
+
+
+.dark-blue .cumulativeProgLifePro1 {
+  background: #23669E!important;
 }
-.dark-blue .BottomcumulativeLifePro {
-  background: #208DE8;
+.dark-blue .cumulativeProgLifePro2 {
+  background: #0F8266!important;
 }
+.dark-blue .cumulativeProgLifePro3 {
+  background: #8137BB!important;
+}
+.dark-blue .cumulativeProgLifePro4 {
+  background: #DA4343!important;
+}
+.dark-blue .BottomcumulativeLifePro1 {
+  background: #208DE8!important;
+}
+.dark-blue .BottomcumulativeLifePro2 {
+  background: #20A584!important;
+}
+.dark-blue .BottomcumulativeLifePro3 {
+  background: #9453C8!important;
+}
+.dark-blue .BottomcumulativeLifePro4 {
+  background: #F04F4F!important;
+}
+
+
+
 .dark-blue .cumulativeProgIra {
   background: #8137BB;
 }
@@ -2904,6 +2934,9 @@
   border: 1px solid #BBBBBB;
   background: transparent;
 }
+.dark-blue .reportTablesDiv .table tbody tr:last-child td{
+  border-bottom: 0.5px solid #353B46  !important;
+}
 .dark-blue .commonTableCls .hideBtnLirp svg path,
 .dark-blue .hideBtnLirp svg circle,
 .dark-blue .hideBtnLirp svg rect {
@@ -3068,4 +3101,56 @@ background:var(--blue-clr-2);
 }
 .dark-blue .blueProgress1.switchBg .blueProgress2{
   background-color: #0E6651 !important;
+}
+.dark-blue .cardRadioSwtchpara2{
+  color: #26AB8B!important;
+}
+.dark-blue .cardRadioSwtchpara1{
+  color:#53A9F1!important;
+}
+.dark-blue .cardRadioSwtchpara3{
+  color:#B556FF!important;
+}
+.dark-blue .cardRadioSwtchpara4{
+  color: #F04F4F!important;
+}
+.dark-blue .makeEqualPara2{
+  color:#26AB8B;
+}
+.dark-blue .makeEqualPara1{
+  color: #53A9F1;
+}
+.dark-blue .makeEqualPara3{
+  color: #B556FF;
+}
+.dark-blue .makeEqualPara4{
+  color: #F04F4F;
+}
+.dark-blue .cumulativeValuesProgrees{
+  background-color: none!important;
+}
+
+.dark-blue .lightProgress2{
+  background: #209579;
+}
+.dark-blue .lightProgress2 div{
+  background: #0E6651;
+}
+.dark-blue .lightProgress1{
+  background: #1A89EE;
+}
+.dark-blue .lightProgress1 div{
+  background: #1660A4;
+}
+.dark-blue .lightProgress3{
+  background: #B770EF;
+}
+.dark-blue .lightProgress3 div{
+  background: #763CA3;
+}
+.dark-blue .lightProgress4{
+  background: #CA3939;
+}
+.dark-blue .lightProgress4 div{
+  background: #9D2B2B;
 }

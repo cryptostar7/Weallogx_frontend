@@ -60,7 +60,7 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                                 data-bs-toggle="modal">
                                 <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
@@ -75,21 +75,21 @@
                           </div>
                           <div class="mt-2 d-flex ">
                             <div :class="`CardProgressBar lightProgress${1+index} groupBoxProgressCommon${1+index}  ${cards.distributions[index].active ? '':'boxProgress'}`">
-                              <div :class="`CardProgress darkProgress${1+index}`"></div>
+                              <div class="CardProgress"></div>
                               <p class="lineUnderBars"></p>
                             </div>
-                             <p class="mt-1 ms-2 CardProgressnym carValue1" v-if="!index">{{$numFormatWithDollar(item.longevity)}}</p>
+                             <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{$numFormatWithDollar(item.longevity)}}</p>
                             <div class="position-up" v-if="index">
                               <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p class="ms-2 CardProgressnym cardRadioSwtchpara">{{$numFormatWithDollar(item.longevity)}}</p>
+                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Ending Value</p>
-                              <p class="ms-3 CardProgressnym cardRadioSwtchpara">{{$numFormatWithDollar(item.ending_value)}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p class="ms-3 CardProgressnym cardRadioSwtchpara">{{$numFormatWithDollar(item.death_benifit)}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benifit)}}</p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -229,7 +229,7 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                                 data-bs-toggle="modal">
                                 <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
@@ -247,18 +247,18 @@
                               <div :class="`CardProgress darkProgress${1+index}`"></div>
                               <p class="lineUnderBars"></p>
                             </div>
-                             <p class="mt-1 ms-2 CardProgressnym carValue1" v-if="!index">{{item.longevity_in_percent}}</p>
+                             <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{item.longevity_in_percent}}</p>
                             <div class="position-up" v-if="index">
                               <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p class="ms-2 CardProgressnym cardRadioSwtchpara">{{item.longevity_in_percent}}</p>
+                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.longevity_in_percent}}</p>
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Ending Value</p>
-                              <p class="ms-3 CardProgressnym cardRadioSwtchpara">{{item.ending_value_in_percent}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.ending_value_in_percent}}</p>
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p class="ms-3 CardProgressnym cardRadioSwtchpara">{{item.death_benifit_in_percent}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benifit_in_percent}}</p>
                             </div>
                           </div>
                           <add-note-input-component />

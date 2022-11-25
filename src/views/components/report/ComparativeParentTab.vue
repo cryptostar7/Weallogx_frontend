@@ -4,7 +4,7 @@
     <comparative-tab-making-things-equal  v-if="tabID === 3" :keyId="keyId"/>
     <comparative-tab-comulative-values  v-if="tabID === 4" :keyId="keyId"/>
     <comparative-tab-legacy  v-if="tabID === 5" :keyId="keyId"/>
-    <comparative-tab-fee-analysis  v-if="tabID === 6" :keyId="keyId"/>
+    <comparative-tab-fee-analysis  v-if="tabID === 6" :keyId="keyId"/> 
 </template>
 <script>
 import ComparativeTabComparativeTable from "./comparative-components/ComparativeTabComparativeTable.vue";

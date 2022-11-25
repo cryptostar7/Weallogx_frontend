@@ -43,7 +43,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -75,8 +75,8 @@
                     <div class="progressAllBarsDivMain">
                       <div class="d-flex justify-content-between w-100">
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                          <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro bigBarHeightJs${1+index}`"  :style="{height:item.shortfall_percentage}">
-                            <div class="bottomComulativeIncome BottomcumulativeLifePro">
+                          <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`"  :style="{height:item.shortfall_percentage}">
+                            <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                               <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.ending_value)}}</span></p>
                             </div>
                             <div class="shortFallCount">

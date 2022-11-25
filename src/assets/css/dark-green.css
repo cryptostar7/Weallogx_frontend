@@ -1259,6 +1259,9 @@
 .dark-green .switch2 .editBtnAccount, .dark-green .switch2 .deleteBtnAccount {
   color: #B556FF;
 }
+.dark-green .switch3 .editBtnAccount, .dark-green .switch3 .deleteBtnAccount {
+  color: #DA4343!important;
+}
 /*.dark-green .deleteBtnAccount svg path,
 .dark-green .deleteBtnAccount svg circle {
   fill: transparent;
@@ -1591,47 +1594,57 @@
   border-top: 6px solid #8137BB;
 }
 .dark-green .equalDistCard4 {
-  border-top: 6px solid#DA4343;
+  border-top: 6px solid #DA4343;
 }
 /* green */
-.dark-green .deleteBtnGreen {
-  border: 1px solid#26AB8B;
+.dark-green .deleteBtn1 {
+  border: 1px solid #26AB8B;
 }
-.dark-green .deleteBtnGreen svg path {
+.dark-green .deleteBtn1 svg path {
   stroke: #26AB8B;
 }
-.dark-green .deleteBtnGreen svg rect {
+.dark-green .deleteBtn1 svg rect {
   fill: #26AB8B;
 }
 /* blue */
-.dark-green .deleteBtnBlue {
-  border: 1px solid#53A9F1;
+.dark-green .deleteBtn2 {
+  border: 1px solid #53A9F1;
 }
-.dark-green .deleteBtnBlue svg path {
+.dark-green .deleteBtn2 svg path {
   stroke: #53A9F1;
 }
-.dark-green .deleteBtnBlue svg rect {
+.dark-green .deleteBtn2 svg rect {
   fill: #53A9F1;
 }
 /* voilet */
-.dark-green .deleteBtnVoilet {
-  border: 1px solid#B556FF;
+.dark-green .deleteBtn3 {
+  border: 1px solid #B556FF;
 }
-.dark-green .deleteBtnVoilet svg path {
+.dark-green .deleteBtn3 svg path {
   stroke: #B556FF;
 }
-.dark-green .deleteBtnVoilet svg rect {
+.dark-green .deleteBtn3 svg rect {
   fill: #B556FF;
 }
 /* red */
-.dark-green .deleteBtnRed {
-  border: 1px solid#F04F4F;
+.dark-green .deleteBtn4 {
+  border: 1px solid #F04F4F;
 }
-.dark-green .deleteBtnRed svg path {
+.dark-green .deleteBtn4 svg path {
   stroke: #F04F4F;
 }
-.dark-green .deleteBtnRed svg rect {
+.dark-green .deleteBtn4 svg rect {
   fill: #F04F4F;
+}
+/* red */
+.dark-green .deleteBtn5 {
+  border: 1px solid #F04F4F;
+}
+.dark-green .deleteBtn5 svg path {
+  stroke: #E8662F;
+}
+.dark-green .deleteBtn5 svg rect {
+  fill: #E8662F;
 }
 .dark-green .commonRedRadioSwtchpara {
   color: #DA1159;
@@ -1647,6 +1660,9 @@
 }
 .dark-green .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
+}
+.dark-green .switch4 .checkbox2:checked~.layer2 {
+  background-color: #E8662F !important;
 }
 .dark-green .AddNoteBtn {
   background: #2E3135;
@@ -1703,9 +1719,6 @@
 }
 .dark-green .progressBarBtnDiv p:nth-child(2) {
   color: #FFFFFF;
-}
-.dark-green .deleteButtonAncor {
-  border: 1px solid #6D6D6D;
 }
 .dark-green .cumulativeValuesProgrees {
   background-image: url('../images/icons/dark-progressbar-design.svg');
@@ -2013,6 +2026,16 @@
 .dark-green .switch2 .deleteBtnAccount svg circle,
 .dark-green .switch2 .deleteBtnAccount svg rect {
   stroke: #B556FF;
+}
+.dark-green .switch3 .editBtnAccount svg path,
+.dark-green .switch3 .editBtnAccount svg circle,
+.dark-green .switch3 .editBtnAccount svg rect {
+  stroke: #DA4343;
+}
+.dark-green .switch3 .deleteBtnAccount svg path,
+.dark-green .switch3 .deleteBtnAccount svg circle,
+.dark-green .switch3 .deleteBtnAccount svg rect {
+  stroke: #DA4343;
 }
 /*.dark-green .hideBtnAccount svg path,
 .dark-green .hideBtnAccount svg circle,
@@ -2572,6 +2595,7 @@
 .dark-green .editBtnLirp svg path,
 .dark-green .editBtnLirp svg rect {
   stroke: #26AB8B;
+  fill: none;
 }
 .dark-green .editBtnLirp {
   background: transparent;
@@ -2861,4 +2885,58 @@
 }
 .dark-green .bar-container .progressBarBtnDiv p{
   color: #fff;
+}
+.dark-green .cardRadioSwtchpara1{
+  color: #26AB8B!important;
+}
+.dark-green .cardRadioSwtchpara2{
+  color:#53A9F1!important;
+}
+.dark-green .cardRadioSwtchpara3{
+  color:#B556FF!important;
+}
+.dark-green .cardRadioSwtchpara4{
+  color: #F04F4F!important;
+}
+.dark-green .makeEqualPara1{
+  color:#26AB8B;
+}
+.dark-green .makeEqualPara2{
+  color: #53A9F1;
+}
+.dark-green .makeEqualPara3{
+  color: #B556FF;
+}
+.dark-green .makeEqualPara4{
+  color: #F04F4F;
+}
+
+
+.dark-green .cumulativeProgLifePro1 {
+  background: #0F8266!important;
+}
+.dark-green .cumulativeProgLifePro2 {
+  background: #23669E!important;
+}
+.dark-green .cumulativeProgLifePro3 {
+  background: #8137BB!important;
+}
+.dark-green .cumulativeProgLifePro4 {
+  background: #DA4343!important;
+}
+.dark-green .BottomcumulativeLifePro2 {
+  background: #208DE8!important;
+}
+.dark-green .BottomcumulativeLifePro1 {
+  background: #20A584!important;
+}
+.dark-green .BottomcumulativeLifePro3 {
+  background: #9453C8!important;
+}
+.dark-green .BottomcumulativeLifePro4 {
+  background: #F04F4F!important;
+}
+
+.dark-green .cumulativeValuesProgrees{
+  background-color: none!important;
 }

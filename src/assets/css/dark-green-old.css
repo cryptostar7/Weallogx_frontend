@@ -177,7 +177,9 @@
   border-left-color: #607586;
   border-top: none;
 }
-
+.dark-green .reportTablesDiv .table tbody tr:last-child td{
+  border-bottom: 0.5px solid #353B46!important;
+}
 .dark-green .grey-clr-2 {
   color: #6D6D6D;
 }
