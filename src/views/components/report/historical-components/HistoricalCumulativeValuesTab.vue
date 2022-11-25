@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="4">
+  <div class="empty" data-class="empty-wrapper" data-empty="4">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="5">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop11 ${activeTabs[keyId] ? 'active':''}`">
@@ -127,7 +127,7 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
+                              <a class="ms-2 deleteButtonAncor deleteBtn" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                 <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
                                   <path

@@ -818,19 +818,19 @@
   border-radius: 8px;
 }
 /*  */
-.light-blue .irrvaluebarbg1 {
+/* .light-blue .irrvaluebarbg1 {
   background: #0F7ADC;
 }
 .light-blue .irrBarHeight1 {
   background: #1A89EE;
-}
+} */
 /*  */
-.light-blue .irrvaluebarbg2 {
+/* .light-blue .irrvaluebarbg2 {
   background: #287BC7;
 }
 .light-blue .irrBarHeight2 {
   background: #1660A4;
-}
+} */
 /*  */
 .light-blue .lifeProEditBtn rect,
 .light-blue .lifeProEditBtn path {
@@ -867,7 +867,7 @@
   color: #0E6651;
 }
 .light-blue .reportTablesDiv4 table thead th {
-  background: #0E6651 !important;
+  background: #0E6651;
 }
 .light-blue .reportTablesDiv4 .table th {
   border-left-color: #2E7665;
@@ -1168,26 +1168,98 @@
 }
 
 .light-blue .lightProgress2{
-  background: #209579;
-}
-.light-blue .lightProgress2 div{
   background: #0E6651;
 }
-.light-blue .lightProgress1{
-  background: #1A89EE;
+.light-blue .lightProgress2 div{
+  background: #209579;
 }
-.light-blue .lightProgress1 div{
+.light-blue .lightProgress1{
   background: #1660A4;
 }
-.light-blue .lightProgress3{
-  background: #B770EF;
+.light-blue .lightProgress1 div{
+  background: #1A89EE;
 }
-.light-blue .lightProgress3 div{
+.light-blue .lightProgress3{
   background: #763CA3;
 }
+.light-blue .lightProgress3 div{
+  background: #B770EF;
+}
 .light-blue .lightProgress4{
-  background: #CA3939;
+   background: #9D2B2B;
 }
 .light-blue .lightProgress4 div{
-  background: #9D2B2B;
+  background: #CA3939;
 }
+
+.light-blue .irrCardParaTop2{
+  color: #0E6651;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.light-blue .irrCardParaBtm2{
+  color: #209579;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.light-blue .irrCardParaTop1{
+  color:#1660A4;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.light-blue .irrCardParaBtm1{
+  color: #1A89EE;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+/*  */
+.light-blue .cumulativeProgAccount1 {
+  background: #1660A4;
+}
+.light-blue .BottomcumulativeAccount1 {
+  background: #287BC7;
+}
+/*  */
+.light-blue .cumulativeProgAccount2 {
+  background: #0E6651;
+}
+.light-blue .BottomcumulativeAccount2 {
+  background: #25967B;
+}
+/*  */
+
+.light-blue .irrGroupedBars1 .irrBarHeight1{
+  background: #1660A4;
+  }
+  .light-blue .irrGroupedBars1 .irrvaluebarbg1{
+    background: #287BC7;
+    }
+
+    .light-blue .irrGroupedBars1 .irrBarHeight2{
+      background: #1660A4;
+      }
+      .light-blue .irrGroupedBars1 .irrvaluebarbg2{
+        background: #287BC7;
+        }
+
+        /*  */
+
+        .light-blue .irrGroupedBars2 .irrBarHeight1{
+          background: #209579;
+          }
+          .light-blue .irrGroupedBars2 .irrvaluebarbg1{
+            background: #30AD8F;
+            }
+        
+            .light-blue .irrGroupedBars2 .irrBarHeight2{
+              background: #0E6651;
+              }
+              .light-blue .irrGroupedBars2 .irrvaluebarbg2{
+                background: #25967B;
+                }

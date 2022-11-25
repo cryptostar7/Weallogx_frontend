@@ -1572,10 +1572,10 @@
 /*.dark-blue .editBtnAccount {
   background: transparent;
 }*/
-/*.dark-blue .editBtnAccount svg path,
+.dark-blue .editBtnAccount svg path,
 .dark-blue .editBtnAccount svg rect {
   fill: transparent;
-}*/
+}
 .dark-blue .deleteBtnAccount {
   background: transparent;
 }
@@ -1975,6 +1975,9 @@
 .dark-blue .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
+.dark-blue .switch3.extra .checkbox2:checked~.layer2 {
+  background-color: #E8662F !important;
+}
 .dark-blue .AddNoteBtn {
   background: #2E3135;
   border: 1px solid #6D6D6D;
@@ -2038,6 +2041,7 @@
 .dark-blue .cumulativeValuesProgrees.bigbarsmaincolorDisable {
   background-image: none;
   background-color: #55575a;
+  visibility: hidden;
 }
 .dark-blue .CompMainProgrssBarDiv {
   background: #242629;
@@ -2379,6 +2383,9 @@
 .dark-blue .switch2 .editBtn rect, .dark-blue .switch2 .editBtn path, .dark-blue .switch2 .deleteBtn rect, .dark-blue .switch2 .deleteBtn path {
   stroke: #B556FF;
 }
+.dark-blue .switch3 .editBtn rect, .dark-blue .switch3 .editBtn path, .dark-blue .switch3 .deleteBtn rect, .dark-blue .switch3 .deleteBtn path {
+  stroke: #F64E4E;
+}
 .dark-blue .disableBtnsAccount {
   pointer-events: none;
   cursor: default;
@@ -2393,11 +2400,8 @@
 .dark-blue .hideBtnAccount:hover.hideBtnAccount::before {
   color: #26AB8B;
 }*/
-.dark-blue .editBtnAccount{
-  color: #26AB8B;
-}
-.dark-blue .deleteBtnAccount{
-  color: #26AB8B;
+.dark-blue .switch1 .editBtnAccount, .dark-blue .switch1 .deleteBtnAccount.dark-blue .switch1 .editBtnAccount, .dark-blue .switch1 .deleteBtnAccount{
+  color: #26AB8B!important;
 }
 .dark-blue .switch1.extra .editBtn svg path, .dark-blue .switch1.extra .editBtn svg path{
   stroke: #26AB8B;
@@ -2410,6 +2414,13 @@
 }
 .dark-blue .switch2 .deleteBtnAccount{
   color: #B556FF;
+}
+.dark-blue .switch3 .editBtnAccount, .dark-blue .switch3 .deleteBtnAccount.dark-blue .switch3 .editBtnAccount, .dark-blue .switch3 .deleteBtnAccount{
+  color: #DA4343!important;
+}
+
+.dark-blue .switch4 .editBtnAccount, .dark-blue .switch4 .deleteBtnAccount.dark-blue .switch4 .editBtnAccount, .dark-blue .switch4 .deleteBtnAccount{
+  color: #E8662F!important;
 }
 /* ira buttons modify start */
 .dark-blue .lifeProPlusPara5 {
@@ -2977,19 +2988,19 @@
   border-radius: 8px;
 }
 /*  */
-.dark-blue .irrvaluebarbg1 {
+/* .dark-blue .irrvaluebarbg1 {
   background: #0F7ADC;
 }
 .dark-blue .irrBarHeight1 {
   background: #1A89EE;
-}
+} */
 /*  */
-.dark-blue .irrvaluebarbg2 {
+/* .dark-blue .irrvaluebarbg2 {
   background: #287BC7;
 }
 .dark-blue .irrBarHeight2 {
   background: #1660A4;
-}
+} */
 /*  */
 .dark-blue .compGraphSmallBdrClr1 p {
   background: #287BC7;
@@ -3131,26 +3142,99 @@ background:var(--blue-clr-2);
 }
 
 .dark-blue .lightProgress2{
-  background: #209579;
-}
-.dark-blue .lightProgress2 div{
   background: #0E6651;
 }
-.dark-blue .lightProgress1{
-  background: #1A89EE;
+.dark-blue .lightProgress2 div{
+  background: #209579;
 }
-.dark-blue .lightProgress1 div{
+.dark-blue .lightProgress1{
   background: #1660A4;
 }
-.dark-blue .lightProgress3{
-  background: #B770EF;
+.dark-blue .lightProgress1 div{
+  background: #1A89EE;
 }
-.dark-blue .lightProgress3 div{
+.dark-blue .lightProgress3{
   background: #763CA3;
 }
-.dark-blue .lightProgress4{
-  background: #CA3939;
+.dark-blue .lightProgress3 div{
+  background: #B770EF;
+}
+.dark-blue .lightProgress4{ 
+   background: #9D2B2B;
 }
 .dark-blue .lightProgress4 div{
-  background: #9D2B2B;
+  background: #CA3939;
 }
+
+.dark-blue .irrCardParaTop2{
+  color: #0E6651;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.dark-blue .irrCardParaBtm2{
+  color: #209579;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.dark-blue .irrCardParaTop1{
+  color:#1660A4;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.dark-blue .irrCardParaBtm1{
+  color: #1A89EE;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+
+/*  */
+.dark-blue .cumulativeProgAccount1 {
+  background: #1660A4;
+}
+.dark-blue .BottomcumulativeAccount1 {
+  background: #287BC7;
+}
+/*  */
+.dark-blue .cumulativeProgAccount2 {
+  background: #0E6651;
+}
+.dark-blue .BottomcumulativeAccount2 {
+  background: #25967B;
+}
+/*  */
+
+.dark-blue .irrGroupedBars1 .irrBarHeight1{
+  background: #1660A4;
+  }
+  .dark-blue .irrGroupedBars1 .irrvaluebarbg1{
+    background: #287BC7;
+    }
+
+    .dark-blue .irrGroupedBars1 .irrBarHeight2{
+      background: #1660A4;
+      }
+      .dark-blue .irrGroupedBars1 .irrvaluebarbg2{
+        background: #287BC7;
+        }
+
+        /*  */
+
+        .dark-blue .irrGroupedBars2 .irrBarHeight1{
+          background: #209579;
+          }
+          .dark-blue .irrGroupedBars2 .irrvaluebarbg1{
+            background: #30AD8F;
+            }
+        
+            .dark-blue .irrGroupedBars2 .irrBarHeight2{
+              background: #0E6651;
+              }
+              .dark-blue .irrGroupedBars2 .irrvaluebarbg2{
+                background: #25967B;
+                }

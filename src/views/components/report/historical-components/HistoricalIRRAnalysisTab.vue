@@ -63,9 +63,9 @@
                         </div>
                         <div>
                           <p class="ms-2 irrCardPara1">Internal Rate of Return</p>
-                          <p class="ms-2 irrCardParaBlue1">{{item.internal_rate_of_return}}</p>
+                          <p :class="`ms-2 irrCardParaTop${1+index}`">{{item.internal_rate_of_return}}</p>
                           <p class="ms-2 irrCardPara1">Taxable Equivalent</p>
-                          <p class="ms-2 irrCardParaBlue2">{{item.taxable_equivalent}}</p>
+                          <p :class="`ms-2 irrCardParaBtm${1+index}`">{{item.taxable_equivalent}}</p>
                         </div>
                       </div>
                     </div>
@@ -84,17 +84,17 @@
                       <div v-for="(item, index) in data" :key="index" class="progressBarEachDivMain">
                         <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
                           <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div :class="`CardProgressBig irrBarHeight${1+index}`" :style="{height: item.internal_rate_of_return}">
+                            <div class="CardProgressBig irrBarHeight1" :style="{height: item.internal_rate_of_return}">
                             </div>
-                            <div :class="`position-absolute progressBarbtmNum irrvaluebarbg${1+index}`">
-                              <span :class="`irrEachBarValue${1+index}`">{{item.internal_rate_of_return}}</span>
+                            <div class="position-absolute progressBarbtmNum irrvaluebarbg1">
+                              <span class="`irrEachBarValue1">{{item.internal_rate_of_return}}</span>
                             </div>
                           </div>
                           <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div :class="`CardProgressBig irrBarHeight${2+index}`" :style="{height: item.taxable_equivalent}">
+                            <div class="CardProgressBig irrBarHeight2" :style="{height: item.taxable_equivalent}">
                             </div>
-                            <div :class="`position-absolute progressBarbtmNum irrvaluebarbg${2+index}`">
-                              <span :class="`irrEachBarValue${2+index}`">{{item.taxable_equivalent}}</span>
+                            <div class="position-absolute progressBarbtmNum irrvaluebarbg2">
+                              <span class="irrEachBarValue2">{{item.taxable_equivalent}}</span>
                             </div>
                           </div>
                         </div>
@@ -162,11 +162,11 @@ export default {
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets2
       ) {
-        this.cards.forEach(element => {
+        this.cards.forEach((element) => {
           element.active = false;
         });
       } else {
-        this.cards.forEach(element => {
+        this.cards.forEach((element) => {
           element.active = true;
         });
       }

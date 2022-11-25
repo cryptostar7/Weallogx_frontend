@@ -335,8 +335,8 @@
                       </div>
                       <div class="col-12 col-md-8">
                         <div class="row summary-row">
-                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 px-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
-                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 px-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id} `">
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                   <tr>

@@ -3597,7 +3597,6 @@ Blank div css end here
   background: #30AD8F;
 }
 .irrBarHeight1 {
-  background: #209579;
   border-radius: 8px;
 }
 /*  */
@@ -4172,8 +4171,138 @@ Blank div css end here
   background: #9D2B2B;
 }
 .lightProgress5 div{
-  background: #E8662F;
-}
-.lightProgress5 {
   background: #F67F4C;
 }
+.lightProgress5 {
+  background: #E8662F;
+}
+.irrCardParaTop1{
+  color: #0E6651;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.irrCardParaBtm1{
+  color: #209579;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.irrCardParaTop2{
+  color:#1660A4;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.irrCardParaBtm2{
+  color: #1A89EE;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.irrCardParaTop3{
+  color:#763CA3;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.irrCardParaBtm3{
+  color: #B770EF;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.irrCardParaTop4{
+  color:#9D2B2B;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.irrCardParaBtm4{
+  color: #CA3939;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.irrCardParaTop5{
+  color:#E8662F;
+  font-weight: 600;
+font-size: 13px;
+margin: 0;
+}
+.irrCardParaBtm5{
+  color: #F0875A;
+  font-weight: 600;
+font-size: 13px;
+margin: o;
+}
+
+.irrGroupedBars1 .irrBarHeight1{
+background: #209579;
+}
+.irrGroupedBars1 .irrvaluebarbg1{
+  background: #30AD8F;
+  }
+  .irrGroupedBars1 .irrBarHeight2{
+    background: #0E6651;
+    }
+    .irrGroupedBars1 .irrvaluebarbg2{
+      background: #25967B;
+      }
+
+      .irrGroupedBars2 .irrBarHeight1{
+        background: #1A89EE;
+        }
+        .irrGroupedBars2 .irrvaluebarbg1{
+          background: #0F7ADC;
+          }
+          .irrGroupedBars2 .irrBarHeight2{
+            background: #1660A4;
+            }
+            .irrGroupedBars2 .irrvaluebarbg2{
+              background: #287BC7;
+              }
+
+              .irrGroupedBars3 .irrBarHeight1{
+                background: #B770EF;
+                }
+                .irrGroupedBars3 .irrvaluebarbg1{
+                  background: #A35CDA;
+                  }
+                  .irrGroupedBars3 .irrBarHeight2{
+                    background: #763CA3;
+                    }
+                    .irrGroupedBars3 .irrvaluebarbg2{
+                      background: #9453C8;
+                      }
+
+                      .irrGroupedBars4 .irrBarHeight1{
+                        background: #CA3939;
+                        }
+                        .irrGroupedBars4 .irrvaluebarbg1{
+                          background: #DA3D3D;
+                          }
+                          .irrGroupedBars4 .irrBarHeight2{
+                            background: #9D2B2B;
+                            }
+                            .irrGroupedBars4 .irrvaluebarbg2{
+                              background: #C04141;
+                              }
+
+                              
+                      .irrGroupedBars4 .irrBarHeight1{
+                        background: #F0875A;
+                        }
+                        .irrGroupedBars4 .irrvaluebarbg1{
+                          background: #E37647;
+                          }
+                          .irrGroupedBars4 .irrBarHeight2{
+                            background: #E8662F;
+                            }
+                            .irrGroupedBars4 .irrvaluebarbg2{
+                              background: #F67F4C;
+                              }

@@ -1728,6 +1728,7 @@
 .dark-green .cumulativeValuesProgrees.bigbarsmaincolorDisable {
   background-image: none;
   background-color: #55575a;
+  visibility: hidden;
 }
 .dark-green .CompMainProgrssBarDiv {
   background: #242629;

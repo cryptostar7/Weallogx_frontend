@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between pb-1">
               <div class="distrbnCard1paras">
                 <p>Value Efficiency</p>
-                <p>{{item.type}}</p>
+                <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
               </div>
               <div class="d-flex">
                 <div class="button-cover2">

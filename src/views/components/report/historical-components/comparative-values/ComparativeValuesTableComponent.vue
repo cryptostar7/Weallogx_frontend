@@ -1,4 +1,4 @@
-<template lang="">
+           <template lang="">
   <div class="tab-pane fade show active" id="v-pills-compTable" role="tabpanel" aria-labelledby="pills-home-tab">
     <div class="d-flex justify-content-center mt-2">
       <div class="nav mltplSwtchDiv nav-pills">
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="row">
                                   <div class="col-12">
-                                    <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns">
+                                    <div :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
                                       <div :class="`radioBtnDiv r2 switch${header.id}`" id="button-2">
                                         <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="header.active" @change="() => header.active = !header.active">
                                         <div class="knobs2"></div>
@@ -198,7 +198,7 @@
                                           </svg>
                                         </a>
                                         <a href="javascript:void(0)"
-                                          class="editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
+                                          class="editBtnAccount editBtn mx-2 disableBtnsForAll">&nbsp;<svg width="13"
                                             height="13" viewBox="0 0 13 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
@@ -209,7 +209,7 @@
                                           </svg>
                                         </a>
                                         <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
-                                          data-bs-toggle="modal" class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg
+                                          data-bs-toggle="modal" class="deleteBtnAccount deleteBtn disableBtnsForAll">&nbsp;<svg
                                             width="12" height="13" viewBox="0 0 12 13" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -271,7 +271,7 @@
         </div>
         <p class="compSumAnlysPara mt-2">Summary Analysis</p>
            <div class="row">
-            <div class="col-md-2 pe-2">
+            <div class="col-md-2 pe-2"> 
               <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                 <table class="table mt-1 secondTable td-first summaryTableFont">
                   <thead>
@@ -328,8 +328,8 @@
                     </div>
                     <div class="col-md-9 pe-3">
                          <div class="row">
-                            <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-md-4 px-1 commonBottomTableMainTopDiv${8+header.id} summary-draggable ${ header.active ? '' : 'order-last'}`">
-                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id} ${ header.active ? '' : 'commonTableCls'}`">
+                            <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-md-4 px-1 commonBottomTableMainTopDiv${8+header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id} `">
                                     <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                         <thead class="heading-tr">
                                             <tr>
@@ -358,7 +358,7 @@
                 </div>
             </div>
           </div>
-        <div class="mt-2 pt-5">
+        <div class="mt-3 pt-5">
           <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
             <div class="comparativeSeeAllBtn  mt-2" id="comparativeSeeAllBtn3">
               <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
