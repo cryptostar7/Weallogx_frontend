@@ -1,9 +1,6 @@
-<script setup>
-import { RouterLink } from "vue-router";
-import SelectDropdown from "../common/SelectDropdown.vue";
-</script>
 <template>
-  <section class="main-section">
+<div>
+  <!-- <section class="main-section">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done">
@@ -185,7 +182,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         class="form-group less pt-3"
                         @onSelectItem="setVehicleType1"
                       />
-                      <!-- vehicle type taxable area start here-->
                       <div
                         :class="`${
                           this.vehicle.vehicle1.type ? '' : 'vehicleaTypeArea'
@@ -387,7 +383,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           />
                         </div>
                       </div>
-                      <!-- vehicle type taxable area end here -->
                     </div>
                     <div
                       class="tab-pane"
@@ -403,7 +398,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         @onSelectItem="setVehicleType2"
                       />
 
-                      <!-- vehicle type 2 taxable area start here-->
                       <div
                         :class="`${
                           vehicle.vehicle2.type ? '' : 'vehicleaTypeArea'
@@ -606,7 +600,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           />
                         </div>
                       </div>
-                      <!-- vehicle type taxable area end here -->
                     </div>
 
                     <div
@@ -622,7 +615,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         class="form-group less pt-3"
                         @onSelectItem="setVehicleType3"
                       />
-                      <!-- vehicle type 3 taxable area start here-->
                       <div
                         :class="`${
                           vehicle.vehicle3.type ? '' : 'vehicleaTypeArea'
@@ -825,7 +817,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           />
                         </div>
                       </div>
-                      <!-- vehicle type taxable area end here -->
                     </div>
                  
                   </div>
@@ -926,12 +917,14 @@ import SelectDropdown from "../common/SelectDropdown.vue";
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
+</div>
 </template>
 <script>
 import {putPercentage} from "../../../services/put-percentage.js";
+import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { RouterLink, SelectDropdown },
+  components: { SelectDropdown },
   data() {
     return {
       vehicle: {
