@@ -1,6 +1,6 @@
 <template>
 <div>
-  <!-- <section class="main-section">
+  <section class="main-section">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done">
@@ -43,7 +43,7 @@
                 </h2>
               </div>
             </div>
-            <div class="form-wrapper side-grey-line">
+            <!-- <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner no-style newScenarioVehicleInner">
                 <h4 class="form-subheading fs-22 fw-bold">
                   Comparative Vehicles
@@ -912,12 +912,12 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
 </div>
 </template>
 <script>
