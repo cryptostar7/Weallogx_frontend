@@ -4,9 +4,11 @@ import DeleteColomnModal from '../components/modal/DeleteColomnModal.vue';
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 </script>
 <template>
+<div>
     <navbar-component />
     <illustration-data-main-section />   
     <delete-colomn-modal /> 
+</div>
 </template>
 <script>
 export default {

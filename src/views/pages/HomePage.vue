@@ -12,6 +12,7 @@ import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
 </script>
 
 <template>
+<div>
   <navbar-component />
 
   <homepage-main-section />
@@ -39,6 +40,8 @@ import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
 
   <!-- Clone Scenario Modal start -->
   <clone-scenario-modal />
+
+  </div>
 </template>
 
 <script>

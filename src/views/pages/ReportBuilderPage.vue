@@ -1,4 +1,5 @@
 <template>
+<div>
   <!-- <navbar-component /> -->
   <report-page-header />
   <report-builder-main-section />
@@ -12,6 +13,7 @@
   <report-builder-name-change-modal />
   <!-- Share report Modal start -->
   <share-modal />
+  </div>
 </template>
 <script>
 import DeleteAccountModal from "../components/modal/DeleteAccountModal.vue";

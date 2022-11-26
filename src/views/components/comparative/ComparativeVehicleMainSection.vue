@@ -172,9 +172,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                   </ul>
 
                   <div class="tab-content">
-                    <!-- -------------------
-                      Tab first end here 
-                    ------------------------>
                     <div
                       class="tab-pane show active"
                       id="vehicleType1Tab"
@@ -393,13 +390,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       </div>
                       <!-- vehicle type taxable area end here -->
                     </div>
-                    <!-- -------------------
-                      Tab first end here 
-                    ------------------------>
-
-                    <!-- -------------------
-                      Tab second start here 
-                    ------------------------>
                     <div
                       class="tab-pane"
                       id="vehicleType2Tab"
@@ -620,13 +610,6 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       <!-- vehicle type taxable area end here -->
                     </div>
 
-                    <!-- -------------------
-                      Tab second start here 
-                    ------------------------>
-
-                    <!-- -------------------
-                      Tab third start here 
-                    ------------------------>
                     <div
                       class="tab-pane"
                       id="vehicleType3Tab"
@@ -845,9 +828,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       </div>
                       <!-- vehicle type taxable area end here -->
                     </div>
-                    <!-- -------------------
-                      Tab third end here 
-                    ------------------------>
+                 
                   </div>
                 </div>
               </div>

@@ -8,6 +8,7 @@ import DeleteReportModal from '../components/modal/DeleteReportModal.vue';
 import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
 </script>
 <template>
+<div>
   <navbar-component />
   <individual-main-section />
   <!-- Delete Client Modal -->
@@ -19,7 +20,8 @@ import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
   <!-- Edit Client Canvas -->
   <edit-client-canvas-modal />   
   <!-- Clone Scenario Modal start -->
-  <clone-scenario-modal />       
+  <clone-scenario-modal />     
+</div>  
 </template>
 <script>
 export default {
