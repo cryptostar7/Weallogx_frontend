@@ -53,23 +53,87 @@ const router = createRouter({
       path: "/historical-simulations-after-yes",
       name: "historical simulations after yes",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterYes.vue"),
-    }, 
+    },
     {
       path: "/historical-simulations-from-scratch",
       name: "historical simulations from scratch",
       component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
-    },    
+    },
     {
       path: "/review-summary",
       name: "review summary",
       component: () => import("../views/pages/ReviewSummaryPage.vue"),
-    },    
+    },
     {
       path: "/report-builder",
       name: "report builder",
       component: () => import("../views/pages/ReportBuilderPage.vue"),
-    }, 
-
+    },
+    {
+      path: "/sign-up",
+      name: "signup",
+      component: () => import("../views/pages/SignupPage.vue"),
+    },
+    {
+      path: "/sign-in",
+      name: "sign in",
+      component: () => import("../views/pages/SignInPage.vue"),
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: () => import("../views/pages/ResetPasswordPage.vue"),
+    },
+    {
+      path: "/profile-details",
+      name: "profile-details",
+      component: () => import("../views/pages/ProfileDetailsPage.vue"),
+    },
+    {
+      path: "/pricing",
+      name: "pricing",
+      component: () => import("../views/pages/PricingPage.vue"),
+    },
+    {
+      path: "/current-plan",
+      name: "current-plan",
+      component: () => import("../views/pages/CurrentPlanPage.vue"),
+    },
+    {
+      path: "/payment",
+      name: "payment",
+      component: () => import("../views/pages/PaymentPage.vue"),
+    },
+    {
+      path: "/payment-thankyou",
+      name: "payment-thankyou",
+      component: () => import("../views/pages/PaymentThankYouPage.vue"),
+    },
+    {
+      path: "/payment-method",
+      name: "payment-method",
+      component: () => import("../views/pages/PaymentMethodPage.vue"),
+    },
+    {
+      path: "/payment-history",
+      name: "payment-history",
+      component: () => import("../views/pages/PaymentHistoryPage.vue"),
+    },
+    {
+      path: "/forgot-password",
+      name: "forgot-password",
+      component: () => import("../views/pages/ForgotPasswordPage.vue"),
+    },
+    {
+      path: "/edit-payment-method",
+      name: "edit-payment-method",
+      component: () => import("../views/pages/EditPaymentMethodPage.vue"),
+    },
+    {
+      path: "/edit-profile",
+      name: "edit-profile",
+      component: () => import("../views/pages/EditProfilePage.vue"),
+    },
   ],
 });
 

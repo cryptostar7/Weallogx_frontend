@@ -1,0 +1,2611 @@
+body {
+    position: relative;
+}
+.d-flex{
+    display: flex;
+}
+.flex-gap-10{
+    gap: 10px;
+}
+.mb-5{
+    margin-bottom: 5px;
+}
+.fs-14{
+    font-size: 14px;
+}
+.authMainDiv {
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.headingArea {
+    color: 333333;
+    font-size: 42px;
+    position: relative;
+    margin-bottom: 35px;
+}
+.mt-15{
+    margin-top: 15px;
+}
+.headingArea::before {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #0E6651;
+    left: 0;
+    top: calc(100% + 5px);
+    position: absolute;
+}
+
+.headingArea span {
+    color: #0E6651;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.auth-form {
+    position: relative;
+    margin-top: 15px;
+    height: 45px;
+}
+
+.auth-form input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #DFDFDF;
+    border-radius: 50px;
+    padding: 0 30px;
+}
+
+.auth-form input:focus {
+    border: 1px solid #298B74 !important;
+    outline: none;
+}
+
+.auth-form label {
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    padding: 0 2px;
+    margin-left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #CACACA;
+    font-weight: 400;
+    font-size: 14px;
+    transition: all 125ms;
+    pointer-events: none;
+}
+
+.auth-form label.active {
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    padding: 0 2px;
+    margin-left: 30px;
+    top: 0%;
+    transform: translateY(-50%);
+    color: #0E6651;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 125ms;
+}
+
+.planSelectMainDiv {
+    width: 100%;
+    background: #FFF;
+    box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 100px;
+    padding: 3px;
+    margin-bottom: 20px;
+}
+
+.planSelectInnerDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.planSelectInnerDiv div {
+    width: 100%;
+    height: 100%;
+}
+
+.planSelectInnerDiv label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    color: #333;
+    cursor: pointer;
+}
+
+.planSelectInnerDiv input:checked~label {
+    background: #0E6651;
+    color: #fff;
+}
+
+@media (max-width:400px) {
+    .planSelectInnerDiv label {
+        font-weight: 500;
+        font-size: 10px;
+    }
+}
+
+.rememberAndForgetDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.rememberAndForgetDiv input {
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+.rememberAndForgetDiv div {
+    display: flex;
+    align-items: center;
+}
+
+.rememberAndForgetDiv label {
+    font-weight: 400;
+    font-size: 14px;
+    color: #707070;
+    cursor: pointer;
+    margin-left: 2px;
+    position: relative;
+    top: 1px;
+}
+
+.rememberAndForgetDiv span {
+    font-weight: 400;
+    font-size: 14px;
+    color: #707070;
+}
+
+.rememberAndForgetDiv a {
+    text-decoration: none;
+}
+.authButtonDiv{
+ margin-top: 30px;   
+}
+p span.bold{
+    font-weight: 700;
+}
+.btn{
+    cursor: pointer;
+}
+.authButtonDiv .btn {
+    border: 1px solid #0E6651;
+    border-radius: 50px;
+    width: 100%;
+    padding: .55rem 2rem;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    background: #fff;
+    color: #0E6651;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.authButtonDiv .btn:hover {
+    border: 1px solid #0E6651;
+    background: #0E6651;
+    color: #fff;
+}
+
+.authInnerDiv {
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.authMainDiv .authImg {
+    width: 30%;
+}
+
+.authMobileBottomImg {
+    display: none;
+}
+
+.authformRightPart {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    padding: 0 98px;
+    display: flex;
+    align-items: center;
+}
+
+.authButtomPara {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 15px;
+    color: #707070;
+}
+
+.authButtomPara a {
+    text-decoration: none;
+    color: #0E6651;
+    font-weight: 500;
+    font-family: Roboto, sans-serif !important;
+}
+
+.authMaindiv-area {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.backButton {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #A0A0A0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.backButton img {
+    width: 10px;
+    height: auto;
+}
+
+.backButton:hover {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #7e7e7e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.headingMiddleArea {
+    text-align: center;
+}
+
+.headingMiddleArea h1 {
+    color: 333333;
+    font-size: 42px;
+}
+
+.headingMiddleArea h1 span {
+    color: #0E6651;
+}
+
+.headingMiddleArea div {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.headingMiddleArea p {
+    width: 70px;
+    height: 4px;
+    background: #0E6651;
+    display: flex;
+}
+
+.headingMiddlePara {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    color: #707070;
+    margin-top: 16px;
+}
+
+.pricingMainDiv {
+    width: 100% !important;
+    min-height: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.pricingBox {
+    border: 1px solid #E6E6E6;
+    border-radius: 15px;
+    min-width: 150px;
+    height: inherit;
+    overflow: hidden;
+    position: relative;
+}
+
+.pricingTopClrDiv {
+    position: relative !important;
+    display: flex;
+    justify-content: center;
+    padding: 23px;
+    min-height: 280px;
+}
+
+.priceOffPercent {
+    position: absolute !important;
+    top: 1.6rem;
+    left: -2.2rem;
+    background: #047BDF;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 5px 0;
+    /* identical to box height */
+
+    color: #FFF;
+    width: 155px;
+    transform: rotate(-45deg);
+    text-align: center;
+}
+
+.pricingTopClrDiv .pricingImgColor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.pricingTopClrDiv div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pricingTopClrDiv div img {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pricingTopClrDiv div .pricingPlanPara {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 22px;
+    color: #FFF;
+    margin: 0;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.pricingPlanTimePeriod {
+    text-align: center;
+    font-weight: 600;
+    font-size: 36px;
+    color: #FFD7C7;
+    margin-top: 8px;
+}
+
+.pricingPlanTimePeriod span {
+    font-size: 18px;
+}
+
+.pricingBottomDiv {
+    padding: 40px 23px 23px 23px;
+}
+
+.pricingBottomDiv .pricingFeaturesFirstUl {
+    padding-left: 0 !important;
+    list-style: none;
+}
+
+.pricingBottomDiv .pricingFeaturesFirstUl li {
+    font-weight: 400;
+    font-size: 16px;
+    color: #333333;
+    margin-left: 22px;
+    margin-bottom: 25px;
+}
+
+.pricingBottomDiv .pricingFeaturesFirstUl li::before {
+    content: "";
+    background-image: url('/src/assets/images/user/orange-circle-tick.svg');
+    position: absolute;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: 23px 3px;
+}
+
+.authButtonDiv.orangeButton button {
+    background: #E8662F;
+    border: 1px solid #E8662F;
+    color: #fff;
+    margin-top: 60px;
+}
+
+.orangeButton.orangeButton button:hover {
+    border: 1px solid #E8662F;
+    background: #fff;
+    color: #E8662F;
+}
+
+.authButtonDiv.orangeButton button.disabled {
+    background: rgba(232, 102, 47, 0.5);
+    border: 1px solid rgba(232, 102, 47, 0.5);
+    color: #fff;
+    pointer-events: none;
+}
+
+.authButtonDiv.greenButton button {
+    border: 1px solid #298B74;
+    background: #298B74;
+    color: #fff;
+    margin-top: 60px;
+}
+
+.authButtonDiv.greenButton button:hover {
+    border: 1px solid #298B74;
+    color: #298B74;
+    background: #fff;
+
+}
+
+.authButtonDiv.blueButton button {
+    margin-top: 60px;
+    border: 1px solid #1660A4;
+    background: #1660A4;
+    color: #fff;
+}
+
+.authButtonDiv.blueButton button:hover {
+    border: 1px solid #1660A4;
+    color: #1660A4;
+    border: 1px solid #1660A4;
+    background: #FFF;
+}
+
+.pricingMainDiv .pricingBox:nth-child(2) {
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.pricingPlanTimePeriod.pricingGreenPara {
+    color: #14EAB7;
+}
+
+.pricingPlanTimePeriod.pricingBluePara {
+    color: #84C7FF;
+}
+
+.pricingPlanBottomPara {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFF;
+}
+
+.pricingBottomDiv .pricingFeaturesFirstUl.pricingGreenUl li::before {
+    background-image: url('/src/assets/images/user/green-circle-tick.svg');
+}
+
+.pricingBottomDiv .pricingFeaturesFirstUl.pricingBlueUl li::before {
+    background-image: url('/src/assets/images/user/blue-circle-tick.svg');
+}
+
+.headingDivPricing {
+    display: flex;
+    justify-content: center;
+}
+
+.faqMainDivPricing {
+    margin-top: 50px;
+}
+
+/* Faq */
+.pricingFaqMaintDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv {
+    width: 372px;
+    height: 425px;
+    border: 1px solid #ABABAB;
+    border-radius: 5px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv::-webkit-scrollbar {
+    width: 0;
+}
+
+.pricingFaqMaintDiv .pricingFaqRightDiv {
+    width: 100%;
+    margin-left: 50px;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv div {
+    padding: 16px 20px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #3C3C3C;
+    border-bottom: 1px solid #B1B1B1;
+    border-left: 5px solid #ffF;
+    cursor: pointer;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv div:first-child {
+    border: none;
+    border-left: 5px solid #333333;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv div:last-child {
+    border-bottom: none;
+}
+
+.pricingFaqMaintDiv .pricingFaqleftDiv div:hover {
+    border-left: 5px solid #333333;
+}
+
+.faqLeftheading {
+    background: #333333;
+    text-align: left;
+    color: #fff !important;
+    font-weight: 900 !important;
+    font-size: 20px;
+    color: #FFF;
+    position: sticky;
+    top: 0;
+}
+
+.faqRightEachQueAns {
+    margin-bottom: 15px;
+    scroll-margin-top: 5.5rem;
+}
+
+.faqRightEachQueAns:last-child {
+    margin-bottom: 0;
+}
+
+.faqRightEachQueAns div.faqRightQue {
+    background: #333333;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    color: #fff;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.faqRightEachQueAns div.faqRightQue img {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+
+.faqRightEachQueAns div.faqRightAns {
+    display: none;
+}
+
+.faqRightEachQueAns div.faqRightAns.active {
+    border: 1px solid #CACACA;
+    border-top: none;
+    border-radius: 0px 0px 5px 5px;
+    padding: 12px 20px;
+    display: block;
+}
+
+@media (max-width:1200px) {
+    .middleContainer {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width:768px) {
+    .pricingMainDiv {
+        display: block;
+    }
+
+    .pricingMainDiv .pricingBox:nth-child(2) {
+        margin: 2rem 0;
+    }
+
+    .headingArea {
+        text-align: center;
+    }
+
+    .headingArea::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .pricingFaqMaintDiv {
+        display: block;
+    }
+
+    .pricingFaqMaintDiv .pricingFaqleftDiv {
+        width: 100%;
+    }
+
+    .pricingFaqMaintDiv .pricingFaqRightDiv {
+        width: 100%;
+        margin: 0;
+        margin-top: 2rem;
+    }
+
+    .authformRightPart {
+        padding: 35px;
+    }
+}
+
+@media (max-width:442px) {
+    .authformRightPart {
+        padding: 0;
+        width: 100%;
+    }
+
+    .rememberAndForgetDiv input {
+        width: 14px;
+        height: 14px;
+    }
+
+    .rememberAndForgetDiv label {
+        font-size: 12px;
+    }
+
+    .rememberAndForgetDiv span {
+        font-size: 12px;
+    }
+
+    .authButtomPara {
+        display: block;
+        text-align: center;
+    }
+
+    .ModalMainDiv {
+        max-width: 95% !important;
+    }
+}
+
+/* Payment method */
+.paymentMethod-topBtns {
+    display: flex;
+    justify-content: end;
+}
+
+.paymentMethod-topBtns a {
+    text-decoration: none;
+    border: 1px solid #0E6651;
+    border-radius: 50px;
+    color: #0E6651;
+    background: none;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 8;
+    padding-left: 27px;
+    padding-right: 27px;
+}
+
+.paymentMethod-topBtns a:hover {
+    background: #0E6651;
+    border: 1px solid #0E6651;
+    color: #fff;
+}
+
+.paymentMethod-topBtns a.active {
+    background: #0E6651;
+    border: 1px solid #0E6651;
+    color: #fff;
+}
+
+.paymentMethod-topBtns a.active:hover {
+    border: 1px solid #0E6651;
+    color: #0E6651;
+    background: none;
+}
+
+.paymentMethod-topBtns a svg path {
+    fill: #0E6651;
+}
+
+.paymentMethod-topBtns a:hover svg path {
+    fill: #fff;
+}
+
+.paymentMethod-topBtns a.active svg path {
+    fill: #fff;
+}
+
+.paymentMethod-topBtns a.active:hover svg path {
+    fill: #0E6651;
+}
+
+.paymentMethod-topBtns a img {
+    width: 24px;
+    height: 24px;
+}
+
+.paymentMethod-topBtns a:last-child {
+    margin-left: 20px;
+}
+
+.payment-methodMain-div {
+    display: flex;
+    margin-top: 55px;
+}
+
+.payment-left-card-main-div {
+    min-width: 371px;
+}
+
+.payment-left-card {
+    background: #333333;
+    border: 1px solid #7A7D86;
+    border-radius: 10px;
+    width: 100%;
+    padding: 18px 24px;
+}
+
+.payment-right-card-main-div {
+    margin-left: 58px;
+    width: 100%;
+}
+
+.paymentCardTopChipArea {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paymentCardTopChipArea img {
+    width: 41.17px;
+    height: 32.5px;
+}
+
+.paymentCardTopChipArea p {
+    color: #fff;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 26px;
+    margin: 0;
+}
+
+.payment-left-card-number {
+    font-weight: 500;
+    font-size: 24px;
+    color: #FFF;
+    letter-spacing: 0.012em;
+    margin: 0;
+    margin-top: 26px;
+    margin-bottom: 14px;
+}
+
+.cardExpiryDateCvvMainDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardExpiryDateDiv p:first-child {
+    font-weight: 500;
+    font-size: 12px;
+    color: #D7D7D7;
+    font-family: Roboto, sans-serif !important;
+}
+
+.cardExpiryDateDiv p:last-child {
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif !important;
+    color: #FFF;
+}
+
+.cardCvvDiv p:first-child {
+    font-weight: 500;
+    font-size: 12px;
+    color: #D7D7D7;
+    font-family: Roboto, sans-serif !important;
+    letter-spacing: 0.085em;
+}
+
+.cardCvvDiv p:last-child {
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif !important;
+    color: #FFF;
+    text-align: right;
+}
+
+.cardPlaceHolderName {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.015em;
+    color: #F0DDDD;
+    margin: 0;
+    margin-top: 10px;
+    font-family: Roboto, sans-serif !important;
+}
+
+.payment-right-heading-div p {
+    font-weight: 600;
+    font-size: 18px;
+    color: #3C3C3C;
+    text-transform: capitalize;
+}
+
+.payment-right-heading-div img {
+    width: 36px;
+    height: 24px;
+}
+
+.paymentMethodFormDiv div label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #565656;
+}
+
+.paymentMethodFormDiv div input {
+    width: 100%;
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid #DFDFDF;
+    font-weight: 500;
+    font-size: 18px;
+    color: #202020;
+    padding-right: 2rem;
+}
+
+.paymentMethodFormDiv div input::placeholder {
+    font-weight: 400;
+    font-size: 16px;
+    color: #CACACA;
+}
+
+.paymentMethodFormDiv div input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.paymentMethodFormDiv div {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.paymentMethodFormDiv .expiryCvvInputDiv {
+    margin-bottom: 0 !important;
+}
+
+.paymentMethodFormDiv .expiryCvvInputDiv div {
+    margin-bottom: 10px !important;
+}
+
+.paymentMethodFormDiv div img {
+    width: 24px;
+    height: 25px;
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+}
+
+.expiryCvvInputDiv {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.expiryCvvInputDiv div:first-child {
+    width: 100%;
+    margin-right: 14px;
+}
+
+.expiryCvvInputDiv div:last-child {
+    width: 100%;
+    margin-left: 14px;
+}
+
+.cvvInputDiv img {
+    bottom: 8px !important;
+    cursor: pointer;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input.ShowingCvv {
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFF;
+    background: none;
+    box-shadow: none;
+    padding: 0 !important;
+    border: none;
+    width: 21px;
+    float: right;
+}
+
+input.ShowingCvv:focus {
+    outline: none;
+}
+
+input.ShowingCvv::placeholder {
+    color: #fff;
+}
+
+.paymentformBtns {
+    width: 100%;
+    height: 50px;
+    background: #0E6651;
+    border: 1.5px solid #0E6651;
+    border-radius: 50px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFF;
+    margin-top: 50px;
+}
+
+.paymentformBtns:hover {
+    background: #fff;
+    border: 1.5px solid #0E6651;
+    color: #0E6651;
+}
+
+.all-payment-methodMain-div {
+    display: none;
+    width: 100%;
+}
+
+.allCardHeading {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 28px;
+    color: #202020;
+    margin-bottom: 23px;
+}
+
+.allCardMainDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #B1B1B1;
+    border-radius: 10px;
+    padding: 13px 42px;
+}
+
+.allCardMainDiv .allCardChipDiv {
+    display: flex;
+    align-items: center;
+}
+
+.allCardMainDiv .allCardChipDiv img {
+    width: 64px;
+    height: 64px;
+    margin-right: 27px;
+}
+
+.allCardMainDiv .allCardChipDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 24px;
+    color: #3C3C3C;
+}
+
+.paymentCardDeleteButton {
+    text-decoration: none;
+    width: 111px;
+    height: 37px;
+    border: 1px solid #9D2B2B;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #9D2B2B;
+    margin-left: 10px;
+}
+
+.paymentCardDeleteButton:hover {
+    border: 1px solid #9D2B2B;
+    background: #9D2B2B;
+    color: #fff;
+}
+
+.paymentCardEditButton {
+    text-decoration: none;
+    width: 111px;
+    height: 37px;
+    border: 1px solid #333333;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #333333;
+    margin-right: 10px;
+}
+
+.paymentCardEditButton:hover {
+    border: 1px solid #333333;
+    background: #333333;
+    color: #fff;
+}
+
+.all-payment-methodMain-div .allCardMainDiv {
+    margin-bottom: 15px;
+}
+
+.all-payment-methodMain-div .allCardMainDiv:last-child {
+    margin-bottom: 0;
+}
+
+.editPaymentformBtns {
+    display: none;
+}
+
+.editPayTopParaAndBtn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paymentCardEditButton2 {
+    text-decoration: none;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 30px;
+    border: 1px solid #333333;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 12px;
+    color: #333333;
+}
+
+.paymentCardEditButton2:hover {
+    border: 1px solid #333333;
+    background: #333333;
+    color: #fff;
+}
+
+.paymentCardEditButton2 svg {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.paymentCardEditButton2:hover svg path {
+    fill: #fff;
+}
+
+.btnsWithBackBtn {
+    justify-content: unset;
+}
+
+.backAndTopBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paymentBackBtn {
+    text-decoration: none;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #333333;
+}
+
+.paymentBackBtn img {
+    width: 8px;
+    height: auto;
+}
+
+.paymentBackBtn:hover {
+    text-decoration: none;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #000000;
+}
+
+.paymentRemoveCard {
+    margin-top: 2rem;
+}
+
+.paymentRemoveCard a {
+    text-decoration: none;
+    height: 38px;
+    background: #FFF;
+    border: 1.5px solid #9D2B2B;
+    border-radius: 50px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    color: #9D2B2B;
+    padding: 7px 30px;
+}
+
+.paymentRemoveCard a:hover {
+    background: #9D2B2B;
+    color: #fff;
+}
+
+@media (max-width:768px) {
+    .pricingMainDiv {
+        display: block;
+    }
+
+    .payment-methodMain-div {
+        display: block;
+    }
+
+    .payment-right-card-main-div {
+        margin: 0;
+        margin-top: 2rem;
+    }
+
+    .headingArea {
+        line-height: 52px;
+    }
+}
+
+@media (max-width:712px) {
+    .allCardMainDiv {
+        display: block;
+    }
+
+    .allCardMainDiv .allCardChipDiv:last-child {
+        justify-content: end;
+    }
+}
+
+@media (max-width:520px) {
+    .backAndTopBtns {
+        display: block;
+    }
+
+    .authMainDiv {
+        border: none;
+    }
+
+    .authMainDiv .authImg {
+        display: none;
+    }
+
+    .authMobileBottomImg {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .authMobileBottomImg img {
+        margin: 0;
+        padding: 0;
+        margin-bottom: -0.45rem;
+    }
+
+    .authformRightPart {
+        width: 100%;
+    }
+}
+
+@media (max-width:452px) {
+    .paymentMethod-topBtns {
+        display: block;
+        margin-top: 1rem;
+    }
+
+    .paymentMethod-topBtns a:last-child {
+        margin: 0;
+        margin-top: 0.5rem;
+    }
+
+    .allCardMainDiv .allCardChipDiv img {
+        margin-right: 15px;
+    }
+
+    .allCardMainDiv .allCardChipDiv p {
+        font-family: Roboto, sans-serif !important;
+        font-weight: 400;
+        font-size: 20px;
+        color: #3C3C3C;
+    }
+
+    .payment-left-card-main-div {
+        min-width: 100%;
+    }
+
+    .payment-left-card-number {
+        font-size: 20px;
+    }
+}
+
+.paymentLeftCardDiv {
+    min-width: 225px;
+}
+
+.paymentLeftCardHead {
+    color: #3C3C3C;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.saveCardDiv {
+    position: relative;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.saveCardDiv img {
+    width: 24px;
+    height: 24px;
+}
+
+.saveCardDiv div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.saveCardDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 12px;
+    color: #333333;
+    margin-left: 5px;
+}
+
+.saveCardDiv p:last-child {
+    float: right !important;
+}
+
+.savedCardCheckBox {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+}
+
+.paymentHeading {
+    display: block;
+}
+
+
+.paymentSwitch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 21px;
+}
+
+.paymentSwitch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.paymentSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s cubic-bezier(0, 1, 0.5, 1);
+    border-radius: 50px;
+}
+
+.paymentSlider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 3px;
+    bottom: 2.3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s cubic-bezier(0, 1, 0.5, 1);
+    border-radius: 50%;
+}
+
+input:checked+.paymentSlider {
+    background-color: #0E6651;
+}
+
+input:checked+.paymentSlider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+}
+
+.paymentCheckboxDiv {
+    display: flex;
+    align-items: center;
+    margin-top: 20px !important;
+}
+
+.paymentCheckboxDiv label:last-child {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.PaymentMiddleFormDiv {
+    margin-right: 58px;
+}
+
+.paymentRightCardDiv {
+    min-width: 320px;
+    background: #F5F5F5;
+    border: 1px solid #F5F5F5;
+    border-radius: 6px;
+    padding: 19px 13px;
+}
+
+.parmentRightHead {
+    font-family: Roboto, sans-serif !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    color: #202020;
+    margin-bottom: 16px;
+}
+
+.parmentRightCard {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    margin-bottom: 11px;
+}
+
+.rightCardWithBorder {
+    border-bottom: 1px solid #D1D1D1ed;
+}
+
+.parmentRightCard p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 16px;
+    color: #333333;
+}
+
+.mediumText p {
+    font-weight: 500 !important;
+}
+
+.paymentCuponCodeDiv {
+    border-top: 1px solid #D1D1D1ed;
+    padding: 10px 0;
+}
+
+.paymentCuponCodeDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333333;
+}
+
+.cuponInputAndButton {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.paymentCuponCodeDiv input {
+    background: #FFF;
+    border: 1px solid #B1B1B1;
+    border-radius: 5px;
+    height: 35px;
+    width: 68%;
+    padding: 5px 11px;
+}
+
+.paymentCuponCodeDiv input:focus {
+    outline: none;
+}
+
+.paymentCuponCodeDiv input::placeholder {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 14px;
+    color: #CACACA;
+}
+
+.paymentCuponCodeDiv a {
+    text-decoration: none;
+    background: #0E6651;
+    border: 1px solid #0E6651;
+    border-radius: 50px;
+    height: 35px !important;
+    width: 32%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFF;
+    margin-left: 5px;
+}
+
+.paymentCuponCodeDiv a:hover {
+    background: #ffF;
+    border: 1px solid #0E6651;
+    color: #0E6651;
+}
+
+@media (max-width:992px) {
+    .paymentRightCardDiv {
+        min-width: 275px;
+    }
+
+    .payment-right-card-main-div {
+        margin-left: 2rem !important;
+        margin-right: 2rem !important;
+    }
+}
+
+@media (max-width:814px) {
+    .paymentMiddleDivMain {
+        display: block;
+    }
+
+    .payment-right-card-main-div {
+        margin: 0 !important;
+        margin-top: 2rem !important;
+    }
+
+    .paymentRightCardDiv {
+        margin-top: 2rem;
+    }
+}
+
+/* Footer */
+.site-footer {
+    margin-top: 10rem !important;
+}
+
+/* .wraperDiv{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 100vh;
+}  */
+.modalWithOverlayDiv {
+    display: none;
+}
+
+.ModalMainDiv {
+    position: fixed !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    max-width: 525px;
+    text-align: center;
+}
+
+.modal-content-div {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 60px;
+    position: relative;
+}
+
+.modal-content-div h5 {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 24px;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.modal-content-div .modalWarnigImg {
+    width: 64px;
+    height: 64px;
+}
+
+.modal-content-div div a svg {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-content-div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-div div a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    height: 40px;
+    padding: 0 48px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.modal-content-div div a:first-child {
+    border: 1px solid #9D2B2B;
+    color: #9D2B2B;
+    margin-right: 12.5px;
+}
+
+.modal-content-div div a:first-child:hover {
+    border: 1px solid #9D2B2B;
+    background: #9D2B2B;
+    color: #fff;
+}
+
+.modal-content-div div a:first-child:hover svg path {
+    fill: #fff;
+}
+
+.modal-content-div div a:nth-child(2) {
+    border: 1px solid #0E6651;
+    color: #0E6651;
+    margin-left: 12.5px;
+}
+
+.modal-content-div div a:last-child:hover {
+    border: 1px solid #0E6651;
+    background: #0E6651;
+    color: #fff;
+}
+
+.modal-content-div div a:last-child:hover svg path {
+    fill: #fff;
+}
+
+.modal-overlay-div-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.modal-content-div .modal-close-btn {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.saveCardDiv .namePayment {
+    display: none;
+}
+
+.saveCardDiv .cvvNumPayment {
+    display: none;
+}
+
+.navDropMenu {
+    position: relative;
+    cursor: pointer;
+}
+
+.navDropMenuItems {
+    position: absolute;
+    display: none;
+    min-width: 225px;
+    right: 0;
+    background: #FFF;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.navDropMenu:hover .navDropMenuItems {
+    display: block;
+}
+
+.navDropDownHeader {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 12px;
+    background: #298B74;
+    padding: 15px;
+    color: #fff;
+    text-align: left;
+    margin: 0;
+    user-select: none;
+}
+
+.navDropMenuItems a {
+    text-decoration: none;
+    padding: 10px 16px;
+    text-align: left;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 15px;
+    color: #555555;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #E9E9E9;
+    margin: 0;
+}
+
+.navDropMenuItems a:hover {
+    background: rgba(13, 222, 172, 0.09);
+    cursor: pointer;
+}
+
+.navDropMenuItems a img {
+    width: 22px;
+    height: 22px;
+    margin-right: 15px;
+}
+
+.navDropDownButtomDiv {
+    padding: 8px;
+    background: #EEFFFA;
+}
+
+.navDropDownButtomDiv h6 {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+    color: #333333;
+    margin: 0;
+    margin-bottom: 4.5px;
+}
+
+.navDropDownButtomDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    color: #444444;
+    margin: 0;
+    margin-bottom: 4.5px;
+}
+
+.navDropDownButtomDiv div {
+    display: flex;
+    justify-content: center;
+}
+
+.navDropDownButtomDiv div a {
+    text-decoration: none;
+    background: #0E6651;
+    border-radius: 5px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    color: #FFF;
+    padding:5px 20px;
+}
+
+.navDropDownButtomDiv div a:hover {
+    background: #298B74;
+}
+
+.navDropMenuItemsMobile {
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+}
+
+.profileDetailsLeftDiv {
+    min-width: 290px;
+}
+
+.profileDetailsLeftDiv a {
+    text-decoration: none;
+}
+
+.profileDetailsLeftDiv a .profile-left-card-div {
+    margin-bottom: 34px;
+}
+
+.profile-left-card-div .profileLeftInnerDiv {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.profile-left-card-div {
+    background: #fff;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+    padding: 7.5px 16px;
+    cursor: pointer;
+}
+
+.profile-left-card-div .profileLeftInnerCircleDiv {
+    width: 50px;
+    height: 50px;
+    background: #FFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 50px;
+    margin-right: 25px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-left-card-div .profileLeftInnerDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+    color: #3C3C3C;
+}
+
+.profile-left-card-div .profileLeftInnerCircleDiv svg path {
+    fill: #3C3C3C;
+}
+
+.profile-left-card-div.active {
+    background: #0E6651;
+    border: 1px solid #0E6651;
+}
+
+.profile-left-card-div.active .profileLeftInnerCircleDiv {
+    background: #FFF;
+    border: 1px solid #FFF;
+
+}
+
+.profile-left-card-div.active .profileLeftInnerDiv p {
+    color: #FFF;
+}
+
+.profile-left-card-div.active .profileLeftInnerCircleDiv svg path {
+    fill: #0E6651;
+}
+
+.profile-left-card-div.active:hover {
+    background: #fff;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+}
+
+.profile-left-card-div.active:hover .profileLeftInnerCircleDiv {
+    background: #FFF;
+    border: 1px solid #DFDFDF;
+}
+
+.profile-left-card-div.active:hover .profileLeftInnerDiv p {
+    color: #3C3C3C;
+}
+
+.profile-left-card-div.active:hover .profileLeftInnerCircleDiv svg path {
+    fill: #3C3C3C;
+}
+
+.profile-left-card-div:hover {
+    background: #0E6651;
+    border: 1px solid #0E6651;
+
+}
+
+.profile-left-card-div:hover .profileLeftInnerCircleDiv {
+    background: #FFF;
+    border: 1px solid #FFF;
+}
+
+.profile-left-card-div:hover .profileLeftInnerDiv p {
+    color: #FFF;
+}
+
+.profile-left-card-div:hover .profileLeftInnerCircleDiv svg path {
+    fill: #0E6651;
+}
+
+.dashBoardRightDiv {
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+    padding: 35px;
+}
+.profile-edit-btn-main-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+.profile-detail-pp {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #0E6651;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.profile-detail-pp img {
+    width: 100%;
+    height: 100%;
+}
+
+.pro-details-name {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 18px;
+    color: #0E6651;
+    margin: 0;
+    margin-top: 15px;
+}
+
+.profile-all-details-mainDiv {
+    display: flex;
+    margin-top: 35px;
+    flex-wrap: wrap;
+}
+
+.profile-all-details-mainDiv .profile-all-details {
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+.profile-all-details-mainDiv .profile-all-details:nth-child(even) {
+    width: 50%;
+    margin-bottom: 30px;
+    padding-left: 35px;
+}
+
+@media (max-width:1071px) {
+
+    .profile-all-details-mainDiv .profile-all-details:nth-child(even) {
+        padding-left: 15px;
+    }
+}
+
+
+@media (max-width:576px) {
+
+    .profile-all-details-mainDiv {
+        display: block;
+        margin-top: 35px;
+    }
+
+    .profile-all-details-mainDiv .profile-all-details {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .profile-all-details-mainDiv .profile-all-details:nth-child(even) {
+        width: 100%;
+        margin-bottom: 30px;
+        padding-left: 0;
+    }
+
+    .dashBoardRightDiv {
+        padding: 15px;
+    }
+
+    .bottomYourCompanyLogo .companyLogoDiv {
+        max-width: 300px;
+    }
+}
+
+@media (min-width:815px) and (max-width:932px) {
+    .profile-all-details-mainDiv {
+        display: block;
+        margin-top: 35px;
+    }
+
+    .profile-all-details-mainDiv .profile-all-details {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .profile-all-details-mainDiv .profile-all-details:nth-child(even) {
+        width: 100%;
+        margin-bottom: 30px;
+        padding-left: 0;
+    }
+
+    .dashBoardRightDiv {
+        padding: 15px;
+    }
+
+    .bottomYourCompanyLogo .companyLogoDiv {
+        max-width: 300px;
+    }
+}
+
+.profile-each-details {
+    display: flex;
+    align-items: center;
+}
+
+.profile-each-details img {
+    width: 32px;
+    height: 32px;
+}
+
+.profile-each-details div {
+    margin-left: 10px;
+}
+
+.profile-each-details h6 {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 14px;
+    color: #3C3C3C;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-each-details p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 18px;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.bottomYourCompanyLogo {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.bottomYourCompanyLogo h6 {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 24px;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.bottomYourCompanyLogo .companyLogoDiv {
+    min-width: 385px;
+    padding: 14px;
+    border: 1px solid #0E6651;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.bottomYourCompanyLogo img {
+    width: auto!important;
+}
+
+@media (max-width:576px) {
+    .bottomYourCompanyLogo .companyLogoDiv {
+        min-width: 0;
+        max-width: 385px;
+    }
+
+    .profileDetailsLeftDiv {
+        min-width: 0;
+        max-width: auto;
+    }
+}
+
+.current-plan-main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.current-plan-main-div img {
+    width: 60px;
+    height: 60px;
+}
+
+.current-plan-main-div div h6 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 22px;
+    color: #333333;
+}
+
+.current-plan-main-div div p {
+    margin-top: 10px;
+    margin-bottom: 35px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 36px;
+    color: #EB001B;
+}
+
+.current-plan-main-div div p span {
+    margin-top: 10px;
+    margin-bottom: 35px;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 18px;
+    color: #333333;
+}
+
+.plan-upgrad-button {
+    text-decoration: none;
+    border: 1.5px solid #0E6651;
+    border-radius: 50px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 18px;
+    color: #0E6651;
+    padding: 12px 160px;
+    display: block;
+}
+
+.plan-upgrad-button:hover {
+    text-decoration: none;
+    border: 1.5px solid #0E6651;
+    background: #0E6651;
+    color: #fff;
+}
+
+@media (max-width:576px) {
+    .plan-upgrad-button {
+        padding: 12px 60px;
+
+    }
+}
+
+
+/* Payment history table area start */
+.paymentHistoryRightDiv {
+    background: #FFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+}
+
+
+
+.rwd-table {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+    border-top: none;
+    background: #3C3C3C;
+    color: #fff;
+}
+
+.rwd-table tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.rwd-table tr:last-child {
+    border-bottom: none;
+}
+
+.rwd-table tr td:last-child img {
+    width: 28px;
+    height: 28px;
+}
+
+.rwd-table th {
+    display: none;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFF;
+}
+
+.rwd-table td {
+    display: block;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.rwd-table td:first-child {
+    margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+    margin-bottom: .5em;
+}
+.rwd-table td:last-child a{
+    vertical-align: middle;
+}
+
+.rwd-table td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 128px;
+    display: inline-block;
+    color: #333333;
+}
+
+.rwd-table th,
+.rwd-table td {
+    text-align: left;
+}
+
+.rwd-table {
+    color: #333;
+    border-radius: .4em;
+    overflow: hidden;
+}
+
+.rwd-table tr {
+    border-color: #DFDFDF;
+}
+
+.rwd-table th,
+.rwd-table td {
+    padding: .5em 1em;
+}
+
+@media screen and (max-width: 601px) {
+    .rwd-table tr:nth-child(2) {
+        border-top: none;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .rwd-table tr:hover:not(:first-child) {
+        background-color: #EEFFFA;
+    }
+
+    .rwd-table td:before {
+        display: none;
+    }
+
+    .rwd-table th,
+    .rwd-table td {
+        display: table-cell;
+        padding: .25em .5em;
+    }
+
+    .rwd-table th:first-child,
+    .rwd-table td:first-child {
+        padding-left: 0;
+    }
+
+    .rwd-table th:last-child,
+    .rwd-table td:last-child {
+        padding-right: 0;
+    }
+
+    .rwd-table th,
+    .rwd-table td {
+        padding: 1em !important;
+    }
+}
+
+/* Payment history table area end */
+.editProHeadingBack{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.editProfile {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+.editProfileInnerDiv {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 50px 84.5px;
+}
+.editProbackBtn{
+    margin-top:20px!important;
+}
+@media (max-width:520px) {
+
+    .editProfile {
+        border: none;
+    }
+
+    .editProfile .authImg {
+        display: none;
+    }
+}
+
+.editProfileDpMainDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.editProfileDp {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    padding: 0;
+}
+
+.profile-imgDiv {
+    position: relative;
+    border: 1px solid #0E6651;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.profile-imgDiv img {
+    width: 100%;
+    height: 100%;
+}
+
+.editProfileIcon {
+    Width: 32px;
+    Height: 32px;
+    position: absolute;
+    background: #FFF;
+    border: 1px solid #0E6651;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.editProfileIcon img {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.edit-profile-inputs-div {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.edit-profile-inputs-div .editProfileInpuDiv {
+    padding-right: 25px;
+}
+
+.edit-profile-inputs-div .editProfileInpuDiv:nth-child(even) {
+    padding-left: 25px;
+}
+
+.editProfileInpuDiv {
+    margin-bottom: 30px;
+    width: 50%;
+}
+
+.businessLogoUploadDiv {
+    position: relative;
+    width: 100%;
+    border: 1px solid #298B74;
+    border-radius: 25px;
+    padding: 42px;
+    margin-top: 25px;
+}
+
+.businessLogoUploadDiv .businessLogoLabel {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    color: #0E6651;
+    position: absolute;
+    top: -15px;
+    left: 30px;
+    background: #fff;
+    padding: 2px;
+}
+
+.businessLogoInnerDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.businessLogoImageDiv {
+    width: 381px;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 50px;
+    overflow: hidden;
+}
+
+.businessLogoImageDiv img {
+    width: auto!important;
+}
+
+.logoNoticePara {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 400;
+    font-size: 11px;
+    color: #808487;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.businesslogoUploadImgDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.businesslogoUploadImgDiv img {
+    width: 82px;
+    height: 76px;
+    cursor: pointer;
+}
+
+.businesslogoUploadImgDiv p {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    color: #444444;
+    text-align: center;
+}
+
+@media (max-width:768px) {
+    .edit-profile-inputs-div {
+        display: block;
+        flex-wrap: unset;
+    }
+
+    .edit-profile-inputs-div .editProfileInpuDiv {
+        padding-right: 0;
+    }
+
+    .edit-profile-inputs-div .editProfileInpuDiv:nth-child(even) {
+        padding-left: 0;
+    }
+
+    .editProfileInpuDiv {
+        width: 100%;
+    }
+
+    .businessLogoImageDiv {
+        width: 100%;
+    }
+
+    .businessLogoImageDiv {
+        padding: 15px;
+    }
+    .editProHeadingBack{
+        display: block;
+    }
+}
+
+@media (max-width:478px) {
+    .editProfileInnerDiv {
+        padding: 50px 2rem;
+        border: none;
+    }
+
+    .editProfileInnerDiv {
+        padding: 0;
+    }
+    .editProHeadingBack .backButton{
+        margin-bottom: 2rem;
+    }
+}
+
+.changePasswordInputDiv {
+    margin-bottom: 30px;
+}
+
+.change-password-inner-div button {
+    margin-top: 0 !important;
+}
+
+.change-password-main-div {
+    display: flex;
+    justify-content: center;
+}
+
+.change-password-inner-div {
+    min-width: 420px;
+
+}
+
+@media (max-width:478px) {
+    .change-password-inner-div {
+        min-width: 100%;
+
+    }
+}
+
+.thankYouMainDiv{
+    text-align: center;
+ }
+.thankYouImage{
+    width: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.thankyouHeading {
+    font-family: Roboto, sans-serif !important;
+    font-weight: 700;
+    font-size: 36px;    
+    color: #0E6651;
+    position: relative;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.thankyouHeading::before {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #0E6651;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 5px);
+    position: absolute;
+}
+
+.thankyouHeading span {
+    color: #0E6651;
+}
+.thankYouBottomPara1{    
+font-family: Roboto, sans-serif !important;
+font-weight: 400;
+font-size: 16px;
+text-align: center;
+color: #555555;
+margin-bottom: 10px;
+}
+.thankYouBottomPara1 span{    
+    color: #298B74;
+    font-weight: 500;
+    }
+
+    .thankYouBottomPara2{    
+        font-family: Roboto, sans-serif !important;
+        font-weight: 400;
+        font-size: 16px;
+        text-align: center;
+        color: #555555;
+        }
+        .thankYouBottomPara2 a{
+            text-decoration: none;
+        }
+        .thankYouBottomPara2 a span{    
+            color: #298B74;
+            }
+            .thankYouBottomPara2 a:hover span{    
+                color: #0c725a;
+                }
+/* 
+.editProfileInpuDiv {
+    position: relative;
+    margin-top: 15px;
+    height: 45px;
+}
+
+.editProfileInpuDiv input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #DFDFDF;
+    border-radius: 50px;
+    padding: 0 30px;
+}
+
+.editProfileInpuDiv input:focus,
+.editProfileInpuDiv input:valid {
+    border: 1px solid #298B74 !important;
+    outline: none;
+}
+
+.editProfileInpuDiv label {
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    padding: 0 2px;
+    margin-left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #CACACA;
+    font-weight: 400;
+    font-size: 14px;
+    transition: all 125ms;
+    pointer-events: none;
+}
+
+.editProfileInpuDiv input:focus + label,
+.editProfileInpuDiv input:valid + label{
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    padding: 0 2px;
+    margin-left: 30px;
+    top: 0%;
+    transform: translateY(-50%);
+    color: #0E6651;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 125ms;
+} */

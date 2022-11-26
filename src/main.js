@@ -6,6 +6,7 @@ import helpers from './helpers'
 
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
+import './assets/css/user/style.css';
 import "./assets/css/custom.css";
 import "./assets/css/dark-green.css";
 import "./assets/css/light-blue.css";
