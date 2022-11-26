@@ -12,6 +12,10 @@
   <!-- Report Buider Name Change Modal start -->
   <report-builder-name-change-modal />
   <!-- Share report Modal start -->
+  <create-report-modal />
+
+  <create-new-client-report-modal />
+  
   <share-modal />
   </div>
 </template>
@@ -24,6 +28,8 @@ import ShareModal from "../components/modal/ShareModal.vue";
 import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import ReportPageHeader from "../components/common/ReportPageHeader.vue";
+import CreateReportModal from "./../components/modal/CreateReportModal.vue";
+import CreateNewClientReportModal from "./../components/modal/CreateNewClientReportModal.vue";
 import "../../assets/js/chart.min";
 export default {
   components: {
@@ -35,7 +41,10 @@ export default {
     ReportBuilderMainSection,
     NavbarComponent,
     ReportPageHeader,
+    CreateReportModal,
+    CreateNewClientReportModal,
   },
+
 };
 </script>
 

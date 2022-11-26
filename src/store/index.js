@@ -52,13 +52,25 @@ const store = createStore({
             show_assets1: false,
             show_assets2: false,
             full_screen: false,
-            current_theme: localStorage.getItem("mode") || 'light-green'
+            current_theme: localStorage.getItem("mode") || 'light-green',
         },
+        modal: {
+            create_report_modal:false,
+            create_new_client_report_modal:false,
+        }
     },
     getters: {
         checkActiveTab: (state) => (id) => {
             return state.data.reportTabs.active[id];
         },
+
+        checkActiveModal: (state) => (modal) => {
+            if(state.modal[modal]){
+                state.modal[modal] = false;
+                return true; 
+            }
+            return false
+        }
     },
     mutations: {
         setActiveReportTab(state, payload) {
@@ -96,6 +108,9 @@ const store = createStore({
         },
         setPresentationMode(state, status) {
             state.app.presentation_mode = status;
+        },
+        setModalView(state, modal) {
+            state.modal[modal] = true;
         }
     },
     actions: {
@@ -124,6 +139,9 @@ const store = createStore({
                 document.body.classList.remove('presentationModeCommon');
             }
             context.commit("setPresentationMode", payload);
+        }, 
+        modal(context, payload) {
+            context.commit('setModalView', payload);
         }
     }
 })

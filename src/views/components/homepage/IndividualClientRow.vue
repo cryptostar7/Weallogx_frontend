@@ -39,7 +39,7 @@
                             fill="black" />
                         </svg>
                     </button>
-                    <router-link to="/report-builder" class="nav-link p-0 plus-sign">+</router-link>
+                    <router-link to="/report-builder" class="nav-link p-0 plus-sign" @click="() => $store.dispatch('modal', 'create_report_modal')">+</router-link>
                 </div>
                 <div class="dropdown three-dots-dropdown">
                     <button class="btn dropdown-toggle no-after three-dots-btn" data-bs-toggle="dropdown"

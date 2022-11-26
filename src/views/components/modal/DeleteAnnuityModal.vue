@@ -1,5 +1,5 @@
 <template lang="">
-      <div class="modal fade common-modal" id="deleteAnnuityModal" tabindex="-1" aria-labelledby="deleteAnnuityModalLabel"
+  <div class="modal fade common-modal" id="deleteAnnuityModal" tabindex="-1" aria-labelledby="deleteAnnuityModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

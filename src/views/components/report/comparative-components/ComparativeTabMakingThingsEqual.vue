@@ -126,7 +126,7 @@
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2 " id="button-2">
                                       <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1"
-                                        checked v-model="graphs.distributions.longevity" />
+                                        :checked="graphs.distributions.longevity" v-model="graphs.distributions.longevity" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -295,7 +295,7 @@
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2 " id="button-2">
                                       <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1"
-                                        checked v-model="graphs.rate_of_returns.longevity" />
+                                        :checked="graphs.rate_of_returns.longevity" v-model="graphs.rate_of_returns.longevity" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -328,7 +328,7 @@
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2" id="button-2">
                                       <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"
-                                        checked v-model="graphs.rate_of_returns.ending_value"/>
+                                        :checked="graphs.rate_of_returns.ending_value" v-model="graphs.rate_of_returns.ending_value"/>
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -360,7 +360,7 @@
                                 <div class="d-flex">
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" checked v-model="graphs.rate_of_returns.death_benifit" />
+                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" :checked="graphs.rate_of_returns.death_benifit" v-model="graphs.rate_of_returns.death_benifit" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -498,11 +498,18 @@ export default {
         this.$store.state.app.show_assets1
       ) {
         this.cards.distributions.forEach(element => {
-          element.active = false;
+          element.active = false;          
         });
         this.cards.rate_of_returns.forEach(element => {
           element.active = false;
         });
+          this.graphs.distributions.longevity = false;
+          this.graphs.distributions.ending_value = false;
+          this.graphs.distributions.death_benifit = false;
+
+          this.graphs.rate_of_returns.longevity = false;
+          this.graphs.rate_of_returns.ending_value = false;
+          this.graphs.rate_of_returns.death_benifit = false;
       } else {
         this.cards.distributions.forEach(element => {
           element.active = true;
@@ -510,6 +517,13 @@ export default {
         this.cards.rate_of_returns.forEach(element => {
           element.active = true;
         });
+
+        this.graphs.distributions.longevity = true;
+        this.graphs.distributions.ending_value = true;
+        this.graphs.distributions.death_benifit = true;
+        this.graphs.rate_of_returns.longevity = true;
+        this.graphs.rate_of_returns.ending_value = true;
+        this.graphs.rate_of_returns.death_benifit = true;
       }
     },
   },

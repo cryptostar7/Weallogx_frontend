@@ -6,7 +6,6 @@
                     role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true">Fixed Value</div>
                 <div class="" id="nav-schedule-tab" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab"
                     :aria-controls="`nav-schedule${currentTab}`" aria-selected="false">Schedule</div>
-
             </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
