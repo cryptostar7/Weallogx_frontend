@@ -1,1 +1,0 @@
-import"./axios.91e25212.js";import{_ as o,o as n,c as s,a}from"./index.8356ea38.js";const r={name:"App",methods:{updateTheme:function(){this.$store.dispatch("theme","light-green")}}};function c(p,e,i,m,d,t){return n(),s("div",null,[a("h3",{onClick:e[0]||(e[0]=u=>t.updateTheme())},"Submit")])}const h=o(r,[["render",c]]);export{h as default};

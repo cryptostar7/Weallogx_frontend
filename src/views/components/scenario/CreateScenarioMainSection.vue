@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import { putPercentage, putYears } from '../../../services/put-percentage';
+import { putPercentage, putYears } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 </script>
 <template>
@@ -113,10 +113,18 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       ># Years to Illustrate</label
                     >
                     <div class="year-input-div">
-                      <input
+                      <!-- <input
                         type="text"
                         id="illustratedAge"
                         v-model="illustrateYear"
+                        class="form-control year-input"
+                        @keyup="setYears"
+                      />
+                       -->
+
+                      <input
+                        type="text"
+                        id="illustratedAge"
                         class="form-control year-input"
                         @keyup="setYears"
                       />
@@ -389,46 +397,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
   </section>
 </template>
 <script>
-export default {
-  components: { RouterLink, SelectDropdown },
-  data() {
-    return {
-      clients: [
-        "Alberta, Carter",
-        "Arnold, Krista",
-        "Bryant, Roger",
-        "Campbell, Willie",
-        "Harrison, Maryann",
-        "Peterson, Kristine",
-        "Tucker, Delores ",
-        "Young, Marjorie",
-        "Zebra, Shelly",
-      ],
-      existingScenarioList: [
-        "Scenario 1",
-        "Scenario 2",
-        "Scenario 3",
-        "Scenario 4",
-        "Scenario 5",
-      ],
-      existingScheduleList: [
-        "Schedule 1",
-        "Schedule 2",
-        "Schedule 3",
-        "Schedule 4",
-        "Schedule 5",
-      ],
-      saveTemplate:false,
-      illustrateYear:'',
-      firstTaxRate:'',
-    };
-  },
-  updated(){
-    putPercentage();
-  },
-  mounted() {
-    putPercentage();
-    putYears();
-  },
-};
+import { RouterLink } from "vue-router";
+import { putPercentage, putYears } from "../../../services/put-percentage";
+import SelectDropdown from "../common/SelectDropdown.vue";
 </script>
