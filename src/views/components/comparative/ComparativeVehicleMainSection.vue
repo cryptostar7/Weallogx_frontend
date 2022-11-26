@@ -43,10 +43,7 @@
                 </h2>
               </div>
             </div>
-            <h2 class="fs-34 bold-fw main-tab-heading me-2">
-            {{vehicle.test}}
-            </h2>
-            <!-- <div class="form-wrapper side-grey-line">
+            <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner no-style newScenarioVehicleInner">
                 <h4 class="form-subheading fs-22 fw-bold">
                   Comparative Vehicles
@@ -825,7 +822,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row d-flex justify-content-center">
+              <!-- <div class="row d-flex justify-content-center">
                 <div class="col-md-9">
                   <div class="bottom-buttons-main-div">
                     <div class="text-center mt-30">
@@ -914,8 +911,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div> -->
+              </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -947,7 +944,6 @@ export default {
           isSaved: false,
         },
         tab: false,
-        test:'Vehicle',
       },
       tabs: {
         vehicle1: false,
