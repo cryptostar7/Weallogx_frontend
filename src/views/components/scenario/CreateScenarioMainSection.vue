@@ -8,24 +8,16 @@ import SelectDropdown from "../common/SelectDropdown.vue";
     <div class="reviewProgressMainDiv py-5">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="active">
-          <router-link to="/create-new-scenario" class="nav-link p-0"
-            >Scenario Details</router-link
-          >
+          <router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link>
         </li>
         <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Illustration Data</a
-          >
+          <a href="javascript:void(0)" class="nav-link p-0">Illustration Data</a>
         </li>
         <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Comparative Vehicles</a
-          >
+          <a href="javascript:void(0)" class="nav-link p-0">Comparative Vehicles</a>
         </li>
         <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Historical Simulations</a
-          >
+          <a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a>
         </li>
       </ul>
       <router-link to="/">

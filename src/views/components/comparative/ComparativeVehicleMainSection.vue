@@ -59,7 +59,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                 />
                 <div
                   :class="`comparative-vehicle-tab-wrapper ${
-                    this.vehicle.tab ? '' : 'noVehicleTyupeSelectPadd'
+                    vehicle.tab ? '' : 'noVehicleTyupeSelectPadd'
                   } mb-3`"
                   id="noVehicleTyupeSelectPadd"
                 >
@@ -278,7 +278,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             "
                             :style="{
                               'pointer-events':
-                                this.vehicle.vehicle1.type === 'Taxable'
+                                vehicle.vehicle1.type === 'Taxable'
                                   ? 'unset'
                                   : 'none',
                             }"
@@ -288,8 +288,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               type="checkbox"
                               role="switch"
                               id="capitalGainTax1"
-                              :checked="
-                                this.vehicle.vehicle1.type === 'Taxable'
+                              :checked="vehicle.vehicle1.type === 'Taxable'
                                   ? false
                                   : true
                               "
@@ -299,7 +298,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               for="capitalGainTax1"
                               id="capitalGainLabel1"
                               >{{
-                                this.vehicle.vehicle1.type === "Taxable"
+                                vehicle.vehicle1.type === "Taxable"
                                   ? "Capital Gains Tax"
                                   : "Pre Age 59 ½ Penalty"
                               }}</label
@@ -307,7 +306,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           </div>
                           <div
                             :class="`form-group-wrapper ${
-                              this.vehicle.vehicle1.type
+                              vehicle.vehicle1.type
                                 ? 'capitalDisplayNone'
                                 : ''
                             } pt-2`"
@@ -407,7 +406,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       <!-- vehicle type 2 taxable area start here-->
                       <div
                         :class="`${
-                          this.vehicle.vehicle2.type ? '' : 'vehicleaTypeArea'
+                          vehicle.vehicle2.type ? '' : 'vehicleaTypeArea'
                         }`"
                         id="taxableArea2"
                       >
@@ -497,7 +496,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             "
                             :style="{
                               'pointer-events':
-                                this.vehicle.vehicle2.type === 'Taxable'
+                                vehicle.vehicle2.type === 'Taxable'
                                   ? 'unset'
                                   : 'none',
                             }"
@@ -508,7 +507,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               role="switch"
                               id="capitalGainTax2"
                               :checked="
-                                this.vehicle.vehicle2.type === 'Taxable'
+                                vehicle.vehicle2.type === 'Taxable'
                                   ? false
                                   : true
                               "
@@ -518,7 +517,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               for="capitalGainTax2"
                               id="capitalGainLabel2"
                               >{{
-                                this.vehicle.vehicle2.type === "Taxable"
+                                vehicle.vehicle2.type === "Taxable"
                                   ? "Capital Gains Tax"
                                   : "Pre Age 59 ½ Penalty"
                               }}</label
@@ -526,7 +525,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           </div>
                           <div
                             :class="`form-group-wrapper ${
-                              this.vehicle.vehicle2.type
+                              vehicle.vehicle2.type
                                 ? 'capitalDisplayNone'
                                 : ''
                             } pt-2`"
@@ -626,7 +625,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       <!-- vehicle type 3 taxable area start here-->
                       <div
                         :class="`${
-                          this.vehicle.vehicle3.type ? '' : 'vehicleaTypeArea'
+                          vehicle.vehicle3.type ? '' : 'vehicleaTypeArea'
                         } mt-4`"
                         id="taxableArea3"
                       >
@@ -716,7 +715,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             "
                             :style="{
                               'pointer-events':
-                                this.vehicle.vehicle3.type === 'Taxable'
+                                vehicle.vehicle3.type === 'Taxable'
                                   ? 'unset'
                                   : 'none',
                             }"
@@ -727,7 +726,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               role="switch"
                               id="capitalGainTax3"
                               :checked="
-                                this.vehicle.vehicle3.type === 'Taxable'
+                                vehicle.vehicle3.type === 'Taxable'
                                   ? false
                                   : true
                               "
@@ -737,7 +736,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                               for="capitalGainTax3"
                               id="capitalGainLabel3"
                               >{{
-                                this.vehicle.vehicle3.type === "Taxable"
+                                vehicle.vehicle3.type === "Taxable"
                                   ? "Capital Gains Tax"
                                   : "Pre Age 59 ½ Penalty"
                               }}</label
@@ -745,7 +744,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                           </div>
                           <div
                             :class="`form-group-wrapper ${
-                              this.vehicle.vehicle3.type
+                              vehicle.vehicle3.type
                                 ? 'capitalDisplayNone'
                                 : ''
                             } pt-2`"
