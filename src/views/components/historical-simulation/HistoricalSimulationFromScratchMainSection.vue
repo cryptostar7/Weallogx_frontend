@@ -70,7 +70,7 @@
                         <label
                           for="tab1"
                           :class="`eachRadioBtnBgDiv ${
-                            activeTab === 1 && 'active'
+                            activeTab === 1 ? 'active':''
                           }`"
                           id="historicalTopCheckBoxDiv1"
                         >
@@ -97,7 +97,7 @@
                         <label
                           for="tab2"
                           :class="`eachRadioBtnBgDiv ${
-                            activeTab === 2 && 'active'
+                            activeTab === 2 ? 'active' : ''
                           }`"
                           id="historicalTopCheckBoxDiv2"
                         >
@@ -149,7 +149,7 @@
                     </div>
                     <!-- tab 1 start -->
                     <div
-                      :class="`commonAllDivs ${activeTab !== 1 && 'd-none'}`"
+                      :class="`commonAllDivs ${activeTab !== 1 ? 'd-none': ''}`"
                     >
                       <div class="historicalYesDivCommon mt-4">
                         <p class="indexStrategyPara">Index Strategy #1</p>
@@ -163,7 +163,7 @@
                             >
                               <form action="javascript:void(0)">
                                 <SelectDropdown
-                                  :list="dropdown.historyIndex ?? []"
+                                  :list="dropdown.historyIndex"
                                   label="Use Existing Index Strategy"
                                   id="existingComparativeVehiclePortfolio"
                                   class="form-group less pt-3"
@@ -182,7 +182,7 @@
                     </div>
                     <!-- tab 1 end -->
                     <div
-                      :class="`commonAllDivs ${activeTab !== 2 && 'd-none'}`"
+                      :class="`commonAllDivs ${activeTab !== 2 ? 'd-none' : ''}`"
                     >
                     <stretagy-weight-first-component />
                       
@@ -198,7 +198,7 @@
                             >
                               <form action="javascript:void(0)">
                                 <SelectDropdown
-                                  :list="dropdown.historyIndex2 ?? []"
+                                  :list="dropdown.historyIndex2"
                                   label="Choose Existing Index Strategy Allocation"
                                   id="existingComparativeVehiclePortfolioTab2"
                                   class="form-group less pt-3"
@@ -253,7 +253,7 @@
 
                     <!-- tab 2 end -->
                     <div
-                      :class="`commonAllDivs ${activeTab !== 3 && 'd-none'}`"
+                      :class="`commonAllDivs ${activeTab !== 3 ? 'd-none': ''}`"
                     >
                     <stretagy-weight-second-component />
                       <div class="historicalYesDivCommon margin-top-3">
@@ -268,7 +268,7 @@
                             >
                               <form action="javascript:void(0)">
                                 <SelectDropdown
-                                  :list="dropdown.historyIndex3 ?? []"
+                                  :list="dropdown.historyIndex3"
                                   label="Choose Existing Index Strategy Allocation"
                                   id="existingComparativeVehiclePortfolioTab3"
                                   class="form-group less pt-3"

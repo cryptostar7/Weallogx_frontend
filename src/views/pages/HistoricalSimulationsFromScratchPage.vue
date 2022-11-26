@@ -1,7 +1,3 @@
-<script setup>
-import NavbarComponent from "../components/common/NavbarComponent.vue";
-import HistoricalSimulationFromScratchMainSection from '../components/historical-simulation/HistoricalSimulationFromScratchMainSection.vue';
-</script>
 <template>
 <div>
   <navbar-component />
@@ -9,6 +5,8 @@ import HistoricalSimulationFromScratchMainSection from '../components/historical
   </div>
 </template>
 <script>
+import NavbarComponent from "../components/common/NavbarComponent.vue";
+import HistoricalSimulationFromScratchMainSection from '../components/historical-simulation/HistoricalSimulationFromScratchMainSection.vue';
 export default {
   components: { NavbarComponent, HistoricalSimulationFromScratchMainSection },
 };
