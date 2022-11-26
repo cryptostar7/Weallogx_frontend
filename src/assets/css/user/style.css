@@ -2315,8 +2315,8 @@ input:checked+.paymentSlider:before {
 }
 
 .editProfileIcon {
-    Width: 32px;
-    Height: 32px;
+    width: 32px;
+    height: 32px;
     position: absolute;
     background: #FFF;
     border: 1px solid #0E6651;

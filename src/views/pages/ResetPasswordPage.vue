@@ -19,7 +19,7 @@
                     <div class="authButtonDiv">
                         <router-link to="/sign-in" class="btn" type="submit">Submit</router-link>
                     </div>
-                    <router-link to="/forgot-password" class="backButton"><img src="images/back-chev.svg" alt="">&nbsp; <span>Back</span></router-link>
+                    <router-link to="/forgot-password" class="backButton"><img src="@/assets/images/user/back-chev.svg" alt="">&nbsp; <span>Back</span></router-link>
                     </form>
                 </div>
                 </div>
