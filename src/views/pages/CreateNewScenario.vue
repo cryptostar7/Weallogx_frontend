@@ -1,7 +1,3 @@
-<script setup>
-import NavbarComponent from '../components/common/NavbarComponent.vue'
-import CreateScenarioMainSection from '../components/scenario/CreateScenarioMainSection.vue'
-</script>
 <template>
 <div>
   <navbar-component />
@@ -9,6 +5,8 @@ import CreateScenarioMainSection from '../components/scenario/CreateScenarioMain
 </div>
 </template>
 <script>
+import NavbarComponent from '../components/common/NavbarComponent.vue'
+import CreateScenarioMainSection from '../components/scenario/CreateScenarioMainSection.vue'
 export default {
   components: { CreateScenarioMainSection, NavbarComponent },
 }

@@ -1,8 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-import { putPercentage, putYears } from '../../../services/put-percentage';
-import SelectDropdown from "../common/SelectDropdown.vue";
-</script>
 <template>
   <section class="main-section">
     <div class="reviewProgressMainDiv py-5">
@@ -381,8 +376,10 @@ import SelectDropdown from "../common/SelectDropdown.vue";
   </section>
 </template>
 <script>
+import { putPercentage, putYears } from "../../../services/put-percentage";
+import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { RouterLink, SelectDropdown },
+  components: { SelectDropdown },
   data() {
     return {
       clients: [
@@ -410,12 +407,12 @@ export default {
         "Schedule 4",
         "Schedule 5",
       ],
-      saveTemplate:false,
-      illustrateYear:'',
-      firstTaxRate:'',
+      saveTemplate: false,
+      illustrateYear: "",
+      firstTaxRate: "",
     };
   },
-  updated(){
+  updated() {
     putPercentage();
   },
   mounted() {

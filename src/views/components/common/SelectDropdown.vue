@@ -62,7 +62,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$props.optional);
     this.selectList = this.$props.list;
     document.addEventListener("click", this.closeDropdown);
   },
