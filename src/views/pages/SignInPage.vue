@@ -1,5 +1,6 @@
 <template lang="">
     <div>
+        <navbar-component />
         <section class="authMaindiv-area">
             <div class="container middleContainer">
             <div class="authMainDiv">
@@ -32,12 +33,15 @@
             </div>
             </div>
         </section>
+        <fotter-component />
     </div>
 </template>
 <script>
+import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
+import FotterComponent from "./../components/common/UserFooterComponent.vue";
 export default {
-    
-}
+   components:{NavbarComponent, FotterComponent}
+};
 </script>
 <style lang="">
     
