@@ -164,6 +164,8 @@
     </div>
 </template>
 <script>
+import "./../../../assets/css/user/style.css"
+import "./../../../assets/css/user/external.css"
 export default {};
 </script>
 <style lang="">

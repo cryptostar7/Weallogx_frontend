@@ -35,9 +35,6 @@
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
-import "./../../../assets/css/user/style.css"
-import "./../../../assets/css/user/external.css"
-
 export default {
   components : {ThemeDropdown},
 };
