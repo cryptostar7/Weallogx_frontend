@@ -121,6 +121,22 @@
                                       stroke="#1660A4" stroke-width="1.25" />
                                   </svg>
                                 </a>
+                                 
+  <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
+      height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_1862_4)">
+        <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="clip0_1862_4">
+          <rect width="12.5" height="11.7" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  </a>
                               </div>
                             </div>
                           </div>
@@ -156,8 +172,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="(item, index) in table.data[0].catogories[tsa_type].list" :key="index">
-                                <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions)}}</td>
-                                <td data-label="acount">{{$numFormatWithDollar(item.account_value)}}</td>
+                                <td  data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions)" readonly/></td>
+                                <td class="blankTd" data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td>
                             </tr>
                         </tbody>
                       </table>
@@ -208,6 +224,21 @@
                                               stroke="#1660A4" stroke-width="1.25" />
                                           </svg>
                                         </a>
+                                          <a href="javascript:void(0)" class=" d-none editBtnAccount doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
+      height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_1862_4)">
+        <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="clip0_1862_4">
+          <rect width="12.5" height="11.7" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  </a>
                                         <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
                                           data-bs-toggle="modal" class="deleteBtnAccount deleteBtn disableBtnsForAll">&nbsp;<svg
                                             width="12" height="13" viewBox="0 0 12 13" fill="none"
@@ -254,8 +285,8 @@
                                 </thead>
                                 <tbody>
                                   <tr v-for="(item, index) in table.data[header.id].list" :key="index">
-                                    <td class="blankTd" data-label="blank">{{$numFormatWithDollar(item.distributions)}}</td>
-                                    <td data-label="acount">{{$numFormatWithDollar(item.account_value)}}</td>
+                                    <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions)" readonly/></td>
+                                    <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -285,7 +316,7 @@
                     <tr>
                       <td class="table1Td" data-label="Year" style="border:none">Totals
                       </td>
-                      <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                      <td class="table1Td" data-label="Age"><input type="text" :value="$numFormatWithDollar(summary_data.deposits.totals)" readonly/></td>
                     </tr>
                     <tr>
                       <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value
@@ -311,16 +342,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total)}}</td>
-                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total)}}</td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total_value)}}</td>
-                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.total_value)}}</td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total_value)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total_value)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.shortfall)}}</td>
-                                <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)}}</td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.shortfall)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)" readonly/></td>
                                 </tr>
                             </tbody>
                             </table>
@@ -338,16 +369,16 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
-                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total)}}</td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)" readonly/>{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total)}}</td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.total_value)}}</td>
-                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value)}}</td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total_value)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value)" readonly/></td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall)}}</td>
-                                            <td width="50%" class="blankTd" data-label="blank">{{$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall)}}</td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall)" readonly/></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -648,11 +679,11 @@ export default {
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets2
       ) {
-        this.draggableColumns.forEach(element => {
+        this.draggableColumns.forEach((element) => {
           element.active = false;
         });
       } else {
-        this.draggableColumns.forEach(element => {
+        this.draggableColumns.forEach((element) => {
           element.active = true;
         });
       }

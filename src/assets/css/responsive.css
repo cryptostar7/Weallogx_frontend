@@ -208,3 +208,8 @@
         font-size: 16px;
     }
 }
+@media (max-width:1399px) {
+    .reportTablesDiv .table td input{
+    font-size: 10px;
+    }
+    }
