@@ -20,6 +20,11 @@ const router = createRouter({
       component: () => import("../views/pages/DemoView1.vue"),
     },
     {
+      path: "/stripe-source",
+      name: "stripe-source",
+      component: () => import("../views/pages/StripeSourceView.vue"),
+    },
+    {
       path: "/individual-client/:id",
       name: "individual client",
       component: () => import("../views/pages/IndividualClientPage.vue"),
