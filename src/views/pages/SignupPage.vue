@@ -1,62 +1,222 @@
 <template lang="">
-<div>
-  <navbar-component />
-<section class="authMaindiv-area">
-  <div class="container middleContainer">
-    <div class="authMainDiv">
-      <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
-      <div class="authformRightPart">
-        <div class="authInnerDiv">
-          <h1 class="headingArea">Sign up for <span>Account</span></h1>
-          <form action="#">
-            <div class="d-flex flex-gap-10">
-              <div class="auth-form">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName">
+  <div>
+    <navbar-component />
+    <section class="authMaindiv-area">
+      <div class="container middleContainer">
+        <div class="authMainDiv">
+          <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
+          <div class="authformRightPart">
+            <div class="authInnerDiv">
+              <h1 class="headingArea">Sign up for <span>Account</span></h1>
+              <p v-if="server.message" :class="`text-center alert alert-${server.status ? 'success':'danger'}`">{{server.message}}</p>
+              <div class="d-flex flex-gap-10">
+                <div>
+                  <div class="auth-form">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" v-model="user.firstname">
+                  </div>
+                  <label class="error" v-if="user.firstname === ''">This field is required.</label>
+                  <label class="error" v-if="errors.firstname && errors.firstname[0]">{{errors.firstname[0]}}</label>
+                </div>
+                <div class="auth-form">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" v-model="user.last_name">
+                </div>
               </div>
-              <div class="auth-form">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName">
+              <div>
+                <div class="auth-form">
+                  <label for="email">Email</label>
+                  <input type="text" id="email" v-model="user.email" @keyup="errors.email = false">
+                </div>
+                  <label class="error" v-if="user.email === ''">This field is required.</label>
+                  <label class="error" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
               </div>
+              <div>
+                <div class="auth-form">
+                  <label for="phone">Phone</label>
+                  <input type="text" id="phone" v-model="user.phone_number" @keyup="errors.phone_number = false">
+                </div>
+                  <label class="error" v-if="user.phone_number === ''">This field is required.</label>
+                  <label class="error" v-if="errors.phone_number && errors.phone_number[0]">{{errors.phone_number[0]}}</label>
+              </div>
+              <div>
+                <div class="auth-form">
+                  <label for="password">Password</label>
+                  <input type="password" id="password" v-model="user.password" @keyup="errors.password = false">
+                </div>
+                  <label class="error" v-if="user.password === ''">This field is required.</label>
+                  <label class="error" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
+              </div>
+              <div>
+                <div class="auth-form">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="password" id="confirmPassword" v-model="user.confirm_password" @keyup="errors.confirm_password = false">
+                </div>
+                  <label class="error" v-if="user.confirm_password === ''">This field is required.</label>
+                  <label class="error" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
+              </div>
+              <div class="authButtonDiv">
+                <p class="text-align-center mb-5 fs-14">You are signing up for: <span class="bold">14-Day Free
+                    Trial</span></p>
+                <a class="btn" type="submit" @click="submitForm()">{{ loading ? 'Please wait..' : 'Sign Up'}}</a>
+              </div>
+              <p class="authButtomPara">Already have an account? &nbsp;
+                <router-link to="">Sign In</router-link>
+              </p>
             </div>
-            <div class="auth-form">
-              <label for="email">Email</label>
-              <input type="text" id="email">
-            </div>
-            <div class="auth-form">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone">
-            </div>
-            <div class="auth-form">
-              <label for="password">Password</label>
-              <input type="text" id="password">
-            </div>
-            <div class="auth-form">
-              <label for="confirmPassword">Confirm Password</label>
-              <input type="text" id="confirmPassword">
-            </div>
-
-            <div class="authButtonDiv">
-              <p class="text-align-center mb-5 fs-14">You are signing up for: <span class="bold">14-Day Free
-                  Trial</span></p>
-              <a class="btn" type="submit">Sign Up</a>
-            </div>
-            <p class="authButtomPara">Already have an account? &nbsp;
-              <router-link to="/sign-in" >Sign In</router-link>
-            </p>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <fotter-component />
   </div>
-</section>
-<fotter-component />
-</div>
 </template>
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import { post } from "../../network/requests";
+import { getUrl } from "../../network/url";
+import { getFirstError, getServerErrors } from "../../services/helper";
 export default {
-   components:{NavbarComponent, FotterComponent}
+  components: { NavbarComponent, FotterComponent },
+  data() {
+    return {
+      user: {
+        firstname: null,
+        last_name: null,
+        email: null,
+        phone_number: null,
+        password: null,
+        confirm_password: null,
+        stripe_source_id:'src_1MCTIcSJJRL1HZKG07BCVLRd',
+      },
+      errors: [],
+      serverError: [],
+      server: [],
+      loading: false,
+    };
+  },
+  methods: {
+    isValidEmail: function() {
+      if (
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
+      ) {
+        return true;
+      }
+      return false;
+    },
+    isValidPhone: function() {
+      if (
+        /^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
+          this.user.phone_number
+        )
+      ) {
+        return true;
+      }
+      return false;
+    },
+    checkValidation: function() {
+      this.errors = [];
+      let valid = true;
+      if (!this.user.firstname) {
+        this.user.firstname = "";
+        valid = false;
+      }
+
+      if (!this.user.email) {
+        this.user.email = "";
+        valid = false;
+      } else {
+        if (!this.isValidEmail()) {
+          this.errors.email = ["Please enter a valid email address."];
+          valid = false;
+        }
+      }
+
+      if (!this.user.phone_number) {
+        this.user.phone_number = "";
+        valid = false;
+      } else {
+        if (!this.isValidPhone()) {
+          this.errors.phone_number = ["Please enter a valid phone number."];
+          valid = false;
+        }
+      }
+
+      if (!this.user.password) {
+        this.user.password = "";
+        valid = false;
+      } else {
+        if (this.user.password.length < 6) {
+          this.errors.password = ["The password must be at least 6 characters."];
+          valid = false;
+        }
+      }
+
+      if (!this.user.confirm_password) {
+        this.user.confirm_password = "";
+        valid = false;
+      } else {
+        if (this.user.confirm_password !== this.user.password) {
+          this.errors.confirm_password = ["Confirm password did not matched."];
+          valid = false;
+        }
+      }
+
+      return valid;
+    },
+    submitForm: function() {
+      if (!this.checkValidation()) {
+        return false;
+      }
+
+      this.loading = true;
+      post(getUrl("signup"), this.user)
+        .then(response => {
+          console.log(response);
+          this.loading = false;
+          this.server.status = true;
+          this.server.message = "Account created successfully.";
+        })
+        .catch(error => {
+          this.errors = getServerErrors(error);
+          console.log(this.errors);
+          this.server.status = false;
+          this.server.message = "Invalid data entered.";
+          this.loading = false;
+        });
+    },
+  },
+  mounted() {
+    let eachInput = document.querySelectorAll(".auth-form input");
+    eachInput.forEach(function(eachInputFun) {
+      eachInputFun.addEventListener("keyup", function(e) {
+        let eachLabel = this.closest(".auth-form");
+        if (this.value == "") {
+          eachLabel.firstElementChild.classList.remove("active");
+        } else {
+          eachLabel.firstElementChild.classList.add("active");
+        }
+      });
+      eachInputFun.addEventListener("focus", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.add("active");
+      });
+      eachInputFun.addEventListener("blur", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.remove("active");
+        if (this.value == "") {
+          eachLabelSec.firstElementChild.classList.remove("active");
+        } else {
+          eachLabelSec.firstElementChild.classList.add("active");
+        }
+      });
+    });
+  },
 };
 </script>
+<style>
+.error {
+  color: red;
+}
+</style>

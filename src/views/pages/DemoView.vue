@@ -1,29 +1,33 @@
 <template>
-  <div>
-  <div ref="card" style="width:300px"></div>
+  <div >
+  <div class="form-control" ref="cardNumber"></div>  <br />
+  <div class="form-control" ref="cardExpiry"></div><br />
+  <div class="form-control" ref="cardCvc"></div><br />
+  <div class="form-control" ref="postalCode"></div><br />
+  <!-- <div id="card"></div> -->
   <button @click="purchase">Get Source</button>
   </div>
-  <!-- <p >Source ID - {{sourceId}}</p> -->
 </template>
 
 <script>
-let stripe = Stripe(
-    `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
-  ),
+let stripe = Stripe(`pk_test_51KXOPvSISeYa8Ci29i24eUHNAF7BzTMGtKVKgNrVk1e3Z0FqUHPbM5ajeeaCkE5RIeXXV48XHGIdhB5u5f5yhHwh00fCKy6GWu`),
   elements = stripe.elements(),
-  card = undefined;
-
+  card, cardNumber, cardExpiry, cardCvc, postalCode;
 export default {
-  data(){
-    return {sourceId:null}
-  },
   mounted: function() {
-    card = elements.create("card");
-    card.mount(this.$refs.card);
+    cardNumber = elements.create("cardNumber");
+    cardExpiry = elements.create("cardExpiry");
+    cardCvc = elements.create("cardCvc");
+    postalCode = elements.create("postalCode");
+
+    cardNumber.mount(this.$refs.cardNumber);
+    cardExpiry.mount(this.$refs.cardExpiry);
+    cardCvc.mount(this.$refs.cardCvc);
+    postalCode.mount(this.$refs.postalCode);
   },
   methods: {
-     purchase: function() {
-      stripe.createSource(card,  {
+    purchase: function() {
+      stripe.createSource(cardNumber,  {
         type: 'card',
         currency: 'USD',
         owner: {
@@ -32,8 +36,6 @@ export default {
         }
       }).then(function(result) {
         console.log(result);
-        // this.sourceId = result.source.id;
-        // console.log(this.sourceId);
         // Access the token with result.token
       });
     },
