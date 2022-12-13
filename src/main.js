@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import helpers from './helpers'
+import Toaster from "@meforma/vue-toaster";
 
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
@@ -19,7 +20,8 @@ const app = createApp(App);
 
 app.use(router);
 app.use(store);
-app.use(helpers)
+app.use(helpers);
+app.use(Toaster, {position:'top-right', duration:5000});
 app.mount("#app");
 
 

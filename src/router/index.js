@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { authCheck } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
-
+const publicRoutes = ['signup', 'sign-in', 'reset-password', 'pricing', 'payment-method', 'payment-thankyou', 'forgot-passwor', 'demo', 'demo1', ''];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -26,52 +27,52 @@ const router = createRouter({
     },
     {
       path: "/individual-client/:id",
-      name: "individual client",
+      name: "individual-client",
       component: () => import("../views/pages/IndividualClientPage.vue"),
     },
     {
       path: "/create-new-scenario",
-      name: "create new scenario",
+      name: "create-new-scenario",
       component: () => import("../views/pages/CreateNewScenario.vue"),
     },
     {
       path: "/illustration-data",
-      name: "illustration data",
+      name: "illustration-data",
       component: () => import("../views/pages/IllustrationData.vue"),
     },
     {
       path: "/comparative-vehicles",
-      name: "comparative vehicles",
+      name: "comparative-vehicles",
       component: () => import("../views/pages/ComparativeVehicle.vue"),
     },
     {
       path: "/historical-simulations",
-      name: "historical simulations",
+      name: "historical-simulations",
       component: () => import("../views/pages/HistoricalSimulationsPage.vue"),
     },
     {
       path: "/historical-simulations-after-no",
-      name: "historical simulations after no",
+      name: "historical-simulations-after-no",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterNo.vue"),
     },
     {
       path: "/historical-simulations-after-yes",
-      name: "historical simulations after yes",
+      name: "historical-simulations-after-yes",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterYes.vue"),
     },
     {
       path: "/historical-simulations-from-scratch",
-      name: "historical simulations from scratch",
+      name: "historical-simulations-from-scratch",
       component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
     },
     {
       path: "/review-summary",
-      name: "review summary",
+      name: "review-summary",
       component: () => import("../views/pages/ReviewSummaryPage.vue"),
     },
     {
       path: "/report-builder",
-      name: "report builder",
+      name: "report-builder",
       component: () => import("../views/pages/ReportBuilderPage.vue"),
     },
     {
@@ -81,7 +82,7 @@ const router = createRouter({
     },
     {
       path: "/sign-in",
-      name: "sign in",
+      name: "sign-in",
       component: () => import("../views/pages/SignInPage.vue"),
     },
     {
@@ -140,6 +141,20 @@ const router = createRouter({
       component: () => import("../views/pages/EditProfilePage.vue"),
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  if (!publicRoutes.includes(to.name)) {
+    if (!authCheck()) {
+      next(`${'/sign-in?next='}${to.fullPath}`);
+    }
+  }
+  if (to.name === 'sign-in') {
+    if (authCheck()) {
+      next('/profile-details');
+    }
+  }
+  next();
 });
 
 export default router;

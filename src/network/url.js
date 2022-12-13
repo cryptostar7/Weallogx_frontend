@@ -5,8 +5,8 @@ export const getUrl = (type) => {
   switch (type) {
     case 'signup':
       return `${baseUrl}/auth/register/`;
-    case 'user':
-      return `${baseUrl}/auth/user/`;
+    case 'profile':
+      return `${baseUrl}/auth/profile`;
     case 'login':
       return `${baseUrl}/auth/login/`;
     case 'change-password':

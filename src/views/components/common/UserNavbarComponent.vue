@@ -82,7 +82,7 @@
                                                     <div class="flex__item--md-12 flex__item--xs-12">
                                                         <div data-widget-id="45e3cbe8-409c-2ef1-4422-bd012221240f" class="widget">
                                                             <div class="lp-button-react-wrapper css-1yltisf" data-widget-type="LpButtonReact">
-                                                                <a href="sign-in.html" data-widget-link="true" class="lp-button-react w-45e3cbe8-409c-2ef1-4422-bd012221240f lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-5 line-height-scale-5 css-1tvyf7o" contenteditable="false">LOG IN</a>
+                                                                <router-link to="sign-in" data-widget-link="true" class="lp-button-react w-45e3cbe8-409c-2ef1-4422-bd012221240f lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-5 line-height-scale-5 css-1tvyf7o" contenteditable="false">LOG IN</router-link>
                                                             </div>
                                                         </div>
                                                     </div>

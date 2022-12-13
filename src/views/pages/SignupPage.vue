@@ -8,7 +8,6 @@
           <div class="authformRightPart">
             <div class="authInnerDiv">
               <h1 class="headingArea">Sign up for <span>Account</span></h1>
-              <p v-if="server.message" :class="`text-center alert alert-${server.status ? 'success':'danger'}`">{{server.message}}</p>
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
@@ -58,10 +57,10 @@
               <div class="authButtonDiv">
                 <p class="text-align-center mb-5 fs-14">You are signing up for: <span class="bold">14-Day Free
                     Trial</span></p>
-                <a class="btn" type="submit" @click="submitForm()">{{ loading ? 'Please wait..' : 'Sign Up'}}</a>
+                <a class="btn" type="submit" @click="submitForm()">Sign Up</a>
               </div>
               <p class="authButtomPara">Already have an account? &nbsp;
-                <router-link to="">Sign In</router-link>
+                <router-link to="/sign-in">Sign In</router-link>
               </p>
             </div>
           </div>
@@ -76,7 +75,12 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { getFirstError, getServerErrors } from "../../services/helper";
+import {
+  getFirstError,
+  getServerErrors,
+  setRefreshToken,
+  setAccessToken,
+} from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
   data() {
@@ -88,12 +92,11 @@ export default {
         phone_number: null,
         password: null,
         confirm_password: null,
-        stripe_source_id:'src_1MCTIcSJJRL1HZKG07BCVLRd',
+        stripe_source_id: null,
       },
       errors: [],
       serverError: [],
       server: [],
-      loading: false,
     };
   },
   methods: {
@@ -148,7 +151,9 @@ export default {
         valid = false;
       } else {
         if (this.user.password.length < 6) {
-          this.errors.password = ["The password must be at least 6 characters."];
+          this.errors.password = [
+            "The password must be at least 6 characters.",
+          ];
           valid = false;
         }
       }
@@ -170,21 +175,29 @@ export default {
         return false;
       }
 
-      this.loading = true;
-      post(getUrl("signup"), this.user)
-        .then(response => {
-          console.log(response);
-          this.loading = false;
-          this.server.status = true;
-          this.server.message = "Account created successfully.";
-        })
-        .catch(error => {
-          this.errors = getServerErrors(error);
-          console.log(this.errors);
-          this.server.status = false;
-          this.server.message = "Invalid data entered.";
-          this.loading = false;
-        });
+      sessionStorage.setItem("tempUserForm", JSON.stringify(this.user));
+      this.$router.push('payment-method');
+
+      // this.$store.dispatch("loader", true);
+      // post(getUrl("signup"), this.user)
+      //   .then(response => {
+      //     console.log(response);
+      //     setRefreshToken(response.data.data.tokens.refresh);
+      //     setAccessToken(response.data.data.tokens.access);
+      //     this.server.status = true;
+      //     this.server.message = response.data.message;
+      //     this.$store.dispatch("loader", false);
+      //     this.$toast.success(this.server.message);
+      //     this.$router.push("/profile-details");
+      //   })
+      //   .catch(error => {
+      //     this.errors = getServerErrors(error);
+      //     console.log(this.errors);
+      //     this.server.status = false;
+      //     this.server.message = this.errors.message;
+      //     this.$store.dispatch("loader", false);
+      //     this.$toast.error(this.server.message);
+      //   });
     },
   },
   mounted() {

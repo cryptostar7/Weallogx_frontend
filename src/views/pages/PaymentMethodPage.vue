@@ -54,34 +54,30 @@
               <img src="@/assets/images/user/american-express-logo.svg" alt="master card">
             </div>
             <div class="paymentMethodFormDiv">
-              <form action="#">
                 <div>
                   <label for="card_no">Card Number</label>
-                  <img src="@/assets/images/user/master-card.svg" alt="Marter Card">
-                  <input type="text" id='card_no' class="numberInputs card-number" placeholder="Card Number"
-                    maxlength="20">
+                  <!-- <img id="brand-icon" src="@/assets/images/user/master-card.svg" alt="Marter Card"> -->
+                  <!-- <span class="brand"><i class="pf pf-credit-card" id="brand-icon"></i></span> -->
+                  <div ref="cardNumber"  id='card_no' class="numberInputs card-number"></div>
                 </div>
                 <div>
                   <label for="name">Name</label>
-                  <input type="text" id='name' class="card-place-holder-name" placeholder="Card Place Holder Name"
-                    maxlength="39">
+                  <input type="text" id='name' class="card-place-holder-name" v-model="cardHolder" placeholder="Card Place Holder Name"
+                    maxlength="39" />
                 </div>
                 <div class="expiryCvvInputDiv">
                   <div>
                     <label for="expiry_date">Expiry Date</label>
-                    <input type="text" id='expiry_date' class="card-expiry-date" placeholder="MM/YYYY" maxlength="7">
+                    <div id='expiry_date' ref="cardExpiry" class="card-expiry-date"></div><br />
                   </div>
                   <div class="cvvInputDiv">
                     <img src="@/assets/images/user/password-view.svg" alt="Password" class="showHideImg">
                     <label for="cvv_no">CVV</label>
-
-                    <input type="password" id='cvv_no' placeholder="CVV" class="numberInputs card-cvv-number"
-                      maxlength="3">
+                    <div ref="cardCvc"  id='cvv_no' class="numberInputs card-cvv-number"></div>
                   </div>
                 </div>
 
-                <button type="submit" class="paymentformBtns">Save Card</button>
-              </form>
+                <button type="submit" class="paymentformBtns" @click="getSource()">Save Card</button>
             </div>
           </div>
         </div>
@@ -124,10 +120,102 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
+let stripe = Stripe(
+    `pk_test_51KXOPvSISeYa8Ci29i24eUHNAF7BzTMGtKVKgNrVk1e3Z0FqUHPbM5ajeeaCkE5RIeXXV48XHGIdhB5u5f5yhHwh00fCKy6GWu`
+  ),
+  elements = stripe.elements(),
+  card,
+  cardNumber,
+  cardExpiry,
+  cardCvc,
+  postalCode;
 export default {
-   components:{NavbarComponent, FotterComponent}
+  components: { NavbarComponent, FotterComponent },
+  data() {
+    return {
+      user: false,
+      cardHolder: "",
+    };
+  },
+  mounted() {
+    if (sessionStorage.getItem("tempUserForm")) {
+      this.user = JSON.parse(sessionStorage.getItem("tempUserForm"));
+    } else {
+      this.$router.push("/sign-up");
+    }
+
+    var style = {
+      base: {
+        width: "100%",
+        height: "35px",
+        border: "none",
+        "border-bottom": "1px solid #DFDFDF",
+        "font-weight": "500",
+        "font-size": "18px",
+        color: "#202020",
+        "padding-right": "2rem",
+      },
+    };
+
+    cardNumber = elements.create("cardNumber", {
+      showIcon: true,
+      placeholder: "Card Number",
+      style: style,
+    });
+    cardExpiry = elements.create("cardExpiry");
+    cardCvc = elements.create("cardCvc");
+    postalCode = elements.create("postalCode");
+
+    cardNumber.mount(this.$refs.cardNumber);
+    cardExpiry.mount(this.$refs.cardExpiry);
+    cardCvc.mount(this.$refs.cardCvc);
+
+    cardNumber.on("change", function(event) {
+      // Switch brand logo
+      if (event.brand) {
+        console.log(event.brand);
+      }
+    });
+  },
+  methods: {
+    getSource: function() {
+      this.$store.dispatch("loader", true);
+      stripe
+        .createSource(cardNumber, {
+          type: "card",
+          currency: "USD",
+          owner: {
+            name: this.cardHolder,
+          },
+        })
+        .then(function(result) {
+          console.log(result.source.id);
+          var formData = JSON.parse(sessionStorage.getItem('tempUserForm'));
+          formData["stripe_source_id"] = result.source.id;
+          console.log(formData);
+          post(getUrl("signup"), this.user)
+            .then(response => {
+              console.log(response);
+              setRefreshToken(response.data.data.tokens.refresh);
+              setAccessToken(response.data.data.tokens.access);
+              this.server.status = true;
+              this.server.message = response.data.message;
+              this.$store.dispatch("loader", false);
+              this.$toast.success(this.server.message);
+              this.$router.push("/profile-details");
+            })
+            .catch(error => {
+              this.errors = getServerErrors(error);
+              console.log(this.errors);
+              this.server.status = false;
+              this.server.message = this.errors.message;
+              this.$store.dispatch("loader", false);
+              this.$toast.error(this.server.message);
+            });
+        });
+    },
+  },
 };
 </script>
 <style lang="">
-    
 </style>
