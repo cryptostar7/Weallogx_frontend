@@ -11,20 +11,20 @@
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName" :class="user.firstname ? 'active' : ''">First Name</label>
                     <input type="text" id="firstName" v-model="user.firstname">
                   </div>
                   <label class="error" v-if="user.firstname === ''">This field is required.</label>
                   <label class="error" v-if="errors.firstname && errors.firstname[0]">{{errors.firstname[0]}}</label>
                 </div>
                 <div class="auth-form">
-                  <label for="lastName">Last Name</label>
+                  <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
                   <input type="text" id="lastName" v-model="user.last_name">
                 </div>
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="email">Email</label>
+                  <label for="email" :class="user.email ? 'active' : ''">Email</label>
                   <input type="text" id="email" v-model="user.email" @keyup="errors.email = false">
                 </div>
                   <label class="error" v-if="user.email === ''">This field is required.</label>
@@ -32,7 +32,7 @@
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="phone">Phone</label>
+                  <label for="phone" :class="user.phone_number ? 'active' : ''">Phone</label>
                   <input type="text" id="phone" v-model="user.phone_number" @keyup="errors.phone_number = false">
                 </div>
                   <label class="error" v-if="user.phone_number === ''">This field is required.</label>
@@ -40,7 +40,7 @@
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="password">Password</label>
+                  <label for="password" :class="user.password ? 'active' : ''">Password</label>
                   <input type="password" id="password" v-model="user.password" @keyup="errors.password = false">
                 </div>
                   <label class="error" v-if="user.password === ''">This field is required.</label>
@@ -48,7 +48,7 @@
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="confirmPassword">Confirm Password</label>
+                  <label for="confirmPassword" :class="user.confirm_password ? 'active' : ''">Confirm Password</label>
                   <input type="password" id="confirmPassword" v-model="user.confirm_password" @keyup="errors.confirm_password = false">
                 </div>
                   <label class="error" v-if="user.confirm_password === ''">This field is required.</label>
@@ -57,7 +57,7 @@
               <div class="authButtonDiv">
                 <p class="text-align-center mb-5 fs-14">You are signing up for: <span class="bold">14-Day Free
                     Trial</span></p>
-                <a class="btn" type="submit" @click="submitForm()">Sign Up</a>
+                <a class="btn" type="submit" @click="submitForm()">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</a>
               </div>
               <p class="authButtomPara">Already have an account? &nbsp;
                 <router-link to="/sign-in">Sign In</router-link>
@@ -175,32 +175,44 @@ export default {
         return false;
       }
 
-      sessionStorage.setItem("tempUserForm", JSON.stringify(this.user));
-      this.$router.push('payment-method');
+      if (this.user.stripe_source_id) {
+        this.$store.dispatch("loader", true);
+        post(getUrl("signup"), this.user)
+          .then(response => {
+            console.log(response);
+            setRefreshToken(response.data.data.tokens.refresh);
+            setAccessToken(response.data.data.tokens.access);
+            this.server.status = true;
+            this.server.message = response.data.message;
+            this.$store.dispatch("loader", false);
+            this.$toast.success(this.server.message);
+            this.$router.push("/profile-details");
+          })
+          .catch(error => {
+            this.errors = getServerErrors(error);
+            console.log(this.errors);
+            this.server.status = false;
+            this.server.message = this.errors.message;
+            this.$store.dispatch("loader", false);
+            this.$toast.error(this.server.message);
+          });
+      } else {
+        this.$store.dispatch("userTempForm", this.user);
+        this.$router.push("payment-method");
+      }
 
-      // this.$store.dispatch("loader", true);
-      // post(getUrl("signup"), this.user)
-      //   .then(response => {
-      //     console.log(response);
-      //     setRefreshToken(response.data.data.tokens.refresh);
-      //     setAccessToken(response.data.data.tokens.access);
-      //     this.server.status = true;
-      //     this.server.message = response.data.message;
-      //     this.$store.dispatch("loader", false);
-      //     this.$toast.success(this.server.message);
-      //     this.$router.push("/profile-details");
-      //   })
-      //   .catch(error => {
-      //     this.errors = getServerErrors(error);
-      //     console.log(this.errors);
-      //     this.server.status = false;
-      //     this.server.message = this.errors.message;
-      //     this.$store.dispatch("loader", false);
-      //     this.$toast.error(this.server.message);
-      //   });
     },
   },
   mounted() {
+    if(this.$store.state.forms.temp_user){
+      this.user = this.$store.state.forms.temp_user;
+      console.log(this.user);
+      this.$store.state.forms.temp_user=null;
+    }
+    if (this.$store.state.errors.temp_user) {
+      this.errors = this.$store.state.errors.temp_user;
+      this.$store.state.errors.temp_user=null;
+    }
     let eachInput = document.querySelectorAll(".auth-form input");
     eachInput.forEach(function(eachInputFun) {
       eachInputFun.addEventListener("keyup", function(e) {

@@ -60,6 +60,8 @@ const store = createStore({
             create_report_modal: false,
             create_new_client_report_modal: false,
         },
+        errors:[], 
+        forms:[],
     },
     getters: {
         checkActiveTab: (state) => (id) => {
@@ -120,6 +122,12 @@ const store = createStore({
         setLoader(state, payload) {
             state.app.loader = payload;
         },
+        setUserTempForm(state, payload) {
+            state.forms.temp_user = payload;
+        },
+        setUserFormError(state, payload) {
+            state.errors.temp_user = payload;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -157,6 +165,13 @@ const store = createStore({
         user(context, payload) {
             context.commit('setUser', payload);
         },
+        userTempForm(context, payload) {
+            context.commit('setUserTempForm', payload);
+        },
+        userTempFormError(context, payload) {
+            context.commit('setUserFormError', payload);
+        },
+        
     }
 })
 export default store;

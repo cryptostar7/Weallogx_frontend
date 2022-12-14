@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { authCheck } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
-const publicRoutes = ['signup', 'sign-in', 'reset-password', 'pricing', 'payment-method', 'payment-thankyou', 'forgot-passwor', 'demo', 'demo1', ''];
+const publicRoutes = ['signup', 'sign-in', 'reset-password', 'pricing', 'payment-method', 'payment-thankyou', 'forgot-passwor', 'demo', 'demo1', 'forgot-password', 'stripe-source'];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

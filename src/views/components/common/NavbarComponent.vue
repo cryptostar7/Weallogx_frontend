@@ -48,6 +48,7 @@ export default {
   methods: {
     logout: function() {
       if (authCheck()) {
+        this.$store.dispatch('loader', true);
         post(
           getUrl("logout"),
           { refresh: getRefreshToken() },
@@ -56,11 +57,13 @@ export default {
           .then(response => {
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("access_token");
+            this.$store.dispatch('loader', false);
             this.$toast.success(response.data.message);
             this.$router.push("/sign-in");
           })
           .catch(err => {
             console.log(err);
+            this.$store.dispatch('loader', false);
             this.$toast.error(err.response.data.messages[0].message);
           });
       }
