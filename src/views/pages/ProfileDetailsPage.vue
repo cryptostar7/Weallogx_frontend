@@ -128,7 +128,7 @@
               <div>
                 <h6>Your Company Logo</h6>
                 <div class="companyLogoDiv">
-                  <img src="{{user.business_logo}}" alt="LOGO">
+                  <!-- <img src="" alt="LOGO"> -->
                 </div>
               </div>
             </div>
