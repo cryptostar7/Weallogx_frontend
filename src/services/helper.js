@@ -84,4 +84,14 @@ export const authHeader = () => {
     return 0;
   }
   return { headers: { 'Authorization': `Bearer ${token}` } };
-} 
+}
+
+
+export const getSearchParams = (name) => {
+  var q = window.location.search.substring(1);
+  if (q) {
+    let p = q.split(`${name}=`);
+    return p.length > 1 ? p[1].split("&")[0] : false;
+  }
+  return false;
+}

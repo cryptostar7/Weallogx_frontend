@@ -9,6 +9,10 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/profile`;
     case 'login':
       return `${baseUrl}/auth/login/`;
+    case 'forgot-password':
+      return `${baseUrl}/auth/request-forget-email/`;
+    case 'reset-password':
+      return `${baseUrl}/auth/password-forget-complete`;
     case 'change-password':
       return `${baseUrl}/auth/password/change/`;
     case 'logout':

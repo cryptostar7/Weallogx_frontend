@@ -10,9 +10,17 @@
 </template>
 
 <script>
-let stripe = Stripe(`pk_test_51KXOPvSISeYa8Ci29i24eUHNAF7BzTMGtKVKgNrVk1e3Z0FqUHPbM5ajeeaCkE5RIeXXV48XHGIdhB5u5f5yhHwh00fCKy6GWu`),
+import { getUrl } from '../../network/url';
+import { post } from '../../network/requests';
+let stripe = Stripe(
+    `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
+  ),
   elements = stripe.elements(),
-  card, cardNumber, cardExpiry, cardCvc, postalCode;
+  card,
+  cardNumber,
+  cardExpiry,
+  cardCvc,
+  postalCode;
 export default {
   mounted: function() {
     cardNumber = elements.create("cardNumber");
@@ -27,17 +35,46 @@ export default {
   },
   methods: {
     purchase: function() {
-      stripe.createSource(cardNumber,  {
-        type: 'card',
-        currency: 'USD',
-        owner: {
-          name: 'Hariom',
-          phone: '88408680841',
-        }
-      }).then(function(result) {
-        console.log(result);
-        // Access the token with result.token
-      });
+      this.$store.dispatch("loader", true);
+      stripe
+        .createSource(cardNumber, {
+          type: "card",
+          currency: "USD",
+          owner: {
+            name: "Hariom",
+            phone: "88408680841",
+          },
+        })
+        .then(function(result) {
+          console.log(result);
+          // Access the token with result.token
+          var formData = {
+            firstname: 'Hariom',
+            last_name: 'Prajapati',
+            email: 'hariom65406564465@epixelsoftware.com',
+            phone_number: '88408680841',
+            password: '123456',
+            confirm_password: '123456',
+          };
+          formData['stripe_source_id'] = result.source.id;
+          console.log(formData);
+          post(getUrl("signup"), formData)
+            .then(response => {
+              console.log(response);
+              // setRefreshToken(response.data.data.tokens.refresh);
+              // setAccessToken(response.data.data.tokens.access);
+              this.$store.dispatch("loader", false);
+              this.$toast.success(response.data.message);
+              this.$router.push("/profile-details");
+            })
+            .catch(error => {
+              this.$store.dispatch("userTempFormError", getServerErrors(error));
+              this.$store.dispatch("loader", false);
+              this.$router.push("/sign-up");
+              this.$store.dispatch("loader", false);
+              this.$toast.error(getFirstError(error));
+            });
+        });
     },
   },
 };
