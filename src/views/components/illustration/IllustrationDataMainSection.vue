@@ -68,25 +68,19 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                     class="form-control"
                   />
                 </div>
-                <div class="form-group less">
-                  <label for="insurancePolicyName" class="fs-12 medium-fw"
-                    >Insurance Policy Name</label
-                  >
-                  <input
-                    type="text"
-                    id="insurancePolicyName"
-                    class="form-control"
-                  />
-                </div>
-                <div class="form-group less">
-                  <label for="insurancePolicyNickname" class="fs-12 medium-fw"
-                    >Insurance Policy Nickname</label
-                  >
-                  <input
-                    type="text"
-                    id="insurancePolicyNickname"
-                    class="form-control"
-                  />
+                 <div class="row">
+                  <div class="col-12 col-md-7">
+                    <div class="form-group less">
+                      <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance Policy Name</label>
+                      <input type="text" id="insurancePolicyName" class="form-control"/>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-5">
+                    <div class="form-group less">
+                      <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy Nickname</label>
+                      <input type="text" id="insurancePolicyNickname" class="form-control"/>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="pb-3">
@@ -129,6 +123,21 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                 </div>
 
                 <hr class="hr-separator" size="1.25" />
+                <div class="row">
+                  <div class="col-12 col-md-7">
+                    <div class="form-group less">
+                      <label for="deathBenifit" class="fs-12 medium-fw">Initial Death Benefit</label>
+                      <input type="number" id="deathBenifit" class="form-control dollarInputs position-relative">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-5">
+                    <div class="form-group less">
+                      <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label>
+                      <input type="number" id="policyReturn" class="form-control percenteInputs">
+                    </div>
+                  </div>
+                </div>
+                
                 <SelectDropdown
                   :list="existingIllustrationList"
                   label="Use Existing Illustration"

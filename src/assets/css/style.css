@@ -4915,3 +4915,15 @@ input[type=number] {
   padding: 30px 28px 8px;
   width: 100%;
 }
+.dollarInputs{
+  background-image: url('../images/icons/dollar.svg')!important;
+  background-repeat: no-repeat!important;
+  background-position:10px calc(50% - 1px) !important;
+  padding-left: 24px!important;
+  }
+  .percenteInputs{
+    background-image: url('../images/icons/percent.svg')!important;
+    background-repeat: no-repeat!important;
+    background-position:calc(100% - 10px) 50% !important;
+    padding-right: 24px!important;
+    }
