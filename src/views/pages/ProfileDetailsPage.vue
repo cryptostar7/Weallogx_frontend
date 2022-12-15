@@ -167,11 +167,11 @@
       }, 
     },
     mounted() { 
-        if(!this.$store.state.data.user){
-            this.getProfile();
-        }else{
-            this.user = this.$store.state.data.user;
-        }
+      if(!this.$store.state.data.user){
+          this.getProfile();
+      }else{
+          this.user = this.$store.state.data.user;
+      }
     },
   };
 </script>

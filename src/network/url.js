@@ -13,8 +13,6 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/request-forget-email/`;
     case 'reset-password':
       return `${baseUrl}/auth/password-forget-complete`;
-    case 'change-password':
-      return `${baseUrl}/auth/password/change/`;
     case 'logout':
       return `${baseUrl}/auth/logout/`;
     default:

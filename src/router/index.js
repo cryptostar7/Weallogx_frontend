@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { authCheck } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
-const publicRoutes = ['signup', 'sign-in', 'reset-password', 'pricing', 'payment-method', 'payment-thankyou', 'forgot-passwor', 'demo', 'demo1', 'forgot-password', 'stripe-source'];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -76,7 +75,7 @@ const router = createRouter({
       component: () => import("../views/pages/ReportBuilderPage.vue"),
     },
     {
-      path: "/sign-up",
+      path: "/sign-up/:plan?",
       name: "signup",
       component: () => import("../views/pages/SignupPage.vue"),
     },
@@ -143,8 +142,28 @@ const router = createRouter({
   ],
 });
 
+const privateRoutes = [
+  'home',
+  'create-new-scenario',
+  'illustration-data',
+  'comparative-vehicles',
+  'historical-simulations',
+  'historical-simulations-after-no',
+  'historical-simulations-after-yes',
+  'historical-simulations-from-scratch',
+  'review-summary',
+  'report-builder',
+  'profile-details',
+  'edit-profile',
+  'edit-payment-method',
+  'payment-history',
+  'payment',
+  'current-plan',
+  'pricing'
+];
+
 router.beforeEach((to, from, next) => {
-  if (!publicRoutes.includes(to.name)) {
+  if (privateRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
     }
