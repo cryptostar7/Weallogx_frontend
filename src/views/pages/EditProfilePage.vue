@@ -194,7 +194,7 @@ export default {
         this.profileImg = URL.createObjectURL(e.target.files[0]);
 
         patch(
-          `${getUrl("profile")}/update/${this.user.id}/`,
+          `${getUrl("profile")}/${this.user.id}/`,
           image,
           authHeader()
         )
@@ -294,7 +294,7 @@ export default {
       // userData.append("phone", this.user.phone);
 
       patch(
-        `${getUrl("profile")}/update/${this.user.id}/`,
+        `${getUrl("profile")}/${this.user.id}/`,
         userData,
         authHeader()
       )

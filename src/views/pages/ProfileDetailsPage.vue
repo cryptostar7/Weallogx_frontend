@@ -62,7 +62,7 @@
                 <div class="profile-detail-pp">
                   <img src="@/assets/images/user/profile-pic.png" alt="Profile Picture">
                 </div>
-                <p class="pro-details-name">{{`${user.firstname ? user.firstname : ''} ${user.lastname ? user.lastname :
+                <p class="pro-details-name">{{`${user.first_name ? user.first_name : ''} ${user.last_name ? user.last_name :
                   ''}`}}</p>
               </div>
               <div>

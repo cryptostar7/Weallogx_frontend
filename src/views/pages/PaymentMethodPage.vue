@@ -102,7 +102,7 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { getFirstError, getServerErrors, setRefreshToken, setAccessToken } from "../../services/helper";
+import { getFirstError, getServerErrors, setRefreshToken, setAccessToken, getSearchParams } from "../../services/helper";
 let stripe = Stripe(
     `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
   ),
@@ -195,7 +195,7 @@ export default {
         .catch(error => {
           this.$store.dispatch("userTempFormError", getServerErrors(error));
           this.$store.dispatch("loader", false);
-          this.$router.push("/sign-up");
+          this.$router.push(`${'/sign-up'}${getSearchParams('plan') ? `?plan=${getSearchParams('plan')}`:''}`);
           this.$store.dispatch("loader", false);
           this.$toast.error(getFirstError(error));
         });

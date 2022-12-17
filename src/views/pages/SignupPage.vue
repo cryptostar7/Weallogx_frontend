@@ -11,11 +11,11 @@
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
-                    <label for="firstName" :class="user.firstname ? 'active' : ''">First Name</label>
-                    <input type="text" id="firstName" v-model="user.firstname">
+                    <label for="first_Name" :class="user.first_name ? 'active' : ''">First Name</label>
+                    <input type="text" id="first_Name" v-model="user.first_name">
                   </div>
-                  <label class="error" v-if="user.firstname === ''">This field is required.</label>
-                  <label class="error" v-if="errors.firstname && errors.firstname[0]">{{errors.firstname[0]}}</label>
+                  <label class="error" v-if="user.first_name === ''">This field is required.</label>
+                  <label class="error" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
                 </div>
                 <div class="auth-form">
                   <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
@@ -80,6 +80,7 @@ import {
   getServerErrors,
   setRefreshToken,
   setAccessToken,
+getSearchParams,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -87,12 +88,14 @@ export default {
     return {
       user: {
         firstname: null,
+        first_name: null,
         last_name: null,
         email: null,
         phone_number: null,
         password: null,
         confirm_password: null,
         stripe_source_id: null,
+        plan_type:null,
       },
       errors: [],
       serverError: [],
@@ -121,8 +124,8 @@ export default {
     checkValidation: function() {
       this.errors = [];
       let valid = true;
-      if (!this.user.firstname) {
-        this.user.firstname = "";
+      if (!this.user.first_name) {
+        this.user.first_name = "";
         valid = false;
       }
 
@@ -198,12 +201,13 @@ export default {
           });
       } else {
         this.$store.dispatch("userTempForm", this.user);
-        this.$router.push("payment-method");
+        this.$router.push(`${'payment-method'}${getSearchParams('plan') ? `?plan=${getSearchParams('plan')}`:''}`);
       }
 
     },
   },
   mounted() {
+    this.user.plan_type = this.$store.getters.getPlan(getSearchParams('plan'));
     if(this.$store.state.forms.temp_user){
       this.user = this.$store.state.forms.temp_user;
       console.log(this.user);
