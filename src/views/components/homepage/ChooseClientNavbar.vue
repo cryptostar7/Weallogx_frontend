@@ -32,11 +32,11 @@
             <span>Last Name (A-Z)</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="sortingBtn">
-            <li><a class="dropdown-item semi-bold-fw active" data-sort="ascending"
-                href="javascript:void(0)" @click="$emit('sortAsc')">Last Name (A-Z)</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="javascript:void(0)" @click="$emit('sortDesc')">Last Name (Z-A)</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="javascript:void(0)" @click="$emit('oldModified')">Last Edited</a></li>
-            <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="javascript:void(0)" @click="$emit('newModified')">First Edited</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'ascending' ? 'active' : ''}`" data-sort="ascending"
+                href="javascript:void(0)" @click="() => {currentFilter = 'ascending'; $emit('sortAsc')}">Last Name (A-Z)</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'descending' ? 'active' : ''}`" data-sort="descending" href="javascript:void(0)" @click="() => {currentFilter = 'descending'; $emit('sortDesc')}">Last Name (Z-A)</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'lastEdited' ? 'active' : ''}`" data-sort="lastEdited" href="javascript:void(0)" @click="() => {currentFilter = 'lastEdited'; $emit('oldModified')}">Last Edited</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'firstEdited' ? 'active' : ''}`" data-sort="firstEdited" href="javascript:void(0)" @click="() => {currentFilter = 'firstEdited'; $emit('newModified')}">First Edited</a></li>
             </ul>
         </div>
         </div>
@@ -44,6 +44,11 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      currentFilter: "sortAsc",
+    };
+  },
 };
 </script>
 <style lang="">

@@ -1,5 +1,5 @@
 <template>
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="addClientCanvas">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="addClientCanvas" ref="addClientModal">
     <div class="offcanvTopDiv">
       <div class="d-flex align-items-center justify-content-between">
         <svg class="client-icon-offcanvas" width="50" height="50" viewBox="0 0 50 50" fill="none"
@@ -9,35 +9,39 @@
           <ellipse cx="25.1061" cy="33.0474" rx="10.1061" ry="4.95238" fill="#0E6651" />
         </svg>
 
-        <a data-bs-dismiss="offcanvas" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid"
+        <a data-bs-dismiss="offcanvas"  ref="closeModalRef" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid"
             alt="Close Canvas"></a>
       </div>
-      <h5 class="fs-38 bold-fw">Add Client</h5>
+      <h5 class="fs-38 bold-fw" ref="openModalRef"  data-bs-toggle="offcanvas" data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">Add Client</h5>
     </div>
     <div class="offcanvas-body">
       <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
         <div class="offcanvasBodyContent">
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">First Name</label>
-            <Field type="text" name="firstName" id="fname" class="form-control CanvasinputField" />
-            <p class="inputError">{{errors.firstName}}</p>
+            <Field type="text" name="firstname" id="fname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.firstname}}</p>
+            <p class="inputError" v-if="serverErrors.firstname">{{serverErrors.firstname[0]}}</p>
           </div>
           <div class="offcanInputDiv">
             <label for="mname" class="form-label">Middle Name</label>
             <label for="mname" class="optionalLabel">Optional</label>
-            <Field type="text" name="middleName" id="mname" class="form-control CanvasinputField" />
-            <p class="inputError">{{errors.middleName}}</p>
+            <Field type="text" name="middlename" id="mname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.middlename}}</p>
+            <p class="inputError" v-if="serverErrors.middlename">{{serverErrors.middlename[0]}}</p>
           </div>
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">Last Name</label>
-            <Field type="text" name="lastName" id="fname" class="form-control CanvasinputField" />
-            <p class="inputError">{{errors.lastName}}</p>
+            <Field type="text" name="lastname" id="fname" class="form-control CanvasinputField" />
+            <p class="inputError">{{errors.lastname}}</p>
+            <p class="inputError" v-if="serverErrors.lastname">{{serverErrors.lastname[0]}}</p>
             <!-- <p class="inputError">Client already exists. <span>Add Middle Name</span>.</p> -->
           </div>
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">Age <span class="ms-1">Match year 1 age on illustration</span></label>
-            <Field type="text" name="age" id="fname" class="form-control CanvasinputField" />
+            <Field type="number" name="age" id="fname" class="form-control CanvasinputField" />
             <p class="inputError">{{errors.age}}</p>
+            <p class="inputError" v-if="serverErrors.age">{{serverErrors.age[0]}}</p>
           </div>
           <div class="offcanBtnDiv">
             <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario">
@@ -49,34 +53,51 @@
   </div>
 </template>
 <script>
-import { Form, Field } from 'vee-validate';
-import * as Yup from 'yup';
+import { Form, Field } from "vee-validate";
+import * as Yup from "yup";
+import { post } from "../../../network/requests";
+import { getUrl } from "../../../network/url";
+import { authHeader, getFirstError, getServerErrors } from "../../../services/helper";
+
 export default {
-     components: {
-        Form,
-        Field
-    },
-   data() {
-        const schema = Yup.object().shape({
-            firstName: Yup.string()
-                .required('First Name is required.'),
-            middleName: Yup.string(),
-            lastName: Yup.string()
-                .required('Last name is required.'),
-            age: Yup.string()
-                .required('Age is required.')
+  components: {
+    Form,
+    Field,
+  },
+  data() {
+    const schema = Yup.object().shape({
+      firstname: Yup.string().required("First Name is required."),
+      middlename: Yup.string(),
+      lastname: Yup.string().required("Last name is required."),
+      age: Yup.string().required("Age is required."),
+    });
+    return {
+      schema,
+      serverErrors:[],
+    };
+  },
+  methods: {
+    onSubmit(data) {
+      console.log(data);
+      this.serverErrors = [];
+      this.$store.dispatch("loader", true);
+      post(getUrl("client"), data, authHeader())
+        .then(response => {
+          console.log(response);
+          this.$store.dispatch("loader", false);
+          this.$refs.closeModalRef.click();
+          this.$toast.success("Client Added Successfully!");
+        })
+        .catch(error => {
+          this.$store.dispatch("loader", false);
+          console.log(error);
+          this.$refs.openModalRef.click();
+          this.serverErrors = getServerErrors(error);
+          this.$toast.error(getFirstError(error));
         });
-        return { 
-            schema 
-        }
-   },
-    methods: {
-        onSubmit(values) {
-            console.log(values);
-        }
-    }
-}
+    },
+  },
+};
 </script>
 <style lang="">
-  
 </style>

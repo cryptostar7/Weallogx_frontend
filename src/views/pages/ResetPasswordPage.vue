@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       token: getSearchParams("token"),
-      uidb64: getSearchParams("uni"),
+      uidb64: getSearchParams("uidb64"),
       password: null,
       confirm_password: null,
       errors: [],

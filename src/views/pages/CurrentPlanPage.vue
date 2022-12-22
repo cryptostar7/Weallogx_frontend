@@ -1,86 +1,58 @@
 <template lang="">
-    <div>
-        <navbar-component />
-        <section class="authMaindiv-area">
-            <div class="container middleContainer">
-            <div class="headingDivPricing paymentHeading">
-                <h1 class="headingArea">Dashboard</h1>
+  <div>
+    <navbar-component />
+    <section class="authMaindiv-area">
+      <div class="container middleContainer">
+        <header-component />
+        <!-- Profile details Start -->
+        <div class="payment-methodMain-div paymentMiddleDivMain">
+          <sidebar-component />
+          <div class="payment-right-card-main-div dashBoardRightDiv">
+            <div class="current-plan-main-div">
+              <div>
+                <img src="@/assets/images/user/plan-rocket.svg" alt="Plan">
+                <h6>You are using Free Trial</h6>
+                <p>07 <span>days left</span></p>
+                <a href="https://keithcooper439.lpages.co/plans/" class="plan-upgrad-button">Upgrade Plan</a>
+              </div>
             </div>
-
-            <!-- Profile details Start -->
-            <div class="payment-methodMain-div paymentMiddleDivMain">
-                <div class="profileDetailsLeftDiv">
-                <router-link to="/profile-details">
-                    <div class="profile-left-card-div">
-                    <div class="profileLeftInnerDiv">
-                        <div class="profileLeftInnerCircleDiv">
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M21.875 16.042H32.0834V18.9587H21.875V16.042ZM23.3334 21.8753H32.0834V24.792H23.3334V21.8753ZM20.4167 10.2087H32.0834V13.1253H20.4167V10.2087ZM5.83335 27.7087H20.4167V26.2503C20.4167 22.2297 17.1456 18.9587 13.125 18.9587H10.2084C6.18773 18.9587 2.91669 22.2297 2.91669 26.2503V27.7087H5.83335ZM11.6667 17.5003C14.5761 17.5003 16.7709 15.3055 16.7709 12.3962C16.7709 9.48678 14.5761 7.29199 11.6667 7.29199C8.75731 7.29199 6.56252 9.48678 6.56252 12.3962C6.56252 15.3055 8.75731 17.5003 11.6667 17.5003Z"
-                            fill="#0E6651" />
-                        </svg>
-                        </div>
-                        <p>Profile Details</p>
-                    </div>
-                    </div>
-                </router-link>
-                <router-link to="/current-plan">
-                    <div class="profile-left-card-div active">
-                    <div class="profileLeftInnerDiv">
-                        <div class="profileLeftInnerCircleDiv">
-                        <svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M25.8435 5.35021H25.8375C25.8378 5.33502 25.8423 5.32076 25.8423 5.30526C25.8423 4.87425 25.6656 4.46087 25.3511 4.15598C25.0366 3.85109 24.6101 3.67964 24.1651 3.67931C24.1523 3.67931 24.1408 3.68272 24.128 3.68303H19.4695V2.62779C19.4695 2.35468 19.241 2.13396 18.9597 2.13334V2.13086H13.056V2.13272C13.0512 2.13272 13.0471 2.13148 13.0423 2.13148C12.7607 2.13148 12.5322 2.35251 12.5322 2.62562L12.5331 2.63492V3.68272H7.84033L7.83393 3.6821C7.38915 3.68259 6.96273 3.854 6.64825 4.15871C6.33377 4.46342 6.15692 4.87654 6.15649 5.30743C6.15649 5.322 6.16065 5.33533 6.16097 5.3499H6.15649V27.2272H6.15745L6.15649 27.2356C6.15658 27.4489 6.20004 27.6602 6.28441 27.8572C6.36877 28.0543 6.49238 28.2334 6.64818 28.3841C6.80398 28.5349 6.98892 28.6545 7.19242 28.736C7.39593 28.8176 7.61403 28.8595 7.83425 28.8594C7.85921 28.8594 7.88257 28.8532 7.90753 28.8522V28.8587H24.0675C24.0989 28.8603 24.1287 28.8677 24.1603 28.8677C24.6049 28.8677 25.0312 28.6966 25.3456 28.3921C25.66 28.0876 25.8366 27.6746 25.8368 27.244C25.8368 27.2381 25.8352 27.2328 25.8352 27.2269H25.8442V5.35021H25.8435ZM22.6631 25.787H9.33697V6.7604H10.936V7.71179C10.9354 7.72202 10.9328 7.73132 10.9328 7.74186C10.9328 8.05124 11.192 8.3042 11.5133 8.3042L11.5178 8.30389V8.30637H20.4864C20.6402 8.30621 20.7877 8.24694 20.8965 8.14157C21.0052 8.03621 21.0664 7.89335 21.0666 7.74434C21.0666 7.73969 21.0653 7.73535 21.0653 7.7307V6.7604H22.6627V25.787H22.6631Z"
-                            fill="#3C3C3C" />
-                            <path
-                            d="M12.528 12.7474C12.528 12.5434 12.3561 12.377 12.1446 12.377C12.1347 12.377 12.126 12.3816 12.1164 12.3825V12.377H11.3158C11.2142 12.377 11.1167 12.4161 11.0448 12.4857C10.9729 12.5552 10.9324 12.6496 10.9321 12.748V13.5531C10.9321 13.7565 11.104 13.9229 11.3158 13.9229H12.1168V13.9173C12.1264 13.918 12.1347 13.9229 12.1443 13.9229C12.3564 13.9229 12.5283 13.7565 12.5283 13.5531V12.748H12.528V12.7474ZM21.0659 12.7474C21.0659 12.5434 20.8941 12.377 20.6825 12.377H14.5078C14.4062 12.377 14.3087 12.4161 14.2368 12.4857C14.1649 12.5552 14.1244 12.6496 14.1241 12.748V13.5531C14.1241 13.7565 14.296 13.9229 14.5078 13.9229H20.6822C20.8944 13.9229 21.0662 13.7565 21.0662 13.5531V12.748H21.0659V12.7474ZM12.528 15.8397C12.528 15.6357 12.3561 15.4692 12.1446 15.4692C12.1347 15.4692 12.126 15.4739 12.1164 15.4748V15.4692H11.3158C11.2142 15.4693 11.1167 15.5084 11.0448 15.5779C10.9729 15.6475 10.9324 15.7418 10.9321 15.8403V16.6453C10.9321 16.8487 11.104 17.0152 11.3158 17.0152H12.1168V17.0096C12.1264 17.0102 12.1347 17.0152 12.1443 17.0152C12.3564 17.0152 12.5283 16.8487 12.5283 16.6453V15.8403H12.528V15.8397ZM21.0659 15.8397C21.0659 15.6357 20.8941 15.4692 20.6825 15.4692H14.5078C14.4062 15.4693 14.3087 15.5084 14.2368 15.5779C14.1649 15.6475 14.1244 15.7418 14.1241 15.8403V16.6453C14.1241 16.8487 14.296 17.0152 14.5078 17.0152H20.6822C20.8944 17.0152 21.0662 16.8487 21.0662 16.6453V15.8403H21.0659V15.8397ZM12.528 18.9319C12.528 18.7279 12.3561 18.5615 12.1446 18.5615C12.1347 18.5615 12.126 18.5661 12.1164 18.567V18.5615H11.3158C11.2142 18.5615 11.1167 18.6006 11.0448 18.6702C10.9729 18.7397 10.9324 18.8341 10.9321 18.9325V19.7376C10.9321 19.941 11.104 20.1074 11.3158 20.1074H12.1168V20.1018C12.1264 20.1025 12.1347 20.1074 12.1443 20.1074C12.3564 20.1074 12.5283 19.941 12.5283 19.7376V18.9325H12.528V18.9319ZM21.0659 18.9319C21.0659 18.7279 20.8941 18.5615 20.6825 18.5615H14.5078C14.4062 18.5615 14.3087 18.6006 14.2368 18.6702C14.1649 18.7397 14.1244 18.8341 14.1241 18.9325V19.7376C14.1241 19.941 14.296 20.1074 14.5078 20.1074H20.6822C20.8944 20.1074 21.0662 19.941 21.0662 19.7376V18.9325H21.0659V18.9319Z"
-                            fill="#3C3C3C" />
-                        </svg>
-
-                        </div>
-                        <p>Current Plan</p>
-                    </div>
-                    </div>
-                </router-link>
-                <router-link to="/payment-history">
-                    <div class="profile-left-card-div">
-                    <div class="profileLeftInnerDiv">
-                        <div class="profileLeftInnerCircleDiv">
-                        <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                            d="M28.3333 5.5H5.66665C4.09415 5.5 2.84748 6.72375 2.84748 8.25L2.83331 24.75C2.83331 26.2763 4.09415 27.5 5.66665 27.5H28.3333C29.9058 27.5 31.1666 26.2763 31.1666 24.75V8.25C31.1666 6.72375 29.9058 5.5 28.3333 5.5ZM15.5833 13.75H11.3333V15.125H15.5833C16.3625 15.125 17 15.7437 17 16.5V20.625C17 21.3813 16.3625 22 15.5833 22H14.1666C14.1666 22.7563 13.5291 23.375 12.75 23.375C11.9708 23.375 11.3333 22.7563 11.3333 22H9.91665C9.13748 22 8.49998 21.3813 8.49998 20.625C8.49998 19.8687 9.13748 19.25 9.91665 19.25H14.1666V17.875H9.91665C9.13748 17.875 8.49998 17.2563 8.49998 16.5V12.375C8.49998 11.6188 9.13748 11 9.91665 11H11.3333C11.3333 10.2438 11.9708 9.625 12.75 9.625C13.5291 9.625 14.1666 10.2438 14.1666 11H15.5833C16.3625 11 17 11.6188 17 12.375C17 13.1312 16.3625 13.75 15.5833 13.75ZM22.1708 21.8625L19.8333 19.5938H25.5L23.1625 21.8625C22.8933 22.1237 22.44 22.1237 22.1708 21.8625ZM19.8333 13.75L22.1708 11.4813C22.4541 11.2063 22.8933 11.2063 23.1766 11.4813L25.5 13.75H19.8333Z"
-                            fill="#3C3C3C" />
-                        </svg>
-                        </div>
-                        <p>Payment History</p>
-                    </div>
-                    </div>
-                </router-link>
-                </div>
-                <div class="payment-right-card-main-div dashBoardRightDiv">
-                <div class="current-plan-main-div">
-                    <div>
-                    <img src="@/assets/images/user/plan-rocket.svg" alt="Plan">
-                    <h6>You are using Free Trial</h6>
-                    <p>07 <span>days left</span></p>
-                    <a href="https://keithcooper439.lpages.co/plans/" class="plan-upgrad-button">Upgrade Plan</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <!-- Profile details end -->
-            </div>
-        </section>
-        <fotter-component />
-    </div>
+          </div>
+        </div>
+        <!-- Profile details end -->
+      </div>
+    </section>
+    <fotter-component />
+  </div>
 </template>
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import HeaderComponent from "./../components/user-dashboard/HeaderComponent.vue";
+import SidebarComponent from "./../components/user-dashboard/SidebarComponent.vue";
+import { get } from "../../network/requests";
+import { getUrl } from "../../network/url";
+import { getFirstError, authHeader } from "../../services/helper";
 export default {
-   components:{NavbarComponent, FotterComponent}
+  components: {
+    NavbarComponent,
+    FotterComponent,
+    HeaderComponent,
+    SidebarComponent,
+  },
+  methods: {
+    getCurrentPlan: function() {
+      get(getUrl("current_plan"), authHeader())
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$toast.error(getFirstError(error));
+        });
+    },
+  },
+  mounted() {
+    this.getCurrentPlan();
+  },
 };
 </script>
-<style lang="">
-    
-</style>

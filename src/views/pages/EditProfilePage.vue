@@ -27,9 +27,10 @@
                   </label>
                 </div>
               </div>
+              
               <div class="edit-profile-inputs-div" >
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="firstName" class="active" >First Name</label>
                     <input type="text" id="firstName" v-model="user.first_name" @keyup="errors.first_name = false" >
                   </div>
@@ -37,16 +38,16 @@
                   <label class="error" v-if="errors.first_name && errors.first_name[0]" >{{errors.first_name[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="lastName" class="active" >Last Name</label>
                     <input type="text" id="lastName" v-model="user.last_name" @keyup="errors.last_name = false" >
                   </div>
                   <label class="error" v-if="errors.last_name && errors.last_name[0]" >{{errors.last_name[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="email" class="active" >Company Name</label>
                     <input type="text" id="email" v-model="user.company_name" @keyup="errors.company_name = false" >
                   </div>
@@ -54,8 +55,8 @@
                   <label class="error" v-if="errors.company_name && errors.company_name[0]" >{{errors.company_name[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="phone" class="active" >Email</label>
                     <input type="text" id="phone" readonly v-model="user.email" @keyup="errors.email = false" >
                   </div>
@@ -63,8 +64,8 @@
                   <label class="error" v-if="errors.email && errors.email[0]" >{{errors.email[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="password" class="active" >Phone</label>
                     <input type="text" id="password" v-model="user.phone" @keyup="errors.phone = false" >
                   </div>
@@ -72,8 +73,8 @@
                   <label class="error" v-if="errors.phone && errors.phone[0]" >{{errors.phone[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="confirmPassword" class="active" >Website</label>
                     <input type="text" id="confirmPassword" v-model="user.website" @keyup="errors.website = false" >
                   </div>
@@ -81,8 +82,8 @@
                   <label class="error" v-if="errors.website && errors.website[0]" >{{errors.website[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="confirmPassword" class="active" >Address</label>
                     <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" >
                   </div>
@@ -90,8 +91,8 @@
                   <label class="error" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="confirmPassword" class="active" >City</label>
                     <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" >
                   </div>
@@ -99,8 +100,8 @@
                   <label class="error" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="confirmPassword" class="active" >State</label>
                     <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" >
                   </div>
@@ -108,8 +109,8 @@
                   <label class="error" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
                 </div>
 
-                <div>
-                  <div class="auth-form editProfileInpuDiv" >
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
                     <label for="confirmPassword" class="active" >Zip Code</label>
                     <input type="text" id="confirmPassword" v-model="user.zip_code" @keyup="errors.zip_code = false" >
                   </div>

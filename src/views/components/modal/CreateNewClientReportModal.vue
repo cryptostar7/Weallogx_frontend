@@ -38,7 +38,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="existingScenario2" class="fs-14 bold-fw">Scnario</label>
+                <label for="existingScenario2" class="fs-14 bold-fw">Scenario</label>
                 <div class="p-relative">
                   <input type="text" id="existingScenario2" placeholder="Select or Start Typing"
                     class="form-control pe-5 autocomplete">

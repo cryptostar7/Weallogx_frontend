@@ -45,7 +45,8 @@ const store = createStore({
                 free_trial:'FREE_TRIAL_PLAN',
                 monthly:'MONTHLY_PLAN',
                 yearly:'YEARLY_PLAN',
-            }
+            },
+            clients:null,
         },
         app: {
             themes: [
@@ -81,6 +82,20 @@ const store = createStore({
                 return true;
             }
             return false
+        },
+        getClientUsingId: (state) => (id) => {
+            let array = state.data.clients;
+            var client = false;
+            if(array && array.length > 0){
+                array.forEach(element => {
+                    if(element.id === Number(id)){
+                        if(!client){
+                            client = element;
+                        }
+                    }
+                });
+            }
+            return client;
         }
     },
     mutations: {
@@ -135,6 +150,9 @@ const store = createStore({
         setUserFormError(state, payload) {
             state.errors.temp_user = payload;
         },
+        setClients(state, payload) {
+            state.data.clients = payload;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -178,7 +196,9 @@ const store = createStore({
         userTempFormError(context, payload) {
             context.commit('setUserFormError', payload);
         },
-        
+        clients(context, payload) {
+            context.commit('setClients', payload);
+        },        
     }
 })
 export default store;

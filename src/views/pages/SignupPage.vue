@@ -11,11 +11,11 @@
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
-                    <label for="first_Name" :class="user.first_name ? 'active' : ''">First Name</label>
-                    <input type="text" id="first_Name" v-model="user.first_name">
+                    <label for="firstname" :class="user.firstname ? 'active' : ''">First Name</label>
+                    <input type="text" id="firstname" v-model="user.firstname">
                   </div>
-                  <label class="error" v-if="user.first_name === ''">This field is required.</label>
-                  <label class="error" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
+                  <label class="error" v-if="user.firstname === ''">This field is required.</label>
+                  <label class="error" v-if="errors.firstname && errors.firstname[0]">{{errors.firstname[0]}}</label>
                 </div>
                 <div class="auth-form">
                   <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
@@ -88,7 +88,6 @@ export default {
     return {
       user: {
         firstname: null,
-        first_name: null,
         last_name: null,
         email: null,
         phone_number: null,
@@ -124,8 +123,8 @@ export default {
     checkValidation: function() {
       this.errors = [];
       let valid = true;
-      if (!this.user.first_name) {
-        this.user.first_name = "";
+      if (!this.user.firstname) {
+        this.user.firstname = "";
         valid = false;
       }
 

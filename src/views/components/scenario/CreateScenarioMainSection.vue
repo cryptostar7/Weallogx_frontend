@@ -44,7 +44,7 @@
                 <hr class="hr-separator" size="1.25" />
                 <SelectDropdown
                   :list="existingScenarioList"
-                  label="Use Existing Scnario"
+                  label="Use Existing Scenario"
                   id="existingScenario"
                  />
                 <span class="or-text-span">or</span>

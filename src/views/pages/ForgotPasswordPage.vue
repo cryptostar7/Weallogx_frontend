@@ -80,7 +80,7 @@ export default {
           console.log(response.data.success);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.success);
-          this.$router.push("/reset-password");
+          // this.$router.push("/sign-in");
         })
         .catch(error => {
           console.log(error);

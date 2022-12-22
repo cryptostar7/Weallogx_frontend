@@ -1,12 +1,3 @@
-<script setup>
-import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import IndividualMainSection from "../components/individual-client/IndividualMainSection.vue";
-import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
-import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
-import EditClientCanvasModal from '../components/modal/EditClientCanvasModal.vue';
-import DeleteReportModal from '../components/modal/DeleteReportModal.vue';
-import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
-</script>
 <template>
 <div>
   <navbar-component />
@@ -17,15 +8,26 @@ import CloneScenarioModal from '../components/modal/CloneScenarioModal.vue';
   <delete-scenario-modal />          
   <!-- Delete Report Modal --> 
   <delete-report-modal />       
-  <!-- Edit Client Canvas -->
-  <edit-client-canvas-modal />   
-  <!-- Clone Scenario Modal start -->
+
   <clone-scenario-modal />     
 </div>  
 </template>
 <script>
+import NavbarComponent from "./../components/common/NavbarComponent.vue";
+import IndividualMainSection from "../components/individual-client/IndividualMainSection.vue";
+import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
+import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
+import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
+import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
 export default {
-  components: { EditClientCanvasModal, DeleteReportModal, DeleteScenarioModal, DeleteClientModal, NavbarComponent, IndividualMainSection, CloneScenarioModal },
+  components: {
+    DeleteReportModal,
+    DeleteScenarioModal,
+    DeleteClientModal,
+    NavbarComponent,
+    IndividualMainSection,
+    CloneScenarioModal,
+  },
   mounted() {
     //When clicked on menu button below 1200px device
     const menuBtn = document.getElementById("menuBtn");
@@ -33,7 +35,7 @@ export default {
     const closeIcon = menuBtn.querySelector(".close-icon");
     const sidebar = document.querySelector(".sidebar");
 
-    menuBtn.addEventListener("click", function (e) {
+    menuBtn.addEventListener("click", function(e) {
       menuIcon.classList.toggle("d-none");
       closeIcon.classList.toggle("d-none");
       sidebar.classList.toggle("show");
@@ -41,8 +43,8 @@ export default {
     // When clicked on Right Action Buttons
     let rightActionBtns = document.querySelectorAll(".right-action-btn");
 
-    rightActionBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
+    rightActionBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
         let navItem = btn.closest(".nav-item");
         //Checking whether both buttons have collapsed class or not
         let bothActionBtns = btn
@@ -57,15 +59,15 @@ export default {
           navItem.classList.remove("hovered");
         } else {
           navItem.classList.add("hovered");
-        }             
+        }
       });
     });
 
     // When clicked on VIEW MORE or VIEW LESS button
     var viewBtns = document.querySelectorAll(".view-btn");
 
-    viewBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
+    viewBtns.forEach(function(btn) {
+      btn.addEventListener("click", function() {
         btn.classList.toggle("viewing");
         let parentDiv =
           btn.closest(".inner-report-div") || btn.closest(".list-div");
@@ -73,7 +75,7 @@ export default {
         if (parentDiv.classList.contains("list-div")) {
           listItems = [...listItems];
           let newItems = [];
-          listItems.map((item) => {
+          listItems.map(item => {
             if (item.parentElement.classList.contains("list-div")) {
               newItems.push(item);
             }
@@ -82,14 +84,14 @@ export default {
         }
         if (btn.classList.contains("viewing")) {
           btn.innerText = "- View Less";
-          listItems.forEach(function (listItem) {
+          listItems.forEach(function(listItem) {
             if (listItem.classList.contains("d-none")) {
               listItem.classList.remove("d-none");
             }
           });
         } else {
           btn.innerText = "+ View More";
-          listItems.forEach(function (listItem, index) {
+          listItems.forEach(function(listItem, index) {
             if (index > 2) {
               listItem.classList.add("d-none");
             }
@@ -100,7 +102,7 @@ export default {
 
     // When Scrolling
     var scrollingDiv = document.querySelector(".right-area-inner");
-    scrollingDiv.addEventListener("scroll", function (e) {
+    scrollingDiv.addEventListener("scroll", function(e) {
       let sectionHeadingDiv = e.target.querySelector(".main-cleint-name-div");
       let upperGoBackBtn = document.getElementById("upperGoBackBtn");
       let lowerGoBackBtn = document.getElementById("lowerGoBackBtn");

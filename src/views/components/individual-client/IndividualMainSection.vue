@@ -45,28 +45,58 @@
       </div>
     </main>
     </div>
+      <!-- Edit Client Canvas -->
+      <edit-client-canvas-modal v-if="client" :client="client"/>   
+      <!-- Clone Scenario Modal start -->
   </section>
    
 </template>
 <script>
-import testClients from '../../../services/dummy-json';
-import { getParams } from '../../../services/helper';
+import testClients from "../../../services/dummy-json";
+import { getParams, authHeader } from "../../../services/helper";
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
+import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.vue";
 import ScenariosRow from "../homepage/ScenariosRow.vue";
 import ReportRow from "../homepage/ReportRow.vue";
+import { getUrl } from "../../../network/url";
+import { get } from '../../../network/requests';
 export default {
-  components:{LeftSidebarComponent, IndividualClientNavbar, ScenariosRow, ReportRow},
-  data(){
+  components: {
+    EditClientCanvasModal,
+    LeftSidebarComponent,
+    IndividualClientNavbar,
+    ScenariosRow,
+    ReportRow,
+  },
+  data() {
     return {
-      client:testClients[getParams(this.$route)],
+      client: false,
+      clientId: getParams(this.$route),
+    };
+  },
+  methods: {
+    getClient: function() {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("client")}${this.clientId}/`, authHeader())
+        .then(response => {
+          this.client = response.data.data;
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          this.$store.dispatch("loader", false);
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    if (this.$store.state.data.clients) {
+      this.client = this.$store.getters.getClientUsingId(this.clientId);
+    } else {
+      this.getClient();
     }
   },
-  mounted(){
-    console.log(this.client);
-  }
-}
+};
 </script>
 <style lang="">
-  
 </style>

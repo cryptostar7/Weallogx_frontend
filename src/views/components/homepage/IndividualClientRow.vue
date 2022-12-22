@@ -2,9 +2,9 @@
     <li v-for="(item, index) in filteredList" :key="index" class="nav-item p-0 p-0" id="parentCollapse1">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
-                <span class="name-initial-circle">{{sortName(item.name)}}</span>
-                <router-link :to="`/individual-client/${index}`" class="nav-link px-0">
-                <span class="name-span">{{ item.name }}</span>
+                <span class="name-initial-circle">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
+                <router-link :to="`/individual-client/${item.id}`" class="nav-link px-0">
+                <span class="name-span">{{ item.firstname }}</span>
                     <svg width="9" height="12" viewBox="0 0 9 12" fill="none" class="ms-1"
                         xmlns="http://www.w3.org/2000/svg">
                         <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)"
@@ -99,25 +99,25 @@ export default {
     return {
       senarioLimit: config.SCENARIO_LIST_LIMIT,
       reportLimit: config.SCENARIO_LIST_LIMIT,
-      clientList: [],
+      clientList: this.$props.clients,
     };
   },
   mounted() {
-    this.clientList = this.$props.clients;
+    console.log(this.$props.clients);
+    // this.clientList = this.$props.clients;
   },
   methods: {
-    sortName: function (name) {
-       return getSortName(name);
-    },
+
   },
   computed: {
     filteredList() {
       return this.clientList.filter((item) => {
-        return item.name
+        return item.firstname
           .toLowerCase()
           .includes(this.$props.search.toLowerCase());
       });
     },
+    
   },
 };
 </script>
