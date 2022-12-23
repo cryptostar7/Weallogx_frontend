@@ -11,12 +11,11 @@ export function getFirstError(error) {
   if (error.response && error.response.data) {
     var msg = Object.values(error.response.data)[0];
     if (typeof msg === 'object') {
-      console.log(msg[0]);
       msg = msg[0];
     }
     return msg ?? 'Network Error';
   }
-  return 'Network Error';
+  return 'Something went wrong!';
 }
 
 export function getServerErrors(error) {
@@ -24,7 +23,7 @@ export function getServerErrors(error) {
     var msg = error.response.data;
     return msg ?? 'Network Error';
   }
-  return 'Network Error';
+  return 'Something went wrong!';
 }
 
 export function setRefreshToken(value) {
@@ -34,7 +33,7 @@ export function setRefreshToken(value) {
     value: value,
     expiry: now.getTime() + ttl,
   }
-  localStorage.setItem('refresh_token', JSON.stringify(item))
+  localStorage.setItem('refresh_token', JSON.stringify(item));
 }
 
 export function setAccessToken(value) {
@@ -44,7 +43,7 @@ export function setAccessToken(value) {
     value: value,
     expiry: now.getTime() + ttl,
   }
-  localStorage.setItem('access_token', JSON.stringify(item))
+  localStorage.setItem('access_token', JSON.stringify(item));
 }
 
 export function getRefreshToken() {
@@ -78,6 +77,10 @@ export function getAccessToken() {
   return item.value
 }
 
+export const setCurrentUserName = (name) => {
+  return localStorage.setItem('currentUserName', name);
+}
+
 export const authHeader = () => {
   let token = getAccessToken();
   if (!token) {
@@ -86,6 +89,13 @@ export const authHeader = () => {
   return { headers: { 'Authorization': `Bearer ${token}` } };
 }
 
+export const rememberMe = () => {
+  return localStorage.getItem('remember');
+}
+
+export const setRememberMe = (data) => {
+  return localStorage.setItem('remember', JSON.stringify(data));
+}
 
 export const getSearchParams = (name) => {
   var q = window.location.search.substring(1);

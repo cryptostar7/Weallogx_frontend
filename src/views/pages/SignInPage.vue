@@ -26,14 +26,14 @@
               </div>
               <div class="rememberAndForgetDiv">
                 <div>
-                  <input type="checkbox" id="remember_me">&nbsp;<label for="remember_me">Remember Me</label>
+                  <input type="checkbox" id="remember_me" v-model="rememberMe">&nbsp;<label for="remember_me">Remember Me</label>
                 </div>
                 <div>
                   <router-link to="/forgot-password"><span>Forgot Password?</span></router-link>
                 </div>
               </div>
               <div class="authButtonDiv">
-                <a class="btn"  @click="submitForm()">Sign In</a>
+                <a class="btn" @click="submitForm()">Sign In</a>
               </div>
               <p class="authButtomPara">Don’t have an account? &nbsp;<router-link to="/sign-up">Sign Up</router-link>
               </p>
@@ -48,12 +48,18 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
-import { post } from "../../network/requests";
+import { post, get } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import {
   getServerErrors,
   setRefreshToken,
   setAccessToken,
+  getSearchParams,
+  authHeader,
+  getFirstError,
+  setCurrentUserName,
+  setRememberMe,
+  rememberMe,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -63,12 +69,19 @@ export default {
         email: null,
         password: null,
       },
+      rememberMe: "",
       errors: [],
       serverError: [],
       server: [],
     };
   },
   methods: {
+    // rememberMeSet: function() {
+    //   console.log("rememberMeSet");
+
+    //   var temp = { email: "hari.test@gmail.com", password: "123456789" };
+    //   setRememberMe(temp);
+    // },
     isValidEmail: function() {
       if (
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
@@ -109,22 +122,36 @@ export default {
         console.log(this.errors);
         return false;
       }
-      this.$store.dispatch('loader', true);
+      this.$store.dispatch("loader", true);
       post(getUrl("login"), this.user)
         .then(response => {
-          console.log(response.data);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
-          this.$store.dispatch('loader', false);
           this.server.status = true;
-          this.server.message = "You are successfully logged in!.";
-          this.$toast.success(this.server.message);
-          var query = window.location.search.substring(1);
-          if (query && query.split("next=") && query.split("next=")[1]) {
-            this.$router.push(query.split("next=")[1]);
-          }else{
-            this.$router.push("/profile-details");
+          this.server.message = response.data.message;
+          if (this.rememberMe) {
+            setRememberMe({
+              email: this.encryptString(this.user.email, "email"),
+              password: this.encryptString(this.user.password, "password"),
+            });
           }
+          get(getUrl("profile"), authHeader())
+            .then(response => {
+              setCurrentUserName(response.data.data.first_name);
+              this.$store.dispatch("user", response.data.data);
+              this.$store.dispatch("loader", false);
+              this.$toast.success(this.server.message);
+              if (getSearchParams("next")) {
+                this.$router.push(getSearchParams("next"));
+              } else {
+                this.$router.push("/profile-details");
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              this.$store.dispatch("loader", false);
+              this.$toast.error(getFirstError(error));
+            });
         })
         .catch(error => {
           console.log(error);
@@ -132,12 +159,32 @@ export default {
           console.log(this.errors);
           this.server.status = false;
           this.server.message = this.errors.message;
-          this.$store.dispatch('loader', false);
+          this.$store.dispatch("loader", false);
           this.$toast.error(this.server.message);
         });
     },
+    encryptString: function(value, type) {
+      if (value && type) {
+        return this.$CryptoJS.AES.encrypt(value, type).toString();
+      }
+      return 0;
+    },
+    decryptString: function(value, type) {
+      if (value && type) {
+        return this.$CryptoJS.AES.decrypt(value, type).toString(
+          this.$CryptoJS.enc.Utf8
+        );
+      }
+      return 0;
+    },
   },
   mounted() {
+    if (rememberMe()) {
+      var remember = JSON.parse(rememberMe());
+      this.user.email = this.decryptString(remember.email, "email");
+      this.user.password = this.decryptString(remember.password, "password");
+    }
+
     let eachInput = document.querySelectorAll(".auth-form input");
     eachInput.forEach(function(eachInputFun) {
       eachInputFun.addEventListener("keyup", function(e) {

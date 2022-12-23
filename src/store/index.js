@@ -88,7 +88,7 @@ const store = createStore({
             var client = false;
             if(array && array.length > 0){
                 array.forEach(element => {
-                    if(element.id === Number(id)){
+                    if(Number(element.id) === Number(id)){
                         if(!client){
                             client = element;
                         }
@@ -151,7 +151,10 @@ const store = createStore({
             state.errors.temp_user = payload;
         },
         setClients(state, payload) {
-            state.data.clients = payload;
+            state.data.clients = [...payload];
+        },
+        addNewClient(state, payload) {
+            state.data.clients = [...state.data.clients, payload];
         },
     },
     actions: {
@@ -198,6 +201,9 @@ const store = createStore({
         },
         clients(context, payload) {
             context.commit('setClients', payload);
+        },        
+        addClient(context, payload) {
+            context.commit('addNewClient', payload);
         },        
     }
 })

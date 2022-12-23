@@ -80,7 +80,7 @@ import {
   getServerErrors,
   setRefreshToken,
   setAccessToken,
-getSearchParams,
+  getSearchParams,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -94,7 +94,7 @@ export default {
         password: null,
         confirm_password: null,
         stripe_source_id: null,
-        plan_type:null,
+        plan_type: null,
       },
       errors: [],
       serverError: [],
@@ -200,21 +200,23 @@ export default {
           });
       } else {
         this.$store.dispatch("userTempForm", this.user);
-        this.$router.push(`${'payment-method'}${getSearchParams('plan') ? `?plan=${getSearchParams('plan')}`:''}`);
+        this.$router.push(
+          `${"payment-method"}${
+            getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""
+          }`
+        );
       }
-
     },
   },
   mounted() {
-    this.user.plan_type = this.$store.getters.getPlan(getSearchParams('plan'));
-    if(this.$store.state.forms.temp_user){
+    this.user.plan_type = this.$store.getters.getPlan(getSearchParams("plan"));
+    if (this.$store.state.forms.temp_user) {
       this.user = this.$store.state.forms.temp_user;
-      console.log(this.user);
-      this.$store.state.forms.temp_user=null;
+      this.$store.state.forms.temp_user = null;
     }
     if (this.$store.state.errors.temp_user) {
       this.errors = this.$store.state.errors.temp_user;
-      this.$store.state.errors.temp_user=null;
+      this.$store.state.errors.temp_user = null;
     }
     let eachInput = document.querySelectorAll(".auth-form input");
     eachInput.forEach(function(eachInputFun) {

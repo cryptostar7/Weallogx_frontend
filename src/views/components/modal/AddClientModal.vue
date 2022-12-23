@@ -55,9 +55,13 @@
 <script>
 import { Form, Field } from "vee-validate";
 import * as Yup from "yup";
-import { post } from "../../../network/requests";
+import { post, get } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
-import { authHeader, getFirstError, getServerErrors } from "../../../services/helper";
+import {
+  authHeader,
+  getFirstError,
+  getServerErrors,
+} from "../../../services/helper";
 
 export default {
   components: {
@@ -73,20 +77,19 @@ export default {
     });
     return {
       schema,
-      serverErrors:[],
+      serverErrors: [],
     };
   },
   methods: {
     onSubmit(data) {
-      console.log(data);
       this.serverErrors = [];
       this.$store.dispatch("loader", true);
       post(getUrl("client"), data, authHeader())
         .then(response => {
-          console.log(response);
+          this.$store.dispatch("addClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();
-          this.$toast.success("Client Added Successfully!");
+          this.$toast.success(response.data.message);
         })
         .catch(error => {
           this.$store.dispatch("loader", false);

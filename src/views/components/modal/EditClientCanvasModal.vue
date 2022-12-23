@@ -8,7 +8,6 @@
           <ellipse cx="25.1061" cy="18.1905" rx="6.31634" ry="6.19048" fill="#0E6651" />
           <ellipse cx="25.1061" cy="33.0474" rx="10.1061" ry="4.95238" fill="#0E6651" />
         </svg>
-
         <a data-bs-dismiss="offcanvas" ref="closeModalRef" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid"
             alt="Close Canvas"></a>
       </div>
@@ -57,7 +56,11 @@ import { Form, Field } from "vee-validate";
 import * as Yup from "yup";
 import { post, patch } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
-import { authHeader, getFirstError, getServerErrors } from "../../../services/helper";
+import {
+  authHeader,
+  getFirstError,
+  getServerErrors,
+} from "../../../services/helper";
 
 export default {
   components: {
@@ -74,24 +77,21 @@ export default {
     });
     return {
       schema,
-      client:[],
-      inputs:[],
       serverErrors: [],
     };
   },
   methods: {
     onSubmit(data) {
-      console.log(data);
       this.serverErrors = [];
       this.$store.dispatch("loader", true);
-      patch(`${getUrl("client")}${this.client.id}/`, data, authHeader())
+      patch(`${getUrl("client")}${this.clientDetail.id}/`, data, authHeader())
         .then(response => {
           console.log(response);
           this.$store.dispatch("loader", false);
-          this.client.firstname = data.firstname;
-          this.client.middlename = data.middlename;
-          this.client.lastname = data.lastname;
-          this.client.age = data.age;
+          this.clientDetail.firstname = data.firstname;
+          this.clientDetail.middlename = data.middlename;
+          this.clientDetail.lastname = data.lastname;
+          this.clientDetail.age = data.age;
           this.$refs.closeModalRef.click();
           this.$toast.success(response.data.message);
         })
@@ -104,14 +104,22 @@ export default {
         });
     },
   },
-  mounted() {
-    console.log("client prop data");
-    this.client = this.$props.client;
-    this.inputs.firstname = this.$props.client.firstname;
-    this.inputs.lastname = this.$props.client.lastname;
-    this.inputs.middlename = this.$props.client.middlename;
-    this.inputs.age = this.$props.client.age;
-    console.log(this.client);
+  computed: {
+    clientDetail() {
+      return this.$props.client;
+    },
+    inputs() {
+      if (this.clientDetail) {
+        return {
+          firstname: this.$props.client.firstname,
+          lastname: this.$props.client.lastname,
+          middlename: this.$props.client.middlename,
+          age: this.$props.client.age,
+        };
+      } else {
+        return [];
+      }
+    },
   },
 };
 </script>

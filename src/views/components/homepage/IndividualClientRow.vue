@@ -47,11 +47,11 @@
                         alt="Three Dots"></button>
                     <ul class="dropdown-menu common-dropdown-menu">
                         <li><a class="dropdown-item semi-bold-fw" href="javascript:void(0)" data-bs-toggle="offcanvas"
-                            data-bs-target="#editClientCanvas"><img src="@/assets/images/icons/edit.svg" class="img-fluid me-3"
+                            data-bs-target="#editClientCanvas" @click="$emit('setActionId', item.id)"><img src="@/assets/images/icons/edit.svg" class="img-fluid me-3"
                             alt="Edit"> <span>Edit</span></a>
                         </li>
                         <li><a class="dropdown-item semi-bold-fw" href="javascript:void(0)"
-                            data-bs-target="#deleteClientModal" data-bs-toggle="modal"><img
+                            data-bs-target="#deleteClientModal" data-bs-toggle="modal"  @click="$emit('setActionId', item.id)" ><img
                             src="@/assets/images/icons/delete.svg" class="img-fluid me-3" alt="Delete">
                             <span>Delete</span></a></li>
                     </ul>
@@ -94,30 +94,28 @@ import getSortName from "../../../services/sort_name.js";
 
 export default {
   props: ["clients", "search"],
+  emits: ["setActionId"],
   components: { ScenariosRow, ReportRow },
   data() {
     return {
       senarioLimit: config.SCENARIO_LIST_LIMIT,
       reportLimit: config.SCENARIO_LIST_LIMIT,
-      clientList: this.$props.clients,
     };
-  },
-  mounted() {
-    console.log(this.$props.clients);
-    // this.clientList = this.$props.clients;
   },
   methods: {
 
   },
   computed: {
+    clientList() {
+      return this.$props.clients;
+    },
     filteredList() {
-      return this.clientList.filter((item) => {
+      return this.clientList.filter(item => {
         return item.firstname
           .toLowerCase()
           .includes(this.$props.search.toLowerCase());
       });
     },
-    
   },
 };
 </script>

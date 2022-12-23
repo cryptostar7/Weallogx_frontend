@@ -60,7 +60,7 @@ import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.
 import ScenariosRow from "../homepage/ScenariosRow.vue";
 import ReportRow from "../homepage/ReportRow.vue";
 import { getUrl } from "../../../network/url";
-import { get } from '../../../network/requests';
+import { get } from "../../../network/requests";
 export default {
   components: {
     EditClientCanvasModal,

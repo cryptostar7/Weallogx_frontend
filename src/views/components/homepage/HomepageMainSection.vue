@@ -7,34 +7,67 @@
           <div class="right-area-wrapper">
             <ChooseClientNavbar  @newModified="newModified" @oldModified="oldModified" @sortAsc="sortAsc" @sortDesc="sortDesc" @updateList="updateList"/>
             <div class="client-list-div">
-              <ul v-if="clients.length > 0" class="nav flex-column client-list-ul">
-                <IndividualClientRow :clients="clients" :search="search" />
+              <ul v-if="clients && clients.length > 0" class="nav flex-column client-list-ul">
+                <IndividualClientRow :clients="clients" :search="search" @setActionId="setActionId"/>
               </ul>
             </div>
           </div>
         </div>
       </main>
     </div>
+    
+  <!-- Delete Client Modal -->
+  <delete-client-modal @deleteClient="deleteClient"/>
+  
+  <!-- Edit Client Canvas -->
+  <edit-client-canvas-modal :client="client"/>
+  
   </section>
 </template>
 <script>
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
 import ChooseClientNavbar from "./ChooseClientNavbar.vue";
 import IndividualClientRow from "./IndividualClientRow.vue";
+import DeleteClientModal from "../modal/DeleteClientModal.vue";
+import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
+
 import testClients from "../../../services/dummy-json.js";
-import { get } from "../../../network/requests";
+import { get, remove } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
-import { authHeader } from "../../../services/helper";
+import { authHeader, getFirstError } from "../../../services/helper";
 export default {
-  components: { LeftSidebarComponent, ChooseClientNavbar, IndividualClientRow },
+  components: {
+    LeftSidebarComponent,
+    ChooseClientNavbar,
+    IndividualClientRow,
+    DeleteClientModal,
+    EditClientCanvasModal,
+  },
   data() {
     return {
-      clients: false,
       sortedList: false,
       search: "",
+      actionId: false,
     };
   },
   methods: {
+    deleteClient: function() {
+      this.$store.dispatch("loader", true);
+      remove(`${getUrl("client")}${this.actionId}/`, authHeader())
+        .then(response => {
+          this.removeClient(this.actionId);
+          this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$toast.error(getFirstError(error));
+          this.$store.dispatch("loader", false);
+        });
+    },
+    setActionId: function(id) {
+      this.actionId = id;
+    },
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
@@ -49,6 +82,12 @@ export default {
           console.log(error);
           this.$store.dispatch("loader", false);
         });
+    },
+    removeClient: function(deleteId) {
+      this.sortedList = this.clients.filter(item => {
+        return item.id !== deleteId;
+      });
+      return this.$store.dispatch("clients", this.sortedList);
     },
     newModified: function() {
       return (this.sortedList = this.clients.sort(
@@ -89,6 +128,14 @@ export default {
     } else {
       this.getClient();
     }
+  },
+  computed: {
+    clients() {
+      return this.$store.state.data.clients;
+    },
+    client() {
+      return this.$store.getters.getClientUsingId(this.actionId);
+    },
   },
 };
 </script>

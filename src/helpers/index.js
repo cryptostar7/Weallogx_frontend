@@ -9,12 +9,15 @@ const myPlugin = {
             app.config.globalProperties.$appTheme = () => {
                 return localStorage.getItem("mode") || 'light-green';
             },
+            app.config.globalProperties.$currentUserName = () => {
+                return localStorage.getItem("currentUserName");
+            },
             app.config.globalProperties.$sortName = (string) => {
                 var name = '';
                 if (string) {
                     var arr = string.trim().split(' ');
                     arr.forEach(element => {
-                        if(element){
+                        if (element) {
                             name += element.split('')[0];
                         }
                     });

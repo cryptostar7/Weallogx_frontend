@@ -29,14 +29,14 @@
         <div class="dropdown sort-dropdown">
             <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <span>Last Name (A-Z)</span>
+            <span>{{currentFilter}}</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="sortingBtn">
-            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'ascending' ? 'active' : ''}`" data-sort="ascending"
-                href="javascript:void(0)" @click="() => {currentFilter = 'ascending'; $emit('sortAsc')}">Last Name (A-Z)</a></li>
-            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'descending' ? 'active' : ''}`" data-sort="descending" href="javascript:void(0)" @click="() => {currentFilter = 'descending'; $emit('sortDesc')}">Last Name (Z-A)</a></li>
-            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'lastEdited' ? 'active' : ''}`" data-sort="lastEdited" href="javascript:void(0)" @click="() => {currentFilter = 'lastEdited'; $emit('oldModified')}">Last Edited</a></li>
-            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'firstEdited' ? 'active' : ''}`" data-sort="firstEdited" href="javascript:void(0)" @click="() => {currentFilter = 'firstEdited'; $emit('newModified')}">First Edited</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'Last Name (A-Z)' ? 'active' : ''}`" 
+                href="javascript:void(0)" @click="() => {currentFilter = 'Last Name (A-Z)'; $emit('sortAsc')}">Last Name (A-Z)</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'Last Name (Z-A)' ? 'active' : ''}`"  href="javascript:void(0)" @click="() => {currentFilter = 'Last Name (Z-A)'; $emit('sortDesc')}">Last Name (Z-A)</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'Last Edited' ? 'active' : ''}`"  href="javascript:void(0)" @click="() => {currentFilter = 'Last Edited'; $emit('oldModified')}">Last Edited</a></li>
+            <li><a :class="`dropdown-item semi-bold-fw ${currentFilter === 'First Edited' ? 'active' : ''}`"  href="javascript:void(0)" @click="() => {currentFilter = 'First Edited'; $emit('newModified')}">First Edited</a></li>
             </ul>
         </div>
         </div>
@@ -46,7 +46,7 @@
 export default {
   data() {
     return {
-      currentFilter: "sortAsc",
+      currentFilter: "Last Name (A-Z)",
     };
   },
 };
