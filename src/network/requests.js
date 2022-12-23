@@ -15,7 +15,9 @@ const api = axios.create({
   // proxy: {
   //   host: process.env.REACT_APP_API_BASE_URL,
   // },
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  // baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: 'http://wlxpy.bizbybot.com',
+  
 });
 
 export const get = async (url, getHeader=false) => {
