@@ -67,10 +67,10 @@
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
                     <label for="password" class="active" >Phone</label>
-                    <input type="text" id="password" v-model="user.phone" @keyup="errors.phone = false" >
+                    <input type="text" id="password" v-model="user.phone_number" @keyup="errors.phone_number = false" >
                   </div>
-                  <label class="error" v-if="user.phone === ''" >This field is required.</label>
-                  <label class="error" v-if="errors.phone && errors.phone[0]" >{{errors.phone[0]}}</label>
+                  <label class="error" v-if="user.phone_number === ''" >This field is required.</label>
+                  <label class="error" v-if="errors.phone_number && errors.phone_number[0]" >{{errors.phone_number[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -112,7 +112,7 @@
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
                     <label for="confirmPassword" class="active" >Zip Code</label>
-                    <input type="text" id="confirmPassword" v-model="user.zip_code" @keyup="errors.zip_code = false" >
+                    <input type="text" id="confirmPassword" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" >
                   </div>
                   <!-- <label class="error" v-if="user.zip_code === ''" >This field is required.</label> -->
                   <label class="error" v-if="errors.zip_code && errors.zip_code[0]" >{{errors.zip_code[0]}}</label>
@@ -178,7 +178,7 @@ export default {
         first_name: null,
         last_name: null,
         email: null,
-        phone: null,
+        phone_number: null,
       },
       profileImg: null,
       errors: [],
@@ -277,7 +277,7 @@ export default {
     },
     updateProfile: function() {
       console.log(this.user);
-      this.user.phone_number = this.user.phone;
+      this.user.phone_number = this.user.phone_number;
       this.user.user_id = this.user.id;
       var userData = this.user;
       // var userData = new FormData();
@@ -292,7 +292,7 @@ export default {
       // userData.append("first_name", this.user.first_name);
       // userData.append("last_name", this.user.last_name);
       // userData.append("email", this.user.email);
-      // userData.append("phone", this.user.phone);
+      // userData.append("phone_number", this.user.phone_number);
 
       patch(
         `${getUrl("profile")}/${this.user.id}/`,

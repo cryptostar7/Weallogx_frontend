@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
+    <div class="text-center" v-if="reportList && reportList.length">
         <button v-if="!showAllList" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
         <button v-else role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
     </div>

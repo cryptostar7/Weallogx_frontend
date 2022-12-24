@@ -11,7 +11,7 @@
               <div>
                 <div class="auth-form">
                   <label for="email">Email</label>
-                  <input type="text" id="email" v-model="user.email" @keyup="errors.email = false">
+                  <input type="text" autocomplete="off" id="email" v-model="user.email" @keyup="errors.email = false">
                 </div>
                 <label class="error" v-if="user.email === ''">This field is required.</label>
                 <label class="error" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
@@ -26,7 +26,7 @@
               </div>
               <div class="rememberAndForgetDiv">
                 <div>
-                  <input type="checkbox" id="remember_me" v-model="rememberMe">&nbsp;<label for="remember_me">Remember Me</label>
+                  <input type="checkbox" id="remember_me" @click="rememberMe = !rememberMe" :checked="rememberMe">&nbsp;<label for="remember_me">Remember Me</label>
                 </div>
                 <div>
                   <router-link to="/forgot-password"><span>Forgot Password?</span></router-link>
@@ -69,19 +69,13 @@ export default {
         email: null,
         password: null,
       },
-      rememberMe: "",
+      rememberMe: rememberMe() ? true:false,
       errors: [],
       serverError: [],
       server: [],
     };
   },
   methods: {
-    // rememberMeSet: function() {
-    //   console.log("rememberMeSet");
-
-    //   var temp = { email: "hari.test@gmail.com", password: "123456789" };
-    //   setRememberMe(temp);
-    // },
     isValidEmail: function() {
       if (
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
@@ -134,6 +128,8 @@ export default {
               email: this.encryptString(this.user.email, "email"),
               password: this.encryptString(this.user.password, "password"),
             });
+          }else{
+            localStorage.removeItem("remember");
           }
           get(getUrl("profile"), authHeader())
             .then(response => {
@@ -185,7 +181,7 @@ export default {
       this.user.password = this.decryptString(remember.password, "password");
     }
 
-    let eachInput = document.querySelectorAll(".auth-form input");
+  let eachInput = document.querySelectorAll(".auth-form input");
     eachInput.forEach(function(eachInputFun) {
       eachInputFun.addEventListener("keyup", function(e) {
         let eachLabel = this.closest(".auth-form");

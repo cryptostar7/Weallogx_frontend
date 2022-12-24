@@ -1,3 +1,5 @@
+import { authCheck } from "../services/helper";
+
 const myPlugin = {
     install(app) {
         app.config.globalProperties.$numFormat = (key) => {
@@ -8,6 +10,9 @@ const myPlugin = {
             },
             app.config.globalProperties.$appTheme = () => {
                 return localStorage.getItem("mode") || 'light-green';
+            },
+            app.config.globalProperties.$authCheck = () => {
+                return authCheck();
             },
             app.config.globalProperties.$currentUserName = () => {
                 return localStorage.getItem("currentUserName");

@@ -48,7 +48,7 @@
                 </div>
               </div>
               <div class="profile-all-details">
-                <div class="profile-each-details" v-if="user.phone">
+                <div class="profile-each-details">
                   <img src="@/assets/images/user/phone-icon.svg" alt="Profile Details">
                   <div>
                     <h6>Phone Number :</h6>
@@ -56,7 +56,7 @@
                   </div>
                 </div>
               </div>
-              <div class="profile-all-details" v-if="user.website">
+              <div class="profile-all-details">
                 <div class="profile-each-details">
                   <img src="@/assets/images/user/website-icon.svg" alt="Profile Details">
                   <div>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </div>
-              <div class="profile-all-details" v-if="user.street_address">
+              <div class="profile-all-details">
                 <div class="profile-each-details">
                   <img src="@/assets/images/user/location-icon.svg" alt="Profile Details">
                   <div>

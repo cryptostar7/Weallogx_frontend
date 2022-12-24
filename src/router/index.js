@@ -130,6 +130,11 @@ const router = createRouter({
       component: () => import("../views/pages/ForgotPasswordPage.vue"),
     },
     {
+      path: "/change-password",
+      name: "change-password",
+      component: () => import("../views/pages/ChangePasswordPage.vue"),
+    },
+    {
       path: "/edit-payment-method",
       name: "edit-payment-method",
       component: () => import("../views/pages/EditPaymentMethodPage.vue"),
@@ -159,13 +164,15 @@ const privateRoutes = [
   'payment-history',
   'payment',
   'current-plan',
-  'pricing'
+  'pricing',
+  'change-password'
 ];
 
 router.beforeEach((to, from, next) => {
   if (privateRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
+      this.$toast.warning('Authorization required, please login.');
     }
   }
   if (to.name === 'sign-in') {

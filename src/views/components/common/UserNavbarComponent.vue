@@ -82,8 +82,29 @@
                                                     <div class="flex__item--md-12 flex__item--xs-12">
                                                         <div data-widget-id="45e3cbe8-409c-2ef1-4422-bd012221240f" class="widget">
                                                             <div class="lp-button-react-wrapper css-1yltisf" data-widget-type="LpButtonReact">
-                                                                <router-link to="sign-in" data-widget-link="true" class="lp-button-react w-45e3cbe8-409c-2ef1-4422-bd012221240f lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-5 line-height-scale-5 css-1tvyf7o" contenteditable="false">LOG IN</router-link>
+                                                                <router-link v-if="!$authCheck()" to="sign-in" data-widget-link="true" class="lp-button-react w-45e3cbe8-409c-2ef1-4422-bd012221240f lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-5 line-height-scale-5 css-1tvyf7o" contenteditable="false">LOG IN</router-link>
+                                                                <div class="navDropMenu" v-else>
+                                                                <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
+                                                                <div class="navDropMenuItems">
+                                                                    <h5 class="navDropDownHeader"> Allianz Parse </h5>
+                                                                    <router-link to="profile-details"><img src="@/assets/images/user/dashboard-icon.svg"
+                                                                        alt="Dashboard">Dashboard</router-link>
+                                                                    <router-link to="edit-profile"><img src="@/assets/images/user/update-profile-icon.svg"
+                                                                        alt="Profile">Update Profile</router-link>
+                                                                    <router-link to="change-password"><img src="@/assets/images/user/change-password.svg"
+                                                                        alt="Change Password">Change Password</router-link>
+                                                                    <router-link to="payment-history"><img src="@/assets/images/user/my-payment.svg" alt="My Payment">My
+                                                                    Payments</router-link>
+                                                                    <router-link to="" @click="logout()"><img src="@/assets/images/user/logout.svg" alt="Log Out">Log out</router-link>
+                                                                    <div class="navDropDownButtomDiv">
+                                                                    <h6>Free Plan</h6>
+                                                                    <p>You are using FREE plan.</p>
+                                                                    <div><router-link to="https://keithcooper439.lpages.co/plans/">Upgrade Now</router-link></div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="css-1qtcj7h">
+            <!-- <div class="css-1qtcj7h">
                 <div class="composite flex__item--md-12 flex__item--xs-12 css-8x0d4x">
                     <div class="inner-composite flex flex--12">
                         <div class="widget-column flex__item--md-12 flex__item--xs-12">
@@ -157,16 +178,65 @@
                         </div>
                     </div>
                 </div>
+            </div> -->
+            
+            <div class="css-1qtcj7h">
+                <div class="navDropMenu">
+                <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
+                <div class="navDropMenuItems navDropMenuItemsMobile">
+                    <h5 class="navDropDownHeader"> Allianz Parse </h5>
+                    <a href="javascript:void(0)"><img src="@/assets/images/user/dashboard-icon.svg" alt="Dashboard">Dashboard</a>
+                    <a href="javascript:void(0)"><img src="@/assets/images/user/update-profile-icon.svg" alt="Profile">Update Profile</a>
+                    <a href="javascript:void(0)"><img src="@/assets/images/user/change-password.svg" alt="Change Password">Change Password</a>
+                    <a href="javascript:void(0)"><img src="@/assets/images/user/my-payment.svg" alt="My Payment">My Payments</a>
+                    <a href="sign-in.html"><img src="@/assets/images/user/logout.svg" alt="Log Out">Log out</a>
+                    <div class="navDropDownButtomDiv">
+                    <h6>Free Plan</h6>
+                    <p>You are using FREE plan.</p>
+                    <div><a href="https://keithcooper439.lpages.co/plans/">Upgrade Now</a></div>
+                    </div>
+                </div>
+                </div>
             </div>
+
         </div>
         <div class="js-side-nav-shield side-nav-shield css-1a21613"></div>
     </div>
     </div>
 </template>
 <script>
-import "./../../../assets/css/user/style.css"
-import "./../../../assets/css/user/external.css"
-export default {};
+import "./../../../assets/css/user/style.css";
+import "./../../../assets/css/user/external.css";
+import { authCheck, getRefreshToken, getAccessToken } from '../../../services/helper';
+import { post } from '../../../network/requests';
+import { getUrl } from '../../../network/url';
+export default {
+  methods: {
+    logout: function() {
+      if (authCheck()) {
+        this.$store.dispatch("loader", true);
+        post(
+          getUrl("logout"),
+          { refresh: getRefreshToken() },
+          { headers: { Authorization: `Bearer ${getAccessToken()}` } }
+        )
+          .then(response => {
+            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("access_token");
+            // localStorage.removeItem("remember");
+            this.$store.dispatch("loader", false);
+            this.$toast.success(response.data.message);
+            this.$router.push("/sign-in");
+          })
+          .catch(err => {
+            console.log(err);
+            this.$store.dispatch("loader", false);
+            this.$toast.error(err.response.data.messages[0].message);
+          });
+      }
+    },
+  },
+};
 </script>
 <style lang="">
 </style>
