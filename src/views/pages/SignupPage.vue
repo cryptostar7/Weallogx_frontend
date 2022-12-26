@@ -184,6 +184,7 @@ export default {
             console.log(response);
             setRefreshToken(response.data.data.tokens.refresh);
             setAccessToken(response.data.data.tokens.access);
+            localStorage.setItem('plan_active', 1);
             this.server.status = true;
             this.server.message = response.data.message;
             this.$store.dispatch("loader", false);

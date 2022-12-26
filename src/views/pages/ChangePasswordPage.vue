@@ -13,10 +13,10 @@
                 <div class="change-password-inner-div">
                   <div class="auth-form changePasswordInputDiv">
                     <label for="firstName">Current Password</label>
-                    <input type="password" id="firstName" v-model="current_password" @keyup="errors.current_password = false">
+                    <input type="password" id="firstName" v-model="old_password" @keyup="errors.old_password = false">
                   </div>
-                  <label class="error" v-if="current_password === ''">This field is required.</label>
-                  <label class="error" v-if="errors.current_password && errors.current_password[0]">{{errors.current_password[0]}}</label>
+                  <label class="error" v-if="old_password === ''">This field is required.</label>
+                  <label class="error" v-if="errors.old_password && errors.old_password[0]">{{errors.old_password[0]}}</label>
 
 
                   <div class="auth-form changePasswordInputDiv">
@@ -29,10 +29,10 @@
 
                   <div class="auth-form changePasswordInputDiv">
                     <label for="lastName">Confirm New Password</label>
-                    <input type="password" id="lastName" v-model="confirm_password" @keyup="errors.confirm_password = false">
+                    <input type="password" id="lastName" v-model="confirm_new_password" @keyup="errors.confirm_new_password = false">
                   </div>
-                  <label class="error" v-if="confirm_password === ''">This field is required.</label>
-                  <label class="error" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
+                  <label class="error" v-if="confirm_new_password === ''">This field is required.</label>
+                  <label class="error" v-if="errors.confirm_new_password && errors.confirm_new_password[0]">{{errors.confirm_new_password[0]}}</label>
 
 
                   <div class="authButtonDiv">
@@ -61,9 +61,9 @@ export default {
   components: { NavbarComponent, FotterComponent },
   data() {
     return {
-      current_password: null,
+      old_password: null,
       password: null,
-      confirm_password: null,
+      confirm_new_password: null,
       errors: [],
     };
   },
@@ -71,8 +71,8 @@ export default {
     checkValidation: function() {
       this.errors = [];
       let valid = true;
-      if (!this.current_password) {
-        this.current_password = "";
+      if (!this.old_password) {
+        this.old_password = "";
         valid = false;
       } 
 
@@ -88,12 +88,12 @@ export default {
         }
       }
 
-      if (!this.confirm_password) {
-        this.confirm_password = "";
+      if (!this.confirm_new_password) {
+        this.confirm_new_password = "";
         valid = false;
       } else {
-        if (this.confirm_password !== this.password) {
-          this.errors.confirm_password = ["Confirm password did not matched."];
+        if (this.confirm_new_password !== this.password) {
+          this.errors.confirm_new_password = ["Confirm password did not matched."];
           valid = false;
         }
       }
@@ -103,9 +103,9 @@ export default {
     changePassword(e) {
       e.preventDefault();
       var data = {
-        current_password: this.current_password,
-        password: this.password,
-        confirm_password: this.confirm_password,
+        old_password: this.old_password,
+        new_password: this.password,
+        confirm_new_password: this.confirm_new_password,
       };
 
       console.log(data);

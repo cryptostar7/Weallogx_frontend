@@ -69,7 +69,7 @@ export default {
         email: null,
         password: null,
       },
-      rememberMe: rememberMe() ? true:false,
+      rememberMe: rememberMe() ? true : false,
       errors: [],
       serverError: [],
       server: [],
@@ -119,6 +119,7 @@ export default {
       this.$store.dispatch("loader", true);
       post(getUrl("login"), this.user)
         .then(response => {
+          // set token in local storage
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
           this.server.status = true;
@@ -128,24 +129,37 @@ export default {
               email: this.encryptString(this.user.email, "email"),
               password: this.encryptString(this.user.password, "password"),
             });
-          }else{
+          } else {
             localStorage.removeItem("remember");
           }
-          get(getUrl("profile"), authHeader())
+          // get plan status 
+          get(getUrl("current_plan"), authHeader())
             .then(response => {
-              setCurrentUserName(response.data.data.first_name);
-              this.$store.dispatch("user", response.data.data);
-              this.$store.dispatch("loader", false);
-              this.$toast.success(this.server.message);
-              if (getSearchParams("next")) {
-                this.$router.push(getSearchParams("next"));
-              } else {
-                this.$router.push("/profile-details");
-              }
+              localStorage.setItem('plan_active', response.data.data.active ? 1 : 0);
+              console.log(response.data.data.active);
+              this.$store.dispatch('currentPlan', response.data.data);
+              // to save the profile detail in vuex store 
+              get(getUrl("profile"), authHeader())
+                .then(response => {
+                  setCurrentUserName(response.data.data.first_name);
+                  this.$store.dispatch("user", response.data.data);
+                  this.$store.dispatch("loader", false);
+                  this.$toast.success(this.server.message);
+                  // redrect to next url if next param exist in url
+                  if (getSearchParams("next")) {
+                    this.$router.push(getSearchParams("next"));
+                  } else {
+                    this.$router.push("/profile-details");
+                  }
+                })
+                .catch(error => {
+                  console.log(error);
+                  this.$store.dispatch("loader", false);
+                  this.$toast.error(getFirstError(error));
+                });
             })
             .catch(error => {
               console.log(error);
-              this.$store.dispatch("loader", false);
               this.$toast.error(getFirstError(error));
             });
         })
@@ -160,12 +174,14 @@ export default {
         });
     },
     encryptString: function(value, type) {
+      // this function is used for encrypting the user login credentail 
       if (value && type) {
         return this.$CryptoJS.AES.encrypt(value, type).toString();
       }
       return 0;
     },
     decryptString: function(value, type) {
+      // this function is used for decrypting the user login credentail 
       if (value && type) {
         return this.$CryptoJS.AES.decrypt(value, type).toString(
           this.$CryptoJS.enc.Utf8
@@ -176,12 +192,14 @@ export default {
   },
   mounted() {
     if (rememberMe()) {
+      // populate the email and password value in input field if remember me found true
       var remember = JSON.parse(rememberMe());
       this.user.email = this.decryptString(remember.email, "email");
       this.user.password = this.decryptString(remember.password, "password");
     }
 
-  let eachInput = document.querySelectorAll(".auth-form input");
+    // below script is used for form inputs
+    let eachInput = document.querySelectorAll(".auth-form input");
     eachInput.forEach(function(eachInputFun) {
       eachInputFun.addEventListener("keyup", function(e) {
         let eachLabel = this.closest(".auth-form");

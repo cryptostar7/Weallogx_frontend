@@ -57,6 +57,8 @@ export default {
           .then(response => {
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("access_token");
+            localStorage.removeItem("plan_active");
+            
             // localStorage.removeItem("remember");
             this.$store.dispatch('loader', false);
             this.$toast.success(response.data.message);

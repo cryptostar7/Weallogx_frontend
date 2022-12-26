@@ -23,9 +23,9 @@
                                                         <div data-widget-id="ba97703e-96ab-4aa9-b46e-7d17a0f33246" class="widget">
                                                             <div>
                                                                 <div class="css-94ohs6">
-                                                                    <a data-widget-link="true" href="/" target="_top" data-link-type="site-route" data-route-guid="a4181dc8-4262-0783-7ebe-d19332c18b26" data-route-slug="" class="css-11g9kr1 lp-image-react-container lp-icon-react__icon--linked" data-widget-type="LpLogoReact" contenteditable="false">
+                                                                    <router-link data-widget-link="true" to="/" target="_top" data-link-type="site-route" data-route-guid="a4181dc8-4262-0783-7ebe-d19332c18b26" data-route-slug="" class="css-11g9kr1 lp-image-react-container lp-icon-react__icon--linked" data-widget-type="LpLogoReact" contenteditable="false">
                                                                         <img class="js-image-logo header-logo-element css-9pqhoz" src="https://lh3.googleusercontent.com/5Sdpn_J08uwaLGH1kHY03jCzd53v_Vt-nxXa75Y3R43TXPKKO2Kc2bdgqxZgrUs_8rc675fFXAE_ji8PWQLnePf4urjfGCqWOto=s0" alt="" data-image-upload-source="builder3" style="width: 124px; transition: width 0.1s ease 0s;" />
-                                                                    </a>
+                                                                    </router-link>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -223,6 +223,8 @@ export default {
           .then(response => {
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("access_token");
+            localStorage.removeItem("plan_active");
+
             // localStorage.removeItem("remember");
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);

@@ -47,6 +47,7 @@ const store = createStore({
                 yearly:'YEARLY_PLAN',
             },
             clients:null,
+            current_plan:false,
         },
         app: {
             themes: [
@@ -150,6 +151,9 @@ const store = createStore({
         setUserFormError(state, payload) {
             state.errors.temp_user = payload;
         },
+        setUserCurrentPlan(state, payload) {
+            state.data.current_plan = payload;
+        },
         setClients(state, payload) {
             state.data.clients = [...payload];
         },
@@ -196,6 +200,9 @@ const store = createStore({
         userTempForm(context, payload) {
             context.commit('setUserTempForm', payload);
         },
+        currentPlan(context, payload) {
+            context.commit('setUserCurrentPlan', payload);
+        },  
         userTempFormError(context, payload) {
             context.commit('setUserFormError', payload);
         },
@@ -204,7 +211,8 @@ const store = createStore({
         },        
         addClient(context, payload) {
             context.commit('addNewClient', payload);
-        },        
+        },     
+           
     }
 })
 export default store;

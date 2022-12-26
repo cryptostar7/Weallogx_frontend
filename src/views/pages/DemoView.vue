@@ -1,81 +1,60 @@
-<template>
-  <div >
-  <div class="form-control" ref="cardNumber"></div>  <br />
-  <div class="form-control" ref="cardExpiry"></div><br />
-  <div class="form-control" ref="cardCvc"></div><br />
-  <div class="form-control" ref="postalCode"></div><br />
-  <!-- <div id="card"></div> -->
-  <button @click="purchase">Get Source</button>
+<template lang="">
+  <div>
+         <div class="editProfileDpMainDiv" >
+            <form class="editProfileDp" >
+              <div class="profile-imgDiv" >
+                <img :src="profileImg ? profileImg : 'src/assets/images/user/profile-pic.png'" alt="Profile Image" class="preview-pro-image" >
+              </div>
+              <label for="pro-image-upload" class="editProfileIcon" >
+                <input type="file" class="pro-image-upload-cls" id="pro-image-upload"  @change="addImage" hidden>
+                <img src="@/assets/images/user/edit-pen-icon.svg" alt="Edit Pen" >
+              </label>
+            </form>
+          </div>
   </div>
 </template>
-
 <script>
-import { getUrl } from '../../network/url';
-import { post } from '../../network/requests';
-let stripe = Stripe(
-    `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
-  ),
-  elements = stripe.elements(),
-  card,
-  cardNumber,
-  cardExpiry,
-  cardCvc,
-  postalCode;
+import { getFirstError } from "../../services/helper";
+import { getServerErrors } from "../../services/helper";
+import { authHeader } from "../../services/helper";
+import { getUrl } from "../../network/url";
+import { patch } from "../../network/requests";
 export default {
-  mounted: function() {
-    cardNumber = elements.create("cardNumber");
-    cardExpiry = elements.create("cardExpiry");
-    cardCvc = elements.create("cardCvc");
-    postalCode = elements.create("postalCode");
-
-    cardNumber.mount(this.$refs.cardNumber);
-    cardExpiry.mount(this.$refs.cardExpiry);
-    cardCvc.mount(this.$refs.cardCvc);
-    postalCode.mount(this.$refs.postalCode);
+  data() {
+    return {
+      profileImg: null,
+      user: {
+        id: 11,
+        avatar: null,
+      },
+    };
   },
   methods: {
-    purchase: function() {
-      this.$store.dispatch("loader", true);
-      stripe
-        .createSource(cardNumber, {
-          type: "card",
-          currency: "USD",
-          owner: {
-            name: "Hariom",
-            phone: "88408680841",
-          },
-        })
-        .then(function(result) {
-          console.log(result);
-          // Access the token with result.token
-          var formData = {
-            firstname: 'Hariom',
-            last_name: 'Prajapati',
-            email: 'hariom65406564465@epixelsoftware.com',
-            phone_number: '88408680841',
-            password: '123456',
-            confirm_password: '123456',
-          };
-          formData['stripe_source_id'] = result.source.id;
-          console.log(formData);
-          post(getUrl("signup"), formData)
-            .then(response => {
-              console.log(response);
-              // setRefreshToken(response.data.data.tokens.refresh);
-              // setAccessToken(response.data.data.tokens.access);
-              this.$store.dispatch("loader", false);
-              this.$toast.success(response.data.message);
-              this.$router.push("/profile-details");
-            })
-            .catch(error => {
-              this.$store.dispatch("userTempFormError", getServerErrors(error));
-              this.$store.dispatch("loader", false);
-              this.$router.push("/sign-up");
-              this.$store.dispatch("loader", false);
-              this.$toast.error(getFirstError(error));
-            });
-        });
+    addImage: function(e) {
+      var image = new FormData();
+      if (e) {
+        this.user.avatar = e.target.files[0];
+        console.log(this.user.avatar);
+        image.append("avatar", e.target.files[0]);
+        image.append("test", "kgjdsgdfl");
+        this.profileImg = URL.createObjectURL(e.target.files[0]);
+        console.log(`${getUrl("profile")}/${this.user.id}/`);
+        patch(`${getUrl("profile")}/${this.user.id}/`, image, authHeader())
+          .then(response => {
+            console.log(response);
+            this.$toast.success(response.data.message);
+            // this.$router.push("/profile-details");
+          })
+          .catch(error => {
+            console.log(error);
+            this.errors = getServerErrors(error);
+            console.log(getFirstError(error));
+            this.$toast.error(getFirstError(error));
+          });
+      }
     },
   },
 };
 </script>
+<style lang="">
+</style>

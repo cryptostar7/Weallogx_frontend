@@ -7,10 +7,8 @@ const api = axios.create({
   Accept: '*/*',
   timeout,
   headers: { 
-    'Content-Type': 'application/json',
     'Accept' : 'application/json',
     },
-    // withCredentials: true,  
     responseType: 'json',
   // proxy: {
   //   host: process.env.REACT_APP_API_BASE_URL,

@@ -89,6 +89,11 @@ export const authHeader = () => {
   return { headers: { 'Authorization': `Bearer ${token}` } };
 }
 
+export const isPlanActive = () => {
+  let status = localStorage.getItem('plan_active') ?? 0;
+  return Number(status) ? true : false;
+}
+
 export const rememberMe = () => {
   return localStorage.getItem('remember');
 }

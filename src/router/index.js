@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { authCheck } from "../services/helper";
+import { authCheck, isPlanActive } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -147,6 +147,18 @@ const router = createRouter({
   ],
 });
 
+const authRoutes = [
+  'profile-details',
+  'edit-profile',
+  'edit-payment-method',
+  'payment-history',
+  'payment',
+  'current-plan',
+  'pricing',
+  'change-password',
+  // 'home',
+];
+
 const privateRoutes = [
   'home',
   'create-new-scenario',
@@ -158,22 +170,20 @@ const privateRoutes = [
   'historical-simulations-from-scratch',
   'review-summary',
   'report-builder',
-  'profile-details',
-  'edit-profile',
-  'edit-payment-method',
-  'payment-history',
-  'payment',
-  'current-plan',
-  'pricing',
-  'change-password'
 ];
 
 router.beforeEach((to, from, next) => {
-  if (privateRoutes.includes(to.name)) {
+  if (authRoutes.includes(to.name) || privateRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
     }
+    console.log(localStorage.getItem('plan_active'));
+
+    if(privateRoutes.includes(to.name) && authCheck() && !isPlanActive()){
+      next('/current-plan');
+      // this.$toast.warning('Your plan has been expired, please upgrade your plan to continue the service.');
+    }    
   }
   if (to.name === 'sign-in') {
     if (authCheck()) {

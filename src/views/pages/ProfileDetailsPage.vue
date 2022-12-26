@@ -10,7 +10,7 @@
             <div class="profile-edit-btn-main-div">
               <div>
                 <div class="profile-detail-pp">
-                  <img src="@/assets/images/user/profile-pic.png" alt="Profile Picture">
+                  <img :src="user.avatar ? user.avatar : 'src/assets/images/user/nav-user-icon.svg'" alt="Profile Picture">
                 </div>
                 <p class="pro-details-name">{{`${user.first_name ? user.first_name : ''} ${user.last_name ?
                   user.last_name :
@@ -52,7 +52,7 @@
                   <img src="@/assets/images/user/phone-icon.svg" alt="Profile Details">
                   <div>
                     <h6>Phone Number :</h6>
-                    <p>{{user.phone}}</p>
+                    <p>{{user.phone_number}}</p>
                   </div>
                 </div>
               </div>
@@ -79,7 +79,7 @@
               <div>
                 <h6>Your Company Logo</h6>
                 <div class="companyLogoDiv">
-                  <!-- <img src="" alt="LOGO"> -->
+                  <img :src="user.business_logo ? user.business_logo : 'src/assets/images/user/business-logo-image.png'" alt="LOGO">
                 </div>
               </div>
             </div>
@@ -91,43 +91,71 @@
   </div>
 </template>
 <script>
-  import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
-  import FotterComponent from "./../components/common/UserFooterComponent.vue";
-  import HeaderComponent from "./../components/user-dashboard/HeaderComponent.vue";
-  import SidebarComponent from "./../components/user-dashboard/SidebarComponent.vue";
-  import { get } from '../../network/requests';
-  import { getUrl } from '../../network/url';
-  import { authHeader } from '../../services/helper';
-  export default {
-    components: { NavbarComponent, FotterComponent, HeaderComponent, SidebarComponent },
-    data() {
-      return {
-        user: null,
-      }
+import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
+import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import HeaderComponent from "./../components/user-dashboard/HeaderComponent.vue";
+import SidebarComponent from "./../components/user-dashboard/SidebarComponent.vue";
+import { get } from "../../network/requests";
+import { getUrl } from "../../network/url";
+import { authHeader } from "../../services/helper";
+export default {
+  components: {
+    NavbarComponent,
+    FotterComponent,
+    HeaderComponent,
+    SidebarComponent,
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  methods: {
+    getCurrentPlan: function() {
+      get(getUrl("current_plan"), authHeader())
+        .then(response => {
+          console.log(response);
+          this.$store.dispatch("currentPlan", response.data.data);
+          localStorage.setItem(
+            "plan_active",
+            response.data.data.active ? 1 : 0
+          );
+        })
+        .catch(error => {
+          console.log(error);
+          this.$toast.error(getFirstError(error));
+        });
     },
-    methods: {
-      getProfile: function () {
-        this.$store.dispatch('loader', true);
-        get(getUrl('profile'), authHeader()).then((response) => {
+    getProfile: function() {
+      this.$store.dispatch("loader", true);
+      get(getUrl("profile"), authHeader())
+        .then(response => {
           console.log(response.data.data);
           this.user = response.data.data;
-          this.$store.dispatch('user', this.user);
-          this.$store.dispatch('loader', false);
-        }).catch((error) => {
-          console.log(error);
-          this.$store.dispatch('loader', false);
+          this.$store.dispatch("user", this.user);
+          this.$store.dispatch("loader", false);
         })
-      },
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+        });
     },
-    mounted() {
-      if (!this.$store.state.data.user) {
-        this.getProfile();
-      } else {
-        this.user = this.$store.state.data.user;
-      }
-    },
-  };
+  },
+  mounted() {
+    if (!this.$store.state.data.user) {
+      this.getProfile();
+    } else {
+      this.user = this.$store.state.data.user;
+    }
+
+     let plan = this.$store.state.data.current_plan;
+    if (!plan) {
+      this.getCurrentPlan();
+    } else {
+      localStorage.setItem("plan_active", plan.active ? 1 : 0);
+    }
+  },
+};
 </script>
 <style lang="">
-
 </style>

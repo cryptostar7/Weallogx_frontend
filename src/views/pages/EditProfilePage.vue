@@ -19,10 +19,10 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg ? profileImg : 'src/assets/images/user/profile-pic.png'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg ? profileImg : 'src/assets/images/user/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
-                    <input type="file" class="pro-image-upload-cls" id="pro-image-upload"  @change="addImage" hidden>
+                    <input type="file" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
                     <img src="@/assets/images/user/edit-pen-icon.svg" alt="Edit Pen" >
                   </label>
                 </div>
@@ -124,13 +124,13 @@
                 <div class="businessLogoInnerDiv" >
                   <div>
                     <div class="businessLogoImageDiv" >
-                      <img src="@/assets/images/user/business-logo-image.png" alt="logo" class="preview-business-image" >
+                      <img :src="businessLogo ? businessLogo : 'src/assets/images/user/business-logo-image.png'" alt="logo" class="preview-business-image" >
                     </div>
                     <p class="logoNoticePara" >( *Logo with transparent background is recommended ) </p>
 
                     <div class="businesslogoUploadImgDiv" >
                       <div>
-                        <input type="file" id="business-logo-upload" class="business-image-upload-cls" hidden>
+                        <input type="file" id="business-logo-upload" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
                         <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon.svg"
                             alt="Upload" ></label>
                         <p>Upload Logo</p>
@@ -181,35 +181,23 @@ export default {
         phone_number: null,
       },
       profileImg: null,
+      businessLogo: null,
+      profileImgFile: false,
+      businessLogoFile: false,
       errors: [],
     };
   },
   methods: {
-    addImage: function(e) {
-      var image = new FormData();
+    addProfileImage: function(e) {
       if (e) {
-        this.user.avatar = e.target.files[0];
-        console.log(this.user.avatar);
-        image.append("avatar", e.target.files[0]);
-        image.append("test", 'kgjdsgdfl');
+        this.profileImgFile = e.target.files[0];
         this.profileImg = URL.createObjectURL(e.target.files[0]);
-
-        patch(
-          `${getUrl("profile")}/${this.user.id}/`,
-          image,
-          authHeader()
-        )
-          .then(response => {
-            console.log(response);
-            this.$toast.success(response.data.message);
-            // this.$router.push("/profile-details");
-          })
-          .catch(error => {
-            console.log(error);
-            this.errors = getServerErrors(error);
-            console.log(getFirstError(error));
-            this.$toast.error(getFirstError(error));
-          });
+      }
+    },
+    addBusinessLogo: function(e) {
+      if (e) {
+        this.businessLogoFile = e.target.files[0];
+        this.businessLogo = URL.createObjectURL(e.target.files[0]);
       }
     },
     getProfile: function() {
@@ -219,6 +207,7 @@ export default {
           console.log(response.data.data);
           this.user = response.data.data;
           this.profileImg = this.user.avatar;
+          this.businessLogo = this.user.business_logo;
           this.$store.dispatch("user", this.user);
           this.$store.dispatch("loader", false);
         })
@@ -276,36 +265,40 @@ export default {
       return valid;
     },
     updateProfile: function() {
+      this.$store.dispatch("loader", true);
       console.log(this.user);
       this.user.phone_number = this.user.phone_number;
       this.user.user_id = this.user.id;
       var userData = this.user;
-      // var userData = new FormData();
-      // userData.append("company_name", this.user.company_name);
-      // userData.append("street_address", this.user.street_address);
-      // userData.append("city", this.user.city);
-      // userData.append("state", this.user.state);
-      // userData.append("avatar", this.user.avatar);
-      // userData.append("zip_code", this.user.zip_code);
-      // userData.append("website", this.user.website);
-      // // userData.append('business_logo', this.user.business_logo);
-      // userData.append("first_name", this.user.first_name);
-      // userData.append("last_name", this.user.last_name);
-      // userData.append("email", this.user.email);
-      // userData.append("phone_number", this.user.phone_number);
+      var userData = new FormData();
+      userData.append("company_name", this.user.company_name);
+      userData.append("street_address", this.user.street_address);
+      userData.append("city", this.user.city);
+      userData.append("state", this.user.state);
+      if (this.profileImgFile) {
+        userData.append("avatar", this.profileImgFile);
+      }
+      if (this.businessLogoFile) {
+        userData.append("business_logo", this.businessLogoFile);
+      }
+      userData.append("zip_code", this.user.zip_code);
+      userData.append("website", this.user.website);
+      userData.append("first_name", this.user.first_name);
+      userData.append("last_name", this.user.last_name);
+      userData.append("email", this.user.email);
+      userData.append("phone_number", this.user.phone_number);
 
-      patch(
-        `${getUrl("profile")}/${this.user.id}/`,
-        userData,
-        authHeader()
-      )
+      patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
         .then(response => {
           console.log(response);
+          this.getProfile();
           this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
           this.$router.push("/profile-details");
         })
         .catch(error => {
           console.log(error);
+          this.$store.dispatch("loader", false);
           this.errors = getServerErrors(error);
           console.log(getFirstError(error));
           this.$toast.error(getFirstError(error));
@@ -315,10 +308,10 @@ export default {
   mounted() {
     if (!this.$store.state.data.user) {
       this.getProfile();
-      console.log("profile API called");
     } else {
       this.user = this.$store.state.data.user;
       this.profileImg = this.user.avatar;
+      this.businessLogo = this.user.business_logo;
     }
   },
 };
