@@ -205,8 +205,7 @@
     </div>
 </template>
 <script>
-import "./../../../assets/css/user/style.css";
-import "./../../../assets/css/user/external.css";
+
 import { authCheck, getRefreshToken, getAccessToken } from '../../../services/helper';
 import { post } from '../../../network/requests';
 import { getUrl } from '../../../network/url';

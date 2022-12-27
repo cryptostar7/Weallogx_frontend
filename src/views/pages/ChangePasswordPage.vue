@@ -18,7 +18,6 @@
                   <label class="error" v-if="old_password === ''">This field is required.</label>
                   <label class="error" v-if="errors.old_password && errors.old_password[0]">{{errors.old_password[0]}}</label>
 
-
                   <div class="auth-form changePasswordInputDiv">
                     <label for="lastName">New Password</label>
                     <input type="password" id="lastName" v-model="password" @keyup="errors.password = false">
@@ -54,8 +53,8 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
-import { getSearchParams, authHeader, getServerErrors } from "../../services/helper";
-import { patch } from "../../network/requests";
+import { getSearchParams, authHeader, getServerErrors, getFirstError } from "../../services/helper";
+import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -115,7 +114,7 @@ export default {
       }
       console.log(data);
       this.$store.dispatch("loader", true);
-      patch(getUrl("change-password"), data, authHeader())
+      post(getUrl("change-password"), data, authHeader())
         .then(response => {
           console.log(response.data);
           this.$store.dispatch("loader", false);
@@ -123,10 +122,10 @@ export default {
           this.$router.push("/sign-in");
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.response.data);
           this.$store.dispatch("loader", false);
           this.errors = getServerErrors(error);
-          this.$toast.error("Something went wrong.");
+          // this.$toast.error(getFirstError(error));
         });
     },
   },
