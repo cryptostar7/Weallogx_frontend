@@ -156,10 +156,6 @@ const authRoutes = [
   'current-plan',
   'pricing',
   'change-password',
-  // 'home',
-];
-
-const privateRoutes = [
   'home',
   'create-new-scenario',
   'illustration-data',
@@ -170,6 +166,19 @@ const privateRoutes = [
   'historical-simulations-from-scratch',
   'review-summary',
   'report-builder',
+];
+
+const privateRoutes = [
+  // 'home',
+  // 'create-new-scenario',
+  // 'illustration-data',
+  // 'comparative-vehicles',
+  // 'historical-simulations',
+  // 'historical-simulations-after-no',
+  // 'historical-simulations-after-yes',
+  // 'historical-simulations-from-scratch',
+  // 'review-summary',
+  // 'report-builder',
 ];
 
 router.beforeEach((to, from, next) => {

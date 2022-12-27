@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h1>Get Remaining Time Beetween Two Dates</h1>
+    <h1>Get Remaining Time Between Two Dates</h1>
     <p>Days : {{time.days}}</p>
     <p>Hours : {{time.hours}}</p>
     <p>Minutes : {{time.minutes}}</p>

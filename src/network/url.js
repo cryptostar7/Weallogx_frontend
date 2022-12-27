@@ -1,8 +1,8 @@
-// const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
+const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
 
 export const getUrl = (type) => {
-  // const baseUrl = getBaseUrl();
-  const baseUrl = 'http://wlxpy.bizbybot.com';
+  const baseUrl = getBaseUrl();
+  // const baseUrl = 'http://wlxpy.bizbybot.com';
   
   switch (type) {
     case 'signup':
