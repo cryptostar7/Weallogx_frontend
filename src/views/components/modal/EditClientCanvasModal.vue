@@ -71,9 +71,9 @@ export default {
   data() {
     const schema = Yup.object().shape({
       firstname: Yup.string().required("First Name is required."),
-      middlename: Yup.string(),
+      middlename: Yup.string().nullable(true),
       lastname: Yup.string().required("Last name is required."),
-      age: Yup.string().required("Age is required."),
+      age: Yup.number().positive().min(18).max(100).required("Age is required."),
     });
     return {
       schema,
@@ -98,7 +98,7 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           console.log(error);
-          this.$refs.openModalRef.click();
+          // this.$refs.openModalRef.click();
           this.serverErrors = getServerErrors(error);
           this.$toast.error(getFirstError(error));
         });
@@ -113,7 +113,7 @@ export default {
         return {
           firstname: this.$props.client.firstname,
           lastname: this.$props.client.lastname,
-          middlename: this.$props.client.middlename,
+          middlename: this.$props.client.middlename || '',
           age: this.$props.client.age,
         };
       } else {

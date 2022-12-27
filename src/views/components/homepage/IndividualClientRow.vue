@@ -85,6 +85,9 @@
             </div>
         </div>
     </li>
+    <div class="m-2">
+        <h4 class="text-center" v-if="filteredList && filteredList.length < 1">Result not found.</h4>
+    </div>
 </template>
 <script>
 import ScenariosRow from "../homepage/ScenariosRow.vue";

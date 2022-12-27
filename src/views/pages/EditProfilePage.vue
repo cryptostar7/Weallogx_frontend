@@ -19,10 +19,10 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg ? profileImg : 'src/assets/images/user/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg ? profileImg : '/public/images/user/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
-                    <input type="file" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
+                    <input type="file" accept="image/*" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
                     <img src="@/assets/images/user/edit-pen-icon.svg" alt="Edit Pen" >
                   </label>
                 </div>
@@ -130,7 +130,7 @@
 
                     <div class="businesslogoUploadImgDiv" >
                       <div>
-                        <input type="file" id="business-logo-upload" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
+                        <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
                         <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon.svg"
                             alt="Upload" ></label>
                         <p>Upload Logo</p>
@@ -226,7 +226,7 @@ export default {
     },
     isValidPhone: function() {
       if (
-        /^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
+        /^\+[1-9]\d{1,14}$/.test(
           this.user.phone_number
         )
       ) {

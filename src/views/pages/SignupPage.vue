@@ -112,7 +112,7 @@ export default {
     },
     isValidPhone: function() {
       if (
-        /^[+]?(\d{1,2})?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
+        /^\+[1-9]\d{1,14}$/.test(
           this.user.phone_number
         )
       ) {

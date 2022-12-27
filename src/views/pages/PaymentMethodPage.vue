@@ -173,8 +173,18 @@ export default {
           },
         })
         .then(response => {
+          console.log(response);
+          if(response.source){
           this.user.stripe_source_id = response.source.id;
           this.createUser();
+          }else{
+              if(response.error){
+              this.$toast.error(response.error.message);
+              }else{
+              this.$toast.error('Something went wrong!');
+              }
+              this.$store.dispatch("loader", false);
+          }
         });
     },
     createUser: function() {
