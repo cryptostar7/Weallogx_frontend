@@ -17,11 +17,8 @@ import "./assets/css/responsive.css";
 import "./assets/js/popper.min.js";
 import "./assets/js/bootstrap.min.js";
 
-
 import "./assets/css/user/style.css";
 import "./assets/css/user/external.css";
-// import "./../../../assets/css/user/style.css";
-// import "./../../../assets/css/user/external.css";
 
 const app = createApp(App);
 
@@ -30,7 +27,6 @@ app.use(store);
 app.use(helpers);
 app.use(VueCryptojs);
 app.use(Toaster, {position:'top-right', duration:5000});
-
 app.config.errorHandler = err => {
     console.log('Exception: ', err)
 }

@@ -25,7 +25,7 @@
             <span class="main-client-initials fs-16 medium-fw"><span class="initial-text">{{$sortName(`${$props.client.firstname} ${$props.client.lastname}`)}}</span></span>
             <div>
                 <h2 class="fs-38 bold-fw main-client-heading mb-0 me-2 pe-1">
-                    {{`${$props.client.firstname} ${$props.client.lastname}`}}
+                    {{`${$props.client.firstname} ${$props.client.middlename} ${$props.client.lastname}`}}
                 </h2>
                 <label class="main-client-age-label fs-12 medium-fw">
                     <span>AGE</span>&nbsp;<span>{{$props.client.age ?? ""}}</span>

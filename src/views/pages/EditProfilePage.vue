@@ -19,7 +19,7 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg ? profileImg : '/public/images/user/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg ? profileImg : '/public/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
                     <input type="file" accept="image/*" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
@@ -124,10 +124,9 @@
                 <div class="businessLogoInnerDiv" >
                   <div>
                     <div class="businessLogoImageDiv" >
-                      <img :src="businessLogo ? businessLogo : 'src/assets/images/user/business-logo-image.png'" alt="logo" class="preview-business-image" >
+                      <img :src="businessLogo ? businessLogo : '/public/business-logo-image.png'" alt="logo" class="preview-business-image" >
                     </div>
                     <p class="logoNoticePara" >( *Logo with transparent background is recommended ) </p>
-
                     <div class="businesslogoUploadImgDiv" >
                       <div>
                         <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
@@ -161,6 +160,7 @@ import {
   authHeader,
   getFirstError,
   getServerErrors,
+setCurrentUser,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -209,6 +209,7 @@ export default {
           this.profileImg = this.user.avatar;
           this.businessLogo = this.user.business_logo;
           this.$store.dispatch("user", this.user);
+          setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -226,9 +227,9 @@ export default {
     },
     isValidPhone: function() {
       if (
-        /^\+[1-9]\d{1,14}$/.test(
+        /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(
           this.user.phone_number
-        )
+        ) && this.user.phone_number.length > 5 && this.user.phone_number.length < 14
       ) {
         return true;
       }
@@ -281,12 +282,23 @@ export default {
       if (this.businessLogoFile) {
         userData.append("business_logo", this.businessLogoFile);
       }
-      userData.append("zip_code", this.user.zip_code);
-      userData.append("website", this.user.website);
-      userData.append("first_name", this.user.first_name);
-      userData.append("last_name", this.user.last_name);
-      userData.append("email", this.user.email);
-      userData.append("phone_number", this.user.phone_number);
+      if (this.user.zip_code) {
+        userData.append("zip_code", this.user.zip_code);
+      }
+
+      if (this.user.website) {
+        userData.append("website", this.user.website);
+      }
+      if (this.user.first_name) {
+        userData.append("first_name", this.user.first_name);
+      }
+
+      if (this.user.last_name) {
+        userData.append("last_name", this.user.last_name);
+      }
+      if (this.user.phone_number) {
+        userData.append("phone_number", this.user.phone_number);
+      }
 
       patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
         .then(response => {

@@ -79,7 +79,8 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
+          console.log('error');
+          console.log(error.message);
           this.$store.dispatch("loader", false);
         });
     },

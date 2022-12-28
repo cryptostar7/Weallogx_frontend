@@ -81,11 +81,12 @@ export default {
     };
   },
   methods: {
-    onSubmit(data) {
+    onSubmit(data, { resetForm }) {
       this.serverErrors = [];
       this.$store.dispatch("loader", true);
       post(getUrl("client"), data, authHeader())
         .then(response => {
+          resetForm();
           this.$store.dispatch("addClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();

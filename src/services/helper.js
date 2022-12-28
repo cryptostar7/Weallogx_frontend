@@ -77,8 +77,8 @@ export function getAccessToken() {
   return item.value
 }
 
-export const setCurrentUserName = (name) => {
-  return localStorage.setItem('currentUserName', name);
+export const setCurrentUser = (name) => {
+  return localStorage.setItem('currentUser', JSON.stringify(name));
 }
 
 export const authHeader = () => {

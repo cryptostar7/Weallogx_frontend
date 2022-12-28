@@ -14,8 +14,8 @@ const myPlugin = {
         app.config.globalProperties.$authCheck = () => {
             return authCheck();
         },
-        app.config.globalProperties.$currentUserName = () => {
-            return localStorage.getItem("currentUserName");
+        app.config.globalProperties.$currentUser = () => {
+            return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;
         },
         app.config.globalProperties.$sortName = (string) => {
             var name = '';

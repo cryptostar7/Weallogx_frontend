@@ -11,11 +11,11 @@
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
-                    <label for="firstname" :class="user.firstname ? 'active' : ''">First Name</label>
-                    <input type="text" id="firstname" v-model="user.firstname">
+                    <label for="first_name" :class="user.first_name ? 'active' : ''">First Name</label>
+                    <input type="text" id="first_name" v-model="user.first_name">
                   </div>
-                  <label class="error" v-if="user.firstname === ''">This field is required.</label>
-                  <label class="error" v-if="errors.firstname && errors.firstname[0]">{{errors.firstname[0]}}</label>
+                  <label class="error" v-if="user.first_name === ''">This field is required.</label>
+                  <label class="error" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
                 </div>
                 <div class="auth-form">
                   <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
@@ -81,13 +81,14 @@ import {
   setRefreshToken,
   setAccessToken,
   getSearchParams,
+setCurrentUser,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
   data() {
     return {
       user: {
-        firstname: null,
+        first_name: null,
         last_name: null,
         email: null,
         phone_number: null,
@@ -112,9 +113,9 @@ export default {
     },
     isValidPhone: function() {
       if (
-        /^\+[1-9]\d{1,14}$/.test(
+        /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(
           this.user.phone_number
-        )
+        ) && this.user.phone_number.length > 5 && this.user.phone_number.length < 14
       ) {
         return true;
       }
@@ -123,8 +124,8 @@ export default {
     checkValidation: function() {
       this.errors = [];
       let valid = true;
-      if (!this.user.firstname) {
-        this.user.firstname = "";
+      if (!this.user.first_name) {
+        this.user.first_name = "";
         valid = false;
       }
 
@@ -184,6 +185,7 @@ export default {
             console.log(response);
             setRefreshToken(response.data.data.tokens.refresh);
             setAccessToken(response.data.data.tokens.access);
+            setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
             localStorage.setItem('plan_active', 1);
             this.server.status = true;
             this.server.message = response.data.message;

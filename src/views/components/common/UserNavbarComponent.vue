@@ -86,8 +86,8 @@
                                                                 <div class="navDropMenu" v-else>
                                                                 <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
                                                                 <div class="navDropMenuItems">
-                                                                    <h5 class="navDropDownHeader"> Allianz Parse </h5>
-                                                                    <router-link to="profile-details"><img src="@/assets/images/user/dashboard-icon.svg"
+                                                                    <h5 class="navDropDownHeader"> {{$currentUser() ? `${$currentUser().first_name} ${$currentUser().last_name}` : '' }} </h5>
+                                                                    <router-link to="/"><img src="@/assets/images/user/dashboard-icon.svg"
                                                                         alt="Dashboard">Dashboard</router-link>
                                                                     <router-link to="edit-profile"><img src="@/assets/images/user/update-profile-icon.svg"
                                                                         alt="Profile">Update Profile</router-link>
@@ -184,12 +184,12 @@
                 <div class="navDropMenu">
                 <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
                 <div class="navDropMenuItems navDropMenuItemsMobile">
-                    <h5 class="navDropDownHeader"> Allianz Parse </h5>
-                    <a href="javascript:void(0)"><img src="@/assets/images/user/dashboard-icon.svg" alt="Dashboard">Dashboard</a>
-                    <a href="javascript:void(0)"><img src="@/assets/images/user/update-profile-icon.svg" alt="Profile">Update Profile</a>
-                    <a href="javascript:void(0)"><img src="@/assets/images/user/change-password.svg" alt="Change Password">Change Password</a>
-                    <a href="javascript:void(0)"><img src="@/assets/images/user/my-payment.svg" alt="My Payment">My Payments</a>
-                    <a href="sign-in.html"><img src="@/assets/images/user/logout.svg" alt="Log Out">Log out</a>
+                    <h5 class="navDropDownHeader"> {{$currentUser() ? `${$currentUser().first_name} ${$currentUser().last_name}` : '' }} </h5>
+                    <router-link to="/"><img src="@/assets/images/user/dashboard-icon.svg" alt="Dashboard">Dashboard</router-link>
+                    <router-link to="profile-details"><img src="@/assets/images/user/update-profile-icon.svg" alt="Profile">Update Profile</router-link>
+                    <router-link to="edit-profile"><img src="@/assets/images/user/change-password.svg" alt="Change Password">Change Password</router-link>
+                    <router-link to="change-password"><img src="@/assets/images/user/my-payment.svg" alt="My Payment">My Payments</router-link>
+                    <router-link to=""><img src="@/assets/images/user/logout.svg" alt="Log Out"  @click="logout()">Log out</router-link>
                     <div class="navDropDownButtomDiv">
                     <h6>Free Plan</h6>
                     <p>You are using FREE plan.</p>
@@ -236,6 +236,9 @@ export default {
           });
       }
     },
+  },
+  mounted() {
+    console.log(this.$currentUser());
   },
 };
 </script>

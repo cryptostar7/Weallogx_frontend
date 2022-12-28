@@ -97,7 +97,7 @@ import HeaderComponent from "./../components/user-dashboard/HeaderComponent.vue"
 import SidebarComponent from "./../components/user-dashboard/SidebarComponent.vue";
 import { get } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { authHeader } from "../../services/helper";
+import { authHeader, setCurrentUser } from "../../services/helper";
 export default {
   components: {
     NavbarComponent,
@@ -133,6 +133,7 @@ export default {
           console.log(response.data.data);
           this.user = response.data.data;
           this.$store.dispatch("user", this.user);
+          setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
           this.$store.dispatch("loader", false);
         })
         .catch(error => {

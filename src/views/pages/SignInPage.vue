@@ -57,7 +57,7 @@ import {
   getSearchParams,
   authHeader,
   getFirstError,
-  setCurrentUserName,
+  setCurrentUser,
   setRememberMe,
   rememberMe,
 } from "../../services/helper";
@@ -136,12 +136,11 @@ export default {
           get(getUrl("current_plan"), authHeader())
             .then(response => {
               localStorage.setItem('plan_active', response.data.data.active ? 1 : 0);
-              console.log(response.data.data.active);
               this.$store.dispatch('currentPlan', response.data.data);
               // to save the profile detail in vuex store 
               get(getUrl("profile"), authHeader())
                 .then(response => {
-                  setCurrentUserName(response.data.data.first_name);
+                  setCurrentUser({first_name:response.data.data.first_name, last_name:response.data.data.last_name});
                   this.$store.dispatch("user", response.data.data);
                   this.$store.dispatch("loader", false);
                   this.$toast.success(this.server.message);
