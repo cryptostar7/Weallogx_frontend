@@ -209,6 +209,8 @@
 import { authCheck, getRefreshToken, getAccessToken } from '../../../services/helper';
 import { post } from '../../../network/requests';
 import { getUrl } from '../../../network/url';
+import "./../../../assets/css/user/style.css";
+import "./../../../assets/css/user/external.css";
 export default {
   methods: {
     logout: function() {

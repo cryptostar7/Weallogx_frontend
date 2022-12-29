@@ -19,7 +19,7 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg ? profileImg : '/public/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg ? profileImg : '/nav-user-icon.svg'" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
                     <input type="file" accept="image/*" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
@@ -124,7 +124,7 @@
                 <div class="businessLogoInnerDiv" >
                   <div>
                     <div class="businessLogoImageDiv" >
-                      <img :src="businessLogo ? businessLogo : '/public/business-logo-image.png'" alt="logo" class="preview-business-image" >
+                      <img :src="businessLogo ? businessLogo : '/business-logo-image.png'" alt="logo" class="preview-business-image" >
                     </div>
                     <p class="logoNoticePara" >( *Logo with transparent background is recommended ) </p>
                     <div class="businesslogoUploadImgDiv" >

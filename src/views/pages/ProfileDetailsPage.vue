@@ -10,7 +10,7 @@
             <div class="profile-edit-btn-main-div">
               <div>
                 <div class="profile-detail-pp">
-                  <img :src="user.avatar ? user.avatar : 'src/assets/images/user/nav-user-icon.svg'" alt="Profile Picture">
+                  <img :src="user.avatar ? user.avatar : '/nav-user-icon.svg'" alt="Profile Picture">
                 </div>
                 <p class="pro-details-name">{{`${user.first_name ? user.first_name : ''} ${user.last_name ?
                   user.last_name :
@@ -79,7 +79,7 @@
               <div>
                 <h6>Your Company Logo</h6>
                 <div class="companyLogoDiv">
-                  <img :src="user.business_logo ? user.business_logo : 'src/assets/images/user/business-logo-image.png'" alt="LOGO">
+                  <img :src="user.business_logo ? user.business_logo : '/business-logo-image.png'" alt="LOGO">
                 </div>
               </div>
             </div>
