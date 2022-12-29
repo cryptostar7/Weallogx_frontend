@@ -11,6 +11,7 @@
               <span><img src="@/assets/images/icons/user.svg" class="img-fluid" alt="User"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
               <li><a class="dropdown-item" @click="logout()">Logout</a></li>
             </ul>
           </li>
@@ -58,9 +59,11 @@ export default {
             localStorage.removeItem("refresh_token");
             localStorage.removeItem("access_token");
             localStorage.removeItem("plan_active");
+            localStorage.removeItem("currentUser");
             
             // localStorage.removeItem("remember");
             this.$store.dispatch('loader', false);
+            this.$store.dispatch('user', false);
             this.$toast.success(response.data.message);
             this.$router.push("/sign-in");
           })

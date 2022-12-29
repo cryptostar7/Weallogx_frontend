@@ -123,8 +123,8 @@
                 <label class="businessLogoLabel" >Upload Business Logo</label>
                 <div class="businessLogoInnerDiv" >
                   <div>
-                    <div class="businessLogoImageDiv" >
-                      <img :src="businessLogo ? businessLogo : '/business-logo-image.png'" alt="logo" class="preview-business-image" >
+                    <div class="businessLogoImageDiv" v-if="businessLogo">
+                      <img :src="businessLogo" alt="logo" class="preview-business-image" >
                     </div>
                     <p class="logoNoticePara" >( *Logo with transparent background is recommended ) </p>
                     <div class="businesslogoUploadImgDiv" >
@@ -167,21 +167,21 @@ export default {
   data() {
     return {
       user: {
-        company_name: null,
-        street_address: null,
-        city: null,
-        state: null,
-        avatar: null,
-        zip_code: null,
-        website: null,
-        business_logo: null,
-        first_name: null,
-        last_name: null,
-        email: null,
-        phone_number: null,
+        company_name: "",
+        street_address: "",
+        city: "",
+        state: "",
+        avatar: "",
+        zip_code: "",
+        website: "",
+        business_logo: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
       },
-      profileImg: null,
-      businessLogo: null,
+      profileImg: "",
+      businessLogo: "",
       profileImgFile: false,
       businessLogoFile: false,
       errors: [],
@@ -282,23 +282,11 @@ export default {
       if (this.businessLogoFile) {
         userData.append("business_logo", this.businessLogoFile);
       }
-      if (this.user.zip_code) {
         userData.append("zip_code", this.user.zip_code);
-      }
-
-      if (this.user.website) {
         userData.append("website", this.user.website);
-      }
-      if (this.user.first_name) {
         userData.append("first_name", this.user.first_name);
-      }
-
-      if (this.user.last_name) {
         userData.append("last_name", this.user.last_name);
-      }
-      if (this.user.phone_number) {
         userData.append("phone_number", this.user.phone_number);
-      }
 
       patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
         .then(response => {
@@ -306,7 +294,7 @@ export default {
           this.getProfile();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          this.$router.push("/profile-details");
+          // this.$router.push("/profile-details");
         })
         .catch(error => {
           console.log(error);
