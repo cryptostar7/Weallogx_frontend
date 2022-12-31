@@ -17,11 +17,7 @@ import "./assets/css/dark-blue.css";
 import "./assets/css/responsive.css";
 import "./assets/js/popper.min.js";
 import "./assets/js/bootstrap.min.js";
-
-
-// import "./assets/css/user/style.css";
-// import "./assets/css/user/external.css";
-
+// import "./assets/js/page.js";
 
 const app = createApp(App);
 
@@ -31,28 +27,25 @@ app.use(helpers);
 app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
 
-app.config.errorHandler = function (err, vm, info) {
-    airbrake.notify({
-        error: err,
-        params: { info: info }
-    });
-}
-
+var environment = import.meta.env.MODE;
 var airbrake = new Notifier({
-    environment: import.meta.env.MODE,
+    environment: environment,
     projectId: 473230,
     projectKey: '8f10291cf0f98b06a27bc65dc46d8f56'
 });
 
+// send error message to airbrake dashboard
 app.config.errorHandler = function (err, _vm, info) {
-    airbrake.notify({
+    var message = {
         error: err,
         params: { info: info }
-    })
+    };
+    if (environment !== 'development') {
+        airbrake.notify(message)
+    } else {
+        console.log(message);
+    }
 }
-
-
-
 
 app.mount("#app");
 

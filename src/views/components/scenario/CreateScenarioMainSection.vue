@@ -60,7 +60,7 @@
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
                       <span class="regular-fw">Year 1 age on illustration</span></label>
-                    <input type="number" id="clientAge" v-model="clientAgeYearToIllustrate" class="form-control" />
+                    <input type="number" id="clientAge" maxlength="3"  class="form-control setMaxLimit" v-model="clientAgeYearToIllustrate" />
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
