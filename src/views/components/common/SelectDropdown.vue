@@ -6,7 +6,7 @@
           <label class="labelOptional">OPTIONAL</label>
         </div>
         <div class="p-relative">
-        <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="selectText" @keyup="setSortList" @focus="handleDropdown" placeholder="Select or Start Typing"
+        <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="category.selectText" @focus="handleDropdown" placeholder="Select or Start Typing"
             class="form-control pe-5 autocomplete customSelectDropdown" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,19 +19,16 @@
             </svg>
         </span>
         <div v-if="dropdown" class="autocomplete-items">
-            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item)">{{item}}</div>
+            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item.name, item.id)">{{item.name}}</div>
         </div>
         </div>
     </div>
 </template>
 <script>
-import { selectAutocomplete } from "../../../../src/services/custom-select-dropdown.js";
-
 export default {
   props: ["list", "label", "id", "class", "optional"],
   data() {
     return {
-      selectList: [],
       dropdown: false,
       category: {
         selectText: "",
@@ -39,17 +36,14 @@ export default {
     };
   },
   methods: {
-    setSortList: function (e=null) {
-      this.selectList = selectAutocomplete(e.target.value, this.$props.list);
-    },
-    handleDropdown: function () {
+    handleDropdown: function() {
       this.dropdown = true;
     },
-    setInputData: function (value) {
-      this.selectText = value;
-      this.$emit('onSelectItem', value);
+    setInputData: function(name, id) {
+      this.category.selectText = name;
+      this.$emit("onSelectItem", id);
     },
-    closeDropdown: function (e=null) {
+    closeDropdown: function(e = null) {
       if (e) {
         if (!e.target.className.includes("customSelectDropdown")) {
           this.dropdown = false;
@@ -62,8 +56,16 @@ export default {
     },
   },
   mounted() {
-    this.selectList = this.$props.list;
     document.addEventListener("click", this.closeDropdown);
+  },
+  computed: {
+    selectList() {
+      return this.$props.list.filter(item => {
+        return item.name
+          .toLowerCase()
+          .includes(this.category.selectText.toLowerCase());
+      });
+    },
   },
 };
 </script>

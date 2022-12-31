@@ -160,7 +160,7 @@ import {
   authHeader,
   getFirstError,
   getServerErrors,
-setCurrentUser,
+  setCurrentUser,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -173,12 +173,12 @@ export default {
         state: "",
         avatar: "",
         zip_code: "",
-        website: "",
+        website: null,
         business_logo: "",
-        first_name: "",
+        first_name: null,
         last_name: "",
-        email: "",
-        phone_number: "",
+        email: null,
+        phone_number: null,
       },
       profileImg: "",
       businessLogo: "",
@@ -209,7 +209,10 @@ export default {
           this.profileImg = this.user.avatar;
           this.businessLogo = this.user.business_logo;
           this.$store.dispatch("user", this.user);
-          setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
+          setCurrentUser({
+            first_name: this.user.first_name,
+            last_name: this.user.last_name,
+          });
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -229,7 +232,9 @@ export default {
       if (
         /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(
           this.user.phone_number
-        ) && this.user.phone_number.length > 5 && this.user.phone_number.length < 14
+        ) &&
+        this.user.phone_number.length > 5 &&
+        this.user.phone_number.length < 14
       ) {
         return true;
       }
@@ -282,11 +287,11 @@ export default {
       if (this.businessLogoFile) {
         userData.append("business_logo", this.businessLogoFile);
       }
-        userData.append("zip_code", this.user.zip_code);
-        userData.append("website", this.user.website);
-        userData.append("first_name", this.user.first_name);
-        userData.append("last_name", this.user.last_name);
-        userData.append("phone_number", this.user.phone_number);
+      userData.append("zip_code", this.user.zip_code);
+      userData.append("website", this.user.website);
+      userData.append("first_name", this.user.first_name);
+      userData.append("last_name", this.user.last_name);
+      userData.append("phone_number", this.user.phone_number);
 
       patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
         .then(response => {

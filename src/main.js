@@ -28,10 +28,13 @@ app.use(router);
 app.use(store);
 app.use(helpers);
 app.use(VueCryptojs);
-app.use(Toaster, {position:'top-right', duration:5000});
+app.use(Toaster, { position: 'top-right', duration: 5000 });
 
-app.config.errorHandler = err => {
-    console.log('Exception: ', err)
+app.config.errorHandler = function (err, vm, info) {
+    console.log({
+        error: err,
+        params: { info: info }
+    });
 }
 
 app.mount("#app");

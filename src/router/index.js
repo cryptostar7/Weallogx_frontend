@@ -187,8 +187,6 @@ router.beforeEach((to, from, next) => {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
     }
-    console.log(localStorage.getItem('plan_active'));
-
     if(privateRoutes.includes(to.name) && authCheck() && !isPlanActive()){
       next('/current-plan');
       // this.$toast.warning('Your plan has been expired, please upgrade your plan to continue the service.');

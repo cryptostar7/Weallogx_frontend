@@ -48,6 +48,7 @@ export const putPercentage = () => {
     });
     return true;
 }
+
 export const putYears = () => {
     const yearInputs = document.querySelectorAll(".year-input");
     yearInputs.forEach(function (yearInput) {
@@ -74,6 +75,7 @@ export const putYears = () => {
         });
     });
 }
+
 export const getNumber = (_str) => {
     var arr = String(_str).split('');
     var out = new Array();

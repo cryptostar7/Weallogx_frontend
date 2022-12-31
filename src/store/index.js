@@ -48,6 +48,7 @@ const store = createStore({
             },
             clients:null,
             current_plan:false,
+            templates:[]
         },
         app: {
             themes: [
@@ -158,8 +159,11 @@ const store = createStore({
             state.data.clients = [...payload];
         },
         addNewClient(state, payload) {
-            state.data.clients = [...state.data.clients, payload];
+            state.data.templates[payload.type] = payload.data;
         },
+        setTemplate(){
+
+        }
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -211,6 +215,9 @@ const store = createStore({
         },        
         addClient(context, payload) {
             context.commit('addNewClient', payload);
+        },     
+        template(context, payload) {
+            context.commit('setTemplate', payload);
         },     
            
     }

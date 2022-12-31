@@ -6,7 +6,6 @@
                 <div class="backAndTopBtns">
                     <router-link to="/payment-method" class="paymentBackBtn"><img src="@/assets/images/user/back-arrow.svg"
                             alt="Back">&nbsp;Back</router-link>
-
                     <div class="paymentMethod-topBtns btnsWithBackBtn">
                         <router-link to="/payment-method" class="addCardCls">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -28,7 +27,6 @@
                             </svg>
                             &nbsp;&nbsp;All Saved Cards</a>
                     </div>
-
                 </div>
 
                 <div class="payment-methodMain-div">

@@ -8,14 +8,14 @@
             <ChooseClientNavbar  @newModified="newModified" @oldModified="oldModified" @sortAsc="sortAsc" @sortDesc="sortDesc" @updateList="updateList"/>
             <div class="client-list-div">
               <ul v-if="clients && clients.length > 0" class="nav flex-column client-list-ul">
-                <IndividualClientRow :clients="clients" :search="search" @setActionId="setActionId"/>
+                <IndividualClientRow :clients="clients" :search="search" @setActionId="setActionId" />
               </ul>
             </div>
           </div>
         </div>
       </main>
     </div>
-    
+
   <!-- Delete Client Modal -->
   <delete-client-modal @deleteClient="deleteClient"/>
   

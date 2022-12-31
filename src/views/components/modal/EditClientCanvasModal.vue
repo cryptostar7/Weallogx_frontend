@@ -73,7 +73,7 @@ export default {
       firstname: Yup.string().required("First Name is required."),
       middlename: Yup.string().nullable(true),
       lastname: Yup.string().required("Last name is required."),
-      age: Yup.number().positive().min(18).max(100).required("Age is required."),
+      age: Yup.number().positive().min(1).max(100).required("Age is required."),
     });
     return {
       schema,
