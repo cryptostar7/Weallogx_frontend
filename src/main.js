@@ -5,6 +5,7 @@ import store from "./store";
 import helpers from './helpers'
 import Toaster from "@meforma/vue-toaster";
 import VueCryptojs from 'vue-cryptojs'
+import { Notifier } from '@airbrake/browser'
 
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
@@ -31,11 +32,27 @@ app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
 
 app.config.errorHandler = function (err, vm, info) {
-    console.log({
+    airbrake.notify({
         error: err,
         params: { info: info }
     });
 }
+
+var airbrake = new Notifier({
+    environment: import.meta.env.MODE,
+    projectId: 473230,
+    projectKey: '8f10291cf0f98b06a27bc65dc46d8f56'
+});
+
+app.config.errorHandler = function (err, _vm, info) {
+    airbrake.notify({
+        error: err,
+        params: { info: info }
+    })
+}
+
+
+
 
 app.mount("#app");
 
