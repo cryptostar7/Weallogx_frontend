@@ -19,8 +19,6 @@ import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
 import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
-import "./../../assets/js/page.js";
-
 export default {
   components: {
     DeleteReportModal,
