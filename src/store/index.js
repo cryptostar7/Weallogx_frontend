@@ -159,10 +159,10 @@ const store = createStore({
             state.data.clients = [...payload];
         },
         addNewClient(state, payload) {
-            state.data.templates[payload.type] = payload.data;
+            state.data.clients = [...state.data.clients, payload];
         },
         setTemplate(){
-
+            state.data.templates[payload.type] = payload.data;
         }
     },
     actions: {

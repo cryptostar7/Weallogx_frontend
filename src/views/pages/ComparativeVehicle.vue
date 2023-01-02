@@ -1,8 +1,3 @@
-<script setup>
-import NavbarComponent from "../components/common/NavbarComponent.vue";
-import ComparativeVehicleMainSection from "../components/comparative/ComparativeVehicleMainSection.vue";
-import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
-</script>
 <template>
   <div>
   <navbar-component />
@@ -11,6 +6,9 @@ import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
   </div>
 </template>
 <script>
+import NavbarComponent from "../components/common/NavbarComponent.vue";
+import ComparativeVehicleMainSection from "../components/comparative/ComparativeVehicleMainSection.vue";
+import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
 export default {
   components: {
     NavbarComponent,

@@ -42,8 +42,8 @@
                 </h4>
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
-                  <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" />
-                  <label class="error">This field is required.</label>
+                  <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="errors.scenario_name = false" />
+                  <label class="error" v-if="errors.scenario_name">{{errors.scenario_name}}</label>
                 </div>
                 <div class="form-group less">
                   <div class="
@@ -62,14 +62,16 @@
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
                       <span class="regular-fw">Year 1 age on illustration</span></label>
-                    <input type="number" class="form-control" id="clientAge" @input="handleLimit" ref="clientAge" min="1" max="100" v-model="clientAgeYearToIllustrate" />
+                    <input type="number" class="form-control" id="clientAge" @input="handleLimit" min="1" max="100" @keyup="() => {updateClientAge(); errors.client_age_year = false}"/>
+                    <label class="error" v-if="errors.client_age_year">{{errors.client_age_year}}</label>
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
                     <div class="year-input-div">
-                      <input type="number" id="illustratedAge" v-model="illustrateYear" max="100" class="form-control" @input="handleLimit"/>
+                      <input type="number" id="illustratedAge" max="100" class="form-control" @input="handleLimit" @keyup="() =>  {updateScheduleRate(); errors.illustrate_year = false}"/>
                       <span class="year-span">years</span>
                     </div>
+                    <label class="error" v-if="errors.illustrate_year">{{errors.illustrate_year}}</label>
                   </div>            
                 </div>
 
@@ -115,7 +117,7 @@
                       <div class="form-group">
                         <label for="firstTaxRate" class="fs-12 medium-fw">First Tax Rate %</label>
                         <div class="percent-input-div">
-                          <input type="number" id="firstTaxRate" class="form-control" @input="handleLimit" min="1" max="99" v-model="firstTaxRate" />
+                          <input type="number" id="firstTaxRate" @keyup="() => {updateFirstTaxRate(); errors.first_tax = false}" :class="`form-control ${errors.first_tax ? 'required' : ''}`" min="1" max="99" @input="handleLimit"/>
                           <span class="percent-span">%</span>
                         </div>
                       </div>
@@ -123,7 +125,7 @@
                         <label for="secondTaxRate" class="fs-12 medium-fw">Second Tax Rate %</label>
                         <div class="percent-input-div">
                           <input type="number" id="secondTaxRate"
-                            class="form-control" v-model="secondTaxRate" @input="handleLimit" min="1" max="200"
+                            class="form-control handleLimit" min="1" max="100"
                             :disabled="firstTaxRate ? false : true" />
                           <span class="percent-span">%</span>
                         </div>
@@ -133,7 +135,7 @@
                         <select name="" id="secondTaxRateYear" class="form-select form-control" v-model="secondTaxRateYear"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
-                          <option v-if="Number(illustrateYear)" v-for="(item, index) in illustrateYear" :key="index" value="">{{item}}</option>
+                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear)" :key="index" value="">{{item}}</option>
                         </select>
                       </div>
                     </div>
@@ -142,6 +144,7 @@
                   <div class="tab-pane fade" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
                     <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" />
                     <div class="form-group max-width-320">
+                    <label class="error" v-if="errors.tax_rate">{{errors.tax_rate}}</label>
                       <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                         <thead>
                           <tr>
@@ -160,7 +163,7 @@
                             </td>
                             <td>
                               <div class="p-relative table-input-div percent-input-div">
-                                <input type="number" class="form-control" :id="`schedule_tax_rate_${index}`" @input="handleLimit" min="1" max="99" />
+                                <input type="number" class="form-control" :id="`schedule_tax_rate_${index}`" @input="handleLimit" min="1" max="99" @keyup="checkTaxRate()"/>
                                 <span class="percent-span">%</span>
                               </div>
                             </td>
@@ -174,7 +177,6 @@
                           <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save
                             this Schedule as Template</label>
                         </div>
-
                         <div class="form-group pt-2" id="templateNameDiv"
                           :style="{'display': saveTemplate ? '' : 'none'}">
                           <label for="templateName" class="fs-12 medium-fw">Template Name</label>
@@ -185,11 +187,9 @@
                   </div>
                 </div>
               </div>
-
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
-                <!-- <router-link to="/illustration-data" class="nav-link btn form-next-btn active fs-14"
-                  disabled="true">Next</router-link> -->
+                <!-- <router-link to="/illustration-data" class="nav-link btn form-next-btn active fs-14" disabled="true">Next</router-link> -->
               </div>
             </form>
           </div>
@@ -234,6 +234,7 @@ export default {
       secondTaxRate: "",
       secondTaxRateYear: "",
       scheduleTaxRate: [],
+      errors: [],
     };
   },
   mounted() {
@@ -247,12 +248,40 @@ export default {
     }
 
     // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (Number(current) < min || Number(current) > max) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
+        }
+      })
+    );
   },
   methods: {
     setExistingClientId: function(id) {
       // set existing client id on selecting the input dropdown data
       this.existingClientId = id;
     },
+
+    updateClientAge: function(){
+      this.clientAgeYearToIllustrate = document.getElementById("clientAge").value;
+    },
+
+    updateFirstTaxRate: function() {
+      this.firstTaxRate = document.getElementById("firstTaxRate").value;
+    },
+
+    updateScheduleRate: function() {
+      this.illustrateYear = document.getElementById("illustratedAge").value;
+      this.checkTaxRate();
+    },
+
     handleLimit: function(e) {
       let len = e.target.value.length;
       let current = e.target.value;
@@ -264,10 +293,12 @@ export default {
         return false;
       }
     },
+
     setExistingScenarioDetailId: function(id) {
       // set existing scenario detail id on selecting the input dropdown data
       this.existingScenarioDetailId = id;
     },
+
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
@@ -280,6 +311,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
     getExistingScenarioDetails: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-scenario-detail"), authHeader())
@@ -296,12 +328,64 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    checkTaxRate: function() {
+      if (this.illustrateYear) {
+        for (let index = 1; index <= this.illustrateYear; index++) {
+          var inp = document.getElementById(`schedule_tax_rate_${index}`);
+          var tax = inp ? inp.value : "";
+          if (!tax) {
+            return false;
+          }
+        }
+      }
+      this.errors.tax_rate = "";
+      return true;
+    },
+
+    validateForm: function() {
+      var validate = true;
+      if (!this.scenarioName) {
+        this.errors.scenario_name = "This field is required.";
+        validate = false;
+      }
+
+      if (!this.clientAgeYearToIllustrate) {
+        this.errors.client_age_year = "This field is required.";
+        validate = false;
+      }
+
+      if (!this.illustrateYear) {
+        this.errors.illustrate_year = "This field is required.";
+        validate = false;
+      }
+
+      if (!this.simpleTaxRate && !this.checkTaxRate()) {
+        this.errors.tax_rate = "Please enter tax rate for all years.";
+        validate = false;
+      }
+
+      if (!this.firstTaxRate) {
+        this.errors.first_tax = true;
+        validate = false;
+      }
+
+      return validate;
+    },
+
     submitHandler: function(e) {
       e.preventDefault();
       var tempSchedule = [];
-      for (let index = 1; index < 6; index++) {
-        var tax = document.getElementById(`schedule_tax_rate_${index}`).value;
-        tempSchedule.push({ year: index, tax_rate: tax });
+      if (!this.simpleTaxRate && this.illustrateYear) {
+        for (let index = 1; index <= this.illustrateYear; index++) {
+          var inp = document.getElementById(`schedule_tax_rate_${index}`);
+          var tax = inp ? inp.value : "";
+          tempSchedule.push({ year: index, tax_rate: tax });
+        }
+      }
+
+      if (!this.validateForm()) {
+        return false;
       }
 
       var data = {
@@ -314,13 +398,14 @@ export default {
         years_to_illustrate: this.illustrateYear,
         simple_tax_rate: {
           first_tax: this.firstTaxRate,
-          second_tax: this.secondTaxRate,
+          second_tax: document.getElementById(`secondTaxRate`).value,
           second_tax_rate_year: this.secondTaxRateYear,
         },
         schedule_tax_rate: tempSchedule,
       };
 
       console.log(data);
+      this.$router.push('/illustration-data');
     },
   },
   computed: {
@@ -359,5 +444,8 @@ export default {
 <style>
 .error {
   color: red;
+}
+.required {
+  border: 1px solid red !important;
 }
 </style>

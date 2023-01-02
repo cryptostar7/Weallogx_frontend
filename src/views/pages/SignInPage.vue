@@ -3,7 +3,7 @@
     <navbar-component />
     <section class="authMaindiv-area">
       <div class="container middleContainer">
-        <div class="authMainDiv">
+        <form class="authMainDiv" @submit="submitForm">
           <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
           <div class="authformRightPart">
             <div class="authInnerDiv">
@@ -33,13 +33,13 @@
                 </div>
               </div>
               <div class="authButtonDiv">
-                <a class="btn" @click="submitForm()">Sign In</a>
+                <button class="btn">Sign In</button>
               </div>
               <p class="authButtomPara">Don’t have an account? &nbsp;<router-link to="/sign-up">Sign Up</router-link>
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </section>
     <fotter-component />
@@ -111,7 +111,8 @@ export default {
 
       return valid;
     },
-    submitForm: function() {
+    submitForm: function(e) {
+      e.preventDefault();
       if (!this.checkValidation()) {
         console.log(this.errors);
         return false;

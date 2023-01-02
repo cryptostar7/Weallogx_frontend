@@ -26,7 +26,7 @@
               <p class="cardPlaceHolderName">CARD PLACE HOLDER NAME</p>
             </div>
           </div>
-          <div class="payment-right-card-main-div">
+          <form class="payment-right-card-main-div" @submit="getSource">
             <div>
               <div class="payment-right-heading-div">
                 <p>Add Payment Information</p>
@@ -57,10 +57,10 @@
                     <div ref="cardCvc" id='cvv_no' class="numberInputs card-cvv-number"></div>
                   </div>
                 </div>
-                <button type="submit" class="paymentformBtns" @click="getSource()">Save & Continue</button>
+                <button type="submit" class="paymentformBtns">Save & Continue</button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
 
         <div class="all-payment-methodMain-div">
@@ -121,11 +121,10 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.state.forms.temp_user);
     if (this.$store.state.forms.temp_user) {
       this.user = this.$store.state.forms.temp_user;
     } else {
-      this.$router.push("/sign-up");
+      window.location.href = '/sign-up';
     }
 
     var style = {
@@ -162,7 +161,9 @@ export default {
     });
   },
   methods: {
-    getSource: async function() {
+    getSource: async function(e) {
+      e.preventDefault();
+      
       this.$store.dispatch("loader", true);
       await stripe
         .createSource(cardNumber, {

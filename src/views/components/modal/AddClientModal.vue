@@ -87,6 +87,7 @@ export default {
       post(getUrl("client"), data, authHeader())
         .then(response => {
           resetForm();
+          console.log(response.data.data);
           this.$store.dispatch("addClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();

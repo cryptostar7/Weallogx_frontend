@@ -5,7 +5,7 @@
       <div class="container middleContainer">
         <div class="authMainDiv">
           <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
-          <div class="authformRightPart">
+          <form class="authformRightPart" @submit="submitForm">
             <div class="authInnerDiv">
               <h1 class="headingArea">Sign up for <span>Account</span></h1>
               <div class="d-flex flex-gap-10">
@@ -57,13 +57,13 @@
               <div class="authButtonDiv">
                 <p class="text-align-center mb-5 fs-14">You are signing up for: <span class="bold">14-Day Free
                     Trial</span></p>
-                <a class="btn" type="submit" @click="submitForm()">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</a>
+                <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
               </div>
               <p class="authButtomPara">Already have an account? &nbsp;
                 <router-link to="/sign-in">Sign In</router-link>
               </p>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
@@ -173,7 +173,9 @@ export default {
 
       return valid;
     },
-    submitForm: function() {
+    submitForm: function(e) {
+      e.preventDefault();
+
       if (!this.checkValidation()) {
         return false;
       }
