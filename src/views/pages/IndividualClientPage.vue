@@ -8,7 +8,7 @@
   <delete-scenario-modal />          
   <!-- Delete Report Modal --> 
   <delete-report-modal />       
-
+  
   <clone-scenario-modal />     
 </div>  
 </template>

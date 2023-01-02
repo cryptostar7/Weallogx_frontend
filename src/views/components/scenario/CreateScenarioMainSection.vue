@@ -30,6 +30,7 @@
                 </h2>
               </div>
             </div>
+
             <form class="form-wrapper side-grey-line" @submit="submitHandler">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="clients" label="Client" id="clientSelected" @onSelectItem="setExistingClientId"/>
@@ -42,6 +43,7 @@
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
                   <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" />
+                  <label class="error">This field is required.</label>
                 </div>
                 <div class="form-group less">
                   <div class="
@@ -60,12 +62,12 @@
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
                       <span class="regular-fw">Year 1 age on illustration</span></label>
-                    <input type="number" id="clientAge" maxlength="3"  class="form-control setMaxLimit" v-model="clientAgeYearToIllustrate" />
+                    <input type="number" class="form-control" id="clientAge" @input="handleLimit" ref="clientAge" min="1" max="100" v-model="clientAgeYearToIllustrate" />
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
                     <div class="year-input-div">
-                      <input type="number" id="illustratedAge" v-model="illustrateYear" max="20" class="form-control year-input"/>
+                      <input type="number" id="illustratedAge" v-model="illustrateYear" max="100" class="form-control" @input="handleLimit"/>
                       <span class="year-span">years</span>
                     </div>
                   </div>            
@@ -113,22 +115,22 @@
                       <div class="form-group">
                         <label for="firstTaxRate" class="fs-12 medium-fw">First Tax Rate %</label>
                         <div class="percent-input-div">
-                          <input type="number" id="firstTaxRate" class="form-control" v-model="firstTaxRate" />
+                          <input type="number" id="firstTaxRate" class="form-control" @input="handleLimit" min="1" max="99" v-model="firstTaxRate" />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRate" class="fs-12 medium-fw">Second Tax Rate %</label>
                         <div class="percent-input-div">
-                          <input type="text" id="secondTaxRate"
-                            class="form-control"
+                          <input type="number" id="secondTaxRate"
+                            class="form-control" v-model="secondTaxRate" @input="handleLimit" min="1" max="200"
                             :disabled="firstTaxRate ? false : true" />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Second Tax Rate Year</label>
-                        <select name="" id="secondTaxRateYear" class="form-select form-control"
+                        <select name="" id="secondTaxRateYear" class="form-select form-control" v-model="secondTaxRateYear"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
                           <option v-if="Number(illustrateYear)" v-for="(item, index) in illustrateYear" :key="index" value="">{{item}}</option>
@@ -136,6 +138,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="tab-pane fade" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
                     <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" />
                     <div class="form-group max-width-320">
@@ -157,7 +160,7 @@
                             </td>
                             <td>
                               <div class="p-relative table-input-div percent-input-div">
-                                <input type="text" class="form-control percent-input">
+                                <input type="number" class="form-control" :id="`schedule_tax_rate_${index}`" @input="handleLimit" min="1" max="99" />
                                 <span class="percent-span">%</span>
                               </div>
                             </td>
@@ -199,6 +202,7 @@
 import { get } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
 import { authHeader } from "./../../../services/helper";
+
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
   components: { SelectDropdown },
@@ -227,6 +231,9 @@ export default {
       saveTemplate: false,
       illustrateYear: "",
       firstTaxRate: "",
+      secondTaxRate: "",
+      secondTaxRateYear: "",
+      scheduleTaxRate: [],
     };
   },
   mounted() {
@@ -238,11 +245,24 @@ export default {
     if (!this.$store.state.data.templates.scenario_details) {
       // this.getExistingScenarioDetails();
     }
+
+    // input validation for min and max value
   },
   methods: {
     setExistingClientId: function(id) {
       // set existing client id on selecting the input dropdown data
       this.existingClientId = id;
+    },
+    handleLimit: function(e) {
+      let len = e.target.value.length;
+      let current = e.target.value;
+      let min = Number(e.target.getAttribute("min"));
+      let max = Number(e.target.getAttribute("max"));
+      if (Number(current) < min || Number(current) > max) {
+        let actualValue = current.slice(0, len - 1);
+        e.target.value = actualValue;
+        return false;
+      }
     },
     setExistingScenarioDetailId: function(id) {
       // set existing scenario detail id on selecting the input dropdown data
@@ -278,15 +298,28 @@ export default {
     },
     submitHandler: function(e) {
       e.preventDefault();
+      var tempSchedule = [];
+      for (let index = 1; index < 6; index++) {
+        var tax = document.getElementById(`schedule_tax_rate_${index}`).value;
+        tempSchedule.push({ year: index, tax_rate: tax });
+      }
+
       var data = {
         existing_client_id: this.existingClientId,
         existing_scenario_detail_id: this.existingScenarioDetailId,
-        simple_tax_rate_checkbox:this.simpleTaxRate,
-        scenario_name:this.scenarioName,
-        description:this.scenarioDescription,
-        client_age_on_illustration:this.clientAgeYearToIllustrate,
-        years_to_illustrate:this.illustrateYear,
+        simple_tax_rate_checkbox: this.simpleTaxRate,
+        scenario_name: this.scenarioName,
+        description: this.scenarioDescription,
+        client_age_on_illustration: this.clientAgeYearToIllustrate,
+        years_to_illustrate: this.illustrateYear,
+        simple_tax_rate: {
+          first_tax: this.firstTaxRate,
+          second_tax: this.secondTaxRate,
+          second_tax_rate_year: this.secondTaxRateYear,
+        },
+        schedule_tax_rate: tempSchedule,
       };
+
       console.log(data);
     },
   },
@@ -323,3 +356,8 @@ export default {
   },
 };
 </script>
+<style>
+.error {
+  color: red;
+}
+</style>
