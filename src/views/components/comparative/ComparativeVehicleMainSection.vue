@@ -250,7 +250,7 @@
                   <div class="col-md-9">
                     <div class="bottom-buttons-main-div">
                       <div class="text-center mt-30"> <a href="javascript:void(0)"
-                          class="btn AdtnlCmprtVhclBtn fs-14">Add Additional Comparative Vehicle</a> </div>
+                          class="btn AdtnlCmprtVhclBtn fs-14" @click="setNextTab()">Add Additional Comparative Vehicle</a> </div>
                       <div
                         class=" form-check form-switch custom-switch align-items-center justify-content-start mb-3 mt-30 "
                         id="saveComparativePortPolioDiv"> <input class="form-check-input me-1" type="checkbox"
@@ -395,6 +395,18 @@ export default {
       // stop the nex function calling request
       event.stopPropagation();
       event.preventDefault();
+    },
+    setNextTab: function() {
+      if (this.vehicle.tab === 2) {
+        console.log("next 2");
+        this.tabs.vehicle3 = true;
+        this.vehicle.tab = 3;
+      }
+      if (this.vehicle.tab === 1) {
+        console.log("next 2");
+        this.tabs.vehicle2 = true;
+        this.vehicle.tab = 2;
+      }
     },
     setVehicleType1: function(val = null) {
       this.vehicleSelected = true;
