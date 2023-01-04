@@ -57,7 +57,6 @@
                   </div>
                   <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control"></textarea>
                 </div>
-
                 <div class="form-group-wrapper">
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
@@ -157,7 +156,7 @@
                             <td><br /></td>
                             <td><br /></td>
                           </tr>
-                          <tr v-for="index in Number(illustrateYear)" :key="index">
+                          <tr v-for="index in 100" :key="index" :class="Number(illustrateYear) >= index ? '':'d-none'">
                             <td>
                               <div class="fs-15">{{index}}</div>
                             </td>
@@ -172,20 +171,35 @@
                       </table>
                       <div class="pb-3">
                         <div class="form-check form-switch custom-switch pt-2">
-                          <input class="form-check-input" type="checkbox" role="switch" v-model="saveTemplate"
+                          <input class="form-check-input" type="checkbox" role="switch" v-model="saveScheduleTemplate"
                             id="scheduleTemplateCheckbox" />
                           <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save
                             this Schedule as Template</label>
                         </div>
                         <div class="form-group pt-2" id="templateNameDiv"
-                          :style="{'display': saveTemplate ? '' : 'none'}">
+                          :style="{'display': saveScheduleTemplate ? '' : 'none'}">
                           <label for="templateName" class="fs-12 medium-fw">Template Name</label>
-                          <input type="text" id="templateName" class="form-control" value="" />
+                          <input type="text" id="templateName" class="form-control" v-model="scheduleTemplate" @keyup="errors.schedule_template = false"/>
+                          <label class="error" v-if="errors.schedule_template">{{errors.schedule_template}}</label>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                  <div class="pb-3">
+                    <div class="form-check form-switch custom-switch pt-2">
+                      <input class="form-check-input" type="checkbox" role="switch" v-model="saveDetailsTemplate"
+                        id="scheduleTemplateCheckbox" />
+                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save
+                        this Scenario Detail as Template</label>
+                    </div>
+                    <div class="form-group pt-2" id="templateNameDiv"
+                      :style="{'display': saveDetailsTemplate ? '' : 'none'}">
+                      <label for="templateName" class="fs-12 medium-fw">Template Name</label>
+                      <input type="text" id="templateName" class="form-control" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
+                      <label class="error" v-if="errors.details_template">{{errors.details_template}}</label>
+                    </div>
+                  </div>
               </div>
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
@@ -228,11 +242,14 @@ export default {
         { id: 4, name: "Schedule 4" },
         { id: 5, name: "Schedule 5" },
       ],
-      saveTemplate: false,
+      saveScheduleTemplate: false,
+      saveDetailsTemplate: false,
       illustrateYear: "",
       firstTaxRate: "",
       secondTaxRate: "",
       secondTaxRateYear: "",
+      scheduleTemplate: "",
+      detailsTemplate: "",
       scheduleTaxRate: [],
       errors: [],
     };
@@ -269,8 +286,10 @@ export default {
       this.existingClientId = id;
     },
 
-    updateClientAge: function(){
-      this.clientAgeYearToIllustrate = document.getElementById("clientAge").value;
+    updateClientAge: function() {
+      this.clientAgeYearToIllustrate = document.getElementById(
+        "clientAge"
+      ).value;
     },
 
     updateFirstTaxRate: function() {
@@ -282,6 +301,7 @@ export default {
       this.checkTaxRate();
     },
 
+    // validate the input value with the help of min and max attribute
     handleLimit: function(e) {
       let len = e.target.value.length;
       let current = e.target.value;
@@ -348,26 +368,50 @@ export default {
       if (!this.scenarioName) {
         this.errors.scenario_name = "This field is required.";
         validate = false;
+      } else {
+        this.errors.scenario_name = "";
       }
 
       if (!this.clientAgeYearToIllustrate) {
         this.errors.client_age_year = "This field is required.";
         validate = false;
+      } else {
+        this.errors.client_age_year = "";
       }
 
       if (!this.illustrateYear) {
         this.errors.illustrate_year = "This field is required.";
         validate = false;
+      } else {
+        this.errors.illustrate_year = "";
       }
 
       if (!this.simpleTaxRate && !this.checkTaxRate()) {
         this.errors.tax_rate = "Please enter tax rate for all years.";
         validate = false;
+      } else {
+        this.errors.tax_rate = "";
       }
 
-      if (!this.firstTaxRate) {
+      if (this.simpleTaxRate && !this.firstTaxRate) {
         this.errors.first_tax = true;
         validate = false;
+      } else {
+        this.errors.first_tax = "";
+      }
+
+      if (!this.simpleTaxRate && this.saveScheduleTemplate && !this.scheduleTemplate) {
+        this.errors.schedule_template = "This field is required.";
+        validate = false;
+      } else {
+        this.errors.schedule_template = "";
+      }
+
+      if (this.saveDetailsTemplate && !this.detailsTemplate) {
+        this.errors.details_template = "This field is required.";
+        validate = false;
+      } else {
+        this.errors.details_template = "";
       }
 
       return validate;
@@ -405,7 +449,7 @@ export default {
       };
 
       console.log(data);
-      this.$router.push('/illustration-data');
+      this.$router.push("/illustration-data");
     },
   },
   computed: {

@@ -380,28 +380,12 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       id=""
                                       class="form-select select-option"
                                     >
-                                      <option value="">Year</option>
-                                      <option value="">1990</option>
-                                      <option value="">1991</option>
-                                      <option value="">1992</option>
-                                      <option value="">1993</option>
-                                      <option value="">1994</option>
-                                      <option value="">1995</option>
-                                      <option value="">1996</option>
-                                      <option value="">1997</option>
-                                      <option value="">1998</option>
-                                      <option value="">1999</option>
-                                      <option value="">2000</option>
-                                      <option value="">2001</option>
-                                      <option value="">2002</option>
-                                      <option value="">2003</option>
-                                      <option value="">2004</option>
-                                      <option value="">2005</option>
-                                      <option value="">2006</option>
-                                      <option value="">2007</option>
-                                      <option value="">2008</option>
-                                      <option value="">2009</option>
-                                      <option value="">2010</option>
+                                      <option value="" selected>Year</option>
+                                      <option value="">Age</option>
+                                      <option value="">Premium</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Surrender Value</option>
+                                      <option value="">Death Benefit</option>
                                     </select>
                                   </div>
                                 </td>
@@ -431,22 +415,12 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       class="form-select select-option"
                                     >
                                       <option value="">Age</option>
-                                      <option value="">45</option>
-                                      <option value="">46</option>
-                                      <option value="">47</option>
-                                      <option value="">48</option>
-                                      <option value="">49</option>
-                                      <option value="">50</option>
-                                      <option value="">51</option>
-                                      <option value="">52</option>
-                                      <option value="">53</option>
-                                      <option value="">54</option>
-                                      <option value="">55</option>
-                                      <option value="">56</option>
-                                      <option value="">57</option>
-                                      <option value="">58</option>
-                                      <option value="">59</option>
-                                      <option value="">60</option>
+                                      <option value="">Year</option>
+                                      <option value="">Premium</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Surrender Value</option>
+                                      <option value="">Death Benefit</option>
+                                
                                     </select>
                                   </div>
                                 </td>
@@ -476,8 +450,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       class="form-select select-option"
                                     >
                                       <option value="">Premium</option>
-                                      <option value="">$ 47,000</option>
-                                      <option value="">& 0</option>
+                                      <option value="">Year</option>
+                                      <option value="">Age</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Surrender Value</option>
+                                      <option value="">Death Benefit</option>
                                     </select>
                                   </div>
                                 </td>
@@ -506,10 +483,12 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       id=""
                                       class="form-select select-option"
                                     >
-                                      <option value="">
-                                        Accumulation Value
-                                      </option>
-                                      <option value="">$ 0</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Year</option>
+                                      <option value="">Age</option>
+                                      <option value="">Premium</option>
+                                      <option value="">Surrender Value</option>
+                                      <option value="">Death Benefit</option>
                                     </select>
                                   </div>
                                 </td>
@@ -539,7 +518,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       class="form-select select-option"
                                     >
                                       <option value="">Surrender Value</option>
-                                      <option value="">$ 0</option>
+                                      <option value="">Year</option>
+                                      <option value="">Age</option>
+                                      <option value="">Premium</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Death Benefit</option>
                                     </select>
                                   </div>
                                 </td>
@@ -569,13 +552,11 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                                       class="form-select select-option"
                                     >
                                       <option value="">Death Benefit</option>
-                                      <option value="">$ 448,774</option>
-                                      <option value="">$ 488,661</option>
-                                      <option value="">$ 530,798</option>
-                                      <option value="">$ 536,874</option>
-                                      <option value="">$ 552,017</option>
-                                      <option value="">$ 565,905</option>
-                                      <option value="">$ 574,236</option>
+                                     <option value="">Year</option>
+                                      <option value="">Age</option>
+                                      <option value="">Premium</option>
+                                      <option value="">Accumulation Value</option>
+                                      <option value="">Surrender Value</option>
                                     </select>
                                   </div>
                                 </td>
@@ -1048,22 +1029,22 @@ export default {
     return {
       saveinsuranseTemplate:false,
       existingInsuranceList: [
-        "Vehicle One",
-        "Vehicle Two",
-        "Vehicle Three",
-        "Vehicle Four",
-        "Vehicle Five",
-        "Vehicle Six",
-        "Vehicle Seven",
-        "Vehicle Eight",
-        "Vehicle Nine",
+        {id:1, name:"Vehicle One"},
+        {id:1, name:"Vehicle Two"},
+        {id:1, name:"Vehicle Three"},
+        {id:1, name:"Vehicle Four"},
+        {id:1, name:"Vehicle Five"},
+        {id:1, name:"Vehicle Six"},
+        {id:1, name:"Vehicle Seven"},
+        {id:1, name:"Vehicle Eight"},
+        {id:1, name:"Vehicle Nine"},
       ],
       existingIllustrationList: [
-        "Illustration One",
-        "Illustration Two",
-        "Illustration Three",
-        "Illustration Four",
-        "Illustration Five",
+        {id:1, name:"Illustration One"},
+        {id:1, name:"Illustration Two"},
+        {id:1, name:"Illustration Three"},
+        {id:1, name:"Illustration Four"},
+        {id:1, name:"Illustration Five"},
       ],
     };
   },
