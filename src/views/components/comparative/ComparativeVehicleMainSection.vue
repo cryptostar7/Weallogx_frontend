@@ -184,7 +184,7 @@
                       <div :class="`tab-pane ${vehicle.tab === 3 ? 'active':''}`" id="vehicleType3Tab" role="tabpanel" aria-labelledby="vehicleType3-tab">
                         <SelectDropdown :list="dropdown.VehicleType3" label="Vehicle Type 3"
                           id="comparativeVehicleType3" class="form-group less pt-3" @onSelectItem="setVehicleType3" />
-                        <div :class="`${vehicle.vehicle3.type ? '' : 'vehicleaTypeArea'}mt-4`" id="taxableArea3">
+                        <div :class="`${vehicle.vehicle3.type ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea3">
                           <SelectDropdown :list="dropdown.historyIndex3" label="Use Existing Comparative Vehicle"
                             id="comparativeVehicleType" @onSelectItem="historyIndex3" /> <span
                             class="or-text-span">or</span>
@@ -362,12 +362,18 @@ export default {
   },
   methods: {
     setVehicleTab: function(val) {
-      this.vehicle.tab = Number(val);
-      if (val === 2) {
-        this.tabs.vehicle2 = true;
+      if (Number(val) === 1) {
+        this.vehicle.tab = Number(val);
       }
-      if (val === 3) {
-        this.tabs.vehicle3 = true;
+      if (Number(val) === 2) {
+        this.tabs.vehicle2 = true;
+        this.vehicle.tab = Number(val);
+      }
+      if (Number(val) === 3) {
+        if (this.tabs.vehicle2) {
+          this.tabs.vehicle3 = true;
+          this.vehicle.tab = Number(val);
+        }
       }
     },
     setActiveTab2: function(event) {
