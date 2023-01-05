@@ -21,7 +21,7 @@
         }" class="position-relative mainResizeDiv">
       #2
     </div>
-    <input ref="midRangeInput" v-model="range1.midRange" type="range" min="1" max="100" id="midRange"
+    <input ref="midRangeInput" v-model="range1.midRange" type="range" min="0" max="100" id="midRange"
       class="strategy-range-input" />
   </div>
   <div class="
@@ -76,12 +76,11 @@ export default {
     });
 
     this.$refs.swInputMid1.addEventListener("input", e => {
-      console.log(e);
-      var text = e.target.value.replace("%", "");
+      var text = e.target.value.replace("%", "").trim();
       var value = Number(text);
       var str = Number(text).toString();
       if (!isNaN(value)) {
-        if (Number(value) > 99) {
+        if (Number(value) > 100) {
           this.range1.midRange1 = str.slice(0, str.length - 1).toString();
         } else {
           this.range1.midRange2 = (100 - value).toFixed(2).toString() + "%";
@@ -110,7 +109,7 @@ export default {
       var value = Number(text);
       var str = Number(text).toString();
       if (!isNaN(value)) {
-        if (Number(value) > 99) {
+        if (Number(value) > 100) {
           this.range1.midRange2 = str.slice(0, str.length - 1).toString();
         } else {
           this.range1.midRange1 = (100 - value).toFixed(2).toString() + "%";
