@@ -153,7 +153,7 @@
                             <div class=" form-check form-switch custom-switch preAfeCapitalSwtch2"> <input class="form-check-input" type="checkbox" role="switch" id="capitalGainTax2" v-model="vehicle.vehicle2.capitalGains"
                                 :checked=" vehicle.vehicle2.type === 1 ? false : true" /> <label
                                 class="form-check-label fs-12 semi-bold-fw mb-0" for="capitalGainTax2"
-                                id="capitalGainLabel2">{{vehicle.vehicle2.type === 1 ? "Capital Gains Tax" : "Pre Age 59 ½ Penalty"}} 2</label> </div>
+                                id="capitalGainLabel2">{{vehicle.vehicle2.type === 1 ? "Capital Gains Tax" : "Pre Age 59 ½ Penalty"}}</label> </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle2.capitalGains && vehicle.vehicle2.type === 1 ? '' : 'capitalDisplayNone'} pt-2`"
                               id="capitalGainTaxInputs2">
                               <div class="form-group pb-0 m-0"> <label for="capitaGainRate"
@@ -249,8 +249,8 @@
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-9">
                     <div class="bottom-buttons-main-div">
-                      <div class="text-center mt-30"> <a href="javascript:void(0)"
-                          class="btn AdtnlCmprtVhclBtn fs-14" @click="setNextTab()">Add Additional Comparative Vehicle</a> </div>
+                      <div class="text-center mt-30" v-if="vehicle.tab !== 3"> 
+                        <a href="javascript:void(0)" class="btn AdtnlCmprtVhclBtn fs-14" @click="setNextTab()">Add Additional Comparative Vehicle</a> </div>
                       <div
                         class=" form-check form-switch custom-switch align-items-center justify-content-start mb-3 mt-30 "
                         id="saveComparativePortPolioDiv"> <input class="form-check-input me-1" type="checkbox"
@@ -382,6 +382,11 @@ export default {
         if (!this.tabs.vehicle2 && this.tabs.vehicle3) {
           this.tabs.vehicle3 = false;
         }
+      }
+      console.log(this.tabs.vehicle2);
+      if(!this.tabs.vehicle2 && this.vehicle.tab === 3){
+        console.log('test');
+        this.vehicle.tab = 1;
       }
       // stop the nex function calling request
       event.stopPropagation();

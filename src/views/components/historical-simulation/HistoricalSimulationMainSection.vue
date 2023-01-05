@@ -1,6 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-</script>
 <template>
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
@@ -85,7 +82,9 @@ import { RouterLink } from "vue-router";
 </template>
 <script>
 export default {
-    components:{RouterLink},
+  data(){
+
+  },
 }
 </script>
 <style lang="">

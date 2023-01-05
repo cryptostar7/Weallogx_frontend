@@ -189,8 +189,8 @@
                   <div class="pb-3">
                     <div class="form-check form-switch custom-switch pt-2">
                       <input class="form-check-input" type="checkbox" role="switch" v-model="saveDetailsTemplate"
-                        id="scheduleTemplateCheckbox" />
-                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save
+                        id="scenarioTemplateCheckbox" />
+                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save
                         this Scenario Detail as Template</label>
                     </div>
                     <div class="form-group pt-2" id="templateNameDiv"

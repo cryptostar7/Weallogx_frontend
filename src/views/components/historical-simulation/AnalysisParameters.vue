@@ -109,16 +109,16 @@ export default {
     return {
       dropdown: {
         historyIndex: [
-          "S&P 500",
-          "Blended Index",
-          "Bloomberg US Dynamic Balance II ER",
-          "PIMCO Tactical Balanced ER",
+          {id:1, name:"S&P 500"},
+          {id:2, name:"Blended Index"},
+          {id:3, name:"Bloomberg US Dynamic Balance II ER"},
+          {id:4, name:"PIMCO Tactical Balanced ER"},
         ],
         historyIndex2: [
-          "S&P 500",
-          "Blended Index",
-          "Bloomberg US Dynamic Balance II ER",
-          "PIMCO Tactical Balanced ER",
+          {id:1, name:"S&P 500"},
+          {id:2, name:"Blended Index"},
+          {id:3, name:"Bloomberg US Dynamic Balance II ER"},
+          {id:4, name:"PIMCO Tactical Balanced ER"},
         ],
       },
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
