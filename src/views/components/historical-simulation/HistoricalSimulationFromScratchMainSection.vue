@@ -37,7 +37,7 @@
                         type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
                   </div>
                   <div class="after-yes-middle-div my-2 p-4">
-                    <p class="numberIndexStrtegiesPara"> Number of Index Strategies </p>
+                    <p class="numberIndexStrtegiesPara">Number of Index Strategies</p>
                     <div class="d-flex justify-content-center">
                       <div class="multiRadioBtnMainDiv"> 
                         <div :class="`eachRadioBtnBgDiv ${activeTab === 1 ? 'active':''}`" id="historicalTopCheckBoxDiv1"  @click="setActiveTab(1)">

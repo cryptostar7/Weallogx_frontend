@@ -301,19 +301,6 @@ export default {
       this.checkTaxRate();
     },
 
-    // validate the input value with the help of min and max attribute
-    handleLimit: function(e) {
-      let len = e.target.value.length;
-      let current = e.target.value;
-      let min = Number(e.target.getAttribute("min"));
-      let max = Number(e.target.getAttribute("max"));
-      if (Number(current) < min || Number(current) > max) {
-        let actualValue = current.slice(0, len - 1);
-        e.target.value = actualValue;
-        return false;
-      }
-    },
-
     setExistingScenarioDetailId: function(id) {
       // set existing scenario detail id on selecting the input dropdown data
       this.existingScenarioDetailId = id;
@@ -400,7 +387,11 @@ export default {
         this.errors.first_tax = "";
       }
 
-      if (!this.simpleTaxRate && this.saveScheduleTemplate && !this.scheduleTemplate) {
+      if (
+        !this.simpleTaxRate &&
+        this.saveScheduleTemplate &&
+        !this.scheduleTemplate
+      ) {
         this.errors.schedule_template = "This field is required.";
         validate = false;
       } else {

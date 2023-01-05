@@ -41,7 +41,7 @@
   </div>
 </div>
 <p class="strategyErrorPara">
-  Sum of all weights must equal 100%%.
+  Sum of all weights must equal 100%.
 </p>
 </template>
 <script>
@@ -57,16 +57,16 @@ export default {
   },
   mounted() {
     // straight weight range for tab 1
-    this.$refs.midRangeInput.addEventListener("input", (e) => {
+    this.$refs.midRangeInput.addEventListener("input", e => {
       this.range1.midRange1 = Number(e.target.value).toFixed(2) + "%";
       this.range1.midRange2 = (100 - Number(e.target.value)).toFixed(2) + "%";
     });
 
-    this.$refs.swInputMid1.addEventListener("focus", (e) => {
+    this.$refs.swInputMid1.addEventListener("focus", e => {
       this.range1.midRange1 = e.target.value.replace("%", "");
     });
 
-    this.$refs.swInputMid1.addEventListener("blur", (e) => {
+    this.$refs.swInputMid1.addEventListener("blur", e => {
       if (e.target.value) {
         this.range1.midRange1 =
           Number(e.target.value.replace("%", "")).toFixed(2) + "%";
@@ -75,22 +75,28 @@ export default {
       }
     });
 
-    this.$refs.swInputMid1.addEventListener("input", (e) => {
+    this.$refs.swInputMid1.addEventListener("input", e => {
+      console.log(e);
       var text = e.target.value.replace("%", "");
       var value = Number(text);
       var str = Number(text).toString();
-      if (Number(value) > 99) {
-        this.range1.midRange1 = str.slice(0, str.length - 1).toString();
+      if (!isNaN(value)) {
+        if (Number(value) > 99) {
+          this.range1.midRange1 = str.slice(0, str.length - 1).toString();
+        } else {
+          this.range1.midRange2 = (100 - value).toFixed(2).toString() + "%";
+        }
       } else {
-        this.range1.midRange2 = (100 - value).toFixed(2).toString() + "%";
+        this.range1.midRange1 = "0%";
+        this.range1.midRange2 = "100%";
       }
     });
 
-    this.$refs.swInputMid2.addEventListener("focus", (e) => {
+    this.$refs.swInputMid2.addEventListener("focus", e => {
       this.range1.midRange2 = e.target.value.replace("%", "");
     });
 
-    this.$refs.swInputMid2.addEventListener("blur", (e) => {
+    this.$refs.swInputMid2.addEventListener("blur", e => {
       if (e.target.value) {
         this.range1.midRange2 =
           Number(e.target.value.replace("%", "")).toFixed(2) + "%";
@@ -99,17 +105,21 @@ export default {
       }
     });
 
-    this.$refs.swInputMid2.addEventListener("input", (e) => {
+    this.$refs.swInputMid2.addEventListener("input", e => {
       var text = e.target.value.replace("%", "");
       var value = Number(text);
       var str = Number(text).toString();
-      if (Number(value) > 99) {
-        this.range1.midRange2 = str.slice(0, str.length - 1).toString();
+      if (!isNaN(value)) {
+        if (Number(value) > 99) {
+          this.range1.midRange2 = str.slice(0, str.length - 1).toString();
+        } else {
+          this.range1.midRange1 = (100 - value).toFixed(2).toString() + "%";
+        }
       } else {
-        this.range1.midRange1 = (100 - value).toFixed(2).toString() + "%";
+        this.range1.midRange1 = "100%";
+        this.range1.midRange2 = "0%";
       }
     });
-
   },
 };
 </script>

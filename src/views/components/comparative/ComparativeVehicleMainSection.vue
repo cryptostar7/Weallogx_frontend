@@ -77,8 +77,10 @@
                           <div class="form-group-wrapper">
                             <div class="form-group"> <label for="clientAge" class="fs-12 medium-fw">Rate of
                                 Return</label>
-                              <div class="percent-input-div"> <input type="number" min="1" max="99" @input="handleLimit" id="clientAge" 
-                                  class="form-control" /> <span class="percent-span">%</span> </div>
+                              <div class="percent-input-div"> 
+                                <input type="number" min="1" max="99" @input="handleLimit" id="clientAge" class="form-control" /> 
+                                <span class="percent-span">%</span>
+                              </div>
                             </div>
                             <div class="form-group"> <label for="illustratedAge" class="fs-12 medium-fw">Fees</label>
                               <div class="percent-input-div"> <input type="number" min="0" max="99" @input="handleLimit" id="illustratedAge"
