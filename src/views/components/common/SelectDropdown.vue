@@ -7,7 +7,7 @@
         </div>
         <div class="p-relative">
         <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="category.selectText" @focus="handleDropdown" placeholder="Select or Start Typing"
-            class="form-control pe-5 autocomplete customSelectDropdown" autocomplete="off">
+            class="form-control pe-5 autocomplete customSelectDropdown" @change="handleChangeEvent" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -18,15 +18,16 @@
                 fill="black" />
             </svg>
         </span>
+        <label class="error" v-if="$props.error">{{$props.error[0]}}</label>
         <div v-if="dropdown" class="autocomplete-items">
-            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item.name, item.id)">{{item.name}}</div>
+            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item.template_name, item.id)">{{item.template_name}}</div>
         </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-  props: ["list", "label", "id", "class", "optional"],
+  props: ["list", "label", "id", "class", "optional", "error"],
   data() {
     return {
       dropdown: false,
@@ -39,9 +40,10 @@ export default {
     handleDropdown: function() {
       this.dropdown = true;
     },
-    setInputData: function(name, id) {
-      this.category.selectText = name;
+    setInputData: function(template_name, id) {
+      this.category.selectText = template_name;
       this.$emit("onSelectItem", id);
+      this.$emit("clearError");
     },
     closeDropdown: function(e = null) {
       if (e) {
@@ -54,6 +56,9 @@ export default {
         }
       }
     },
+    handleChangeEvent: function() {
+      this.$emit("clearError");
+    },
   },
   mounted() {
     document.addEventListener("click", this.closeDropdown);
@@ -61,7 +66,7 @@ export default {
   computed: {
     selectList() {
       return this.$props.list.filter(item => {
-        return item.name
+        return item.template_name
           .toLowerCase()
           .includes(this.category.selectText.toLowerCase());
       });
@@ -69,3 +74,8 @@ export default {
   },
 };
 </script>
+<style>
+.error {
+  color: red;
+}
+</style>

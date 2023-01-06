@@ -161,7 +161,7 @@ const store = createStore({
         addNewClient(state, payload) {
             state.data.clients = [...state.data.clients, payload];
         },
-        setTemplate(){
+        setTemplate(state, payload){
             state.data.templates[payload.type] = payload.data;
         }
     },

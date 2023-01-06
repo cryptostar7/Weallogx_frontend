@@ -44,8 +44,8 @@
             <p class="inputError" v-if="serverErrors.age">{{serverErrors.age[0]}}</p>
           </div>
           <div class="offcanBtnDiv">
-            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario">
-            <input type="submit" class="btn form-control mt-3 SaveclsBtn" value="Save & Close">
+            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario" @click="() => createScenario = 1">
+            <input type="submit" class="btn form-control mt-3 SaveclsBtn" value="Save & Close" @click="() => createScenario = 0">
           </div>
         </div>
       </Form>
@@ -78,6 +78,7 @@ export default {
     return {
       schema,
       serverErrors: [],
+      createScenario:0,
     };
   },
   methods: {
@@ -92,13 +93,21 @@ export default {
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();
           this.$toast.success(response.data.message);
+          if(this.createScenario){
+             this.$router.push(`/create-new-scenario?client=${response.data.data.id}`);
+          }
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
+          this.createScenario = 0;
           console.log(error);
           this.$refs.openModalRef.click();
           this.serverErrors = getServerErrors(error);
-          this.$toast.error(getFirstError(error));
+           if(error.code === 'ERR_BAD_RESPONSE'){
+            this.$toast.error(error.message);
+          }else{
+            this.$toast.error(getFirstError(error));
+          }
         });
     },
   },

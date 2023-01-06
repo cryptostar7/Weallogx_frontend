@@ -217,7 +217,11 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.$store.dispatch("loader", false);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            this.$store.dispatch("loader", false);
+          }
         });
     },
     isValidEmail: function() {
@@ -304,9 +308,12 @@ export default {
         .catch(error => {
           console.log(error);
           this.$store.dispatch("loader", false);
-          this.errors = getServerErrors(error);
-          console.log(getFirstError(error));
-          this.$toast.error(getFirstError(error));
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            this.errors = getServerErrors(error);
+            this.$toast.error(getFirstError(error));
+          }
         });
     },
   },

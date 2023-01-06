@@ -49,7 +49,7 @@ export default {
   methods: {
     logout: function() {
       if (authCheck()) {
-        this.$store.dispatch('loader', true);
+        this.$store.dispatch("loader", true);
         post(
           getUrl("logout"),
           { refresh: getRefreshToken() },
@@ -60,17 +60,21 @@ export default {
             localStorage.removeItem("access_token");
             localStorage.removeItem("plan_active");
             localStorage.removeItem("currentUser");
-            
+
             // localStorage.removeItem("remember");
-            this.$store.dispatch('loader', false);
-            this.$store.dispatch('user', false);
+            this.$store.dispatch("loader", false);
+            this.$store.dispatch("user", false);
             this.$toast.success(response.data.message);
             this.$router.push("/sign-in");
           })
-          .catch(err => {
-            console.log(err);
-            this.$store.dispatch('loader', false);
-            this.$toast.error(err.response.data.messages[0].message);
+          .catch(error => {
+            console.log(error);
+            this.$store.dispatch("loader", false);
+            if (error.code === "ERR_BAD_RESPONSE") {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(error.response.data.messages[0].message);
+            }
           });
       }
     },

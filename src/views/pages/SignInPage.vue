@@ -133,15 +133,21 @@ export default {
           } else {
             localStorage.removeItem("remember");
           }
-          // get plan status 
+          // get plan status
           get(getUrl("current_plan"), authHeader())
             .then(response => {
-              localStorage.setItem('plan_active', response.data.data.active ? 1 : 0);
-              this.$store.dispatch('currentPlan', response.data.data);
-              // to save the profile detail in vuex store 
+              localStorage.setItem(
+                "plan_active",
+                response.data.data.active ? 1 : 0
+              );
+              this.$store.dispatch("currentPlan", response.data.data);
+              // to save the profile detail in vuex store
               get(getUrl("profile"), authHeader())
                 .then(response => {
-                  setCurrentUser({first_name:response.data.data.first_name, last_name:response.data.data.last_name});
+                  setCurrentUser({
+                    first_name: response.data.data.first_name,
+                    last_name: response.data.data.last_name,
+                  });
                   this.$store.dispatch("user", response.data.data);
                   this.$store.dispatch("loader", false);
                   this.$toast.success(this.server.message);
@@ -155,12 +161,20 @@ export default {
                 .catch(error => {
                   console.log(error);
                   this.$store.dispatch("loader", false);
-                  this.$toast.error(getFirstError(error));
+                  if (error.code === "ERR_BAD_RESPONSE") {
+                    this.$toast.error(error.message);
+                  } else {
+                    this.$toast.error(getFirstError(error));
+                  }
                 });
             })
             .catch(error => {
               console.log(error);
-              this.$toast.error(getFirstError(error));
+              if (error.code === "ERR_BAD_RESPONSE") {
+                this.$toast.error(error.message);
+              } else {
+                this.$toast.error(getFirstError(error));
+              }
             });
         })
         .catch(error => {
@@ -170,18 +184,22 @@ export default {
           this.server.status = false;
           this.server.message = this.errors.message;
           this.$store.dispatch("loader", false);
-          this.$toast.error(this.server.message);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(this.server.message);
+          }
         });
     },
     encryptString: function(value, type) {
-      // this function is used for encrypting the user login credentail 
+      // this function is used for encrypting the user login credentail
       if (value && type) {
         return this.$CryptoJS.AES.encrypt(value, type).toString();
       }
       return 0;
     },
     decryptString: function(value, type) {
-      // this function is used for decrypting the user login credentail 
+      // this function is used for decrypting the user login credentail
       if (value && type) {
         return this.$CryptoJS.AES.decrypt(value, type).toString(
           this.$CryptoJS.enc.Utf8

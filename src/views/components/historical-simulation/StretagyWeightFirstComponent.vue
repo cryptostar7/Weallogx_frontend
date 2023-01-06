@@ -90,7 +90,6 @@ export default {
         this.range1.midRange2 = "100%";
       }
     });
-
     this.$refs.swInputMid2.addEventListener("focus", e => {
       this.range1.midRange2 = e.target.value.replace("%", "");
     });

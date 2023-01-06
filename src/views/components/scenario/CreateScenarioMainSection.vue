@@ -33,7 +33,8 @@
 
             <form class="form-wrapper side-grey-line" @submit="submitHandler">
               <div class="form-wrapper-inner">
-                <SelectDropdown :list="clients" label="Client" id="clientSelected" @onSelectItem="setExistingClientId"/>
+                <SelectDropdown :list="clients" label="Client" id="clientSelected" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId"/>
+
                 <hr class="hr-separator" size="1.25" />
                 <SelectDropdown :list="existingScenarioList" label="Use Existing Scenario" id="existingScenario" @onSelectItem="setExistingScenarioDetailId"/>
                 <span class="or-text-span">or</span>
@@ -43,7 +44,7 @@
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
                   <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="errors.scenario_name = false" />
-                  <label class="error" v-if="errors.scenario_name">{{errors.scenario_name}}</label>
+                  <label class="error" v-if="errors.scenario_name">{{errors.scenario_name[0]}}</label>
                 </div>
                 <div class="form-group less">
                   <div class="
@@ -55,14 +56,15 @@
                     <label for="scenarioDesc" class="fs-12 medium-fw">Description</label>
                     <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                   </div>
-                  <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control"></textarea>
+                  <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control" @keypress="() => errors.description = false"></textarea>
+                  <label class="error" v-if="errors.description">{{errors.description[0]}}</label>
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
                       <span class="regular-fw">Year 1 age on illustration</span></label>
                     <input type="number" class="form-control" id="clientAge" @input="handleLimit" min="1" max="100" @keyup="() => {updateClientAge(); errors.client_age_year = false}"/>
-                    <label class="error" v-if="errors.client_age_year">{{errors.client_age_year}}</label>
+                    <label class="error" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</label>
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
@@ -70,7 +72,7 @@
                       <input type="number" id="illustratedAge" max="100" class="form-control" @input="handleLimit" @keyup="() =>  {updateScheduleRate(); errors.illustrate_year = false}"/>
                       <span class="year-span">years</span>
                     </div>
-                    <label class="error" v-if="errors.illustrate_year">{{errors.illustrate_year}}</label>
+                    <label class="error" v-if="errors.illustrate_year">{{errors.illustrate_year[0]}}</label>
                   </div>            
                 </div>
 
@@ -124,26 +126,26 @@
                         <label for="secondTaxRate" class="fs-12 medium-fw">Second Tax Rate %</label>
                         <div class="percent-input-div">
                           <input type="number" id="secondTaxRate"
-                            class="form-control handleLimit" min="1" max="100"
+                            :class="`form-control handleLimit ${errors.second_tax ? 'required' : ''}`" @keyup="() => errors.second_tax = false" min="1" max="100"
                             :disabled="firstTaxRate ? false : true" />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Second Tax Rate Year</label>
-                        <select name="" id="secondTaxRateYear" class="form-select form-control" v-model="secondTaxRateYear"
+                        <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => errors.second_tax_year = false"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
-                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear)" :key="index" value="">{{item}}</option>
+                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear)" :key="index" :value="item">{{item}}</option>
                         </select>
                       </div>
                     </div>
                   </div>
 
                   <div class="tab-pane fade" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
-                    <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" />
+                    <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" @onSelectItem="setExistingScenarioScheduleId"/>
                     <div class="form-group max-width-320">
-                    <label class="error" v-if="errors.tax_rate">{{errors.tax_rate}}</label>
+                    <label class="error" v-if="errors.tax_rate">{{errors.tax_rate[0]}}</label>
                       <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                         <thead>
                           <tr>
@@ -162,7 +164,7 @@
                             </td>
                             <td>
                               <div class="p-relative table-input-div percent-input-div">
-                                <input type="number" class="form-control" :id="`schedule_tax_rate_${index}`" @input="handleLimit" min="1" max="99" @keyup="checkTaxRate()"/>
+                                <input type="number" class="form-control handleLimit" :id="`schedule_tax_rate_${index}`" @input="handleLimit" min="1" max="99" @keyup="checkTaxRate()"/>
                                 <span class="percent-span">%</span>
                               </div>
                             </td>
@@ -180,7 +182,7 @@
                           :style="{'display': saveScheduleTemplate ? '' : 'none'}">
                           <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                           <input type="text" id="templateName" class="form-control" v-model="scheduleTemplate" @keyup="errors.schedule_template = false"/>
-                          <label class="error" v-if="errors.schedule_template">{{errors.schedule_template}}</label>
+                          <label class="error" v-if="errors.schedule_template">{{errors.schedule_template[0]}}</label>
                         </div>
                       </div>
                     </div>
@@ -197,7 +199,7 @@
                       :style="{'display': saveDetailsTemplate ? '' : 'none'}">
                       <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                       <input type="text" id="templateName" class="form-control" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
-                      <label class="error" v-if="errors.details_template">{{errors.details_template}}</label>
+                      <label class="error" v-if="errors.details_template">{{errors.details_template[0]}}</label>
                     </div>
                   </div>
               </div>
@@ -213,9 +215,9 @@
   </section>
 </template>
 <script>
-import { get } from "./../../../network/requests";
+import { get, post } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
-import { authHeader } from "./../../../services/helper";
+import { authHeader, getServerErrors } from "./../../../services/helper";
 
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
@@ -224,24 +226,11 @@ export default {
     return {
       existingClientId: false,
       existingScenarioDetailId: false,
+      existingScenarioScheduleId: false,
       scenarioName: "",
       scenarioDescription: "",
       clientAgeYearToIllustrate: "",
       simpleTaxRate: true,
-      existingScenarioList: [
-        { id: 1, name: "Scenario 1" },
-        { id: 2, name: "Scenario 2" },
-        { id: 3, name: "Scenario 3" },
-        { id: 4, name: "Scenario 4" },
-        { id: 5, name: "Scenario 5" },
-      ],
-      existingScheduleList: [
-        { id: 1, name: "Schedule 1" },
-        { id: 2, name: "Schedule 2" },
-        { id: 3, name: "Schedule 3" },
-        { id: 4, name: "Schedule 4" },
-        { id: 5, name: "Schedule 5" },
-      ],
       saveScheduleTemplate: false,
       saveDetailsTemplate: false,
       illustrateYear: "",
@@ -261,7 +250,12 @@ export default {
     }
     // get existing scenario details
     if (!this.$store.state.data.templates.scenario_details) {
-      // this.getExistingScenarioDetails();
+      this.getExistingScenarioDetails();
+    }
+
+    // get existing scenario schedule template list
+    if (!this.$store.state.data.templates.scenario_details) {
+      this.getExistingScenarioSchedule();
     }
 
     // input validation for min and max value
@@ -301,9 +295,14 @@ export default {
       this.checkTaxRate();
     },
 
+    // set the existing scenari o detail id on selecting the input dropdown data
     setExistingScenarioDetailId: function(id) {
-      // set existing scenario detail id on selecting the input dropdown data
       this.existingScenarioDetailId = id;
+    },
+
+    // set the existing scenario schedule id on selecting the input dropdown data
+    setExistingScenarioScheduleId: function(id) {
+      this.existingScenarioScheduleId = id;
     },
 
     getClient: function() {
@@ -315,6 +314,28 @@ export default {
         })
         .catch(error => {
           console.log(error);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getExistingScenarioSchedule: function() {
+      this.$store.dispatch("loader", true);
+      get(getUrl("existing-scenario-schedule"), authHeader())
+        .then(response => {
+          this.$store.dispatch("template", {
+            type: "scenario_schedules",
+            data: response.data.data,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          }
           this.$store.dispatch("loader", false);
         });
     },
@@ -323,7 +344,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-scenario-detail"), authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("template", {
             type: "scenario_details",
             data: response.data.data,
@@ -332,10 +352,13 @@ export default {
         })
         .catch(error => {
           console.log(error);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          }
           this.$store.dispatch("loader", false);
         });
     },
-
+    // check all inputs given in the schedule tax rate list, raturn false if any input has blank value otherwise return true.
     checkTaxRate: function() {
       if (this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -350,31 +373,39 @@ export default {
       return true;
     },
 
+    // validate the form
     validateForm: function() {
       var validate = true;
+      if (!this.existingClientId) {
+        this.errors.client = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.client = "";
+      }
+
       if (!this.scenarioName) {
-        this.errors.scenario_name = "This field is required.";
+        this.errors.scenario_name = ["This field is required."];
         validate = false;
       } else {
         this.errors.scenario_name = "";
       }
 
       if (!this.clientAgeYearToIllustrate) {
-        this.errors.client_age_year = "This field is required.";
+        this.errors.client_age_year = ["This field is required."];
         validate = false;
       } else {
         this.errors.client_age_year = "";
       }
 
       if (!this.illustrateYear) {
-        this.errors.illustrate_year = "This field is required.";
+        this.errors.illustrate_year = ["This field is required."];
         validate = false;
       } else {
         this.errors.illustrate_year = "";
       }
 
       if (!this.simpleTaxRate && !this.checkTaxRate()) {
-        this.errors.tax_rate = "Please enter tax rate for all years.";
+        this.errors.tax_rate = ["Please enter tax rate for all years."];
         validate = false;
       } else {
         this.errors.tax_rate = "";
@@ -392,14 +423,14 @@ export default {
         this.saveScheduleTemplate &&
         !this.scheduleTemplate
       ) {
-        this.errors.schedule_template = "This field is required.";
+        this.errors.schedule_template = ["This field is required."];
         validate = false;
       } else {
         this.errors.schedule_template = "";
       }
 
       if (this.saveDetailsTemplate && !this.detailsTemplate) {
-        this.errors.details_template = "This field is required.";
+        this.errors.details_template = ["This field is required."];
         validate = false;
       } else {
         this.errors.details_template = "";
@@ -424,23 +455,92 @@ export default {
       }
 
       var data = {
-        existing_client_id: this.existingClientId,
-        existing_scenario_detail_id: this.existingScenarioDetailId,
-        simple_tax_rate_checkbox: this.simpleTaxRate,
-        scenario_name: this.scenarioName,
+        existings: {
+          client_id: this.existingClientId,
+          scenario_detail_id: this.existingScenarioDetailId,
+          schedule_tax_id: this.existingScenarioScheduleId,
+        },
+        simple_tax_checkbox: this.simpleTaxRate,
+        name: this.scenarioName,
         description: this.scenarioDescription,
         client_age_on_illustration: this.clientAgeYearToIllustrate,
         years_to_illustrate: this.illustrateYear,
         simple_tax_rate: {
-          first_tax: this.firstTaxRate,
-          second_tax: document.getElementById(`secondTaxRate`).value,
-          second_tax_rate_year: this.secondTaxRateYear,
+          first_tax: this.firstTaxRate || 0,
+          second_tax: document.getElementById(`secondTaxRate`).value || 0,
+          second_tax_year: this.secondTaxRateYear || 0,
         },
-        schedule_tax_rate: tempSchedule,
+        schedule_tax_rate: {
+          data: tempSchedule,
+          save_this_template_name: this.saveScheduleTemplate,
+          template_name: this.scheduleTemplate,
+        },
+        save_this_template: this.saveDetailsTemplate,
+        template_name: this.detailsTemplate,
+      };
+
+      var formData = {
+        name: data.name,
+        client: data.existings.client_id || "",
+        description: data.description,
+        client_age_1_year_illustration: data.client_age_on_illustration,
+        years_to_illustrate: data.years_to_illustrate,
+        schedule_tax_rate_checkbox: !data.simple_tax_checkbox,
+        first_tax_rate: data.simple_tax_checkbox
+          ? data.simple_tax_rate.first_tax
+          : 0,
+        second_tax_rate: data.simple_tax_checkbox
+          ? data.simple_tax_rate.second_tax
+          : 0,
+        second_tax_rate_year: data.simple_tax_checkbox
+          ? data.simple_tax_rate.second_tax_year
+          : 0,
+        save_this_template_name: data.save_this_template,
+        template_name: data.template_name,
+        schedule_tax_rate: !data.simple_tax_checkbox
+          ? data.schedule_tax_rate
+          : null,
       };
 
       console.log(data);
-      this.$router.push("/illustration-data");
+      console.log(formData);
+
+      this.$store.dispatch("loader", true);
+      this.createScenarioDetail(formData);
+    },
+    createScenarioDetail: function(data) {
+      post(getUrl("scenerio-details"), data, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
+          this.$router.push("/illustration-data");
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            var serverErrors = getServerErrors(error);
+            this.errors = serverErrors;
+            this.errors.scenario_name = serverErrors.name;
+            this.errors.client_age_year =
+              serverErrors.client_age_1_year_illustration;
+            this.errors.illustrate_year = serverErrors.years_to_illustrate;
+            this.errors.first_tax = serverErrors.first_tax_rate;
+            this.errors.second_tax = serverErrors.second_tax_rate;
+            this.errors.second_tax_year = serverErrors.second_tax_rate_year;
+            this.errors.details_template = serverErrors.template_name;
+            this.errors.description = serverErrors.description;
+            if (
+              this.errors.schedule_tax_rate &&
+              this.errors.schedule_tax_rate.error
+            ) {
+              this.$toast.error(this.errors.schedule_tax_rate.error[0]);
+            }
+          }
+        });
     },
   },
   computed: {
@@ -453,25 +553,22 @@ export default {
           var name = `${element.firstname}${
             element.middlename ? ` ${element.middlename}` : ""
           }${element.lastname ? ` ${element.lastname}` : ""}`;
-          initClient.push({ id: element.id, name: name });
+          initClient.push({ id: element.id, template_name: name });
         });
       }
       return initClient;
     },
 
     // existing scenario details dropdown list data
-    scenarioDetailTemplates() {
-      let initClient = [];
-      let array = this.$store.state.data.clients;
-      if (array && array.length > 0) {
-        array.forEach(element => {
-          var name = `${element.firstname}${
-            element.middlename ? ` ${element.middlename}` : ""
-          }${element.lastname ? ` ${element.lastname}` : ""}`;
-          initClient.push({ id: element.id, name: name });
-        });
-      }
-      return initClient;
+    existingScenarioList() {
+      let array = this.$store.state.data.templates.scenario_details || [];
+      return array;
+    },
+
+    // existing scenario schedules dropdown list data
+    existingScheduleList() {
+      let array = this.$store.state.data.templates.scenario_schedules || [];
+      return array;
     },
   },
 };

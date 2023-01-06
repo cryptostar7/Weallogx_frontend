@@ -61,7 +61,11 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.$toast.error(getFirstError(error));
+           if(error.code === 'ERR_BAD_RESPONSE'){
+            this.$toast.error(error.message);
+          }else{
+            this.$toast.error(getFirstError(error));
+          }
           this.$store.dispatch("loader", false);
         });
     },
@@ -79,8 +83,10 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log('error');
           console.log(error.message);
+           if(error.code === 'ERR_BAD_RESPONSE'){
+            this.$toast.error(error.message);
+          }
           this.$store.dispatch("loader", false);
         });
     },

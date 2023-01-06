@@ -205,10 +205,13 @@
     </div>
 </template>
 <script>
-
-import { authCheck, getRefreshToken, getAccessToken } from '../../../services/helper';
-import { post } from '../../../network/requests';
-import { getUrl } from '../../../network/url';
+import {
+  authCheck,
+  getRefreshToken,
+  getAccessToken,
+} from "../../../services/helper";
+import { post } from "../../../network/requests";
+import { getUrl } from "../../../network/url";
 import "./../../../assets/css/user/style.css";
 import "./../../../assets/css/user/external.css";
 export default {
@@ -226,17 +229,21 @@ export default {
             localStorage.removeItem("access_token");
             localStorage.removeItem("plan_active");
             localStorage.removeItem("currentUser");
-            
+
             // localStorage.removeItem("remember");
             this.$store.dispatch("loader", false);
-            this.$store.dispatch('user', false);
+            this.$store.dispatch("user", false);
             this.$toast.success(response.data.message);
             this.$router.push("/sign-in");
           })
-          .catch(err => {
-            console.log(err);
+          .catch(error => {
+            console.log(error);
             this.$store.dispatch("loader", false);
-            this.$toast.error(err.response.data.messages[0].message);
+            if (error.code === "ERR_BAD_RESPONSE") {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(error.response.data.messages[0].message);
+            }
           });
       }
     },

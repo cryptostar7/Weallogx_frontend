@@ -123,7 +123,11 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.$toast.error(getFirstError(error));
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
         });
     },
     getProfile: function() {
@@ -133,11 +137,17 @@ export default {
           console.log(response.data.data);
           this.user = response.data.data;
           this.$store.dispatch("user", this.user);
-          setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
+          setCurrentUser({
+            first_name: this.user.first_name,
+            last_name: this.user.last_name,
+          });
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
           console.log(error);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          }
           this.$store.dispatch("loader", false);
         });
     },
@@ -149,7 +159,7 @@ export default {
       this.user = this.$store.state.data.user;
     }
 
-     let plan = this.$store.state.data.current_plan;
+    let plan = this.$store.state.data.current_plan;
     if (!plan) {
       this.getCurrentPlan();
     } else {

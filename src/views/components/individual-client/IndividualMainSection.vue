@@ -86,6 +86,9 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           console.log(error);
+           if(error.code === 'ERR_BAD_RESPONSE'){
+            this.$toast.error(error.message);
+          }
         });
     },
   },

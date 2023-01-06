@@ -93,7 +93,11 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.$toast.error(getFirstError(error));
+          if (error.code === "ERR_BAD_RESPONSE") {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
         });
     },
   },
