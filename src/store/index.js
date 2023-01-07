@@ -87,17 +87,13 @@ const store = createStore({
         },
         getClientUsingId: (state) => (id) => {
             let array = state.data.clients;
-            var client = false;
+            var client = [];
             if(array && array.length > 0){
-                array.forEach(element => {
-                    if(Number(element.id) === Number(id)){
-                        if(!client){
-                            client = element;
-                        }
-                    }
+                client = array.filter(element => {
+                    return Number(element.id) === Number(id);
                 });
             }
-            return client;
+            return client.length ? client[0] : false;
         }
     },
     mutations: {

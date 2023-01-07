@@ -21,8 +21,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/request-forget-email/`;
     case 'reset-password':
       return `${baseUrl}/auth/password-forget-complete`;
-    case 'scenerio-details':
+    case 'scenario':
+      return `${baseUrl}/auth/scenario/`;
+    case 'scenario-details':
       return `${baseUrl}/auth/sceneriodetails/`;
+    case 'scenario-with-schedule_id':
+      return `${baseUrl}/auth/scenerio-schedule/`;
     case 'existing-scenario-detail':
       return `${baseUrl}/auth/existing-scenario-details/`;
     case 'existing-scenario-schedule':

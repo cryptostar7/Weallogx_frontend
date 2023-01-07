@@ -1,13 +1,13 @@
 <template lang="">
    <div :class="$props.class ?? 'form-group'">
-        <label v-if="$props.label && !$props.optional" :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
+      <label v-if="$props.label && !$props.optional" :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
         <div v-if="$props.label && $props.optional" class="d-flex justify-content-between align-items-center mt-4 mb-1">
           <label :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
           <label class="labelOptional">OPTIONAL</label>
         </div>
         <div class="p-relative">
         <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="category.selectText" @focus="handleDropdown" placeholder="Select or Start Typing"
-            class="form-control pe-5 autocomplete customSelectDropdown" @change="handleChangeEvent" autocomplete="off">
+            class="form-control pe-5 autocomplete customSelectDropdown" @input="handleChangeEvent" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -20,14 +20,24 @@
         </span>
         <label class="error" v-if="$props.error">{{$props.error[0]}}</label>
         <div v-if="dropdown" class="autocomplete-items">
-            <div v-for="(item, index) in selectList" :key="index" @click="setInputData(item.template_name, item.id)">{{item.template_name}}</div>
+            <div v-if="$props.addNewClient && (!selectList.length || !category.selectText)"  data-bs-toggle="offcanvas" data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">Create New Client</div>
+            <div v-for="(item, index) in selectList" :key="index" @click="setInputValue(item.template_name, item.id)">{{item.template_name}}</div>
         </div>
-        </div>
+      </div>
     </div>
 </template>
 <script>
 export default {
-  props: ["list", "label", "id", "class", "optional", "error"],
+  props: [
+    "list",
+    "label",
+    "id",
+    "class",
+    "optional",
+    "addNewClient",
+    "defaultSelected",
+    "error",
+  ],
   data() {
     return {
       dropdown: false,
@@ -40,9 +50,10 @@ export default {
     handleDropdown: function() {
       this.dropdown = true;
     },
-    setInputData: function(template_name, id) {
+    setInputValue: function(template_name, id) {
       this.category.selectText = template_name;
       this.$emit("onSelectItem", id);
+      this.$emit("inputText", template_name);
       this.$emit("clearError");
     },
     closeDropdown: function(e = null) {
@@ -56,12 +67,18 @@ export default {
         }
       }
     },
-    handleChangeEvent: function() {
+    handleChangeEvent: function(e) {
+      this.$emit("inputText", e.target.value);
       this.$emit("clearError");
     },
   },
   mounted() {
     document.addEventListener("click", this.closeDropdown);
+    if (this.$props.defaultSelected) {
+      this.category.selectText = this.$props.defaultSelected;
+      this.$emit("inputText", this.category.selectText);
+      this.$emit("clearError");
+    }
   },
   computed: {
     selectList() {
@@ -70,6 +87,13 @@ export default {
           .toLowerCase()
           .includes(this.category.selectText.toLowerCase());
       });
+    },
+  },
+  watch: {
+    "$props.defaultSelected"(e) {
+      this.category.selectText = e;
+      this.$emit("inputText", e);
+      this.$emit("clearError");
     },
   },
 };

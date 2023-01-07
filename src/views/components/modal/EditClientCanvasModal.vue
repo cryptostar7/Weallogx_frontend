@@ -102,7 +102,7 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           console.log(error);
-          if (error.code === "ERR_BAD_RESPONSE") {
+          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
           } else {
             this.serverErrors = getServerErrors(error);

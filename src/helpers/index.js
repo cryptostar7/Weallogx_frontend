@@ -30,9 +30,18 @@ const myPlugin = {
             return name.toUpperCase();
         },
         app.config.globalProperties.$getPlanName = (key) => {
-            let plans = { '1':'Free Trial', '2':'Monthly Plan', '3':'Yearly Plan'};
+            let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };
             return plans[key] ?? plans['1'];
-        }       
+        },
+        app.config.globalProperties.$getTemplateId = (template_name = "", list = []) => {
+            if (template_name) {
+                let item = list.filter(item => {
+                    return item.template_name.toLowerCase() === template_name.toLowerCase().trim();
+                });
+                return item[0] ? item[0].id : false;
+            }
+            return false;
+        }
     }
 }
 

@@ -239,7 +239,7 @@ export default {
           .catch(error => {
             console.log(error);
             this.$store.dispatch("loader", false);
-            if (error.code === "ERR_BAD_RESPONSE") {
+            if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
               this.$toast.error(error.message);
             } else {
               this.$toast.error(error.response.data.messages[0].message);

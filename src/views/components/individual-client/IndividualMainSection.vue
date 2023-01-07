@@ -53,7 +53,7 @@
 </template>
 <script>
 import testClients from "../../../services/dummy-json";
-import { getParams, authHeader } from "../../../services/helper";
+import { getParams, authHeader, getFirstError } from "../../../services/helper";
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.vue";
@@ -86,8 +86,13 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           console.log(error);
-           if(error.code === 'ERR_BAD_RESPONSE'){
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
             this.$toast.error(error.message);
+          }else{
+            this.$toast.error(getFirstError(error));
           }
         });
     },
