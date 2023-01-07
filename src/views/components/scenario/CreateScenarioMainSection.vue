@@ -31,19 +31,19 @@
               </div>
             </div>
 
-            <form class="form-wrapper side-grey-line" @submit="submitHandler">
+            <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler">
               <div class="form-wrapper-inner">
-                <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @inputText="setExistingClientName"/>
+                <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId" @inputText="setExistingClientName"/>
 
                 <hr class="hr-separator" size="1.25" />
-                <SelectDropdown :list="existingScenarioList" label="Use Existing Scenario" id="existingScenario" :error="errors.existing_details" @clearError="() => errors.existing_details = false" @inputText="setExistingScenarioDetailName"/>
+                <SelectDropdown :list="existingScenarioList" label="Use Existing Scenario" id="existingScenario" :error="errors.existing_details" @clearError="() => errors.existing_details = false" :clearInput="detailTemplateInput" @setClearedInput="() => detailTemplateInput = 0" @onSelectItem="setExistingScenarioDetailId" @inputText="setExistingScenarioDetailName"/>
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold">
                   Create From Scratch
                 </h4>
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
-                  <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="errors.scenario_name = false" />
+                  <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="() => {clearDetailTemplate(); errors.scenario_name = false}" />
                   <label class="error" v-if="errors.scenario_name">{{errors.scenario_name[0]}}</label>
                 </div>
                 <div class="form-group less">
@@ -56,20 +56,20 @@
                     <label for="scenarioDesc" class="fs-12 medium-fw">Description</label>
                     <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                   </div>
-                  <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control" @keypress="() => errors.description = false"></textarea>
+                  <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control" @keypress="() => {clearDetailTemplate(); errors.description = false}"></textarea>
                   <label class="error" v-if="errors.description">{{errors.description[0]}}</label>
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age
                       <span class="regular-fw">Year 1 age on illustration</span></label>
-                    <input type="number" class="form-control handleLimit" id="clientAge" min="1" max="100" @keyup="() => {updateClientAge(); errors.client_age_year = false}"/>
+                    <input type="number" class="form-control handleLimit" id="clientAge" min="1" max="100" @keyup="() => {updateClientAge(); clearDetailTemplate(); errors.client_age_year = false}"/>
                     <label class="error" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</label>
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
                     <div class="year-input-div">
-                      <input type="number" id="illustratedAge" max="100" class="form-control handleLimit" @keyup="() =>  {updateScheduleRate(); errors.illustrate_year = false}"/>
+                      <input type="number" id="illustratedAge" max="100" class="form-control handleLimit" @keyup="() =>  {updateScheduleRate(); clearDetailTemplate(); errors.illustrate_year = false}"/>
                       <span class="year-span">years</span>
                     </div>
                     <label class="error" v-if="errors.illustrate_year">{{errors.illustrate_year[0]}}</label>
@@ -78,7 +78,7 @@
 
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="simpleTaxRate-tab" @click="() => simpleTaxRate = true" data-bs-toggle="tab"
+                    <button :class="`nav-link ${simpleTaxRate ? 'active':''}`" id="simpleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = true}" data-bs-toggle="tab"
                       data-bs-target="#simpleTaxRate" type="button" role="tab" aria-controls="simpleTaxRate"
                       aria-selected="true">
                       <svg class="simpleTaxRateImg" width="9" height="14" viewBox="0 0 9 14" fill="none"
@@ -92,7 +92,7 @@
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="scheduleTaxRate-tab" @click="() => simpleTaxRate = false" data-bs-toggle="tab"
+                    <button :class="`nav-link ${simpleTaxRate ? '':'active'}`" id="scheduleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = false}" data-bs-toggle="tab"
                       data-bs-target="#scheduleTaxRate" type="button" role="tab" aria-controls="scheduleTaxRate"
                       aria-selected="false">
                       <svg class="scheduleTaxRateImg" width="9" height="10" viewBox="0 0 9 10" fill="none"
@@ -112,13 +112,13 @@
                 </ul>
 
                 <div class="tab-content pt-3 mt-1">
-                  <div class="tab-pane fade show active" id="simpleTaxRate" role="tabpanel"
+                  <div :class="`tab-pane fade ${simpleTaxRate ? 'show active':''}`" id="simpleTaxRate" role="tabpanel"
                     aria-labelledby="simpleTaxRate-tab">
                     <div class="form-group-wrapper">
                       <div class="form-group">
                         <label for="firstTaxRate" class="fs-12 medium-fw">First Tax Rate %</label>
                         <div class="percent-input-div">
-                          <input type="number" id="firstTaxRate" @keyup="() => {updateFirstTaxRate(); errors.first_tax = false}" :class="`form-control handleLimit ${errors.first_tax ? 'required' : ''}`" min="1" max="99"/>
+                          <input type="number" id="firstTaxRate" @keyup="() => {updateFirstTaxRate(); clearDetailTemplate(); errors.first_tax = false}" :class="`form-control handleLimit ${errors.first_tax ? 'required' : ''}`" min="1" max="99"/>
                           <span class="percent-span">%</span>
                         </div>
                       </div>
@@ -126,14 +126,14 @@
                         <label for="secondTaxRate" class="fs-12 medium-fw">Second Tax Rate %</label>
                         <div class="percent-input-div">
                           <input type="number" id="secondTaxRate"
-                            :class="`form-control handleLimit ${errors.second_tax ? 'required' : ''}`" @keyup="() => errors.second_tax = false" min="1" max="100"
+                            :class="`form-control handleLimit ${errors.second_tax ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax = false}" min="1" max="100"
                             :disabled="firstTaxRate ? false : true" />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Second Tax Rate Year</label>
-                        <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => errors.second_tax_year = false"
+                        <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax_year = false}"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
                           <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear)" :key="index" :value="item">{{item}}</option>
@@ -142,8 +142,8 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane fade" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
-                    <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" :error="errors.existing_schedule" @clearError="() => errors.existing_schedule = false" @inputText="setExistingScenarioScheduleName"/>
+                  <div :class="`tab-pane fade ${simpleTaxRate ? '':'show active'}`" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
+                    <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" :error="errors.existing_schedule" @clearError="() => errors.existing_schedule = false" :clearInput="scheduleTemplateInput" @setClearedInput="() => scheduleTemplateInput = 0" @onSelectItem="setExistingScenarioScheduleId" @inputText="setExistingScenarioScheduleName"/>
                     <div class="form-group max-width-320">
                     <label class="error" v-if="errors.tax_rate">{{errors.tax_rate[0]}}</label>
                       <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
@@ -203,7 +203,6 @@
                     </div>
                   </div>
               </div>
-              <button type="button" @click="checkFunction()">Check</button>
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <!-- <router-link to="/illustration-data" class="nav-link btn form-next-btn active fs-14" disabled="true">Next</router-link> -->
@@ -243,6 +242,8 @@ export default {
       secondTaxRateYear: "",
       scheduleTemplate: "",
       detailsTemplate: "",
+      detailTemplateInput: 0,
+      scheduleTemplateInput:0,
       scheduleTaxRate: [],
       errors: [],
     };
@@ -303,31 +304,40 @@ export default {
     setExistingScenarioDetailId: function(id) {
       this.existingScenarioDetailId = id;
       this.errors = [];
+      this.populateScenarioDetail(id);
     },
 
     // set the existing scenario schedule id on selecting the input dropdown data
     setExistingScenarioScheduleId: function(id) {
       this.existingScenarioScheduleId = id;
+      this.errors.schedule_template = [];
+      this.populateScheduleTax(id);
     },
 
     // set the client age year value to illustrate the data. Note: v-model not working for this input
     updateClientAge: function() {
-      this.clientAgeYearToIllustrate = document.getElementById(
-        "clientAge"
-      ).value;
+      this.clientAgeYearToIllustrate = this.getInputWithId("clientAge");
     },
 
     // set the first tax rate data using the input id. Note: v-model not working for this input
     updateFirstTaxRate: function() {
-      this.firstTaxRate = document.getElementById("firstTaxRate").value;
+      this.firstTaxRate = this.getInputWithId("firstTaxRate");
     },
 
     // set the illustrate year value using the input id. Note: v-model not working for this input
     updateScheduleRate: function() {
-      this.illustrateYear = document.getElementById("illustratedAge").value;
+      this.illustrateYear = this.getInputWithId("illustratedAge");
       this.checkTaxRate();
+      this.clearDetailTemplate();
     },
 
+    setInputWithId: function(id, value) {
+      document.getElementById(id).value = value;
+      return value;
+    },
+    getInputWithId: function(id) {
+      return document.getElementById(id).value;
+    },
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
@@ -369,11 +379,80 @@ export default {
         });
     },
 
+    populateScenarioDetail: function(id) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario-details")}${id}`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("loader", false);
+          let detail = response.data.data;
+          this.scenarioName = detail.name;
+          this.scenarioDescription = detail.description;
+          this.clientAgeYearToIllustrate =
+            detail.client_age_1_year_illustration;
+          this.setInputWithId(
+            "clientAge",
+            detail.client_age_1_year_illustration
+          );
+          this.illustrateYear = detail.years_to_illustrate;
+          this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+          this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
+          this.firstTaxRate = detail.first_tax_rate
+            ? detail.first_tax_rate
+            : "";
+          this.setInputWithId(
+            "firstTaxRate",
+            detail.first_tax_rate ? detail.first_tax_rate : ""
+          );
+          this.firstTaxRate = detail.first_tax_rate
+            ? detail.first_tax_rate
+            : "";
+          this.setInputWithId(
+            "secondTaxRate",
+            detail.second_tax_rate ? detail.second_tax_rate : ""
+          );
+          this.secondTaxRateYear = detail.second_tax_rate_year
+            ? detail.second_tax_rate_year
+            : "";
+          if (!this.simpleTaxRate) {
+            this.setScheduleData(detail.schedule_tax_rate.data);
+          } else {
+            this.clearScheduleData();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    setScheduleData: function(data = []) {
+      this.errors.tax_rate = "";
+      this.clearScheduleData();
+      data.forEach(element => {
+        this.setInputWithId(
+          `schedule_tax_rate_${element.year}`,
+          element.tax_rate
+        );
+      });
+    },
+
+    clearScheduleData: function(data = []) {
+      for (let index = 1; index <= 100; index++) {
+        this.setInputWithId(`schedule_tax_rate_${index}`, "");
+      }
+    },
+
     getExistingScenarioDetails: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-scenario-detail"), authHeader())
         .then(response => {
-          console.log(response.data.data);
           this.$store.dispatch("template", {
             type: "scenario_details",
             data: response.data.data,
@@ -392,8 +471,39 @@ export default {
         });
     },
 
+    populateScheduleTax: function(id) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("schedule")}${id}`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("loader", false);
+          let detail = response.data.data.data;
+          if (detail) {
+            this.illustrateYear = detail.length ? detail.length : 0;
+            this.setInputWithId(
+              "illustratedAge",
+              detail.length ? detail.length : 0
+            );
+            this.setScheduleData(detail);
+          } else {
+            this.clearScheduleData();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
     // check all inputs given in the schedule tax rate list, raturn false if any input has blank value otherwise return true.
     checkTaxRate: function() {
+      this.clearScheduleTemplate();
       if (this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
           var inp = document.getElementById(`schedule_tax_rate_${index}`);
@@ -451,7 +561,11 @@ export default {
           this.errors.illustrate_year = "";
         }
 
-        if (!this.simpleTaxRate && !this.existingScenarioScheduleName && !this.checkTaxRate()) {
+        if (
+          !this.simpleTaxRate &&
+          !this.existingScenarioScheduleName &&
+          !this.checkTaxRate()
+        ) {
           this.errors.tax_rate = ["Please enter tax rate for all years."];
           validate = false;
         } else {
@@ -512,7 +626,6 @@ export default {
         this.errors.details_template = "";
       }
 
-      console.log(validate);
       return validate;
     },
     // Handle form submission
@@ -545,7 +658,7 @@ export default {
         years_to_illustrate: this.illustrateYear,
         simple_tax_rate: {
           first_tax: this.firstTaxRate || 0,
-          second_tax: document.getElementById(`secondTaxRate`).value || 0,
+          second_tax: this.getInputWithId(`secondTaxRate`) || 0,
           second_tax_year: this.secondTaxRateYear || 0,
         },
         schedule_tax_rate: {
@@ -648,7 +761,7 @@ export default {
           console.log(response.data);
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
-          this.$router.push("/illustration-data");
+          this.$router.push(`/illustration-data/${response.data.id}`);
         })
         .catch(error => {
           console.log(error);
@@ -695,9 +808,15 @@ export default {
           }
         });
     },
-    checkFunction: function() {
-      console.log("function called");
-      console.log(this.existingScenarioScheduleName);
+    clearDetailTemplate: function() {
+      if(this.existingScenarioDetailName){
+        this.detailTemplateInput = 1;
+      }
+    },
+    clearScheduleTemplate: function() {
+      if(this.existingScenarioScheduleName){
+        this.scheduleTemplateInput = 1;
+      }
     },
   },
   computed: {

@@ -35,7 +35,7 @@ const router = createRouter({
       component: () => import("../views/pages/CreateNewScenario.vue"),
     },
     {
-      path: "/illustration-data",
+      path: "/illustration-data/:scenario?",
       name: "illustration-data",
       component: () => import("../views/pages/IllustrationData.vue"),
     },

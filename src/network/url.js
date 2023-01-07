@@ -31,6 +31,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/existing-scenario-details/`;
     case 'existing-scenario-schedule':
       return `${baseUrl}/auth/schedule/`;
+    case 'schedule':
+      return `${baseUrl}/auth/schedule/`;
     case 'logout':
       return `${baseUrl}/auth/logout/`;
     default:

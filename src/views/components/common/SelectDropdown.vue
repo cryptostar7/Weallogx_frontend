@@ -36,6 +36,7 @@ export default {
     "optional",
     "addNewClient",
     "defaultSelected",
+    "clearInput",
     "error",
   ],
   data() {
@@ -94,6 +95,14 @@ export default {
       this.category.selectText = e;
       this.$emit("inputText", e);
       this.$emit("clearError");
+    },
+    "$props.clearInput"(e) {
+      if (Number(e)) {
+        this.category.selectText = "";
+        this.$emit("inputText", "");
+        this.$emit("setClearedInput", 0);
+        this.$emit("clearError");
+      }
     },
   },
 };
