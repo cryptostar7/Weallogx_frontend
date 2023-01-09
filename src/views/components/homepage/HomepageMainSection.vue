@@ -61,9 +61,12 @@ export default {
         })
         .catch(error => {
           console.log(error);
-           if(error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK"){
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
             this.$toast.error(error.message);
-          }else{
+          } else {
             this.$toast.error(getFirstError(error));
           }
           this.$store.dispatch("loader", false);
@@ -76,15 +79,16 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
         .then(response => {
-          console.log(response.data.data);
           this.$store.dispatch("clients", response.data.data);
-          this.clients = response.data.data;
           this.sortedList = response.data.data;
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
           console.log(error.message);
-           if(error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK"){
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
             this.$toast.error(error.message);
           }
           this.$store.dispatch("loader", false);
@@ -130,7 +134,6 @@ export default {
   },
   mounted() {
     if (this.$store.state.data.clients) {
-      this.clients = this.$store.state.data.clients;
       this.sortedList = this.$store.state.data.clients;
     } else {
       this.getClient();

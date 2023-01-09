@@ -81,7 +81,7 @@ import {
   setRefreshToken,
   setAccessToken,
   getSearchParams,
-setCurrentUser,
+  setCurrentUser,
 } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -89,7 +89,7 @@ export default {
     return {
       user: {
         first_name: null,
-        last_name: null,
+        last_name: "",
         email: null,
         phone_number: null,
         password: null,
@@ -115,7 +115,9 @@ export default {
       if (
         /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(
           this.user.phone_number
-        ) && this.user.phone_number.length > 5 && this.user.phone_number.length < 14
+        ) &&
+        this.user.phone_number.length > 5 &&
+        this.user.phone_number.length < 14
       ) {
         return true;
       }
@@ -187,8 +189,11 @@ export default {
             console.log(response);
             setRefreshToken(response.data.data.tokens.refresh);
             setAccessToken(response.data.data.tokens.access);
-            setCurrentUser({first_name:this.user.first_name, last_name:this.user.last_name});
-            localStorage.setItem('plan_active', 1);
+            setCurrentUser({
+              first_name: this.user.first_name,
+              last_name: this.user.last_name,
+            });
+            localStorage.setItem("plan_active", 1);
             this.server.status = true;
             this.server.message = response.data.message;
             this.$store.dispatch("loader", false);
@@ -196,12 +201,19 @@ export default {
             this.$router.push("/profile-details");
           })
           .catch(error => {
-            this.errors = getServerErrors(error);
-            console.log(this.errors);
-            this.server.status = false;
-            this.server.message = this.errors.message;
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.errors = getServerErrors(error);
+              this.server.status = false;
+              this.server.message = this.errors.message;
+              this.$toast.error(this.server.message);
+            }
             this.$store.dispatch("loader", false);
-            this.$toast.error(this.server.message);
           });
       } else {
         this.$store.dispatch("userTempForm", this.user);

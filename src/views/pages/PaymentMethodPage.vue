@@ -102,7 +102,13 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { getFirstError, getServerErrors, setRefreshToken, setAccessToken, getSearchParams } from "../../services/helper";
+import {
+  getFirstError,
+  getServerErrors,
+  setRefreshToken,
+  setAccessToken,
+  getSearchParams,
+} from "../../services/helper";
 let stripe = Stripe(
     `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
   ),
@@ -124,7 +130,7 @@ export default {
     if (this.$store.state.forms.temp_user) {
       this.user = this.$store.state.forms.temp_user;
     } else {
-      window.location.href = '/sign-up';
+      window.location.href = "/sign-up";
     }
 
     var style = {
@@ -163,7 +169,7 @@ export default {
   methods: {
     getSource: async function(e) {
       e.preventDefault();
-      
+
       this.$store.dispatch("loader", true);
       await stripe
         .createSource(cardNumber, {
@@ -175,16 +181,16 @@ export default {
         })
         .then(response => {
           console.log(response);
-          if(response.source){
-          this.user.stripe_source_id = response.source.id;
-          this.createUser();
-          }else{
-              if(response.error){
+          if (response.source) {
+            this.user.stripe_source_id = response.source.id;
+            this.createUser();
+          } else {
+            if (response.error) {
               this.$toast.error(response.error.message);
-              }else{
-              this.$toast.error('Something went wrong!');
-              }
-              this.$store.dispatch("loader", false);
+            } else {
+              this.$toast.error("Something went wrong!");
+            }
+            this.$store.dispatch("loader", false);
           }
         });
     },
@@ -204,11 +210,24 @@ export default {
           this.$router.push("/profile-details");
         })
         .catch(error => {
-          this.$store.dispatch("userTempFormError", getServerErrors(error));
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$store.dispatch("userTempFormError", getServerErrors(error));
+            this.$store.dispatch("loader", false);
+            this.$router.push(
+              `${"/sign-up"}${
+                getSearchParams("plan")
+                  ? `?plan=${getSearchParams("plan")}`
+                  : ""
+              }`
+            );
+            this.$toast.error(getFirstError(error));
+          }
           this.$store.dispatch("loader", false);
-          this.$router.push(`${'/sign-up'}${getSearchParams('plan') ? `?plan=${getSearchParams('plan')}`:''}`);
-          this.$store.dispatch("loader", false);
-          this.$toast.error(getFirstError(error));
         });
     },
   },

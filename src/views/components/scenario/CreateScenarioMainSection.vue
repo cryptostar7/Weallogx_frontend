@@ -716,6 +716,7 @@ export default {
         this.createScenarioDetail(formData);
       }
     },
+
     createScenarioDetail: function(data) {
       post(getUrl("scenario-details"), data, authHeader())
         .then(response => {
@@ -755,6 +756,7 @@ export default {
           }
         });
     },
+
     createScenarioWithDetailId: function(id) {
       post(getUrl("scenario"), { scenerio_details: id }, authHeader())
         .then(response => {
@@ -769,6 +771,7 @@ export default {
           this.$toast.error(error.message);
         });
     },
+
     createScenarioWithScheduleId: function(data) {
       post(getUrl("scenario-with-schedule_id"), data, authHeader())
         .then(response => {
@@ -808,11 +811,13 @@ export default {
           }
         });
     },
+
     clearDetailTemplate: function() {
       if(this.existingScenarioDetailName){
         this.detailTemplateInput = 1;
       }
     },
+    
     clearScheduleTemplate: function() {
       if(this.existingScenarioScheduleName){
         this.scheduleTemplateInput = 1;

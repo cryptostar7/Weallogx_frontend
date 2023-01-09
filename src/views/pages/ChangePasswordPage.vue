@@ -61,115 +61,129 @@
   </div>
 </template>
 <script>
-  import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
-  import FotterComponent from "./../components/common/UserFooterComponent.vue";
-  import { getSearchParams, authHeader, getServerErrors, getFirstError } from "../../services/helper";
-  import { post } from "../../network/requests";
-  import { getUrl } from "../../network/url";
-  export default {
-    components: { NavbarComponent, FotterComponent },
-    data() {
-      return {
-        old_password: null,
-        new_password: null,
-        confirm_new_password: null,
-        errors: [],
-      };
+import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
+import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import {
+  getSearchParams,
+  authHeader,
+  getServerErrors,
+  getFirstError,
+} from "../../services/helper";
+import { post } from "../../network/requests";
+import { getUrl } from "../../network/url";
+export default {
+  components: { NavbarComponent, FotterComponent },
+  data() {
+    return {
+      old_password: null,
+      new_password: null,
+      confirm_new_password: null,
+      errors: [],
+    };
+  },
+  methods: {
+    checkValidation: function() {
+      this.errors = [];
+      let valid = true;
+      if (!this.old_password) {
+        this.old_password = "";
+        valid = false;
+      }
+
+      if (!this.new_password) {
+        this.new_password = "";
+        valid = false;
+      } else {
+        if (this.new_password.length < 6) {
+          this.errors.new_password = [
+            "The password must be at least 6 characters.",
+          ];
+          valid = false;
+        }
+      }
+
+      if (!this.confirm_new_password) {
+        this.confirm_new_password = "";
+        valid = false;
+      } else {
+        if (this.confirm_new_password !== this.new_password) {
+          this.errors.confirm_new_password = [
+            "Confirm password did not matched.",
+          ];
+          valid = false;
+        }
+      }
+
+      return valid;
     },
-    methods: {
-      checkValidation: function () {
-        this.errors = [];
-        let valid = true;
-        if (!this.old_password) {
-          this.old_password = "";
-          valid = false;
-        }
+    changePassword(e) {
+      e.preventDefault();
+      var data = {
+        old_password: this.old_password,
+        new_password: this.new_password,
+        confirm_new_password: this.confirm_new_password,
+      };
 
-        if (!this.new_password) {
-          this.new_password = "";
-          valid = false;
-        } else {
-          if (this.new_password.length < 6) {
-            this.errors.new_password = [
-              "The password must be at least 6 characters.",
-            ];
-            valid = false;
-          }
-        }
-
-        if (!this.confirm_new_password) {
-          this.confirm_new_password = "";
-          valid = false;
-        } else {
-          if (this.confirm_new_password !== this.new_password) {
-            this.errors.confirm_new_password = ["Confirm password did not matched."];
-            valid = false;
-          }
-        }
-
-        return valid;
-      },
-      changePassword(e) {
-        e.preventDefault();
-        var data = {
-          old_password: this.old_password,
-          new_password: this.new_password,
-          confirm_new_password: this.confirm_new_password,
-        };
-
-        console.log(data);
-        if (!this.checkValidation()) {
-          console.log(this.errors);
-          return false;
-        }
-        console.log(data);
-        this.$store.dispatch("loader", true);
-        post(getUrl("change-password"), data, authHeader())
-          .then(response => {
-            console.log(response.data);
-            this.$store.dispatch("loader", false);
-            this.$toast.success(response.data.message);
-            this.$router.push("/sign-in");
-          })
-          .catch(error => {
+      console.log(data);
+      if (!this.checkValidation()) {
+        console.log(this.errors);
+        return false;
+      }
+      console.log(data);
+      this.$store.dispatch("loader", true);
+      post(getUrl("change-password"), data, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("loader", false);
+          this.$toast.success(response.data.message);
+          this.$router.push("/sign-in");
+        })
+        .catch(error => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
             console.log(error.response.data);
-            this.$store.dispatch("loader", false);
             this.errors = getServerErrors(error);
             this.$toast.error(getFirstError(error));
-          });
-      },
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
-    mounted() {
-      let eachInput = document.querySelectorAll(".auth-form input");
-      eachInput.forEach(function (eachInputFun) {
-        eachInputFun.addEventListener("keyup", function (e) {
-          let eachLabel = this.closest(".auth-form");
-          if (this.value == "") {
-            eachLabel.firstElementChild.classList.remove("active");
-          } else {
-            eachLabel.firstElementChild.classList.add("active");
-          }
-        });
-        eachInputFun.addEventListener("focus", function (e) {
-          let eachLabelSec = this.closest(".auth-form");
-          eachLabelSec.firstElementChild.classList.add("active");
-        });
-        eachInputFun.addEventListener("blur", function (e) {
-          let eachLabelSec = this.closest(".auth-form");
-          eachLabelSec.firstElementChild.classList.remove("active");
-          if (this.value == "") {
-            eachLabelSec.firstElementChild.classList.remove("active");
-          } else {
-            eachLabelSec.firstElementChild.classList.add("active");
-          }
-        });
+  },
+  mounted() {
+    let eachInput = document.querySelectorAll(".auth-form input");
+    eachInput.forEach(function(eachInputFun) {
+      eachInputFun.addEventListener("keyup", function(e) {
+        let eachLabel = this.closest(".auth-form");
+        if (this.value == "") {
+          eachLabel.firstElementChild.classList.remove("active");
+        } else {
+          eachLabel.firstElementChild.classList.add("active");
+        }
       });
-    },
-  };
+      eachInputFun.addEventListener("focus", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.add("active");
+      });
+      eachInputFun.addEventListener("blur", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.remove("active");
+        if (this.value == "") {
+          eachLabelSec.firstElementChild.classList.remove("active");
+        } else {
+          eachLabelSec.firstElementChild.classList.add("active");
+        }
+      });
+    });
+  },
+};
 </script>
 <style>
-  .error {
-    color: red;
-    margin-top: 5px
-  }
+.error {
+  color: red;
+  margin-top: 5px;
+}
 </style>
