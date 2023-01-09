@@ -18,7 +18,7 @@
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
-          <div class="main-form-div">
+          <form class="main-form-div" @submit="submitHandler">
             <div class="main-form-heading">
               <div class="heading-container">
                 <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
@@ -30,22 +30,19 @@
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                 <div class="form-group pt-2 less">
-                  <label for="insuranceCompany" class="fs-12 medium-fw">Insurance
-                    Company</label>
+                  <label for="insuranceCompany" class="fs-12 medium-fw">Insurance Company</label>
                   <input type="text" id="insuranceCompany" class="form-control" />
                 </div>
                 <div class="row">                     
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
-                      <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance
-                        Policy Name</label> 
+                      <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance Policy Name</label> 
                         <input type="text" id="insurancePolicyName" class="form-control" /> 
                       </div>
                   </div>
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
-                      <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy
-                        Nickname</label> 
+                      <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy Nickname</label> 
                         <input type="text" id="insurancePolicyNickname" class="form-control" /> 
                       </div>
                   </div>
@@ -296,7 +293,7 @@
                   Back</router-link> 
                 </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
@@ -339,6 +336,12 @@ export default {
       fileName.innerText = file.name;
     });
   },
+  methods:{
+    submitHandler: function(e){
+      console.log('Form submitted');
+      e.preventDefault();
+    }
+  }
 };
 </script>
 <style lang="">

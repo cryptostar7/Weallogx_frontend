@@ -114,7 +114,7 @@ export default {
     },
     filteredList() {
       return this.clientList.filter(item => {
-        return item.firstname
+        return item.firstname && item.firstname
           .toLowerCase()
           .includes(this.$props.search.toLowerCase());
       });

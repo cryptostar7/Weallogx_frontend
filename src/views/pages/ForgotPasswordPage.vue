@@ -36,7 +36,7 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { getUrl } from "../../network/url";
 import { post } from "../../network/requests";
-import { authHeader } from "../../services/helper";
+import { authHeader, getServerErrors, getFirstError } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
   data() {
@@ -79,7 +79,7 @@ export default {
           console.log(response.data.success);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.success);
-          // this.$router.push("/sign-in");
+          this.$router.push("/sign-in");
         })
         .catch(error => {
           console.log(error);
@@ -88,7 +88,7 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.errors = getServerErrors(error);
-            this.$toast.error("Something went wrong.");
+            this.$toast.error(error.response.data.message);
           }
         });
     },

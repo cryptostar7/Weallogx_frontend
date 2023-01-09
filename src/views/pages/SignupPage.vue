@@ -182,11 +182,12 @@ export default {
         return false;
       }
 
+      this.$store.dispatch("loader", true);
       if (this.user.stripe_source_id) {
-        this.$store.dispatch("loader", true);
         post(getUrl("signup"), this.user)
           .then(response => {
             console.log(response);
+            this.$store.dispatch("userTempForm", false);
             setRefreshToken(response.data.data.tokens.refresh);
             setAccessToken(response.data.data.tokens.access);
             setCurrentUser({
@@ -215,13 +216,26 @@ export default {
             }
             this.$store.dispatch("loader", false);
           });
+
+
       } else {
         this.$store.dispatch("userTempForm", this.user);
-        this.$router.push(
-          `${"payment-method"}${
-            getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""
-          }`
-        );
+        post(getUrl("user-exists"), {email:this.user.email})
+         .then((response) => {
+            this.$router.push(`${"payment-method"}${getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""}`);
+            this.$store.dispatch("loader", false);
+         }).catch((error) => {
+          console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(error.response.data.message);
+            }
+            this.$store.dispatch("loader", false);
+        });
       }
     },
   },

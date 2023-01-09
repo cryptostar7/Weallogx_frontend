@@ -7,6 +7,8 @@ export const getUrl = (type) => {
   switch (type) {
     case 'signup':
       return `${baseUrl}/auth/register/`;
+    case 'user-exists':
+      return `${baseUrl}/auth/user-exists/`;
     case 'profile':
       return `${baseUrl}/auth/profile`;
     case 'login':

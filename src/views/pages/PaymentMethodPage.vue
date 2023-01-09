@@ -203,6 +203,7 @@ export default {
         .then(response => {
           console.log(response);
           console.log(response.data.message);
+          this.$store.dispatch("userTempForm", false);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
           this.$store.dispatch("loader", false);
