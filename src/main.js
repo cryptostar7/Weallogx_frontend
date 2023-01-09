@@ -5,7 +5,6 @@ import store from "./store";
 import helpers from './helpers'
 import Toaster from "@meforma/vue-toaster";
 import VueCryptojs from 'vue-cryptojs'
-// import { Notifier } from '@airbrake/browser'
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
@@ -29,7 +28,7 @@ app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
 
 var environment = import.meta.env.MODE;
-// if (environment !== 'development') {
+if (environment !== 'development') {
     Sentry.init({
         app,
         dsn: "https://8382628070ff48c58e2a77cce957c93f@o4504347597799424.ingest.sentry.io/4504473756631040",
@@ -44,7 +43,7 @@ var environment = import.meta.env.MODE;
         // We recommend adjusting this value in production
         tracesSampleRate: 1.0,
       });
-// }
+}
 
 app.mount("#app");
 
