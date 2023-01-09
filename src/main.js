@@ -5,7 +5,9 @@ import store from "./store";
 import helpers from './helpers'
 import Toaster from "@meforma/vue-toaster";
 import VueCryptojs from 'vue-cryptojs'
-import { Notifier } from '@airbrake/browser'
+// import { Notifier } from '@airbrake/browser'
+import * as Sentry from "@sentry/vue";
+import { BrowserTracing } from "@sentry/tracing";
 
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
@@ -27,24 +29,22 @@ app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
 
 var environment = import.meta.env.MODE;
-if (environment !== 'development') {
-
-    var airbrake = new Notifier({
-        environment: environment,
-        projectId: 473230,
-        projectKey: '8f10291cf0f98b06a27bc65dc46d8f56'
-    });
-
-    // send error message to airbrake dashboard
-    app.config.errorHandler = function (err, _vm, info) {
-        var message = {
-            error: err,
-            params: { info: info }
-        };
-        airbrake.notify(message)
-        console.log(message);
-    }
-}
+// if (environment !== 'development') {
+    Sentry.init({
+        app,
+        dsn: "https://8382628070ff48c58e2a77cce957c93f@o4504347597799424.ingest.sentry.io/4504473756631040",
+        integrations: [
+          new BrowserTracing({
+            routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+            tracePropagationTargets: [environment, "http://wlxvue.bizbybot.com/", /^\//],
+          }),
+        ],
+        // Set tracesSampleRate to 1.0 to capture 100%
+        // of transactions for performance monitoring.
+        // We recommend adjusting this value in production
+        tracesSampleRate: 1.0,
+      });
+// }
 
 app.mount("#app");
 
