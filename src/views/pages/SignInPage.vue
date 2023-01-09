@@ -101,9 +101,9 @@ export default {
         this.user.password = "";
         valid = false;
       } else {
-        if (this.user.password.length < 6) {
+        if (this.user.password.length < 8) {
           this.errors.password = [
-            "The password must be at least 6 characters.",
+            "The password must be at least 8 characters.",
           ];
           valid = false;
         }

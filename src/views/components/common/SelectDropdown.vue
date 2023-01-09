@@ -84,7 +84,7 @@ export default {
   computed: {
     selectList() {
       return this.$props.list.filter(item => {
-        return item.template_name
+        return item.template_name && item.template_name
           .toLowerCase()
           .includes(this.category.selectText.toLowerCase());
       });
