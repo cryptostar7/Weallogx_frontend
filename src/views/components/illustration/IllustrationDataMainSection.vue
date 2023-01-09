@@ -26,24 +26,27 @@
             </div>
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
-                <SelectDropdown :list="existingInsuranceList" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
+                <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                 <div class="form-group pt-2 less">
                   <label for="insuranceCompany" class="fs-12 medium-fw">Insurance Company</label>
-                  <input type="text" id="insuranceCompany" class="form-control" />
+                  <input type="text" id="insuranceCompany" class="form-control" v-model="insuranceCompany" @keyup="() => clearError('insurance_company')"/>
+                  <label class="error" v-if="errors.insurance_company">{{errors.insurance_company[0]}}</label>
                 </div>
                 <div class="row">                     
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
                       <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance Policy Name</label> 
-                        <input type="text" id="insurancePolicyName" class="form-control" /> 
+                        <input type="text" id="insurancePolicyName" v-model="insurancePolicyName" class="form-control" @keyup="() => clearError('insurance_policy_name')"/> 
+                        <label class="error" v-if="errors.insurance_policy_name">{{errors.insurance_policy_name[0]}}</label>
                       </div>
                   </div>
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy Nickname</label> 
-                        <input type="text" id="insurancePolicyNickname" class="form-control" /> 
+                        <input type="text" id="insurancePolicyNickname" v-model="PolicyNickname" class="form-control" @keyup="() => clearError('policy_nickname')"/> 
+                        <label class="error" v-if="errors.policy_nickname">{{errors.policy_nickname[0]}}</label>
                       </div>
                   </div>
                 </div>
@@ -64,17 +67,19 @@
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
                       <label for="deathBenifit" class="fs-12 medium-fw">Initial Death Benefit</label> 
-                      <input type="number" id="deathBenifit" class="form-control dollarInputs position-relative"> 
+                      <input type="text" id="deathBenifit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benefit')"> 
+                      <label class="error" v-if="errors.initial_death_benefit">{{errors.initial_death_benefit[0]}}</label>
                     </div>
                   </div>
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
-                      <input type="number" id="policyReturn" class="form-control percenteInputs">
+                      <input type="number" id="policyReturn" class="form-control percenteInputs handleLimit" min="0" max="99" @keyup="() => clearError('policy_return')">
+                      <label class="error" v-if="errors.policy_return">{{errors.policy_return[0]}}</label>
                     </div>
                   </div>
                 </div>
-                <SelectDropdown :list="existingIllustrationList" label="Use Existing Illustration"
+                <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration"
                   id="existingIllustration" />
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation"> 
@@ -286,7 +291,8 @@
                 </div>
               </div>
               <div class="text-center mt-30"> 
-                <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link> 
+                <button class="nav-link btn form-next-btn fs-14 active">Next</button>
+                <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
                 <router-link to="/create-new-scenario" class="nav-link btn form-back-btn fs-14" disabled="true">
                   <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />
@@ -308,22 +314,32 @@ export default {
       saveinsuranseTemplate:false,
       existingInsuranceList: [
         {id:1, template_name:"Vehicle One"},
-        {id:1, template_name:"Vehicle Two"},
-        {id:1, template_name:"Vehicle Three"},
-        {id:1, template_name:"Vehicle Four"},
-        {id:1, template_name:"Vehicle Five"},
-        {id:1, template_name:"Vehicle Six"},
-        {id:1, template_name:"Vehicle Seven"},
-        {id:1, template_name:"Vehicle Eight"},
-        {id:1, template_name:"Vehicle Nine"},
+        {id:2, template_name:"Vehicle Two"},
+        {id:3, template_name:"Vehicle Three"},
+        {id:4, template_name:"Vehicle Four"},
+        {id:5, template_name:"Vehicle Five"},
+        {id:6, template_name:"Vehicle Six"},
+        {id:7, template_name:"Vehicle Seven"},
+        {id:8, template_name:"Vehicle Eight"},
+        {id:9, template_name:"Vehicle Nine"},
       ],
       existingIllustrationList: [
         {id:1, template_name:"Illustration One"},
-        {id:1, template_name:"Illustration Two"},
-        {id:1, template_name:"Illustration Three"},
-        {id:1, template_name:"Illustration Four"},
-        {id:1, template_name:"Illustration Five"},
+        {id:2, template_name:"Illustration Two"},
+        {id:3, template_name:"Illustration Three"},
+        {id:4, template_name:"Illustration Four"},
+        {id:5, template_name:"Illustration Five"},
       ],
+      existingInsuranceProfileId:'',
+      existingInsuranceProfileName:'',
+      existingIllustrationId:'',
+      existingIllustrationName:'',
+      insuranceCompany:'',
+      insurancePolicyName:'',
+      PolicyNickname:'',
+      insuranceTemplateInput:0,
+      illustrationTemplateInput:0,
+      errors:[],
     };
   },
   mounted() {
@@ -335,11 +351,198 @@ export default {
       let file = e.target.files[0];
       fileName.innerText = file.name;
     });
+
+    // input validation for min and max value with putting comman
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let current = getNumber(e.target.value).toString();
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (Number(current) < min || Number(current) > max) {
+          let actualValue = current.slice(0, current.length - 1);
+          e.target.value = Number(current) < min ? '' : Number(actualValue).toLocaleString();
+          return false;
+        }else{
+          e.target.value = Number(current).toLocaleString();
+        }
+      })
+    );
+
+    function getNumber(_str) {
+        var arr = String(_str).split('');
+        var out = new Array();
+        for (var cnt = 0; cnt < arr.length; cnt++) {
+            if (isNaN(arr[cnt]) == false || arr[cnt] == ".") {
+                out.push(arr[cnt]);
+            }
+        }
+        return Number(out.join(''));
+    }
   },
   methods:{
+    // set existing insurance profile id on selecting the input dropdown data
+    setExistingInsuranceProfileId: function(id) {
+      this.existingInsuranceProfileId = id;
+      this.errors = [];
+      this.populateInsuranseProfile(id);
+    },
+
+    // set existing illustration id on selecting the input dropdown data
+    setExistingIllustrationId: function(id) {
+      this.existingIllustrationId = id;
+    },
+   
+    // set existing insurance profile name on change the input value
+    setExistingInsuranceProfileName: function(name){
+      this.existingInsuranceProfileName = name;
+    },
+
+    // set existing insurance profile name on change the input value
+    setExistingIllustrationName: function(name){
+      this.existingIllustrationName = name;
+    },
+
+    clearInsuranceTemplate: function() {
+      if(this.existingInsuranceProfileName){
+        this.insuranceTemplateInput = 1;
+      }
+    },
+
+    clearIllustrateTemplate: function() {
+      if(this.existingIllustrationName){
+        this.illustrationTemplateInput = 1;
+      }
+    },
+    
+    populateInsuranseProfile: function(id){
+      console.log(id);
+      var data = {
+        initial_death_benefit: "1,000",
+        insurance_company: "Test Company",
+        insurance_policy_name: "Insurance Policy Name",
+        policy_nickname: "Policy Nickname",
+        policy_return: "50"
+      };
+
+      this.insuranceCompany = data.insurance_company,
+      this.insurancePolicyName = data.insurance_policy_name,
+      this.PolicyNickname = data.policy_nickname,
+      this.setInputWithId('deathBenifit', data.initial_death_benefit);
+      this.setInputWithId('policyReturn', data.policy_return);
+    },
+
+    // validate the form
+    validateForm: function() {
+      var validate = true;
+
+      if (this.existingInsuranceProfileName) {
+        let templateId = this.$getTemplateId(
+          this.existingInsuranceProfileName,
+          this.existingInsuranceList
+        );
+        if (!templateId) {
+          validate = false;
+          this.errors.existing_insurance_profile = ["Please choose a valid template."];
+        } else {
+          this.existingInsuranceProfileId = templateId;
+          this.errors.existing_insurance_profile = "";
+        }
+      } else {
+        this.errors.existing_insurance_profile = "";
+      }
+
+      if (this.existingIllustrationName) {
+        let templateId = this.$getTemplateId(
+          this.existingIllustrationName,
+          this.existingIllustrationList
+        );
+        if (!templateId) {
+          validate = false;
+          this.errors.existing_illustration = ["Please choose a valid template."];
+        } else {
+          this.existingIllustrationId = templateId;
+          this.errors.existing_illustration = "";
+        }
+      } else {
+        this.errors.existing_illustration = "";
+      }
+
+      if (!this.insuranceCompany) {
+        this.errors.insurance_company = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.insurance_company = "";
+      }
+
+      if (!this.insurancePolicyName) {
+        this.errors.insurance_policy_name = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.insurance_policy_name = "";
+      }
+
+      if (!this.PolicyNickname) {
+        this.errors.policy_nickname = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.policy_nickname = "";
+      }
+
+      if (!this.getInputWithId('deathBenifit')) {
+        this.errors.initial_death_benefit = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.initial_death_benefit = "";
+      }
+
+      if (!this.getInputWithId('policyReturn')) {
+        this.errors.policy_return = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.policy_return = "";
+      }
+
+      return validate;
+    },
+
+    clearError: function(key){
+      this.errors[key] = false;
+      this.clearInsuranceTemplate();
+      this.clearIllustrateTemplate();
+    },
+
+    // this function has return the input value
+    getInputWithId: function(id) {
+      return document.getElementById(id).value;
+    },
+
+    // set the input value using the input id attribute
+    setInputWithId: function(id, value) {
+      document.getElementById(id).value = value;
+      return value;
+    },
+
     submitHandler: function(e){
-      console.log('Form submitted');
       e.preventDefault();
+      if (!this.validateForm()) {
+        console.log(this.errors);
+        return false;
+      }
+
+      this.$toast.info('Form submitted');
+      var data = {
+        insurance_company:this.insuranceCompany,
+        insurance_policy_name:this.insurancePolicyName,
+        policy_nickname:this.PolicyNickname,
+        initial_death_benefit:this.getInputWithId('deathBenifit'),
+        policy_return:this.getInputWithId('policyReturn'),
+        existing:{
+          insurance_profile_id:this.existingInsuranceProfileId,
+          illustration_id:this.existingIllustrationId,
+        }
+      };
+      console.log(data);
     }
   }
 };

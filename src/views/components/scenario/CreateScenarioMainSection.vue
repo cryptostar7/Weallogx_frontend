@@ -331,13 +331,17 @@ export default {
       this.clearDetailTemplate();
     },
 
+    // set the input value using the input id attribute
     setInputWithId: function(id, value) {
       document.getElementById(id).value = value;
       return value;
     },
+
+    // this function has return the input value
     getInputWithId: function(id) {
       return document.getElementById(id).value;
     },
+    
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
