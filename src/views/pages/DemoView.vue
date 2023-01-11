@@ -37,13 +37,13 @@
       mt-3
     ">
     <div id="swInputDiv1" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput1" type="text" class="form-control range-input" v-model="range2.midRange1" />
+      <input id="swInput1" type="text" class="form-control range-input"  value="33.00%" />
     </div>
     <div id="swInputDiv2" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput2" type="text" class="form-control range-input" v-model="range2.midRange2" />
+      <input id="swInput2" type="text" class="form-control range-input" value="34.00%" />
     </div>
     <div id="swInputDiv3" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput3" type="text" class="form-control range-input" v-model="range2.midRange3" />
+      <input id="swInput3" type="text" class="form-control range-input" value="33.00%" />
     </div>
   </div>
 </div>
@@ -58,9 +58,9 @@ export default {
       range2: {
         sw_range1: 50,
         sw_range2: 50,
-        midRange1: "33.33%",
-        midRange2: "33.33%",
-        midRange3: "33.33%",
+        midRange1: "33.33",
+        midRange2: "33.33",
+        midRange3: "33.33",
       },
     };
   },
@@ -74,8 +74,7 @@ export default {
     const exampleRange2 = document.getElementById("exampleRange2");
 
     exampleRange1.addEventListener("input", e => {
-      let total = 100;
-      let total2 = total - (+swInput3.value.split("%")[0]).toFixed(2);
+      let total2 = 100 - (+swInput3.value.split("%")[0]).toFixed(2);
       exampleRange1.max = total2;
 
       swInput1.value = (+e.target.value).toFixed(2) + "%";
@@ -94,13 +93,12 @@ export default {
       swInputDiv3.style.width =
         (+swInput3.value.split("%")[0]).toFixed(2) + "%";
 
-      e.target.style.width = `calc(${total -
+      e.target.style.width = `calc(${100 -
         (+swInput3.value.split("%")[0]).toFixed(2)}% - 20px)`;
     });
 
     exampleRange2.addEventListener("input", e => {
-      let total = 100;
-      let total2 = total - (+swInput1.value.split("%")[0]).toFixed(2);
+      let total2 = 100 - (+swInput1.value.split("%")[0]).toFixed(2);
       exampleRange2.max = total2;
 
       swInput2.value = (+e.target.value).toFixed(2) + "%";
@@ -119,101 +117,165 @@ export default {
       swInputDiv3.style.width =
         (total2 - +swInput2.value.split("%")[0]).toFixed(2) + "%";
 
-      e.target.style.width = `calc(${total -
+      e.target.style.width = `calc(${100 -
         (+swInput1.value.split("%")[0]).toFixed(2)}% - 20px`;
     });
 
+    // remove % from first input value
     swInput1.addEventListener("focus", e => {
-      let targetVal = Number(e.target.value.replace("%", ""));
+      let targetVal = Number(e.target.value.split("%")[0]);
       e.target.value = targetVal;
     });
 
+    // add % to first input value
     swInput1.addEventListener("blur", e => {
-      let targetVal = Number(e.target.value.replace("%", "")).toFixed(2);
-      e.target.value = targetVal+'%';
+      let targetVal = Number(e.target.value.split("%")[0]).toFixed(2);
+      e.target.value = targetVal + "%";
     });
 
+    // First input
     swInput1.addEventListener("input", e => {
-      let targetVal = e.target.value.replace("%", "");
-      let targetNumVal = Number(targetVal);
-      
-      console.log(targetVal)
-      // setTimeout(() => {
-      //   if (targetVal > 100) {
-      //     e.target.value = (targetVal / 10).toFixed(2) + "%";
-      //   }
-      // }, 500);
+      let val = e.target.value.split("%")[0];
+      let numVal = Number(val);
+      let inp3 = Number(swInput3.value.split("%")[0]);
+      let total = 100 - inp3;
 
-      let total2 = 100 - (swInput3.value.split("%")[0]).toFixed(2);
-      exampleRange1.max = total2;
+      if (!isNaN(numVal)) {
+        if (Number(numVal) > 100) {
+          val = val.slice(0, val.length - 1).toString();
+          numVal = Number(val);
+        }
+      } else {
+        val = "0";
+        numVal = 0;
+      }
 
+      exampleRange1.max = total;
+      e.target.value = val;
+
+      let tempInp2 = total - numVal;
+      if (tempInp2 < 0) {
+        swInput3.value = (inp3 + tempInp2).toFixed(2) + "%";
+        inp3 = Number(swInput3.value.split("%")[0]);
+        exampleRange2.max = 100 - numVal;
+        tempInp2 = 0;
+      }
+
+      swInput2.value = tempInp2.toFixed(2);
+
+      strategyWeight1.style.width = numVal.toFixed(2) + "%";
+      strategyWeight2.style.width = tempInp2.toFixed(2) + "%";
+      strategyWeight3.style.width = inp3.toFixed(2) + "%";
+
+      swInputDiv1.style.width = numVal.toFixed(2) + "%";
+      swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
+      swInputDiv3.style.width = inp3.toFixed(2) + "%";
+
+      exampleRange1.max = 100 - inp3;
+      exampleRange1.style.width = `calc(${100 - inp3.toFixed(2)}% - 20px)`;
+    });
+
+    // remove % from first input value
+    swInput2.addEventListener("focus", e => {
+      let targetVal = Number(e.target.value.split("%")[0]);
       e.target.value = targetVal;
-      swInput2.value = (total2 - targetNumVal).toFixed(2);
-
-      strategyWeight1.style.width = targetNumVal.toFixed(2) + "%";
-      strategyWeight2.style.width = (total2 - targetNumVal).toFixed(2) + "%";
-      strategyWeight3.style.width =
-        (+swInput3.value.split("%")[0]).toFixed(2) + "%";
-
-      swInputDiv1.style.width = targetNumVal.toFixed(2) + "%";
-      swInputDiv2.style.width = (total2 - targetNumVal).toFixed(2) + "%";
-      swInputDiv3.style.width =
-        (+swInput3.value.split("%")[0]).toFixed(2) + "%";
     });
 
+    // add % to first input value
+    swInput2.addEventListener("blur", e => {
+      let targetVal = Number(e.target.value.split("%")[0]).toFixed(2);
+      e.target.value = targetVal + "%";
+    });
+
+    // Second input
     swInput2.addEventListener("input", e => {
-      let targetVal = +e.target.value.split("%")[0];
+      let val = e.target.value.split("%")[0];
+      let numVal = Number(val);
 
-      // setTimeout(() => {
-      //   if (targetVal > 100) {
-      //     e.target.value = (targetVal / 10).toFixed(2) + "%";
-      //   }
-      // }, 500);
+      // let total = 100 - inp1;
 
-      let total = 100;
-      let total2 = total - (+swInput1.value.split("%")[0]).toFixed(2);
-      exampleRange2.max = total2;
+      if (!isNaN(numVal)) {
+        if (Number(numVal) > 100) {
+          val = val.slice(0, val.length - 1).toString();
+          numVal = Number(val);
+        }
+      } else {
+        val = "0";
+        numVal = 0;
+      }
 
-      e.target.value = targetVal.toFixed(2) + "%";
-      swInput3.value = (total2 - targetVal).toFixed(2) + "%";
+      let remainingVal = (100 - numVal) / 2;
+      let inp1 = remainingVal;
+      let inp3 = remainingVal;
 
-      strategyWeight1.style.width =
-        (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-      strategyWeight2.style.width = targetVal.toFixed(2) + "%";
-      strategyWeight3.style.width = (total2 - targetVal).toFixed(2) + "%";
+      swInput1.value = inp1.toFixed(2) + "%";
+      swInput3.value = inp3.toFixed(2) + "%";
 
-      swInputDiv1.style.width =
-        (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-      swInputDiv2.style.width = targetVal.toFixed(2) + "%";
-      swInputDiv3.style.width = (total2 - targetVal).toFixed(2) + "%";
+      e.target.value = val;
+      exampleRange2.max = 100 - inp1;
+      exampleRange1.max = 100 - inp3;
+
+      strategyWeight1.style.width = inp1.toFixed(2) + "%";
+      strategyWeight2.style.width = numVal.toFixed(2) + "%";
+      strategyWeight3.style.width = inp3.toFixed(2) + "%";
+
+      swInputDiv1.style.width = inp1.toFixed(2) + "%";
+      swInputDiv2.style.width = numVal.toFixed(2) + "%";
+      swInputDiv3.style.width = inp3.toFixed(2) + "%";
+
+      exampleRange1.style.width = `calc(${(100 - inp3).toFixed(2)}% - 20px)`;
+      exampleRange2.style.width = `calc(${(100 - inp1).toFixed(2)}% - 20px)`;
     });
 
+    // remove % from first input value
+    swInput3.addEventListener("focus", e => {
+      let targetVal = Number(e.target.value.split("%")[0]);
+      e.target.value = targetVal;
+    });
+
+    // add % to first input value
+    swInput3.addEventListener("blur", e => {
+      let targetVal = Number(e.target.value.split("%")[0]).toFixed(2);
+      e.target.value = targetVal + "%";
+    });
+
+    // 3rd input
     swInput3.addEventListener("input", e => {
-      let targetVal = +e.target.value.split("%")[0];
+      let val = e.target.value.split("%")[0];
+      let numVal = Number(val);
+      let inp1 = Number(swInput1.value.split("%")[0]);
+      let total = 100 - inp1;
 
-      // setTimeout(() => {
-      //   if (targetVal > 100) {
-      //     alert("Sorry, you are entering value out of range");
-      //     e.target.value = (targetVal / 10).toFixed(2) + "%";
-      //   }
-      // }, 500);
+      if (!isNaN(numVal)) {
+        if (Number(numVal) > 100) {
+          val = val.slice(0, val.length - 1).toString();
+          numVal = Number(val);
+        }
+      } else {
+        val = "0";
+        numVal = 0;
+      }
 
-      let total = 100;
-      let total2 = total - (+swInput1.value.split("%")[0]).toFixed(2);
-      exampleRange2.max = total2;
+      e.target.value = val;
+      let tempInp2 = total - numVal;
+      if (tempInp2 < 0) {
+        swInput1.value = (inp1 + tempInp2).toFixed(2) + "%";
+        inp1 = Number(swInput1.value.split("%")[0]);
+        exampleRange1.max = 100 - numVal;
+        tempInp2 = 0;
+      }
 
-      e.target.value = targetVal.toFixed(2) + "%";
-      swInput2.value = (total2 - targetVal).toFixed(2) + "%";
+      swInput2.value = tempInp2.toFixed(2) + "%";
+      strategyWeight1.style.width = inp1.toFixed(2) + "%";
+      strategyWeight2.style.width = tempInp2.toFixed(2) + "%";
+      strategyWeight3.style.width = numVal.toFixed(2) + "%";
 
-      strategyWeight1.style.width =
-        (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-      strategyWeight2.style.width = (total2 - targetVal).toFixed(2) + "%";
-      strategyWeight3.style.width = targetVal.toFixed(2) + "%";
+      swInputDiv1.style.width = inp1.toFixed(2) + "%";
+      swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
+      swInputDiv3.style.width = numVal.toFixed(2) + "%";
 
-      swInputDiv1.style.width =
-        (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-      swInputDiv2.style.width = (total2 - targetVal).toFixed(2) + "%";
-      swInputDiv3.style.width = targetVal.toFixed(2) + "%";
+      exampleRange2.max = 100 - inp1;
+      exampleRange2.style.width = `calc(${100 - inp1.toFixed(2)}% - 20px)`;
     });
   },
 };
