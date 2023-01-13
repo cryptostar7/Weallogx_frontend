@@ -12,20 +12,20 @@
                 <div>
                   <div class="auth-form">
                     <label for="first_name" :class="user.first_name ? 'active' : ''">First Name</label>
-                    <input type="text" id="first_name" v-model="user.first_name">
+                    <input type="text" id="first_name" v-model="user.first_name" autocomplete="off" placeholder=" ">
                   </div>
                   <label class="error" v-if="user.first_name === ''">This field is required.</label>
                   <label class="error" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
                 </div>
                 <div class="auth-form">
                   <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
-                  <input type="text" id="lastName" v-model="user.last_name">
+                  <input type="text" id="lastName" v-model="user.last_name" autocomplete="off" placeholder=" ">
                 </div>
               </div>
               <div>
                 <div class="auth-form">
                   <label for="email" :class="user.email ? 'active' : ''">Email</label>
-                  <input type="text" id="email" v-model="user.email" @keyup="errors.email = false">
+                  <input type="text" id="email" v-model="user.email" @keyup="errors.email = false" autocomplete="off" placeholder=" ">
                 </div>
                   <label class="error" v-if="user.email === ''">This field is required.</label>
                   <label class="error" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
@@ -33,7 +33,7 @@
               <div>
                 <div class="auth-form">
                   <label for="phone" :class="user.phone_number ? 'active' : ''">Phone</label>
-                  <input type="text" id="phone" v-model="user.phone_number" @keyup="errors.phone_number = false">
+                  <input type="text" id="phone" v-model="user.phone_number" @keyup="errors.phone_number = false" autocomplete="off" placeholder=" ">
                 </div>
                   <label class="error" v-if="user.phone_number === ''">This field is required.</label>
                   <label class="error" v-if="errors.phone_number && errors.phone_number[0]">{{errors.phone_number[0]}}</label>
@@ -41,7 +41,7 @@
               <div>
                 <div class="auth-form">
                   <label for="password" :class="user.password ? 'active' : ''">Password</label>
-                  <input type="password" id="password" v-model="user.password" @keyup="errors.password = false">
+                  <input type="password" id="password" v-model="user.password" @keyup="errors.password = false" autocomplete="off" placeholder=" ">
                 </div>
                   <label class="error" v-if="user.password === ''">This field is required.</label>
                   <label class="error" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
@@ -49,7 +49,7 @@
               <div>
                 <div class="auth-form">
                   <label for="confirmPassword" :class="user.confirm_password ? 'active' : ''">Confirm Password</label>
-                  <input type="password" id="confirmPassword" v-model="user.confirm_password" @keyup="errors.confirm_password = false">
+                  <input type="password" id="confirmPassword" v-model="user.confirm_password" @keyup="errors.confirm_password = false" autocomplete="off" placeholder=" ">
                 </div>
                   <label class="error" v-if="user.confirm_password === ''">This field is required.</label>
                   <label class="error" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>

@@ -130,7 +130,7 @@ export default {
     if (this.$store.state.forms.temp_user) {
       this.user = this.$store.state.forms.temp_user;
     } else {
-      window.location.href = "/sign-up";
+      // window.location.href = "/sign-up";
     }
 
     var style = {
@@ -234,5 +234,8 @@ export default {
   },
 };
 </script>
-<style lang="">
+<style>
+.ElementsApp input{
+    font-size: 67px!important;
+}
 </style>

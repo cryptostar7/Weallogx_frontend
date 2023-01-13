@@ -102,6 +102,10 @@ input:-webkit-autofill:active {
     font-size: 16px;
     transition: all 125ms;
 }
+.auth-form input:not(:placeholder-shown) {
+    border: 1px solid #298B74;
+    outline: none;
+}
 
 .planSelectMainDiv {
     width: 100%;
@@ -797,9 +801,8 @@ p span.bold{
 
 .payment-left-card-number {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 23px;
     color: #FFF;
-    letter-spacing: 0.012em;
     margin: 0;
     margin-top: 26px;
     margin-bottom: 14px;
@@ -905,7 +908,9 @@ p span.bold{
 .paymentMethodFormDiv .expiryCvvInputDiv div {
     margin-bottom: 10px !important;
 }
-
+.card-expiry-date{
+    margin-top: 8px;
+}
 .paymentMethodFormDiv div img {
     width: 24px;
     height: 25px;
@@ -927,7 +932,8 @@ p span.bold{
 
 .expiryCvvInputDiv div:last-child {
     width: 100%;
-    margin-left: 14px;
+    margin-left: 0;
+    margin-top: 8px;
 }
 
 .cvvInputDiv img {
