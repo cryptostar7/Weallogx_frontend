@@ -7,7 +7,7 @@
           <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
           <div class="authformRightPart">
             <div class="authInnerDiv">
-              <h1 class="headingArea" ref="area" @click="checkFunction">Sign in to <span>Account</span></h1>
+              <h1 class="headingArea">Sign in to <span>Account</span></h1>
               <div>
                 <div class="auth-form">
                   <label for="email">Email</label>
@@ -19,7 +19,7 @@
               <div>
                 <div class="auth-form">
                   <label for="password">Password</label>
-                  <input type="password" id="password" v-model="user.password" @keyup="errors.password = false">
+                  <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false">
                 </div>
                 <label class="error" v-if="user.password === ''">This field is required.</label>
                 <label class="error" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
@@ -76,10 +76,6 @@ export default {
     };
   },
   methods: {
-    checkFunction: function(){
-      console.log('clicked');
-      document.getElementById('email').value = null;
-    },
     isValidEmail: function() {
       if (
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
@@ -255,8 +251,6 @@ export default {
         }
       });
     });
-
-    this.$refs.area.click();
   },
 };
 </script>
