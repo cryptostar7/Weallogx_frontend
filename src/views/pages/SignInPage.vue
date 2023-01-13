@@ -10,7 +10,7 @@
               <h1 class="headingArea">Sign in to <span>Account</span></h1>
               <div>
                 <div class="auth-form">
-                  <label for="email">Email</label>
+                  <label for="email" :class="user.email ? 'active':''">Email</label>
                   <input type="text" autocomplete="off" id="email" v-model="user.email" @keyup="errors.email = false">
                 </div>
                 <label class="error" v-if="user.email === ''">This field is required.</label>
@@ -18,7 +18,7 @@
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="password">Password</label>
+                  <label for="password" :class="user.password ? 'active':''">Password</label>
                   <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false">
                 </div>
                 <label class="error" v-if="user.password === ''">This field is required.</label>
