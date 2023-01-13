@@ -149,7 +149,7 @@ export default {
     cardNumber = elements.create("cardNumber", {
       showIcon: true,
       placeholder: "Card Number",
-      style: style,
+      style: style.base,
     });
     cardExpiry = elements.create("cardExpiry");
     cardCvc = elements.create("cardCvc");
