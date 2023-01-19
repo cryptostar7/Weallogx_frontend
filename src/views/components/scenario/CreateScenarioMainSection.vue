@@ -34,7 +34,6 @@
             <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId" @inputText="setExistingClientName"/>
-
                 <hr class="hr-separator" size="1.25" />
                 <SelectDropdown :list="existingScenarioList" label="Use Existing Scenario" id="existingScenario" :error="errors.existing_details" @clearError="() => errors.existing_details = false" :clearInput="detailTemplateInput" @setClearedInput="() => detailTemplateInput = 0" @onSelectItem="setExistingScenarioDetailId" @inputText="setExistingScenarioDetailName"/>
                 <span class="or-text-span">or</span>
@@ -136,7 +135,7 @@
                         <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax_year = false}"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
-                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear)" :key="index" :value="item">{{item}}</option>
+                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear).toFixed(0)" :key="index" :value="item">{{item}}</option>
                         </select>
                       </div>
                     </div>
@@ -190,10 +189,8 @@
                 </div>
                   <div class="pb-3">
                     <div class="form-check form-switch custom-switch pt-2">
-                      <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioDetailName ? true : false" v-model="saveDetailsTemplate"
-                        id="scenarioTemplateCheckbox" />
-                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save
-                        this Scenario Detail as Template</label>
+                      <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioDetailName ? true : false" v-model="saveDetailsTemplate" id="scenarioTemplateCheckbox" />
+                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Scenario Detail as Template</label>
                     </div>
                     <div class="form-group pt-2" id="templateNameDiv"
                       :style="{'display': saveDetailsTemplate ? '' : 'none'}">
@@ -316,17 +313,17 @@ export default {
 
     // set the client age year value to illustrate the data. Note: v-model not working for this input
     updateClientAge: function() {
-      this.clientAgeYearToIllustrate = this.getInputWithId("clientAge");
+      this.clientAgeYearToIllustrate = this.getInputUsingId("clientAge");
     },
 
     // set the first tax rate data using the input id. Note: v-model not working for this input
     updateFirstTaxRate: function() {
-      this.firstTaxRate = this.getInputWithId("firstTaxRate");
+      this.firstTaxRate = this.getInputUsingId("firstTaxRate");
     },
 
     // set the illustrate year value using the input id. Note: v-model not working for this input
     updateScheduleRate: function() {
-      this.illustrateYear = this.getInputWithId("illustratedAge");
+      this.illustrateYear = this.getInputUsingId("illustratedAge");
       this.checkTaxRate();
       this.clearDetailTemplate();
     },
@@ -338,7 +335,7 @@ export default {
     },
 
     // this function has return the input value
-    getInputWithId: function(id) {
+    getInputUsingId: function(id) {
       return document.getElementById(id).value;
     },
     
@@ -662,7 +659,7 @@ export default {
         years_to_illustrate: this.illustrateYear,
         simple_tax_rate: {
           first_tax: this.firstTaxRate || 0,
-          second_tax: this.getInputWithId(`secondTaxRate`) || 0,
+          second_tax: this.getInputUsingId(`secondTaxRate`) || 0,
           second_tax_year: this.secondTaxRateYear || 0,
         },
         schedule_tax_rate: {

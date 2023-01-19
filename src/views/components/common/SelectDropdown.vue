@@ -7,7 +7,7 @@
         </div>
         <div class="p-relative">
         <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="category.selectText" @focus="handleDropdown" placeholder="Select or Start Typing"
-            class="form-control pe-5 autocomplete customSelectDropdown" @input="handleChangeEvent" autocomplete="off">
+            class="form-control pe-5 autocomplete customSelectDropdown" @input="handleChangeEvent">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
