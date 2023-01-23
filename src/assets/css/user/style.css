@@ -2615,3 +2615,98 @@ margin-bottom: 10px;
     font-size: 16px;
     transition: all 125ms;
 } */
+.notificationPlanPara{
+    font-weight: 400!important;
+font-size: 14px!important;
+color: #333333!important;
+margin:40px 0 12px 0!important;
+}
+
+.DashBoardHeadingMain{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.DashBoardRightHeading{
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+.DashBoardRightPara1Div{
+    margin-right: 7rem;
+}
+.DashBoardRightPara1Div p:first-child{
+    font-weight: 400;
+font-size: 16px;
+text-align: right;
+color: #333333;
+font-family: Roboto, sans-serif !important;
+}
+.DashBoardRightPara1Div p:last-child{
+    font-weight: 500;
+    font-size: 29px;
+    text-align: right;    
+    color: #0E6651;
+    margin-top: 10px;
+    font-family: Roboto, sans-serif !important;
+}
+.DashBoardRightPara2Div div{
+    font-weight: 400;
+font-size: 16px;
+text-align: right;
+color: #333333;
+font-family: Roboto, sans-serif !important;
+}
+.DashBoardRightPara2Div p:last-child{
+    font-weight: 500;
+    font-size: 29px;
+    text-align: right;    
+    color: #0E6651;
+    margin-top: 10px;
+    font-family: Roboto, sans-serif !important;
+}
+.DashBoardRightPara2Div img{
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.DashBoardRightPara2Div .infoClass
+{
+    position: relative;
+}
+.DashBoardRightPara2Div .infoMainDiv{
+    position: absolute;
+right: -4.5rem !important;
+top: -6.5rem!important;
+min-width: 300px!important;
+background: #444444!important;
+border-radius: 8px;
+display: none;
+z-index: 999;
+}
+.DashBoardRightPara2Div .infoMainDiv .innerInfoDiv{
+    position: relative;
+    font-weight: 400!important;
+    font-size: 14px!important;
+    text-align: center!important;
+    color: #FFFFFF!important;
+    padding: 10px;
+    font-family: Roboto, sans-serif !important;
+}
+.DashBoardRightPara2Div .infoMainDiv .innerInfoDiv .rectangleDesign{
+    position: absolute;
+    width: 20px;
+    height: 20px;    
+    background: #444444;
+    transform: rotate(-45deg);
+    right:75px;
+    bottom: -10px;
+}
+.DashBoardRightPara2Div .infoClass:hover .infoMainDiv{
+    display: block;
+    
+}
+.infoParaMainDiv{
+    display: flex;
+    align-items: center;
+}

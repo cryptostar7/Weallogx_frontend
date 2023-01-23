@@ -213,3 +213,27 @@
     font-size: 10px;
     }
     }
+
+    @media (max-width:1300px) {
+        .DashBoardRightPara2Div .infoMainDiv{
+            right: 0!important;
+                }
+                
+                .DashBoardRightPara2Div .infoMainDiv{
+                    border-bottom-right-radius: 0!important;
+                }
+                .DashBoardRightPara2Div .infoMainDiv .innerInfoDiv .rectangleDesign{
+                    right:4.8px;
+                }
+        }
+
+        @media (max-width:768px) {
+                 
+                    .DashBoardHeadingMain{
+                        display: block;
+                    }
+                    .DashBoardRightPara1Div{
+margin-right: 2rem;
+                    }
+            }
+        
