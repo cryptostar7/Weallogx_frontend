@@ -82,7 +82,7 @@
                               <span>Cumulative Income</span><br />
                               {{$numFormatWithDollar(item.cumulative_income)}}
                             </p> 
-                            <p class="ms-3 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
+                            <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
                               <span>Shortfall</span><br />
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
@@ -156,10 +156,17 @@
                               <div :class="`CardProgress darkProgress${1+index}`"></div>
                               <p class="lineUnderBars"></p>
                             </div>
-                            <p class="ms-2 CardProgressnym blueRadioSwtchpara position-up2">
-                              <span>Total Value</span><br />
+
+                            <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
+                              <span>Cumulative Income</span><br />
                               {{$numFormatWithDollar(item.total_value)}}
                             </p> 
+                            <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
+                              <span>Shortfall</span><br />
+                              {{$numFormatWithDollar(item.shortfall)}}
+                            </p>
+
+
                           </div>
                           <add-note-input-component />
                         </div>
