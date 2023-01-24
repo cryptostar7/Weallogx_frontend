@@ -2480,9 +2480,6 @@
   background-color: #DA4343 !important;
 }
 
-.dark-blue .switch3.extra .checkbox2:checked~.layer2 {
-  background-color: #E8662F !important;
-}
 
 .dark-blue .AddNoteBtn {
   background: #2E3135;
@@ -3902,43 +3899,7 @@
   color: #a0a0a0;
 }
 
-.dark-blue .distributionCard1.inactive .compGraphtopPara p,
-.dark-blue .distributionCard1.inactive .compGraphtopParaTwo p {
-  color: #55575a;
-}
 
-.dark-blue .distributionCard1.inactive .cardProjectTag,
-.dark-blue .distributionCard1.inactive .CardProgressnym,
-.dark-blue .distributionCard1.inactive span,
-.dark-blue .distributionCard1.inactive .legacyCardPara,
-.dark-blue .distributionCard1.inactive .legacyCardPara2,
-.dark-blue .distributionCard1.inactive .comValCardPara1 {
-  color: #55575a !important;
-}
-
-.dark-blue .distributionCard1.inactive .irrCardPara1,
-.dark-blue .distributionCard1.inactive .irrCardParaGreen1,
-.dark-blue .distributionCard1.inactive .irrCardParaGreen2,
-.dark-blue .distributionCard1.inactive .irrCardParaBlue1,
-.dark-blue .distributionCard1.inactive .irrCardParaBlue2,
-.dark-blue .distributionCard1.inactive .irrCardParaVoilet1,
-.dark-blue .distributionCard1.inactive .irrCardParaVoilet2,
-.dark-blue .distributionCard1.inactive .irrCardParaOrange1,
-.dark-blue .distributionCard1.inactive .irrCardParaOrange2,
-.dark-blue .distributionCard1.inactive .irrCardParaRed1,
-.dark-blue .distributionCard1.inactive .irrCardParaRed2 {
-  color: #55575a !important;
-}
-
-.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr1 p,
-.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr2 p,
-.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr3 p,
-.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr4 p {
-  background-color: #55575a !important;
-  ;
-  background: #55575a !important;
-  ;
-}
 
 .dark-blue .progressBarEachBtm.comparative .bar-container {
   background-color: #2E3135;
@@ -3990,7 +3951,7 @@
 }
 
 .dark-blue .lightProgress2 {
-  background: #0E6651;
+  background: #0F8266;
 }
 
 .dark-blue .lightProgress2 div {
@@ -3998,7 +3959,7 @@
 }
 
 .dark-blue .lightProgress1 {
-  background: #1660A4;
+  background:  #23669E;
 }
 
 .dark-blue .lightProgress1 div {
@@ -4006,7 +3967,7 @@
 }
 
 .dark-blue .lightProgress3 {
-  background: #763CA3;
+  background: #8137BB;
 }
 
 .dark-blue .lightProgress3 div {
@@ -4022,7 +3983,7 @@
 }
 
 .dark-blue .irrCardParaTop2 {
-  color: #0E6651;
+  color: #0F8266;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
@@ -4036,7 +3997,7 @@
 }
 
 .dark-blue .irrCardParaTop1 {
-  color: #1660A4;
+  color: #23669E;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
@@ -4048,7 +4009,9 @@
   font-size: 13px;
   margin: o;
 }
-
+.dark-blue .irrCardParaTop3 {
+ color: #8137BB;
+}
 
 /*  */
 .dark-blue .cumulativeProgAccount1 {
@@ -4104,6 +4067,48 @@
   background: #25967B;
 }
 
-.dark-blue .reportTablesDiv .table td input {
+/* .dark-blue .reportTablesDiv .table td input {
   color: #fff;
+} */
+
+.dark-blue .distributionCard1.inactive .compGraphtopPara p,
+.dark-blue .distributionCard1.inactive .compGraphtopParaTwo p {
+  color: #55575a!important;
+}
+
+.dark-blue .distributionCard1.inactive .cardProjectTag,
+.dark-blue .distributionCard1.inactive .CardProgressnym,
+.dark-blue .distributionCard1.inactive span,
+.dark-blue .distributionCard1.inactive .legacyCardPara,
+.dark-blue .distributionCard1.inactive .legacyCardPara2,
+.dark-blue .distributionCard1.inactive .comValCardPara1 {
+  color: #55575a !important;
+}
+
+.dark-blue .distributionCard1.inactive .irrCardPara1,
+.dark-blue .distributionCard1.inactive .irrCardParaGreen1,
+.dark-blue .distributionCard1.inactive .irrCardParaGreen2,
+.dark-blue .distributionCard1.inactive .irrCardParaBlue1,
+.dark-blue .distributionCard1.inactive .irrCardParaBlue2,
+.dark-blue .distributionCard1.inactive .irrCardParaVoilet1,
+.dark-blue .distributionCard1.inactive .irrCardParaVoilet2,
+.dark-blue .distributionCard1.inactive .irrCardParaOrange1,
+.dark-blue .distributionCard1.inactive .irrCardParaOrange2,
+.dark-blue .distributionCard1.inactive .irrCardParaRed1,
+.dark-blue .distributionCard1.inactive .irrCardParaRed2 {
+  color: #55575a !important;
+}
+
+.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr1 p,
+.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr2 p,
+.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr3 p,
+.dark-blue .distributionCard1.inactive .compGraphSmallBdrClr4 p {
+  background-color: #55575a !important;
+  background: #55575a !important;
+}
+.dark-blue .distributionCard1.inactive .irrAnalysisCardAllParas * {
+color: #55575a !important;
+}
+.dark-blue .commonTableCls .deleteBtnAccount svg rect {
+  fill: #3a3d41;
 }

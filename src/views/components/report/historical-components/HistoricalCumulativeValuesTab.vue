@@ -50,7 +50,7 @@
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
-                                <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch3 extra':''}`" id="button-2">
+                                <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch4 extra':''}`" id="button-2">
                                   <input type="checkbox" :class="`checkbox2 commonRadioBtn2 bigBaCard${18+index}`" :checked="cards.cummulative_income[index].active" v-model="cards.cummulative_income[index].active" />
                                   <div class="knobs2"></div>
                                   <div class="layer2"></div>
@@ -121,13 +121,13 @@
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
-                                <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch3 extra':''}`" id="button-2">
+                                <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch4 extra':''}`" id="button-2">
                                   <input type="checkbox" :class="`checkbox2 commonRadioBtn2 bigBaCard${23+index}`" :checked="cards.total_income[index].active" v-model="cards.total_income[index].active" />
                                   <div class="knobs2"></div>
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a class="ms-2 deleteButtonAncor deleteBtn" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                 <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
                                   <path

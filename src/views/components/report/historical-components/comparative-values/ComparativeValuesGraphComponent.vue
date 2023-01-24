@@ -80,7 +80,7 @@
                       <div class="layer2"></div>
                     </div>
                   </div>
-                  <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
+                  <a :class="`ms-2 deleteButtonAncor deleteBtn${2+index}`" data-bs-target="#deleteAccountModal"
                     data-bs-toggle="modal">
                     <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path

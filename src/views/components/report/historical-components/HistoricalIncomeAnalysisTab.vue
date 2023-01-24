@@ -38,7 +38,7 @@
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
-                            <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch3 extra':''}`" id="button-2">
+                            <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch4 extra':''}`" id="button-2">
                               <input type="checkbox" :class="`checkbox2 commonRadioBtn2 bigBaCard${13+index}`" :checked="cards[index].active" v-model="cards[index].active"/>
                               <div class="knobs2"></div>
                               <div class="layer2"></div>

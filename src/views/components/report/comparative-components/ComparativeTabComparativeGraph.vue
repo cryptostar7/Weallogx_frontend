@@ -57,7 +57,7 @@
                           </a>
                         </div>
                       </div>
-                      <div class="d-flex justify-content-between">
+                      <div class="d-flex justify-content-between mt-1">
                         <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
                           <p>Longevity</p>
                           <p>{{item.longevity_year}}</p>
