@@ -39,7 +39,7 @@
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active != cards[index].active" />
+                              <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active = !cards[index].active" />
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
                             </div>

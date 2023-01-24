@@ -19,7 +19,7 @@
             <div class="tab-content h-100">
               <div class="tab-pane fade h-100 show active" id="card-mostRecent" role="tabpanel"
                 aria-labelledby="card-mostRecent-tab">
-                <div class="distributionCard1 equalDistCard1 position-relative w-100">
+                <div :class="`distributionCard1 equalDistCard1 position-relative w-100 ${longevity_first_check ? '' : 'inactive'}`">
                   <div class="d-flex justify-content-between">
                     <div class="distrbnCard1paras">
                       <p>Longevity</p>
@@ -28,7 +28,7 @@
                     <div class="d-flex">
                       <div class="button-cover2">
                         <div class="radioBtnDiv greenRadioSwtch r2" id="button-2">
-                          <input type="checkbox" class="checkbox2 commonRadioBtn2" checked />
+                          <input type="checkbox" class="checkbox2 commonRadioBtn2" v-model="longevity_first_check"/>
                           <div class="knobs2"></div>
                           <div class="layer2"></div>
                         </div>
@@ -95,7 +95,7 @@
               <div class="d-flex justify-content-between mt-1">
                 <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
                   <p>Longevity</p>
-                  <p>{{data[card.id].longevity_years}} Years</p>
+                  <p>{{data[card.id].longevity_years}}</p>
                 </div>
                 <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
                   <p class="text-end">Cumulative Income</p>
@@ -173,6 +173,7 @@ export default {
         { id: 2, active: true },
         { id: 3, active: true },
       ],
+      longevity_first_check:true,
       tsa_type: "most_recent",
       graphs: {
         annual_contribution: true,
