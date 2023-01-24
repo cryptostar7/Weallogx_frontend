@@ -23,7 +23,7 @@
                   <div class="d-flex justify-content-between">
                     <div class="distrbnCard1paras">
                       <p>Longevity</p>
-                      <p>{{data[0].categories[tsa_type].type}}</p>
+                      <p class="cardRadioSwtchpara1">{{data[0].categories[tsa_type].type}}</p>
                     </div>
                     <div class="d-flex">
                       <div class="button-cover2">
@@ -38,7 +38,7 @@
                   <div class="d-flex justify-content-between mt-1">
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p>Longevity</p>
-                      <p>{{data[0].categories[tsa_type].longevity_years}}</p>
+                      <p class="cardRadioSwtchpara1">{{data[0].categories[tsa_type].longevity_years}}</p>
                     </div>
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p class="text-end">Cumulative Income</p>
@@ -70,11 +70,11 @@
               <div class="d-flex justify-content-between">
                 <div class="distrbnCard1paras">
                   <p>Longevity</p>
-                  <p :class="`cardRadioSwtchpara${1+index}`">{{data[card.id].type}}</p>
+                  <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].type}}</p>
                 </div>
                 <div class="d-flex">
                   <div class="button-cover2">
-                    <div :class="`radioBtnDiv r2 switch${1+index}`" id="button-2">
+                    <div :class="`radioBtnDiv r2 switch${1+index} extra`" id="button-2">
                       <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="card.active" @change="() => card.active = !card.active" />
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
@@ -102,7 +102,7 @@
                   <p class="text-end">{{$numFormatWithDollar(data[card.id].cummulative_income)}}</p>
                 </div>
               </div>
-              <div class="compGraphSmallBdr compGraphSmallBdrClr2 pt-1 mb-two">
+              <div :class="`compGraphSmallBdr compGraphSmallBdrClr${2+index} pt-1 mb-two`">
                 <p></p>
               </div>
               <div class="d-flex">

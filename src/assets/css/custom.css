@@ -2505,7 +2505,7 @@ body::-webkit-scrollbar {
 .distributionCard1.inactive .compGraphSmallBdrClr1 p,
 .distributionCard1.inactive .compGraphSmallBdrClr2 p,
 .distributionCard1.inactive .compGraphSmallBdrClr3 p,
-.distributionCard1.inactive .compGraphSmallBdrClr4 p {
+.distributionCard1.inactive .compGraphSmallBdrClr4 p , .distributionCard1.inactive .compGraphSmallBdrClr5 p{
   background-color: #dfdfdf !important;
   ;
   background: #dfdfdf !important;
@@ -2633,6 +2633,7 @@ body::-webkit-scrollbar {
   width: 100%;
   margin-top: 10px;
   margin-left: 8px;
+  margin-bottom:1rem ;
 }
 
 .groupedFourBars1,
@@ -3179,6 +3180,7 @@ body::-webkit-scrollbar {
   width: 100%;
   margin-top: 10px;
   margin-left: 8px;
+  margin-bottom: 1rem;
 }
 
 .cumulativeValuesProgrees {
@@ -4021,6 +4023,7 @@ Blank div css end here
   margin-top: 10px;
   margin-left: 8px;
   margin-right: 8px;
+  margin-bottom: 1rem;
 }
 
 .feeMainProgBrdrDivs {
@@ -4242,6 +4245,9 @@ Blank div css end here
   color: #9D2B2B;
 }
 
+.bgChangerComGraph5 p:nth-child(2) {
+  color: #E8662F;
+}
 .compGraphSmallBdrClr1 p {
   background: #25967B;
 }
@@ -4257,7 +4263,9 @@ Blank div css end here
 .compGraphSmallBdrClr4 p {
   background: #C04141;
 }
-
+.compGraphSmallBdrClr5 p{
+  background: rgb(232, 102, 47);
+}
 .reportTablesDiv .table7 th {
   border-left: 1.5px solid #f89267;
 }

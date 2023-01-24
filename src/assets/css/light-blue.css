@@ -867,10 +867,10 @@
   color: #0E6651;
 }
 .light-blue .reportTablesDiv4 table thead th {
-  background: #0E6651;
+  background: #0E6651!important;
 }
 .light-blue .reportTablesDiv4 .table th {
-  border-left-color: #2E7665;
+  border-left-color: #2E7665!important;
 }
 .light-blue .commonTableCls .editBtnAccount svg rect,
 .light-blue .commonTableCls .editBtnAccount svg path,
@@ -922,21 +922,7 @@
 .light-blue .greenProgress1 .CardProgress {
   background: #287BC7;
 }
-.light-blue .CardProgressnym {
-  color: #1660A4 !important;
-}
-.light-blue .CardProgressnym {
-  color: #1660A4 !important;
-}
-.light-blue .voiletRadioSwtchpara {
-  color: #763CA3 !important;
-}
-.light-blue .redRadioSwtchpara {
-  color: #9D2B2B !important;
-}
-.light-blue .blueRadioSwtchpara {
-  color: #0E6651 !important;
-}
+
 .light-blue .greenProgress1.switchBg {
   background: #287BC7 !important;
 }
@@ -995,10 +981,7 @@
 .light-blue .BottomcumulativeAccount {
   background: #10B78E;
 }
-.light-blue .bigbarsmaincolorDisable * {
-  background: transparent;
-  color: transparent;
-}
+
 .light-blue .CardProgressBig1 {
   background: #1660A4 !important;
 }
@@ -1231,6 +1214,10 @@ margin: o;
 }
 .light-blue .BottomcumulativeAccount2 {
   background: #25967B;
+}
+.light-blue .bigbarsmaincolorDisable * {
+  background: transparent;
+  color: transparent;
 }
 /*  */
 

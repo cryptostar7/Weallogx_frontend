@@ -19,7 +19,8 @@ import "./assets/css/dark-blue.css";
 import "./assets/css/responsive.css";
 import "./assets/js/popper.min.js";
 import "./assets/js/bootstrap.min.js";
-
+import "./assets/css/user/style.css";
+import "./assets/css/user/external.css";
 const app = createApp(App);
 
 app.use(router);
