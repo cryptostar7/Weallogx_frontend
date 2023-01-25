@@ -2082,6 +2082,9 @@ body::-webkit-scrollbar {
 .switch3 .editBtnAccount {
   color: #9D2B2B;
 }
+.switch4 .editBtnAccount {
+  color: #E8662F;
+}
 
 .switch3.extra .editBtnAccount {
   color: #E8662F;
@@ -3908,7 +3911,7 @@ Blank div css end here
   background-color: #E9E9E9;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -1.05rem;
+  bottom: -1px;
 }
 
 /* new css here */
@@ -4044,105 +4047,98 @@ Blank div css end here
 }
 
 /*  */
-.feeGreenBar1 {
-  background: #0E6651 !important;
-}
 
-.feeGreenNumBar1 {
-  background: #1D856C;
+.feeAnalysisLeftBar1{
+  background-color: #0E6651;
 }
-
-.feeGreenBar2 {
-  background: #209579 !important;
+.feeAnalysisLeftBar2{
+  background-color: #1660A4;
 }
-
-.feeGreenNumBar2 {
-  background: #30AD8F;
+.feeAnalysisLeftBar3{
+  background-color: #763CA3;
 }
-
-.feeGreenBar3 {
-  background: #3ECAA8 !important;
+.feeAnalysisLeftBar4{
+  background-color: #9D2B2B;
 }
-
-.feeGreenNumBar3 {
-  background: #39BE9E;
+.feeAnalysisLeftBarBtm1{
+background: #1D856C;
 }
-
-/*  */
-.feeBlueBar1 {
-  background: #1660A4 !important;
-}
-
-.feeBlueNumBar1 {
+.feeAnalysisLeftBarBtm2{
   background: #0C4A83;
-}
+  }
+  .feeAnalysisLeftBarBtm3{
+    background: #5B2983;
+    }
+    .feeAnalysisLeftBarBtm4{
+      background: #8B2323;
+      }
+      .feeAnalysisMiddleBar1{
+        background: #209579;
+      }
+      .feeAnalysisMiddleBar2{
+        background: #207ACD;
+      }
+      .feeAnalysisMiddleBar3{
+        background: #954FCB;
+      }
+      .feeAnalysisMiddleBar4{
+        background: #CA3939;
+      }
 
-.feeBlueBar2 {
-  background: #207ACD !important;
-}
 
-.feeBlueNumBar2 {
-  background: #1768B2;
-}
+      .feeAnalysismiddleBarBtm1{
+        background: #30AD8F;
+        }
+        .feeAnalysismiddleBarBtm2{
+          background: #1768B2;
+          }
+          .feeAnalysismiddleBarBtm3{
+            background: #7F3FB2;
+            }
+            .feeAnalysismiddleBarBtm4{
+              background: #BD2C2C;
+              }
 
-.feeBlueBar3 {
-  background: #1A89EE !important;
-}
 
-.feeBlueNumBar3 {
-  background: #0F7ADC;
-}
 
-/*  */
-.feeVoiletBar1 {
-  background: #763CA3 !important;
-}
 
-.feeVoiletNumBar1 {
-  background: #5B2983;
-}
+      .feeAnalysisRightBar1{
+        background: #3ECAA8;
+      }
+      .feeAnalysisRightBar2{
+        background: #1A89EE;
+      }
+      .feeAnalysisRightBar3{
+        background: #B770EF;
+      }
+      .feeAnalysisRightBar4{
+        background: #E55050;
+      }
 
-.feeVoiletBar2 {
-  background: #954FCB !important;
-}
 
-.feeVoiletNumBar2 {
-  background: #7F3FB2;
-}
 
-.feeVoiletBar3 {
-  background: #B770EF !important;
-}
+      .feeAnalysisrightBarBtm1{
+        background: #39BE9E;
+        }
+        .feeAnalysisrightBarBtm2{
+          background: #0F7ADC;
+          }
+          .feeAnalysisrightBarBtm3{
+            background: #A35CDA;
+            }
+            .feeAnalysisrightBarBtm4{
+              background: #DA3D3D;
+              }
 
-.feeVoiletNumBar3 {
-  background: #A35CDA;
-}
 
-/*  */
-.feeRedBar1 {
-  background: #9D2B2B !important;
-}
 
-.feeRedNumBar1 {
-  background: #8B2323;
-}
 
-.feeRedBar2 {
-  background: #CA3939 !important;
-}
 
-.feeRedNumBar2 {
-  background: #BD2C2C;
-}
 
-.feeRedBar3 {
-  background: #DA3D3D !important;
-}
 
-.feeRedNumBar3 {
-  background: #DA3D3D;
-}
 
+
+      
 /*  */
 .feeProgressBarEachDiv {
   position: relative;

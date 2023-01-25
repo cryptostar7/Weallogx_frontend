@@ -3955,7 +3955,7 @@
 }
 
 .dark-blue .lightProgress2 div {
-  background: #209579;
+  background: #26AB8B;
 }
 
 .dark-blue .lightProgress1 {
@@ -3963,7 +3963,7 @@
 }
 
 .dark-blue .lightProgress1 div {
-  background: #1A89EE;
+  background: #53A9F1;
 }
 
 .dark-blue .lightProgress3 {
@@ -3971,15 +3971,15 @@
 }
 
 .dark-blue .lightProgress3 div {
-  background: #B770EF;
+  background: #B556FF;
 }
 
 .dark-blue .lightProgress4 {
-  background: #9D2B2B;
+  background: #DA4343;
 }
 
 .dark-blue .lightProgress4 div {
-  background: #CA3939;
+  background: #F04F4F;
 }
 
 .dark-blue .irrCardParaTop2 {
@@ -4015,20 +4015,39 @@
 
 /*  */
 .dark-blue .cumulativeProgAccount1 {
-  background: #1660A4;
+  background: #23669E;
 }
 
 .dark-blue .BottomcumulativeAccount1 {
-  background: #287BC7;
+  background: #208DE8;
 }
 
 /*  */
 .dark-blue .cumulativeProgAccount2 {
-  background: #0E6651;
+  background: #0F8266;
 }
 
 .dark-blue .BottomcumulativeAccount2 {
-  background: #25967B;
+  background: #20A584;
+}
+
+/*  */
+.dark-blue .cumulativeProgAccount3 {
+  background: #8137BB
+  ;
+}
+
+.dark-blue .BottomcumulativeAccount3 {
+  background: #9453C8;
+}
+
+/*  */
+.dark-blue .cumulativeProgAccount4 {
+  background:  #DA4343;
+}
+
+.dark-blue .BottomcumulativeAccount4 {
+  background: #F04F4F;
 }
 
 /*  */
@@ -4111,4 +4130,7 @@ color: #55575a !important;
 }
 .dark-blue .commonTableCls .deleteBtnAccount svg rect {
   fill: #3a3d41;
+}
+.dark-blue .bb-grey{
+  border: none;
 }

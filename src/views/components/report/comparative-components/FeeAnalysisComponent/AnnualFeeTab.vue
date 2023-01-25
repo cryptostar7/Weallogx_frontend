@@ -38,7 +38,7 @@
               <p class="legacyCardPara">Cumulative Income Fee Ratio</p>
               <p class="legacyCardPara2 text-right">{{item.cumulative_income_in_percent}}</p>
             </div>
-            <div class="mt-1 d-flex justify-content-between">
+            <div class="mt-1 d-flex justify-content-between d-none">
               <p class="legacyCardPara">Death Benefit Fee Ratio</p>
               <p class="legacyCardPara2 text-right">{{item.death_benifit_in_percent}}</p>
             </div>

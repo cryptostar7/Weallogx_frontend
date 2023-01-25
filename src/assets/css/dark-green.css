@@ -1195,6 +1195,43 @@
 }
 
 /* Report buider dark css start */
+/*  */
+.dark-green .cumulativeProgAccount1 {
+  background: #0F8266;
+}
+
+.dark-green .BottomcumulativeAccount1 {
+  background: #20A584;
+}
+/*  */
+.dark-green .cumulativeProgAccount2 {
+  background: #23669E;
+}
+
+.dark-green .BottomcumulativeAccount2 {
+  background: #208DE8;
+}
+
+/*  */
+.dark-green .cumulativeProgAccount3 {
+  background: #8137BB
+  ;
+}
+
+.dark-green .BottomcumulativeAccount3 {
+  background: #9453C8;
+}
+
+/*  */
+.dark-green .cumulativeProgAccount4 {
+  background:  #DA4343;
+}
+
+.dark-green .BottomcumulativeAccount4 {
+  background: #F04F4F;
+}
+
+/*  */
 .dark-green .modalSharePara {
   color: white;
 }
@@ -3683,10 +3720,6 @@
   background-color: none !important;
 }
 
-/* 
-.dark-green .reportTablesDiv .table td input {
-  color: #fff;
-} */
 
 .dark-green .distributionCard1.inactive .compGraphtopPara p,
 .dark-green .distributionCard1.inactive .compGraphtopParaTwo p {
@@ -3730,4 +3763,7 @@
 }
 .dark-green .commonTableCls .deleteBtnAccount svg rect {
   fill: #3a3d41;
+}
+.dark-green .bb-grey{
+  border: none;
 }

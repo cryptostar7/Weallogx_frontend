@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="mt-1 d-flex justify-content-between">
-              <p class="legacyCardPara">Value Efficiency Ratio</p>
+              <p class="legacyCardPara">Value Efficiency</p>
               <p class="legacyCardPara2 text-right">{{item.value_efficiency_ratio}}</p>
             </div>
             <div class="mt-1 d-flex justify-content-between">
@@ -50,27 +50,27 @@
             <div v-for="(item, index) in data" :key="index" :class="`feeProgressBarEachDivMain feeDivDisplayNone${1+index} ${cards[index].active ? '' : 'feebarGroupDisplayNone'}`">
               <div class="d-flex groupedFourBars2">
                 <div
-                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv feeProgressBarEachHeight4 groupedSecBarsSigleClr1">
-                  <div class="CardProgressBig feeBlueBar1 feeEqualPercent4" :style="{height: item.value_efficiency_in_percent}">
+                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
+                  <div :class="`CardProgressBig feeAnalysisLeftBar${1+index}`" :style="{height: item.value_efficiency_in_percent}">
                   </div>
-                  <div class="position-absolute progressBarbtmNum feeBlueNumBar1">
-                    $<span class="feeClrProgBar4">{{$numFormat(item.value_efficiency)}}</span>
-                  </div>
-                </div>
-                <div
-                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv  feeProgressBarEachHeight5 groupedSecBarsSigleClr3">
-                  <div class="CardProgressBig feeBlueBar2 feeEqualPercent5" :style="{height: item.total_fee_in_percent}">
-                  </div>
-                  <div class="position-absolute progressBarbtmNum feeBlueNumBar2">
-                    $<span class="feeClrProgBar5">{{$numFormat(item.total_fees)}}</span>
+                  <div :class="`position-absolute progressBarbtmNum feeAnalysisLeftBarBtm${1+index}`">
+                    $<span>{{$numFormat(item.value_efficiency)}}</span>
                   </div>
                 </div>
                 <div
-                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv  feeProgressBarEachHeight6 groupedSecBarsSigleClr4">
-                  <div class="CardProgressBig feeBlueBar3 feeEqualPercent6" :style="{height: item.total_value_in_percent}">
+                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
+                  <div :class="`CardProgressBig feeAnalysisMiddleBar${1+index}`" :style="{height: item.total_fee_in_percent}">
                   </div>
-                  <div class="position-absolute progressBarbtmNum feeBlueNumBar3">
-                    $<span class="feeClrProgBar6">{{$numFormat(item.total_value)}}</span>
+                  <div :class="`position-absolute progressBarbtmNum feeAnalysismiddleBarBtm${1+index}`">
+                    $<span>{{$numFormat(item.total_fees)}}</span>
+                  </div>
+                </div>
+                <div
+                  class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
+                  <div :class="`CardProgressBig feeAnalysisRightBar${1+index}`" :style="{height: item.total_value_in_percent}">
+                  </div>
+                  <div :class="`position-absolute progressBarbtmNum feeAnalysisrightBarBtm${1+index}`">
+                    $<span>{{$numFormat(item.total_value)}}</span>
                   </div>
                 </div>
               </div>
