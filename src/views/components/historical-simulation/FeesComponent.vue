@@ -44,9 +44,9 @@
         </div>
         <div class="d-flex align-items-center mt-2">
         <div class="form-check form-switch custom-switch ms-2">
-            <input class="form-check-input" type="checkbox" role="switch" :id="`premiuscharge${currentTab}`">
+            <input class="form-check-input" type="checkbox" role="switch" :id="`premiumcharge${currentTab}`">
         </div>
-        <label :for="`premiuscharge${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
+        <label :for="`premiumcharge${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
         </div>
         <div class="formParabrdrLavelDiv mt-4">
         <p>Loan Interest Rate</p>
@@ -114,9 +114,28 @@
             </div>
             <div class="d-flex align-items-center mt-2">
             <div class="form-check form-switch custom-switch ms-2">
-                <input class="form-check-input" type="checkbox" role="switch" id="multiplierFee1">
+                <input class="form-check-input" type="checkbox" role="switch" id="multiplierFee1" v-model="sameInAllYearPfFee">
             </div>
             <label for="multiplierFee1" class="buttonSaveRadioPara">Same in All Years</label>
+            </div>
+            <div class="d-flex justify-content-center w-100" v-if="!sameInAllYearPfFee">
+                <div class="schduleTableDiv mt-5 ">
+                    <table class="table">
+                    <thead>
+                        <th>Year</th>
+                        <th>Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in 10" :key="index">
+                            <td data-label="Year">{{item}}</td>
+                            <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
+                                <input type="text" class="form-control">
+                                <label for="amount">$</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
             </div>
             <div class="formParabrdrLavelDiv mt-4">
             <p>Flat Credit/Bonus Fee</p>
@@ -142,13 +161,12 @@
             </div>
             <div class="d-flex align-items-center mt-2">
             <div class="form-check form-switch custom-switch ms-2">
-                <input class="form-check-input" type="checkbox" role="switch"
-                id="flat-credit-fee-radio" v-model="sameInAllYearTax" checked>
+                <input class="form-check-input" type="checkbox" role="switch" id="flat-credit-fee-radio" v-model="sameInAllYearTaxFlatFee">
             </div>
             <label for="flat-credit-fee-radio" class="buttonSaveRadioPara">Same in All Years</label>
             </div>
             <!--  -->
-            <div class="d-flex justify-content-center w-100" v-if="!sameInAllYearTax">
+            <div class="d-flex justify-content-center w-100" v-if="!sameInAllYearTaxFlatFee">
                 <div class="schduleTableDiv mt-5 ">
                     <table class="table">
                     <thead>
@@ -203,22 +221,22 @@
 </template>
 <script>
 export default {
-    props:['currentTab'],
-    data() {
-        return {
-            MaxPremiumCharge:8,
-            MaxLoanInterest:8,
-            MaxPerformanceMultiplierFee:8,
-            sameInAllYearTax:true,
-            customPremiumCharge:'',
-            customInterestAmount:'',
-            customPerformanceFeeAmount:'',
-            customFlatAmount:'',
-            customHipCapAmount:'',
-        }
-    },
-}
+  props: ["currentTab"],
+  data() {
+    return {
+      MaxPremiumCharge: 8,
+      MaxLoanInterest: 8,
+      MaxPerformanceMultiplierFee: 8,
+      sameInAllYearTaxFlatFee: true,
+      sameInAllYearPfFee:true,
+      customPremiumCharge: "",
+      customInterestAmount: "",
+      customPerformanceFeeAmount: "",
+      customFlatAmount: "",
+      customHipCapAmount: "",
+    };
+  },
+};
 </script>
 <style lang="">
-    
 </style>
