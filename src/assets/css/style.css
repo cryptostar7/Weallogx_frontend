@@ -4405,6 +4405,7 @@ input[type=number] {
   font-weight: 700;
   border-bottom: 1px solid #DFDFDF;
   width: 50%;
+  padding: 7px 0;
 }
 .schduleTableDiv .table thead {
   border-width: unset;

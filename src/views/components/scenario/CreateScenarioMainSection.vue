@@ -837,7 +837,7 @@ export default {
           }${element.lastname ? ` ${element.lastname}` : ""}`;
           initClient.push({
             id: Number(element.id),
-            template_name: `${name} (#${element.id})`,
+            template_name: name,
           });
         });
       }
