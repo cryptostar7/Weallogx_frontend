@@ -114,7 +114,7 @@
                             <div class="form-check form-switch custom-switch mt-3"> 
                               <input class="form-check-input" type="checkbox" role="switch" id="saveVehicleTempName1" @change="setVehicleSaveRedio1()" /> 
                                 <label class="form-check-label fs-12 semi-bold-fw mb-0" for="saveVehicleTempName1">
-                                  Save this Vehicle as Template1
+                                  Save this Vehicle as Template
                                 </label> 
                             </div>
                           </div>

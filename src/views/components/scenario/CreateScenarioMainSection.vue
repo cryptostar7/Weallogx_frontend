@@ -135,7 +135,7 @@
                         <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax_year = false}"
                           :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
-                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(illustrateYear).toFixed(0)" :key="index" :value="item">{{item}}</option>
+                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(Number(illustrateYear).toFixed(0))" :key="index" :value="item">{{item}}</option>
                         </select>
                       </div>
                     </div>
