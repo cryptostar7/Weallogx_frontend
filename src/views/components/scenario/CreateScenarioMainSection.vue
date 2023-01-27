@@ -268,7 +268,7 @@ export default {
         let current = e.target.value;
         let min = Number(e.target.getAttribute("min"));
         let max = Number(e.target.getAttribute("max"));
-        if (Number(current) < min || Number(current) > max) {
+        if (Number(current) < min || Number(current) > max || isNaN(Number(current))) {
           let actualValue = current.slice(0, len - 1);
           e.target.value = actualValue;
           return false;

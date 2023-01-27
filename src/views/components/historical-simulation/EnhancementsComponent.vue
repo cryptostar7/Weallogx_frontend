@@ -20,16 +20,16 @@
 
     <div class="d-flex align-items-center mb-2">
         <div class="form-check form-switch custom-switch">
-            <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1">
+            <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange')">
         </div>
         <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
     </div>
     <PerformanceMultiplier v-if="tab1" :currentTab="currentTab"/>
     <div class="d-flex align-items-center mt-2" id="addBorderAbove">
         <div class="form-check form-switch custom-switch">
-            <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements2${currentTab}`" v-model="tab2">
+            <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange')">
         </div>
-        <label :for="`enhancements2${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
+        <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
     </div>
     <CreditAndBonus v-if="tab2" :currentTab="currentTab"/>
     </div>
@@ -40,14 +40,12 @@ import CreditAndBonus from "./CreditAndBonus.vue";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
   props: ["currentTab"],
+  emits:["performanceChange", "creditBonusChange"],
   data() {
     return {
       tab1: false,
       tab2: false,
     };
-  },
-  updated() {
-    console.log(this.tab1);
   },
 };
 </script>

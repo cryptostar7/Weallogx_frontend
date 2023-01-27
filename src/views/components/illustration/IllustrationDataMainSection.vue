@@ -74,7 +74,7 @@
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
-                      <input type="number" id="policyReturn" class="form-control percenteInputs handleLimit" min="0" max="99" @keyup="() => clearError('policy_return')">
+                      <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
                       <label class="error" v-if="errors.policy_return">{{errors.policy_return[0]}}</label>
                     </div>
                   </div>
@@ -311,35 +311,35 @@ export default {
   components: { SelectDropdown },
   data() {
     return {
-      saveinsuranseTemplate:false,
+      saveinsuranseTemplate: false,
       existingInsuranceList: [
-        {id:1, template_name:"Vehicle One"},
-        {id:2, template_name:"Vehicle Two"},
-        {id:3, template_name:"Vehicle Three"},
-        {id:4, template_name:"Vehicle Four"},
-        {id:5, template_name:"Vehicle Five"},
-        {id:6, template_name:"Vehicle Six"},
-        {id:7, template_name:"Vehicle Seven"},
-        {id:8, template_name:"Vehicle Eight"},
-        {id:9, template_name:"Vehicle Nine"},
+        { id: 1, template_name: "Vehicle One" },
+        { id: 2, template_name: "Vehicle Two" },
+        { id: 3, template_name: "Vehicle Three" },
+        { id: 4, template_name: "Vehicle Four" },
+        { id: 5, template_name: "Vehicle Five" },
+        { id: 6, template_name: "Vehicle Six" },
+        { id: 7, template_name: "Vehicle Seven" },
+        { id: 8, template_name: "Vehicle Eight" },
+        { id: 9, template_name: "Vehicle Nine" },
       ],
       existingIllustrationList: [
-        {id:1, template_name:"Illustration One"},
-        {id:2, template_name:"Illustration Two"},
-        {id:3, template_name:"Illustration Three"},
-        {id:4, template_name:"Illustration Four"},
-        {id:5, template_name:"Illustration Five"},
+        { id: 1, template_name: "Illustration One" },
+        { id: 2, template_name: "Illustration Two" },
+        { id: 3, template_name: "Illustration Three" },
+        { id: 4, template_name: "Illustration Four" },
+        { id: 5, template_name: "Illustration Five" },
       ],
-      existingInsuranceProfileId:'',
-      existingInsuranceProfileName:'',
-      existingIllustrationId:'',
-      existingIllustrationName:'',
-      insuranceCompany:'',
-      insurancePolicyName:'',
-      PolicyNickname:'',
-      insuranceTemplateInput:0,
-      illustrationTemplateInput:0,
-      errors:[],
+      existingInsuranceProfileId: "",
+      existingInsuranceProfileName: "",
+      existingIllustrationId: "",
+      existingIllustrationName: "",
+      insuranceCompany: "",
+      insurancePolicyName: "",
+      PolicyNickname: "",
+      insuranceTemplateInput: 0,
+      illustrationTemplateInput: 0,
+      errors: [],
     };
   },
   mounted() {
@@ -347,7 +347,7 @@ export default {
     let uploadingInput = document.getElementById("uploading");
     let fileName = document.getElementById("fileName");
 
-    uploadingInput.addEventListener("change", function (e) {
+    uploadingInput.addEventListener("change", function(e) {
       let file = e.target.files[0];
       fileName.innerText = file.name;
     });
@@ -361,26 +361,47 @@ export default {
         let max = Number(e.target.getAttribute("max"));
         if (Number(current) < min || Number(current) > max) {
           let actualValue = current.slice(0, current.length - 1);
-          e.target.value = Number(current) < min ? '' : Number(actualValue).toLocaleString();
+          e.target.value =
+            Number(current) < min ? "" : Number(actualValue).toLocaleString();
           return false;
-        }else{
+        } else {
           e.target.value = Number(current).toLocaleString();
         }
       })
     );
 
-    function getNumber(_str) {
-        var arr = String(_str).split('');
-        var out = new Array();
-        for (var cnt = 0; cnt < arr.length; cnt++) {
-            if (isNaN(arr[cnt]) == false || arr[cnt] == ".") {
-                out.push(arr[cnt]);
-            }
+    // input validation for min and max value
+    const inputs2 = document.querySelectorAll(".handleLimit2");
+    inputs2.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
         }
-        return Number(out.join(''));
+      })
+    );
+
+    function getNumber(_str) {
+      var arr = String(_str).split("");
+      var out = new Array();
+      for (var cnt = 0; cnt < arr.length; cnt++) {
+        if (isNaN(arr[cnt]) == false || arr[cnt] == ".") {
+          out.push(arr[cnt]);
+        }
+      }
+      return Number(out.join(""));
     }
   },
-  methods:{
+  methods: {
     // set existing insurance profile id on selecting the input dropdown data
     setExistingInsuranceProfileId: function(id) {
       this.existingInsuranceProfileId = id;
@@ -392,44 +413,44 @@ export default {
     setExistingIllustrationId: function(id) {
       this.existingIllustrationId = id;
     },
-   
+
     // set existing insurance profile name on change the input value
-    setExistingInsuranceProfileName: function(name){
+    setExistingInsuranceProfileName: function(name) {
       this.existingInsuranceProfileName = name;
     },
 
     // set existing insurance profile name on change the input value
-    setExistingIllustrationName: function(name){
+    setExistingIllustrationName: function(name) {
       this.existingIllustrationName = name;
     },
 
     clearInsuranceTemplate: function() {
-      if(this.existingInsuranceProfileName){
+      if (this.existingInsuranceProfileName) {
         this.insuranceTemplateInput = 1;
       }
     },
 
     clearIllustrateTemplate: function() {
-      if(this.existingIllustrationName){
+      if (this.existingIllustrationName) {
         this.illustrationTemplateInput = 1;
       }
     },
-    
-    populateInsuranseProfile: function(id){
+
+    populateInsuranseProfile: function(id) {
       console.log(id);
       var data = {
         initial_death_benefit: "1,000",
         insurance_company: "Test Company",
         insurance_policy_name: "Insurance Policy Name",
         policy_nickname: "Policy Nickname",
-        policy_return: "50"
+        policy_return: "50",
       };
 
-      this.insuranceCompany = data.insurance_company,
-      this.insurancePolicyName = data.insurance_policy_name,
-      this.PolicyNickname = data.policy_nickname,
-      this.setInputWithId('deathBenifit', data.initial_death_benefit);
-      this.setInputWithId('policyReturn', data.policy_return);
+      (this.insuranceCompany = data.insurance_company),
+        (this.insurancePolicyName = data.insurance_policy_name),
+        (this.PolicyNickname = data.policy_nickname),
+        this.setInputWithId("deathBenifit", data.initial_death_benefit);
+      this.setInputWithId("policyReturn", data.policy_return);
     },
 
     // validate the form
@@ -443,7 +464,9 @@ export default {
         );
         if (!templateId) {
           validate = false;
-          this.errors.existing_insurance_profile = ["Please choose a valid template."];
+          this.errors.existing_insurance_profile = [
+            "Please choose a valid template.",
+          ];
         } else {
           this.existingInsuranceProfileId = templateId;
           this.errors.existing_insurance_profile = "";
@@ -459,7 +482,9 @@ export default {
         );
         if (!templateId) {
           validate = false;
-          this.errors.existing_illustration = ["Please choose a valid template."];
+          this.errors.existing_illustration = [
+            "Please choose a valid template.",
+          ];
         } else {
           this.existingIllustrationId = templateId;
           this.errors.existing_illustration = "";
@@ -489,14 +514,14 @@ export default {
         this.errors.policy_nickname = "";
       }
 
-      if (!this.getInputWithId('deathBenifit')) {
+      if (!this.getInputWithId("deathBenifit")) {
         this.errors.initial_death_benefit = ["This field is required."];
         validate = false;
       } else {
         this.errors.initial_death_benefit = "";
       }
 
-      if (!this.getInputWithId('policyReturn')) {
+      if (!this.getInputWithId("policyReturn")) {
         this.errors.policy_return = ["This field is required."];
         validate = false;
       } else {
@@ -506,7 +531,7 @@ export default {
       return validate;
     },
 
-    clearError: function(key){
+    clearError: function(key) {
       this.errors[key] = false;
       this.clearInsuranceTemplate();
       this.clearIllustrateTemplate();
@@ -523,29 +548,29 @@ export default {
       return value;
     },
 
-    submitHandler: function(e){
+    submitHandler: function(e) {
       e.preventDefault();
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
       }
 
-      this.$toast.info('Form submitted');
+      this.$toast.info("Form submitted");
       var data = {
-        insurance_company:this.insuranceCompany,
-        insurance_policy_name:this.insurancePolicyName,
-        policy_nickname:this.PolicyNickname,
-        initial_death_benefit:this.getInputWithId('deathBenifit'),
-        policy_return:this.getInputWithId('policyReturn'),
-        existing:{
-          insurance_profile_id:this.existingInsuranceProfileId,
-          illustration_id:this.existingIllustrationId,
-        }
+        insurance_company: this.insuranceCompany,
+        insurance_policy_name: this.insurancePolicyName,
+        policy_nickname: this.PolicyNickname,
+        initial_death_benefit: this.getInputWithId("deathBenifit"),
+        policy_return: this.getInputWithId("policyReturn"),
+        existing: {
+          insurance_profile_id: this.existingInsuranceProfileId,
+          illustration_id: this.existingIllustrationId,
+        },
       };
-      this.$router.push('/comparative-vehicles');
+      this.$router.push("/comparative-vehicles");
       console.log(data);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="">

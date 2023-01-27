@@ -59,6 +59,7 @@
                         </div> 
                       </div>
                     </div>
+                    <button class="d-none" @click="testFunction()">Check</button>
                     <div :class="`commonAllDivs ${activeTab !== 1 ? 'd-none': ''}`">
                       <div class="historicalYesDivCommon mt-4">
                         <p class="indexStrategyPara">Index Strategy #1</p>
@@ -78,9 +79,9 @@
                         </div>
                         <analysis-parameters :currentTab="1" /> 
                         <growth-parameters /> 
-                        <enhancements-component :currentTab="1" /> 
-                        <fees-component :currentTab="1" /> 
-                        <save-strategy-template />
+                        <enhancements-component :currentTab="1"  @performanceChange="() => strategies[0].enhancements.performance_multiplier = !strategies[0].enhancements.performance_multiplier" @creditBonusChange="() => strategies[0].enhancements.credit_bonus_fee = !strategies[0].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="1" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee"/> 
+                        <save-strategy-template :currentTab="1" />
                       </div>
                     </div>
                     <div :class="`commonAllDivs ${activeTab !== 2 ? 'd-none' : ''}`"> 
@@ -104,9 +105,9 @@
                         </div>
                         <analysis-parameters :currentTab="2" /> 
                         <growth-parameters /> 
-                        <enhancements-component :currentTab="2" /> 
-                        <fees-component :currentTab="2" /> 
-                        <save-strategy-template />
+                        <enhancements-component :currentTab="2"  @performanceChange="() => strategies[1].enhancements.performance_multiplier = !strategies[1].enhancements.performance_multiplier" @creditBonusChange="() => strategies[1].enhancements.credit_bonus_fee = !strategies[1].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="2" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee"/> 
+                        <save-strategy-template :currentTab="2" />
                       </div>
                       <div class="d-flex justify-content-center mt-4 mx-4">
                         <div class="w-75">
@@ -136,19 +137,16 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex3"
-                                  label="Choose Existing Index Strategy Allocation"
-                                  id="existingComparativeVehiclePortfolioTab3" class="form-group less pt-3"
-                                  :optional="true" />
+                                <SelectDropdown :list="dropdown.historyIndex3" label="Choose Existing Index Strategy Allocation" id="existingComparativeVehiclePortfolioTab3" class="form-group less pt-3" :optional="true" />
                               </form>
                             </div>
                           </div>
                         </div>
                         <analysis-parameters :currentTab="3" /> 
                         <growth-parameters /> 
-                        <enhancements-component :currentTab="3" /> 
-                        <fees-component :currentTab="3" /> 
-                        <save-strategy-template />
+                        <enhancements-component :currentTab="3"  @performanceChange="() => strategies[2].enhancements.performance_multiplier = !strategies[2].enhancements.performance_multiplier" @creditBonusChange="() => strategies[2].enhancements.credit_bonus_fee = !strategies[2].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="3" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee"/> 
+                        <save-strategy-template :currentTab="3"/>
                       </div>
                       <div class="d-flex justify-content-center mt-4 mx-4">
                         <div class="w-75">
@@ -221,22 +219,22 @@ export default {
       },
       dropdown: {
         historyIndex: [
-          { id: 1, name: "S&P 500" },
-          { id: 2, name: "Blended Index" },
-          { id: 3, name: "Bloomberg US Dynamic Balance II ER" },
-          { id: 4, name: "PIMCO Tactical Balanced ER" },
+          { id: 1, template_name: "S&P 500" },
+          { id: 2, template_name: "Blended Index" },
+          { id: 3, template_name: "Bloomberg US Dynamic Balance II ER" },
+          { id: 4, template_name: "PIMCO Tactical Balanced ER" },
         ],
         historyIndex2: [
-          { id: 1, name: "S&P 500" },
-          { id: 2, name: "Blended Index" },
-          { id: 3, name: "Bloomberg US Dynamic Balance II ER" },
-          { id: 4, name: "PIMCO Tactical Balanced ER" },
+          { id: 1, template_name: "S&P 500" },
+          { id: 2, template_name: "Blended Index" },
+          { id: 3, template_name: "Bloomberg US Dynamic Balance II ER" },
+          { id: 4, template_name: "PIMCO Tactical Balanced ER" },
         ],
         historyIndex3: [
-          { id: 1, name: "S&P 500" },
-          { id: 2, name: "Blended Index" },
-          { id: 3, name: "Bloomberg US Dynamic Balance II ER" },
-          { id: 4, name: "PIMCO Tactical Balanced ER" },
+          { id: 1, template_name: "S&P 500" },
+          { id: 2, template_name: "Blended Index" },
+          { id: 3, template_name: "Bloomberg US Dynamic Balance II ER" },
+          { id: 4, template_name: "PIMCO Tactical Balanced ER" },
         ],
       },
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
@@ -244,6 +242,26 @@ export default {
         value: "",
         time: 50,
       },
+      strategies: [
+        {
+          enhancements: {
+            performance_multiplier: false,
+            credit_bonus_fee: false,
+          },
+        },
+        {
+          enhancements: {
+            performance_multiplier: false,
+            credit_bonus_fee: false,
+          },
+        },
+        {
+          enhancements: {
+            performance_multiplier: false,
+            credit_bonus_fee: false,
+          },
+        },
+      ],
       customRollingPeriod1: "",
       saveStrategyAllocationTemplate2: false,
       saveStrategyAllocationTemplate3: false,
@@ -283,6 +301,30 @@ export default {
         event.preventDefault();
       }
     },
+    testFunction: function() {
+      console.log(this.strategies);
+    },
+  },
+  mounted() {
+    // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
+        }
+      })
+    );
   },
 };
 </script>

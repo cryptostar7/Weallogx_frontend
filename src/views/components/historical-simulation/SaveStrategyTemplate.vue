@@ -3,10 +3,9 @@
         <div class="w-75">
             <div class="d-flex align-items-center mb-2">
                 <div class="form-check form-switch custom-switch ms-2">
-                <input class="form-check-input" type="checkbox" v-model="saveTemplate" role="switch">
+                <input class="form-check-input" :id="`saveZIndexTemp${currentTab}`" type="checkbox" v-model="saveTemplate" role="switch">
                 </div>
-                <label for="saveZIndexTemp" class="buttonSaveRadioPara">Save this Index Strategy as
-                Template</label>
+                <label :for="`saveZIndexTemp${currentTab}`" class="buttonSaveRadioPara">Save this Index Strategy as Template</label>
             </div>
             <div class="saveZIndexTempContent" v-if="saveTemplate">
                 <form action="javascript:void(0)">
@@ -21,6 +20,7 @@
 </template>
 <script>
 export default {
+  props: ["currentTab"],
   data() {
     return {
       saveTemplate: false,

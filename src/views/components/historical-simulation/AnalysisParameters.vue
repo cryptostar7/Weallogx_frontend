@@ -46,7 +46,7 @@
         </div>
         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth">
         <label for="customAmount">Custom Amount</label>
-        <input id="customAmount" ref="input" type="text" @keyup="(e) => saveRollingPeriod1(e)" class="bonus-input percent-input">
+        <input id="customAmount" ref="input" type="text" @keyup="(e) => saveRollingPeriod1(e)" class="bonus-input backgroundImageNone percent-input">
         </div>
     </div>
 

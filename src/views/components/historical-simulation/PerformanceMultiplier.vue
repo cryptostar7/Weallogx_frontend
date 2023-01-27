@@ -52,9 +52,10 @@
                                 <tr v-for="(item, index) in 10" :key="index">
                                     <td data-label="Year">{{item}}</td>
                                     <td data-label="Rate" class="innerTableInputTd">
-                                        <div class="percent-input-div"><input type="text"
-                                                class="form-control percent-input" required><span
-                                                class="percent-span">%</span></div>
+                                        <div class="percent-input-div">
+                                            <input type="text" class="form-control percent-input" required>
+                                            <span class="percent-span">%</span>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

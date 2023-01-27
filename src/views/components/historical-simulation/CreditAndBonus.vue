@@ -44,16 +44,12 @@
 
                 <div class="d-flex justify-content-center align-items-center mt-3">
                     <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                        <div class="active" id="nav-rate-tab" data-bs-toggle="tab" data-bs-target="#nav-rate" role="tab"
-                            aria-controls="nav-rate" aria-selected="true">Rate</div>
-                        <div class="" id="nav-Amount-tab" data-bs-toggle="tab" data-bs-target="#nav-amount" role="tab"
-                            aria-controls="nav-amount" aria-selected="false">Amount ($)</div>
-
+                        <div class="active" id="nav-rate-tab" data-bs-toggle="tab" data-bs-target="#nav-rate" role="tab" aria-controls="nav-rate" aria-selected="true">Rate</div>
+                        <div class="" id="nav-Amount-tab" data-bs-toggle="tab" data-bs-target="#nav-amount" role="tab" aria-controls="nav-amount" aria-selected="false">Amount ($)</div>
                     </div>
                 </div>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
-                        <!--  -->
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
                                 <table class="table">
@@ -62,19 +58,19 @@
                                         <th>Multiplier Rate</th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in 10" :key="index">
+                                        <tr v-for="(item, index) in illustrateYear" :key="index">
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="innerTableInputTd">
-                                                <div class="percent-input-div"><input type="text"
-                                                        class="form-control percent-input" required><span
-                                                        class="percent-span">%</span></div>
+                                                <div class="percent-input-div">
+                                                    <input type="text" class="form-control percent-input" required>
+                                                    <span class="percent-span">%</span>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <!--  -->
                     </div>
                     <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
                         <div class="d-flex justify-content-center w-100">
@@ -85,10 +81,10 @@
                                         <th>Amount</th>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in 10" :key="index">
+                                        <tr v-for="(item, index) in illustrateYear" :key="index">
                                             <td data-label="Year">{{item}}</td>
-                                            <td data-label="Rate" class="amountInnerTableInputTd"><input type="text"
-                                                    class="form-control">
+                                            <td data-label="Rate" class="amountInnerTableInputTd">
+                                                <input type="text" class="form-control">
                                                 <label for="amount">$</label>
                                             </td>
                                         </tr>
@@ -104,14 +100,18 @@
 </template>
 <script>
 export default {
-    data(){
-        return {
-            maxYear: 5,
-            customAmount:''
-        }
-    }
-}
+  data() {
+    return {
+      maxYear: 5,
+      customAmount: "",
+    };
+  },
+  computed: {
+    illustrateYear() {
+      return 10;
+    },
+  },
+};
 </script>
 <style lang="">
-    
 </style>
