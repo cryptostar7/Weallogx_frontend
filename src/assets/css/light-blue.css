@@ -1250,3 +1250,20 @@ margin: o;
               .light-blue .irrGroupedBars2 .irrvaluebarbg2{
                 background: #25967B;
                 }
+
+
+                .reportTablesDiv3 .table tbody tr td{
+                  background:#F9FCFF;
+                }
+                .reportTablesDiv4 .table tbody tr td{
+                  background: #FAFFFE;
+                }
+                .reportTablesDiv5 .table tbody tr td{
+                  background: #FEFAFF;
+                }
+                .reportTablesDiv6 .table tbody tr td{
+                  background: #FFFAF7;
+                }
+                .reportTablesDiv7 .table tbody tr td{
+                  background: #FFFAF7;
+                }

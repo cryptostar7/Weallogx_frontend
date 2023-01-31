@@ -3419,12 +3419,8 @@
   background: var(--blue-clr-2) !important;
 }
 
-.dark-blue .reportTablesDiv8 .table tbody tr td {
-  background: #262B29;
-}
-
 .dark-blue .reportTablesDiv7 .table tbody tr td {
-  background: #262B29;
+  background: #242322;
 }
 
 .dark-blue .viewBtnMedian svg path,

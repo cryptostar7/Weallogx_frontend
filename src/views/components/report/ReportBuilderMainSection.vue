@@ -78,6 +78,18 @@ export default {
       },
     };
   },
+  mounted(){
+    let eachInput = document.querySelectorAll('.tableHeadInputs');
+    eachInput.forEach(function (eachInputFun) {
+      eachInputFun.addEventListener('click', function (e) {
+        this.removeAttribute("readonly")     
+      });
+      eachInputFun.addEventListener('focusout', function (e) {
+        this.readOnly = true;
+      });
+      
+    });
+  }
 };
 </script>
 <style lang="">

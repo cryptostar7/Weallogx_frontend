@@ -99,7 +99,7 @@
                         <div class="row">
                           <div class="col-12">
                             <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>Allianz - LIRP</p>
+                              <p><input type="text" value="Allianz - LIRP" class="tableHeadInputs" readonly/></p>
                             </div>
                           </div>
                         </div>
@@ -192,7 +192,7 @@
                             <div class="row">
                               <div class="col-12">
                                 <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                                  <p>Allianz - LIRP</p>
+                                  <p><input type="text" value="Allianz - LIRP" class="tableHeadInputs" readonly/></p>
                                 </div>
                               </div>
                             </div>
@@ -282,7 +282,7 @@
                                       <div class="row">
                                         <div class="col-12">
                                           <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                            <p>{{data[header.id].type}}</p>
+                                            <p><input type="text" v-model="data[header.id].type" class="tableHeadInputs" readonly/></p>
                                           </div>
                                         </div>
                                       </div>

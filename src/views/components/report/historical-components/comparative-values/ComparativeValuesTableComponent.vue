@@ -61,7 +61,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                    <p>&nbsp;</p>
+                    <p><input type="text" value="&nbsp;" class="tableHeadInputs" readonly/></p>
                   </div>
                 </div>
               </div>
@@ -158,7 +158,7 @@
                         <div class="row">
                           <div class="col-12">
                             <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p>{{table.data[0].catogories[tsa_type].type}}</p>
+                              <p><input type="text" v-model="table.data[0].catogories[tsa_type].type" class="tableHeadInputs" readonly/></p>
                             </div>
                           </div>
                         </div>
@@ -271,7 +271,7 @@
                                 <div class="row">
                                   <div class="col-12">
                                     <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                      <p>{{table.data[header.id].type}}</p>
+                                      <p><input type="text" v-model="table.data[header.id].type" class="tableHeadInputs" readonly/></p>
                                     </div>
                                   </div>
                                 </div>

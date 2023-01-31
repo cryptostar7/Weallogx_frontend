@@ -140,7 +140,7 @@
                         <div class="row">
                           <div class="col-12">
                             <div class="lifeProBtmDiv lifeProBtmDiv2 commonBottomTxt">
-                              <p>Account</p>
+                              <p><input type="text" value="Account" class="tableHeadInputs" readonly/></p>
                             </div>
                           </div>
                         </div>
@@ -223,7 +223,7 @@
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1">
-                            <p>LifePro+</p>
+                            <p><input type="text" value="LifePro+" class="tableHeadInputs" readonly></p>
                           </div>
                         </div>
                         <table class="table table3 mt-1 w-100">
@@ -323,7 +323,7 @@
                                     <div class="row">
                                       <div class="col-12">
                                         <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                          <p>{{target_analysis.data[header.id].type}}</p>
+                                          <p><input type="text" v-model="target_analysis.data[header.id].type" class="tableHeadInputs" readonly/></p>
                                         </div>
                                       </div>
                                     </div>
