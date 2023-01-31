@@ -34,7 +34,7 @@
             {{disclosure_msg}}
             </div>
         </div>
-        <div class="disclosure-footer">
+        <div :class="`disclosure-footer ${$props.hideFee ? 'd-none':''}`">
             <div class="row">
             <div class="col-md-6">
                 <h6 class="bold-one">Fees assumed:</h6>
@@ -93,6 +93,7 @@
 <script>
 
 export default {
+  props:['hideFee'],
   data() {
     return {
       saveDisclosure: false,

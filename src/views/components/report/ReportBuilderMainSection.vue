@@ -44,6 +44,7 @@
         </div>
       </main>
     </div>
+    <share-report-modal />
   </section> 
 </template>
 
@@ -52,6 +53,7 @@ import SidebarTabsList from "./SidebarTabsList.vue";
 import ComparativeParentTab from "./ComparativeParentTab.vue";
 import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
+import ShareReportModal from "./../modal/ShareReportModal.vue";
 import { VueDraggableNext } from "vue-draggable-next";
 
 export default {
@@ -60,6 +62,7 @@ export default {
     ComparativeParentTab,
     HistoricalParentTab,
     ClientDetailComponent,
+    ShareReportModal,
     draggable: VueDraggableNext,
   },
 

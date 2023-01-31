@@ -94,7 +94,7 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component />
+            <historical-disclosure-component :hideFee="true" />
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ export default {
           income_in_percent: "55%",
         },
         {
-          type: "Mediam",
+          type: "Median",
           annual_income: 25645,
           total_income: 2562565,
           income_in_percent: "25%",

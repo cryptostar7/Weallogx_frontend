@@ -15,7 +15,7 @@
     <div class="px-3 py-3" id="comparativeValues2Fluid">
       <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
-          <div class="flex-1">
+          <div  v-for="(item, index) in data[0].categories"  :class="`flex-1 ${index === tsa_type ? '':'d-none'}`" :key="item.id">
             <div class="tab-content h-100">
               <div class="tab-pane fade h-100 show active" id="card-mostRecent" role="tabpanel"
                 aria-labelledby="card-mostRecent-tab">
@@ -23,7 +23,7 @@
                   <div class="d-flex justify-content-between">
                     <div class="distrbnCard1paras">
                       <p>Longevity</p>
-                      <p class="cardRadioSwtchpara1">{{data[0].categories[tsa_type].type}}</p>
+                      <p class="cardRadioSwtchpara1">{{item.type}}</p>
                     </div>
                     <div class="d-flex">
                       <div class="button-cover2">
@@ -38,11 +38,11 @@
                   <div class="d-flex justify-content-between mt-1">
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p>Longevity</p>
-                      <p class="cardRadioSwtchpara1">{{data[0].categories[tsa_type].longevity_years}}</p>
+                      <p class="cardRadioSwtchpara1">{{item.longevity_years}}</p>
                     </div>
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p class="text-end">Cumulative Income</p>
-                      <p class="text-end">{{$numFormatWithDollar(data[0].categories[tsa_type].cummulative_income)}}</p>
+                      <p class="text-end">{{$numFormatWithDollar(item.cummulative_income)}}</p>
                     </div>
                   </div>
                   <div class="compGraphSmallBdr compGraphSmallBdrClr1 pt-1 mb-two">
@@ -51,11 +51,11 @@
                   <div class="d-flex">
                     <div class="compGraphtopParaTwo">
                       <p>Rate of Return</p>
-                      <p>{{data[0].categories[tsa_type].ror}}</p>
+                      <p>{{item.ror}}</p>
                     </div>
                     <div class="compGraphtopParaTwo cardParLeftMar">
                       <p>IRR</p>
-                      <p>{{data[0].categories[tsa_type].irr}}</p>
+                      <p>{{item.irr}}</p>
                     </div>
                   </div>
                 </div>
@@ -63,6 +63,7 @@
 
             </div>
           </div>
+
 
 
           <div class="flex-1" v-for="(card, index) in cards" :key="card.id">
@@ -135,9 +136,6 @@
                     <div class="layer2"></div>
                   </div>
                 </div>
-                <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                </a>
               </div>
             </div>
             <div class="bar-container distribution-radio d-flex justify-content-between align-items-center">
@@ -152,9 +150,6 @@
                     <div class="layer2"></div>
                   </div>
                 </div>
-                <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                </a>
               </div>
             </div>
           </div>
@@ -169,11 +164,10 @@ export default {
     return {
       cards: [
         { id: 1, active: true },
-        { id: 1, active: true },
         { id: 2, active: true },
         { id: 3, active: true },
       ],
-      longevity_first_check:true,
+      longevity_first_check: true,
       tsa_type: "most_recent",
       graphs: {
         annual_contribution: true,
@@ -256,6 +250,7 @@ export default {
       afterUpdate(chart, args, options) {
         const ul = getOrCreateLegendList(chart, options.containerID);
         const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        console.log(document.getElementById(options.containerID));
         let checkboxes = [
           ...document
             .getElementById(options.containerID)
@@ -269,13 +264,13 @@ export default {
         });
         let itemToAdd = checkboxes[pillIndex];
         checkboxes.splice(0, 4, itemToAdd);
-
+        console.log(checkboxes);
         items.forEach((item, index) => {
           if (checkboxes[index]) {
             checkboxes[index].onclick = e => {
               if (index < 4) {
-                // let distributionCard = e.target.closest(".distributionCard1");
-                // distributionCard.classList.toggle("inactive");
+                let distributionCard = e.target.closest(".distributionCard1");
+                distributionCard.classList.toggle("inactive");
               }
               const { type } = chart.config;
               if (type === "pie" || type === "doughnut") {

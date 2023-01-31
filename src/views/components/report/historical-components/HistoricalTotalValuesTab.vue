@@ -76,7 +76,7 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component />
+            <historical-disclosure-component :hideFee="true" />
           </div>
         </div>
       </div>
@@ -114,7 +114,7 @@ export default {
           total_value: 2510354,
         },
         {
-          type: "Mediam",
+          type: "Median",
           total_value: 3310354,
         },
         {
@@ -224,13 +224,14 @@ export default {
           data: [19000, 26000, 60000, 55000, 9000, 13000, 45000, 33000, 34000],
         },
         {
-          borderColor: "#FF4C00",
+          borderColor: "#9D2B2B",
           borderWidth: 4,
           radius: 0,
           data: [25000, 28000, 50000, 45000, 15000, 29000, 33000, 40000, 60000],
         },
         {
-          borderColor: "#9D2B2B",
+          borderColor: "#FF4C00",
+          borderWidth: 4,
           radius: 0,
           data: [29000, 31000, 35000, 40000, 30000, 50000, 55000, 45000, 20000],
         },

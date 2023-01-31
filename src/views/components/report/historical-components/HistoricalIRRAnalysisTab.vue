@@ -33,7 +33,7 @@
                       <div class="d-flex justify-content-between">
                         <div class="distrbnCard1paras">
                           <p>IRR</p>
-                          <p :class="`cardRadioSwtchpara${1+index}`">Most Recent</p>
+                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -104,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component />
+            <historical-disclosure-component :hideFee="true" />
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@ export default {
           taxable_equivalent: "30%",
         },
         {
-          type: "Mediam",
+          type: "Median",
           internal_rate_of_return: "33%",
           taxable_equivalent: "65%",
         },

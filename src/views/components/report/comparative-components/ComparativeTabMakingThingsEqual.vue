@@ -15,7 +15,7 @@
                 </div>
               </div>
               <label for="rightCheckBox3" class="rghtTopHeadcommon">Making Things Equal<span
-                  class="ms-3 equalThingTabTxt">The distribution amounts required to match the
+                  class="ms-3 equalThingTabTxt">The {{currentTab}} amounts required to match the
                   LIRP.</span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
@@ -30,13 +30,11 @@
             <div class="px-3 pt-3 pb-2">
               <div class="d-flex justify-content-center">
                 <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                  <div class="active" id="v-pills-distributions-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-distributions" type="button" role="tab"
-                    aria-controls="v-pills-distributions" aria-selected="true">
+                  <div class="active" id="v-pills-distributions-tab" @click="() => currentTab='distributions'" data-bs-toggle="pill" data-bs-target="#v-pills-distributions" type="button" role="tab" aria-controls="v-pills-distributions" aria-selected="true">
                     Distribution
                   </div>
-                  <div id="v-pills-rateOfReturn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-rateOfReturn"
-                    type="button" role="tab" aria-controls="v-pills-rateOfReturn" aria-selected="false">Rate of Return
+                  <div id="v-pills-rateOfReturn-tab" @click="() => currentTab='Rate of return'"  data-bs-toggle="pill" data-bs-target="#v-pills-rateOfReturn" type="button" role="tab" aria-controls="v-pills-rateOfReturn" aria-selected="false">
+                    Rate of Return
                   </div>
                 </div>
               </div>
@@ -218,7 +216,7 @@
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.rate_of_returns[index].active ? '':'inactive'}`">
                           <div class="d-flex justify-content-between">
                             <div class="distrbnCard1paras">
-                              <p>Distributions</p>
+                              <p>Rate of Return</p>
                               <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                             </div>
                             <div class="d-flex">
@@ -397,6 +395,7 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
+      currentTab:'distributions',
       cards: {
         distributions: [
           { id: 1, active: true },
