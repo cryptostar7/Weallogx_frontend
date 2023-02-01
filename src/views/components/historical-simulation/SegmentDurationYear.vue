@@ -4,7 +4,7 @@
             <img src="@/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img">
             <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img">
             <span class="info-message-segment">
-            Does the strategy use a 1 or 2 year crediting period?
+                Does the strategy use a 1, 2 or 3 year crediting period?
             </span>
         </p>
         <p></p>
@@ -17,6 +17,10 @@
         <label class="ms-2">
             <input type="radio" name="segment-duration" class="d-none">
             <span class="timePeriodYear">2</span>
+        </label>
+        <label class="ms-3">
+            <input type="radio" name="segment-duration" class="d-none">
+            <span class="timePeriodYear">3</span>
         </label>
     </div>
 </template>
