@@ -41,7 +41,7 @@
               <comparative-values-graph-component />
               </div>
             </div>
-            <historical-disclosure-component :hideFee="true" />
+            <historical-disclosure-component />
           </div>
         </div>
       </div>

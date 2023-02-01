@@ -100,9 +100,6 @@
                             <div class="layer2"></div>
                           </div>
                         </div>
-                        <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                          <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                        </a>
                       </div>
                     </div>
                     <div class="bar-container distribution-radio d-flex justify-content-between align-items-center">
@@ -117,9 +114,6 @@
                             <div class="layer2"></div>
                           </div>
                         </div>
-                        <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                          <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                        </a>
                       </div>
                     </div>
                   </div>

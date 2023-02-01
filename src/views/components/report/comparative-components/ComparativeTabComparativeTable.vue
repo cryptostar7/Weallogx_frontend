@@ -194,21 +194,21 @@
                                       stroke="#1660A4" stroke-width="1.25"></path>
                                   </svg>
                                 </a>
-                                 <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-      height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_1862_4)">
-        <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
-          stroke-linejoin="round" />
-        <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round" />
-      </g>
-      <defs>
-        <clipPath id="clip0_1862_4">
-          <rect width="12.5" height="11.7" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  </a>
+                                <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
+                                    height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_1862_4)">
+                                      <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                      <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    </g>
+                                    <defs>
+                                      <clipPath id="clip0_1862_4">
+                                        <rect width="12.5" height="11.7" fill="white" />
+                                      </clipPath>
+                                    </defs>
+                                  </svg>
+                                </a>
                               </div>
                             </div>
                           </div>
@@ -280,20 +280,20 @@
                                               </svg>
                                             </a>
                                              <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;<svg width="13"
-      height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_1862_4)">
-        <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
-          stroke-linejoin="round" />
-        <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round" />
-      </g>
-      <defs>
-        <clipPath id="clip0_1862_4">
-          <rect width="12.5" height="11.7" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
-  </a>
+                                                  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                  <g clip-path="url(#clip0_1862_4)">
+                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
+                                                      stroke-linejoin="round" />
+                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
+                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                                  </g>
+                                                  <defs>
+                                                    <clipPath id="clip0_1862_4">
+                                                      <rect width="12.5" height="11.7" fill="white" />
+                                                    </clipPath>
+                                                  </defs>
+                                                </svg>
+                                              </a>
                                             <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
                                               data-bs-toggle="modal"
                                               class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
