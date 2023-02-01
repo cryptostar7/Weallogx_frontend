@@ -2581,7 +2581,7 @@ background: transparent;
 .CardProgressBar {
   position: relative;
   width: 23px;
-  height: 55px;
+  min-height: 55px;
   border-radius: 4px;
   display: flex;
   align-items: flex-end;
@@ -2589,6 +2589,7 @@ background: transparent;
 
 .CardProgressBar.lessWidth {
   width: 19px;
+  overflow: hidden;
 }
 
 .CardProgress {
