@@ -87,7 +87,69 @@ export default {
       eachInputFun.addEventListener('focusout', function (e) {
         this.readOnly = true;
       });
-      
+    });
+
+    let addNoteBtns = document.querySelectorAll(".AddNoteBtn");
+    let addNoteInputs = document.querySelectorAll(".add-note-input");
+    let addNoteParas = document.querySelectorAll(".add-note-para");
+    addNoteBtns.forEach(function(btn){
+      btn.addEventListener("click", function(e){
+        e.target.classList.add("d-none");
+       let parentDiv = e.target.closest(".addNotesMainDiv");
+       let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
+       let addNoteInput = addNoteInputDiv.querySelector(".form-control");
+       addNoteInputDiv.classList.remove("d-none");
+       addNoteInput.focus();
+      });
+    });
+
+    addNoteInputs.forEach(function(input){
+      input.addEventListener("focusout", function(e){
+        let val = input.value;
+        let parentDiv = e.target.closest(".addNotesMainDiv");
+        let addNoteButton = parentDiv.querySelector(".AddNoteBtn");
+        let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
+        let addNotePara = parentDiv.querySelector(".add-note-para");
+        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
+        if(val){
+          addNotePara.innerHTML = val;
+          addNotePara.classList.remove("d-none");
+          addNoteInputDivInner.classList.add("d-none")
+        }else{
+          addNoteInputDiv.classList.add("d-none");
+          addNoteButton.classList.remove("d-none");
+        }
+      });
+
+      input.addEventListener("keyup", function(e){
+        let val = input.value;
+        let parentDiv = e.target.closest(".addNotesMainDiv");
+        let addNoteButton = parentDiv.querySelector(".AddNoteBtn");
+        let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
+        let addNotePara = parentDiv.querySelector(".add-note-para");
+        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
+        if(e.key == 'Enter'){
+          if(val){
+            addNotePara.innerHTML = val;
+            addNotePara.classList.remove("d-none");
+            addNoteInputDivInner.classList.add("d-none")
+          }else{
+            addNoteInputDiv.classList.add("d-none");
+            addNoteButton.classList.remove("d-none");
+          }
+        }
+      });
+    });
+
+    addNoteParas.forEach(function(para){
+      para.addEventListener("click", function(e){
+        e.target.classList.add("d-none");
+        let parentDiv = e.target.closest(".add-note-input-div");
+        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
+        let addNoteInput = addNoteInputDivInner.querySelector(".form-control");
+        addNoteInputDivInner.classList.remove("d-none");
+        addNoteInput.focus();
+      });
     });
   }
 };
