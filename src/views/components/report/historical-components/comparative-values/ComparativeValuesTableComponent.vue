@@ -390,7 +390,7 @@
             </div>
           </div>
         <div class="mt-3 pt-5">
-          <div class="px-3 pb-3 pt-3">
+          <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
             <div class="comparativeSeeAllBtn  mt-2" id="comparativeSeeAllBtn3">
               <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
             </div>
