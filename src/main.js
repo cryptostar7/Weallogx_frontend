@@ -3,7 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import helpers from './helpers'
-import DisableAutocomplete from 'vue-disable-autocomplete';
 import Toaster from "@meforma/vue-toaster";
 import VueCryptojs from 'vue-cryptojs'
 import * as Sentry from "@sentry/vue";
@@ -26,7 +25,6 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(helpers);
-app.use(DisableAutocomplete);
 app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
 

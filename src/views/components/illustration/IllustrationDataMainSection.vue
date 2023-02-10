@@ -567,7 +567,7 @@ export default {
           illustration_id: this.existingIllustrationId,
         },
       };
-      this.$router.push("/comparative-vehicles");
+      // this.$router.push("/comparative-vehicles");
       console.log(data);
     },
   },
