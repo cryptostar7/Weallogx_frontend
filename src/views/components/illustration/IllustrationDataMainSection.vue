@@ -52,12 +52,12 @@
                 </div>
                 <div class="pb-3">
                   <div class=" form-check form-switch custom-switch createSenarioRadioBtn "> 
-                    <input class="form-check-input" type="checkbox" role="switch" v-model="saveInsuranceTemplate"  id="scheduleTemplateCheckbox" /> 
+                    <input class="form-check-input" type="checkbox" role="switch" :disabled="existingInsuranceProfileId ? true: false" v-model="saveInsuranceTemplate"  id="scheduleTemplateCheckbox" /> 
                       <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save this Insurance Company Profile</label> 
                     </div>
                   <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
                     <label for="templateName" class="fs-12 medium-fw">Template Name</label> 
-                    <input type="text" id="templateName" class="form-control" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
+                    <input type="text" id="templateName" class="form-control" :disabled="existingInsuranceProfileId ? true: false" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
                     <label class="error" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</label>
                   </div>
                 </div>
@@ -82,10 +82,8 @@
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation"> 
                     <button class="nav-link active" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" aria-selected="true"> 
-                      <svg class="uploadFromFile" width="9"
-                        height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black"
-                          stroke-width="0.5" />
+                      <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
                         <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
                           stroke="black" stroke-width="0.5" />
                         <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
@@ -110,8 +108,7 @@
                   </li>
                 </ul>
                 <div class="tab-content pt-3 mt-1">
-                  <div class="tab-pane fade show active" id="uploadFromFile" role="tabpanel"
-                    aria-labelledby="uploadFromFile-tab">
+                  <div class="tab-pane fade show active" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
                     <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                     <div class="pb-4"> 
                       <label for="uploading" class="drag-drop-label d-block text-center" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
@@ -306,8 +303,9 @@
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
-                <router-link to="/create-new-scenario" class="nav-link btn form-back-btn fs-14" disabled="true">
-                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back</router-link> 
+                  <router-link to="/create-new-scenario" class="nav-link btn form-back-btn fs-14" disabled="true">
+                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
+                  </router-link> 
                 </div>
             </div>
           </form>
@@ -318,7 +316,7 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
-import { post } from "../../../network/requests.js";
+import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import {
   getFirstError,
@@ -334,17 +332,17 @@ export default {
       saveIllustrationTemplate: false,
       illustrationTemplateName: "",
       uploadFromFile: true,
-      existingInsuranceList: [
-        { id: 1, template_name: "Vehicle One" },
-        { id: 2, template_name: "Vehicle Two" },
-        { id: 3, template_name: "Vehicle Three" },
-        { id: 4, template_name: "Vehicle Four" },
-        { id: 5, template_name: "Vehicle Five" },
-        { id: 6, template_name: "Vehicle Six" },
-        { id: 7, template_name: "Vehicle Seven" },
-        { id: 8, template_name: "Vehicle Eight" },
-        { id: 9, template_name: "Vehicle Nine" },
-      ],
+      // existingInsuranceList: [
+      //   { id: 1, template_name: "Vehicle One" },
+      //   { id: 2, template_name: "Vehicle Two" },
+      //   { id: 3, template_name: "Vehicle Three" },
+      //   { id: 4, template_name: "Vehicle Four" },
+      //   { id: 5, template_name: "Vehicle Five" },
+      //   { id: 6, template_name: "Vehicle Six" },
+      //   { id: 7, template_name: "Vehicle Seven" },
+      //   { id: 8, template_name: "Vehicle Eight" },
+      //   { id: 9, template_name: "Vehicle Nine" },
+      // ],
       existingIllustrationList: [
         { id: 1, template_name: "Illustration One" },
         { id: 2, template_name: "Illustration Two" },
@@ -407,6 +405,16 @@ export default {
         }
       })
     );
+
+    if (!this.existingInsuranceList.length) {
+      this.getExistingInsurance();
+    }
+  },
+  computed: {
+    existingInsuranceList() {
+      let array = this.$store.state.data.templates.insurance || [];
+      return array;
+    },
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
@@ -419,6 +427,7 @@ export default {
     // set existing illustration id on selecting the input dropdown data
     setExistingIllustrationId: function(id) {
       this.existingIllustrationId = id;
+      this.errors = [];
     },
 
     // set existing insurance profile name on change the input value
@@ -443,27 +452,42 @@ export default {
       }
     },
 
+    // populate the isurance data on selectig the existing dropdown template list
     populateInsuranceProfile: function(id) {
-      console.log(id);
-      var data = {
-        initial_death_benefit: "1,000",
-        insurance_company: "Test Company",
-        insurance_policy_name: "Insurance Policy Name",
-        policy_nickname: "Policy Nickname",
-        policy_return: "50",
-      };
-
-      (this.insuranceCompany = data.insurance_company),
-        (this.insurancePolicyName = data.insurance_policy_name),
-        (this.PolicyNickname = data.policy_nickname),
-        this.setInputWithId("deathBenifit", data.initial_death_benefit);
-      this.setInputWithId("policyReturn", data.policy_return);
+      if (id) {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("illustration")}${id}`, authHeader())
+          .then(response => {
+            let data = response.data.data;
+            this.$store.dispatch("loader", false);
+            this.insuranceCompany = data.insurance_company;
+            this.insurancePolicyName = data.insurance_policy_name;
+            this.PolicyNickname = data.insurance_policy_nickname;
+            this.setInputWithId(
+              "deathBenifit",
+              data.initial_death_benifit.toLocaleString()
+            );
+            this.setInputWithId("policyReturn", data.policy_return);
+            this.uploadFromFile = data.copy_paste_checkbox;
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      } else {
+        this.$toast.error("Something went wrong.");
+      }
     },
 
     // validate the form
     validateForm: function() {
       var validate = true;
-
       // console.log(data.illustration.template);
       if (this.existingInsuranceProfileName) {
         let templateId = this.$getTemplateId(
@@ -587,6 +611,39 @@ export default {
       return value;
     },
 
+    // get existing insurance profile template
+    getExistingInsurance: function() {
+      this.$store.dispatch("loader", true);
+      get(getUrl("illustration"), authHeader())
+        .then(response => {
+          let template = [];
+          if (response.data.data.length) {
+            response.data.data.forEach(item => {
+              template.push({
+                id: item.id,
+                template_name: item.insurance_template_name,
+              });
+            });
+          }
+          console.log(response.data);
+          this.$store.dispatch("template", {
+            type: "insurance",
+            data: template,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
     // handle illustration file uploading
     handleFile: function(e) {
       let file = null;
@@ -606,8 +663,36 @@ export default {
 
     submitHandler: function(e) {
       e.preventDefault();
-      // console.log('illustrationTemplate');
-      // console.log(this.saveIllustrationTemplate);
+      if (this.existingInsuranceProfileId) {
+        console.log(this.existingInsuranceProfileId);
+        this.$toast.success("Illustration data added successfully.");
+        this.$router.push(
+          `/comparative-vehicles/${this.$route.params.scenario}`
+        );
+
+        // post(getUrl("exisiting_insurance"), authHeader())
+        //   .then(response => {
+        //     console.log(response);
+        //     this.$toast.success("Illustration data added successfully.");
+        //     this.$router.push(
+        //       `/comparative-vehicles/${this.$route.params.scenario}`
+        //     );
+        //   })
+        //   .catch(error => {
+        //     console.log(this.error);
+        //     this.$store.dispatch("loader", false);
+        //     if (
+        //       error.code === "ERR_BAD_RESPONSE" ||
+        //       error.code === "ERR_NETWORK"
+        //     ) {
+        //       this.$toast.error(error.message);
+        //     } else {
+        //       this.$toast.error(getFirstError(error));
+        //     }
+        //   });
+        return false;
+      }
+
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
@@ -670,7 +755,10 @@ export default {
 
       post(getUrl("illustration"), formData, authHeader())
         .then(response => {
-          // this.$router.push(`/comparative-vehicles/${this.$route.params.scenario}`);
+          this.$toast.success("Illustration data added successfully.");
+          this.$router.push(
+            `/comparative-vehicles/${this.$route.params.scenario}`
+          );
           console.log(response);
         })
         .catch(error => {

@@ -40,7 +40,7 @@ const router = createRouter({
       component: () => import("../views/pages/IllustrationData.vue"),
     },
     {
-      path: "/comparative-vehicles",
+      path: "/comparative-vehicles/:scenario?",
       name: "comparative-vehicles",
       component: () => import("../views/pages/ComparativeVehicle.vue"),
     },
