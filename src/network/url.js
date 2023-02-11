@@ -35,6 +35,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/schedule/`;
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
+    case 'illustration':
+      return `${baseUrl}/auth/illustration/`;
     case 'logout':
       return `${baseUrl}/auth/logout/`;
     default:

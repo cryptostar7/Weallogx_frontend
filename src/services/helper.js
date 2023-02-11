@@ -110,3 +110,15 @@ export const getSearchParams = (name) => {
   }
   return false;
 }
+
+
+export const getNumber = (_str) => {
+  var arr = String(_str).split("");
+  var out = new Array();
+  for (var cnt = 0; cnt < arr.length; cnt++) {
+    if (isNaN(arr[cnt]) == false || arr[cnt] == ".") {
+      out.push(arr[cnt]);
+    }
+  }
+  return Number(out.join(""));
+}

@@ -144,6 +144,11 @@ const router = createRouter({
       name: "edit-profile",
       component: () => import("../views/pages/EditProfilePage.vue"),
     },
+    {
+      path: "/:slug/:slug2?/:slug3?",
+      name: "not found page",
+      component: () => import("../views/pages/NotFoundPageView.vue"),
+    },
   ],
 });
 
@@ -168,7 +173,8 @@ const authRoutes = [
   'report-builder',
 ];
 
-const privateRoutes = [
+// these routes are secure with active plans
+const secureRoutes = [
   // 'home',
   // 'create-new-scenario',
   // 'illustration-data',
@@ -182,12 +188,12 @@ const privateRoutes = [
 ];
 
 router.beforeEach((to, from, next) => {
-  if (authRoutes.includes(to.name) || privateRoutes.includes(to.name)) {
+  if (authRoutes.includes(to.name) || secureRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
     }
-    if(privateRoutes.includes(to.name) && authCheck() && !isPlanActive()){
+    if(secureRoutes.includes(to.name) && authCheck() && !isPlanActive()){
       next('/current-plan');
       // this.$toast.warning('Your plan has been expired, please upgrade your plan to continue the service.');
     }    

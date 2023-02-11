@@ -52,14 +52,13 @@
                 </div>
                 <div class="pb-3">
                   <div class=" form-check form-switch custom-switch createSenarioRadioBtn "> 
-                    <input class="form-check-input" type="checkbox" role="switch" v-model="saveinsuranseTemplate"
-                      id="scheduleTemplateCheckbox" /> 
-                      <label class="form-check-label fs-12 semi-bold-fw mb-0"
-                      for="scheduleTemplateCheckbox">Save this Insurance Company Profile</label> 
+                    <input class="form-check-input" type="checkbox" role="switch" v-model="saveInsuranceTemplate"  id="scheduleTemplateCheckbox" /> 
+                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save this Insurance Company Profile</label> 
                     </div>
-                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveinsuranseTemplate ? '' : 'none'}"> 
+                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
                     <label for="templateName" class="fs-12 medium-fw">Template Name</label> 
-                    <input type="text" id="templateName" class="form-control" value="" /> 
+                    <input type="text" id="templateName" class="form-control" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
+                    <label class="error" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</label>
                   </div>
                 </div>
                 <hr class="hr-separator" size="1.25" />
@@ -79,11 +78,10 @@
                     </div>
                   </div>
                 </div>
-                <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration"
-                  id="existingIllustration" />
+                <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration" id="existingIllustration" />
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation"> 
-                    <button class="nav-link active" id="uploadFromFile-tab" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" aria-selected="true"> 
+                    <button class="nav-link active" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" aria-selected="true"> 
                       <svg class="uploadFromFile" width="9"
                         height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black"
@@ -101,7 +99,7 @@
                       </svg> &nbsp;Upload From File 
                     </button> 
                   </li>
-                  <li class="nav-item" role="presentation"> 
+                  <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
                     <button class="nav-link" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" aria-selected="false"> 
                       <svg class="copyPaste" width="11" height="11"
                         viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,9 +112,10 @@
                 <div class="tab-content pt-3 mt-1">
                   <div class="tab-pane fade show active" id="uploadFromFile" role="tabpanel"
                     aria-labelledby="uploadFromFile-tab">
+                    <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                     <div class="pb-4"> 
-                      <label for="uploading" class="drag-drop-label d-block text-center"> 
-                        <input type="file" id="uploading" name="uploading" hidden /> 
+                      <label for="uploading" class="drag-drop-label d-block text-center" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
+                        <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
                         <span>
                           <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
                         </span>
@@ -126,17 +125,30 @@
                         <button type="button" class="btn choose-file-btn"> Choose File </button> 
                         <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
                       </label>
-                      <p class=" file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 " id="fileName"></p>
+                      <p class=" file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 " id="fileName">{{illustrationFile.name}}</p>
                     </div>
                   </div>
                   <div class="tab-pane fade" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
+                    <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
                     <div class="copy-paste-area">
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
                       <div class="form-group mb-0"> 
                         <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control"></textarea> 
+                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text"></textarea> 
+                        <!-- <div id="pasteData" cols="30" rows="5" class="form-control"></div>  -->
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="pb-3">
+                  <div class="form-check form-switch custom-switch pt-2">
+                    <input class="form-check-input" type="checkbox" role="switch" v-model="saveIllustrationTemplate" id="scenarioTemplateCheckbox" />
+                    <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Illustration as Template</label>
+                  </div>
+                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveIllustrationTemplate ? '' : 'none'}">
+                    <label for="templateName" class="fs-12 medium-fw">Template Name</label>
+                    <input type="text" id="templateName" class="form-control" v-model="illustrationTemplateName" @keyup="clearError('illustration_template_name')"/>
+                    <label class="error" v-if="errors.illustration_template_name">{{errors.illustration_template_name[0]}}</label>
                   </div>
                 </div>
               </div>
@@ -151,13 +163,12 @@
                             <tbody>
                               <tr>
                                 <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 "> <button
-                                      class="btn col-delete-btn" data-bs-toggle="modal"
-                                      data-bs-target="#deleteColumnModal"> <img
-                                        src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
+                                  <div class=" d-flex flex-column align-items-center px-2 "> 
+                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
+                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
                                     </button>
                                     <select name="" id="" class="form-select select-option">
-                                      <option value="" selected>Year</option>
+                                      <option value="" selected>Year</option>       
                                       <option value="">Age</option>
                                       <option value="">Premium</option>
                                       <option value="">Accumulation Value</option>
@@ -290,13 +301,13 @@
                   </table>
                 </div>
               </div>
+       
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
                 <router-link to="/create-new-scenario" class="nav-link btn form-back-btn fs-14" disabled="true">
-                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />
-                  Back</router-link> 
+                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back</router-link> 
                 </div>
             </div>
           </form>
@@ -307,11 +318,22 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
+import { post } from "../../../network/requests.js";
+import { getUrl } from "../../../network/url.js";
+import {
+  getFirstError,
+  authHeader,
+  getNumber,
+} from "../../../services/helper.js";
 export default {
   components: { SelectDropdown },
   data() {
     return {
-      saveinsuranseTemplate: false,
+      saveInsuranceTemplate: false,
+      insuranceTemplateName: "",
+      saveIllustrationTemplate: false,
+      illustrationTemplateName: "",
+      uploadFromFile: true,
       existingInsuranceList: [
         { id: 1, template_name: "Vehicle One" },
         { id: 2, template_name: "Vehicle Two" },
@@ -330,6 +352,11 @@ export default {
         { id: 4, template_name: "Illustration Four" },
         { id: 5, template_name: "Illustration Five" },
       ],
+      illustrationFile: {
+        name: "",
+        file: null,
+        text: "",
+      },
       existingInsuranceProfileId: "",
       existingInsuranceProfileName: "",
       existingIllustrationId: "",
@@ -343,15 +370,6 @@ export default {
     };
   },
   mounted() {
-    // Uploading file
-    let uploadingInput = document.getElementById("uploading");
-    let fileName = document.getElementById("fileName");
-
-    uploadingInput.addEventListener("change", function(e) {
-      let file = e.target.files[0];
-      fileName.innerText = file.name;
-    });
-
     // input validation for min and max value with putting comman
     const inputs = document.querySelectorAll(".handleLimit");
     inputs.forEach(element =>
@@ -389,24 +407,13 @@ export default {
         }
       })
     );
-
-    function getNumber(_str) {
-      var arr = String(_str).split("");
-      var out = new Array();
-      for (var cnt = 0; cnt < arr.length; cnt++) {
-        if (isNaN(arr[cnt]) == false || arr[cnt] == ".") {
-          out.push(arr[cnt]);
-        }
-      }
-      return Number(out.join(""));
-    }
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
     setExistingInsuranceProfileId: function(id) {
       this.existingInsuranceProfileId = id;
       this.errors = [];
-      this.populateInsuranseProfile(id);
+      this.populateInsuranceProfile(id);
     },
 
     // set existing illustration id on selecting the input dropdown data
@@ -436,7 +443,7 @@ export default {
       }
     },
 
-    populateInsuranseProfile: function(id) {
+    populateInsuranceProfile: function(id) {
       console.log(id);
       var data = {
         initial_death_benefit: "1,000",
@@ -457,6 +464,7 @@ export default {
     validateForm: function() {
       var validate = true;
 
+      // console.log(data.illustration.template);
       if (this.existingInsuranceProfileName) {
         let templateId = this.$getTemplateId(
           this.existingInsuranceProfileName,
@@ -475,6 +483,13 @@ export default {
         this.errors.existing_insurance_profile = "";
       }
 
+      if (this.saveInsuranceTemplate && !this.insuranceTemplateName) {
+        this.errors.insurance_template_name = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.insurance_template_name = false;
+      }
+
       if (this.existingIllustrationName) {
         let templateId = this.$getTemplateId(
           this.existingIllustrationName,
@@ -491,6 +506,30 @@ export default {
         }
       } else {
         this.errors.existing_illustration = "";
+        if (this.uploadFromFile) {
+          if (!this.illustrationFile.file) {
+            this.errors.illustration_file = true;
+            validate = false;
+          } else {
+            this.errors.illustration_file = false;
+          }
+          this.errors.illustration_text = false;
+        } else {
+          if (!this.illustrationFile.text) {
+            this.errors.illustration_text = ["This field is required."];
+            validate = false;
+          } else {
+            this.errors.illustration_text = false;
+          }
+          this.errors.illustration_file = false;
+        }
+      }
+
+      if (this.saveIllustrationTemplate && !this.illustrationTemplateName) {
+        this.errors.illustration_template_name = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.illustration_template_name = false;
       }
 
       if (!this.insuranceCompany) {
@@ -548,30 +587,106 @@ export default {
       return value;
     },
 
+    // handle illustration file uploading
+    handleFile: function(e) {
+      let file = null;
+      file = e.target.files[0];
+      if (file) {
+        if (file.type !== "application/pdf") {
+          this.errors.illustration_file = ["Please upload a valid PDF file."];
+          this.illustrationFile.file = null;
+          this.illustrationFile.name = "";
+          return false;
+        }
+      }
+      this.illustrationFile.file = file ? file : "";
+      this.illustrationFile.name = file ? file.name : "";
+      this.errors.illustration_file = false;
+    },
+
     submitHandler: function(e) {
       e.preventDefault();
+      // console.log('illustrationTemplate');
+      // console.log(this.saveIllustrationTemplate);
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
       }
 
       this.$toast.info("Form submitted");
+
       var data = {
-        insurance_company: this.insuranceCompany,
-        insurance_policy_name: this.insurancePolicyName,
-        policy_nickname: this.PolicyNickname,
-        initial_death_benefit: this.getInputWithId("deathBenifit"),
+        company: this.insuranceCompany,
+        policy_name: this.insurancePolicyName,
+        nickname: this.PolicyNickname,
+        initial_death_benefit: getNumber(this.getInputWithId("deathBenifit")),
         policy_return: this.getInputWithId("policyReturn"),
+        insurance_template: this.saveInsuranceTemplate,
+        insurance_template_name: this.insuranceTemplateName,
+        upload_file_checkbox: this.uploadFromFile,
+        illustration: {
+          template: this.saveIllustrationTemplate,
+          template_name: this.illustrationTemplateName,
+        },
         existing: {
           insurance_profile_id: this.existingInsuranceProfileId,
           illustration_id: this.existingIllustrationId,
         },
+        template_name: false,
       };
-      // this.$router.push("/comparative-vehicles");
+
+      let formData = new FormData();
+      formData.append("insurance_company", data.company);
+      formData.append("insurance_policy_name", data.policy_name);
+      formData.append("insurance_policy_nickname", data.nickname);
+      formData.append("save_this_company_profile", data.insurance_template);
+      if (data.insurance_template) {
+        formData.append(
+          "insurance_template_name",
+          data.insurance_template_name
+        );
+      }
+      formData.append(
+        "illustration_data.upload_from_file",
+        this.illustrationFile.file
+      );
+      formData.append(
+        "illustration_data.upload_file_checkbox",
+        data.upload_file_checkbox
+      );
+      formData.append(
+        "illustration_data.save_this_template_name",
+        data.illustration.template
+      );
+      if (data.illustration.template) {
+        formData.append(
+          "illustration_data.template_name",
+          data.illustration.template_name
+        );
+      }
+      formData.append("initial_death_benifit", data.initial_death_benefit);
+      formData.append("policy_return", data.policy_return);
+      formData.append("scenerio_id", this.$route.params.scenario);
+
+      post(getUrl("illustration"), formData, authHeader())
+        .then(response => {
+          // this.$router.push(`/comparative-vehicles/${this.$route.params.scenario}`);
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
+        });
       console.log(data);
     },
   },
 };
 </script>
-<style lang="">
-</style>
