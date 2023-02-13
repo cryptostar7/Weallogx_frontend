@@ -31,10 +31,9 @@
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div class="flex-1" v-for="(item, index) in data" :key="index">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '':'inactive'}`">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Longevity</p>
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <p class="allCardHeadPara">Longevity</p>                         
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -57,6 +56,7 @@
                           </a>
                         </div>
                       </div>
+                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                       <div class="d-flex justify-content-between mt-1">
                         <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
                           <p>Longevity</p>

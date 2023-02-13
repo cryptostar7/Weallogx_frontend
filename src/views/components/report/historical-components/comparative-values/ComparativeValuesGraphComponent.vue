@@ -20,10 +20,9 @@
               <div class="tab-pane fade h-100 show active" id="card-mostRecent" role="tabpanel"
                 aria-labelledby="card-mostRecent-tab">
                 <div :class="`distributionCard1 equalDistCard1 position-relative w-100 ${longevity_first_check ? '' : 'inactive'}`">
-                  <div class="d-flex justify-content-between">
-                    <div class="distrbnCard1paras">
-                      <p>Longevity</p>
-                      <p class="cardRadioSwtchpara1">{{item.type}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <p class="allCardHeadPara">Longevity</p>
                     </div>
                     <div class="d-flex">
                       <div class="button-cover2">
@@ -34,7 +33,8 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>                  
+                  <p class="cardRadioSwtchpara1">{{item.type}}</p>
                   <div class="d-flex justify-content-between mt-1">
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p>Longevity</p>
@@ -68,10 +68,9 @@
 
           <div class="flex-1" v-for="(card, index) in cards" :key="card.id">
             <div :class="`distributionCard1 equalDistCard${2+index} position-relative w-100 ${card.active ? '':'inactive'}`">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between align-items-center">
                 <div class="distrbnCard1paras">
-                  <p>Longevity</p>
-                  <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].type}}</p>
+                  <p class="allCardHeadPara">Longevity</p>
                 </div>
                 <div class="d-flex">
                   <div class="button-cover2">
@@ -92,7 +91,8 @@
                     </svg>
                   </a>
                 </div>
-              </div>
+              </div>              
+              <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].type}}</p>
               <div class="d-flex justify-content-between mt-1">
                 <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
                   <p>Longevity</p>

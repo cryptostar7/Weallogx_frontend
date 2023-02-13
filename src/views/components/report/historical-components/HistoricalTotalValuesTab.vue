@@ -31,10 +31,9 @@
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div class="flex-1" v-for="(item, index) in data" :key="index">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '': 'inactive'}`">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Total Value</p>
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <p class="allCardHeadPara">Total Value</p>
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -56,7 +55,8 @@
                             </svg>
                           </a>
                         </div>
-                      </div>
+                      </div>                      
+                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${14+index} totalValueProgress${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress"></div>

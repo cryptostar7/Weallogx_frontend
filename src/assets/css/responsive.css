@@ -179,6 +179,12 @@
     .form-wrapper-inner{
         padding: 0.85rem;
     }
+    .comValCardPara1 {
+        font-size: 9px;
+      }
+      .comValCardPara1 {
+        font-size: 9px;
+      }
 }
 
 @media (max-width:576px) {

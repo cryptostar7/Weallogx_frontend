@@ -2561,7 +2561,13 @@ background: transparent;
   border-radius: 50%;
   cursor: pointer;
 }
-
+.headingAllCard{
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 1px;
+}
 .distrbnCard1paras p:first-child {
   color: #000000;
   font-size: 16px;
@@ -2569,7 +2575,13 @@ background: transparent;
   margin: 0;
   margin-bottom: 1px;
 }
-
+p.allCardHeadPara{
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 1px;
+}
 .distrbnCard1paras p:last-child {
   color: var(--green-clr);
   font-size: 12px;
@@ -4486,11 +4498,11 @@ background: #1D856C;
   color: #9D9D9D;
   margin: 0;
   line-height: 1;
-  margin-bottom: 2.5px;
+  margin-bottom: 3px;
 }
 
 .comValCardPara1 {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   color: #9D9D9D;
   margin: 0;
@@ -4584,7 +4596,9 @@ background: #1D856C;
   margin: 0;
   line-height: 1;
 }
-
+.irrTopDiv{
+  margin-bottom: 0.8rem;
+}
 /* tables Left head Border */
 .reportTablesDiv1 .table th {
   border-left: 0.5px solid #565656;
@@ -5027,22 +5041,37 @@ border: none;
 
 .cardRadioSwtchpara1 {
   color: #0E6651 !important;
+  font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 7px;
 }
 
 .cardRadioSwtchpara2 {
   color: #1660A4 !important;
+  font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 7px;
 }
 
 .cardRadioSwtchpara3 {
   color: #763CA3 !important;
+  font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 7px;
 }
 
 .cardRadioSwtchpara4 {
   color: #9D2B2B !important;
+  font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 7px;
 }
 
 .cardRadioSwtchpara5 {
   color: #E8662F !important;
+  font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 7px;
 }
 
 .makeEqualPara1 {
@@ -5103,17 +5132,19 @@ border: none;
 }
 
 .irrCardParaTop1 {
-  color: #0E6651;
+  color: #0F8266;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaBtm1 {
   color: #209579;
   font-weight: 600;
   font-size: 13px;
-  margin: o;
+  margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaTop2 {
@@ -5121,13 +5152,15 @@ border: none;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaBtm2 {
   color: #1A89EE;
   font-weight: 600;
   font-size: 13px;
-  margin: o;
+  margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaTop3 {
@@ -5135,13 +5168,15 @@ border: none;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaBtm3 {
   color: #B770EF;
   font-weight: 600;
   font-size: 13px;
-  margin: o;
+  margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaTop4 {
@@ -5149,13 +5184,15 @@ border: none;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaBtm4 {
   color: #CA3939;
   font-weight: 600;
   font-size: 13px;
-  margin: o;
+  margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaTop5 {
@@ -5163,13 +5200,15 @@ border: none;
   font-weight: 600;
   font-size: 13px;
   margin: 0;
+  line-height: 1;
 }
 
 .irrCardParaBtm5 {
   color: #F0875A;
   font-weight: 600;
   font-size: 13px;
-  margin: o;
+  margin: 0;
+  line-height: 1;
 }
 
 .irrGroupedBars1 .irrBarHeight1 {
@@ -5287,6 +5326,10 @@ border: none;
 .distributionCard1.inactive .irrAnalysisCardAllParas * {
   color: #dfdfdf !important;
 }
+.irrAnalysisCardAllParas{
+  display:flex;flex-direction: column;
+  justify-content: space-between;
+}
 .commonTableCls .disableBtnsForAll svg path,
 .commonTableCls .disableBtnsForAll svg rect {
   stroke: #CDCDCD;
@@ -5310,4 +5353,8 @@ border: none;
 }
 .reportTablesDiv7 .table tbody tr td{
   background: #FFFAF7;
+}
+
+.sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
+font-size:16px;
 }

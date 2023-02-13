@@ -2313,7 +2313,9 @@
 .dark-blue .distrbnCard1paras p:first-child {
   color: white;
 }
-
+.dark-blue p.allCardHeadPara{
+  color: white;
+}
 .dark-blue .distrbnCard1paras p:nth-child(2) {
   color: #53A9F1;
 }
