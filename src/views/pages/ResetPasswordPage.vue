@@ -13,8 +13,8 @@
                         <label for="email">New Password</label>
                         <input type="password" id="email" v-model="password" @keyup="errors.password = false">
                     </div>
-                  <label class="error" v-if="password === ''">This field is required.</label>
-                  <label class="error" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
+                  <label class="error fs-14 d-block text-center" v-if="password === ''">*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
                 </div>
 
                   <div>
@@ -22,8 +22,8 @@
                         <label for="email">Confirm Password</label>
                         <input type="password" id="email" v-model="confirm_password" @keyup="errors.confirm_password = false">
                     </div>
-                    <label class="error" v-if="confirm_password=== ''">This field is required.</label>
-                    <label class="error" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
+                    <label class="error fs-14 d-block text-center" v-if="confirm_password=== ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
                   </div>
 
                     <div class="authButtonDiv">

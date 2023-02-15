@@ -13,6 +13,9 @@ body {
 .fs-14{
     font-size: 14px;
 }
+.fs-12{
+    font-size: 12px;
+}
 .authMainDiv {
     max-width: 900px;
     display: flex;
@@ -25,10 +28,11 @@ body {
 }
 
 .headingArea {
-    color: 333333;
+    color: 333;
     font-size: 42px;
     position: relative;
     margin-bottom: 35px;
+    font-weight: 800;
 }
 .mt-15{
     margin-top: 15px;
@@ -57,8 +61,8 @@ input:-webkit-autofill:active {
 
 .auth-form {
     position: relative;
-    margin-top: 15px;
-    height: 45px;
+    margin-top: 25px;
+    height: 50px;
 }
 
 .auth-form input {
@@ -203,7 +207,7 @@ p span.bold{
     border: 1px solid #0E6651;
     border-radius: 50px;
     width: 100%;
-    padding: .55rem 2rem;
+    padding: .75rem 2rem;
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
@@ -261,7 +265,7 @@ p span.bold{
 }
 
 .authMaindiv-area {
-    margin-top: 6rem;
+    margin-top: 4.5rem;
     margin-bottom: 6rem;
 }
 
@@ -299,7 +303,7 @@ p span.bold{
 }
 
 .headingMiddleArea h1 {
-    color: 333333;
+    color: 333;
     font-size: 42px;
 }
 
@@ -426,7 +430,7 @@ p span.bold{
 .pricingBottomDiv .pricingFeaturesFirstUl li {
     font-weight: 400;
     font-size: 16px;
-    color: #333333;
+    color: #333;
     margin-left: 22px;
     margin-bottom: 25px;
 }
@@ -563,7 +567,7 @@ p span.bold{
 
 .pricingFaqMaintDiv .pricingFaqleftDiv div:first-child {
     border: none;
-    border-left: 5px solid #333333;
+    border-left: 5px solid #333;
 }
 
 .pricingFaqMaintDiv .pricingFaqleftDiv div:last-child {
@@ -571,11 +575,11 @@ p span.bold{
 }
 
 .pricingFaqMaintDiv .pricingFaqleftDiv div:hover {
-    border-left: 5px solid #333333;
+    border-left: 5px solid #333;
 }
 
 .faqLeftheading {
-    background: #333333;
+    background: #333;
     text-align: left;
     color: #fff !important;
     font-weight: 900 !important;
@@ -595,8 +599,8 @@ p span.bold{
 }
 
 .faqRightEachQueAns div.faqRightQue {
-    background: #333333;
-    border: 1px solid #333333;
+    background: #333;
+    border: 1px solid #333;
     border-radius: 5px;
     color: #fff;
     padding: 12px;
@@ -761,7 +765,7 @@ p span.bold{
 
 .payment-methodMain-div {
     display: flex;
-    margin-top: 55px;
+    margin-top: 25px;
 }
 
 .payment-left-card-main-div {
@@ -769,7 +773,7 @@ p span.bold{
 }
 
 .payment-left-card {
-    background: #333333;
+    background: #333;
     border: 1px solid #7A7D86;
     border-radius: 10px;
     width: 100%;
@@ -1060,7 +1064,7 @@ input.ShowingCvv::placeholder {
     text-decoration: none;
     width: 111px;
     height: 37px;
-    border: 1px solid #333333;
+    border: 1px solid #333;
     border-radius: 50px;
     display: flex;
     justify-content: center;
@@ -1069,13 +1073,13 @@ input.ShowingCvv::placeholder {
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
-    color: #333333;
+    color: #333;
     margin-right: 10px;
 }
 
 .paymentCardEditButton:hover {
-    border: 1px solid #333333;
-    background: #333333;
+    border: 1px solid #333;
+    background: #333;
     color: #fff;
 }
 
@@ -1101,7 +1105,7 @@ input.ShowingCvv::placeholder {
     padding-left: 16px;
     padding-right: 16px;
     height: 30px;
-    border: 1px solid #333333;
+    border: 1px solid #333;
     border-radius: 50px;
     display: flex;
     justify-content: center;
@@ -1109,12 +1113,12 @@ input.ShowingCvv::placeholder {
     font-family: Roboto, sans-serif !important;
     font-weight: 400;
     font-size: 12px;
-    color: #333333;
+    color: #333;
 }
 
 .paymentCardEditButton2:hover {
-    border: 1px solid #333333;
-    background: #333333;
+    border: 1px solid #333;
+    background: #333;
     color: #fff;
 }
 
@@ -1145,7 +1149,7 @@ input.ShowingCvv::placeholder {
     font-weight: 600;
     font-size: 16px;
     text-align: center;
-    color: #333333;
+    color: #333;
 }
 
 .paymentBackBtn img {
@@ -1288,7 +1292,7 @@ input.ShowingCvv::placeholder {
 
 .saveCardDiv {
     position: relative;
-    border: 1px solid #333333;
+    border: 1px solid #333;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -1311,7 +1315,7 @@ input.ShowingCvv::placeholder {
     font-family: Roboto, sans-serif !important;
     font-weight: 500;
     font-size: 12px;
-    color: #333333;
+    color: #333;
     margin-left: 5px;
 }
 
@@ -1431,7 +1435,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 400;
     font-size: 16px;
-    color: #333333;
+    color: #333;
 }
 
 .mediumText p {
@@ -1447,7 +1451,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 500;
     font-size: 16px;
-    color: #333333;
+    color: #333;
 }
 
 .cuponInputAndButton {
@@ -1724,7 +1728,7 @@ input:checked+.paymentSlider:before {
     font-weight: 500;
     font-size: 13px;
     text-align: center;
-    color: #333333;
+    color: #333;
     margin: 0;
     margin-bottom: 4.5px;
 }
@@ -1775,16 +1779,13 @@ input:checked+.paymentSlider:before {
 }
 
 .profileDetailsLeftDiv a .profile-left-card-div {
-    margin-bottom: 34px;
+    margin-bottom: 20px;
 }
 
 .profile-left-card-div .profileLeftInnerDiv {
     display: flex;
     align-items: center;
 }
-
-
-
 
 .profile-left-card-div {
     background: #fff;
@@ -1839,9 +1840,8 @@ input:checked+.paymentSlider:before {
 }
 
 .profile-left-card-div.active:hover {
-    background: #fff;
-    border: 1px solid #DFDFDF;
-    border-radius: 8px;
+    background: #0D7C62;
+    color: #fff;
 }
 
 .profile-left-card-div.active:hover .profileLeftInnerCircleDiv {
@@ -1849,27 +1849,19 @@ input:checked+.paymentSlider:before {
     border: 1px solid #DFDFDF;
 }
 
-.profile-left-card-div.active:hover .profileLeftInnerDiv p {
-    color: #3C3C3C;
-}
-
 .profile-left-card-div.active:hover .profileLeftInnerCircleDiv svg path {
     fill: #3C3C3C;
 }
 
 .profile-left-card-div:hover {
-    background: #0E6651;
-    border: 1px solid #0E6651;
+    background: #f4f4f4;
+/*    border: 1px solid #0E6651;*/
 
 }
 
 .profile-left-card-div:hover .profileLeftInnerCircleDiv {
     background: #FFF;
     border: 1px solid #FFF;
-}
-
-.profile-left-card-div:hover .profileLeftInnerDiv p {
-    color: #FFF;
 }
 
 .profile-left-card-div:hover .profileLeftInnerCircleDiv svg path {
@@ -2017,7 +2009,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 500;
     font-size: 18px;
-    color: #333333;
+    color: #333;
     margin: 0;
     padding: 0;
     margin-top: 5px;
@@ -2033,7 +2025,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 500;
     font-size: 24px;
-    color: #333333;
+    color: #333;
     margin: 0;
     padding: 0;
     margin-top: 5px;
@@ -2084,7 +2076,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 500;
     font-size: 22px;
-    color: #333333;
+    color: #333;
 }
 
 .current-plan-main-div div p {
@@ -2102,7 +2094,7 @@ input:checked+.paymentSlider:before {
     font-family: Roboto, sans-serif !important;
     font-weight: 600;
     font-size: 18px;
-    color: #333333;
+    color: #333;
 }
 
 .plan-upgrad-button {
@@ -2199,7 +2191,7 @@ input:checked+.paymentSlider:before {
     font-weight: bold;
     width: 128px;
     display: inline-block;
-    color: #333333;
+    color: #333;
 }
 
 .rwd-table th,
@@ -2267,7 +2259,6 @@ input:checked+.paymentSlider:before {
 }
 
 .editProfile {
-    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
@@ -2355,58 +2346,76 @@ input:checked+.paymentSlider:before {
 
 .edit-profile-inputs-div .editProfileInpuDiv:nth-child(even) {
     padding-left: 25px;
+    padding-right: 0;
 }
 
 .editProfileInpuDiv {
     margin-bottom: 30px;
     width: 50%;
 }
-
+.upload-logo-div{
+    display: flex;
+    gap: 1rem;
+}
 .businessLogoUploadDiv {
     position: relative;
     width: 100%;
     border: 1px solid #298B74;
-    border-radius: 25px;
-    padding: 42px;
+    border-radius: 15px;
+    padding: 30px 15px;
     margin-top: 25px;
 }
-
+.businessLogoUploadDiv.blue{
+    border: 1px solid #004885;
+}
+.businessLogoUploadDiv.dark{
+    border: 1px solid #202124;
+    background-color: #202124;
+}
 .businessLogoUploadDiv .businessLogoLabel {
     font-family: Roboto, sans-serif !important;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     color: #0E6651;
     position: absolute;
     top: -15px;
     left: 30px;
     background: #fff;
-    padding: 2px;
+    padding: 2px 8px;
 }
-
+.businessLogoUploadDiv.blue .businessLogoLabel {
+    color: #004885;
+}
+.businessLogoUploadDiv.dark .businessLogoLabel {
+    color: #fff;
+    background-color: #202124;
+    border-radius: 25px;
+}
 .businessLogoInnerDiv {
     display: flex;
     justify-content: center;
 }
 
 .businessLogoImageDiv {
-    width: 381px;
-    border: 1px solid #DFDFDF;
+/*    border: 1px solid #DFDFDF;*/
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 50px;
+    padding: 15px 25px;
     overflow: hidden;
+    min-height: 75px;
+    width: 100%;
 }
 
 .businessLogoImageDiv img {
     width: auto!important;
 }
 
-.logoNoticePara {
+.logoNoticePara, .logo-caption {
     font-family: Roboto, sans-serif !important;
     font-weight: 400;
-    font-size: 11px;
+    font-size: 13px;
     color: #808487;
     text-align: center;
     margin-top: 8px;
@@ -2419,9 +2428,9 @@ input:checked+.paymentSlider:before {
 }
 
 .businesslogoUploadImgDiv img {
-    width: 82px;
-    height: 76px;
+    width: 45px;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .businesslogoUploadImgDiv p {
@@ -2429,10 +2438,21 @@ input:checked+.paymentSlider:before {
     font-weight: 500;
     font-size: 12px;
     text-align: center;
-    color: #444444;
+    color: #298B74;
     text-align: center;
+    margin-top: 5px;
+}
+.businessLogoUploadDiv.blue .businesslogoUploadImgDiv p {
+    color: #004885
+}
+.businessLogoUploadDiv.dark .businesslogoUploadImgDiv p {
+    color: #fff;
 }
 
+.profile-update-btn{
+    max-width: 350px;
+    margin: 0 auto;
+}
 @media (max-width:768px) {
     .edit-profile-inputs-div {
         display: block;
@@ -2462,7 +2482,11 @@ input:checked+.paymentSlider:before {
         display: block;
     }
 }
-
+@media (max-width:992px) {
+    .editProfileInnerDiv {
+        padding: 50px 3rem;
+    }
+}
 @media (max-width:478px) {
     .editProfileInnerDiv {
         padding: 50px 2rem;
@@ -2474,6 +2498,11 @@ input:checked+.paymentSlider:before {
     }
     .editProHeadingBack .backButton{
         margin-bottom: 2rem;
+    }
+}
+@media (max-width:568px) {
+    .upload-logo-div {
+        flex-wrap: wrap;
     }
 }
 
@@ -2618,7 +2647,7 @@ margin-bottom: 10px;
 .notificationPlanPara{
     font-weight: 400!important;
 font-size: 14px!important;
-color: #333333!important;
+color: #333!important;
 margin:40px 0 12px 0!important;
 }
 
@@ -2639,7 +2668,7 @@ margin:40px 0 12px 0!important;
     font-weight: 400;
 font-size: 16px;
 text-align: right;
-color: #333333;
+color: #333;
 font-family: Roboto, sans-serif !important;
 }
 .DashBoardRightPara1Div p:last-child{
@@ -2647,14 +2676,13 @@ font-family: Roboto, sans-serif !important;
     font-size: 29px;
     text-align: right;    
     color: #0E6651;
-    margin-top: 10px;
     font-family: Roboto, sans-serif !important;
 }
 .DashBoardRightPara2Div div{
     font-weight: 400;
 font-size: 16px;
 text-align: right;
-color: #333333;
+color: #333;
 font-family: Roboto, sans-serif !important;
 }
 .DashBoardRightPara2Div p:last-child{
@@ -2662,7 +2690,6 @@ font-family: Roboto, sans-serif !important;
     font-size: 29px;
     text-align: right;    
     color: #0E6651;
-    margin-top: 10px;
     font-family: Roboto, sans-serif !important;
 }
 .DashBoardRightPara2Div img{
@@ -2692,6 +2719,7 @@ z-index: 999;
     color: #FFFFFF!important;
     padding: 10px;
     font-family: Roboto, sans-serif !important;
+    line-height: 1.35;
 }
 .DashBoardRightPara2Div .infoMainDiv .innerInfoDiv .rectangleDesign{
     position: absolute;

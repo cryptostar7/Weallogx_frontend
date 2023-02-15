@@ -9,13 +9,13 @@
             <div class="authInnerDiv">
               <h1 class="headingArea">Forgot <span>Password</span></h1>
               <!-- <form action="/reset-password"> -->
-              <div>
+              <div class="pt-2">
                 <div class="auth-form">
                   <label for="email">Email</label>
-                  <input type="text" id="email" v-model="email" @keyup="errors.email = false">
+                  <input type="text" id="email" v-model="email" @keyup="errors.email = false" placeholder=" ">
                 </div>
-                <label class="error" v-if="email === ''">This field is required.</label>
-                <label class="error" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
+                <label class="error fs-14 text-center d-block" v-if="email === ''">*This field is required.</label>
+                <label class="error fs-14 text-center d-block" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
               </div>
               <div class="authButtonDiv">
                 <a class="btn" @click="sendForgotRequest()">Send Reset Link</a>
