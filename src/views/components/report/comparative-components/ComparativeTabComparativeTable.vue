@@ -8,15 +8,12 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox1" type="checkbox" class="checkbox2 rightCheckBox1"
-                    :checked="activeTabs[keyId]" rightCheckAttr="1"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox1" type="checkbox" class="checkbox2 rightCheckBox1"  :checked="activeTabs[keyId]" rightCheckAttr="1"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
               </div>
-              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative
-                Table</label>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table</label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,21 +35,14 @@
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
-                    <label for="showAssets"
-                      class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show
-                      assets one by one</label>
+                    <label for="showAssets" class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show assets one by one</label>
                   </div>
                   <div class="collapseDivmdlHd text-center">Target Analysis</div>
                 </div><br>
                 <div class="d-flex justify-content-center mt-2">
                   <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"
-                      role="tab" aria-controls="v-pills-distribution" aria-selected="true">
-                      Distribution
-                    </div>
-                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab"
-                      aria-controls="v-pills-rate-of-return" aria-selected="false">Rate of Return
-                    </div>
+                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"  role="tab" aria-controls="v-pills-distribution" aria-selected="true">Distribution</div>
+                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab" aria-controls="v-pills-rate-of-return" aria-selected="false">Rate of Return</div>
                   </div>
                 </div>
                 <div class="tab-content">
@@ -60,19 +50,12 @@
                     aria-labelledby="pills-home-tab">
                     <div class="d-flex justify-content-center mt-2">
                       <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"
-                          data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default"
-                          aria-selected="true">Amount</div>
-                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity"
-                          type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Amount</div>
+                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
                           Longevity
                         </div>
-                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"
-                          type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending
-                          Value</div>
-                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"
-                          type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death
-                          Benefit</div>
+                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"  type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending  Value</div>
+                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"  type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death  Benefit</div>
                       </div>
                     </div>
                   </div>
@@ -80,19 +63,12 @@
                     aria-labelledby="pills-home-tab">
                     <div class="d-flex justify-content-center mt-2">
                       <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"
-                          data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default"
-                          aria-selected="true">Default</div>
-                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity"
-                          type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill" data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Default</div>
+                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
                           Longevity
                         </div>
-                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"
-                          type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending
-                          Value</div>
-                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"
-                          type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death
-                          Benefit</div>
+                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue" type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending Value</div>
+                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit" type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death Benefit</div>
                       </div>
                     </div>
                   </div>
@@ -113,9 +89,8 @@
                                 <div class="layer2"></div>
                               </div>
                               <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"
-                                  class="deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12" height="13"
-                                    viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"  class="deleteBtnAccount disableBtnsForAll">&nbsp;
+                                  <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                       d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
                                       stroke="#1660A4" stroke-width="1.25"></path>
@@ -162,14 +137,13 @@
                             </tbody>
                           </table>
                         </div>
-                        <!-- 1 end -->
                         <div class="reportTablesDiv ms-2 reportTablesDiv2">
                           <table class="table">
                             <thead class="heading-tr">
                               <tr>
                                 <th>Deposits</th>
                               </tr>
-                            </thead>
+                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in target_analysis.distributions" :key="index">
                                 <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
@@ -185,22 +159,17 @@
                           <div class="row">
                             <div class="col-12">
                               <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                      stroke="#1660A4" stroke-width="1.15"></rect>
-                                    <path
-                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                      stroke="#1660A4" stroke-width="1.25"></path>
+                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;
+                                  <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white" stroke="#1660A4" stroke-width="1.15"></rect>
+                                    <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25"></path>
                                   </svg>
                                 </a>
-                                <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;
+                                  <svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_1862_4)">
-                                      <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                      <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
+                                      <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
+                                      <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"  stroke-linecap="round" stroke-linejoin="round" />
                                     </g>
                                     <defs>
                                       <clipPath id="clip0_1862_4">
@@ -259,33 +228,24 @@
                                     </div>
                                     <div class="row">
                                       <div class="col-12">
-                                        <div
-                                          :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
+                                        <div :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
                                           <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
-                                            <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`"
-                                              :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
+                                            <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`" :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
                                           </div>
                                           <div class="d-flex align-items-center">
-                                            <a href="javascript:void(0)"
-                                              class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;<svg width="13"
-                                                height="13" viewBox="0 0 13 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
-                                                  fill="white" stroke="#1660A4" stroke-width="1.15" />
-                                                <path
-                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                                  stroke="#1660A4" stroke-width="1.25" />
+                                            <a href="javascript:void(0)" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
+                                              <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
+                                                <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                               </svg>
                                             </a>
-                                             <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;<svg width="13"
-                                                  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;
+                                              <svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                   <g clip-path="url(#clip0_1862_4)">
-                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
-                                                      stroke-linejoin="round" />
-                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
-                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
+                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"  stroke-linecap="round" stroke-linejoin="round" />
                                                   </g>
                                                   <defs>
                                                     <clipPath id="clip0_1862_4">
@@ -294,16 +254,10 @@
                                                   </defs>
                                                 </svg>
                                               </a>
-                                            <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
-                                              data-bs-toggle="modal"
-                                              class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;<svg width="12"
-                                                height="13" viewBox="0 0 12 13" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                                  stroke="#1660A4" stroke-width="1.25" />
-                                                <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                                  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
+                                            <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
+                                              <svg width="12"  height="13" viewBox="0 0 12 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                                                <path  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"  stroke="#1660A4" stroke-width="1.25" />
+                                                <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
                                               </svg>
                                             </a>
                                           </div>
@@ -337,7 +291,9 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/></td>
+                                        <td class="blankTd" data-label="blank">
+                                          <input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/>
+                                        </td>
                                         <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.net_balance)" readonly/></td>
                                       </tr>
                                     </tbody>

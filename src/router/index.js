@@ -45,27 +45,27 @@ const router = createRouter({
       component: () => import("../views/pages/ComparativeVehicle.vue"),
     },
     {
-      path: "/historical-simulations",
+      path: "/historical-simulations/:scenario?",
       name: "historical-simulations",
       component: () => import("../views/pages/HistoricalSimulationsPage.vue"),
     },
     {
-      path: "/historical-simulations-after-no",
+      path: "/historical-simulations-after-no/:scenario?",
       name: "historical-simulations-after-no",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterNo.vue"),
     },
     {
-      path: "/historical-simulations-after-yes",
+      path: "/historical-simulations-after-yes/:scenario?",
       name: "historical-simulations-after-yes",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterYes.vue"),
     },
     {
-      path: "/historical-simulations-from-scratch",
+      path: "/historical-simulations-from-scratch/:scenario?",
       name: "historical-simulations-from-scratch",
       component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
     },
     {
-      path: "/review-summary",
+      path: "/review-summary/:scenario?",
       name: "review-summary",
       component: () => import("../views/pages/ReviewSummaryPage.vue"),
     },
