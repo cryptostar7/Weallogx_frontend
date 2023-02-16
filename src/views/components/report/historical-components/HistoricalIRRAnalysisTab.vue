@@ -30,10 +30,10 @@
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div v-for="(item, index) in data" :key="index" class="flex-1">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '':'inactive'}`">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>IRR</p>
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <p class="allCardHeadPara">IRR</p>
+                          
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -55,17 +55,23 @@
                             </svg>
                           </a>
                         </div>
+                        
                       </div>
+                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth switchBg lightProgress${1+index} irrBoxProgressCommon${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress" style="height: 50%;"></div>
                           <!-- <p class="lineUnderBars"></p> -->
                         </div>
-                        <div class="irrAnalysisCardAllParas">
-                          <p class="ms-2 irrCardPara1">Internal Rate of Return</p>
+                        <div class="irrAnalysisCardAllParas irrCard">
+                          <div class="irrTopDiv">
+                            <p class="ms-2 irrCardPara1">Internal Rate of Return</p>
                           <p :class="`ms-2 irrCardParaTop${1+index}`">{{item.internal_rate_of_return}}</p>
-                          <p class="ms-2 irrCardPara1">Taxable Equivalent</p>
+                          </div>
+                          <div>
+                            <p class="ms-2 irrCardPara1">Taxable Equivalent</p>
                           <p :class="`ms-2 irrCardParaBtm${1+index}`">{{item.taxable_equivalent}}</p>
+                          </div>
                         </div>
                       </div>
                     </div>

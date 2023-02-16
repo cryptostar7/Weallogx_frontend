@@ -443,7 +443,7 @@
                 </div>
               </div>
             </div>
-            <comparative-disclosure-component v-if="activeTabs[keyId]" />
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :hideFee="true"/>
           </div>
         </div>
       </div>

@@ -47,10 +47,9 @@
                     <div class="d-flex justify-content-between flex-gap-12">
                       <div class="mt-3 flex-1" v-for="(item, index) in data.cumulative_income" :key="index">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.cumulative_income[index].active ? '': 'inactive'}`">
-                          <div class="d-flex justify-content-between">
-                            <div class="distrbnCard1paras">
-                              <p>Cumulative Income</p>
-                              <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                              <p  class="allCardHeadPara">Cumulative Income</p>
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
@@ -72,7 +71,8 @@
                                 </svg>
                               </a>
                             </div>
-                          </div>
+                          </div>                          
+                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                           <div class="mt-2 d-flex">
                             <div :class="`mt-1 CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.cumulative_income[index].active ? '': 'boxProgress'}`">
                               <div class="CardProgress"></div>

@@ -13,16 +13,16 @@
                   <label for="email" :class="user.email ? 'active':''">Email</label>
                   <input type="text" autocomplete="off" id="email" v-model="user.email" @keyup="errors.email = false" placeholder=" ">
                 </div>
-                <label class="error" v-if="user.email === ''">This field is required.</label>
-                <label class="error" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
+                <label class="error fs-14 text-center d-block" v-if="user.email === ''">*This field is required.</label>
+                <label class="error fs-14 text-center d-block" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
               </div>
               <div>
                 <div class="auth-form">
                   <label for="password" :class="user.password ? 'active':''">Password</label>
                   <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false" placeholder=" ">
                 </div>
-                <label class="error" v-if="user.password === ''">This field is required.</label>
-                <label class="error" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
+                <label class="error fs-14 text-center d-block" v-if="user.password === ''">*This field is required.</label>
+                <label class="error fs-14 text-center d-block" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
               </div>
               <div class="rememberAndForgetDiv">
                 <div>

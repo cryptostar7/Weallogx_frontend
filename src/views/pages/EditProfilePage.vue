@@ -34,8 +34,8 @@
                     <label for="firstName" class="active" >First Name</label>
                     <input type="text" id="firstName" v-model="user.first_name" @keyup="errors.first_name = false" >
                   </div>
-                  <label class="error" v-if="user.first_name === ''" >This field is required.</label>
-                  <label class="error" v-if="errors.first_name && errors.first_name[0]" >{{errors.first_name[0]}}</label>
+                  <label class="error fs-14 d-block text-center" v-if="user.first_name === ''" >*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.first_name && errors.first_name[0]" >{{errors.first_name[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -43,7 +43,7 @@
                     <label for="lastName" class="active" >Last Name</label>
                     <input type="text" id="lastName" v-model="user.last_name" @keyup="errors.last_name = false" >
                   </div>
-                  <label class="error" v-if="errors.last_name && errors.last_name[0]" >{{errors.last_name[0]}}</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.last_name && errors.last_name[0]" >{{errors.last_name[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -51,8 +51,8 @@
                     <label for="email" class="active" >Company Name</label>
                     <input type="text" id="email" v-model="user.company_name" @keyup="errors.company_name = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.company_name === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.company_name && errors.company_name[0]" >{{errors.company_name[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.company_name === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.company_name && errors.company_name[0]" >{{errors.company_name[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -60,8 +60,8 @@
                     <label for="phone" class="active" >Email</label>
                     <input type="text" id="phone" readonly v-model="user.email" @keyup="errors.email = false" >
                   </div>
-                  <label class="error" v-if="user.email === ''" >This field is required.</label>
-                  <label class="error" v-if="errors.email && errors.email[0]" >{{errors.email[0]}}</label>
+                  <label class="error fs-14 d-block text-center" v-if="user.email === ''" >*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.email && errors.email[0]" >{{errors.email[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -69,8 +69,8 @@
                     <label for="password" class="active" >Phone</label>
                     <input type="text" id="password" v-model="user.phone_number" @keyup="errors.phone_number = false" >
                   </div>
-                  <label class="error" v-if="user.phone_number === ''" >This field is required.</label>
-                  <label class="error" v-if="errors.phone_number && errors.phone_number[0]" >{{errors.phone_number[0]}}</label>
+                  <label class="error fs-14 d-block text-center" v-if="user.phone_number === ''" >*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.phone_number && errors.phone_number[0]" >{{errors.phone_number[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -78,8 +78,8 @@
                     <label for="confirmPassword" class="active" >Website</label>
                     <input type="text" id="confirmPassword" v-model="user.website" @keyup="errors.website = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.website === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.website && errors.website[0]" >{{errors.website[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.website === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.website && errors.website[0]" >{{errors.website[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -87,8 +87,8 @@
                     <label for="confirmPassword" class="active" >Address</label>
                     <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.street_address === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.street_address === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -96,8 +96,8 @@
                     <label for="confirmPassword" class="active" >City</label>
                     <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.city === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.city === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -105,8 +105,8 @@
                     <label for="confirmPassword" class="active" >State</label>
                     <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.state === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.state === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
@@ -114,32 +114,72 @@
                     <label for="confirmPassword" class="active" >Zip Code</label>
                     <input type="text" id="confirmPassword" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" >
                   </div>
-                  <!-- <label class="error" v-if="user.zip_code === ''" >This field is required.</label> -->
-                  <label class="error" v-if="errors.zip_code && errors.zip_code[0]" >{{errors.zip_code[0]}}</label>
+                  <!-- <label class="error fs-14 d-block text-center" v-if="user.zip_code === ''" >*This field is required.</label> -->
+                  <label class="error fs-14 d-block text-center" v-if="errors.zip_code && errors.zip_code[0]" >{{errors.zip_code[0]}}</label>
                 </div>
 
               </div>
-              <div class="businessLogoUploadDiv" >
-                <label class="businessLogoLabel" >Upload Business Logo</label>
-                <div class="businessLogoInnerDiv" >
-                  <div>
-                    <div class="businessLogoImageDiv" v-if="businessLogo">
-                      <img :src="businessLogo" alt="logo" class="preview-business-image" >
+              <div class="upload-logo-div">
+                <div class="businessLogoUploadDiv green">
+                  <label class="businessLogoLabel" >Logo for Green Mode</label>
+                  <div class="businessLogoInnerDiv" >
+                    <div>
+                      <div class="businessLogoImageDiv" v-if="businessLogo">
+                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      </div>
+                      
+                      <div class="businesslogoUploadImgDiv" >
+                        <div class="text-center">
+                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
+                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon.svg" alt="Upload" ></label>
+                          <p>Upload Logo</p>
+                        </div>
+                      </div>
                     </div>
-                    <p class="logoNoticePara" >( *Logo with transparent background is recommended ) </p>
-                    <div class="businesslogoUploadImgDiv" >
-                      <div>
-                        <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
-                        <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon.svg"
-                            alt="Upload" ></label>
-                        <p>Upload Logo</p>
+                  </div>
+                </div>
+                <div class="businessLogoUploadDiv blue" >
+                  <label class="businessLogoLabel">Logo for Blue Mode</label>
+                  <div class="businessLogoInnerDiv" >
+                    <div>
+                      <div class="businessLogoImageDiv" v-if="businessLogo">
+                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      </div>
+                      
+                      <div class="businesslogoUploadImgDiv" >
+                        <div class="text-center">
+                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
+                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon-blue.svg" alt="Upload" ></label>
+                          <p>Upload Logo</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="businessLogoUploadDiv dark">
+                  <label class="businessLogoLabel" >Logo for Dark Mode</label>
+                  <div class="businessLogoInnerDiv" >
+                    <div>
+                      <div class="businessLogoImageDiv" v-if="businessLogo">
+                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      </div>
+                      
+                      <div class="businesslogoUploadImgDiv" >
+                        <div class="text-center">
+                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
+                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon-white.svg" alt="Upload" ></label>
+                          <p>Upload Logo</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="authButtonDiv active" >
-                <button class="btn" @click="updateProfile()" >Update</button>
+              <div class="text-center">
+                <label class="logo-caption">(** Logo with transparent background is recommended!) </label>
+              </div>
+              <div class="authButtonDiv active pt-3">
+                <button class="btn profile-update-btn" @click="updateProfile()" >Update</button>
               </div>
           </div>
           <router-link to="/profile-details" class="backButton editProbackBtn" ><img

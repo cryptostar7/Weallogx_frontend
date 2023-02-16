@@ -5,10 +5,9 @@
       <div class="d-flex justify-content-between flex-gap-12">
         <div class="mt-3 flex-1" v-for="(item, index) in data" :key="index">
           <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '' : 'inactive'}`">
-            <div class="d-flex justify-content-between pb-1">
-              <div class="distrbnCard1paras">
-                <p>Value Efficiency</p>
-                <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <p class="allCardHeadPara">Value Efficiency</p>
               </div>
               <div class="d-flex">
                 <div class="button-cover2">
@@ -19,7 +18,8 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>            
+            <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Value Efficiency</p>
               <p class="legacyCardPara2 text-right">{{item.value_efficiency_ratio}}</p>

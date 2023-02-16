@@ -150,7 +150,7 @@
                 </div>
               </div>
               <div class="illustration-data-table-div">
-                <h4 class="fs-22 bold-fw">Categorize, Review and Edit Data</h4>
+                <h4 class="fs-22 bold-fw mb-3">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                   <table class="table illustration-data-table mb-0">
                     <tbody>
