@@ -15,7 +15,7 @@
                 </div>
               </div>
               <label for="rightCheckBox3" class="rghtTopHeadcommon">Making Things Equal<span
-                  class="ms-3 equalThingTabTxt">The {{currentTab}} amounts required to match the
+                  class="ms-3 equalThingTabTxt">The {{currentTab}} required to match the
                   LIRP.</span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
@@ -30,10 +30,10 @@
             <div class="px-3 pt-3 pb-2">
               <div class="d-flex justify-content-center">
                 <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                  <div class="active" id="v-pills-distributions-tab" @click="() => currentTab='distributions'" data-bs-toggle="pill" data-bs-target="#v-pills-distributions" type="button" role="tab" aria-controls="v-pills-distributions" aria-selected="true">
+                  <div class="active" id="v-pills-distributions-tab" @click="() => currentTab='distributions amounts'" data-bs-toggle="pill" data-bs-target="#v-pills-distributions" type="button" role="tab" aria-controls="v-pills-distributions" aria-selected="true">
                     Distribution
                   </div>
-                  <div id="v-pills-rateOfReturn-tab" @click="() => currentTab='Rate of return'"  data-bs-toggle="pill" data-bs-target="#v-pills-rateOfReturn" type="button" role="tab" aria-controls="v-pills-rateOfReturn" aria-selected="false">
+                  <div id="v-pills-rateOfReturn-tab" @click="() => currentTab='rate of return'"  data-bs-toggle="pill" data-bs-target="#v-pills-rateOfReturn" type="button" role="tab" aria-controls="v-pills-rateOfReturn" aria-selected="false">
                     Rate of Return
                   </div>
                 </div>
@@ -60,13 +60,9 @@
                               </div>
                               <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
                                 data-bs-toggle="modal">
-                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path
-                                    d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                    stroke="#9D9D9D" />
-                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                    transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z" stroke="#9D9D9D" />
+                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                                 </svg>
                               </a>
                             </div>
@@ -227,15 +223,10 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
-                                data-bs-toggle="modal">
-                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path
-                                    d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                    stroke="#9D9D9D" />
-                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                    transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
+                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path  d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z" stroke="#9D9D9D" />
+                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                                 </svg>
                               </a>
                             </div>
@@ -262,7 +253,6 @@
                           <add-note-input-component />
                         </div>
                       </div>
-
                     </div>
                   </div>
                   <div class="container-fluid ">
@@ -298,8 +288,7 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
                                   </a>
                                 </div>
@@ -325,8 +314,7 @@
                                 <div class="d-flex">
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"
-                                        :checked="graphs.rate_of_returns.ending_value" v-model="graphs.rate_of_returns.ending_value"/>
+                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"  :checked="graphs.rate_of_returns.ending_value" v-model="graphs.rate_of_returns.ending_value"/>
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -363,8 +351,7 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
                                   </a>
                                 </div>
@@ -395,7 +382,7 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      currentTab:'distributions',
+      currentTab:'distributions amounts',
       cards: {
         distributions: [
           { id: 1, active: true },

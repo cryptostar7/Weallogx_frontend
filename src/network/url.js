@@ -37,9 +37,16 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':
       return `${baseUrl}/auth/illustration/`;
+    case 'existing-illustration':
+      return `${baseUrl}/auth/exsiting-illustration/`;
+    case 'illustration-id':
+      return `${baseUrl}/auth/illustrationid/`;
+    case 'illustration-template':
+      return `${baseUrl}/auth/illustration-datalist`;
     case 'logout':
       return `${baseUrl}/auth/logout/`;
     default:
       return baseUrl;
   }
 };
+

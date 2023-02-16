@@ -3,12 +3,15 @@
     <section class="main-section">
       <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
         <ul class="mt-1 review-progress" id="reviewProgress">
-          <li class="done"> <router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link>
+          <li class="done"> 
+            <router-link :to="`/create-new-scenario/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
           </li>
-          <li class="done"> <router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link>
+          <li class="done"> 
+            <router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link>
           </li>
-          <li class="active"> <router-link to="comparative-vehicles" class="nav-link p-0">Comparative
-              Vehicles</router-link> </li>
+          <li class="active"> 
+            <router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link> 
+          </li>
           <li class=""> <a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a> </li>
         </ul> <router-link to="/"> <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" />
         </router-link>
@@ -395,6 +398,12 @@ export default {
           { id: 3, template_name: "Vehicle 3" },
           { id: 4, template_name: "Vehicle 4" },
         ],
+      },
+      existing:{
+        vehicle1:{
+          name:'',
+          id:'',
+        }
       },
       errors: {
         vehicle1: [],

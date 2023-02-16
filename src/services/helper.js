@@ -9,13 +9,22 @@ export function getParams(route) {
 
 export function getFirstError(error) {
   if (error.response && error.response.data) {
-    var msg = Object.values(error.response.data)[0];
-    if (typeof msg === 'object') {
-      msg = msg[0];
+    let values = [];
+    if (error.response.data.error) {
+      values = error.response.data.error;
+    } else {
+      values = error.response.data;
     }
-    return msg ?? 'Network Error';
+
+    for (var i = 0; i < 5; i++) {
+      if(typeof values === 'object'){
+        values = Object.values(values)[0];
+      }
+    }
+
+    return values ? values : `${error.message ? error.message : 'Something went wrong!'}`;
   }
-  return 'Something went wrong!';
+  return error.message;
 }
 
 export function getServerErrors(error) {
@@ -122,3 +131,5 @@ export const getNumber = (_str) => {
   }
   return Number(out.join(""));
 }
+
+export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;

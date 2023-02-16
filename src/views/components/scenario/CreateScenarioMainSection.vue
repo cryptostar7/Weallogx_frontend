@@ -3,7 +3,7 @@
     <div class="reviewProgressMainDiv py-5">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="active">
-          <router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link>
+          <router-link :to="`/create-new-scenario/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
         </li>
         <li class="">
           <a href="javascript:void(0)" class="nav-link p-0">Illustration Data</a>
@@ -26,32 +26,24 @@
             <div class="main-form-heading">
               <div class="heading-container">
                 <h2 class="fs-34 bold-fw main-tab-heading me-2">
-                  New Scenario
+                  New Scenario  
                 </h2>
               </div>
             </div>
-
             <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId" @inputText="setExistingClientName"/>
                 <hr class="hr-separator" size="1.25" />
                 <SelectDropdown :list="existingScenarioList" label="Use Existing Scenario" id="existingScenario" :error="errors.existing_details" @clearError="() => errors.existing_details = false" :clearInput="detailTemplateInput" @setClearedInput="() => detailTemplateInput = 0" @onSelectItem="setExistingScenarioDetailId" @inputText="setExistingScenarioDetailName"/>
                 <span class="or-text-span">or</span>
-                <h4 class="form-subheading fs-14 fw-bold">
-                  Create From Scratch
-                </h4>
+                <h4 class="form-subheading fs-14 fw-bold">Create From Scratch</h4>
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
                   <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="() => {clearDetailTemplate(); errors.scenario_name = false}" />
                   <label class="error" v-if="errors.scenario_name">{{errors.scenario_name[0]}}</label>
                 </div>
                 <div class="form-group less">
-                  <div class="
-                      label-group
-                      d-flex
-                      justify-content-between
-                      align-items-center
-                    ">
+                  <div class="label-group d-flex justify-content-between align-items-center">
                     <label for="scenarioDesc" class="fs-12 medium-fw">Description</label>
                     <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                   </div>
@@ -60,8 +52,7 @@
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
-                    <label for="clientAge" class="fs-12 medium-fw">Client Age
-                      <span class="regular-fw">Year 1 age on illustration</span></label>
+                    <label for="clientAge" class="fs-12 medium-fw">Client Age<span class="regular-fw">Year 1 age on illustration</span></label>
                     <input type="number" class="form-control handleLimit" id="clientAge" min="1" max="100" @keyup="() => {updateClientAge(); clearDetailTemplate(); errors.client_age_year = false}"/>
                     <label class="error" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</label>
                   </div>
@@ -77,25 +68,18 @@
 
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button :class="`nav-link ${simpleTaxRate ? 'active':''}`" id="simpleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = true}" data-bs-toggle="tab"
-                      data-bs-target="#simpleTaxRate" type="button" role="tab" aria-controls="simpleTaxRate"
-                      aria-selected="true">
-                      <svg class="simpleTaxRateImg" width="9" height="14" viewBox="0 0 9 14" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <button :class="`nav-link ${simpleTaxRate ? 'active':''}`" id="simpleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = true}" data-bs-toggle="tab"  data-bs-target="#simpleTaxRate" type="button" role="tab" aria-controls="simpleTaxRate"  aria-selected="true">
+                      <svg class="simpleTaxRateImg" width="9" height="14" viewBox="0 0 9 14" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.5" y="0.5" width="8" height="4" rx="0.5" stroke="black" />
                         <rect x="0.5" y="9.5" width="8" height="4" rx="0.5" stroke="black" />
-                        <rect x="1.25" y="6.75" width="6.5" height="0.5" rx="0.25" fill="white" stroke="black"
-                          stroke-width="0.5" />
+                        <rect x="1.25" y="6.75" width="6.5" height="0.5" rx="0.25" fill="white" stroke="black"  stroke-width="0.5" />
                       </svg>
                       &nbsp;Simple Tax Rate
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button :class="`nav-link ${simpleTaxRate ? '':'active'}`" id="scheduleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = false}" data-bs-toggle="tab"
-                      data-bs-target="#scheduleTaxRate" type="button" role="tab" aria-controls="scheduleTaxRate"
-                      aria-selected="false">
-                      <svg class="scheduleTaxRateImg" width="9" height="10" viewBox="0 0 9 10" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <button :class="`nav-link ${simpleTaxRate ? '':'active'}`" id="scheduleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = false}" data-bs-toggle="tab" data-bs-target="#scheduleTaxRate" type="button" role="tab" aria-controls="scheduleTaxRate"  aria-selected="false">
+                      <svg class="scheduleTaxRateImg" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.25" y="0.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
                           stroke-width="0.5" />
                         <rect x="0.25" y="3.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
@@ -111,8 +95,7 @@
                 </ul>
 
                 <div class="tab-content pt-3 mt-1">
-                  <div :class="`tab-pane fade ${simpleTaxRate ? 'show active':''}`" id="simpleTaxRate" role="tabpanel"
-                    aria-labelledby="simpleTaxRate-tab">
+                  <div :class="`tab-pane fade ${simpleTaxRate ? 'show active':''}`" id="simpleTaxRate" role="tabpanel"  aria-labelledby="simpleTaxRate-tab">
                     <div class="form-group-wrapper">
                       <div class="form-group">
                         <label for="firstTaxRate" class="fs-12 medium-fw">First Tax Rate %</label>
@@ -124,16 +107,13 @@
                       <div class="form-group">
                         <label for="secondTaxRate" class="fs-12 medium-fw">Second Tax Rate %</label>
                         <div class="percent-input-div">
-                          <input type="number" id="secondTaxRate"
-                            :class="`form-control handleLimit ${errors.second_tax ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax = false}" min="1" max="100"
-                            :disabled="firstTaxRate ? false : true" />
+                          <input type="number" id="secondTaxRate" :class="`form-control handleLimit ${errors.second_tax ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax = false}" min="1" max="100"  :disabled="firstTaxRate ? false : true" />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Second Tax Rate Year</label>
-                        <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax_year = false}"
-                          :disabled="firstTaxRate ? false : true">
+                        <select name="" id="secondTaxRateYear" v-model="secondTaxRateYear" :class="`form-select form-control  ${errors.second_tax_year ? 'required' : ''}`" @keyup="() => {clearDetailTemplate(); errors.second_tax_year = false}" :disabled="firstTaxRate ? false : true">
                           <option value=""></option>
                           <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(Number(illustrateYear).toFixed(0))" :key="index" :value="item">{{item}}</option>
                         </select>
@@ -172,13 +152,10 @@
                       </table>
                       <div class="pb-3">
                         <div class="form-check form-switch custom-switch pt-2">
-                          <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioScheduleName ? true : false" v-model="saveScheduleTemplate"
-                            id="scheduleTemplateCheckbox" />
-                          <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save
-                            this Schedule as Template</label>
+                          <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioScheduleName ? true : false" v-model="saveScheduleTemplate" id="scheduleTemplateCheckbox" />
+                          <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save this Schedule as Template</label>
                         </div>
-                        <div class="form-group pt-2" id="templateNameDiv"
-                          :style="{'display': saveScheduleTemplate ? '' : 'none'}">
+                        <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveScheduleTemplate ? '' : 'none'}">
                           <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                           <input type="text" id="templateName" class="form-control" :disabled="existingScenarioScheduleName ? true : false" v-model="scheduleTemplate" @keyup="errors.schedule_template = false"/>
                           <label class="error" v-if="errors.schedule_template">{{errors.schedule_template[0]}}</label>
@@ -192,8 +169,7 @@
                       <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioDetailName ? true : false" v-model="saveDetailsTemplate" id="scenarioTemplateCheckbox" />
                       <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Scenario Detail as Template</label>
                     </div>
-                    <div class="form-group pt-2" id="templateNameDiv"
-                      :style="{'display': saveDetailsTemplate ? '' : 'none'}">
+                    <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveDetailsTemplate ? '' : 'none'}">
                       <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                       <input type="text" id="templateName" class="form-control" :disabled="existingScenarioDetailName ? true : false" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
                       <label class="error" v-if="errors.details_template">{{errors.details_template[0]}}</label>
