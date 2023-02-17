@@ -15,6 +15,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/login/`;
     case 'current_plan':
       return `${baseUrl}/auth/current_plan/`;
+    case 'logout':
+      return `${baseUrl}/auth/logout/`;
     case 'client':
       return `${baseUrl}/auth/client/`;
     case 'change-password':
@@ -43,8 +45,14 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/illustrationid/`;
     case 'illustration-template':
       return `${baseUrl}/auth/illustration-datalist`;
-    case 'logout':
-      return `${baseUrl}/auth/logout/`;
+    case 'vehicle-type1':
+      return `${baseUrl}/auth/vehicle-type1/`;
+    case 'vehicle-type2':
+      return `${baseUrl}/auth/vehicle-type2/`;
+    case 'vehicle-type3':
+      return `${baseUrl}/auth/vehicle-type3/`;
+    case 'existing-vehicletype':
+      return `${baseUrl}/auth/existing-vehicletype/`;
     default:
       return baseUrl;
   }
