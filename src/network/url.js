@@ -28,9 +28,9 @@ export const getUrl = (type) => {
     case 'scenario':
       return `${baseUrl}/auth/scenario/`;
     case 'scenario-details':
-      return `${baseUrl}/auth/sceneriodetails/`;
+      return `${baseUrl}/auth/scenariodetails/`;
     case 'scenario-with-schedule_id':
-      return `${baseUrl}/auth/scenerio-schedule/`;
+      return `${baseUrl}/auth/scenario-schedule/`;
     case 'existing-scenario-detail':
       return `${baseUrl}/auth/existing-scenario-details/`;
     case 'existing-scenario-schedule':
@@ -40,7 +40,7 @@ export const getUrl = (type) => {
     case 'illustration':
       return `${baseUrl}/auth/illustration/`;
     case 'existing-illustration':
-      return `${baseUrl}/auth/exsiting-illustration/`;
+      return `${baseUrl}/auth/existing-illustration/`;
     case 'illustration-id':
       return `${baseUrl}/auth/illustrationid/`;
     case 'illustration-template':
