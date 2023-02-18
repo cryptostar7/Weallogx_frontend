@@ -84,17 +84,22 @@ export default {
   computed: {
     selectList() {
       return this.$props.list.filter(item => {
-        return item.template_name && item.template_name
-          .toLowerCase()
-          .includes(this.category.selectText.toLowerCase());
+        return (
+          item.template_name &&
+          item.template_name
+            .toLowerCase()
+            .includes(this.category.selectText.toLowerCase())
+        );
       });
     },
   },
   watch: {
     "$props.defaultSelected"(e) {
-      this.category.selectText = e;
-      this.$emit("inputText", e);
-      this.$emit("clearError");
+      if (e) {
+        this.category.selectText = e;
+        this.$emit("inputText", e);
+        this.$emit("clearError");
+      }
     },
     "$props.clearInput"(e) {
       if (Number(e)) {

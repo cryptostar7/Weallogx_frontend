@@ -70,7 +70,7 @@
               </div>
               <div class="text-center mt-30">
                 <span class="d-block mb-2"></span>
-                <router-link to="/comparative-vehicles" class="nav-link btn form-back-btn fs-14" disabled="true"><img
+                <router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true"><img
                     src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
               </div>
             </div>

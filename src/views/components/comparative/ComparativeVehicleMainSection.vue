@@ -22,13 +22,13 @@
             <div class="main-form-div">
               <div class="main-form-heading">
                 <div class="heading-container">
-                  <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
+                  <h2 class="fs-34 bold-fw main-tab-heading me-2" @click="testFunction()"> New Scenario </h2>
                 </div>
               </div>
               <div class="form-wrapper side-grey-line">
                 <div class="form-wrapper-inner no-style newScenarioVehicleInner">
                   <h4 class="form-subheading fs-22 fw-bold"> Comparative Vehicles </h4>
-                  <SelectDropdown :list="dropdown.comparativeVehiclePortfolios" label="Use Existing Comparative Vehicle Portfolio" id="existingComparativeVehiclePortfolio"  class="form-group less pt-3" />
+                  <SelectDropdown :list="dropdown.cvPortfolios" label="Use Existing Comparative Vehicle Portfolio" id="existingComparativeVehiclePortfolio"  class="form-group less pt-3" :error="errors.existing_portfolio" @clearError="() => errors.existing_portfolio = false" @onSelectItem="setExistingPortfolioId" @inputText="setExistingPortfolioName"/>
                   <div :class="`comparative-vehicle-tab-wrapper ${vehicle.tab ? '' : 'noVehicleTyupeSelectPadd'} mb-3`" id="noVehicleTyupeSelectPadd">
                     <ul class="nav nav-tabs comparative-vehicle-tabs" role="tablist">
                       <li class="nav-item" role="presentation" @click="setVehicleTab(1)">
@@ -58,9 +58,9 @@
                     </ul>
                     <div class="tab-content">
                       <div :class="`tab-pane ${vehicle.tab === 1 ? 'active':''}`" id="vehicleType1Tab" role="tabpanel" aria-labelledby="vehicleType1-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" @onSelectItem="setVehicleType1" @inputText="setVehicleTypeName1" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" :defaultSelected="defaultVehicle.vehicle1.template_name" @onSelectItem="setVehicleType1" @inputText="setVehicleTypeName1" />
                         <div :class="`${this.vehicle.vehicle1.type_id && vehicleSelected ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea1">
-                          <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle1" defaultSelected="" @clearError="() => errors.existing_vehicle1 = false" @onSelectItem="setExistingVehicle1Id" @inputText="setExistingVehicle1Name"/> 
+                          <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle1" @clearError="() => errors.existing_vehicle1 = false" @onSelectItem="setExistingVehicle1Id" @inputText="setExistingVehicle1Name"/> 
                           <span class="or-text-span">or</span>
                           <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                           <div class="form-group pt-2 less"> 
@@ -100,16 +100,16 @@
                             </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle1.capitalGains && vehicle.vehicle1.type_id === 1 ? '' : 'capitalDisplayNone'} pt-2`" id="capitalGainTaxInputs1">
                               <div class="form-group pb-0 m-0"> 
-                                <label for="capitaGainRate taxDeferredCapitalGain" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
+                                <label for="cg_tax_rate1" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="capitaGainRate" class="form-control handleLimit"  />
+                                  <input type="number" min="1" max="99" id="cg_tax_rate1" class="form-control handleLimit"  />
                                   <span class="percent-span">%</span>
                                 </div>
                               </div>
                               <div class="form-group pb-0 m-0">
-                                <label for="capitaGainPercent" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
+                                <label for="percent_of_account_as_cg1" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="capitaGainPercent" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg1" class="form-control handleLimit"  /> 
                                   <span class="percent-span">%</span>
                                 </div>
                               </div>
@@ -123,11 +123,12 @@
                           </div>
                           <div :style="{display: vehicle.vehicle1.isSaved ? 'unset' : 'none'}"  class="form-group less saveVehicleTempNameInput" id="vehicleTempName1">
                             <label for="vehicleTemplateName" class="fs-12 semi-bold-fw">Vehicle Template Name</label>
-                            <input type="text" id="vehicleTemplateName" class="form-control" value="" /> </div>
+                            <input type="text" id="vehicleTemplateName" class="form-control" value="" /> 
+                          </div>
                         </div>
                       </div>
                       <div :class="`tab-pane ${vehicle.tab === 2 ? 'active':''}`" id="vehicleType2Tab" role="tabpanel" aria-labelledby="vehicleType2-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" @onSelectItem="setVehicleType2" @inputText="setVehicleTypeName2" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" :defaultSelected="defaultVehicle.vehicle2.template_name" @onSelectItem="setVehicleType2" @inputText="setVehicleTypeName2" />
                         <div :class="`${vehicle.vehicle2.type_id ? '' : 'vehicleaTypeArea'}`" id="taxableArea2">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle2" @clearError="() => errors.existing_vehicle2 = false" @onSelectItem="setExistingVehicle2Id" @inputText="setExistingVehicle2Name" />
                            <span class="or-text-span">or</span>
@@ -169,16 +170,16 @@
                             </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle2.capitalGains && vehicle.vehicle2.type_id === 1 ? '' : 'capitalDisplayNone'} pt-2`"  id="capitalGainTaxInputs2">
                               <div class="form-group pb-0 m-0"> 
-                                <label for="capitaGainRate" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
+                                <label for="cg_tax_rate2" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="capitaGainRate" value="" class="form-control handleLimit"  />
+                                  <input type="number" min="1" max="99" id="cg_tax_rate2" value="" class="form-control handleLimit"  />
                                   <span class="percent-span">%</span>
                                 </div>
                               </div>
                               <div class="form-group pb-0 m-0"> 
-                                <label for="capitaGainPercent" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
+                                <label for="percent_of_account_as_cg2" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="capitaGainPercent" class="form-control handleLimit"  />
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg2" class="form-control handleLimit"  />
                                  <span class="percent-span">%</span>
                                 </div>
                               </div>
@@ -195,7 +196,7 @@
                         </div>
                       </div>
                       <div :class="`tab-pane ${vehicle.tab === 3 ? 'active':''}`" id="vehicleType3Tab" role="tabpanel" aria-labelledby="vehicleType3-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 3"  id="comparativeVehicleType3" class="form-group less pt-3" :error="errors.vehicle3.type_id" @clearError="() => errors.vehicle3.type_id = false" @onSelectItem="setVehicleType3" @inputText="setVehicleTypeName3" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 3"  id="comparativeVehicleType3" class="form-group less pt-3" :error="errors.vehicle3.type_id" @clearError="() => errors.vehicle3.type_id = false" :defaultSelected="defaultVehicle.vehicle3.template_name" @onSelectItem="setVehicleType3" @inputText="setVehicleTypeName3" />
                         <div :class="`${vehicle.vehicle3.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea3">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle3" @clearError="() => errors.existing_vehicle3 = false" @onSelectItem="setExistingVehicle3Id" @inputText="setExistingVehicle3Name"/> 
                           <span class="or-text-span">or</span>
@@ -237,15 +238,15 @@
                             </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle3.capitalGains && vehicle.vehicle3.type_id === 1 ? '' : 'capitalDisplayNone'} pt-2`" id="capitalGainTaxInputs3">
                               <div class="form-group pb-0 m-0">
-                                <label for="capitaGainRate" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
+                                <label for="cg_tax_rate3" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="capitaGainRate" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="99" id="cg_tax_rate3" class="form-control handleLimit"  /> 
                                   <span class="percent-span">%</span>
                                 </div>
                               </div>
-                              <div class="form-group pb-0 m-0"> <label for="capitaGainPercent" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
+                              <div class="form-group pb-0 m-0"> <label for="percent_of_account_as_cg3" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="capitaGainPercent" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg3" class="form-control handleLimit"  /> 
                                   <span class="percent-span">%</span>
                                 </div>
                               </div>
@@ -261,6 +262,14 @@
                           </div>
                         </div>
                       </div>
+                        <div :class="`form-check form-switch custom-switch mt-3 ${tabs.vehicle2 && vehicle.tab !== 1 ? '' : 'd-none'}`"> 
+                          <input class="form-check-input" type="checkbox" role="switch" id="savePortfolioTempName" /> 
+                          <label class="form-check-label fs-12 semi-bold-fw mb-0" for="savePortfolioTempName">Save this Portfolio as Template</label>
+                        </div>
+                        <!-- <div :style="{display: vehicle.vehicle2.isSaved ? 'unset' : 'none'}" class="form-group less saveVehicleTempNameInput" id="vehicleTempName2"> 
+                            <label for="vehicleTemplateName" class="fs-12 semi-bold-fw">Vehicle Template Name</label> 
+                            <input type="text" id="vehicleTemplateName" class="form-control" value="" /> 
+                          </div> -->
                     </div>
                   </div>
                 </div>
@@ -287,7 +296,6 @@
                           </div>
                           <div> 
                             <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button> 
-                            <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn d-none" @click="testFunction">Next</button> 
                           </div>
                         </div>
                       </div>
@@ -304,9 +312,9 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
-import { get } from "../../../network/requests.js";
+import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
-import { authHeader } from "../../../services/helper";
+import { authHeader, getFirstError } from "../../../services/helper";
 export default {
   components: { SelectDropdown },
   data() {
@@ -369,7 +377,7 @@ export default {
       },
       vehicleSelected: false,
       dropdown: {
-        comparativeVehiclePortfolios: [
+        cvPortfolios: [
           { id: 1, template_name: "Portfolio 1" },
           { id: 2, template_name: "Portfolio 2" },
           { id: 3, template_name: "Portfolio 3" },
@@ -388,6 +396,19 @@ export default {
         vehicle2: [],
         vehicle3: [],
       },
+      defaultVehicle: {
+        vehicle1: {
+          template_name: "",
+        },
+        vehicle2: {
+          template_name: "",
+        },
+        vehicle3: {
+          template_name: "",
+        },
+      },
+      existingPortfolioId: false,
+      existingPortfolioName: "",
     };
   },
 
@@ -418,6 +439,12 @@ export default {
     },
   },
   methods: {
+    checkPortfolio: function() {
+      console.log(this.tabs);
+    },
+    testFunction: function() {
+      this.checkPortfolio();
+    },
     getTemplateDataId: function(id) {
       var temp = this.existingVehicles.filter(i => i.id === id)[0];
       return temp ? temp.uid : null;
@@ -426,10 +453,10 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-vehicletype"), authHeader())
         .then(response => {
-          console.log(response.data.data);
           var data = response.data.data;
           var temp = [];
           let index = 1;
+          // push vehicle #1 templates in temp variable
           data.vehicle_type_1.forEach(item => {
             temp.push({
               id: index++,
@@ -439,6 +466,7 @@ export default {
             });
           });
 
+          // push vehicle #2 templates in temp variable
           data.vehicle_type_2.forEach(item => {
             temp.push({
               id: index++,
@@ -448,6 +476,7 @@ export default {
             });
           });
 
+          // push vehicle #3 templates in temp variable
           data.vehicle_type_3.forEach(item => {
             temp.push({
               id: index++,
@@ -546,6 +575,15 @@ export default {
     getInputUsingId: function(id) {
       return document.getElementById(id).value;
     },
+    setExistingPortfolioId: function(id) {
+      this.existingPortfolioId = id;
+      this.errors.vehicle1 = [];
+      this.errors.vehicle2 = [];
+      this.errors.vehicle3 = [];
+    },
+    setExistingPortfolioName: function(name) {
+      this.existingPortfolioName = name;
+    },
     setVehicleTypeName1: function(name) {
       this.vehicle.vehicle1.type = name;
     },
@@ -586,6 +624,36 @@ export default {
       this.vehicle.vehicle3.existing.name = name;
     },
 
+    // to update the vehicle type and type id field of in the vehicle type dropdown for all vehicle tabs
+    updateVehicleType: function(vehicle, id, type) {
+      if (id) {
+        if (vehicle === 1) {
+          this.defaultVehicle.vehicle1.template_name = type;
+          this.vehicle.vehicle1.type_id = id;
+          this.vehicle.vehicle1.type = type;
+          setTimeout(() => {
+            this.defaultVehicle.vehicle1.template_name = "";
+          }, 100);
+        }
+        if (vehicle === 2) {
+          this.defaultVehicle.vehicle2.template_name = type;
+          this.vehicle.vehicle2.type_id = id;
+          this.defaultVehicle.vehicle2.template_name = type;
+          setTimeout(() => {
+            this.defaultVehicle.vehicle2.template_name = "";
+          }, 100);
+        }
+        if (vehicle === 3) {
+          this.defaultVehicle.vehicle3.template_name = type;
+          this.vehicle.vehicle3.type_id = id;
+          this.defaultVehicle.vehicle3.template_name = type;
+          setTimeout(() => {
+            this.defaultVehicle.vehicle3.template_name = "";
+          }, 100);
+        }
+      }
+    },
+
     // to get vehicle type id using the type name
     getVehicleType: function(type = "") {
       var temp = this.dropdown.VehicleType.filter(
@@ -593,15 +661,33 @@ export default {
       )[0];
       return temp ? temp.id : false;
     },
+
+    // to validate the existing portfolio template
+    validatePortfolio: function() {
+      if (this.existingPortfolioName) {
+        let templateId = this.$getTemplateId(
+          this.existingPortfolioName,
+          this.dropdown.cvPortfolios
+        );
+        if (templateId) {
+          this.existingPortfolioId = templateId;
+          this.errors.existing_portfolio = false;
+        } else {
+          this.errors.existing_portfolio = ["Please choose a valid portfolio."];
+        }
+        return templateId ? true : false;
+      }
+      return true;
+    },
+
     // populate existing vehicle 1 details
     populateVehicle1: function(data = []) {
-      var vType = this.getVehicleType(data.vehicle_type_1);
-      if (vType) {
-        this.vehicle.vehicle1.type_id = vType;
-        this.vehicle.vehicle1.type = data.vehicle_type_1;
-      }
-
-      console.log(this.vehicle);
+      this.updateVehicleType(
+        1,
+        this.getVehicleType(data.vehicle_type_1),
+        data.vehicle_type_1
+      );
+      console.log(data);
       this.vehicle.vehicle1.isSaved = false;
       this.vehicle.vehicle1.capitalGains = data.capital_gain_tax_checkbox;
       this.vehicle.vehicle1.name = data.name;
@@ -617,13 +703,11 @@ export default {
 
     // populate existing vehicle 2 details
     populateVehicle2: function(data = []) {
-      var vType = this.getVehicleType(data.vehicle_type_2);
-      if (vType) {
-        this.vehicle.vehicle2.type_id = vType;
-        this.vehicle.vehicle2.type = data.vehicle_type_2;
-      }
-
-      console.log(this.vehicle);
+      this.updateVehicleType(
+        2,
+        this.getVehicleType(data.vehicle_type_2),
+        data.vehicle_type_2
+      );
       this.vehicle.vehicle2.isSaved = false;
       this.vehicle.vehicle2.capitalGains = data.capital_gain_tax_checkbox;
       this.vehicle.vehicle2.name = data.name;
@@ -639,13 +723,11 @@ export default {
 
     // populate existing vehicle 3 details
     populateVehicle3: function(data = []) {
-      var vType = this.getVehicleType(data.vehicle_type_3);
-      if (vType) {
-        this.vehicle.vehicle3.type_id = vType;
-        this.vehicle.vehicle3.type = data.vehicle_type_3;
-      }
-
-      console.log(this.vehicle);
+      this.updateVehicleType(
+        3,
+        this.getVehicleType(data.vehicle_type_3),
+        data.vehicle_type_3
+      );
       this.vehicle.vehicle3.isSaved = false;
       this.vehicle.vehicle3.capitalGains = data.capital_gain_tax_checkbox;
       this.vehicle.vehicle3.name = data.name;
@@ -703,7 +785,6 @@ export default {
       if (type === 3) {
         get(`${getUrl("vehicle-type3")}${id}`, authHeader())
           .then(response => {
-            console.log(response.data);
             this.populateVehicle3(response.data.data);
             this.$store.dispatch("loader", false);
           })
@@ -722,9 +803,15 @@ export default {
     validationForm: function() {
       var valid = true;
       var focusTab = false;
+      let portfolio = !this.validatePortfolio();
       let v1 = !this.validateVehicle1();
       let v2 = !this.validateVehicle2();
       let v3 = !this.validateVehicle3();
+
+      if (!portfolio) {
+        valid = false;
+      }
+
       if (v1) {
         focusTab = true;
         this.setVehicleTab(1);
@@ -853,6 +940,12 @@ export default {
           }
           this.vehicle.vehicle1.ror = this.getInputUsingId("ror1");
           this.vehicle.vehicle1.fees = this.getInputUsingId("fees1");
+          this.vehicle.vehicle1.cg_tax_rate = this.getInputUsingId(
+            "cg_tax_rate1"
+          );
+          this.vehicle.vehicle1.percent_of_account_as_cg = this.getInputUsingId(
+            "percent_of_account_as_cg1"
+          );
 
           if (!this.vehicle.vehicle1.ror) {
             this.errors.vehicle1.ror = ["This field is required"];
@@ -899,6 +992,12 @@ export default {
           }
           this.vehicle.vehicle2.ror = this.getInputUsingId("ror2");
           this.vehicle.vehicle2.fees = this.getInputUsingId("fees2");
+          this.vehicle.vehicle2.cg_tax_rate = this.getInputUsingId(
+            "cg_tax_rate2"
+          );
+          this.vehicle.vehicle2.percent_of_account_as_cg = this.getInputUsingId(
+            "percent_of_account_as_cg2"
+          );
 
           if (!this.vehicle.vehicle2.ror) {
             this.errors.vehicle2.ror = ["This field is required"];
@@ -945,6 +1044,12 @@ export default {
           }
           this.vehicle.vehicle3.ror = this.getInputUsingId("ror3");
           this.vehicle.vehicle3.fees = this.getInputUsingId("fees3");
+          this.vehicle.vehicle3.cg_tax_rate = this.getInputUsingId(
+            "cg_tax_rate3"
+          );
+          this.vehicle.vehicle3.percent_of_account_as_cg = this.getInputUsingId(
+            "percent_of_account_as_cg3"
+          );
 
           if (!this.vehicle.vehicle3.ror) {
             this.errors.vehicle3.ror = ["This field is required"];
@@ -968,15 +1073,126 @@ export default {
 
       return valid;
     },
+
+    // this is the main function to save the comparative vehicle data
     submitHandler: function() {
       if (!this.validationForm()) {
         return false;
       }
 
-      this.$toast.info("Form Submitted");
-      this.$router.push(
-        `/historical-simulations/${this.$route.params.scenario}`
-      );
+      var data = {
+        vehicle_type_1: {
+          vehicle_type_1: this.vehicle.vehicle1.type,
+          name: this.vehicle.vehicle1.name,
+          description: this.vehicle.vehicle1.description,
+          rate_of_return: this.vehicle.vehicle1.ror,
+          fees: this.vehicle.vehicle1.fees,
+          capital_gain_tax_checkbox:
+            this.vehicle.vehicle1.capitalGains &&
+            this.vehicle.vehicle1.type_id === 1
+              ? true
+              : false,
+          pre_age_59_penality:
+            this.vehicle.vehicle1.capitalGains &&
+            this.vehicle.vehicle1.type_id !== 1
+              ? true
+              : false,
+
+          save_this_vehicle_as_template: false,
+          vehicle_template_name: "",
+        },
+        vehicle_type_2: {
+          vehicle_type_2: this.vehicle.vehicle2.type,
+          name: this.vehicle.vehicle2.name,
+          description: this.vehicle.vehicle2.description,
+          rate_of_return: this.vehicle.vehicle2.ror,
+          fees: this.vehicle.vehicle2.fees,
+          capital_gain_tax_checkbox:
+            this.vehicle.vehicle2.capitalGains &&
+            this.vehicle.vehicle2.type_id === 1
+              ? true
+              : false,
+          pre_age_59_penality:
+            this.vehicle.vehicle2.capitalGains &&
+            this.vehicle.vehicle2.type_id !== 1
+              ? true
+              : false,
+          pre_age_59_penality: false,
+          save_this_vehicle_as_template: false,
+          vehicle_template_name: "",
+        },
+        vehicle_type_3: {
+          vehicle_type_3: this.vehicle.vehicle3.type,
+          name: this.vehicle.vehicle3.name,
+          description: this.vehicle.vehicle3.description,
+          rate_of_return: this.vehicle.vehicle3.ror,
+          fees: this.vehicle.vehicle3.fees,
+          capital_gain_tax_checkbox:
+            this.vehicle.vehicle3.capitalGains &&
+            this.vehicle.vehicle3.type_id === 1
+              ? true
+              : false,
+          pre_age_59_penality:
+            this.vehicle.vehicle3.capitalGains &&
+            this.vehicle.vehicle3.type_id !== 1
+              ? true
+              : false,
+          save_this_vehicle_as_template: false,
+          vehicle_template_name: "",
+        },
+      };
+
+      var formData = {};
+
+      formData.vehicle_type_1 = data.vehicle_type_1;
+
+      if (data.vehicle_type_1.capital_gain_tax_checkbox) {
+        formData.vehicle_type_1.capital_gains_tax_rate = this.vehicle.vehicle1.cg_tax_rate;
+        formData.vehicle_type_1.percentage_of_account_as_capital_gains = this.vehicle.vehicle1.percent_of_account_as_cg;
+      }
+
+      if (this.tabs.vehicle2) {
+        formData.vehicle_type_2 = data.vehicle_type_2;
+        if (data.vehicle_type_2.capital_gain_tax_checkbox) {
+          formData.vehicle_type_2.capital_gains_tax_rate = this.vehicle.vehicle2.cg_tax_rate;
+          formData.vehicle_type_2.percentage_of_account_as_capital_gains = this.vehicle.vehicle2.percent_of_account_as_cg;
+        }
+      }
+
+      if (this.tabs.vehicle3) {
+        formData.vehicle_type_3 = data.vehicle_type_3;
+        if (data.vehicle_type_3.capital_gain_tax_checkbox) {
+          formData.vehicle_type_3.capital_gains_tax_rate = this.vehicle.vehicle3.cg_tax_rate;
+          formData.vehicle_type_3.percentage_of_account_as_capital_gains = this.vehicle.vehicle3.percent_of_account_as_cg;
+        }
+      }
+      formData.scenario_id = this.$route.params.scenario;
+      formData.save_portfolio = false;
+      formData.portfolio_name = "";
+      console.log(formData);
+      this.$store.dispatch("loader", true);
+      post(getUrl("comparative"), formData, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("loader", false);
+          this.$toast.info("Form Submitted");
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
+          this.$store.dispatch("loader", false);
+        });
+
+      // this.$router.push(
+      //   `/historical-simulations/${this.$route.params.scenario}`
+      // );
     },
   },
 };
