@@ -4832,9 +4832,7 @@ input[type=number] {
 .noVehicleTypeSelectPadd {
   padding-bottom: 10rem !important;
 }
-#saveComparativePortPolioDiv {
-  display: none;
-}
+
 .capitalDisplayNone {
   display: none;
 }

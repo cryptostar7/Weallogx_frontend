@@ -628,7 +628,6 @@ export default {
               });
             });
           }
-          console.log(response.data);
           this.$store.dispatch("template", {
             type: "insurance",
             data: template,
@@ -652,7 +651,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("illustration-template"), authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("template", {
             type: "illustration",
             data: response.data.data,
@@ -762,7 +760,6 @@ export default {
       if (this.existingIllustrationId) {
         post(getUrl("illustration-id"), formData, authHeader())
           .then(response => {
-            console.log(response);
             this.$store.dispatch("loader", false);
             this.$toast.success("Illustration data added successfully.");
             this.$router.push(

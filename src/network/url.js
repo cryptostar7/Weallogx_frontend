@@ -55,6 +55,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/existing-vehicletype/`;
     case 'comparative':
       return `${baseUrl}/auth/comperative/`
+    case 'existing-comparative':
+      return `${baseUrl}/auth/exisiting-comperative/`
     default:
       return baseUrl;
   }

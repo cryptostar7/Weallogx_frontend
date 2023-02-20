@@ -4865,18 +4865,14 @@ input[type=number] {
   padding: 1.875rem;
   padding-bottom: 0.375rem;
 }
-.saveVehicleTempNameInput {
-  display: none;
-}
+
 .vehicleaTypeArea {
   display: none;
 }
 .noVehicleTypeSelectPadd {
   padding-bottom: 10rem !important;
 }
-#saveComparativePortPolioDiv {
-  display: none;
-}
+
 .capitalDisplayNone {
   display: none;
 }
