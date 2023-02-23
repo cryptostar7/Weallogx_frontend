@@ -1,24 +1,6 @@
 <template>
   <section class="main-section">
-    <div class="reviewProgressMainDiv py-5">
-      <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="active">
-          <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0">Illustration Data</a>
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0">Comparative Vehicles</a>
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a>
-        </li>
-      </ul>
-      <router-link to="/">
-        <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" />
-      </router-link>
-    </div>
+     <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
@@ -52,7 +34,7 @@
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
-                    <label for="clientAge" class="fs-12 medium-fw">Client Age<span class="regular-fw">Year 1 age on illustration</span></label>
+                    <label for="clientAge" class="fs-12 medium-fw">Client Age <span class="regular-fw">(Year 1 age on illustration)</span></label>
                     <input type="number" class="form-control handleLimit" id="clientAge" min="1" max="100" @keyup="() => {updateClientAge(); clearDetailTemplate(); errors.client_age_year = false}"/>
                     <label class="error" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</label>
                   </div>
@@ -191,10 +173,10 @@
 import { get, post } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
 import { authHeader, getServerErrors } from "./../../../services/helper";
-
+import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { SelectDropdown },
+  components: { SelectDropdown, ScenarioSteps },
   data() {
     return {
       existingClientId: false,
@@ -202,6 +184,7 @@ export default {
       existingScenarioDetailName: false,
       existingScenarioScheduleId: false,
       existingScenarioScheduleName: false,
+      setClientAsDefault: false,
       clientName: "",
       scenarioName: "",
       scenarioDescription: "",
@@ -216,7 +199,7 @@ export default {
       scheduleTemplate: "",
       detailsTemplate: "",
       detailTemplateInput: 0,
-      scheduleTemplateInput:0,
+      scheduleTemplateInput: 0,
       scheduleTaxRate: [],
       errors: [],
     };
@@ -236,6 +219,46 @@ export default {
       this.getExistingScenarioSchedule();
     }
 
+    // populate scenario details if scenario detail id exist in url
+    if (this.$route.params.scenario && !this.activeScenario) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then(response => {
+          console.log(response.data.data);
+          let id = response.data.data.scenerio_details;
+          let client_id = response.data.data.client;
+          this.$store.dispatch("activeScenario", response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            if (client_id) {
+              if (this.clients && this.clients.length) {
+                this.$router.push(`?client=${client_id}`);
+              } else {
+                this.setClientAsDefault = client_id;
+              }
+            }
+            this.populateScenarioDetail(id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    } else {
+      if (this.$route.params.scenario && this.activeScenario) {
+        let id = this.activeScenario.scenerio_details;
+        if (id) {
+          this.populateScenarioDetail(id);
+        }
+      }
+    }
+
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
     inputs.forEach(element =>
@@ -244,7 +267,11 @@ export default {
         let current = e.target.value;
         let min = Number(e.target.getAttribute("min"));
         let max = Number(e.target.getAttribute("max"));
-        if (Number(current) < min || Number(current) > max || isNaN(Number(current))) {
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
           let actualValue = current.slice(0, len - 1);
           e.target.value = actualValue;
           return false;
@@ -314,13 +341,18 @@ export default {
     getInputUsingId: function(id) {
       return document.getElementById(id).value;
     },
-    
+
+    // get all clients list
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("client"), authHeader())
         .then(response => {
           this.$store.dispatch("clients", response.data.data);
           this.$store.dispatch("loader", false);
+          if (this.setClientAsDefault) {
+            this.$router.push(`?client=${this.setClientAsDefault}`);
+            this.setClientAsDefault = false;
+          }
         })
         .catch(error => {
           console.log(error);
@@ -452,7 +484,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(`${getUrl("schedule")}${id}`, authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("loader", false);
           let detail = response.data.data.data;
           if (detail) {
@@ -505,7 +536,6 @@ export default {
           this.errors.client = "";
         } else {
           let templateId = this.$getTemplateId(this.clientName, this.clients);
-          console.log(templateId);
           if (!templateId) {
             validate = false;
             this.errors.client = ["Please choose a valid client."];
@@ -608,6 +638,13 @@ export default {
     // Handle form submission
     submitHandler: function(e) {
       e.preventDefault();
+
+      if (this.activeScenario) {
+        return this.$router.push(
+          `/illustration-data/${this.$route.params.scenario || ""}`
+        );
+      }
+
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -674,9 +711,6 @@ export default {
         formData.schedule_tax_rate = data.existings.schedule_tax_id;
       }
 
-      console.log(data);
-      console.log(formData);
-
       this.$store.dispatch("loader", true);
       if (data.existings.scenario_detail_id || data.existings.schedule_tax_id) {
         if (data.existings.schedule_tax_id) {
@@ -697,7 +731,6 @@ export default {
     createScenarioDetail: function(data) {
       post(getUrl("scenario-details"), data, authHeader())
         .then(response => {
-          console.log(response.data);
           if (response.data.data.id) {
             this.createScenarioWithDetailId(response.data.data.id);
           } else {
@@ -735,7 +768,13 @@ export default {
     },
 
     createScenarioWithDetailId: function(id) {
-      post(getUrl("scenario"), { scenerio_details: id }, authHeader())
+      this.$store.dispatch("loader", true);
+
+      post(
+        getUrl("scenario"),
+        { scenerio_details: id, client: this.existingClientId },
+        authHeader()
+      )
         .then(response => {
           console.log(response.data);
           this.$toast.success("Scenario details created successfully!");
@@ -790,18 +829,23 @@ export default {
     },
 
     clearDetailTemplate: function() {
-      if(this.existingScenarioDetailName){
+      if (this.existingScenarioDetailName) {
         this.detailTemplateInput = 1;
       }
     },
-    
+
     clearScheduleTemplate: function() {
-      if(this.existingScenarioScheduleName){
+      if (this.existingScenarioScheduleName) {
         this.scheduleTemplateInput = 1;
       }
     },
   },
   computed: {
+    // active scenario data
+    activeScenario() {
+      return this.$store.state.data.active_scenario;
+    },
+
     // existing client dropdown list data
     clients() {
       let initClient = [];

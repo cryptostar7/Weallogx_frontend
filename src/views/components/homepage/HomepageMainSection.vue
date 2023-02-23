@@ -133,6 +133,11 @@ export default {
     },
   },
   mounted() {
+    // clear active scenario data 
+    if (this.$store.state.data.active_scenario) {
+      this.$store.dispatch("activeScenario", false);
+    }
+
     if (this.$store.state.data.clients) {
       this.sortedList = this.$store.state.data.clients;
     } else {

@@ -48,7 +48,8 @@ const store = createStore({
             },
             clients:null,
             current_plan:false,
-            templates:[]
+            active_scenario:false,
+            templates:[],
         },
         app: {
             themes: [
@@ -157,6 +158,9 @@ const store = createStore({
         addNewClient(state, payload) {
             state.data.clients = [...state.data.clients, payload];
         },
+        setActiveScenario(state, payload){
+            state.data.active_scenario = payload;
+        },
         setTemplate(state, payload){
             state.data.templates[payload.type] = payload.data;
         }
@@ -212,6 +216,9 @@ const store = createStore({
         addClient(context, payload) {
             context.commit('addNewClient', payload);
         },     
+        activeScenario(context, payload) {
+            context.commit('setActiveScenario', payload);
+        },  
         template(context, payload) {
             context.commit('setTemplate', payload);
         },     

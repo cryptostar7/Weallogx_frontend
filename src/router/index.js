@@ -30,32 +30,32 @@ const router = createRouter({
       component: () => import("../views/pages/IndividualClientPage.vue"),
     },
     {
-      path: "/scenario-details",
+      path: "/scenario-details/:scenario?",
       name: "scenario-details",
       component: () => import("../views/pages/CreateNewScenario.vue"),
     },
     {
-      path: "/illustration-data/:scenario?",
+      path: "/illustration-data/:scenario",
       name: "illustration-data",
       component: () => import("../views/pages/IllustrationData.vue"),
     },
     {
-      path: "/comparative-vehicles/:scenario?",
+      path: "/comparative-vehicles/:scenario",
       name: "comparative-vehicles",
       component: () => import("../views/pages/ComparativeVehicle.vue"),
     },
     {
-      path: "/historical-simulations/:scenario?",
+      path: "/historical-simulations/:scenario",
       name: "historical-simulations",
       component: () => import("../views/pages/HistoricalSimulationsPage.vue"),
     },
     {
-      path: "/historical-simulations-after-no/:scenario?",
+      path: "/historical-simulations-after-no/:scenario",
       name: "historical-simulations-after-no",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterNo.vue"),
     },
     {
-      path: "/historical-simulations-after-yes/:scenario?",
+      path: "/historical-simulations-after-yes/:scenario",
       name: "historical-simulations-after-yes",
       component: () => import("../views/pages/HistoricalSimulationsPageAfterYes.vue"),
     },

@@ -1,21 +1,7 @@
 <template>
   <div>
     <section class="main-section">
-      <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
-        <ul class="mt-1 review-progress" id="reviewProgress">
-          <li class="done"> 
-            <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
-          </li>
-          <li class="done"> 
-            <router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link>
-          </li>
-          <li class="active"> 
-            <router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link> 
-          </li>
-          <li class=""> <a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a> </li>
-        </ul> <router-link to="/"> <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" />
-        </router-link>
-      </div>
+      <scenario-steps />
       <div class="container-fluid">
         <div class="row justify-content-center form-row">
           <div class="col-md-9">
@@ -304,11 +290,12 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
+import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import { authHeader, getFirstError } from "../../../services/helper";
 export default {
-  components: { SelectDropdown },
+  components: { SelectDropdown, ScenarioSteps },
   data() {
     return {
       vehicle: {
@@ -316,7 +303,7 @@ export default {
           type_id: false,
           type: "",
           templateCheckbox: false,
-          template_name:"",
+          template_name: "",
           capitalGains: true,
           name: "",
           description: "",
@@ -333,7 +320,7 @@ export default {
           type_id: false,
           type: "",
           templateCheckbox: false,
-          template_name:"",
+          template_name: "",
           capitalGains: true,
           name: "",
           description: "",
@@ -350,7 +337,7 @@ export default {
           type_id: false,
           type: "",
           templateCheckbox: false,
-          template_name:"",
+          template_name: "",
           capitalGains: true,
           name: "",
           description: "",
@@ -364,8 +351,8 @@ export default {
           },
         },
         tab: 1,
-        portfolio_checkbox:false,
-        portfolio_name:"",
+        portfolio_checkbox: false,
+        portfolio_name: "",
       },
       tabs: {
         vehicle1: true,
@@ -418,21 +405,63 @@ export default {
       })
     );
 
+    // populate comparative data if comparative data id exist in url
+    if (
+      this.$route.params.scenario &&
+      !this.activeScenario
+    ) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then(response => {
+          console.log(response.data.data);
+          let id = response.data.data.comperative;
+          this.$store.dispatch("activeScenario", response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            this.getPortfolioData(id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    } else {
+      if (
+        this.$route.params.scenario &&
+        this.activeScenario
+      ) {
+        let id = this.activeScenario.comperative;
+        if (id) {
+          this.getPortfolioData(id);
+        }
+      }
+    }
     if (!this.existingVehicles.length) {
       this.getExistingVehicles();
     }
 
-    if(!this.cvPortfolios.length){
+    if (!this.cvPortfolios.length) {
       this.getExistingPortfolio();
     }
   },
   computed: {
+    // active scenario data
+    activeScenario() {
+      return this.$store.state.data.active_scenario;
+    },
+
     existingVehicles() {
       return this.$store.state.data.templates.vehicles || [];
     },
-    cvPortfolios(){
+    cvPortfolios() {
       return this.$store.state.data.templates.cv_portfolio || [];
-    }
+    },
   },
   methods: {
     getExistingVehicles: function() {
@@ -496,7 +525,7 @@ export default {
           var data = response.data.data;
           var temp = [];
           data.forEach(item => {
-            temp.push({id:item.id, template_name: item.portfolio_name});
+            temp.push({ id: item.id, template_name: item.portfolio_name });
           });
 
           this.$store.dispatch("template", {
@@ -517,7 +546,6 @@ export default {
         });
     },
 
-    
     setVehicleTab: function(val) {
       if (Number(val) === 1) {
         this.vehicle.tab = Number(val);
@@ -583,33 +611,35 @@ export default {
     },
 
     // get portfolio data
-    getPortfolioData: function(id){
-      if(id){
+    getPortfolioData: function(id) {
+      if (id) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl('comparative')}${id}`, authHeader()).then((response) => {
+        get(`${getUrl("comparative")}${id}`, authHeader())
+          .then(response => {
             var data = response.data.data;
             var vehicle1 = data.vehicle_type_1;
             var vehicle2 = data.vehicle_type_2;
             var vehicle3 = data.vehicle_type_3;
 
-          if(vehicle1){
-            this.vehicleSelected = true;
-            this.tabs.vechile1 = true;
-            this.populateVehicle(1, 1, vehicle1);
-          }
-          
-          if(vehicle2){
-            this.tabs.vehicle2 = true;
-            this.populateVehicle(2, 2, vehicle2);
-          }
-          
-          if(vehicle3){
-            this.tabs.vehicle3 = true;
-            this.populateVehicle(3, 3, vehicle3);
-          }
-          this.$store.dispatch("loader", false);
-        }).catch((error) => {
-          console.log(error);
+            if (vehicle1) {
+              this.vehicleSelected = true;
+              this.tabs.vechile1 = true;
+              this.populateVehicle(1, 1, vehicle1);
+            }
+
+            if (vehicle2) {
+              this.tabs.vehicle2 = true;
+              this.populateVehicle(2, 2, vehicle2);
+            }
+
+            if (vehicle3) {
+              this.tabs.vehicle3 = true;
+              this.populateVehicle(3, 3, vehicle3);
+            }
+            this.$store.dispatch("loader", false);
+          })
+          .catch(error => {
+            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -617,13 +647,13 @@ export default {
               this.$toast.error(error.message);
             }
             this.$store.dispatch("loader", false);
-        })
+          });
       }
     },
     setExistingPortfolioName: function(name) {
       this.existingPortfolioName = name;
     },
-    setVehicleTypeName: function(vType=1, name) {
+    setVehicleTypeName: function(vType = 1, name) {
       this.vehicle[`vehicle${vType}`].type = name;
     },
 
@@ -631,8 +661,8 @@ export default {
       var temp = this.existingVehicles.filter(i => i.id === id)[0];
       return temp ? temp : null;
     },
-    setExistingVehicle: function(vType, id){
-       let template = this.getTemplateDataId(id);
+    setExistingVehicle: function(vType, id) {
+      let template = this.getTemplateDataId(id);
       if (template) {
         this.populateVehicleTemplate(vType, template.uid, template.type);
       }
@@ -702,16 +732,13 @@ export default {
     },
 
     // populate existing vehicle details
-    populateVehicle: function(vType, tempType=1, data = []) {
+    populateVehicle: function(vType, tempType = 1, data = []) {
       var type = this.getVehicleType(data[`vehicle_type_${tempType}`]);
-      this.updateVehicleType(
-        vType,
-        type,
-        data[`vehicle_type_${tempType}`]
-      );
+      this.updateVehicleType(vType, type, data[`vehicle_type_${tempType}`]);
 
       this.vehicle[`vehicle${vType}`].templateCheckbox = false;
-      this.vehicle[`vehicle${vType}`].capitalGains = data.capital_gain_tax_checkbox;
+      this.vehicle[`vehicle${vType}`].capitalGains =
+        data.capital_gain_tax_checkbox;
       this.vehicle[`vehicle${vType}`].name = data.name;
       this.vehicle[`vehicle${vType}`].description = data.description;
       this.vehicle[`vehicle${vType}`].ror = data.rate_of_return;
@@ -721,34 +748,37 @@ export default {
         data.percentage_of_account_as_capital_gains;
       this.setInputWithId(`ror${vType}`, data.rate_of_return);
       this.setInputWithId(`fees${vType}`, data.fees);
-      if(data.pre_age_59_penality && type !== 1){
+      if (data.pre_age_59_penality && type !== 1) {
         this.vehicle[`vehicle${vType}`].capitalGains = true;
       }
-      if(data.capital_gain_tax_checkbox && type === 1){
+      if (data.capital_gain_tax_checkbox && type === 1) {
         this.setInputWithId(`cg_tax_rate${vType}`, data.capital_gains_tax_rate);
-        this.setInputWithId(`percent_of_account_as_cg${vType}`, data.percentage_of_account_as_capital_gains);
+        this.setInputWithId(
+          `percent_of_account_as_cg${vType}`,
+          data.percentage_of_account_as_capital_gains
+        );
       }
     },
 
     // populate existing vehicle details
     populateVehicleTemplate: function(vType = 1, id = null, type = 1) {
       this.$store.dispatch("loader", true);
-        get(`${getUrl(`vehicle-type${type}`)}${id}`, authHeader())
-          .then(response => {
-            var data = response.data.data;
-            this.populateVehicle(vType, type, data)
-            this.$store.dispatch("loader", false);
-          })
-          .catch(error => {
-            console.log(error);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            }
-            this.$store.dispatch("loader", false);
-          });
+      get(`${getUrl(`vehicle-type${type}`)}${id}`, authHeader())
+        .then(response => {
+          var data = response.data.data;
+          this.populateVehicle(vType, type, data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
     validationForm: function() {
       var valid = true;
@@ -783,7 +813,7 @@ export default {
         }
         valid = false;
       }
-      
+
       return valid;
     },
     checkVechicleType: function() {
@@ -808,7 +838,7 @@ export default {
 
       return true;
     },
-    // switch to next vehicle tab 
+    // switch to next vehicle tab
     setNextTab: function() {
       if (!this.validationForm()) {
         console.log(this.errors);
@@ -827,7 +857,7 @@ export default {
         }
       }
     },
-    // this function is used to check the valid vehicle type for vehicle #1 
+    // this function is used to check the valid vehicle type for vehicle #1
     checkVechicle1: function() {
       let templateId = this.$getTemplateId(
         this.vehicle.vehicle1.type,
@@ -857,7 +887,7 @@ export default {
 
       return templateId ? true : false;
     },
-    // this function is used to check the valid vehicle type for vehicle #3  
+    // this function is used to check the valid vehicle type for vehicle #3
     checkVechicle3: function() {
       let templateId = this.$getTemplateId(
         this.vehicle.vehicle3.type,
@@ -1030,6 +1060,12 @@ export default {
 
     // this is the main function to save the comparative vehicle data
     submitHandler: function() {
+      if (this.activeScenario) {
+        return this.$router.push(
+          `/historical-simulations/${this.$route.params.scenario || ""}`
+        );
+      }
+
       if (!this.validationForm()) {
         console.log(this.errors);
         return false;
@@ -1053,7 +1089,9 @@ export default {
               ? true
               : false,
           save_this_vehicle_as_template: this.vehicle.vehicle1.templateCheckbox,
-          vehicle_template_name: this.vehicle.vehicle1.templateCheckbox ? this.vehicle.vehicle1.template_name : "",
+          vehicle_template_name: this.vehicle.vehicle1.templateCheckbox
+            ? this.vehicle.vehicle1.template_name
+            : "",
         },
         vehicle_type_2: {
           vehicle_type_2: this.vehicle.vehicle2.type,
@@ -1073,7 +1111,9 @@ export default {
               : false,
           pre_age_59_penality: false,
           save_this_vehicle_as_template: this.vehicle.vehicle2.templateCheckbox,
-          vehicle_template_name: this.vehicle.vehicle2.templateCheckbox ? this.vehicle.vehicle2.template_name : "",
+          vehicle_template_name: this.vehicle.vehicle2.templateCheckbox
+            ? this.vehicle.vehicle2.template_name
+            : "",
         },
         vehicle_type_3: {
           vehicle_type_3: this.vehicle.vehicle3.type,
@@ -1092,7 +1132,9 @@ export default {
               ? true
               : false,
           save_this_vehicle_as_template: this.vehicle.vehicle3.templateCheckbox,
-          vehicle_template_name: this.vehicle.vehicle3.templateCheckbox ? this.vehicle.vehicle3.template_name : "",
+          vehicle_template_name: this.vehicle.vehicle3.templateCheckbox
+            ? this.vehicle.vehicle3.template_name
+            : "",
         },
       };
 
@@ -1103,7 +1145,7 @@ export default {
       if (data.vehicle_type_1.capital_gain_tax_checkbox) {
         formData.vehicle_type_1.capital_gains_tax_rate = this.vehicle.vehicle1.cg_tax_rate;
         formData.vehicle_type_1.percentage_of_account_as_capital_gains = this.vehicle.vehicle1.percent_of_account_as_cg;
-      }else{
+      } else {
         formData.vehicle_type_1.capital_gains_tax_rate = 0;
         formData.vehicle_type_1.percentage_of_account_as_capital_gains = 0;
       }
@@ -1113,7 +1155,7 @@ export default {
         if (data.vehicle_type_2.capital_gain_tax_checkbox) {
           formData.vehicle_type_2.capital_gains_tax_rate = this.vehicle.vehicle2.cg_tax_rate;
           formData.vehicle_type_2.percentage_of_account_as_capital_gains = this.vehicle.vehicle2.percent_of_account_as_cg;
-        }else{
+        } else {
           formData.vehicle_type_2.capital_gains_tax_rate = 0;
           formData.vehicle_type_2.percentage_of_account_as_capital_gains = 0;
         }
@@ -1124,7 +1166,7 @@ export default {
         if (data.vehicle_type_3.capital_gain_tax_checkbox) {
           formData.vehicle_type_3.capital_gains_tax_rate = this.vehicle.vehicle3.cg_tax_rate;
           formData.vehicle_type_3.percentage_of_account_as_capital_gains = this.vehicle.vehicle3.percent_of_account_as_cg;
-        }else{
+        } else {
           formData.vehicle_type_3.capital_gains_tax_rate = 0;
           formData.vehicle_type_3.percentage_of_account_as_capital_gains = 0;
         }
@@ -1154,8 +1196,6 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
-
-
     },
   },
 };

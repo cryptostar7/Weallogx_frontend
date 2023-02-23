@@ -8,7 +8,7 @@ import { RouterLink } from "vue-router";
         <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
         <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
         <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
-        <li class="active"><router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link p-0">Historical Simulations</router-link></li>
+        <li class="active"><router-link to="" class="nav-link p-0">Historical Simulations</router-link></li>
       </ul>
       <router-link to="/" class="btn mt-1 ms-1">
         <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">

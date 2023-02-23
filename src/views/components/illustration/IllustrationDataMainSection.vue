@@ -1,20 +1,6 @@
 <template>
   <section class="main-section">
-    <div class="reviewProgressMainDiv py-5">
-      <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="done">
-          <router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link>
-        </li>
-        <li class="active">
-          <router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link>
-        </li>
-        <li class=""> <a href="javascript:void(0)" class="nav-link p-0">Comparative Vehicles</a> </li>
-        <li class=""> <a href="javascript:void(0)" class="nav-link p-0">Historical Simulations</a> </li>
-      </ul>
-      <router-link to="/">
-        <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" />
-      </router-link>
-    </div>
+    <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
@@ -315,6 +301,7 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
+import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import {
@@ -324,7 +311,7 @@ import {
   getBaseUrl,
 } from "../../../services/helper.js";
 export default {
-  components: { SelectDropdown },
+  components: { SelectDropdown, ScenarioSteps },
   data() {
     return {
       saveInsuranceTemplate: false,
@@ -389,6 +376,38 @@ export default {
       })
     );
 
+    // populate illuatration data if illuatration data id exist in url
+    if (this.$route.params.scenario && !this.activeScenario) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then(response => {
+          console.log(response.data.data);
+          let id = response.data.data.illustration;
+          this.$store.dispatch("activeScenario", response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            this.populateInsuranceProfile(id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    } else {
+      if (this.$route.params.scenario && this.activeScenario) {
+        let id = this.activeScenario.illustration;
+        if (id) {
+          this.populateInsuranceProfile(id);
+        }
+      }
+    }
+
     if (!this.existingInsuranceList.length) {
       this.getExistingInsurance();
     }
@@ -398,6 +417,11 @@ export default {
     }
   },
   computed: {
+    // active scenario data
+    activeScenario() {
+      return this.$store.state.data.active_scenario;
+    },
+
     existingInsuranceList() {
       let array = this.$store.state.data.templates.insurance || [];
       return array;
@@ -689,6 +713,14 @@ export default {
 
     submitHandler: function(e) {
       e.preventDefault();
+
+      if (this.activeScenario) {
+        return this.$router.push(
+          `/comparative-vehicles/${this.$route.params.scenario || ""}`
+        );
+      }
+
+
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
