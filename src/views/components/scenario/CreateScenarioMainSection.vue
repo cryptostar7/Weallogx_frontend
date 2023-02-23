@@ -639,11 +639,11 @@ export default {
     submitHandler: function(e) {
       e.preventDefault();
 
-      if (this.activeScenario) {
-        return this.$router.push(
-          `/illustration-data/${this.$route.params.scenario || ""}`
-        );
-      }
+      // if (this.activeScenario) {
+      //   return this.$router.push(
+      //     `/illustration-data/${this.$route.params.scenario || ""}`
+      //   );
+      // }
 
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {

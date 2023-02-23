@@ -1060,11 +1060,11 @@ export default {
 
     // this is the main function to save the comparative vehicle data
     submitHandler: function() {
-      if (this.activeScenario) {
-        return this.$router.push(
-          `/historical-simulations/${this.$route.params.scenario || ""}`
-        );
-      }
+      // if (this.activeScenario) {
+      //   return this.$router.push(
+      //     `/historical-simulations/${this.$route.params.scenario || ""}`
+      //   );
+      // }
 
       if (!this.validationForm()) {
         console.log(this.errors);
