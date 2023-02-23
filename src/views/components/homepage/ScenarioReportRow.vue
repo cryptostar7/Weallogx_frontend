@@ -3,7 +3,7 @@
         <div class="list-item" v-if="Number(index) < reportListLimit">
             <div class="list-item-inner">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><a href="create-new-scenario.html">{{item.name}}</a></p>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><a href="scenario-details.html">{{item.name}}</a></p>
                     <label class="medium-fw">{{item.description}}</label>
                 </div>
                 <div class="list-item-actions">

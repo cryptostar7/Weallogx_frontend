@@ -3,7 +3,7 @@
     <div class="reviewProgressMainDiv py-5">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done">
-          <router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link>
+          <router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link>
         </li>
         <li class="active">
           <router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link>
@@ -302,7 +302,7 @@
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
-                  <router-link to="/create-new-scenario" class="nav-link btn form-back-btn fs-14" disabled="true">
+                  <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
                   </router-link> 
                 </div>

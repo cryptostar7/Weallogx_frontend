@@ -94,7 +94,7 @@ export default {
           this.$refs.closeModalRef.click();
           this.$toast.success(response.data.message);
           if(this.createScenario){
-             this.$router.push(`/create-new-scenario?client=${response.data.data.id}`);
+             this.$router.push(`/scenario-details?client=${response.data.data.id}`);
           }
         })
         .catch(error => {

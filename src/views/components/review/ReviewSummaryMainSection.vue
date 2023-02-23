@@ -5,7 +5,7 @@ import { RouterLink } from "vue-router";
       <section>
         <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
             <ul class="mt-1 review-progress" id="reviewProgress">
-              <li class="done"><router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link></li>
+              <li class="done"><router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link></li>
               <li class="done"><router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link></li>
               <li class="done"><router-link to="/comparative-vehicles" class="nav-link p-0">Comparative Vehicles</router-link></li>
               <li class="done"><router-link to="/historical-simulations" class="nav-link p-0">Historical Simulations</router-link></li>
@@ -31,7 +31,7 @@ import { RouterLink } from "vue-router";
             <div class="container my-5 darkbgClrDiv">
                 <div class="summary-heading">
                     <p><span>1 </span>Scenario Details</p>
-                    <router-link to="/create-new-scenario" class="editbtnCommonAncor"><button class="btn editBtnCommon">
+                    <router-link to="/scenario-details" class="editbtnCommonAncor"><button class="btn editBtnCommon">
                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651"

@@ -3,7 +3,7 @@
         <div v-if="Number(index) < listLimit" class="list-item">
             <div class="list-item-inner">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/create-new-scenario">{{ item.name }}</router-link></p>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link to="/scenario-details">{{ item.name }}</router-link></p>
                     <label class="medium-fw">{{item.name}} {{item.age}} YEARS</label>
                 </div>
                 <div class="list-item-actions">
@@ -20,7 +20,7 @@
                         {{item.created_at}}
                     </label>
                     <div class="round-btns">
-                        <router-link to="/create-new-scenario" class="btn round-btn">
+                        <router-link to="/scenario-details" class="btn round-btn">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"

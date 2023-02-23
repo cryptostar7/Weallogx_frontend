@@ -27,7 +27,7 @@
                             fill="black" />
                         </svg>
                     </button>
-                    <router-link to="/create-new-scenario" class="nav-link p-0 plus-sign">+</router-link>
+                    <router-link to="/scenario-details" class="nav-link p-0 plus-sign">+</router-link>
                 </div>
                 <div class="right-action-btn-div p-relative">
                     <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${index}`"

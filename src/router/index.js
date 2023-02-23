@@ -30,8 +30,8 @@ const router = createRouter({
       component: () => import("../views/pages/IndividualClientPage.vue"),
     },
     {
-      path: "/create-new-scenario",
-      name: "create-new-scenario",
+      path: "/scenario-details",
+      name: "scenario-details",
       component: () => import("../views/pages/CreateNewScenario.vue"),
     },
     {
@@ -162,7 +162,7 @@ const authRoutes = [
   'pricing',
   'change-password',
   'home',
-  'create-new-scenario',
+  'scenario-details',
   'illustration-data',
   'comparative-vehicles',
   'historical-simulations',
@@ -176,7 +176,7 @@ const authRoutes = [
 // these routes are secure with active plans
 const secureRoutes = [
   // 'home',
-  // 'create-new-scenario',
+  // 'scenario-details',
   // 'illustration-data',
   // 'comparative-vehicles',
   // 'historical-simulations',

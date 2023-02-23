@@ -5,7 +5,7 @@ import { RouterLink } from "vue-router";
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="done"><router-link :to="`/create-new-scenario/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
+        <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
         <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
         <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
         <li class="active"><router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link p-0">Historical Simulations</router-link></li>

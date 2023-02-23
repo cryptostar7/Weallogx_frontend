@@ -3,7 +3,7 @@
     <div class="reviewProgressMainDiv py-5">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="active">
-          <router-link :to="`/create-new-scenario/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
+          <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
         </li>
         <li class="">
           <a href="javascript:void(0)" class="nav-link p-0">Illustration Data</a>

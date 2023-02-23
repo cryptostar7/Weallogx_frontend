@@ -3,7 +3,7 @@
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done"> 
-          <router-link to="/create-new-scenario" class="nav-link p-0">Scenario Details</router-link>
+          <router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link>
         </li>
         <li class="done"> 
           <router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link>
@@ -70,9 +70,7 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex" label="Use Existing Index Strategy"
-                                  id="existingComparativeVehiclePortfolio" class="form-group less pt-3"
-                                  :optional="true" />
+                                <SelectDropdown :list="dropdown.historyIndex" label="Use Existing Index Strategy"  id="existingComparativeVehiclePortfolio" class="form-group less pt-3"  :optional="true" />
                               </form>
                             </div>
                           </div>
@@ -95,10 +93,7 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex2"
-                                  label="Choose Existing Index Strategy Allocation"
-                                  id="existingComparativeVehiclePortfolioTab2" class="form-group less pt-3"
-                                  :optional="true" />
+                                <SelectDropdown :list="dropdown.historyIndex2"  label="Choose Existing Index Strategy Allocation"  id="existingComparativeVehiclePortfolioTab2" class="form-group less pt-3"  :optional="true" />
                               </form>
                             </div>
                           </div>
@@ -152,14 +147,12 @@
                         <div class="w-75">
                           <div class="d-flex align-items-center mb-2">
                             <div class="form-check form-switch custom-switch ms-2"> 
-                              <input class="form-check-input" type="checkbox" role="switch" id="saveAllocation2"
-                                v-model="saveStrategyAllocationTemplate3" /> 
+                              <input class="form-check-input" type="checkbox" role="switch" id="saveAllocation2"  v-model="saveStrategyAllocationTemplate3" /> 
                             </div>
                             <label for="saveAllocation2" class="buttonSaveRadioPara">Save as Index Strategy Allocation</label>
                           </div>
                           <div class="saveZIndexTempContent form-group" v-if="saveStrategyAllocationTemplate3">
-                            <form action="javascript:void(0)"> <label for="templateName">Template Name</label> <input
-                                type="text" class="form-control" id="templateName" /> </form>
+                            <form action="javascript:void(0)"> <label for="templateName">Template Name</label> <input type="text" class="form-control" id="templateName" /> </form>
                           </div>
                         </div>
                       </div>
@@ -172,8 +165,7 @@
                       <router-link to="/historical-simulations-after-yes" class="nav-link btn form-back-btn fs-14 backHistoricalBtn">
                         <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
                       </router-link> 
-                      <router-link to="/review-summary" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> 
-                        Skip Historical Simulations
+                      <router-link to="/review-summary" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations
                       </router-link> 
                       <a href="javascript:void(0)" class="nav-link btn form-back-btn fs-14 skipScenarioBtn">Save Scenario as Draft</a> </div>
                   </div>

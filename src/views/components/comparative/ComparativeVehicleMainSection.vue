@@ -4,7 +4,7 @@
       <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
         <ul class="mt-1 review-progress" id="reviewProgress">
           <li class="done"> 
-            <router-link :to="`/create-new-scenario/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
+            <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link>
           </li>
           <li class="done"> 
             <router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link>
