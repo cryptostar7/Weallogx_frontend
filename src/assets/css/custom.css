@@ -5356,5 +5356,5 @@ border: none;
 }
 
 .sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
-font-size:16px;
+font-size:16px!important;
 }
