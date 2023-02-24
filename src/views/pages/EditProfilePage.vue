@@ -124,14 +124,14 @@
                   <label class="businessLogoLabel" >Logo for Green Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
-                      <div class="businessLogoImageDiv" v-if="businessLogo">
-                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      <div class="businessLogoImageDiv" v-if="businessLogoGreen">
+                        <img :src="businessLogoGreen" alt="logo" class="preview-business-image" >
                       </div>
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
-                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon.svg" alt="Upload" ></label>
+                          <input type="file" id="business-logo-green-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'green')" hidden>
+                          <label for="business-logo-green-upload" ><img src="@/assets/images/user/logo-upload-icon.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
                       </div>
@@ -142,14 +142,14 @@
                   <label class="businessLogoLabel">Logo for Blue Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
-                      <div class="businessLogoImageDiv" v-if="businessLogo">
-                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      <div class="businessLogoImageDiv" v-if="businessLogoBlue">
+                        <img :src="businessLogoBlue" alt="logo" class="preview-business-image" >
                       </div>
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
-                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon-blue.svg" alt="Upload" ></label>
+                          <input type="file" id="business-logo-blue-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'blue')" hidden>
+                          <label for="business-logo-blue-upload" ><img src="@/assets/images/user/logo-upload-icon-blue.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
                       </div>
@@ -160,14 +160,14 @@
                   <label class="businessLogoLabel" >Logo for Dark Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
-                      <div class="businessLogoImageDiv" v-if="businessLogo">
-                        <img :src="businessLogo" alt="logo" class="preview-business-image" >
+                      <div class="businessLogoImageDiv" v-if="businessLogoDark">
+                        <img :src="businessLogoDark" alt="logo" class="preview-business-image" >
                       </div>
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-upload" accept="image/*" class="business-image-upload-cls" @change="addBusinessLogo" hidden>
-                          <label for="business-logo-upload" ><img src="@/assets/images/user/logo-upload-icon-white.svg" alt="Upload" ></label>
+                          <input type="file" id="business-logo-dark-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'dark')" hidden>
+                          <label for="business-logo-dark-upload" ><img src="@/assets/images/user/logo-upload-icon-white.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
                       </div>
@@ -200,6 +200,7 @@ import {
   authHeader,
   getFirstError,
   getServerErrors,
+  setComapanyLogo ,
   setCurrentUser,
 } from "../../services/helper";
 export default {
@@ -214,16 +215,22 @@ export default {
         avatar: "",
         zip_code: "",
         website: null,
-        business_logo: "",
+        business_logo_green: "",
+        business_logo_blue: "",
+        business_logo_dark: "",
         first_name: null,
         last_name: "",
         email: null,
         phone_number: null,
       },
       profileImg: "",
-      businessLogo: "",
       profileImgFile: false,
-      businessLogoFile: false,
+      businessLogoGreen: "",
+      businessLogoBlue: "",
+      businessLogoDark: "",
+      businessLogoGreenFile: false,
+      businessLogoBlueFile: false,
+      businessLogoDarkFile: false,
       errors: [],
     };
   },
@@ -234,10 +241,23 @@ export default {
         this.profileImg = URL.createObjectURL(e.target.files[0]);
       }
     },
-    addBusinessLogo: function(e) {
+    addBusinessLogo: function(e, type = "green") {
+      console.log(type);
       if (e) {
-        this.businessLogoFile = e.target.files[0];
-        this.businessLogo = URL.createObjectURL(e.target.files[0]);
+        if (type === "green") {
+          this.businessLogoGreenFile = e.target.files[0];
+          this.businessLogoGreen = URL.createObjectURL(e.target.files[0]);
+        }
+
+        if (type === "blue") {
+          this.businessLogoBlueFile = e.target.files[0];
+          this.businessLogoBlue = URL.createObjectURL(e.target.files[0]);
+        }
+
+        if (type === "dark") {
+          this.businessLogoDarkFile = e.target.files[0];
+          this.businessLogoDark = URL.createObjectURL(e.target.files[0]);
+        }
       }
     },
     getProfile: function() {
@@ -247,17 +267,23 @@ export default {
           console.log(response.data.data);
           this.user = response.data.data;
           this.profileImg = this.user.avatar;
-          this.businessLogo = this.user.business_logo;
+          this.businessLogoGreen = this.user.business_logo_green;
+          this.businessLogoBlue = this.user.business_logo_blue;
+          this.businessLogoDark = this.user.business_logo_dark;
           this.$store.dispatch("user", this.user);
           setCurrentUser({
             first_name: this.user.first_name,
             last_name: this.user.last_name,
           });
+          setComapanyLogo(this.businessLogoGreen, this.businessLogoBlue, this.businessLogoDark);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
           console.log(error);
-          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
             this.$toast.error(error.message);
           } else {
             this.$store.dispatch("loader", false);
@@ -316,7 +342,6 @@ export default {
     },
     updateProfile: function() {
       this.$store.dispatch("loader", true);
-      console.log(this.user);
       this.user.phone_number = this.user.phone_number;
       this.user.user_id = this.user.id;
       var userData = this.user;
@@ -328,8 +353,16 @@ export default {
       if (this.profileImgFile) {
         userData.append("avatar", this.profileImgFile);
       }
-      if (this.businessLogoFile) {
-        userData.append("business_logo", this.businessLogoFile);
+      if (this.businessLogoGreenFile) {
+        userData.append("business_logo_green", this.businessLogoGreenFile);
+      }
+
+      if (this.businessLogoBlueFile) {
+        userData.append("business_logo_blue", this.businessLogoBlueFile);
+      }
+
+      if (this.businessLogoDarkFile) {
+        userData.append("business_logo_dark", this.businessLogoDarkFile);
       }
       userData.append("zip_code", this.user.zip_code);
       userData.append("website", this.user.website);
@@ -348,7 +381,10 @@ export default {
         .catch(error => {
           console.log(error);
           this.$store.dispatch("loader", false);
-          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
             this.$toast.error(error.message);
           } else {
             this.errors = getServerErrors(error);
@@ -363,7 +399,9 @@ export default {
     } else {
       this.user = this.$store.state.data.user;
       this.profileImg = this.user.avatar;
-      this.businessLogo = this.user.business_logo;
+      this.businessLogoGreen = this.user.business_logo_green;
+      this.businessLogoBlue = this.user.business_logo_blue;
+      this.businessLogoDark = this.user.business_logo_dark;
     }
   },
 };

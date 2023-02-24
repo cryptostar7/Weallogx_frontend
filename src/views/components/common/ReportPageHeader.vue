@@ -85,9 +85,9 @@
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar presentation_navbar" :style="{display:$store.state.app.presentation_mode ? 'block':'none'}">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">
-        <img src="@/assets/images/wlx-logo-green.png" class="img-fluid logo-green" alt="WealthLogix Logo" width="170">
-        <img src="@/assets/images/wlx-logo-blue.png" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170">
-        <img src="@/assets/images/wlx-logo-dark.png" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170">
+        <img :src="companyLogo.green" class="img-fluid logo-green" alt="WealthLogix Logo" width="170">
+        <img :src="companyLogo.blue" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170">
+        <img :src="companyLogo.dark" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170">
       </router-link>
       <button class="navbar-toggler menu-icon-report-btn" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -127,10 +127,37 @@
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
+import {
+  authHeader,
+  getComapanyLogo,
+  setComapanyLogo ,
+  setCurrentUser ,
+} from "../../../services/helper";
 
 export default {
   components: { ThemeDropdown },
   methods: {
+    getProfile: function() {
+      get(getUrl("profile"), authHeader())
+        .then(response => {
+          let user = response.data.data;
+          setComapanyLogo(user.business_logo_green, user.business_logo_blue, user.business_logo_dark)
+          this.$store.dispatch("user", user);
+          setCurrentUser({
+            first_name: user.first_name,
+            last_name: user.last_name,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } 
+        });
+    },
     handleFullscreen: function() {
       this.$store.dispatch("fullScreen");
     },
@@ -146,6 +173,12 @@ export default {
       this.$refs.fullScreenCloseBtn.click();
     }
   },
+  computed:{
+    companyLogo(){
+      let logos = getComapanyLogo();
+      return logos;
+    }
+  }
 };
 </script>
 <style lang="">

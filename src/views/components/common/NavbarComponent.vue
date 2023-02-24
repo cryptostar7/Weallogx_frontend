@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg fixed-top top-navbar report-top-navbar">
     <div class="container-fluid px-0">
-      <router-link class="navbar-brand" to="/"><img src="@/assets/images/logo.png" class="img-fluid" alt="Wealthlogix Logo"></router-link>
+      <router-link class="navbar-brand" to="/"><img :src="companyLogo" class="img-fluid" alt="Wealthlogix Logo" width="170"></router-link>
       <div class="collapse navbar-collapse overWriteNavCollapse show" id="navbar">
         <theme-dropdown type="1"/>
         <ul class="navbar-nav ms-auto my-2 my-lg-0">
@@ -36,17 +36,46 @@
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
 import { getUrl } from "../../../network/url";
-import { post } from "../../../network/requests";
+import { get, post } from "../../../network/requests";
 import {
   authHeader,
   getAccessToken,
   getRefreshToken,
+  getComapanyLogo,
+  setComapanyLogo ,
+  setCurrentUser ,
   getFirstError,
   authCheck,
 } from "../../../services/helper";
 export default {
   components: { ThemeDropdown },
+  mounted() {
+    if (!this.$store.state.data.user) {
+      this.getProfile();
+    }
+  },
   methods: {
+    getProfile: function() {
+      get(getUrl("profile"), authHeader())
+        .then(response => {
+          let user = response.data.data;
+          setComapanyLogo(user.business_logo_green, user.business_logo_blue, user.business_logo_dark)
+          this.$store.dispatch("user", user);
+          setCurrentUser({
+            first_name: user.first_name,
+            last_name: user.last_name,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } 
+        });
+    },
     logout: function() {
       if (authCheck()) {
         this.$store.dispatch("loader", true);
@@ -79,5 +108,19 @@ export default {
       }
     },
   },
+  computed:{
+    companyLogo(){
+      let logos = getComapanyLogo();
+      let logo = logos.dark;
+      let theme = this.$store.state.app.current_theme; 
+      if(theme === 'light-green'){
+         logo = logos.green;
+      }
+      if(theme === 'light-blue'){
+         logo = logos.blue;
+      }
+      return logo;
+    }
+  }
 };
 </script>

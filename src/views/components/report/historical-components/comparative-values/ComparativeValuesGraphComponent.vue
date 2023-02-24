@@ -264,7 +264,6 @@ export default {
         });
         let itemToAdd = checkboxes[pillIndex];
         checkboxes.splice(0, 4, itemToAdd);
-        console.log(checkboxes);
         items.forEach((item, index) => {
           if (checkboxes[index]) {
             checkboxes[index].onclick = e => {

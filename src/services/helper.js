@@ -90,6 +90,26 @@ export const setCurrentUser = (name) => {
   return localStorage.setItem('currentUser', JSON.stringify(name));
 }
 
+export const setComapanyLogo = (green='', blue='', dark='') => {
+  return localStorage.setItem('logo', JSON.stringify({green:green, blue:blue, dark:dark}));
+}
+
+export const getComapanyLogo = () => {
+  let logos = localStorage.getItem('logo') ?  JSON.parse(localStorage.getItem('logo')) : {};
+  if(!logos.green){
+    logos.green = '/src/assets/images/wlx-logo-green.png'; 
+  }
+
+  if(!logos.blue){
+    logos.blue = '/src/assets/images/wlx-logo-blue.png'; 
+  }
+
+  if(!logos.dark){
+    logos.dark = '/src/assets/images/wlx-logo-dark.png'; 
+  }
+  return logos;
+}
+
 export const authHeader = () => {
   let token = getAccessToken();
   if (!token) {
