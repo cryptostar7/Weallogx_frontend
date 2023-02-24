@@ -97,15 +97,15 @@ export const setComapanyLogo = (green='', blue='', dark='') => {
 export const getComapanyLogo = () => {
   let logos = localStorage.getItem('logo') ?  JSON.parse(localStorage.getItem('logo')) : {};
   if(!logos.green){
-    logos.green = '/src/assets/images/wlx-logo-green.png'; 
+    logos.green = '/logo/wlx-logo-green.png'; 
   }
 
   if(!logos.blue){
-    logos.blue = '/src/assets/images/wlx-logo-blue.png'; 
+    logos.blue = '/logo/wlx-logo-blue.png'; 
   }
 
   if(!logos.dark){
-    logos.dark = '/src/assets/images/wlx-logo-dark.png'; 
+    logos.dark = '/logo/wlx-logo-dark.png'; 
   }
   return logos;
 }
