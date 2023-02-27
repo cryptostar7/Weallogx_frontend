@@ -1,62 +1,78 @@
 <template lang="">
-<p class="strategyWeightPara">Strategy Weight</p>
-<div class="
-    d-flex
-    align-items-center
-    flex-column
-    justify-content-center
-  ">
-  <div class="strategyWeight d-flex">
-    <div id="strategyWeight1" class="mainResizeDiv position-relative">
-      #1
-    </div>
-    <div id="strategyWeight2" class="position-relative mainResizeDiv">
-      #2
-      <div class="resizing-right-div resizing-right-div-1">
-        <img src="@/assets/images/icons/tinny-arrow-left.svg" alt="" />&nbsp;&nbsp;<img
-          src="@/assets/images/icons/tinny-arrow-right.svg" alt="Chevron" />
-      </div>
-      <div class="resizing-left-div resizing-right-div-2">
-        <img src="@/assets/images/icons/tinny-arrow-left.svg" alt="" />&nbsp;&nbsp;<img
-          src="@/assets/images/icons/tinny-arrow-right.svg" alt="Chevron" />
-      </div>
-    </div>
-    <div id="strategyWeight3" class="mainResizeDiv position-relative">
-      #3
-    </div>
-    <input type="range" min="1" max="100" value="50" id="exampleRange1"
-      class="strategy-range-input strategy-range-input-1" />
-    <input type="range" min="1" max="100" value="50" id="exampleRange2"
-      class="strategy-range-input strategy-range-input-2" />
+  <div>
+    <button @click="checkFunction()">Check function</button>
   </div>
-  <div class="
-      d-flex
-      align-items-center
-      justify-content-between
-      w-100 w-max-427
-      mt-3
-    ">
-    <div id="swInputDiv1" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput1" type="text" class="form-control range-input" />
-    </div>
-    <div id="swInputDiv2" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput2" type="text" class="form-control range-input" />
-    </div>
-    <div id="swInputDiv3" class="sw-input-div d-flex justify-content-center">
-      <input id="swInput3" type="text" class="form-control range-input" />
-    </div>
-  </div>
-</div>
-<p class="strategyErrorPara">
-  Sum of all weights must equal 100%.
-</p>
 </template>
 <script>
+import csvText from "../../services/csv_data.js";
 export default {
-  mounted:{
-    strategyWeight1(){
+  data() {
+    return {
+      text: csvText,
+    };
+  },
+  methods: {
+    parseRow: function(row) {
+      var insideQuote = false,
+        entries = [],
+        entry = [];
+      row.split("").forEach(function(character) {
+        if (character === '"') {
+          insideQuote = !insideQuote;
+        } else {
+          if (character == "," && !insideQuote) {
+            entries.push(entry.join(""));
+            entry = [];
+          } else {
+            entry.push(character);
+          }
+        }
+      });
+      entries.push(entry.join(""));
+      return entries;
+    },
+    exractCsvText: function(csv) {
+      if (typeof csv === "string") {
+        let lines = csv.split("\n");
+        let headers = [];
+        let data = {};
+        if (lines.length && lines[0]) {
+          headers = lines[0].split(",");
+        }
 
-    }
-  }
-}
+        if (headers.length) {
+          let maxCols = 0;
+          let temp_data = [];
+          headers.forEach((h, i) => {
+            if (h) {
+              var columns = [];
+              lines.forEach((line, j) => {
+                let row = this.parseRow(line);
+                if (row && row[i]) {
+                  columns.push(row[i]);
+                }
+              });
+
+              // set max colomn length
+              if (maxCols < columns.length) {
+                maxCols = columns.length;
+              }
+              temp_data.push({ header_name: h, columns: columns });
+            }
+          });
+
+          data = {
+            data: temp_data,
+            max_columns: maxCols,
+            headers: headers.filter(i => i),
+          };
+        }
+
+        return data;
+      }
+
+      return false;
+    },
+  },
+};
 </script>

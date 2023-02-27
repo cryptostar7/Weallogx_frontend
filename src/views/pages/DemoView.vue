@@ -1,19 +1,28 @@
 <template lang="">
   <div>
     <form @submit="handleForm" id="fsdfdsfds">
-      <input v-model="text" />
+      <input type="file" accept=".pdf" id="upload_file"/>
       <button class="" type="submit">Submit</button>
     </form>
-      <input v-model="text" />
-
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   methods: {
     handleForm: function(e) {
       e.preventDefault();
-      console.log(e.target.closest('form').querySelector("input").focus());
+      var file = document.getElementById("upload_file").files[0];
+      var data = new FormData();
+      data.append('pdffile', file);
+      data.append('page', '4');
+      data.append('business', 'Allianz');
+      
+      axios.post('http://137.184.233.130/extract/', data).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
     },
   },
 };

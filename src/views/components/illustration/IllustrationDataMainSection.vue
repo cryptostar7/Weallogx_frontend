@@ -117,7 +117,7 @@
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
                       <div class="form-group mb-0"> 
                         <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text"></textarea> 
+                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text" @change="handleCSV()"></textarea> 
                         <!-- <div id="pasteData" cols="30" rows="5" class="form-control"></div>  -->
                       </div>
                     </div>
@@ -135,7 +135,7 @@
                   </div>
                 </div>
               </div>
-              <div class="illustration-data-table-div">
+              <!-- <div class="illustration-data-table-div">
                 <h4 class="fs-22 bold-fw mb-3">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                   <table class="table illustration-data-table mb-0">
@@ -282,8 +282,56 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> -->
        
+
+              <div v-if="csvPreview.headers" class="illustration-data-table-div w-100">
+                <h4 class="fs-22 bold-fw mb-3">Categorize, Review and Edit Data</h4>
+                <div class="illustration-data-wrapper illustrativeTablemainDiv">
+                  <table class="table illustration-data-table mb-0">
+                    <tbody>
+                      <tr>
+                        <td class="border-0">
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td v-for="(item, index) in csvPreview.headers" :key="index" >
+                                  <div class=" d-flex flex-column align-items-center px-2 "> 
+                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
+                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
+                                    </button>
+                                    <select name="" id="" class="form-select select-option">
+                                      <option v-for="(item, index2) in csvPreview.headers" :key="index2" :value="item" :selected="index === index2">{{item}}</option>       
+                                    </select> 
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="border-0">
+                          <table class="illustrative-data-table">
+                            <thead>
+                              <tr>
+                                <th v-for="(item, index) in csvPreview.headers" :key="index">{{item}}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               <tr v-for="(item, index) in csvPreview.max_columns" :key="index">
+                                <td v-for="(list, header) in csvPreview.headers" :key="header"><div class="text-center">{{(csvPreview.data[header] && csvPreview.data[header].columns[index]) ? csvPreview.data[header].columns[index] : '' }}</div></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
@@ -335,6 +383,7 @@ export default {
       insuranceTemplateInput: 0,
       illustrationTemplateInput: 0,
       errors: [],
+      csvPreview: {},
     };
   },
   mounted() {
@@ -720,7 +769,6 @@ export default {
       //   );
       // }
 
-
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
@@ -833,6 +881,78 @@ export default {
             }
           });
       }
+    },
+    handleCSV: function() {
+      console.log("function");
+      if (this.illustrationFile.text) {
+        this.csvPreview = this.exractCsvText(this.illustrationFile.text);
+        console.log(this.exractCsvText(this.illustrationFile.text));
+      } else {
+        this.csvPreview = {};
+      }
+    },
+    parseRow: function(row) {
+      var insideQuote = false,
+        entries = [],
+        entry = [];
+      row.split("").forEach(function(character) {
+        if (character === '"') {
+          insideQuote = !insideQuote;
+        } else {
+          if (character == "," && !insideQuote) {
+            entries.push(entry.join(""));
+            entry = [];
+          } else {
+            entry.push(character);
+          }
+        }
+      });
+      entries.push(entry.join(""));
+      return entries;
+    },
+    exractCsvText: function(csv) {
+      if (typeof csv === "string") {
+        let lines = csv.split("\n");
+        let headers = [];
+        let data = {};
+        if (lines.length && lines[0]) {
+          headers = lines[0].split(",");
+        }
+
+        if (headers.length) {
+          let maxCols = 0;
+          let temp_data = [];
+          headers.forEach((h, i) => {
+            if (h) {
+              var columns = [];
+              lines.forEach((line, j) => {
+                if (j) {
+                  let row = this.parseRow(line);
+                  if (row && row[i]) {
+                    columns.push(row[i]);
+                  }
+                }
+              });
+
+              // set max colomn length
+              if (maxCols < columns.length) {
+                maxCols = columns.length;
+              }
+              temp_data.push({ header_name: h, columns: columns });
+            }
+          });
+
+          data = {
+            data: temp_data,
+            max_columns: maxCols,
+            headers: headers.filter(i => i),
+          };
+        }
+
+        return data;
+      }
+
+      return false;
     },
   },
 };
