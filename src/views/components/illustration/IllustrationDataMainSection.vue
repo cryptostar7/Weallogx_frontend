@@ -151,7 +151,7 @@
                             <!--   <table class="table w-100">
                                 <tbody>
                                   <tr> -->
-                                    <td v-for="(item, index) in csvPreview.headers" :key="index" >
+                                    <td v-for="(header, index) in csvPreview.headers" :key="index" >
                                       <div class=" d-flex flex-column align-items-center px-2 "> 
                                         <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
                                           <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
