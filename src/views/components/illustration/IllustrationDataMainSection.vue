@@ -213,8 +213,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
-import '@/assets/js/jquery.min.js';
-
+import "@/assets/js/jquery.min.js";
 
 import {
   getFirstError,
@@ -665,8 +664,8 @@ export default {
           ) {
             return alert("Please categorize the CSV data.");
           }
-        }else{
-            return alert("Please paste a valid CSV.");
+        } else {
+          return alert("Please paste a valid CSV.");
         }
       }
 
@@ -804,23 +803,25 @@ export default {
       } else {
         this.csvPreview = {};
       }
-      setTimeout(()=> {
-        var wrapperInner = document.querySelector(".div-wrapper-inner");  
-        var illustrationTable = document.querySelector(".illustration-data-table");
+      setTimeout(() => {
+        var wrapperInner = document.querySelector(".div-wrapper-inner");
+        var illustrationTable = document.querySelector(
+          ".illustration-data-table"
+        );
         console.log(illustrationTable.clientWidth);
-        if(illustrationTable){
-          wrapperInner.style.width = (illustrationTable.clientWidth + 50) + "px";  
+        if (illustrationTable) {
+          wrapperInner.style.width = illustrationTable.clientWidth + 50 + "px";
           console.log(illustrationTable.clientWidth);
         }
-        $(function(){
-            $(".div-wrapper").scroll(function(){
-                $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
-            });
-            $(".table-responsive").scroll(function(){
-                $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
-            });
+        $(function() {
+          $(".div-wrapper").scroll(function() {
+            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
           });
-      }, 1000)
+          $(".table-responsive").scroll(function() {
+            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
+          });
+        });
+      }, 1000);
     },
     setHeader: function(e, index) {
       this.csvPreview.headers[index] = e.target.value;
@@ -837,6 +838,26 @@ export default {
           (item, i) => i !== this.removeColId
         ),
       };
+
+      setTimeout(() => {
+        var wrapperInner = document.querySelector(".div-wrapper-inner");
+        var illustrationTable = document.querySelector(
+          ".illustration-data-table"
+        );
+        console.log(illustrationTable.clientWidth);
+        if (illustrationTable) {
+          wrapperInner.style.width = illustrationTable.clientWidth + 50 + "px";
+          console.log(illustrationTable.clientWidth);
+        }
+        $(function() {
+          $(".div-wrapper").scroll(function() {
+            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
+          });
+          $(".table-responsive").scroll(function() {
+            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
+          });
+        });
+      }, 1000);
     },
     parseRow: function(row) {
       var insideQuote = false;
@@ -884,7 +905,6 @@ export default {
     },
   },
 };
-
 </script>
 
 
