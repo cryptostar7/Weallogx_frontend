@@ -147,13 +147,13 @@
                             <table class="table w-100">
                               <tbody>
                                 <tr>
-                                  <td v-for="(item, index) in csvPreview.headers" :key="index" >
+                                  <td v-for="(header, index) in csvPreview.headers" :key="index" >
                                     <div class=" d-flex flex-column align-items-center px-2 "> 
                                       <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
                                         <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
                                       </button>
                                       <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                                        <option v-for="(item, index) in illustrationFields" :key="index" :value="index" :disabled="illustrationFields[index] !== 'None' && csvPreview.headers.includes(index.toString())">{{item}}</option> 
+                                        <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2] !== 'None' && csvPreview.headers.includes(index2.toString())">{{item}}</option> 
                                       </select> 
                                     </div>
                                   </td>
@@ -186,7 +186,6 @@
                 </div>
               </div>
 
-
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
@@ -204,7 +203,7 @@
   </section>
 </template>
 <script>
-import DeleteColomnModal from '../../components/modal/DeleteColomnModal.vue';
+import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
@@ -241,7 +240,7 @@ export default {
       illustrationTemplateInput: 0,
       errors: [],
       csvPreview: {},
-      removeColId:null,
+      removeColId: null,
     };
   },
   mounted() {
@@ -339,20 +338,20 @@ export default {
       return array;
     },
 
-    illustrationFields(){
-      return [ 
-        'None',
-        'Age',
-        'Year',
-        'Premium',
-        'Distribution - Loan',
-        'Distribution - Withdrawal',
-        'Accumulation Value',
-        'Surrender Value',
-        'Dealth Benefit',
-        'Fees',
+    illustrationFields() {
+      return [
+        "None",
+        "Age",
+        "Accumulation Value",
+        "Distribution - Loan",
+        "Dealth Benefit",
+        "Distribution - Withdrawal",
+        "Fees",
+        "Premium",
+        "Surrender Value",
+        "Year",
       ];
-    }
+    },
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
@@ -642,13 +641,32 @@ export default {
       //   );
       // }
 
-      console.log(this.csvPreview.headers.includes(''));
-
-      return false;
+      if (!this.uploadFromFile) {
+        if (
+          this.csvPreview &&
+          this.csvPreview.headers &&
+          this.csvPreview.headers.length > 6
+        ) {
+          if (
+            !this.csvPreview.headers.includes("1") ||
+            !this.csvPreview.headers.includes("2") ||
+            !this.csvPreview.headers.includes("4") ||
+            !this.csvPreview.headers.includes("7") ||
+            !this.csvPreview.headers.includes("8") ||
+            !this.csvPreview.headers.includes("9")
+          ) {
+            return alert("Please categorize the CSV data.");
+          }
+        }else{
+            return alert("Please paste a valid CSV.");
+        }
+      }
 
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
+      } else {
+        return this.$toast.success("Illustration data added successfully.");
       }
 
       var data = {
@@ -659,7 +677,8 @@ export default {
         policy_return: this.getInputWithId("policyReturn"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
-        upload_file_checkbox: this.uploadFromFile,
+        // upload_file_checkbox: this.uploadFromFile,
+        upload_file_checkbox: true,
         illustration: {
           template: this.saveIllustrationTemplate,
           template_name: this.illustrationTemplateName,
@@ -759,18 +778,26 @@ export default {
           });
       }
     },
-    checkFunction: function(){
-      console.log(this.csvPreview);
+    checkFunction: function() {
+      // console.log(this.csvPreview);
     },
     handleCSV: function() {
+      // console.log(this.illustrationFile.text);
       if (this.illustrationFile.text) {
-        this.csvPreview = this.exractCsvText(this.illustrationFile.text);
-        console.log(this.exractCsvText(this.illustrationFile.text));
+        let obj = this.exractCsvText(this.illustrationFile.text);
+        if (obj && obj.headers && obj.headers.length > 6) {
+          this.csvPreview = obj;
+          // console.log(obj);
+        } else {
+          this.csvPreview = {};
+          // console.log("obj");
+          alert("Please paste a valid CSV.");
+        }
       } else {
         this.csvPreview = {};
       }
     },
-    setHeader: function(e, index){
+    setHeader: function(e, index) {
       this.csvPreview.headers[index] = e.target.value;
     },
     removeColumn: function() {
@@ -779,7 +806,12 @@ export default {
         temp_data.push(row.filter((item, i) => i !== this.removeColId));
       });
 
-      this.csvPreview = { data: temp_data, headers: this.csvPreview.headers.filter((item, i) => i !== this.removeColId) };
+      this.csvPreview = {
+        data: temp_data,
+        headers: this.csvPreview.headers.filter(
+          (item, i) => i !== this.removeColId
+        ),
+      };
     },
     parseRow: function(row) {
       var insideQuote = false;
@@ -818,10 +850,10 @@ export default {
           }
         });
 
-        for(var i=0; i < total_columns; i++){
-          headers.push('');
-        }         
-        return { data: data, headers:headers };
+        for (var i = 0; i < total_columns; i++) {
+          headers.push("");
+        }
+        return { data: data, headers: headers };
       }
       return false;
     },
