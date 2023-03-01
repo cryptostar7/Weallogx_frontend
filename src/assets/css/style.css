@@ -2318,10 +2318,9 @@ color: #fff;
   padding: 0.625rem 1.75rem 1.75rem;
 }
 .illustration-data-table table {
-  table-layout: fixed;
   width: 100%;
 }
-.illustrative-data-table thead th {
+.illustration-data-table tr th {
   background-color: #eee;
   border: 1px solid #eee;
   border-bottom: 0;
@@ -2330,15 +2329,27 @@ color: #fff;
   border: 1px solid #DFDFDF;
   padding: 0.25rem 0.25rem;
 }
-.illustrative-data-table> :not(:first-child) {
+.table > :not(caption) > * > *{
+  border-bottom: 0;
+}
+.div-wrapper {
+  overflow-x: auto;
+  overflow-y:hidden;
+  height: 20px;
+}
+.div-wrapper-inner{
+  height: 20px;
+}
+.illustration-data-table> :not(:first-child) {
   border-top: 0;
 }
-.illustrative-data-table tbody tr td {
+.illustration-data-table tbody tr:not(:first-child) td {
   background: #FFF;
   border: 1px solid #DFDFDF;
   border-top: 0;
   padding: 0.35rem 0.75rem;
   font-size: 15px;
+  white-space: nowrap
 }
 .col-delete-btn {
   width: 32px;
@@ -2365,6 +2376,7 @@ color: #fff;
   padding-left: 0.5rem;
   background-position: right 0.25rem center;
   margin-top: auto;
+  min-width: 115px;
 }
 .select-option:focus {
   border-color: var(--green-clr);

@@ -137,52 +137,57 @@
               </div>
               <div v-if="csvPreview.data" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
-                <div class="illustration-data-wrapper illustrativeTablemainDiv table-responsive">
-                  <table class="table illustration-data-table mb-0">
-                    <tbody>
-                      <tr>
-                        <td class="border-0">
-                          <div class="table-responsive w-100">
-                            <!-- <label class="text-center d-block text-danger">Please categorize the CSV data</label> -->
-                            <table class="table w-100">
-                              <tbody>
-                                <tr>
-                                  <td v-for="(header, index) in csvPreview.headers" :key="index" >
-                                    <div class=" d-flex flex-column align-items-center px-2 "> 
-                                      <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
-                                        <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                      </button>
-                                      <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
+                <div class="illustration-data-wrapper illustrativeTablemainDiv">
+                  <div class="div-wrapper">
+                    <div class="div-wrapper-inner"></div>
+                  </div>
+                  <div class="table-responsive px-2">
+                    <table class="table illustration-data-table mb-0">
+                      <tbody>
+                        <tr>
+                        <!--   <td class="border-0">
+                            <div class="table-responsive w-100"> -->
+                              <!-- <label class="text-center d-block text-danger">Please categorize the CSV data</label> -->
+                            <!--   <table class="table w-100">
+                                <tbody>
+                                  <tr> -->
+                                    <td v-for="(item, index) in csvPreview.headers" :key="index" >
+                                      <div class=" d-flex flex-column align-items-center px-2 "> 
+                                        <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
+                                          <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
+                                        </button>
+                                        <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
                                         <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2] !== 'None' && csvPreview.headers.includes(index2.toString())">{{item}}</option> 
-                                      </select> 
-                                    </div>
-                                  </td>
+                                        </select> 
+                                      </div>
+                                    </td>
+                                  </tr>
+                       <!--          </tbody>
+                              </table>
+                            </div>
+                          </td>
+                        </tr> -->
+                        <tr>
+                         <!--  <td class="border-0">
+                            <div class="table-responsive w-100">
+                            <table class="table illustrative-data-table w-100">
+                              <thead>
+                                <tr> -->
+                                  <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
                                 </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="border-0">
-                          <div class="table-responsive w-100">
-                          <table class="table illustrative-data-table w-100">
-                            <thead>
-                              <tr>
-                                <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="(item, index) in csvPreview.data.length" :key="index">
-                                <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                           <!--    </thead>
+                              <tbody> -->
+                                <tr v-for="(item, index) in csvPreview.data.length" :key="index">
+                                  <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
+                                </tr>
+                              <!-- </tbody> -->
+                            <!-- </table> -->
+                            <!-- </div> -->
+                     <!--      </td>
+                        </tr> -->
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
 
@@ -208,6 +213,9 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
+import '@/assets/js/jquery.min.js';
+
+
 import {
   getFirstError,
   authHeader,
@@ -796,6 +804,23 @@ export default {
       } else {
         this.csvPreview = {};
       }
+      setTimeout(()=> {
+        var wrapperInner = document.querySelector(".div-wrapper-inner");  
+        var illustrationTable = document.querySelector(".illustration-data-table");
+        console.log(illustrationTable.clientWidth);
+        if(illustrationTable){
+          wrapperInner.style.width = (illustrationTable.clientWidth + 50) + "px";  
+          console.log(illustrationTable.clientWidth);
+        }
+        $(function(){
+            $(".div-wrapper").scroll(function(){
+                $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
+            });
+            $(".table-responsive").scroll(function(){
+                $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
+            });
+          });
+      }, 1000)
     },
     setHeader: function(e, index) {
       this.csvPreview.headers[index] = e.target.value;
@@ -859,6 +884,7 @@ export default {
     },
   },
 };
+
 </script>
 
 
