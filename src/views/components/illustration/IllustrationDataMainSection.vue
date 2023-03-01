@@ -135,195 +135,50 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="illustration-data-table-div">
-                <h4 class="fs-22 bold-fw mb-3">Categorize, Review and Edit Data</h4>
-                <div class="illustration-data-wrapper illustrativeTablemainDiv">
+              <div v-if="csvPreview.data" class="illustration-data-table-div w-100">
+                <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
+                <div class="illustration-data-wrapper illustrativeTablemainDiv table-responsive">
                   <table class="table illustration-data-table mb-0">
                     <tbody>
                       <tr>
                         <td class="border-0">
-                          <table>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 "> 
-                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button>
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="" selected>Year</option>       
-                                      <option value="">Age</option>
-                                      <option value="">Premium</option>
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Surrender Value</option>
-                                      <option value="">Death Benefit</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 ">
-                                    <button class="btn col-delete-btn" data-bs-toggle="modal"  data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button> 
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="">Age</option>
-                                      <option value="">Year</option>
-                                      <option value="">Premium</option>
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Surrender Value</option>
-                                      <option value="">Death Benefit</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 ">
-                                     <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button> 
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="">Premium</option>
-                                      <option value="">Year</option>
-                                      <option value="">Age</option>
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Surrender Value</option>
-                                      <option value="">Death Benefit</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 "> 
-                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button> 
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Year</option>
-                                      <option value="">Age</option>
-                                      <option value="">Premium</option>
-                                      <option value="">Surrender Value</option>
-                                      <option value="">Death Benefit</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 "> 
-                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button> 
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="">Surrender Value</option>
-                                      <option value="">Year</option>
-                                      <option value="">Age</option>
-                                      <option value="">Premium</option>
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Death Benefit</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class=" d-flex flex-column align-items-center px-2 "> <button
-                                      class="btn col-delete-btn" data-bs-toggle="modal"
-                                      data-bs-target="#deleteColumnModal"> <img
-                                        src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button> 
-                                    <select name="" id="" class="form-select select-option">
-                                      <option value="">Death Benefit</option>
-                                      <option value="">Year</option>
-                                      <option value="">Age</option>
-                                      <option value="">Premium</option>
-                                      <option value="">Accumulation Value</option>
-                                      <option value="">Surrender Value</option>
-                                    </select> 
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <div class="table-responsive w-100">
+                            <!-- <label class="text-center d-block text-danger">Please categorize the CSV data</label> -->
+                            <table class="table w-100">
+                              <tbody>
+                                <tr>
+                                  <td v-for="(item, index) in csvPreview.headers" :key="index" >
+                                    <div class=" d-flex flex-column align-items-center px-2 "> 
+                                      <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
+                                        <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
+                                      </button>
+                                      <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
+                                        <option v-for="(item, index) in illustrationFields" :key="index" :value="index" :disabled="illustrationFields[index] !== 'None' && csvPreview.headers.includes(index.toString())">{{item}}</option> 
+                                      </select> 
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </td>
                       </tr>
                       <tr>
                         <td class="border-0">
-                          <table class="illustrative-data-table">
+                          <div class="table-responsive w-100">
+                          <table class="table illustrative-data-table w-100">
                             <thead>
                               <tr>
-                                <th>Year</th>
-                                <th>Age</th>
-                                <th>Premium</th>
-                                <th>Accumulation value</th>
-                                <th>Surrender Value</th>
-                                <th>Dealth Benefit</th>
+                                <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <div class="text-center">1</div>
-                                </td>
-                                <td>
-                                  <div class="text-center">68</div>
-                                </td>
-                                <td>
-                                  <div class="text-end">$47,000</div>
-                                </td>
-                                <td>
-                                  <div class="text-end">$0</div>
-                                </td>
-                                <td>
-                                  <div class="text-end">$0</div>
-                                </td>
-                                <td>
-                                  <div class="text-end">$448,774</div>
-                                </td>
+                              <tr v-for="(item, index) in csvPreview.data.length" :key="index">
+                                <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
                               </tr>
                             </tbody>
                           </table>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div> -->
-       
-
-              <div v-if="csvPreview.headers" class="illustration-data-table-div w-100">
-                <h4 class="fs-22 bold-fw mb-3">Categorize, Review and Edit Data</h4>
-                <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                  <table class="table illustration-data-table mb-0">
-                    <tbody>
-                      <tr>
-                        <td class="border-0">
-                          <table>
-                            <tbody>
-                              <tr>
-                                <td v-for="(item, index) in csvPreview.headers" :key="index" >
-                                  <div class=" d-flex flex-column align-items-center px-2 "> 
-                                    <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal"> 
-                                      <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                    </button>
-                                    <select name="" id="" class="form-select select-option">
-                                      <option v-for="(item, index2) in csvPreview.headers" :key="index2" :value="item" :selected="index === index2">{{item}}</option>       
-                                    </select> 
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="border-0">
-                          <table class="illustrative-data-table">
-                            <thead>
-                              <tr>
-                                <th v-for="(item, index) in csvPreview.headers" :key="index">{{item}}</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                               <tr v-for="(item, index) in csvPreview.max_columns" :key="index">
-                                <td v-for="(list, header) in csvPreview.headers" :key="header"><div class="text-center">{{(csvPreview.data[header] && csvPreview.data[header].columns[index]) ? csvPreview.data[header].columns[index] : '' }}</div></td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -345,9 +200,11 @@
         </div>
       </div>
     </div>
+    <delete-colomn-modal @removeCol="removeColumn"/> 
   </section>
 </template>
 <script>
+import DeleteColomnModal from '../../components/modal/DeleteColomnModal.vue';
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post } from "../../../network/requests.js";
@@ -359,7 +216,7 @@ import {
   getBaseUrl,
 } from "../../../services/helper.js";
 export default {
-  components: { SelectDropdown, ScenarioSteps },
+  components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
   data() {
     return {
       saveInsuranceTemplate: false,
@@ -384,6 +241,7 @@ export default {
       illustrationTemplateInput: 0,
       errors: [],
       csvPreview: {},
+      removeColId:null,
     };
   },
   mounted() {
@@ -480,6 +338,21 @@ export default {
       let array = this.$store.state.data.templates.illustration || [];
       return array;
     },
+
+    illustrationFields(){
+      return [ 
+        'None',
+        'Age',
+        'Year',
+        'Premium',
+        'Distribution - Loan',
+        'Distribution - Withdrawal',
+        'Accumulation Value',
+        'Surrender Value',
+        'Dealth Benefit',
+        'Fees',
+      ];
+    }
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
@@ -769,6 +642,10 @@ export default {
       //   );
       // }
 
+      console.log(this.csvPreview.headers.includes(''));
+
+      return false;
+
       if (!this.validateForm()) {
         console.log(this.errors);
         return false;
@@ -882,8 +759,10 @@ export default {
           });
       }
     },
+    checkFunction: function(){
+      console.log(this.csvPreview);
+    },
     handleCSV: function() {
-      console.log("function");
       if (this.illustrationFile.text) {
         this.csvPreview = this.exractCsvText(this.illustrationFile.text);
         console.log(this.exractCsvText(this.illustrationFile.text));
@@ -891,10 +770,21 @@ export default {
         this.csvPreview = {};
       }
     },
+    setHeader: function(e, index){
+      this.csvPreview.headers[index] = e.target.value;
+    },
+    removeColumn: function() {
+      let temp_data = [];
+      this.csvPreview.data.forEach((row, index) => {
+        temp_data.push(row.filter((item, i) => i !== this.removeColId));
+      });
+
+      this.csvPreview = { data: temp_data, headers: this.csvPreview.headers.filter((item, i) => i !== this.removeColId) };
+    },
     parseRow: function(row) {
-      var insideQuote = false,
-        entries = [],
-        entry = [];
+      var insideQuote = false;
+      var entries = [];
+      var entry = [];
       row.split("").forEach(function(character) {
         if (character === '"') {
           insideQuote = !insideQuote;
@@ -913,47 +803,32 @@ export default {
     exractCsvText: function(csv) {
       if (typeof csv === "string") {
         let lines = csv.split("\n");
+        let data = [];
         let headers = [];
-        let data = {};
-        if (lines.length && lines[0]) {
-          headers = lines[0].split(",");
-        }
-
-        if (headers.length) {
-          let maxCols = 0;
-          let temp_data = [];
-          headers.forEach((h, i) => {
-            if (h) {
-              var columns = [];
-              lines.forEach((line, j) => {
-                if (j) {
-                  let row = this.parseRow(line);
-                  if (row && row[i]) {
-                    columns.push(row[i]);
-                  }
-                }
-              });
-
-              // set max colomn length
-              if (maxCols < columns.length) {
-                maxCols = columns.length;
+        let total_columns = 0;
+        lines.forEach((line, i) => {
+          if (i) {
+            let row = this.parseRow(line);
+            if (row) {
+              if (total_columns < row.length) {
+                total_columns = row.length;
               }
-              temp_data.push({ header_name: h, columns: columns });
+              data.push(row);
             }
-          });
+          }
+        });
 
-          data = {
-            data: temp_data,
-            max_columns: maxCols,
-            headers: headers.filter(i => i),
-          };
-        }
-
-        return data;
+        for(var i=0; i < total_columns; i++){
+          headers.push('');
+        }         
+        return { data: data, headers:headers };
       }
-
       return false;
     },
   },
 };
 </script>
+
+
+
+                

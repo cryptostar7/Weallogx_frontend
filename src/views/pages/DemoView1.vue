@@ -9,13 +9,30 @@ export default {
   data() {
     return {
       text: csvText,
+      deleteId: 0,
+      data: [],
     };
   },
+  mounted() {
+    this.data = this.exractCsvText(this.text);
+    console.log(this.data);
+  },
   methods: {
+    removeColumn: function() {
+      let temp_data = [];
+      this.data.data.forEach((row, index) => {
+        temp_data.push(row.filter((item, i) => i !== this.deleteId));
+      });
+    
+      return { data: temp_data, headers: this.data.headers.filter((item, i) => i !== this.deleteId), total_columns: this.data.total_columns - 1 };
+    },
+    checkFunction: function() {
+      console.log(this.removeColumn());
+    },
     parseRow: function(row) {
-      var insideQuote = false,
-        entries = [],
-        entry = [];
+      var insideQuote = false;
+      var entries = [];
+      var entry = [];
       row.split("").forEach(function(character) {
         if (character === '"') {
           insideQuote = !insideQuote;
@@ -34,41 +51,25 @@ export default {
     exractCsvText: function(csv) {
       if (typeof csv === "string") {
         let lines = csv.split("\n");
+        let data = [];
         let headers = [];
-        let data = {};
-        if (lines.length && lines[0]) {
-          headers = lines[0].split(",");
-        }
-
-        if (headers.length) {
-          let maxCols = 0;
-          let temp_data = [];
-          headers.forEach((h, i) => {
-            if (h) {
-              var columns = [];
-              lines.forEach((line, j) => {
-                let row = this.parseRow(line);
-                if (row && row[i]) {
-                  columns.push(row[i]);
-                }
-              });
-
-              // set max colomn length
-              if (maxCols < columns.length) {
-                maxCols = columns.length;
+        let total_columns = 0;
+        lines.forEach((line, i) => {
+          if (i) {
+            let row = this.parseRow(line);
+            if (row) {
+              if (total_columns < row.length) {
+                total_columns = row.length;
               }
-              temp_data.push({ header_name: h, columns: columns });
+              data.push(row);
             }
-          });
+          }
+        });
 
-          data = {
-            data: temp_data,
-            max_columns: maxCols,
-            headers: headers.filter(i => i),
-          };
-        }
-
-        return data;
+        for(var i=0; i < total_columns; i++){
+          headers.push('');
+        }         
+        return { data: data, total_columns: total_columns, headers:headers };
       }
 
       return false;
