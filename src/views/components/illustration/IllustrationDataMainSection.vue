@@ -1,5 +1,5 @@
 <template>
-  <section class="main-section">
+  <section class="main-section" id="main-section-element">
     <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
@@ -654,15 +654,23 @@ export default {
           this.csvPreview.headers &&
           this.csvPreview.headers.length > 6
         ) {
-          if (
-            !this.csvPreview.headers.includes("1") ||
-            !this.csvPreview.headers.includes("2") ||
-            !this.csvPreview.headers.includes("4") ||
-            !this.csvPreview.headers.includes("7") ||
-            !this.csvPreview.headers.includes("8") ||
-            !this.csvPreview.headers.includes("9")
-          ) {
-            return alert("Please categorize the CSV data.");
+          if (!this.csvPreview.headers.includes("1")) {
+            return alert(`${this.illustrationFields["1"]} is required.`);
+          }
+          if (!this.csvPreview.headers.includes("2")) {
+            return alert(`${this.illustrationFields["2"]} is required.`);
+          }
+          if (!this.csvPreview.headers.includes("4")) {
+            return alert(`${this.illustrationFields["4"]} is required.`);
+          }
+          if (!this.csvPreview.headers.includes("7")) {
+            return alert(`${this.illustrationFields["7"]} is required.`);
+          }
+          if (!this.csvPreview.headers.includes("8")) {
+            return alert(`${this.illustrationFields["8"]} is required.`);
+          }
+          if (!this.csvPreview.headers.includes("9")) {
+            return alert(`${this.illustrationFields["9"]} is required.`);
           }
         } else {
           return alert("Please paste a valid CSV.");
@@ -671,6 +679,7 @@ export default {
 
       if (!this.validateForm()) {
         console.log(this.errors);
+        document.getElementById('main-section-element').scrollTo(0, 0);
         return false;
       } else {
         return this.$toast.success("Illustration data added successfully.");
@@ -789,7 +798,7 @@ export default {
       // console.log(this.csvPreview);
     },
     handleCSV: function(e) {
-      let txt = e.clipboardData.getData("text/plain")
+      let txt = e.clipboardData.getData("text/plain");
       if (txt) {
         let obj = this.exractCsvText(txt);
         console.log(obj);
@@ -909,7 +918,7 @@ export default {
       if (values) {
         try {
           let data = values.split("\n");
-          let headers =[];
+          let headers = [];
           if (values.match("\t")) {
             data = data.map(i => i.split("\t"));
           } else {
