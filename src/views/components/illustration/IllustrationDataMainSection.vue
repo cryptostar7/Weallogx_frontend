@@ -117,7 +117,7 @@
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
                       <div class="form-group mb-0"> 
                         <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text" @change="handleCSV()"></textarea> 
+                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text" @paste="handleCSV"></textarea> 
                         <!-- <div id="pasteData" cols="30" rows="5" class="form-control"></div>  -->
                       </div>
                     </div>
@@ -788,17 +788,18 @@ export default {
     checkFunction: function() {
       // console.log(this.csvPreview);
     },
-    handleCSV: function() {
-      // console.log(this.illustrationFile.text);
-      if (this.illustrationFile.text) {
-        let obj = this.exractCsvText(this.illustrationFile.text);
+    handleCSV: function(e) {
+      let txt = e.clipboardData.getData("text/plain")
+      if (txt) {
+        let obj = this.exractCsvText(txt);
+        console.log(obj);
         if (obj && obj.headers && obj.headers.length > 6) {
           this.csvPreview = obj;
           // console.log(obj);
         } else {
           this.csvPreview = {};
           // console.log("obj");
-          alert("Please paste a valid CSV.");
+          alert("Please paste a valid CSV..");
         }
       } else {
         this.csvPreview = {};
@@ -811,7 +812,7 @@ export default {
         console.log(illustrationTable.clientWidth);
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + 50 + "px";
-          console.log(illustrationTable.clientWidth);
+          // console.log(illustrationTable.clientWidth);
         }
         $(function() {
           $(".div-wrapper").scroll(function() {
@@ -878,28 +879,59 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
-    exractCsvText: function(csv) {
-      if (typeof csv === "string") {
-        let lines = csv.split("\n");
-        let data = [];
-        let headers = [];
-        let total_columns = 0;
-        lines.forEach((line, i) => {
-          if (i) {
-            let row = this.parseRow(line);
-            if (row) {
-              if (total_columns < row.length) {
-                total_columns = row.length;
-              }
-              data.push(row);
-            }
-          }
-        });
+    // exractCsvTextOld: function(csv) {
+    //   if (typeof csv === "string") {
+    //     let lines = csv.split("\n");
+    //     let data = [];
+    //     let headers = [];
+    //     let total_columns = 0;
+    //     lines.forEach((line, i) => {
+    //       if (i) {
+    //         let row = this.parseRow(line);
+    //         if (row) {
+    //           if (total_columns < row.length) {
+    //             total_columns = row.length;
+    //           }
+    //           data.push(row);
+    //         }
+    //       }
+    //     });
 
-        for (var i = 0; i < total_columns; i++) {
-          headers.push("");
+    //     for (var i = 0; i < total_columns; i++) {
+    //       headers.push("");
+    //     }
+    //     return { data: data, headers: headers };
+    //   }
+    //   return false;
+    // },
+    exractCsvText: function(values = "") {
+      let total_columns = 0;
+      if (values) {
+        try {
+          let data = values.split("\n");
+          let headers =[];
+          if (values.match("\t")) {
+            data = data.map(i => i.split("\t"));
+          } else {
+            data = data.map(i => this.parseRow(i));
+          }
+          data = data.map(i => i.map(r => r.replace("\r", "")));
+          total_columns = data[0].length;
+          console.log(total_columns);
+          data = data.filter((i, j) => j);
+
+          for (var i = 0; i < total_columns; i++) {
+            headers.push("");
+          }
+
+          return { data: data, headers: headers };
+        } catch (err) {
+          setTimeout(() => {
+            this.illustrationFile.text = "";
+          }, 100);
+          console.log(err);
+          return false;
         }
-        return { data: data, headers: headers };
       }
       return false;
     },
