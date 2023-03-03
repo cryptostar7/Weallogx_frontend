@@ -2316,6 +2316,7 @@ color: #fff;
   box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0.75rem;
   padding: 0.625rem 1.75rem 1.75rem;
+  position: relative;
 }
 .illustration-data-table table {
   width: 100%;
@@ -2380,6 +2381,61 @@ color: #fff;
 }
 .select-option:focus {
   border-color: var(--green-clr);
+}
+.floating-btns{
+  position: absolute;
+  right: 30px;
+  top: -42px;
+  font-size: 15px;
+}
+.add-table-column-btn{
+  border-radius: 5px 5px 0 0;
+  padding: 0.45rem .75rem;
+  max-width: 230px;
+  margin: 0 auto;
+ font-weight: var(--semi-bold-fw);
+ background-color: transparent;
+ border: 2px solid #eee;
+ border-bottom: 0;
+ color: #ccc;
+ margin-right: 15px;
+}
+.add-table-column-btn:hover{
+  background-color: #f3f3f3;
+  color: #555;
+}
+.add-data-btn{
+  border-radius: 6.5rem;
+  padding: 0.625rem 1rem;
+  max-width: 230px;
+  margin: 0 auto;
+  font-weight: var(--semi-bold-fw);
+  background-color: var(--green-clr);
+  color: #fff;
+}
+.add-data-btn:hover{
+  color: #fff;
+}
+.csv-textarea:focus,.csv-textarea:active{
+  border: 1px solid var(--green-clr);
+}
+.csv-textarea::placeholder{
+  color: #aaa;
+}
+.cancel-add-data-btn{
+  border-radius: 6.5rem;
+  padding: 0.625rem 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  max-width: 230px;
+  margin: 0 auto;
+  font-weight: var(--semi-bold-fw);
+  background-color: #eee;
+  color: #555;
+}
+.cancel-add-data-btn:hover{
+  background-color: #ddd;
+  color: #555;
 }
 .h-70 {
   height: 70px;

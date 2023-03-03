@@ -138,7 +138,21 @@
               <div v-if="csvPreview.data" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                  <div class="div-wrapper">
+                  <div class="floating-btns">
+                    <button type="button" class="btn add-table-column-btn">+ Add Column</button>
+                    <button type="button" class="btn add-table-column-btn reset-table-btn">Reset Table</button>
+                  </div>
+
+                    <div class="d-flex additional-textarea py-3 d-none">
+                      <div class="flex-1">
+                        <textarea class="form-control csv-textarea w-100" name="" id="" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea>
+                      </div>
+                      <div class="ps-3 flex-shrink-0">
+                        <button type="button" class="nav-link btn add-data-btn fs-14 active px-3">+ Add Data</button>
+                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4">x Cancel</button>
+                      </div>
+                    </div>
+                  <div class="div-wrapper px-3">
                     <div class="div-wrapper-inner"></div>
                   </div>
                   <div class="table-responsive px-2">
@@ -163,7 +177,7 @@
                                     </td>
                                   </tr>
                        <!--          </tbody>
-                              </table>
+                              </table>4
                             </div>
                           </td>
                         </tr> -->
@@ -830,6 +844,16 @@ export default {
           $(".table-responsive").scroll(function() {
             $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
           });
+        });
+
+        var addColumnBtn = document.querySelector(".add-table-column-btn");
+        var cancelAddBtn = document.querySelector(".cancel-add-data-btn");
+        var additionalTextArea = document.querySelector(".additional-textarea");
+        addColumnBtn.addEventListener("click", () => {
+        additionalTextArea.classList.toggle("d-none");
+        });
+        cancelAddBtn.addEventListener("click", () => {
+        additionalTextArea.classList.toggle("d-none");
         });
       }, 1000);
     },
