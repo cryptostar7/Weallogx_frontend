@@ -135,21 +135,21 @@
                   </div>
                 </div>
               </div>
-              <div v-if="csvPreview.data" class="illustration-data-table-div w-100">
+              <div v-if="csvPreview.data.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                   <div class="floating-btns">
-                    <button type="button" class="btn add-table-column-btn">+ Add Column</button>
-                    <button type="button" class="btn add-table-column-btn reset-table-btn">Reset Table</button>
+                    <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
+                    <button type="button" class="btn add-table-column-btn reset-table-btn" @click="csvPreview = {data:[], headers:[]}">Reset Table</button>
                   </div>
 
                     <div class="d-flex additional-textarea py-3 d-none">
                       <div class="flex-1">
-                        <textarea class="form-control csv-textarea w-100" name="" id="" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea>
+                        <textarea class="form-control csv-textarea w-100" name="" id="add_new_csv_col" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea>
                       </div>
                       <div class="ps-3 flex-shrink-0">
-                        <button type="button" class="nav-link btn add-data-btn fs-14 active px-3">+ Add Data</button>
-                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4">x Cancel</button>
+                        <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addCSVColumn">+ Add Data</button>
+                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn">x Cancel</button>
                       </div>
                     </div>
                   <div class="div-wrapper px-3">
@@ -159,46 +159,23 @@
                     <table class="table illustration-data-table mb-0">
                       <tbody>
                         <tr>
-                        <!--   <td class="border-0">
-                            <div class="table-responsive w-100"> -->
-                              <!-- <label class="text-center d-block text-danger">Please categorize the CSV data</label> -->
-                            <!--   <table class="table w-100">
-                                <tbody>
-                                  <tr> -->
-                                    <td v-for="(header, index) in csvPreview.headers" :key="index" >
-                                      <div class=" d-flex flex-column align-items-center px-2 "> 
-                                        <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
-                                          <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                                        </button>
-                                        <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                                        <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2] !== 'None' && csvPreview.headers.includes(index2.toString())">{{item}}</option> 
-                                        </select> 
-                                      </div>
-                                    </td>
-                                  </tr>
-                       <!--          </tbody>
-                              </table>4
+                          <td v-for="(header, index) in csvPreview.headers" :key="index" >
+                            <div class="d-flex flex-column align-items-center px-2"> 
+                              <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
+                                <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
+                              </button>
+                              <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
+                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2] !== 'None' && csvPreview.headers.includes(index2.toString())">{{item}}</option> 
+                              </select> 
                             </div>
                           </td>
-                        </tr> -->
+                        </tr>
                         <tr>
-                         <!--  <td class="border-0">
-                            <div class="table-responsive w-100">
-                            <table class="table illustrative-data-table w-100">
-                              <thead>
-                                <tr> -->
-                                  <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
-                                </tr>
-                           <!--    </thead>
-                              <tbody> -->
-                                <tr v-for="(item, index) in csvPreview.data.length" :key="index">
-                                  <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
-                                </tr>
-                              <!-- </tbody> -->
-                            <!-- </table> -->
-                            <!-- </div> -->
-                     <!--      </td>
-                        </tr> -->
+                          <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
+                        </tr>
+                        <tr v-for="(item, index) in csvPreview.data.length" :key="index">
+                          <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -237,6 +214,7 @@ import {
 } from "../../../services/helper.js";
 export default {
   components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
+  refs: ["cancelCsvBtn"],
   data() {
     return {
       saveInsuranceTemplate: false,
@@ -260,7 +238,7 @@ export default {
       insuranceTemplateInput: 0,
       illustrationTemplateInput: 0,
       errors: [],
-      csvPreview: {},
+      csvPreview: { data: [], headers: [] },
       removeColId: null,
     };
   },
@@ -693,7 +671,7 @@ export default {
 
       if (!this.validateForm()) {
         console.log(this.errors);
-        document.getElementById('main-section-element').scrollTo(0, 0);
+        document.getElementById("main-section-element").scrollTo(0, 0);
         return false;
       } else {
         return this.$toast.success("Illustration data added successfully.");
@@ -809,33 +787,61 @@ export default {
       }
     },
     checkFunction: function() {
-      // console.log(this.csvPreview);
+      document.getElementById("add_new_csv_col").value = "";
+      document.getElementById("cancelCsvBtn").click();
+    },
+    addCSVColumn: function() {
+      let txt = document.getElementById("add_new_csv_col").value;
+
+      if (txt) {
+        let obj = this.exractCsvText(txt);
+        if (obj && obj.headers) {
+          let temp_data = [];
+          let maxRowLen = this.csvPreview.data.length;
+          let maxColLen = this.csvPreview.data.length;
+          if (obj.data.length < maxRowLen) {
+            maxRowLen = obj.data.length;
+          }
+
+          for (var i = 0; i < maxRowLen; i++) {
+            temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
+          }
+
+          this.csvPreview = {
+            data: temp_data,
+            headers: [...this.csvPreview.headers, ...obj.headers],
+          };
+          document.getElementById("add_new_csv_col").value = "";
+          document.getElementById("cancelCsvBtn").click();
+        } else {
+          this.csvPreview = {};
+          alert("Please paste a valid CSV..");
+        }
+      } else {
+        this.csvPreview = {};
+      }
     },
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
       if (txt) {
         let obj = this.exractCsvText(txt);
-        console.log(obj);
-        if (obj && obj.headers && obj.headers.length > 6) {
+        if (obj && obj.headers) {
           this.csvPreview = obj;
-          // console.log(obj);
         } else {
           this.csvPreview = {};
-          // console.log("obj");
           alert("Please paste a valid CSV..");
         }
       } else {
         this.csvPreview = {};
       }
       setTimeout(() => {
+        document.getElementById('pasteData').value = "";
         var wrapperInner = document.querySelector(".div-wrapper-inner");
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
-        console.log(illustrationTable.clientWidth);
         if (illustrationTable) {
-          wrapperInner.style.width = illustrationTable.clientWidth + 50 + "px";
-          // console.log(illustrationTable.clientWidth);
+          wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
         $(function() {
           $(".div-wrapper").scroll(function() {
@@ -850,12 +856,12 @@ export default {
         var cancelAddBtn = document.querySelector(".cancel-add-data-btn");
         var additionalTextArea = document.querySelector(".additional-textarea");
         addColumnBtn.addEventListener("click", () => {
-        additionalTextArea.classList.toggle("d-none");
+          additionalTextArea.classList.toggle("d-none");
         });
         cancelAddBtn.addEventListener("click", () => {
-        additionalTextArea.classList.toggle("d-none");
+          additionalTextArea.classList.toggle("d-none");
         });
-      }, 1000);
+      }, 100);
     },
     setHeader: function(e, index) {
       this.csvPreview.headers[index] = e.target.value;
@@ -878,10 +884,8 @@ export default {
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
-        console.log(illustrationTable.clientWidth);
         if (illustrationTable) {
-          wrapperInner.style.width = illustrationTable.clientWidth + 50 + "px";
-          console.log(illustrationTable.clientWidth);
+          wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
         $(function() {
           $(".div-wrapper").scroll(function() {
@@ -912,31 +916,6 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
-    // exractCsvTextOld: function(csv) {
-    //   if (typeof csv === "string") {
-    //     let lines = csv.split("\n");
-    //     let data = [];
-    //     let headers = [];
-    //     let total_columns = 0;
-    //     lines.forEach((line, i) => {
-    //       if (i) {
-    //         let row = this.parseRow(line);
-    //         if (row) {
-    //           if (total_columns < row.length) {
-    //             total_columns = row.length;
-    //           }
-    //           data.push(row);
-    //         }
-    //       }
-    //     });
-
-    //     for (var i = 0; i < total_columns; i++) {
-    //       headers.push("");
-    //     }
-    //     return { data: data, headers: headers };
-    //   }
-    //   return false;
-    // },
     exractCsvText: function(values = "") {
       let total_columns = 0;
       if (values) {
@@ -950,7 +929,6 @@ export default {
           }
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
-          console.log(total_columns);
           data = data.filter((i, j) => j);
 
           for (var i = 0; i < total_columns; i++) {

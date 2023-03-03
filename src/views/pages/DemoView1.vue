@@ -1,7 +1,9 @@
 <template lang="">
   <div>
       <textarea v-model="csv" cols="100" rows="10" @paste="handleCSV"></textarea>
-      <button @click="testFunction">Check</button>
+      <br />
+      <textarea v-model="csv" cols="100" rows="10" @paste="addMoreCol"></textarea>
+      <button @click="testFunction">Test</button>
   </div>
 </template>
 <script>
@@ -22,7 +24,9 @@ export default {
         )
       );
     },
-
+    addMoreCol: function(){
+      console.log('');
+    },
     parseRow: function(row) {
       var insideQuote = false;
       var entries = [];
