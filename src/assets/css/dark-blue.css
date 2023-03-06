@@ -4132,3 +4132,11 @@ color: #55575a !important;
 .dark-blue .bb-grey{
   border: none;
 }
+.dark-blue .add-table-column-btn{
+  border-color: #404348;
+}
+.dark-blue .add-table-column-btn:hover{
+  background-color: rgba(0,0,0,0.125);
+  color: var(--blue-clr-2);;;
+  border-color: #555;
+}

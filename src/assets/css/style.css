@@ -2329,7 +2329,15 @@ color: #fff;
   text-align: center;
   border: 1px solid #DFDFDF;
   padding: 0.25rem 0.25rem;
+  width: 175px;
+  min-width: 175px;
+  max-width: 175px;
 }
+.illustration-data-table tr td {
+  width: 175px;
+  min-width: 175px;
+  max-width: 175px;
+ }
 .table > :not(caption) > * > *{
   border-bottom: 0;
 }
@@ -2401,8 +2409,9 @@ color: #fff;
  margin-right: 15px;
 }
 .add-table-column-btn:hover{
-  background-color: #f3f3f3;
-  color: #555;
+  background-color: #f4f4f4;
+  color: var(--green-clr);
+  border-color: #ddd;
 }
 .add-data-btn{
   border-radius: 6.5rem;

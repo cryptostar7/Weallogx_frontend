@@ -1224,46 +1224,50 @@ margin: o;
 .light-blue .irrGroupedBars1 .irrBarHeight1{
   background: #1660A4;
   }
-  .light-blue .irrGroupedBars1 .irrvaluebarbg1{
-    background: #287BC7;
-    }
+.light-blue .irrGroupedBars1 .irrvaluebarbg1{
+  background: #287BC7;
+  }
 
-    .light-blue .irrGroupedBars1 .irrBarHeight2{
-      background: #1660A4;
-      }
-      .light-blue .irrGroupedBars1 .irrvaluebarbg2{
-        background: #287BC7;
-        }
+.light-blue .irrGroupedBars1 .irrBarHeight2{
+  background: #1660A4;
+  }
+.light-blue .irrGroupedBars1 .irrvaluebarbg2{
+  background: #287BC7;
+  }
 
-        /*  */
+  /*  */
 
-        .light-blue .irrGroupedBars2 .irrBarHeight1{
-          background: #209579;
-          }
-          .light-blue .irrGroupedBars2 .irrvaluebarbg1{
-            background: #30AD8F;
-            }
+.light-blue .irrGroupedBars2 .irrBarHeight1{
+  background: #209579;
+  }
+.light-blue .irrGroupedBars2 .irrvaluebarbg1{
+  background: #30AD8F;
+  }
         
-            .light-blue .irrGroupedBars2 .irrBarHeight2{
-              background: #0E6651;
-              }
-              .light-blue .irrGroupedBars2 .irrvaluebarbg2{
-                background: #25967B;
-                }
+.light-blue .irrGroupedBars2 .irrBarHeight2{
+  background: #0E6651;
+  }
+.light-blue .irrGroupedBars2 .irrvaluebarbg2{
+  background: #25967B;
+}
 
-
-                .reportTablesDiv3 .table tbody tr td{
-                  background:#F9FCFF;
-                }
-                .reportTablesDiv4 .table tbody tr td{
-                  background: #FAFFFE;
-                }
-                .reportTablesDiv5 .table tbody tr td{
-                  background: #FEFAFF;
-                }
-                .reportTablesDiv6 .table tbody tr td{
-                  background: #FFFAF7;
-                }
-                .reportTablesDiv7 .table tbody tr td{
-                  background: #FFFAF7;
-                }
+.reportTablesDiv3 .table tbody tr td{
+  background:#F9FCFF;
+}
+.reportTablesDiv4 .table tbody tr td{
+  background: #FAFFFE;
+}
+.reportTablesDiv5 .table tbody tr td{
+  background: #FEFAFF;
+}
+.reportTablesDiv6 .table tbody tr td{
+  background: #FFFAF7;
+}
+.reportTablesDiv7 .table tbody tr td{
+  background: #FFFAF7;
+}
+.light-blue .add-table-column-btn:hover{
+  background-color: #f4f4f4;
+  color: var(--blue-clr);;
+  border-color: #ddd;
+}
