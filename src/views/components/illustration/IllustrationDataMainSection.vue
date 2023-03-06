@@ -117,7 +117,7 @@
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
                       <div class="form-group mb-0"> 
                         <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" v-model="illustrationFile.text" @paste="handleCSV"></textarea> 
+                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV"></textarea> 
                         <!-- <div id="pasteData" cols="30" rows="5" class="form-control"></div>  -->
                       </div>
                     </div>
@@ -140,7 +140,7 @@
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                   <div class="floating-btns">
                     <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
-                    <button type="button" class="btn add-table-column-btn reset-table-btn" @click="csvPreview = {data:[], headers:[]}">Reset Table</button>
+                    <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                   </div>
 
                     <div class="d-flex additional-textarea py-3 d-none">
@@ -165,13 +165,13 @@
                                 <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
                               </button>
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2] !== 'None' && csvPreview.headers.includes(index2.toString())">{{item}}</option> 
+                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2].value !== 'none' && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
                             </div>
                           </td>
                         </tr>
                         <tr>
-                          <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item] !== 'None' ? illustrationFields[item] : '--'}` : '--'}}</th>
+                          <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}}</th>
                         </tr>
                         <tr v-for="(item, index) in csvPreview.data.length" :key="index">
                           <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
@@ -225,7 +225,6 @@ export default {
       illustrationFile: {
         name: "",
         file: null,
-        text: "",
         url: "",
       },
       existingInsuranceProfileId: "",
@@ -286,7 +285,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
         .then(response => {
-          console.log(response.data.data);
           let id = response.data.data.illustration;
           this.$store.dispatch("activeScenario", response.data.data);
           this.$store.dispatch("loader", false);
@@ -339,16 +337,16 @@ export default {
 
     illustrationFields() {
       return [
-        "None",
-        "Age",
-        "Accumulation Value",
-        "Distribution - Loan",
-        "Dealth Benefit",
-        "Distribution - Withdrawal",
-        "Fees",
-        "Premium",
-        "Surrender Value",
-        "Year",
+        { name: "None", value: "none" },
+        { name: "Age", value: "age" },
+        { name: "Accumulation Value", value: "accumulation_value" },
+        { name: "Distribution - Loan", value: "index_load_credits" },
+        { name: "Dealth Benefit", value: "dealth_benefit" },
+        { name: "Distribution - Withdrawal", value: "net_distribution" },
+        { name: "Fees", value: "total_loan_charge" },
+        { name: "Premium", value: "premium_outlay" },
+        { name: "Surrender Value", value: "surrender_value" },
+        { name: "Year", value: "year" },
       ];
     },
   },
@@ -486,12 +484,6 @@ export default {
           }
           this.errors.illustration_text = false;
         } else {
-          if (!this.illustrationFile.text) {
-            this.errors.illustration_text = ["This field is required."];
-            validate = false;
-          } else {
-            this.errors.illustration_text = false;
-          }
           this.errors.illustration_file = false;
         }
       }
@@ -647,22 +639,22 @@ export default {
           this.csvPreview.headers.length > 6
         ) {
           if (!this.csvPreview.headers.includes("1")) {
-            return alert(`${this.illustrationFields["1"]} is required.`);
+            return alert(`${this.illustrationFields["1"].name} is required.`);
           }
           if (!this.csvPreview.headers.includes("2")) {
-            return alert(`${this.illustrationFields["2"]} is required.`);
+            return alert(`${this.illustrationFields["2"].name} is required.`);
           }
           if (!this.csvPreview.headers.includes("4")) {
-            return alert(`${this.illustrationFields["4"]} is required.`);
+            return alert(`${this.illustrationFields["4"].name} is required.`);
           }
           if (!this.csvPreview.headers.includes("7")) {
-            return alert(`${this.illustrationFields["7"]} is required.`);
+            return alert(`${this.illustrationFields["7"].name} is required.`);
           }
           if (!this.csvPreview.headers.includes("8")) {
-            return alert(`${this.illustrationFields["8"]} is required.`);
+            return alert(`${this.illustrationFields["8"].name} is required.`);
           }
           if (!this.csvPreview.headers.includes("9")) {
-            return alert(`${this.illustrationFields["9"]} is required.`);
+            return alert(`${this.illustrationFields["9"].name} is required.`);
           }
         } else {
           return alert("Please paste a valid CSV.");
@@ -671,10 +663,9 @@ export default {
 
       if (!this.validateForm()) {
         console.log(this.errors);
-        document.getElementById("main-section-element").scrollTo(0, 0);
+        // document.getElementById("main-section-element").scrollTo(0, 0);
         return false;
       } else {
-        return this.$toast.success("Illustration data added successfully.");
       }
 
       var data = {
@@ -685,8 +676,8 @@ export default {
         policy_return: this.getInputWithId("policyReturn"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
-        // upload_file_checkbox: this.uploadFromFile,
-        upload_file_checkbox: true,
+        upload_file_checkbox: this.uploadFromFile,
+        // upload_file_checkbox: true,
         illustration: {
           template: this.saveIllustrationTemplate,
           template_name: this.illustrationTemplateName,
@@ -718,11 +709,35 @@ export default {
           file = this.illustrationFile.file;
         }
 
-        formData.append("illustration_data.upload_from_file", file);
         formData.append(
           "illustration_data.upload_file_checkbox",
           data.upload_file_checkbox
         );
+        formData.append(
+          "illustration_data.copy_paste",
+          !data.upload_file_checkbox
+        );
+
+        if (data.upload_file_checkbox) {
+          formData.append("illustration_data.upload_from_file", file);
+        } else {
+          let tempHeader = [];
+          this.csvPreview.headers.forEach(item => {
+            tempHeader.push(this.illustrationFields[item].value);
+          });
+
+          console.log(".........csv data format..........");
+          console.log({
+            data: [this.csvPreview.data],
+            headers: [tempHeader],
+          });
+
+          formData.append("illustration_data.copy_paste", {
+            data: this.csvPreview.data,
+            headers: tempHeader,
+          });
+        }
+
         formData.append(
           "illustration_data.save_this_template_name",
           data.illustration.template
@@ -787,11 +802,15 @@ export default {
       }
     },
     checkFunction: function() {
-      document.getElementById("add_new_csv_col").value = "";
-      document.getElementById("cancelCsvBtn").click();
+      console.log(this.csvPreview);
+    },
+    resetCsv: function() {
+      this.csvPreview = { data: [], headers: [] };
+      this.setInputWithId("pasteData", "");
+      this.setInputWithId("add_new_csv_col", "");
     },
     addCSVColumn: function() {
-      let txt = document.getElementById("add_new_csv_col").value;
+      let txt = this.getInputWithId("add_new_csv_col");
 
       if (txt) {
         let obj = this.exractCsvText(txt);
@@ -811,15 +830,44 @@ export default {
             data: temp_data,
             headers: [...this.csvPreview.headers, ...obj.headers],
           };
-          document.getElementById("add_new_csv_col").value = "";
+          this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
           this.csvPreview = {};
-          alert("Please paste a valid CSV..");
+          alert("Please paste a valid CSV.");
         }
       } else {
         this.csvPreview = {};
       }
+
+       setTimeout(() => {
+        document.getElementById("pasteData").value = "";
+        var wrapperInner = document.querySelector(".div-wrapper-inner");
+        var illustrationTable = document.querySelector(
+          ".illustration-data-table"
+        );
+        if (illustrationTable) {
+          wrapperInner.style.width = illustrationTable.clientWidth + "px";
+        }
+        $(function() {
+          $(".div-wrapper").scroll(function() {
+            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
+          });
+          $(".table-responsive").scroll(function() {
+            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
+          });
+        });
+
+        var addColumnBtn = document.querySelector(".add-table-column-btn");
+        var cancelAddBtn = document.querySelector(".cancel-add-data-btn");
+        var additionalTextArea = document.querySelector(".additional-textarea");
+        addColumnBtn.addEventListener("click", () => {
+          additionalTextArea.classList.toggle("d-none");
+        });
+        cancelAddBtn.addEventListener("click", () => {
+          additionalTextArea.classList.toggle("d-none");
+        });
+      }, 100);
     },
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
@@ -835,7 +883,7 @@ export default {
         this.csvPreview = {};
       }
       setTimeout(() => {
-        document.getElementById('pasteData').value = "";
+        document.getElementById("pasteData").value = "";
         var wrapperInner = document.querySelector(".div-wrapper-inner");
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
@@ -938,7 +986,7 @@ export default {
           return { data: data, headers: headers };
         } catch (err) {
           setTimeout(() => {
-            this.illustrationFile.text = "";
+            this.setInputWithId("pasteData", "");
           }, 100);
           console.log(err);
           return false;
