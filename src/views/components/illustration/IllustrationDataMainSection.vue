@@ -189,6 +189,10 @@
                   <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
                   </router-link> 
+
+                    <router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
+                    Go to next page
+                  </router-link> 
                 </div>
             </div>
           </form>

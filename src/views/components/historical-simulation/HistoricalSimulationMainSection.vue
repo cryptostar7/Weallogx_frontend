@@ -23,9 +23,7 @@
             <div class="form-wrapper">
               <p class="historicalTopPara1">Add Historical Simulations?</p>
               <p class="historicalTopPara2">OPTIONALS</p>
-
               <div class="d-flex align-items-center justify-content-center mt-3">
-
                 <router-link :to="`/historical-simulations-after-yes/${this.$route.params.scenario}`">
                   <div class="historical-yesNo-mainDiv">
                     <div class="historical-yes-div">
