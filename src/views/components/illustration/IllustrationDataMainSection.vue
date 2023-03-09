@@ -67,7 +67,7 @@
                 <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration" id="existingIllustration" />
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation"> 
-                    <button class="nav-link active" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" aria-selected="true"> 
+                    <button :class="`nav-link ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
                       <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
                         <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
@@ -84,7 +84,7 @@
                     </button> 
                   </li>
                   <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
-                    <button class="nav-link" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" aria-selected="false"> 
+                    <button :class="`nav-link ${uploadFromFile ? '' : 'active'}`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
                       <svg class="copyPaste" width="11" height="11"
                         viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="7" height="7" rx="1" fill="black" />
@@ -94,7 +94,7 @@
                   </li>
                 </ul>
                 <div class="tab-content pt-3 mt-1">
-                  <div class="tab-pane fade show active" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
+                  <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
                     <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                     <div class="pb-4"> 
                       <label for="uploading" class="drag-drop-label d-block text-center" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
@@ -111,7 +111,7 @@
                       <p class=" file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 " id="fileName">{{illustrationFile.name}}</p>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
+                  <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
                     <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
                     <div class="copy-paste-area">
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
@@ -165,7 +165,7 @@
                                 <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
                               </button>
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header === index2.toString()" :disabled="illustrationFields[index2].value !== 'none' && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
+                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="illustrationFields[index2].value !== 'none' && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
                             </div>
                           </td>
@@ -188,10 +188,6 @@
                 <span class="d-block mb-2"></span> 
                   <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
-                  </router-link> 
-
-                    <router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
-                    Go to next page
                   </router-link> 
                 </div>
             </div>
@@ -225,7 +221,7 @@ export default {
       insuranceTemplateName: "",
       saveIllustrationTemplate: false,
       illustrationTemplateName: "",
-      uploadFromFile: true,
+      uploadFromFile: false,
       illustrationFile: {
         name: "",
         file: null,
@@ -353,6 +349,20 @@ export default {
         { name: "Year", value: "year" },
       ];
     },
+    illustrationFieldsIndex() {
+      return {
+        none: "0",
+        age: "1",
+        accumulation_value: "2",
+        index_load_credits: "3",
+        dealth_benefit: "4",
+        net_distribution: "5",
+        total_loan_charge: "6",
+        premium_outlay: "7",
+        surrender_value: "8",
+        year: "9",
+      };
+    },
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
@@ -399,6 +409,7 @@ export default {
         get(`${getUrl("illustration")}${id}`, authHeader())
           .then(response => {
             let data = response.data.data;
+            console.log(data);
             this.insuranceCompany = data.insurance_company;
             this.insurancePolicyName = data.insurance_policy_name;
             this.PolicyNickname = data.insurance_policy_nickname;
@@ -407,12 +418,29 @@ export default {
               data.initial_death_benifit.toLocaleString()
             );
             this.setInputWithId("policyReturn", data.policy_return);
-            this.uploadFromFile = !data.copy_paste_checkbox;
+            this.uploadFromFile = data.upload_file_checkbox ? true : false;
             if (this.uploadFromFile) {
               this.illustrationFile.url =
                 data.illustration_data.upload_from_file;
+              this.csvPreview = { data: [], headers: [] };
             } else {
               this.illustrationFile.url = "";
+              if (
+                data.illustration_data.copy_paste &&
+                data.illustration_data.copy_paste.headers.length
+              ) {
+                // this.csvPreview = data.illustration_data.copy_paste;
+                let filteredCsv = {
+                  data: data.illustration_data.copy_paste.data,
+                  headers: [],
+                };
+                filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
+                  i => this.illustrationFieldsIndex[i]
+                );
+
+                this.csvPreview = filteredCsv;
+                this.setScrollbar();
+              }
             }
             this.$store.dispatch("loader", false);
           })
@@ -680,7 +708,8 @@ export default {
         policy_return: this.getInputWithId("policyReturn"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
-        upload_file_checkbox: this.uploadFromFile,
+        upload_file_checkbox: this.uploadFromFile ? true : false,
+
         // upload_file_checkbox: true,
         illustration: {
           template: this.saveIllustrationTemplate,
@@ -717,8 +746,9 @@ export default {
           "illustration_data.upload_file_checkbox",
           data.upload_file_checkbox
         );
+
         formData.append(
-          "illustration_data.copy_paste",
+          "illustration_data.copy_paste_checkbox",
           !data.upload_file_checkbox
         );
 
@@ -727,25 +757,27 @@ export default {
         } else {
           let tempHeader = [];
           this.csvPreview.headers.forEach(item => {
-            tempHeader.push(this.illustrationFields[item].value);
+            if (this.illustrationFields[item]) {
+              tempHeader.push(this.illustrationFields[item].value);
+            } else {
+              tempHeader.push("none");
+            }
           });
 
-          console.log(".........csv data format..........");
-          console.log({
-            data: [this.csvPreview.data],
-            headers: [tempHeader],
-          });
-
-          formData.append("illustration_data.copy_paste", {
-            data: this.csvPreview.data,
-            headers: tempHeader,
-          });
+          formData.append(
+            "illustration_data.copy_paste",
+            JSON.stringify({
+              data: this.csvPreview.data,
+              headers: tempHeader,
+            })
+          );
         }
 
         formData.append(
           "illustration_data.save_this_template_name",
           data.illustration.template
         );
+
         if (data.illustration.template) {
           formData.append(
             "illustration_data.template_name",
@@ -760,50 +792,28 @@ export default {
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       this.$store.dispatch("loader", true);
-      if (this.existingIllustrationId) {
-        post(getUrl("illustration-id"), formData, authHeader())
-          .then(response => {
-            this.$store.dispatch("loader", false);
-            this.$toast.success("Illustration data added successfully.");
-            this.$router.push(
-              `/comparative-vehicles/${this.$route.params.scenario}`
-            );
-          })
-          .catch(error => {
-            console.log(this.error);
-            this.$store.dispatch("loader", false);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            } else {
-              this.$toast.error(getFirstError(error));
-            }
-          });
-      } else {
-        post(getUrl("illustration"), formData, authHeader())
-          .then(response => {
-            this.$store.dispatch("loader", false);
-            this.$toast.success("Illustration data added successfully.");
-            this.$router.push(
-              `/comparative-vehicles/${this.$route.params.scenario}`
-            );
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-            this.$store.dispatch("loader", false);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            } else {
-              this.$toast.error(getFirstError(error));
-            }
-          });
-      }
+
+      post(getUrl("illustration"), formData, authHeader())
+        .then(response => {
+          this.$store.dispatch("loader", false);
+          this.$toast.success("Illustration data added successfully.");
+          this.$router.push(
+            `/comparative-vehicles/${this.$route.params.scenario}`
+          );
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
+        });
     },
     checkFunction: function() {
       console.log(this.csvPreview);
@@ -844,34 +854,7 @@ export default {
         this.csvPreview = {};
       }
 
-      setTimeout(() => {
-        document.getElementById("pasteData").value = "";
-        var wrapperInner = document.querySelector(".div-wrapper-inner");
-        var illustrationTable = document.querySelector(
-          ".illustration-data-table"
-        );
-        if (illustrationTable) {
-          wrapperInner.style.width = illustrationTable.clientWidth + "px";
-        }
-        $(function() {
-          $(".div-wrapper").scroll(function() {
-            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
-          });
-          $(".table-responsive").scroll(function() {
-            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
-          });
-        });
-
-        var addColumnBtn = document.querySelector(".add-table-column-btn");
-        var cancelAddBtn = document.querySelector(".cancel-add-data-btn");
-        var additionalTextArea = document.querySelector(".additional-textarea");
-        addColumnBtn.addEventListener("click", () => {
-          additionalTextArea.classList.toggle("d-none");
-        });
-        cancelAddBtn.addEventListener("click", () => {
-          additionalTextArea.classList.toggle("d-none");
-        });
-      }, 100);
+       this.setScrollbar();
     },
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
@@ -886,6 +869,12 @@ export default {
       } else {
         this.csvPreview = {};
       }
+      this.setScrollbar();
+    },
+    setHeader: function(e, index) {
+      this.csvPreview.headers[index] = e.target.value;
+    },
+    setScrollbar: function() {
       setTimeout(() => {
         document.getElementById("pasteData").value = "";
         var wrapperInner = document.querySelector(".div-wrapper-inner");
@@ -915,9 +904,6 @@ export default {
         });
       }, 100);
     },
-    setHeader: function(e, index) {
-      this.csvPreview.headers[index] = e.target.value;
-    },
     removeColumn: function() {
       let temp_data = [];
       this.csvPreview.data.forEach((row, index) => {
@@ -931,23 +917,7 @@ export default {
         ),
       };
 
-      setTimeout(() => {
-        var wrapperInner = document.querySelector(".div-wrapper-inner");
-        var illustrationTable = document.querySelector(
-          ".illustration-data-table"
-        );
-        if (illustrationTable) {
-          wrapperInner.style.width = illustrationTable.clientWidth + "px";
-        }
-        $(function() {
-          $(".div-wrapper").scroll(function() {
-            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
-          });
-          $(".table-responsive").scroll(function() {
-            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
-          });
-        });
-      }, 1000);
+      this.setScrollbar();
     },
     parseRow: function(row) {
       var insideQuote = false;
@@ -968,7 +938,7 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
-    checkIsHeader: function(arr=[]) {
+    checkIsHeader: function(arr = []) {
       var isHeader = false;
       arr.forEach((item, index) => {
         if (isNaN(item.replace("$", "").replaceAll(",", ""))) {
@@ -990,7 +960,9 @@ export default {
           }
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
-          data = data.filter((i) => i.filter((j) => j).length && !this.checkIsHeader(i));
+          data = data.filter(
+            i => i.filter(j => j).length && !this.checkIsHeader(i)
+          );
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
           }

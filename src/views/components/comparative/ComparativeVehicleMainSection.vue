@@ -387,7 +387,7 @@ export default {
       existingPortfolioName: "",
     };
   },
-
+                
   mounted() {
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
@@ -676,7 +676,7 @@ export default {
       this.errors[`vehicle${vType}`] = [];
       this.vehicle[`vehicle${vType}`].existing.name = name;
     },
-
+   
     // to update the vehicle type and type id field of in the vehicle type dropdown for all vehicle tabs
     updateVehicleType: function(vehicle, id, type) {
       if (id) {
@@ -762,7 +762,7 @@ export default {
         );
       }
     },
-
+                                      
     // populate existing vehicle details
     populateVehicleTemplate: function(vType = 1, id = null, type = 1) {
       this.$store.dispatch("loader", true);
