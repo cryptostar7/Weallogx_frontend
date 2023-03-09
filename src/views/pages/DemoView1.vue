@@ -2,7 +2,6 @@
   <div>
       <textarea v-model="csv" cols="100" rows="10" @paste="handleCSV"></textarea>
       <br />
-      <textarea v-model="csv" cols="100" rows="10" @paste="addMoreCol"></textarea>
       <button @click="testFunction">Test</button>
   </div>
 </template>
@@ -15,17 +14,17 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(
-        JSON.parse(
-          '["67","2","$44,800","$0","$5,782","$10,226","$0","$78,392","$64,252","$485,477\r"]'.replace(
-            "\r",
-            ""
-          )
-        )
-      );
-    },
-    addMoreCol: function(){
-      console.log('');
+      var arr = [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ];
+
+      console.log(arr.filter((i) => i).length);
     },
     parseRow: function(row) {
       var insideQuote = false;
@@ -47,11 +46,18 @@ export default {
       return entries;
     },
 
+    handleCSV: function(e) {
+      let txt = e.clipboardData.getData("text/plain");
+      if (txt) {
+        this.exractCsvText(txt);
+      }
+    },
     exractCsvText: function(values = "") {
       let total_columns = 0;
       if (values) {
         try {
           let data = values.split("\n");
+          let headers = [];
           if (values.match("\t")) {
             data = data.map(i => i.split("\t"));
           } else {
@@ -60,13 +66,14 @@ export default {
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
           data = data.filter((i, j) => j);
-
+          console.log(data);
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
           }
-          
+
           return { data: data, headers: headers };
         } catch (err) {
+          console.log(err);
           setTimeout(() => {
             this.csv = "";
           }, 100);

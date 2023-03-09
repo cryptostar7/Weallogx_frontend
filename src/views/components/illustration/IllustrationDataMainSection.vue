@@ -844,7 +844,7 @@ export default {
         this.csvPreview = {};
       }
 
-       setTimeout(() => {
+      setTimeout(() => {
         document.getElementById("pasteData").value = "";
         var wrapperInner = document.querySelector(".div-wrapper-inner");
         var illustrationTable = document.querySelector(
@@ -968,6 +968,15 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
+    checkIsHeader: function(arr=[]) {
+      var isHeader = false;
+      arr.forEach((item, index) => {
+        if (isNaN(item.replace("$", "").replaceAll(",", ""))) {
+          isHeader = true;
+        }
+      });
+      return isHeader;
+    },
     exractCsvText: function(values = "") {
       let total_columns = 0;
       if (values) {
@@ -981,8 +990,7 @@ export default {
           }
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
-          data = data.filter((i, j) => j);
-
+          data = data.filter((i) => i.filter((j) => j).length && !this.checkIsHeader(i));
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
           }
