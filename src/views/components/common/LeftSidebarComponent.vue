@@ -1,10 +1,13 @@
 <template lang="">
-     <div class="sidebar">
-        <div class="position-sticky h-100 sidebar-inner">
-          <h3 class="fs-26 bold-fw text-white mb-20">Hi, {{$currentUser() ? $currentUser().first_name : '' }}</h3>
+     <div class="sidebar indexSidebar">
+        <div class="position-sticky h-100 sidebar-inner extra">
+          <div class="mb-20">
+            <h3 class="fs-26 bold-fw text-white hi-username">Hi, {{$currentUser() ? $currentUser().first_name : '' }}</h3>
+            <label class="sidebar-username-label" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${$currentUser() ? $currentUser().first_name : '' }`"><span>{{$currentUser() ? $currentUser().first_name[0] : '' }}</span></label>
+          </div>
           <ul class="nav flex-column flex-nowrap h-100 sidebar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Comparative Analysis">
                 <label class="cursor-pointer otherModecls">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none">
                     <path
@@ -32,7 +35,7 @@
                       d="M11.7998 11.9041C12.9044 11.9041 13.7998 11.0086 13.7998 9.90405C13.7998 8.79948 12.9044 7.90405 11.7998 7.90405C10.6952 7.90405 9.7998 8.79948 9.7998 9.90405C9.7998 11.0086 10.6952 11.9041 11.7998 11.9041Z"
                       fill="black" />
                   </svg>
-                  Comparative Analysis
+                  <span>Comparative Analysis</span>
                 </label>
                  <label v-if="$props.client" class="side-client-label indivisualLftArrow semi-bold-fw fs-14">
                   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +49,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Phase 3 Title">
                 <label class="cursor-pointer otherModecls">
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path
@@ -54,12 +57,12 @@
                       fill="black" />
                     <circle cx="9" cy="9" r="7.75" stroke="black" stroke-width="1.5" />
                   </svg>
-                  Phase 3 Title
+                  <span>Phase 3 Title</span>
                 </label>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Index Strategy Calculator">
                 <label class="cursor-pointer otherModecls">
                   <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -78,17 +81,59 @@
                     <rect x="3" y="9.42859" width="2.57143" height="2.57143" rx="1.28571" fill="#282627" />
                     <rect x="3" y="12.8572" width="2.57143" height="2.57143" rx="1.28571" fill="#282627" />
                   </svg>
-                  Index Strategy Calculator
+                  <span>Index Strategy Calculator</span>
                 </label>
               </a>
             </li>
           </ul>
         </div>
+        <button class="sidebar-arrow-1"><svg class="sidebarArrowImgJs1" width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(360deg);">
+            <rect x="0.25" y="5.45312" width="7" height="1.5" rx="0.75" transform="rotate(-45 0.25 5.45312)" fill="#23669E"></rect>
+            <rect x="1.3125" y="4.5" width="7" height="1.5" rx="0.75" transform="rotate(45 1.3125 4.5)" fill="#23669E"></rect>
+          </svg>
+        </button>
       </div>
 </template>
 <script>
 export default {
     props:['client'],
+    data() {
+    return {
+      enabled: true,
+      dragging: false,
+      list: this.$store.state.data.reportTabs,
+      sidebar: {
+        collapse: false,
+        currentTab: "comparative",
+      },
+    };
+  },
+  mounted(){
+    const sideArrow = document.querySelector(".sidebar-arrow-1");
+    const indexSidebar = document.querySelector(".indexSidebar");
+    const rightArea = document.querySelector(".right-area");
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    sideArrow.addEventListener("click", () => {
+      indexSidebar.classList.toggle("collapsed");
+      rightArea.classList.toggle("wider");
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      if(indexSidebar.classList.contains("collapsed")){
+        console.log("hello")
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      }
+      if(!indexSidebar.classList.contains("collapsed")){
+        console.log("hello")
+        return new bootstrap.Tooltip(tooltipTriggerEl).disable();
+      }
+    })
+    });
+
+    if(window.innerWidth > 767 && window.innerWidth < 1200){
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });   
+    }
+  }
 }
 </script>
 <style lang="">

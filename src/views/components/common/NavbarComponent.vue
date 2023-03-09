@@ -16,7 +16,7 @@
             </ul>
           </li>
         </ul>
-        <button id="menuBtn" class="btn menu-btn d-block d-xl-none">
+        <button id="menuBtn" class="btn menu-btn d-block d-md-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#b1b0b0"
             class="menu-icon bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -53,6 +53,29 @@ export default {
     if (!this.$store.state.data.user) {
       this.getProfile();
     }
+    const menuBtn = document.getElementById("menuBtn");
+    const menuIcon = menuBtn.querySelector(".menu-icon");
+    const closeIcon = menuBtn.querySelector(".close-icon");
+    const sidebar = document.querySelector(".sidebar");
+
+    menuBtn.addEventListener("click", function (e) {
+      menuIcon.classList.toggle("d-none");
+      closeIcon.classList.toggle("d-none");
+      if(sidebar) {
+        sidebar.classList.toggle("show");
+      }
+    });
+
+    document.addEventListener("mouseup", function (e) {
+      e.stopPropagation();
+      if(sidebar && sidebar.classList.contains("show")) {
+        if (!e.target.parentNode.closest(".sidebar") && !e.target.closest(".menu-btn")) {
+          menuIcon.classList.remove("d-none");
+          closeIcon.classList.add("d-none");
+          sidebar.classList.remove("show");
+        }
+      }
+    });
   },
   methods: {
     getProfile: function() {

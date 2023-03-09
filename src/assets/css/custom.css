@@ -839,7 +839,11 @@ body::-webkit-scrollbar {
   background-color: #fff;
   border-bottom: 1px solid #d3d3d3;
 }
-
+@media screen and (max-width: 767px){
+  .report-top-navbar {
+    padding: 0.625rem 1rem;
+  }
+}
 .widthClass {
   --top-margin: 62px;
   --sidebar-width: 274px;
