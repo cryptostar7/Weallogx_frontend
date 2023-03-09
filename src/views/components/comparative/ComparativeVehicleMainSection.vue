@@ -115,7 +115,7 @@
                       </div>
                       <div :class="`tab-pane ${vehicle.tab === 2 ? 'active':''}`" id="vehicleType2Tab" role="tabpanel" aria-labelledby="vehicleType2-tab">
                         <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" :defaultSelected="defaultVehicle.vehicle2.template_name" @onSelectItem="(e) => setVehicleType(2, e)" @inputText="(e) => setVehicleTypeName(2, e)" />
-                        <div :class="`${vehicle.vehicle2.type_id ? '' : 'vehicleaTypeArea'}`" id="taxableArea2">
+                        <div :class="`${vehicle.vehicle2.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea2">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle2" @clearError="() => errors.existing_vehicle2 = false" @onSelectItem="(e) => setExistingVehicle(2, e)"  @inputText="(e) => setExistingVehicleName(2, e)" />
                            <span class="or-text-span">or</span>
                           <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>

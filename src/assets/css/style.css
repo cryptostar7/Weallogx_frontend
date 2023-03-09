@@ -370,6 +370,38 @@ body::-webkit-scrollbar {
 .sidebar-nav .nav-link svg rect {
   fill: #3CB79A;
 }
+.sidebar-username-label{
+  height: 50px;
+  width: 100%;
+  max-width: 50px;
+  border-radius: 50%;
+  background-color: #298B74;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  display: none;
+}
+.sidebar-username-label span{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+.sidebar-arrow-1{
+    position: absolute;
+    background: #FFF;
+    border: 1.5px solid #20866E;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: -25px;
+    top: calc(50% + 33px);
+    transform: translate(-50%) rotate(0deg);
+    z-index: 3;
+  }
 .right-area {
   flex: 1;
   height: calc(100vh - var(--top-margin));
@@ -2486,7 +2518,7 @@ color: #fff;
   .top-navbar .navbar-collapse {
     display: flex;
   }
-  .sidebar {
+/*  .sidebar {
     left: calc(-1 * var(--sidebar-width));
   }
   .sidebar.show {
@@ -2498,7 +2530,7 @@ color: #fff;
     inset: 0;
     left: var(--sidebar-width);
     background-color: rgba(0, 0, 0, 0.25);
-  }
+  }*/
   /* .reportSideBar{
     left: 0!important;
   } */
@@ -2532,6 +2564,9 @@ color: #fff;
     font-weight: bold;
     text-align: left;
   }
+  .main-section .sidebar .sidebar-inner.extra {
+    display: block !important;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 1199.99px) {
   .main-tab-heading {
@@ -2539,6 +2574,54 @@ color: #fff;
   }
   .search-bar-div {
     flex-basis: 50%;
+  }
+  .sidebar .sidebar-arrow-1{
+    transform: translate(-50%) rotate(180deg);
+    display: none;
+  }
+  .sidebar{
+    min-width: auto;
+  }
+  .sidebar .hi-username{
+    display: none;
+  }
+  .sidebar .sidebar-username-label{
+    display: flex;
+  }
+  .sidebar .sidebar-nav .nav-link span {
+    display: none;
+  }
+  .sidebar .sidebar-nav .nav-link svg{
+    margin-right: 0;
+  }
+  .right-area{
+   margin-left: 90px; 
+  }
+}
+@media screen and (min-width: 768px){
+  .sidebar.collapsed .sidebar-arrow-1{
+    transform: translate(-50%) rotate(180deg);
+  }
+  .sidebar.collapsed{
+    min-width: auto;
+  }
+  .sidebar .hi-username{
+    margin-top: 1rem;
+  }
+  .sidebar.collapsed .hi-username{
+    display: none;
+  }
+  .sidebar.collapsed .sidebar-username-label{
+    display: flex;
+  }
+  .sidebar.collapsed .sidebar-nav .nav-link span {
+    display: none;
+  }
+  .sidebar.collapsed .sidebar-nav .nav-link svg{
+    margin-right: 0;
+  }
+  .right-area.wider{
+   margin-left: 90px; 
   }
 }
 /* For Mobile Devices less than 767px */
@@ -2701,7 +2784,31 @@ color: #fff;
   #reviewProgress {
     width: 72% !important;
   }
+  .sidebar{
+    left: calc(-1 * var(--sidebar-width));
+  } 
+  .sidebar.show{
+    left: 0;
+  }
+  .sidebar.show::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    left: var(--sidebar-width);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+   .sidebar.show::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    left: var(--sidebar-width);
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .sidebar-arrow-1{
+    display: none;
+  }
 }
+
 /* Historical simulations start */
 .historical-mainSection {
   background: #F5F5F5;
@@ -4996,3 +5103,7 @@ input[type=number] {
     background-position:calc(100% - 10px) 50% !important;
     padding-right: 24px!important;
     }
+     .report-top-navbar{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
