@@ -151,7 +151,7 @@
                           </div>
                           <div class="pb-2">
                             <div class=" form-check form-switch custom-switch preAfeCapitalSwtch2">
-                              <input class="form-check-input" type="checkbox" role="switch" id="capitalGainTax2" v-model="vehicle.vehicle2.capitalGains" :checked=" vehicle.vehicle2.type_id === 1 ? false : true" /> 
+                              <input class="form-check-input" type="checkbox" role="switch" id="capitalGainTax2" v-model="vehicle.vehicle2.capitalGains" :checked="vehicle.vehicle2.type_id === 1 ? false : true" /> 
                               <label class="form-check-label fs-12 semi-bold-fw mb-0" for="capitalGainTax2" id="capitalGainLabel2">{{vehicle.vehicle2.type_id === 1 ? "Capital Gains Tax" : "Pre Age 59 ½ Penalty"}}</label> 
                             </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle2.capitalGains && vehicle.vehicle2.type_id === 1 ? '' : 'capitalDisplayNone'} pt-2`"  id="capitalGainTaxInputs2">
@@ -219,7 +219,7 @@
                           </div>
                           <div class="pb-2">
                             <div class=" form-check form-switch custom-switch preAfeCapitalSwtch3">
-                               <input class="form-check-input" type="checkbox" role="switch" id="capitalGainTax3" v-model="vehicle.vehicle3.capitalGains" :checked=" vehicle.vehicle3.type_id  ===  1 ? false : true " /> 
+                               <input class="form-check-input" type="checkbox" role="switch" id="capitalGainTax3" v-model="vehicle.vehicle3.capitalGains" :cheked="vehicle.vehicle3.type_id  ===  1 ? false : true " /> 
                                <label class="form-check-label fs-12 semi-bold-fw mb-0" for="capitalGainTax3" id="capitalGainLabel3">{{vehicle.vehicle3.type_id  ===  1 ? "Capital Gains Tax" : "Pre Age 59 ½ Penalty"}}</label> 
                             </div>
                             <div :class="`form-group-wrapper ${vehicle.vehicle3.capitalGains && vehicle.vehicle3.type_id === 1 ? '' : 'capitalDisplayNone'} pt-2`" id="capitalGainTaxInputs3">
@@ -406,10 +406,7 @@ export default {
     );
 
     // populate comparative data if comparative data id exist in url
-    if (
-      this.$route.params.scenario &&
-      !this.activeScenario
-    ) {
+    if (this.$route.params.scenario && !this.activeScenario) {
       this.$store.dispatch("loader", true);
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
         .then(response => {
@@ -432,10 +429,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     } else {
-      if (
-        this.$route.params.scenario &&
-        this.activeScenario
-      ) {
+      if (this.$route.params.scenario && this.activeScenario) {
         let id = this.activeScenario.comperative;
         if (id) {
           this.getPortfolioData(id);
@@ -547,6 +541,7 @@ export default {
     },
 
     setVehicleTab: function(val) {
+      console.log(val);
       if (Number(val) === 1) {
         this.vehicle.tab = Number(val);
       }
@@ -573,6 +568,11 @@ export default {
       if (!this.tabs.vehicle2 && this.vehicle.tab === 3) {
         this.vehicle.tab = 1;
       }
+
+      if (this.vehicle.tab === 2) {
+        this.tabs.vehicle2 = false;
+        this.setVehicleTab(1);
+      }
       // stop the nex function calling request
       event.stopPropagation();
       event.preventDefault();
@@ -581,7 +581,10 @@ export default {
       if (this.tabs.vehicle2 && this.vehicle.tab !== 3) {
         this.tabs.vehicle3 = !this.tabs.vehicle3;
       }
-
+      if (this.vehicle.tab === 3) {
+        this.tabs.vehicle3 = false;
+        this.setVehicleTab(2);
+      }
       // stop the nex function calling request
       event.stopPropagation();
       event.preventDefault();
