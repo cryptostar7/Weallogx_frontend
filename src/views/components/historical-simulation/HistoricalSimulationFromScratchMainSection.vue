@@ -32,7 +32,7 @@
                     <p class="numberIndexStrtegiesPara">Number of Index Strategies</p>
                     <div class="d-flex justify-content-center">
                       <div class="multiRadioBtnMainDiv"> 
-                        <div :class="`eachRadioBtnBgDiv ${activeTab === 1 ? 'active':''}`" id="historicalTopCheckBoxDiv1"  @click="setActiveTab(1)">
+                        <div :class="`eachRadioBtnBgDiv ${activeTab === 1 ? 'active' : ''}`" id="historicalTopCheckBoxDiv1"  @click="setActiveTab(1)">
                           <div class=" form-check form-switch custom-switch radioClassDarkMode ms-2 ">
                              <input class="form-check-input" type="checkbox" role="switch" checked /> </div>
                           <p class="historicalRadioNumberPara">1</p>

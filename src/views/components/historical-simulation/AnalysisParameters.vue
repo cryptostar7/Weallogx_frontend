@@ -26,19 +26,19 @@
         <p></p>
       </div>
     <SelectDropdown
-        :list="dropdown.historyIndex2"
+        :list="indexStrategies"
         id="historyIndexLabel2"
         class="form-group less w-75"
         @onSelectItem="updateRollingPeriod"
+        :defaultSelected="indexStrategies[0].template_name"
     /> 
     <div class="formParabrdrLavelDiv mt-3 mb-2">
-        <p>Rolling Time Period (Years)</p>
+        <p @click="checkFunction">Rolling Time Period (Years)</p>
         <p></p>
     </div>
-    <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center"
-        id="rollingTimePeriod1">
-        <label v-for="(item, index) in rollingTimePeriod" :key="index" :class="item > rollingPeriod1.time ? 'disabled' : `${customRollingPeriod1 ? 'disabled':''}`">
-        <input type="radio" name="radio" class="d-none" >
+    <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center" id="rollingTimePeriod1">
+        <label v-for="(item, index) in rollingTimePeriod" :key="index" :class="item > rollingPeriod.max_val ? 'disabled' : `${rollingPeriod.custom ? 'disabled':''}`">
+        <input type="radio" name="radio" class="d-none" :checked="rollingPeriod.custom ? false : `${item > rollingPeriod.max_val ? false : `${rollingPeriod.value === item ? true :  false}`}`">
         <span class="timePeriodYear">{{item}}</span>
         </label>
         <div class="or-div">
@@ -46,7 +46,7 @@
         </div>
         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth">
         <label for="customAmount">Custom Amount</label>
-        <input id="customAmount" ref="input" type="text" @keyup="(e) => saveRollingPeriod1(e)" class="bonus-input backgroundImageNone percent-input">
+        <input id="customAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
         </div>
     </div>
 
@@ -102,62 +102,40 @@
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
+import config from "../../../services/config.js";
 export default {
   components: { SelectDropdown },
-  props:['currentTab'],
+  props: ["currentTab"],
   data() {
     return {
-      dropdown: {
-        historyIndex: [
-          {id:1, name:"S&P 500"},
-          {id:2, name:"Blended Index"},
-          {id:3, name:"Bloomberg US Dynamic Balance II ER"},
-          {id:4, name:"PIMCO Tactical Balanced ER"},
-        ],
-        historyIndex2: [
-          {id:1, name:"S&P 500"},
-          {id:2, name:"Blended Index"},
-          {id:3, name:"Bloomberg US Dynamic Balance II ER"},
-          {id:4, name:"PIMCO Tactical Balanced ER"},
-        ],
-      },
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
-      rollingPeriod1: {
-        value: "",
-        time: 50,
+      rollingPeriod: {
+        value: 30,
+        custom: "",
+        max_val: 55,
       },
-      customRollingPeriod1: "",
     };
   },
   methods: {
-    updateRollingPeriod: function (val) {
-      this.rollingPeriod1.value = val;
-      this.customRollingPeriod1 = "";
-      this.$refs.input.value = "";
-      if (val === this.dropdown.historyIndex[0]) {
-        this.rollingPeriod1.time = 50;
-      }
-
-      if (val === this.dropdown.historyIndex[1]) {
-        this.rollingPeriod1.time = 30;
-      }
-
-      if (val === this.dropdown.historyIndex[2]) {
-        this.rollingPeriod1.time = 15;
-      }
-
-      if (val === this.dropdown.historyIndex[3]) {
-        this.rollingPeriod1.time = 15;
-      }
-
-      console.log(this.rollingPeriod1);
+    checkFunction: function() {
+      console.log(this.rollingPeriod);
     },
-    saveRollingPeriod1: function (e) {
-      this.customRollingPeriod1 = e.target.value;
+    updateRollingPeriod: function(val) {
+      this.rollingPeriod.max_val = this.indexStrategies.filter(i => i.id === val)[0].max_limit;
+      this.rollingPeriod.value = this.rollingPeriod.max_val;
+      console.log(this.rollingPeriod.value);
+    },
+    saveRollingPeriod: function(e) {
+      this.customRollingPeriod = e.target.value;
     },
   },
   mounted() {
-    this.rollingPeriod1.value = this.dropdown.historyIndex[0];
+    this.rollingPeriod.value = this.indexStrategies[0];
+  },
+  computed: {
+    indexStrategies() {
+      return config.INDEX_STRATEGIES;
+    },
   },
 };
 </script>

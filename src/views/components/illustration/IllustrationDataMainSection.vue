@@ -138,11 +138,10 @@
               <div v-if="csvPreview.data.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                  <div class="floating-btns">
-                    <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
-                    <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
-                  </div>
-
+                    <div class="floating-btns">
+                      <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
+                      <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
+                    </div>
                     <div class="d-flex additional-textarea py-3 d-none">
                       <div class="flex-1">
                         <textarea class="form-control csv-textarea w-100" name="" id="add_new_csv_col" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea>
@@ -700,6 +699,8 @@ export default {
       } else {
       }
 
+      console.log('line 702');
+
       var data = {
         company: this.insuranceCompany,
         policy_name: this.insurancePolicyName,
@@ -792,6 +793,7 @@ export default {
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       this.$store.dispatch("loader", true);
+      console.log('line 796');
 
       post(getUrl("illustration"), formData, authHeader())
         .then(response => {
