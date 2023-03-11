@@ -1,11 +1,9 @@
 <template lang="">
-     <div class="indexStrategyallDivs active accordion-button collapsed mt-3"
-        data-bs-toggle="collapse" data-bs-target="#fees-parameters1" aria-expanded="false"
-        aria-controls="fees-parameters1">
+     <div class="indexStrategyallDivs active accordion-button collapsed mt-3" data-bs-toggle="collapse" data-bs-target="#fees-parameters1" aria-expanded="false" aria-controls="fees-parameters1">
         <div class="d-flex justify-content-between align-items-center">
         <div class="indexStrategyheadBrdr">
-            <p>Fees<svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21"
-                fill="none" xmlns="http://www.w3.org/2000/svg">
+            <p>Fees
+            <svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21"  fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="10.5" cy="10.5" r="9.75" fill="#0E6651" stroke="#14EAB7"
                 stroke-width="1.5" />
                 <rect x="16.6006" y="7.91222" width="9.99563" height="1.5" rx="0.75"
@@ -38,7 +36,7 @@
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
             <label for="customAmount">Custom Amount</label>
-            <input type="text"  v-model="customPremiumCharge" class="bonus-input">
+            <input type="text" @keyup="(e) => customPremiumCharge = e.target.value" class="handleLimit" min="0" max="15">
             </div>
         </div>
         </div>
@@ -48,7 +46,7 @@
         </div>
         <label :for="`premiumcharge${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
         </div>
-        <div class="d-flex justify-content-center w-100" v-if="!sameInAllYears.premium_charge">
+        <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.premium_charge ? 'd-none' : ''}`">
             <div class="schduleTableDiv mt-5 ">
                 <table class="table">
                 <thead>
@@ -59,7 +57,7 @@
                     <tr v-for="(item, index) in illustrateYear" :key="index">
                         <td data-label="Year">{{item}}</td>
                         <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control handleLimit" min="0" max="15">
                             <label for="amount">%</label>
                         </td>
                     </tr>
@@ -72,8 +70,7 @@
         <p></p>
         </div>
         <div class="d-flex justify-content-between align-items-center parent-radio-div">
-        <div
-            class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
+        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxLoanInterest" :key="index" :class="index > 1 ? `${item === MaxLoanInterest ? 'ms-1':'mx-1'}`:''">
             <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && !index ? true : false">
             <span class="fixedStartYear">{{item}}%</span>
@@ -85,7 +82,7 @@
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
             <label for="customAmount">Custom Amount</label>
-            <input type="text" v-model="customInterestAmount" class="bonus-input">
+            <input type="text" @keyup="(e) => customInterestAmount = e.target.value" class="handleLimit" min="0" max="12">
             </div>
         </div>
         </div>
@@ -96,7 +93,7 @@
         <label :for="`loanIntrest${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
         </div>
 
-        <div class="d-flex justify-content-center w-100" v-if="!sameInAllYears.loan_interest">
+        <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.loan_interest ? 'd-none':''}`">
             <div class="schduleTableDiv mt-5 ">
                 <table class="table">
                 <thead>
@@ -107,7 +104,7 @@
                     <tr v-for="(item, index) in illustrateYear" :key="index">
                         <td data-label="Year">{{item}}</td>
                         <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control handleLimit"  min="0" max="12">
                             <label for="amount">%</label>
                         </td>
                     </tr>
@@ -119,11 +116,8 @@
         <p class="loan-Intrest-para">Loan Interest Charged</p>
         <div class="d-flex justify-content-center align-items-center mt-3">
         <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-            <div class="active" id="nav-advance-tab" data-bs-toggle="tab"
-            data-bs-target="#nav-advance" role="tab" aria-controls="nav-advance"
-            aria-selected="true">In Advance</div>
-            <div class="" id="nav-arrears-tab" data-bs-toggle="tab" data-bs-target="#nav-arrears"
-            role="tab" aria-controls="nav-arrears" aria-selected="false">In Arrears</div>
+            <div class="active" id="nav-advance-tab" data-bs-toggle="tab" data-bs-target="#nav-advance" role="tab" aria-controls="nav-advance" aria-selected="true">In Advance</div>
+            <div class="" id="nav-arrears-tab" data-bs-toggle="tab" data-bs-target="#nav-arrears" role="tab" aria-controls="nav-arrears" aria-selected="false">In Arrears</div>
         </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
@@ -147,7 +141,7 @@
                         </div>
                         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                         <label for="customAmount">Custom Amount</label>
-                        <input type="text" class="bonus-input" v-model="customPerformanceFeeAmount">
+                        <input type="text" class="handleLimit" @keyup="(e) => customPerformanceFeeAmount = e.target.value" min="0" max="10">
                         </div>
                     </div>
                 </div>
@@ -157,7 +151,7 @@
                     </div>
                     <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
                 </div>
-                <div class="d-flex justify-content-center w-100" v-if="!sameInAllYears.multiplier_fee">
+                <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.multiplier_fee ? 'd-none':''}`">
                     <div class="schduleTableDiv mt-5 ">
                         <table class="table">
                         <thead>
@@ -168,7 +162,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -196,7 +190,7 @@
                         </div>
                         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                             <label for="customAmount">Custom Amount</label>
-                            <input type="text" class="bonus-input" v-model="customFlatAmount">
+                            <input type="text" class="handleLimit"  @keyup="(e) => customFlatAmount = e.target.value" min="0" max="10">
                         </div>
                     </div>
                 </div>
@@ -206,8 +200,7 @@
                     </div>
                     <label :for="`flat-credit-fee-radio${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
                 </div>
-                <!--  -->
-                <div class="d-flex justify-content-center w-100" v-if="!sameInAllYears.credit_bonus_fee">
+                <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.credit_bonus_fee ? 'd-none' : ''}`">
                     <div class="schduleTableDiv mt-5 ">
                         <table class="table">
                         <thead>
@@ -218,7 +211,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -239,8 +232,6 @@
                 <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && !index ? true : false">
                 <span class="fixedStartYear w-100">{{item}}%</span>
                 </label>
-               
-
             </div>
             <div class="d-flex align-items-center">
                 <div class="or-div">
@@ -248,15 +239,12 @@
                 </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" class="bonus-input" v-model="customHipCapAmount">
+                <input type="text" class="handleLimit" @keyup="(e) => customHipCapAmount = e.target.value" min="0" max="5">
                 </div>
             </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-arrears" role="tabpanel"
-            aria-labelledby="nav-arrears-tab">
-            ------
-        </div>
+        <div class="tab-pane fade" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab"> ------ </div>
         </div>
     </div>
     <!--  -->
@@ -281,6 +269,11 @@ export default {
       customFlatAmount: "",
       customHipCapAmount: "",
     };
+  },
+  methods: {
+    testFunction: function(){
+        console.log(this.customHipCapAmount);
+    }
   },
   computed:{
     illustrateYear(){

@@ -241,7 +241,7 @@ export default {
     };
   },
   mounted() {
-    // input validation for min and max value with putting comman
+    // input validation for min and max value with putting comma
     const inputs = document.querySelectorAll(".handleLimit");
     inputs.forEach(element =>
       element.addEventListener("input", function(e) {

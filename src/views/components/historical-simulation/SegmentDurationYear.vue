@@ -11,21 +11,29 @@
     </div>
     <div class="ChooseTimePeriodInputs d-flex align-items-center">
         <label class="">
-            <input type="radio" name="segment-duration" class="d-none">
-            <span class="timePeriodYear">1</span>
+            <input type="radio" :name="`segment-duration${$props.currentTab}`" class="d-none" :checked="segment === 1 ? true : false">
+            <span class="timePeriodYear" @click="segment = 1">1</span>
         </label>
         <label class="ms-2">
-            <input type="radio" name="segment-duration" class="d-none">
-            <span class="timePeriodYear">2</span>
+            <input type="radio" :name="`segment-duration${$props.currentTab}`" class="d-none" :checked="segment === 2 ? true : false">
+            <span class="timePeriodYear" @click="segment = 2">2</span>
         </label>
         <label class="ms-3">
-            <input type="radio" name="segment-duration" class="d-none">
-            <span class="timePeriodYear">3</span>
+            <input type="radio" :name="`segment-duration${$props.currentTab}`" class="d-none" :checked="segment === 3 ? true : false">
+            <span class="timePeriodYear" @click="segment = 3">3</span>
         </label>
     </div>
+    <input type="hidden" :value="segment" :id="$props.hiddenInputId"/>
 </template>
 <script>
-export default {};
+export default {
+  props: ["hiddenInputId", "currentTab"],
+  data(){
+    return {
+       segment:1
+    };
+  }
+};
 </script>
 <style lang="">
 </style>

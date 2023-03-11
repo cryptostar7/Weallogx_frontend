@@ -12,12 +12,10 @@
             <div class="tab-pane fade show active" :id="`nav-fixedValue${currentTab}`" role="tabpanel"
                 :aria-labelledby="`nav-fixedValue-tab${currentTab}`">
                 <form action="javascript:void(0)">
-
                     <div class="multiplierInputDiv form-group mt-3">
                         <label for="multiplier">Multiplier</label>
-                        <input type="text" class="form-control" id="multiplier">
+                        <input type="text" class="form-control handleLimit" min="1" max="10" value="1" id="multiplier">
                     </div>
-
                     <div class="multiplierInputDiv mt-3">
                         <label for="Start Year">Start Year</label>
                     </div>
@@ -34,7 +32,7 @@
                             </div>
                             <div class="customAmountInputDiv customAmountNoPercent ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" ref="input" v-model="customAmount">
+                                <input type="text" class="handleLimit" @input="(e) => customAmount = e.target.value" min="1" :max="illustrateYear">
                             </div>
                         </div>
                     </div>
@@ -49,11 +47,11 @@
                                 <th>Multiplier Rate</th>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in 10" :key="index">
+                                <tr v-for="(item, index) in illustrateYear" :key="index">
                                     <td data-label="Year">{{item}}</td>
                                     <td data-label="Rate" class="innerTableInputTd">
                                         <div class="percent-input-div">
-                                            <input type="text" class="form-control percent-input" required>
+                                            <input type="text" class="form-control handleLimit" min="1" max="10" required>
                                             <span class="percent-span">%</span>
                                         </div>
                                     </td>
@@ -76,18 +74,31 @@ export default {
     };
   },
   mounted() {
-    this.$refs.input.addEventListener(
-      "input",
-      function (e) {
-        if (e.target.value > 99) {
-          let actualValue = e.target.value.slice(0, e.target.value.length - 1);
+    // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
           e.target.value = actualValue;
           return false;
         }
-      },
-      false
+      })
     );
   },
+  computed: {
+    illustrateYear(){
+        return 10;
+    }
+  }
 };
 </script>
 <style lang="">

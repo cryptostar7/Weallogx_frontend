@@ -16,7 +16,7 @@
 
                     <div class="creditBonusInputDiv form-group mt-3" id="creditBonusinputDiv">
                         <label for="creditBonusinput">Credit/Bonus</label>
-                        <input type="text" class="form-control bonus-input" id="creditBonusinput">
+                        <input type="text" class="form-control handleLimit" value="1" min="1" max="10">
                     </div>
                     <div class="multiplierInputDiv mt-3">
                         <label for="Start Year">Start Year</label>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="customAmountInputDiv customAmountNoPercent ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" ref="input" v-model="customAmount">
+                                <input type="text" class="handleLimit" @input="(e) => customAmount = e.target.value" min="1" :max="illustrateYear">
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="innerTableInputTd">
                                                 <div class="percent-input-div">
-                                                    <input type="text" class="form-control percent-input" required>
+                                                    <input type="text" class="form-control handleLimit" min="1" max="10">
                                                     <span class="percent-span">%</span>
                                                 </div>
                                             </td>
@@ -84,7 +84,7 @@
                                         <tr v-for="(item, index) in illustrateYear" :key="index">
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="amountInnerTableInputTd">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control handleLimitWithComma" min="1" max="999999">
                                                 <label for="amount">$</label>
                                             </td>
                                         </tr>
@@ -99,12 +99,52 @@
     </div>
 </template>
 <script>
+
+import {getNumber} from "../../../services/helper.js";
 export default {
   data() {
     return {
       maxYear: 5,
       customAmount: "",
     };
+  },
+  mounted() {
+    // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
+        }
+      })
+    );
+    // input validation for min and max value with putting comma
+    const input2 = document.querySelectorAll(".handleLimitWithComma");
+    input2.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let current = getNumber(e.target.value).toString();
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (Number(current) < min || Number(current) > max) {
+          let actualValue = current.slice(0, current.length - 1);
+          e.target.value =
+            Number(current) < min ? "" : Number(actualValue).toLocaleString();
+          return false;
+        } else {
+          e.target.value = Number(current).toLocaleString();
+        }
+      })
+    );
   },
   computed: {
     illustrateYear() {

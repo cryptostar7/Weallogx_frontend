@@ -20,10 +20,12 @@
         <span class="percent-span">%</span>
       </div>
     </div>
+    <input type="hidden" :value="customAmount || range" :id="$props.hiddenInputId"/>
   </div>
 </template>
 <script>
 export default {
+  props: ["hiddenInputId"],
   data() {
     return {
       range: "0",

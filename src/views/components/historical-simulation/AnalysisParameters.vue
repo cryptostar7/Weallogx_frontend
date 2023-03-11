@@ -27,7 +27,7 @@
       </div>
     <SelectDropdown
         :list="indexStrategies"
-        id="historyIndexLabel2"
+        :id="`analysis_index${currentTab}`"
         class="form-group less w-75"
         @onSelectItem="updateRollingPeriod"
         :defaultSelected="indexStrategies[0].template_name"
@@ -38,7 +38,7 @@
     </div>
     <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center" id="rollingTimePeriod1">
         <label v-for="(item, index) in rollingTimePeriod" :key="index" :class="item > rollingPeriod.max_val ? 'disabled' : `${rollingPeriod.custom ? 'disabled':''}`">
-        <input type="radio" name="radio" class="d-none" :checked="rollingPeriod.custom ? false : `${item > rollingPeriod.max_val ? false : `${rollingPeriod.value === item ? true :  false}`}`">
+        <input type="radio" name="radio" class="d-none" :checked="!rollingPeriod.custom && rollingPeriod.value === item" @click="rollingPeriod.value = item">
         <span class="timePeriodYear">{{item}}</span>
         </label>
         <div class="or-div">
@@ -64,16 +64,16 @@
     <div class="d-flex justify-content-center align-items-center px-4">
         <div class="IndexStrategyBtn w-100">
         <div class="w-100">
-            <input type="radio" name="indexStrategy" :id="`index${currentTab}`" checked>
-            <label :for="`index${currentTab}`">Index </label>
+            <input type="radio" name="indexStrategy" :id="`index${currentTab}`"  :checked="analyze === 'Index'">
+            <label :for="`index${currentTab}`" @click="analyze = 'Index'">Index </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="indexStrategy" :id="`strategy${currentTab}`">
-            <label :for="`strategy${currentTab}`">Strategy </label>
+            <input type="radio" name="indexStrategy" :id="`strategy${currentTab}`"  :checked="analyze === 'Strategy'">
+            <label :for="`strategy${currentTab}`" @click="analyze = 'Strategy'">Strategy </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="indexStrategy" :id="`distributions${currentTab}`">
-            <label :for="`distributions${currentTab}`">Distributions </label>
+            <input type="radio" name="indexStrategy" :id="`distributions${currentTab}`"  :checked="analyze === 'Distributions'">
+            <label :for="`distributions${currentTab}`" @click="analyze = 'Distributions'">Distributions </label>
         </div>
         </div>
     </div>
@@ -84,19 +84,22 @@
     <div class="d-flex justify-content-center align-items-center px-4">
         <div class="IndexStrategyBtn w-100">
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" :id="`monthlyAverageValue${currentTab}`" checked>
-            <label :for="`monthlyAverageValue${currentTab}`">Monthly Average Value </label>
+            <input type="radio" name="CreditBaseMethod1" :id="`monthlyAverageValue${currentTab}`" :checked="credMethod === 'Monthly Average Value'">
+            <label :for="`monthlyAverageValue${currentTab}`" @click="credMethod = 'Monthly Average Value'">Monthly Average Value </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" :id="`beginningValue${currentTab}`">
-            <label :for="`beginningValue${currentTab}`">Beginning Value</label>
+            <input type="radio" name="CreditBaseMethod1" :id="`beginningValue${currentTab}`" :checked="credMethod === 'Beginning Value'">
+            <label :for="`beginningValue${currentTab}`" @click="credMethod = 'Beginning Value'">Beginning Value</label>
         </div>
         <div class="w-100">
-            <input type="radio" name="CreditBaseMethod1" :id="`yearValue${currentTab}`">
-            <label :for="`yearValue${currentTab}`">End of Year Value</label>
+            <input type="radio" name="CreditBaseMethod1" :id="`yearValue${currentTab}`" :checked="credMethod === 'End of Year Value'">
+            <label :for="`yearValue${currentTab}`" @click="credMethod = 'End of Year Value'">End of Year Value</label>
         </div>
         </div>
     </div>
+    <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value"/>
+    <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze"/>
+    <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod"/>
     </form>
 </div>
 </template>
@@ -109,6 +112,8 @@ export default {
   data() {
     return {
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
+      analyze:'Index',
+      credMethod:'Monthly Average Value',
       rollingPeriod: {
         value: 30,
         custom: "",
@@ -118,19 +123,18 @@ export default {
   },
   methods: {
     checkFunction: function() {
-      console.log(this.rollingPeriod);
+      console.log(this.rollingPeriod.value);
     },
     updateRollingPeriod: function(val) {
       this.rollingPeriod.max_val = this.indexStrategies.filter(i => i.id === val)[0].max_limit;
       this.rollingPeriod.value = this.rollingPeriod.max_val;
-      console.log(this.rollingPeriod.value);
     },
     saveRollingPeriod: function(e) {
       this.customRollingPeriod = e.target.value;
     },
   },
   mounted() {
-    this.rollingPeriod.value = this.indexStrategies[0];
+    // this.rollingPeriod.value = this.indexStrategies[0];
   },
   computed: {
     indexStrategies() {
