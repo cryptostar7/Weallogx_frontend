@@ -26,8 +26,8 @@
         <div
             class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 1 ? `${item === MaxPremiumCharge ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && !index ? true : false">
-            <span class="fixedStartYear">{{item}}%</span>
+            <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && premiumCharge === item">
+            <span class="fixedStartYear" @click="premiumCharge = item">{{item}}%</span>
             </label>
         </div>
         <div class="d-flex align-items-center">
@@ -57,7 +57,7 @@
                     <tr v-for="(item, index) in illustrateYear" :key="index">
                         <td data-label="Year">{{item}}</td>
                         <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control handleLimit" min="0" max="15">
+                            <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${currentTab}${item}`">
                             <label for="amount">%</label>
                         </td>
                     </tr>
@@ -72,8 +72,8 @@
         <div class="d-flex justify-content-between align-items-center parent-radio-div">
         <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxLoanInterest" :key="index" :class="index > 1 ? `${item === MaxLoanInterest ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && !index ? true : false">
-            <span class="fixedStartYear">{{item}}%</span>
+            <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && loanInterest === item">
+            <span class="fixedStartYear" @click="loanInterest = item">{{item}}%</span>
             </label>
         </div>
         <div class="d-flex align-items-center">
@@ -104,7 +104,7 @@
                     <tr v-for="(item, index) in illustrateYear" :key="index">
                         <td data-label="Year">{{item}}</td>
                         <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control handleLimit"  min="0" max="12">
+                            <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${currentTab}${item}`">
                             <label for="amount">%</label>
                         </td>
                     </tr>
@@ -131,8 +131,8 @@
                     <div
                         class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                         <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 1 ? `${item === MaxPerformanceMultiplierFee ? 'ms-1':'mx-1'}`:''">
-                        <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && !index ? true : false" class="d-none" />
-                        <span class="fixedStartYear">{{item}}%</span>
+                        <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && item === performanceFeeAmount ? true : false" class="d-none" />
+                        <span class="fixedStartYear" @click="performanceFeeAmount = item">{{item}}%</span>
                         </label>
                     </div>
                     <div class="d-flex align-items-center">
@@ -162,7 +162,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control handleLimit" min="0" max="10">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`pmf_schedule${currentTab}${item}`">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -180,8 +180,8 @@
                     <div
                         class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                         <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'mx-1':''">
-                        <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && !index ? true : false">
-                        <span class="fixedStartYear">{{item}}%</span>
+                        <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && item === flatAmount ? true : false">
+                        <span class="fixedStartYear" @click="flatAmount = item">{{item}}%</span>
                         </label>
                     </div>
                     <div class="d-flex align-items-center">
@@ -211,7 +211,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control handleLimit" min="0" max="10">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`fcf_schedule${currentTab}${item}`">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -229,8 +229,8 @@
             <div
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                 <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'w-100' : 'w-100 mx-2'">
-                <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && !index ? true : false">
-                <span class="fixedStartYear w-100">{{item}}%</span>
+                <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && hipCapAmount === item ? true : false">
+                <span class="fixedStartYear w-100" @click="hipCapAmount = item">{{item}}%</span>
                 </label>
             </div>
             <div class="d-flex align-items-center">
@@ -246,6 +246,20 @@
         </div>
         <div class="tab-pane fade" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab"> ------ </div>
         </div>
+    <input type="hidden" :value="customPremiumCharge || premiumCharge" :id="`premium_charge_fees${currentTab}`" />
+    <input type="hidden" :value="sameInAllYears.premium_charge ? 1 : 0" :id="`pcf_all_year${currentTab}`" />
+
+    <input type="hidden" :value="customPerformanceFeeAmount || performanceFeeAmount" :id="`performance_multiplier_fees${currentTab}`" />
+    <input type="hidden" :value="sameInAllYears.multiplier_fee ? 1 : 0" :id="`pmf_all_year${currentTab}`" />
+
+    <input type="hidden" :value="customFlatAmount || flatAmount" :id="`flat_credit_fees${currentTab}`" />
+    <input type="hidden" :value="sameInAllYears.credit_bonus_fee ? 1 : 0" :id="`fcf_all_year${currentTab}`" />
+
+    <input type="hidden" :value="customInterestAmount || loanInterest" :id="`loan_interest_fees${currentTab}`" />
+    <input type="hidden" :value="sameInAllYears.loan_interest ? 1 : 0" :id="`lif_all_year${currentTab}`" />
+
+    
+    <input type="hidden" :value="customHipCapAmount || hipCapAmount" :id="`high_cap_fees${currentTab}`" />
     </div>
     <!--  -->
 </template>
@@ -255,31 +269,36 @@ export default {
   data() {
     return {
       MaxPremiumCharge: 8,
+      premiumCharge: 8,
       MaxLoanInterest: 8,
+      loanInterest: 1,
       MaxPerformanceMultiplierFee: 8,
-      sameInAllYears:{
-        premium_charge:true,
-        loan_interest:true,
-        multiplier_fee:true,
-        credit_bonus_fee:true,
+      sameInAllYears: {
+        premium_charge: true,
+        loan_interest: true,
+        multiplier_fee: true,
+        credit_bonus_fee: true,
       },
       customPremiumCharge: "",
       customInterestAmount: "",
       customPerformanceFeeAmount: "",
+      performanceFeeAmount: "",
       customFlatAmount: "",
+      flatAmount: 1,
       customHipCapAmount: "",
+      hipCapAmount: 1,
     };
   },
   methods: {
-    testFunction: function(){
-        console.log(this.customHipCapAmount);
-    }
+    testFunction: function() {
+      console.log(this.customHipCapAmount);
+    },
   },
-  computed:{
-    illustrateYear(){
-        return 10;
-    }
-  }
+  computed: {
+    illustrateYear() {
+      return 10;
+    },
+  },
 };
 </script>
 <style lang="">

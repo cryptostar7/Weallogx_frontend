@@ -347,10 +347,192 @@ export default {
       }
       return arr;
     },
+    getEnhancementData: function() {
+      let arr = [];
+      let activeTabs = [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
+      for (var i = 1; i < 4; i++) {
+        if (activeTabs[i - 1]) {
+          var temp = { performance: [], credit: [] };
+          let performance_checkbox = Number(
+            this.getInputWithId("performance_checkbox" + i)
+          );
+
+          let credit_checkbox = Number(
+            this.getInputWithId("credit_checkbox" + i)
+          );
+
+          if (performance_checkbox) {
+            let performance_obj = {
+              checkbox: performance_checkbox,
+              type: this.getInputWithId("performance_type" + i),
+              multiplier: this.getInputWithId("multiplier_input" + i),
+              start_year: this.getInputWithId("prf_start_year" + i),
+            };
+
+            if (performance_obj.type === "schedule") {
+              let tempData = [];
+              for (var y = 1; y < this.illustrateYear + 1; y++) {
+                tempData.push({
+                  year: y,
+                  value: this.getInputWithId(`multiplier_schedule${i}${y}`),
+                });
+              }
+              performance_obj.schedule = tempData;
+            }
+            temp.performance = performance_obj;
+          }
+
+          if (credit_checkbox) {
+            let credit_obj = {
+              checkbox: credit_checkbox,
+              type: this.getInputWithId("credit_type" + i),
+              schedule_type: this.getInputWithId("credit_schedule_type" + i),
+              credit: this.getInputWithId("credit_bonus_input" + i),
+              start_year: this.getInputWithId("crd_start_year" + i),
+            };
+
+            if (credit_obj.type === "schedule") {
+              let tempData = [];
+              for (var y = 1; y < this.illustrateYear + 1; y++) {
+                tempData.push({
+                  year: y,
+                  value: this.getInputWithId(
+                    `${
+                      credit_obj.schedule_type === "rate"
+                        ? "crd_schedule_rate"
+                        : "crd_schedule_amt"
+                    }${i}${y}`
+                  ),
+                });
+              }
+              credit_obj.schedule = tempData;
+            }
+            temp.credit = credit_obj;
+          }
+
+          arr.push({ credit: temp.credit, performance: temp.performance });
+        }
+      }
+      return arr;
+    },
+    getFeesData: function() {
+      let arr = [];
+      let activeTabs = [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
+      for (var i = 1; i < 4; i++) {
+        if (activeTabs[i - 1]) {
+          let performance_checkbox = Number(
+            this.getInputWithId("performance_checkbox" + i)
+          );
+
+          let flat_checkbox = Number(
+            this.getInputWithId("credit_checkbox" + i)
+          );
+
+          //performance multiplier fees
+          let pcf_all_year = Number(this.getInputWithId("pcf_all_year" + i));
+          let pcfobj = {
+            fees: this.getInputWithId("premium_charge_fees" + i),
+            same_all_year: pcf_all_year,
+          };
+
+          if (!pcf_all_year) {
+            let tempData = [];
+            for (var y = 1; y < this.illustrateYear + 1; y++) {
+              tempData.push({
+                year: y,
+                value: this.getInputWithId(`pcf_schedule${i}${y}`),
+              });
+            }
+            pcfobj.schedule = tempData;
+          }
+
+          //performance multiplier fees
+          console.log(performance_checkbox);
+          var pmfobj = false;
+          if (performance_checkbox) {
+          console.log('performance_checkbox');
+
+            let pmf_all_year = Number(this.getInputWithId("pmf_all_year" + i));
+            pmfobj = {
+              fees: this.getInputWithId("performance_multiplier_fees" + i),
+              same_all_year: pmf_all_year,
+            };
+
+            if (!pmf_all_year) {
+              let tempData = [];
+              for (var y = 1; y < this.illustrateYear + 1; y++) {
+                tempData.push({
+                  year: y,
+                  value: this.getInputWithId(`pmf_schedule${i}${y}`),
+                });
+              }
+              pmfobj.schedule = tempData;
+            }
+          }
+
+          //flat credit bonus fees
+          var fcfobj = false;
+
+          if (flat_checkbox) {
+            let fcf_all_year = Number(this.getInputWithId("fcf_all_year" + i));
+            fcfobj = {
+              fees: this.getInputWithId("flat_credit_fees" + i),
+              same_all_year: fcf_all_year,
+            };
+
+            if (!fcf_all_year) {
+              let tempData = [];
+              for (var y = 1; y < this.illustrateYear + 1; y++) {
+                tempData.push({
+                  year: y,
+                  value: this.getInputWithId(`fcf_schedule${i}${y}`),
+                });
+              }
+              fcfobj.schedule = tempData;
+            }
+          }
+
+          //loan interest rate fees
+          let lif_all_year = Number(this.getInputWithId("lif_all_year" + i));
+          let lifobj = {
+            fees: this.getInputWithId("loan_interest_fees" + i),
+            same_all_year: lif_all_year,
+          };
+
+          if (!lif_all_year) {
+            let tempData = [];
+            for (var y = 1; y < this.illustrateYear + 1; y++) {
+              tempData.push({
+                year: y,
+                value: this.getInputWithId(`lif_schedule${i}${y}`),
+              });
+            }
+            lifobj.schedule = tempData;
+          }
+
+          //High cap fees
+          let hcfobj = {
+            fees: this.getInputWithId("high_cap_fees" + i),
+          };
+
+          arr.push({
+            lif: lifobj,
+            pcf: pcfobj,
+            hcf: hcfobj,
+            pmf: pmfobj,
+            fcf: fcfobj
+          });
+        }
+      }
+      console.log(arr);
+      return arr;
+    },
     // handle form submitted data
     submitHandler: function() {
       this.analysis = this.getAnalysisData();
       this.growth = this.getGrowthData();
+      this.enhancements = this.getEnhancementData();
+      this.fees = this.getFeesData();
       this.$toast.success("Form submitted!");
     },
   },
@@ -374,6 +556,11 @@ export default {
         }
       })
     );
+  },
+  computed: {
+    illustrateYear() {
+      return 10;
+    },
   },
 };
 </script>
