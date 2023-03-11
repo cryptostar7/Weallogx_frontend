@@ -52,7 +52,7 @@
                         </div> 
                       </div>
                     </div>
-                    <button class="" @click="testFunction()">Check</button>
+                    <button class="d-none" @click="testFunction()">Check</button>
                     <div :class="`commonAllDivs ${activeTab !== 1 ? 'd-none': ''}`">
                       <div class="historicalYesDivCommon mt-4">
                         <p class="indexStrategyPara">Index Strategy #1</p>
