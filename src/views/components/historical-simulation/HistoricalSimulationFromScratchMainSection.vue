@@ -150,7 +150,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
                   <div class="text-center mt-30"> 
                     <router-link to="" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Review</router-link> 
                     <span class="d-block mb-3"></span>
@@ -181,6 +181,7 @@ import FeesComponent from "./FeesComponent.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StretagyWeightFirstComponent from "./StretagyWeightFirstComponent.vue";
 import StretagyWeightSecondComponent from "./StretagyWeightSecondComponent.vue";
+import { computed } from 'vue'
 export default {
   components: {
     RouterLink,
@@ -253,7 +254,14 @@ export default {
       growth: [],
       enhancements: [],
       fees: [],
+      error:"test error",
     };
+  },
+  provide() {
+    // use function syntax so that we can access `this`
+    return {
+      errors: computed(() => this.error)
+    }
   },
   methods: {
     setActiveTab: function(tab) {
@@ -302,7 +310,7 @@ export default {
       }
     },
     testFunction: function() {
-      console.log(this.tabs.tab3);
+      this.error = 'provider message';
       console.log(this.activeTab);
     },
     // this function has return the input value

@@ -164,7 +164,7 @@
                                 <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
                               </button>
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="illustrationFields[index2].value !== 'none' && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
+                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
                             </div>
                           </td>
@@ -239,7 +239,7 @@ export default {
       csvPreview: { data: [], headers: [] },
       removeColId: null,
     };
-  },
+  }, 
   mounted() {
     // input validation for min and max value with putting comma
     const inputs = document.querySelectorAll(".handleLimit");
@@ -336,16 +336,16 @@ export default {
 
     illustrationFields() {
       return [
-        { name: "None", value: "none" },
-        { name: "Age", value: "age" },
-        { name: "Accumulation Value", value: "accumulation_value" },
-        { name: "Distribution - Loan", value: "index_load_credits" },
-        { name: "Dealth Benefit", value: "dealth_benefit" },
-        { name: "Distribution - Withdrawal", value: "net_distribution" },
-        { name: "Fees", value: "total_loan_charge" },
-        { name: "Premium", value: "premium_outlay" },
-        { name: "Surrender Value", value: "surrender_value" },
-        { name: "Year", value: "year" },
+        { name: "None", value: "none", multiple:true },
+        { name: "Age", value: "age", multiple:false },
+        { name: "Accumulation Value", value: "accumulation_value", multiple:false },
+        { name: "Distribution - Loan", value: "index_load_credits", multiple:false },
+        { name: "Dealth Benefit", value: "dealth_benefit", multiple:false },
+        { name: "Distribution - Withdrawal", value: "net_distribution", multiple:false },
+        { name: "Fees", value: "total_loan_charge", multiple:true },
+        { name: "Premium", value: "premium_outlay", multiple:false },
+        { name: "Surrender Value", value: "surrender_value", multiple:false },
+        { name: "Year", value: "year", multiple:false },
       ];
     },
     illustrationFieldsIndex() {
@@ -648,12 +648,57 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
+
+        this.extractPdf(file, '4');
       }
       this.illustrationFile.file = file ? file : "";
       this.illustrationFile.name = file ? file.name : "";
       this.errors.illustration_file = false;
     },
+    extractPdf: function(file, page){
+      this.$store.dispatch("loader", true);
+    
+      var data = new FormData();
+      data.append("pdffile", file);
+      data.append("page", page);
+      data.append("business", "Allianz");
 
+      post("https://wlxpy.bizbybot.com/pdf/extract/", data)
+      .then(response => {
+        var res = response.data;
+        if(res){
+          let arr = []; 
+          let headers = [];
+          let total_columns = 0;
+          arr = arr[page].map((i) => {
+            var obj = Object.values(i);
+            if(total_columns < obj.length){
+              total_columns = obj.length;
+            }
+            return obj;
+          });
+
+          for (var i = 0; i < total_columns; i++) {
+            headers.push("");
+          }
+          console.log({ data: arr, headers: headers });
+          this.csvPreview = { data: arr, headers: headers };
+          this.$store.dispatch("loader", false);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.$store.dispatch("loader", false);
+        if (
+          error.code === "ERR_BAD_RESPONSE" ||
+          error.code === "ERR_NETWORK"
+        ) {
+          this.$toast.error(error.message);
+        } else {
+          this.$toast.error(getFirstError(error));
+        }
+      });
+    },
     submitHandler: function(e) {
       e.preventDefault();
 

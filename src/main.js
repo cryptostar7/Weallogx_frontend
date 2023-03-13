@@ -27,6 +27,7 @@ app.use(store);
 app.use(helpers);
 app.use(VueCryptojs);
 app.use(Toaster, { position: 'top-right', duration: 5000 });
+app.config.unwrapInjectedRef = true;
 
 var environment = import.meta.env.MODE;
 if (environment !== 'development') {
