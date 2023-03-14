@@ -6,7 +6,7 @@
     </form>
     <button class="" type="button" @click="getMLData()">click</button>
   </div>
-</template>
+</template> 
 <script>
 import axios from "axios";
 export default {

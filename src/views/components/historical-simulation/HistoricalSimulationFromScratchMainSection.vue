@@ -113,7 +113,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> 
                     <div :class="`commonAllDivs ${activeTab !== 3 ? 'd-none': ''}`"> 
                       <stretagy-weight-second-component />
                       <div class="historicalYesDivCommon margin-top-3">
@@ -435,7 +435,7 @@ export default {
           let flat_checkbox = Number(
             this.getInputWithId("credit_checkbox" + i)
           );
-
+         
           //performance multiplier fees
           let pcf_all_year = Number(this.getInputWithId("pcf_all_year" + i));
           let pcfobj = {

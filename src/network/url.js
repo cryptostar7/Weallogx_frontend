@@ -45,6 +45,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/illustrationid/`;
     case 'illustration-template':
       return `${baseUrl}/auth/illustration-datalist`;
+    case 'pdf_extract':
+      return `${baseUrl}/pdf/extract/`;
     case 'vehicle-type1':
       return `${baseUrl}/auth/vehicle-type1/`;
     case 'vehicle-type2':

@@ -239,7 +239,7 @@ export default {
       csvPreview: { data: [], headers: [] },
       removeColId: null,
     };
-  }, 
+  },
   mounted() {
     // input validation for min and max value with putting comma
     const inputs = document.querySelectorAll(".handleLimit");
@@ -336,16 +336,28 @@ export default {
 
     illustrationFields() {
       return [
-        { name: "None", value: "none", multiple:true },
-        { name: "Age", value: "age", multiple:false },
-        { name: "Accumulation Value", value: "accumulation_value", multiple:false },
-        { name: "Distribution - Loan", value: "index_load_credits", multiple:false },
-        { name: "Dealth Benefit", value: "dealth_benefit", multiple:false },
-        { name: "Distribution - Withdrawal", value: "net_distribution", multiple:false },
-        { name: "Fees", value: "total_loan_charge", multiple:true },
-        { name: "Premium", value: "premium_outlay", multiple:false },
-        { name: "Surrender Value", value: "surrender_value", multiple:false },
-        { name: "Year", value: "year", multiple:false },
+        { name: "None", value: "none", multiple: true },
+        { name: "Age", value: "age", multiple: false },
+        {
+          name: "Accumulation Value",
+          value: "accumulation_value",
+          multiple: false,
+        },
+        {
+          name: "Distribution - Loan",
+          value: "index_load_credits",
+          multiple: false,
+        },
+        { name: "Dealth Benefit", value: "dealth_benefit", multiple: false },
+        {
+          name: "Distribution - Withdrawal",
+          value: "net_distribution",
+          multiple: false,
+        },
+        { name: "Fees", value: "total_loan_charge", multiple: true },
+        { name: "Premium", value: "premium_outlay", multiple: false },
+        { name: "Surrender Value", value: "surrender_value", multiple: false },
+        { name: "Year", value: "year", multiple: false },
       ];
     },
     illustrationFieldsIndex() {
@@ -418,10 +430,21 @@ export default {
             );
             this.setInputWithId("policyReturn", data.policy_return);
             this.uploadFromFile = data.upload_file_checkbox ? true : false;
+            let filteredCsv = { data: [], headers: [] };
             if (this.uploadFromFile) {
               this.illustrationFile.url =
                 data.illustration_data.upload_from_file;
-              this.csvPreview = { data: [], headers: [] };
+                console.log(this.illustrationFile.url);
+              let filteredCsv = {
+                data: data.illustration_data.upload_from_file.data,
+                headers: [],
+              };
+              filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
+                i => this.illustrationFieldsIndex[i]
+              );
+
+              this.csvPreview = filteredCsv;
+              this.setScrollbar();
             } else {
               this.illustrationFile.url = "";
               if (
@@ -649,55 +672,55 @@ export default {
           return false;
         }
 
-        this.extractPdf(file, '4');
+        this.extractPdf(file, "4");
       }
       this.illustrationFile.file = file ? file : "";
       this.illustrationFile.name = file ? file.name : "";
       this.errors.illustration_file = false;
     },
-    extractPdf: function(file, page){
+    extractPdf: function(file, page) {
       this.$store.dispatch("loader", true);
-    
+
       var data = new FormData();
       data.append("pdffile", file);
       data.append("page", page);
       data.append("business", "Allianz");
+      post(getUrl("pdf_extract"), data)
+        .then(response => {
+          var res = response.data;
+          if (res) {
+            let arr = [];
+            let headers = [];
+            let total_columns = 0;
+            arr = res[page].map(i => {
+              var obj = Object.values(i);
+              if (total_columns < obj.length) {
+                total_columns = obj.length;
+              }
+              return obj;
+            });
 
-      post("https://wlxpy.bizbybot.com/pdf/extract/", data)
-      .then(response => {
-        var res = response.data;
-        if(res){
-          let arr = []; 
-          let headers = [];
-          let total_columns = 0;
-          arr = arr[page].map((i) => {
-            var obj = Object.values(i);
-            if(total_columns < obj.length){
-              total_columns = obj.length;
+            for (var i = 0; i < total_columns; i++) {
+              headers.push("");
             }
-            return obj;
-          });
-
-          for (var i = 0; i < total_columns; i++) {
-            headers.push("");
+            console.log({ data: arr, headers: headers });
+            this.csvPreview = { data: arr, headers: headers };
+            this.$store.dispatch("loader", false);
+            this.setScrollbar();
           }
-          console.log({ data: arr, headers: headers });
-          this.csvPreview = { data: arr, headers: headers };
+        })
+        .catch(error => {
+          console.log(error);
           this.$store.dispatch("loader", false);
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        this.$store.dispatch("loader", false);
-        if (
-          error.code === "ERR_BAD_RESPONSE" ||
-          error.code === "ERR_NETWORK"
-        ) {
-          this.$toast.error(error.message);
-        } else {
-          this.$toast.error(getFirstError(error));
-        }
-      });
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
+        });
     },
     submitHandler: function(e) {
       e.preventDefault();
@@ -744,7 +767,7 @@ export default {
       } else {
       }
 
-      console.log('line 702');
+      console.log("line 702");
 
       var data = {
         company: this.insuranceCompany,
@@ -782,12 +805,6 @@ export default {
 
       let file = "";
       if (!this.existingIllustrationId) {
-        if (this.existingInsuranceProfileName && this.illustrationFile.url) {
-          file = getBaseUrl() + this.illustrationFile.url;
-        } else {
-          file = this.illustrationFile.file;
-        }
-
         formData.append(
           "illustration_data.upload_file_checkbox",
           data.upload_file_checkbox
@@ -798,25 +815,24 @@ export default {
           !data.upload_file_checkbox
         );
 
-        if (data.upload_file_checkbox) {
-          formData.append("illustration_data.upload_from_file", file);
-        } else {
-          let tempHeader = [];
-          this.csvPreview.headers.forEach(item => {
-            if (this.illustrationFields[item]) {
-              tempHeader.push(this.illustrationFields[item].value);
-            } else {
-              tempHeader.push("none");
-            }
-          });
+        let tempHeader = [];
+        this.csvPreview.headers.forEach(item => {
+          if (this.illustrationFields[item]) {
+            tempHeader.push(this.illustrationFields[item].value);
+          } else {
+            tempHeader.push("none");
+          }
+        });
 
-          formData.append(
-            "illustration_data.copy_paste",
-            JSON.stringify({
-              data: this.csvPreview.data,
-              headers: tempHeader,
-            })
-          );
+        let tableData = JSON.stringify({
+          data: this.csvPreview.data,
+          headers: tempHeader,
+        });
+
+        if (data.upload_file_checkbox) {
+          formData.append("illustration_data.upload_from_file", tableData);
+        } else {
+          formData.append("illustration_data.copy_paste", tableData);
         }
 
         formData.append(
@@ -838,7 +854,7 @@ export default {
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       this.$store.dispatch("loader", true);
-      console.log('line 796');
+      console.log("line 796");
 
       post(getUrl("illustration"), formData, authHeader())
         .then(response => {
@@ -901,7 +917,7 @@ export default {
         this.csvPreview = {};
       }
 
-       this.setScrollbar();
+      this.setScrollbar();
     },
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
