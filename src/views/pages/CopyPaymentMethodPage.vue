@@ -29,9 +29,7 @@
                 <img src="@/assets/images/user/card-chip.svg" alt="">
                 <p>CARD</p>
               </div>
-              <p class="payment-left-card-number showingCardNumber">
-                XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX</p>
-
+              <p class="payment-left-card-number showingCardNumber">XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX&nbsp;&nbsp;&nbsp;&nbsp;XXXX</p>
               <div class="cardExpiryDateCvvMainDiv">
                 <div class="cardExpiryDateDiv">
                   <p>Expiry Date</p>
@@ -76,7 +74,6 @@
                     <div ref="cardCvc" id='cvv_no' class="numberInputs card-cvv-number"></div>
                   </div>
                 </div>
-
                 <button type="submit" class="paymentformBtns" @click="getSource()">Save Card</button>
               </div>
             </div>

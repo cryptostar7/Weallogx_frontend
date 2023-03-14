@@ -724,7 +724,7 @@ export default {
     },
     submitHandler: function(e) {
       e.preventDefault();
-
+      
       // if (this.activeScenario) {
       //   return this.$router.push(
       //     `/comparative-vehicles/${this.$route.params.scenario || ""}`
