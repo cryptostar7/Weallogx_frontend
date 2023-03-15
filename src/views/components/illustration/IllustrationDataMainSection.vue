@@ -10,7 +10,7 @@
                 <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
               </div>
             </div>
-            <button @click="testFunction" type="button">Test</button>
+            <button @click="testFunction" class="d-none" type="button">Test</button>
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
