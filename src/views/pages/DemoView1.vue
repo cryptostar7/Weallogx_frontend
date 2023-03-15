@@ -2,16 +2,20 @@
   <div>
   <input type="file" id="myPdf" @change="getPreview"/><br>
   <div class="modal fade" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
-          </button>
-        </div>
-        <div class="modal-body text-center">
+        <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body text-center my-4">
+          <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
+          <p class="preview-modal-heading2" >Just click the box to select the relevant page</p>
               <div class="container">
                 <div id="pdfPreview" class="row"></div>
+            </div>
+        </div>
+        <div class="preview-modal-bottom-div py-3">
+           <div class="d-flex justify-content-center">
+            <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1">Done</a>
+           <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1">Cancel</a>
             </div>
         </div>
       </div>
@@ -82,7 +86,7 @@ export default {
       function generateCanvas(i, pdf) {
         // Create a class attribute:
         var classAtt = document.createAttribute("class");
-        classAtt.value = "col p-2 d-flex justify-content-center";
+        classAtt.value = "col-6 col-md-3 col-lg-2 p-2 d-flex justify-content-center";
 
         var classAtt2 = document.createAttribute("class");
         classAtt2.value = "previewCard";
@@ -154,10 +158,64 @@ export default {
 </script>
 <style>
 .previewCard {
-  border: 2px solid black !important;
+  border: 1.25px solid #F2F2F2 !important;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.previewCard .previewCardHeading{
+font-weight: 600;
+font-size: 12px;
+text-align: center;
+color: #B1B1B1;
 }
 
 .previewCard.active {
-  border: 5px solid rgb(47, 217, 255) !important;
+  border: 1.25px solid #000000 !important;
+}
+.previewCard.active .previewCardHeading {
+color: #000;
+}
+.modal-dialog{
+  max-width: 1200px;
+  margin: 2rem auto;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+.preview-modal-heading1{
+font-weight: 700;
+font-size: 22px;
+text-align: center;
+color: #000000;
+}
+.preview-modal-heading2{
+  font-weight: 400;
+font-size: 20px;
+text-align: center;
+color: #555555;
+margin: 12px 0 25px 0;
+}
+.prev-modal-close-btn{
+  position: absolute;
+  top:35px;
+  right: 35px;
+  z-index: 999;
+  box-shadow: none!important;
+  outline: none!important;
+  border: none!important;
+}
+
+.preview-cancel-btn{
+border: 1px solid #DFDFDF;
+border-radius: 6.5rem;
+    padding: 0.625rem 1rem;
+    min-width: 230px;
+    margin: 0 auto;
+font-weight: 600;
+font-size: 14px;
+color: #000000;
+}
+.preview-cancel-btn:hover{
+border: 1px solid #000000;
+color: #000000;
 }
 </style>
