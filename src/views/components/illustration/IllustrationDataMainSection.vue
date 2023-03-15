@@ -474,7 +474,6 @@ export default {
             this.uploadFromFile = data.illustration_data.upload_file_checkbox;
             let filteredCsv = { data: [], headers: [] };
             if (this.uploadFromFile) {
-              console.log(this.illustrationFile.url);
               let filteredCsv = {
                 data: data.illustration_data.upload_from_file.data,
                 headers: [],
@@ -858,7 +857,7 @@ export default {
               return { data: arr, headers: headers };
             }
           }
-          let page = "22, 23, 4";
+
           let allData = { data: [], headers: [] };
 
           if (page) {
@@ -888,9 +887,13 @@ export default {
               }
             });
           }
-
-          this.csvPreview = allData;
+          if(allData.headers.length){
+            this.csvPreview = allData;
+          }else{
+            this.$toast.warning('Sorry the data form the uploaded file could not be retrieved.');
+          }
           this.$store.dispatch("loader", false);
+   
           this.setScrollbar();
         })
         .catch(error => {
@@ -942,7 +945,7 @@ export default {
         if (this.uploadFromFile) {
           return this.$toast.warning("Please upload illustration pdf data.");
         } else {
-          return this.$toast.warning("Please paste a valid CSV.");
+          return this.$toast.warning("CSV data is required.");
         }
       }
 
@@ -1148,12 +1151,16 @@ export default {
         var addColumnBtn = document.querySelector(".add-table-column-btn");
         var cancelAddBtn = document.querySelector(".cancel-add-data-btn");
         var additionalTextArea = document.querySelector(".additional-textarea");
-        addColumnBtn.addEventListener("click", () => {
-          additionalTextArea.classList.toggle("d-none");
-        });
-        cancelAddBtn.addEventListener("click", () => {
-          additionalTextArea.classList.toggle("d-none");
-        });
+        if (addColumnBtn) {
+          addColumnBtn.addEventListener("click", () => {
+            additionalTextArea.classList.toggle("d-none");
+          });
+        }
+        if (cancelAddBtn) {
+          cancelAddBtn.addEventListener("click", () => {
+            additionalTextArea.classList.toggle("d-none");
+          });
+        }
       }, 100);
     },
     removeColumn: function() {
