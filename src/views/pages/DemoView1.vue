@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <input type="text" id="extractPageNumber"/>
+  <input type="hidden" id="extractPageNumber"/>
 
   </div>
 </template>
@@ -34,27 +34,20 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
 
 const fileReader = new FileReader();
-// function testFunction(){
 
-// };
 export default {
   mounted() {
-    // function testFunction(){
-    //   console.log('fdsfds');
-    // };
+    document.getElementById("pdfPreviewCanvasModal").addEventListener("hidden.bs.modal", function(event) {
+      console.log('modal closed');
+      document.getElementById('myPdf').files = null;
+      document.getElementById('myPdf').value = null;
+      document.getElementById('extractPageNumber').value = null;
+    });
   },
   methods: {
-    // testFunction: function() {
-    //   var cards = document.querySelectorAll(".previewCard");
-    //   // input validation for min and max value with putting comma
-    //   cards.forEach(element =>
-    //     element.addEventListener("click", function(e) {
-    //       console.log(e);
-    //     })
-    //   );
-    // },
     getPreview: function(e) {
       var file = e.target.files[0];
+      console.log("changed");
       if (file && file.type == "application/pdf") {
         fileReader.onload = function() {
           var pdfData = new Uint8Array(this.result);
@@ -86,7 +79,8 @@ export default {
       function generateCanvas(i, pdf) {
         // Create a class attribute:
         var classAtt = document.createAttribute("class");
-        classAtt.value = "col-6 col-md-3 col-lg-2 p-2 d-flex justify-content-center";
+        classAtt.value =
+          "col-6 col-md-3 col-lg-2 p-2 d-flex justify-content-center";
 
         var classAtt2 = document.createAttribute("class");
         classAtt2.value = "previewCard";
@@ -132,90 +126,94 @@ export default {
         divCan.appendChild(divCol);
         document.getElementById("pdfPreview").appendChild(divCan);
         divCol.addEventListener("click", function(e) {
-          if(!e.target.hasAttribute('data-page')){
+          if (!e.target.hasAttribute("data-page")) {
             let parent = e.target.parentElement;
-            let pId = parent.getAttribute('data-page');
-            let input = document.getElementById('extractPageNumber');
-            if(parent.classList.contains('active')){
-                let tempVal = input.value.split(',').filter(i => i !== pId);
-                input.value = tempVal.join(',');
-            }else{
-              if(input.value){
-                let tempVal = input.value.split(',');
+            let pId = parent.getAttribute("data-page");
+            let input = document.getElementById("extractPageNumber");
+            if (parent.classList.contains("active")) {
+              let tempVal = input.value.split(",").filter(i => i !== pId);
+              input.value = tempVal.join(",");
+            } else {
+              if (input.value) {
+                let tempVal = input.value.split(",");
                 tempVal.push(pId);
-                input.value = tempVal.join(',');
-              }else{
+                input.value = tempVal.join(",");
+              } else {
                 input.value = pId;
               }
             }
-              parent.classList.toggle('active');
+            parent.classList.toggle("active");
           }
-        })
+        });
       }
     },
   },
 };
 </script>
+
 <style>
 .previewCard {
-  border: 1.25px solid #F2F2F2 !important;
+  border: 1.25px solid #f2f2f2 !important;
   border-radius: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
-.previewCard .previewCardHeading{
-font-weight: 600;
-font-size: 12px;
-text-align: center;
-color: #B1B1B1;
+.previewCard:hover {
+  border: 1.25px solid #000000 !important;
 }
-
+.previewCard .previewCardHeading {
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  color: #b1b1b1;
+}
 .previewCard.active {
   border: 1.25px solid #000000 !important;
 }
 .previewCard.active .previewCardHeading {
-color: #000;
+  color: #000;
 }
-.modal-dialog{
+.modal-dialog {
   max-width: 1200px;
   margin: 2rem auto;
   height: calc(100vh - 70px);
   overflow: hidden;
 }
-.preview-modal-heading1{
-font-weight: 700;
-font-size: 22px;
-text-align: center;
-color: #000000;
+.preview-modal-heading1 {
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+  color: #000000;
 }
-.preview-modal-heading2{
+.preview-modal-heading2 {
   font-weight: 400;
-font-size: 20px;
-text-align: center;
-color: #555555;
-margin: 12px 0 25px 0;
+  font-size: 20px;
+  text-align: center;
+  color: #555555;
+  margin: 12px 0 25px 0;
 }
-.prev-modal-close-btn{
+.prev-modal-close-btn {
   position: absolute;
-  top:35px;
+  top: 35px;
   right: 35px;
   z-index: 999;
-  box-shadow: none!important;
-  outline: none!important;
-  border: none!important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
 }
 
-.preview-cancel-btn{
-border: 1px solid #DFDFDF;
-border-radius: 6.5rem;
-    padding: 0.625rem 1rem;
-    min-width: 230px;
-    margin: 0 auto;
-font-weight: 600;
-font-size: 14px;
-color: #000000;
+.preview-cancel-btn {
+  border: 1px solid #dfdfdf;
+  border-radius: 6.5rem;
+  padding: 0.625rem 1rem;
+  min-width: 230px;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
 }
-.preview-cancel-btn:hover{
-border: 1px solid #000000;
-color: #000000;
+.preview-cancel-btn:hover {
+  border: 1px solid #000000;
+  color: #000000;
 }
 </style>

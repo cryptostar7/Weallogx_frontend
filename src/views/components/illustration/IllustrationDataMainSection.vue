@@ -10,6 +10,7 @@
                 <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
               </div>
             </div>
+            <button @click="testFunction" type="button">Test</button>
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
@@ -195,6 +196,27 @@
       </div>
     </div>
     <delete-colomn-modal @removeCol="removeColumn"/> 
+    <div class="modal fade" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-body text-center my-4">
+            <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
+            <p class="preview-modal-heading2" >Just click the box to select the relevant page</p>
+                <div class="container">
+                  <div id="pdfPreview" class="row"></div>
+              </div>
+          </div>
+          <div class="preview-modal-bottom-div py-3">
+            <div class="d-flex justify-content-center">
+              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="extractPdf()">Done</a>
+              <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal" aria-label="Close">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="extractPageNumber"/>
   </section>
 </template>
 <script>
@@ -211,6 +233,16 @@ import {
   getNumber,
   getBaseUrl,
 } from "../../../services/helper.js";
+
+import "https://mozilla.github.io/pdf.js/build/pdf.js";
+// Loaded via <script> tag, create shortcut to access PDF.js exports.
+const pdfjsLib = window["pdfjs-dist/build/pdf"];
+// The workerSrc property shall be specified.
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
+
+const fileReader = new FileReader();
+
 export default {
   components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
   refs: ["cancelCsvBtn"],
@@ -317,6 +349,16 @@ export default {
     if (!this.existingIllustrationList.length) {
       this.getExistingIllustration();
     }
+
+    // handle pdf file preview modal
+    document
+      .getElementById("pdfPreviewCanvasModal")
+      .addEventListener("hidden.bs.modal", function(event) {
+        document.getElementById("uploading").files = null;
+        document.getElementById("uploading").value = null;
+        document.getElementById("extractPageNumber").value = null;
+        document.getElementById("fileName").innerText = "";
+      });
   },
   computed: {
     // active scenario data
@@ -429,12 +471,10 @@ export default {
               data.initial_death_benifit.toLocaleString()
             );
             this.setInputWithId("policyReturn", data.policy_return);
-            this.uploadFromFile = data.upload_file_checkbox ? true : false;
+            this.uploadFromFile = data.illustration_data.upload_file_checkbox;
             let filteredCsv = { data: [], headers: [] };
             if (this.uploadFromFile) {
-              this.illustrationFile.url =
-                data.illustration_data.upload_from_file;
-                console.log(this.illustrationFile.url);
+              console.log(this.illustrationFile.url);
               let filteredCsv = {
                 data: data.illustration_data.upload_from_file.data,
                 headers: [],
@@ -446,7 +486,6 @@ export default {
               this.csvPreview = filteredCsv;
               this.setScrollbar();
             } else {
-              this.illustrationFile.url = "";
               if (
                 data.illustration_data.copy_paste &&
                 data.illustration_data.copy_paste.headers.length
@@ -480,7 +519,105 @@ export default {
         this.$toast.error("Something went wrong.");
       }
     },
+    // show pdf file preview for selecting the extract page
+    getPreview: function(file) {
+      if (file && file.type == "application/pdf") {
+        fileReader.onload = function() {
+          var pdfData = new Uint8Array(this.result);
+          // Using DocumentInitParameters object to load binary data.
+          var loadingTask = pdfjsLib.getDocument({ data: pdfData });
+          loadingTask.promise.then(
+            function(pdf) {
+              // Fetch the pdf page
+              document.getElementById("pdfPreview").innerHTML = null;
+              for (var i = 1; i <= pdf.numPages; i++) {
+                generateCanvas(i, pdf);
+              }
 
+              return new bootstrap.Modal(
+                document.getElementById("pdfPreviewCanvasModal")
+              ).show();
+            },
+            function(reason) {
+              // PDF loading error
+              console.error(reason);
+            }
+          );
+        };
+        fileReader.readAsArrayBuffer(file);
+      }
+
+      function generateCanvas(i, pdf) {
+        // Create a class attributes:
+        var classAtt = document.createAttribute("class");
+        classAtt.value =
+          "col-6 col-md-3 col-lg-2 p-2 d-flex justify-content-center";
+
+        var classAtt2 = document.createAttribute("class");
+        classAtt2.value = "previewCard";
+
+        var dataAtt = document.createAttribute("data-page");
+        dataAtt.value = i;
+
+        var classAtt3 = document.createAttribute("class");
+        classAtt3.value = "previewCardHeading text-center";
+
+        var divCol = document.createElement("div");
+        divCol.setAttributeNode(classAtt2);
+        divCol.setAttributeNode(dataAtt);
+
+        var divCan = document.createElement("div");
+        divCan.setAttributeNode(classAtt);
+
+        var heading = document.createElement("h6");
+        heading.setAttributeNode(classAtt3);
+        heading.appendChild(document.createTextNode("Page - " + i));
+
+        var can = document.createElement("canvas");
+
+        var pageNumber = i;
+        pdf.getPage(pageNumber).then(function(page) {
+          var scale = 0.2;
+          var viewport = page.getViewport({ scale: scale });
+
+          var context = can.getContext("2d");
+          can.height = viewport.height;
+          can.width = viewport.width;
+
+          // Render PDF page into canvas context
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport,
+          };
+
+          var renderTask = page.render(renderContext);
+        });
+        divCol.appendChild(can);
+        divCol.appendChild(heading);
+        divCan.appendChild(divCol);
+        document.getElementById("pdfPreview").appendChild(divCan);
+        divCol.addEventListener("click", function(e) {
+          if (!e.target.hasAttribute("data-page")) {
+            let parent = e.target.parentElement;
+            let pId = parent.getAttribute("data-page");
+            let input = document.getElementById("extractPageNumber");
+            if (parent.classList.contains("active")) {
+              let tempVal = input.value.split(",").filter(i => i !== pId);
+              input.value = tempVal.join(",");
+            } else {
+              if (input.value) {
+                let tempVal = input.value.split(",");
+                tempVal.push(pId);
+                input.value = tempVal.join(",");
+              } else {
+                input.value = pId;
+              }
+            }
+            parent.classList.toggle("active");
+          }
+        });
+      }
+    },
     // validate the form
     validateForm: function() {
       var validate = true;
@@ -527,7 +664,7 @@ export default {
         this.errors.existing_illustration = "";
         if (this.uploadFromFile) {
           if (
-            !this.illustrationFile.file &&
+            !this.csvPreview.data.length &&
             !this.existingInsuranceProfileName &&
             !this.existingIllustrationName
           ) {
@@ -672,13 +809,28 @@ export default {
           return false;
         }
 
-        this.extractPdf(file, "4");
+        this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
       this.illustrationFile.name = file ? file.name : "";
       this.errors.illustration_file = false;
     },
-    extractPdf: function(file, page) {
+    extractPdf: function() {
+      var file = this.illustrationFile.file;
+      var page = this.getInputWithId("extractPageNumber");
+      if (!page) {
+        this.$toast.warning(
+          "Please select at least one page to extract the illustration data."
+        );
+        return new bootstrap.Modal(
+          document.getElementById("pdfPreviewCanvasModal")
+        ).toggle();
+      }
+      if (!file) {
+        return false;
+      } else {
+        this.illustrationFile.file = null;
+      }
       this.$store.dispatch("loader", true);
 
       var data = new FormData();
@@ -688,26 +840,58 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then(response => {
           var res = response.data;
-          if (res) {
-            let arr = [];
-            let headers = [];
-            let total_columns = 0;
-            arr = res[page].map(i => {
-              var obj = Object.values(i);
-              if (total_columns < obj.length) {
-                total_columns = obj.length;
+          function mapPdfData(list) {
+            if (list) {
+              let arr = [];
+              let headers = [];
+              let total_columns = 0;
+              arr = list.map(i => {
+                var obj = Object.values(i);
+                if (total_columns < obj.length) {
+                  total_columns = obj.length;
+                }
+                return obj;
+              });
+              for (var i = 0; i < total_columns; i++) {
+                headers.push("");
               }
-              return obj;
-            });
-
-            for (var i = 0; i < total_columns; i++) {
-              headers.push("");
+              return { data: arr, headers: headers };
             }
-            console.log({ data: arr, headers: headers });
-            this.csvPreview = { data: arr, headers: headers };
-            this.$store.dispatch("loader", false);
-            this.setScrollbar();
           }
+          let page = "22, 23, 4";
+          let allData = { data: [], headers: [] };
+
+          if (page) {
+            page.split(",").forEach(p => {
+              let list = mapPdfData(res[p.trim()]);
+              if (allData.data.length) {
+                if (list && list.headers) {
+                  let temp_data = [];
+                  let maxRowLen = allData.data.length;
+                  let maxColLen = allData.data.length;
+                  if (list.data.length < maxRowLen) {
+                    maxRowLen = list.data.length;
+                  }
+
+                  for (var i = 0; i < maxRowLen; i++) {
+                    temp_data.push([...allData.data[i], ...list.data[i]]);
+                  }
+                  allData = {
+                    data: temp_data,
+                    headers: [...allData.headers, ...list.headers],
+                  };
+                }
+              } else {
+                if (list) {
+                  allData = list;
+                }
+              }
+            });
+          }
+
+          this.csvPreview = allData;
+          this.$store.dispatch("loader", false);
+          this.setScrollbar();
         })
         .catch(error => {
           console.log(error);
@@ -724,39 +908,41 @@ export default {
     },
     submitHandler: function(e) {
       e.preventDefault();
-      
+
       // if (this.activeScenario) {
       //   return this.$router.push(
       //     `/comparative-vehicles/${this.$route.params.scenario || ""}`
       //   );
       // }
 
-      if (!this.uploadFromFile) {
-        if (
-          this.csvPreview &&
-          this.csvPreview.headers &&
-          this.csvPreview.headers.length > 6
-        ) {
-          if (!this.csvPreview.headers.includes("1")) {
-            return alert(`${this.illustrationFields["1"].name} is required.`);
-          }
-          if (!this.csvPreview.headers.includes("2")) {
-            return alert(`${this.illustrationFields["2"].name} is required.`);
-          }
-          if (!this.csvPreview.headers.includes("4")) {
-            return alert(`${this.illustrationFields["4"].name} is required.`);
-          }
-          if (!this.csvPreview.headers.includes("7")) {
-            return alert(`${this.illustrationFields["7"].name} is required.`);
-          }
-          if (!this.csvPreview.headers.includes("8")) {
-            return alert(`${this.illustrationFields["8"].name} is required.`);
-          }
-          if (!this.csvPreview.headers.includes("9")) {
-            return alert(`${this.illustrationFields["9"].name} is required.`);
-          }
+      if (
+        this.csvPreview &&
+        this.csvPreview.headers &&
+        this.csvPreview.headers.length > 6
+      ) {
+        if (!this.csvPreview.headers.includes("1")) {
+          return alert(`${this.illustrationFields["1"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("2")) {
+          return alert(`${this.illustrationFields["2"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("4")) {
+          return alert(`${this.illustrationFields["4"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("7")) {
+          return alert(`${this.illustrationFields["7"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("8")) {
+          return alert(`${this.illustrationFields["8"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("9")) {
+          return alert(`${this.illustrationFields["9"].name} is required.`);
+        }
+      } else {
+        if (this.uploadFromFile) {
+          return this.$toast.warning("Please upload illustration pdf data.");
         } else {
-          return alert("Please paste a valid CSV.");
+          return this.$toast.warning("Please paste a valid CSV.");
         }
       }
 
@@ -885,6 +1071,9 @@ export default {
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");
       this.setInputWithId("add_new_csv_col", "");
+    },
+    testFunction: function() {
+      console.log(this.csvPreview);
     },
     addCSVColumn: function() {
       let txt = this.getInputWithId("add_new_csv_col");
@@ -1044,6 +1233,74 @@ export default {
   },
 };
 </script>
+
+
+<style>
+.previewCard {
+  border: 1.25px solid #f2f2f2 !important;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.previewCard:hover {
+  border: 1.25px solid #000000 !important;
+}
+.previewCard .previewCardHeading {
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  color: #b1b1b1;
+}
+.previewCard.active {
+  border: 1.25px solid #000000 !important;
+}
+.previewCard.active .previewCardHeading {
+  color: #000;
+}
+.modal-dialog {
+  max-width: 1200px;
+  margin: 2rem auto;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+.preview-modal-heading1 {
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+  color: #000000;
+}
+.preview-modal-heading2 {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #555555;
+  margin: 12px 0 25px 0;
+}
+.prev-modal-close-btn {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  z-index: 999;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.preview-cancel-btn {
+  border: 1px solid #dfdfdf;
+  border-radius: 6.5rem;
+  padding: 0.625rem 1rem;
+  min-width: 230px;
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+}
+.preview-cancel-btn:hover {
+  border: 1px solid #000000;
+  color: #000000;
+}
+</style>
 
 
 
