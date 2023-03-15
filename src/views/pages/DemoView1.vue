@@ -1,30 +1,27 @@
 <template lang="">
   <div>
   <input type="file" id="myPdf" @change="getPreview"/><br>
-  
-  <div class="container">
-    <div id="pdfPreview" class="row"></div>
-  </div>
-
-
-  <div class="modal fade common-modal" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
+  <div class="modal fade" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><img
-              src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
+          </button>
         </div>
         <div class="modal-body text-center">
-            <!-- <div id="pdfPreview"></div> -->
+              <div class="container">
+                <div id="pdfPreview" class="row"></div>
+            </div>
         </div>
       </div>
     </div>
   </div>
+  <input type="text" id="extractPageNumber"/>
 
   </div>
 </template>
 <script>
-
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 const pdfjsLib = window["pdfjs-dist/build/pdf"];
@@ -33,11 +30,28 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
 
 const fileReader = new FileReader();
+// function testFunction(){
+
+// };
 export default {
+  mounted() {
+    // function testFunction(){
+    //   console.log('fdsfds');
+    // };
+  },
   methods: {
+    // testFunction: function() {
+    //   var cards = document.querySelectorAll(".previewCard");
+    //   // input validation for min and max value with putting comma
+    //   cards.forEach(element =>
+    //     element.addEventListener("click", function(e) {
+    //       console.log(e);
+    //     })
+    //   );
+    // },
     getPreview: function(e) {
       var file = e.target.files[0];
-      if (file.type == "application/pdf") {
+      if (file && file.type == "application/pdf") {
         fileReader.onload = function() {
           var pdfData = new Uint8Array(this.result);
           // Using DocumentInitParameters object to load binary data.
@@ -52,7 +66,9 @@ export default {
                 generateCanvas(i, pdf);
               }
 
-              // return new bootstrap.Modal(document.getElementById('pdfPreviewCanvasModal')).show();
+              return new bootstrap.Modal(
+                document.getElementById("pdfPreviewCanvasModal")
+              ).show();
             },
             function(reason) {
               // PDF loading error
@@ -66,28 +82,33 @@ export default {
       function generateCanvas(i, pdf) {
         // Create a class attribute:
         var classAtt = document.createAttribute("class");
-        classAtt.value = "col p-2";
+        classAtt.value = "col p-2 d-flex justify-content-center";
 
         var classAtt2 = document.createAttribute("class");
         classAtt2.value = "previewCard";
 
+        var dataAtt = document.createAttribute("data-page");
+        dataAtt.value = i;
+
         var classAtt3 = document.createAttribute("class");
-        classAtt3.value = "previewCardHeading text-center"; 
+        classAtt3.value = "previewCardHeading text-center";
+
+        var divCol = document.createElement("div");
+        divCol.setAttributeNode(classAtt2);
+        divCol.setAttributeNode(dataAtt);
 
         var divCan = document.createElement("div");
         divCan.setAttributeNode(classAtt);
-        var heading = document.createElement("h5");
+
+        var heading = document.createElement("h6");
         heading.setAttributeNode(classAtt3);
-        heading.appendChild(document.createTextNode(i))
+        heading.appendChild(document.createTextNode("Page - " + i));
 
         var can = document.createElement("canvas");
-        can.setAttributeNode(classAtt2);
 
         var pageNumber = i;
         pdf.getPage(pageNumber).then(function(page) {
-          console.log("Page loaded" + i);
-
-          var scale = 0.3;
+          var scale = 0.2;
           var viewport = page.getViewport({ scale: scale });
           var context = can.getContext("2d");
           can.height = viewport.height;
@@ -102,9 +123,30 @@ export default {
             console.log("Page rendered");
           });
         });
-        divCan.appendChild(can);
-        divCan.appendChild(heading);
+        divCol.appendChild(can);
+        divCol.appendChild(heading);
+        divCan.appendChild(divCol);
         document.getElementById("pdfPreview").appendChild(divCan);
+        divCol.addEventListener("click", function(e) {
+          if(!e.target.hasAttribute('data-page')){
+            let parent = e.target.parentElement;
+            let pId = parent.getAttribute('data-page');
+            let input = document.getElementById('extractPageNumber');
+            if(parent.classList.contains('active')){
+                let tempVal = input.value.split(',').filter(i => i !== pId);
+                input.value = tempVal.join(',');
+            }else{
+              if(input.value){
+                let tempVal = input.value.split(',');
+                tempVal.push(pId);
+                input.value = tempVal.join(',');
+              }else{
+                input.value = pId;
+              }
+            }
+              parent.classList.toggle('active');
+          }
+        })
       }
     },
   },
@@ -112,6 +154,10 @@ export default {
 </script>
 <style>
 .previewCard {
-  border: '2px solid black' !important;
+  border: 2px solid black !important;
+}
+
+.previewCard.active {
+  border: 5px solid rgb(47, 217, 255) !important;
 }
 </style>
