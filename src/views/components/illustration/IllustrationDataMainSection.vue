@@ -973,6 +973,7 @@ export default {
           template: this.saveIllustrationTemplate,
           template_name: this.illustrationTemplateName,
         },
+
         existing: {
           insurance_profile_id: this.existingInsuranceProfileId,
           illustration_id: this.existingIllustrationId,
@@ -985,6 +986,7 @@ export default {
       formData.append("insurance_policy_name", data.policy_name);
       formData.append("insurance_policy_nickname", data.nickname);
       formData.append("save_this_company_profile", data.insurance_template);
+      
       if (data.insurance_template) {
         formData.append(
           "insurance_template_name",

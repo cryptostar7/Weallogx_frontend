@@ -2,9 +2,9 @@
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
-        <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
-        <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+        <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
+        <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
+        <li class="done"><router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
         <li class="active"><router-link to="" class="nav-link p-0">Historical Simulations</router-link></li>
       </ul>
       <router-link to="/" class="btn mt-1 ms-1"> 
@@ -146,7 +146,7 @@
                           </div>
                           <div class="saveZIndexTempContent form-group" v-if="saveStrategyAllocationTemplate3">
                             <form action="javascript:void(0)"> <label for="templateName">Template Name</label> <input type="text" class="form-control" id="templateName" /> </form>
-                          </div>
+                          </div>                                    
                         </div>
                       </div>
                     </div>
@@ -181,7 +181,10 @@ import FeesComponent from "./FeesComponent.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StretagyWeightFirstComponent from "./StretagyWeightFirstComponent.vue";
 import StretagyWeightSecondComponent from "./StretagyWeightSecondComponent.vue";
-import { computed } from 'vue'
+import { computed } from "vue";
+import { post } from "../../../network/requests";
+import { authHeader, getFirstError } from "../../../services/helper";
+import { getUrl } from "../../../network/url";
 export default {
   components: {
     RouterLink,
@@ -254,14 +257,18 @@ export default {
       growth: [],
       enhancements: [],
       fees: [],
-      error:"test error",
+      error: {
+        1:[],
+        2:[],
+        3:[],
+      },
     };
   },
   provide() {
     // use function syntax so that we can access `this`
     return {
-      errors: computed(() => this.error)
-    }
+      errors: computed(() => this.error),
+    };
   },
   methods: {
     setActiveTab: function(tab) {
@@ -310,7 +317,7 @@ export default {
       }
     },
     testFunction: function() {
-      this.error = 'provider message';
+      this.error = "provider message";
       console.log(this.activeTab);
     },
     // this function has return the input value
@@ -435,7 +442,7 @@ export default {
           let flat_checkbox = Number(
             this.getInputWithId("credit_checkbox" + i)
           );
-         
+
           //performance multiplier fees
           let pcf_all_year = Number(this.getInputWithId("pcf_all_year" + i));
           let pcfobj = {
@@ -455,11 +462,8 @@ export default {
           }
 
           //performance multiplier fees
-          console.log(performance_checkbox);
           var pmfobj = false;
           if (performance_checkbox) {
-          console.log('performance_checkbox');
-
             let pmf_all_year = Number(this.getInputWithId("pmf_all_year" + i));
             pmfobj = {
               fees: this.getInputWithId("performance_multiplier_fees" + i),
@@ -528,12 +532,41 @@ export default {
             pcf: pcfobj,
             hcf: hcfobj,
             pmf: pmfobj,
-            fcf: fcfobj
+            fcf: fcfobj,
           });
         }
       }
-      console.log(arr);
       return arr;
+    },
+    validatateForm: function(tab = 0) {
+      var valid = true;
+      let analysis = this.analysis[tab - 0];
+      let growth = this.growth[tab - 0];
+      let enhancements = this.enhancements[tab - 0];
+      let fees = this.fees[tab - 0];
+
+      if (enhancements && enhancements.performance.checkbox) {
+        if (enhancements.performance.type === "fixed") {
+          console.log("fixed");
+        } else {
+          let obj = enhancements.performance.schedule;
+          let obj_valid = true;
+          if (obj) {
+            obj.forEach(item => {
+              if (!item.value) {
+                obj_valid = false;
+              }
+            });
+          } else {
+            obj_valid = false;
+          }
+          if(!obj_valid){
+            this.error[tab+1].enhancements_schedule = "Please fill all years multiplier rate."
+          }
+        }
+      }
+
+      return valid;
     },
     // handle form submitted data
     submitHandler: function() {
@@ -541,7 +574,140 @@ export default {
       this.growth = this.getGrowthData();
       this.enhancements = this.getEnhancementData();
       this.fees = this.getFeesData();
+      let analysis = this.analysis;
+      let growth = this.growth;
+      let enhancements = this.enhancements;
+      let fees = this.fees;
+
+      // this.validatateForm(0);
+
+      // return false;
+
+      // console.log(analysis);
+      // console.log(growth);
+      // console.log(enhancements);
+      // console.log(fees);
       this.$toast.success("Form submitted!");
+
+      var formData = {
+        index_strategy_1: {
+          // client: 130,
+          index: analysis[0].index,
+          rolling_time_period_years: analysis[0].rolling_time,
+          analyze: analysis[0].analyze,
+          credit_base_method: analysis[0].credit_method,
+
+          cap_rate: growth[0].cap_rate_range,
+          participation_rate: growth[0].participation_range,
+          margin_spread: growth[0].margin_spread_range,
+          floor: growth[0].floor_range,
+          segment_duration_years: growth[0].segment_year_range,
+
+          performance_multiplier: enhancements[0].performance.checkbox
+            ? true
+            : false,
+          performance_multiplier_fixed_value:
+            enhancements[0].performance.type === "fixed" ? true : false,
+          performance_multiplier_schedule_check:
+            enhancements[0].performance.type === "schedule" ? true : false,
+          performance_multiplier_schedule:
+            enhancements[0].performance.schedule || null,
+          performance_multiplier_fixed_value_multiplier:
+            enhancements[0].performance.multiplier || 0,
+          performance_multiplier_fixed_value_start_year:
+            enhancements[0].performance.start_year || 0,
+
+          flat_credit_bonus: enhancements[0].credit.checkbox ? true : false,
+          flat_fixed_value:
+            enhancements[0].credit.type === "fixed" ? true : false,
+          flat_credit_schedule:
+            enhancements[0].credit.type === "schedule" ? true : false,
+
+          flat_fixed_credit_bonus: enhancements[0].credit.credit || 0,
+          flat_fixed_start_year: enhancements[0].credit.start_year || 0,
+          flat_credit_schedule_amount:
+            enhancements[0].credit.schedule_type === "amount"
+              ? enhancements[0].credit.schedule
+              : null,
+          flat_credit_schedule_rate:
+            enhancements[0].credit.schedule_type === "rate"
+              ? enhancements[0].credit.schedule
+              : null,
+
+          fees: true,
+          premium_charge: fees[0].pcf.fees,
+          premium_same_in_all_years: fees[0].pcf.same_all_year ? true : false,
+          premium_same_in_all_years_data: fees[0].pcf.same_all_year
+            ? fees[0].pcf.schedule
+            : null,
+
+          loan_intrest_rate: fees[0].lif.fees,
+          loan_same_in_all_years: fees[0].lif.same_all_year ? true : false,
+          loan_same_in_all_years_data: !fees[0].lif.same_all_year
+            ? fees[0].lif.schedule
+            : null,
+
+          loan_intrest_charged_in_advanced: true,
+          loan_intrest_charged_in_arrears: false,
+          high_cap_fee: fees[0].hcf.fees,
+          save_this_index_strategy_as_template: false,
+          template_name: "",
+        },
+
+        scenario_id: this.$route.params.scenario,
+        save_portfolio: false,
+        portfolio_name: "",
+        client: 0,
+      };
+
+      if (formData.index_strategy_1.performance_multiplier) {
+        formData.index_strategy_1.load_in_advanced_performance_multiplier =
+          fees[0].pmf.fees;
+        formData.index_strategy_1.loan_in_advanced_same_in_all_years = fees[0]
+          .pmf.same_all_year
+          ? true
+          : false;
+        formData.index_strategy_1.loan_in_advanced_same_in_all_years_data = !fees[0]
+          .pmf.same_all_year
+          ? fees[0].pmf.schedule
+          : null;
+      } else {
+        formData.index_strategy_1.load_in_advanced_performance_multiplier = 1;
+        formData.index_strategy_1.loan_in_advanced_same_in_all_years = true;
+        formData.index_strategy_1.loan_in_advanced_same_in_all_years_data = null;
+      }
+
+      if (formData.index_strategy_1.flat_credit_bonus) {
+        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees =
+          fees[0].fcf.fees;
+        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = fees[0]
+          .fcf.same_all_year
+          ? true
+          : false;
+        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years_data = !fees[0]
+          .fcf.same_all_year
+          ? fees[0].fcf.schedule
+          : null;
+      } else {
+        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees = 1;
+        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = true;
+        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years_data = null;
+      }
+
+      console.log(formData);
+      this.$store.dispatch("loader", true);
+      post(getUrl("historical"), formData, authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("loader", false);
+          this.$toast.success(response.data.message);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+
+          this.$toast.error(getFirstError(error));
+        });
     },
   },
   mounted() {

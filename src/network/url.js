@@ -59,6 +59,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/comperative/`
     case 'existing-comparative':
       return `${baseUrl}/auth/exisiting-comperative/`
+    case 'historical':
+      return `${baseUrl}/auth/historical/`
     default:
       return baseUrl;
   }

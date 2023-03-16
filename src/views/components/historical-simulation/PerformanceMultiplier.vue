@@ -36,6 +36,7 @@
                 </form>
             </div>
             <div class="tab-pane fade" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
+                <label v-if="errors[currentTab] && errors[currentTab].enhancements_schedule">{{errors[currentTab].enhancements_schedule}}</label>
                 <div class="d-flex justify-content-center w-100">
                     <div class="schduleTableDiv mt-5 ">
                         <table class="table">
@@ -67,10 +68,11 @@
 <script>
 export default {
   props: ["currentTab"],
+  inject: ["errors"],
   data() {
     return {
-      tab:'fixed',
-      startYear:1,
+      tab: "fixed",
+      startYear: 1,
       maxYear: 5,
       customAmount: "",
     };
@@ -96,11 +98,18 @@ export default {
       })
     );
   },
+  methods: {
+    testFunction: function() {
+      console.log("this.errors");
+      console.log(this.errors);
+    },
+  },
+
   computed: {
-    illustrateYear(){
-        return 10;
-    }
-  }
+    illustrateYear() {
+      return 10;
+    },
+  },
 };
 </script>
 <style lang="">
