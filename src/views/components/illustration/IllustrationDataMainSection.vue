@@ -202,7 +202,7 @@
           <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="modal-body text-center my-4">
             <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
-            <p class="preview-modal-heading2" >Just click the box to select the relevant page</p>
+            <p class="preview-modal-heading2 mt-0">Just click the box to select the relevant page</p>
                 <div class="container">
                   <div id="pdfPreview" class="row"></div>
               </div>
@@ -1250,9 +1250,16 @@ export default {
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
+  width: 100%;
+}
+.dark-green .previewCard, .dark-blue .previewCard {
+  border: 1.25px solid #a0a0a0 !important;
 }
 .previewCard:hover {
-  border: 1.25px solid #000000 !important;
+  border: 1.25px solid #000 !important;
+}
+.dark-green .previewCard:hover, .dark-blue .previewCard:hover {
+  border: 1.25px solid #ccc !important;
 }
 .previewCard .previewCardHeading {
   font-weight: 600;
@@ -1261,7 +1268,16 @@ export default {
   color: #b1b1b1;
 }
 .previewCard.active {
-  border: 1.25px solid #000000 !important;
+  border: 2px solid #000 !important;
+}
+.dark-green .previewCard.active {
+  border: 2px solid #fff !important;
+}
+.dark-blue .previewCard.active {
+  border: 2px solid #fff !important;
+}
+.dark-green .previewCard.active .previewCardHeading, .dark-blue .previewCard.active .previewCardHeading {
+    color: #fff;
 }
 .previewCard.active .previewCardHeading {
   color: #000;
@@ -1276,7 +1292,7 @@ export default {
   font-weight: 700;
   font-size: 22px;
   text-align: center;
-  color: #000000;
+  color: #000;
 }
 .preview-modal-heading2 {
   font-weight: 400;
@@ -1284,6 +1300,9 @@ export default {
   text-align: center;
   color: #555555;
   margin: 12px 0 25px 0;
+}
+.dark-green .preview-modal-heading1, .dark-blue .preview-modal-heading1, .dark-green .preview-modal-heading2, .dark-blue .preview-modal-heading2{
+  color: #fff;
 }
 .prev-modal-close-btn {
   position: absolute;
@@ -1303,11 +1322,18 @@ export default {
   margin: 0 auto;
   font-weight: 600;
   font-size: 14px;
-  color: #000000;
+  color: #000;
+}
+.dark-green .preview-cancel-btn, .dark-blue .preview-cancel-btn {
+  color: #fff;
 }
 .preview-cancel-btn:hover {
-  border: 1px solid #000000;
-  color: #000000;
+  border: 1px solid #000;
+  color: #000;
+}
+.dark-green .preview-cancel-btn:hover, .dark-blue .preview-cancel-btn:hover {
+  border: 1px solid #fff;
+  color: #fff;
 }
 </style>
 
