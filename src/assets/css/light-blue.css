@@ -1268,6 +1268,9 @@ margin: o;
 }
 .light-blue .add-table-column-btn:hover{
   background-color: #f4f4f4;
-  color: var(--blue-clr);;
+  color: var(--blue-clr);
   border-color: #ddd;
+}
+.light-blue .add-data-btn{
+  background-color: var(--blue-clr);;
 }
