@@ -865,58 +865,38 @@ export default {
           },
         ],
       };
+      let a = ['22', '4', '8'];
+      // a.sort();
 
-      console.log(obj);
+      console.log(a.sort((i, j) => i - j));
 
-      function mapPdfData(list) {
-        if (list) {
-          let arr = [];
-          let headers = [];
-          let total_columns = 0;
-          arr = list.map(i => {
-            var obj = Object.values(i);
-            if (total_columns < obj.length) {
-              total_columns = obj.length;
-            }
-            return obj;
-          });
-          for (var i = 0; i < total_columns; i++) {
-            headers.push("");
-          }
-          return { data: arr, headers: headers };
-        }
-      }
-      let page = "22, 23, 4";
-      let allData = { data: [], headers: [] };
+      if (res) {
+        let arr = [];
+        let headers = [];
+        let total_columns = 0;
 
-      if (page) {
         page.split(",").forEach(p => {
-          let list = mapPdfData(obj[p.trim()]);
-          if (allData.data.length) {
-            if (list && list.headers) {
-              let temp_data = [];
-              let maxRowLen = allData.data.length;
-              let maxColLen = allData.data.length;
-              if (list.data.length < maxRowLen) {
-                maxRowLen = list.data.length;
+          if (res[p.trim()]) {
+            let tempData = res[p.trim()].map(i => {
+              var obj = Object.values(i);
+              if (total_columns < obj.length) {
+                total_columns = obj.length;
               }
-
-              for (var i = 0; i < maxRowLen; i++) {
-                temp_data.push([...allData.data[i], ...list.data[i]]);
-              }
-              allData = {
-                data: temp_data,
-                headers: [...allData.headers, ...list.headers],
-              };
-            } else {
-              alert("Please paste a valid CSV.");
-            }
-          } else {
-            allData = list;
+              return obj;
+            });
+            arr = [...arr, ...tempData];
           }
         });
-
-        return allData;
+        
+        for (var i = 0; i < total_columns; i++) {
+          headers.push("");
+        }
+        console.log({ data: arr, headers: headers });
+        if(arr.length){
+          this.csvPreview = { data: arr, headers: headers };
+        }
+        this.$store.dispatch("loader", false);
+        this.setScrollbar();
       }
     },
   },

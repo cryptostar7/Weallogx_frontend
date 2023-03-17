@@ -258,9 +258,9 @@ export default {
       enhancements: [],
       fees: [],
       error: {
-        1:[],
-        2:[],
-        3:[],
+        1: [],
+        2: [],
+        3: [],
       },
     };
   },
@@ -540,10 +540,11 @@ export default {
     },
     validatateForm: function(tab = 0) {
       var valid = true;
-      let analysis = this.analysis[tab - 0];
-      let growth = this.growth[tab - 0];
-      let enhancements = this.enhancements[tab - 0];
-      let fees = this.fees[tab - 0];
+      let analysis = this.analysis[tab];
+      let growth = this.growth[tab];
+      let enhancements = this.enhancements[tab];
+      let fees = this.fees[tab];
+      console.log(enhancements);
 
       if (enhancements && enhancements.performance.checkbox) {
         if (enhancements.performance.type === "fixed") {
@@ -560,8 +561,43 @@ export default {
           } else {
             obj_valid = false;
           }
-          if(!obj_valid){
-            this.error[tab+1].enhancements_schedule = "Please fill all years multiplier rate."
+          if (!obj_valid) {
+            this.error[tab + 1].enhancements_performance_schedule =
+              "Please fill all years of multiplier rate.";
+          } else {
+            this.error[tab + 1].enhancements_performance_schedule = "";
+          }
+        }
+      }
+
+      if (enhancements && enhancements.credit.checkbox) {
+        if (enhancements.credit.type === "fixed") {
+          console.log("fixed");
+        } else {
+          let obj = enhancements.credit.schedule;
+          let obj_valid = true;
+          if (obj) {
+            obj.forEach(item => {
+              if (!item.value) {
+                obj_valid = false;
+              }
+            });
+          } else {
+            obj_valid = false;
+          }
+          if (!obj_valid) {
+            if (enhancements.credit.schedule_type === "rate") {
+              this.error[
+                tab + 1
+              ].enhancements_credit_schedule_rate = `Please fill all years of multiplier rate.`;
+            }else{
+              this.error[
+                tab + 1
+              ].enhancements_credit_schedule_amount = `Please fill all years of amount.`;
+            }
+          } else {
+            this.error[tab + 1].enhancements_credit_schedule_rate = "";
+            this.error[tab + 1].enhancements_credit_schedule_amount = "";
           }
         }
       }
@@ -579,14 +615,14 @@ export default {
       let enhancements = this.enhancements;
       let fees = this.fees;
 
-      // this.validatateForm(0);
+      let activeTabs = [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
+      activeTabs.forEach((t, i) => {
+        if (t) {
+          this.validatateForm(i);
+        }
+      });
 
-      // return false;
-
-      // console.log(analysis);
-      // console.log(growth);
-      // console.log(enhancements);
-      // console.log(fees);
+      return false;
       this.$toast.success("Form submitted!");
 
       var formData = {
@@ -637,13 +673,13 @@ export default {
           fees: true,
           premium_charge: fees[0].pcf.fees,
           premium_same_in_all_years: fees[0].pcf.same_all_year ? true : false,
-          premium_same_in_all_years_data: fees[0].pcf.same_all_year
+          premium_charges_same_in_all_years: !fees[0].pcf.same_all_year
             ? fees[0].pcf.schedule
             : null,
 
           loan_intrest_rate: fees[0].lif.fees,
           loan_same_in_all_years: fees[0].lif.same_all_year ? true : false,
-          loan_same_in_all_years_data: !fees[0].lif.same_all_year
+          loan_intrest_rate_same_in_all_years: !fees[0].lif.same_all_year
             ? fees[0].lif.schedule
             : null,
 
@@ -657,7 +693,6 @@ export default {
         scenario_id: this.$route.params.scenario,
         save_portfolio: false,
         portfolio_name: "",
-        client: 0,
       };
 
       if (formData.index_strategy_1.performance_multiplier) {
@@ -667,14 +702,14 @@ export default {
           .pmf.same_all_year
           ? true
           : false;
-        formData.index_strategy_1.loan_in_advanced_same_in_all_years_data = !fees[0]
+        formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[0]
           .pmf.same_all_year
           ? fees[0].pmf.schedule
           : null;
       } else {
         formData.index_strategy_1.load_in_advanced_performance_multiplier = 1;
         formData.index_strategy_1.loan_in_advanced_same_in_all_years = true;
-        formData.index_strategy_1.loan_in_advanced_same_in_all_years_data = null;
+        formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = null;
       }
 
       if (formData.index_strategy_1.flat_credit_bonus) {
@@ -684,14 +719,14 @@ export default {
           .fcf.same_all_year
           ? true
           : false;
-        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years_data = !fees[0]
+        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[0]
           .fcf.same_all_year
           ? fees[0].fcf.schedule
           : null;
       } else {
         formData.index_strategy_1.in_advanced_flat_credit_bonus_fees = 1;
         formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = true;
-        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years_data = null;
+        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
       }
 
       console.log(formData);

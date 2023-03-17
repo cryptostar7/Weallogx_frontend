@@ -602,12 +602,12 @@ export default {
             let input = document.getElementById("extractPageNumber");
             if (parent.classList.contains("active")) {
               let tempVal = input.value.split(",").filter(i => i !== pId);
-              input.value = tempVal.join(",");
+              input.value = tempVal.sort((a, b) => a - b).join(",");
             } else {
               if (input.value) {
                 let tempVal = input.value.split(",");
                 tempVal.push(pId);
-                input.value = tempVal.join(",");
+                input.value = tempVal.sort((a, b) => a - b).join(",");
               } else {
                 input.value = pId;
               }
@@ -839,62 +839,41 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then(response => {
           var res = response.data;
-          function mapPdfData(list) {
-            if (list) {
-              let arr = [];
-              let headers = [];
-              let total_columns = 0;
-              arr = list.map(i => {
-                var obj = Object.values(i);
-                if (total_columns < obj.length) {
-                  total_columns = obj.length;
-                }
-                return obj;
-              });
-              for (var i = 0; i < total_columns; i++) {
-                headers.push("");
-              }
-              return { data: arr, headers: headers };
-            }
-          }
 
           let allData = { data: [], headers: [] };
 
-          if (page) {
-            page.split(",").forEach(p => {
-              let list = mapPdfData(res[p.trim()]);
-              if (allData.data.length) {
-                if (list && list.headers) {
-                  let temp_data = [];
-                  let maxRowLen = allData.data.length;
-                  let maxColLen = allData.data.length;
-                  if (list.data.length < maxRowLen) {
-                    maxRowLen = list.data.length;
-                  }
+          if (page && res) {
+            let arr = [];
+            let headers = [];
+            let total_columns = 0;
 
-                  for (var i = 0; i < maxRowLen; i++) {
-                    temp_data.push([...allData.data[i], ...list.data[i]]);
+            page.split(",").forEach(p => {
+              if (res[p.trim()]) {
+                let tempData = res[p.trim()].map(i => {
+                  var obj = Object.values(i);
+                  if (total_columns < obj.length) {
+                    total_columns = obj.length;
                   }
-                  allData = {
-                    data: temp_data,
-                    headers: [...allData.headers, ...list.headers],
-                  };
-                }
-              } else {
-                if (list) {
-                  allData = list;
-                }
+                  return obj;
+                });
+                arr = [...arr, ...tempData];
               }
             });
+
+            for (var i = 0; i < total_columns; i++) {
+              headers.push("");
+            }
+            console.log({ data: arr, headers: headers });
+            if (headers.length) {
+              this.csvPreview = { data: arr, headers: headers };
+            } else {
+              this.$toast.warning(
+                "Sorry the data from the uploaded file could not be retrieved."
+              );
+            }
+            this.$store.dispatch("loader", false);
+            this.setScrollbar();
           }
-          if(allData.headers.length){
-            this.csvPreview = allData;
-          }else{
-            this.$toast.warning('Sorry the data form the uploaded file could not be retrieved.');
-          }
-          this.$store.dispatch("loader", false);
-   
-          this.setScrollbar();
         })
         .catch(error => {
           console.log(error);
@@ -986,7 +965,7 @@ export default {
       formData.append("insurance_policy_name", data.policy_name);
       formData.append("insurance_policy_nickname", data.nickname);
       formData.append("save_this_company_profile", data.insurance_template);
-      
+
       if (data.insurance_template) {
         formData.append(
           "insurance_template_name",
@@ -1252,13 +1231,15 @@ export default {
   cursor: pointer;
   width: 100%;
 }
-.dark-green .previewCard, .dark-blue .previewCard {
+.dark-green .previewCard,
+.dark-blue .previewCard {
   border: 1.25px solid #a0a0a0 !important;
 }
 .previewCard:hover {
   border: 1.25px solid #000 !important;
 }
-.dark-green .previewCard:hover, .dark-blue .previewCard:hover {
+.dark-green .previewCard:hover,
+.dark-blue .previewCard:hover {
   border: 1.25px solid #ccc !important;
 }
 .previewCard .previewCardHeading {
@@ -1276,8 +1257,9 @@ export default {
 .dark-blue .previewCard.active {
   border: 2px solid #fff !important;
 }
-.dark-green .previewCard.active .previewCardHeading, .dark-blue .previewCard.active .previewCardHeading {
-    color: #fff;
+.dark-green .previewCard.active .previewCardHeading,
+.dark-blue .previewCard.active .previewCardHeading {
+  color: #fff;
 }
 .previewCard.active .previewCardHeading {
   color: #000;
@@ -1301,7 +1283,10 @@ export default {
   color: #555555;
   margin: 12px 0 25px 0;
 }
-.dark-green .preview-modal-heading1, .dark-blue .preview-modal-heading1, .dark-green .preview-modal-heading2, .dark-blue .preview-modal-heading2{
+.dark-green .preview-modal-heading1,
+.dark-blue .preview-modal-heading1,
+.dark-green .preview-modal-heading2,
+.dark-blue .preview-modal-heading2 {
   color: #fff;
 }
 .prev-modal-close-btn {
@@ -1324,14 +1309,16 @@ export default {
   font-size: 14px;
   color: #000;
 }
-.dark-green .preview-cancel-btn, .dark-blue .preview-cancel-btn {
+.dark-green .preview-cancel-btn,
+.dark-blue .preview-cancel-btn {
   color: #fff;
 }
 .preview-cancel-btn:hover {
   border: 1px solid #000;
   color: #000;
 }
-.dark-green .preview-cancel-btn:hover, .dark-blue .preview-cancel-btn:hover {
+.dark-green .preview-cancel-btn:hover,
+.dark-blue .preview-cancel-btn:hover {
   border: 1px solid #fff;
   color: #fff;
 }

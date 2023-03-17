@@ -36,9 +36,9 @@
                 </form>
             </div>
             <div class="tab-pane fade" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
-                <label v-if="errors[currentTab] && errors[currentTab].enhancements_schedule">{{errors[currentTab].enhancements_schedule}}</label>
                 <div class="d-flex justify-content-center w-100">
                     <div class="schduleTableDiv mt-5 ">
+                        <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_performance_schedule">{{errors[currentTab].enhancements_performance_schedule}}</label>
                         <table class="table">
                             <thead>
                                 <th>Year</th>

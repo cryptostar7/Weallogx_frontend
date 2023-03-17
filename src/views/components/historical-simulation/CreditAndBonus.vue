@@ -47,6 +47,7 @@
                     <div class="tab-pane fade show active" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
+                                <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_rate">{{errors[currentTab].enhancements_credit_schedule_rate}}</label>
                                 <table class="table">
                                     <thead>
                                         <th>Year</th>
@@ -70,6 +71,7 @@
                     <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
+                                <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_amount">{{errors[currentTab].enhancements_credit_schedule_amount}}</label>
                                 <table class="table">
                                     <thead>
                                         <th>Year</th>
@@ -101,6 +103,7 @@
 import {getNumber} from "../../../services/helper.js";
 export default {
   props: ["currentTab"],
+  inject: ["errors"],
   data() {
     return {
       tab:'fixed',
