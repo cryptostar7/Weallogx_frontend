@@ -859,7 +859,6 @@ export default {
                 arr = [...arr, ...tempData];
               }
             });
-
             for (var i = 0; i < total_columns; i++) {
               headers.push("");
             }
