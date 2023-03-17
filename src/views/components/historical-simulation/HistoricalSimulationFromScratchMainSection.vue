@@ -152,11 +152,11 @@
                     </div>
                   </div> 
                   <div class="text-center mt-30"> 
-                    <router-link to="" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Review</router-link> 
+                    <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Review</router-link> 
                     <span class="d-block mb-3"></span>
                     <div class="d-flex position-relative mb-5"> 
-                      <router-link to="/historical-simulations-after-yes" class="nav-link btn form-back-btn fs-14 backHistoricalBtn">
-                        <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
+                      <router-link to="/historical-simulations-after-yes" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
+                        <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                       </router-link> 
                       <router-link to="/review-summary" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
                       <a href="javascript:void(0)" class="nav-link btn form-back-btn fs-14 skipScenarioBtn">Save Scenario as Draft</a> </div>

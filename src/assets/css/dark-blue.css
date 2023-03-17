@@ -706,7 +706,7 @@
 }
 
 .dark-blue .form-select {
-  color: #6D6D6D;
+  color: #fff;
   background-color: #2E3135;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   border: 1px solid #515151;
@@ -4136,7 +4136,29 @@ color: #55575a !important;
   border-color: #404348;
 }
 .dark-blue .add-table-column-btn:hover{
-  background-color: rgba(0,0,0,0.125);
-  color: var(--blue-clr-2);;;
-  border-color: #555;
+  background-color: var(--blue-clr-2);
+  color: #fff;
+  border-color: var(--blue-clr-2);
 }
+.dark-blue .add-data-btn{
+  background-color: var(--blue-clr);;
+}
+.dark-blue .illustration-data-table tr th{
+  background: #2E3135;
+  color: #fff;
+}
+.dark-blue .illustration-data-table tbody tr th{
+    border-color: #515151;
+}
+.dark-blue .illustration-data-table tbody tr td{
+  background: #34383D;
+  color: #fff;
+  border-color: #515151;
+}
+.dark-blue .csv-textarea{
+  background-color: #34383D;  
+}
+.dark-blue .csv-textarea:focus{
+  border-color: var(--blue-clr-2);
+}
+

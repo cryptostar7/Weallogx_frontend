@@ -149,7 +149,7 @@
                       </div>
                       <div class="ps-3 flex-shrink-0">
                         <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addCSVColumn">+ Add Data</button>
-                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn">x Cancel</button>
+                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
                       </div>
                     </div>
                   <div class="div-wrapper px-3">
@@ -187,7 +187,7 @@
                 <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
                   <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
-                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6" />Back
+                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                   </router-link> 
                 </div>
             </div>
@@ -196,10 +196,10 @@
       </div>
     </div>
     <delete-colomn-modal @removeCol="removeColumn"/> 
-    <div class="modal fade" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
+    <div class="modal fade pdf-preview-canvas-modal" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid" alt="close" /></button>
           <div class="modal-body text-center my-4">
             <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
             <p class="preview-modal-heading2 mt-0">Just click the box to select the relevant page</p>
@@ -1224,6 +1224,7 @@ export default {
 
 
 <style>
+
 .previewCard {
   border: 1.25px solid #f2f2f2 !important;
   border-radius: 5px;
@@ -1291,14 +1292,24 @@ export default {
 }
 .prev-modal-close-btn {
   position: absolute;
-  top: 35px;
-  right: 35px;
+  top: 25px;
+  right: 25px;
   z-index: 999;
   box-shadow: none !important;
   outline: none !important;
   border: none !important;
 }
-
+.pdf-preview-canvas-modal .prev-modal-close-btn img{
+  position: relative;
+  top: -6px;
+  left: 1px;  
+}
+.dark-green .prev-modal-close-btn, .dark-blue .prev-modal-close-btn {
+  background-color: #111;
+}
+.light-green .pdf-preview-canvas-modal .prev-modal-close-btn img, .light-blue .pdf-preview-canvas-modal .prev-modal-close-btn img{
+  display: none;
+}
 .preview-cancel-btn {
   border: 1px solid #dfdfdf;
   border-radius: 6.5rem;
@@ -1322,8 +1333,4 @@ export default {
   border: 1px solid #fff;
   color: #fff;
 }
-</style>
-
-
-
-                
+</style>         
