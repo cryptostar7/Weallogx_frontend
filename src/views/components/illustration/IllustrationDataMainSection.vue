@@ -147,26 +147,22 @@
                   </div>
                 </div>
               </div>
-              <div v-if="csvPreview.data.length" class="illustration-data-table-div w-100">
+              <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" @click="checkFunction()">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                    <div class="floating-btns">
-                      <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
-                      <button type="button" class="btn add-table-column-btn" >- Delete Column</button>
+                    <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
+                      <button type="button" class="btn add-table-column-btn">+ Add Column</button>
+                      <button type="button" :class="`btn add-table-column-btn ${removeColId.length ? '':'d-none'}`" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
                       <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                     </div>
                     <div class="d-flex additional-textarea py-3 d-none">
                       <div class="flex-1">
-                        <!-- <textarea class="form-control csv-textarea w-100" name="" id="add_new_csv_col" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea> -->
                         <div class="tab-content mt-1">
-                        <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
+                        <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
                           <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                           <div class=""> 
                             <label for="uploading" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
                               <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
-                        <!--       <span>
-                                <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
-                              </span> -->
                               <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
                               <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                               <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
@@ -176,12 +172,11 @@
                             <p class=" file-name fs-14 grey-clr-2 medium-fw text-center m-0 " id="fileName">{{illustrationFile.name}}</p>
                           </div>
                         </div>
-                        <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
+                        <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste" role="tabpanel" aria-labelledby="addCopyPaste-tab">
                           <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
                           <div class="copy-paste-area mb-0 p-1">
                             <div class="form-group mb-0"> 
-                              <!-- <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label>  -->
-                              <textarea style="height: 143.7px;" name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV" placeholder="Paste your data here"></textarea>
+                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5" class="form-control" placeholder="Paste your data here"></textarea>
                             </div>
                           </div>
                         </div>
@@ -190,8 +185,8 @@
                       <div class="ps-3 flex-shrink-0">
                         <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
                           <li class="nav-item" role="presentation"> 
-                            <button :class="`nav-link py-12 ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
-                              <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <button :class="`nav-link py-12 ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
+                              <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
                                 <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
                                   stroke="black" stroke-width="0.5" />
@@ -206,9 +201,9 @@
                               </svg> &nbsp;By Uploading File 
                             </button> 
                           </li>
-                          <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
-                            <button :class="`nav-link py-12 ${uploadFromFile ? '' : 'active'} space-nowrap`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
-                              <svg class="copyPaste" width="11" height="11"
+                          <li class="nav-item" role="presentation" @click="() => addFromFile = false"> 
+                            <button :class="`nav-link py-12 ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
+                              <svg class="addCopyPaste" width="11" height="11"
                                 viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="7" height="7" rx="1" fill="black" />
                                 <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
@@ -217,7 +212,7 @@
                           </li>
                         </ul>
                         <div class="d-flex flex-column mt-2">
-                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addCSVColumn">+ Add Data</button>
+                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Add Data</button>
                           <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
                           </div>
                       </div>
@@ -231,9 +226,6 @@
                         <tr>
                           <td v-for="(header, index) in csvPreview.headers" :key="index" >
                             <div class="d-flex flex-column align-items-center px-2"> 
-                          <!--  <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
-                                <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                              </button> -->
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
                               <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
@@ -241,7 +233,12 @@
                           </td>
                         </tr>
                         <tr>
-                          <th v-for="(item, index) in csvPreview.headers" :key="index"><div class="d-flex justify-content-center align-items-center"> <input :id="`c${index}`" type="checkbox" class="header-check me-1"> <label class="cursor-pointer" :for="`c${index}`">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}} </label></div></th>
+                          <th v-for="(item, index) in csvPreview.headers" :key="index" :class="removeColId.includes(index) ? 'checked':''">
+                            <div class="d-flex justify-content-center align-items-center"> 
+                              <input :id="`c${index}`" type="checkbox" class="header-check me-1" :checked="removeColId.includes(index)" @click="deleteCheckbox(index)"> 
+                              <label class="cursor-pointer" :for="`c${index}`">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}} </label>
+                            </div>
+                            </th>
                         </tr>
                         <tr v-for="(item, index) in csvPreview.data.length" :key="index">
                           <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
@@ -254,7 +251,6 @@
 
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
-                <!-- <router-link to="/comparative-vehicles" class="nav-link btn form-next-btn fs-14 active" disabled="true">Next</router-link>  -->
                 <span class="d-block mb-2"></span> 
                   <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
@@ -313,8 +309,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 const fileReader = new FileReader();
 
-
-
 export default {
   components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
   refs: ["cancelCsvBtn"],
@@ -325,6 +319,7 @@ export default {
       saveIllustrationTemplate: false,
       illustrationTemplateName: "",
       uploadFromFile: false,
+      addFromFile: false,
       illustrationFile: {
         name: "",
         file: null,
@@ -341,7 +336,7 @@ export default {
       illustrationTemplateInput: 0,
       errors: [],
       csvPreview: { data: [], headers: [] },
-      removeColId: null,
+      removeColId: [],
     };
   },
   mounted() {
@@ -362,19 +357,6 @@ export default {
         }
       })
     );
-
-    setTimeout(()=> {
-      let checks = document.querySelectorAll(".header-check");
-      console.log(checks);
-      checks.forEach(check => {
-        check.addEventListener("click", (e) => {
-          let th = e.target.closest("th");
-          console.log(th);
-          th.classList.toggle("checked");
-        });
-      })
-    }, 5000)
-    
 
     // input validation for min and max value
     const inputs2 = document.querySelectorAll(".handleLimit2");
@@ -603,6 +585,7 @@ export default {
         this.$toast.error("Something went wrong.");
       }
     },
+
     // show pdf file preview for selecting the extract page
     getPreview: function(file) {
       if (file && file.type == "application/pdf") {
@@ -702,6 +685,7 @@ export default {
         });
       }
     },
+
     // validate the form
     validateForm: function() {
       var validate = true;
@@ -808,6 +792,7 @@ export default {
       return validate;
     },
 
+    // remove error
     clearError: function(key) {
       this.errors[key] = false;
       this.clearInsuranceTemplate();
@@ -821,7 +806,9 @@ export default {
 
     // set the input value using the input id attribute
     setInputWithId: function(id, value) {
-      document.getElementById(id).value = value;
+      if (document.getElementById(id)) {
+        document.getElementById(id).value = value;
+      }
       return value;
     },
 
@@ -899,6 +886,8 @@ export default {
       this.illustrationFile.name = file ? file.name : "";
       this.errors.illustration_file = false;
     },
+
+    // extract pdf data
     extractPdf: function() {
       var file = this.illustrationFile.file;
       var page = this.getInputWithId("extractPageNumber");
@@ -972,6 +961,8 @@ export default {
           }
         });
     },
+
+    // handle form data
     submitHandler: function(e) {
       e.preventDefault();
 
@@ -1108,7 +1099,6 @@ export default {
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       this.$store.dispatch("loader", true);
-      console.log("line 796");
 
       post(getUrl("illustration"), formData, authHeader())
         .then(response => {
@@ -1132,8 +1122,20 @@ export default {
           }
         });
     },
+
     checkFunction: function() {
-      console.log(this.csvPreview);
+      console.log(this.removeColId);
+    },
+
+    // add multiple column id for remove from table
+    deleteCheckbox: function(id) {
+      var colId = this.removeColId;
+      if (!colId.includes(id)) {
+        colId.push(id);
+      } else {
+        colId = colId.filter((item, i) => i !== id);
+      }
+      this.removeColId = colId;
     },
     resetCsv: function() {
       this.csvPreview = { data: [], headers: [] };
@@ -1143,7 +1145,18 @@ export default {
     testFunction: function() {
       console.log(this.csvPreview);
     },
+    addMoreCol: function() {
+      if (this.addFromFile) {
+        this.addPdfColumn();
+      } else {
+        this.addCSVColumn();
+      }
+    },
+    addPdfColumn: function() {
+      console.log("pdf file");
+    },
     addCSVColumn: function() {
+      console.log("add csv col");
       let txt = this.getInputWithId("add_new_csv_col");
 
       if (txt) {
@@ -1167,14 +1180,13 @@ export default {
           this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
-          this.csvPreview = {};
+          this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV.");
         }
-      } else {
-        this.csvPreview = {};
+        this.setScrollbar();
+      }else{
+        this.$toast.warning('Please paste your CSV to add more columns.')
       }
-
-      this.setScrollbar();
     },
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
@@ -1183,11 +1195,11 @@ export default {
         if (obj && obj.headers) {
           this.csvPreview = obj;
         } else {
-          this.csvPreview = {};
+          this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV..");
         }
       } else {
-        this.csvPreview = {};
+        this.csvPreview = { data: [], headers: [] };
       }
       this.setScrollbar();
     },
@@ -1218,12 +1230,12 @@ export default {
         var additionalTextArea = document.querySelector(".additional-textarea");
         if (addColumnBtn) {
           addColumnBtn.addEventListener("click", () => {
-            additionalTextArea.classList.toggle("d-none");
+            additionalTextArea.classList.remove("d-none");
           });
         }
         if (cancelAddBtn) {
           cancelAddBtn.addEventListener("click", () => {
-            additionalTextArea.classList.toggle("d-none");
+            additionalTextArea.classList.add("d-none");
           });
         }
       }, 100);
@@ -1231,16 +1243,19 @@ export default {
     removeColumn: function() {
       let temp_data = [];
       this.csvPreview.data.forEach((row, index) => {
-        temp_data.push(row.filter((item, i) => i !== this.removeColId));
+        temp_data.push(row.filter((item, i) => !this.removeColId.includes(i)));
       });
 
       this.csvPreview = {
         data: temp_data,
         headers: this.csvPreview.headers.filter(
-          (item, i) => i !== this.removeColId
+          (item, i) => !this.removeColId.includes(i)
         ),
       };
 
+      console.log("this.csvPreview");
+      console.log(this.csvPreview);
+      this.removeColId = [];
       this.setScrollbar();
     },
     parseRow: function(row) {
@@ -1308,7 +1323,6 @@ export default {
 
 
 <style>
-
 .previewCard {
   border: 1.25px solid #f2f2f2 !important;
   border-radius: 5px;
@@ -1383,15 +1397,17 @@ export default {
   outline: none !important;
   border: none !important;
 }
-.pdf-preview-canvas-modal .prev-modal-close-btn img{
+.pdf-preview-canvas-modal .prev-modal-close-btn img {
   position: relative;
   top: -6px;
-  left: 1px;  
+  left: 1px;
 }
-.dark-green .prev-modal-close-btn, .dark-blue .prev-modal-close-btn {
+.dark-green .prev-modal-close-btn,
+.dark-blue .prev-modal-close-btn {
   background-color: #111;
 }
-.light-green .pdf-preview-canvas-modal .prev-modal-close-btn img, .light-blue .pdf-preview-canvas-modal .prev-modal-close-btn img{
+.light-green .pdf-preview-canvas-modal .prev-modal-close-btn img,
+.light-blue .pdf-preview-canvas-modal .prev-modal-close-btn img {
   display: none;
 }
 .preview-cancel-btn {
