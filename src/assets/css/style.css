@@ -21,6 +21,9 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+.overflow-hidden{
+  overflow: hidden;
+}
 ::-webkit-scrollbar {
   width: 0.5rem;
 }
@@ -1322,6 +1325,7 @@ color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 }
 .tax-rate-tabs .nav-item button.nav-link img {
   margin-right: 5px;
@@ -2361,15 +2365,21 @@ color: #fff;
   text-align: center;
   border: 1px solid #DFDFDF;
   padding: 0.25rem 0.25rem;
-  width: 175px;
   min-width: 175px;
-  max-width: 175px;
+  cursor: pointer;
+  white-space: nowrap;
 }
-.illustration-data-table tr td {
+.illustration-data-table tr th input[type=checkbox]{
+  display: none;
+}
+.illustration-data-table tr th:hover input[type=checkbox], .illustration-data-table tr th.checked input[type=checkbox]{
+  display: block;
+}
+/*.illustration-data-table tr td {
   width: 175px;
   min-width: 175px;
   max-width: 175px;
- }
+ }*/
 .table > :not(caption) > * > *{
   border-bottom: 0;
 }
@@ -2438,7 +2448,7 @@ color: #fff;
  border: 2px solid #eee;
  border-bottom: 0;
  color: #ccc;
- margin-right: 15px;
+ margin-right: 10px;
 }
 .add-table-column-btn:hover{
   background-color: #f4f4f4;
@@ -2454,7 +2464,7 @@ color: #fff;
   background-color: var(--green-clr);
   color: #fff;
 }
-.add-data-btn:hover{
+.add-data-btn:hover, .add-data-btn:focus{
   color: #fff;
 }
 .csv-textarea:focus,.csv-textarea:active{
@@ -2463,9 +2473,12 @@ color: #fff;
 .csv-textarea::placeholder{
   color: #aaa;
 }
+.py-12{
+  padding-block: 12px;
+}
 .cancel-add-data-btn{
   border-radius: 6.5rem;
-  padding: 0.625rem 1rem;
+  padding: 0.5rem 1rem;
   padding-right: 1rem;
   padding-left: 1rem;
   max-width: 230px;
@@ -5077,11 +5090,20 @@ input[type=number] {
   top: 75%;
   background-color: #0E6651;
 }
-
-
-
-
-
+.pdf-spinner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  padding-inline: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dfdfdf;
+  pointer-events: none;
+}
 /* Chart Related CSS */
 .graph-container-div{
   position: relative;

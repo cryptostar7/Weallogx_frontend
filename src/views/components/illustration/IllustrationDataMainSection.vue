@@ -89,7 +89,7 @@
                       <svg class="copyPaste" width="11" height="11"
                         viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="7" height="7" rx="1" fill="black" />
-                        <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEEEEE" />
+                        <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
                       </svg> &nbsp;Copy/Paste 
                     </button> 
                   </li>
@@ -98,7 +98,7 @@
                   <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
                     <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                     <div class="pb-4"> 
-                      <label for="uploading" class="drag-drop-label d-block text-center" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
+                      <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
                         <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
                         <span>
                           <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
@@ -108,9 +108,20 @@
                         <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                         <button type="button" class="btn choose-file-btn"> Choose File </button> 
                         <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
+
+                         <div class="pdf-spinner text-center d-none">
+                          <div>
+                            <div class="d-flex justify-content-center">
+                              <div class="spinner-border text-secondary" role="status"></div>
+                            </div>
+                            <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                          </div>
+                        </div>
                       </label>
+                     
                       <p class=" file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 " id="fileName">{{illustrationFile.name}}</p>
                     </div>
+                    
                   </div>
                   <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
                     <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
@@ -137,19 +148,78 @@
                 </div>
               </div>
               <div v-if="csvPreview.data.length" class="illustration-data-table-div w-100">
-                <h4 class="fs-22 bold-fw mb-3" @click="checkFunction()">Categorize, Review and Edit Data</h4>
+                <h4 class="fs-22 bold-fw mb-3 pb-4" @click="checkFunction()">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                     <div class="floating-btns">
                       <button type="button" class="btn add-table-column-btn" >+ Add Column</button>
+                      <button type="button" class="btn add-table-column-btn" >- Delete Column</button>
                       <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                     </div>
                     <div class="d-flex additional-textarea py-3 d-none">
                       <div class="flex-1">
-                        <textarea class="form-control csv-textarea w-100" name="" id="add_new_csv_col" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea>
+                        <!-- <textarea class="form-control csv-textarea w-100" name="" id="add_new_csv_col" cols="30" rows="3" placeholder="Paste your CSV data here..."></textarea> -->
+                        <div class="tab-content mt-1">
+                        <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
+                          <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
+                          <div class=""> 
+                            <label for="uploading" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
+                              <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
+                        <!--       <span>
+                                <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
+                              </span> -->
+                              <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
+                              <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
+                              <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
+                              <button type="button" class="btn choose-file-btn"> Choose File </button> 
+                              <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
+                            </label>
+                            <p class=" file-name fs-14 grey-clr-2 medium-fw text-center m-0 " id="fileName">{{illustrationFile.name}}</p>
+                          </div>
+                        </div>
+                        <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
+                          <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
+                          <div class="copy-paste-area mb-0 p-1">
+                            <div class="form-group mb-0"> 
+                              <!-- <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label>  -->
+                              <textarea style="height: 143.7px;" name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV" placeholder="Paste your data here"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       </div>
                       <div class="ps-3 flex-shrink-0">
-                        <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addCSVColumn">+ Add Data</button>
-                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
+                        <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
+                          <li class="nav-item" role="presentation"> 
+                            <button :class="`nav-link py-12 ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
+                              <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
+                                <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
+                                  stroke="black" stroke-width="0.5" />
+                                <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
+                                  transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
+                                <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"
+                                  transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
+                                <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)"
+                                  stroke="black" stroke-width="0.5" />
+                                <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25"
+                                  transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
+                              </svg> &nbsp;By Uploading File 
+                            </button> 
+                          </li>
+                          <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
+                            <button :class="`nav-link py-12 ${uploadFromFile ? '' : 'active'} space-nowrap`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
+                              <svg class="copyPaste" width="11" height="11"
+                                viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="7" height="7" rx="1" fill="black" />
+                                <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
+                              </svg> &nbsp;By Pasting Data
+                            </button> 
+                          </li>
+                        </ul>
+                        <div class="d-flex flex-column mt-2">
+                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addCSVColumn">+ Add Data</button>
+                          <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
+                          </div>
                       </div>
                     </div>
                   <div class="div-wrapper px-3">
@@ -161,9 +231,9 @@
                         <tr>
                           <td v-for="(header, index) in csvPreview.headers" :key="index" >
                             <div class="d-flex flex-column align-items-center px-2"> 
-                              <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
+                          <!--  <button class="btn col-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal" type="button" @click="() => removeColId = index"> 
                                 <img src="@/assets/images/icons/delete-grey.svg" class="img-fuid" alt="Delete" />
-                              </button>
+                              </button> -->
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
                               <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
@@ -171,7 +241,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <th v-for="(item, index) in csvPreview.headers" :key="index">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}}</th>
+                          <th v-for="(item, index) in csvPreview.headers" :key="index"><div class="d-flex justify-content-center align-items-center"> <input :id="`c${index}`" type="checkbox" class="header-check me-1"> <label class="cursor-pointer" :for="`c${index}`">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}} </label></div></th>
                         </tr>
                         <tr v-for="(item, index) in csvPreview.data.length" :key="index">
                           <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
@@ -243,6 +313,8 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 const fileReader = new FileReader();
 
+
+
 export default {
   components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
   refs: ["cancelCsvBtn"],
@@ -290,6 +362,19 @@ export default {
         }
       })
     );
+
+    setTimeout(()=> {
+      let checks = document.querySelectorAll(".header-check");
+      console.log(checks);
+      checks.forEach(check => {
+        check.addEventListener("click", (e) => {
+          let th = e.target.closest("th");
+          console.log(th);
+          th.classList.toggle("checked");
+        });
+      })
+    }, 5000)
+    
 
     // input validation for min and max value
     const inputs2 = document.querySelectorAll(".handleLimit2");

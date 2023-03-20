@@ -84,6 +84,15 @@ export default {
         }
       }
     });
+
+    let route = this.$route.name; 
+
+    if(route === 'home' || route === 'individual-client'){
+      document.querySelector("body").classList.add("overflow-hidden");
+    }else{
+      document.querySelector("body").classList.remove("overflow-hidden");
+    }
+
   },
   methods: {
     getProfile: function() {
