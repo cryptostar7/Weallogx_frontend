@@ -8,7 +8,7 @@
         </div>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" :id="`nav-fixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`nav-fixedValue-tab${currentTab}`">
-                <form action="javascript:void(0)">
+                <form action="javascript:void(0)"  autocomplete="off">
                     <div class="multiplierInputDiv form-group mt-3">
                         <label :for="`multiplier_input${currentTab}`">Multiplier</label>
                         <input type="text" class="form-control handleLimit" min="1" max="10" value="1" :id="`multiplier_input${currentTab}`">
@@ -49,7 +49,7 @@
                                     <td data-label="Year">{{item}}</td>
                                     <td data-label="Rate" class="innerTableInputTd">
                                         <div class="percent-input-div">
-                                            <input type="text" class="form-control handleLimit" min="1" max="10" :id="`multiplier_schedule${currentTab}${item}`">
+                                            <input type="text" class="form-control handleLimit" min="1" max="10" :id="`multiplier_schedule${currentTab}${item}`"  autocomplete="off">
                                             <span class="percent-span">%</span>
                                         </div>
                                     </td>

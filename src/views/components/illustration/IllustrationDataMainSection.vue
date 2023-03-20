@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
-          <form class="main-form-div" @submit="submitHandler">
+          <form class="main-form-div" @submit="submitHandler" autocomplete="off">
             <div class="main-form-heading">
               <div class="heading-container">
                 <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>

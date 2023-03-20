@@ -8,7 +8,7 @@
         </div>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-flatfixedValue" role="tabpanel" aria-labelledby="nav-flatfixedValue-tab">
-                <form action="javascript:void(0)">
+                <form action="javascript:void(0)"  autocomplete="off">
                     <div class="creditBonusInputDiv form-group mt-3" id="creditBonusinputDiv">
                         <label for="creditBonusinput">Credit/Bonus</label>
                         <input type="text" class="form-control handleLimit" value="1" min="1" max="10" :id="`credit_bonus_input${currentTab}`">
@@ -58,7 +58,7 @@
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="innerTableInputTd">
                                                 <div class="percent-input-div">
-                                                    <input type="text" class="form-control handleLimit" min="1" max="10" :id="`crd_schedule_rate${currentTab}${item}`">
+                                                    <input type="text" class="form-control handleLimit" min="1" max="10" :id="`crd_schedule_rate${currentTab}${item}`" autocomplete="off">
                                                     <span class="percent-span">%</span>
                                                 </div>
                                             </td>
@@ -81,7 +81,7 @@
                                         <tr v-for="(item, index) in illustrateYear" :key="index">
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="amountInnerTableInputTd">
-                                                <input type="text" class="form-control handleLimitWithComma" min="1" max="999999" :id="`crd_schedule_amt${currentTab}${item}`">
+                                                <input type="text" class="form-control handleLimitWithComma" min="1" max="999999" :id="`crd_schedule_amt${currentTab}${item}`" autocomplete="off">
                                                 <label for="amount">$</label>
                                             </td>
                                         </tr>

@@ -12,7 +12,7 @@
                 </h2>
               </div>
             </div>
-            <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler">
+            <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler" autocomplete="off">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId" @inputText="setExistingClientName"/>
                 <hr class="hr-separator" size="1.25" />
@@ -208,7 +208,18 @@ export default {
     // get existing client
     if (!this.$store.state.data.clients) {
       this.getClient();
+    } else {
+      // set default client age
+      let df_client = this.$route.query.client;
+      if (df_client) {
+        this.$store.state.data.clients.forEach(element => {
+          if (Number(df_client) === element.id) {
+            this.setInputWithId("clientAge", element.age);
+          }
+        });
+      }
     }
+
     // get existing scenario details
     if (!this.$store.state.data.templates.scenario_details) {
       this.getExistingScenarioDetails();
@@ -333,7 +344,9 @@ export default {
 
     // set the input value using the input id attribute
     setInputWithId: function(id, value) {
-      document.getElementById(id).value = value;
+      if (document.getElementById(id)) {
+        document.getElementById(id).value = value;
+      }
       return value;
     },
 
@@ -850,11 +863,18 @@ export default {
     clients() {
       let initClient = [];
       let array = this.$store.state.data.clients;
+      let df_client = this.$route.query.client;
+
       if (array && array.length > 0) {
         array.forEach(element => {
           var name = `${element.firstname}${
             element.middlename ? ` ${element.middlename}` : ""
           }${element.lastname ? ` ${element.lastname}` : ""}`;
+
+          let df_client = this.$route.query.client;
+          if (Number(df_client) === element.id) {
+            this.setInputWithId("clientAge", element.age);
+          }
           initClient.push({
             id: Number(element.id),
             template_name: name,
@@ -872,7 +892,6 @@ export default {
           return Number(item.id) === Number(id);
         });
       }
-
       return tempDefaultClient[0] ? tempDefaultClient[0] : [];
     },
 

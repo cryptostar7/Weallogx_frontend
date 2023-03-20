@@ -16,7 +16,7 @@
         </div>
         </div>
     </div>
-    <div id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1">
+    <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p @click="testFunction()">Cap Rate</p>
         <p></p>
@@ -44,7 +44,7 @@
         </div>
         <custom-range-input :hiddenInputId="`floor_range${currentTab}`" />
         <segment-duration-year :hiddenInputId="`segment_year_range${currentTab}`" :currentTab="currentTab" />
-    </div>
+    </form>
 </template>
 <script>
 import CustomRangeInput from '../common/CustomRangeInput.vue';

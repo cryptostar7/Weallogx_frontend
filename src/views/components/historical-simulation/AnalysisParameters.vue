@@ -20,7 +20,7 @@
 </div>
 <div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent "
     data-bs-parent="#accordionFlushExample">
-    <form action="javascript:void(0)">
+    <form action="javascript:void(0)" autocomplete="off">
       <div class="formParabrdrLavelDiv mb-1">
         <p>index</p>
         <p></p>

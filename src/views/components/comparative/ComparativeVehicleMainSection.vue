@@ -42,7 +42,7 @@
                         </button> 
                       </li>
                     </ul>
-                    <div class="tab-content">
+                    <form class="tab-content" autocomplete="off">
                       <div :class="`tab-pane ${vehicle.tab === 1 ? 'active':''}`" id="vehicleType1Tab" role="tabpanel" aria-labelledby="vehicleType1-tab">
                         <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" :defaultSelected="defaultVehicle.vehicle1.template_name" @onSelectItem="(e) => setVehicleType(1, e)" @inputText="(e) => setVehicleTypeName(1, e)" />
                         <div :class="`${this.vehicle.vehicle1.type_id && vehicleSelected ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea1">
@@ -248,7 +248,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div class="row d-flex justify-content-center">

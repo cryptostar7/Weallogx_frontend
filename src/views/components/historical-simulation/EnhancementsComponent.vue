@@ -13,24 +13,24 @@
             </div>
         </div>
     </div>
-    <div id="enhancements" class="accordion-collapse collapse analysisParametersContent " data-bs-parent="#enhancements">
-    <div class="d-flex align-items-center mb-2">
-        <div class="form-check form-switch custom-switch">
-            <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange')">
+    <form id="enhancements" class="accordion-collapse collapse analysisParametersContent " data-bs-parent="#enhancements" autocomplete="off">
+        <div class="d-flex align-items-center mb-2">
+            <div class="form-check form-switch custom-switch">
+                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange')">
+            </div>
+            <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
         </div>
-        <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
-    </div>
-    <PerformanceMultiplier v-if="tab1" :currentTab="currentTab"/>
-    <div class="d-flex align-items-center mt-2" id="addBorderAbove">
-        <div class="form-check form-switch custom-switch">
-            <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange')">
+        <PerformanceMultiplier v-if="tab1" :currentTab="currentTab"/>
+        <div class="d-flex align-items-center mt-2" id="addBorderAbove">
+            <div class="form-check form-switch custom-switch">
+                <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange')">
+            </div>
+            <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
         </div>
-        <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
-    </div>
-    <CreditAndBonus v-if="tab2" :currentTab="currentTab" />
-    <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />
-    <input type="hidden" :value="tab2 ? 1 : 0" :id="`credit_checkbox${currentTab}`" />
-    </div>
+        <CreditAndBonus v-if="tab2" :currentTab="currentTab" />
+        <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />
+        <input type="hidden" :value="tab2 ? 1 : 0" :id="`credit_checkbox${currentTab}`" />
+    </form>
 </template>
 <script>
 import PerformanceMultiplier from "./PerformanceMultiplier.vue";
