@@ -275,7 +275,7 @@
           </div>
           <div class="preview-modal-bottom-div py-3">
             <div class="d-flex justify-content-center">
-              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="extractPdf()">Done</a>
+              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="getPdfFileData()">Done</a>
               <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal" aria-label="Close">Cancel</a>
             </div>
           </div>
@@ -887,6 +887,22 @@ export default {
       this.errors.illustration_file = false;
     },
 
+    // handle illustration file uploading
+    addColByFile: function(e) {
+      let file = null;
+      file = e.target.files[0];
+      this.illustrationTemplateInput = 1;
+      if (file) {
+        if (file.type !== "application/pdf") {
+          e.target.files = [];
+          this.$toast.warning("Please upload a valid PDF file.");
+          return false;
+        }
+        this.illustrationFile.file = file ? file : "";
+        this.getPreview(file);
+      }
+    },
+
     // extract pdf data
     extractPdf: function() {
       var file = this.illustrationFile.file;
@@ -913,13 +929,13 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then(response => {
           var res = response.data;
-
           let allData = { data: [], headers: [] };
 
           if (page && res) {
             let arr = [];
             let headers = [];
             let total_columns = 0;
+            let finalObj = false;
 
             page.split(",").forEach(p => {
               if (res[p.trim()]) {
@@ -936,14 +952,51 @@ export default {
             for (var i = 0; i < total_columns; i++) {
               headers.push("");
             }
-            console.log({ data: arr, headers: headers });
             if (headers.length) {
-              this.csvPreview = { data: arr, headers: headers };
+              // this.csvPreview = { data: arr, headers: headers };
+              this.$store.dispatch("loader", false);
+              finalObj = { data: arr, headers: headers };
             } else {
               this.$toast.warning(
                 "Sorry the data from the uploaded file could not be retrieved."
               );
+              finalObj = false;
             }
+
+            console.log('...............');
+            if (finalObj) {
+              if (this.csvPreview.headers.length) {
+                console.log("add new col");
+                if (finalObj.headers) {
+                  let temp_data = [];
+                  let maxRowLen = this.csvPreview.data.length;
+                  let maxColLen = this.csvPreview.data.length;
+                  if (finalObj.data.length < maxRowLen) {
+                    maxRowLen = finalObj.data.length;
+                  }
+
+                  for (var i = 0; i < maxRowLen; i++) {
+                    temp_data.push([
+                      ...this.csvPreview.data[i],
+                      ...finalObj.data[i],
+                    ]);
+                  }
+
+                  this.csvPreview = {
+                    data: temp_data,
+                    headers: [...this.csvPreview.headers, ...finalObj.headers],
+                  };
+                  document.getElementById("cancelCsvBtn").click();
+                } else {
+                  this.$toast.warning("Please upload a valid pdf file.");
+                }
+                this.setScrollbar();
+              } else {
+                console.log("add all data");
+                this.csvPreview = finalObj;
+              }
+            }
+
             this.$store.dispatch("loader", false);
             this.setScrollbar();
           }
@@ -962,6 +1015,38 @@ export default {
         });
     },
 
+    getPdfFileData: function() {
+      var obj = this.extractPdf();
+      // if (obj) {
+      //   if (this.csvPreview.headers.length) {
+      //     console.log('add new col');
+      //     if (obj.headers) {
+      //       let temp_data = [];
+      //       let maxRowLen = this.csvPreview.data.length;
+      //       let maxColLen = this.csvPreview.data.length;
+      //       if (obj.data.length < maxRowLen) {
+      //         maxRowLen = obj.data.length;
+      //       }
+
+      //       for (var i = 0; i < maxRowLen; i++) {
+      //         temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
+      //       }
+
+      //       this.csvPreview = {
+      //         data: temp_data,
+      //         headers: [...this.csvPreview.headers, ...obj.headers],
+      //       };
+      //       document.getElementById("cancelCsvBtn").click();
+      //     } else {
+      //       this.$toast.warning("Please upload a valid pdf file.");
+      //     }
+      //     this.setScrollbar();
+      //   } else {
+      //     console.log('add all data');
+      //     this.csvPreview = obj;
+      //   }
+      // }
+    },
     // handle form data
     submitHandler: function(e) {
       e.preventDefault();
@@ -1153,10 +1238,36 @@ export default {
       }
     },
     addPdfColumn: function() {
-      console.log("pdf file");
+      if (txt) {
+        let obj = this.exractCsvText(txt);
+        if (obj && obj.headers) {
+          let temp_data = [];
+          let maxRowLen = this.csvPreview.data.length;
+          let maxColLen = this.csvPreview.data.length;
+          if (obj.data.length < maxRowLen) {
+            maxRowLen = obj.data.length;
+          }
+
+          for (var i = 0; i < maxRowLen; i++) {
+            temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
+          }
+
+          this.csvPreview = {
+            data: temp_data,
+            headers: [...this.csvPreview.headers, ...obj.headers],
+          };
+          this.setInputWithId("add_new_csv_col", "");
+          document.getElementById("cancelCsvBtn").click();
+        } else {
+          // this.csvPreview = { data: [], headers: [] };
+          this.$toast.warning("Please paste a valid CSV.");
+        }
+        this.setScrollbar();
+      } else {
+        this.$toast.warning("Please paste your CSV to add more columns.");
+      }
     },
     addCSVColumn: function() {
-      console.log("add csv col");
       let txt = this.getInputWithId("add_new_csv_col");
 
       if (txt) {
@@ -1184,8 +1295,8 @@ export default {
           alert("Please paste a valid CSV.");
         }
         this.setScrollbar();
-      }else{
-        this.$toast.warning('Please paste your CSV to add more columns.')
+      } else {
+        this.$toast.warning("Please paste your CSV to add more columns.");
       }
     },
     handleCSV: function(e) {
