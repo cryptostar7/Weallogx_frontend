@@ -103,13 +103,13 @@
                         <span>
                           <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
                         </span>
-                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Dragg & Drop </h6>
+                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Drag & Drop </h6>
                         <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                         <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                         <button type="button" class="btn choose-file-btn"> Choose File </button> 
                         <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
 
-                         <div class="pdf-spinner text-center d-none">
+                         <div :class="`pdf-spinner text-center ${fileLoader ? '' : 'd-none'}`">
                           <div>
                             <div class="d-flex justify-content-center">
                               <div class="spinner-border text-secondary" role="status"></div>
@@ -163,12 +163,20 @@
                           <label class="error" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</label>
                           <div class=""> 
                             <label for="uploading2" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
-                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="addColByFile"/> 
+                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="handleFile2"/> 
                               <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
                               <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                               <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                               <button type="button" class="btn choose-file-btn"> Choose File </button> 
                               <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
+                                <div :class="`pdf-spinner text-center ${fileLoader2 ? '' : 'd-none'}`">
+                                  <div>
+                                    <div class="d-flex justify-content-center">
+                                      <div class="spinner-border text-secondary" role="status"></div>
+                                    </div>
+                                    <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                                  </div>
+                                </div>
                             </label>
                             <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName2">{{illustrationFile.name}}</p>
                           </div>
@@ -320,6 +328,8 @@ export default {
       illustrationTemplateName: "",
       uploadFromFile: false,
       addFromFile: false,
+      fileLoader: false,
+      fileLoader2: false,
       illustrationFile: {
         name: "",
         file: null,
@@ -894,8 +904,6 @@ export default {
       let file = this.$refs.file.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "new";
-      console.log("new");
-
       if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file = ["Please upload a valid PDF file."];
@@ -912,15 +920,35 @@ export default {
       this.errors.illustration_file = false;
     },
 
-    // handle illustration file uploading
-    addColByFile: function(e) {
+    // handle add more column using illustration file uploading
+    handleFile2: function(e) {
+      this.clearError("illustration_file2");
       let file = this.$refs.file2.files[0];
-      this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "append";
-      console.log("append");
       if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file2 = ["Please upload a valid PDF file."];
+          this.$toast.warning("Please upload a valid PDF file.");
+          this.illustrationFile.file = null;
+          this.illustrationFile.name = "";
+          return false;
+        }
+      }
+
+      this.illustrationFile.file = file ? file : "";
+      this.illustrationFile.name = file ? file.name : "";
+      this.errors.illustration_file2 = false;
+    },
+
+    // handle illustration file uploading
+    addColByFile: function() {
+      let file = this.$refs.file2.files[0];
+      this.illustrationTemplateInput = 1;
+      this.illustrationFile.type = "append";
+      if (file) {
+        if (file.type !== "application/pdf") {
+          this.errors.illustration_file2 = ["Please upload a valid PDF file."];
+          this.$refs.file2.value = null;
           this.$toast.warning("Please upload a valid PDF file.");
           return false;
         }
@@ -950,7 +978,12 @@ export default {
       } else {
         this.illustrationFile.file = null;
       }
-      this.$store.dispatch("loader", true);
+      // this.$store.dispatch("loader", true);
+      if (this.illustrationFile.type === "append") {
+        this.fileLoader2 = true;
+      } else {
+        this.fileLoader = true;
+      }
 
       var data = new FormData();
       data.append("pdffile", file);
@@ -983,7 +1016,7 @@ export default {
               headers.push("");
             }
             if (headers.length) {
-              this.$store.dispatch("loader", false);
+              // this.$store.dispatch("loader", false);
               finalObj = { data: arr, headers: headers };
             } else {
               this.$toast.warning(
@@ -992,13 +1025,11 @@ export default {
               finalObj = false;
             }
 
-            console.log("...............");
             if (finalObj) {
               if (
                 this.illustrationFile.type === "append" &&
                 this.csvPreview.headers.length
               ) {
-                console.log("add new col");
                 if (finalObj.headers) {
                   let temp_data = [];
                   let maxRowLen = this.csvPreview.data.length;
@@ -1020,22 +1051,25 @@ export default {
                   };
                   document.getElementById("cancelCsvBtn").click();
                 } else {
-                  this.$toast.warning("Please upload a valid pdf file.");
+                  this.$toast.warning("Please upload a valid PDF file.");
                 }
                 this.setScrollbar();
               } else {
-                console.log("add all data");
                 this.csvPreview = finalObj;
               }
             }
 
-            this.$store.dispatch("loader", false);
+            // this.$store.dispatch("loader", false);
+            this.fileLoader = false;
+            this.fileLoader2 = false;
             this.setScrollbar();
           }
         })
         .catch(error => {
           console.log(error);
-          this.$store.dispatch("loader", false);
+          // this.$store.dispatch("loader", false);
+          this.fileLoader = false;
+          this.fileLoader2 = false;
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1092,10 +1126,7 @@ export default {
         console.log(this.errors);
         // document.getElementById("main-section-element").scrollTo(0, 0);
         return false;
-      } else {
-      }
-
-      console.log("line 702");
+      } 
 
       var data = {
         company: this.insuranceCompany,
@@ -1208,7 +1239,8 @@ export default {
     },
 
     checkFunction: function() {
-      console.log(this.removeColId);
+      console.log(this.illustrationFile.name);
+      console.log(this.illustrationFile.type);
     },
 
     // add multiple column id for remove from table
@@ -1232,15 +1264,18 @@ export default {
     resetAddDiv: function() {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
+      this.$refs.file2.value = null;
+      this.illustrationFile.file = null;
+      this.illustrationFile.name = "";
     },
     addMoreCol: function() {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
       if (this.addFromFile) {
         if (this.$refs.file2.files[0]) {
-          this.addPdfColumn();
+          this.addColByFile();
         } else {
-          this.errors.illustration_file2 = ["Please upload a valid pdf file."];
+          this.errors.illustration_file2 = ["Please upload a valid PDF file."];
         }
       } else {
         let text = this.getInputWithId("add_new_csv_col");
@@ -1249,36 +1284,6 @@ export default {
         } else {
           this.errors.illustration_csv2 = true;
         }
-      }
-    },
-    addPdfColumn: function() {
-      if (txt) {
-        let obj = this.exractCsvText(txt);
-        if (obj && obj.headers) {
-          let temp_data = [];
-          let maxRowLen = this.csvPreview.data.length;
-          let maxColLen = this.csvPreview.data.length;
-          if (obj.data.length < maxRowLen) {
-            maxRowLen = obj.data.length;
-          }
-
-          for (var i = 0; i < maxRowLen; i++) {
-            temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
-          }
-
-          this.csvPreview = {
-            data: temp_data,
-            headers: [...this.csvPreview.headers, ...obj.headers],
-          };
-          this.setInputWithId("add_new_csv_col", "");
-          document.getElementById("cancelCsvBtn").click();
-        } else {
-          // this.csvPreview = { data: [], headers: [] };
-          this.$toast.warning("Please paste a valid CSV.");
-        }
-        this.setScrollbar();
-      } else {
-        this.$toast.warning("Please paste your CSV to add more columns.");
       }
     },
     addCSVColumn: function() {
