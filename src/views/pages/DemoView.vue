@@ -1,85 +1,54 @@
 <template lang="">
   <div>
-    <textarea rows="10" cols="40" @paste="handleCSV"></textarea>
+    <div class="" >
+      <div class="" :style="{height:'300px', width: '400px', border: '2px solid black'}" @dragover="dragover" @dragleave="dragleave" @drop="drop">
+        <input type="file" accept=".pdf" id="uploadFile" hidden @change="fileHandle" ref="file" />
+      </div>
+      <button @click="checkFunction">Check</button>
+    </div>
   </div>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      filelist: [],
+    };
+  },
   methods: {
-    handleCSV: function(e) {
-      let txt = e.clipboardData.getData("text/plain");
-
-      console.log(this.exractCsvText(txt));
+    dragover(event) {
+      event.preventDefault();
+      // Add some visual fluff to show the user can drop its files
+      // if (!event.currentTarget.classList.contains("bg-green-300")) {
+      //   event.currentTarget.classList.remove("bg-gray-100");
+      //   event.currentTarget.classList.add("bg-green-300");
+      // }
     },
-    parseRow: function(row) {
-      console.log(row);
-      var insideQuote = false;
-      var entries = [];
-      var entry = [];
-      row.split("").forEach(function(character) {
-        if (character === '"') {
-          insideQuote = !insideQuote;
-        } else {
-          // if (character == "," && !insideQuote) {
-          //   entries.push(entry.join(""));
-          //   entry = [];
-          // } else {
-          //   entry.push(character);
-          // }
-            entry.push(character.replace('\r', ''));
-
-        }
-      });
-      entries.push(entry.join(""));
-      // console.log(entries);
-      return entries;
+    dragleave(event) {
+      // Clean up
+      // event.currentTarget.classList.add("bg-gray-100");
+      // event.currentTarget.classList.remove("bg-green-300");
     },
-    checkIsHeader: function(arr = []) {
-      var isHeader = false;
-      arr.forEach((item, index) => {
-        if (isNaN(item.replace("$", "").replaceAll(",", ""))) {
-          isHeader = true;
-        }
-      });
-      return isHeader;
+    drop(e) {
+      e.preventDefault();
+      console.log(e.dataTransfer.files);
+      // this.$refs.file.files = e.dataTransfer.files;
+      let file = e.dataTransfer.files[0];
+      document.getElementById("uploadFile").files[0] = file;
     },
-    exractCsvText: function(values = "") {
-      let total_columns = 0;
-      if (values) {
-        try {
-          let data = values.split("\n");
-          let headers = [];
-          if (values.match("\t")) {
-            data = data.map(i => i.split("\t"));
-          } else {
-            data = data.map(i => {
-              console.log(i);
-              return this.parseRow(i);
-            });
-            console.log(data);
-          }
-          data = data.map(i => i.map(r => r.replace("\r", "")));
-          total_columns = data[0].length;
-          data = data.filter(
-            i => i.filter(j => j).length && !this.checkIsHeader(i)
-          );
-          for (var i = 0; i < total_columns; i++) {
-            headers.push("");
-          }
-
-          return { data: data, headers: headers };
-        } catch (err) {
-          setTimeout(() => {
-            this.setInputWithId("pasteData", "");
-          }, 100);
-          console.log(err);
-          return false;
-        }
-      }
-      return false;
+    fileHandle: function(e){
+      console.log('file changed');
+      console.log(e);
     },
+    checkFunction: function (){
+      console.log('test function');
+      console.log(document.getElementById("uploadFile").files[0]);
+    }
   },
 };
 </script>
-<style lang="">
+<style>
+[v-cloak] {
+  display: none;
+}
 </style>

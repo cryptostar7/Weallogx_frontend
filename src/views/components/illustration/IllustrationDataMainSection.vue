@@ -98,12 +98,12 @@
                   <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
                     <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
                     <div class="pb-4"> 
-                      <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
-                        <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
+                      <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}" @drop="handleDragFile" @dragover="dragover" @dragleave="dragleave"> 
+                        <input type="file" accept=".pdf" id="uploading" name="uploading" ref="file" hidden @change="handleFile"/> 
                         <span>
                           <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
                         </span>
-                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Drag & Drop </h6>
+                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Dragg & Drop </h6>
                         <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                         <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                         <button type="button" class="btn choose-file-btn"> Choose File </button> 
@@ -153,31 +153,30 @@
                     <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
                       <button type="button" class="btn add-table-column-btn">+ Add Column</button>
                       <button type="button" v-if="removeColId.length" class="btn add-table-column-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
-                      <button type="button" v-else class="btn add-table-column-btn">- Delete Columnn</button>
+                      <button type="button" v-else class="btn add-table-column-btn" @click="$toast.warning('No column selected for deletion.')">- Delete Columnn</button>
                       <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                     </div>
                     <div class="d-flex additional-textarea py-3 d-none">
                       <div class="flex-1">
                         <div class="tab-content mt-1">
                         <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
-                          <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
+                          <label class="error" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</label>
                           <div class=""> 
-                            <label for="uploading" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file ? 'red':''}"> 
-                              <input type="file" accept=".pdf" id="uploading" name="uploading" hidden @change="handleFile"/> 
+                            <label for="uploading2" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
+                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="addColByFile"/> 
                               <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
                               <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                               <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                               <button type="button" class="btn choose-file-btn"> Choose File </button> 
                               <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
                             </label>
-                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
+                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName2">{{illustrationFile.name}}</p>
                           </div>
                         </div>
                         <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste" role="tabpanel" aria-labelledby="addCopyPaste-tab">
-                          <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
-                          <div class="copy-paste-area mb-0 p-1">
+                          <div class="copy-paste-area mb-0 p-1"  :style="{'border-color':errors.illustration_csv2 ? 'red':''}">
                             <div class="form-group mb-0"> 
-                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5" class="form-control" placeholder="Paste your data here"></textarea>
+                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5" class="form-control" placeholder="Paste your data here" @keypress="clearError('illustration_csv2')"></textarea>
                             </div>
                           </div>
                         </div>
@@ -214,7 +213,7 @@
                         </ul>
                         <div class="d-flex flex-column mt-2">
                           <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Add Data</button>
-                          <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
+                          <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn" @click="resetAddDiv"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
                           </div>
                       </div>
                     </div>
@@ -425,8 +424,11 @@ export default {
       .addEventListener("hidden.bs.modal", function(event) {
         document.getElementById("uploading").files = null;
         document.getElementById("uploading").value = null;
+        document.getElementById("uploading2").files = null;
+        document.getElementById("uploading2").value = null;
         document.getElementById("extractPageNumber").value = null;
         document.getElementById("fileName").innerText = "";
+        document.getElementById("fileName2").innerText = "";
       });
   },
   computed: {
@@ -868,16 +870,36 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    dragover(event) {
+      event.preventDefault();
+      // add blur effect
+    },
+    dragleave(event) {
+      // remove blur effect
+    },
+    handleDragFile: function(e) {
+      e.preventDefault();
+      this.$refs.file.files = e.dataTransfer.files;
+      this.handleFile();
+    },
+
+    addColDragFile: function(e) {
+      e.preventDefault();
+      this.$refs.file2.files = e.dataTransfer.files;
+      this.addColByFile();
+    },
 
     // handle illustration file uploading
-    handleFile: function(e) {
-      let file = null;
-      file = e.target.files[0];
+    handleFile: function() {
+      let file = this.$refs.file.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "new";
+      console.log("new");
+
       if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file = ["Please upload a valid PDF file."];
+          this.$toast.warning("Please upload a valid PDF file.");
           this.illustrationFile.file = null;
           this.illustrationFile.name = "";
           return false;
@@ -892,13 +914,13 @@ export default {
 
     // handle illustration file uploading
     addColByFile: function(e) {
-      let file = null;
-      file = e.target.files[0];
+      let file = this.$refs.file2.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "append";
+      console.log("append");
       if (file) {
         if (file.type !== "application/pdf") {
-          e.target.files = [];
+          this.errors.illustration_file2 = ["Please upload a valid PDF file."];
           this.$toast.warning("Please upload a valid PDF file.");
           return false;
         }
@@ -908,7 +930,7 @@ export default {
 
       this.illustrationFile.file = file ? file : "";
       this.illustrationFile.name = file ? file.name : "";
-      this.errors.illustration_file = false;
+      this.errors.illustration_file2 = false;
     },
 
     // extract pdf data
@@ -1207,11 +1229,26 @@ export default {
     testFunction: function() {
       console.log(this.csvPreview);
     },
+    resetAddDiv: function() {
+      this.errors.illustration_file2 = false;
+      this.errors.illustration_csv2 = false;
+    },
     addMoreCol: function() {
+      this.errors.illustration_file2 = false;
+      this.errors.illustration_csv2 = false;
       if (this.addFromFile) {
-        this.addPdfColumn();
+        if (this.$refs.file2.files[0]) {
+          this.addPdfColumn();
+        } else {
+          this.errors.illustration_file2 = ["Please upload a valid pdf file."];
+        }
       } else {
-        this.addCSVColumn();
+        let text = this.getInputWithId("add_new_csv_col");
+        if (text) {
+          this.addCSVColumn();
+        } else {
+          this.errors.illustration_csv2 = true;
+        }
       }
     },
     addPdfColumn: function() {
@@ -1345,8 +1382,8 @@ export default {
         };
         this.removeColId = [];
         this.setScrollbar();
-      }else{
-        this.$toast.warning('No column selected for deletion.');
+      } else {
+        this.$toast.warning("No column selected for deletion.");
       }
     },
     parseRow: function(row) {
