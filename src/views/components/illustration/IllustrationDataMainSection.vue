@@ -153,7 +153,7 @@
                     <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
                       <button type="button" class="btn add-table-column-btn">+ Add Column</button>
                       <button type="button" v-if="removeColId.length" class="btn add-table-column-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
-                      <button type="button" v-else class="btn add-table-column-btn" @click="$toast.warning('No column selected for deletion.')">- Delete Columnn</button>
+                      <button type="button" v-else class="btn add-table-column-btn" @click="$toast.warning('No column selected for deletion.')">- Delete Column</button>
                       <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                     </div>
                     <div class="d-flex additional-textarea py-3 d-none">
