@@ -119,7 +119,7 @@
                         </div>
                       </label>
                      
-                      <p class=" file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 " id="fileName">{{illustrationFile.name}}</p>
+                      <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${illustrationFile.type === 'new' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
                     </div>
                     
                   </div>
@@ -152,7 +152,8 @@
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                     <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
                       <button type="button" class="btn add-table-column-btn">+ Add Column</button>
-                      <button type="button" :class="`btn add-table-column-btn ${removeColId.length ? '':'d-none'}`" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
+                      <button type="button" v-if="removeColId.length" class="btn add-table-column-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
+                      <button type="button" v-else class="btn add-table-column-btn">- Delete Columnn</button>
                       <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
                     </div>
                     <div class="d-flex additional-textarea py-3 d-none">
@@ -169,7 +170,7 @@
                               <button type="button" class="btn choose-file-btn"> Choose File </button> 
                               <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
                             </label>
-                            <p class=" file-name fs-14 grey-clr-2 medium-fw text-center m-0 " id="fileName">{{illustrationFile.name}}</p>
+                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
                           </div>
                         </div>
                         <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste" role="tabpanel" aria-labelledby="addCopyPaste-tab">
@@ -275,7 +276,7 @@
           </div>
           <div class="preview-modal-bottom-div py-3">
             <div class="d-flex justify-content-center">
-              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="getPdfFileData()">Done</a>
+              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="extractPdf()">Done</a>
               <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal" aria-label="Close">Cancel</a>
             </div>
           </div>
@@ -324,6 +325,7 @@ export default {
         name: "",
         file: null,
         url: "",
+        type: "new",
       },
       existingInsuranceProfileId: "",
       existingInsuranceProfileName: "",
@@ -872,6 +874,7 @@ export default {
       let file = null;
       file = e.target.files[0];
       this.illustrationTemplateInput = 1;
+      this.illustrationFile.type = "new";
       if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file = ["Please upload a valid PDF file."];
@@ -892,6 +895,7 @@ export default {
       let file = null;
       file = e.target.files[0];
       this.illustrationTemplateInput = 1;
+      this.illustrationFile.type = "append";
       if (file) {
         if (file.type !== "application/pdf") {
           e.target.files = [];
@@ -901,6 +905,10 @@ export default {
         this.illustrationFile.file = file ? file : "";
         this.getPreview(file);
       }
+
+      this.illustrationFile.file = file ? file : "";
+      this.illustrationFile.name = file ? file.name : "";
+      this.errors.illustration_file = false;
     },
 
     // extract pdf data
@@ -953,7 +961,6 @@ export default {
               headers.push("");
             }
             if (headers.length) {
-              // this.csvPreview = { data: arr, headers: headers };
               this.$store.dispatch("loader", false);
               finalObj = { data: arr, headers: headers };
             } else {
@@ -963,9 +970,12 @@ export default {
               finalObj = false;
             }
 
-            console.log('...............');
+            console.log("...............");
             if (finalObj) {
-              if (this.csvPreview.headers.length) {
+              if (
+                this.illustrationFile.type === "append" &&
+                this.csvPreview.headers.length
+              ) {
                 console.log("add new col");
                 if (finalObj.headers) {
                   let temp_data = [];
@@ -1015,38 +1025,6 @@ export default {
         });
     },
 
-    getPdfFileData: function() {
-      var obj = this.extractPdf();
-      // if (obj) {
-      //   if (this.csvPreview.headers.length) {
-      //     console.log('add new col');
-      //     if (obj.headers) {
-      //       let temp_data = [];
-      //       let maxRowLen = this.csvPreview.data.length;
-      //       let maxColLen = this.csvPreview.data.length;
-      //       if (obj.data.length < maxRowLen) {
-      //         maxRowLen = obj.data.length;
-      //       }
-
-      //       for (var i = 0; i < maxRowLen; i++) {
-      //         temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
-      //       }
-
-      //       this.csvPreview = {
-      //         data: temp_data,
-      //         headers: [...this.csvPreview.headers, ...obj.headers],
-      //       };
-      //       document.getElementById("cancelCsvBtn").click();
-      //     } else {
-      //       this.$toast.warning("Please upload a valid pdf file.");
-      //     }
-      //     this.setScrollbar();
-      //   } else {
-      //     console.log('add all data');
-      //     this.csvPreview = obj;
-      //   }
-      // }
-    },
     // handle form data
     submitHandler: function(e) {
       e.preventDefault();
@@ -1179,7 +1157,6 @@ export default {
       } else {
         formData.append("illustration_data", this.existingIllustrationId);
       }
-
       formData.append("initial_death_benifit", data.initial_death_benefit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
@@ -1218,7 +1195,7 @@ export default {
       if (!colId.includes(id)) {
         colId.push(id);
       } else {
-        colId = colId.filter((item, i) => i !== id);
+        colId = colId.filter(i => i !== id);
       }
       this.removeColId = colId;
     },
@@ -1353,21 +1330,24 @@ export default {
     },
     removeColumn: function() {
       let temp_data = [];
-      this.csvPreview.data.forEach((row, index) => {
-        temp_data.push(row.filter((item, i) => !this.removeColId.includes(i)));
-      });
+      if (this.removeColId.length) {
+        this.csvPreview.data.forEach((row, index) => {
+          temp_data.push(
+            row.filter((item, i) => !this.removeColId.includes(i))
+          );
+        });
 
-      this.csvPreview = {
-        data: temp_data,
-        headers: this.csvPreview.headers.filter(
-          (item, i) => !this.removeColId.includes(i)
-        ),
-      };
-
-      console.log("this.csvPreview");
-      console.log(this.csvPreview);
-      this.removeColId = [];
-      this.setScrollbar();
+        this.csvPreview = {
+          data: temp_data,
+          headers: this.csvPreview.headers.filter(
+            (item, i) => !this.removeColId.includes(i)
+          ),
+        };
+        this.removeColId = [];
+        this.setScrollbar();
+      }else{
+        this.$toast.warning('No column selected for deletion.');
+      }
     },
     parseRow: function(row) {
       var insideQuote = false;
@@ -1377,12 +1357,7 @@ export default {
         if (character === '"') {
           insideQuote = !insideQuote;
         } else {
-          if (character == "," && !insideQuote) {
-            entries.push(entry.join(""));
-            entry = [];
-          } else {
-            entry.push(character);
-          }
+          entry.push(character.replace("\r", ""));
         }
       });
       entries.push(entry.join(""));
