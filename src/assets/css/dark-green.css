@@ -211,7 +211,7 @@
   color: #ffffff;
 }
 
-.drag-drop-label .uploadFileTxtPara {
+.dark-green .drag-drop-label .uploadFileTxtPara {
   color: #ffffff !important;
 }
 
@@ -3794,4 +3794,10 @@
 }
 .dark-green .csv-textarea{
   background-color: #34383D;  
+}
+.dark-green .pdf-spinner{
+  background-color: #202124
+}
+.dark-green .pdf-spinner div span{
+  color: #fff;
 }

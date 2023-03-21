@@ -60,6 +60,7 @@
   background-color: var(--blue-clr);
   color: #fff;
 }
+
 .light-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active {
   color: currentColor;
   background: #ABD5F9;
@@ -1273,4 +1274,7 @@ margin: o;
 }
 .light-blue .add-data-btn{
   background-color: var(--blue-clr);;
+}
+.light-blue .illustration-data-table tr th input[type=checkbox]{
+  accent-color: #23669E;
 }

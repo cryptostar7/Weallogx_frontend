@@ -162,21 +162,21 @@
                         <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
                           <label class="error" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</label>
                           <div class=""> 
-                            <label for="uploading2" class="drag-drop-label d-block text-center pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
+                            <label for="uploading2" class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
                               <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="handleFile2"/> 
                               <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
                               <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
                               <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                               <button type="button" class="btn choose-file-btn"> Choose File </button> 
                               <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
-                                <div :class="`pdf-spinner text-center ${fileLoader2 ? '' : 'd-none'}`">
-                                  <div>
-                                    <div class="d-flex justify-content-center">
-                                      <div class="spinner-border text-secondary" role="status"></div>
-                                    </div>
-                                    <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                              <div :class="`pdf-spinner text-center ${fileLoader2 ? '' : 'd-none'}`">
+                                <div>
+                                  <div class="d-flex justify-content-center">
+                                    <div class="spinner-border text-secondary" role="status"></div>
                                   </div>
+                                  <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
                                 </div>
+                              </div>
                             </label>
                             <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName2">{{illustrationFile.name}}</p>
                           </div>
@@ -193,7 +193,7 @@
                       <div class="ps-3 flex-shrink-0">
                         <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
                           <li class="nav-item" role="presentation"> 
-                            <button :class="`nav-link py-12 ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
+                            <button :class="`nav-link py-12 uploadFromFile ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
                               <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
                                 <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
@@ -210,7 +210,7 @@
                             </button> 
                           </li>
                           <li class="nav-item" role="presentation" @click="() => addFromFile = false"> 
-                            <button :class="`nav-link py-12 ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
+                            <button :class="`nav-link py-12 copyPaste ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
                               <svg class="addCopyPaste" width="11" height="11"
                                 viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="7" height="7" rx="1" fill="black" />
@@ -220,7 +220,7 @@
                           </li>
                         </ul>
                         <div class="d-flex flex-column mt-2">
-                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Add Data</button>
+                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Submit</button>
                           <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn" @click="resetAddDiv"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
                           </div>
                       </div>

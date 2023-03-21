@@ -2361,13 +2361,19 @@ color: #fff;
   font-size: 0.75rem;
   text-align: center;
   border: 1px solid #DFDFDF;
-  padding: 0.25rem 0.25rem;
+  padding: 0.25rem 1.5rem;
   min-width: 175px;
   cursor: pointer;
   white-space: nowrap;
+  position: relative;
 }
 .illustration-data-table tr th input[type=checkbox]{
   display: none;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  accent-color: var(--green-clr-2);
 }
 .illustration-data-table tr th:hover input[type=checkbox], .illustration-data-table tr th.checked input[type=checkbox]{
   display: block;

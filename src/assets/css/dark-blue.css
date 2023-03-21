@@ -645,7 +645,7 @@
   color: #fff;
 }
 
-.drag-drop-label .uploadFileTxtPara {
+.dark-blue .drag-drop-label .uploadFileTxtPara {
   color: #fff !important;
 }
 
@@ -4161,4 +4161,12 @@ color: #55575a !important;
 .dark-blue .csv-textarea:focus{
   border-color: var(--blue-clr-2);
 }
-
+.dark-blue .pdf-spinner{
+  background-color: #202124
+}
+.dark-blue .pdf-spinner div span{
+  color: #fff;
+}
+.dark-blue .illustration-data-table tr th input[type=checkbox]{
+  accent-color: #23669E;
+}

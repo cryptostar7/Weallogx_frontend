@@ -41,8 +41,6 @@ export default {
       sidebar.classList.toggle("show");
     });
 
-    document.querySelector("body").classList.add("overflow-hidden");
-    
     // When clicked on Right Action Buttons
     let rightActionBtns = document.querySelectorAll(".right-action-btn");
 
