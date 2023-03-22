@@ -70,9 +70,9 @@
                         </div>
                         <analysis-parameters :currentTab="1" /> 
                         <growth-parameters :currentTab="1" /> 
-                        <enhancements-component :currentTab="1"  @performanceChange="() => strategies[0].enhancements.performance_multiplier = !strategies[0].enhancements.performance_multiplier" @creditBonusChange="() => strategies[0].enhancements.credit_bonus_fee = !strategies[0].enhancements.credit_bonus_fee"/> 
-                        <fees-component :currentTab="1" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee"/> 
-                        <save-strategy-template :currentTab="1" />
+                        <enhancements-component :currentTab="1" @clearError="clearError"  @performanceChange="() => strategies[0].enhancements.performance_multiplier = !strategies[0].enhancements.performance_multiplier" @creditBonusChange="() => strategies[0].enhancements.credit_bonus_fee = !strategies[0].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="1" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+                        <save-strategy-template :currentTab="1" @clearError="clearError"/>
                       </div>
                     </div>
                     <div :class="`commonAllDivs ${activeTab !== 2 ? 'd-none' : ''}`"> 
@@ -93,11 +93,11 @@
                         </div>
                         <analysis-parameters :currentTab="2" /> 
                         <growth-parameters :currentTab="2" /> 
-                        <enhancements-component :currentTab="2" @performanceChange="() => strategies[1].enhancements.performance_multiplier = !strategies[1].enhancements.performance_multiplier" @creditBonusChange="() => strategies[1].enhancements.credit_bonus_fee = !strategies[1].enhancements.credit_bonus_fee"/> 
-                        <fees-component :currentTab="2" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee"/> 
-                        <save-strategy-template :currentTab="2" />
+                        <enhancements-component :currentTab="2" @clearError="clearError" @performanceChange="() => strategies[1].enhancements.performance_multiplier = !strategies[1].enhancements.performance_multiplier" @creditBonusChange="() => strategies[1].enhancements.credit_bonus_fee = !strategies[1].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="2" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+                        <save-strategy-template :currentTab="2" @clearError="clearError"/>
                       </div>
-                      <div class="d-flex justify-content-center mt-4 mx-4">
+                      <!-- <div class="d-flex justify-content-center mt-4 mx-4">
                         <div class="w-75">
                           <div class="d-flex align-items-center mb-2">
                             <div class="form-check form-switch custom-switch ms-2"> 
@@ -112,7 +112,7 @@
                             </form>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div> 
                     <div :class="`commonAllDivs ${activeTab !== 3 ? 'd-none': ''}`"> 
                       <stretagy-weight-second-component />
@@ -132,23 +132,25 @@
                         </div>
                         <analysis-parameters :currentTab="3" /> 
                         <growth-parameters :currentTab="3" /> 
-                        <enhancements-component :currentTab="3"  @performanceChange="() => strategies[2].enhancements.performance_multiplier = !strategies[2].enhancements.performance_multiplier" @creditBonusChange="() => strategies[2].enhancements.credit_bonus_fee = !strategies[2].enhancements.credit_bonus_fee"/> 
-                        <fees-component :currentTab="3" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee"/> 
-                        <save-strategy-template :currentTab="3"/>
+                        <enhancements-component :currentTab="3" @clearError="clearError"  @performanceChange="() => strategies[2].enhancements.performance_multiplier = !strategies[2].enhancements.performance_multiplier" @creditBonusChange="() => strategies[2].enhancements.credit_bonus_fee = !strategies[2].enhancements.credit_bonus_fee"/> 
+                        <fees-component :currentTab="3" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+                        <save-strategy-template :currentTab="3" @clearError="clearError"/>
                       </div>
-                      <div class="d-flex justify-content-center mt-4 mx-4">
+                
+                    </div>
+                    <div class="d-flex justify-content-center mt-4 mx-4" v-if="tabs.tab2">
                         <div class="w-75">
                           <div class="d-flex align-items-center mb-2">
                             <div class="form-check form-switch custom-switch ms-2"> 
-                              <input class="form-check-input" type="checkbox" role="switch" id="saveAllocation2"  v-model="saveStrategyAllocationTemplate3" /> 
+                              <input class="form-check-input" type="checkbox" role="switch" id="saveAllocation2"  v-model="portFolioCheckbox" /> 
                             </div>
                             <label for="saveAllocation2" class="buttonSaveRadioPara">Save as Index Strategy Allocation</label>
                           </div>
-                          <div class="saveZIndexTempContent form-group" v-if="saveStrategyAllocationTemplate3">
-                            <form action="javascript:void(0)"> <label for="templateName">Template Name</label> <input type="text" class="form-control" id="templateName" /> </form>
+                          <div class="saveZIndexTempContent form-group" v-if="portFolioCheckbox">
+                            <label class="error text-center" v-if="error.portfolio_name">{{error.portfolio_name}}</label>
+                            <form action="javascript:void(0)"> <label for="templateName">Template Name</label> <input type="text" class="form-control" v-model="portFolioName" @click="error.portfolio_name = false"/> </form>
                           </div>                                    
                         </div>
-                      </div>
                     </div>
                   </div> 
                   <div class="text-center mt-30"> 
@@ -251,8 +253,9 @@ export default {
         },
       ],
       customRollingPeriod1: "",
-      saveStrategyAllocationTemplate2: false,
-      saveStrategyAllocationTemplate3: false,
+      portFolioCheckbox: false,
+      saveAsDraft: false,
+      portFolioName: "",
       analysis: [],
       growth: [],
       enhancements: [],
@@ -324,9 +327,15 @@ export default {
     getInputWithId: function(id) {
       return document.getElementById(id).value;
     },
+    // this function has return the input value
+    isCheked: function(id) {
+      return document.getElementById(id).checked;
+    },
     // set the input value using the input id attribute
     setInputWithId: function(id, value) {
-      document.getElementById(id).value = value;
+      if (document.getElementById(id)) {
+        document.getElementById(id).value = value;
+      }
       return value;
     },
     getAnalysisData: function() {
@@ -538,18 +547,32 @@ export default {
       }
       return arr;
     },
+    // remove error
+    clearError: function(tab = 1, key = "") {
+      if (this.error[tab][key]) {
+        this.error[tab][key] = false;
+      }
+    },
     validatateForm: function(tab = 0) {
       var valid = true;
       let analysis = this.analysis[tab];
       let growth = this.growth[tab];
       let enhancements = this.enhancements[tab];
       let fees = this.fees[tab];
-      console.log(enhancements);
+      this.error[tab + 1].fees = false;
+      this.error[tab + 1].enhancements = false;
+      
 
+      if(this.portFolioCheckbox && !this.portFolioName){
+        valid = false;
+        this.error.portfolio_name = 'This field is required.';
+      }else{
+        this.error.portfolio_name = '';
+      }
+
+      // validate enhancement performace section
       if (enhancements && enhancements.performance.checkbox) {
-        if (enhancements.performance.type === "fixed") {
-          console.log("fixed");
-        } else {
+        if (enhancements.performance.type === "schedule") {
           let obj = enhancements.performance.schedule;
           let obj_valid = true;
           if (obj) {
@@ -562,18 +585,19 @@ export default {
             obj_valid = false;
           }
           if (!obj_valid) {
+            valid = false;
+            this.error[tab + 1].enhancements = true;
             this.error[tab + 1].enhancements_performance_schedule =
-              "Please fill all years of multiplier rate.";
+              "Please fill multiplier rate for all years.";
           } else {
             this.error[tab + 1].enhancements_performance_schedule = "";
           }
         }
       }
 
+      // validate enhancement flat/credit section
       if (enhancements && enhancements.credit.checkbox) {
-        if (enhancements.credit.type === "fixed") {
-          console.log("fixed");
-        } else {
+        if (enhancements.credit.type === "schedule") {
           let obj = enhancements.credit.schedule;
           let obj_valid = true;
           if (obj) {
@@ -586,14 +610,16 @@ export default {
             obj_valid = false;
           }
           if (!obj_valid) {
+            valid = false;
+            this.error[tab + 1].enhancements = true;
             if (enhancements.credit.schedule_type === "rate") {
               this.error[
                 tab + 1
-              ].enhancements_credit_schedule_rate = `Please fill all years of multiplier rate.`;
-            }else{
+              ].enhancements_credit_schedule_rate = `Please fill rate value for all years.`;
+            } else {
               this.error[
                 tab + 1
-              ].enhancements_credit_schedule_amount = `Please fill all years of amount.`;
+              ].enhancements_credit_schedule_amount = `Please fill amount value for all years.`;
             }
           } else {
             this.error[tab + 1].enhancements_credit_schedule_rate = "";
@@ -602,8 +628,107 @@ export default {
         }
       }
 
+      // premium charge fees validation
+      if (fees && !fees.pcf.same_all_year) {
+        let obj = fees.pcf.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].fees = true;
+          this.error[tab + 1].fee_pc_schedule =
+            "Please fill premium charge rate for all years.";
+        } else {
+          this.error[tab + 1].fee_pc_schedule = "";
+        }
+      }
+
+      if (fees.lif.fees < 0.1) {
+        valid = false;
+        this.error[tab + 1].fees = true;
+        this.$toast.warning("Loan interest rate must be grater than 0.1");
+      }
+
+      // loan interest fees validation
+      if (fees && !fees.lif.same_all_year) {
+        let obj = fees.lif.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].fees = true;
+          this.error[tab + 1].fee_lif_schedule =
+            "Please fill loan interest rate for all years.";
+        } else {
+          this.error[tab + 1].fee_lif_schedule = "";
+        }
+      }
+
+      // performance multiplier fees validation
+      if (fees && fees.pmf && !fees.pmf.same_all_year) {
+        let obj = fees.pmf.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].fees = true;
+          this.error[tab + 1].fee_pmf_schedule =
+            "Please fill performance multiplier fee rate for all years.";
+        } else {
+          this.error[tab + 1].fee_pmf_schedule = "";
+        }
+      }
+
+      // flat credit credit validation
+      if (fees && fees.fcf && !fees.fcf.same_all_year) {
+        let obj = fees.fcf.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].fees = true;
+          this.error[tab + 1].fee_fcf_schedule =
+            "Please fill flat credit/bonus fee rate for all years.";
+        } else {
+          this.error[tab + 1].fee_fcf_schedule = "";
+        }
+      }
+
       return valid;
     },
+
     // handle form submitted data
     submitHandler: function() {
       this.analysis = this.getAnalysisData();
@@ -614,20 +739,85 @@ export default {
       let growth = this.growth;
       let enhancements = this.enhancements;
       let fees = this.fees;
-
+      let valid = true;
+      var focus = false;
       let activeTabs = [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
+      let templates = { 1: "", 2: "", 3: "" };
+
+      // get template detail
       activeTabs.forEach((t, i) => {
         if (t) {
-          this.validatateForm(i);
+          var checkbox = this.isCheked(`saveZIndexTemp${i + 1}`);
+          if (checkbox) {
+            let tempName = this.getInputWithId(`templateNameInput${i + 1}`);
+            templates[i + 1] = tempName;
+            if (!tempName) {
+              this.error[i + 1][`template_name${i + 1}`] =
+                "This field is required.";
+            }
+          } else {
+            templates[i + 1] = "";
+            this.error[i + 1][`template_name${i + 1}`] = false;
+          }
         }
       });
 
-      return false;
+      // check form validations
+      activeTabs.forEach((t, i) => {
+        if (t) {
+          var form = this.validatateForm(i);
+          if (!form) {
+            if (!focus) {
+              this.activeTab = i + 1;
+              if (this.error[i + 1].enhancements) {
+                var area = document.getElementById(`enhancementTab${i + 1}`);
+                focus = true;
+                if (!area.classList.contains("show")) {
+                  area.classList.add("show");
+                }
+                area.scrollIntoView();
+              }
+              if (!focus) {
+                focus = true;
+                var area = document.getElementById(`fees-parameters${i + 1}`);
+                if (this.error[i + 1].fees) {
+                  if (!area.classList.contains("show")) {
+                    area.classList.add("show");
+                  }
+                  area.scrollIntoView();
+                }
+              }
+            }
+            valid = false;
+          }
+        }
+      });
+
+      if (!valid) {
+        console.log(false);
+        return false;
+      }
+
+      var strategy_weight1 = { weight_1: 100, weight_2: 0, weight_3: 0 };
+      var strategy_weight2 = {
+        weight_1: Number(
+          this.getInputWithId("strateg_weight_mid_1").replace("%")
+        ),
+        weight_2: Number(
+          this.getInputWithId("strateg_weight_mid_2").replace("%")
+        ),
+        weight_3: 0,
+      };
+      var strategy_weight3 = {
+        weight_1: Number(this.getInputWithId("swInput1").replace("%")),
+        weight_2: Number(this.getInputWithId("swInput2").replace("%")),
+        weight_3: Number(this.getInputWithId("swInput3").replace("%")),
+      };
+
       this.$toast.success("Form submitted!");
 
       var formData = {
         index_strategy_1: {
-          // client: 130,
           index: analysis[0].index,
           rolling_time_period_years: analysis[0].rolling_time,
           analyze: analysis[0].analyze,
@@ -642,10 +832,13 @@ export default {
           performance_multiplier: enhancements[0].performance.checkbox
             ? true
             : false,
+
           performance_multiplier_fixed_value:
             enhancements[0].performance.type === "fixed" ? true : false,
+
           performance_multiplier_schedule_check:
             enhancements[0].performance.type === "schedule" ? true : false,
+
           performance_multiplier_schedule:
             enhancements[0].performance.schedule || null,
           performance_multiplier_fixed_value_multiplier:
@@ -654,17 +847,22 @@ export default {
             enhancements[0].performance.start_year || 0,
 
           flat_credit_bonus: enhancements[0].credit.checkbox ? true : false,
+
           flat_fixed_value:
             enhancements[0].credit.type === "fixed" ? true : false,
+
           flat_credit_schedule:
             enhancements[0].credit.type === "schedule" ? true : false,
 
           flat_fixed_credit_bonus: enhancements[0].credit.credit || 0,
+
           flat_fixed_start_year: enhancements[0].credit.start_year || 0,
+
           flat_credit_schedule_amount:
             enhancements[0].credit.schedule_type === "amount"
               ? enhancements[0].credit.schedule
               : null,
+
           flat_credit_schedule_rate:
             enhancements[0].credit.schedule_type === "rate"
               ? enhancements[0].credit.schedule
@@ -688,13 +886,17 @@ export default {
           high_cap_fee: fees[0].hcf.fees,
           save_this_index_strategy_as_template: false,
           template_name: "",
+          strategy_weight: strategy_weight1,
         },
 
+        // num_strategies: 1,
+        save_scenario_as_draft: this.saveAsDraft,
         scenario_id: this.$route.params.scenario,
-        save_portfolio: false,
-        portfolio_name: "",
+        save_portfolio: this.portFolioCheckbox,
+        portfolio_name: this.portFolioCheckbox ? this.portFolioName : "",
       };
 
+      // index strategy data append for first tab
       if (formData.index_strategy_1.performance_multiplier) {
         formData.index_strategy_1.load_in_advanced_performance_multiplier =
           fees[0].pmf.fees;
@@ -729,7 +931,227 @@ export default {
         formData.index_strategy_1.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
       }
 
+      // index strategy data append for middle tab
+      if (activeTabs[1]) {
+        formData.index_strategy_2 = {
+          index: analysis[0].index,
+          rolling_time_period_years: analysis[0].rolling_time,
+          analyze: analysis[0].analyze,
+          credit_base_method: analysis[0].credit_method,
+
+          cap_rate: growth[0].cap_rate_range,
+          participation_rate: growth[0].participation_range,
+          margin_spread: growth[0].margin_spread_range,
+          floor: growth[0].floor_range,
+          segment_duration_years: growth[0].segment_year_range,
+
+          performance_multiplier: enhancements[0].performance.checkbox
+            ? true
+            : false,
+
+          performance_multiplier_fixed_value:
+            enhancements[0].performance.type === "fixed" ? true : false,
+
+          performance_multiplier_schedule_check:
+            enhancements[0].performance.type === "schedule" ? true : false,
+
+          performance_multiplier_schedule:
+            enhancements[0].performance.schedule || null,
+          performance_multiplier_fixed_value_multiplier:
+            enhancements[0].performance.multiplier || 0,
+          performance_multiplier_fixed_value_start_year:
+            enhancements[0].performance.start_year || 0,
+
+          flat_credit_bonus: enhancements[0].credit.checkbox ? true : false,
+
+          flat_fixed_value:
+            enhancements[0].credit.type === "fixed" ? true : false,
+
+          flat_credit_schedule:
+            enhancements[0].credit.type === "schedule" ? true : false,
+
+          flat_fixed_credit_bonus: enhancements[0].credit.credit || 0,
+
+          flat_fixed_start_year: enhancements[0].credit.start_year || 0,
+
+          flat_credit_schedule_amount:
+            enhancements[0].credit.schedule_type === "amount"
+              ? enhancements[0].credit.schedule
+              : null,
+
+          flat_credit_schedule_rate:
+            enhancements[0].credit.schedule_type === "rate"
+              ? enhancements[0].credit.schedule
+              : null,
+
+          fees: true,
+          premium_charge: fees[0].pcf.fees,
+          premium_same_in_all_years: fees[0].pcf.same_all_year ? true : false,
+          premium_charges_same_in_all_years: !fees[0].pcf.same_all_year
+            ? fees[0].pcf.schedule
+            : null,
+
+          loan_intrest_rate: fees[0].lif.fees,
+          loan_same_in_all_years: fees[0].lif.same_all_year ? true : false,
+          loan_intrest_rate_same_in_all_years: !fees[0].lif.same_all_year
+            ? fees[0].lif.schedule
+            : null,
+
+          loan_intrest_charged_in_advanced: true,
+          loan_intrest_charged_in_arrears: false,
+          high_cap_fee: fees[0].hcf.fees,
+          save_this_index_strategy_as_template: false,
+          template_name: "",
+          strategy_weight: strategy_weight1,
+        };
+
+        if (formData.index_strategy_2.performance_multiplier) {
+          formData.index_strategy_2.load_in_advanced_performance_multiplier =
+            fees[0].pmf.fees;
+          formData.index_strategy_2.loan_in_advanced_same_in_all_years = fees[0]
+            .pmf.same_all_year
+            ? true
+            : false;
+          formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[0]
+            .pmf.same_all_year
+            ? fees[0].pmf.schedule
+            : null;
+        } else {
+          formData.index_strategy_2.load_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_2.loan_in_advanced_same_in_all_years = true;
+          formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = null;
+        }
+
+        if (formData.index_strategy_2.flat_credit_bonus) {
+          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees =
+            fees[0].fcf.fees;
+          formData.index_strategy_2.in_advanced_flat_credit_same_in_all_years = fees[0]
+            .fcf.same_all_year
+            ? true
+            : false;
+          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[0]
+            .fcf.same_all_year
+            ? fees[0].fcf.schedule
+            : null;
+        } else {
+          // formData.index_strategy_2.in_advanced_flat_credit_bonus_fees = 1;
+          // formData.index_strategy_2.in_advanced_flat_credit_same_in_all_years = true;
+          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
+        }
+      }
+
+      // index strategy data append for last tab
+      if (activeTabs[2]) {
+        formData.index_strategy_3 = {
+          index: analysis[0].index,
+          rolling_time_period_years: analysis[0].rolling_time,
+          analyze: analysis[0].analyze,
+          credit_base_method: analysis[0].credit_method,
+
+          cap_rate: growth[0].cap_rate_range,
+          participation_rate: growth[0].participation_range,
+          margin_spread: growth[0].margin_spread_range,
+          floor: growth[0].floor_range,
+          segment_duration_years: growth[0].segment_year_range,
+
+          performance_multiplier: enhancements[0].performance.checkbox
+            ? true
+            : false,
+
+          performance_multiplier_fixed_value:
+            enhancements[0].performance.type === "fixed" ? true : false,
+
+          performance_multiplier_schedule_check:
+            enhancements[0].performance.type === "schedule" ? true : false,
+
+          performance_multiplier_schedule:
+            enhancements[0].performance.schedule || null,
+          performance_multiplier_fixed_value_multiplier:
+            enhancements[0].performance.multiplier || 0,
+          performance_multiplier_fixed_value_start_year:
+            enhancements[0].performance.start_year || 0,
+
+          flat_credit_bonus: enhancements[0].credit.checkbox ? true : false,
+
+          flat_fixed_value:
+            enhancements[0].credit.type === "fixed" ? true : false,
+
+          flat_credit_schedule:
+            enhancements[0].credit.type === "schedule" ? true : false,
+
+          flat_fixed_credit_bonus: enhancements[0].credit.credit || 0,
+
+          flat_fixed_start_year: enhancements[0].credit.start_year || 0,
+
+          flat_credit_schedule_amount:
+            enhancements[0].credit.schedule_type === "amount"
+              ? enhancements[0].credit.schedule
+              : null,
+
+          flat_credit_schedule_rate:
+            enhancements[0].credit.schedule_type === "rate"
+              ? enhancements[0].credit.schedule
+              : null,
+
+          fees: true,
+          premium_charge: fees[0].pcf.fees,
+          premium_same_in_all_years: fees[0].pcf.same_all_year ? true : false,
+          premium_charges_same_in_all_years: !fees[0].pcf.same_all_year
+            ? fees[0].pcf.schedule
+            : null,
+
+          loan_intrest_rate: fees[0].lif.fees,
+          loan_same_in_all_years: fees[0].lif.same_all_year ? true : false,
+          loan_intrest_rate_same_in_all_years: !fees[0].lif.same_all_year
+            ? fees[0].lif.schedule
+            : null,
+
+          loan_intrest_charged_in_advanced: true,
+          loan_intrest_charged_in_arrears: false,
+          high_cap_fee: fees[0].hcf.fees,
+          save_this_index_strategy_as_template: false,
+          template_name: "",
+          strategy_weight: strategy_weight1,
+        };
+
+        if (formData.index_strategy_3.performance_multiplier) {
+          formData.index_strategy_3.load_in_advanced_performance_multiplier =
+            fees[0].pmf.fees;
+          formData.index_strategy_3.loan_in_advanced_same_in_all_years = fees[0]
+            .pmf.same_all_year
+            ? true
+            : false;
+          formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[0]
+            .pmf.same_all_year
+            ? fees[0].pmf.schedule
+            : null;
+        } else {
+          formData.index_strategy_3.load_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_3.loan_in_advanced_same_in_all_years = true;
+          formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = null;
+        }
+
+        if (formData.index_strategy_3.flat_credit_bonus) {
+          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees =
+            fees[0].fcf.fees;
+          formData.index_strategy_3.in_advanced_flat_credit_same_in_all_years = fees[0]
+            .fcf.same_all_year
+            ? true
+            : false;
+          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[0]
+            .fcf.same_all_year
+            ? fees[0].fcf.schedule
+            : null;
+        } else {
+          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees = 1;
+          formData.index_strategy_3.in_advanced_flat_credit_same_in_all_years = true;
+          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
+        }
+      }
+
       console.log(formData);
+      // return true;
+
       this.$store.dispatch("loader", true);
       post(getUrl("historical"), formData, authHeader())
         .then(response => {

@@ -432,9 +432,9 @@ export default {
     document
       .getElementById("pdfPreviewCanvasModal")
       .addEventListener("hidden.bs.modal", function(event) {
-        document.getElementById("uploading").files = null;
+        // document.getElementById("uploading").files = null;
         document.getElementById("uploading").value = null;
-        document.getElementById("uploading2").files = null;
+        // document.getElementById("uploading2").files = null;
         document.getElementById("uploading2").value = null;
         document.getElementById("extractPageNumber").value = null;
         document.getElementById("fileName").innerText = "";
@@ -925,7 +925,8 @@ export default {
       this.clearError("illustration_file2");
       let file = this.$refs.file2.files[0];
       this.illustrationFile.type = "append";
-      if (file) {
+
+      if (file) {    
         if (file.type !== "application/pdf") {
           this.errors.illustration_file2 = ["Please upload a valid PDF file."];
           this.$toast.warning("Please upload a valid PDF file.");
@@ -1253,6 +1254,7 @@ export default {
       }
       this.removeColId = colId;
     },
+    
     resetCsv: function() {
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");

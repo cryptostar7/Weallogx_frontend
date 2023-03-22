@@ -58,7 +58,7 @@ export default {
       this.$emit("clearError");
     },
     closeDropdown: function(e = null) {
-      if (e) {
+      if (e && e.target && e.target.className) {
         if (!e.target.className.includes("customSelectDropdown")) {
           this.dropdown = false;
         } else {

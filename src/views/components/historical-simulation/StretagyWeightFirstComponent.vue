@@ -33,10 +33,10 @@
         mt-3
         ">
     <div id="swInputDivMid1" class="sw-input-div d-flex justify-content-center">
-      <input ref="swInputMid1" v-model="range1.midRange1" type="text" class="form-control range-input" />
+      <input ref="swInputMid1" v-model="range1.midRange1" type="text" class="form-control range-input" id="strateg_weight_mid_1" />
     </div>
     <div id="swInputDivMid2" class="sw-input-div d-flex justify-content-center">
-      <input ref="swInputMid2" v-model="range1.midRange2" type="text" class="form-control range-input" />
+      <input ref="swInputMid2" v-model="range1.midRange2" type="text" class="form-control range-input" id="strateg_weight_mid_2" />
     </div>
   </div>
 </div>

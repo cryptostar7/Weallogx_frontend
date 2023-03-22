@@ -58,7 +58,7 @@
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="innerTableInputTd">
                                                 <div class="percent-input-div">
-                                                    <input type="text" class="form-control handleLimit" min="1" max="10" :id="`crd_schedule_rate${currentTab}${item}`" autocomplete="off">
+                                                    <input type="text" class="form-control handleLimit" min="1" max="10" :id="`crd_schedule_rate${currentTab}${item}`" @keypress="$emit('clearError', 'enhancements_credit_schedule_rate')" autocomplete="off">
                                                     <span class="percent-span">%</span>
                                                 </div>
                                             </td>
@@ -81,7 +81,7 @@
                                         <tr v-for="(item, index) in illustrateYear" :key="index">
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="amountInnerTableInputTd">
-                                                <input type="text" class="form-control handleLimitWithComma" min="1" max="999999" :id="`crd_schedule_amt${currentTab}${item}`" autocomplete="off">
+                                                <input type="text" class="form-control handleLimitWithComma" min="1" max="999999" :id="`crd_schedule_amt${currentTab}${item}`" @keypress="$emit('clearError', 'enhancements_credit_schedule_amount')" autocomplete="off">
                                                 <label for="amount">$</label>
                                             </td>
                                         </tr>
@@ -104,6 +104,7 @@ import {getNumber} from "../../../services/helper.js";
 export default {
   props: ["currentTab"],
   inject: ["errors"],
+  emits: ["clearError"],
   data() {
     return {
       tab:'fixed',

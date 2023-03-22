@@ -1,6 +1,6 @@
 <template lang="">
-     <div class="indexStrategyallDivs active accordion-button collapsed mt-3" data-bs-toggle="collapse" data-bs-target="#fees-parameters1" aria-expanded="false" aria-controls="fees-parameters1">
-        <div class="d-flex justify-content-between align-items-center">
+     <div class="indexStrategyallDivs active accordion-button collapsed mt-3" data-bs-toggle="collapse" :data-bs-target="`#fees-parameters${currentTab}`" aria-expanded="false" :aria-controls="`fees-parameters${currentTab}`">
+        <div class="d-flex justify-content-between align-items-center" :id="`feesTab${currentTab}`">
         <div class="indexStrategyheadBrdr">
             <p>Fees
             <svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21"  fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,17 +16,16 @@
         </div>                                                                                                
         </div>
     </div>
-    <form id="fees-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#accordionFlushExample" autocomplete="off">
+    <form :id="`fees-parameters${currentTab}`" class="accordion-collapse collapse analysisParametersContent" :data-bs-parent="`#fees-parameters${currentTab}`" autocomplete="off">
         <div class="formParabrdrLavelDiv mt-4">
         <p>Premium Charge</p>
         <p></p>
         </div>
         <div class="d-flex justify-content-between align-items-center parent-radio-div">
-        <div
-            class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
+        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 1 ? `${item === MaxPremiumCharge ? 'ms-1':'mx-1'}`:''">
-            <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && premiumCharge === item">
-            <span class="fixedStartYear" @click="premiumCharge = item">{{item}}%</span>
+                <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && premiumCharge === item">
+                <span class="fixedStartYear" @click="premiumCharge = item">{{item}}%</span>
             </label>
         </div>
         <div class="d-flex align-items-center">
@@ -34,8 +33,8 @@
             or
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
-            <label for="customAmount">Custom Amount</label>
-            <input type="text" @keyup="(e) => customPremiumCharge = e.target.value" class="handleLimit" min="0" max="15">
+                <label for="customAmount">Custom Amount</label>
+                <input type="text" @keyup="(e) => customPremiumCharge = e.target.value" class="handleLimit" min="0" max="15">
             </div>
         </div>
         </div>
@@ -47,20 +46,21 @@
         </div>
         <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.premium_charge ? 'd-none' : ''}`">
             <div class="schduleTableDiv mt-5 ">
+                <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_pc_schedule">{{errors[currentTab].fee_pc_schedule}}</label>
                 <table class="table">
-                <thead>
-                    <th>Year</th>
-                    <th>Rate</th>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in illustrateYear" :key="index">
-                        <td data-label="Year">{{item}}</td>
-                        <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${currentTab}${item}`">
-                            <label for="amount">%</label>
-                        </td>
-                    </tr>
-                </tbody>
+                    <thead>
+                        <th>Year</th>
+                        <th>Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in illustrateYear" :key="index">
+                            <td data-label="Year">{{item}}</td>
+                            <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
+                                <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_pc_schedule')">
+                                <label for="amount">%</label>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -94,6 +94,7 @@
 
         <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.loan_interest ? 'd-none':''}`">
             <div class="schduleTableDiv mt-5 ">
+                <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_lif_schedule">{{errors[currentTab].fee_lif_schedule}}</label>
                 <table class="table">
                 <thead>
                     <th>Year</th>
@@ -103,14 +104,14 @@
                     <tr v-for="(item, index) in illustrateYear" :key="index">
                         <td data-label="Year">{{item}}</td>
                         <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                            <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${currentTab}${item}`">
+                            <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_lif_schedule')">
                             <label for="amount">%</label>
                         </td>
                     </tr>
                 </tbody>
                 </table>
             </div>
-        </div>
+        </div>                           
 
         <p class="loan-Intrest-para">Loan Interest Charged</p>
         <div class="d-flex justify-content-center align-items-center mt-3">
@@ -152,6 +153,7 @@
                 </div>
                 <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.multiplier_fee ? 'd-none':''}`">
                     <div class="schduleTableDiv mt-5 ">
+                        <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule">{{errors[currentTab].fee_pmf_schedule}}</label>
                         <table class="table">
                         <thead>
                             <th>Year</th>
@@ -161,7 +163,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`pmf_schedule${currentTab}${item}`">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`pmf_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_pmf_schedule')">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -201,6 +203,7 @@
                 </div>
                 <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.credit_bonus_fee ? 'd-none' : ''}`">
                     <div class="schduleTableDiv mt-5 ">
+                        <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_fcf_schedule">{{errors[currentTab].fee_fcf_schedule}}</label>
                         <table class="table">
                         <thead>
                             <th>Year</th>
@@ -210,7 +213,7 @@
                             <tr v-for="(item, index) in illustrateYear" :key="index">
                                 <td data-label="Year">{{item}}</td>
                                 <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`fcf_schedule${currentTab}${item}`">
+                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`fcf_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_fcf_schedule')">
                                     <label for="amount">%</label>
                                 </td>
                             </tr>
@@ -262,6 +265,7 @@
 export default {
   props: ["currentTab", "performance", "flatCreditBonus"],
   inject: ["errors"],
+  emits: ["clearError"],
   data() {
     return {
       MaxPremiumCharge: 8,
@@ -278,19 +282,17 @@ export default {
       customPremiumCharge: "",
       customInterestAmount: "",
       customPerformanceFeeAmount: "",
-      performanceFeeAmount: "",
+      performanceFeeAmount: 1,
       customFlatAmount: "",
       flatAmount: 1,
       customHipCapAmount: "",
       hipCapAmount: 1,
     };
   },
-  mounted(){
-    console.log(this.errors);
-  },
   methods: {
     testFunction: function() {
-      console.log(this.customHipCapAmount);
+      console.log('this.errors');
+      console.log(this.errors);
     },
   },
   computed: {
