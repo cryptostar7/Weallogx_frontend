@@ -2,12 +2,12 @@
     <div class="enhancementsContent" id="enhancements2Content">
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                <div class="active" id="nav-flatfixedValue-tab" data-bs-toggle="tab" data-bs-target="#nav-flatfixedValue" role="tab" aria-controls="nav-flatfixedValue" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
-                <div class="" id="nav-flatSchedule-tab" data-bs-toggle="tab" data-bs-target="#nav-flatSchedule" role="tab" aria-controls="nav-flatSchedule" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
+                <div class="active" :id="`navCreadit-flatfixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatfixedValue${currentTab}`" role="tab" :aria-controls="`nav-flatfixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
+                <div class="" :id="`nav-flatSchedule-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatSchedule${currentTab}`" role="tab" :aria-controls="`nav-flatSchedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
             </div>
         </div>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-flatfixedValue" role="tabpanel" aria-labelledby="nav-flatfixedValue-tab">
+        <div class="tab-content" :id="`navCredit-tabContent${currentTab}`">
+            <div class="tab-pane fade show active" :id="`nav-flatfixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`navCreadit-flatfixedValue-tab${currentTab}`">
                 <form action="javascript:void(0)"  autocomplete="off">
                     <div class="creditBonusInputDiv form-group mt-3" id="creditBonusinputDiv">
                         <label for="creditBonusinput">Credit/Bonus</label>
@@ -35,16 +35,16 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade" id="nav-flatSchedule" role="tabpanel" aria-labelledby="nav-flatSchedule-tab">
+            <div class="tab-pane fade" :id="`nav-flatSchedule${currentTab}`" role="tabpanel" :aria-labelledby="`nav-flatSchedule-tab${currentTab}`">
 
                 <div class="d-flex justify-content-center align-items-center mt-3">
                     <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                        <div class="active" id="nav-rate-tab" data-bs-toggle="tab" data-bs-target="#nav-rate" role="tab" aria-controls="nav-rate" aria-selected="true" @click="schedule_type = 'rate'">Rate</div>
-                        <div class="" id="nav-Amount-tab" data-bs-toggle="tab" data-bs-target="#nav-amount" role="tab" aria-controls="nav-amount" aria-selected="false" @click="schedule_type = 'amount'">Amount ($)</div>
+                        <div class="active" :id="`nav-rate-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-rate${currentTab}`" role="tab" :aria-controls="`nav-rate${currentTab}`" aria-selected="true" @click="schedule_type = 'rate'">Rate</div>
+                        <div class="" :id="`nav-Amount-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-amount${currentTab}`" role="tab" :aria-controls="`nav-amount${currentTab}`" aria-selected="false" @click="schedule_type = 'amount'">Amount ($)</div>
                     </div>
                 </div>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-rate" role="tabpanel" aria-labelledby="nav-rate-tab">
+                <div class="tab-content" :id="`navCredit-tabContent${currentTab}`">
+                    <div class="tab-pane fade show active" :id="`nav-rate${currentTab}`" role="tabpanel" :aria-labelledby="`nav-rate-tab${currentTab}`">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
                                 <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_rate">{{errors[currentTab].enhancements_credit_schedule_rate}}</label>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-amount" role="tabpanel" aria-labelledby="nav-amount-tab">
+                    <div class="tab-pane fade" :id="`nav-amount${currentTab}`" role="tabpanel" :aria-labelledby="`nav-amount-tab${currentTab}`">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
                                 <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_amount">{{errors[currentTab].enhancements_credit_schedule_amount}}</label>
@@ -99,17 +99,16 @@
     </div>
 </template>
 <script>
-
-import {getNumber} from "../../../services/helper.js";
+import { getNumber } from "../../../services/helper.js";
 export default {
   props: ["currentTab"],
   inject: ["errors"],
   emits: ["clearError"],
   data() {
     return {
-      tab:'fixed',
-      schedule_type:"rate",
-      startYear:1,
+      tab: "fixed",
+      schedule_type: "rate",
+      startYear: 1,
       maxYear: 5,
       customAmount: "",
     };

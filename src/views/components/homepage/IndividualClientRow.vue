@@ -68,8 +68,8 @@
                     transform="rotate(135 8.07422 5.76562)" fill="black" />
                 </svg>
             </h4>
-            <div v-if="item.senarios && item.senarios.length > 0" class="list-div">
-                <ScenariosRow :senarios="item.senarios" />
+            <div v-if="item.scenarios && item.scenarios.length > 0" class="list-div">
+                <ScenariosRow :scenarios="item.scenarios" />
             </div>
         </div>
 

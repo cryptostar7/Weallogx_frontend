@@ -19,6 +19,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/logout/`;
     case 'client':
       return `${baseUrl}/auth/client/`;
+      case 'clients':
+        return `${baseUrl}/auth/clients/`;
     case 'change-password':
       return `${baseUrl}/auth/change_password/`;
     case 'forgot-password':

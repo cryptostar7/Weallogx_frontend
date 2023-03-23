@@ -17,7 +17,7 @@ export function getFirstError(error) {
     }
 
     for (var i = 0; i < 5; i++) {
-      if(typeof values === 'object'){
+      if (typeof values === 'object') {
         values = Object.values(values)[0];
       }
     }
@@ -90,22 +90,22 @@ export const setCurrentUser = (name) => {
   return localStorage.setItem('currentUser', JSON.stringify(name));
 }
 
-export const setComapanyLogo = (green='', blue='', dark='') => {
-  return localStorage.setItem('logo', JSON.stringify({green:green, blue:blue, dark:dark}));
+export const setComapanyLogo = (green = '', blue = '', dark = '') => {
+  return localStorage.setItem('logo', JSON.stringify({ green: green, blue: blue, dark: dark }));
 }
 
 export const getComapanyLogo = () => {
-  let logos = localStorage.getItem('logo') ?  JSON.parse(localStorage.getItem('logo')) : {};
-  if(!logos.green){
-    logos.green = '/logo/wlx-logo-green.png'; 
+  let logos = localStorage.getItem('logo') ? JSON.parse(localStorage.getItem('logo')) : {};
+  if (!logos.green) {
+    logos.green = '/logo/wlx-logo-green.png';
   }
 
-  if(!logos.blue){
-    logos.blue = '/logo/wlx-logo-blue.png'; 
+  if (!logos.blue) {
+    logos.blue = '/logo/wlx-logo-blue.png';
   }
 
-  if(!logos.dark){
-    logos.dark = '/logo/wlx-logo-dark.png'; 
+  if (!logos.dark) {
+    logos.dark = '/logo/wlx-logo-dark.png';
   }
   return logos;
 }
@@ -150,6 +150,14 @@ export const getNumber = (_str) => {
     }
   }
   return Number(out.join(""));
+}
+
+export const mapClientList = (array=[]) => {
+  return array.map(item => {
+    var client = item.client;
+    client.scenarios = item.scenarios;
+    return client;
+  });
 }
 
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;

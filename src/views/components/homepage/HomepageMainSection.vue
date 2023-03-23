@@ -18,9 +18,11 @@
 
   <!-- Delete Client Modal -->
   <delete-client-modal @deleteClient="deleteClient"/>
-  
+
   <!-- Edit Client Canvas -->
   <edit-client-canvas-modal :client="client"/>
+  <!-- Delete Scenario Modal -->
+  <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
   
   </section>
 </template>
@@ -30,17 +32,23 @@ import ChooseClientNavbar from "./ChooseClientNavbar.vue";
 import IndividualClientRow from "./IndividualClientRow.vue";
 import DeleteClientModal from "../modal/DeleteClientModal.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
+import DeleteScenarioModal from "../modal/DeleteScenarioModal.vue";
 
 import testClients from "../../../services/dummy-json.js";
 import { get, remove } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
-import { authHeader, getFirstError } from "../../../services/helper";
+import {
+  authHeader,
+  getFirstError,
+  mapClientList,
+} from "../../../services/helper";
 export default {
   components: {
     LeftSidebarComponent,
     ChooseClientNavbar,
     IndividualClientRow,
     DeleteClientModal,
+    DeleteScenarioModal,
     EditClientCanvasModal,
   },
   data() {
@@ -77,10 +85,10 @@ export default {
     },
     getClient: function() {
       this.$store.dispatch("loader", true);
-      get(getUrl("client"), authHeader())
+      get(getUrl("clients"), authHeader())
         .then(response => {
-          this.$store.dispatch("clients", response.data.data);
-          this.sortedList = response.data.data;
+          this.$store.dispatch("clients", mapClientList(response.data.data));
+          this.sortedList = mapClientList(response.data.data);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -98,6 +106,14 @@ export default {
       this.sortedList = this.clients.filter(item => {
         return item.id !== deleteId;
       });
+      return this.$store.dispatch("clients", this.sortedList);
+    },
+    removeClientScenario: function(deleteId) {
+      this.sortedList = this.clients.map(i => {
+        i.scenarios = i.scenarios.filter(j => j.id !== Number(deleteId));
+        return i;
+      });
+
       return this.$store.dispatch("clients", this.sortedList);
     },
     newModified: function() {
@@ -133,7 +149,7 @@ export default {
     },
   },
   mounted() {
-    // clear active scenario data 
+    // clear active scenario data
     if (this.$store.state.data.active_scenario) {
       this.$store.dispatch("activeScenario", false);
     }
@@ -142,7 +158,6 @@ export default {
     } else {
       this.getClient();
     }
-    
   },
   computed: {
     clients() {

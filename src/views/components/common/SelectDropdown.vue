@@ -56,6 +56,7 @@ export default {
       this.$emit("onSelectItem", id);
       this.$emit("inputText", template_name);
       this.$emit("clearError");
+      this.dropdown = false;
     },
     closeDropdown: function(e = null) {
       if (e && e.target && e.target.className) {

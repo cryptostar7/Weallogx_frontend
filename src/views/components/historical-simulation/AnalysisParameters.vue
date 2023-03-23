@@ -45,8 +45,8 @@
         or
         </div>
         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth">
-        <label for="customAmount">Custom Amount</label>
-        <input id="customAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+        <label for="rollingCustomAmount">Custom Amount</label>
+        <input id="rollingCustomAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
         </div>
     </div>
 
@@ -112,8 +112,8 @@ export default {
   data() {
     return {
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
-      analyze:'Index',
-      credMethod:'Monthly Average Value',
+      analyze: "Index",
+      credMethod: "Monthly Average Value",
       rollingPeriod: {
         value: 30,
         custom: "",
@@ -126,15 +126,19 @@ export default {
       console.log(this.rollingPeriod.value);
     },
     updateRollingPeriod: function(val) {
-      this.rollingPeriod.max_val = this.indexStrategies.filter(i => i.id === val)[0].max_limit;
+      this.rollingPeriod.max_val = this.indexStrategies.filter(
+        i => i.id === val
+      )[0].max_limit;
       this.rollingPeriod.value = this.rollingPeriod.max_val;
+      if (this.rollingPeriod.custom && Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val) {
+        document.getElementById("rollingCustomAmount").value = this.rollingPeriod.max_val;
+        this.rollingPeriod.custom = this.rollingPeriod.max_val;
+        this.customRollingPeriod = this.rollingPeriod.max_val;
+      }
     },
     saveRollingPeriod: function(e) {
       this.customRollingPeriod = e.target.value;
     },
-  },
-  mounted() {
-    // this.rollingPeriod.value = this.indexStrategies[0];
   },
   computed: {
     indexStrategies() {

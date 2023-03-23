@@ -172,7 +172,7 @@
 <script>
 import { get, post } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
-import { authHeader, getServerErrors } from "./../../../services/helper";
+import { authHeader, getServerErrors, mapClientList } from "./../../../services/helper";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
@@ -358,9 +358,9 @@ export default {
     // get all clients list
     getClient: function() {
       this.$store.dispatch("loader", true);
-      get(getUrl("client"), authHeader())
+      get(getUrl("clients"), authHeader())
         .then(response => {
-          this.$store.dispatch("clients", response.data.data);
+          this.$store.dispatch("clients", mapClientList(response.data.data));
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
             this.$router.push(`?client=${this.setClientAsDefault}`);

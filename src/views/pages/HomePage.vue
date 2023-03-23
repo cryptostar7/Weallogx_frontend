@@ -2,8 +2,6 @@
 <div>
   <navbar-component />
     <homepage-main-section />
-    <!-- Delete Scenario Modal -->
-    <delete-scenario-modal />
     <!-- Add Client Canvas -->
     <add-client-modal />
     <!-- Share  Modal  -->
@@ -17,7 +15,6 @@
 
 <script>
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
 import AddClientModal from "../components/modal/AddClientModal.vue";
 import ShareModal from "../components/modal/ShareModal.vue";
@@ -32,7 +29,6 @@ export default {
     AddClientModal,
     ReportBuilderNameChangeModal,
     ShareModal,
-    DeleteScenarioModal,
     HomepageMainSection,
     CloneScenarioModal,
   },
