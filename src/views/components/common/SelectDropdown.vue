@@ -59,8 +59,8 @@ export default {
       this.dropdown = false;
     },
     closeDropdown: function(e = null) {
-      if (e && e.target && e.target.className) {
-        if (!e.target.className.includes("customSelectDropdown")) {
+      if (e && e.target && e.target.classList) {
+        if (!e.target.classList.contains("customSelectDropdown")) {
           this.dropdown = false;
         } else {
           if (e.target.id !== this.id) {

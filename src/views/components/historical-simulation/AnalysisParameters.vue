@@ -45,8 +45,8 @@
         or
         </div>
         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth">
-        <label for="rollingCustomAmount">Custom Amount</label>
-        <input id="rollingCustomAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+        <label :for="`rollingCustomAmount${currentTab}`">Custom Amount</label>
+        <input :id="`rollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
         </div>
     </div>
 
@@ -97,9 +97,9 @@
         </div>
         </div>
     </div>
-    <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value"/>
-    <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze"/>
-    <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod"/>
+    <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
+    <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze" ref="analyzeRef"/>
+    <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod" ref="credRef" />
     </form>
 </div>
 </template>
@@ -108,7 +108,8 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 import config from "../../../services/config.js";
 export default {
   components: { SelectDropdown },
-  props: ["currentTab"],
+  props: ["currentTab", "update"],
+  emits: ["setUpdated"],
   data() {
     return {
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
@@ -123,15 +124,20 @@ export default {
   },
   methods: {
     checkFunction: function() {
-      console.log(this.rollingPeriod.value);
+      // console.log(this.$refs.indexRef.value);
     },
     updateRollingPeriod: function(val) {
       this.rollingPeriod.max_val = this.indexStrategies.filter(
         i => i.id === val
       )[0].max_limit;
       this.rollingPeriod.value = this.rollingPeriod.max_val;
-      if (this.rollingPeriod.custom && Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val) {
-        document.getElementById("rollingCustomAmount").value = this.rollingPeriod.max_val;
+      if (
+        this.rollingPeriod.custom &&
+        Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
+      ) {
+        document.getElementById(
+          "rollingCustomAmount"
+        ).value = this.rollingPeriod.max_val;
         this.rollingPeriod.custom = this.rollingPeriod.max_val;
         this.customRollingPeriod = this.rollingPeriod.max_val;
       }
@@ -143,6 +149,24 @@ export default {
   computed: {
     indexStrategies() {
       return config.INDEX_STRATEGIES;
+    },
+  },
+  watch: {
+    "$props.update"(e) {
+      if (e) {
+        this.$emit("setUpdated");
+        let rolling = Number(this.$refs.rollingRef.value);
+        let index = this.indexStrategies.filter(i => i.template_name === document.getElementById(`analysis_index${this.currentTab}`).value)[0]
+        this.updateRollingPeriod(index ? index.id : 1);
+        if (this.rollingTimePeriod.includes(rolling)) {
+          this.rollingPeriod.value = rolling;
+        } else {
+          this.rollingPeriod.custom = rolling;
+          document.getElementById(`rollingCustomAmount${this.currentTab}`).value = rolling;
+        }
+        this.analyze = this.$refs.analyzeRef.value;
+        this.credMethod = this.$refs.credRef.value;
+      }
     },
   },
 };

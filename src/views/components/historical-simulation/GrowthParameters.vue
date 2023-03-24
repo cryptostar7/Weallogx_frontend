@@ -21,7 +21,7 @@
         <p @click="testFunction()">Cap Rate</p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`cap_rate_range${currentTab}`"/>
+        <custom-range-input :hiddenInputId="`cap_rate_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 mb-2">
         <p class="position-relative">Participation Rate
             <img src="@/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img">
@@ -32,18 +32,18 @@
         </p>
         <p></p>
         </div>                     
-        <custom-range-input-2 :hiddenInputId="`participation_range${currentTab}`"/>
+        <custom-range-input-2 :hiddenInputId="`participation_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`margin_spread_range${currentTab}`" />
+        <custom-range-input :hiddenInputId="`margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`floor_range${currentTab}`" />
-        <segment-duration-year :hiddenInputId="`segment_year_range${currentTab}`" :currentTab="currentTab" />
+        <custom-range-input :hiddenInputId="`floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <segment-duration-year :hiddenInputId="`segment_year_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
     </form>
 </template>
 <script>
@@ -52,10 +52,11 @@ import CustomRangeInput2 from '../common/CustomRangeInput2.vue';
 import SegmentDurationYear from './SegmentDurationYear.vue';
 export default {
   components: { CustomRangeInput, CustomRangeInput2, SegmentDurationYear},
-  props: ["currentTab"],
+  props: ["currentTab", "update"],
+  emits: ["setUpdated"],
   methods: {
     testFunction: function(){
-        console.log(this.$props.currentTab);
+        console.log(this.$props.update);
     }
   },
 }

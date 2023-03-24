@@ -20,12 +20,13 @@
         <span class="percent-span">%</span>
       </div>
     </div>
-    <input type="hidden" :value="customAmount || range" :id="$props.hiddenInputId"/>
+    <input type="hidden" :value="customAmount || range" :id="$props.hiddenInputId" ref="rangeHiddenRef"/>
   </div>
 </template>
 <script>
 export default {
-  props: ["hiddenInputId"],
+  props: ["hiddenInputId", "update"],
+  emits: ["setUpdated"],
   data() {
     return {
       range: "0",
@@ -46,6 +47,13 @@ export default {
     var position = Number((inp.value - inp.min) * 100 / (inp.max - inp.min));
     var newPosition = 16 - position * 0.32;
     this.rangePercentage = `calc(${position}% + (${newPosition}px))`;
+  },
+  watch: {
+    "$props.update"(e) {
+      if (e) {
+        this.range = this.$refs.rangeHiddenRef.value;
+      }
+    },
   },
 };
 </script>

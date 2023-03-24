@@ -68,8 +68,8 @@
                             </div>
                           </div>
                         </div>
-                        <analysis-parameters :currentTab="1" /> 
-                        <growth-parameters :currentTab="1" /> 
+                        <analysis-parameters :currentTab="1" :update="update.analysis_parameters" @setUpdated="() => update.analysis_parameters = false"/> 
+                        <growth-parameters :currentTab="1"  :update="update.growth_parameters" @setUpdated="() => update.growth_parameters = false"/> 
                         <enhancements-component :currentTab="1" @clearError="clearError"  @performanceChange="() => strategies[0].enhancements.performance_multiplier = !strategies[0].enhancements.performance_multiplier" @creditBonusChange="() => strategies[0].enhancements.credit_bonus_fee = !strategies[0].enhancements.credit_bonus_fee"/> 
                         <fees-component :currentTab="1" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" @clearError="clearError"/> 
                         <save-strategy-template :currentTab="1" @clearError="clearError"/>
@@ -97,22 +97,6 @@
                         <fees-component :currentTab="2" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" @clearError="clearError"/> 
                         <save-strategy-template :currentTab="2" @clearError="clearError"/>
                       </div>
-                      <!-- <div class="d-flex justify-content-center mt-4 mx-4">
-                        <div class="w-75">
-                          <div class="d-flex align-items-center mb-2">
-                            <div class="form-check form-switch custom-switch ms-2"> 
-                              <input class="form-check-input" type="checkbox" role="switch" id="saveAllocation" v-model="saveStrategyAllocationTemplate2" /> 
-                            </div>
-                            <label for="saveAllocation" class="buttonSaveRadioPara">Save as Index Strategy Allocation</label>
-                          </div>
-                          <div class="saveZIndexTempContent form-group" v-if="saveStrategyAllocationTemplate2">
-                            <form action="javascript:void(0)"> 
-                              <label for="templateName">Allocation Name</label> 
-                              <input type="text" class="form-control" id="templateName" /> 
-                            </form>
-                          </div>
-                        </div>
-                      </div> -->
                     </div> 
                     <div :class="`commonAllDivs ${activeTab !== 3 ? 'd-none': ''}`"> 
                       <stretagy-weight-second-component />
@@ -135,8 +119,7 @@
                         <enhancements-component :currentTab="3" @clearError="clearError"  @performanceChange="() => strategies[2].enhancements.performance_multiplier = !strategies[2].enhancements.performance_multiplier" @creditBonusChange="() => strategies[2].enhancements.credit_bonus_fee = !strategies[2].enhancements.credit_bonus_fee"/> 
                         <fees-component :currentTab="3" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" @clearError="clearError"/> 
                         <save-strategy-template :currentTab="3" @clearError="clearError"/>
-                      </div>
-                
+                      </div>                
                     </div>
                     <div class="d-flex justify-content-center mt-4 mx-4" v-if="tabs.tab2">
                         <div class="w-75">
@@ -169,6 +152,7 @@
           </div>
         </div>
       </div>
+      <button @click="checkFunction()">Test</button>
     </div>
   </section>
 </template>
@@ -184,7 +168,7 @@ import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StretagyWeightFirstComponent from "./StretagyWeightFirstComponent.vue";
 import StretagyWeightSecondComponent from "./StretagyWeightSecondComponent.vue";
 import { computed } from "vue";
-import { post } from "../../../network/requests";
+import { post, get } from "../../../network/requests";
 import { authHeader, getFirstError } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
 export default {
@@ -206,6 +190,10 @@ export default {
         tab1: true,
         tab2: false,
         tab3: false,
+      },
+      update: {
+        analysis_parameters: false,
+        growth_parameters: false,
       },
       dropdown: {
         historyIndex: [
@@ -274,6 +262,10 @@ export default {
     };
   },
   methods: {
+    checkFunction: function(){
+      console.log(this.update.growth_parameters);
+      this.update.growth_parameters = true;
+    },
     setActiveTab: function(tab) {
       if (tab === 1) {
         this.tabs.tab1 = true;
@@ -552,6 +544,46 @@ export default {
       if (this.error[tab][key]) {
         this.error[tab][key] = false;
       }
+    },
+    setAnalysisData: function(tab, obj = []) {
+      this.setInputWithId(`analysis_index${tab}`, obj.index);
+      this.setInputWithId(`rolling_time${tab}`, obj.rolling_time_period_years);
+      this.setInputWithId(`analyze_type${tab}`, obj.analyze);
+      this.setInputWithId(`credit_base_method${tab}`, obj.credit_base_method);
+      this.update.analysis_parameters = true;
+    },
+    setGrowthData: function(tab, obj=[]) {
+      this.setInputWithId(`cap_rate_range${tab}`, obj.cap_rate);
+      this.setInputWithId(`participation_range${tab}`, obj.participation_rate);
+      this.setInputWithId(`margin_spread_range${tab}`, obj.margin_spread);
+      this.setInputWithId(`floor_range${tab}`, obj.floor);
+      this.setInputWithId(`segment_year_range${tab}`, obj.segment_duration_years);
+      this.update.growth_parameters = true;
+    },
+    populateIndex1: function(data) {
+      this.setAnalysisData(1, data);
+      this.setGrowthData(1, data);
+    },
+    // get previous data
+    populateHistoricalSimulationData: function(id) {
+      console.log(id);
+      get(`${getUrl("historical")}${id}`, authHeader())
+        .then(response => {
+          console.log("response.data");
+          console.log(response.data);
+          this.populateIndex1(response.data.data.index_strategy_1);
+          
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
     validatateForm: function(tab = 0) {
       var valid = true;
@@ -1185,6 +1217,42 @@ export default {
         }
       })
     );
+
+    // populate historical data if historical data id exist in scenario
+    if (this.$route.params.scenario && !this.activeScenario) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          let id = response.data.data.historical;
+
+          console.log(response.data.data);
+
+          this.$store.dispatch("activeScenario", response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            this.populateHistoricalSimulationData(id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    } else {
+      if (this.$route.params.scenario && this.activeScenario) {
+        console.log(this.activeScenario);
+        let id = this.activeScenario.illustration;
+        if (id) {
+          this.populateHistoricalSimulationData(id);
+        }
+      }
+    }
   },
   computed: {
     illustrateYear() {

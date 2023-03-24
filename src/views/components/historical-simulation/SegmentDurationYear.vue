@@ -23,16 +23,25 @@
             <span class="timePeriodYear" @click="segment = 3">3</span>
         </label>
     </div>
-    <input type="hidden" :value="segment" :id="$props.hiddenInputId"/>
+    <input type="hidden" :value="segment" :id="$props.hiddenInputId" ref="hiddenRef"/>
 </template>
 <script>
 export default {
-  props: ["hiddenInputId", "currentTab"],
+  props: ["hiddenInputId", "currentTab", "update"],
+  emits: ["setUpdated"],
   data(){
     return {
        segment:1
     };
-  }
+  },
+    watch: {
+    "$props.update"(e) {
+      if (e) {
+        this.segment = Number(this.$refs.hiddenRef.value);
+      }
+    },
+  },
+
 };
 </script>
 <style lang="">
