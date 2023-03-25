@@ -297,7 +297,7 @@
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
-import { get, post } from "../../../network/requests.js";
+import { get, post, put } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import "@/assets/js/jquery.min.js";
 
@@ -348,6 +348,7 @@ export default {
       errors: [],
       csvPreview: { data: [], headers: [] },
       removeColId: [],
+      illustrationId: false,
     };
   },
   mounted() {
@@ -390,36 +391,25 @@ export default {
     );
 
     // populate illuatration data if illuatration data id exist in url
-    if (this.$route.params.scenario && !this.activeScenario) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-        .then(response => {
-          let id = response.data.data.illustration;
-          this.$store.dispatch("activeScenario", response.data.data);
-          this.$store.dispatch("loader", false);
-          if (id) {
-            this.populateInsuranceProfile(id);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    } else {
-      if (this.$route.params.scenario && this.activeScenario) {
-        let id = this.activeScenario.illustration;
+    this.$store.dispatch("loader", true);
+    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      .then(response => {
+        let id = response.data.data.illustration;
+        this.illustrationId = id;
+        this.$store.dispatch("activeScenario", response.data.data);
         if (id) {
           this.populateInsuranceProfile(id);
+        } else {
+          this.$store.dispatch("loader", false);
         }
-      }
-    }
-
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
     if (!this.existingInsuranceList.length) {
       this.getExistingInsurance();
     }
@@ -538,66 +528,62 @@ export default {
 
     // populate the isurance data on selectig the existing dropdown template list
     populateInsuranceProfile: function(id) {
-      if (id) {
-        this.$store.dispatch("loader", true);
-        get(`${getUrl("illustration")}${id}`, authHeader())
-          .then(response => {
-            let data = response.data.data;
-            console.log(data);
-            this.insuranceCompany = data.insurance_company;
-            this.insurancePolicyName = data.insurance_policy_name;
-            this.PolicyNickname = data.insurance_policy_nickname;
-            this.setInputWithId(
-              "deathBenifit",
-              data.initial_death_benifit.toLocaleString()
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("illustration")}${id}`, authHeader())
+        .then(response => {
+          let data = response.data.data;
+          console.log(data);
+          this.insuranceCompany = data.insurance_company;
+          this.insurancePolicyName = data.insurance_policy_name;
+          this.PolicyNickname = data.insurance_policy_nickname;
+          this.setInputWithId(
+            "deathBenifit",
+            data.initial_death_benifit.toLocaleString()
+          );
+          this.setInputWithId("policyReturn", data.policy_return);
+          this.uploadFromFile = data.illustration_data.upload_file_checkbox;
+          let filteredCsv = { data: [], headers: [] };
+          if (this.uploadFromFile) {
+            let filteredCsv = {
+              data: data.illustration_data.upload_from_file.data,
+              headers: [],
+            };
+            filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
+              i => this.illustrationFieldsIndex[i]
             );
-            this.setInputWithId("policyReturn", data.policy_return);
-            this.uploadFromFile = data.illustration_data.upload_file_checkbox;
-            let filteredCsv = { data: [], headers: [] };
-            if (this.uploadFromFile) {
+
+            this.csvPreview = filteredCsv;
+            this.setScrollbar();
+          } else {
+            if (
+              data.illustration_data.copy_paste &&
+              data.illustration_data.copy_paste.headers.length
+            ) {
+              // this.csvPreview = data.illustration_data.copy_paste;
               let filteredCsv = {
-                data: data.illustration_data.upload_from_file.data,
+                data: data.illustration_data.copy_paste.data,
                 headers: [],
               };
-              filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
+              filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
                 i => this.illustrationFieldsIndex[i]
               );
 
               this.csvPreview = filteredCsv;
               this.setScrollbar();
-            } else {
-              if (
-                data.illustration_data.copy_paste &&
-                data.illustration_data.copy_paste.headers.length
-              ) {
-                // this.csvPreview = data.illustration_data.copy_paste;
-                let filteredCsv = {
-                  data: data.illustration_data.copy_paste.data,
-                  headers: [],
-                };
-                filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
-                  i => this.illustrationFieldsIndex[i]
-                );
-
-                this.csvPreview = filteredCsv;
-                this.setScrollbar();
-              }
             }
-            this.$store.dispatch("loader", false);
-          })
-          .catch(error => {
-            console.log(error);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            }
-            this.$store.dispatch("loader", false);
-          });
-      } else {
-        this.$toast.error("Something went wrong.");
-      }
+          }
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
 
     // show pdf file preview for selecting the extract page
@@ -926,7 +912,7 @@ export default {
       let file = this.$refs.file2.files[0];
       this.illustrationFile.type = "append";
 
-      if (file) {    
+      if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file2 = ["Please upload a valid PDF file."];
           this.$toast.warning("Please upload a valid PDF file.");
@@ -1085,13 +1071,6 @@ export default {
     // handle form data
     submitHandler: function(e) {
       e.preventDefault();
-
-      // if (this.activeScenario) {
-      //   return this.$router.push(
-      //     `/comparative-vehicles/${this.$route.params.scenario || ""}`
-      //   );
-      // }
-
       if (
         this.csvPreview &&
         this.csvPreview.headers &&
@@ -1125,9 +1104,9 @@ export default {
 
       if (!this.validateForm()) {
         console.log(this.errors);
-        // document.getElementById("main-section-element").scrollTo(0, 0);
+        document.getElementById("main-section-element").scrollIntoView();
         return false;
-      } 
+      }
 
       var data = {
         company: this.insuranceCompany,
@@ -1214,29 +1193,58 @@ export default {
       formData.append("initial_death_benifit", data.initial_death_benefit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
+      console.log(this.illustrationId);
       this.$store.dispatch("loader", true);
 
-      post(getUrl("illustration"), formData, authHeader())
-        .then(response => {
-          this.$store.dispatch("loader", false);
-          this.$toast.success("Illustration data added successfully.");
-          this.$router.push(
-            `/comparative-vehicles/${this.$route.params.scenario}`
-          );
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-          this.$store.dispatch("loader", false);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            this.$toast.error(getFirstError(error));
-          }
-        });
+      if (this.illustrationId) {
+        put(
+          `${getUrl("illustration")}${this.illustrationId}/`,
+          formData,
+          authHeader()
+        )
+          .then(response => {
+            this.$store.dispatch("loader", false);
+            this.$toast.success(response.data.message);
+            this.$router.push(
+              `/comparative-vehicles/${this.$route.params.scenario}`
+            );
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      } else {
+        post(getUrl("illustration"), formData, authHeader())
+          .then(response => {
+            this.$store.dispatch("loader", false);
+            this.$toast.success(response.data.message);
+            this.illustrationId = response.data.data.id;
+            this.$router.push(
+              `/comparative-vehicles/${this.$route.params.scenario}`
+            );
+          })
+          .catch(error => {
+            console.log(error);
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      }
     },
 
     checkFunction: function() {
@@ -1254,7 +1262,7 @@ export default {
       }
       this.removeColId = colId;
     },
-    
+
     resetCsv: function() {
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");

@@ -291,7 +291,7 @@
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
-import { get, post } from "../../../network/requests.js";
+import { get, post, put } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import { authHeader, getFirstError } from "../../../services/helper";
 export default {
@@ -360,6 +360,7 @@ export default {
         vehicle3: false,
       },
       vehicleSelected: false,
+      cvId: false,
       dropdown: {
         VehicleType: [
           { id: 1, template_name: "Taxable" },
@@ -387,7 +388,7 @@ export default {
       existingPortfolioName: "",
     };
   },
-                
+
   mounted() {
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
@@ -406,36 +407,26 @@ export default {
     );
 
     // populate comparative data if comparative data id exist in url
-    if (this.$route.params.scenario && !this.activeScenario) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-        .then(response => {
-          console.log(response.data.data);
-          let id = response.data.data.comperative;
-          this.$store.dispatch("activeScenario", response.data.data);
-          this.$store.dispatch("loader", false);
-          if (id) {
-            this.getPortfolioData(id);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    } else {
-      if (this.$route.params.scenario && this.activeScenario) {
-        let id = this.activeScenario.comperative;
+    this.$store.dispatch("loader", true);
+    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      .then(response => {
+        console.log(response.data.data);
+        let id = response.data.data.comperative;
+        this.cvId = id;
+        this.$store.dispatch("activeScenario", response.data.data);
         if (id) {
           this.getPortfolioData(id);
+        } else {
+          this.$store.dispatch("loader", false);
         }
-      }
-    }
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
     if (!this.existingVehicles.length) {
       this.getExistingVehicles();
     }
@@ -615,43 +606,41 @@ export default {
 
     // get portfolio data
     getPortfolioData: function(id) {
-      if (id) {
-        this.$store.dispatch("loader", true);
-        get(`${getUrl("comparative")}${id}`, authHeader())
-          .then(response => {
-            var data = response.data.data;
-            var vehicle1 = data.vehicle_type_1;
-            var vehicle2 = data.vehicle_type_2;
-            var vehicle3 = data.vehicle_type_3;
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("comparative")}${id}`, authHeader())
+        .then(response => {
+          var data = response.data.data;
+          var vehicle1 = data.vehicle_type_1;
+          var vehicle2 = data.vehicle_type_2;
+          var vehicle3 = data.vehicle_type_3;
 
-            if (vehicle1) {
-              this.vehicleSelected = true;
-              this.tabs.vechile1 = true;
-              this.populateVehicle(1, 1, vehicle1);
-            }
+          if (vehicle1) {
+            this.vehicleSelected = true;
+            this.tabs.vechile1 = true;
+            this.populateVehicle(1, 1, vehicle1);
+          }
 
-            if (vehicle2) {
-              this.tabs.vehicle2 = true;
-              this.populateVehicle(2, 2, vehicle2);
-            }
+          if (vehicle2) {
+            this.tabs.vehicle2 = true;
+            this.populateVehicle(2, 2, vehicle2);
+          }
 
-            if (vehicle3) {
-              this.tabs.vehicle3 = true;
-              this.populateVehicle(3, 3, vehicle3);
-            }
-            this.$store.dispatch("loader", false);
-          })
-          .catch(error => {
-            console.log(error);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            }
-            this.$store.dispatch("loader", false);
-          });
-      }
+          if (vehicle3) {
+            this.tabs.vehicle3 = true;
+            this.populateVehicle(3, 3, vehicle3);
+          }
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
     setExistingPortfolioName: function(name) {
       this.existingPortfolioName = name;
@@ -676,7 +665,7 @@ export default {
       this.errors[`vehicle${vType}`] = [];
       this.vehicle[`vehicle${vType}`].existing.name = name;
     },
-   
+
     // to update the vehicle type and type id field of in the vehicle type dropdown for all vehicle tabs
     updateVehicleType: function(vehicle, id, type) {
       if (id) {
@@ -762,7 +751,7 @@ export default {
         );
       }
     },
-                                      
+
     // populate existing vehicle details
     populateVehicleTemplate: function(vType = 1, id = null, type = 1) {
       this.$store.dispatch("loader", true);
@@ -787,21 +776,18 @@ export default {
       var valid = true;
       var focusTab = false;
       let portfolio = !this.validatePortfolio();
-      let v1 = !this.validateVehicle1();
-      let v2 = !this.validateVehicle2();
-      let v3 = !this.validateVehicle3();
 
       if (portfolio) {
         valid = false;
       }
 
-      if (v1) {
+      if (!this.validateVehicle1()) {
         focusTab = true;
         this.setVehicleTab(1);
         valid = false;
       }
 
-      if (this.tabs.vehicle2 && v2) {
+      if (this.tabs.vehicle2 && !this.validateVehicle2()) {
         if (!focusTab) {
           focusTab = true;
           this.setVehicleTab(2);
@@ -809,7 +795,7 @@ export default {
         valid = false;
       }
 
-      if (this.tabs.vehicle3 && v3) {
+      if (this.tabs.vehicle3 && !this.validateVehicle3()) {
         if (!focusTab) {
           focusTab = true;
           this.setVehicleTab(3);
@@ -1063,12 +1049,6 @@ export default {
 
     // this is the main function to save the comparative vehicle data
     submitHandler: function() {
-      // if (this.activeScenario) {
-      //   return this.$router.push(
-      //     `/historical-simulations/${this.$route.params.scenario || ""}`
-      //   );
-      // }
-
       if (!this.validationForm()) {
         console.log(this.errors);
         return false;
@@ -1179,26 +1159,50 @@ export default {
       formData.save_portfolio = this.vehicle.portfolio_checkbox;
       formData.portfolio_name = this.vehicle.portfolio_name;
       this.$store.dispatch("loader", true);
-      post(getUrl("comparative"), formData, authHeader())
-        .then(response => {
-          this.$store.dispatch("loader", false);
-          this.$toast.success(response.data.message);
-          this.$router.push(
-            `/historical-simulations/${this.$route.params.scenario}`
-          );
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            this.$toast.error(getFirstError(error));
-          }
-          this.$store.dispatch("loader", false);
-        });
+      if (this.cvId) {
+        put(`${getUrl("comparative")}${this.cvId}/`, formData, authHeader())
+          .then(response => {
+            this.$store.dispatch("loader", false);
+            this.$toast.success(response.data.message);
+            this.$router.push(
+              `/historical-simulations/${this.$route.params.scenario}`
+            );
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+            this.$store.dispatch("loader", false);
+          });
+      } else {
+        post(getUrl("comparative"), formData, authHeader())
+          .then(response => {
+            this.$store.dispatch("loader", false);
+            this.cvId = response.data.data.id;
+            this.$toast.success(response.data.message);
+            this.$router.push(
+              `/historical-simulations/${this.$route.params.scenario}`
+            );
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
     },
   },
 };

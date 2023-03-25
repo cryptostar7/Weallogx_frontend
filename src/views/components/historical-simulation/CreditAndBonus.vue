@@ -1,13 +1,13 @@
 <template lang="">
-    <div class="enhancementsContent" id="enhancements2Content">
+    <div :class="`enhancementsContent ${visible ? '' : 'd-none'}`" id="enhancements2Content">
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                <div class="active" :id="`navCreadit-flatfixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatfixedValue${currentTab}`" role="tab" :aria-controls="`nav-flatfixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
-                <div class="" :id="`nav-flatSchedule-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatSchedule${currentTab}`" role="tab" :aria-controls="`nav-flatSchedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
+                <div :class="tab === 'fixed' ? 'active' : ''" :id="`navCreadit-flatfixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatfixedValue${currentTab}`" role="tab" :aria-controls="`nav-flatfixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
+                <div :class="tab === 'schedule' ? 'active' : ''" :id="`nav-flatSchedule-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-flatSchedule${currentTab}`" role="tab" :aria-controls="`nav-flatSchedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
             </div>
         </div>
         <div class="tab-content" :id="`navCredit-tabContent${currentTab}`">
-            <div class="tab-pane fade show active" :id="`nav-flatfixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`navCreadit-flatfixedValue-tab${currentTab}`">
+            <div :class="`tab-pane fade ${tab === 'fixed' ? 'show active' : ''}`" :id="`nav-flatfixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`navCreadit-flatfixedValue-tab${currentTab}`">
                 <form action="javascript:void(0)"  autocomplete="off">
                     <div class="creditBonusInputDiv form-group mt-3" id="creditBonusinputDiv">
                         <label for="creditBonusinput">Credit/Bonus</label>
@@ -20,7 +20,7 @@
                         <div class="fixeValueYearRadio d-flex justify-content-between align-items-center px-1">
                             <label class="" v-for="(item, index) in maxYear" :key="index">
                                 <input type="radio" name="radio" class="d-none" :checked="!customAmount && item === startYear ? true :false">
-                                <span class="fixedStartYear" @click="startYear = item">{{item}}</span>
+                                <span class="fixedStartYear" @click="handleStartYear(item)">{{item}}</span>
                             </label>
                         </div>
                         <div class="d-flex align-items-center">
@@ -29,22 +29,22 @@
                             </div>
                             <div class="customAmountInputDiv customAmountNoPercent ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" class="handleLimit" @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear">
+                                <input type="text" class="handleLimit" @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade" :id="`nav-flatSchedule${currentTab}`" role="tabpanel" :aria-labelledby="`nav-flatSchedule-tab${currentTab}`">
+            <div :class="`tab-pane fade ${tab === 'schedule' ? 'show active' : ''}`" :id="`nav-flatSchedule${currentTab}`" role="tabpanel" :aria-labelledby="`nav-flatSchedule-tab${currentTab}`">
 
                 <div class="d-flex justify-content-center align-items-center mt-3">
                     <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                        <div class="active" :id="`nav-rate-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-rate${currentTab}`" role="tab" :aria-controls="`nav-rate${currentTab}`" aria-selected="true" @click="schedule_type = 'rate'">Rate</div>
-                        <div class="" :id="`nav-Amount-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-amount${currentTab}`" role="tab" :aria-controls="`nav-amount${currentTab}`" aria-selected="false" @click="schedule_type = 'amount'">Amount ($)</div>
+                        <div :class="schedule_type === 'rate' ? 'active' : ''" :id="`nav-rate-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-rate${currentTab}`" role="tab" :aria-controls="`nav-rate${currentTab}`" aria-selected="true" @click="schedule_type = 'rate'">Rate</div>
+                        <div :class="schedule_type === 'amount' ? 'active' : ''" :id="`nav-Amount-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-amount${currentTab}`" role="tab" :aria-controls="`nav-amount${currentTab}`" aria-selected="false" @click="schedule_type = 'amount'">Amount ($)</div>
                     </div>
                 </div>
                 <div class="tab-content" :id="`navCredit-tabContent${currentTab}`">
-                    <div class="tab-pane fade show active" :id="`nav-rate${currentTab}`" role="tabpanel" :aria-labelledby="`nav-rate-tab${currentTab}`">
+                    <div  :class="`tab-pane fade ${schedule_type === 'rate' ? 'show active' : ''}`" :id="`nav-rate${currentTab}`" role="tabpanel" :aria-labelledby="`nav-rate-tab${currentTab}`">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
                                 <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_rate">{{errors[currentTab].enhancements_credit_schedule_rate}}</label>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" :id="`nav-amount${currentTab}`" role="tabpanel" :aria-labelledby="`nav-amount-tab${currentTab}`">
+                    <div :class="`tab-pane fade ${schedule_type === 'amount' ? 'show active' : ''}`" :id="`nav-amount${currentTab}`" role="tabpanel" :aria-labelledby="`nav-amount-tab${currentTab}`">
                         <div class="d-flex justify-content-center w-100">
                             <div class="schduleTableDiv mt-5 ">
                                 <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_credit_schedule_amount">{{errors[currentTab].enhancements_credit_schedule_amount}}</label>
@@ -101,7 +101,7 @@
 <script>
 import { getNumber } from "../../../services/helper.js";
 export default {
-  props: ["currentTab"],
+  props: ["currentTab", "visible", "update"],
   inject: ["errors"],
   emits: ["clearError"],
   data() {
@@ -112,6 +112,13 @@ export default {
       maxYear: 5,
       customAmount: "",
     };
+  },
+  methods: {
+    handleStartYear: function(item) {
+      this.startYear = item;
+      this.customAmount = "";
+      this.$refs.customInputRef.value = "";
+    },
   },
   mounted() {
     // input validation for min and max value
@@ -153,7 +160,27 @@ export default {
   },
   computed: {
     illustrateYear() {
-      return 10;
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
+  },
+  watch: {
+    "$props.update"() {
+      this.tab = document.getElementById(`credit_type${this.currentTab}`).value;
+      let years = [1, 2, 3, 4, 5];
+      let year = Number(
+        document.getElementById(`crd_start_year${this.currentTab}`).value
+      );
+      this.schedule_type = document.getElementById(`credit_schedule_type${this.currentTab}`).value;
+      if (years.includes(year)) {
+        this.startYear = year;
+      } else {
+        this.customAmount = year;
+        this.$refs.customInputRef.value = year;
+      }
     },
   },
 };

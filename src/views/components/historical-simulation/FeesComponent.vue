@@ -25,7 +25,7 @@
         <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 1 ? `${item === MaxPremiumCharge ? 'ms-1':'mx-1'}`:''">
                 <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && premiumCharge === item">
-                <span class="fixedStartYear" @click="premiumCharge = item">{{item}}%</span>
+                <span class="fixedStartYear" @click="handlePcCheckbox(item)">{{item}}%</span>
             </label>
         </div>
         <div class="d-flex align-items-center">
@@ -34,7 +34,7 @@
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" @keyup="(e) => customPremiumCharge = e.target.value" class="handleLimit" min="0" max="15">
+                <input type="text" @keyup="(e) => customPremiumCharge = e.target.value" class="handleLimit" min="0" max="15" ref="customPCRef">
             </div>
         </div>
         </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
             <label for="customAmount">Custom Amount</label>
-            <input type="text" @keyup="(e) => customInterestAmount = e.target.value" class="handleLimit" min="0" max="12">
+            <input type="text" @keyup="(e) => customInterestAmount = e.target.value" class="handleLimit" min="0" max="12" ref="customLIRef">
             </div>
         </div>
         </div>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                         <label for="customAmount">Custom Amount</label>
-                        <input type="text" class="handleLimit" @keyup="(e) => customPerformanceFeeAmount = e.target.value" min="0" max="10">
+                        <input type="text" class="handleLimit" @keyup="(e) => customPerformanceFeeAmount = e.target.value" min="0" max="10" ref="customPMRef">
                         </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                         </div>
                         <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                             <label for="customAmount">Custom Amount</label>
-                            <input type="text" class="handleLimit"  @keyup="(e) => customFlatAmount = e.target.value" min="0" max="10">
+                            <input type="text" class="handleLimit"  @keyup="(e) => customFlatAmount = e.target.value" min="0" max="10" ref="customFCRef">
                         </div>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
                 </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
-                <input type="text" class="handleLimit" @keyup="(e) => customHipCapAmount = e.target.value" min="0" max="5">
+                <input type="text" class="handleLimit" @keyup="(e) => customHipCapAmount = e.target.value" min="0" max="5" ref="hcCustomRef">
                 </div>
             </div>
             </div>
@@ -263,9 +263,9 @@
 </template>
 <script>
 export default {
-  props: ["currentTab", "performance", "flatCreditBonus"],
+  props: ["currentTab", "performance", "flatCreditBonus", "update"],
   inject: ["errors"],
-  emits: ["clearError"],
+  emits: ["clearError", "setUpdated"],
   data() {
     return {
       MaxPremiumCharge: 8,
@@ -290,14 +290,117 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log('this.errors');
-      console.log(this.errors);
+    handlePcCheckbox: function(item) {
+      this.premiumCharge = item;
+      this.customPremiumCharge = "";
+      this.$refs.customPCRef.value = "";
     },
   },
   computed: {
     illustrateYear() {
-      return 10;
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
+  },
+  watch: {
+    "$props.update"(e) {
+      if (e) {
+        let charges = [1, 2, 3, 4, 5, 6, 7, 8];
+        // premium charge
+        this.sameInAllYears.premium_charge = document.getElementById(
+          `premiumcharge${this.currentTab}`
+        ).checked;
+        if (this.sameInAllYears.premium_charge) {
+          let pc = Number(
+            document.getElementById(`premium_charge_fees${this.currentTab}`)
+              .value
+          );
+          if (charges.includes(pc)) {
+            this.premiumCharge = pc;
+          } else {
+            this.customPremiumCharge = pc;
+            this.$refs.customPCRef.value = pc;
+          }
+        } else {
+          this.premiumCharge = "";
+        }
+
+        // Loan interest rate
+        this.sameInAllYears.loan_interest = document.getElementById(
+          `loanIntrest${this.currentTab}`
+        ).checked;
+
+        if (this.sameInAllYears.loan_interest) {
+          let li = Number(
+            document.getElementById(`loan_interest_fees${this.currentTab}`)
+              .value
+          );
+          if (charges.includes(li)) {
+            this.loanInterest = li;
+          } else {
+            this.customInterestAmount = li;
+            this.$refs.customLIRef.value = li;
+          }
+        } else {
+          this.loanInterest = "";
+        }
+
+        // Performance multiplier rate
+        this.sameInAllYears.multiplier_fee = document.getElementById(
+          `multiplierFee${this.currentTab}`
+        ).checked;
+
+        if (this.sameInAllYears.multiplier_fee) {
+          let ml = Number(
+            document.getElementById(
+              `performance_multiplier_fees${this.currentTab}`
+            ).value
+          );
+          if (charges.includes(ml)) {
+            this.performanceFeeAmount = ml;
+          } else {
+            this.customPerformanceFeeAmount = ml;
+            this.$refs.customPMRef.value = ml;
+          }
+        } else {
+          this.performanceFeeAmount = "";
+        }
+
+        // Flat Credit/Bonus rate
+        this.sameInAllYears.credit_bonus_fee = document.getElementById(
+          `flat-credit-fee-radio${this.currentTab}`
+        ).checked;
+
+        if (this.sameInAllYears.credit_bonus_fee) {
+          let ff = Number(
+            document.getElementById(`flat_credit_fees${this.currentTab}`).value
+          );
+          if (charges.includes(ff)) {
+            this.flatAmount = ff;
+          } else {
+            this.customFlatAmount = ff;
+            this.$refs.customFCRef.value = ff;
+          }
+        } else {
+          this.flatAmount = "";
+        }
+
+        // high cap fee
+        let hc = Number(
+          document.getElementById(`high_cap_fees${this.currentTab}`).value
+        );
+        if ([1, 2, 3].includes(hc)) {
+          this.hipCapAmount = hc;
+        } else {
+          this.customHipCapAmount = hc;
+          this.$refs.hcCustomRef.value = hc;
+        }
+
+        this.$emit("setUpdated");
+      }
     },
   },
 };

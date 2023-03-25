@@ -1,13 +1,13 @@
 <template lang="">
-    <div class="enhancementsContent pb-5">
+    <div :class="`enhancementsContent pb-5 ${visible ? '' : 'd-none'}`">
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-                <div class="active" :id="`nav-fixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-fixedValue${currentTab}`" role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
-                <div class="" id="nav-schedule-tab" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab" :aria-controls="`nav-schedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
+                <div :class="tab === 'fixed' ? 'active' : ''" :id="`nav-fixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-fixedValue${currentTab}`" role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
+                <div :class="tab === 'schedule' ? 'active' : ''" id="nav-schedule-tab" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab" :aria-controls="`nav-schedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
             </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" :id="`nav-fixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`nav-fixedValue-tab${currentTab}`">
+            <div :class="`tab-pane fade ${tab === 'fixed' ? 'show active' : ''}`" :id="`nav-fixedValue${currentTab}`" role="tabpanel" :aria-labelledby="`nav-fixedValue-tab${currentTab}`">
                 <form action="javascript:void(0)"  autocomplete="off">
                     <div class="multiplierInputDiv form-group mt-3">
                         <label :for="`multiplier_input${currentTab}`">Multiplier</label>
@@ -20,7 +20,7 @@
                         <div class="fixeValueYearRadio d-flex justify-content-between align-items-center px-1">
                             <label class="" v-for="(item, index) in maxYear" :key="index">
                                 <input type="radio" name="radio" class="d-none" :checked="!customAmount && item === startYear ? true :false">
-                                <span class="fixedStartYear" @click="startYear = item">{{item}}</span>
+                                <span class="fixedStartYear" @click="handleStartYear(item)">{{item}}</span>
                             </label>
                         </div>
                         <div class="d-flex align-items-center">
@@ -29,13 +29,13 @@
                             </div>
                             <div class="customAmountInputDiv customAmountNoPercent ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" class="handleLimit" @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear">
+                                <input type="text" class="handleLimit"  @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
+            <div :class="`tab-pane fade ${tab === 'schedule' ? 'show active' : ''}`" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
                 <div class="d-flex justify-content-center w-100">
                     <div class="schduleTableDiv mt-5 ">
                         <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_performance_schedule">{{errors[currentTab].enhancements_performance_schedule}}</label>
@@ -67,7 +67,7 @@
 </template>
 <script>
 export default {
-  props: ["currentTab"],
+  props: ["currentTab", "visible", "update"],
   inject: ["errors"],
   emits: ["clearError"],
   data() {
@@ -100,15 +100,36 @@ export default {
     );
   },
   methods: {
-    testFunction: function() {
-      console.log("this.errors");
-      console.log(this.errors);
+    handleStartYear: function(item) {
+      this.startYear = item;
+      this.customAmount = "";
+      this.$refs.customInputRef.value = "";
     },
   },
-
   computed: {
     illustrateYear() {
-      return 10;
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
+  },
+  watch: {
+    "$props.update"() {
+      this.tab = document.getElementById(
+        `performance_type${this.currentTab}`
+      ).value;
+      let years = [1, 2, 3, 4, 5];
+      let year = Number(
+        document.getElementById(`prf_start_year${this.currentTab}`).value
+      );
+      if (years.includes(year)) {
+        this.startYear = year;
+      } else {
+        this.customAmount = year;
+        this.$refs.customInputRef.value = year;
+      }
     },
   },
 };

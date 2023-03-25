@@ -16,18 +16,18 @@
     <form :id="`enhanceTab${currentTab}`" class="accordion-collapse collapse analysisParametersContent " :data-bs-parent="`#enhancements${currentTab}`" autocomplete="off">
         <div class="d-flex align-items-center mb-2">
             <div class="form-check form-switch custom-switch">
-                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange')">
+                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange', tab1)">
             </div>
             <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
         </div>
-        <PerformanceMultiplier v-if="tab1" :currentTab="currentTab" @clearError="clearError"/>
+        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
         <div class="d-flex align-items-center mt-2" id="addBorderAbove">
             <div class="form-check form-switch custom-switch">
-                <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange')">
+                <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange', tab2)">
             </div>
             <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
         </div>
-        <CreditAndBonus v-if="tab2" :currentTab="currentTab" @clearError="clearError"/>
+        <CreditAndBonus :visible="tab2" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
         <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />
         <input type="hidden" :value="tab2 ? 1 : 0" :id="`credit_checkbox${currentTab}`" />
     </form>
@@ -37,8 +37,8 @@ import PerformanceMultiplier from "./PerformanceMultiplier.vue";
 import CreditAndBonus from "./CreditAndBonus.vue";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
-  props: ["currentTab"],
-  emits: ["performanceChange", "creditBonusChange", "clearError"],
+  props: ["currentTab", "update"],
+  emits: ["performanceChange", "creditBonusChange", "clearError", "setUpdated"],
   data() {
     return {
       tab1: false,
@@ -48,8 +48,19 @@ export default {
   methods: {
     clearError: function(name) {
       this.$emit("clearError", this.currentTab, name);
-    },
+    }
   },
+  watch: {
+    "$props.update"(e){
+      if(e){
+        this.tab1 = Number(document.getElementById(`performance_checkbox${this.currentTab}`).value) ? true : false;
+        this.$emit("performanceChange", this.tab1);
+        this.tab2 = Number(document.getElementById(`credit_checkbox${this.currentTab}`).value) ? true : false;
+        this.$emit("creditBonusChange", this.tab2);
+        this.$emit("setUpdated");
+      }
+    }
+  }
 };
 </script>
 <style lang="">

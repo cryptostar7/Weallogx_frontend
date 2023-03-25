@@ -170,9 +170,13 @@
   </section>
 </template>
 <script>
-import { get, post } from "./../../../network/requests";
+import { get, post, put } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
-import { authHeader, getServerErrors, mapClientList } from "./../../../services/helper";
+import {
+  authHeader,
+  getServerErrors,
+  mapClientList,
+} from "./../../../services/helper";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
@@ -185,6 +189,7 @@ export default {
       existingScenarioScheduleId: false,
       existingScenarioScheduleName: false,
       setClientAsDefault: false,
+      detailId: false,
       clientName: "",
       scenarioName: "",
       scenarioDescription: "",
@@ -231,44 +236,40 @@ export default {
     }
 
     // populate scenario details if scenario detail id exist in url
-    if (this.$route.params.scenario && !this.activeScenario) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-        .then(response => {
-          console.log(response.data.data);
-          let id = response.data.data.scenerio_details;
-          let client_id = response.data.data.client;
-          this.$store.dispatch("activeScenario", response.data.data);
-          this.$store.dispatch("loader", false);
-          if (id) {
-            if (client_id) {
-              if (this.clients && this.clients.length) {
-                this.$router.push(`?client=${client_id}`);
-              } else {
-                this.setClientAsDefault = client_id;
-              }
-            }
-            this.populateScenarioDetail(id);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    } else {
-      if (this.$route.params.scenario && this.activeScenario) {
-        let id = this.activeScenario.scenerio_details;
+    this.$store.dispatch("loader", true);
+    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      .then(response => {
+        console.log(response.data.data);
+        let id = false;
+        console.log(response.data.data.scenerio_details);
+        if (response.data.data.scenerio_details) {
+          id = response.data.data.scenerio_details.id;
+          this.detailId = id;
+        }
+
+        let client_id = response.data.data.client;
+        this.$store.dispatch("activeScenario", response.data.data);
+        this.$store.dispatch("loader", false);
         if (id) {
+          if (client_id) {
+            if (this.clients && this.clients.length) {
+              this.$router.push(`?client=${client_id}`);
+            } else {
+              this.setClientAsDefault = client_id;
+            }
+          }
+          console.log("id.........");
+          console.log(id);
           this.populateScenarioDetail(id);
         }
-      }
-    }
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
 
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
@@ -651,13 +652,6 @@ export default {
     // Handle form submission
     submitHandler: function(e) {
       e.preventDefault();
-
-      // if (this.activeScenario) {
-      //   return this.$router.push(
-      //     `/illustration-data/${this.$route.params.scenario || ""}`
-      //   );
-      // }
-
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -725,27 +719,34 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      if (data.existings.scenario_detail_id || data.existings.schedule_tax_id) {
-        if (data.existings.schedule_tax_id) {
-          // create scenario detail with existing scenario detail id
-          this.createScenarioWithScheduleId(formData);
-        }
+      // if (data.existings.scenario_detail_id || data.existings.schedule_tax_id) {
+      //   if (data.existings.schedule_tax_id) {
+      //     // create scenario detail with existing scenario detail id
+      //     this.createScenarioWithScheduleId(formData);
+      //   }
 
-        if (data.existings.scenario_detail_id) {
-          // create scenario detail with existing schedule tax rate id
-          this.createScenarioWithDetailId(data.existings.scenario_detail_id);
-        }
-      } else {
-        // create new scenario detail
+      //   if (data.existings.scenario_detail_id) {
+      //     // create scenario detail with existing schedule tax rate id
+      //     this.createScenarioWithDetailId(data.existings.scenario_detail_id);
+      //   }
+      // } else {
+      //   // create new scenario detail
+      // }
+ 
+      if (this.detailId) {
+        this.updateScenarioDetail(formData);
+        } else {
         this.createScenarioDetail(formData);
       }
     },
-
+    // create new secnario detail data
     createScenarioDetail: function(data) {
       post(getUrl("scenario-details"), data, authHeader())
         .then(response => {
-          if (response.data.data.id) {
-            this.createScenarioWithDetailId(response.data.data.id);
+          let id = response.data.data.id;
+          this.detailId = id;
+          if (id) {
+            this.createScenarioWithDetailId(id);
           } else {
             this.$store.dispatch("loader", false);
           }
@@ -780,6 +781,43 @@ export default {
         });
     },
 
+    // update previous secnario detail data
+    updateScenarioDetail: function(data) {
+      put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
+        .then(response => {
+          this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
+          this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            var serverErrors = getServerErrors(error);
+            this.errors = serverErrors;
+            this.errors.scenario_name = serverErrors.name;
+            this.errors.client_age_year =
+              serverErrors.client_age_1_year_illustration;
+            this.errors.illustrate_year = serverErrors.years_to_illustrate;
+            this.errors.first_tax = serverErrors.first_tax_rate;
+            this.errors.second_tax = serverErrors.second_tax_rate;
+            this.errors.second_tax_year = serverErrors.second_tax_rate_year;
+            this.errors.details_template = serverErrors.template_name;
+            this.errors.description = serverErrors.description;
+            if (
+              this.errors.schedule_tax_rate &&
+              this.errors.schedule_tax_rate.error
+            ) {
+              this.$toast.error(this.errors.schedule_tax_rate.error[0]);
+            }
+          }
+        });
+    },
     createScenarioWithDetailId: function(id) {
       this.$store.dispatch("loader", true);
 

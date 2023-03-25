@@ -40,12 +40,13 @@
     </div>
   </div>
 </div>
-<p class="strategyErrorPara">
+<p class="strategyErrorPara" @click="testFunction()">
   Sum of all weights must equal 100%.
 </p>
 </template>
 <script>
 export default {
+  props: ["ratio"],
   data() {
     return {
       range1: {
@@ -54,6 +55,25 @@ export default {
         midRange2: "50.00%",
       },
     };
+  },
+  methods: {
+    testFunction: function() {
+      this.range1 = {
+        midRange: 50,
+        midRange1: "30.00%",
+        midRange2: "70.00%",
+      };
+      console.log(this.range1);
+    },
+  },
+  watch: {
+    "$props.ratio"(e) {
+      if (e) {
+        console.log(e);
+        this.range1.midRange1 = `${e.weight_1}%`;
+        this.range1.midRange2 = `${e.weight_2}%`;
+      }
+    },
   },
   mounted() {
     // straight weight range for tab 1
