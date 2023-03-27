@@ -6,7 +6,7 @@
           <label class="labelOptional">OPTIONAL</label>
         </div>
         <div class="p-relative">
-        <input type="text" :id="$props.id ?? 'customSelectDropdown'" @focus="handleDropdown" @input="(e) => templateText = e.target.value" placeholder="Select or Start Typing"
+        <input type="text" :id="$props.id ?? 'customSelectDropdown'" ref="inputRef" @focus="handleDropdown" @input="(e) => templateText = e.target.value" placeholder="Select or Start Typing"
             class="form-control pe-5 autocomplete customSelectDropdown" @keydown="handleChangeEvent" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,6 +51,7 @@ export default {
     },
     setInputValue: function(template_name, id) {
       this.templateText = template_name;
+      this.$refs.inputRef.value =  template_name;
       this.$emit("onSelectItem", id);
       this.$emit("inputText", template_name);
       this.$emit("clearError");
@@ -76,6 +77,7 @@ export default {
     document.addEventListener("click", this.closeDropdown);
     if (this.$props.defaultSelected) {
       this.templateText = this.$props.defaultSelected;
+      this.$refs.inputRef.value =  this.templateText;
       this.$emit("inputText", this.templateText);
       this.$emit("clearError");
     }
@@ -96,6 +98,7 @@ export default {
     "$props.defaultSelected"(e) {
       if (e) {
         this.templateText = e;
+        this.$refs.inputRef.value =  this.templateText;
         this.$emit("inputText", e);
         this.$emit("clearError");
       }
@@ -103,6 +106,7 @@ export default {
     "$props.clearInput"(e) {
       if (Number(e)) {
         this.templateText = "";
+        this.$refs.inputRef.value =  "";
         this.$emit("inputText", "");
         this.$emit("setClearedInput", 0);
         this.$emit("clearError");
