@@ -94,7 +94,7 @@
 
         <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.loan_interest ? 'd-none':''}`">
             <div class="schduleTableDiv mt-5 ">
-                <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_lif_schedule">{{errors[currentTab].fee_lif_schedule}}</label>
+                <label :class="`error text-center ${errors[currentTab] && errors[currentTab].fee_lif_schedule ? '' : 'd-none'}`" >{{errors[currentTab].fee_lif_schedule}}</label>
                 <table class="table">
                 <thead>
                     <th>Year</th>
@@ -116,12 +116,12 @@
         <p class="loan-Intrest-para">Loan Interest Charged</p>
         <div class="d-flex justify-content-center align-items-center mt-3">
         <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
-            <div class="active" id="nav-advance-tab" data-bs-toggle="tab" data-bs-target="#nav-advance" role="tab" aria-controls="nav-advance" aria-selected="true">In Advance</div>
-            <div class="" id="nav-arrears-tab" data-bs-toggle="tab" data-bs-target="#nav-arrears" role="tab" aria-controls="nav-arrears" aria-selected="false">In Arrears</div>
+            <div :class="Arrears ? '':'active'" id="nav-advance-tab" data-bs-toggle="tab" data-bs-target="#nav-advance" role="tab" aria-controls="nav-advance" aria-selected="true" @click="Arrears = false">In Advance</div>
+            <div :class="Arrears ? 'active':''" id="nav-arrears-tab" data-bs-toggle="tab" data-bs-target="#nav-arrears" role="tab" aria-controls="nav-arrears" aria-selected="false" @click="Arrears = true">In Arrears</div>
         </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-advance" role="tabpanel"  aria-labelledby="nav-advance-tab">
+        <div :class="`tab-pane fade ${Arrears ? '':'show active'}`" id="nav-advance" role="tabpanel"  aria-labelledby="nav-advance-tab">
             <div :class="$props.performance ? '':'d-none'">
                 <div class="formParabrdrLavelDiv mt-5">
                     <p>Performance Multiplier Fee</p>
@@ -246,7 +246,7 @@
             </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab"> ------ </div>
+        <div :class="`tab-pane fade ${Arrears ? 'show active' : ''}`" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab"> ------ </div>
         </div>
         
         <input type="hidden" :value="customPremiumCharge || premiumCharge" :id="`premium_charge_fees${currentTab}`" />
@@ -258,6 +258,7 @@
         <input type="hidden" :value="customInterestAmount || loanInterest" :id="`loan_interest_fees${currentTab}`" />
         <input type="hidden" :value="sameInAllYears.loan_interest ? 1 : 0" :id="`lif_all_year${currentTab}`" />   
         <input type="hidden" :value="customHipCapAmount || hipCapAmount" :id="`high_cap_fees${currentTab}`" />
+        <input type="hidden" :value="Arrears ? 1 : 0" :id="`in_arrears${currentTab}`" />
     </form>
     <!--  -->
 </template>
@@ -279,6 +280,7 @@ export default {
         multiplier_fee: true,
         credit_bonus_fee: true,
       },
+      Arrears: false,
       customPremiumCharge: "",
       customInterestAmount: "",
       customPerformanceFeeAmount: "",
@@ -309,6 +311,13 @@ export default {
     "$props.update"(e) {
       if (e) {
         let charges = [1, 2, 3, 4, 5, 6, 7, 8];
+
+        this.Arrears = Number(
+          document.getElementById(`in_arrears${this.currentTab}`).value
+        )
+          ? true
+          : false;
+
         // premium charge
         this.sameInAllYears.premium_charge = document.getElementById(
           `premiumcharge${this.currentTab}`

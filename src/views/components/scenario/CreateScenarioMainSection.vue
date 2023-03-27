@@ -719,19 +719,6 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      // if (data.existings.scenario_detail_id || data.existings.schedule_tax_id) {
-      //   if (data.existings.schedule_tax_id) {
-      //     // create scenario detail with existing scenario detail id
-      //     this.createScenarioWithScheduleId(formData);
-      //   }
-
-      //   if (data.existings.scenario_detail_id) {
-      //     // create scenario detail with existing schedule tax rate id
-      //     this.createScenarioWithDetailId(data.existings.scenario_detail_id);
-      //   }
-      // } else {
-      //   // create new scenario detail
-      // }
  
       if (this.detailId) {
         this.updateScenarioDetail(formData);

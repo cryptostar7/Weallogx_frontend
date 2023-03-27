@@ -19,8 +19,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/logout/`;
     case 'client':
       return `${baseUrl}/auth/client/`;
-      case 'clients':
-        return `${baseUrl}/auth/clients/`;
+    case 'clients':
+      return `${baseUrl}/auth/clients/`;
     case 'change-password':
       return `${baseUrl}/auth/change_password/`;
     case 'forgot-password':
@@ -62,7 +62,19 @@ export const getUrl = (type) => {
     case 'existing-comparative':
       return `${baseUrl}/auth/exisiting-comperative/`
     case 'historical':
-      return `${baseUrl}/auth/historical/`
+      return `${baseUrl}/auth/historical/`;
+    case 'historical-index1':
+      return `${baseUrl}/auth/existing-indexstrategy1/`;
+    case 'historical-index2':
+      return `${baseUrl}/auth/existing-indexstrategy2/`;
+    case 'historical-index3':
+      return `${baseUrl}/auth/existing-indexstrategy3/`;
+      case 'strategy-index1':
+        return `${baseUrl}/auth/indexstrategy1/`;
+      case 'strategy-index2':
+        return `${baseUrl}/auth/indexstrategy2/`;
+      case 'strategy-index3':
+        return `${baseUrl}/auth/indexstrategy3/`;
     default:
       return baseUrl;
   }

@@ -8,7 +8,7 @@ import { RouterLink } from "vue-router";
               <li class="done"><router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link></li>
               <li class="done"><router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link></li>
               <li class="done"><router-link to="/comparative-vehicles" class="nav-link p-0">Comparative Vehicles</router-link></li>
-              <li class="done"><router-link to="/historical-simulations" class="nav-link p-0">Historical Simulations</router-link></li>
+              <li class="done"><router-link to="/select-historical-simulations" class="nav-link p-0">Historical Simulations</router-link></li>
             </ul>
             <router-link to="/">
               <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
@@ -422,7 +422,7 @@ import { RouterLink } from "vue-router";
             <div class="container my-5 darkbgClrDiv">
                 <div class="summary-heading">
                     <p><span>4 </span>Historical Simulations</p>
-                    <router-link to="/historical-simulations-from-scratch" class="editbtnCommonAncor"><button
+                    <router-link to="/historical-simulation" class="editbtnCommonAncor"><button
                             class="btn editBtnCommon">
                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -444,7 +444,7 @@ import { RouterLink } from "vue-router";
                                         <p class="compVehcleColPara">Index Strategy #1</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/historical-simulations-from-scratch"
+                                    <router-link to="/historical-simulations"
                                         class="editbtnCommonAncor"><button class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -587,7 +587,7 @@ import { RouterLink } from "vue-router";
                                         <p class="compVehcleColPara">Index Strategy #2</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/historical-simulations-from-scratch"
+                                    <router-link to="/historical-simulations"
                                         class="editbtnCommonAncor"><button class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -731,7 +731,7 @@ import { RouterLink } from "vue-router";
                                         <p class="compVehcleColPara">Index Strategy #3</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/historical-simulations-from-scratch"
+                                    <router-link to="/historical-simulations"
                                         class="editbtnCommonAncor"><button class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">

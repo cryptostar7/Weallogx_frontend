@@ -6,7 +6,7 @@
           <label class="labelOptional">OPTIONAL</label>
         </div>
         <div class="p-relative">
-        <input type="text" :id="$props.id ?? 'customSelectDropdown'" v-model="category.selectText" @focus="handleDropdown" placeholder="Select or Start Typing"
+        <input type="text" :id="$props.id ?? 'customSelectDropdown'" @focus="handleDropdown" @input="(e) => templateText = e.target.value" placeholder="Select or Start Typing"
             class="form-control pe-5 autocomplete customSelectDropdown" @keydown="handleChangeEvent" autocomplete="off">
         <span class="chevron-span" @click="closeDropdown()">
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,7 @@
         </span>
         <label class="error" v-if="$props.error">{{$props.error[0]}}</label>
         <div v-if="dropdown" class="autocomplete-items">
-            <div v-if="$props.addNewClient && (!selectList.length || !category.selectText)"  data-bs-toggle="offcanvas" data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">Create New Client</div>
+            <div v-if="$props.addNewClient && (!selectList.length || !templateText)"  data-bs-toggle="offcanvas" data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">Create New Client</div>
             <div v-for="(item, index) in selectList" :key="index" @click="setInputValue(item.template_name, item.id)">{{item.template_name}}</div>
         </div>
       </div>
@@ -42,9 +42,7 @@ export default {
   data() {
     return {
       dropdown: false,
-      category: {
-        selectText: "",
-      },
+      templateText: "",
     };
   },
   methods: {
@@ -52,7 +50,7 @@ export default {
       this.dropdown = true;
     },
     setInputValue: function(template_name, id) {
-      this.category.selectText = template_name;
+      this.templateText = template_name;
       this.$emit("onSelectItem", id);
       this.$emit("inputText", template_name);
       this.$emit("clearError");
@@ -77,8 +75,8 @@ export default {
   mounted() {
     document.addEventListener("click", this.closeDropdown);
     if (this.$props.defaultSelected) {
-      this.category.selectText = this.$props.defaultSelected;
-      this.$emit("inputText", this.category.selectText);
+      this.templateText = this.$props.defaultSelected;
+      this.$emit("inputText", this.templateText);
       this.$emit("clearError");
     }
   },
@@ -89,7 +87,7 @@ export default {
           item.template_name &&
           item.template_name
             .toLowerCase()
-            .includes(this.category.selectText.toLowerCase())
+            .includes(this.templateText.trim().toLowerCase())
         );
       });
     },
@@ -97,14 +95,14 @@ export default {
   watch: {
     "$props.defaultSelected"(e) {
       if (e) {
-        this.category.selectText = e;
+        this.templateText = e;
         this.$emit("inputText", e);
         this.$emit("clearError");
       }
     },
     "$props.clearInput"(e) {
       if (Number(e)) {
-        this.category.selectText = "";
+        this.templateText = "";
         this.$emit("inputText", "");
         this.$emit("setClearedInput", 0);
         this.$emit("clearError");

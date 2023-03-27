@@ -27,9 +27,9 @@
                             <div class="or-div">
                                 or
                             </div>
-                            <div class="customAmountInputDiv customAmountNoPercent ms-3">
+                            <div class="customAmountInputDiv ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" class="handleLimit"  @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
+                                <input type="number" class="onlyPositiveNum"  @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
                             </div>
                         </div>
                     </div>

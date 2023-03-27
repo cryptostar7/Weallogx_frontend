@@ -29,7 +29,7 @@
                             </div>
                             <div class="customAmountInputDiv customAmountNoPercent ms-3">
                                 <label for="customAmount">Custom Amount</label>
-                                <input type="text" class="handleLimit" @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
+                                <input type="text" class="onlyPositiveNum" @keyup="(e) => customAmount = e.target.value" min="1" :max="illustrateYear" ref="customInputRef">
                             </div>
                         </div>
                     </div>

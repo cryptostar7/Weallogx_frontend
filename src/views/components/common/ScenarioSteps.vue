@@ -75,12 +75,12 @@ export default {
         response.class = "done";
       }
 
-      if (route === "historical-simulations-from-scratch") {
+      if (route === "historical-simulations") {
         response.class = "active";
       }
 
       if (response.class === "done") {
-        response.url = `/historical-simulations-from-scratch/${this.$route
+        response.url = `/historical-simulations/${this.$route
           .params.scenario || ""}`;
       }
 

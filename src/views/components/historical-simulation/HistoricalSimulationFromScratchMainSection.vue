@@ -62,7 +62,7 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex" label="Use Existing Index Strategy"  id="existingComparativeVehiclePortfolio" class="form-group less pt-3"  :optional="true" />
+                                <SelectDropdown :list="existingIndex" label="Use Existing Index Strategy"  id="existingComparativeVehiclePortfolio" class="form-group less pt-3" :error="error.existing_index1" @clearError="() => error.existing_index1 = false" @onSelectItem="(e) => setExistingIndex(1, e)" @inputText="(e) => setExistingIndexName(1, e)"  :optional="true" />
                               </form>
                             </div>
                           </div>
@@ -85,7 +85,7 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex2"  label="Choose Existing Index Strategy Allocation"  id="existingComparativeVehiclePortfolioTab2" class="form-group less pt-3"  :optional="true" />
+                                <SelectDropdown :list="existingIndex"  label="Choose Existing Index Strategy"  id="existingComparativeVehiclePortfolioTab2" class="form-group less pt-3" :error="error.existing_index2" @clearError="() => error.existing_index2 = false" @onSelectItem="(e) => setExistingIndex(2, e)" @inputText="(e) => setExistingIndexName(2, e)"  :optional="true" />
                               </form>
                             </div>
                           </div>
@@ -108,7 +108,7 @@
                           <div class="row">
                             <div class="col-md-10 offset-md-1 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <SelectDropdown :list="dropdown.historyIndex3" label="Choose Existing Index Strategy Allocation" id="existingComparativeVehiclePortfolioTab3" class="form-group less pt-3" :optional="true" />
+                                <SelectDropdown :list="existingIndex" label="Choose Existing Index Strategy Allocation" id="existingComparativeVehiclePortfolioTab3" class="form-group less pt-3" :error="error.existing_index3" @clearError="() => error.existing_index3 = false" @onSelectItem="(e) => setExistingIndex(3, e)" @inputText="(e) => setExistingIndexName(3, e)" :optional="true" />
                               </form>
                             </div>
                           </div>
@@ -139,7 +139,7 @@
                     <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Review</router-link> 
                     <span class="d-block mb-3"></span>
                     <div class="d-flex position-relative mb-5"> 
-                      <router-link to="/historical-simulations-after-yes" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
+                      <router-link to="select-/historical-index-strategy-allocation" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
                         <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                       </router-link> 
                       <router-link to="/review-summary" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
@@ -189,30 +189,15 @@ export default {
         tab2: false,
         tab3: false,
       },
+      existing_templates: {
+        index1: [],
+        index2: [],
+        index3: [],
+      },
       update: {
         analysis_parameters: false,
         growth_parameters: false,
         enhancement: false,
-      },
-      dropdown: {
-        historyIndex: [
-          { id: 1, template_name: "template 1" },
-          { id: 2, template_name: "template 2" },
-          { id: 3, template_name: "template 3" },
-          { id: 4, template_name: "template 4" },
-        ],
-        historyIndex2: [
-          { id: 1, template_name: "template 1" },
-          { id: 2, template_name: "template 2" },
-          { id: 3, template_name: "template 3" },
-          { id: 4, template_name: "template 4" },
-        ],
-        historyIndex3: [
-          { id: 1, template_name: "template 1" },
-          { id: 2, template_name: "template 2" },
-          { id: 3, template_name: "template 3" },
-          { id: 4, template_name: "template 4" },
-        ],
       },
       strategWeight1: false,
       strategWeight2: false,
@@ -315,7 +300,7 @@ export default {
     },
     testFunction: function() {
       this.error = "provider message";
-      console.log(this.activeTab);
+      console.log(this.$store.state.data.templates.historical);
     },
     // this function has return the input value
     getInputWithId: function(id) {
@@ -445,6 +430,7 @@ export default {
       let arr = [];
       let activeTabs = [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
       for (var i = 1; i < 4; i++) {
+        var in_arrears = Number(this.getInputWithId(`in_arrears${i}`));
         if (activeTabs[i - 1]) {
           let performance_checkbox = Number(
             this.getInputWithId("performance_checkbox" + i)
@@ -647,6 +633,11 @@ export default {
       this.update.enhancement = true;
     },
     setFeesData: function(tab, obj = []) {
+      this.setInputWithId(
+        `in_arrears${tab}`,
+        obj.loan_intrest_charged_in_arrears ? 1 : 0
+      );
+
       // Premium charge
       if (obj.premium_charges_same_in_all_years) {
         this.setUnChecked(`premiumcharge${tab}`);
@@ -729,12 +720,12 @@ export default {
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
             this.tabs.tab2 = true;
-            this.strategWeight1 = data.index_strategy_2.strategy_weight;
+            // this.strategWeight1 = data.index_strategy_2.strategy_weight;
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
             this.tabs.tab3 = true;
-            this.strategWeight2 = data.index_strategy_3.strategy_weight;
+            // this.strategWeight2 = data.index_strategy_3.strategy_weight;
             this.populateIndex(3, data.index_strategy_3);
           }
           this.$store.dispatch("loader", false);
@@ -948,6 +939,7 @@ export default {
             let tempName = this.getInputWithId(`templateNameInput${i + 1}`);
             templates[i + 1] = tempName;
             if (!tempName) {
+              valid = false;
               this.error[i + 1][`template_name${i + 1}`] =
                 "This field is required.";
             }
@@ -968,8 +960,12 @@ export default {
               if (this.error[i + 1].enhancements) {
                 var area = document.getElementById(`enhancementTab${i + 1}`);
                 focus = true;
-                if (!area.classList.contains("show")) {
-                  area.classList.add("show");
+                if (area.classList.contains("collapsed")) {
+                  area.classList.toggle("collapsed");
+                  document
+                    .getElementById(`enhanceTab${i + 1}`)
+                    .classList.add("show");
+                  console.log("removed collapsed");
                 }
                 area.scrollIntoView();
               }
@@ -983,6 +979,7 @@ export default {
                   area.scrollIntoView();
                 }
               }
+              console.log(focus);
             }
             valid = false;
           }
@@ -1075,15 +1072,23 @@ export default {
             ? fees[0].lif.schedule
             : null,
 
-          loan_intrest_charged_in_advanced: true,
-          loan_intrest_charged_in_arrears: false,
+          loan_intrest_charged_in_advanced: Number(
+            this.getInputWithId(`in_arrears1`)
+          )
+            ? false
+            : true,
+          loan_intrest_charged_in_arrears: Number(
+            this.getInputWithId(`in_arrears1`)
+          )
+            ? true
+            : false,
           high_cap_fee: fees[0].hcf.fees,
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
         },
-
-        // num_strategies: 1,
+        // index_strategy_2: null,
+        // index_strategy_3: null,
         save_scenario_as_draft: this.saveAsDraft,
         scenario_id: this.$route.params.scenario,
         save_portfolio: this.portFolioCheckbox,
@@ -1191,8 +1196,16 @@ export default {
             ? fees[1].lif.schedule
             : null,
 
-          loan_intrest_charged_in_advanced: true,
-          loan_intrest_charged_in_arrears: false,
+          loan_intrest_charged_in_advanced: Number(
+            this.getInputWithId(`in_arrears2`)
+          )
+            ? false
+            : true,
+          loan_intrest_charged_in_arrears: Number(
+            this.getInputWithId(`in_arrears2`)
+          )
+            ? true
+            : false,
           high_cap_fee: fees[1].hcf.fees,
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
@@ -1300,8 +1313,16 @@ export default {
             ? fees[2].lif.schedule
             : null,
 
-          loan_intrest_charged_in_advanced: true,
-          loan_intrest_charged_in_arrears: false,
+          loan_intrest_charged_in_advanced: Number(
+            this.getInputWithId(`in_arrears3`)
+          )
+            ? false
+            : true,
+          loan_intrest_charged_in_arrears: Number(
+            this.getInputWithId(`in_arrears3`)
+          )
+            ? true
+            : false,
           high_cap_fee: fees[2].hcf.fees,
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
@@ -1346,7 +1367,6 @@ export default {
       this.$store.dispatch("loader", true);
 
       if (this.historicalId) {
-        console.log("update");
         put(
           `${getUrl("historical")}${this.historicalId}/`,
           formData,
@@ -1371,7 +1391,6 @@ export default {
             this.$store.dispatch("loader", false);
           });
       } else {
-        console.log("create");
         post(getUrl("historical"), formData, authHeader())
           .then(response => {
             console.log(response.data);
@@ -1393,6 +1412,88 @@ export default {
             this.$store.dispatch("loader", false);
           });
       }
+    },
+    // populate existing index details
+    populateIndexTemplate: function(iType = 1, id = null, type = 1) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl(`strategy-index${type}`)}${id}/`, authHeader())
+        .then(response => {
+          var data = response.data.data;
+          this.populateIndex(iType, data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+    // get all template index data
+    getTemplateAPIData: function(tab) {
+      this.$store.dispatch("loader", true);
+      get(getUrl(`historical-index${tab}`), authHeader())
+        .then(response => {
+          var data = response.data.data;
+          var old_temp = this.$store.state.data.templates.historical || [];
+          var new_temp = [];
+          let index = old_temp ? old_temp.length : 0;
+          // push vehicle #1 templates in temp variable
+          data.forEach(item => {
+            new_temp.push({
+              id: index++,
+              uid: item.id,
+              type: tab,
+              template_name: item.template_name,
+            });
+          });
+
+          this.$store.dispatch("template", {
+            type: "historical",
+            data: [...old_temp, ...new_temp],
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getTemplateDataId: function(id) {
+      var temp = this.existingIndex.filter(i => i.id === id)[0];
+      return temp ? temp : null;
+    },
+
+    setExistingIndex: function(iType, id) {
+      let template = this.getTemplateDataId(id);
+      if (template) {
+        this.populateIndexTemplate(iType, template.uid, template.type);
+        console.log(iType, template.uid, template.type);
+        console.log("populate index data ");
+      }
+      this.error[`existing_${iType}`] = [];
+    },
+
+    setExistingIndexName: function(iType, name) {
+      this.error[`existing_${iType}`] = [];
+      this.existing_templates[`index${iType}`].name = name;
+    },
+    //  all template data from API
+    getExistingIndex: function() {
+      this.getTemplateAPIData(1);
+      this.getTemplateAPIData(2);
+      this.getTemplateAPIData(3);
     },
   },
   mounted() {
@@ -1437,6 +1538,9 @@ export default {
         }
         this.$store.dispatch("loader", false);
       });
+    if (!this.existingIndex.length) {
+      this.getExistingIndex();
+    }
   },
   computed: {
     illustrateYear() {
@@ -1446,9 +1550,60 @@ export default {
       }
       return 0;
     },
+
     // active scenario data
     activeScenario() {
       return this.$store.state.data.active_scenario;
+    },
+
+    existingIndex() {
+      return this.$store.state.data.templates.historical || [];
+    },
+  },
+  watch: {
+    illustrateYear() {
+      setTimeout(() => {
+        const inputs = document.querySelectorAll(".handleLimit");
+        inputs.forEach(element =>
+          element.addEventListener("input", function(e) {
+            console.log(e.target.value);
+            let len = e.target.value.length;
+            let current = e.target.value;
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (
+              Number(current) < min ||
+              Number(current) > max ||
+              isNaN(Number(current))
+            ) {
+              let actualValue = current.slice(0, len - 1);
+              e.target.value = actualValue;
+              return false;
+            }
+          })
+        );
+
+        // input validation for min and max value
+        const inputs2 = document.querySelectorAll(".onlyPositiveNum");
+        inputs2.forEach(element =>
+          element.addEventListener("input", function(e) {
+            let len = e.target.value.length;
+            e.target.value = e.target.value.replace(".", "");
+            let current = e.target.value;
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (
+              Number(current) < min ||
+              Number(current) > max ||
+              isNaN(Number(current))
+            ) {
+              let actualValue = current.slice(0, len - 1);
+              e.target.value = actualValue;
+              return false;
+            }
+          })
+        );
+      }, 200);
     },
   },
 };

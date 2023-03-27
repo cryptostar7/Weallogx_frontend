@@ -12,7 +12,7 @@
                     <label class="error text-center" v-if="errors[currentTab] && errors[currentTab][`template_name${currentTab}`]">{{errors[currentTab][`template_name${currentTab}`]}}</label>
                     <div class="form-group pt-2 less">
                         <label :for="`templateNameInput${currentTab}`" class="fs-12 medium-fw">Template Name</label>
-                        <input type="text" :id="`templateNameInput${currentTab}`" class="form-control" @keypress="$emit('clearError', currentTab, `template_name${currentTab}`)"> 
+                        <input type="text" :id="`templateNameInput${currentTab}`" class="form-control" @keypress="$emit('clearError', currentTab, `template_name${currentTab}`)" autocomplete="off"> 
                     </div>
                 </form>
             </div>

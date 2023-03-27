@@ -24,7 +24,7 @@
               <p class="historicalTopPara1">Add Historical Simulations?</p>
               <p class="historicalTopPara2">OPTIONALS</p>
               <div class="d-flex align-items-center justify-content-center mt-3">
-                <router-link :to="`/historical-simulations-after-yes/${this.$route.params.scenario}`">
+                <router-link :to="`/historical-index-strategy-allocation/${this.$route.params.scenario}`">
                   <div class="historical-yesNo-mainDiv">
                     <div class="historical-yes-div">
                       <svg width="35" height="25" viewBox="0 0 35 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                     </p>
                   </div>
                 </router-link>
-                <router-link :to="`/historical-simulations-after-no/${this.$route.params.scenario}`">
+                <router-link :to="`/scenario-complete/${this.$route.params.scenario}`">
                   <div class="historical-yesNo-mainDiv ms-4">
                     <div class="historical-no-div">
                       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

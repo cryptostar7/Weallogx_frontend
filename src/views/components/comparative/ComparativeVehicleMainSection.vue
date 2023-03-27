@@ -642,9 +642,11 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    
     setExistingPortfolioName: function(name) {
       this.existingPortfolioName = name;
     },
+
     setVehicleTypeName: function(vType = 1, name) {
       this.vehicle[`vehicle${vType}`].type = name;
     },
@@ -653,6 +655,7 @@ export default {
       var temp = this.existingVehicles.filter(i => i.id === id)[0];
       return temp ? temp : null;
     },
+
     setExistingVehicle: function(vType, id) {
       let template = this.getTemplateDataId(id);
       if (template) {
@@ -772,6 +775,8 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    // validate all forms data
     validationForm: function() {
       var valid = true;
       var focusTab = false;
@@ -805,6 +810,8 @@ export default {
 
       return valid;
     },
+
+    // check vehicle type 
     checkVechicleType: function() {
       let tab = this.vehicle.tab;
       if (tab === 1) {
@@ -827,6 +834,7 @@ export default {
 
       return true;
     },
+
     // switch to next vehicle tab
     setNextTab: function() {
       if (!this.validationForm()) {
@@ -846,6 +854,7 @@ export default {
         }
       }
     },
+
     // this function is used to check the valid vehicle type for vehicle #1
     checkVechicle1: function() {
       let templateId = this.$getTemplateId(
@@ -860,6 +869,7 @@ export default {
       }
       return templateId ? true : false;
     },
+
     // this function is used to check the valid vehicle type for vehicle #2
     checkVechicle2: function() {
       let templateId = this.$getTemplateId(
@@ -876,6 +886,7 @@ export default {
 
       return templateId ? true : false;
     },
+    
     // this function is used to check the valid vehicle type for vehicle #3
     checkVechicle3: function() {
       let templateId = this.$getTemplateId(
@@ -1165,7 +1176,7 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.$router.push(
-              `/historical-simulations/${this.$route.params.scenario}`
+              `/select-historical-simulations/${this.$route.params.scenario}`
             );
           })
           .catch(error => {
@@ -1187,7 +1198,7 @@ export default {
             this.cvId = response.data.data.id;
             this.$toast.success(response.data.message);
             this.$router.push(
-              `/historical-simulations/${this.$route.params.scenario}`
+              `/select-historical-simulations/${this.$route.params.scenario}`
             );
           })
           .catch(error => {

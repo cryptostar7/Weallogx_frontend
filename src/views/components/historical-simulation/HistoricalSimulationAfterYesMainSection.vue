@@ -1,6 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-</script>
 <template>
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
@@ -81,9 +78,9 @@ import { RouterLink } from "vue-router";
                     </div>
                   </div>
                   <div class="text-center mt-30">
-                    <router-link :to="`/historical-simulations-from-scratch/${this.$route.params.scenario}`" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct">Next</router-link>
+                    <router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct">Next</router-link>
                     <span class="d-block mb-3"></span>
-                    <router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14">
+                    <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
                   </div>
                 </div>
@@ -97,9 +94,9 @@ import { RouterLink } from "vue-router";
 </template>
 <script>
 export default {
-    components:{RouterLink},
-}
+  data() {
+    return {};
+  },
+  mounted() {},
+};
 </script>
-<style lang="">
-    
-</style>

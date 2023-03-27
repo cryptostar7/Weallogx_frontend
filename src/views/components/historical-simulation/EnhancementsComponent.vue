@@ -1,6 +1,6 @@
 <template lang="">
-   <div class="indexStrategyallDivs active mt-3 accordion-button collapsed" data-bs-toggle="collapse" :data-bs-target="`#enhanceTab${currentTab}`" aria-expanded="false" :aria-controls="`enhanceTab${currentTab}`">
-        <div class="d-flex justify-content-between align-items-center" :id="`enhancementTab${currentTab}`">
+   <div class="indexStrategyallDivs active mt-3 accordion-button collapsed" :id="`enhancementTab${currentTab}`" data-bs-toggle="collapse" :data-bs-target="`#enhanceTab${currentTab}`" aria-expanded="false" :aria-controls="`enhanceTab${currentTab}`">
+        <div class="d-flex justify-content-between align-items-center">
             <div class="indexStrategyheadBrdr">
                 <p>Enhancements
                     <svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
