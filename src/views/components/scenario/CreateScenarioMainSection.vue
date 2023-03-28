@@ -160,7 +160,7 @@
               </div>
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
-                <!-- <router-link to="/illustration-data" class="nav-link btn form-next-btn active fs-14" disabled="true">Next</router-link> -->
+                <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
               </div>
             </form>
           </div>
@@ -253,13 +253,11 @@ export default {
         if (id) {
           if (client_id) {
             if (this.clients && this.clients.length) {
-              this.$router.push(`?client=${client_id}`);
+              this.$router.push(`?client=${client_id}${this.$route.query.review ? '&review=true':''}`);
             } else {
               this.setClientAsDefault = client_id;
             }
           }
-          console.log("id.........");
-          console.log(id);
           this.populateScenarioDetail(id);
         }
       })
@@ -364,7 +362,7 @@ export default {
           this.$store.dispatch("clients", mapClientList(response.data.data));
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
-            this.$router.push(`?client=${this.setClientAsDefault}`);
+            this.$router.push(`?client=${this.setClientAsDefault}${this.$route.query.review ? '&review=true':''}`);
             this.setClientAsDefault = false;
           }
         })
@@ -650,8 +648,10 @@ export default {
       return validate;
     },
     // Handle form submission
-    submitHandler: function(e) {
-      e.preventDefault();
+    submitHandler: function(e, review=false) {
+      if(e){
+        e.preventDefault();
+      }
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -719,10 +719,10 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
- 
+
       if (this.detailId) {
-        this.updateScenarioDetail(formData);
-        } else {
+        this.updateScenarioDetail(formData, review);
+      } else {
         this.createScenarioDetail(formData);
       }
     },
@@ -769,12 +769,16 @@ export default {
     },
 
     // update previous secnario detail data
-    updateScenarioDetail: function(data) {
+    updateScenarioDetail: function(data, review) {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then(response => {
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+          if(review){
+            this.$router.push(`/review-summary/${this.activeScenario.id}`);
+          }else{
+            this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+          }
         })
         .catch(error => {
           console.log(error);
@@ -899,6 +903,7 @@ export default {
           let df_client = this.$route.query.client;
           if (Number(df_client) === element.id) {
             this.setInputWithId("clientAge", element.age);
+            this.clientAgeYearToIllustrate = element.age;
           }
           initClient.push({
             id: Number(element.id),

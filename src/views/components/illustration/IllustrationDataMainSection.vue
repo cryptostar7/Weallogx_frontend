@@ -260,7 +260,7 @@
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <span class="d-block mb-2"></span> 
-                  <router-link to="/scenario-details" class="nav-link btn form-back-btn fs-14" disabled="true">
+                  <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                   </router-link> 
                 </div>
@@ -1226,7 +1226,7 @@ export default {
         post(getUrl("illustration"), formData, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
-            this.$toast.success(response.data.message);
+            this.$toast.success(response.data.message || "Illustration data created successfully!");
             this.illustrationId = response.data.data.id;
             this.$router.push(
               `/comparative-vehicles/${this.$route.params.scenario}`
