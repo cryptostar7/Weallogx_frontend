@@ -1,17 +1,17 @@
 <template>
       <section>
-        <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
+        <div class="reviewProgressMainDiv py-5 mt-5 HistoricalPositionStatic">
             <ul class="mt-1 review-progress" id="reviewProgress">
-              <li class="done"><router-link to="/scenario-details" class="nav-link p-0">Scenario Details</router-link></li>
-              <li class="done"><router-link to="/illustration-data" class="nav-link p-0">Illustration Data</router-link></li>
-              <li class="done"><router-link to="/comparative-vehicles" class="nav-link p-0">Comparative Vehicles</router-link></li>
-              <li class="done"><router-link to="/select-historical-simulations" class="nav-link p-0">Historical Simulations</router-link></li>
+              <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
+              <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
+              <li class="done"><router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+              <li class="done"><router-link :to="`/select-historical-simulations/${$route.params.scenario}`" class="nav-link p-0">Historical Simulations</router-link></li>
             </ul>
             <router-link to="/">
               <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
             </router-link>
           </div>
-        <div class="commonBgColor mt-5 py-2">
+        <div class="commonBgColor  py-2">
 
             <div class="summaryMainDiv py-4">
                 <div>
@@ -23,18 +23,18 @@
                 </div>
             </div>
             <!-- Scenario Details start -->
-              <scenario-details-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.scenerio_details.id : false" :client="client"/>
+              <scenario-details-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.scenerio_details.id : false" :client="client" />
             <!-- Scenario Details end -->
 
             <!-- Illustration Data start -->
-              <illustration-data-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.illustration : false" :client="client"/>
+              <illustration-data-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.illustration : false" :client="client" />
             <!-- Illustration Data end -->
 
             <!-- Comparative Vehicles start -->
-              <comparative-vehicles-review :id="scenario ? scenario.scenerio_details.id : false" />
+              <comparative-vehicles-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.comperative : false" :client="client" />
             <!-- Comparative Vehicles end -->
             
-              <historical-simulations-review :id="scenario ? scenario.scenerio_details.id : false" />
+              <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client"  />
             <!-- Historical Vehicles start -->
 
             <button class="d-none" @click="testFunction">Check</button>
@@ -95,7 +95,6 @@ export default {
     },
   },
   mounted() {
-    console.log("dfdsfsdfsdfsdf");
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
       .then(response => {

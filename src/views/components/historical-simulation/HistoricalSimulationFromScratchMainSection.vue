@@ -1433,43 +1433,6 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    // get all template index data
-    getTemplateAPIData: function(tab) {
-      this.$store.dispatch("loader", true);
-      get(getUrl(`historical-index${tab}`), authHeader())
-        .then(response => {
-          var data = response.data.data;
-          var old_temp = this.$store.state.data.templates.historical || [];
-          var new_temp = [];
-          let index = old_temp ? old_temp.length : 0;
-          // push vehicle #1 templates in temp variable
-          data.forEach(item => {
-            new_temp.push({
-              id: index++,
-              uid: item.id,
-              type: tab,
-              template_name: item.template_name,
-            });
-          });
-
-          this.$store.dispatch("template", {
-            type: "historical",
-            data: [...old_temp, ...new_temp],
-          });
-          this.$store.dispatch("loader", false);
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    },
-
     getTemplateDataId: function(id) {
       var temp = this.existingIndex.filter(i => i.id === id)[0];
       return temp ? temp : null;
@@ -1491,9 +1454,60 @@ export default {
     },
     //  all template data from API
     getExistingIndex: function() {
-      this.getTemplateAPIData(1);
-      this.getTemplateAPIData(2);
-      this.getTemplateAPIData(3);
+      this.$store.dispatch("loader", true);
+      get(getUrl("historical-template"), authHeader())
+        .then(response => {
+          var data = response.data.data;
+          var temp = [];
+          let index = 1;
+          // push index #1 templates in temp variable
+          data.index_strategy_1.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 1,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #2 templates in temp variable
+          data.index_strategy_2.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 2,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #3 templates in temp variable
+          data.index_strategy_3.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 3,
+              template_name: item.template_name,
+            });
+          });
+
+          console.log("tempplate.........");
+          console.log(temp);
+          this.$store.dispatch("template", {
+            type: "historical",
+            data: temp,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
   },
   mounted() {
@@ -1525,7 +1539,7 @@ export default {
         let id = response.data.data.historical;
         this.historicalId = id;
         this.$store.dispatch("activeScenario", response.data.data);
-        if (id) {
+        if (!this.$route.query.pid && id) {
           this.populateHistoricalSimulationData(id);
         } else {
           this.$store.dispatch("loader", false);
@@ -1538,8 +1552,13 @@ export default {
         }
         this.$store.dispatch("loader", false);
       });
+
     if (!this.existingIndex.length) {
       this.getExistingIndex();
+    }
+    if (this.$route.query.pid) {
+      console.log('portfolio......')
+      this.populateHistoricalSimulationData(this.$route.query.pid);
     }
   },
   computed: {

@@ -22,7 +22,7 @@
                 <div class="form-group pt-2 less">
                   <label for="scenarioName" class="fs-12 medium-fw">Scenario Name</label>
                   <input type="text" id="scenarioName" v-model="scenarioName" class="form-control" @keyup="() => {clearDetailTemplate(); errors.scenario_name = false}" />
-                  <label class="error" v-if="errors.scenario_name">{{errors.scenario_name[0]}}</label>
+                  <small class="text-danger" v-if="errors.scenario_name">{{errors.scenario_name[0]}}</small>
                 </div>
                 <div class="form-group less">
                   <div class="label-group d-flex justify-content-between align-items-center">
@@ -30,13 +30,13 @@
                     <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                   </div>
                   <textarea name="" id="scenarioDesc" v-model="scenarioDescription" cols="30" rows="2" class="form-control" @keypress="() => {clearDetailTemplate(); errors.description = false}"></textarea>
-                  <label class="error" v-if="errors.description">{{errors.description[0]}}</label>
+                  <small class="text-danger" v-if="errors.description">{{errors.description[0]}}</small>
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
                     <label for="clientAge" class="fs-12 medium-fw">Client Age <span class="regular-fw">(Year 1 age on illustration)</span></label>
                     <input type="number" class="form-control handleLimit" id="clientAge" min="1" max="100" @keyup="() => {updateClientAge(); clearDetailTemplate(); errors.client_age_year = false}"/>
-                    <label class="error" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</label>
+                    <small class="text-danger" v-if="errors.client_age_year">{{errors.client_age_year[0]}}</small>
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"># Years to Illustrate</label>
@@ -44,7 +44,7 @@
                       <input type="number" id="illustratedAge" max="100" class="form-control handleLimit" @keyup="() =>  {updateScheduleRate(); clearDetailTemplate(); errors.illustrate_year = false}"/>
                       <span class="year-span">years</span>
                     </div>
-                    <label class="error" v-if="errors.illustrate_year">{{errors.illustrate_year[0]}}</label>
+                    <small class="text-danger" v-if="errors.illustrate_year">{{errors.illustrate_year[0]}}</small>
                   </div>            
                 </div>
 
@@ -106,7 +106,7 @@
                   <div :class="`tab-pane fade ${simpleTaxRate ? '':'show active'}`" id="scheduleTaxRate" role="tabpanel" aria-labelledby="scheduleTaxRate-tab">
                     <SelectDropdown :list="existingScheduleList" label="Use Existing Schedule" id="existingSchedule" :error="errors.existing_schedule" @clearError="() => errors.existing_schedule = false" :clearInput="scheduleTemplateInput" @setClearedInput="() => scheduleTemplateInput = 0" @onSelectItem="setExistingScenarioScheduleId" @inputText="setExistingScenarioScheduleName"/>
                     <div class="form-group max-width-320">
-                    <label class="error" v-if="errors.tax_rate">{{errors.tax_rate[0]}}</label>
+                    <small class="text-danger" v-if="errors.tax_rate">{{errors.tax_rate[0]}}</small>
                       <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                         <thead>
                           <tr>
@@ -140,7 +140,7 @@
                         <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveScheduleTemplate ? '' : 'none'}">
                           <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                           <input type="text" id="templateName" class="form-control" :disabled="existingScenarioScheduleName ? true : false" v-model="scheduleTemplate" @keyup="errors.schedule_template = false"/>
-                          <label class="error" v-if="errors.schedule_template">{{errors.schedule_template[0]}}</label>
+                          <small class="text-danger" v-if="errors.schedule_template">{{errors.schedule_template[0]}}</small>
                         </div>
                       </div>
                     </div>
@@ -154,7 +154,7 @@
                     <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveDetailsTemplate ? '' : 'none'}">
                       <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                       <input type="text" id="templateName" class="form-control" :disabled="existingScenarioDetailName ? true : false" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
-                      <label class="error" v-if="errors.details_template">{{errors.details_template[0]}}</label>
+                      <small class="text-danger" v-if="errors.details_template">{{errors.details_template[0]}}</small>
                     </div>
                   </div>
               </div>
@@ -253,7 +253,11 @@ export default {
         if (id) {
           if (client_id) {
             if (this.clients && this.clients.length) {
-              this.$router.push(`?client=${client_id}${this.$route.query.review ? '&review=true':''}`);
+              this.$router.push(
+                `?client=${client_id}${
+                  this.$route.query.review ? "&review=true" : ""
+                }`
+              );
             } else {
               this.setClientAsDefault = client_id;
             }
@@ -308,6 +312,11 @@ export default {
     // set existing client id on selecting the input dropdown data
     setExistingClientId: function(id) {
       this.existingClientId = id;
+      let age = this.$store.state.data.clients.filter(item => {
+        return Number(item.id) === Number(id);
+      })[0].age;
+      this.setInputWithId("clientAge", age);
+      this.errors.client_age_year = false;
     },
 
     // set the existing scenari o detail id on selecting the input dropdown data
@@ -327,6 +336,7 @@ export default {
     // set the client age year value to illustrate the data. Note: v-model not working for this input
     updateClientAge: function() {
       this.clientAgeYearToIllustrate = this.getInputUsingId("clientAge");
+      this.errors.client_age_year = false;
     },
 
     // set the first tax rate data using the input id. Note: v-model not working for this input
@@ -362,7 +372,11 @@ export default {
           this.$store.dispatch("clients", mapClientList(response.data.data));
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
-            this.$router.push(`?client=${this.setClientAsDefault}${this.$route.query.review ? '&review=true':''}`);
+            this.$router.push(
+              `?client=${this.setClientAsDefault}${
+                this.$route.query.review ? "&review=true" : ""
+              }`
+            );
             this.setClientAsDefault = false;
           }
         })
@@ -415,6 +429,7 @@ export default {
             "clientAge",
             detail.client_age_1_year_illustration
           );
+          this.errors.client_age_year = false;
           this.illustrateYear = detail.years_to_illustrate;
           this.setInputWithId("illustratedAge", detail.years_to_illustrate);
           this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
@@ -648,8 +663,8 @@ export default {
       return validate;
     },
     // Handle form submission
-    submitHandler: function(e, review=false) {
-      if(e){
+    submitHandler: function(e, review = false) {
+      if (e) {
         e.preventDefault();
       }
       var tempSchedule = [];
@@ -774,9 +789,9 @@ export default {
         .then(response => {
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          if(review){
+          if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
-          }else{
+          } else {
             this.$router.push(`/illustration-data/${this.activeScenario.id}`);
           }
         })
@@ -940,10 +955,6 @@ export default {
 };
 </script>
 <style>
-.error {
-  color: red;
-  font-size: 13px;
-}
 .required {
   border: 1px solid red !important;
 }

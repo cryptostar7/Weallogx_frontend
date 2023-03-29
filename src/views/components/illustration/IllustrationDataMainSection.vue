@@ -19,21 +19,21 @@
                 <div class="form-group pt-2 less">
                   <label for="insuranceCompany" class="fs-12 medium-fw">Insurance Company</label>
                   <input type="text" id="insuranceCompany" class="form-control" v-model="insuranceCompany" @keyup="() => clearError('insurance_company')"/>
-                  <label class="error" v-if="errors.insurance_company">{{errors.insurance_company[0]}}</label>
+                  <small class="text-danger" v-if="errors.insurance_company">{{errors.insurance_company[0]}}</small>
                 </div>
                 <div class="row">                     
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
                       <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance Policy Name</label> 
                         <input type="text" id="insurancePolicyName" v-model="insurancePolicyName" class="form-control" @keyup="() => clearError('insurance_policy_name')"/> 
-                        <label class="error" v-if="errors.insurance_policy_name">{{errors.insurance_policy_name[0]}}</label>
+                        <small class="text-danger" v-if="errors.insurance_policy_name">{{errors.insurance_policy_name[0]}}</small>
                       </div>
                   </div>
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy Nickname</label> 
                         <input type="text" id="insurancePolicyNickname" v-model="PolicyNickname" class="form-control" @keyup="() => clearError('policy_nickname')"/> 
-                        <label class="error" v-if="errors.policy_nickname">{{errors.policy_nickname[0]}}</label>
+                        <small class="text-danger" v-if="errors.policy_nickname">{{errors.policy_nickname[0]}}</small>
                       </div>
                   </div>
                 </div>
@@ -45,7 +45,7 @@
                   <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
                     <label for="templateName" class="fs-12 medium-fw">Template Name</label> 
                     <input type="text" id="templateName" class="form-control" :disabled="existingInsuranceProfileName ? true: false" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
-                    <label class="error" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</label>
+                    <small class="text-danger" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</small>
                   </div>
                 </div>
                 <hr class="hr-separator" size="1.25" />
@@ -54,14 +54,14 @@
                     <div class="form-group less"> 
                       <label for="deathBenifit" class="fs-12 medium-fw">Initial Death Benefit</label> 
                       <input type="text" id="deathBenifit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benefit')"> 
-                      <label class="error" v-if="errors.initial_death_benefit">{{errors.initial_death_benefit[0]}}</label>
+                      <small class="text-danger" v-if="errors.initial_death_benefit">{{errors.initial_death_benefit[0]}}</small>
                     </div>
                   </div>
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
                       <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
-                      <label class="error" v-if="errors.policy_return">{{errors.policy_return[0]}}</label>
+                      <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
                     </div>
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                 </ul>
                 <div class="tab-content pt-3 mt-1">
                   <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
-                    <label class="error" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</label>
+                    <small class="text-danger" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</small>
                     <div class="pb-4"> 
                       <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}" @drop="handleDragFile" @dragover="dragover" @dragleave="dragleave"> 
                         <input type="file" accept=".pdf" id="uploading" name="uploading" ref="file" hidden @change="handleFile"/> 
@@ -124,7 +124,7 @@
                     
                   </div>
                   <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
-                    <label class="error" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</label>
+                    <small class="text-danger" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</small>
                     <div class="copy-paste-area">
                       <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
                       <div class="form-group mb-0"> 
@@ -143,7 +143,7 @@
                   <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveIllustrationTemplate ? '' : 'none'}">
                     <label for="templateName" class="fs-12 medium-fw">Template Name</label>
                     <input type="text" id="templateName" class="form-control" :disabled="existingIllustrationName ? true : false" v-model="illustrationTemplateName" @keyup="clearError('illustration_template_name')"/>
-                    <label class="error" v-if="errors.illustration_template_name">{{errors.illustration_template_name[0]}}</label>
+                    <small class="text-danger" v-if="errors.illustration_template_name">{{errors.illustration_template_name[0]}}</small>
                   </div>
                 </div>
               </div>
@@ -160,7 +160,7 @@
                       <div class="flex-1">
                         <div class="tab-content mt-1">
                         <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
-                          <label class="error" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</label>
+                          <small class="text-danger" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</small>
                           <div class=""> 
                             <label for="uploading2" class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
                               <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="handleFile2"/> 
@@ -259,8 +259,9 @@
 
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
+                <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active mt-2">Save & Return to Review</button>
                 <span class="d-block mb-2"></span> 
-                  <router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
+                  <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'scenario-details'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                   </router-link> 
                 </div>
@@ -1069,8 +1070,10 @@ export default {
     },
 
     // handle form data
-    submitHandler: function(e) {
-      e.preventDefault();
+    submitHandler: function(e, review = false) {
+      if (e) {
+        e.preventDefault();
+      }
       if (
         this.csvPreview &&
         this.csvPreview.headers &&
@@ -1206,7 +1209,9 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.$router.push(
-              `/comparative-vehicles/${this.$route.params.scenario}`
+              `/${review ? "review-summary" : "comparative-vehicles"}/${
+                this.$route.params.scenario
+              }`
             );
             console.log(response);
           })
@@ -1226,7 +1231,9 @@ export default {
         post(getUrl("illustration"), formData, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
-            this.$toast.success(response.data.message || "Illustration data created successfully!");
+            this.$toast.success(
+              response.data.message || "Illustration data created successfully!"
+            );
             this.illustrationId = response.data.data.id;
             this.$router.push(
               `/comparative-vehicles/${this.$route.params.scenario}`

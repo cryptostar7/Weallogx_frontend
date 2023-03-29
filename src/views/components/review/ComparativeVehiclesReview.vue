@@ -1,9 +1,9 @@
 <template lang="">
-    <div>
+    <div :class="data ? '':'d-none'">
         <div class="container my-5 darkbgClrDiv">
             <div class="summary-heading">
                 <p><span>3 </span>Comparative Vehicles</p>
-                <router-link to="/comparative-vehicles" class="editbtnCommonAncor"><button class="btn editBtnCommon">
+                <router-link :to="`/comparative-vehicles/${$route.params.scenario}?review=true`" class="editbtnCommonAncor"><button class="btn editBtnCommon">
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651"
@@ -20,14 +20,14 @@
                 <form action="">
 
                     <div class="row">
-                        <div class="col-md-4 ">
+                        <div v-if="data.vehicle_type_1" :class="`col-md-4 ${data.vehicle_type_2 ? '': 'col-md-8'} ${data.vehicle_type_3 ? '': 'col-md-12'}`">
                             <div class="compVehcleCol">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="compVehcleColPara">Vehicle #1</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/comparative-vehicles" class="editbtnCommonAncor">
+                                    <router-link :to="`/comparative-vehicles/${$route.params.scenario}?tab=1&review=true`" class="editbtnCommonAncor">
                                         <button
                                             class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,44 +40,43 @@
                                 <div class="row mt-3">
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Type</label>
-                                        <input type="text" class="form-control" value="Taxable" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_1.vehicle_type_1" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Name</label>
-                                        <input type="text" class="form-control" value="Mutual Funds" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_1.name" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" value="10%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.rate_of_return}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" value="1%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.fees}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">Capital Gains?</label>
-                                        <input type="text" class="form-control" value="50%" readonly>
+                                        <label for="client name">{{data.vehicle_type_1 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_1.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
                                     </div>
-                                    <div class="col-md-6 summaryInputsDiv">
+                                    <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
-                                        <input type="text" class="form-control" value="50%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.capital_gains_tax_rate}%`" readonly>
                                     </div>
-                                    <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">% Portfolio Applied
-                                            to Capital Gains</label>
-                                        <input type="text" class="form-control" value="50%" readonly>
+                                    <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
+                                        <label for="client name">% Portfolio Applied to Capital Gains</label>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.percentage_of_account_as_capital_gains}%`" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div v-if="data.vehicle_type_2" :class="`col-md-4 ${data.vehicle_type_1 ? '':'d-none'}`">
                             <div class="compVehcleCol">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="compVehcleColPara">Vehicle #2</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/comparative-vehicles" class="editbtnCommonAncor">
+                                    <router-link :to="`/comparative-vehicles/${$route.params.scenario}?tab=2&review=true`" class="editbtnCommonAncor">
                                        <button class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651" stroke-width="2" />
@@ -87,38 +86,46 @@
                                         </button>
                                     </router-link>
                                 </div>
-                                <div class="row mt-3">
+                                   <div class="row mt-3">
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Type</label>
-                                        <input type="text" class="form-control" value="Tax-Deferred" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_2.vehicle_type_2" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Name</label>
-                                        <input type="text" class="form-control" value="Annuity" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_2.name" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" value="10%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.rate_of_return}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" value="2%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.fees}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">Capital Gains?</label>
-                                        <input type="text" class="form-control" value="Yes" readonly>
+                                        <label for="client name">{{data.vehicle_type_2 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_2.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
+                                    </div>
+                                    <div v-if="data.vehicle_type_2.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
+                                        <label for="client name">Capital Gains Tax Rate</label>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.capital_gains_tax_rate}%`" readonly>
+                                    </div>
+                                    <div v-if="data.vehicle_type_2.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
+                                        <label for="client name">% Portfolio Applied to Capital Gains</label>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.percentage_of_account_as_capital_gains}%`" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 ">
+                        <div v-if="data.vehicle_type_3" :class="`col-md-4 ${data.vehicle_type_1 ? '':'d-none'}`">
                             <div class="compVehcleCol">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p class="compVehcleColPara">Vehicle #3</p>
                                         <p class="compVehcleBorder"></p>
                                     </div>
-                                    <router-link to="/comparative-vehicles" class="editbtnCommonAncor"><button
+                                    <router-link :to="`/comparative-vehicles/${$route.params.scenario}?tab=3&review=true`" class="editbtnCommonAncor"><button
                                             class="btn editBtnCommon">
                                             <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651" stroke-width="2" />
@@ -128,26 +135,34 @@
                                         </button>
                                     </router-link>
                                 </div>
-                                <div class="row mt-3">
+                                 <div class="row mt-3">
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Type</label>
-                                        <input type="text" class="form-control" value="Pre-Tax" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_3.vehicle_type_3" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Vehicle Name</label>
-                                        <input type="text" class="form-control" value="401K" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_3.name" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" value="10%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.rate_of_return}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" value="2%" readonly>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.fees}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">Pre 59 1/2 Penalty?</label>
-                                        <input type="text" class="form-control" value="Yes" readonly>
+                                        <label for="client name">{{data.vehicle_type_3 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_3.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
+                                    </div>
+                                    <div v-if="data.vehicle_type_3.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
+                                        <label for="client name">Capital Gains Tax Rate</label>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.capital_gains_tax_rate}%`" readonly>
+                                    </div>
+                                    <div v-if="data.vehicle_type_3.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
+                                        <label for="client name">% Portfolio Applied to Capital Gains</label>
+                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.percentage_of_account_as_capital_gains}%`" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -159,10 +174,57 @@
     </div>
 </template>
 <script>
+import { authHeader } from '../../../services/helper';
+import { getUrl } from '../../../network/url';
+import { get } from '../../../network/requests';
 export default {
-    
-}
+  props: ["id", "client", "scenarioId"],
+  data() {
+    return {
+      data: false,
+    };
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.data);
+      console.log(this.client);
+    },
+    getComparativeData: function() {
+      if (this.$props.id) {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("comparative")}${this.$props.id}`, authHeader())
+          .then(response => {
+            console.log('vehicle ........');
+            console.log(response.data);
+            this.$store.dispatch("loader", false);
+            let detail = response.data.data;
+            console.log(detail);
+            this.data = detail;
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
+    },
+  },
+  mounted() {
+    if (this.$props.id) {
+      this.getComparativeData(this.$props.id);
+    }
+  },
+  watch: {
+    "$props.id"(e) {
+      this.getComparativeData(e);
+    },
+  },
+};
 </script>
 <style lang="">
-    
 </style>

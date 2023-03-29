@@ -268,12 +268,13 @@
                       <div class="text-center mt-30 d-flex justify-content-start">
                         <div class="d-flex">
                           <div>
-                            <router-link to="/illustration-data" class="nav-link btn form-back-btn fs-14" disabled="true">
+                            <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
                             <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid"  alt="Chevron" width="6" /> Back
                             </router-link> 
                           </div>
                           <div> 
                             <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button> 
+                            <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-next-btn fs-14 active comparative-next-btn mt-2 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)">Save & Return to Review</button> 
                           </div>
                         </div>
                       </div>
@@ -614,6 +615,18 @@ export default {
           var vehicle2 = data.vehicle_type_2;
           var vehicle3 = data.vehicle_type_3;
 
+          let qTab = Number(this.$route.query.tab);
+          if (qTab) {
+            if (qTab === 1) {
+              this.vehicle.tab = 1;
+            }
+            if (qTab === 2 && vehicle2) {
+              this.vehicle.tab = 2;
+            }
+            if (qTab === 3 && vehicle3) {
+              this.vehicle.tab = 3;
+            }
+          }
           if (vehicle1) {
             this.vehicleSelected = true;
             this.tabs.vechile1 = true;
@@ -642,7 +655,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    
+
     setExistingPortfolioName: function(name) {
       this.existingPortfolioName = name;
     },
@@ -811,7 +824,7 @@ export default {
       return valid;
     },
 
-    // check vehicle type 
+    // check vehicle type
     checkVechicleType: function() {
       let tab = this.vehicle.tab;
       if (tab === 1) {
@@ -886,7 +899,7 @@ export default {
 
       return templateId ? true : false;
     },
-    
+
     // this function is used to check the valid vehicle type for vehicle #3
     checkVechicle3: function() {
       let templateId = this.$getTemplateId(
@@ -1059,7 +1072,10 @@ export default {
     },
 
     // this is the main function to save the comparative vehicle data
-    submitHandler: function() {
+    submitHandler: function(e, review = false) {
+      if (e) {
+        e.preventDefault();
+      }
       if (!this.validationForm()) {
         console.log(this.errors);
         return false;
@@ -1176,7 +1192,9 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.$router.push(
-              `/select-historical-simulations/${this.$route.params.scenario}`
+              `/${
+                review ? "review-summary" : "select-historical-simulations"
+              }/${this.$route.params.scenario}`
             );
           })
           .catch(error => {

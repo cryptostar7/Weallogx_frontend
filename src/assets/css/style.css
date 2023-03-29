@@ -2147,6 +2147,12 @@ color: #fff;
 .illusnTableMainDiv button:focus {
   color: #999;
 }
+
+.illustrationScheduleRateTable::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 .compVehcleCol {
   background: #FFF;
   border: 1px solid #E3E3E3;

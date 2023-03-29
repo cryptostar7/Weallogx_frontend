@@ -49,36 +49,16 @@
                           <div class="row">
                             <div class="col-md-8 offset-md-2 strategyAllocation">
                               <form action="javascript:void(0)">
-                                <div class="form-group less">
-                                  <div class="d-flex justify-content-between align-items-center mt-4 mb-1">
-                                    <label for="existingComparativeVehiclePortfolio" class="fs-14 bold-fw">Choose
-                                      Existing Index Strategy Allocation</label>
-                                  </div>
-                                  <div class="p-relative">
-                                    <input type="text" id="existingComparativeVehiclePortfolio" placeholder="Select"
-                                      class="form-control pe-5 autocomplete">
-                                    <span class="chevron-span">
-                                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                          d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                                          fill="black" />
-                                        <path
-                                          d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                                          fill="black" />
-                                      </svg>
-                                    </span>
-                                  </div>
-                                </div>
+                                <SelectDropdown :list="portfolio" label="Choose Existing Index Strategy Allocation"  id="historicalIndexPortfolio" class="form-group less pt-3" @inputText="(e) => portfolioName = e"/>
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div>                                                                                                                                                                                                                         
                   <div class="text-center mt-30">
-                    <router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct">Next</router-link>
+                    <router-link :to="`/historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="handlePortfolio()">Next</router-link>
                     <span class="d-block mb-3"></span>
                     <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14">
                     <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
@@ -93,10 +73,53 @@
   </section>
 </template>
 <script>
+import { get } from "../../../network/requests";
+import { getUrl } from "../../../network/url";
+import { authHeader } from "../../../services/helper";
+import SelectDropdown from "../common/SelectDropdown.vue";
+
 export default {
+  components: { SelectDropdown },
   data() {
-    return {};
+    return {
+      portfolio: [],
+      portfolioName: "",
+    };
   },
-  mounted() {},
+  methods: {
+    handlePortfolio: function(id) {
+      return this.$router.push(
+        `/historical-simulations/${
+          this.$route.params.scenario
+        }?pid=${this.getPortfolioId()}`
+      );
+    },
+    getPortfolioId: function() {
+      var temp = this.portfolio.filter(
+        i => i.template_name === this.portfolioName
+      )[0];
+      return temp ? temp.id : null;
+    },
+    setPortfolioName: function(e) {
+      this.portfolioName = e;
+    },
+  },
+  mounted() {
+    this.$store.dispatch("loader", true);
+    get(getUrl("historical-portfolio"), authHeader())
+      .then(response => {
+        this.portfolio = response.data.data.map(item => {
+          return { id: item.id, template_name: item.portfolio_name };
+        });
+        this.$store.dispatch("loader", false);
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
+  },
 };
 </script>

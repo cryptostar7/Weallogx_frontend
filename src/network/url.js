@@ -63,20 +63,18 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/exisiting-comperative/`
     case 'historical':
       return `${baseUrl}/auth/historical/`;
-    case 'historical-index1':
-      return `${baseUrl}/auth/existing-indexstrategy1/`;
-    case 'historical-index2':
-      return `${baseUrl}/auth/existing-indexstrategy2/`;
-    case 'historical-index3':
-      return `${baseUrl}/auth/existing-indexstrategy3/`;
-      case 'strategy-index1':
-        return `${baseUrl}/auth/indexstrategy1/`;
-      case 'strategy-index2':
-        return `${baseUrl}/auth/indexstrategy2/`;
-      case 'strategy-index3':
-        return `${baseUrl}/auth/indexstrategy3/`;
+    case 'historical-template':
+      return `${baseUrl}/auth/indexstrategy-template/`;
+      case 'historical-portfolio':
+        return `${baseUrl}/auth/historical-portfolio/`;
+    case 'strategy-index1':
+      return `${baseUrl}/auth/indexstrategy1/`;
+    case 'strategy-index2':
+      return `${baseUrl}/auth/indexstrategy2/`;
+    case 'strategy-index3':
+      return `${baseUrl}/auth/indexstrategy3/`;
+
     default:
       return baseUrl;
   }
 };
-

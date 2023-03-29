@@ -49,8 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-content scenarioTabMainDiv">
-                                    <div :class="`row px-4 pt-3 tab-pane ${data.schedule_tax_rate_checkbox ? '':'active'}`" id="simple" role="tabpanel"
-                                        aria-labelledby="simple-tab">
+                                    <div :class="`row px-4 pt-3 tab-pane ${data.schedule_tax_rate_checkbox ? '':'active'}`" id="simple" role="tabpanel" aria-labelledby="simple-tab">
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-md-4 summaryInputsDiv">
@@ -70,7 +69,7 @@
                                     </div>
                                     <div :class="`row px-4 pt-3 tab-pane ${data.schedule_tax_rate_checkbox ? 'active':''}`" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                                         <div class="col-12">
-                                            <p class="Schedule-para" data-bs-toggle="modal" data-bs-target="#scenarioScheduleTax">Scheduled 
+                                            <p v-if="data.schedule_tax_rate_checkbox" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#scenarioScheduleTax">Scheduled 
                                                 <button type="button" class="schedule-icon-btn">
                                                     <svg width="15" height="13" viewBox="0 0 15 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                         <rect x="0.375" y="0.375" width="14.25" height="12.25"  rx="0.625" stroke="#0E6651" stroke-width="0.75" />
@@ -81,6 +80,7 @@
                                                     </svg>
                                                 </button>
                                             </p>
+                                            <p v-else>...</p>
                                         </div>
                                     </div>
                                 </div>
@@ -95,8 +95,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content modalDivMain">
                         <div class="modal-header" style="border:none;">
-                            <button type="button" class="btn-close btnWhite-darkTheme" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close btnWhite-darkTheme" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body px-5">
                             <p class="ModalHeasingPara">Schedule Tax Rate</p>
@@ -168,9 +167,7 @@ export default {
   },
   watch: {
     "$props.id"(e) {
-      console.log(e);
       this.getScenarioData(e);
-      console.log(".................");
     },
   },
 };
