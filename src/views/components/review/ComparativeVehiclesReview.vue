@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="data.vehicle_type_2" :class="`col-md-4 ${data.vehicle_type_1 ? '':'d-none'}`">
+                        <div v-if="data.vehicle_type_2" :class="`col-md-4 ${data.vehicle_type_2 ? '': 'col-md-8'} ${data.vehicle_type_3 ? '': 'col-md-12'}`">
                             <div class="compVehcleCol">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="data.vehicle_type_3" :class="`col-md-4 ${data.vehicle_type_1 ? '':'d-none'}`">
+                        <div v-if="data.vehicle_type_3" :class="`col-md-4 ${data.vehicle_type_2 ? '': 'col-md-8'} ${data.vehicle_type_3 ? '': 'col-md-12'}`">
                             <div class="compVehcleCol">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>

@@ -2,7 +2,7 @@
     <div>
         <div :class="`container my-5 darkbgClrDiv ${data ? '':'d-none'}`">
             <div class="summary-heading">
-                <p @click="testFunction()"><span>2 </span>Illustration Data</p>
+                <p><span>2 </span>Illustration Data</p>
                 <router-link :to="`/illustration-data/${$route.params.scenario}?review=true`" class="editbtnCommonAncor">
                     <button class="btn editBtnCommon">
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
