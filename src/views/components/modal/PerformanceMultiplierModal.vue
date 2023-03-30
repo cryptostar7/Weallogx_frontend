@@ -1,6 +1,6 @@
 <template lang="">
     <section>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="showHistoricalScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content modalDivMain">
                     <div class="modal-header" style="border:none;">
@@ -8,29 +8,17 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body px-5">
-                        <p class="ModalHeasingPara">Performance Multiplier Schedule</p>
+                        <p class="ModalHeasingPara">{{$props.title}} Schedule</p>
                         <div class="modalTableDiv">
                             <table class="table">
                                 <thead>
                                     <th>Year</th>
-                                    <th>Multiplier Rate</th>
+                                    <th>Multiplier {{$props.type === 'rate' ? 'Rate' : 'Amount'}}</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-label="Year">1</td>
-                                        <td data-label="Rate">5</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Year">1</td>
-                                        <td data-label="Rate">5</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Year">1</td>
-                                        <td data-label="Rate">5</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Year">1</td>
-                                        <td data-label="Rate">5</td>
+                                    <tr v-for="(item, index) in $props.list" :key="index">
+                                        <td data-label="Year">{{item.year}}</td>
+                                        <td data-label="Rate">{{$props.type === 'rate' ? '':'$'}} {{Number(item.value).toLocaleString()}}{{$props.type === 'rate' ? '%':''}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -43,7 +31,7 @@
 </template>
 <script>
 export default {
-    
+    props: ["list", "type", "title"],
 }
 </script>
 <style lang="">

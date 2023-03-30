@@ -11,7 +11,7 @@
                         </svg>
                     </button></router-link>
             </div>
-            <div :class="`container-fluid summary-editBox py-4 ${$props.client && data ? '':'d-none'}`">
+            <div :class="`container-fluid summary-editBox py-4 ${data ? '':'d-none'}`">
                 <form action="">
                     <div class="row">
                         <div class="col-md-6 px-0">

@@ -136,7 +136,7 @@ export default {
         Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
       ) {
         document.getElementById(
-          "rollingCustomAmount"
+          `rollingCustomAmount${this.currentTab}`
         ).value = this.rollingPeriod.max_val;
         this.rollingPeriod.custom = this.rollingPeriod.max_val;
         this.customRollingPeriod = this.rollingPeriod.max_val;

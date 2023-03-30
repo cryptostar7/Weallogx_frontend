@@ -2,7 +2,7 @@
     <div :class="`container my-5 darkbgClrDiv ${data ? '':'d-none'}`">
         <div class="summary-heading">
             <p><span>4 </span>Historical Simulations</p>
-            <router-link :to="`/historical-simulations/${$route.params.scenario}`" class="editbtnCommonAncor"><button
+            <router-link :to="`/historical-simulations/${$route.params.scenario}?review=true`" class="editbtnCommonAncor"><button
                     class="btn editBtnCommon">
                     <svg width="20" height="19" viewBox="0 0 20 19" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651" stroke-width="2" />
@@ -13,40 +13,42 @@
         </div>
         <div class="container-fluid summary-editBox py-4">
             <div class="row">
-                <historical-index-component :data="data.index_strategy_1"/>
-                <historical-index-component :data="data.index_strategy_2"/>
-                <historical-index-component :data="data.index_strategy_3"/>
+                <historical-index-component tab="1" :data="data.index_strategy_1" @setSchedule="setSchedule"/>
+                <historical-index-component tab="2" :data="data.index_strategy_2" @setSchedule="setSchedule"/>
+                <historical-index-component tab="3" :data="data.index_strategy_3" @setSchedule="setSchedule"/>
             </div>
         </div>
+        <performance-multiplier-modal :list="schedules" :type="scheduleType" :title="scheduleTitle"/>
     </div>
 </template>
 <script>
 import { authHeader } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
 import { get } from "../../../network/requests";
-
 import HistoricalIndexComponent from "../review/HistoricalIndexComponent.vue";
-
+import PerformanceMultiplierModal from "../modal/PerformanceMultiplierModal.vue";
 export default {
   props: ["id", "client", "scenarioId"],
-  components: { HistoricalIndexComponent },
+  components: { HistoricalIndexComponent, PerformanceMultiplierModal },
   data() {
     return {
       data: false,
+      schedules: [],
+      scheduleType: 'rate',
+      scheduleTitle: '',
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.data);
-      console.log(this.client);
+    setSchedule: function(data = [], type, title) {
+      this.scheduleType = type;
+      this.schedules = data;
+      this.scheduleTitle = title
     },
     getHistoricalData: function() {
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("historical")}${this.$props.id}`, authHeader())
           .then(response => {
-            console.log("historical ........");
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             let detail = response.data.data;
             console.log(detail);

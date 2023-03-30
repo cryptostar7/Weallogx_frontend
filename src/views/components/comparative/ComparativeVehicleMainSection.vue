@@ -52,7 +52,7 @@
                           <div class="form-group pt-2 less"> 
                             <label for="scenarioName" class="fs-12 medium-fw">Name</label> 
                             <input type="text" id="scenarioName" v-model="vehicle.vehicle1.name" class="form-control" @keyup="() => errors.vehicle1.name = false"/> 
-                            <label class="error" v-if="errors.vehicle1.name">{{errors.vehicle1.name[0]}}</label>
+                            <small class="text-danger" v-if="errors.vehicle1.name">{{errors.vehicle1.name[0]}}</small>
                           </div>
                           <div class="form-group less">
                             <div class=" label-group d-flex justify-content-between align-items-center "> 
@@ -60,6 +60,8 @@
                               <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                             </div>
                             <textarea name="" id="scenarioDesc" cols="30" rows="2" class="form-control" v-model="vehicle.vehicle1.description"></textarea>
+                             <small class="text-danger" v-if="errors.vehicle1.description">{{errors.vehicle1.description[0]}}</small>
+
                           </div>
                           <div class="form-group-wrapper">
                             <div class="form-group"> 
@@ -68,7 +70,7 @@
                                 <input type="number" min="1" max="99" id="ror1" class="form-control handleLimit" @keyup="() => errors.vehicle1.ror = false" /> 
                                 <span class="percent-span">%</span>
                               </div>
-                              <label class="error" v-if="errors.vehicle1.ror">{{errors.vehicle1.ror[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle1.ror">{{errors.vehicle1.ror[0]}}</small>
                             </div>
                             <div class="form-group"> 
                               <label for="fees1" class="fs-12 medium-fw">Fees</label>
@@ -76,7 +78,7 @@
                                 <input type="number" min="0" max="99" id="fees1" class="form-control handleLimit" @keyup="() => errors.vehicle1.fees = false" /> 
                                 <span class="percent-span">%</span>
                               </div>
-                              <label class="error" v-if="errors.vehicle1.fees">{{errors.vehicle1.fees[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle1.fees">{{errors.vehicle1.fees[0]}}</small>
                             </div>
                           </div>
                           <div class="pb-2">
@@ -122,7 +124,7 @@
                           <div class="form-group pt-2 less"> 
                              <label for="scenarioName" class="fs-12 medium-fw">Name</label>
                              <input type="text" id="scenarioName"  class="form-control" v-model="vehicle.vehicle2.name" @keyup="() => errors.vehicle2.name = false" />
-                             <label class="error" v-if="errors.vehicle2.name">{{errors.vehicle2.name[0]}}</label>
+                             <small class="text-danger" v-if="errors.vehicle2.name">{{errors.vehicle2.name[0]}}</small>
                           </div>
                           <div class="form-group less">
                             <div class=" label-group d-flex justify-content-between align-items-center "> 
@@ -130,6 +132,7 @@
                                <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span> 
                               </div>
                               <textarea name="" id="scenarioDesc" cols="30" rows="2" class="form-control"  v-model="vehicle.vehicle2.description"></textarea>
+                             <small class="text-danger" v-if="errors.vehicle2.description">{{errors.vehicle2.description[0]}}</small>
                           </div>
                           <div class="form-group-wrapper">
                             <div class="form-group"> 
@@ -138,7 +141,7 @@
                                 <input type="number" min="1" max="99" id="ror2" class="form-control handleLimit" @keyup="() => errors.vehicle2.ror = false"/> 
                                 <span class="percent-span">%</span>
                               </div>
-                              <label class="error" v-if="errors.vehicle2.ror">{{errors.vehicle2.ror[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle2.ror">{{errors.vehicle2.ror[0]}}</small>
                             </div>
                             <div class="form-group"> 
                               <label for="fees2" class="fs-12 medium-fw">Fees</label>
@@ -146,7 +149,7 @@
                                 <input type="number" min="0" max="99" id="fees2" class="form-control handleLimit" @keyup="() => errors.vehicle2.fees = false" /> 
                                 <span class="percent-span">%</span>
                               </div>
-                              <label class="error" v-if="errors.vehicle2.fees">{{errors.vehicle2.fees[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle2.fees">{{errors.vehicle2.fees[0]}}</small>
                             </div>
                           </div>
                           <div class="pb-2">
@@ -190,7 +193,7 @@
                           <div class="form-group pt-2 less"> 
                             <label for="scenarioName" class="fs-12 medium-fw">Name</label>
                             <input type="text" id="scenarioName" class="form-control" v-model="vehicle.vehicle3.name" @keyup="() => errors.vehicle3.name = false"/> 
-                            <label class="error" v-if="errors.vehicle3.name">{{errors.vehicle3.name[0]}}</label>
+                            <small class="text-danger" v-if="errors.vehicle3.name">{{errors.vehicle3.name[0]}}</small>
                           </div>
                           <div class="form-group less">
                             <div class=" label-group d-flex justify-content-between align-items-center "> 
@@ -198,6 +201,7 @@
                               <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                             </div>
                             <textarea name="" id="scenarioDesc" cols="30" rows="2" class="form-control" v-model="vehicle.vehicle3.description"></textarea>
+                             <small class="text-danger" v-if="errors.vehicle3.description">{{errors.vehicle3.description[0]}}</small>
                           </div>
                           <div class="form-group-wrapper">
                             <div class="form-group"> 
@@ -206,7 +210,7 @@
                                 <input type="number" min="1" max="99" id="ror3" class="form-control handleLimit" @keyup="() => errors.vehicle3.ror = false" />
                                 <span class="percent-span">%</span> 
                               </div>
-                              <label class="error" v-if="errors.vehicle3.ror">{{errors.vehicle3.ror[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle3.ror">{{errors.vehicle3.ror[0]}}</small>
                             </div>
                             <div class="form-group"> 
                               <label for="fees3" class="fs-12 medium-fw">Fees</label>
@@ -214,7 +218,7 @@
                                 <input type="number" min="0" max="99" id="fees3" class="form-control handleLimit" @keyup="() => errors.vehicle3.fees = false"/> 
                                 <span class="percent-span">%</span>
                               </div>
-                              <label class="error" v-if="errors.vehicle3.fees">{{errors.vehicle3.fees[0]}}</label>
+                              <small class="text-danger" v-if="errors.vehicle3.fees">{{errors.vehicle3.fees[0]}}</small>
                             </div>
                           </div>
                           <div class="pb-2">
@@ -1207,6 +1211,23 @@ export default {
             } else {
               this.$toast.error(getFirstError(error));
             }
+            let e = error.response.data.error;
+            if (e) {
+              // console.log(this.errors.vechile1.description);
+
+              // if (e.vehicle_type_1 && e.vehicle_type_1.description) {
+              //   this.errors.vehicle1['description'] = e.vehicle_type_1.description;
+              // }
+
+              // if (e.vehicle_type_2 && e.vehicle_type_2.description) {
+              //   this.errors.vehicle2.description = e.vehicle_type_2.description;
+              // }
+
+              // if (e.vehicle_type_3 && e.vehicle_type_3.description) {
+              //   this.errors.vehicle3.description = e.vehicle_type_3.description;
+              // }
+            }
+
             this.$store.dispatch("loader", false);
           });
       } else {
@@ -1229,6 +1250,7 @@ export default {
             } else {
               this.$toast.error(getFirstError(error));
             }
+            console.log(error.data.error.vehicle_type_1.description);
             this.$store.dispatch("loader", false);
           });
       }

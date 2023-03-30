@@ -34,7 +34,7 @@
               <comparative-vehicles-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.comperative : false" :client="client" />
             <!-- Comparative Vehicles end -->
             
-              <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client"  />
+              <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client" />
             <!-- Historical Vehicles start -->
 
             <button class="d-none" @click="testFunction">Check</button>
@@ -74,24 +74,26 @@ export default {
       console.log();
     },
     getClient: function(clientId) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("client")}${clientId}/`, authHeader())
-        .then(response => {
-          this.client = response.data.data;
-          this.$store.dispatch("loader", false);
-        })
-        .catch(error => {
-          this.$store.dispatch("loader", false);
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            this.$toast.error(getFirstError(error));
-          }
-        });
+      if (clientId) {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("client")}${clientId}/`, authHeader())
+          .then(response => {
+            this.client = response.data.data;
+            this.$store.dispatch("loader", false);
+          })
+          .catch(error => {
+            this.$store.dispatch("loader", false);
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      }
     },
   },
   mounted() {

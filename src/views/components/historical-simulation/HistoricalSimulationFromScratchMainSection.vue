@@ -136,14 +136,15 @@
                     </div>
                   </div> 
                   <div class="text-center mt-30"> 
-                    <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Review</router-link> 
+                    <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
+                    <!-- <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14 mx-2" id="nextBtnVsblOnSlct" @click="submitHandler()">Save & Return Review</router-link>  -->
                     <span class="d-block mb-3"></span>
                     <div class="d-flex position-relative mb-5"> 
-                      <router-link to="select-/historical-index-strategy-allocation" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
+                      <router-link :to="`/${$route.query.review === 'true' ? 'review-summary':'select-historical-index-strategy-allocation'}/${$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
                         <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                       </router-link> 
-                      <router-link to="/review-summary" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
-                      <a href="javascript:void(0)" class="nav-link btn form-back-btn fs-14 skipScenarioBtn">Save Scenario as Draft</a> </div>
+                      <router-link :to="`/review-summary/${$route.params.scenario}`" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
+                      <router-link to="" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" @click="submitHandler(true)">Save Scenario as Draft</router-link> </div>
                   </div>
                 </div>
               </div>
@@ -229,7 +230,6 @@ export default {
       historicalId: false,
       customRollingPeriod1: "",
       portFolioCheckbox: false,
-      saveAsDraft: false,
       portFolioName: "",
       analysis: [],
       growth: [],
@@ -728,6 +728,20 @@ export default {
             // this.strategWeight2 = data.index_strategy_3.strategy_weight;
             this.populateIndex(3, data.index_strategy_3);
           }
+
+          let indexTab = Number(this.$route.query.tab);
+          if (indexTab) {
+            if (indexTab === 1) {
+              this.activeTab = 1;
+            }
+            if (indexTab === 2 && data.index_strategy_2) {
+              this.activeTab = 2;
+            }
+            if (indexTab === 3 && data.index_strategy_3) {
+              this.activeTab = 3;
+            }
+          }
+
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -917,7 +931,7 @@ export default {
     },
 
     // handle form submitted data
-    submitHandler: function() {
+    submitHandler: function(draft = false) {
       this.analysis = this.getAnalysisData();
       this.growth = this.getGrowthData();
       this.enhancements = this.getEnhancementData();
@@ -1089,7 +1103,7 @@ export default {
         },
         // index_strategy_2: null,
         // index_strategy_3: null,
-        save_scenario_as_draft: this.saveAsDraft,
+        save_scenario_as_draft: draft,
         scenario_id: this.$route.params.scenario,
         save_portfolio: this.portFolioCheckbox,
         portfolio_name: this.portFolioCheckbox ? this.portFolioName : "",
@@ -1097,7 +1111,7 @@ export default {
 
       // index strategy data append for first tab
       if (formData.index_strategy_1.performance_multiplier) {
-        formData.index_strategy_1.load_in_advanced_performance_multiplier =
+        formData.index_strategy_1.loan_in_advanced_performance_multiplier =
           fees[0].pmf.fees;
         formData.index_strategy_1.loan_in_advanced_same_in_all_years = fees[0]
           .pmf.same_all_year
@@ -1108,7 +1122,7 @@ export default {
           ? fees[0].pmf.schedule
           : null;
       } else {
-        formData.index_strategy_1.load_in_advanced_performance_multiplier = 1;
+        formData.index_strategy_1.loan_in_advanced_performance_multiplier = 1;
         formData.index_strategy_1.loan_in_advanced_same_in_all_years = true;
         formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = null;
       }
@@ -1213,7 +1227,7 @@ export default {
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
-          formData.index_strategy_2.load_in_advanced_performance_multiplier =
+          formData.index_strategy_2.loan_in_advanced_performance_multiplier =
             fees[1].pmf.fees;
           formData.index_strategy_2.loan_in_advanced_same_in_all_years = fees[1]
             .pmf.same_all_year
@@ -1224,7 +1238,7 @@ export default {
             ? fees[1].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_2.load_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_2.loan_in_advanced_performance_multiplier = 1;
           formData.index_strategy_2.loan_in_advanced_same_in_all_years = true;
           formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = null;
         }
@@ -1330,7 +1344,7 @@ export default {
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
-          formData.index_strategy_3.load_in_advanced_performance_multiplier =
+          formData.index_strategy_3.loan_in_advanced_performance_multiplier =
             fees[2].pmf.fees;
           formData.index_strategy_3.loan_in_advanced_same_in_all_years = fees[2]
             .pmf.same_all_year
@@ -1341,7 +1355,7 @@ export default {
             ? fees[2].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_3.load_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_3.loan_in_advanced_performance_multiplier = 1;
           formData.index_strategy_3.loan_in_advanced_same_in_all_years = true;
           formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = null;
         }
@@ -1489,9 +1503,6 @@ export default {
               template_name: item.template_name,
             });
           });
-
-          console.log("tempplate.........");
-          console.log(temp);
           this.$store.dispatch("template", {
             type: "historical",
             data: temp,
@@ -1556,8 +1567,7 @@ export default {
     if (!this.existingIndex.length) {
       this.getExistingIndex();
     }
-    if (this.$route.query.pid) {
-      console.log('portfolio......')
+    if (this.$route.query.pid && this.$route.query.pid !== 'null') {
       this.populateHistoricalSimulationData(this.$route.query.pid);
     }
   },

@@ -72,7 +72,7 @@
         <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
             <label v-for="(item, index) in MaxLoanInterest" :key="index" :class="index > 1 ? `${item === MaxLoanInterest ? 'ms-1':'mx-1'}`:''">
             <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && loanInterest === item">
-            <span class="fixedStartYear" @click="loanInterest = item">{{item}}%</span>
+            <span class="fixedStartYear" @click="handleLICheckbox(item)" >{{item}}%</span>
             </label>
         </div>
         <div class="d-flex align-items-center">
@@ -132,7 +132,7 @@
                         class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                         <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 1 ? `${item === MaxPerformanceMultiplierFee ? 'ms-1':'mx-1'}`:''">
                         <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && item === performanceFeeAmount ? true : false" class="d-none" />
-                        <span class="fixedStartYear" @click="performanceFeeAmount = item">{{item}}%</span>
+                        <span class="fixedStartYear" @click="handlePMCheckbox(item)" >{{item}}%</span>
                         </label>
                     </div>
                     <div class="d-flex align-items-center">
@@ -182,7 +182,7 @@
                         class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                         <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'mx-1':''">
                         <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && item === flatAmount ? true : false">
-                        <span class="fixedStartYear" @click="flatAmount = item">{{item}}%</span>
+                        <span class="fixedStartYear" @click="handleFCCheckbox(item)" >{{item}}%</span>
                         </label>
                     </div>
                     <div class="d-flex align-items-center">
@@ -232,13 +232,11 @@
                 class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
                 <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'w-100' : 'w-100 mx-2'">
                 <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && hipCapAmount === item ? true : false">
-                <span class="fixedStartYear w-100" @click="hipCapAmount = item">{{item}}%</span>
+                <span class="fixedStartYear w-100"  @click="handleHCCheckbox(item)">{{item}}%</span>
                 </label>
             </div>
             <div class="d-flex align-items-center">
-                <div class="or-div">
-                or
-                </div>
+                <div class="or-div"> or </div>
                 <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
                 <label for="customAmount">Custom Amount</label>
                 <input type="text" class="handleLimit" @keyup="(e) => customHipCapAmount = e.target.value" min="0" max="5" ref="hcCustomRef">
@@ -260,7 +258,6 @@
         <input type="hidden" :value="customHipCapAmount || hipCapAmount" :id="`high_cap_fees${currentTab}`" />
         <input type="hidden" :value="Arrears ? 1 : 0" :id="`in_arrears${currentTab}`" />
     </form>
-    <!--  -->
 </template>
 <script>
 export default {
@@ -296,6 +293,26 @@ export default {
       this.premiumCharge = item;
       this.customPremiumCharge = "";
       this.$refs.customPCRef.value = "";
+    },
+    handleLICheckbox: function(item) {
+      this.loanInterest = item;
+      this.customInterestAmount = "";
+      this.$refs.customLIRef.value = "";
+    },
+    handlePMCheckbox: function(item) {
+      this.performanceFeeAmount = item;
+      this.customPerformanceFeeAmount = "";
+      this.$refs.customPMRef.value = "";
+    },
+    handleFCCheckbox: function(item) {
+      this.flatAmount = item;
+      this.customFlatAmount = "";
+      this.$refs.customFCRef.value = "";
+    },
+    handleHCCheckbox: function(item) {
+      this.hipCapAmount = item;
+      this.customHipCapAmount = "";
+      this.$refs.hcCustomRef.value = "";
     },
   },
   computed: {
