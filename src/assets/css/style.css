@@ -159,6 +159,9 @@ body::-webkit-scrollbar {
 .fs-60 {
   font-size: 3.75rem;
 }
+.td-none{
+  text-decoration: none;
+}
 /* Different Font Weights */
 .thin-fw {
   font-weight: var(--thin-fw);
@@ -2009,6 +2012,10 @@ color: #fff;
   padding: 1rem 1rem 0.5rem 1rem;
   cursor: pointer;
 }
+.drag-drop-label.dragging {
+  background: #f3f3f3;
+  border: 1.25px dashed #a4a4a4;
+}
 .drag-drop-heading {
   position: relative;
 }
@@ -2051,8 +2058,9 @@ color: #fff;
   display: flex;
   justify-content: end;
   position: relative;
-  border-top: 1px solid #DFDFDF;
   border-bottom: 1px solid #DFDFDF;
+  padding-top: 5rem;
+  margin-top: 4rem;
 }
 .review-progress { 
   counter-reset: progressCounter;
@@ -2126,10 +2134,11 @@ color: #fff;
   background: var(--green-clr);
 }
 .ReviewCrossBtn {
-  float: right;
-  display: flex;
-  justify-content: end;
   margin-right: 2rem;
+  
+}
+.ReviewCrossBtn.position{
+  margin-top: -5rem;
 }
 .illusnTableMainDiv button {
   border: 2px solid #F0F0F0;
@@ -2252,7 +2261,7 @@ color: #fff;
   font-weight: 500;
   color: #898989;
 }
-.summaryInputsDiv input {
+.summaryInputsDiv input, .summaryInputsDiv .form-control {
   border: none;
   border-top: 1px solid #E3E3E3;
   background: white;
@@ -2261,6 +2270,7 @@ color: #fff;
   color: #000;
   font-weight: 500;
   padding-left: 0;
+  line-height: 26px;
 }
 .Schedule-para {
   padding: 0.5rem 0;

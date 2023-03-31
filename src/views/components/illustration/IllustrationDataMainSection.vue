@@ -621,7 +621,7 @@ export default {
         // Create a class attributes:
         var classAtt = document.createAttribute("class");
         classAtt.value =
-          "col-6 col-md-3 col-lg-2 p-2 d-flex justify-content-center";
+          "col-6 col-md-4 col-lg-3 p-2 d-flex justify-content-center";
 
         var classAtt2 = document.createAttribute("class");
         classAtt2.value = "previewCard";
@@ -647,7 +647,7 @@ export default {
 
         var pageNumber = i;
         pdf.getPage(pageNumber).then(function(page) {
-          var scale = 0.2;
+          var scale = 0.4;
           var viewport = page.getViewport({ scale: scale });
 
           var context = can.getContext("2d");
@@ -872,9 +872,13 @@ export default {
     dragover(event) {
       event.preventDefault();
       // add blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.add("dragging")
     },
     dragleave(event) {
       // remove blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.remove("dragging")
     },
     handleDragFile: function(e) {
       e.preventDefault();
