@@ -19,10 +19,10 @@ export default {
     },
     getClient: function() {
       this.$store.dispatch("loader", true);
-      get(getUrl("clients"), authHeader())
+      get('https://wlxpy.bizbybot.com/auth/clientlist/132', authHeader())
         .then(response => {
           console.log(response.data);
-          this.$store.dispatch("clients", mapClientList(response.data.data));
+          // this.$store.dispatch("clients", mapClientList(response.data.data));
           this.$store.dispatch("loader", false);
         })
         .catch(error => {

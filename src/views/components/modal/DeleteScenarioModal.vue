@@ -10,8 +10,7 @@
         </div>
         <div class="modal-body text-center">
           <h5 class="modal-title fs-24 semi-bold-fw" id="deleteScenarioModalLabel">Delete Scenario?</h5>
-          <p class="fs-14">This action cannot be undone. To re-add a scenario you will have <br> to go back to Scenario
-            creation.</p>
+          <p class="fs-14">This action cannot be undone. To re-add a scenario you will have <br> to go back to Scenario creation.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" @click="deleteScenario()">Yes, Delete</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
@@ -34,8 +33,6 @@ export default {
       this.$store.dispatch("loader", true);
       remove(`${getUrl("scenario")}${id}/`, authHeader())
         .then(response => {
-          console.log(response.data);
-          console.log("data delete successfully.");
           this.$emit("removeClientScenario", id);
           this.$store.dispatch("loader", false);
           this.$toast.success("Scenario deleted successfully!");

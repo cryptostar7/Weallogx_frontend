@@ -16,14 +16,17 @@
       </main>
     </div>
 
-  <!-- Delete Client Modal -->
-  <delete-client-modal @deleteClient="deleteClient"/>
+    <!-- Delete Client Modal -->
+    <delete-client-modal @deleteClient="deleteClient" />
 
-  <!-- Edit Client Canvas -->
-  <edit-client-canvas-modal :client="client"/>
-  <!-- Delete Scenario Modal -->
-  <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
-  
+    <!-- Edit Client Canvas -->
+    <edit-client-canvas-modal :client="client"/>
+
+    <!-- Delete Scenario Modal -->
+    <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
+
+    <!-- Clone Scenario Modal start -->
+    <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId"/>
   </section>
 </template>
 <script>
@@ -33,6 +36,7 @@ import IndividualClientRow from "./IndividualClientRow.vue";
 import DeleteClientModal from "../modal/DeleteClientModal.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import DeleteScenarioModal from "../modal/DeleteScenarioModal.vue";
+import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
 
 import testClients from "../../../services/dummy-json.js";
 import { get, remove } from "../../../network/requests";
@@ -50,6 +54,7 @@ export default {
     DeleteClientModal,
     DeleteScenarioModal,
     EditClientCanvasModal,
+    CloneScenarioModal,
   },
   data() {
     return {
@@ -59,6 +64,7 @@ export default {
     };
   },
   methods: {
+    // delete client from API
     deleteClient: function() {
       this.$store.dispatch("loader", true);
       remove(`${getUrl("client")}${this.actionId}/`, authHeader())
@@ -80,15 +86,25 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    // this id used for creating a clone and editing the client data
     setActionId: function(id) {
+      console.log(id);
       this.actionId = id;
     },
-    getClient: function() {
+
+    // get client detail from API
+    getClient: function(clone = false) {
       this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())
         .then(response => {
           this.$store.dispatch("clients", mapClientList(response.data.data));
+          console.log(response.data.data);
           this.sortedList = mapClientList(response.data.data);
+          console.log(this.sortedList);
+          if (clone) {
+            this.$toast.success("Scenario clone created successfully!");
+          }
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -102,12 +118,19 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    cloneScenario: function() {
+      this.getClient(true);
+    },
+
+    // remove client data from redux store
     removeClient: function(deleteId) {
       this.sortedList = this.clients.filter(item => {
         return item.id !== deleteId;
       });
       return this.$store.dispatch("clients", this.sortedList);
     },
+
     removeClientScenario: function(deleteId) {
       this.sortedList = this.clients.map(i => {
         i.scenarios = i.scenarios.filter(j => j.id !== Number(deleteId));
@@ -116,16 +139,19 @@ export default {
 
       return this.$store.dispatch("clients", this.sortedList);
     },
+    // sort client list
     newModified: function() {
       return (this.sortedList = this.clients.sort(
         (a, b) => new Date(a.updated_at) - new Date(b.updated_at)
       ));
     },
+    // sort client list
     oldModified: function() {
       return (this.sortedList = this.clients.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
       ));
     },
+    // sort client list
     sortAsc: function() {
       function compare(a, b) {
         if (a.firstname < b.firstname) return -1;
@@ -135,6 +161,7 @@ export default {
 
       return (this.sortedList = this.clients.sort(compare));
     },
+    // sort client list
     sortDesc: function() {
       function compare(a, b) {
         if (a.firstname > b.firstname) return -1;
@@ -144,6 +171,8 @@ export default {
 
       return (this.sortedList = this.clients.sort(compare));
     },
+
+    // update
     updateList(text) {
       this.search = text;
     },

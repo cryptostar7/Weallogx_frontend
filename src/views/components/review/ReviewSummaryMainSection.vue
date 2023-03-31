@@ -73,6 +73,7 @@ export default {
     testFunction: function() {
       console.log();
     },
+    // get client detail from API then save in redux store
     getClient: function(clientId) {
       if (clientId) {
         this.$store.dispatch("loader", true);
@@ -97,6 +98,7 @@ export default {
     },
   },
   mounted() {
+    // get scenario data
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
       .then(response => {

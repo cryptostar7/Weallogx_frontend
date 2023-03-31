@@ -220,6 +220,7 @@ export default {
         this.$store.state.data.clients.forEach(element => {
           if (Number(df_client) === element.id) {
             this.setInputWithId("clientAge", element.age);
+            this.clientAgeYearToIllustrate = element.age;
           }
         });
       }

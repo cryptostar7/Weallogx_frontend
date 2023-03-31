@@ -24,7 +24,7 @@
                                 <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                             </svg>
                         </router-link>
-                        <button class="btn round-btn" data-bs-target="#cloneScenarioModal" data-bs-toggle="modal">
+                        <button class="btn round-btn" data-bs-target="#cloneScenarioModal" @click="$emit('setActionId', item.id)" data-bs-toggle="modal">
                             <span>Clone</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <mask id="path-1-inside-1_904_53" fill="white">
@@ -98,6 +98,7 @@ import config from "../../../services/config.js";
 export default {
   components: { SenarioReports },
   props: ["scenarios"],
+  emits: ["setActionId"],
   data() {
     return {
       listLimit: config.SCENARIO_LIST_LIMIT,

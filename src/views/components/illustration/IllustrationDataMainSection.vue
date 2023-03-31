@@ -327,7 +327,7 @@ export default {
       insuranceTemplateName: "",
       saveIllustrationTemplate: false,
       illustrationTemplateName: "",
-      uploadFromFile: false,
+      uploadFromFile: true,
       addFromFile: false,
       fileLoader: false,
       fileLoader2: false,
@@ -423,13 +423,15 @@ export default {
     document
       .getElementById("pdfPreviewCanvasModal")
       .addEventListener("hidden.bs.modal", function(event) {
-        // document.getElementById("uploading").files = null;
         document.getElementById("uploading").value = null;
-        // document.getElementById("uploading2").files = null;
-        document.getElementById("uploading2").value = null;
+        if(document.getElementById("uploading2")){
+          document.getElementById("uploading2").value = null;
+        }
         document.getElementById("extractPageNumber").value = null;
         document.getElementById("fileName").innerText = "";
-        document.getElementById("fileName2").innerText = "";
+        if(document.getElementById("fileName2")){
+          document.getElementById("fileName2").innerText = "";
+        }
       });
   },
   computed: {
@@ -1284,6 +1286,7 @@ export default {
       this.$refs.file2.value = null;
       this.illustrationFile.file = null;
       this.illustrationFile.name = "";
+      this.fileLoader2 = false;
     },
     addMoreCol: function() {
       this.errors.illustration_file2 = false;
@@ -1305,7 +1308,6 @@ export default {
     },
     addCSVColumn: function() {
       let txt = this.getInputWithId("add_new_csv_col");
-
       if (txt) {
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
