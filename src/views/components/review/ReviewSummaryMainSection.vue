@@ -1,6 +1,6 @@
 <template>
       <section>
-        <div class="reviewProgressMainDiv py-5 mt-5 HistoricalPositionStatic">
+        <div class="reviewProgressMainDiv HistoricalPositionStatic">
             <ul class="mt-1 review-progress" id="reviewProgress">
               <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
               <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
@@ -8,7 +8,7 @@
               <li class="done"><router-link :to="`/select-historical-simulations/${$route.params.scenario}`" class="nav-link p-0">Historical Simulations</router-link></li>
             </ul>
             <router-link to="/">
-              <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
+              <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn position">
             </router-link>
           </div>
         <div class="commonBgColor  py-2">

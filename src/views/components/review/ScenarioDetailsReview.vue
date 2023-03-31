@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-md-4 summaryInputsDiv">
                                         <label for="client name">Client Name</label>
-                                        <input type="text" class="form-control" :value="`${$props.client.firstname} ${$props.client.middlename} ${$props.client.lastname}`" readonly>
+                                        <p type="text" class="form-control ps-0"> {{$props.client.firstname}} {{$props.client.middlename}} {{$props.client.lastname}}</p>
                                     </div>
                                     <div class="col-md-4 summaryInputsDiv">
                                         <label for="client name">Client Age</label>
@@ -54,22 +54,22 @@
                                             <div class="row">
                                                 <div class="col-md-4 summaryInputsDiv">
                                                     <label for="client name">First Tax Rate %</label>
-                                                    <input type="text" class="form-control" :value="`${data.first_tax_rate}%`" readonly>
+                                                    <input type="text" class="form-control ps-2" :value="`${data.first_tax_rate}%`" readonly>
                                                 </div>
                                                 <div class="col-md-4 summaryInputsDiv">
                                                     <label for="client name">Second Tax Rate %</label>
-                                                    <input type="text" class="form-control"  :value="`${data.second_tax_rate}%`" readonly>
+                                                    <input type="text" class="form-control ps-2"  :value="`${data.second_tax_rate}%`" readonly>
                                                 </div>
                                                 <div class="col-md-4 summaryInputsDiv">
                                                     <label for="client name">Second Tax Rate Year</label>
-                                                    <input type="text" class="form-control" :value="data.second_tax_rate_year" readonly>
+                                                    <input type="text" class="form-control ps-2" :value="data.second_tax_rate_year" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div :class="`row px-4 pt-3 tab-pane ${data.schedule_tax_rate_checkbox ? 'active':''}`" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                                    <div :class="`row px-4 py-2 tab-pane ${data.schedule_tax_rate_checkbox ? 'active':''}`" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                                         <div class="col-12">
-                                            <p v-if="data.schedule_tax_rate_checkbox" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#scenarioScheduleTax">Scheduled 
+                                            <p v-if="data.schedule_tax_rate_checkbox" class="Schedule-para d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#scenarioScheduleTax">Scheduled 
                                                 <button type="button" class="schedule-icon-btn">
                                                     <svg width="15" height="13" viewBox="0 0 15 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                         <rect x="0.375" y="0.375" width="14.25" height="12.25"  rx="0.625" stroke="#0E6651" stroke-width="0.75" />
@@ -80,7 +80,7 @@
                                                     </svg>
                                                 </button>
                                             </p>
-                                            <p v-else>...</p>
+                                            <p v-else class="text-center py-1">No Scheduled Tax Rate</p>
                                         </div>
                                     </div>
                                 </div>
