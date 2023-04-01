@@ -68,9 +68,9 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <button v-if="!showAllList" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
-        <button v-else role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
+     <div class="text-center" v-if="senarioReportList.length >= reportListLimit">
+        <button v-if="!showAllList && senarioReportList.length > reportListLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
+        <button v-if="showAllList" role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
     </div>
 </template>
 <script>

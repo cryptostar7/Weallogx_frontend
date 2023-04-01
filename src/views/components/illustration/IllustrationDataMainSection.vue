@@ -60,7 +60,7 @@
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
-                      <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
+                      <input type="Number" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
                       <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
                     </div>
                   </div>
@@ -71,23 +71,17 @@
                     <button :class="`nav-link ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
                       <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                        <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
-                          stroke="black" stroke-width="0.5" />
-                        <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
-                          transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                        <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"
-                          transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                        <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)"
-                          stroke="black" stroke-width="0.5" />
-                        <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25"
-                          transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
+                        <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
+                        <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
+                        <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"  transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
+                        <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
+                        <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
                       </svg> &nbsp;Upload From File 
                     </button> 
                   </li>
                   <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
                     <button :class="`nav-link ${uploadFromFile ? '' : 'active'}`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
-                      <svg class="copyPaste" width="11" height="11"
-                        viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg class="copyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="7" height="7" rx="1" fill="black" />
                         <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
                       </svg> &nbsp;Copy/Paste 
@@ -108,7 +102,6 @@
                         <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
                         <button type="button" class="btn choose-file-btn"> Choose File </button> 
                         <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
-
                          <div :class="`pdf-spinner text-center ${fileLoader ? '' : 'd-none'}`">
                           <div>
                             <div class="d-flex justify-content-center">
@@ -118,10 +111,8 @@
                           </div>
                         </div>
                       </label>
-                     
                       <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${illustrationFile.type === 'new' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
                     </div>
-                    
                   </div>
                   <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
                     <small class="text-danger" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</small>

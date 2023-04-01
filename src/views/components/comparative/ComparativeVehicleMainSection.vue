@@ -44,7 +44,7 @@
                     </ul>
                     <form class="tab-content" autocomplete="off">
                       <div :class="`tab-pane ${vehicle.tab === 1 ? 'active':''}`" id="vehicleType1Tab" role="tabpanel" aria-labelledby="vehicleType1-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" :defaultSelected="defaultVehicle.vehicle1.template_name" @onSelectItem="(e) => setVehicleType(1, e)" @inputText="(e) => setVehicleTypeName(1, e)" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" :defaultSelected="defaultVehicle.vehicle1.template_name" @onSelectItem="(e) => setVehicleType(1, e)" @inputText="(e) => setVehicleTypeName(1, e)" :showAll="true"/>
                         <div :class="`${this.vehicle.vehicle1.type_id && vehicleSelected ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea1">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle1" @clearError="() => errors.existing_vehicle1 = false" @onSelectItem="(e) => setExistingVehicle(1, e)" @inputText="(e) => setExistingVehicleName(1, e)"/> 
                           <span class="or-text-span">or</span>

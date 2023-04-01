@@ -80,15 +80,15 @@
                             </svg>
                         </button>
                     </div>
-                    <router-link to="/report-builder" class="btn scenario-add-report-btn">+ Add Report</router-link>
+                    <router-link :to="`/report-builder?scenario=${item.id}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
             <SenarioReports :senarioReports="item.reports" :collapseCustomId="`innerReportCollapse${index}`"/>
         </div>
     </div>
-     <div class="text-center">
-        <button v-if="!showAllList" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
-        <button v-else role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
+    <div class="text-center" v-if="scenariosList.length >= listLimit">
+        <button v-if="!showAllList && scenariosList.length > listLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
+        <button v-if="showAllList" role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
     </div>
     <input type="hidden" id="deleteScenarioId"/>
 </template>
