@@ -95,7 +95,7 @@ export default {
   watch: {
     "scenarioDetails"(e) {
       if(e){
-        this.name = e;
+        this.name = `Copy of ${e}`;
       }
     },
   },
