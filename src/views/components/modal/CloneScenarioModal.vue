@@ -10,8 +10,8 @@
         <div class="modal-body pt-0 text-center">
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
-              <button class="modalReportBuilderBr">Br</button>
-              <h2 class="modalReportBuilderBrTxt">Bryant, Roger <span>Allianz Parse</span></h2>
+              <button class="modalReportBuilderBr" v-if="clientDetail">{{$sortName(`${clientDetail.firstname.trim()} ${clientDetail.lastname.trim()}`)}}</button>
+              <h2 class="modalReportBuilderBrTxt" v-if="clientDetail">{{clientDetail.firstname || ""}} {{clientDetail.middlename || ""}} {{clientDetail.lastname || ""}} <span>{{scenarioDetails}}</span></h2>
             </div>
           </div>
           <div class="modalParaBorderDiv">
@@ -40,7 +40,7 @@ import { authHeader, getFirstError } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
 import { post } from "../../../network/requests";
 export default {
-  props: ["id"],
+  props: ["id", "client"],
   emits: ["cloneScenario"],
   data() {
     return { name: "" };
@@ -49,7 +49,11 @@ export default {
     cloneScenario: function() {
       var id = this.$props.id;
       this.$store.dispatch("loader", true);
-      post(`${getUrl("scenario")}${id}/clone/`, { name: this.name }, authHeader())
+      post(
+        `${getUrl("scenario")}${id}/clone/`,
+        { name: this.name },
+        authHeader()
+      )
         .then(response => {
           this.$emit("cloneScenario", id);
         })
@@ -67,9 +71,32 @@ export default {
         });
     },
   },
+  computed: {
+    clientDetail() {
+      let clients = this.$store.state.data.clients || [];
+      return clients.filter(item => item.id === this.$props.client)[0];
+    },
+    scenarioDetails() {
+      let sid = this.$props.id;
+      let detail = this.clientDetail || [];
+      let scenario = [];
+      if (detail.scenarios) {
+        scenario = detail.scenarios.filter(
+          item => item.id === this.$props.id
+        )[0];
+      }
+
+      if (scenario.scenario_details) {
+        scenario = scenario.scenario_details;
+      }
+      return scenario.name || "";
+    },
+  },
   watch: {
-    "$props.name"(e) {
-      this.name = e;
+    "scenarioDetails"(e) {
+      if(e){
+        this.name = e;
+      }
     },
   },
 };

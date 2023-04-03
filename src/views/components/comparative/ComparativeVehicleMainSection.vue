@@ -309,7 +309,7 @@ export default {
           type: "",
           templateCheckbox: false,
           template_name: "",
-          capitalGains: true,
+          capitalGains: false,
           name: "",
           description: "",
           ror: "",
@@ -326,7 +326,7 @@ export default {
           type: "",
           templateCheckbox: false,
           template_name: "",
-          capitalGains: true,
+          capitalGains: false,
           name: "",
           description: "",
           ror: "",
@@ -343,7 +343,7 @@ export default {
           type: "",
           templateCheckbox: false,
           template_name: "",
-          capitalGains: true,
+          capitalGains: false,
           name: "",
           description: "",
           ror: "",
@@ -589,6 +589,7 @@ export default {
       this.vehicleSelected = true;
       this.vehicle[`vehicle${vType}`].type_id = Number(val);
       this.vehicle.tab = val ? vType : false;
+      this.vehicle[`vehicle${vType}`].capitalGains = Number(val)  === 1 ? false : true;
     },
 
     // set the input value using the input id attribute

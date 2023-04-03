@@ -26,7 +26,7 @@
     <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
 
     <!-- Clone Scenario Modal start -->
-    <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId"/>
+    <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId" :client="clinetId"/>
   </section>
 </template>
 <script>
@@ -61,6 +61,7 @@ export default {
       sortedList: false,
       search: "",
       actionId: false,
+      clinetId: false,
     };
   },
   methods: {
@@ -88,9 +89,10 @@ export default {
     },
 
     // this id used for creating a clone and editing the client data
-    setActionId: function(id) {
+    setActionId: function(id, client=false) {
       console.log(id);
       this.actionId = id;
+      this.clinetId = client;
     },
 
     // get client detail from API

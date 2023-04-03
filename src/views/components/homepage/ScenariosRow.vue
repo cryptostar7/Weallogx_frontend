@@ -3,7 +3,7 @@
         <div v-if="Number(index) < listLimit" class="list-item">
             <div class="list-item-inner">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/scenario-details/${item.id}`">{{ item.scenario_details.name }}</router-link></p>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/scenario-details/${item.id}`">{{ item.scenario_details.name }} {{ item.is_draft ? '(Draft)':''}}</router-link></p>
                     <label class="medium-fw">{{item.scenario_details.name}} {{item.illustration_age || 18}} YEARS</label>
                 </div>
                 <div class="list-item-actions">
@@ -13,7 +13,7 @@
                             <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D" />
                             <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                         </svg>&nbsp;
-                        {{item.created_at}}
+                        {{item.created_at}} 
                     </label>
                     <div class="round-btns">
                         <router-link :to="`/scenario-details/${item.id}`" class="btn round-btn">

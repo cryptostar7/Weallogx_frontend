@@ -1405,7 +1405,7 @@ export default {
         this.$toast.warning("No column selected for deletion.");
       }
     },
-    parseRow: function(row) {
+    parseRow2: function(row) {
       var insideQuote = false;
       var entries = [];
       var entry = [];
@@ -1414,6 +1414,25 @@ export default {
           insideQuote = !insideQuote;
         } else {
           entry.push(character.replace("\r", ""));
+        }
+      });
+      entries.push(entry.join(""));
+      return entries;
+    },
+    parseRow: function(row) {
+      var insideQuote = false;
+      var entries = [];
+      var entry = [];
+      row.split("").forEach(function(character) {
+        if (character === '"') {
+          insideQuote = !insideQuote;
+        } else {
+          if (character == "," && !insideQuote) {
+            entries.push(entry.join(""));
+            entry = [];
+          } else {
+            entry.push(character);
+          }
         }
       });
       entries.push(entry.join(""));
@@ -1437,7 +1456,11 @@ export default {
           if (values.match("\t")) {
             data = data.map(i => i.split("\t"));
           } else {
-            data = data.map(i => this.parseRow(i));
+            if(values.match('\"')){
+              data = data.map(i => this.parseRow(i));
+            }else{
+              data = data.map(i => this.parseRow2(i));
+            }
           }
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
@@ -1462,7 +1485,6 @@ export default {
   },
 };
 </script>
-
 
 <style>
 .previewCard {
