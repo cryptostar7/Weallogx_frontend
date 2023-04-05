@@ -1,7 +1,7 @@
 <template lang="">
     <div class="reportBuilderLft2 px-3 py-4">
         <div class="reportBldrLftscroll checkbox-wrapper-2">
-            <draggable class="dragArea list-group w-full" :list="list" @change="log">
+            <draggable class="dragArea list-group w-full" :list="list">
                 <div  data-empty="0" v-for="element in list" :key="element.id" :class="`empty ${$store.state.app.presentation_mode && !activeTabs[element.key] ? 'd-none':''}`">
                     <div class="fill" data-fill="1">
                         <div :class="`reportBuilderLftInner px-10 mb-3 rightCollapseDivs7 ${activeTabs[element.key] ? 'active':''} ${element.key === presentation_tab ? 'linkActive':''}`" @click="handleTabs(element.key)">

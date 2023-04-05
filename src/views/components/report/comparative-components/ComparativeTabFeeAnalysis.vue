@@ -8,9 +8,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox6" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 commonRadioBtn1 rightCheckBox6" rightCheckAttr="6"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox6" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 commonRadioBtn1 rightCheckBox6" rightCheckAttr="6" @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -29,17 +27,13 @@
             <div class="px-3 pt-3 pb-2">
               <div class="d-flex justify-content-center">
                 <div class="nav SwtchBtnRprtBldr wide nav-pills" role="tablist" aria-orientation="vertical">
-                  <div class="active" id="v-pills-annualFees-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-annualFees" type="button" role="tab" aria-controls="v-pills-annualFees"
-                    aria-selected="true">
+                  <div class="active" id="v-pills-annualFees-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-annualFees" type="button" role="tab" aria-controls="v-pills-annualFees" aria-selected="true">
                     Annual Fees
                   </div>
-                  <div id="v-pills-comulativeFees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees"
-                    type="button" role="tab" aria-controls="v-pills-comulativeFees" aria-selected="false">Cumulative
+                  <div id="v-pills-comulativeFees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees" type="button" role="tab" aria-controls="v-pills-comulativeFees" aria-selected="false">Cumulative
                     Fees
                   </div>
-                  <div id="v-pills-valueEfficiency-tab" data-bs-toggle="pill" data-bs-target="#v-pills-valueEfficiency"
-                    type="button" role="tab" aria-controls="v-pills-valueEfficiency" aria-selected="false">Value
+                  <div id="v-pills-valueEfficiency-tab" data-bs-toggle="pill" data-bs-target="#v-pills-valueEfficiency" type="button" role="tab" aria-controls="v-pills-valueEfficiency" aria-selected="false">Value
                     Efficiency
                   </div>
                 </div>

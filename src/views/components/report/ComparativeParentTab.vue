@@ -24,6 +24,9 @@ export default {
     ComparativeTabLegacy,
     ComparativeTabFeeAnalysis,
   },
+  mounted() {
+    console.log('comparative analysis');
+  },
 };
 </script>
 <style lang="">

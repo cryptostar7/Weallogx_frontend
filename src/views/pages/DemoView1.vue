@@ -8,21 +8,13 @@ import { mapClientList, authHeader } from "../../services/helper";
 import { getUrl } from "../../network/url";
 import { get } from "../../network/requests";
 export default {
-  mounted() {
-    if (!this.$store.state.data.clients) {
-      this.getClient();
-    }
-  },
+
   methods: {
     testFunction: function() {
-      this.$store.dispatch("removeScenario", 96);
-    },
-    getClient: function() {
       this.$store.dispatch("loader", true);
-      get('https://wlxpy.bizbybot.com/auth/clientlist/132', authHeader())
+      get('https://wlxpy.bizbybot.com/report/calc/', authHeader())
         .then(response => {
           console.log(response.data);
-          // this.$store.dispatch("clients", mapClientList(response.data.data));
           this.$store.dispatch("loader", false);
         })
         .catch(error => {

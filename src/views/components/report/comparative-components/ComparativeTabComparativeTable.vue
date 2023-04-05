@@ -667,6 +667,9 @@ export default {
       },
     };
   },
+  mounted() {
+    console.log(this.target_analysis);
+  },
   watch: {
     "$store.state.app.presentation_mode"(val) {
       if (

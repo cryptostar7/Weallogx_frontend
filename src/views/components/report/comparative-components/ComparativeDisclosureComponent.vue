@@ -93,7 +93,7 @@
 <script>
 
 export default {
-  props:['hideFee'],
+  props:['hideFee', "feetab"],
   data() {
     return {
       saveDisclosure: false,

@@ -35,7 +35,7 @@ import { RouterLink } from "vue-router";
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </section>
 </template>

@@ -8,6 +8,10 @@ const myPlugin = {
         app.config.globalProperties.$numFormatWithDollar = (key) => {
             return key ? '$' + Number(key).toLocaleString() : '-';
         },
+        app.config.globalProperties.$dateFormat = (date) => {
+            let temp = new Date(date);
+            return `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear().toString().slice(-2)}`
+        },
         app.config.globalProperties.$appTheme = () => {
             return localStorage.getItem("mode") || 'light-green';
         },
