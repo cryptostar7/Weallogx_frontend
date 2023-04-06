@@ -22,13 +22,14 @@
       </div>
       <main class="ms-sm-autopx-md-4 report-builder-right-area comparative-sections">
         <div class="right-area-inner p-relative">
-          <div class="right-area-wrapper">
+      <!-- <button @click="testFunction()">Test</button> -->
+          <div class="right-area-wrapper" v-if="Object.keys(comparativeReport).length">
             <client-detail-component />
-            <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
-            <draggable class="dragArea list-group w-full" :list="list.comparative">
-              <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" />
-            </draggable>
-            </div>
+              <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
+                <draggable class="dragArea list-group w-full" :list="list.comparative">
+                  <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" />
+                </draggable>
+              </div>
             <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`">
               <draggable class="dragArea list-group w-full" :list="list.historical">
                 <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
@@ -49,6 +50,9 @@ import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
 import ShareReportModal from "./../modal/ShareReportModal.vue";
 import { VueDraggableNext } from "vue-draggable-next";
+import { get } from '../../../network/requests';
+import { authHeader } from '../../../services/helper';
+import { getUrl } from '../../../network/url';
 
 export default {
   components: {
@@ -71,11 +75,15 @@ export default {
     };
   },
   methods: {
+    testFunction: function(){
+      console.log(this.comparativeReport);
+    },
     getComparativeData: function(id){
       this.$store.dispatch("loader", true);
-      get('https://wlxpy.bizbybot.com/report/calc/', authHeader())
+      get(getUrl('comparative_report'), authHeader())
         .then(response => {
           console.log(response.data);
+          this.$store.dispatch("comparativeReport", response.data);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -92,6 +100,7 @@ export default {
   },
   mounted(){
     console.log('report builder');
+    this.getComparativeData(this.$route.params.scenario);
     let eachInput = document.querySelectorAll('.tableHeadInputs');
     eachInput.forEach(function (eachInputFun) {
       eachInputFun.addEventListener('click', function (e) {
@@ -115,7 +124,6 @@ export default {
        addNoteInput.focus();
       });
     });
-
     addNoteInputs.forEach(function(input){
       input.addEventListener("focusout", function(e){
         let val = input.value;
@@ -164,6 +172,11 @@ export default {
         addNoteInput.focus();
       });
     });
+  },
+  computed: {
+    comparativeReport(){
+      return this.$store.state.data.report.comparative;
+    }
   }
 };
 </script>

@@ -12,7 +12,7 @@
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
-              </div>
+              </div>                                   
               <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table</label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
@@ -23,9 +23,7 @@
             </div>
           </div>
           <div>
-            <div
-              :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`"
-              :style="{display:activeTabs[keyId] ? 'block':'none'}">
+            <div :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
               <div class="px-3 py-3">
                 <div class="position-relative">
@@ -91,11 +89,8 @@
                               <div class="d-flex align-items-center">
                                 <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"  class="deleteBtnAccount disableBtnsForAll">&nbsp;
                                   <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                      stroke="#1660A4" stroke-width="1.25"></path>
-                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                      transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
+                                    <path d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z" stroke="#1660A4" stroke-width="1.25"></path>
+                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625" transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
                                   </svg>
                                 </a>
                               </div>
@@ -233,7 +228,7 @@
                                             <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`" :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
-                                          </div>
+                                          </div>                                                                                                                                                                                                              
                                           <div class="d-flex align-items-center">
                                             <a href="javascript:void(0)" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
@@ -399,6 +394,7 @@
                 </div>
               </div>
             </div>
+            <button @click="testFunction()">Test</button>
             <comparative-disclosure-component v-if="activeTabs[keyId]" :hideFee="true"/>
           </div>
         </div>
@@ -669,6 +665,117 @@ export default {
   },
   mounted() {
     console.log(this.target_analysis);
+    console.log(this.comparativeTable);
+    this.mapData();
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.target_analysis);
+      console.log(this.comparativeTable);
+    },
+    mapData: function() {
+      let ct = this.comparativeTable;
+      let tempData = {
+        distributions: [],
+        data: [{}, {}, {}, {}],
+      };
+      let obj1 = ct.tax_result.comparison.table_output;
+      let obj2 = ct.pretax_result.comparison.table_output;
+      let obj3 = ct.tda_result.comparison.table_output;
+
+      if (obj1) {
+        let list = [];
+        let dst = [];
+        let details = {
+          id: 0,
+          ror: ct.tax_result.comparison.ror+"%",
+          irr: ct.tax_result.comparison.irr_percent + "%",
+          type: "LifePro+",
+        };
+        obj1.forEach((item, index) => {
+          let ar = {
+            distributions: item[5],
+            account_value: item[16],
+            surrender_value: item[17],
+            death_benifit: item[18],
+            net_balance: item[13],
+          };
+          let ar2 = {
+            year: item[0],
+            age: item[1],
+            deposits: item[3],
+          };
+          if (index) {
+            list.push(ar);
+            dst.push(ar2);
+          }
+        });
+        details.list = list;
+        tempData.distributions = dst;
+        tempData.data[0] = details;
+        details.id = 1;
+        details.type = "Account";
+        tempData.data[1] = details;
+
+        this.summary_data.deposits.totals =
+          ct.tax_result.comparison.total_value;
+        this.summary_data.deposits.shortfall =
+          ct.tax_result.comparison.diff_from_lirp;
+      }
+
+      if (obj2) {
+        let list = [];
+        let details = {
+          id: 2,
+          ror: ct.pretax_result.comparison.ror+"%",
+          irr: ct.pretax_result.comparison.irr_percent + "%",
+          type: "401K/IRA",
+        };
+        obj2.forEach((item, index) => {
+          let ar = {
+            distributions: item[13],
+            account_value: null,
+            surrender_value: null,
+            death_benifit: null,
+            net_balance: item[15],
+          };
+          if (index) {
+            list.push(ar);
+          }
+        });
+        details.list = list;
+        tempData.data[2] = details;
+      }
+
+      if (obj3) {
+        let list = [];
+        let details = {
+          id: 3,
+          ror: ct.tda_result.comparison.ror+"%",
+          irr: ct.tda_result.comparison.irr_percent + "%",
+          type: "Annuity",
+        };
+        obj3.forEach((item, index) => {
+          let ar = {
+            distributions: item[10],
+            account_value: null,
+            surrender_value: null,
+            death_benifit: null,
+            net_balance: item[17],
+          };
+          if (index) {
+            list.push(ar);
+          }
+        });
+        details.list = list;
+        tempData.data[3] = details;
+      }
+
+      console.log(tempData);
+      this.target_analysis = tempData;
+      console.log(tempData);
+      // console.log(ct.tax_result.comparison.chart_output.distributions)
+    },
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -684,6 +791,11 @@ export default {
           element.active = true;
         });
       }
+    },
+  },
+  computed: {
+    comparativeTable() {
+      return this.$store.state.data.report.comparative;
     },
   },
 };

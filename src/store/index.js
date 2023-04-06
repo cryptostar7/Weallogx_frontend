@@ -167,6 +167,9 @@ const store = createStore({
         },
         setTemplate(state, payload){
             state.data.templates[payload.type] = payload.data;
+        },
+        setComparativeReport(state, payload){
+            state.data.report.comparative = payload;
         }
     },
     actions: {
@@ -226,7 +229,7 @@ const store = createStore({
         template(context, payload) {
             context.commit('setTemplate', payload);
         },     
-        comparativeReport() {
+        comparativeReport(context, payload) {
             context.commit('setComparativeReport', payload);
         } 
     }

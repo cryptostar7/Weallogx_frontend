@@ -65,16 +65,31 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/historical/`;
     case 'historical-template':
       return `${baseUrl}/auth/indexstrategy-template/`;
-      case 'historical-portfolio':
-        return `${baseUrl}/auth/historical-portfolio/`;
+    case 'historical-portfolio':
+      return `${baseUrl}/auth/historical-portfolio/`;
     case 'strategy-index1':
       return `${baseUrl}/auth/indexstrategy1/`;
     case 'strategy-index2':
       return `${baseUrl}/auth/indexstrategy2/`;
     case 'strategy-index3':
       return `${baseUrl}/auth/indexstrategy3/`;
-
+    case 'comparative_report':
+      return `${baseUrl}/report/calc/`
+    case 'comparative_report_longevity':
+      return `${baseUrl}/report/longegivity/`
+    case 'comparative_report_ending_value':
+      return `${baseUrl}/report/surrender/`
+    case 'comparative_report_death_benifit':
+      return `${baseUrl}/report/death/`
+    case 'comparative_report_longevity_ror':
+      return `${baseUrl}/report/longevity-ror/`
+    case 'comparative_report_surrender_ror':
+      return `${baseUrl}/report/surrender-ror/`
+    case 'comparative_report_death_benifit_ror':
+      return `${baseUrl}/report/death-ror/`
     default:
       return baseUrl;
   }
 };
+
+
