@@ -83,7 +83,7 @@
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benifit)}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -167,12 +167,12 @@
                             </div>
                           </div>
                           <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benifit ? '': 'disableGroupedBar'}`">
+                            <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:data.distribution[index].death_benifit_in_percent}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:data.distribution[index].death_benefit_in_percent}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                  $<span :class="`thingEqualProg${9+index}`">{{$numFormat(data.distribution[index].death_benifit)}}</span>
+                                  $<span :class="`thingEqualProg${9+index}`">{{$numFormat(data.distribution[index].death_benefit)}}</span>
                                 </div>
                               </div>
                             </div>
@@ -185,7 +185,7 @@
                                 <div class="d-flex">
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" checked v-model="graphs.distributions.death_benifit" />
+                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" checked v-model="graphs.distributions.death_benefit" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -247,7 +247,7 @@
                             </div>
                             <div class="position-up" v-if="index">
                               <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benifit_in_percent}}</p>
+                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benefit_in_percent}}</p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -328,12 +328,12 @@
                             </div>
                           </div>
                           <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benifit ? '': 'disableGroupedBar'}`">
+                            <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:data.rate_of_returns[index].death_benifit_in_percent}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:data.rate_of_returns[index].death_benefit_in_percent}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${9+index}`">{{data.rate_of_returns[index].death_benifit_in_percent}}</span>
+                                <span :class="`thingEqualProg${9+index}`">{{data.rate_of_returns[index].death_benefit_in_percent}}</span>
                                 </div>
                               </div>
                             </div>
@@ -346,7 +346,7 @@
                                 <div class="d-flex">
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" :checked="graphs.rate_of_returns.death_benifit" v-model="graphs.rate_of_returns.death_benifit" />
+                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" :checked="graphs.rate_of_returns.death_benefit" v-model="graphs.rate_of_returns.death_benefit" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
@@ -401,12 +401,12 @@ export default {
         distributions: {
           longevity: true,
           ending_value: true,
-          death_benifit: true,
+          death_benefit: true,
         },
         rate_of_returns: {
           longevity: true,
           ending_value: true,
-          death_benifit: true,
+          death_benefit: true,
         },
       },
       data: {
@@ -417,8 +417,8 @@ export default {
             longevity_in_percent: "40%",
             ending_value: 15044,
             ending_value_in_percent: "55%",
-            death_benifit_in_percent: "75%",
-            death_benifit: 35044,
+            death_benefit_in_percent: "75%",
+            death_benefit: 35044,
           },
           {
             type: "Account",
@@ -426,8 +426,8 @@ export default {
             longevity_in_percent: "30%",
             ending_value: 75044,
             ending_value_in_percent: "45%",
-            death_benifit_in_percent: "65%",
-            death_benifit: 45044,
+            death_benefit_in_percent: "65%",
+            death_benefit: 45044,
           },
           {
             type: "401/IRA",
@@ -435,8 +435,8 @@ export default {
             longevity_in_percent: "80%",
             ending_value: 82330,
             ending_value_in_percent: "55%",
-            death_benifit_in_percent: "19%",
-            death_benifit: 15044,
+            death_benefit_in_percent: "19%",
+            death_benefit: 15044,
           },
           {
             type: "Annuity",
@@ -444,8 +444,8 @@ export default {
             longevity_in_percent: "60%",
             ending_value: 65044,
             ending_value_in_percent: "25%",
-            death_benifit_in_percent: "95%",
-            death_benifit: 61044,
+            death_benefit_in_percent: "95%",
+            death_benefit: 61044,
           },
         ],
         rate_of_returns: [
@@ -453,25 +453,25 @@ export default {
             type: "LifePro+",
             longevity_in_percent: "60%",
             ending_value_in_percent: "30%",
-            death_benifit_in_percent: "50%",
+            death_benefit_in_percent: "50%",
           },
           {
             type: "Account",
             longevity_in_percent: "30%",
             ending_value_in_percent: "46%",
-            death_benifit_in_percent: "80%",
+            death_benefit_in_percent: "80%",
           },
           {
             type: "401/IRA",
             longevity_in_percent: "45%",
             ending_value_in_percent: "50%",
-            death_benifit_in_percent: "65%",
+            death_benefit_in_percent: "65%",
           },
           {
             type: "Annuity",
             longevity_in_percent: "50%",
             ending_value_in_percent: "34%",
-            death_benifit_in_percent: "19%",
+            death_benefit_in_percent: "19%",
           },
         ],
       },
@@ -491,11 +491,11 @@ export default {
         });
           this.graphs.distributions.longevity = false;
           this.graphs.distributions.ending_value = false;
-          this.graphs.distributions.death_benifit = false;
+          this.graphs.distributions.death_benefit = false;
 
           this.graphs.rate_of_returns.longevity = false;
           this.graphs.rate_of_returns.ending_value = false;
-          this.graphs.rate_of_returns.death_benifit = false;
+          this.graphs.rate_of_returns.death_benefit = false;
       } else {
         this.cards.distributions.forEach(element => {
           element.active = true;
@@ -506,10 +506,10 @@ export default {
 
         this.graphs.distributions.longevity = true;
         this.graphs.distributions.ending_value = true;
-        this.graphs.distributions.death_benifit = true;
+        this.graphs.distributions.death_benefit = true;
         this.graphs.rate_of_returns.longevity = true;
         this.graphs.rate_of_returns.ending_value = true;
-        this.graphs.rate_of_returns.death_benifit = true;
+        this.graphs.rate_of_returns.death_benefit = true;
       }
     },
   },

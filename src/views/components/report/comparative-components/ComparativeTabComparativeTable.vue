@@ -39,40 +39,38 @@
                 </div><br>
                 <div class="d-flex justify-content-center mt-2">
                   <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"  role="tab" aria-controls="v-pills-distribution" aria-selected="true">Distribution</div>
-                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab" aria-controls="v-pills-rate-of-return" aria-selected="false">Rate of Return</div>
+                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"  role="tab" aria-controls="v-pills-distribution" aria-selected="true" @click="setCurrentTab('target_analysis')">Distribution</div>
+                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab" aria-controls="v-pills-rate-of-return" aria-selected="false" @click="setCurrentTab('rate_of_return')">Rate of Return</div>
                   </div>
                 </div>
                 <div class="tab-content">
-                  <div class="tab-pane fade show active" id="v-pills-distribution" role="tabpanel"
-                    aria-labelledby="pills-home-tab">
+                  <div class="tab-pane fade show active" id="v-pills-distribution" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="d-flex justify-content-center mt-2">
                       <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Amount</div>
-                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                        <div :class="currentFilter === 'default' ? 'active' : ''" id="v-pills-default-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true"  @click="setCurrentFilter('default')">Amount</div>
+                        <div :class="currentFilter === 'longevity' ? 'active' : ''" id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true" @click="setCurrentFilter('longevity')">
                           Longevity
                         </div>
-                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"  type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending  Value</div>
-                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit"  type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death  Benefit</div>
+                        <div :class="currentFilter === 'endingvalue' ? 'active' : ''" id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"  type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true"  @click="setCurrentFilter('endingvalue')">Ending  Value</div>
+                        <div :class="currentFilter === 'deathBenefit' ? 'active' : ''" id="v-pills-deathBenefit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenefit"  type="button" role="tab" aria-controls="v-pills-deathBenefit" aria-selected="true"  @click="setCurrentFilter('deathBenefit')">Death  Benefit</div>
                       </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="v-pills-rate-of-return" role="tabpanel"
-                    aria-labelledby="pills-home-tab">
+                  <div class="tab-pane fade" id="v-pills-rate-of-return" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="d-flex justify-content-center mt-2">
                       <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div class="active" id="v-pills-default-tab" data-bs-toggle="pill" data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Default</div>
-                        <div id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true">
+                        <div :class="currentFilter === 'default' ? 'active' : ''" id="v-pills-default-tab" data-bs-toggle="pill" data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true" @click="setCurrentFilter('default')">Default</div>
+                        <div :class="currentFilter === 'longevity' ? 'active' : ''" id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true" @click="setCurrentFilter('longevity')">
                           Longevity
                         </div>
-                        <div id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue" type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true">Ending Value</div>
-                        <div id="v-pills-deathBenifit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenifit" type="button" role="tab" aria-controls="v-pills-deathBenifit" aria-selected="true">Death Benefit</div>
+                        <div :class="currentFilter === 'endingvalue' ? 'active' : ''" id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue" type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true" @click="setCurrentFilter('endingvalue')">Ending Value</div>
+                        <div :class="currentFilter === 'deathBenefit' ? 'active' : ''" id="v-pills-deathBenefit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenefit" type="button" role="tab" aria-controls="v-pills-deathBenefit" aria-selected="true" @click="setCurrentFilter('deathBenefit')">Death Benefit</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="container-fluid table-fluid mt-5">
-                  <div class="row tablesMainDiv">
+                  <div class="row tablesMainDiv" v-if="target_analysis.data.length">
                     <div class="col-3 col-md-2 pe-1">
                       <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
                         <div class="dblLineAbslt">
@@ -204,7 +202,7 @@
                               <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/></td>
                               <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td> 
                               <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(item.surrender_value)" readonly/></td>
-                              <td data-label="death"><input type="text" :value="$numFormatWithDollar(item.death_benifit)" readonly/></td>
+                              <td data-label="death"><input type="text" :value="$numFormatWithDollar(item.death_benefit)" readonly/></td>
                             </tr>
                           </tbody>
                         </table>
@@ -230,12 +228,12 @@
                                             <div class="layer2"></div>
                                           </div>                                                                                                                                                                                                              
                                           <div class="d-flex align-items-center">
-                                            <a href="javascript:void(0)" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
+                                            <router-link :to="`/comparative-vehicles/${$route.params.scenario}?tab=${header.id}`" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
                                                 <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                               </svg>
-                                            </a>
+                                            </router-link>
                                              <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                   <g clip-path="url(#clip0_1862_4)">
@@ -249,12 +247,12 @@
                                                   </defs>
                                                 </svg>
                                               </a>
-                                            <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
+                                            <router-link to="" @click="actionId = header.id" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
                                               <svg width="12"  height="13" viewBox="0 0 12 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <path  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"  stroke="#1660A4" stroke-width="1.25" />
                                                 <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
                                               </svg>
-                                            </a>
+                                            </router-link>
                                           </div>
                                         </div>
                                       </div>
@@ -386,6 +384,7 @@
                   </div>
                 </div>
               </div>
+              <button @click="testFunction()">testFunction</button>
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
                   <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn">
@@ -394,7 +393,6 @@
                 </div>
               </div>
             </div>
-            <button @click="testFunction()">Test</button>
             <comparative-disclosure-component v-if="activeTabs[keyId]" :hideFee="true"/>
           </div>
         </div>
@@ -415,6 +413,9 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
+      currentTab: "target_analysis",
+      currentFilter : "default",
+      deleteItems : [],
       draggableColumns: [
         { id: 1, active: true },
         { id: 2, active: true },
@@ -429,180 +430,7 @@ export default {
           { year: 1, age: 28, deposits: 65777 },
           { year: 1, age: 28, deposits: 65777 },
         ],
-        data: [
-          {
-            id: 0,
-            ror: "6.15%",
-            irr: "5.65%",
-            type: "LifePro+",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-            ],
-          },
-          {
-            id: 1,
-            ror: "6.15%",
-            irr: "5.65%",
-            type: "Account",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-            ],
-          },
-          {
-            id: 2,
-            ror: "6.15%",
-            irr: "5.65%",
-            type: "401K/IRA",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-            ],
-          },
-          {
-            id: 3,
-            ror: "6.15%",
-            irr: "5.65%",
-            type: "Annuity",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benifit: 65777,
-                net_balance: 65777,
-              },
-            ],
-          },
-        ],
+        data: [],
       },
       summary_data: {
         deposits: { totals: "328885", total_values: "", shortfall: "" },
@@ -666,19 +494,51 @@ export default {
   mounted() {
     console.log(this.target_analysis);
     console.log(this.comparativeTable);
-    this.mapData();
+    this.mapData(this.comparativeTable);
   },
   methods: {
     testFunction: function() {
-      console.log(this.target_analysis);
-      console.log(this.comparativeTable);
+      console.log(this.deleteItems);
     },
-    mapData: function() {
-      let ct = this.comparativeTable;
+    setCurrentTab: function(tab) {
+      this.currentTab = tab;
+      this.setCurrentFilter(this.currentFilter);
+    },
+    deleteItem: function(id){
+      this.deleteItems = [...this.deleteItems, id];
+    },
+    setCurrentFilter: function(key) {
+      this.currentFilter = key;
+      console.log(this.currentTab, key);
+      switch (key) {
+        case "longevity":
+          return this.mapData(
+            this.setCurrentTab === "target_analysis"
+              ? this.comparativeTableLongevity
+              : this.comparativeTableRorLongevity
+          );
+        case "endingvalue":
+          return this.mapData(
+            this.setCurrentTab === "target_analysis"
+              ? this.comparativeTableEndingValue
+              : this.comparativeTableRorEndingValue
+          );
+        case "deathBenefit":
+          return this.mapData(
+            this.setCurrentTab === "target_analysis"
+              ? this.comparativeTableDeathBenefit
+              : this.comparativeTableRorDeathBenefit
+          );
+        default:
+          return this.mapData(this.comparativeTable);
+      }
+    },
+    mapData: function(ct) {
       let tempData = {
         distributions: [],
         data: [{}, {}, {}, {}],
       };
+
       let obj1 = ct.tax_result.comparison.table_output;
       let obj2 = ct.pretax_result.comparison.table_output;
       let obj3 = ct.tda_result.comparison.table_output;
@@ -688,7 +548,7 @@ export default {
         let dst = [];
         let details = {
           id: 0,
-          ror: ct.tax_result.comparison.ror+"%",
+          ror: ct.tax_result.comparison.ror + "%",
           irr: ct.tax_result.comparison.irr_percent + "%",
           type: "LifePro+",
         };
@@ -697,7 +557,7 @@ export default {
             distributions: item[5],
             account_value: item[16],
             surrender_value: item[17],
-            death_benifit: item[18],
+            death_benefit: item[18],
             net_balance: item[13],
           };
           let ar2 = {
@@ -727,7 +587,7 @@ export default {
         let list = [];
         let details = {
           id: 2,
-          ror: ct.pretax_result.comparison.ror+"%",
+          ror: ct.pretax_result.comparison.ror + "%",
           irr: ct.pretax_result.comparison.irr_percent + "%",
           type: "401K/IRA",
         };
@@ -736,7 +596,7 @@ export default {
             distributions: item[13],
             account_value: null,
             surrender_value: null,
-            death_benifit: null,
+            death_benefit: null,
             net_balance: item[15],
           };
           if (index) {
@@ -751,7 +611,7 @@ export default {
         let list = [];
         let details = {
           id: 3,
-          ror: ct.tda_result.comparison.ror+"%",
+          ror: ct.tda_result.comparison.ror + "%",
           irr: ct.tda_result.comparison.irr_percent + "%",
           type: "Annuity",
         };
@@ -760,7 +620,7 @@ export default {
             distributions: item[10],
             account_value: null,
             surrender_value: null,
-            death_benifit: null,
+            death_benefit: null,
             net_balance: item[17],
           };
           if (index) {
@@ -770,11 +630,7 @@ export default {
         details.list = list;
         tempData.data[3] = details;
       }
-
-      console.log(tempData);
       this.target_analysis = tempData;
-      console.log(tempData);
-      // console.log(ct.tax_result.comparison.chart_output.distributions)
     },
   },
   watch: {
@@ -796,6 +652,24 @@ export default {
   computed: {
     comparativeTable() {
       return this.$store.state.data.report.comparative;
+    },
+    comparativeTableLongevity() {
+      return this.$store.state.data.report.comparative_longevity;
+    },
+    comparativeTableEndingValue() {
+      return this.$store.state.data.report.comparative_ending_value;
+    },
+    comparativeTableDeathBenefit() {
+      return this.$store.state.data.report.comparative_death_benefit;
+    },
+    comparativeTableRorLongevity() {
+      return this.$store.state.data.report.comparative_ror_longevity;
+    },
+    comparativeTableRorEndingValue() {
+      return this.$store.state.data.report.comparative_ror_ending_value;
+    },
+    comparativeTableRorDeathBenefit() {
+      return this.$store.state.data.report.comparative_ror_death_benefit;
     },
   },
 };

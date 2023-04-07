@@ -40,7 +40,7 @@
             </div>
             <div class="mt-1 d-flex justify-content-between d-none">
               <p class="legacyCardPara">Death Benefit Fee Ratio</p>
-              <p class="legacyCardPara2 text-right">{{item.death_benifit_in_percent}}</p>
+              <p class="legacyCardPara2 text-right">{{item.death_benefit_in_percent}}</p>
             </div>
           </div>
         </div>
@@ -68,25 +68,25 @@ export default {
           type: "LifePro+",
           total_value_in_percent: "65%",
           cumulative_income_in_percent: "45%",
-          death_benifit_in_percent: "45%",
+          death_benefit_in_percent: "45%",
         },
         {
           type: "Brokerage Account",
           total_value_in_percent: "61%",
           cumulative_income_in_percent: "33%",
-          death_benifit_in_percent: "21%",
+          death_benefit_in_percent: "21%",
         },
         {
           type: "401/IRA",
           total_value_in_percent: "35%",
           cumulative_income_in_percent: "55%",
-          death_benifit_in_percent: "98%",
+          death_benefit_in_percent: "98%",
         },
         {
           type: "Annuity",
           total_value_in_percent: "75%",
           cumulative_income_in_percent: "25%",
-          death_benifit_in_percent: "65%",
+          death_benefit_in_percent: "65%",
         },
       ],
     };

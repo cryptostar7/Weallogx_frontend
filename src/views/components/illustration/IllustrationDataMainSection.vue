@@ -52,8 +52,8 @@
                 <div class="row">
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
-                      <label for="deathBenifit" class="fs-12 medium-fw">Initial Death Benefit</label> 
-                      <input type="text" id="deathBenifit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benefit')"> 
+                      <label for="deathBenefit" class="fs-12 medium-fw">Initial Death Benefit</label> 
+                      <input type="text" id="deathBenefit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benefit')"> 
                       <small class="text-danger" v-if="errors.initial_death_benefit">{{errors.initial_death_benefit[0]}}</small>
                     </div>
                   </div>
@@ -531,8 +531,8 @@ export default {
           this.insurancePolicyName = data.insurance_policy_name;
           this.PolicyNickname = data.insurance_policy_nickname;
           this.setInputWithId(
-            "deathBenifit",
-            data.initial_death_benifit.toLocaleString()
+            "deathBenefit",
+            data.initial_death_benefit.toLocaleString()
           );
           this.setInputWithId("policyReturn", data.policy_return);
           this.uploadFromFile = data.illustration_data.upload_file_checkbox;
@@ -769,7 +769,7 @@ export default {
         this.errors.policy_nickname = "";
       }
 
-      if (!this.getInputWithId("deathBenifit")) {
+      if (!this.getInputWithId("deathBenefit")) {
         this.errors.initial_death_benefit = ["This field is required."];
         validate = false;
       } else {
@@ -1112,7 +1112,7 @@ export default {
         company: this.insuranceCompany,
         policy_name: this.insurancePolicyName,
         nickname: this.PolicyNickname,
-        initial_death_benefit: getNumber(this.getInputWithId("deathBenifit")),
+        initial_death_benefit: getNumber(this.getInputWithId("deathBenefit")),
         policy_return: this.getInputWithId("policyReturn"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
@@ -1190,7 +1190,7 @@ export default {
       } else {
         formData.append("illustration_data", this.existingIllustrationId);
       }
-      formData.append("initial_death_benifit", data.initial_death_benefit);
+      formData.append("initial_death_benefit", data.initial_death_benefit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       console.log(this.illustrationId);

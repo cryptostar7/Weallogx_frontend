@@ -170,6 +170,24 @@ const store = createStore({
         },
         setComparativeReport(state, payload){
             state.data.report.comparative = payload;
+        },
+        setComparativeReportLongevity(state, payload){
+            state.data.report.comparative_longevity = payload;
+        },
+        setComparativeReportEndingValue(state, payload){
+            state.data.report.comparative_ending_value = payload;
+        },
+        setComparativeReportDeathBenefit(state, payload){
+            state.data.report.comparative_death_benefit = payload;
+        },
+        setComparativeReportRorLongevity(state, payload){
+            state.data.report.comparative_ror_longevity = payload;
+        },
+        setComparativeReportRorEndingValue(state, payload){
+            state.data.report.comparative_ror_ending_value = payload;
+        },
+        setComparativeReportRorDeathBenefit(state, payload){
+            state.data.report.comparative_ror_death_benefit = payload;
         }
     },
     actions: {
@@ -197,7 +215,7 @@ const store = createStore({
         presentation(context, payload) {
             if (payload) {
                 document.body.classList.add('presentationModeCommon');
-            } else {
+            } else {+
                 document.body.classList.remove('presentationModeCommon');
             }
             context.commit("setPresentationMode", payload);
@@ -231,7 +249,25 @@ const store = createStore({
         },     
         comparativeReport(context, payload) {
             context.commit('setComparativeReport', payload);
-        } 
+        },
+        comparativeReportLongevity(context, payload) {
+            context.commit('setComparativeReportLongevity', payload);
+        },
+        comparativeReportEndingValue(context, payload) {
+            context.commit('setComparativeReportEndingValue', payload);
+        },
+        comparativeReportDeathBenefit(context, payload) {
+            context.commit('setComparativeReportDeathBenefit', payload);
+        }, 
+        comparativeReportRorLongevity(context, payload) {
+            context.commit('setComparativeReportRorLongevity', payload);
+        },
+        comparativeReportRorEndingValue(context, payload) {
+            context.commit('setComparativeReportRorEndingValue', payload);
+        },
+        comparativeReportRorDeathBenefit(context, payload) {
+            context.commit('setComparativeReportRorDeathBenefit', payload);
+        }
     }
 })
 export default store;

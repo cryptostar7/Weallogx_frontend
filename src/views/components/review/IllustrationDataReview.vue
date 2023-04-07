@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-2 summaryInputsDiv">
                             <label for="client name">Initial Death Benefit</label>
-                            <input type="text" class="form-control" :value="`$${Number(data.initial_death_benifit).toLocaleString()}`" readonly>
+                            <input type="text" class="form-control" :value="`$${Number(data.initial_death_benefit).toLocaleString()}`" readonly>
                         </div>
                         <div class="col-md-2 illustrationPdfCol">
                             <a href="javascript:void(0)" class="illustrationPdfAncor">

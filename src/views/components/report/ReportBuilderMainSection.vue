@@ -22,7 +22,6 @@
       </div>
       <main class="ms-sm-autopx-md-4 report-builder-right-area comparative-sections">
         <div class="right-area-inner p-relative">
-      <!-- <button @click="testFunction()">Test</button> -->
           <div class="right-area-wrapper" v-if="Object.keys(comparativeReport).length">
             <client-detail-component />
               <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
@@ -50,9 +49,9 @@ import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
 import ShareReportModal from "./../modal/ShareReportModal.vue";
 import { VueDraggableNext } from "vue-draggable-next";
-import { get } from '../../../network/requests';
-import { authHeader } from '../../../services/helper';
-import { getUrl } from '../../../network/url';
+import { get } from "../../../network/requests";
+import { authHeader } from "../../../services/helper";
+import { getUrl } from "../../../network/url";
 
 export default {
   components: {
@@ -75,15 +74,33 @@ export default {
     };
   },
   methods: {
-    testFunction: function(){
+    testFunction: function() {
       console.log(this.comparativeReport);
     },
-    getComparativeData: function(id){
+
+    getComparativeData: function(id) {
+      // get default data
+      this.getData(id, "comparative_report", "comparativeReport");
+      // get longevity data
+      this.getData(id, "comparative_report_longevity", "comparativeReportLongevity");
+      // get ending data
+      this.getData(id, "comparative_report_ending_value", "comparativeReportEndingValue");
+      // get death benefit data
+      this.getData(id, "comparative_report_death_benefit", "comparativeReportDeathBenefit");
+      // get ror longevity data
+      this.getData(id, "comparative_report_longevity_ror", "comparativeReportRorLongevity");
+      // get ror ending data
+      this.getData(id, "comparative_report_ending_value_ror", "comparativeReportRorEndingValue");
+      // get ror death benefit data
+      this.getData(id, "comparative_report_death_benefit_ror", "comparativeReportRorDeathBenefit");
+    },
+    getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
-      get(getUrl('comparative_report'), authHeader())
+      get(getUrl(url), authHeader())
         .then(response => {
+          console.log(url);
           console.log(response.data);
-          this.$store.dispatch("comparativeReport", response.data);
+          this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -96,17 +113,17 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
-    }
+    },
   },
-  mounted(){
-    console.log('report builder');
+  mounted() {
+    console.log("report builder");
     this.getComparativeData(this.$route.params.scenario);
-    let eachInput = document.querySelectorAll('.tableHeadInputs');
-    eachInput.forEach(function (eachInputFun) {
-      eachInputFun.addEventListener('click', function (e) {
-        this.removeAttribute("readonly")     
+    let eachInput = document.querySelectorAll(".tableHeadInputs");
+    eachInput.forEach(function(eachInputFun) {
+      eachInputFun.addEventListener("click", function(e) {
+        this.removeAttribute("readonly");
       });
-      eachInputFun.addEventListener('focusout', function (e) {
+      eachInputFun.addEventListener("focusout", function(e) {
         this.readOnly = true;
       });
     });
@@ -114,47 +131,51 @@ export default {
     let addNoteBtns = document.querySelectorAll(".AddNoteBtn");
     let addNoteInputs = document.querySelectorAll(".add-note-input");
     let addNoteParas = document.querySelectorAll(".add-note-para");
-    addNoteBtns.forEach(function(btn){
-      btn.addEventListener("click", function(e){
+    addNoteBtns.forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
         e.target.classList.add("d-none");
-       let parentDiv = e.target.closest(".addNotesMainDiv");
-       let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
-       let addNoteInput = addNoteInputDiv.querySelector(".form-control");
-       addNoteInputDiv.classList.remove("d-none");
-       addNoteInput.focus();
+        let parentDiv = e.target.closest(".addNotesMainDiv");
+        let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
+        let addNoteInput = addNoteInputDiv.querySelector(".form-control");
+        addNoteInputDiv.classList.remove("d-none");
+        addNoteInput.focus();
       });
     });
-    addNoteInputs.forEach(function(input){
-      input.addEventListener("focusout", function(e){
+    addNoteInputs.forEach(function(input) {
+      input.addEventListener("focusout", function(e) {
         let val = input.value;
         let parentDiv = e.target.closest(".addNotesMainDiv");
         let addNoteButton = parentDiv.querySelector(".AddNoteBtn");
         let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
         let addNotePara = parentDiv.querySelector(".add-note-para");
-        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
-        if(val){
+        let addNoteInputDivInner = parentDiv.querySelector(
+          ".add-note-input-inner"
+        );
+        if (val) {
           addNotePara.innerHTML = val;
           addNotePara.classList.remove("d-none");
-          addNoteInputDivInner.classList.add("d-none")
-        }else{
+          addNoteInputDivInner.classList.add("d-none");
+        } else {
           addNoteInputDiv.classList.add("d-none");
           addNoteButton.classList.remove("d-none");
         }
       });
 
-      input.addEventListener("keyup", function(e){
+      input.addEventListener("keyup", function(e) {
         let val = input.value;
         let parentDiv = e.target.closest(".addNotesMainDiv");
         let addNoteButton = parentDiv.querySelector(".AddNoteBtn");
         let addNoteInputDiv = parentDiv.querySelector(".add-note-input-div");
         let addNotePara = parentDiv.querySelector(".add-note-para");
-        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
-        if(e.key == 'Enter'){
-          if(val){
+        let addNoteInputDivInner = parentDiv.querySelector(
+          ".add-note-input-inner"
+        );
+        if (e.key == "Enter") {
+          if (val) {
             addNotePara.innerHTML = val;
             addNotePara.classList.remove("d-none");
-            addNoteInputDivInner.classList.add("d-none")
-          }else{
+            addNoteInputDivInner.classList.add("d-none");
+          } else {
             addNoteInputDiv.classList.add("d-none");
             addNoteButton.classList.remove("d-none");
           }
@@ -162,11 +183,13 @@ export default {
       });
     });
 
-    addNoteParas.forEach(function(para){
-      para.addEventListener("click", function(e){
+    addNoteParas.forEach(function(para) {
+      para.addEventListener("click", function(e) {
         e.target.classList.add("d-none");
         let parentDiv = e.target.closest(".add-note-input-div");
-        let addNoteInputDivInner = parentDiv.querySelector(".add-note-input-inner");
+        let addNoteInputDivInner = parentDiv.querySelector(
+          ".add-note-input-inner"
+        );
         let addNoteInput = addNoteInputDivInner.querySelector(".form-control");
         addNoteInputDivInner.classList.remove("d-none");
         addNoteInput.focus();
@@ -174,10 +197,10 @@ export default {
     });
   },
   computed: {
-    comparativeReport(){
+    comparativeReport() {
       return this.$store.state.data.report.comparative;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="">

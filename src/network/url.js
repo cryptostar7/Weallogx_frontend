@@ -79,13 +79,13 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/longegivity/`
     case 'comparative_report_ending_value':
       return `${baseUrl}/report/surrender/`
-    case 'comparative_report_death_benifit':
+    case 'comparative_report_death_benefit':
       return `${baseUrl}/report/death/`
     case 'comparative_report_longevity_ror':
       return `${baseUrl}/report/longevity-ror/`
-    case 'comparative_report_surrender_ror':
+    case 'comparative_report_ending_value_ror':
       return `${baseUrl}/report/surrender-ror/`
-    case 'comparative_report_death_benifit_ror':
+    case 'comparative_report_death_benefit_ror':
       return `${baseUrl}/report/death-ror/`
     default:
       return baseUrl;
