@@ -5,6 +5,8 @@
   <report-builder-main-section />
   <!-- Delete Account Modal start -->
   <delete-account-modal />
+    <!-- Delete Comparative CV Modal start -->
+  <delete-comparative-cv-modal />
   <!-- Delete Ira Modal start -->
   <delete-era-modal />
   <!-- Delete Annuity Modal start -->
@@ -17,10 +19,14 @@
   <create-new-client-report-modal />
   
   <share-modal />
+  
+  <!-- delete comparative vechile id hidden input -->
+  <input type="hidden" id="comparative_cv_delete_id"/>
   </div>
 </template>
 <script>
 import DeleteAccountModal from "../components/modal/DeleteAccountModal.vue";
+import DeleteComparativeCvModal from "../components/modal/DeleteComparativeCvModal.vue";
 import DeleteAnnuityModal from "../components/modal/DeleteAnnuityModal.vue";
 import DeleteEraModal from "../components/modal/DeleteEraModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
@@ -34,6 +40,7 @@ import "../../assets/js/chart.min";
 export default {
   components: {
     DeleteAccountModal,
+    DeleteComparativeCvModal,
     DeleteAnnuityModal,
     DeleteEraModal,
     ReportBuilderNameChangeModal,

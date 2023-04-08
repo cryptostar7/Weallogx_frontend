@@ -1,8 +1,7 @@
 <template lang="">
   <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="1">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
-      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
-        id="comparativeGraphTabView">
+      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`" id="comparativeGraphTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop2 ${activeTabs[keyId] ? 'active':''}`">
           <div class="d-flex justify-content-between px-3 py-2 bb-grey">
             <div class="d-flex align-items-center">
@@ -29,7 +28,7 @@
             <div class="px-3 pt-3" id="comparativeValuesFluid">
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div class="flex-1" v-for="(item, index) in data" :key="index">
+                  <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '':'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -43,8 +42,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
+                          <a :class="`ms-2 deleteButtonAncor ${index ? '':'d-none'} deleteBtn${1+index}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal" data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
                               <path
@@ -179,7 +177,6 @@ export default {
       ],
     };
   },
-
   mounted() {
     const getOrCreateLegendList = (chart, id) => {
       const legendContainer = document.getElementById(id);
@@ -332,10 +329,7 @@ export default {
             // Pie and doughnut charts only have a single dataset and visibility is per item
             chart.toggleDataVisibility(item.index);
           } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              false
-            );
+            chart.setDatasetVisibility(item.datasetIndex, false);
           }
           chart.update();
         });
@@ -348,10 +342,7 @@ export default {
             // Pie and doughnut charts only have a single dataset and visibility is per item
             chart.toggleDataVisibility(item.index);
           } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              true
-            );
+            chart.setDatasetVisibility(item.datasetIndex, true);
           }
           chart.update();
         });
@@ -497,7 +488,6 @@ export default {
         );
       });
   },
-
   watch: {
     "$store.state.app.presentation_mode"(val) {
       if (
@@ -516,6 +506,16 @@ export default {
         this.graphs.annual_contribution = true;
         this.graphs.annual_distribution = true;
       }
+    },
+  },
+  methods: {
+    setActionId: function(id) {
+      document.getElementById("comparative_cv_delete_id").value = id;
+    },
+  },
+  computed: {
+    deletedItems() {
+      return this.$store.state.data.report.deleted_cv_ids;
     },
   },
 };

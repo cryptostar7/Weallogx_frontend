@@ -1,8 +1,7 @@
 <template lang="">
   <div :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="0">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="1">
-      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
-        id="comparativeTableTabView">
+      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"  id="comparativeTableTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop1 ${activeTabs[keyId] ? 'active':''}`">
           <div class="d-flex justify-content-between px-3 py-2 bb-grey">
             <div class="d-flex align-items-center">
@@ -210,7 +209,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                       <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item col-md-4 px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} px-1 drag-col ${header.active ? '' : 'order-last'}`">
                           <div class="empty-inner" data-empty="1">
                             <div class="fill-inner" data-fill="1">
                               <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -247,7 +246,7 @@
                                                   </defs>
                                                 </svg>
                                               </a>
-                                            <router-link to="" @click="actionId = header.id" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
+                                            <router-link to="" @click="setActionId(header.id)" data-bs-target="#DeleteComparativeCvModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
                                               <svg width="12"  height="13" viewBox="0 0 12 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <path  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"  stroke="#1660A4" stroke-width="1.25" />
                                                 <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
@@ -351,7 +350,7 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
@@ -384,7 +383,6 @@
                   </div>
                 </div>
               </div>
-              <button @click="testFunction()">testFunction</button>
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
                   <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn">
@@ -393,6 +391,7 @@
                 </div>
               </div>
             </div>
+            <!-- <button @click="testFunction()">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" :hideFee="true"/>
           </div>
         </div>
@@ -414,8 +413,7 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "target_analysis",
-      currentFilter : "default",
-      deleteItems : [],
+      currentFilter: "default",
       draggableColumns: [
         { id: 1, active: true },
         { id: 2, active: true },
@@ -498,14 +496,14 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.deleteItems);
+      console.log(this.$store.state.data.report.deleted_cv_ids);
     },
     setCurrentTab: function(tab) {
       this.currentTab = tab;
       this.setCurrentFilter(this.currentFilter);
     },
-    deleteItem: function(id){
-      this.deleteItems = [...this.deleteItems, id];
+    setActionId: function(id) {
+      document.getElementById("comparative_cv_delete_id").value = id;
     },
     setCurrentFilter: function(key) {
       this.currentFilter = key;
@@ -670,6 +668,9 @@ export default {
     },
     comparativeTableRorDeathBenefit() {
       return this.$store.state.data.report.comparative_ror_death_benefit;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_cv_ids;
     },
   },
 };
