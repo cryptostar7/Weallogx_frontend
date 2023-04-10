@@ -204,7 +204,7 @@
                               <td data-label="death"><input type="text" :value="$numFormatWithDollar(item.death_benefit)" readonly/></td>
                             </tr>
                           </tbody>
-                        </table>
+                        </table> 
                       </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -558,11 +558,15 @@ export default {
             death_benefit: item[18],
             net_balance: item[13],
           };
+          if(!index){
+            console.log(item);
+          }
           let ar2 = {
             year: item[0],
             age: item[1],
-            deposits: item[3],
+            deposits: item[2],
           };
+
           if (index) {
             list.push(ar);
             dst.push(ar2);

@@ -218,7 +218,7 @@ export default {
       let df_client = this.$route.query.client;
       if (df_client) {
         this.$store.state.data.clients.forEach(element => {
-          if (Number(df_client) === element.id) {
+          if (Number(df_client) === Number(element.id)) {
             this.setInputWithId("clientAge", element.age);
             this.clientAgeYearToIllustrate = element.age;
           }
