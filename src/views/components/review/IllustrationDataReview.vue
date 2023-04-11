@@ -142,7 +142,7 @@ export default {
         account_value: "Accumulation Value",
         index_load_credits: "Distribution - Loan",
         death_benefit: "Death Benefit",
-        net_distribution: "Distribution - Withdrawal",
+        distributions: "Distribution - Withdrawal",
         total_loan_charge: "Fees",
         premium_outlay: "Premium",
         surrender_value: "Surrender Value",

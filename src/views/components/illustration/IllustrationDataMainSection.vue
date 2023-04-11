@@ -458,7 +458,7 @@ export default {
         { name: "Death Benefit", value: "death_benefit", multiple: false },
         {
           name: "Distribution - Withdrawal",
-          value: "net_distribution",
+          value: "distributions",
           multiple: false,
         },
         { name: "Fees", value: "total_loan_charge", multiple: true },
@@ -474,7 +474,7 @@ export default {
         account_value: "2",
         index_load_credits: "3",
         death_benefit: "4",
-        net_distribution: "5",
+        distributions: "5",
         total_loan_charge: "6",
         premium_outlay: "7",
         surrender_value: "8",

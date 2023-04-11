@@ -39,10 +39,10 @@
 
             <button class="d-none" @click="testFunction">Check</button>
             <div class="SaveCloseButton">
-                <router-link to="/index" class="btn">Save & Close</router-link>
+                <router-link to="/" class="btn">Save & Close</router-link>
             </div>
             <div class="BuildSaveCloseButton">
-                <router-link to="/report-builder" class="btn">Save & Build Report</router-link>
+                <router-link :to="`/report-builder/${$route.params.scenario}`" class="btn">Save & Build Report</router-link>
             </div>
             <!-- Historical Vehicles end -->
         </div>
