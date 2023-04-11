@@ -10,7 +10,6 @@
                 <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
               </div>
             </div>
-            <button @click="testFunction" class="d-none" type="button">Test</button>
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
@@ -60,7 +59,7 @@
                   <div class="col-12 col-md-5">
                     <div class="form-group less"> 
                       <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
-                      <input type="Number" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
+                      <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
                       <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
                     </div>
                   </div>
@@ -139,7 +138,7 @@
                 </div>
               </div>
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
-                <h4 class="fs-22 bold-fw mb-3 pb-4" @click="checkFunction()">Categorize, Review and Edit Data</h4>
+                <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                     <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
                       <button type="button" class="btn add-table-column-btn">+ Add Column</button>
@@ -226,7 +225,7 @@
                           <td v-for="(header, index) in csvPreview.headers" :key="index" >
                             <div class="d-flex flex-column align-items-center px-2"> 
                               <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="header.toString() === index2.toString()" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
+                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="Number(header) === Number(index2)" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
                               </select> 
                             </div>
                           </td>
@@ -776,6 +775,7 @@ export default {
         this.errors.initial_death_benifit = "";
       }
 
+      console.log(this.getInputWithId("policyReturn"), '...........');
       if (!this.getInputWithId("policyReturn")) {
         this.errors.policy_return = ["This field is required."];
         validate = false;
@@ -1101,12 +1101,14 @@ export default {
           return this.$toast.warning("CSV data is required.");
         }
       }
+        console.log('submitted');
 
       if (!this.validateForm()) {
         console.log(this.errors);
         document.getElementById("main-section-element").scrollIntoView();
         return false;
       }
+
 
       var data = {
         company: this.insuranceCompany,
@@ -1250,12 +1252,6 @@ export default {
           });
       }
     },
-
-    checkFunction: function() {
-      console.log(this.illustrationFile.name);
-      console.log(this.illustrationFile.type);
-    },
-
     // add multiple column id for remove from table
     deleteCheckbox: function(id) {
       var colId = this.removeColId;
@@ -1271,9 +1267,6 @@ export default {
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");
       this.setInputWithId("add_new_csv_col", "");
-    },
-    testFunction: function() {
-      console.log(this.csvPreview);
     },
     resetAddDiv: function() {
       this.errors.illustration_file2 = false;

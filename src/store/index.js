@@ -52,15 +52,15 @@ const store = createStore({
                 historical_msg: ' This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. It is not a real world insurance policy. It is  not an official illustration. You may not assume the data presented here relating to the TSA infers or expresses any guarantee of how a real world insurance policy would perform. Comparisons made to the official <b>Pacific Life</b> illustration(s), which use hypothetical assumptions that are not guaranteed, are designed to be educational and instructive as to how the insurance policies compared <b>may have</b> performed through different historical periods. The data uses the raw returns of the <b>S&P 500</b>, and simulates the potential returns that the insurance policy <b>may have</b> achieved if the current cap rates, participation rates, floors, fees, and borrowing costs were in place during the historical periods tested. Cap rates, participation rates, and policy fees can and do change. We analyzed <b>546 40</b>-year periods of the index. In the case where a time period portrayed is greater than <b>40</b> years, the data was looped for purposes of the simulation. This simulation of a TSA took the actual current monthly fees of the <b>Pacific Life</b> insurance policy and increased them by 15%. All distributions assume the use of an index/participating loan. We assumed a <b>5.4%</b> borrowing rate in the simulation of the TSA. Presented here are the most recent, worst, median, and best <b>40</b>-year periods with respect to the insurance policy’s intended allocation in the <b>S&P 500</b> index strategy. However, these results are not the results of an actual insurance policy, but those of the TSA, which does not exist in the real world. It is entirely possible that the real world experience of the actual policy could be even worse than the worst <b>40</b>-year period analyzed, just as it is entirely possible that the real world policy could perform better than the best <b>40</b>-year period analyzed.',
             },
             user: false,
-            plans:{
-                free_trial:'FREE_TRIAL_PLAN',
-                monthly:'MONTHLY_PLAN',
-                yearly:'YEARLY_PLAN',
+            plans: {
+                free_trial: 'FREE_TRIAL_PLAN',
+                monthly: 'MONTHLY_PLAN',
+                yearly: 'YEARLY_PLAN',
             },
-            clients:null,
-            current_plan:false,
-            active_scenario:false,
-            templates:[],
+            clients: null,
+            current_plan: false,
+            active_scenario: false,
+            templates: [],
         },
         app: {
             themes: [
@@ -74,14 +74,15 @@ const store = createStore({
             show_assets2: false,
             full_screen: false,
             loader: false,
+            loader_count: 0,
             current_theme: localStorage.getItem("mode") || 'light-green',
         },
         modal: {
             create_report_modal: false,
             create_new_client_report_modal: false,
         },
-        errors:[], 
-        forms:[],
+        errors: [],
+        forms: [],
     },
     getters: {
         checkActiveTab: (state) => (id) => {
@@ -100,7 +101,7 @@ const store = createStore({
         getClientUsingId: (state) => (id) => {
             let array = state.data.clients;
             var client = [];
-            if(array && array.length > 0){
+            if (array && array.length > 0) {
                 client = array.filter(element => {
                     return Number(element.id) === Number(id);
                 });
@@ -152,7 +153,24 @@ const store = createStore({
             state.data.user = profile;
         },
         setLoader(state, payload) {
-            state.app.loader = payload;
+            if (!window.location.pathname.includes('/report-builder')) {
+                state.app.loader = payload;
+            } else {
+                let count = state.app.loader_count;
+                if (payload) {
+                    count = count + 1;
+                } else {
+                    count = count - 1;
+                }
+
+                state.app.loader_count = count;
+                if (count < 1) {
+                    state.app.loader = false;
+                } else {
+                    state.app.loader = true;
+                }
+            }
+
         },
         setUserTempForm(state, payload) {
             state.forms.temp_user = payload;
@@ -169,34 +187,34 @@ const store = createStore({
         addNewClient(state, payload) {
             state.data.clients = [...state.data.clients, payload];
         },
-        setActiveScenario(state, payload){
+        setActiveScenario(state, payload) {
             state.data.active_scenario = payload;
         },
-        setTemplate(state, payload){
+        setTemplate(state, payload) {
             state.data.templates[payload.type] = payload.data;
         },
-        setComparativeReport(state, payload){
+        setComparativeReport(state, payload) {
             state.data.report.comparative = payload;
         },
-        setComparativeReportLongevity(state, payload){
+        setComparativeReportLongevity(state, payload) {
             state.data.report.comparative_longevity = payload;
         },
-        setComparativeReportEndingValue(state, payload){
+        setComparativeReportEndingValue(state, payload) {
             state.data.report.comparative_ending_value = payload;
         },
-        setComparativeReportDeathBenefit(state, payload){
+        setComparativeReportDeathBenefit(state, payload) {
             state.data.report.comparative_death_benefit = payload;
         },
-        setComparativeReportRorLongevity(state, payload){
+        setComparativeReportRorLongevity(state, payload) {
             state.data.report.comparative_ror_longevity = payload;
         },
-        setComparativeReportRorEndingValue(state, payload){
+        setComparativeReportRorEndingValue(state, payload) {
             state.data.report.comparative_ror_ending_value = payload;
         },
-        setComparativeReportRorDeathBenefit(state, payload){
+        setComparativeReportRorDeathBenefit(state, payload) {
             state.data.report.comparative_ror_death_benefit = payload;
         },
-        setDeleteCvId(state, payload){
+        setDeleteCvId(state, payload) {
             state.data.report.deleted_cv_ids = [...state.data.report.deleted_cv_ids, payload];
         }
     },
@@ -225,8 +243,9 @@ const store = createStore({
         presentation(context, payload) {
             if (payload) {
                 document.body.classList.add('presentationModeCommon');
-            } else {+
-                document.body.classList.remove('presentationModeCommon');
+            } else {
+                +
+                    document.body.classList.remove('presentationModeCommon');
             }
             context.commit("setPresentationMode", payload);
         },
@@ -241,22 +260,22 @@ const store = createStore({
         },
         currentPlan(context, payload) {
             context.commit('setUserCurrentPlan', payload);
-        },  
+        },
         userTempFormError(context, payload) {
             context.commit('setUserFormError', payload);
         },
         clients(context, payload) {
             context.commit('setClients', payload);
-        },        
+        },
         addClient(context, payload) {
             context.commit('addNewClient', payload);
-        },     
+        },
         activeScenario(context, payload) {
             context.commit('setActiveScenario', payload);
-        },  
+        },
         template(context, payload) {
             context.commit('setTemplate', payload);
-        },     
+        },
         comparativeReport(context, payload) {
             context.commit('setComparativeReport', payload);
         },
@@ -268,7 +287,7 @@ const store = createStore({
         },
         comparativeReportDeathBenefit(context, payload) {
             context.commit('setComparativeReportDeathBenefit', payload);
-        }, 
+        },
         comparativeReportRorLongevity(context, payload) {
             context.commit('setComparativeReportRorLongevity', payload);
         },
@@ -278,7 +297,7 @@ const store = createStore({
         comparativeReportRorDeathBenefit(context, payload) {
             context.commit('setComparativeReportRorDeathBenefit', payload);
         },
-        reportCvDeleteId(context, payload){
+        reportCvDeleteId(context, payload) {
             context.commit('setDeleteCvId', payload);
         }
     }

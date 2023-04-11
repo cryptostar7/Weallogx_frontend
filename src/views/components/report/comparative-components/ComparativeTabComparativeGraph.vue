@@ -179,130 +179,12 @@ export default {
   },
   methods: {
     getDataSet: function() {
-      let dataset = {
-        labels: [1, 5, 10, 15, 20, 25, 30, 35],
-        datasets: [
-          {
-            borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
-                : "#0E6651",
-            borderWidth: 4,
-            radius: 0,
-            data: [
-              600000,
-              1250000,
-              2500000,
-              3000000,
-              2000000,
-              1500000,
-              1000000,
-              500000,
-            ],
-          },
-          {
-            borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#0E6651"
-                : "#1660A4",
-            borderWidth: 4,
-            radius: 0,
-            data: this.deletedItems.includes(1)
-              ? []
-              : [
-                  1700000,
-                  2200000,
-                  3200000,
-                  3500000,
-                  4300000,
-                  2800000,
-                  3100000,
-                  2900000,
-                ],
-          },
-          {
-            borderColor: "#763CA3",
-            borderWidth: 4,
-            radius: 0,
-            data: this.deletedItems.includes(2)
-              ? []
-              : [
-                  1900000,
-                  900000,
-                  2600000,
-                  4000000,
-                  480000,
-                  900000,
-                  1300000,
-                  4500000,
-                ],
-          },
-          {
-            borderColor: "#9D2B2B",
-            borderWidth: 4,
-            radius: 0,
-            data: this.deletedItems.includes(3)
-              ? []
-              : [
-                  2500000,
-                  2800000,
-                  4800000,
-                  4500000,
-                  1500000,
-                  2900000,
-                  3300000,
-                  4000000,
-                ],
-          },
-          {
-            backgroundColor: "rgba(14, 103, 82, .4)",
-            radius: 0,
-            data: [
-              2900000,
-              3100000,
-              3500000,
-              4000000,
-              3000000,
-              5000000,
-              3500000,
-              2500000,
-            ],
-            type: "bar",
-            borderRadius: 2,
-          },
-          {
-            backgroundColor: "rgba(131, 159, 175, .6)",
-            radius: 2,
-            data: [
-              1400000,
-              1500000,
-              1700000,
-              2000000,
-              1500000,
-              2500000,
-              2400000,
-              2300000,
-            ],
-            type: "bar",
-            borderRadius: 2,
-          },
-        ],
-      };
-
-      dataset = this.mapData();
-      return dataset;
-    },
-    mapData: function() {
       let cv1 = [];
       let cv2 = [];
       let cv3 = [];
       let contribution = [];
       let distribution = [];
       let years = [];
-      console.log("............");
-      console.log(this.comparative);
       if (this.comparative.tax_result) {
         let chart1 = this.comparative.tax_result.comparison.chart_output;
         let chart2 = this.comparative.pretax_result.comparison.chart_output;
@@ -310,20 +192,9 @@ export default {
         cv1 = chart1["BOY Balance"];
         cv2 = chart2["BOY pre-tax Balance"];
         cv3 = chart3["BOY Balance"];
-
         years = chart1.year;
         contribution = chart1.Deposits;
         distribution = chart1.distributions;
-
-        // Expected output: 3
-
-        // console.log(cv1);
-        // console.log(cv2);
-        // console.log(cv3);
-        // console.log(years);
-        // console.log(contribution);
-        // console.log(distribution);
-        // console.log('............');
       }
 
       let dataset = {
@@ -367,6 +238,7 @@ export default {
             data: contribution,
             type: "bar",
             borderRadius: 2,
+            yAxisID: "B",
           },
           {
             backgroundColor: "rgba(131, 159, 175, .6)",
@@ -374,12 +246,10 @@ export default {
             data: distribution,
             type: "bar",
             borderRadius: 2,
+            yAxisID: "B",
           },
         ],
       };
-
-      // console.log([Math.max(...dataset.datasets[1].data), Math.max(...dataset.datasets[2].data), Math.max(...dataset.datasets[3].data)]);
-      // console.log(Math.max(...([Math.max(...dataset.datasets[1].data), Math.max(...dataset.datasets[2].data), Math.max(...dataset.datasets[3].data)])));
 
       return dataset;
     },
@@ -462,9 +332,8 @@ export default {
       );
       let maxAcc2 = Math.max(
         ...[
-          Math.max(...graphData.datasets[1].data),
-          Math.max(...graphData.datasets[2].data),
-          Math.max(...graphData.datasets[3].data),
+          Math.max(...graphData.datasets[4].data),
+          Math.max(...graphData.datasets[5].data),
         ]
       );
 
@@ -528,7 +397,7 @@ export default {
                 },
               },
             },
-            y1: {
+            B: {
               type: "linear",
               display: true,
               position: "right",
@@ -541,7 +410,7 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: maxAcc1,
+              max: maxAcc2,
               ticks: {
                 padding: 8,
                 // stepSize: 25000,
@@ -608,8 +477,61 @@ export default {
           );
         });
     },
+    mapData: function() {
+      if (this.comparative.tax_result) {
+        let chart1 = this.comparative.tax_result;
+        let chart2 = this.comparative.pretax_result;
+        let chart3 = this.comparative.tda_result;
+        if (chart1) {
+          this.data[0].ror = chart1.comparison.ror + "%";
+          this.data[0].irr = chart1.comparison.irr_percent + "%";
+          this.data[0].cumulative_income = chart1.comparison.cummulative_income;
+
+          this.data[1].ror = chart1.comparison.ror + "%";
+          this.data[1].irr = chart1.comparison.irr_percent + "%";
+          this.data[1].cumulative_income = chart1.comparison.cummulative_income;
+        }
+
+        if (chart2) {
+          this.data[2].ror = chart2.comparison.ror + "%";
+          this.data[2].irr = chart2.comparison.irr_percent + "%";
+          this.data[2].cumulative_income = chart2.comparison.cummulative_income;
+        }
+
+        if (chart3) {
+          this.data[3].ror = chart3.comparison.ror + "%";
+          this.data[3].irr = chart3.comparison.irr_percent + "%";
+          this.data[3].cumulative_income = chart3.comparison.cummulative_income;
+        }
+      }
+    },
     testFunction: function() {
-      this.mapData();
+      if (this.comparative.tax_result) {
+        let chart1 = this.comparative.tax_result;
+        let chart2 = this.comparative.pretax_result;
+        let chart3 = this.comparative.tda_result;
+        if (chart1) {
+          this.data[0].ror = chart1.comparison.ror + "%";
+          this.data[0].irr = chart1.comparison.irr_percent + "%";
+          this.data[0].cumulative_income = chart1.comparison.cummulative_income;
+
+          this.data[1].ror = chart1.comparison.ror + "%";
+          this.data[1].irr = chart1.comparison.irr_percent + "%";
+          this.data[1].cumulative_income = chart1.comparison.cummulative_income;
+        }
+
+        if (chart2) {
+          this.data[2].ror = chart2.comparison.ror + "%";
+          this.data[2].irr = chart2.comparison.irr_percent + "%";
+          this.data[2].cumulative_income = chart2.comparison.cummulative_income;
+        }
+
+        if (chart3) {
+          this.data[3].ror = chart3.comparison.ror + "%";
+          this.data[3].irr = chart3.comparison.irr_percent + "%";
+          this.data[3].cumulative_income = chart3.comparison.cummulative_income;
+        }
+      }
     },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
@@ -646,7 +568,8 @@ export default {
       this.setGraph();
     },
     "comparative.length"() {
-      this.setGraph();
+      this.mapData();   // set longevity cards data
+      this.setGraph();   // generate graph
     },
   },
 };
