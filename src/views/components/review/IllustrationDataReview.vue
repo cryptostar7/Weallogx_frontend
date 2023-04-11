@@ -139,9 +139,9 @@ export default {
       return {
         none: "None",
         age: "Age",
-        accumulation_value: "Accumulation Value",
+        account_value: "Accumulation Value",
         index_load_credits: "Distribution - Loan",
-        dealth_benefit: "Dealth Benefit",
+        death_benefit: "Death Benefit",
         net_distribution: "Distribution - Withdrawal",
         total_loan_charge: "Fees",
         premium_outlay: "Premium",

@@ -558,9 +558,6 @@ export default {
             death_benefit: item[18],
             net_balance: item[13],
           };
-          if(!index){
-            console.log(item);
-          }
           let ar2 = {
             year: item[0],
             age: item[1],

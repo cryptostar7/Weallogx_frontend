@@ -7,8 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox2" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 commonRadioBtn1 rightCheckBox2" rightCheckAttr="2"
+                  <input id="rightCheckBox2" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 commonRadioBtn1 rightCheckBox2" rightCheckAttr="2"
                     @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
@@ -43,13 +42,9 @@
                             </div>
                           </div>
                           <a :class="`ms-2 deleteButtonAncor ${index ? '':'d-none'} deleteBtn${1+index}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal" data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z" stroke="#9D9D9D" />
+                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                             </svg>
                           </a>
                         </div>
@@ -137,7 +132,6 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTheme: this.$store.state.app.current_theme,
-      comparativeValuesChart: null,
       cards: [
         { id: 1, active: true },
         { id: 2, active: true },
@@ -178,7 +172,14 @@ export default {
           irr: "65%",
         },
       ],
-      comparativeValuesData: {
+    };
+  },
+  mounted() {
+    this.setGraph();
+  },
+  methods: {
+    getDataSet: function() {
+      let dataset = {
         labels: [1, 5, 10, 15, 20, 25, 30, 35],
         datasets: [
           {
@@ -208,49 +209,54 @@ export default {
                 : "#1660A4",
             borderWidth: 4,
             radius: 0,
-            data: [
-              1700000,
-              2200000,
-              3200000,
-              3500000,
-              4300000,
-              2800000,
-              3100000,
-              2900000,
-            ],
+            data: this.deletedItems.includes(1)
+              ? []
+              : [
+                  1700000,
+                  2200000,
+                  3200000,
+                  3500000,
+                  4300000,
+                  2800000,
+                  3100000,
+                  2900000,
+                ],
           },
           {
             borderColor: "#763CA3",
             borderWidth: 4,
             radius: 0,
-            data: [
-              1900000,
-              2600000,
-              4000000,
-              480000,
-              900000,
-              1300000,
-              4500000,
-              3300000,
-            ],
+            data: this.deletedItems.includes(2)
+              ? []
+              : [
+                  1900000,
+                  900000,
+                  2600000,
+                  4000000,
+                  480000,
+                  900000,
+                  1300000,
+                  4500000,
+                ],
           },
           {
             borderColor: "#9D2B2B",
             borderWidth: 4,
             radius: 0,
-            data: [
-              2500000,
-              2800000,
-              4800000,
-              4500000,
-              1500000,
-              2900000,
-              3300000,
-              4000000,
-            ],
+            data: this.deletedItems.includes(3)
+              ? []
+              : [
+                  2500000,
+                  2800000,
+                  4800000,
+                  4500000,
+                  1500000,
+                  2900000,
+                  3300000,
+                  4000000,
+                ],
           },
           {
-            // borderColor: '#0E6651',
             backgroundColor: "rgba(14, 103, 82, .4)",
             radius: 0,
             data: [
@@ -283,15 +289,84 @@ export default {
             borderRadius: 2,
           },
         ],
-      }
-    }
-  },
-  mounted() {
-    this.setGraph();
-  },
-  methods: {
+      };
+      return dataset;
+    },
+    mapData: function() {
+      let cv1 = [];
+      let cv2 = [];
+      let cv3 = [];
+      let contribution = [];
+      let distribution = [];
+      let years = [];
+
+      let chart1 = this.comparative.tax_result.comparison.chart_output;
+      let chart2 = this.comparative.tax_result.comparison.chart_output;
+      let chart3 = this.comparative.tax_result.comparison.chart_output;
+      
+      years = chart1.year;
+      contribution = chart1.Deposits;
+      distribution = chart1.distributions;
+
+
+      console.log(this.comparative);
+
+      let dataset = {
+        labels: years,
+        datasets: [
+          {
+            borderColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
+                : "#0E6651",
+            borderWidth: 4,
+            radius: 0,
+            data: cv1,
+          },
+          {
+            borderColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#0E6651"
+                : "#1660A4",
+            borderWidth: 4,
+            radius: 0,
+            data: this.deletedItems.includes(1) ? [] : cv1,
+          },
+          {
+            borderColor: "#763CA3",
+            borderWidth: 4,
+            radius: 0,
+            data: this.deletedItems.includes(2) ? [] : cv2,
+          },
+          {
+            borderColor: "#9D2B2B",
+            borderWidth: 4,
+            radius: 0,
+            data: this.deletedItems.includes(3) ? [] : cv3,
+          },
+          {
+            backgroundColor: "rgba(14, 103, 82, .4)",
+            radius: 0,
+            data: contribution,
+            type: "bar",
+            borderRadius: 2,
+          },
+          {
+            backgroundColor: "rgba(131, 159, 175, .6)",
+            radius: 2,
+            data: distribution,
+            type: "bar",
+            borderRadius: 2,
+          },
+        ],
+      };
+      return dataset;
+    },
+
     setGraph: function() {
-      if(window.comparativeGraphChart){
+      if (window.comparativeGraphChart) {
         window.comparativeGraphChart.destroy();
       }
 
@@ -358,9 +433,11 @@ export default {
         },
       };
 
+      let graphData = this.getDataSet();
+
       const comparativeValuesConfig = {
         type: "line",
-        data: this.comparativeValuesData,
+        data: graphData,
         options: {
           interaction: {
             intersect: false,
@@ -457,19 +534,18 @@ export default {
         document.getElementById("comparativeValuesChart"),
         comparativeValuesConfig
       );
-      
 
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
-          this.comparativeValuesData.datasets[0].borderColor = "#1660A4";
-          this.comparativeValuesData.datasets[1].borderColor = "#0E6651";
-          myChart.update();
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#0E6651";
+          window.comparativeGraphChart.update();
         } else {
-          this.comparativeValuesData.datasets[0].borderColor = "#0E6651";
-          this.comparativeValuesData.datasets[1].borderColor = "#1660A4";
-          myChart.update();
+          graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[1].borderColor = "#1660A4";
+          window.comparativeGraphChart.update();
         }
       });
 
@@ -484,7 +560,7 @@ export default {
         .addEventListener("click", function() {
           if (assestShowHide.classList.contains("on")) {
             htmlLegendPlugin0.hideAll(
-              myChart,
+              window.comparativeGraphChart,
               comparativeValuesConfig.options
             );
           }
@@ -494,20 +570,13 @@ export default {
         .querySelector(".fullScreenCloseBtn")
         .addEventListener("click", function() {
           htmlLegendPlugin0.showAll(
-            myChart,
+            window.comparativeGraphChart,
             comparativeValuesConfig.options
           );
         });
     },
     testFunction: function() {
-      // console.log(this.comparativeValuesChart);
-      // let myTarget = JSON.parse(JSON.stringify(this.comparativeValuesChart))
-      // const target_copy = Object.getPrototypeOf(this.comparativeValuesChart);;
-      // console.log(window.comparativeGraphChart);
-      window.comparativeGraphChart.destroy();
-      // this.comparativeValuesChart.update();
-
-      // document.getElementById("comparativeValuesChart").reset();
+      this.mapData();
     },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
@@ -516,6 +585,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    comparative() {
+      return this.$store.state.data.report.comparative;
     },
   },
   watch: {
@@ -538,9 +610,8 @@ export default {
       }
     },
     "deletedItems.length"(val) {
-      let id = `cvGraphInputToogle${document.getElementById('comparative_cv_delete_id').value}`;
-      document.getElementById(id).click();
-    }
+      this.setGraph();
+    },
   },
 };
 </script>

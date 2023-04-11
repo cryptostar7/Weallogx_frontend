@@ -53,8 +53,8 @@
                   <div class="col-12 col-md-7">
                     <div class="form-group less"> 
                       <label for="deathBenefit" class="fs-12 medium-fw">Initial Death Benefit</label> 
-                      <input type="text" id="deathBenefit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benefit')"> 
-                      <small class="text-danger" v-if="errors.initial_death_benefit">{{errors.initial_death_benefit[0]}}</small>
+                      <input type="text" id="deathBenefit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benifit')"> 
+                      <small class="text-danger" v-if="errors.initial_death_benifit">{{errors.initial_death_benifit[0]}}</small>
                     </div>
                   </div>
                   <div class="col-12 col-md-5">
@@ -447,7 +447,7 @@ export default {
         { name: "Age", value: "age", multiple: false },
         {
           name: "Accumulation Value",
-          value: "accumulation_value",
+          value: "account_value",
           multiple: false,
         },
         {
@@ -455,7 +455,7 @@ export default {
           value: "index_load_credits",
           multiple: false,
         },
-        { name: "Dealth Benefit", value: "dealth_benefit", multiple: false },
+        { name: "Death Benefit", value: "death_benefit", multiple: false },
         {
           name: "Distribution - Withdrawal",
           value: "net_distribution",
@@ -471,9 +471,9 @@ export default {
       return {
         none: "0",
         age: "1",
-        accumulation_value: "2",
+        account_value: "2",
         index_load_credits: "3",
-        dealth_benefit: "4",
+        death_benefit: "4",
         net_distribution: "5",
         total_loan_charge: "6",
         premium_outlay: "7",
@@ -532,7 +532,7 @@ export default {
           this.PolicyNickname = data.insurance_policy_nickname;
           this.setInputWithId(
             "deathBenefit",
-            data.initial_death_benefit.toLocaleString()
+            data.initial_death_benifit.toLocaleString()
           );
           this.setInputWithId("policyReturn", data.policy_return);
           this.uploadFromFile = data.illustration_data.upload_file_checkbox;
@@ -770,10 +770,10 @@ export default {
       }
 
       if (!this.getInputWithId("deathBenefit")) {
-        this.errors.initial_death_benefit = ["This field is required."];
+        this.errors.initial_death_benifit = ["This field is required."];
         validate = false;
       } else {
-        this.errors.initial_death_benefit = "";
+        this.errors.initial_death_benifit = "";
       }
 
       if (!this.getInputWithId("policyReturn")) {
@@ -1112,7 +1112,7 @@ export default {
         company: this.insuranceCompany,
         policy_name: this.insurancePolicyName,
         nickname: this.PolicyNickname,
-        initial_death_benefit: getNumber(this.getInputWithId("deathBenefit")),
+        initial_death_benifit: getNumber(this.getInputWithId("deathBenefit")),
         policy_return: this.getInputWithId("policyReturn"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
@@ -1190,7 +1190,7 @@ export default {
       } else {
         formData.append("illustration_data", this.existingIllustrationId);
       }
-      formData.append("initial_death_benefit", data.initial_death_benefit);
+      formData.append("initial_death_benifit", data.initial_death_benifit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
       console.log(this.illustrationId);
