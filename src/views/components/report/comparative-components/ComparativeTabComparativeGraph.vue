@@ -32,7 +32,7 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
                           <p class="allCardHeadPara">Longevity</p>                         
-                        </div>
+                        </div>                                
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
@@ -175,7 +175,7 @@ export default {
     };
   },
   mounted() {
-    this.setGraph();
+    // this.setGraph();
   },
   methods: {
     getDataSet: function() {
@@ -290,6 +290,8 @@ export default {
           },
         ],
       };
+
+      dataset = this.mapData();
       return dataset;
     },
     mapData: function() {
@@ -299,20 +301,33 @@ export default {
       let contribution = [];
       let distribution = [];
       let years = [];
-
-      let chart1 = this.comparative.tax_result.comparison.chart_output;
-      let chart2 = this.comparative.tax_result.comparison.chart_output;
-      let chart3 = this.comparative.tax_result.comparison.chart_output;
-      
-      years = chart1.year;
-      contribution = chart1.Deposits;
-      distribution = chart1.distributions;
-
-
+      console.log("............");
       console.log(this.comparative);
+      if (this.comparative.tax_result) {
+        let chart1 = this.comparative.tax_result.comparison.chart_output;
+        let chart2 = this.comparative.pretax_result.comparison.chart_output;
+        let chart3 = this.comparative.tda_result.comparison.chart_output;
+        cv1 = chart1["BOY Balance"];
+        cv2 = chart2["BOY pre-tax Balance"];
+        cv3 = chart3["BOY Balance"];
+
+        years = chart1.year;
+        contribution = chart1.Deposits;
+        distribution = chart1.distributions;
+
+        // Expected output: 3
+
+        // console.log(cv1);
+        // console.log(cv2);
+        // console.log(cv3);
+        // console.log(years);
+        // console.log(contribution);
+        // console.log(distribution);
+        // console.log('............');
+      }
 
       let dataset = {
-        labels: years,
+        labels: [1, ...years.map(i => (years.includes(i / 5) ? i : ""))],
         datasets: [
           {
             borderColor:
@@ -362,6 +377,10 @@ export default {
           },
         ],
       };
+
+      // console.log([Math.max(...dataset.datasets[1].data), Math.max(...dataset.datasets[2].data), Math.max(...dataset.datasets[3].data)]);
+      // console.log(Math.max(...([Math.max(...dataset.datasets[1].data), Math.max(...dataset.datasets[2].data), Math.max(...dataset.datasets[3].data)])));
+
       return dataset;
     },
 
@@ -434,6 +453,20 @@ export default {
       };
 
       let graphData = this.getDataSet();
+      let maxAcc1 = Math.max(
+        ...[
+          Math.max(...graphData.datasets[1].data),
+          Math.max(...graphData.datasets[2].data),
+          Math.max(...graphData.datasets[3].data),
+        ]
+      );
+      let maxAcc2 = Math.max(
+        ...[
+          Math.max(...graphData.datasets[1].data),
+          Math.max(...graphData.datasets[2].data),
+          Math.max(...graphData.datasets[3].data),
+        ]
+      );
 
       const comparativeValuesConfig = {
         type: "line",
@@ -477,11 +510,11 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: 5000000,
+              max: maxAcc1,
               // stacked: true,
               ticks: {
                 padding: 8,
-                stepSize: 1250000,
+                // stepSize: 125000,
                 callback: function(value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -508,10 +541,10 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: 1000000,
+              max: maxAcc1,
               ticks: {
                 padding: 8,
-                stepSize: 250000,
+                // stepSize: 25000,
                 callback: function(value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -587,7 +620,7 @@ export default {
       return this.$store.state.data.report.deleted_cv_ids;
     },
     comparative() {
-      return this.$store.state.data.report.comparative;
+      return this.$store.state.data.report.comparative_longevity;
     },
   },
   watch: {
@@ -610,6 +643,9 @@ export default {
       }
     },
     "deletedItems.length"(val) {
+      this.setGraph();
+    },
+    "comparative.length"() {
       this.setGraph();
     },
   },
