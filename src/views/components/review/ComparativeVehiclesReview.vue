@@ -48,23 +48,23 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.rate_of_return}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_1.rate_of_return).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.fees}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_1.fees).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">{{data.vehicle_type_1 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <label for="client name">{{data.vehicle_type_1.vehicle_type_1 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
                                         <input type="text" class="form-control" :value="data.vehicle_type_1.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.capital_gains_tax_rate}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_1.capital_gains_tax_rate).toFixed(2)}%`" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">% Portfolio Applied to Capital Gains</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_1.percentage_of_account_as_capital_gains}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_1.percentage_of_account_as_capital_gains).toFixed(2)}%`" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -97,23 +97,23 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.rate_of_return}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_2.rate_of_return).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.fees}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_2.fees).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">{{data.vehicle_type_2 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <label for="client name">{{data.vehicle_type_2.vehicle_type_2 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
                                         <input type="text" class="form-control" :value="data.vehicle_type_2.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_2.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.capital_gains_tax_rate}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_2.capital_gains_tax_rate).toFixed(2)}%`" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_2.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">% Portfolio Applied to Capital Gains</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_2.percentage_of_account_as_capital_gains}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_2.percentage_of_account_as_capital_gains).toFixed(2)}%`" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -146,23 +146,23 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Rate of Return</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.rate_of_return}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_3.rate_of_return).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Fee</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.fees}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_3.fees).toFixed(2)}%`" readonly>
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
-                                        <label for="client name">{{data.vehicle_type_3 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
+                                        <label for="client name">{{data.vehicle_type_3.vehicle_type_3 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
                                         <input type="text" class="form-control" :value="data.vehicle_type_3.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_3.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.capital_gains_tax_rate}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_3.capital_gains_tax_rate).toFixed(2)}%`" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_3.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">% Portfolio Applied to Capital Gains</label>
-                                        <input type="text" class="form-control" :value="`${data.vehicle_type_3.percentage_of_account_as_capital_gains}%`" readonly>
+                                        <input type="text" class="form-control" :value="`${Number(data.vehicle_type_3.percentage_of_account_as_capital_gains).toFixed(2)}%`" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -185,16 +185,14 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.data);
-      console.log(this.client);
+    testFunction: function(item) {
+      console.log(item);
     },
     getComparativeData: function() {
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("comparative")}${this.$props.id}`, authHeader())
           .then(response => {
-            console.log('vehicle ........');
             console.log(response.data);
             this.$store.dispatch("loader", false);
             let detail = response.data.data;

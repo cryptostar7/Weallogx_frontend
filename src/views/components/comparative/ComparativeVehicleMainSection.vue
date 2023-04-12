@@ -90,16 +90,18 @@
                               <div class="form-group pb-0 m-0"> 
                                 <label for="cg_tax_rate1" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="cg_tax_rate1" class="form-control handleLimit"  />
+                                  <input type="number" min="1" max="99" id="cg_tax_rate1" class="form-control handleLimit" @keyup="() => errors.vehicle1.cg_tax = false"  />
                                   <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle1.cg_tax">{{errors.vehicle1.cg_tax[0]}}</small>
                               </div>
                               <div class="form-group pb-0 m-0">
                                 <label for="percent_of_account_as_cg1" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg1" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg1" class="form-control handleLimit" @keyup="() => errors.vehicle1.cg_percent = false"  /> 
                                   <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle1.cg_percent">{{errors.vehicle1.cg_percent[0]}}</small>
                               </div>
                             </div>
                             <div class="form-check form-switch custom-switch mt-3"> 
@@ -161,16 +163,18 @@
                               <div class="form-group pb-0 m-0"> 
                                 <label for="cg_tax_rate2" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="cg_tax_rate2" value="" class="form-control handleLimit"  />
+                                  <input type="number" min="1" max="99" id="cg_tax_rate2" value="" class="form-control handleLimit" @keyup="() => errors.vehicle2.cg_tax = false" />
                                   <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle2.cg_tax">{{errors.vehicle2.cg_tax[0]}}</small>
                               </div>
                               <div class="form-group pb-0 m-0"> 
                                 <label for="percent_of_account_as_cg2" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg2" class="form-control handleLimit"  />
-                                 <span class="percent-span">%</span>
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg2" class="form-control handleLimit" @keyup="() => errors.vehicle2.cg_percent = false" />
+                                  <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle2.cg_percent">{{errors.vehicle2.cg_percent[0]}}</small>
                               </div>
                             </div>
                             <div class="form-check form-switch custom-switch mt-3"> 
@@ -230,21 +234,24 @@
                               <div class="form-group pb-0 m-0">
                                 <label for="cg_tax_rate3" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="99" id="cg_tax_rate3" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="99" id="cg_tax_rate3" class="form-control handleLimit" @keyup="() => errors.vehicle3.cg_tax = false" /> 
                                   <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle3.cg_tax">{{errors.vehicle3.cg_tax[0]}}</small>
                               </div>
                               <div class="form-group pb-0 m-0"> <label for="percent_of_account_as_cg3" class="fs-12 semi-bold-fw">% of Account as Capital Gains</label>
                                 <div class="percent-input-div"> 
-                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg3" class="form-control handleLimit"  /> 
+                                  <input type="number" min="1" max="100" id="percent_of_account_as_cg3" class="form-control handleLimit" @keyup="() => errors.vehicle3.cg_percent = false" /> 
                                   <span class="percent-span">%</span>
                                 </div>
+                              <small class="text-danger" v-if="errors.vehicle3.cg_percent">{{errors.vehicle3.cg_percent[0]}}</small>
                               </div>
                             </div>
                             <div class="form-check form-switch custom-switch mt-3"> 
                               <input class="form-check-input" type="checkbox" role="switch" id="saveVehicleTempName3"  v-model="vehicle.vehicle3.templateCheckbox" /> 
                               <label class="form-check-label fs-12 semi-bold-fw mb-0" for="saveVehicleTempName3">Save this Vehicle as Template</label>
                             </div>
+
                           </div>
                           <div :style="{display: vehicle.vehicle3.templateCheckbox ? 'unset' : 'none'}" class="form-group less" id="vehicleTempName3"> 
                             <label for="vehicleTemplateName" class="fs-12 semi-bold-fw">Vehicle Template Name</label> 
@@ -589,7 +596,8 @@ export default {
       this.vehicleSelected = true;
       this.vehicle[`vehicle${vType}`].type_id = Number(val);
       this.vehicle.tab = val ? vType : false;
-      this.vehicle[`vehicle${vType}`].capitalGains = Number(val)  === 1 ? false : true;
+      this.vehicle[`vehicle${vType}`].capitalGains =
+        Number(val) === 1 ? false : true;
     },
 
     // set the input value using the input id attribute
@@ -963,12 +971,29 @@ export default {
             this.errors.vehicle1.name = ["This field is required"];
             valid = false;
           }
+
+          if (
+            this.vehicle.vehicle1.capitalGains &&
+            this.vehicle.vehicle1.type_id === 1
+          ) {
+            if (!this.vehicle.vehicle1.cg_tax_rate) {
+              this.errors.vehicle1.cg_tax = ["This field is required"];
+              valid = false;
+            }
+
+            if (!this.vehicle.vehicle1.percent_of_account_as_cg) {
+              this.errors.vehicle1.cg_percent = ["This field is required"];
+              valid = false;
+            }
+          } else {
+            this.errors.vehicle1.cg_tax = "";
+            this.errors.vehicle1.cg_percent = "";
+          }
         } else {
           this.errors.vehicle1.type_id = ["This field is required"];
           valid = false;
         }
       }
-
       return valid;
     },
     validateVehicle2: function() {
@@ -1014,6 +1039,24 @@ export default {
           if (!this.vehicle.vehicle2.name) {
             this.errors.vehicle2.name = ["This field is required"];
             valid = false;
+          }
+
+          if (
+            this.vehicle.vehicle2.capitalGains &&
+            this.vehicle.vehicle2.type_id === 1
+          ) {
+            if (!this.vehicle.vehicle2.cg_tax_rate) {
+              this.errors.vehicle2.cg_tax = ["This field is required"];
+              valid = false;
+            }
+
+            if (!this.vehicle.vehicle2.percent_of_account_as_cg) {
+              this.errors.vehicle2.cg_percent = ["This field is required"];
+              valid = false;
+            }
+          } else {
+            this.errors.vehicle2.cg_tax = "";
+            this.errors.vehicle2.cg_percent = "";
           }
         } else {
           this.errors.vehicle2.type_id = ["This field is required"];
@@ -1066,6 +1109,24 @@ export default {
           if (!this.vehicle.vehicle3.name) {
             this.errors.vehicle3.name = ["This field is required"];
             valid = false;
+          }
+
+          if (
+            this.vehicle.vehicle3.capitalGains &&
+            this.vehicle.vehicle3.type_id === 1
+          ) {
+            if (!this.vehicle.vehicle3.cg_tax_rate) {
+              this.errors.vehicle3.cg_tax = ["This field is required"];
+              valid = false;
+            }
+
+            if (!this.vehicle.vehicle3.percent_of_account_as_cg) {
+              this.errors.vehicle3.cg_percent = ["This field is required"];
+              valid = false;
+            }
+          } else {
+            this.errors.vehicle3.cg_tax = "";
+            this.errors.vehicle3.cg_percent = "";
           }
         } else {
           this.errors.vehicle3.type_id = ["This field is required"];
@@ -1212,23 +1273,6 @@ export default {
             } else {
               this.$toast.error(getFirstError(error));
             }
-            let e = error.response.data.error;
-            if (e) {
-              // console.log(this.errors.vechile1.description);
-
-              // if (e.vehicle_type_1 && e.vehicle_type_1.description) {
-              //   this.errors.vehicle1['description'] = e.vehicle_type_1.description;
-              // }
-
-              // if (e.vehicle_type_2 && e.vehicle_type_2.description) {
-              //   this.errors.vehicle2.description = e.vehicle_type_2.description;
-              // }
-
-              // if (e.vehicle_type_3 && e.vehicle_type_3.description) {
-              //   this.errors.vehicle3.description = e.vehicle_type_3.description;
-              // }
-            }
-
             this.$store.dispatch("loader", false);
           });
       } else {

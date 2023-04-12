@@ -186,23 +186,17 @@
                             <button :class="`nav-link py-12 uploadFromFile ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
                               <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                                <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)"
-                                  stroke="black" stroke-width="0.5" />
-                                <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
-                                  transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"
-                                  transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                                <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)"
-                                  stroke="black" stroke-width="0.5" />
-                                <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25"
-                                  transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
+                                <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
+                                <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
+                                <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25" transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
+                                <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
+                                <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
                               </svg> &nbsp;By Uploading File 
                             </button> 
                           </li>
                           <li class="nav-item" role="presentation" @click="() => addFromFile = false"> 
                             <button :class="`nav-link py-12 copyPaste ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
-                              <svg class="addCopyPaste" width="11" height="11"
-                                viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <svg class="addCopyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="7" height="7" rx="1" fill="black" />
                                 <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
                               </svg> &nbsp;By Pasting Data
@@ -876,7 +870,7 @@ export default {
       this.$refs.file.files = e.dataTransfer.files;
       this.handleFile();
     },
-
+ 
     addColDragFile: function(e) {
       e.preventDefault();
       this.$refs.file2.files = e.dataTransfer.files;
@@ -958,12 +952,13 @@ export default {
           document.getElementById("pdfPreviewCanvasModal")
         ).toggle();
       }
+      
       if (!file) {
         return false;
       } else {
         this.illustrationFile.file = null;
       }
-      // this.$store.dispatch("loader", true);
+
       if (this.illustrationFile.type === "append") {
         this.fileLoader2 = true;
       } else {
@@ -1001,8 +996,7 @@ export default {
               headers.push("");
             }
             if (headers.length) {
-              // this.$store.dispatch("loader", false);
-              finalObj = { data: arr, headers: headers };
+              finalObj = { data: arr.map(a => a.map(i => i.replace("-", ""))), headers: headers };
             } else {
               this.$toast.warning(
                 "Sorry the data from the uploaded file could not be retrieved."
@@ -1019,6 +1013,7 @@ export default {
                   let temp_data = [];
                   let maxRowLen = this.csvPreview.data.length;
                   let maxColLen = this.csvPreview.data.length;
+                  
                   if (finalObj.data.length < maxRowLen) {
                     maxRowLen = finalObj.data.length;
                   }
@@ -1031,7 +1026,7 @@ export default {
                   }
 
                   this.csvPreview = {
-                    data: temp_data,
+                    data: temp_data.map(a => a.map(i => i.replace("-", ""))),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
                   };
                   document.getElementById("cancelCsvBtn").click();
@@ -1168,7 +1163,7 @@ export default {
         });
 
         let tableData = JSON.stringify({
-          data: this.csvPreview.data,
+          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
           headers: tempHeader,
         });
 
@@ -1192,6 +1187,7 @@ export default {
       } else {
         formData.append("illustration_data", this.existingIllustrationId);
       }
+
       formData.append("initial_death_benifit", data.initial_death_benifit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
@@ -1311,7 +1307,7 @@ export default {
           }
 
           this.csvPreview = {
-            data: temp_data,
+            data: temp_data.map(a => a.map(i => i.replace("-", ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
           };
           this.setInputWithId("add_new_csv_col", "");
@@ -1464,12 +1460,11 @@ export default {
             headers.push("");
           }
 
-          return { data: data, headers: headers };
+          return { data: data.map(a => a.map(i => i.replace("-", ""))), headers: headers };
         } catch (err) {
           setTimeout(() => {
             this.setInputWithId("pasteData", "");
           }, 100);
-          console.log(err);
           return false;
         }
       }

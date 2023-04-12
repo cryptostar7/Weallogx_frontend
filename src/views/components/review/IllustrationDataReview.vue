@@ -30,24 +30,25 @@
                         </div>
                         <div class="col-md-2 summaryInputsDiv">
                             <label for="client name">Illustration Return</label>
-                            <input type="text" class="form-control" :value="`${data.policy_return}%`" readonly>
+                            <input type="text" class="form-control" :value="`${Number(data.policy_return).toFixed(2)}%`" readonly>
                         </div>
                         <div class="col-md-2 summaryInputsDiv">
                             <label for="client name">Initial Death Benefit</label>
-                            <input type="text" class="form-control" :value="`$${Number(data.initial_death_benefit).toLocaleString()}`" readonly>
+                            <input type="text" class="form-control" :value="`$${Number(data.initial_death_benifit).toLocaleString()}`" readonly>
                         </div>
                         <div class="col-md-2 illustrationPdfCol">
-                            <a href="javascript:void(0)" class="illustrationPdfAncor">
-                                <button class="illustrationPdfDiv btn">
-                                    <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.75" y="0.75" width="16.5" height="19.5" rx="1.25" fill="white" stroke="#0E6651" stroke-width="1.5" />
-                                        <rect x="3.375" y="9.375" width="10.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
-                                        <rect x="3.375" y="15.375" width="11.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
-                                        <rect x="3.375" y="12.375" width="7.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
-                                        <rect x="3.375" y="5.375" width="6.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
-                                    </svg>
-                                    &nbsp;<span>PDF Illustration</span>
-                                </button></a>
+                          <a href="javascript:void(0)" class="illustrationPdfAncor">
+                              <button class="illustrationPdfDiv btn">
+                                  <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <rect x="0.75" y="0.75" width="16.5" height="19.5" rx="1.25" fill="white" stroke="#0E6651" stroke-width="1.5" />
+                                      <rect x="3.375" y="9.375" width="10.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
+                                      <rect x="3.375" y="15.375" width="11.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
+                                      <rect x="3.375" y="12.375" width="7.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
+                                      <rect x="3.375" y="5.375" width="6.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
+                                  </svg>
+                                  &nbsp;<span>PDF Illustration</span>
+                              </button>
+                          </a>
                         </div>
                     </div>
                 </form>
@@ -90,8 +91,8 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.illustration);
+    testFunction: function(item) {
+      console.log(item);
     },
     handleTable: function(){
       this.showAll = !this.showAll;
