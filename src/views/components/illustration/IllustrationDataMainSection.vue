@@ -7,7 +7,7 @@
           <form class="main-form-div" @submit="submitHandler" autocomplete="off">
             <div class="main-form-heading">
               <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
+                <h2 class="fs-34 bold-fw main-tab-heading me-2" @click="testFunction()"> New Scenario </h2>
               </div>
             </div>
             <div class="form-wrapper side-grey-line">
@@ -408,12 +408,12 @@ export default {
       .getElementById("pdfPreviewCanvasModal")
       .addEventListener("hidden.bs.modal", function(event) {
         document.getElementById("uploading").value = null;
-        if(document.getElementById("uploading2")){
+        if (document.getElementById("uploading2")) {
           document.getElementById("uploading2").value = null;
         }
         document.getElementById("extractPageNumber").value = null;
         document.getElementById("fileName").innerText = "";
-        if(document.getElementById("fileName2")){
+        if (document.getElementById("fileName2")) {
           document.getElementById("fileName2").innerText = "";
         }
       });
@@ -769,7 +769,7 @@ export default {
         this.errors.initial_death_benifit = "";
       }
 
-      console.log(this.getInputWithId("policyReturn"), '...........');
+      console.log(this.getInputWithId("policyReturn"), "...........");
       if (!this.getInputWithId("policyReturn")) {
         this.errors.policy_return = ["This field is required."];
         validate = false;
@@ -858,19 +858,19 @@ export default {
       event.preventDefault();
       // add blur effect
       var parent = event.target.closest(".drag-drop-label");
-      parent.classList.add("dragging")
+      parent.classList.add("dragging");
     },
     dragleave(event) {
       // remove blur effect
       var parent = event.target.closest(".drag-drop-label");
-      parent.classList.remove("dragging")
+      parent.classList.remove("dragging");
     },
     handleDragFile: function(e) {
       e.preventDefault();
       this.$refs.file.files = e.dataTransfer.files;
       this.handleFile();
     },
- 
+
     addColDragFile: function(e) {
       e.preventDefault();
       this.$refs.file2.files = e.dataTransfer.files;
@@ -952,7 +952,7 @@ export default {
           document.getElementById("pdfPreviewCanvasModal")
         ).toggle();
       }
-      
+
       if (!file) {
         return false;
       } else {
@@ -975,29 +975,8 @@ export default {
           let allData = { data: [], headers: [] };
 
           if (page && res) {
-            let arr = [];
-            let headers = [];
-            let total_columns = 0;
-            let finalObj = false;
-
-            page.split(",").forEach(p => {
-              if (res[p.trim()]) {
-                let tempData = res[p.trim()].map(i => {
-                  var obj = Object.values(i);
-                  if (total_columns < obj.length) {
-                    total_columns = obj.length;
-                  }
-                  return obj;
-                });
-                arr = [...arr, ...tempData];
-              }
-            });
-            for (var i = 0; i < total_columns; i++) {
-              headers.push("");
-            }
-            if (headers.length) {
-              finalObj = { data: arr.map(a => a.map(i => i.replace("-", ""))), headers: headers };
-            } else {
+            var finalObj = this.getSearializedData(res, page);
+            if (!finalObj.headers.length) {
               this.$toast.warning(
                 "Sorry the data from the uploaded file could not be retrieved."
               );
@@ -1013,7 +992,7 @@ export default {
                   let temp_data = [];
                   let maxRowLen = this.csvPreview.data.length;
                   let maxColLen = this.csvPreview.data.length;
-                  
+
                   if (finalObj.data.length < maxRowLen) {
                     maxRowLen = finalObj.data.length;
                   }
@@ -1039,7 +1018,6 @@ export default {
               }
             }
 
-            // this.$store.dispatch("loader", false);
             this.fileLoader = false;
             this.fileLoader2 = false;
             this.setScrollbar();
@@ -1047,7 +1025,6 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          // this.$store.dispatch("loader", false);
           this.fileLoader = false;
           this.fileLoader2 = false;
           if (
@@ -1059,6 +1036,91 @@ export default {
             this.$toast.error(getFirstError(error));
           }
         });
+    },
+
+    // map pdf extract data
+    getSearializedData: function(response, page) {
+      let headers = [];
+      let total_rows = 0;
+      let total_columns = 0;
+      let finalObj = { data: [], headers: [] };
+      let allData = [];
+      let filterData = [];
+
+      let pages = page.split(",").map(p => Number(p));
+
+      // get object of searialized page
+      let sequence = this.getPageSequenceGroup(pages);
+
+      // create a group of sequence data
+      sequence.forEach(p => {
+        let pdata = [];
+        let maxLength = 0;
+        p.forEach(item => {
+          let tmp = response[item].map(a => Object.values(a));
+          pdata = [...pdata, ...tmp];
+          if (total_rows < pdata.length) {
+            total_rows = pdata.length;
+          }
+        });
+
+        allData.push(pdata);
+      });
+
+      // merge sequenced data in single object
+      allData.forEach(data => {
+        let temp_data = [];
+        for (var i = 0; i < total_rows; i++) {
+          temp_data.push([...(filterData[i] || ""), ...(data[i] || "")]);
+        }
+        filterData = { ...temp_data };
+      });
+
+      // convert into values of object
+      filterData = Object.values(filterData);
+
+      // get max column length of the object
+      filterData.forEach(items => {
+        if (total_columns < items.length) {
+          total_columns = items.length;
+        }
+      });
+
+      // to eqalize the data in each object
+      filterData = filterData.map(items => {
+        let tempItems = [];
+        for (let i = 0; i < total_columns; i++) {
+          tempItems.push(items[i] || "");
+        }
+        return tempItems;
+      });
+
+      // create header object
+      for (let i = 0; i < total_columns; i++) {
+        headers.push("");
+      }
+
+      finalObj = { data: filterData, headers: headers };
+      return finalObj;
+    },
+    getPageSequenceGroup: function(pages) {
+      let seq = [];
+      let currentSeq = [];
+      pages.forEach((p, i) => {
+        if (i) {
+          if (pages.includes(p - 1)) {
+            currentSeq.push(p);
+          } else {
+            seq.push(currentSeq);
+            currentSeq = [];
+            currentSeq.push(p);
+          }
+        } else {
+          currentSeq.push(p);
+        }
+      });
+      seq.push(currentSeq);
+      return seq;
     },
 
     // handle form data
@@ -1096,14 +1158,13 @@ export default {
           return this.$toast.warning("CSV data is required.");
         }
       }
-        console.log('submitted');
+      console.log("submitted");
 
       if (!this.validateForm()) {
         console.log(this.errors);
         document.getElementById("main-section-element").scrollIntoView();
         return false;
       }
-
 
       var data = {
         company: this.insuranceCompany,
@@ -1264,6 +1325,7 @@ export default {
       this.setInputWithId("pasteData", "");
       this.setInputWithId("add_new_csv_col", "");
     },
+    // clear errors and files info form table
     resetAddDiv: function() {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
@@ -1272,6 +1334,7 @@ export default {
       this.illustrationFile.name = "";
       this.fileLoader2 = false;
     },
+    // add new data on illustration data object
     addMoreCol: function() {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
@@ -1290,6 +1353,7 @@ export default {
         }
       }
     },
+    // append new csv data in current illustration data table
     addCSVColumn: function() {
       let txt = this.getInputWithId("add_new_csv_col");
       if (txt) {
@@ -1321,6 +1385,7 @@ export default {
         this.$toast.warning("Please paste your CSV to add more columns.");
       }
     },
+    // exract the csv data
     handleCSV: function(e) {
       let txt = e.clipboardData.getData("text/plain");
       if (txt) {
@@ -1339,6 +1404,7 @@ export default {
     setHeader: function(e, index) {
       this.csvPreview.headers[index] = e.target.value;
     },
+    // set scrollbar on table
     setScrollbar: function() {
       setTimeout(() => {
         document.getElementById("pasteData").value = "";
@@ -1373,6 +1439,11 @@ export default {
         }
       }, 100);
     },
+    testFunction: function() {
+      let clone = { ...this.csvPreview };
+      console.log(clone);
+    },
+    // remove column from the illustration data table
     removeColumn: function() {
       let temp_data = [];
       if (this.removeColId.length) {
@@ -1394,6 +1465,7 @@ export default {
         this.$toast.warning("No column selected for deletion.");
       }
     },
+    // parse the csv/excel row
     parseRow2: function(row) {
       var insideQuote = false;
       var entries = [];
@@ -1408,6 +1480,7 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
+    // parse the csv/excel row
     parseRow: function(row) {
       var insideQuote = false;
       var entries = [];
@@ -1427,6 +1500,7 @@ export default {
       entries.push(entry.join(""));
       return entries;
     },
+    // Check heading data in row
     checkIsHeader: function(arr = []) {
       var isHeader = false;
       arr.forEach((item, index) => {
@@ -1436,6 +1510,7 @@ export default {
       });
       return isHeader;
     },
+    // extract csv data
     exractCsvText: function(values = "") {
       let total_columns = 0;
       if (values) {
@@ -1445,9 +1520,9 @@ export default {
           if (values.match("\t")) {
             data = data.map(i => i.split("\t"));
           } else {
-            if(values.match('\"')){
+            if (values.match('"')) {
               data = data.map(i => this.parseRow(i));
-            }else{
+            } else {
               data = data.map(i => this.parseRow2(i));
             }
           }
@@ -1460,7 +1535,10 @@ export default {
             headers.push("");
           }
 
-          return { data: data.map(a => a.map(i => i.replace("-", ""))), headers: headers };
+          return {
+            data: data.map(a => a.map(i => i.replace("-", ""))),
+            headers: headers,
+          };
         } catch (err) {
           setTimeout(() => {
             this.setInputWithId("pasteData", "");
