@@ -1278,3 +1278,42 @@ margin: o;
 .light-blue .illustration-data-table tr th input[type=checkbox]{
   accent-color: #23669E;
 }
+
+.light-blue .feeAnalysisLeftBar1{
+  background-color: #1660A4;
+}
+.light-blue .feeAnalysisLeftBar2{
+  background-color: #0E6651;
+}
+.light-blue .feeAnalysisMiddleBar1{
+  background: #207ACD;
+}
+.light-blue .feeAnalysisMiddleBar2{
+  background: #209579;
+}
+
+.light-blue .feeAnalysismiddleBarBtm1{
+  background: #1768B2;
+}
+.light-blue .feeAnalysismiddleBarBtm2{
+  background: #30AD8F;
+}
+.light-blue .feeAnalysisLeftBarBtm1{
+background: #0C4A83;
+}
+.light-blue .feeAnalysisLeftBarBtm2{
+  background: #1D856C;
+}
+
+.light-blue .feeAnalysisRightBar1{
+  background: #1A89EE;
+}
+.light-blue .feeAnalysisRightBar2{
+  background: #3ECAA8;
+}
+.light-blue .feeAnalysisrightBarBtm1{
+  background: #0F7ADC;
+}
+.light-blue .feeAnalysisrightBarBtm2{
+  background: #39BE9E;
+}

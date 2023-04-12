@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="section-heading-div section-heading-bg pt-0 d-flex justify-content-between gap-20 flex-wrap flex-md-nowrap align-items-center">
+    <div class="section-heading-div report section-heading-bg pt-2 d-flex justify-content-between gap-20 flex-wrap flex-md-nowrap align-items-center">
         <div class="d-flex align-items-center">
             <button class="reportBuilderBr" data-bs-target="#reportNameChangeModal" data-bs-toggle="modal"> Br
             </button>

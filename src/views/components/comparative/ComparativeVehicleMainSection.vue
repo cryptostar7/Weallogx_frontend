@@ -265,10 +265,10 @@
                 <div class="row d-flex justify-content-center">
                   <div class="col-md-9">
                     <div class="bottom-buttons-main-div">
-                      <div class="text-center mt-30" v-if="vehicle.tab !== 3"> 
+                      <div class="text-center" v-if="vehicle.tab !== 3"> 
                         <a href="javascript:void(0)" class="btn AdtnlCmprtVhclBtn fs-14" @click="setNextTab()">Add Additional Comparative Vehicle</a> 
                         </div>
-                      <div :class="`form-check form-switch custom-switch align-items-center justify-content-start mb-3 mt-30 ${tabs.vehicle2 && vehicle.tab !== 1 ? '' : 'd-none'}`"> 
+                      <div :class="`form-check form-switch custom-switch align-items-center d-flex justify-content-center mb-3 mt-30 ${tabs.vehicle2 && vehicle.tab !== 1 ? '' : 'd-none'}`"> 
                         <input class="form-check-input me-1" type="checkbox" role="switch" id="saveComparativePortPolio" v-model="vehicle.portfolio_checkbox" /> 
                         <label class="form-check-label fs-12 semi-bold-fw mb-0" for="saveComparativePortPolio">Save as Comparative Vehicle Portfolio</label> 
                       </div>
@@ -276,18 +276,20 @@
                         <label for="portfolioTemplateName" class="fs-12 semi-bold-fw">Portfolio Name</label> 
                         <input type="text" id="portfolioTemplateName" class="form-control width-adjust" v-model="vehicle.portfolio_name"/> 
                       </div>
-                      <div class="text-center mt-30 d-flex justify-content-start">
-                        <div class="d-flex">
+                      <div class="text-center mt-30 d-flex flex-column justify-content-center">
+                        <div class="d-flex justify-content-center">
                           <div>
                             <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
                             <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid"  alt="Chevron" width="6" /> Back
                             </router-link> 
                           </div>
                           <div> 
-                            <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button> 
-                            <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-next-btn fs-14 active comparative-next-btn mt-2 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)">Save & Return to Review</button> 
+                            <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button>
                           </div>
                         </div>
+                        <div class="d-flex justify-content-center pt-3">
+                            <button  v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn m-0 form-next-btn fs-14 active comparative-next-btn mt-2 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)">Save & Return to Review</button>
+                          </div>
                       </div>
                     </div>
                   </div>

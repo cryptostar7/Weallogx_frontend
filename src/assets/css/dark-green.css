@@ -36,11 +36,11 @@
 }
 
 .dark-green .form-subheading {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .form-group label {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .form-group .form-control {
@@ -58,12 +58,15 @@
 }
 
 .dark-green .tax-rate-tabs .nav-item button.nav-link {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .tax-rate-tabs .nav-item button.nav-link.active {
-  color: #ffffff;
+  color: #fff;
   background: #26AB8B;
+}
+.dark-green .white-in-dark{
+  color: #fff;
 }
 
 .dark-green .autocomplete-items,
@@ -96,7 +99,7 @@
 .dark-green .autocomplete11-items div,
 .dark-green .autocomplete12-items div {
   background-color: #34383D;
-  color: #ffffff;
+  color: #fff;
   border-left: 1.25px solid #34383D;
   border-right: 1.25px solid #34383D;
 }
@@ -166,23 +169,23 @@
 }
 
 .dark-green .simpleTaxRateImg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .scheduleTaxRateImg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .tax-rate-table thead tr th {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid #607586;
   border-bottom: none !important;
 }
 
 .dark-green .tax-rate-table tbody tr td {
   background: transparent;
-  color: #ffffff;
+  color: #fff;
   border-right-color: #607586;
   border: 1px solid #607586;
   border-bottom-color: #607586;
@@ -195,12 +198,12 @@
 }
 
 .dark-green .copyPaste rect {
-  stroke: #ffffff;
-  fill: #ffffff;
+  stroke: #fff;
+  fill: #fff;
 }
 
 .dark-green .uploadFromFile rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .drag-drop-label {
@@ -208,19 +211,19 @@
 }
 
 .dark-green .drag-drop-heading {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .drag-drop-label .uploadFileTxtPara {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 
 .dark-green .chevron-span svg path {
-  fill: #ffffff;
+  fill: #fff;
 }
 
 .dark-green .no-file-span {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .copy-paste-area {
@@ -228,7 +231,7 @@
 }
 
 .dark-green .illustration-data-table-div {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .form-subheading::before {
@@ -236,7 +239,7 @@
 }
 
 .dark-green .custom-switch .form-check-label {
-  color: #ffffff
+  color: #fff
 }
 
 .dark-green .illustration-data-wrapper {
@@ -251,17 +254,17 @@
 
 .dark-green .illustrative-data-table thead tr th {
   background: #313438;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid #353B46;
 }
 
 .dark-green .caution-dropdown .dropdown-menu {
   background: #202124;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green #cautionDropdown {
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   color: #DA1159;
   background: transparent;
 }
@@ -299,7 +302,7 @@
 
 .dark-green .AdtnlCmprtVhclBtn:hover {
   background: #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .form-next-btn:focus,
@@ -313,7 +316,7 @@
 }
 
 .dark-green .historicalTopPara1 {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .historical-yesNo-mainDiv {
@@ -330,12 +333,12 @@
 
 .dark-green .twoBtnSwtchMainDiv div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .twoBtnSwtchMainDiv div.active {
   background: #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .strategyAllocation form select {
@@ -362,21 +365,21 @@
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .mainResizeparaPer1 {
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .mainResizeparaPer2 {
   background: #202124;
   border: 0.5px solid #353B46;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .strategyErrorPara {
@@ -388,15 +391,15 @@
 }
 
 .dark-green .historicalYesNoTxt {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .historicalAllSetPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .afterYesMdlPara {
-  color: #ffffff
+  color: #fff
 }
 
 .dark-green .twoBtnSwtchMainDiv {
@@ -408,7 +411,7 @@
 }
 
 .dark-green .historicalYesNoTxt svg rect {
-  fill: #ffffff;
+  fill: #fff;
 }
 
 .dark-green .form-back-btn:hover {
@@ -435,7 +438,7 @@
 
 .dark-green .main-form-heading {
   border-bottom: 1.25px solid #353B46;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .main-tab-heading::before {
@@ -448,7 +451,7 @@
 }
 
 .dark-green .historical-paraCheckBox {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .custom-switch .form-check-input {
@@ -469,7 +472,7 @@
 }
 
 .dark-green .numberIndexStrtegiesPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .multiRadioBtnMainDiv {
@@ -482,17 +485,17 @@
 }
 
 .dark-green .historicalRadioNumberPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .radioClassDarkMode .form-check-input:checked,
 .dark-green .radioClassDarkMode .form-check-input:checked {
-  background-color: #ffffff !important;
+  background-color: #fff !important;
 }
 
 .dark-green .radioClassDarkMode .form-check-input:checked,
 .dark-green .radioClassDarkMode .form-check-input:checked:focus {
-  background-color: #ffffff;
+  background-color: #fff;
   background-image: url("../images/icons/green-radio.svg");
 }
 
@@ -518,7 +521,7 @@
 }
 
 .dark-green .indexStrategyheadBrdr p {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .indexStrategyheadBrdr div {
@@ -542,7 +545,7 @@
 }
 
 .dark-green .indexStrategyallDivs svg rect {
-  fill: #FFFFFF;
+  fill: #FFF;
 }
 
 .dark-green .indexStrategyallDivs.accordion-button::after {
@@ -559,7 +562,7 @@
 }
 
 .dark-green .buttonSaveRadioPara {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .form-next-btn:disabled,
@@ -574,7 +577,7 @@
 
 .dark-green .skipHistoricalBtn {
   background: #242629;
-  border: 0.75px solid #FFFFFF;
+  border: 0.75px solid #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
 }
 
@@ -584,7 +587,7 @@
 }
 
 .dark-green .formParabrdrLavelDiv p:first-child {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .formParabrdrLavelDiv p:last-child {
@@ -592,7 +595,7 @@
 }
 
 .dark-green .timePeriodYear {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .ChooseTimePeriodInputs label.disabled {
@@ -606,13 +609,13 @@
 }
 
 .dark-green .saveZIndexTempContent label {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .saveZIndexTempContent input {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #FFFFFF;
+  color: #FFF;
   font-weight: 400;
   font-size: 15px;
 }
@@ -629,7 +632,7 @@
 .dark-green .customAmountInputDiv input {
   background: #34383D;
   border: 1px solid #515151;
-  color: #ffffff;
+  color: #fff;
   background-image: url('../images/icons/dark-mode-percent.svg');
   background-repeat: no-repeat;
   background-position: 88% 50%;
@@ -655,7 +658,7 @@
 
 .dark-green .info-message-analyze {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .dark-info-icon-img:hover~.info-message-segment {
@@ -664,7 +667,7 @@
 
 .dark-green .info-message-segment {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .dark-info-icon-img:hover~.info-message-participationRate {
@@ -673,7 +676,7 @@
 
 .dark-green .info-message-participationRate {
   background: #202124;
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .IndexStrategyBtn {
@@ -682,23 +685,23 @@
 
 .dark-green .IndexStrategyBtn label {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green #tooltip1 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green #tooltip2 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green #tooltip3 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green #tooltip4 span {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .enhancementFixedSheduleBtn {
@@ -708,7 +711,7 @@
 
 .dark-green .enhancementFixedSheduleBtn div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .enhancementFixedSheduleBtn div.active {
@@ -722,12 +725,12 @@
 .dark-green .schduleTableDiv table {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .schduleTableDiv table th {
   background: #2E3135;
-  color: #FFFFFF;
+  color: #FFF;
   border: none;
 }
 
@@ -742,7 +745,7 @@
 .dark-green .innerTableInputTd input {
   background: #34383D;
   border: 1px solid #515151;
-  color: #FFFFFF;
+  color: #FFF;
   font-size: 15px;
   font-weight: 400;
 }
@@ -754,7 +757,7 @@
 .dark-green .amountInnerTableInputTd input {
   background: #2E3135;
   border: 1px solid #515151;
-  color: #ffffff;
+  color: #fff;
   font-size: 15px;
   font-weight: 400;
 }
@@ -764,7 +767,7 @@
 }
 
 .dark-green .multiplierInputDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .fixeValueYearRadio {
@@ -773,7 +776,7 @@
 
 .dark-green .fixedStartYear {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .multiplierInputDiv input {
@@ -791,7 +794,7 @@
 }
 
 .dark-green .loan-Intrest-para {
-  color: #ffffff;
+  color: #fff;
 }
 
 /* history simulation dark mose css end here */
@@ -849,25 +852,25 @@
 
 .dark-green .section-heading-div {
   background: #242629;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .search-bar-div input.form-control {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .search-bar-div input.form-control:focus {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .sort-dropdown-div .dropdown-toggle {
   background: #2E3135;
   border: none;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .sort-dropdown-div .dropdown-toggle::after {
@@ -904,15 +907,15 @@
 
 .dark-green .client-list-ul .client-name .name-initial-circle {
   background: #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .client-name a {
-  color: #ffffff !important;
+  color: #fff !important;
 }
 
 .dark-green .client-list-ul .client-name .nav-link svg rect {
-  fill: #ffffff;
+  fill: #fff;
 }
 
 .dark-green .client-list-ul .client-name:hover .nav-link svg {
@@ -923,7 +926,7 @@
 .dark-green .right-action-btn-div .right-action-btn.collapsed {
   background: #373737;
   border: none;
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .right-action-btn-div .right-action-btn.collapsed svg path {
@@ -938,7 +941,7 @@
 .dark-green .right-action-btn-div .right-action-btn {
   background: #656565;
   border: #656565;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .right-action-btn-div .right-action-btn:hover {
@@ -972,7 +975,7 @@
 }
 
 .dark-green .list-item * {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .round-btn {
@@ -984,13 +987,13 @@
 .dark-green .round-btn:hover {
   background: #26AB8B;
   border: 1px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .round-btn:hover {
   background: #26AB8B;
   border: 1px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .round-btn svg path {
@@ -998,11 +1001,11 @@
 }
 
 .dark-green .round-btn:hover svg path {
-  fill: #ffffff;
+  fill: #fff;
 }
 
 .dark-green .round-btn:hover svg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .round-btn svg rect {
@@ -1014,7 +1017,7 @@
 }
 
 .dark-green .view-btn:hover {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .list-item-actions svg path {
@@ -1046,7 +1049,7 @@
 }
 
 .dark-green .side-client-label .btn {
-  background: #ffffff;
+  background: #fff;
 }
 
 .dark-green .main-cleint-name-div {
@@ -1063,12 +1066,12 @@
 .dark-green .common-round-btn svg rect,
 .dark-green .common-round-btn svg path {
   flex-shrink: 0;
-  fill: #FFFFFF
+  fill: #FFF
 }
 
 .dark-green .common-round-btn:hover {
   border: 1px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
   background: #26AB8B;
   border: 1px solid #26AB8B;
 }
@@ -1076,21 +1079,21 @@
 .dark-green .main-client-initials {
   background: #26AB8B;
   border: 1px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .main-client-heading {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .main-client-age-label {
   background: #373737;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .list-wrapper {
   background: #242629;
-  color: #ffffff;
+  color: #fff;
   border: 1.25px solid #353B46;
 }
 
@@ -1109,7 +1112,7 @@
 }
 
 .dark-green .dark-user-logo-icon ellipse {
-  fill: #ffffff;
+  fill: #fff;
 }
 
 .dark-green .dark-user-logo-icon circle {
@@ -1121,7 +1124,7 @@
 }
 
 .dark-green .offcanInputDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .offcanInputDiv input {
@@ -1139,7 +1142,7 @@
   border: 1.5px solid #26AB8B;
   border-radius: 8px;
   padding: 0.7rem 0;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .offcanBtnDiv .SaveAddBtn:hover {
@@ -1166,11 +1169,11 @@
 
 .dark-green .offcanBtnDiv .SaveclsBtn:hover {
   background: var(--green-clr-2);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid #A0A0A0;
   color: #A0A0A0;
   pointer-events: none;
@@ -1191,7 +1194,7 @@
 
 .dark-green .modal-cancel-btn:hover {
   background: #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 /* Report buider dark css start */
@@ -1279,26 +1282,26 @@
   background: transparent;
   border: 1.5px solid #26AB8B;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .saveReportBtn:hover {
   background: #26AB8B;
   border: 1.5px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .dwnldReportBtn {
   background: transparent;
   border: 1.5px solid #26AB8B;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .dwnldReportBtn:hover {
   background: #26AB8B;
   border: 1.5px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .dwnldReportBtn svg rect {
@@ -1309,13 +1312,13 @@
   background: transparent;
   border: 1.5px solid #26AB8B;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .frwrdReportBtn:hover {
   background: #26AB8B;
   border: 1.5px solid #26AB8B;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .frwrdReportBtn svg rect {
@@ -1333,7 +1336,7 @@
 
 .dark-green .presentationModeBtn:hover {
   background: transparent;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid #26AB8B;
 }
 
@@ -1365,7 +1368,7 @@
 .dark-green .reportSwtchLeft.active {
   background: #26AB8B;
   border-radius: 100px;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .reportBuilderLftInner {
@@ -1390,7 +1393,7 @@
 }
 
 .dark-green .reportBuilderLftInner.active .lftRadioBtnDiv label {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .sidebar-arrow {
@@ -1437,7 +1440,7 @@
 }
 
 .dark-green #button-1 .checkbox:checked+.knobs:before {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .dark-green #button-1 .checkbox:checked~.layer {
@@ -1459,7 +1462,7 @@
 }
 
 .dark-green .reportBuilderBrTxt {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .reportBuilderBrTxt span {
@@ -1467,7 +1470,7 @@
 }
 
 .dark-green .ComparativeTableMainDiv {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #34383D;
   border-top: 10px solid #34383D;
   border-radius: 12px;
@@ -1517,7 +1520,7 @@
 .dark-green #button-2 .checkbox2:checked+.knobs2:before {
   content: "";
   left: 18px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .dark-green #button-2 .checkbox2:checked~.layer2 {
@@ -1531,11 +1534,11 @@
 }
 
 .dark-green .collapseDivmdlHd {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .showAssetsTxt {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .SwtchBtnRprtBldr {
@@ -1544,12 +1547,12 @@
 
 .dark-green .SwtchBtnRprtBldr div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .SwtchBtnRprtBldr div.active {
   background: #26AB8B;
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .mltplSwtchDiv {
@@ -1558,7 +1561,7 @@
 
 .dark-green .mltplSwtchDiv div {
   background: #2E3135;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .mltplSwtchDiv div.active {
@@ -1619,7 +1622,7 @@
 }
 
 .dark-green .lifeProPlusPara2 {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .lifeProBtmDiv1 p {
@@ -1774,7 +1777,7 @@
 }
 
 .dark-green .compSumAnlysPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .reportTablesDiv1 table thead th {
@@ -2168,7 +2171,7 @@
 }
 
 .dark-green .mainProgBrdrPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .mainProgBrdr {
@@ -2190,7 +2193,7 @@
 }
 
 .dark-green .progressBarBtnDiv p:nth-child(2) {
-  color: #FFFFFF;
+  color: #FFF;
 }
 
 .dark-green .cumulativeValuesProgrees {
@@ -2223,7 +2226,7 @@
 }
 
 .dark-green .shortFallCount p:last-child {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .cumulativeProgLifePro {
@@ -2275,7 +2278,7 @@
 /* report buider dark css end */
 /* Review summary dark css start */
 .dark-green .summary-heading p span {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .summary-heading p {
@@ -2289,15 +2292,14 @@
 }
 
 .dark-green .summaryInputsDiv label {
-  color: #ffffff;
+  color: #fff;
   padding-bottom: 0.2rem;
 }
 
-.dark-green .summaryInputsDiv input {
+.dark-green .summaryInputsDiv input, .dark-green .summaryInputsDiv .form-control {
   border-top: 1px solid #515151;
   background: transparent;
-  ;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .compVehcleCol {
@@ -2306,7 +2308,7 @@
 }
 
 .dark-green .compVehcleColPara {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .historyHead2 p {
@@ -2325,13 +2327,13 @@
 .dark-green .SaveCloseButton button {
   background: #26AB8B;
   border-radius: 1000px;
-  color: #ffffff;
+  color: #fff;
   padding: 0.5rem 3rem;
 }
 
 .dark-green .SaveCloseButton button:hover {
   background: #003d2f;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .BuildSaveCloseButton {
@@ -2343,7 +2345,7 @@
 
 .dark-green .BuildSaveCloseButton button {
   background: #242629;
-  border: 0.75px solid #FFFFFF;
+  border: 0.75px solid #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 1000px;
   padding: 0.5rem 1.6rem;
@@ -2383,7 +2385,7 @@
 }
 
 .dark-green .Schedule-para {
-  color: #ffffff;
+  color: #fff;
   display: flex;
 }
 
@@ -2415,12 +2417,12 @@
 
 .dark-green .editBtnCommon:hover svg rect {
   fill: none;
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .editBtnCommon:hover svg path {
-  fill: #ffffff;
-  stroke: #ffffff;
+  fill: #fff;
+  stroke: #fff;
 }
 
 .dark-green .illusnTableMainDiv {
@@ -2452,13 +2454,13 @@
 .dark-green .illusnTableMainDiv .table th {
   background: #313438;
   border: 1px solid #3E4247;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .illusnTableMainDiv .table tbody tr td {
   background: #292B2F;
   border: 1px solid #353B46;
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .historyHead2 .hisBorder {
@@ -2480,17 +2482,17 @@
 }
 
 .dark-green .illustrationPdfDiv span {
-  color: #FFFFFF !important;
+  color: #FFF !important;
 }
 
 .dark-green .illustrationPdfDiv svg rect {
   fill: none;
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .schedule-icon-btn {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   border-radius: 50%;
   height: 28px;
   width: 28px;
@@ -2510,7 +2512,7 @@
 }
 
 .dark-green .schedule-icon-btn:hover svg rect {
-  stroke: #ffffff;
+  stroke: #fff;
 }
 
 .dark-green .modalTableDiv .table td {
@@ -2519,16 +2521,16 @@
 
 .dark-green .modalTableDiv .table th {
   background: #313438;
-  color: #ffffff;
+  color: #fff;
   border-bottom: 1px solid #fff;
 }
 
 .dark-green .modalTableDiv .table tbody tr td {
-  color: #ffffff;
+  color: #fff;
 }
 
 .dark-green .ModalHeasingPara {
-  color: #ffffff
+  color: #fff
 }
 
 .dark-green .btnWhite-darkTheme {

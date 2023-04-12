@@ -2682,12 +2682,14 @@
   padding-bottom: 0.2rem;
 }
 
-.dark-blue .summaryInputsDiv input {
+.dark-blue .summaryInputsDiv input, .dark-blue .summaryInputsDiv .form-control {
   border-top: 1px solid #515151;
   background: transparent;
   color: #fff;
 }
-
+.dark-blue .white-in-dark{
+  color: #fff;
+}
 .dark-blue .compVehcleCol {
   background: #34383D;
   border: 1.5px solid #353B46;
@@ -4169,4 +4171,42 @@ color: #55575a !important;
 }
 .dark-blue .illustration-data-table tr th input[type=checkbox]{
   accent-color: #23669E;
+}
+.dark-blue .feeAnalysisLeftBar1{
+  background-color: #1660A4;
+}
+.dark-blue .feeAnalysisLeftBar2{
+  background-color: #0E6651;
+}
+.dark-blue .feeAnalysisMiddleBar1{
+  background: #207ACD;
+}
+.dark-blue .feeAnalysisMiddleBar2{
+  background: #209579;
+}
+
+.dark-blue .feeAnalysismiddleBarBtm1{
+  background: #1768B2;
+}
+.dark-blue .feeAnalysismiddleBarBtm2{
+  background: #30AD8F;
+}
+.dark-blue .feeAnalysisLeftBarBtm1{
+background: #0C4A83;
+}
+.dark-blue .feeAnalysisLeftBarBtm2{
+  background: #1D856C;
+}
+
+.dark-blue .feeAnalysisRightBar1{
+  background: #1A89EE;
+}
+.dark-blue .feeAnalysisRightBar2{
+  background: #3ECAA8;
+}
+.dark-blue .feeAnalysisrightBarBtm1{
+  background: #0F7ADC;
+}
+.dark-blue .feeAnalysisrightBarBtm2{
+  background: #39BE9E;
 }

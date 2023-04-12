@@ -42,9 +42,9 @@
                 <div class="tab-pane fade show active" id="v-pills-distributions" role="tabpanel"
                   aria-labelledby="v-pills-distributions-tab">
                   <div class="container-fluid">
-                    <div class="d-flex flex-gap justify-content-between">
+                    <div class="d-flex flex-gap-12 justify-content-between">
                       <div class="mt-3 flex-1" v-for="(item, index) in data.distribution" :key="index">
-                        <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.distributions[index].active ? '':'inactive'}`">
+                        <div :class="`distributionCard1 making equalDistCard${1+index} position-relative w-100 ${cards.distributions[index].active ? '':'inactive'}`">
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
                               <p class="allCardHeadPara">Distributions</p>
@@ -78,12 +78,12 @@
                               <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
                             </div>
                             <div class="position-up" v-if="index">
-                              <p class="ms-3 cardProjectTag">Ending Value</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
+                              <p class="cardProjectTag textGap">Ending Value</p>
+                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
                             </div>
                             <div class="position-up" v-if="index">
-                              <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
+                              <p class="cardProjectTag textGap">Death Benefit</p>
+                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -207,9 +207,9 @@
                 <div class="tab-pane fade show" id="v-pills-rateOfReturn" role="tabpanel"
                   aria-labelledby="v-pills-rateOfReturn-tab">
                   <div class="container-fluid">
-                    <div class="d-flex flex-gap justify-content-between">
+                    <div class="d-flex flex-gap-12 justify-content-between">
                       <div class="mt-3 flex-1" v-for="(item, index) in data.distribution" :key="index">
-                        <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.rate_of_returns[index].active ? '':'inactive'}`">
+                        <div :class="`distributionCard1 making equalDistCard${1+index} position-relative w-100 ${cards.rate_of_returns[index].active ? '':'inactive'}`">
                           <div class="d-flex justify-content-between">
                             <div class="distrbnCard1paras">
                               <p>Rate of Return</p>
@@ -242,12 +242,12 @@
                               <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.longevity_in_percent}}</p>
                             </div>
                             <div class="position-up" v-if="index">
-                              <p class="ms-3 cardProjectTag">Ending Value</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.ending_value_in_percent}}</p>
+                              <p class="cardProjectTag textGap">Ending Value</p>
+                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.ending_value_in_percent}}</p>
                             </div>
                             <div class="position-up" v-if="index">
-                              <p class="ms-3 cardProjectTag">Death Benefit</p>
-                              <p :class="`ms-3 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benefit_in_percent}}</p>
+                              <p class="cardProjectTag textGap">Death Benefit</p>
+                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benefit_in_percent}}</p>
                             </div>
                           </div>
                           <add-note-input-component />

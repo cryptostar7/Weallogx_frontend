@@ -26,7 +26,7 @@
               <hr class="collapseDivHr">
               <div class="px-3 py-3">
                 <div class="position-relative">
-                  <div class="d-flex align-items-center  float-end">
+                  <div class="d-flex align-items-center float-end">
                     <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
                       <input type="checkbox" class="checkbox2 showAssetsCheckBox" id="showAssets" @change="() => $store.dispatch('toggleAssets1')"/>
                       <div class="knobs2"></div>
