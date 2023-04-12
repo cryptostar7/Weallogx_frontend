@@ -1358,6 +1358,7 @@ color: #fff;
   font-weight: var(--semi-bold-fw);
   background-color: transparent;
   color: #a0a0a0;
+  border: 1px solid #dfdfdf;
 }
 .form-back-btn:hover,
 .form-back-btn:focus {

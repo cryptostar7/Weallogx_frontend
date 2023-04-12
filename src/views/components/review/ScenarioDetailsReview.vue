@@ -80,7 +80,7 @@
                                                     </svg>
                                                 </button>
                                             </p>
-                                            <p v-else class="text-center py-1">No Scheduled Tax Rate</p>
+                                            <p v-else class="text-center py-1 white-in-dark">No Scheduled Tax Rate</p>
                                         </div>
                                     </div>
                                 </div>

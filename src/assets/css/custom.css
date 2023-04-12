@@ -855,6 +855,9 @@ body::-webkit-scrollbar {
 .section-heading-div {
   z-index: 5;
 }
+.section-heading-div.report {
+  top: 65px;
+}
 
 .section-heading-bg {
   background: #F5F5F5;
@@ -3116,6 +3119,7 @@ p.allCardHeadPara{
   font-weight: 500;
   font-size: 12px;
   margin: 0;
+  color: #202020;
 }
 
 .modalHeadingDiv {
@@ -3290,11 +3294,11 @@ p.allCardHeadPara{
 
 /* color of cominative values */
 .cumulativeProgLifePro1 {
-  background: #1660A4;
+  background: #0E6651;
 }
 
 .cumulativeProgLifePro2 {
-  background: #0E6651;
+  background: #1660A4;
 }
 
 .cumulativeProgLifePro3 {
@@ -3306,11 +3310,11 @@ p.allCardHeadPara{
 }
 
 .BottomcumulativeLifePro1 {
-  background: #287BC7;
+  background: #25967B;
 }
 
 .BottomcumulativeLifePro2 {
-  background: #25967B;
+  background: #287BC7;
 }
 
 .BottomcumulativeLifePro3 {
@@ -4014,6 +4018,7 @@ Blank div css end here
   font-weight: 500;
   color: #9D9D9D;
   margin: 0;
+  line-height: 1.2;
 }
 
 .legacyCardPara {
@@ -4099,78 +4104,66 @@ background: #1D856C;
 .feeAnalysisLeftBarBtm2{
   background: #0C4A83;
   }
-  .feeAnalysisLeftBarBtm3{
-    background: #5B2983;
-    }
-    .feeAnalysisLeftBarBtm4{
-      background: #8B2323;
-      }
-      .feeAnalysisMiddleBar1{
-        background: #209579;
-      }
-      .feeAnalysisMiddleBar2{
-        background: #207ACD;
-      }
-      .feeAnalysisMiddleBar3{
-        background: #954FCB;
-      }
-      .feeAnalysisMiddleBar4{
-        background: #CA3939;
-      }
+.feeAnalysisLeftBarBtm3{
+  background: #5B2983;
+}
+.feeAnalysisLeftBarBtm4{
+  background: #8B2323;
+}
+.feeAnalysisMiddleBar1{
+  background: #209579;
+}
+.feeAnalysisMiddleBar2{
+  background: #207ACD;
+}
+.feeAnalysisMiddleBar3{
+  background: #954FCB;
+}
+.feeAnalysisMiddleBar4{
+  background: #CA3939;
+}
 
-
-      .feeAnalysismiddleBarBtm1{
-        background: #30AD8F;
-        }
-        .feeAnalysismiddleBarBtm2{
-          background: #1768B2;
-          }
-          .feeAnalysismiddleBarBtm3{
-            background: #7F3FB2;
-            }
-            .feeAnalysismiddleBarBtm4{
-              background: #BD2C2C;
-              }
-
-
-
-
-      .feeAnalysisRightBar1{
-        background: #3ECAA8;
-      }
-      .feeAnalysisRightBar2{
-        background: #1A89EE;
-      }
-      .feeAnalysisRightBar3{
-        background: #B770EF;
-      }
-      .feeAnalysisRightBar4{
-        background: #E55050;
-      }
-
-
-
-      .feeAnalysisrightBarBtm1{
-        background: #39BE9E;
-        }
-        .feeAnalysisrightBarBtm2{
-          background: #0F7ADC;
-          }
-          .feeAnalysisrightBarBtm3{
-            background: #A35CDA;
-            }
-            .feeAnalysisrightBarBtm4{
-              background: #DA3D3D;
-              }
+.feeAnalysismiddleBarBtm1{
+  background: #30AD8F;
+}
+.feeAnalysismiddleBarBtm2{
+  background: #1768B2;
+}
+.feeAnalysismiddleBarBtm3{
+  background: #7F3FB2;
+}
+.feeAnalysismiddleBarBtm4{
+  background: #BD2C2C;
+}
 
 
 
 
+.feeAnalysisRightBar1{
+  background: #3ECAA8;
+}
+.feeAnalysisRightBar2{
+  background: #1A89EE;
+}
+.feeAnalysisRightBar3{
+  background: #B770EF;
+}
+.feeAnalysisRightBar4{
+  background: #E55050;
+}
 
-
-
-
-
+.feeAnalysisrightBarBtm1{
+  background: #39BE9E;
+}
+.feeAnalysisrightBarBtm2{
+  background: #0F7ADC;
+}
+.feeAnalysisrightBarBtm3{
+    background: #A35CDA;
+}
+.feeAnalysisrightBarBtm4{
+  background: #DA3D3D;
+}
       
 /*  */
 .feeProgressBarEachDiv {
@@ -5278,10 +5271,6 @@ border: none;
 .irrGroupedBars4 .irrvaluebarbg2 {
   background: #C04141;
 }
-
-
-
-
 .irrGroupedBars5 .irrBarHeight1 {
   background: #F0875A;
 }
@@ -5289,8 +5278,6 @@ border: none;
 .irrGroupedBars5 .irrvaluebarbg1 {
   background: #E37647;
 }
-
-
 .irrGroupedBars5 .irrBarHeight2 {
   background: #E8662F;
 }
@@ -5318,15 +5305,11 @@ border: none;
 .reportTablesDiv .table td.blankTd input {
   text-align: center;
 }
-
 .switch1 .editBtnAccount svg path,
 .dark-green .switch1 .editBtnAccount svg circle,
 .dark-green .switch1 .editBtnAccount svg rect {
   stroke: #1660A4;
 }
-
-
-
 .distributionCard1.inactive .irrAnalysisCardAllParas * {
   color: #dfdfdf !important;
 }
@@ -5341,8 +5324,6 @@ border: none;
 .commonTableCls .deleteBtnAccount.disableBtnsForAll svg rect {
   fill: #CDCDCD;
 }
-
-
 .reportTablesDiv3 .table tbody tr td{
   background:#FAFFFE;
 }
@@ -5358,7 +5339,25 @@ border: none;
 .reportTablesDiv7 .table tbody tr td{
   background: #FFFAF7;
 }
-
 .sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
 font-size:16px!important;
+}
+.cardProjectTag.textGap, .CardProgressnym.textGap{
+  margin-left: 1rem;
+}
+@media screen and (min-width: 1200px){
+  .cardProjectTag.textGap, .CardProgressnym.textGap{
+    margin-left: .25rem;
+  }
+  .distributionCard1.making{
+    padding: 7px 8px 9px;
+  }
+}
+@media screen and (min-width: 1400px){
+  .cardProjectTag.textGap, .CardProgressnym.textGap{
+    margin-left: 1rem;
+  }
+  .distributionCard1.making{
+    padding: 7px 12px 9px;
+  }
 }
