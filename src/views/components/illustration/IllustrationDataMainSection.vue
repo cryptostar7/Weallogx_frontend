@@ -1100,7 +1100,7 @@ export default {
         headers.push("");
       }
 
-      finalObj = { data: filterData, headers: headers };
+      finalObj = { data: filterData.map(a => a.map(i => i.replace("-", ""))), headers: headers };
       return finalObj;
     },
     getPageSequenceGroup: function(pages) {
