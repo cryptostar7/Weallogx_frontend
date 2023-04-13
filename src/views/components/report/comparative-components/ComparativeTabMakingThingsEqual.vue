@@ -73,17 +73,19 @@
                               <p class="lineUnderBars"></p>
                             </div>
                              <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{$numFormatWithDollar(item.longevity)}}</p>
-                            <div class="position-up" v-if="index">
-                              <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Ending Value</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Death Benefit</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
+                            <div class="d-flex justify-content-between flex-1">
+                              <div class="position-up" v-if="index">
+                                <p class="ms-2 cardProjectTag">Longevity</p>
+                                <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag">Ending Value</p>
+                                <p :class="`CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag">Death Benefit</p>
+                                <p :class="`CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
+                              </div>
                             </div>
                           </div>
                           <add-note-input-component />
@@ -237,17 +239,19 @@
                               <p class="lineUnderBars"></p>
                             </div>
                              <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{item.longevity_in_percent}}</p>
-                            <div class="position-up" v-if="index">
-                              <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.longevity_in_percent}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Ending Value</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.ending_value_in_percent}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Death Benefit</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benefit_in_percent}}</p>
+                            <div class="d-flex justify-content-between flex-1">
+                              <div class="position-up" v-if="index">
+                                <p class="ms-2 cardProjectTag">Longevity</p>
+                                <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{item.longevity_in_percent}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Ending Value</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.ending_value_in_percent}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Death Benefit</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{item.death_benefit_in_percent}}</p>
+                              </div>
                             </div>
                           </div>
                           <add-note-input-component />

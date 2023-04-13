@@ -18,7 +18,7 @@
         </svg>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-center">
           <li class="nav-item">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll saveReportBtn">Save Report</a>
           </li>
@@ -50,34 +50,36 @@
             </a>
           </li>
         </ul>
-        <theme-dropdown type="2"/>
-        <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive" @click="() => $store.dispatch('presentation', true)">
-          <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="path-1-inside-1_1_94760" fill="white">
-              <rect x="1" y="0.75" width="15" height="13" rx="1" />
-            </mask>
-            <rect x="1" y="0.75" width="15" height="13" rx="1" fill="transparent" stroke="white" stroke-width="3"
-              mask="url(#path-1-inside-1_1_94760)" />
-            <rect x="8.125" y="13.125" width="0.75" height="4.25" rx="0.375" fill="transparent" stroke="white"
-              stroke-width="0.75" />
-            <rect x="7.33984" y="13.628" width="0.75" height="5.25" rx="0.375" transform="rotate(45 7.33984 13.628)"
-              fill="transparent" stroke="white" stroke-width="0.75" />
-            <rect x="13.3681" y="17.3398" width="0.75" height="5.25" rx="0.375" transform="rotate(135 13.3681 17.3398)"
-              fill="transparent" stroke="white" stroke-width="0.75" />
-            <mask id="path-5-inside-2_1_94760" fill="white">
-              <rect y="0.75" width="17" height="5" rx="1" />
-            </mask>
-            <rect y="0.75" width="17" height="5" rx="1" fill="transparent" stroke="white" stroke-width="3"
-              mask="url(#path-5-inside-2_1_94760)" />
-          </svg>
-          &nbsp;&nbsp;Presentation Mode&nbsp;&nbsp;<svg width="7" height="10" viewBox="0 0 7 10" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <rect x="1.83203" y="0.414062" width="6.0001" height="1.5" rx="0.75" transform="rotate(45 1.83203 0.414062)"
-              fill="white" />
-            <rect x="6.07422" y="4.76953" width="6" height="1.5" rx="0.75" transform="rotate(135 6.07422 4.76953)"
-              fill="white" />
-          </svg>
-        </a>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <theme-dropdown type="2"/>
+          <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive" @click="() => $store.dispatch('presentation', true)">
+            <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="path-1-inside-1_1_94760" fill="white">
+                <rect x="1" y="0.75" width="15" height="13" rx="1" />
+              </mask>
+              <rect x="1" y="0.75" width="15" height="13" rx="1" fill="transparent" stroke="white" stroke-width="3"
+                mask="url(#path-1-inside-1_1_94760)" />
+              <rect x="8.125" y="13.125" width="0.75" height="4.25" rx="0.375" fill="transparent" stroke="white"
+                stroke-width="0.75" />
+              <rect x="7.33984" y="13.628" width="0.75" height="5.25" rx="0.375" transform="rotate(45 7.33984 13.628)"
+                fill="transparent" stroke="white" stroke-width="0.75" />
+              <rect x="13.3681" y="17.3398" width="0.75" height="5.25" rx="0.375" transform="rotate(135 13.3681 17.3398)"
+                fill="transparent" stroke="white" stroke-width="0.75" />
+              <mask id="path-5-inside-2_1_94760" fill="white">
+                <rect y="0.75" width="17" height="5" rx="1" />
+              </mask>
+              <rect y="0.75" width="17" height="5" rx="1" fill="transparent" stroke="white" stroke-width="3"
+                mask="url(#path-5-inside-2_1_94760)" />
+            </svg>
+            &nbsp;&nbsp;Presentation Mode&nbsp;&nbsp;<svg width="7" height="10" viewBox="0 0 7 10" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <rect x="1.83203" y="0.414062" width="6.0001" height="1.5" rx="0.75" transform="rotate(45 1.83203 0.414062)"
+                fill="white" />
+              <rect x="6.07422" y="4.76953" width="6" height="1.5" rx="0.75" transform="rotate(135 6.07422 4.76953)"
+                fill="white" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </nav>

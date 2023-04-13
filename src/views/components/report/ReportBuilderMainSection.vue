@@ -2,7 +2,7 @@
   <section :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${sidebar.collapse ? 'active':''}`">
     <div class="inner-section reportbuilderRightInner" id="fsdfasdf">
       <div class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg">
-        <button class="sidebar-arrow" @click="() => sidebar.collapse = !sidebar.collapse" sideColapseAttr="1" :style="{transform:sidebar.collapse ? 'rotate(180deg)' : 'rotate(360deg)'}">
+        <button class="sidebar-arrow" @click="() => sidebar.collapse = !sidebar.collapse" sideColapseAttr="1" :style="{transform:sidebar.collapse ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%) rotate(360deg)'}">
           <svg class="sidebarArrowImgJs1" width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.25" y="5.45312" width="7" height="1.5" rx="0.75" transform="rotate(-45 0.25 5.45312)" fill="#23669E" />
             <rect x="1.3125" y="4.5" width="7" height="1.5" rx="0.75" transform="rotate(45 1.3125 4.5)" fill="#23669E" />

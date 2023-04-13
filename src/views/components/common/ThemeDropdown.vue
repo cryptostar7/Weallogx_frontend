@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="dropdown theme-btn-dropdown ms-auto">
+    <div class="dropdown theme-btn-dropdown">
         <button class="btn theme-btn dropdown-toggle no-after" role="button" :id="`newDropdownBtn${type}`"
         data-bs-toggle="dropdown" aria-label="false"><span>Theme</span>
         </button>
