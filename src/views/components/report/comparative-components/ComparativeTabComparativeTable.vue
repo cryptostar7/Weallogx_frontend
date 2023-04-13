@@ -496,7 +496,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.$store.state.data.report.deleted_cv_ids);
+      this.mapData(this.$store.state.data.report.comparative);
     },
     setCurrentTab: function(tab) {
       this.currentTab = tab;
@@ -580,6 +580,34 @@ export default {
           ct.tax_result.comparison.total_value;
         this.summary_data.deposits.shortfall =
           ct.tax_result.comparison.diff_from_lirp;
+
+        this.summary_data.data[0] = {
+          id: 0,
+          distribution: {
+            total: ct.tax_result.comparison.total_value,
+            total_value: ct.tax_result.comparison.total_value,
+            shortfall: ct.tax_result.comparison.diff_from_lirp,
+          },
+          net_balance: {
+            total: "",
+            total_value: "",
+            shortfall: "",
+          },
+        };
+
+        this.summary_data.data[1] = {
+          id: 1,
+          distribution: {
+            total: ct.tax_result.comparison.total_value,
+            total_value: ct.tax_result.comparison.total_value,
+            shortfall: ct.tax_result.comparison.diff_from_lirp,
+          },
+          net_balance: {
+            total: "",
+            total_value: "",
+            shortfall: "",
+          },
+        };
       }
 
       if (obj2) {
@@ -604,6 +632,20 @@ export default {
         });
         details.list = list;
         tempData.data[2] = details;
+
+        this.summary_data.data[2] = {
+          id: 2,
+          distribution: {
+            total: ct.pretax_result.comparison.total_value,
+            total_value: ct.pretax_result.comparison.total_value,
+            shortfall: ct.pretax_result.comparison.diff_from_lirp,
+          },
+          net_balance: {
+            total: "",
+            total_value: "",
+            shortfall: "",
+          },
+        };
       }
 
       if (obj3) {
@@ -630,6 +672,20 @@ export default {
         tempData.data[3] = details;
       }
       this.target_analysis = tempData;
+
+      this.summary_data.data[3] = {
+        id: 3,
+        distribution: {
+          total: ct.tda_result.comparison.total_value,
+          total_value: ct.tda_result.comparison.total_value,
+          shortfall: ct.tda_result.comparison.diff_from_lirp,
+        },
+        net_balance: {
+          total: "",
+          total_value: "",
+          shortfall: "",
+        },
+      };
     },
   },
   watch: {

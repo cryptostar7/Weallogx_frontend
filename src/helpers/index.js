@@ -6,7 +6,7 @@ const myPlugin = {
             return Number(key).toLocaleString();
         },
         app.config.globalProperties.$numFormatWithDollar = (key) => {
-            return key ? '$' + Number(key).toLocaleString() : '-';
+            return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
         },
         app.config.globalProperties.$dateFormat = (date) => {
             let temp = new Date(date);

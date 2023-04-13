@@ -98,8 +98,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl(url), authHeader())
         .then(response => {
-          console.log(url);
-          console.log(response.data);
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
         })
