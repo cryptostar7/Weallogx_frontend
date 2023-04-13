@@ -879,8 +879,8 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   right: -10px;
-  top: 50%;
-  transform: translate(-50%);
+  top: calc(50% + 33px);
+  transform: translateY(-50%);
   z-index: 3;
 }
 
@@ -5342,22 +5342,16 @@ border: none;
 .sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
 font-size:16px!important;
 }
-.cardProjectTag.textGap, .CardProgressnym.textGap{
-  margin-left: 1rem;
+.menu-icon-report-btn{
+  min-height: 45px;
 }
-@media screen and (min-width: 1200px){
-  .cardProjectTag.textGap, .CardProgressnym.textGap{
-    margin-left: .25rem;
-  }
-  .distributionCard1.making{
-    padding: 7px 8px 9px;
+@media screen and (max-width: 1200px){
+  .saveReportBtn{
+    margin-left: 0;
   }
 }
-@media screen and (min-width: 1400px){
-  .cardProjectTag.textGap, .CardProgressnym.textGap{
-    margin-left: 1rem;
-  }
-  .distributionCard1.making{
-    padding: 7px 12px 9px;
+@media screen and (min-width: 768px) and (max-width: 1199.99px){
+  .sidebar {
+  min-width: var(--sidebar-width);
   }
 }
