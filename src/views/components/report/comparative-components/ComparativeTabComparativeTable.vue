@@ -490,8 +490,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.target_analysis);
-    console.log(this.comparativeTable);
     this.mapData(this.comparativeTable);
   },
   methods: {

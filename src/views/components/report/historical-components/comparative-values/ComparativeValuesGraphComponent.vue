@@ -250,7 +250,6 @@ export default {
       afterUpdate(chart, args, options) {
         const ul = getOrCreateLegendList(chart, options.containerID);
         const items = chart.options.plugins.legend.labels.generateLabels(chart);
-        console.log(document.getElementById(options.containerID));
         let checkboxes = [
           ...document
             .getElementById(options.containerID)

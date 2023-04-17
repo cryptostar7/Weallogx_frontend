@@ -176,6 +176,10 @@ export default {
   },
   mounted() {
     // this.setGraph();
+    if(this.comparative.tax_result){
+       this.mapData();   // set longevity cards data
+      this.setGraph();   // generate graph
+    }
   },
   methods: {
     getDataSet: function() {
@@ -413,7 +417,7 @@ export default {
               max: maxAcc2,
               ticks: {
                 padding: 8,
-                // stepSize: 25000,
+                stepSize: maxAcc2,
                 callback: function(value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -566,10 +570,6 @@ export default {
     },
     "deletedItems.length"(val) {
       this.setGraph();
-    },
-    "comparative.length"() {
-      this.mapData();   // set longevity cards data
-      this.setGraph();   // generate graph
     },
   },
 };

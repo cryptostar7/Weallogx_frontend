@@ -45,6 +45,9 @@ const myPlugin = {
                 return item[0] ? item[0].id : false;
             }
             return false;
+        },
+        app.config.globalProperties.$roundFigureNum = (value) => {
+            return value + (value/100)*5
         }
     }
 }

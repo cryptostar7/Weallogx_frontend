@@ -84,7 +84,7 @@
                               <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
                             </div>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component type="3" />
                         </div>
                       </div>
 
@@ -102,8 +102,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.distributions.longevity ? '': 'disableGroupedBar'}`">
                               <div v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height:data.distribution[index].longevity_in_percent}">
-                                </div>
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.distribution[index].longevity : data.distribution[1].distributions)*100/maxDistribution}%` }"></div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${1+index}`">{{ $numFormat(index ? data.distribution[index].longevity : data.distribution[1].distributions)}}</span> </div>
                               </div>
@@ -117,16 +116,14 @@
                                 <div class="d-flex">
                                   <div class="button-cover2">
                                     <div class="radioBtnDiv r2 " id="button-2">
-                                      <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1"
-                                        :checked="graphs.distributions.longevity" v-model="graphs.distributions.longevity" />
+                                      <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1" :checked="graphs.distributions.longevity" v-model="graphs.distributions.longevity" />
                                       <div class="knobs2"></div>
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -134,7 +131,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars2 ${graphs.distributions.ending_value ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height:data.distribution[index].ending_value_in_percent}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.distribution[index].ending_value : data.distribution[1].distributions)*100/maxDistribution}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${5+index}`">{{$numFormat(index ? data.distribution[index].ending_value : data.distribution[2].distributions)}}</span>
@@ -156,10 +153,9 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -167,7 +163,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:data.distribution[index].death_benefit_in_percent}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.distribution[index].death_benefit : data.distribution[1].distributions)*100/maxDistribution}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${9+index}`">{{$numFormat(index ? data.distribution[index].death_benefit : data.distribution[3].distributions)}}</span>
@@ -188,10 +184,9 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -247,7 +242,7 @@
                               <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.death_benefit).toFixed(2)}}%</p>
                             </div>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component type="3" />
                         </div>
                       </div>
                     </div>
@@ -264,7 +259,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.rate_of_returns.longevity ? '': 'disableGroupedBar'}`">
                               <div v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height:`${data.rate_of_returns[index].longevity}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[1].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[1].ror).toFixed(2)}}%</span> </div>
@@ -284,9 +279,9 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -294,7 +289,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars2 ${graphs.rate_of_returns.ending_value ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height:`${data.rate_of_returns[index].ending_value}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[1].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[2].ror).toFixed(2)}}%</span>
@@ -315,10 +310,9 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"
-                                    data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -326,7 +320,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height:`${data.rate_of_returns[index].death_benefit}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[1].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[3].ror).toFixed(2)}}%</span>
@@ -347,9 +341,9 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
+                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a>
+                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -451,24 +445,40 @@ export default {
         rate_of_returns: [
           {
             type: "LifePro+",
+            ror: "",
+            longevity: "",
+            ending_value: "",
+            death_benefit: "",
             longevity_in_percent: "",
             ending_value_in_percent: "",
             death_benefit_in_percent: "",
           },
           {
             type: "Account",
+            ror: "",
+            longevity: "",
+            ending_value: "",
+            death_benefit: "",
             longevity_in_percent: "",
             ending_value_in_percent: "",
             death_benefit_in_percent: "",
           },
           {
             type: "401/IRA",
+            ror: "",
+            longevity: "",
+            ending_value: "",
+            death_benefit: "",
             longevity_in_percent: "",
             ending_value_in_percent: "",
             death_benefit_in_percent: "",
           },
           {
             type: "Annuity",
+            ror: "",
+            longevity: "",
+            ending_value: "",
+            death_benefit: "",
             longevity_in_percent: "",
             ending_value_in_percent: "",
             death_benefit_in_percent: "",
@@ -481,10 +491,45 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
+    setLongevity: function() {
+      this.data.distribution[1].distributions = this.longevity.tax_result.comparison.chart_output.distributions.filter(
+        v => v
+      )[0];
+      this.data.rate_of_returns[1].ror = this.longevity.tax_result.comparison.ror;
+    },
+    setEndingValue: function() {
+      this.data.distribution[2].distributions = this.ending_value.tax_result.comparison.chart_output.distributions.filter(
+        v => v
+      )[0];
+      this.data.rate_of_returns[2].ror = this.ending_value.tax_result.comparison.ror;
+    },
+    setDeathBenefit: function() {
+      this.data.distribution[3].distributions = this.death_benefit.tax_result.comparison.chart_output.distributions.filter(
+        v => v
+      )[0];
+      this.data.rate_of_returns[3].ror = this.death_benefit.tax_result.comparison.ror;
+    },
+    testFunction: function() {
+      let dst = this.data.distribution;
+      let ror = this.data.rate_of_returns;
+
+      console.log(
+        Math.max(
+          ...[
+            ...ror.map(i => Number(i.ror)),
+            ...ror.map(i => Number(i.longevity)),
+            ...ror.map(i => Number(i.ending_value)),
+            ...ror.map(i => Number(i.death_benefit)),
+          ]
+        )
+      );
+
+      console.log(ror);
+      console.log(this.maxRor);
+      console.log(this.maxDistribution);
+    },
   },
   mounted() {
-    console.log("mounted.......................");
-    console.log(this.comparative);
     if (this.comparative) {
       if (this.comparative.tax_result) {
         this.data.distribution[0].distributions = this.comparative.tax_result.comparison.chart_output.distributions.filter(
@@ -519,6 +564,18 @@ export default {
         this.data.rate_of_returns[3].death_benefit = this.comparative.tda_result.match_rates_of_return.death_benefit;
         this.data.rate_of_returns[3].ending_value = this.comparative.tda_result.match_rates_of_return.surrender_value;
       }
+    }
+
+    if (this.$store.state.data.report.comparative_longevity) {
+      this.setLongevity();
+    }
+
+    if (this.$store.state.data.report.comparative_ending_value) {
+      this.setEndingValue();
+    }
+
+    if (this.$store.state.data.report.comparative_death_benefit) {
+      this.setDeathBenefit();
     }
   },
   watch: {
@@ -556,31 +613,36 @@ export default {
         this.graphs.rate_of_returns.death_benefit = true;
       }
     },
-    longevity(e) {
-      this.data.distribution[1].distributions = this.longevity.tax_result.comparison.chart_output.distributions.filter(
-        v => v
-      )[0];
-      this.data.rate_of_returns[1].ror = this.longevity.tax_result.comparison.ror;
-    },
-    ending_value(e) {
-      this.data.distribution[2].distributions = this.ending_value.tax_result.comparison.chart_output.distributions.filter(
-        v => v
-      )[0];
-      this.data.rate_of_returns[2].ror = this.ending_value.tax_result.comparison.ror;
-    },
-    death_benefit(e) {
-      this.data.distribution[3].distributions = this.death_benefit.tax_result.comparison.chart_output.distributions.filter(
-        v => v
-      )[0];
-      this.data.rate_of_returns[3].ror = this.death_benefit.tax_result.comparison.ror;
-    },
-    deletedItems(e) {
-      console.log(e);
-    }
   },
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    maxDistribution() {
+      let dst = this.data.distribution;
+      return this.$roundFigureNum(
+        Math.max(
+          ...[
+            ...dst.map(i => Number(i.distributions)),
+            ...dst.map(i => Number(i.longevity)),
+            ...dst.map(i => Number(i.ending_value)),
+            ...dst.map(i => Number(i.death_benefit)),
+          ]
+        )
+      );
+    },
+    maxRor() {
+      let ror = this.data.rate_of_returns;
+      return this.$roundFigureNum(
+        Math.max(
+          ...[
+            ...ror.map(i => Number(i.ror)),
+            ...ror.map(i => Number(i.longevity)),
+            ...ror.map(i => Number(i.ending_value)),
+            ...ror.map(i => Number(i.death_benefit)),
+          ]
+        )
+      );
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;
