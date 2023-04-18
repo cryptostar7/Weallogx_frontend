@@ -1,16 +1,13 @@
 <template lang="">
   <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="3">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="4">
-      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
-        id="cumulativeValuesTabView">
+      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"  id="cumulativeValuesTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop4 ${activeTabs[keyId] ? 'active':''}`">
           <div class="d-flex justify-content-between px-3 py-2 bb-grey">
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox4" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 rightCheckBox4" rightCheckAttr="4"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox4" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 rightCheckBox4" rightCheckAttr="4"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -30,22 +27,15 @@
             <div class="px-3 pt-3 pb-2">
               <div class="d-flex justify-content-center mt-2">
                 <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                  <div class="active" id="v-pills-annualFees1-tab" data-bs-toggle="pill"
-                    data-bs-target="#v-pills-annualFees1" type="button" role="tab" aria-controls="v-pills-annualFees1"
-                    aria-selected="true">
-                    Cumulative Income
-                  </div>
-                  <div id="v-pills-comulativeFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees1"
-                    type="button" role="tab" aria-controls="v-pills-comulativeFees1" aria-selected="false">Total Value
-                  </div>
+                  <div class="active" id="v-pills-annualFees1-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-annualFees1" type="button" role="tab" aria-controls="v-pills-annualFees1"  aria-selected="true">Cumulative Income</div>
+                  <div id="v-pills-comulativeFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees1"  type="button" role="tab" aria-controls="v-pills-comulativeFees1" aria-selected="false">Total Value</div>
                 </div>
               </div>
               <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-annualFees1" role="tabpanel"
-                  aria-labelledby="v-pills-annualFees1-tab">
+                <div class="tab-pane fade show active" id="v-pills-annualFees1" role="tabpanel"  aria-labelledby="v-pills-annualFees1-tab">
                   <div class="container-fluid">
                     <div class="d-flex justify-content-between flex-gap-12">
-                      <div class="mt-3 flex-1" v-for="(item, index) in data.cumulative_income" :key="index">
+                      <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.cumulative_income[index].active ? '': 'inactive'}`">
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -59,15 +49,10 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
-                                data-bs-toggle="modal">
-                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path
-                                    d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                    stroke="#9D9D9D" />
-                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                    transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '':'d-none'}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal"  data-bs-toggle="modal">
+                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                                  <path  d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"  stroke="#9D9D9D" />
+                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                                 </svg>
                               </a>
                             </div>
@@ -102,8 +87,8 @@
                       <div class="CompProgressAbsltCls">
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
-                            <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} `" :style="{height:item.shortfall_percentage}">
+                            <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} `" :style="{height: `${getPercentValue(item.shortfall, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.cumulative_income)}}</span></p>
                                 </div>
@@ -123,7 +108,7 @@
                 <div class="tab-pane fade" id="v-pills-comulativeFees1" role="tabpanel" aria-labelledby="v-pills-comulativeFees1-tab">
                   <div class="container-fluid">
                     <div class="d-flex justify-content-between flex-gap-12">
-                      <div class="mt-3 flex-1" v-for="(item, index) in data.total_value" :key="index">
+                      <div v-for="(item, index) in data.total_value" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.total_value[index].active ? '': 'inactive'}`">
                           <div class="d-flex justify-content-between">
                             <div class="distrbnCard1paras">
@@ -138,15 +123,10 @@
                                   <div class="layer2"></div>
                                 </div>
                               </div>
-                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
-                                data-bs-toggle="modal">
-                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                                  xmlns="http://www.w3.org/2000/svg">
-                                  <path
-                                    d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                    stroke="#9D9D9D" />
-                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                    transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                              <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '':'d-none'}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal"  data-bs-toggle="modal">
+                                <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z" stroke="#9D9D9D" />
+                                  <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                                 </svg>
                               </a>
                             </div>
@@ -165,8 +145,6 @@
                               <span>Shortfall</span><br />
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
-
-
                           </div>
                           <add-note-input-component />
                         </div>
@@ -183,8 +161,8 @@
                       <div class="CompProgressAbsltCls">
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
-                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height:item.shortfall_percentage}">
+                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValue(item.shortfall, item.total_value)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.total_value)}}</span></p>
                                 </div>
@@ -202,9 +180,7 @@
                 </div>
               </div>
             </div>
-
             <comparative-disclosure-component v-if="activeTabs[keyId]" />
-
           </div>
         </div>
       </div>
@@ -239,57 +215,102 @@ export default {
         cumulative_income: [
           {
             type: "LifePro+",
-            cumulative_income: "85770",
-            shortfall: "14552",
-            shortfall_percentage: "20%",
+            cumulative_income: "",
+            shortfall: "",
           },
           {
             type: "Account",
-            cumulative_income: "25470",
-            shortfall: "64552",
-            shortfall_percentage: "60%",
+            cumulative_income: "",
+            shortfall: "",
           },
           {
             type: "401k/IRA",
-            cumulative_income: "85770",
-            shortfall: "65965",
-            shortfall_percentage: "30%",
+            cumulative_income: "",
+            shortfall: "",
           },
           {
             type: "Annuity",
-            cumulative_income: "81170",
-            shortfall: "23666",
-            shortfall_percentage: "80%",
+            cumulative_income: "",
+            shortfall: "",
           },
         ],
         total_value: [
           {
             type: "LifePro+",
-            total_value: "74252",
-            shortfall: "14552",
-            shortfall_percentage: "70%",
+            total_value: "",
+            shortfall: "",
           },
           {
             type: "Account",
-            total_value: "54552",
-            shortfall: "64552",
-            shortfall_percentage: "40%",
+            total_value: "",
+            shortfall: "",
           },
           {
             type: "401k/IRA",
-            total_value: "225444",
-            shortfall: "65965",
-            shortfall_percentage: "45%",
+            total_value: "",
+            shortfall: "",
           },
           {
             type: "Annuity",
-            total_value: "64555",
-            shortfall: "23666",
-            shortfall_percentage: "30%",
+            total_value: "",
+            shortfall: "",
           },
         ],
       },
     };
+  },
+  mounted() {
+    console.log(this.comparative);
+    this.mapData();
+  },
+  methods: {
+    testFunction: function(){
+    console.log(this.comparative);
+    },
+    setActionId: function(id) {
+      document.getElementById("comparative_cv_delete_id").value = id;
+    },
+    getPercentValue: function(value1, value2) {
+      value1 = Number(value1.toString().replaceAll('-', ''));
+      value2 = Number(value2.toString().replace('-', ''));
+      let unit = (Number(value1.toString().replace('-'))+Number(value2.toString().replace('-')))/100;
+      return value2/unit;
+    },
+    mapData: function() {
+      if (this.comparative.tax_result) {
+        let chart1 = this.comparative.tax_result;
+        let chart2 = this.comparative.pretax_result;
+        let chart3 = this.comparative.tda_result;
+
+        if (chart1) {
+          this.data.cumulative_income[0].cumulative_income = chart1.comparison.cummulative_income;
+          this.data.cumulative_income[0].shortfall = chart1.comparison.diff_from_lirp;
+          this.data.cumulative_income[1].cumulative_income = chart1.comparison.cummulative_income;
+          this.data.cumulative_income[1].shortfall = chart1.comparison.diff_from_lirp;
+
+          this.data.total_value[0].total_value = chart1.comparison.total_value;
+          this.data.total_value[0].shortfall = chart1.comparison.diff_from_lirp;
+          this.data.total_value[1].total_value = chart1.comparison.total_value;
+          this.data.total_value[1].shortfall = chart1.comparison.diff_from_lirp;
+        }
+
+        if (chart2) {
+          this.data.cumulative_income[2].cumulative_income = chart2.comparison.cummulative_income;
+          this.data.cumulative_income[2].shortfall = chart2.comparison.diff_from_lirp;
+
+          this.data.total_value[2].total_value = chart2.comparison.total_value;
+          this.data.total_value[2].shortfall = chart2.comparison.diff_from_lirp;
+        }
+
+        if (chart3) {
+          this.data.cumulative_income[3].cumulative_income = chart3.comparison.cummulative_income;
+          this.data.cumulative_income[3].shortfall = chart3.comparison.diff_from_lirp;
+
+          this.data.total_value[3].total_value = chart3.comparison.total_value;
+          this.data.total_value[3].shortfall = chart3.comparison.diff_from_lirp;
+        }
+      }
+    },
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -311,6 +332,14 @@ export default {
           element.active = true;
         });
       }
+    },
+  },
+  computed: {
+    deletedItems() {
+      return this.$store.state.data.report.deleted_cv_ids;
+    },
+    comparative() {
+      return this.$store.state.data.report.comparative || false;
     },
   },
 };

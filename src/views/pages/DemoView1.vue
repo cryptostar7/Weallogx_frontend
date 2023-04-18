@@ -8,27 +8,14 @@
 export default {
   methods: {
     testFunction: function() {
-      console.log(this.inputId);
+       console.log(this.getPercentValue(-400, 600))
     },
 
-    getPercent: function() {
-      console.log(1000 * 100 / 10500);
-    },
-  },
-  computed: {
-    inputId() {
-      let result = "";
-      const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const charactersLength = characters.length;
-      let counter = 0;
-      while (counter < 10) {
-        result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
-        );
-        counter += 1;
-      }
-      return result;
+    getPercentValue: function(value1, value2) {
+      value1 = Number(value1.toString().replaceAll('-', ''));
+      value2 = Number(value2.toString().replace('-', ''));
+      let unit = (Number(value1.toString().replace('-'))+Number(value2.toString().replace('-')))/100;
+      return value2/unit;
     },
   },
 };
