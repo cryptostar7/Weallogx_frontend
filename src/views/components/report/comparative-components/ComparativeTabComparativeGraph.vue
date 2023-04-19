@@ -7,8 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox2" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 commonRadioBtn1 rightCheckBox2" rightCheckAttr="2"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox2" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 commonRadioBtn1 rightCheckBox2" rightCheckAttr="2"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -113,8 +112,6 @@
                 </div>
               </div>
             </div>
-            <button class="d-none" @click="setGraph()">Test Graph</button>
-            <button class="d-none" @click="testFunction()">Test</button>            
             <comparative-disclosure-component />
           </div>
         </div>
@@ -482,34 +479,6 @@ export default {
         });
     },
     mapData: function() {
-      if (this.comparative.tax_result) {
-        let chart1 = this.comparative.tax_result;
-        let chart2 = this.comparative.pretax_result;
-        let chart3 = this.comparative.tda_result;
-        if (chart1) {
-          this.data[0].ror = chart1.comparison.ror + "%";
-          this.data[0].irr = chart1.comparison.irr_percent + "%";
-          this.data[0].cumulative_income = chart1.comparison.cummulative_income;
-
-          this.data[1].ror = chart1.comparison.ror + "%";
-          this.data[1].irr = chart1.comparison.irr_percent + "%";
-          this.data[1].cumulative_income = chart1.comparison.cummulative_income;
-        }
-
-        if (chart2) {
-          this.data[2].ror = chart2.comparison.ror + "%";
-          this.data[2].irr = chart2.comparison.irr_percent + "%";
-          this.data[2].cumulative_income = chart2.comparison.cummulative_income;
-        }
-
-        if (chart3) {
-          this.data[3].ror = chart3.comparison.ror + "%";
-          this.data[3].irr = chart3.comparison.irr_percent + "%";
-          this.data[3].cumulative_income = chart3.comparison.cummulative_income;
-        }
-      }
-    },
-    testFunction: function() {
       if (this.comparative.tax_result) {
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;

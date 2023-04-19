@@ -124,10 +124,12 @@ export default {
         .then(response => {
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
-          if (!this.$store.state.app.loader_count) {
-            this.allDataLoaded = true;
-            setTimeout(() => this.updateElementJs(), 100);
-          }
+          setTimeout(() => {
+            if (!this.$store.state.app.loader_count) {
+              this.allDataLoaded = true;
+              setTimeout(() => this.updateElementJs(), 100);
+            }
+          }, 100);
         })
         .catch(error => {
           console.log(error.message);
