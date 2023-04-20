@@ -87,6 +87,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/surrender-ror/`
     case 'comparative_report_death_benefit_ror':
       return `${baseUrl}/report/death-ror/`
+    case 'notes':
+      return `${baseUrl}/report/add-note/`
     default:
       return baseUrl;
   }

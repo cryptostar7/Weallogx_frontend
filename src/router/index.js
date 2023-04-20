@@ -70,7 +70,7 @@ const router = createRouter({
       component: () => import("../views/pages/ReviewSummaryPage.vue"),
     },
     {
-      path: "/report-builder/:scenario?",
+      path: "/report-builder/:report?",
       name: "report-builder",
       component: () => import("../views/pages/ReportBuilderPage.vue"),
     },

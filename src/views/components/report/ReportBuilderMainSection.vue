@@ -117,6 +117,9 @@ export default {
         "comparative_report_death_benefit_ror",
         "comparativeReportRorDeathBenefit"
       );
+     
+      // get all notes of active report
+      this.getNotes();      
     },
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
@@ -142,6 +145,13 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    getNotes: function() {
+      get(`${getUrl('notes')}?report=${this.$route.params.report}`, authHeader()).then((response) => {
+        this.$store.dispatch('notes', response.data);
+      }).catch(error => {
+        console.log();
+      })
+    },
     updateElementJs: function() {
       let eachInput = document.querySelectorAll(".tableHeadInputs");
       eachInput.forEach(function(eachInputFun) {
@@ -155,7 +165,7 @@ export default {
     },
   },
   mounted() {
-    this.getComparativeData(this.$route.params.scenario);
+    this.getComparativeData(this.$route.params.report);
   },
   computed: {
     comparativeReport() {

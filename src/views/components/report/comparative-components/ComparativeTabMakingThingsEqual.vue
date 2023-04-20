@@ -84,7 +84,7 @@
                               <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
                             </div>
                           </div>
-                          <add-note-input-component type="3" />
+                          <add-note-input-component reportType="comperative" noteType="comperative_distribution" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null" />
                         </div>
                       </div>
 
@@ -242,7 +242,7 @@
                               <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.death_benefit).toFixed(2)}}%</p>
                             </div>
                           </div>
-                          <add-note-input-component type="3" />
+                          <add-note-input-component reportType="comperative" noteType="comperative_rate_of_return" :cvType="1+index" :noteId="ror_notes[index] ?  ror_notes[index].id : null" :noteText="ror_notes[index] ?  ror_notes[index].text : null" />
                         </div>
                       </div>
                     </div>
@@ -272,7 +272,7 @@
                                   <p>Longevity</p>
                                 </div>
                                 <div class="d-flex">
-                                  <div class="button-cover2">
+                                  <div class="button-cover2">   
                                     <div class="radioBtnDiv r2 " id="button-2">
                                       <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1" :checked="graphs.rate_of_returns.longevity" v-model="graphs.rate_of_returns.longevity" />
                                       <div class="knobs2"></div>
@@ -320,8 +320,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[1].ror)*100/maxRor}%`}">
-                                </div>
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[1].ror)*100/maxRor}%`}"></div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[3].ror).toFixed(2)}}%</span>
                                 </div>
@@ -510,23 +509,7 @@ export default {
       this.data.rate_of_returns[3].ror = this.death_benefit.tax_result.comparison.ror;
     },
     testFunction: function() {
-      let dst = this.data.distribution;
-      let ror = this.data.rate_of_returns;
-
-      console.log(
-        Math.max(
-          ...[
-            ...ror.map(i => Number(i.ror)),
-            ...ror.map(i => Number(i.longevity)),
-            ...ror.map(i => Number(i.ending_value)),
-            ...ror.map(i => Number(i.death_benefit)),
-          ]
-        )
-      );
-
-      console.log(ror);
-      console.log(this.maxRor);
-      console.log(this.maxDistribution);
+      console.log(this.notes);
     },
   },
   mounted() {
@@ -576,6 +559,10 @@ export default {
 
     if (this.$store.state.data.report.comparative_death_benefit) {
       this.setDeathBenefit();
+    }
+
+    if (this.notes) {
+      console.log(this.notes);
     }
   },
   watch: {
@@ -655,6 +642,36 @@ export default {
     },
     death_benefit() {
       return this.$store.state.data.report.comparative_death_benefit || false;
+    },
+    notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "comperative_distribution" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        note = [v1, v2, v3, v4];
+      }
+      return note;
+    },
+    ror_notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "comperative_rate_of_return" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        note = [v1, v2, v3, v4];
+      }
+      return note;
     },
   },
 };

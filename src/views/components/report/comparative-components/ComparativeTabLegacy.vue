@@ -7,9 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox5" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 rightCheckBox5" rightCheckAttr="5"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox5" type="checkbox" :checked="activeTabs[keyId]" class="checkbox2 rightCheckBox5" rightCheckAttr="5"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -30,15 +28,14 @@
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '': 'inactive'}`">
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div>
+                        <div class="d-flex justify-content-between align-items-center"><div>
                           <p class="allCardHeadPara">Legacy</p>
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index}`" id="button-2">
                               <input type="checkbox" :class="`checkbox2 commonRadioBtn1 lagecyBigBaCard${1+index}`" :checked="cards[index].active" v-model="cards[index].active"/>
-                              <div class="knobs2"></div>
+                            <div class="knobs2"></div>
                               <div class="layer2"></div>
                             </div>
                           </div>

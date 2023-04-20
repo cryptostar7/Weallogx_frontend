@@ -72,7 +72,7 @@
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component reportType="comperative" noteType="comperative_cumulative_income" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null" />
                         </div>
                       </div>
                     </div>
@@ -146,7 +146,7 @@
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component reportType="comperative" noteType="comperative_total_value" :cvType="1+index" :noteId="notes2[index] ?  notes2[index].id : null" :noteText="notes2[index] ?  notes2[index].text : null" />
                         </div>
                       </div>
                     </div>
@@ -264,17 +264,20 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function(){
-    console.log(this.comparative);
+    testFunction: function() {
+      console.log(this.comparative);
     },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
     getPercentValue: function(value1, value2) {
-      value1 = Number(value1.toString().replaceAll('-', ''));
-      value2 = Number(value2.toString().replace('-', ''));
-      let unit = (Number(value1.toString().replace('-'))+Number(value2.toString().replace('-')))/100;
-      return value2/unit;
+      value1 = Number(value1.toString().replaceAll("-", ""));
+      value2 = Number(value2.toString().replace("-", ""));
+      let unit =
+        (Number(value1.toString().replace("-")) +
+          Number(value2.toString().replace("-"))) /
+        100;
+      return value2 / unit;
     },
     mapData: function() {
       if (this.comparative.tax_result) {
@@ -283,10 +286,14 @@ export default {
         let chart3 = this.comparative.tda_result;
 
         if (chart1) {
-          this.data.cumulative_income[0].cumulative_income = chart1.comparison.cummulative_income;
-          this.data.cumulative_income[0].shortfall = chart1.comparison.diff_from_lirp;
-          this.data.cumulative_income[1].cumulative_income = chart1.comparison.cummulative_income;
-          this.data.cumulative_income[1].shortfall = chart1.comparison.diff_from_lirp;
+          this.data.cumulative_income[0].cumulative_income =
+            chart1.comparison.cummulative_income;
+          this.data.cumulative_income[0].shortfall =
+            chart1.comparison.diff_from_lirp;
+          this.data.cumulative_income[1].cumulative_income =
+            chart1.comparison.cummulative_income;
+          this.data.cumulative_income[1].shortfall =
+            chart1.comparison.diff_from_lirp;
 
           this.data.total_value[0].total_value = chart1.comparison.total_value;
           this.data.total_value[0].shortfall = chart1.comparison.diff_from_lirp;
@@ -295,16 +302,20 @@ export default {
         }
 
         if (chart2) {
-          this.data.cumulative_income[2].cumulative_income = chart2.comparison.cummulative_income;
-          this.data.cumulative_income[2].shortfall = chart2.comparison.diff_from_lirp;
+          this.data.cumulative_income[2].cumulative_income =
+            chart2.comparison.cummulative_income;
+          this.data.cumulative_income[2].shortfall =
+            chart2.comparison.diff_from_lirp;
 
           this.data.total_value[2].total_value = chart2.comparison.total_value;
           this.data.total_value[2].shortfall = chart2.comparison.diff_from_lirp;
         }
 
         if (chart3) {
-          this.data.cumulative_income[3].cumulative_income = chart3.comparison.cummulative_income;
-          this.data.cumulative_income[3].shortfall = chart3.comparison.diff_from_lirp;
+          this.data.cumulative_income[3].cumulative_income =
+            chart3.comparison.cummulative_income;
+          this.data.cumulative_income[3].shortfall =
+            chart3.comparison.diff_from_lirp;
 
           this.data.total_value[3].total_value = chart3.comparison.total_value;
           this.data.total_value[3].shortfall = chart3.comparison.diff_from_lirp;
@@ -340,6 +351,36 @@ export default {
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;
+    },
+    notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "comperative_cumulative_income" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        note = [v1, v2, v3, v4];
+      }
+      return note;
+    },
+    notes2() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "comperative_total_value" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        note = [v1, v2, v3, v4];
+      }
+      return note;
     },
   },
 };
