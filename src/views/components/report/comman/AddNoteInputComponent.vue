@@ -32,7 +32,7 @@ export default {
   methods: {
     saveNote: function() {
       let data = {
-        report_id: 2,
+        report_id: this.$route.params.report,
         report_type: this.$props.reportType,
         note_type: this.$props.noteType,
         text: this.note,
