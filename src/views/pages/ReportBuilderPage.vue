@@ -7,6 +7,10 @@
   <delete-account-modal />
     <!-- Delete Comparative CV Modal start -->
   <delete-comparative-cv-modal />
+
+    <!-- Delete historical CV Modal start -->
+  <delete-historical-cv-modal />
+
   <!-- Delete Ira Modal start -->
   <delete-era-modal />
   <!-- Delete Annuity Modal start -->
@@ -22,11 +26,14 @@
   
   <!-- delete comparative vechile id hidden input -->
   <input type="hidden" id="comparative_cv_delete_id"/>
+  <input type="hidden" id="historical_cv_delete_id"/>
+  
   </div>
 </template>
 <script>
 import DeleteAccountModal from "../components/modal/DeleteAccountModal.vue";
 import DeleteComparativeCvModal from "../components/modal/DeleteComparativeCvModal.vue";
+import DeleteHistoricalCvModal from "../components/modal/DeleteHistoricalCvModal.vue";
 import DeleteAnnuityModal from "../components/modal/DeleteAnnuityModal.vue";
 import DeleteEraModal from "../components/modal/DeleteEraModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
@@ -41,6 +48,7 @@ export default {
   components: {
     DeleteAccountModal,
     DeleteComparativeCvModal,
+    DeleteHistoricalCvModal,
     DeleteAnnuityModal,
     DeleteEraModal,
     ReportBuilderNameChangeModal,

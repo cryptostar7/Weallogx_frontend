@@ -7,9 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox7" type="checkbox" class="checkbox2 rightCheckBox7"
-                    :checked="activeTabs[keyId]" rightCheckAttr="7"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox7" type="checkbox" class="checkbox2 rightCheckBox7" :checked="activeTabs[keyId]" rightCheckAttr="7" @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -24,9 +22,8 @@
             </div>
           </div>
           <div>
-            <div
-              :class="`commonCollapse  ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv7 position-relative tableDivHeight2`"
-              :style="{display:activeTabs[keyId] ? 'block':'none'}">
+            <button class="d-none" @click="testFunction()">test</button>
+            <div :class="`commonCollapse  ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv7 position-relative tableDivHeight2`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
               <div class="px-3 py-3">
                 <div class="position-relative">
@@ -337,7 +334,7 @@
                         </div>
                       </div>
                       <div class="col-4 col-md-2 px-1">
-                        <div class="commonBottomTableMainTopDiv4">
+                                <div class="commonBottomTableMainTopDiv4">
                           <div class="reportTablesDiv reportTablesDiv8">
                             <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                               <thead class="heading-tr">
@@ -370,7 +367,7 @@
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                   <tr>
-                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                                    <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -429,13 +426,7 @@ export default {
         { id: 3, active: true },
         { id: 4, active: true },
       ],
-      distributions: [
-        { year: 1, age: 28, deposits: "65777" },
-        { year: 1, age: 28, deposits: "65777" },
-        { year: 1, age: 28, deposits: "65777" },
-        { year: 1, age: 28, deposits: "65777" },
-        { year: 1, age: 28, deposits: "65777" },
-      ],
+      distributions: [],
       data: [
         {
           illustration_rate: "6.25%",
@@ -444,13 +435,7 @@ export default {
           strategy_carg: "1.14%",
           irr: "5.76%",
           type: "Allianz - LIRP",
-          list: [
-            { distributions: 45455, net_balance: "" },
-            { distributions: 45684, net_balance: "" },
-            { distributions: 66544, net_balance: "" },
-            { distributions: 95645, net_balance: "" },
-            { distributions: 95564, net_balance: "" },
-          ],
+          list: [],
         },
         {
           illustration_rate: "5.25%",
@@ -459,13 +444,7 @@ export default {
           strategy_carg: "2.14%",
           irr: "5.66%",
           type: "TSA - Worst",
-          list: [
-            { distributions: 16546, net_balance: "" },
-            { distributions: 65414, net_balance: "" },
-            { distributions: 66544, net_balance: "" },
-            { distributions: 32145, net_balance: "" },
-            { distributions: 32322, net_balance: "" },
-          ],
+          list: [],
         },
         {
           illustration_rate: "6.25%",
@@ -474,13 +453,7 @@ export default {
           strategy_carg: "4.14%",
           irr: "3.66%",
           type: "TSA - Most Recent",
-          list: [
-            { distributions: 22223, net_balance: "" },
-            { distributions: 64544, net_balance: "" },
-            { distributions: 66544, net_balance: "" },
-            { distributions: 32144, net_balance: "" },
-            { distributions: 94456, net_balance: "" },
-          ],
+          list: [],
         },
         {
           illustration_rate: "3.25%",
@@ -489,13 +462,7 @@ export default {
           strategy_carg: "4.25%",
           irr: "5.11%",
           type: "TSA - Median",
-          list: [
-            { distributions: 12554, net_balance: "" },
-            { distributions: 89822, net_balance: "" },
-            { distributions: 88456, net_balance: "" },
-            { distributions: 33445, net_balance: "" },
-            { distributions: 78746, net_balance: "" },
-          ],
+          list: [],
         },
         {
           illustration_rate: "6.25%",
@@ -504,13 +471,7 @@ export default {
           strategy_carg: "4.14%",
           irr: "5.66%",
           type: "TSA - Best",
-          list: [
-            { distributions: 65445, net_balance: "" },
-            { distributions: 97842, net_balance: "" },
-            { distributions: 54555, net_balance: "" },
-            { distributions: 23554, net_balance: "" },
-            { distributions: 92112, net_balance: "" },
-          ],
+          list: [],
         },
       ],
       summary_data: {
@@ -585,6 +546,108 @@ export default {
       },
     };
   },
+  mounted() {
+    this.mapData();
+  },
+  methods: {
+    testFunction: function() {
+      this.mapData();
+    },
+    mapData: function() {
+      if (this.table.average) {
+        let data = this.table.average.table_output;
+        let list = data[0];
+        if (list.length) {
+          let tempList = [];
+          let tempDeposits = [];
+
+          for (let i = 0; i < list.length; i++) {
+            if (i) {
+              tempList.push({
+                distributions: data[i][34],
+                net_balance: data[i][26],
+              });
+              tempDeposits.push({
+                year: data[i][0],
+                age: data[i][6],
+                deposits: data[i][7],
+              });
+            }
+          }
+          this.data[0].list = tempList;
+          this.distributions = tempDeposits;
+        }
+      }
+
+      if (this.table.worst) {
+        let data = this.table.worst.table_output;
+        let list = data[0];
+        if (list.length) {
+          let tempList = [];
+          for (let i = 0; i < list.length; i++) {
+            if (i) {
+              tempList.push({
+                distributions: data[i][34],
+                net_balance: data[i][26],
+              });
+            }
+          }
+          this.data[1].list = tempList;
+        }
+      }
+
+      if (this.table.most_recent) {
+        let data = this.table.most_recent.table_output;
+        let list = data[0];
+        if (list.length) {
+          let tempList = [];
+          for (let i = 0; i < list.length; i++) {
+            if (i) {
+              tempList.push({
+                distributions: data[i][34],
+                net_balance: data[i][26],
+              });
+            }
+          }
+          this.data[2].list = tempList;
+        }
+      }
+
+      if (this.table.median) {
+        let data = this.table.median.table_output;
+        let list = data[0];
+        if (list.length) {
+          let tempList = [];
+          for (let i = 0; i < list.length; i++) {
+            if (i) {
+              tempList.push({
+                distributions: data[i][34],
+                net_balance: data[i][26],
+              });
+            }
+          }
+          this.data[3].list = tempList;
+        }
+      }
+
+      if (this.table.best) {
+        let data = this.table.best.table_output;
+        let list = data[0];
+        if (list.length) {
+          let tempList = [];
+          for (let i = 0; i < list.length; i++) {
+            if (i) {
+              tempList.push({
+                distributions: data[i][34],
+                net_balance: data[i][26],
+              });
+            }
+          }
+          this.data[4].list = tempList;
+        }
+      }
+    },
+  },
   watch: {
     "$store.state.app.presentation_mode"(val) {
       if (
@@ -599,6 +662,11 @@ export default {
           element.active = true;
         });
       }
+    },
+  },
+  computed: {
+    table() {
+      return this.$store.state.data.report.historical;
     },
   },
 };

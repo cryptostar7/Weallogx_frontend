@@ -200,6 +200,9 @@ const store = createStore({
         setComparativeReport(state, payload) {
             state.data.report.comparative = payload;
         },
+        setHistoricalReport(state, payload) {
+            state.data.report.historical = payload;
+        },
         setComparativeReportLongevity(state, payload) {
             state.data.report.comparative_longevity = payload;
         },
@@ -285,6 +288,9 @@ const store = createStore({
         },
         comparativeReport(context, payload) {
             context.commit('setComparativeReport', payload);
+        },
+        historicalReport(context, payload) {
+            context.commit('setHistoricalReport', payload);
         },
         comparativeReportLongevity(context, payload) {
             context.commit('setComparativeReportLongevity', payload);

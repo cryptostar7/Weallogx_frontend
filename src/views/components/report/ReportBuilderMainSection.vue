@@ -144,6 +144,25 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    getHistoricalData: function() {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl('historical_report')}`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          // this.allDataLoaded = true;
+          this.$store.dispatch('historicalReport', response.data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
     getNotes: function() {
       get(`${getUrl('notes')}?report=${this.$route.params.report}`, authHeader()).then((response) => {
         this.$store.dispatch('notes', response.data);
@@ -165,6 +184,7 @@ export default {
   },
   mounted() {
     this.getComparativeData(this.$route.params.report);
+    this.getHistoricalData();
   },
   computed: {
     comparativeReport() {

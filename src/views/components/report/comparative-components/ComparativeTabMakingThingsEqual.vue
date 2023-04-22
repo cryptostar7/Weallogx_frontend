@@ -509,7 +509,7 @@ export default {
       this.data.rate_of_returns[3].ror = this.death_benefit.tax_result.comparison.ror;
     },
     testFunction: function() {
-      console.log(this.notes);
+      // console.log(this.notes);
     },
   },
   mounted() {
@@ -559,10 +559,6 @@ export default {
 
     if (this.$store.state.data.report.comparative_death_benefit) {
       this.setDeathBenefit();
-    }
-
-    if (this.notes) {
-      console.log(this.notes);
     }
   },
   watch: {

@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="modal fade common-modal" id="DeleteComparativeCvModal" tabindex="-1" aria-labelledby="DeleteComparativeCvModalLabel" aria-hidden="true">
+  <div class="modal fade common-modal" id="DeleteHistoricalCvModal" tabindex="-1" aria-labelledby="DeleteHistoricalCvModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -8,11 +8,12 @@
           </button>
         </div>
         <div class="modal-body text-center">
-          <h5 class="modal-title fs-24 semi-bold-fw" id="DeleteComparativeCvModalLabel">Delete CV</h5>
+          <h5 class="modal-title fs-24 semi-bold-fw" id="DeleteHistoricalCvModalLabel">Delete CV</h5>
           <p class="fs-14">This action cannot be undone. To re-add a Comparative Vehicle you will have to go back to Scenario creation.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" @click="deleteCv()">Yes, Delete</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn modal-cancel-btn" @click="deleteCv()">Test</button>
           </div>
         </div>
       </div>
@@ -27,8 +28,9 @@ import { patch } from '../../../network/requests';
 export default {
   methods:{
     deleteCv: function(){
-      this.$store.dispatch('reportCvDeleteId', Number(document.getElementById('comparative_cv_delete_id').value));
-      let index = Number(document.getElementById('comparative_cv_delete_id').value);
+      this.$store.dispatch('reportCvDeleteId', Number(document.getElementById('historical_cv_delete_id').value));
+      return false;
+      let index = Number(document.getElementById('historical_cv_delete_id').value);
       let cv = this.$store.state.data.report.comparative
       if(cv && cv.comperative_vehicle_id){
         let cvId = cv.comperative_vehicle_id;
