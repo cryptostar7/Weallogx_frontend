@@ -1,5 +1,5 @@
 <template lang="">
-    <div v-if="$props.data" class="col-md-4">
+    <div v-if="$props.data" :class="$props.col">
         <div class="compVehcleCol">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -211,7 +211,7 @@
 </template>
 <script>
 export default {
-  props: ["data", "tab"],
+  props: ["data", "tab", "col"],
   emits: ["setSchedule"],
   data() {
     return {

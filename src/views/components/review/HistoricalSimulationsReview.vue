@@ -13,9 +13,9 @@
         </div>
         <div class="container-fluid summary-editBox py-4">
             <div class="row">
-                <historical-index-component tab="1" :data="data.index_strategy_1" @setSchedule="setSchedule"/>
-                <historical-index-component tab="2" :data="data.index_strategy_2" @setSchedule="setSchedule"/>
-                <historical-index-component tab="3" :data="data.index_strategy_3" @setSchedule="setSchedule"/>
+                <historical-index-component tab="1" :data="data.index_strategy_1" @setSchedule="setSchedule" :col="column"/>
+                <historical-index-component tab="2" :data="data.index_strategy_2" @setSchedule="setSchedule" :col="column"/>
+                <historical-index-component tab="3" :data="data.index_strategy_3" @setSchedule="setSchedule" :col="column"/>
             </div>
         </div>
         <performance-multiplier-modal :list="schedules" :type="scheduleType" :title="scheduleTitle"/>
@@ -77,6 +77,11 @@ export default {
       this.getHistoricalData(e);
     },
   },
+  computed: {
+    column(){
+     return this.data ? `col-md-4 ${this.data.vehicle_type_2 ? '': 'col-md-8'} ${this.data.vehicle_type_3 ? '': 'col-md-12'}` : 'col-md-4';
+    }
+  }
 };
 </script>
 <style lang="">

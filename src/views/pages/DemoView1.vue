@@ -5,17 +5,16 @@
   </div>
 </template>
 <script>
+import { remove } from '../../network/requests';
+import { authHeader } from '../../services/helper';
 export default {
   methods: {
     testFunction: function() {
-       console.log(this.getPercentValue(-400, 600))
-    },
-
-    getPercentValue: function(value1, value2) {
-      value1 = Number(value1.toString().replaceAll('-', ''));
-      value2 = Number(value2.toString().replace('-', ''));
-      let unit = (Number(value1.toString().replace('-'))+Number(value2.toString().replace('-')))/100;
-      return value2/unit;
+      remove('https://wlxpy.bizbybot.com/auth/vehicle-type3/63/', authHeader()).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
     },
   },
 };

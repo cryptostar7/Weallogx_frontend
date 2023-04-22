@@ -24,7 +24,6 @@ export default {
   },
   mounted() {
     if (this.$props.noteType) {
-      console.log("this.$props.noteId", this.$props.noteId);
       this.note_id = this.$props.noteId;
       this.note = this.$props.noteText;
     }
@@ -42,8 +41,6 @@ export default {
       if (this.note_id) {
         patch(`${getUrl("notes")}${this.note_id}/`, data, authHeader())
           .then(response => {
-            console.log(response.data);
-            console.log(response.data.id);
             this.$toast.success("Note saved successfully!");
           })
           .catch(error => {
@@ -52,7 +49,6 @@ export default {
       } else {
         post(getUrl("notes"), data, authHeader())
           .then(response => {
-            console.log(response.data);
             this.note_id = response.data.id;
             this.$toast.success("Note added successfully!");
           })

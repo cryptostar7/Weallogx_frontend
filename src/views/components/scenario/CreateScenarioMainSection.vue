@@ -317,6 +317,7 @@ export default {
         return Number(item.id) === Number(id);
       })[0].age;
       this.setInputWithId("clientAge", age);
+      this.clientAgeYearToIllustrate = age;
       this.errors.client_age_year = false;
     },
 
