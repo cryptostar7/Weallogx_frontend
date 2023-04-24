@@ -33,9 +33,7 @@
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
-                    <label for="showAssets2"
-                      class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show assets one by
-                      one</label>
+                    <label for="showAssets2" class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show assets one by one</label>
                   </div>
                   <div class="collapseDivmdlHd text-center">Historical Simulations of a Theoretical Synthetic Asset
                     (TSA) <br> as a Proxy for the LIRP</div>
@@ -56,23 +54,16 @@
                                 <div class="layer2"></div>
                               </div>
                               <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
-                                    height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                      stroke="#1660A4" stroke-width="1.15"></rect>
-                                    <path
-                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                      stroke="#1660A4" stroke-width="1.25"></path>
+                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;
+                                  <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"  stroke="#1660A4" stroke-width="1.15"></rect>
+                                    <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z" stroke="#1660A4" stroke-width="1.25"></path>
                                   </svg>
                                 </a>
-                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"
-                                  class="deleteBtnLirp disableBtnsForAll">&nbsp;<svg width="12" height="13"
-                                    viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                      stroke="#1660A4" stroke-width="1.25"></path>
-                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                      transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
+                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal" class="deleteBtnLirp disableBtnsForAll">&nbsp;
+                                  <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z" stroke="#1660A4" stroke-width="1.25"></path>
+                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625" transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
                                   </svg>
                                 </a>
                               </div>
@@ -143,14 +134,10 @@
                               <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
                                   <div class="d-flex w-100 justify-content-end align-items-center">
-                                    <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;<svg
-                                        width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"
-                                          stroke="#1660A4" stroke-width="1.15" />
-                                        <path
-                                          d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                          stroke="#1660A4" stroke-width="1.25" />
+                                    <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;\
+                                      <svg  width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"  stroke="#1660A4" stroke-width="1.15" />
+                                        <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                       </svg>
                                     </a>
                                     <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
@@ -564,16 +551,17 @@ export default {
           for (let i = 0; i < list.length; i++) {
             if (i) {
               tempList.push({
-                distributions: data[i][34],
-                net_balance: data[i][26],
+                distributions: data[i] ? data[i][35] : null,
+                net_balance: data[i] ? data[i][26] : null,
               });
               tempDeposits.push({
-                year: data[i][0],
-                age: data[i][6],
-                deposits: data[i][7],
+                year: data[i] ? data[i][1] : null,
+                age: data[i] ? data[i][0] : null,
+                deposits: data[i] ? data[i][2] : null,
               });
             }
           }
+          
           this.data[0].list = tempList;
           this.distributions = tempDeposits;
         }
@@ -587,8 +575,8 @@ export default {
           for (let i = 0; i < list.length; i++) {
             if (i) {
               tempList.push({
-                distributions: data[i][34],
-                net_balance: data[i][26],
+                distributions: data[i] ? data[i][34] : null,
+                net_balance: data[i] ? data[i][26] : null,
               });
             }
           }
@@ -604,8 +592,8 @@ export default {
           for (let i = 0; i < list.length; i++) {
             if (i) {
               tempList.push({
-                distributions: data[i][34],
-                net_balance: data[i][26],
+                distributions: data[i] ? data[i][34] : null,
+                net_balance: data[i] ? data[i][26] : null,
               });
             }
           }
@@ -621,8 +609,8 @@ export default {
           for (let i = 0; i < list.length; i++) {
             if (i) {
               tempList.push({
-                distributions: data[i][34],
-                net_balance: data[i][26],
+                distributions: data[i] ? data[i][34] : null,
+                net_balance: data[i] ? data[i][26] : null,
               });
             }
           }
@@ -638,8 +626,8 @@ export default {
           for (let i = 0; i < list.length; i++) {
             if (i) {
               tempList.push({
-                distributions: data[i][34],
-                net_balance: data[i][26],
+                distributions: data[i] ? data[i][34] : null,
+                net_balance: data[i] ? data[i][26] : null,
               });
             }
           }

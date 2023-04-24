@@ -96,14 +96,14 @@ export default {
             chart1.comparison.cumulative_income_fee_ratio;
         }
 
-        if (chart2) {
+        if (Object.values(chart2).length) {
           this.data[2].total_value_in_percent =
             chart2.comparison.total_value_fee_ratio;
           this.data[2].cumulative_income_in_percent =
             chart2.comparison.cumulative_income_fee_ratio;
         }
 
-        if (chart3) {
+        if (Object.values(chart3).length) {
           this.data[3].total_value_in_percent =
             chart3.comparison.total_value_fee_ratio;
           this.data[3].cumulative_income_in_percent =
@@ -185,11 +185,11 @@ export default {
           ];
         }
 
-        if (!this.deletedItems.includes(2) && chart2) {
+        if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
           cumulativeFeesData.datasets[2].data = chart2.comparison.chart_output.cummulative_fees;
         }
 
-        if (!this.deletedItems.includes(3) && chart3) {
+        if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
           cumulativeFeesData.datasets[3].data = chart3.comparison.chart_output.cummulative_fees;
         }
       }

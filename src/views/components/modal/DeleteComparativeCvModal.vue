@@ -44,7 +44,7 @@ export default {
           data = {vehicle_type_3 : null};       
         }
 
-        patch(`${getUrl('comparative')}79/`, data, authHeader()).then((response) => {
+        patch(`${getUrl('comparative')}${cv.comperative_vehicle_id}/`, data, authHeader()).then((response) => {
           console.log(response);
           this.$toast.success('CV deleted successfully!')
         }).catch((error) => {

@@ -186,16 +186,16 @@ export default {
       let contribution = [];
       let distribution = [];
       let years = [];
-      if (this.comparative.tax_result) {
-        let chart1 = this.comparative.tax_result.comparison.chart_output;
-        let chart2 = this.comparative.pretax_result.comparison.chart_output;
-        let chart3 = this.comparative.tda_result.comparison.chart_output;
-        cv1 = chart1["BOY Balance"];
-        cv2 = chart2["BOY pre-tax Balance"];
-        cv3 = chart3["BOY Balance"];
-        years = chart1.year;
-        contribution = chart1.Deposits;
-        distribution = chart1.distributions;
+      if (Object.values(this.comparative.tax_result).length) {
+        let chart1 = Object.values(this.comparative.tax_result).length ? this.comparative.tax_result.comparison.chart_output : false;
+        let chart2 = Object.values(this.comparative.pretax_result).length ? this.comparative.pretax_result.comparison.chart_output : false;
+        let chart3 = Object.values(this.comparative.tda_result).length ? this.comparative.tda_result.comparison.chart_output : false;
+        cv1 = chart1 ? chart1["BOY Balance"] : [];
+        cv2 = chart2 ? chart2["BOY pre-tax Balance"] : [];
+        cv3 = chart3 ? chart3["BOY Balance"] : [];
+        years =  chart1 ? chart1.year : [];
+        contribution = chart1 ? chart1.Deposits : [];
+        distribution = chart1 ? chart1.distributions : [];
       }
 
       let dataset = {
@@ -493,13 +493,13 @@ export default {
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
-        if (chart2) {
+        if (Object.values(chart2).length) {
           this.data[2].ror = chart2.comparison.ror + "%";
           this.data[2].irr = chart2.comparison.irr_percent + "%";
           this.data[2].cumulative_income = chart2.comparison.cummulative_income;
         }
 
-        if (chart3) {
+        if (Object.values(chart3).length) {
           this.data[3].ror = chart3.comparison.ror + "%";
           this.data[3].irr = chart3.comparison.irr_percent + "%";
           this.data[3].cumulative_income = chart3.comparison.cummulative_income;

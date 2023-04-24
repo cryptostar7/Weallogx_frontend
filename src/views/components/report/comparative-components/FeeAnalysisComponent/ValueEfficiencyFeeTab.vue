@@ -160,14 +160,14 @@ export default {
           this.data[1].total_value = chart1.comparison.total_value;
         }
 
-        if (chart2) {
+        if (Object.values(chart2).length) {
           this.data[2].value_efficiency = chart2.comparison.value_efficiency;
           this.data[2].value_efficiency_ratio = chart2.comparison.total_value_fee_ratio;
           this.data[2].total_fees = chart2.comparison.fees;
           this.data[2].total_value = chart2.comparison.total_value;
         }
 
-        if (chart3) {
+        if (Object.values(chart3).length) {
           this.data[3].value_efficiency = chart3.comparison.value_efficiency;
           this.data[3].value_efficiency_ratio = chart3.comparison.total_value_fee_ratio;
           this.data[3].total_fees = chart3.comparison.fees;

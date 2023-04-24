@@ -528,7 +528,7 @@ export default {
         this.data.rate_of_returns[1].ending_value = this.comparative.tax_result.match_rates_of_return.surrender_value;
       }
 
-      if (this.comparative.pretax_result) {
+      if (Object.values(this.comparative.pretax_result).length) {
         this.data.distribution[2].longevity = this.comparative.pretax_result.match_distributions.longevity;
         this.data.distribution[2].death_benefit = this.comparative.pretax_result.match_distributions.death_benefit;
         this.data.distribution[2].ending_value = this.comparative.pretax_result.match_distributions.surrender_value;
@@ -538,7 +538,7 @@ export default {
         this.data.rate_of_returns[2].ending_value = this.comparative.pretax_result.match_rates_of_return.surrender_value;
       }
 
-      if (this.comparative.tda_result) {
+      if (Object.values(this.comparative.tda_result).length) {
         this.data.distribution[3].longevity = this.comparative.tda_result.match_distributions.longevity;
         this.data.distribution[3].death_benefit = this.comparative.tda_result.match_distributions.death_benefit;
         this.data.distribution[3].ending_value = this.comparative.tda_result.match_distributions.surrender_value;

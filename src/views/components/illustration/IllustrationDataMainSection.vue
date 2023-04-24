@@ -120,7 +120,6 @@
                       <div class="form-group mb-0"> 
                         <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
                         <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV"></textarea> 
-                        <!-- <div id="pasteData" cols="30" rows="5" class="form-control"></div>  -->
                       </div>
                     </div>
                   </div>
@@ -527,7 +526,7 @@ export default {
             "deathBenefit",
             data.initial_death_benifit.toLocaleString()
           );
-          this.setInputWithId("policyReturn", data.policy_return);
+          this.setInputWithId("policyReturn", Number(data.policy_return).toFixed(2));
           this.uploadFromFile = data.illustration_data.upload_file_checkbox;
           let filteredCsv = { data: [], headers: [] };
           if (this.uploadFromFile) {
@@ -537,7 +536,7 @@ export default {
             };
             filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
               i => this.illustrationFieldsIndex[i]
-            );
+            );                                      
 
             this.csvPreview = filteredCsv;
             this.setScrollbar();
@@ -769,7 +768,6 @@ export default {
         this.errors.initial_death_benifit = "";
       }
 
-      console.log(this.getInputWithId("policyReturn"), "...........");
       if (!this.getInputWithId("policyReturn")) {
         this.errors.policy_return = ["This field is required."];
         validate = false;

@@ -67,6 +67,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/indexstrategy-template/`;
     case 'historical-portfolio':
       return `${baseUrl}/auth/historical-portfolio/`;
+    case 'historical-simulation-object':
+      return `${baseUrl}/auth/historical-media/`
     case 'strategy-index1':
       return `${baseUrl}/auth/indexstrategy1/`;
     case 'strategy-index2':

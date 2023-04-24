@@ -300,7 +300,7 @@ export default {
           this.data.total_value[1].shortfall = chart1.comparison.diff_from_lirp;
         }
 
-        if (chart2) {
+        if (Object.values(chart2).length) {
           this.data.cumulative_income[2].cumulative_income =
             chart2.comparison.cummulative_income;
           this.data.cumulative_income[2].shortfall =
@@ -310,7 +310,7 @@ export default {
           this.data.total_value[2].shortfall = chart2.comparison.diff_from_lirp;
         }
 
-        if (chart3) {
+        if (Object.values(chart3).length) {
           this.data.cumulative_income[3].cumulative_income =
             chart3.comparison.cummulative_income;
           this.data.cumulative_income[3].shortfall =

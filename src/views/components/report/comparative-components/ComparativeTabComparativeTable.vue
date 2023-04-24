@@ -536,8 +536,12 @@ export default {
       };
 
       let obj1 = ct.tax_result.comparison.table_output;
-      let obj2 = ct.pretax_result.comparison.table_output;
-      let obj3 = ct.tda_result.comparison.table_output;
+      let obj2 = ct.pretax_result.comparison
+        ? ct.pretax_result.comparison.table_output
+        : false;
+      let obj3 = ct.tda_result.comparison
+        ? ct.tda_result.comparison.table_output
+        : false;
 
       if (obj1) {
         let list = [];
@@ -644,6 +648,8 @@ export default {
             shortfall: "",
           },
         };
+      } else {
+        this.$store.dispatch("reportCvDeleteId", 2);
       }
 
       if (obj3) {
@@ -668,22 +674,24 @@ export default {
         });
         details.list = list;
         tempData.data[3] = details;
+
+        this.summary_data.data[3] = {
+          id: 3,
+          distribution: {
+            total: ct.tda_result.comparison.total_value,
+            total_value: ct.tda_result.comparison.total_value,
+            shortfall: ct.tda_result.comparison.diff_from_lirp,
+          },
+          net_balance: {
+            total: "",
+            total_value: "",
+            shortfall: "",
+          },
+        };
+      } else {
+        this.$store.dispatch("reportCvDeleteId", 3);
       }
       this.target_analysis = tempData;
-
-      this.summary_data.data[3] = {
-        id: 3,
-        distribution: {
-          total: ct.tda_result.comparison.total_value,
-          total_value: ct.tda_result.comparison.total_value,
-          shortfall: ct.tda_result.comparison.diff_from_lirp,
-        },
-        net_balance: {
-          total: "",
-          total_value: "",
-          shortfall: "",
-        },
-      };
     },
   },
   watch: {

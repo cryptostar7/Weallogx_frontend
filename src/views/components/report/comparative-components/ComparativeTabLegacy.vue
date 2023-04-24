@@ -186,14 +186,14 @@ export default {
           this.data[1].age = age1[age1.length - 1];
         }
 
-        if (chart2) {
+        if (Object.values(chart2).length) {
           this.data[2].ending_value = chart2.match_distributions.surrender_value;
           this.data[2].shortfall = chart2.comparison.diff_from_lirp;
           let age2 = chart2.comparison.chart_output.Age
           this.data[2].age = age2[age2.length - 1];
         }
 
-        if (chart3) {
+        if (Object.values(chart3).length) {
           this.data[3].ending_value = chart3.match_distributions.surrender_value;
           this.data[3].shortfall = chart3.comparison.diff_from_lirp;
           let age3 = chart3.comparison.chart_output.Age
