@@ -71,17 +71,19 @@
                               <p class="lineUnderBars"></p>
                             </div>
                              <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{$numFormatWithDollar(item.distributions)}}</p>
-                            <div class="position-up" v-if="index">
-                              <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Ending Value</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Death Benefit</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
+                             <div class="d-flex flex-1 w-100 justify-content-between">
+                              <div class="position-up" v-if="index">
+                                <p class="ms-2 cardProjectTag">Longevity</p>
+                                <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.longevity)}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Ending Value</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.ending_value)}}</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Death Benefit</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{$numFormatWithDollar(item.death_benefit)}}</p>
+                                </div>
                             </div>
                           </div>
                           <add-note-input-component reportType="comperative" noteType="comperative_distribution" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null" />
@@ -229,17 +231,19 @@
                               <p class="lineUnderBars"></p>
                             </div>
                              <p :class="`mt-1 ms-2 CardProgressnym carValue1 makeEqualPara${1+index}`" v-if="!index">{{Number(item.ror).toFixed(2)}}%</p>
-                            <div class="position-up" v-if="index">
-                              <p class="ms-2 cardProjectTag">Longevity</p>
-                              <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.longevity).toFixed(2)}}%</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Ending Value</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.ending_value).toFixed(2)}}%</p>
-                            </div>
-                            <div class="position-up" v-if="index">
-                              <p class="cardProjectTag textGap">Death Benefit</p>
-                              <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.death_benefit).toFixed(2)}}%</p>
+                             <div class="d-flex flex-1 w-100 justify-content-between">
+                              <div class="position-up" v-if="index">
+                                <p class="ms-2 cardProjectTag">Longevity</p>
+                                <p :class="`ms-2 CardProgressnym cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.longevity).toFixed(2)}}%</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Ending Value</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.ending_value).toFixed(2)}}%</p>
+                              </div>
+                              <div class="position-up" v-if="index">
+                                <p class="cardProjectTag textGap">Death Benefit</p>
+                                <p :class="`CardProgressnym textGap cardRadioSwtchpara makeEqualPara${1+index}`">{{Number(item.death_benefit).toFixed(2)}}%</p>
+                              </div>
                             </div>
                           </div>
                           <add-note-input-component reportType="comperative" noteType="comperative_rate_of_return" :cvType="1+index" :noteId="ror_notes[index] ?  ror_notes[index].id : null" :noteText="ror_notes[index] ?  ror_notes[index].text : null" />
