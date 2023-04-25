@@ -209,7 +209,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                       <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} ${deletedItems.length} px-1 drag-col ${header.active ? '' : 'order-last'}`">
                           <div class="empty-inner" data-empty="1">
                             <div class="fill-inner" data-fill="1">
                               <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -490,7 +490,18 @@ export default {
     };
   },
   mounted() {
-    this.mapData(this.comparativeTable);
+    let cr = this.comparativeTable;
+    this.mapData(cr);
+    let obj1 = cr.tax_result.comparison;
+    let obj2 = cr.pretax_result.comparison;
+    let obj3 = cr.tda_result.comparison;
+
+    if(!obj2){
+      this.$store.dispatch("reportCvDeleteId", 2);
+    }
+    if(!obj3){
+      this.$store.dispatch("reportCvDeleteId", 3);
+    }
   },
   methods: {
     testFunction: function() {
@@ -505,7 +516,6 @@ export default {
     },
     setCurrentFilter: function(key) {
       this.currentFilter = key;
-      console.log(this.currentTab, key);
       switch (key) {
         case "longevity":
           return this.mapData(
@@ -560,6 +570,7 @@ export default {
             death_benefit: item[18],
             net_balance: item[13],
           };
+
           let ar2 = {
             year: item[0],
             age: item[1],
@@ -648,8 +659,6 @@ export default {
             shortfall: "",
           },
         };
-      } else {
-        this.$store.dispatch("reportCvDeleteId", 2);
       }
 
       if (obj3) {
@@ -688,9 +697,7 @@ export default {
             shortfall: "",
           },
         };
-      } else {
-        this.$store.dispatch("reportCvDeleteId", 3);
-      }
+      } 
       this.target_analysis = tempData;
     },
   },

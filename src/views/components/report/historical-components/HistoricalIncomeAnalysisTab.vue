@@ -14,8 +14,7 @@
                   <div class="layer2"></div>
                 </div>
               </div>
-              <label for="rightCheckBox8" class="rghtTopHeadcommon">Income Analysis <span
-                  class="ms-3 equalThingTabTxt">(Graph)</span></label>
+              <label for="rightCheckBox8" class="rghtTopHeadcommon">Income Analysis <span class="ms-3 equalThingTabTxt">(Graph)</span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,11 +28,11 @@
             <div class="px-3 pt-3 pb-2">
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div class="flex-1" v-for="(item, index) in data" :key="index"> 
+                  <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`"> 
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '': 'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <p class="allCardHeadPara">Annual Income</p>                          
+                          <p class="allCardHeadPara">Annual Income</p>                               
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -43,15 +42,10 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '' : 'd-none'}`" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal"  data-bs-toggle="modal">
+                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                              <path  d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"  stroke="#9D9D9D" />
+                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
                             </svg>
                           </a>
                         </div>
@@ -60,13 +54,11 @@
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
                           <div class="CardProgress"></div>
-                          <!-- <p class="lineUnderBars"></p> -->
                         </div>
-                        <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(data[index].annual_income)}}
-                        </p>
+                        <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(data[index].annual_income)}}</p>
                       </div>
 
-                       <add-note-input-component :historical="true"/>
+                       <add-note-input-component :historical="true" reportType="historical" noteType="historical_income_analysis" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null"/>
                     </div>
                   </div>
                 </div>
@@ -81,10 +73,10 @@
                   <div class="CompProgressAbsltCls income">
                     <div class="progressAllBarsDivMain">
                       <div class="d-flex justify-content-between w-100">
-                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                          <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:item.income_in_percent}">
+                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                          <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:  `${Number(data[index].annual_income)*100/maxIncome}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
-                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.total_income)}}</span></p>
+                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.annual_income)}}</span></p>
                             </div>
                           </div>
                         </div>
@@ -118,39 +110,65 @@ export default {
         { id: 4, active: true },
         { id: 5, active: true },
       ],
-      data: [
-        {
-          type: "LIRP",
-          annual_income: 45000,
-          total_income: 4504500,
-          income_in_percent: "45%",
-        },
-        {
-          type: "Most Recent",
-          annual_income: 33000,
-          total_income: 3303300,
-          income_in_percent: "33%",
-        },
-        {
-          type: "Worst",
-          annual_income: 55624,
-          total_income: 5565564,
-          income_in_percent: "55%",
-        },
-        {
-          type: "Median",
-          annual_income: 25645,
-          total_income: 2562565,
-          income_in_percent: "25%",
-        },
-        {
-          type: "Best",
-          annual_income: 25645,
-          total_income: 2562565,
-          income_in_percent: "25%",
-        },
-      ],
+      data: [{}, {}, {}, {}, {}],
     };
+  },
+  mounted() {
+    console.log(this.historical);
+    let card1 = this.historical.average;
+    let card2 = this.historical.most_recent;
+    let card3 = this.historical.worst;
+    let card4 = this.historical.median;
+    let card5 = this.historical.best;
+
+    if (card1) {
+      this.data[0].type = "LIRP";
+      this.data[0].annual_income = card1.sum_of_all_total_value;
+    }
+
+    if (card2) {
+      this.data[1].type = "Most Recent";
+      this.data[1].annual_income = card2.sum_of_all_total_value;
+    }
+
+    if (card3) {
+      this.data[2].type = "Worst";
+      this.data[2].annual_income = card3.sum_of_all_total_value;
+    }
+
+    if (card4) {
+      this.data[3].type = "Worst";
+      this.data[3].annual_income = card4.sum_of_all_total_value;
+    }
+
+    if (card4) {
+      this.data[4].type = "Worst";
+      this.data[4].annual_income = card4.sum_of_all_total_value;
+    }
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.deletedItems);
+    },
+    setActionId: function(id) {
+      document.getElementById("historical_cv_delete_id").value = id;
+    },
+     notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "historical_income_analysis" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        let v5 = note.filter(i => i.vehicle_type === 5)[0] || null;
+        note = [v1, v2, v3, v4, v5];
+      }
+      return note;
+    },
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -166,6 +184,20 @@ export default {
           element.active = true;
         });
       }
+    },
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
+    maxIncome() {
+      let dst = this.data;
+      return this.$roundFigureNum(
+        Math.max(...[...dst.map(i => Number(i.annual_income || 0))])
+      );
     },
   },
 };
