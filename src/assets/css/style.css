@@ -2637,6 +2637,7 @@ color: #fff;
   }
   .sidebar.collapsed{
     min-width: auto;
+    text-align: center;
   }
   .sidebar .hi-username{
     margin-top: 1rem;
