@@ -13,7 +13,6 @@
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" @click="deleteCv()">Yes, Delete</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn modal-cancel-btn" @click="deleteCv()">Test</button>
           </div>
         </div>
       </div>
@@ -28,40 +27,9 @@ import { patch } from '../../../network/requests';
 export default {
   methods:{
     deleteCv: function(){
-      this.$store.dispatch('reportCvDeleteId', Number(document.getElementById('historical_cv_delete_id').value));
-      return false;
+      this.$store.dispatch('historicalCvDeleteId', Number(document.getElementById('historical_cv_delete_id').value));
       let index = Number(document.getElementById('historical_cv_delete_id').value);
-      let cv = this.$store.state.data.report.comparative
-      if(cv && cv.comperative_vehicle_id){
-        let cvId = cv.comperative_vehicle_id;
-        console.log(cv.comperative_vehicle_id);
-
-        var data = {vehicle_type_1 : null};
-
-        if(index === 2){
-          data = {vehicle_type_2 : null};
-        }
-
-        if(index === 3){
-          data = {vehicle_type_3 : null};       
-        }
-
-        patch(`${getUrl('comparative')}79/`, data, authHeader()).then((response) => {
-          console.log(response);
-          this.$toast.success('CV deleted successfully!')
-        }).catch((error) => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }else{
-            this.$toast.error(getFirstError(error));
-          }
-          this.$store.dispatch("loader", false);
-        }) 
-      }
+      console.log(index);
     }
   }
 };

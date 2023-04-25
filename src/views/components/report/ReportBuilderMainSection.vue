@@ -128,6 +128,7 @@ export default {
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
           setTimeout(() => {
+            console.log(this.$store.state.app.loader_count);
             if (!this.$store.state.app.loader_count) {
               this.allDataLoaded = true;
               setTimeout(() => this.updateElementJs(), 100);

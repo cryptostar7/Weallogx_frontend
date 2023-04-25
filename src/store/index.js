@@ -41,6 +41,7 @@ const store = createStore({
                 comparative: [],
                 historical: [],
                 deleted_cv_ids: [],
+                deleted_historical_cv_ids: [],
                 comparative_longevity: [],
                 comparative_ending_value: [],
                 comparative_death_benefit: [],
@@ -223,6 +224,9 @@ const store = createStore({
         },
         setDeleteCvId(state, payload) {
             state.data.report.deleted_cv_ids = [...state.data.report.deleted_cv_ids, payload];
+        },
+        setHistoricalDeleteCvId(state, payload) {
+            state.data.report.deleted_historical_cv_ids = [...state.data.report.deleted_historical_cv_ids, payload];
         }
     },
     actions: {
@@ -312,7 +316,10 @@ const store = createStore({
         },
         reportCvDeleteId(context, payload) {
             context.commit('setDeleteCvId', payload);
-        }
+        },
+        historicalCvDeleteId(context, payload) {
+            context.commit('setHistoricalDeleteCvId', payload);
+        },
     }
 })
 export default store;

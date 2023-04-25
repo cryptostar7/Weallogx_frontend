@@ -60,7 +60,7 @@
                                     <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z" stroke="#1660A4" stroke-width="1.25"></path>
                                   </svg>
                                 </a>
-                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal" class="deleteBtnLirp disableBtnsForAll">&nbsp;
+                                <a href="javascript:void(0)" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal" data-bs-toggle="modal" class="deleteBtnLirp disableBtnsForAll">&nbsp;
                                   <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z" stroke="#1660A4" stroke-width="1.25"></path>
                                     <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625" transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
@@ -201,7 +201,7 @@
                     <!-- draggable column -->
                     <div class="col">
                         <draggable v-model="draggableColumns"  :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3  px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/(4-deletedItems.length)}  px-1 drag-col ${header.active ? '' : 'order-last'} ${deletedItems.includes(header.id) ? 'd-none':''}`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
                                 <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -321,7 +321,7 @@
                         </div>
                       </div>
                       <div class="col-4 col-md-2 px-1">
-                                <div class="commonBottomTableMainTopDiv4">
+                        <div class="commonBottomTableMainTopDiv4">
                           <div class="reportTablesDiv reportTablesDiv8">
                             <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                               <thead class="heading-tr">
@@ -540,6 +540,9 @@ export default {
     testFunction: function() {
       this.mapData();
     },
+    setActionId: function(id) {
+      document.getElementById("historical_cv_delete_id").value = id;
+    },
     mapData: function() {
       if (this.table.average) {
         let data = this.table.average.table_output;
@@ -561,7 +564,7 @@ export default {
               });
             }
           }
-          
+
           this.data[0].list = tempList;
           this.distributions = tempDeposits;
         }
@@ -655,6 +658,9 @@ export default {
   computed: {
     table() {
       return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
     },
   },
 };
