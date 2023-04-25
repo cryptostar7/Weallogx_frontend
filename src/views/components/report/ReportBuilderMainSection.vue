@@ -123,7 +123,7 @@ export default {
     },
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
-      get(getUrl(url), authHeader())
+      get(`${getUrl(url)}${this.$route.params.report}`, authHeader())
         .then(response => {
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
@@ -136,12 +136,7 @@ export default {
           }, 100);
         })
         .catch(error => {
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
+          this.$toast.error(error.message);
           this.$store.dispatch("loader", false);
         });
     },
@@ -155,12 +150,7 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
+          this.$toast.error(error.message);
           this.$store.dispatch("loader", false);
         });
     },
