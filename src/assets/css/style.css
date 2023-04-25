@@ -2637,6 +2637,7 @@ color: #fff;
   }
   .sidebar.collapsed{
     min-width: auto;
+    text-align: center;
   }
   .sidebar .hi-username{
     margin-top: 1rem;
@@ -3239,7 +3240,11 @@ input[type=number] {
   background-position: 88% 50%;
   padding-right: 5%;
 }
-
+.creditBonusInputDiv label{
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+}
 .creditBonusInputDiv input.backgroundImageNone{
   background-image: none;
 }
