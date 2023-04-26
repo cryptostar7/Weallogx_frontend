@@ -1262,7 +1262,8 @@ export default {
         total_policy_charges: "6",
         total_loan_charges: "7",
         accumulation_value: "8",
-        death_benefit: "9",
+        cash_value: "9",
+        death_benefit: "10",
       };
     },
   },
