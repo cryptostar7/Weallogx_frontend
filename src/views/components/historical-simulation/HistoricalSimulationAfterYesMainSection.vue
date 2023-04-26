@@ -18,7 +18,7 @@
           <div class="main-form-div">
             <div class="main-form-heading">
               <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">New Scenario</h2>
+                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)">New Scenario</h2>
               </div>
             </div>
             <div class="form-wrapper form-wrapper-responsive">
@@ -335,6 +335,7 @@ export default {
                 generateCanvas(i, pdf);
               }
 
+              document.getElementById('stopLoaderBtn').click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
@@ -513,7 +514,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -555,6 +556,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
 
@@ -627,17 +629,17 @@ export default {
                     ]);
                   }
 
-                  this.csvPreview = {
+                  this.csvPreview = this.filterObject({
                     data: temp_data.map(a => a.map(i => i.replace("-", ""))),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
-                  };
+                  });
                   document.getElementById("cancelCsvBtn").click();
                 } else {
                   this.$toast.warning("Please upload a valid PDF file.");
                 }
                 this.setScrollbar();
               } else {
-                this.csvPreview = finalObj;
+                this.csvPreview = this.filterObject(finalObj);
               }
             }
 
@@ -815,10 +817,10 @@ export default {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
 
-          this.csvPreview = {
+          this.csvPreview = this.filterObject({
             data: temp_data.map(a => a.map(i => i.replace("-", ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
-          };
+          });
           this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
@@ -837,7 +839,7 @@ export default {
       if (txt) {
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
-          this.csvPreview = obj;
+          this.csvPreview = this.filterObject(obj);
         } else {
           this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV..");
@@ -903,12 +905,12 @@ export default {
           );
         });
 
-        this.csvPreview = {
+        this.csvPreview = this.filterObject({
           data: temp_data,
           headers: this.csvPreview.headers.filter(
             (item, i) => !this.removeColId.includes(i)
           ),
-        };
+        });
         this.removeColId = [];
         this.setScrollbar();
       } else {
@@ -1065,10 +1067,12 @@ export default {
           }
         });
 
-        let tableData = JSON.stringify({
-          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
-          headers: tempHeader,
-        });
+        let tableData = JSON.stringify(
+          this.filterObject({
+            data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+            headers: tempHeader,
+          })
+        );
 
         if (upload_file_checkbox) {
           formData.append("upload_from_file", tableData);
@@ -1136,6 +1140,11 @@ export default {
           });
       }
     },
+    // filter illustarion object data
+    filterObject: function(array = { data: [], data: [] }) {
+      array.data = array.data.filter((i, k) => k < this.illustrateYear);
+      return array;
+    },
     //populate previous data
     populatePreviousData: function(id) {
       get(`${getUrl("historical-simulation-object")}${id}`, authHeader())
@@ -1153,11 +1162,10 @@ export default {
               i => this.illustrationFieldsIndex[i]
             );
 
-            this.csvPreview = filteredCsv;
+            this.csvPreview = this.filterObject(filteredCsv);
             this.setScrollbar();
           } else {
             if (data.copy_paste && data.copy_paste.headers.length) {
-              // this.csvPreview = data.copy_paste;
               let filteredCsv = {
                 data: data.copy_paste.data,
                 headers: [],
@@ -1166,7 +1174,7 @@ export default {
                 i => this.illustrationFieldsIndex[i]
               );
 
-              this.csvPreview = filteredCsv;
+              this.csvPreview = this.filterObject(filteredCsv);
               this.setScrollbar();
             }
           }
@@ -1197,7 +1205,6 @@ export default {
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
       .then(response => {
-        console.log(".........................");
         let id = response.data.data.historical_media;
         this.historicalMedia = id;
         this.$store.dispatch("activeScenario", response.data.data);
@@ -1216,6 +1223,14 @@ export default {
       });
   },
   computed: {
+    // return year of illustrations
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
     illustrationFields() {
       return [
         { name: "None", value: "none", multiple: true },

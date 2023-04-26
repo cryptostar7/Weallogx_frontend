@@ -7,7 +7,7 @@
           <form class="main-form-div" @submit="submitHandler" autocomplete="off">
             <div class="main-form-heading">
               <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2" @click="testFunction()"> New Scenario </h2>
+                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)"> New Scenario </h2>
               </div>
             </div>
             <div class="form-wrapper side-grey-line">
@@ -136,6 +136,7 @@
                   </div>
                 </div>
               </div>
+              <!-- <button type="button" @click="testFunction()">test</button> -->
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
@@ -239,7 +240,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active mt-2">Save & Return to Review</button>
@@ -432,6 +432,15 @@ export default {
       let array = this.$store.state.data.templates.illustration || [];
       return array;
     },
+    
+    // return year of illustrations 
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
 
     illustrationFields() {
       return [
@@ -459,6 +468,7 @@ export default {
         { name: "Year", value: "year", multiple: false },
       ];
     },
+
     illustrationFieldsIndex() {
       return {
         none: "0",
@@ -526,7 +536,10 @@ export default {
             "deathBenefit",
             data.initial_death_benifit.toLocaleString()
           );
-          this.setInputWithId("policyReturn", Number(data.policy_return).toFixed(2));
+          this.setInputWithId(
+            "policyReturn",
+            Number(data.policy_return).toFixed(2)
+          );
           this.uploadFromFile = data.illustration_data.upload_file_checkbox;
           let filteredCsv = { data: [], headers: [] };
           if (this.uploadFromFile) {
@@ -536,9 +549,9 @@ export default {
             };
             filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
               i => this.illustrationFieldsIndex[i]
-            );                                      
+            );
 
-            this.csvPreview = filteredCsv;
+            this.csvPreview = this.filterObject(filteredCsv);
             this.setScrollbar();
           } else {
             if (
@@ -554,7 +567,7 @@ export default {
                 i => this.illustrationFieldsIndex[i]
               );
 
-              this.csvPreview = filteredCsv;
+              this.csvPreview = this.filterObject(filteredCsv);
               this.setScrollbar();
             }
           }
@@ -586,13 +599,14 @@ export default {
               for (var i = 1; i <= pdf.numPages; i++) {
                 generateCanvas(i, pdf);
               }
-
+              document.getElementById('stopLoaderBtn').click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
             },
             function(reason) {
               // PDF loading error
+              document.getElementById('stopLoaderBtn').click();
               console.error(reason);
             }
           );
@@ -888,7 +902,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -930,6 +944,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
 
@@ -1002,17 +1017,17 @@ export default {
                     ]);
                   }
 
-                  this.csvPreview = {
+                  this.csvPreview = this.filterObject({
                     data: temp_data.map(a => a.map(i => i.replace("-", ""))),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
-                  };
+                  });
                   document.getElementById("cancelCsvBtn").click();
                 } else {
                   this.$toast.warning("Please upload a valid PDF file.");
                 }
                 this.setScrollbar();
               } else {
-                this.csvPreview = finalObj;
+                this.csvPreview = this.filterObject(finalObj);
               }
             }
 
@@ -1098,7 +1113,10 @@ export default {
         headers.push("");
       }
 
-      finalObj = { data: filterData.map(a => a.map(i => i.replace("-", ""))), headers: headers };
+      finalObj = {
+        data: filterData.map(a => a.map(i => i.replace("-", ""))),
+        headers: headers,
+      };
       return finalObj;
     },
     getPageSequenceGroup: function(pages) {
@@ -1221,10 +1239,12 @@ export default {
           }
         });
 
-        let tableData = JSON.stringify({
-          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
-          headers: tempHeader,
-        });
+        let tableData = JSON.stringify(
+          this.filterObject({
+            data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+            headers: tempHeader,
+          })
+        );
 
         if (data.upload_file_checkbox) {
           formData.append("illustration_data.upload_from_file", tableData);
@@ -1367,10 +1387,10 @@ export default {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
 
-          this.csvPreview = {
+          this.csvPreview = this.filterObject({
             data: temp_data.map(a => a.map(i => i.replace("-", ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
-          };
+          });
           this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
@@ -1388,7 +1408,7 @@ export default {
       if (txt) {
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
-          this.csvPreview = obj;
+          this.csvPreview = this.filterObject(obj);
         } else {
           this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV..");
@@ -1437,8 +1457,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      let clone = { ...this.csvPreview };
-      console.log(clone);
+      console.log(this.illustrationFile);
     },
     // remove column from the illustration data table
     removeColumn: function() {
@@ -1450,12 +1469,12 @@ export default {
           );
         });
 
-        this.csvPreview = {
+        this.csvPreview = this.filterObject({
           data: temp_data,
           headers: this.csvPreview.headers.filter(
             (item, i) => !this.removeColId.includes(i)
           ),
-        };
+        });
         this.removeColId = [];
         this.setScrollbar();
       } else {
@@ -1506,6 +1525,11 @@ export default {
         }
       });
       return isHeader;
+    },
+    // filter illustarion object data
+    filterObject: function(array = { data: [], data: [] }) {
+      array.data = array.data.filter((i, k) => k < this.illustrateYear);
+      return array;
     },
     // extract csv data
     exractCsvText: function(values = "") {
