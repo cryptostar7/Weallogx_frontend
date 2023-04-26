@@ -1250,7 +1250,6 @@ export default {
       formData.append("initial_death_benifit", data.initial_death_benifit);
       formData.append("policy_return", data.policy_return);
       formData.append("scenerio_id", this.$route.params.scenario);
-      console.log(this.illustrationId);
       this.$store.dispatch("loader", true);
 
       if (this.illustrationId) {

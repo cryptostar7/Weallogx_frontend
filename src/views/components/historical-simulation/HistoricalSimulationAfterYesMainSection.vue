@@ -269,7 +269,7 @@
   </section>
 </template>
 <script>
-import { get, post } from "../../../network/requests";
+import { get, post, put } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getFirstError } from "../../../services/helper";
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -296,6 +296,7 @@ export default {
       addFromFile: false,
       fileLoader: false,
       fileLoader2: false,
+      historicalMedia: null,
       illustrationFile: {
         name: "",
         file: null,
@@ -1006,36 +1007,36 @@ export default {
       if (e) {
         e.preventDefault();
       }
-      if (
-        this.csvPreview &&
-        this.csvPreview.headers &&
-        this.csvPreview.headers.length > 6
-      ) {
-        if (!this.csvPreview.headers.includes("1")) {
-          return alert(`${this.illustrationFields["1"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("2")) {
-          return alert(`${this.illustrationFields["2"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("4")) {
-          return alert(`${this.illustrationFields["4"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("7")) {
-          return alert(`${this.illustrationFields["7"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("8")) {
-          return alert(`${this.illustrationFields["8"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("9")) {
-          return alert(`${this.illustrationFields["9"].name} is required.`);
-        }
-      } else {
-        if (this.uploadFromFile) {
-          return this.$toast.warning("Please upload illustration pdf data.");
-        } else {
-          return this.$toast.warning("CSV data is required.");
-        }
-      }
+      // if (
+      //   this.csvPreview &&
+      //   this.csvPreview.headers &&
+      //   this.csvPreview.headers.length > 6
+      // ) {
+      //   if (!this.csvPreview.headers.includes("1")) {
+      //     return alert(`${this.illustrationFields["1"].name} is required.`);
+      //   }
+      //   if (!this.csvPreview.headers.includes("2")) {
+      //     return alert(`${this.illustrationFields["2"].name} is required.`);
+      //   }
+      //   if (!this.csvPreview.headers.includes("4")) {
+      //     return alert(`${this.illustrationFields["4"].name} is required.`);
+      //   }
+      //   if (!this.csvPreview.headers.includes("7")) {
+      //     return alert(`${this.illustrationFields["7"].name} is required.`);
+      //   }
+      //   if (!this.csvPreview.headers.includes("8")) {
+      //     return alert(`${this.illustrationFields["8"].name} is required.`);
+      //   }
+      //   if (!this.csvPreview.headers.includes("9")) {
+      //     return alert(`${this.illustrationFields["9"].name} is required.`);
+      //   }
+      // } else {
+      //   if (this.uploadFromFile) {
+      //     return this.$toast.warning("Please upload illustration pdf data.");
+      //   } else {
+      //     return this.$toast.warning("CSV data is required.");
+      //   }
+      // }
       console.log("submitted");
 
       if (!this.validateForm()) {
@@ -1079,18 +1080,19 @@ export default {
       }
 
       formData.append("scenerio_id", this.$route.params.scenario);
-      console.log(this.illustrationId);
       this.$store.dispatch("loader", true);
 
-      if (this.illustrationId) {
+      if (this.historicalMedia) {
         put(
-          `${getUrl("historical-simulation-object")}${this.illustrationId}/`,
+          `${getUrl("historical-simulation-object")}${this.historicalMedia}/`,
           formData,
           authHeader()
         )
           .then(response => {
             this.$store.dispatch("loader", false);
-            this.$toast.success(response.data.message);
+            this.$toast.success(
+              response.data.message || "Data saved successfully!"
+            );
             this.$router.push(
               `/historical-simulations/${
                 this.$route.params.scenario
@@ -1134,6 +1136,45 @@ export default {
           });
       }
     },
+    //populate previous data
+    populatePreviousData: function(id) {
+      get(`${getUrl("historical-simulation-object")}${id}`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          let data = response.data;
+          this.uploadFromFile = data.upload_file_checkbox;
+          let filteredCsv = { data: [], headers: [] };
+          if (this.uploadFromFile) {
+            let filteredCsv = {
+              data: data.upload_from_file.data,
+              headers: [],
+            };
+            filteredCsv.headers = data.upload_from_file.headers.map(
+              i => this.illustrationFieldsIndex[i]
+            );
+
+            this.csvPreview = filteredCsv;
+            this.setScrollbar();
+          } else {
+            if (data.copy_paste && data.copy_paste.headers.length) {
+              // this.csvPreview = data.copy_paste;
+              let filteredCsv = {
+                data: data.copy_paste.data,
+                headers: [],
+              };
+              filteredCsv.headers = data.copy_paste.headers.map(
+                i => this.illustrationFieldsIndex[i]
+              );
+
+              this.csvPreview = filteredCsv;
+              this.setScrollbar();
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     this.$store.dispatch("loader", true);
@@ -1151,46 +1192,77 @@ export default {
         }
         this.$store.dispatch("loader", false);
       });
+
+    // populate previous data
+    this.$store.dispatch("loader", true);
+    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      .then(response => {
+        console.log(".........................");
+        let id = response.data.data.historical_media;
+        this.historicalMedia = id;
+        this.$store.dispatch("activeScenario", response.data.data);
+        if (id) {
+          this.populatePreviousData(id);
+        } else {
+          this.$store.dispatch("loader", false);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
   },
   computed: {
     illustrationFields() {
       return [
         { name: "None", value: "none", multiple: true },
         { name: "Age", value: "age", multiple: false },
+        { name: "Duration", value: "duration", multiple: false },
+        { name: "Premium Outlay", value: "premium_outlay", multiple: false },
+        {
+          name: "Net Distributions",
+          value: "net_distributions",
+          multiple: false,
+        },
+        {
+          name: "Index / Loan Credits",
+          value: "index_loan_credits",
+          multiple: false,
+        },
+        {
+          name: "Total Policy Charges",
+          value: "total_policy_charges",
+          multiple: false,
+        },
+        {
+          name: "Total Loan Charges",
+          value: "total_loan_charges",
+          multiple: false,
+        },
         {
           name: "Accumulation Value",
-          value: "account_value",
+          value: "accumulation_value",
           multiple: false,
         },
-        {
-          name: "Distribution - Loan",
-          value: "index_load_credits",
-          multiple: false,
-        },
+        { name: "Cash Value", value: "cash_value", multiple: false },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
-        {
-          name: "Distribution - Withdrawal",
-          value: "distributions",
-          multiple: false,
-        },
-        { name: "Fees", value: "total_loan_charge", multiple: true },
-        { name: "Premium", value: "premium_outlay", multiple: false },
-        { name: "Surrender Value", value: "surrender_value", multiple: false },
-        { name: "Year", value: "year", multiple: false },
       ];
     },
     illustrationFieldsIndex() {
       return {
         none: "0",
         age: "1",
-        account_value: "2",
-        index_load_credits: "3",
-        death_benefit: "4",
-        distributions: "5",
-        total_loan_charge: "6",
-        premium_outlay: "7",
-        surrender_value: "8",
-        year: "9",
+        duration: "2",
+        premium_outlay: "3",
+        net_distributions: "4",
+        index_loan_credits: "5",
+        total_policy_charges: "6",
+        total_loan_charges: "7",
+        accumulation_value: "8",
+        death_benefit: "9",
       };
     },
   },
