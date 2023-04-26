@@ -432,6 +432,15 @@ export default {
       let array = this.$store.state.data.templates.illustration || [];
       return array;
     },
+    
+    // return year of illustrations 
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
 
     illustrationFields() {
       return [
@@ -459,6 +468,7 @@ export default {
         { name: "Year", value: "year", multiple: false },
       ];
     },
+
     illustrationFieldsIndex() {
       return {
         none: "0",
@@ -526,7 +536,10 @@ export default {
             "deathBenefit",
             data.initial_death_benifit.toLocaleString()
           );
-          this.setInputWithId("policyReturn", Number(data.policy_return).toFixed(2));
+          this.setInputWithId(
+            "policyReturn",
+            Number(data.policy_return).toFixed(2)
+          );
           this.uploadFromFile = data.illustration_data.upload_file_checkbox;
           let filteredCsv = { data: [], headers: [] };
           if (this.uploadFromFile) {
@@ -536,9 +549,9 @@ export default {
             };
             filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
               i => this.illustrationFieldsIndex[i]
-            );                                      
+            );
 
-            this.csvPreview = filteredCsv;
+            this.csvPreview = this.filterObject(filteredCsv);
             this.setScrollbar();
           } else {
             if (
@@ -554,7 +567,7 @@ export default {
                 i => this.illustrationFieldsIndex[i]
               );
 
-              this.csvPreview = filteredCsv;
+              this.csvPreview = this.filterObject(filteredCsv);
               this.setScrollbar();
             }
           }
@@ -1002,17 +1015,17 @@ export default {
                     ]);
                   }
 
-                  this.csvPreview = {
+                  this.csvPreview = this.filterObject({
                     data: temp_data.map(a => a.map(i => i.replace("-", ""))),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
-                  };
+                  });
                   document.getElementById("cancelCsvBtn").click();
                 } else {
                   this.$toast.warning("Please upload a valid PDF file.");
                 }
                 this.setScrollbar();
               } else {
-                this.csvPreview = finalObj;
+                this.csvPreview = this.filterObject(finalObj);
               }
             }
 
@@ -1098,7 +1111,10 @@ export default {
         headers.push("");
       }
 
-      finalObj = { data: filterData.map(a => a.map(i => i.replace("-", ""))), headers: headers };
+      finalObj = {
+        data: filterData.map(a => a.map(i => i.replace("-", ""))),
+        headers: headers,
+      };
       return finalObj;
     },
     getPageSequenceGroup: function(pages) {
@@ -1221,10 +1237,12 @@ export default {
           }
         });
 
-        let tableData = JSON.stringify({
-          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
-          headers: tempHeader,
-        });
+        let tableData = JSON.stringify(
+          this.filterObject({
+            data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+            headers: tempHeader,
+          })
+        );
 
         if (data.upload_file_checkbox) {
           formData.append("illustration_data.upload_from_file", tableData);
@@ -1367,10 +1385,10 @@ export default {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
 
-          this.csvPreview = {
+          this.csvPreview = this.filterObject({
             data: temp_data.map(a => a.map(i => i.replace("-", ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
-          };
+          });
           this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
@@ -1388,7 +1406,7 @@ export default {
       if (txt) {
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
-          this.csvPreview = obj;
+          this.csvPreview = this.filterObject(obj);
         } else {
           this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV..");
@@ -1450,12 +1468,12 @@ export default {
           );
         });
 
-        this.csvPreview = {
+        this.csvPreview = this.filterObject({
           data: temp_data,
           headers: this.csvPreview.headers.filter(
             (item, i) => !this.removeColId.includes(i)
           ),
-        };
+        });
         this.removeColId = [];
         this.setScrollbar();
       } else {
@@ -1506,6 +1524,11 @@ export default {
         }
       });
       return isHeader;
+    },
+    // filter illustarion object data
+    filterObject: function(array = { data: [], data: [] }) {
+      array.data = array.data.filter((i, k) => k < this.illustrateYear);
+      return array;
     },
     // extract csv data
     exractCsvText: function(values = "") {
