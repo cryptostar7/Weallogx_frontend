@@ -18,7 +18,7 @@
           <div class="main-form-div">
             <div class="main-form-heading">
               <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">New Scenario</h2>
+                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)">New Scenario</h2>
               </div>
             </div>
             <div class="form-wrapper form-wrapper-responsive">
@@ -335,6 +335,7 @@ export default {
                 generateCanvas(i, pdf);
               }
 
+              document.getElementById('stopLoaderBtn').click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
@@ -513,7 +514,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -555,6 +556,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
 

@@ -7,7 +7,7 @@
           <form class="main-form-div" @submit="submitHandler" autocomplete="off">
             <div class="main-form-heading">
               <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2" @click="testFunction()"> New Scenario </h2>
+                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)"> New Scenario </h2>
               </div>
             </div>
             <div class="form-wrapper side-grey-line">
@@ -136,6 +136,7 @@
                   </div>
                 </div>
               </div>
+              <!-- <button type="button" @click="testFunction()">test</button> -->
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
@@ -239,7 +240,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active mt-2">Save & Return to Review</button>
@@ -599,13 +599,14 @@ export default {
               for (var i = 1; i <= pdf.numPages; i++) {
                 generateCanvas(i, pdf);
               }
-
+              document.getElementById('stopLoaderBtn').click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
             },
             function(reason) {
               // PDF loading error
+              document.getElementById('stopLoaderBtn').click();
               console.error(reason);
             }
           );
@@ -901,7 +902,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -943,6 +944,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
+        this.$store.dispatch('loader', true);
         this.getPreview(file);
       }
 
@@ -1455,8 +1457,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      let clone = { ...this.csvPreview };
-      console.log(clone);
+      console.log(this.illustrationFile);
     },
     // remove column from the illustration data table
     removeColumn: function() {
