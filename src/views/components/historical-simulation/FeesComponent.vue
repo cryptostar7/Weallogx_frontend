@@ -22,8 +22,8 @@
         <p></p>
         </div>
         <div class="d-flex justify-content-between align-items-center parent-radio-div">
-        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-            <label v-for="(item, index) in MaxPremiumCharge" :key="index" :class="index > 0 ? `${item === MaxPremiumCharge ? 'me-1':'mx-1'}`:''">
+        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+            <label v-for="(item, index) in MaxPremiumCharge" :key="index" class="flex-1">
                 <input type="radio" :name="`premiumChargetab${currentTab}`" class="d-none" :checked="!customPremiumCharge && premiumCharge === item">
                 <span class="fixedStartYear" @click="handlePcCheckbox(item)">{{item}}%</span>
             </label>
@@ -69,8 +69,8 @@
         <p></p>
         </div>
         <div class="d-flex justify-content-between align-items-center parent-radio-div">
-        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-            <label v-for="(item, index) in MaxLoanInterest" :key="index" :class="index > 0 ? `${item === MaxLoanInterest ? 'mx-1':'me-1'}`:''">
+        <div class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+            <label v-for="(item, index) in MaxLoanInterest" :key="index" class="flex-1">
             <input type="radio" :name="`loanInterest${currentTab}`" class="d-none" :checked="!customInterestAmount && loanInterest === item">
             <span class="fixedStartYear" @click="handleLICheckbox(item)" >{{item}}%</span>
             </label>
@@ -120,8 +120,8 @@
             <div :class="Arrears ? 'active':''" id="nav-arrears-tab" data-bs-toggle="tab" data-bs-target="#nav-arrears" role="tab" aria-controls="nav-arrears" aria-selected="false" @click="Arrears = true">In Arrears</div>
         </div>
         </div>
-        <div class="tab-content" id="nav-tabContent">
-        <div :class="`tab-pane fade ${Arrears ? '':'show active'}`" id="nav-advance" role="tabpanel"  aria-labelledby="nav-advance-tab">
+        <!-- <div class="tab-content" id="nav-tabContent"> -->
+        <!-- <div :class="`tab-pane fade ${Arrears ? '':'show active'}`" id="nav-advance" role="tabpanel"  aria-labelledby="nav-advance-tab"> -->
             <div :class="$props.performance ? '':'d-none'">
                 <div class="formParabrdrLavelDiv mt-5">
                     <p>Performance Multiplier Fee</p>
@@ -129,8 +129,8 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center parent-radio-div">
                     <div
-                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                        <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 0 ? `${item === MaxPerformanceMultiplierFee ? 'me-1':'mx-1'}`:''">
+                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+                        <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" class="flex-1">
                         <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && item === performanceFeeAmount ? true : false" class="d-none" />
                         <span class="fixedStartYear" @click="handlePMCheckbox(item)" >{{item}}%</span>
                         </label>
@@ -179,8 +179,8 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center parent-radio-div">
                     <div
-                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                        <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'mx-1':''">
+                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+                        <label v-for="(item, index) in 3" :key="index" class="flex-1">
                         <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && item === flatAmount ? true : false">
                         <span class="fixedStartYear" @click="handleFCCheckbox(item)" >{{item}}%</span>
                         </label>
@@ -229,8 +229,8 @@
             </div>
             <div class="d-flex justify-content-between align-items-center parent-radio-div">
             <div
-                class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center pe-1">
-                <label v-for="(item, index) in 3" :key="index" :class="index > 0 ? 'w-100 me-1' : 'w-100 mx-1'">
+                class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+                <label v-for="(item, index) in 3" :key="index" class="flex-1">
                 <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && hipCapAmount === item ? true : false">
                 <span class="fixedStartYear w-100"  @click="handleHCCheckbox(item)">{{item}}%</span>
                 </label>
@@ -243,8 +243,8 @@
                 </div>
             </div>
             </div>
-        </div>
-        <div :class="`tab-pane fade ${Arrears ? 'show active' : ''}`" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab">
+        <!-- </div> -->
+        <!-- <div :class="`tab-pane fade ${Arrears ? 'show active' : ''}`" id="nav-arrears" role="tabpanel" aria-labelledby="nav-arrears-tab">
             <div :class="$props.performance ? '':'d-none'">
                 <div class="formParabrdrLavelDiv mt-5">
                     <p>Performance Multiplier Fee</p>
@@ -252,8 +252,8 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center parent-radio-div">
                     <div
-                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                        <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" :class="index > 0 ? `${item === MaxPerformanceMultiplierFee ? 'me-1':'mx-1'}`:''">
+                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+                        <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" class="flex-1">
                         <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && item === performanceFeeAmount ? true : false" class="d-none" />
                         <span class="fixedStartYear" @click="handlePMCheckbox(item)" >{{item}}%</span>
                         </label>
@@ -302,8 +302,8 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center parent-radio-div">
                     <div
-                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1">
-                        <label v-for="(item, index) in 3" :key="index" :class="index === 1 ? 'mx-1':''">
+                        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
+                        <label v-for="(item, index) in 3" :key="index" class="flex-1">
                         <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && item === flatAmount ? true : false">
                         <span class="fixedStartYear" @click="handleFCCheckbox(item)" >{{item}}%</span>
                         </label>
@@ -345,8 +345,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
+        </div> -->
+        <!-- </div> -->
         
         <input type="hidden" :value="customPremiumCharge || premiumCharge" :id="`premium_charge_fees${currentTab}`" />
         <input type="hidden" :value="sameInAllYears.premium_charge ? 1 : 0" :id="`pcf_all_year${currentTab}`" />

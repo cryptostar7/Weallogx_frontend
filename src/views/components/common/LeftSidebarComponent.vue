@@ -3,7 +3,7 @@
         <div class="position-sticky h-100 sidebar-inner extra">
           <div class="mb-20">
             <h3 class="fs-26 bold-fw text-white hi-username">Hi, {{$currentUser() ? $currentUser().first_name : '' }}</h3>
-            <label class="sidebar-username-label" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${$currentUser() ? $currentUser().first_name : '' }`"><span>{{$currentUser() ? $currentUser().first_name[0] : '' }}</span></label>
+            <label class="sidebar-username-label mx-auto" data-bs-toggle="tooltip" data-bs-placement="right" :title="`${$currentUser() ? $currentUser().first_name : '' }`"><span>{{$currentUser() ? $currentUser().first_name[0] : '' }}</span></label>
           </div>
           <ul class="nav flex-column flex-nowrap h-100 sidebar-nav">
             <li class="nav-item">
