@@ -117,9 +117,9 @@ export default {
         "comparative_report_death_benefit_ror",
         "comparativeReportRorDeathBenefit"
       );
-     
+
       // get all notes of active report
-      this.getNotes();      
+      this.getNotes();
     },
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
@@ -142,11 +142,11 @@ export default {
     },
     getHistoricalData: function() {
       this.$store.dispatch("loader", true);
-      get(`${getUrl('historical_report')}`, authHeader())
+      get(`${getUrl("historical_report")}`, authHeader())
         .then(response => {
           console.log(response.data);
           // this.allDataLoaded = true;
-          this.$store.dispatch('historicalReport', response.data);
+          this.$store.dispatch("historicalReport", response.data);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -155,11 +155,16 @@ export default {
         });
     },
     getNotes: function() {
-      get(`${getUrl('notes')}?report=${this.$route.params.report}`, authHeader()).then((response) => {
-        this.$store.dispatch('notes', response.data);
-      }).catch(error => {
-        console.log();
-      })
+      get(
+        `${getUrl("notes")}?report=${this.$route.params.report}`,
+        authHeader()
+      )
+        .then(response => {
+          this.$store.dispatch("notes", response.data);
+        })
+        .catch(error => {
+          console.log();
+        });
     },
     updateElementJs: function() {
       let eachInput = document.querySelectorAll(".tableHeadInputs");
@@ -174,8 +179,10 @@ export default {
     },
   },
   mounted() {
-    this.getComparativeData(this.$route.params.report);
-    this.getHistoricalData();
+    if (this.$route.params.report) {
+      this.getComparativeData(this.$route.params.report);
+      this.getHistoricalData();
+    }
   },
   computed: {
     comparativeReport() {

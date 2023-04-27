@@ -67,7 +67,7 @@
                                 <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D" />
                             </svg>
                         </button>
-                        <button class="btn round-btn report-round-btn collapsed" data-bs-toggle="collapse" :data-bs-target="`#innerReportCollapse${index}`">
+                        <button class="btn round-btn report-round-btn collapsed" data-bs-toggle="collapse" :data-bs-target="`#innerReportCollapse${index}`" @click="testFunction(item)">
                             <span>Reports</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path d="M13.4618 0.538452H11.308C11.0106 0.538452 10.7695 0.77953 10.7695 1.07691V12.9231C10.7695 13.2205 11.0106 13.4615 11.308 13.4615H13.4618C13.7592 13.4615 14.0003 13.2205 14.0003 12.9231V1.07691C14.0003 0.77953 13.7592 0.538452 13.4618 0.538452Z" fill="#9D9D9D" />
@@ -83,7 +83,7 @@
                     <router-link :to="`/report-builder?scenario=${item.id}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
-            <SenarioReports :senarioReports="item.reports" :collapseCustomId="`innerReportCollapse${index}`"/>
+            <SenarioReports :senarioReports="item.reports.reports_data" :collapseCustomId="`innerReportCollapse${index}`"/>
         </div>
     </div>
     <div class="text-center" v-if="scenariosList.length >= listLimit">
@@ -115,9 +115,11 @@ export default {
       this.showAllList = false;
     },
     addDeleteId: function(id) {
-      console.log(id);
       document.getElementById("deleteScenarioId").value = id;
     },
+    testFunction: function(item){
+       console.log(item);
+    }
   },
   computed: {
     scenariosList() {

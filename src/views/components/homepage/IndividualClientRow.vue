@@ -2,21 +2,18 @@
     <li v-for="(item, index) in filteredList" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
-                <span class="name-initial-circle">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
+                <span class="name-initial-circle" @click="testFunction(item)">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
                 <router-link :to="`/individual-client/${item.id}`" class="nav-link px-0">
                 <span class="name-span">{{ item.firstname }}</span>
-                    <svg width="9" height="12" viewBox="0 0 9 12" fill="none" class="ms-1"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)"
-                        fill="black" />
-                        <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25"
-                        transform="rotate(135 8.07422 5.76562)" fill="black" />
+                    <svg width="9" height="12" viewBox="0 0 9 12" fill="none" class="ms-1" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
+                        <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black" />
                     </svg>
                 </router-link>
             </div>
             <div class="right-action-btns">
                 <div class="right-action-btn-div p-relative">
-                    <button type="button" data-bs-toggle="collapse" :data-bs-target="`#scenarioCollapse${item.id}${index}`" class="btn right-action-btn collapsed" :id="`scenarioCollapseBtn${item.id}${index}`" aria-expanded="false" @click="handleRef(`${item.id}${index}`)">Scenarios
+                    <button type="button" data-bs-toggle="collapse" :data-bs-target="`#scenarioCollapse${item.id}${index}`" class="btn right-action-btn collapsed" :id="`scenarioCollapseBtn${item.id}${index}`" aria-expanded="false" @click="handleRef(`${item.id}${index}`, 'scenario')">Scenarios
                         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
                            <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
@@ -25,7 +22,7 @@
                     <router-link :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign">+</router-link>
                 </div>
                 <div class="right-action-btn-div p-relative">
-                    <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${item.id}${index}`" class="btn right-action-btn collapsed" aria-expanded="false" :id="`reportCollapseBtn${item.id}${index}`" @click="handleRef(`${item.id}${index}`)">Reports
+                    <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${item.id}${index}`" class="btn right-action-btn collapsed" aria-expanded="false" :id="`reportCollapseBtn${item.id}${index}`" @click="handleRef(`${item.id}${index}`, 'report')">Reports
                         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
                             <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
@@ -56,8 +53,8 @@
         <div class="list-groups collapse indexSenarioBg" :id="`scenarioCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
             <h4 class="bold-fw fs-22 ScenariosHeadingTxt">Scenarios
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
-                <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black" />
+                   <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
+                   <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black" />
                 </svg>
             </h4>
             <div v-if="item.scenarios && item.scenarios.length > 0" class="list-div">
@@ -66,7 +63,7 @@
         </div>
 
         <div class="list-groups collapse indexSenarioBg" :id="`reportCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
-            <h4 class="bold-fw fs-22 reporth4Head">Reports 
+            <h4 class="bold-fw fs-22 reporth4Head">Reports
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black"/>
                    <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black"/>
@@ -98,10 +95,23 @@ export default {
     };
   },
   methods: {
-    handleRef: function(id) {
+    testFunction: function(item){
+       console.log(item);
+    },
+    handleRef: function(id, button='scenario') {
         let btn1 =document.getElementById(`scenarioCollapseBtn${id}`).classList.contains('collapsed');
         let btn2 =document.getElementById(`reportCollapseBtn${id}`).classList.contains('collapsed');
-        let li =document.getElementById(`parentCollapse${id}`).classList;
+
+        if(!btn1 && !btn2){
+            if(button === 'report'){
+                document.getElementById(`scenarioCollapseBtn${id}`).click();
+            }else{
+                document.getElementById(`reportCollapseBtn${id}`).click();
+            }
+        }
+
+        let li = document.getElementById(`parentCollapse${id}`).classList;
+
         if(btn1 && btn2 && li.contains('hovered')){
           li.remove('hovered');
         } else{

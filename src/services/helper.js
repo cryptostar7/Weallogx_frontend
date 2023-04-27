@@ -152,10 +152,34 @@ export const getNumber = (_str) => {
   return Number(out.join(""));
 }
 
-export const mapClientList = (array=[]) => {
+export const mapClientList = (array = []) => {
   return array.map(item => {
     var client = item.client;
     client.scenarios = item.scenarios;
+    client.reports = item.reports ? item.reports.reports_data : [];
+    let report = item.scenarios.length
+      ? item.scenarios.map(s => {
+        let scenario_name = s.scenario_details.name;
+        let scenario_id = s.scenario_details.id;
+        s.reports.reports_data;
+        if (s.reports.reports_data.length) {
+          s.reports.reports_data = s.reports.reports_data.map(r => {
+            r.scenario_name = scenario_name;
+            r.scenario_id = scenario_id;
+            return r;
+          });
+        }
+        return s.reports.reports_data;
+      }) || []
+      : [];
+    report = report.filter(r => r.length)[0] || [];
+    report = client.scenarios.filter(i => i.reports.reports_data.length);
+    let all_reports = [];
+    report.forEach(e => {
+      all_reports = [...all_reports, ...e.reports.reports_data];
+    });
+
+    client.reports = all_reports;
     return client;
   });
 }

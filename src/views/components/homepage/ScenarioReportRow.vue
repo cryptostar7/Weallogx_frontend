@@ -3,7 +3,7 @@
         <div class="list-item" v-if="Number(index) < reportListLimit">
             <div class="list-item-inner">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><a href="scenario-details.html">{{item.name}}</a></p>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
                     <label class="medium-fw">{{item.description}}</label>
                 </div>
                 <div class="list-item-actions">
@@ -12,18 +12,17 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
                             <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D" />
                             <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
-                        </svg>
-                        {{item.created_at}}
+                        </svg> {{$dateFormat(item.updated_at)}}
                     </label>
                     <div class="round-btns">
-                        <a href="/report-builder" class="btn round-btn">
+                        <router-link :to="`/report-builder/${item.id}`" class="btn round-btn">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
                                 <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D" />
                                 <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                             </svg>
-                        </a>
+                        </router-link>
                         <button class="btn round-btn" data-bs-target="#IndexShareModal" data-bs-toggle="modal">
                             <span>Share</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
