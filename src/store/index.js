@@ -79,10 +79,6 @@ const store = createStore({
             loader_count: 0,
             current_theme: localStorage.getItem("mode") || 'light-green',
         },
-        modal: {
-            create_report_modal: false,
-            create_new_client_report_modal: false,
-        },
         errors: [],
         forms: [],
     },

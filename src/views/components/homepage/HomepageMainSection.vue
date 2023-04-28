@@ -95,7 +95,7 @@ export default {
       this.clinetId = client;
     },
 
-    // get client detail from API
+    // get clients detail from API
     getClient: function(clone = false) {
       this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())

@@ -62,14 +62,10 @@
                   <li class="nav-item" role="presentation">
                     <button :class="`nav-link ${simpleTaxRate ? '':'active'}`" id="scheduleTaxRate-tab" @click="() => {clearDetailTemplate(); simpleTaxRate = false}" data-bs-toggle="tab" data-bs-target="#scheduleTaxRate" type="button" role="tab" aria-controls="scheduleTaxRate"  aria-selected="false">
                       <svg class="scheduleTaxRateImg" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.25" y="0.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
-                          stroke-width="0.5" />
-                        <rect x="0.25" y="3.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
-                          stroke-width="0.5" />
-                        <rect x="0.25" y="6.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
-                          stroke-width="0.5" />
-                        <rect x="0.25" y="9.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"
-                          stroke-width="0.5" />
+                        <rect x="0.25" y="0.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"  stroke-width="0.5" />
+                        <rect x="0.25" y="3.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"  stroke-width="0.5" />
+                        <rect x="0.25" y="6.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"  stroke-width="0.5" />
+                        <rect x="0.25" y="9.25" width="8.5" height="0.5" rx="0.25" fill="white" stroke="black"  stroke-width="0.5" />
                       </svg>
                       &nbsp;Schedule Tax Rate
                     </button>
@@ -232,7 +228,7 @@ export default {
     }
 
     // get existing scenario schedule template list
-    if (!this.$store.state.data.templates.scenario_details) {
+    if (!this.$store.state.data.templates.scenario_schedules) {
       this.getExistingScenarioSchedule();
     }
 

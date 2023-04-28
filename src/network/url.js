@@ -75,6 +75,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/indexstrategy2/`;
     case 'strategy-index3':
       return `${baseUrl}/auth/indexstrategy3/`;
+    case 'add-report':
+      return `${baseUrl}/report/`
     case 'comparative_report':
       return `${baseUrl}/report/calc/`
     case 'comparative_report_longevity':

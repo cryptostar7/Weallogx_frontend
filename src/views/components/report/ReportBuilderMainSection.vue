@@ -184,6 +184,14 @@ export default {
       this.getHistoricalData();
     }
   },
+  watch: {
+    "$route.params.report"() {
+      if (this.$route.params.report) {
+        this.getComparativeData(this.$route.params.report);
+        this.getHistoricalData();
+      }
+    },
+  },
   computed: {
     comparativeReport() {
       return this.$store.state.data.report.comparative;

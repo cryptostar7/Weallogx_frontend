@@ -18,7 +18,7 @@
             <li><router-link class="dropdown-item semi-bold-fw" to="/scenario-details"><img
                 src="@/assets/images/icons/dropdown-icon-2.svg" class="img-fluid me-3" alt="New Scenario">
                 <span>Scenario</span></router-link></li>
-            <li><router-link class="dropdown-item semi-bold-fw" to="/report-builder" @click="$store.dispatch('modal', 'create_new_client_report_modal')"><img
+            <li><router-link class="dropdown-item semi-bold-fw" to="/report-builder"><img
                 src="@/assets/images/icons/dropdown-icon-3.svg" class="img-fluid me-3" alt="New Report">
                 <span>Report</span></router-link></li>
         </ul>
