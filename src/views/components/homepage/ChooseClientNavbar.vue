@@ -27,8 +27,7 @@
         <div class="sort-dropdown-div d-flex align-items-center">
         <label class="bold-fw me-2">Sort</label>
         <div class="dropdown sort-dropdown">
-            <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"
-            aria-expanded="false">
+            <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"  aria-expanded="false">
             <span>{{currentFilter}}</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="sortingBtn">
@@ -46,7 +45,7 @@
 export default {
   data() {
     return {
-      currentFilter: "Last Name (A-Z)",
+      currentFilter: "First Edited",
     };
   },
 };

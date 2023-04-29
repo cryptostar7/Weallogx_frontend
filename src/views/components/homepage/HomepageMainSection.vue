@@ -103,7 +103,7 @@ export default {
           this.$store.dispatch("clients", mapClientList(response.data.data));
           console.log(response.data.data);
           this.sortedList = mapClientList(response.data.data);
-          console.log(this.sortedList);
+          this.newModified();
           if (clone) {
             this.$toast.success("Scenario clone created successfully!");
           }
@@ -186,6 +186,7 @@ export default {
     }
     if (this.$store.state.data.clients) {
       this.sortedList = this.$store.state.data.clients;
+      this.newModified();
     } else {
       this.getClient();
     }

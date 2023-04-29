@@ -5,50 +5,53 @@ const myPlugin = {
         app.config.globalProperties.$numFormat = (key) => {
             return Number(key).toLocaleString();
         },
-        app.config.globalProperties.$numFormatWithDollar = (key) => {
-            return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
-        },
-        app.config.globalProperties.$dateFormat = (date) => {
-            let temp = new Date(date);
-            return `${temp.getDate()}/${temp.getMonth()}/${temp.getFullYear().toString().slice(-2)}`
-        },
-        app.config.globalProperties.$appTheme = () => {
-            return localStorage.getItem("mode") || 'light-green';
-        },
-        app.config.globalProperties.$authCheck = () => {
-            return authCheck();
-        },
-        app.config.globalProperties.$currentUser = () => {
-            return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;
-        },
-        app.config.globalProperties.$sortName = (string) => {
-            var name = '';
-            if (string) {
-                var arr = string.trim().split(' ');
-                arr.forEach(element => {
-                    if (element) {
-                        name += element.split('')[0];
-                    }
-                });
+            app.config.globalProperties.$numFormatWithDollar = (key) => {
+                return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
+            },
+            app.config.globalProperties.$dateFormat = (date) => {
+                let temp = new Date(date);
+                let day = temp.getDate().toString().slice(-2);
+                let month = Number(temp.getMonth() + 1).toString().slice(-2);
+                let year = temp.getFullYear().toString().slice(-2);
+                return `${day.length < 2 ? '0' + day : day}/${month.length < 2 ? '0' + month : month}/${year}`;
+            },
+            app.config.globalProperties.$appTheme = () => {
+                return localStorage.getItem("mode") || 'light-green';
+            },
+            app.config.globalProperties.$authCheck = () => {
+                return authCheck();
+            },
+            app.config.globalProperties.$currentUser = () => {
+                return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;
+            },
+            app.config.globalProperties.$sortName = (string) => {
+                var name = '';
+                if (string) {
+                    var arr = string.trim().split(' ');
+                    arr.forEach(element => {
+                        if (element) {
+                            name += element.split('')[0];
+                        }
+                    });
+                }
+                return name.toUpperCase();
+            },
+            app.config.globalProperties.$getPlanName = (key) => {
+                let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };
+                return plans[key] ?? plans['1'];
+            },
+            app.config.globalProperties.$getTemplateId = (template_name = "", list = []) => {
+                if (template_name) {
+                    let item = list.filter(item => {
+                        return item.template_name.toLowerCase() === template_name.toLowerCase().trim();
+                    });
+                    return item[0] ? item[0].id : false;
+                }
+                return false;
+            },
+            app.config.globalProperties.$roundFigureNum = (value) => {
+                return value + (value / 100) * 5
             }
-            return name.toUpperCase();
-        },
-        app.config.globalProperties.$getPlanName = (key) => {
-            let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };
-            return plans[key] ?? plans['1'];
-        },
-        app.config.globalProperties.$getTemplateId = (template_name = "", list = []) => {
-            if (template_name) {
-                let item = list.filter(item => {
-                    return item.template_name.toLowerCase() === template_name.toLowerCase().trim();
-                });
-                return item[0] ? item[0].id : false;
-            }
-            return false;
-        },
-        app.config.globalProperties.$roundFigureNum = (value) => {
-            return value + (value/100)*5
-        }
     }
 }
 

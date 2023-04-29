@@ -43,7 +43,7 @@
             <p class="inputError" v-if="serverErrors.age">{{serverErrors.age[0]}}</p>
           </div>
           <div class="offcanBtnDiv">
-            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario">
+            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Scenario" @click="createScenario = true">
             <input type="submit" class="btn form-control mt-3 SaveclsBtn" value="Save & Close">
           </div>
         </div>
@@ -82,6 +82,7 @@ export default {
     return {
       schema,
       serverErrors: [],
+      createScenario: false,
     };
   },
   methods: {
@@ -97,6 +98,10 @@ export default {
           this.clientDetail.lastname = data.lastname;
           this.clientDetail.age = data.age;
           this.$refs.closeModalRef.click();
+          if(this.createScenario){
+            this.createScenario = false;
+            this.$router.push('/scenario-details?client='+this.clientDetail.id);
+          }
           this.$toast.success(response.data.message);
         })
         .catch(error => {

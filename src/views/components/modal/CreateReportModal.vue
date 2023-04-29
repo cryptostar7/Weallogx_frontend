@@ -1,17 +1,17 @@
 <template>
-  <div class="modal fade common-modal" ref="createReportModal"  id="reportCreateModal" tabindex="-1" aria-labelledby="reportCreateModalLabel"  aria-hidden="true">
+  <div class="modal fade common-modal" ref="createReportModal"  id="reportCreateModal" tabindex="-1" aria-labelledby="reportCreateModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef" @click="handleModal">
             <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
           </button>
         </div>
-        <form class="modal-body">
+        <form class="modal-body" @submit="createReport">
           <div class="d-flex align-items-center justify-content-center w-100">
-            <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
-              <button class="modalReportBuilderBr">Br</button>
-              <h2 class="modalReportBuilderBrTxt">Bryant, Roger <span>Allianz Parse</span></h2>
+            <div class="d-flex align-items-center section-heading-bg modalHeadingDiv" v-if="client">
+              <button class="modalReportBuilderBr">{{$sortName(`${client.firstname.trim()} ${client.lastname.trim()}`)}}</button>
+              <h2 class="modalReportBuilderBrTxt">{{`${client.firstname} ${client.middlename || ''} ${client.lastname || ''}`}} <span>Age {{client.age || ''}}</span></h2>
             </div>
           </div>
           <div class="modalParaBorderDiv text-center">
@@ -19,25 +19,20 @@
             <p class="modalSmallborder"></p>
           </div>
           <div class="px-5">
-            <div class="form-group">
-              <label for="existingScenario" class="fs-14 bold-fw">Scenario</label>
-              <div class="p-relative">
-                <input type="text" id="existingScenario" placeholder="Select or Start Typing"  class="form-control pe-5 autocomplete" autocomplete="off"/>
-                <span class="chevron-span">
-                  <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path  d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"  fill="black" />
-                    <path  d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"  fill="black" />
-                  </svg>
-                </span>
-              </div>
-            </div>
+            <SelectDropdown :list="scenarioList" label="Scenario" id="existingScenarioReport" :error="errors.scenario" @clearError="() => errors.scenario = false" @onSelectItem="id => scenarioId = id" @inputText="name => scenarioName = name"/>
             <div class="form-group">
               <label for="reportBulder" class="fs-14 bold-fw">Name Report</label>
-              <input type="text" class="form-control custom-control" >
+              <input type="text" class="form-control custom-control" v-model="reportName" @keyup="errors.report_name = ''">
+              <small class="text-danger" v-if="errors.report_name">{{errors.report_name[0]}}</small>
+            </div>
+            <div class="form-group">
+              <label for="reportBulder" class="fs-14 bold-fw">Descriptions</label>
+              <textarea class="form-control custom-control" v-model="description"></textarea>
             </div>
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
-            <button type="button" class="btn yes-delete-btn">Build Report</button>
+            <button class="btn yes-delete-btn">Build Report</button>
+            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
           </div>
         </form>
       </div>
@@ -57,52 +52,102 @@ export default {
     return {
       errors: [],
       clientId: "",
+      response: false,
       clientName: "",
       scenarioId: "",
       scenarioName: "",
       reportName: "",
       description: "",
-      allScenarioIds: [],
     };
   },
   mounted() {
     if (!this.$route.params.report && this.$route.query.client) {
       new bootstrap.Modal(this.$refs.createReportModal).show();
-      if (this.$store.state.data.clients) {
-        this.allScenarioIds = this.getScenarioIds(list);
-      } else {
+      if (!this.$store.state.data.clients) {
         this.getClient();
-      }
-
-      // get existing scenario details
-      if (!this.$store.state.data.templates.scenario_details) {
-        this.scenarioDetails();
       }
     }
   },
   methods: {
     testFunction: function() {
-      this.$router.push("/report-builder/12");
+      let data = this.$store.state.data.clients || [];
+      let allDetails = [];
+      console.log(this.$route.query.client);
+      if (this.$route.query.client) {
+        data = data.filter(i => i.id === Number(this.$route.query.client));
+        data.forEach(element => {
+          allDetails = [...allDetails, ...element.scenarios];
+        });
+        return allDetails.map(i => {
+          return {
+            id: i.id || null,
+            template_name: i.scenario_details.name || null,
+          };
+        });
+      }
     },
-    getScenarioId: function(sid) {
-      var data = this.allScenarioIds;
-      data = data.filter(i => i.detail_id === sid)[0] || [];
-      return data.scenario_id;
+    validateForm: function() {
+      var validate = true;
+      if (!this.$route.query.client) {
+        validate = false;
+        this.$toast.error('Invalid client detail.');
+      } 
+
+      if (!this.scenarioName) {
+        this.errors.scenario = ["This field is required."];
+        validate = false;
+      } else {
+        if (!this.scenarioName) {
+          this.errors.scenario = "";
+        } else {
+          let templateId = this.$getTemplateId(
+            this.scenarioName,
+            this.scenarioList
+          );
+          if (!templateId) {
+            validate = false;
+            this.errors.scenario = ["Please choose a valid scenario."];
+          } else {
+            this.scenarioId = templateId;
+            this.errors.scenario = "";
+          }
+        }
+      }
+
+      if (!this.reportName) {
+        this.errors.report_name = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.report_name = "";
+      }
+
+      return validate;
+    },
+    handleModal: function() {
+      if (!this.response) {
+        this.$router.go(-1);
+      }
     },
     createReport: function(e) {
       e.preventDefault();
 
       let data = {
-        client: this.clientId,
-        scenario: this.getScenarioId(this.scenarioId),
+        client: this.$route.query.client,
+        scenario: this.scenarioId,
         name: this.reportName,
         description: this.description,
       };
-      console.log(data);
+
+      if(!this.validateForm()){
+        console.log(this.errors);
+        return false;
+      }
+
       this.$store.dispatch("loader", true);
       post(`${getUrl("add-report")}`, data, authHeader())
         .then(response => {
           console.log(response.data);
+          this.response = true;
           this.$toast.success(response.data.message);
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
@@ -125,7 +170,6 @@ export default {
       get(getUrl("clients"), authHeader())
         .then(response => {
           let list = mapClientList(response.data.data);
-          this.allScenarioIds = this.getScenarioIds(list);
           this.$store.dispatch("clients", list);
           this.$store.dispatch("loader", false);
         })
@@ -140,67 +184,30 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    getScenarioIds: function(data = []) {
-      let allDetails = [];
-      data.forEach(element => {
-        allDetails = [...allDetails, ...element.scenarios];
-      });
-      return allDetails.map(i => {
-        return { scenario_id: i.id, detail_id: i.scenario_details.id || null };
-      });
-    },
-    scenarioDetails: function() {
-      this.$store.dispatch("loader", true);
-      get(getUrl("existing-scenario-detail"), authHeader())
-        .then(response => {
-          this.$store.dispatch("template", {
-            type: "scenario_details",
-            data: response.data.data,
-          });
-          this.$store.dispatch("loader", false);
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    },
   },
   computed: {
-    // existing client dropdown list data
-    clients() {
-      let initClient = [];
-      let array = this.$store.state.data.clients;
-      let df_client = this.$route.query.client;
-
-      if (array && array.length > 0) {
-        array.forEach(element => {
-          var name = `${element.firstname}${
-            element.middlename ? ` ${element.middlename}` : ""
-          }${element.lastname ? ` ${element.lastname}` : ""}`;
-
-          let df_client = this.$route.query.client;
-          if (Number(df_client) === element.id) {
-            this.setInputWithId("clientAge", element.age);
-            this.clientAgeYearToIllustrate = element.age;
-          }
-          initClient.push({
-            id: Number(element.id),
-            template_name: name,
-          });
-        });
-      }
-      return initClient;
+    // client detail
+    client() {
+      return this.$store.getters.getClientUsingId(this.$route.query.client);
     },
-    // existing scenario details dropdown list data
+    // scenario dropdown list data
     scenarioList() {
-      let array = this.$store.state.data.templates.scenario_details || [];
-      return array;
+      let data = this.$store.state.data.clients || [];
+      let allDetails = [];
+      if (this.$route.query.client) {
+        data = data.filter(i => i.id === Number(this.$route.query.client));
+        data.forEach(element => {
+          allDetails = [...allDetails, ...element.scenarios];
+        });
+        return allDetails.map(i => {
+          return {
+            id: i.id || null,
+            template_name: i.scenario_details.name || null,
+          };
+        });
+      } else {
+        return [];
+      }
     },
   },
 };

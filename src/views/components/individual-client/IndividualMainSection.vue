@@ -8,13 +8,13 @@
           <IndividualClientNavbar :client="client" />  
             <div class="client-list-div less-gap">
               <div class="list-wrapper listWrapperDarkBg">
-                <h3 class="bold-fw fs-28 pb-2 mb-0">Scenarios</h3>
+                <h3 class="bold-fw fs-28 pb-2 mb-0" @click="testFunction">Scenarios</h3>
                 <ul class="nav flex-column client-list-ul">
                   <li class="nav-item clientAllListItem">
                     <div class="list-groups">
                       <div class="list-div">
-                        <div v-if="client.senarios && client.senarios.length > 0" class="list-div">
-                            <ScenariosRow :senarios="client.senarios" />
+                        <div v-if="client.scenarios && client.scenarios.length > 0" class="list-div">
+                            <ScenariosRow :scenarios="client.scenarios" />
                         </div>
                       </div>
                     </div>
@@ -53,7 +53,7 @@
 </template>
 <script>
 import testClients from "../../../services/dummy-json";
-import { getParams, authHeader, getFirstError } from "../../../services/helper";
+import { getParams, authHeader, getFirstError, mapClientList } from "../../../services/helper";
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.vue";
@@ -69,41 +69,40 @@ export default {
     ScenariosRow,
     ReportRow,
   },
-  data() {
-    return {
-      client: false,
-      clientId: getParams(this.$route),
-    };
-  },
   methods: {
+    testFunction: function() {
+      console.log(this.client);
+    },
     getClient: function() {
       this.$store.dispatch("loader", true);
-      get(`${getUrl("client")}${this.clientId}/`, authHeader())
+      get(getUrl("clients"), authHeader())
         .then(response => {
-          this.client = response.data.data;
+          let list = mapClientList(response.data.data);
+          this.$store.dispatch("clients", list);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          this.$store.dispatch("loader", false);
-          console.log(error);
+          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
           ) {
             this.$toast.error(error.message);
-          }else{
-            this.$toast.error(getFirstError(error));
           }
+          this.$store.dispatch("loader", false);
         });
     },
   },
   mounted() {
-    if (this.$store.state.data.clients) {
-      this.client = this.$store.getters.getClientUsingId(this.clientId);
-    } else {
+    if (!this.$store.state.data.clients) {
       this.getClient();
     }
   },
+  computed: {
+    client(){
+      return this.$store.getters.getClientUsingId(this.$route.params.id);
+    }
+  }
 };
 </script>
 <style lang="">
