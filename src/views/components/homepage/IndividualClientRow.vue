@@ -1,5 +1,5 @@
 <template lang="">
-    <li v-for="(item, index) in filteredList" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
+    <li v-for="(item, index) in filteredList" @click="goToClient(`individual-client/${item.id}`)" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
                 <span class="name-initial-circle" @click="testFunction(item)">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="list-groups collapse indexSenarioBg" :id="`scenarioCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
-            <h4 class="bold-fw fs-22 ScenariosHeadingTxt">Scenarios
+            <h4 class="bold-fw fs-22 ScenariosHeadingTxt mb-1">Scenarios
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
                    <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black" />
@@ -65,7 +65,7 @@
         </div>
 
         <div class="list-groups collapse indexSenarioBg" :id="`reportCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
-            <h4 class="bold-fw fs-22 reporth4Head">Reports
+            <h4 class="bold-fw fs-22 reporth4Head mb-1">Reports
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black"/>
                    <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black"/>
@@ -122,6 +122,9 @@ export default {
             }
         }
     },
+    goToClient: function(url){
+        window.location.href = `${location.href}${url}`;
+    }
   },
   computed: {
     clientList() {
