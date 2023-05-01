@@ -30,7 +30,7 @@
                     </button>           
                     <a :to="`/report-builder?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToReport(`/report-builder?client=${item.id}`)">+</a>
                 </div>
-                <div class="dropdown three-dots-dropdown">
+                <div class="dropdown three-dots-dropdown" @click="e => e.stopPropagation()">
                     <button class="btn dropdown-toggle no-after three-dots-btn" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="@/assets/images/icons/three-dots.svg" class="img-fluid" alt="Three Dots">
                     </button>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="list-groups collapse indexSenarioBg" :id="`scenarioCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
+        <div class="list-groups collapse indexSenarioBg" :id="`scenarioCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`"  @click="e => e.stopPropagation()">
             <h4 class="bold-fw fs-22 ScenariosHeadingTxt mb-1">Scenarios
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="list-groups collapse indexSenarioBg" :id="`reportCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`">
+        <div class="list-groups collapse indexSenarioBg" :id="`reportCollapse${item.id}${index}`" :data-bs-parent="`#parentCollapse${index}`"  @click="e => e.stopPropagation()">
             <h4 class="bold-fw fs-22 reporth4Head mb-1">Reports
                 <svg width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                    <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black"/>
