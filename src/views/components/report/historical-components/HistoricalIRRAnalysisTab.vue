@@ -28,7 +28,7 @@
             <div class="px-3 pt-3 pb-2">
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div v-for="(item, index) in data" :key="index" class="flex-1">
+                  <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`" >
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '':'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -43,7 +43,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '' : 'd-none'}`" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -66,11 +66,11 @@
                         <div class="irrAnalysisCardAllParas irrCard">
                           <div class="irrTopDiv">
                             <p class="ms-2 irrCardPara1">Internal Rate of Return</p>
-                          <p :class="`ms-2 irrCardParaTop${1+index}`">{{item.internal_rate_of_return}}</p>
+                          <p :class="`ms-2 irrCardParaTop${1+index}`">{{Number(item.internal_rate_of_return).toFixed(2)}}%</p>
                           </div>
                           <div>
                             <p class="ms-2 irrCardPara1">Taxable Equivalent</p>
-                          <p :class="`ms-2 irrCardParaBtm${1+index}`">{{item.taxable_equivalent}}</p>
+                          <p :class="`ms-2 irrCardParaBtm${1+index}`">{{Number(item.taxable_equivalent).toFixed(2)}}%</p>
                           </div>
                         </div>
                       </div>
@@ -87,20 +87,20 @@
                   </div>
                   <div class="irrAbsltCls">
                     <div class="progressAllBarsDivMain">
-                      <div v-for="(item, index) in data" :key="index" class="progressBarEachDivMain">
+                      <div v-for="(item, index) in data" :key="index" :class="`progressBarEachDivMain ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
                           <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div class="CardProgressBig irrBarHeight1" :style="{height: item.internal_rate_of_return}">
+                            <div class="CardProgressBig irrBarHeight1" :style="{height: `${Number(data[index].internal_rate_of_return)*100/maxIRR}%`}">
                             </div>
                             <div class="position-absolute progressBarbtmNum irrvaluebarbg1">
-                              <span class="`irrEachBarValue1">{{item.internal_rate_of_return}}</span>
+                              <span class="`irrEachBarValue1">{{Number(item.internal_rate_of_return).toFixed(2)}}%</span>
                             </div>
                           </div>
                           <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div class="CardProgressBig irrBarHeight2" :style="{height: item.taxable_equivalent}">
+                            <div class="CardProgressBig irrBarHeight2" :style="{height: `${Number(data[index].taxable_equivalent)*100/maxIRR}%`}">
                             </div>
                             <div class="position-absolute progressBarbtmNum irrvaluebarbg2">
-                              <span class="irrEachBarValue2">{{item.taxable_equivalent}}</span>
+                              <span class="irrEachBarValue2">{{Number(item.taxable_equivalent).toFixed(2)}}%</span>
                             </div>
                           </div>
                         </div>
@@ -136,28 +136,28 @@ export default {
       data: [
         {
           type: "LIRP",
-          internal_rate_of_return: "65%",
-          taxable_equivalent: "40%",
+          internal_rate_of_return: "",
+          taxable_equivalent: "",
         },
         {
           type: "Most Recent",
-          internal_rate_of_return: "41%",
-          taxable_equivalent: "100%",
+          internal_rate_of_return: "",
+          taxable_equivalent: "%",
         },
         {
           type: "Worst",
-          internal_rate_of_return: "25%",
-          taxable_equivalent: "30%",
+          internal_rate_of_return: "",
+          taxable_equivalent: "",
         },
         {
           type: "Median",
-          internal_rate_of_return: "33%",
-          taxable_equivalent: "65%",
+          internal_rate_of_return: "",
+          taxable_equivalent: "",
         },
         {
           type: "Best",
-          internal_rate_of_return: "33%",
-          taxable_equivalent: "65%",
+          internal_rate_of_return: "",
+          taxable_equivalent: "",
         },
       ],
     };
@@ -168,14 +168,89 @@ export default {
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets2
       ) {
-        this.cards.forEach((element) => {
+        this.cards.forEach(element => {
           element.active = false;
         });
       } else {
-        this.cards.forEach((element) => {
+        this.cards.forEach(element => {
           element.active = true;
         });
       }
+    },
+  },
+  mounted() {
+    let card1 = this.historical.average;
+    let card2 = this.historical.most_recent;
+    let card3 = this.historical.worst;
+    let card4 = this.historical.median;
+    let card5 = this.historical.best;
+
+    if (card1) {
+      this.data[0].type = "LIRP";
+      this.data[0].internal_rate_of_return = card1.irr_percent;
+      this.data[0].taxable_equivalent = card1.taxable_equivalent;
+    }
+
+    if (card2) {
+      this.data[1].type = "Most Recent";
+      this.data[1].internal_rate_of_return = card2.irr_percent;
+      this.data[1].taxable_equivalent = card2.taxable_equivalent;
+    }
+
+    if (card3) {
+      this.data[2].type = "Worst";
+      this.data[2].internal_rate_of_return = card3.irr_percent;
+      this.data[2].taxable_equivalent = card3.taxable_equivalent;
+    }
+
+    if (card4) {
+      this.data[3].type = "Worst";
+      this.data[3].internal_rate_of_return = card4.irr_percent;
+      this.data[3].taxable_equivalent = card4.taxable_equivalent;
+    }
+
+    if (card5) {
+      this.data[4].type = "Worst";
+      this.data[4].internal_rate_of_return = card5.irr_percent;
+      this.data[4].taxable_equivalent = card5.taxable_equivalent;
+    }
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.maxIRR);
+    },
+    setActionId: function(id) {
+      document.getElementById("historical_cv_delete_id").value = id;
+    },
+    notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "historical_income_analysis" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        let v5 = note.filter(i => i.vehicle_type === 5)[0] || null;
+        note = [v1, v2, v3, v4, v5];
+      }
+      return note;
+    },
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
+    maxIRR() {
+      let dst = this.data;
+      return this.$roundFigureNum(
+        Math.max(...[...dst.map(i => Number(i.internal_rate_of_return || 0)), ...dst.map(i => Number(i.taxable_equivalent || 0))])
+      );
     },
   },
 };

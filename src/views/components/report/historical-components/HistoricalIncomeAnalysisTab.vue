@@ -114,7 +114,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.historical);
     let card1 = this.historical.average;
     let card2 = this.historical.most_recent;
     let card3 = this.historical.worst;
@@ -141,9 +140,9 @@ export default {
       this.data[3].annual_income = card4.sum_of_all_total_value;
     }
 
-    if (card4) {
+    if (card5) {
       this.data[4].type = "Worst";
-      this.data[4].annual_income = card4.sum_of_all_total_value;
+      this.data[4].annual_income = card5.sum_of_all_total_value;
     }
   },
   methods: {
@@ -153,7 +152,7 @@ export default {
     setActionId: function(id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },
-     notes() {
+    notes() {
       let note = this.$store.state.data.report.notes || [];
       if (note) {
         note = note.filter(
