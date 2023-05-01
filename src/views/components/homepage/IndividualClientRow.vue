@@ -1,5 +1,5 @@
 <template lang="">
-    <li v-for="(item, index) in filteredList" @click="goToClient(`individual-client/${item.id}`)" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
+    <li v-for="(item, index) in filteredList" v-on:click="goToIndividualClient($event, `individual-client/${item.id}`)" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
                 <span class="name-initial-circle" @click="testFunction(item)">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
@@ -92,6 +92,7 @@ export default {
   components: { ScenariosRow, ReportRow },
   data() {
     return {
+      // url: 
       senarioLimit: config.SCENARIO_LIST_LIMIT,
       reportLimit: config.SCENARIO_LIST_LIMIT,
     };
@@ -100,7 +101,7 @@ export default {
     testFunction: function(item){
        console.log(item);
     },
-    handleRef: function(id, button='scenario') {
+    handleRef: function(id, button='scenario', e) {
         let btn1 =document.getElementById(`scenarioCollapseBtn${id}`).classList.contains('collapsed');
         let btn2 =document.getElementById(`reportCollapseBtn${id}`).classList.contains('collapsed');
 
@@ -122,8 +123,10 @@ export default {
             }
         }
     },
-    goToClient: function(url){
-        // window.location.href = `${location.href}${url}`;
+    goToIndividualClient: function(event, url){
+        if(event.target && event.target.classList.contains("client-with-actions")){
+            window.location.href = `${location.href}${url}`;        
+        }        
     }
   },
   computed: {
