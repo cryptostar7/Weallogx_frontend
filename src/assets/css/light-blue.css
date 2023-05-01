@@ -1317,3 +1317,13 @@ background: #0C4A83;
 .light-blue .feeAnalysisrightBarBtm2{
   background: #39BE9E;
 }
+
+.light-blue .file-container-div .file-grid-view .grid-file-card:hover svg rect{
+  stroke: #23669E;
+}
+.light-blue .illustration-file-table td .illustration-file-name:hover, .light-blue .file-container-div .file-grid-view .grid-file-card:hover .grid-file-name{
+  color: var(--blue-clr);
+}
+.light-blue .upload-illustration-label{
+  background-color: var(--blue-clr-2);
+}

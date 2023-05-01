@@ -3803,3 +3803,36 @@
 .dark-green .pdf-spinner div span{
   color: #fff;
 }
+
+.dark-green .file-container-div{
+  background: #34383D;
+  border: 1px solid #656565;
+}
+.dark-green .illustration-file-table th{
+  background: #2E3135;
+  color: #fff;
+}
+.dark-green .illustration-file-table td {
+  background: #34383D;
+  color: #fff;
+}
+.dark-green .illustration-file-table td {
+  border-top: 1px solid #656565;
+}
+.dark-green .illustration-file-table td .illustration-file-name, .dark-green .file-container-div .file-grid-view .grid-file-card .grid-file-name{
+   color: #fff;
+}
+.dark-green .illustration-file-table td .illustration-file-name:hover, .dark-green .file-container-div .file-grid-view .grid-file-card:hover .grid-file-name{
+   color: #26AB8B;
+}
+.dark-green .file-container-div .file-grid-view .grid-file-card svg rect{
+  stroke: #b4b4b4;
+  fill: #34383D;
+}
+.dark-green .file-container-div .file-grid-view .grid-file-card:hover svg rect{
+  stroke: #26AB8B;
+}
+.dark-green .file-container-div .file-grid-view .grid-card-wrapper{
+  border: 1px solid #656565;
+  background-color: #34383D;
+}

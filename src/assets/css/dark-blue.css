@@ -4210,3 +4210,39 @@ background: #0C4A83;
 .dark-blue .feeAnalysisrightBarBtm2{
   background: #39BE9E;
 }
+
+.dark-blue .file-container-div{
+  background: #34383D;
+  border: 1px solid #656565;
+}
+.dark-blue .illustration-file-table th{
+  background: #2E3135;
+  color: #fff;
+}
+.dark-blue .illustration-file-table td {
+  background: #34383D;
+  color: #fff;
+}
+.dark-blue .illustration-file-table td {
+  border-top: 1px solid #656565;
+}
+.dark-blue .illustration-file-table td .illustration-file-name, .dark-blue .file-container-div .file-grid-view .grid-file-card .grid-file-name{
+   color: #fff;
+}
+.dark-blue .illustration-file-table td .illustration-file-name:hover, .dark-blue .file-container-div .file-grid-view .grid-file-card:hover .grid-file-name{
+   color: #ABD5F9;
+}
+.dark-blue .file-container-div .file-grid-view .grid-file-card svg rect{
+  stroke: #b4b4b4;
+  fill: #34383D;
+}
+.dark-blue .file-container-div .file-grid-view .grid-file-card:hover svg rect{
+  stroke: #ABD5F9;
+}
+.dark-blue .upload-illustration-label{
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .file-container-div .file-grid-view .grid-card-wrapper{
+  border: 1px solid #656565;
+  background-color: #34383D;
+}
