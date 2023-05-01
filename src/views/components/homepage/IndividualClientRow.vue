@@ -12,7 +12,7 @@
                 </router-link>
             </div>
             <div class="right-action-btns">
-                <div class="right-action-btn-div p-relative">
+                <div class="right-action-btn-div p-relative" @click="e => e.stopPropagation()">
                     <button type="button" data-bs-toggle="collapse" :data-bs-target="`#scenarioCollapse${item.id}${index}`" class="btn right-action-btn collapsed" :id="`scenarioCollapseBtn${item.id}${index}`" aria-expanded="false" @click="handleRef(`${item.id}${index}`, 'scenario')">Scenarios
                         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
@@ -21,7 +21,7 @@
                     </button>
                     <a :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToScenario(`/scenario-details?client=${item.id}`)">+</a>
                 </div>
-                <div class="right-action-btn-div p-relative">
+                <div class="right-action-btn-div p-relative" @click="e => e.stopPropagation()">
                     <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${item.id}${index}`" class="btn right-action-btn collapsed" aria-expanded="false" :id="`reportCollapseBtn${item.id}${index}`" @click="handleRef(`${item.id}${index}`, 'report')">Reports
                         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
