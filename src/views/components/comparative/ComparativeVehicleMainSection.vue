@@ -60,8 +60,7 @@
                               <span class="fs-12 sem-bold-fw grey-clr-2">Optional</span>
                             </div>
                             <textarea name="" id="scenarioDesc" cols="30" rows="2" class="form-control" v-model="vehicle.vehicle1.description"></textarea>
-                             <small class="text-danger" v-if="errors.vehicle1.description">{{errors.vehicle1.description[0]}}</small>
-
+                            <small class="text-danger" v-if="errors.vehicle1.description">{{errors.vehicle1.description[0]}}</small>
                           </div>
                           <div class="form-group-wrapper">
                             <div class="form-group"> 
@@ -578,7 +577,7 @@ export default {
         this.tabs.vehicle2 = false;
         this.setVehicleTab(1);
       }
-      // stop the nex function calling request
+      // stop the next function calling request
       event.stopPropagation();
       event.preventDefault();
     },
@@ -590,7 +589,7 @@ export default {
         this.tabs.vehicle3 = false;
         this.setVehicleTab(2);
       }
-      // stop the nex function calling request
+      // stop the next function calling request
       event.stopPropagation();
       event.preventDefault();
     },

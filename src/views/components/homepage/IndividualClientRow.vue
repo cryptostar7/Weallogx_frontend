@@ -1,5 +1,5 @@
 <template lang="">
-    <li v-for="(item, index) in filteredList" @click="goToClient(`individual-client/${item.id}`)" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
+    <li v-for="(item, index) in filteredList" @click="goToClient(`/individual-client/${item.id}`)" :key="index" class="nav-item p-0 p-0" :id="`parentCollapse${item.id}${index}`">
         <div class="client-with-actions indexSenarioInnerBg">
             <div class="client-name semi-bold-fw fs-18">
                 <span class="name-initial-circle" @click="testFunction(item)">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
@@ -19,7 +19,7 @@
                            <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
                         </svg>
                     </button>
-                    <router-link :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign">+</router-link>
+                    <a :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToScenario(`/scenario-details?client=${item.id}`)">+</a>
                 </div>
                 <div class="right-action-btn-div p-relative">
                     <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${item.id}${index}`" class="btn right-action-btn collapsed" aria-expanded="false" :id="`reportCollapseBtn${item.id}${index}`" @click="handleRef(`${item.id}${index}`, 'report')">Reports
@@ -28,7 +28,7 @@
                             <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
                         </svg>
                     </button>           
-                    <router-link :to="`/report-builder?client=${item.id}`" class="nav-link p-0 plus-sign">+</router-link>
+                    <a :to="`/report-builder?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToReport(`/report-builder?client=${item.id}`)">+</a>
                 </div>
                 <div class="dropdown three-dots-dropdown">
                     <button class="btn dropdown-toggle no-after three-dots-btn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -123,8 +123,18 @@ export default {
         }
     },
     goToClient: function(url){
-        // window.location.href = `${location.href}${url}`;
-    }
+        this.$router.push(url);
+    },
+    goToScenario: function(url){
+      event.stopPropagation();
+      event.preventDefault();
+      this.$router.push(url);
+    },
+    goToReport: function(url){
+      event.stopPropagation();
+      event.preventDefault();
+      this.$router.push(url);
+    },
   },
   computed: {
     clientList() {

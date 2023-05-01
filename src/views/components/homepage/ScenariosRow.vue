@@ -4,7 +4,7 @@
             <div class="list-item-inner">
                 <div class="list-item-detail">
                     <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/scenario-details/${item.id}`">{{ item.scenario_details.name }} {{ item.is_draft ? '(Draft)':''}}</router-link></p>
-                    <label class="medium-fw">{{item.scenario_details.name}} {{item.illustration_age || 18}} YEARS</label>
+                    <label class="medium-fw">{{item.scenario_details.description}}</label>
                 </div>
                 <div class="list-item-actions">
                     <label class="date-label grey-clr fs-14 semi-bold-fw">
