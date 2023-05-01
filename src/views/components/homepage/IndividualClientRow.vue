@@ -92,6 +92,7 @@ export default {
   components: { ScenariosRow, ReportRow },
   data() {
     return {
+      // url: 
       senarioLimit: config.SCENARIO_LIST_LIMIT,
       reportLimit: config.SCENARIO_LIST_LIMIT,
     };
@@ -100,7 +101,7 @@ export default {
     testFunction: function(item){
        console.log(item);
     },
-    handleRef: function(id, button='scenario') {
+    handleRef: function(id, button='scenario', e) {
         let btn1 =document.getElementById(`scenarioCollapseBtn${id}`).classList.contains('collapsed');
         let btn2 =document.getElementById(`reportCollapseBtn${id}`).classList.contains('collapsed');
 
