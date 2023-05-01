@@ -123,7 +123,7 @@ export default {
         }
     },
     goToClient: function(url){
-        window.location.href = `${location.href}${url}`;
+        // window.location.href = `${location.href}${url}`;
     }
   },
   computed: {
