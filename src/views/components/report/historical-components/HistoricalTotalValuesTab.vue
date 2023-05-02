@@ -29,7 +29,7 @@
             <div class="px-3 pt-3 pb-2">
               <div class="container-fluid" id="totalValueFluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div class="flex-1" v-for="(item, index) in data" :key="index">
+                  <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '': 'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -43,7 +43,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index}`" data-bs-target="#deleteAccountModal"
+                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '' : 'd-none'}`" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal"
                             data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
                               xmlns="http://www.w3.org/2000/svg">
@@ -76,6 +76,7 @@
                 </div>
               </div>
             </div>
+            <!-- <button @click="testFunction()">Test</button> -->
             <historical-disclosure-component :hideFee="true" />
           </div>
         </div>
@@ -100,252 +101,331 @@ export default {
         { id: 4, active: true },
         { id: 5, active: true },
       ],
-      data: [
-        {
-          type: "LIRP",
-          total_value: 6510354,
-        },
-        {
-          type: "Most Recent",
-          total_value: 4110354,
-        },
-        {
-          type: "Worst",
-          total_value: 2510354,
-        },
-        {
-          type: "Median",
-          total_value: 3310354,
-        },
-        {
-          type: "Best",
-          total_value: 3310354,
-        },
-      ],
+      data: [{}, {}, {}, {}, {}],
     };
   },
   mounted() {
-    const getOrCreateLegendList = (chart, id) => {
-      const legendContainer = document.getElementById(id);
-      return legendContainer;
-    };
-    // Total Value Graph starts
-    const htmlLegendPlugin3 = {
-      id: "htmlLegend",
-      afterUpdate(chart, args, options) {
-        const ul = getOrCreateLegendList(chart, options.containerID);
-        const items = chart.options.plugins.legend.labels.generateLabels(chart);
-        let checkboxes = document
-          .getElementById(options.containerID)
-          .querySelectorAll("input[type=checkbox]");
-        items.forEach((item, index) => {
-          checkboxes[index].onclick = e => {
-            let distributionCard = e.target.closest(".distributionCard1");
-            distributionCard.classList.toggle("inactive");
+    let card1 = this.historical.average;
+    let card2 = this.historical.most_recent;
+    let card3 = this.historical.worst;
+    let card4 = this.historical.median;
+    let card5 = this.historical.best;
+
+    if (card1) {
+      this.data[0].type = "LIRP";
+      this.data[0].total_value = card1.sum_of_all_total_value;
+    }
+
+    if (card2) {
+      this.data[1].type = "Most Recent";
+      this.data[1].total_value = card2.sum_of_all_total_value;
+    }
+
+    if (card3) {
+      this.data[2].type = "Worst";
+      this.data[2].total_value = card3.sum_of_all_total_value;
+    }
+
+    if (card4) {
+      this.data[3].type = "Worst";
+      this.data[3].total_value = card4.sum_of_all_total_value;
+    }
+
+    if (card5) {
+      this.data[4].type = "Worst";
+      this.data[4].total_value = card5.sum_of_all_total_value;
+    }
+
+    this.setGraph();
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.getDataSet());
+      this.getDataSet();
+    },
+    setActionId: function(id) {
+      document.getElementById("historical_cv_delete_id").value = id;
+    },
+    getDataSet: function() {
+      let card1 = this.historical.average;
+      let card2 = this.historical.most_recent;
+      let card3 = this.historical.worst;
+      let card4 = this.historical.median;
+      let card5 = this.historical.best;
+
+      let value1 = [];
+      let value2 = [];
+      let value3 = [];
+      let value4 = [];
+      let value5 = [];
+      let years = [];
+
+      if (card1) {
+        value1 = card1.chart_output.total_value;
+        years = card1.chart_output.Age;
+      }
+
+      if (!this.deletedItems.includes(1) && card2) {
+        value2 = card2.chart_output.total_value;
+      }
+
+      if (!this.deletedItems.includes(2) && card3) {
+        value3 = card3.chart_output.total_value;
+      }
+
+      if (!this.deletedItems.includes(3) && card4) {
+        value4 = card4.chart_output.total_value;
+      }
+
+      if (!this.deletedItems.includes(4) && card5) {
+        value5 = card5.chart_output.total_value;
+      }
+
+      var dataset = {
+        labels: [1, ...years.map(i => (years.includes(i / 5) ? i : ""))],
+        datasets: [
+          {
+            borderColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
+                : "#0E6651",
+            borderWidth: 4,
+            borderDash: [10, 10],
+            radius: 0,
+            data: value1,
+          },
+          {
+            borderColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#0E6651"
+                : "#1660A4",
+            borderWidth: 4,
+            radius: 0,
+            data: value2,
+          },
+          {
+            borderColor: "#763CA3",
+            borderWidth: 4,
+            radius: 0,
+            data: value3,
+          },
+          {
+            borderColor: "#9D2B2B",
+            borderWidth: 4,
+            radius: 0,
+            data: value4,
+          },
+          {
+            borderColor: "#FF4C00",
+            borderWidth: 4,
+            radius: 0,
+            data: value5,
+          },
+        ],
+      };
+
+      return dataset;
+    },
+    setGraph: function() {
+      if (window.totalValueGraphChart) {
+        window.totalValueGraphChart.destroy();
+      }
+
+      const getOrCreateLegendList = (chart, id) => {
+        const legendContainer = document.getElementById(id);
+        return legendContainer;
+      };
+      // Total Value Graph starts
+      const htmlLegendPlugin3 = {
+        id: "htmlLegend",
+        afterUpdate(chart, args, options) {
+          const ul = getOrCreateLegendList(chart, options.containerID);
+          const items = chart.options.plugins.legend.labels.generateLabels(
+            chart
+          );
+          let checkboxes = document
+            .getElementById(options.containerID)
+            .querySelectorAll("input[type=checkbox]");
+          items.forEach((item, index) => {
+            checkboxes[index].onclick = e => {
+              let distributionCard = e.target.closest(".distributionCard1");
+              distributionCard.classList.toggle("inactive");
+              const { type } = chart.config;
+              document
+                .querySelector(".totalValueProgress" + (index + 1))
+                .classList.toggle("boxProgress");
+              if (type === "pie" || type === "doughnut") {
+                // Pie and doughnut charts only have a single dataset and visibility is per item
+                chart.toggleDataVisibility(item.index);
+              } else {
+                chart.setDatasetVisibility(
+                  item.datasetIndex,
+                  !chart.isDatasetVisible(item.datasetIndex)
+                );
+              }
+              chart.update();
+            };
+          });
+        },
+        hideAll(chart, options) {
+          const items = chart.options.plugins.legend.labels.generateLabels(
+            chart
+          );
+          items.forEach((item, index) => {
             const { type } = chart.config;
-            document
-              .querySelector(".totalValueProgress" + (index + 1))
-              .classList.toggle("boxProgress");
             if (type === "pie" || type === "doughnut") {
               // Pie and doughnut charts only have a single dataset and visibility is per item
               chart.toggleDataVisibility(item.index);
             } else {
-              chart.setDatasetVisibility(
-                item.datasetIndex,
-                !chart.isDatasetVisible(item.datasetIndex)
-              );
+              chart.setDatasetVisibility(item.datasetIndex, false);
             }
             chart.update();
-          };
-        });
-      },
-      hideAll(chart, options) {
-        const items = chart.options.plugins.legend.labels.generateLabels(chart);
-        items.forEach((item, index) => {
-          const { type } = chart.config;
-          if (type === "pie" || type === "doughnut") {
-            // Pie and doughnut charts only have a single dataset and visibility is per item
-            chart.toggleDataVisibility(item.index);
-          } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              false
-            );
-          }
-          chart.update();
-        });
-      },
-      showAll(chart, options) {
-        const items = chart.options.plugins.legend.labels.generateLabels(chart);
-        items.forEach((item, index) => {
-          const { type } = chart.config;
-          if (type === "pie" || type === "doughnut") {
-            // Pie and doughnut charts only have a single dataset and visibility is per item
-            chart.toggleDataVisibility(item.index);
-          } else {
-            chart.setDatasetVisibility(
-              item.datasetIndex,
-              true
-            );
-          }
-          chart.update();
-        });
-      },
-    };
-
-    const totalValueLabels = [1, 5, 10, 15, 20, 25, 30, 35];
-
-    const totalValueData = {
-      labels: totalValueLabels,
-      datasets: [
-        {
-          borderColor:
-            this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
-              ? "#1660A4"
-              : "#0E6651",
-          borderWidth: 4,
-          borderDash: [10, 10],
-          radius: 0,
-          data: [15000, 20000, 30000, 40000, 25000, 1000, 35000, 38000, 42000],
+          });
         },
-        {
-          borderColor:
-            this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
-              ? "#0E6651"
-              : "#1660A4",
-          borderWidth: 4,
-          radius: 0,
-          data: [17000, 22000, 32000, 35000, 43000, 28000, 31000, 29000, 32000],
-        },
-        {
-          borderColor: "#763CA3",
-          borderWidth: 4,
-          radius: 0,
-          data: [19000, 26000, 60000, 55000, 9000, 13000, 45000, 33000, 34000],
-        },
-        {
-          borderColor: "#9D2B2B",
-          borderWidth: 4,
-          radius: 0,
-          data: [25000, 28000, 50000, 45000, 15000, 29000, 33000, 40000, 60000],
-        },
-        {
-          borderColor: "#FF4C00",
-          borderWidth: 4,
-          radius: 0,
-          data: [29000, 31000, 35000, 40000, 30000, 50000, 55000, 45000, 20000],
-        },
-      ],
-    };
-
-    const totalValueConfig = {
-      type: "line",
-      data: totalValueData,
-      options: {
-        interaction: {
-          intersect: false,
-          mode: "index",
-        },
-        font: {
-          size: 16,
-          color: "#000",
-        },
-        responsive: true,
-        plugins: {
-          htmlLegend: {
-            containerID: "totalValueFluid",
-          },
-          legend: {
-            display: false,
-          },
-        },
-        scales: {
-          x: {
-            grid: {
-              display: false,
-              drawBorder: false,
-              color: "transparent",
-            },
-            ticks: {
-              font: {
-                size: 11,
-                family: "Inter",
-                weight: "500",
-              },
-            },
-          },
-          y: {
-            grid: {
-              borderColor: "#E9E9E9",
-              drawBorder: false,
-            },
-            min: 0,
-            max: 75000,
-            ticks: {
-              padding: 8,
-              stepSize: 15000,
-              callback: function(value, index, ticks) {
-                value = value.toString();
-                value = value.split(/(?=(?:...)*$)/);
-                value = value.join(",");
-                return "$" + value;
-              },
-              font: {
-                size: 11,
-                family: "Inter",
-                weight: "500",
-              },
-            },
-          },
-        },
-      },
-      plugins: [htmlLegendPlugin3],
-    };
-
-    const totalValueChart = new Chart(
-      document.getElementById("totalValueChart"),
-      totalValueConfig
-    );
-
-    var redioInp = document.querySelector(".dropdown-menu");
-    redioInp.addEventListener("click", function(e) {
-      let screenMode = localStorage.getItem("mode");
-      if (screenMode == "light-blue" || screenMode == "dark-blue") {
-        totalValueData.datasets[0].borderColor = "#1660A4";
-        totalValueData.datasets[1].borderColor = "#0E6651";
-        totalValueChart.update();
-      } else {
-        totalValueData.datasets[0].borderColor = "#0E6651";
-        totalValueData.datasets[1].borderColor = "#1660A4";
-        totalValueChart.update();
-      }
-    });
-
-    var assestShowHide2 = document.querySelector(".showAssetsCheckBox2");
-
-    assestShowHide2.addEventListener("click", e => {
-      e.target.classList.toggle("on");
-    });
-
-      document
-      .querySelector(".presentationModeBtn")
-      .addEventListener("click", function() {
-        if (assestShowHide2.classList.contains("on")) {
-          htmlLegendPlugin3.hideAll(
-            totalValueChart,
-            totalValueConfig.options
+        showAll(chart, options) {
+          const items = chart.options.plugins.legend.labels.generateLabels(
+            chart
           );
+          items.forEach((item, index) => {
+            const { type } = chart.config;
+            if (type === "pie" || type === "doughnut") {
+              // Pie and doughnut charts only have a single dataset and visibility is per item
+              chart.toggleDataVisibility(item.index);
+            } else {
+              chart.setDatasetVisibility(item.datasetIndex, true);
+            }
+            chart.update();
+          });
+        },
+      };
+
+      let graphData = this.getDataSet();
+
+      let maxAxis = Math.max(
+        ...[
+          Math.max(...graphData.datasets[0].data),
+          Math.max(...graphData.datasets[1].data),
+          Math.max(...graphData.datasets[2].data),
+          Math.max(...graphData.datasets[3].data),
+          Math.max(...graphData.datasets[4].data),
+        ]
+      );
+
+      const totalValueConfig = {
+        type: "line",
+        data: graphData,
+        options: {
+          interaction: {
+            intersect: false,
+            mode: "index",
+          },
+          font: {
+            size: 16,
+            color: "#000",
+          },
+          responsive: true,
+          plugins: {
+            htmlLegend: {
+              containerID: "totalValueFluid",
+            },
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false,
+                color: "transparent",
+              },
+              ticks: {
+                font: {
+                  size: 11,
+                  family: "Inter",
+                  weight: "500",
+                },
+              },
+            },
+            y: {
+              grid: {
+                borderColor: "#E9E9E9",
+                drawBorder: false,
+              },
+              min: 0,
+              max: Number(maxAxis).toFixed(0),
+              ticks: {
+                padding: 8,
+                callback: function(value, index, ticks) {
+                  value = value.toString();
+                  value = value.split(/(?=(?:...)*$)/);
+                  value = value.join(",");
+                  return "$" + value;
+                },
+                font: {
+                  size: 11,
+                  family: "Inter",
+                  weight: "500",
+                },
+              },
+            },
+          },
+        },
+        plugins: [htmlLegendPlugin3],
+      };
+
+      window.totalValueGraphChart = new Chart(
+        document.getElementById("totalValueChart"),
+        totalValueConfig
+      );
+
+      var redioInp = document.querySelector(".dropdown-menu");
+      redioInp.addEventListener("click", function(e) {
+        let screenMode = localStorage.getItem("mode");
+        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#0E6651";
+          window.totalValueGraphChart.update();
+        } else {
+          graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[1].borderColor = "#1660A4";
+          window.totalValueGraphChart.update();
         }
       });
 
-    document
-      .querySelector(".fullScreenCloseBtn")
-      .addEventListener("click", function() {
-        htmlLegendPlugin3.showAll(
-          totalValueChart,
-          totalValueConfig.options
-        );
+      var assestShowHide2 = document.querySelector(".showAssetsCheckBox2");
+
+      assestShowHide2.addEventListener("click", e => {
+        e.target.classList.toggle("on");
       });
+
+      document
+        .querySelector(".presentationModeBtn")
+        .addEventListener("click", function() {
+          if (assestShowHide2.classList.contains("on")) {
+            htmlLegendPlugin3.hideAll(
+              window.totalValueGraphChart,
+              totalValueConfig.options
+            );
+          }
+        });
+
+      document
+        .querySelector(".fullScreenCloseBtn")
+        .addEventListener("click", function() {
+          htmlLegendPlugin3.showAll(totalValueChart, totalValueConfig.options);
+        });
+    },
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -357,6 +437,9 @@ export default {
           element.active = false;
         });
       }
+    },
+    "deletedItems.length"(val) {
+      this.setGraph();
     },
   },
 };

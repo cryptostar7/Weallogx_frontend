@@ -220,23 +220,16 @@
                                               <div class="layer2"></div>
                                             </div>
                                             <div :class="`d-flex align-items-center switch${header.id}`">
-                                              <a href="javascript:void(0)" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;<svg
-                                                  width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                                  xmlns="http://www.w3.org/2000/svg">
-                                                  <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"
-                                                    fill="white" stroke="#1660A4" stroke-width="1.15" />
-                                                  <path
-                                                    d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
-                                                    stroke="#1660A4" stroke-width="1.25" />
+                                              <a href="javascript:void(0)" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;
+                                                <svg  width="13" height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                                                  <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
+                                                  <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                                 </svg>
                                               </a>
-                                              <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;<svg width="13"
-                                                  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                              <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;<svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                   <g clip-path="url(#clip0_1862_4)">
-                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"
-                                                      stroke-linejoin="round" />
-                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"
-                                                      stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
+                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"  stroke-linecap="round" stroke-linejoin="round" />
                                                   </g>
                                                   <defs>
                                                     <clipPath id="clip0_1862_4">
@@ -373,8 +366,7 @@
                                 </tbody>
                               </table>
                             </div>
-                          </div>
-                         
+                          </div> 
                         </div>
                       </div>
                     </div>
