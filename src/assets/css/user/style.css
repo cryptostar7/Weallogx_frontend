@@ -16,6 +16,9 @@ body {
 .fs-12{
     font-size: 12px;
 }
+.js-image-logo.larger-logo{
+    width: 255px !important;
+}
 .authMainDiv {
     max-width: 900px;
     display: flex;
@@ -26,7 +29,9 @@ body {
     border-radius: 10px;
     overflow: hidden;
 }
-
+.flexed-header.advanced .css-11d63ln.w-72468288-87c7-9c0c-2eb1-b3d7a43c1719{
+    justify-content: end;
+}
 .headingArea {
     color: 333;
     font-size: 42px;
@@ -150,6 +155,7 @@ input:-webkit-autofill:active {
     background: #0E6651;
     color: #fff;
 }
+
 
 @media (max-width:400px) {
     .planSelectInnerDiv label {
@@ -633,6 +639,9 @@ p span.bold{
 }
 
 @media (max-width:768px) {
+    .authInnerDiv{
+        padding-top: 0;
+    }
     .pricingMainDiv {
         display: block;
     }
@@ -1531,7 +1540,7 @@ input:checked+.paymentSlider:before {
 
 /* Footer */
 .site-footer {
-    margin-top: 10rem !important;
+    margin-top: 5rem !important;
 }
 
 /* .wraperDiv{
@@ -2737,4 +2746,18 @@ z-index: 999;
 .infoParaMainDiv{
     display: flex;
     align-items: center;
+}
+@media (max-width: 962px){
+    .mobile-hide-column.d-block.advanced{
+        display: none !important;
+    }
+    .css-19eb01s .mobile-nav-trigger.advanced{
+        display: block;
+        opacity: 1;
+        top: 28px;
+        cursor: pointer;
+    }
+    .js-image-logo.advanced{
+        width: 124px !important;
+    }
 }

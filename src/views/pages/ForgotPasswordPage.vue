@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <navbar-component />
+    <navbar-component :scroll="true" />
     <section class="authMaindiv-area">
       <div class="container middleContainer">
         <div class="authMainDiv">
@@ -28,7 +28,7 @@
         </div>
       </div>
     </section>
-    <fotter-component />
+    <!-- <fotter-component /> -->
   </div>
 </template>
 <script>
@@ -118,6 +118,31 @@ export default {
         }
       });
     });
+
+    setTimeout(()=> {
+      const mobNavTrigger = document.querySelector(".mobile-nav-trigger");
+      
+        let mobMenu = document.querySelector(".js-side-nav");
+        let overlay = document.querySelector(".js-side-nav-shield");
+        let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
+        console.log(mobNavTrigger, mobMenu, overlay, crossBtn);
+
+        mobNavTrigger.addEventListener("click", () => {
+          mobMenu.classList.toggle("show-side-nav");
+          overlay.classList.toggle("side-nav-shield--show");   
+        });
+
+        overlay.addEventListener("click", () => {
+          mobMenu.classList.toggle("show-side-nav");
+          overlay.classList.toggle("side-nav-shield--show");     
+        });
+
+        crossBtn.addEventListener("click", () => {
+          mobMenu.classList.toggle("show-side-nav");
+          overlay.classList.toggle("side-nav-shield--show");     
+        });
+
+    }, 2000);
   },
 };
 </script>

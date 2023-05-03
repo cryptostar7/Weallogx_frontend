@@ -9,7 +9,7 @@
     <!-- HEADER -->
     <div class="site-header js-site-header css-19eb01s" data-scrolling="sticky" data-min-height="1" data-max-height="3" data-min-font-size="6" data-max-font-size="8" data-min-logo-width="124" data-max-logo-width="255" style="transition: top 0s linear 0s; top: 0px">
         <div class="site-nav css-p62xri">
-            <section class="header-section section css-v3buwk" data-guid="df6a575f-fcdd-16ba-5da7-bfabfa73200e">
+            <section :class="`header-section section css-v3buwk ${$props.scroll ? 'flexed-header advanced':''}`" data-guid="df6a575f-fcdd-16ba-5da7-bfabfa73200e">
                 <div class="container" id="header-section" style="padding: 0px; transition: padding-top 0.1s ease 0s, padding-bottom 0.1s ease 0s; ">
                     <div class="layout flex flex--12" data-guid="130b269e-f326-6b5f-0a82-a8b5db621978">
                         <div class="column flex__item--md-3 flex__item--xs-12 css-97g332" data-guid="794cc2f4-1a62-5ea3-cd03-01f3a82e59a9">
@@ -24,7 +24,7 @@
                                                             <div>
                                                                 <div class="css-94ohs6">
                                                                     <router-link data-widget-link="true" to="/" target="_top" data-link-type="site-route" data-route-guid="a4181dc8-4262-0783-7ebe-d19332c18b26" data-route-slug="" class="css-11g9kr1 lp-image-react-container lp-icon-react__icon--linked" data-widget-type="LpLogoReact" contenteditable="false">
-                                                                        <img class="js-image-logo header-logo-element css-9pqhoz" src="https://lh3.googleusercontent.com/5Sdpn_J08uwaLGH1kHY03jCzd53v_Vt-nxXa75Y3R43TXPKKO2Kc2bdgqxZgrUs_8rc675fFXAE_ji8PWQLnePf4urjfGCqWOto=s0" alt="" data-image-upload-source="builder3" style="width: 124px; transition: width 0.1s ease 0s;" />
+                                                                        <img :class="`js-image-logo header-logo-element css-9pqhoz ${$props.scroll ? 'larger-logo advanced':''}`" src="https://lh3.googleusercontent.com/5Sdpn_J08uwaLGH1kHY03jCzd53v_Vt-nxXa75Y3R43TXPKKO2Kc2bdgqxZgrUs_8rc675fFXAE_ji8PWQLnePf4urjfGCqWOto=s0" alt="" data-image-upload-source="builder3" style="width: 124px; transition: width 0.1s ease 0s;"  />
                                                                     </router-link>
                                                                 </div>
                                                             </div>
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="column flex__item--md-6 flex__item--xs-12 css-v8gnm5 mobile-hide-column" data-guid="0aae427e-d095-a663-445e-6b1c510be78b">
+                        <div :class="`column flex__item--md-6 flex__item--xs-12 css-v8gnm5 mobile-hide-column ${$props.scroll ? 'd-block advanced':''}`" data-guid="0aae427e-d095-a663-445e-6b1c510be78b">
                             <div class="inner-column css-8f3iaw">
                                 <div class="row flex flex--12 css-1v1axsl">
                                     <div class="composite flex__item--md-12 flex__item--xs-12 css-8x0d4x">
@@ -118,7 +118,7 @@
                 </div>
             </section>
         </div>
-        <div class="js-mobile-nav-trigger mobile-nav-trigger mobile-nav-trigger--show" data-qa-selector="side-nav-menu-trigger">
+        <div :class="`js-mobile-nav-trigger mobile-nav-trigger ${$props.scroll ? 'advanced':'mobile-nav-trigger--show'}`" data-qa-selector="side-nav-menu-trigger">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fas fa-bars lp-icon-react__icon">
                 <path d="M0 0h24v24H0z" fill="none"></path>
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="rgba(41, 139, 116, 1)"></path>
@@ -180,7 +180,7 @@
                 </div>
             </div> -->
             
-            <div class="css-1qtcj7h">
+            <div v-if="$authCheck()" class="css-1qtcj7h">
                 <div class="navDropMenu">
                 <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
                 <div class="navDropMenuItems navDropMenuItemsMobile">
@@ -215,7 +215,9 @@ import { getUrl } from "../../../network/url";
 // import "./../../../assets/css/user/style.css";
 // import "./../../../assets/css/user/external.css";
 export default {
+  props: ["scroll"],
   methods: {
+
     logout: function() {
       if (authCheck()) {
         this.$store.dispatch("loader", true);
