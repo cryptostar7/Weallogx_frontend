@@ -9,7 +9,10 @@
   <!-- Delete Report Modal --> 
   <delete-report-modal />       
   
-  <clone-scenario-modal />     
+  <clone-scenario-modal />   
+
+  <!-- Report Buider Name Change Modal  -->
+  <report-builder-name-change-modal />  
 </div>  
 </template>
 <script>
@@ -19,6 +22,8 @@ import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
 import CloneScenarioModal from "../components/modal/CloneScenarioModal.vue";
+import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
+
 export default {
   components: {
     DeleteReportModal,
@@ -27,6 +32,7 @@ export default {
     NavbarComponent,
     IndividualMainSection,
     CloneScenarioModal,
+    ReportBuilderNameChangeModal
   },
   mounted() {
     //When clicked on menu button below 1200px device

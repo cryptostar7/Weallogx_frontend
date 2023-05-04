@@ -37,7 +37,6 @@
               <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client" />
             <!-- Historical Vehicles start -->
 
-            <button class="" @click="testFunction">Check</button>
             <div class="SaveCloseButton">
                 <router-link to="/" class="btn">Save & Close</router-link>
             </div>

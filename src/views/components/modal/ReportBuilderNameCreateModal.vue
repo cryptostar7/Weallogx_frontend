@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef" @click="handleModal">
-            <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
+           <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
           </button>
         </div>
         <form class="modal-body" @submit="createReport">
@@ -96,6 +96,7 @@ export default {
       return validate;
     },
     handleModal: function() {
+      console.log('clicked');
       if (!this.response) {
         this.$router.go(-1);
       }

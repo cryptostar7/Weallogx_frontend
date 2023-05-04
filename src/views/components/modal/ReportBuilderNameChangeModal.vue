@@ -1,9 +1,9 @@
 <template>
-  <div class="modal fade common-modal" ref="createReportModal"  id="ReportBuilderNameCreateModal" tabindex="-1" aria-labelledby="ReportBuilderNameCreateModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
+  <div class="modal fade common-modal" ref="createReportModal"  id="ReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="ReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef" @click="handleModal">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef">
             <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
           </button>
         </div>
@@ -59,16 +59,7 @@ export default {
     };
   },
   mounted() {
-    if (
-      !this.$route.params.report &&
-      this.$route.query.scenario &&
-      this.$route.query.client
-    ) {
-      new bootstrap.Modal(this.$refs.createReportModal).show();
-      if (!this.$store.state.data.clients) {
-        this.getClient();
-      }
-    }
+  //fdfd
   },
   methods: {
     testFunction: function() {
@@ -95,11 +86,6 @@ export default {
 
       return validate;
     },
-    handleModal: function() {
-      if (!this.response) {
-        this.$router.go(-1);
-      }
-    },
     createReport: function(e) {
       e.preventDefault();
 
@@ -109,6 +95,9 @@ export default {
         name: this.reportName,
         description: this.description,
       };
+
+      this.$refs.closeModalRef.click();
+      return false;
 
       if (!this.validateForm()) {
         console.log(this.errors);
@@ -122,7 +111,6 @@ export default {
           this.response = true;
           this.$toast.success(response.data.message);
           this.getClient(true);
-          this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
           this.$router.push("/report-builder/" + response.data.data.id);
         })

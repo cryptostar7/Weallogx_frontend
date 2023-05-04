@@ -14,7 +14,7 @@
                     <div class="list-groups">
                       <div class="list-div">
                         <div v-if="client.scenarios && client.scenarios.length > 0" class="list-div">
-                            <ScenariosRow :scenarios="client.scenarios" />
+                            <ScenariosRow :clientId="client.id" :scenarios="client.scenarios" />
                         </div>
                       </div>
                     </div>
