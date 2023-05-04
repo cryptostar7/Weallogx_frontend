@@ -166,6 +166,7 @@ export default {
           this.response = true;
           this.$toast.success(response.data.message);
           this.$refs.closeModalRef.click();
+          this.getClient(true);
           this.$store.dispatch("loader", false);
           this.$router.push("/report-builder/" + response.data.data.id);
         })
@@ -181,8 +182,10 @@ export default {
         });
     },
     // get clients detail from API
-    getClient: function() {
-      this.$store.dispatch("loader", true);
+    getClient: function(update=false) {
+      if(!update){
+        this.$store.dispatch("loader", true);
+      }
       get(getUrl("clients"), authHeader())
         .then(response => {
           let list = mapClientList(response.data.data);

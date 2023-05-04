@@ -76,29 +76,31 @@
 import config from "../../../services/config.js";
 
 export default {
-    props:['senarioReports', 'listLimit'],
-    data(){
-        return {
-         senarioReportList:[],   
-         showAllList: false,
-         reportListLimit:config.SCENARIO_REPORT_LIST_LIMIT,
-        }
+  props: ["senarioReports", "listLimit"],
+  data() {
+    return {
+      showAllList: false,
+      reportListLimit: config.SCENARIO_REPORT_LIST_LIMIT,
+    };
+  },
+  methods: {
+    viewMore: function() {
+      this.reportListLimit = this.senarioReportList.length;
+      this.showAllList = true;
     },
-    mounted(){
-        this.senarioReportList = this.$props.senarioReports;
-    },
-    methods: {
-    viewMore: function () {
-        this.reportListLimit = this.senarioReportList.length;
-        this.showAllList = true;
-    },
-    viewLess: function () {
-        this.reportListLimit = config.SCENARIO_REPORT_LIST_LIMIT;
-        this.showAllList = false;
+    viewLess: function() {
+      this.reportListLimit = config.SCENARIO_REPORT_LIST_LIMIT;
+      this.showAllList = false;
     },
   },
-}
+  computed: {
+    senarioReportList() {
+      return this.$props.senarioReports.sort(
+        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+      );
+    },
+  },
+};
 </script>
 <style lang="">
-    
 </style>

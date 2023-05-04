@@ -70,7 +70,6 @@
             </div>
         </div>
     </div>
-
     <div class="text-center" v-if="reportList.length >= reportListLimit">
         <button v-if="!showAllList && reportList.length > reportListLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
         <button v-if="showAllList" role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
@@ -83,13 +82,9 @@ export default {
   props: ["reports"],
   data() {
     return {
-      reportList: [],
       showAllList: false,
       reportListLimit: config.REPORT_LIST_LIMIT,
     };
-  },
-  mounted() {
-    this.reportList = this.$props.reports;
   },
   methods: {
     viewMore: function() {
@@ -100,8 +95,12 @@ export default {
       this.reportListLimit = config.REPORT_LIST_LIMIT;
       this.showAllList = false;
     },
-    testFunction: function(item) {
-      console.log(item);
+  },
+  computed: {
+    reportList() {
+      return this.$props.reports.sort(
+        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+      );
     },
   },
 };

@@ -90,8 +90,8 @@ export default {
       var validate = true;
       if (!this.$route.query.client) {
         validate = false;
-        this.$toast.error('Invalid client detail.');
-      } 
+        this.$toast.error("Invalid client detail.");
+      }
 
       if (!this.scenarioName) {
         this.errors.scenario = ["This field is required."];
@@ -138,7 +138,7 @@ export default {
         description: this.description,
       };
 
-      if(!this.validateForm()){
+      if (!this.validateForm()) {
         console.log(this.errors);
         return false;
       }
@@ -149,6 +149,7 @@ export default {
           console.log(response.data);
           this.response = true;
           this.$toast.success(response.data.message);
+          this.getClient(true);
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
           this.$router.push("/report-builder/" + response.data.data.id);
@@ -165,8 +166,10 @@ export default {
         });
     },
     // get clients detail from API
-    getClient: function() {
-      this.$store.dispatch("loader", true);
+    getClient: function(update = false) {
+      if (!update) {
+        this.$store.dispatch("loader", true);
+      }
       get(getUrl("clients"), authHeader())
         .then(response => {
           let list = mapClientList(response.data.data);

@@ -19,7 +19,7 @@
                            <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
                         </svg>
                     </button>
-                    <a :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToScenario(`/scenario-details?client=${item.id}`)">+</a>
+                    <router-link :to="`/scenario-details?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToScenario(`/scenario-details?client=${item.id}`)">+</router-link>
                 </div>
                 <div class="right-action-btn-div p-relative" @click="e => e.stopPropagation()">
                     <button type="button" data-bs-toggle="collapse" :data-bs-target="`#reportCollapse${item.id}${index}`" class="btn right-action-btn collapsed" aria-expanded="false" :id="`reportCollapseBtn${item.id}${index}`" @click="handleRef(`${item.id}${index}`, 'report')">Reports
@@ -28,7 +28,7 @@
                             <path d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
                         </svg>
                     </button>           
-                    <a :to="`/report-builder?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToReport(`/report-builder?client=${item.id}`)">+</a>
+                    <router-link :to="`/report-builder?client=${item.id}`" class="nav-link p-0 plus-sign" @click="goToReport(`/report-builder?client=${item.id}`)">+</router-link>
                 </div>
                 <div class="dropdown three-dots-dropdown" @click="e => e.stopPropagation()">
                     <button class="btn dropdown-toggle no-after three-dots-btn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,16 +36,16 @@
                     </button>
                     <ul class="dropdown-menu common-dropdown-menu">
                         <li>
-                            <a class="dropdown-item semi-bold-fw" href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#editClientCanvas" @click="$emit('setActionId', item.id)">
+                            <router-link class="dropdown-item semi-bold-fw" to="" data-bs-toggle="offcanvas" data-bs-target="#editClientCanvas" @click="$emit('setActionId', item.id)">
                                 <img src="@/assets/images/icons/edit.svg" class="img-fluid me-3" alt="Edit"> 
                                 <span>Edit</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
-                            <a class="dropdown-item semi-bold-fw" href="javascript:void(0)" data-bs-target="#deleteClientModal" data-bs-toggle="modal"  @click="$emit('setActionId', item.id)" >
+                            <router-link class="dropdown-item semi-bold-fw" to="" data-bs-target="#deleteClientModal" data-bs-toggle="modal"  @click="$emit('setActionId', item.id)" >
                                <img src="@/assets/images/icons/delete.svg" class="img-fluid me-3" alt="Delete">
                                <span>Delete</span>
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </div>
