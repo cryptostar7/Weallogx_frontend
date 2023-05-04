@@ -558,7 +558,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.client);
+      console.log(this.$store.state.data.clients);
     },
     getClient: function() {
       this.$store.dispatch("loader", true);

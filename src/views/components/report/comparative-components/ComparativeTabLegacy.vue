@@ -171,18 +171,23 @@ export default {
     },
     mapData: function() {
       if (this.comparative.tax_result) {
+        let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
 
+        if (chart) {
+          this.data[0].ending_value = chart.ending_age;
+          this.data[0].shortfall = chart.shortfall;
+          this.data[0].age = chart.ending_age;
+        }
+
         if (chart1) {
           this.data[0].ending_value = chart1.match_distributions.surrender_value;
-          this.data[0].shortfall = chart1.comparison.diff_from_lirp;
           this.data[1].ending_value = chart1.match_distributions.surrender_value;
           this.data[1].shortfall = chart1.comparison.diff_from_lirp;
           
           let age1 = chart1.comparison.chart_output.Age
-          this.data[0].age = age1[age1.length - 1];
           this.data[1].age = age1[age1.length - 1];
         }
 

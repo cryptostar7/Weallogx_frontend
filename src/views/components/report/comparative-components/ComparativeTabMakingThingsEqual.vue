@@ -358,6 +358,7 @@
                 </div>
               </div>
             </div>
+            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" />
           </div>
         </div>
@@ -518,11 +519,10 @@ export default {
   },
   mounted() {
     if (this.comparative) {
+      
       if (this.comparative.tax_result) {
-        this.data.distribution[0].distributions = this.comparative.tax_result.comparison.chart_output.distributions.filter(
-          v => v
-        )[0];
-        this.data.rate_of_returns[0].ror = this.comparative.tax_result.comparison.ror;
+        this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
+        this.data.rate_of_returns[0].ror = this.comparative.lirp_data.making_things_equal_rate_of_return;
         this.data.distribution[1].longevity = this.comparative.tax_result.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.comparative.tax_result.match_distributions.death_benefit;
         this.data.distribution[1].ending_value = this.comparative.tax_result.match_distributions.surrender_value;

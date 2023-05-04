@@ -93,20 +93,19 @@ export default {
     },
     mapData: function() {
       if (this.comparative.tax_result) {
+        let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
 
+        if (chart) {
+          this.data[0].total_value_in_percent = chart.total_value_fee_ratio;      
+          this.data[0].cumulative_income_in_percent = chart.cumulative_income_fee_ratio;
+        }
+        
         if (chart1) {
-          this.data[0].total_value_in_percent =
-            chart1.comparison.total_value_fee_ratio;
-          this.data[0].cumulative_income_in_percent =
-            chart1.comparison.cumulative_income_fee_ratio;
-
-          this.data[1].total_value_in_percent =
-            chart1.comparison.total_value_fee_ratio;
-          this.data[1].cumulative_income_in_percent =
-            chart1.comparison.cumulative_income_fee_ratio;
+          this.data[1].total_value_in_percent = chart1.comparison.total_value_fee_ratio;
+          this.data[1].cumulative_income_in_percent = chart1.comparison.cumulative_income_fee_ratio;
         }
 
         if (Object.values(chart2).length) {
@@ -164,21 +163,22 @@ export default {
       };
 
       if (this.comparative.tax_result) {
+        let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
 
         if (chart1) {
-          annualFeesData.datasets[0].data = chart1.comparison.chart_output.fees;
-          let years = chart1.comparison.chart_output.year;
+          annualFeesData.datasets[0].data = chart.chart_output.fees || [];
+          let years = chart.chart_output.year;
           annualFeesData.labels = [
             1,
             ...years.map(i => (years.includes(i / 5) ? i : "")),
           ];
-          if (!this.deletedItems.includes(1)) {
-            annualFeesData.datasets[1].data =
-              chart1.comparison.chart_output.fees;
-          }
+        }
+
+        if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
+          annualFeesData.datasets[1].data = chart1.comparison.chart_output.fees;
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
@@ -262,6 +262,7 @@ export default {
       let graphData = this.getDataSet();
       let maxAxis = Math.max(
         ...[
+          Math.max(...graphData.datasets[0].data),
           Math.max(...graphData.datasets[1].data),
           Math.max(...graphData.datasets[2].data),
           Math.max(...graphData.datasets[3].data),

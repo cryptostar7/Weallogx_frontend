@@ -496,16 +496,18 @@ export default {
     let obj2 = cr.pretax_result.comparison;
     let obj3 = cr.tda_result.comparison;
 
-    if(!obj2){
+    if (!obj2) {
       this.$store.dispatch("reportCvDeleteId", 2);
     }
-    if(!obj3){
+
+    if (!obj3) {
       this.$store.dispatch("reportCvDeleteId", 3);
     }
   },
   methods: {
     testFunction: function() {
-      this.mapData(this.$store.state.data.report.comparative);
+      console.log(this.comparativeTable.lirp_data);
+      // this.mapData(this.$store.state.data.report.comparative);
     },
     setCurrentTab: function(tab) {
       this.currentTab = tab;
@@ -545,6 +547,7 @@ export default {
         data: [{}, {}, {}, {}],
       };
 
+      let obj = ct.lirp_data ? ct.lirp_data.table_output : false;
       let obj1 = ct.tax_result.comparison.table_output;
       let obj2 = ct.pretax_result.comparison
         ? ct.pretax_result.comparison.table_output
@@ -552,6 +555,60 @@ export default {
       let obj3 = ct.tda_result.comparison
         ? ct.tda_result.comparison.table_output
         : false;
+
+      if (obj) {
+        let list = [];
+        let dst = [];
+        let details = {
+          id: 0,
+          ror: ct.lirp_data.rate_of_return + "%",
+          irr: ct.lirp_data.irr_percent + "%",
+          type: "LifePro+",
+        };
+        obj.forEach((item, index) => {
+          let ar = {
+            distributions: item[3],
+            account_value: item[4],
+            surrender_value: item[6],
+            death_benefit: item[7],
+            net_balance: null,
+          };
+
+          let ar2 = {
+            year: item[0],
+            age: item[1],
+            deposits: item[2],
+          };
+
+          if (index) {
+            list.push(ar);
+            dst.push(ar2);
+          }
+        });
+        details.list = list;
+        tempData.distributions = dst;
+        tempData.data[0] = details;
+
+        this.summary_data.deposits.totals = ct.lirp_data.total_value;
+        this.summary_data.deposits.shortfall = ct.lirp_data.shortfall;
+
+        this.summary_data.data[0] = {
+          id: 0,
+          distribution: {
+            total: ct.lirp_data.total_value,
+            total_value: ct.lirp_data.total_value,
+            shortfall: ct.lirp_data.shortfall,
+          },
+          net_balance: {
+            total: "",
+            total_value: "",
+            shortfall: "",
+          },
+        };
+      } else {
+        tempData.distributions = this.target_analysis.distributions;
+        tempData.data[0] = this.target_analysis.data[0];
+      }
 
       if (obj1) {
         let list = [];
@@ -583,9 +640,6 @@ export default {
           }
         });
         details.list = list;
-        tempData.distributions = dst;
-        tempData.data[0] = details;
-        details.id = 1;
         details.type = "Account";
         tempData.data[1] = details;
 
@@ -593,20 +647,6 @@ export default {
           ct.tax_result.comparison.total_value;
         this.summary_data.deposits.shortfall =
           ct.tax_result.comparison.diff_from_lirp;
-
-        this.summary_data.data[0] = {
-          id: 0,
-          distribution: {
-            total: ct.tax_result.comparison.total_value,
-            total_value: ct.tax_result.comparison.total_value,
-            shortfall: ct.tax_result.comparison.diff_from_lirp,
-          },
-          net_balance: {
-            total: "",
-            total_value: "",
-            shortfall: "",
-          },
-        };
 
         this.summary_data.data[1] = {
           id: 1,
@@ -697,7 +737,7 @@ export default {
             shortfall: "",
           },
         };
-      } 
+      }
       this.target_analysis = tempData;
     },
   },

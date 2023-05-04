@@ -180,6 +180,7 @@
                 </div>
               </div>
             </div>
+            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" />
           </div>
         </div>
@@ -280,22 +281,25 @@ export default {
     },
     mapData: function() {
       if (this.comparative.tax_result) {
+        let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
 
+        if (chart) {
+          this.data.cumulative_income[0].cumulative_income = chart.cummulative_income;
+          this.data.cumulative_income[0].shortfall = chart.shortfall;
+          this.data.total_value[0].total_value = chart.total_value;
+          this.data.total_value[0].shortfall = chart.shortfall;
+        }
+
+
         if (chart1) {
-          this.data.cumulative_income[0].cumulative_income =
-            chart1.comparison.cummulative_income;
-          this.data.cumulative_income[0].shortfall =
-            chart1.comparison.diff_from_lirp;
           this.data.cumulative_income[1].cumulative_income =
             chart1.comparison.cummulative_income;
           this.data.cumulative_income[1].shortfall =
             chart1.comparison.diff_from_lirp;
 
-          this.data.total_value[0].total_value = chart1.comparison.total_value;
-          this.data.total_value[0].shortfall = chart1.comparison.diff_from_lirp;
           this.data.total_value[1].total_value = chart1.comparison.total_value;
           this.data.total_value[1].shortfall = chart1.comparison.diff_from_lirp;
         }

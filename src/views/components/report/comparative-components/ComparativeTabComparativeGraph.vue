@@ -112,6 +112,7 @@
                 </div>
               </div>
             </div>
+            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component />
           </div>
         </div>
@@ -173,13 +174,14 @@ export default {
   },
   mounted() {
     // this.setGraph();
-    if(this.comparative.tax_result){
-       this.mapData();   // set longevity cards data
-      this.setGraph();   // generate graph
+    if (this.comparative.tax_result) {
+      this.mapData(); // set longevity cards data
+      this.setGraph(); // generate graph
     }
   },
   methods: {
     getDataSet: function() {
+      let cv = [];
       let cv1 = [];
       let cv2 = [];
       let cv3 = [];
@@ -187,13 +189,25 @@ export default {
       let distribution = [];
       let years = [];
       if (Object.values(this.comparative.tax_result).length) {
-        let chart1 = Object.values(this.comparative.tax_result).length ? this.comparative.tax_result.comparison.chart_output : false;
-        let chart2 = Object.values(this.comparative.pretax_result).length ? this.comparative.pretax_result.comparison.chart_output : false;
-        let chart3 = Object.values(this.comparative.tda_result).length ? this.comparative.tda_result.comparison.chart_output : false;
+        let chart = Object.values(this.comparativeLirp).length
+          ? this.comparativeLirp.chart_output
+          : false;
+        let chart1 = Object.values(this.comparative.tax_result).length
+          ? this.comparative.tax_result.comparison.chart_output
+          : false;
+        let chart2 = Object.values(this.comparative.pretax_result).length
+          ? this.comparative.pretax_result.comparison.chart_output
+          : false;
+        let chart3 = Object.values(this.comparative.tda_result).length
+          ? this.comparative.tda_result.comparison.chart_output
+          : false;
+
+        cv = chart ? chart["Deposits"] : [];
         cv1 = chart1 ? chart1["BOY Balance"] : [];
         cv2 = chart2 ? chart2["BOY pre-tax Balance"] : [];
         cv3 = chart3 ? chart3["BOY Balance"] : [];
-        years =  chart1 ? chart1.year : [];
+
+        years = chart1 ? chart1.year : [];
         contribution = chart1 ? chart1.Deposits : [];
         distribution = chart1 ? chart1.distributions : [];
       }
@@ -209,7 +223,7 @@ export default {
                 : "#0E6651",
             borderWidth: 4,
             radius: 0,
-            data: cv1,
+            data: cv,
           },
           {
             borderColor:
@@ -326,6 +340,7 @@ export default {
       let graphData = this.getDataSet();
       let maxAcc1 = Math.max(
         ...[
+          Math.max(...graphData.datasets[0].data),
           Math.max(...graphData.datasets[1].data),
           Math.max(...graphData.datasets[2].data),
           Math.max(...graphData.datasets[3].data),
@@ -453,7 +468,6 @@ export default {
       });
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");
-
       assestShowHide.addEventListener("click", e => {
         e.target.classList.toggle("on");
       });
@@ -478,30 +492,41 @@ export default {
           );
         });
     },
+    testFunction: function() {
+      this.mapData();
+    },
     mapData: function() {
       if (this.comparative.tax_result) {
+        let chart = this.comparativeLirp;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
-        if (chart1) {
-          this.data[0].ror = chart1.comparison.ror + "%";
-          this.data[0].irr = chart1.comparison.irr_percent + "%";
-          this.data[0].cumulative_income = chart1.comparison.cummulative_income;
 
+        if (chart) {
+          this.data[0].ror = chart.rate_of_return + "%";
+          this.data[0].longevity_year = chart.chart_output.year.length;
+          this.data[0].irr = chart.irr_percent + "%";
+          this.data[0].cumulative_income = chart.cummulative_income;
+        }
+
+        if (chart1) {
           this.data[1].ror = chart1.comparison.ror + "%";
           this.data[1].irr = chart1.comparison.irr_percent + "%";
+          this.data[1].longevity_year = chart.chart_output.year.length;
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
           this.data[2].ror = chart2.comparison.ror + "%";
           this.data[2].irr = chart2.comparison.irr_percent + "%";
+          this.data[2].longevity_year = chart.chart_output.year.length;
           this.data[2].cumulative_income = chart2.comparison.cummulative_income;
         }
 
         if (Object.values(chart3).length) {
           this.data[3].ror = chart3.comparison.ror + "%";
           this.data[3].irr = chart3.comparison.irr_percent + "%";
+          this.data[3].longevity_year = chart.chart_output.year.length;
           this.data[3].cumulative_income = chart3.comparison.cummulative_income;
         }
       }
@@ -516,6 +541,9 @@ export default {
     },
     comparative() {
       return this.$store.state.data.report.comparative_longevity;
+    },
+    comparativeLirp() {
+      return this.$store.state.data.report.comparative.lirp_data;
     },
   },
   watch: {

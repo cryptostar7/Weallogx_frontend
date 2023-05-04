@@ -144,16 +144,19 @@ export default {
   methods: {
     mapData: function() {
       if (this.comparative.tax_result) {
+        let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.tax_result;
         let chart2 = this.comparative.pretax_result;
         let chart3 = this.comparative.tda_result;
 
+        if (chart) {
+          this.data[0].value_efficiency_ratio = chart.total_value_fee_ratio || 0;
+          this.data[0].value_efficiency = chart.value_efficiency || 0;
+          this.data[0].total_fees = chart.fees || 0;
+          this.data[0].total_value = chart.total_value || 0;
+        }
+
         if (chart1) {
-          this.data[0].value_efficiency_ratio = chart1.comparison.total_value_fee_ratio;
-          this.data[0].value_efficiency = chart1.comparison.value_efficiency;
-          this.data[0].total_fees = chart1.comparison.fees;
-          this.data[0].total_value = chart1.comparison.total_value;
-       
           this.data[1].value_efficiency = chart1.comparison.value_efficiency;
           this.data[1].value_efficiency_ratio = chart1.comparison.total_value_fee_ratio;
           this.data[1].total_fees = chart1.comparison.fees;
