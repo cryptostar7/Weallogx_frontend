@@ -80,7 +80,8 @@
                             </svg>
                         </button>
                     </div>
-                    <router-link :to="`/report-builder?scenario=${item.id}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
+                    <!-- <button @click="testFunction(item)">Test</button> -->
+                    <router-link :to="`/report-builder?scenario=${item.id}&client=${$props.clientId}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
             <SenarioReports :senarioReports="item.reports.reports_data" :collapseCustomId="`innerReportCollapse${index}`"/>
@@ -97,7 +98,7 @@ import SenarioReports from "../homepage/SenarioReports.vue";
 import config from "../../../services/config.js";
 export default {
   components: { SenarioReports },
-  props: ["scenarios"],
+  props: ["scenarios", "clientId"],
   emits: ["setActionId"],
   data() {
     return {
@@ -118,7 +119,7 @@ export default {
       document.getElementById("deleteScenarioId").value = id;
     },
     testFunction: function() {
-      console.log(this.scenariosList);
+      console.log(this.$props.clientId);
     },
   },
   computed: {

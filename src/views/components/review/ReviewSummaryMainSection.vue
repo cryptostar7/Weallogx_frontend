@@ -37,12 +37,12 @@
               <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client" />
             <!-- Historical Vehicles start -->
 
-            <button class="d-none" @click="testFunction">Check</button>
+            <button class="" @click="testFunction">Check</button>
             <div class="SaveCloseButton">
                 <router-link to="/" class="btn">Save & Close</router-link>
             </div>
             <div class="BuildSaveCloseButton">
-                <router-link :to="`/report-builder/${$route.params.scenario}`" class="btn">Save & Build Report</router-link>
+                <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>
             </div>
             <!-- Historical Vehicles end -->
         </div>
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log();
+      console.log(this.client.id);
     },
     // get client detail from API then save in redux store
     getClient: function(clientId) {

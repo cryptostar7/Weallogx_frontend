@@ -60,7 +60,7 @@
                 </svg>
             </h4>
             <div v-if="item.scenarios && item.scenarios.length > 0" class="list-div">
-                <ScenariosRow :scenarios="item.scenarios" @setActionId="(e) => $emit('setActionId', e, item.id)" />
+                <ScenariosRow :clientId="item.id" :scenarios="item.scenarios" @setActionId="(e) => $emit('setActionId', e, item.id)" />
             </div>
         </div>
 

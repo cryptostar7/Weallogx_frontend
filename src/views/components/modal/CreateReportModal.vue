@@ -32,7 +32,7 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Build Report</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
+            <button type="button" @click="testFunction" class="btn yes-delete-btn">Test Function</button>
           </div>
         </form>
       </div>
@@ -61,7 +61,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.$route.params.report && this.$route.query.client) {
+    if (!this.$route.params.report && !this.$route.query.scenario && this.$route.query.client) {
       new bootstrap.Modal(this.$refs.createReportModal).show();
       if (!this.$store.state.data.clients) {
         this.getClient();
@@ -70,21 +70,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      let data = this.$store.state.data.clients || [];
-      let allDetails = [];
-      console.log(this.$route.query.client);
-      if (this.$route.query.client) {
-        data = data.filter(i => i.id === Number(this.$route.query.client));
-        data.forEach(element => {
-          allDetails = [...allDetails, ...element.scenarios];
-        });
-        return allDetails.map(i => {
-          return {
-            id: i.id || null,
-            template_name: i.scenario_details.name || null,
-          };
-        });
-      }
+      console.log(this.$route.query);
     },
     validateForm: function() {
       var validate = true;

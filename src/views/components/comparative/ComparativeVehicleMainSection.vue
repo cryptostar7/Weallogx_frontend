@@ -117,7 +117,7 @@
                         </div>
                       </div>
                       <div :class="`tab-pane ${vehicle.tab === 2 ? 'active':''}`" id="vehicleType2Tab" role="tabpanel" aria-labelledby="vehicleType2-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" :defaultSelected="defaultVehicle.vehicle2.template_name" @onSelectItem="(e) => setVehicleType(2, e)" @inputText="(e) => setVehicleTypeName(2, e)" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" :defaultSelected="defaultVehicle.vehicle2.template_name" @onSelectItem="(e) => setVehicleType(2, e)" @inputText="(e) => setVehicleTypeName(2, e)" :showAll="true" />
                         <div :class="`${vehicle.vehicle2.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea2">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle2" @clearError="() => errors.existing_vehicle2 = false" @onSelectItem="(e) => setExistingVehicle(2, e)"  @inputText="(e) => setExistingVehicleName(2, e)" />
                            <span class="or-text-span">or</span>
@@ -188,7 +188,7 @@
                         </div>
                       </div>
                       <div :class="`tab-pane ${vehicle.tab === 3 ? 'active':''}`" id="vehicleType3Tab" role="tabpanel" aria-labelledby="vehicleType3-tab">
-                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 3"  id="comparativeVehicleType3" class="form-group less pt-3" :error="errors.vehicle3.type_id" @clearError="() => errors.vehicle3.type_id = false" :defaultSelected="defaultVehicle.vehicle3.template_name" @onSelectItem="(e) => setVehicleType(3, e)" @inputText="(e) => setVehicleTypeName(3, e)" />
+                        <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 3"  id="comparativeVehicleType3" class="form-group less pt-3" :error="errors.vehicle3.type_id" @clearError="() => errors.vehicle3.type_id = false" :defaultSelected="defaultVehicle.vehicle3.template_name" @onSelectItem="(e) => setVehicleType(3, e)" @inputText="(e) => setVehicleTypeName(3, e)" :showAll="true" />
                         <div :class="`${vehicle.vehicle3.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea3">
                           <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle3" @clearError="() => errors.existing_vehicle3 = false" @onSelectItem="(e) => setExistingVehicle(3, e)"  @inputText="(e) => setExistingVehicleName(3, e)"/> 
                           <span class="or-text-span">or</span>
