@@ -42,54 +42,59 @@
               </div>
 
               <div class="list-wrapper listWrapperDarkBg">
-                <div class="d-flex align-items-center pb-2 mb-1">
-                  <h3 class="bold-fw fs-28 mb-0 lh-1">Illustrations</h3>
-                  <div class="d-flex align-items-center illustration-mid flex-1 me-3">
-                    <button id="changeGridBtn" class="btn common-round-btn list">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <mask id="path-1-inside-1_2404_2" fill="white">
-                        <rect width="9" height="9" rx="1"/>
-                        </mask>
-                        <rect width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2404_2)"/>
-                        <mask id="path-2-inside-2_2404_2" fill="white">
-                        <rect y="11" width="9" height="9" rx="1"/>
-                        </mask>
-                        <rect y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-2-inside-2_2404_2)"/>
-                        <mask id="path-3-inside-3_2404_2" fill="white">
-                        <rect x="11" y="11" width="9" height="9" rx="1"/>
-                        </mask>
-                        <rect x="11" y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-3-inside-3_2404_2)"/>
-                        <mask id="path-4-inside-4_2404_2" fill="white">
-                        <rect x="11" width="9" height="9" rx="1"/>
-                        </mask>
-                        <rect x="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-4-inside-4_2404_2)"/>
-                      </svg>
-                    </button>
+                <div class="d-flex flex-column flex-md-row align-items-center pb-2 mb-1">
+                  <div class="d-flex align-items-center justify-content-between illustration-heading">
+                    <h3 class="bold-fw fs-28 mb-0 lh-1">Illustrations</h3>
+                    <div class="ms-4">
+                      <button id="changeGridBtn" class="btn common-round-btn list">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <mask id="path-1-inside-1_2404_2" fill="white">
+                          <rect width="9" height="9" rx="1"/>
+                          </mask>
+                          <rect width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2404_2)"/>
+                          <mask id="path-2-inside-2_2404_2" fill="white">
+                          <rect y="11" width="9" height="9" rx="1"/>
+                          </mask>
+                          <rect y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-2-inside-2_2404_2)"/>
+                          <mask id="path-3-inside-3_2404_2" fill="white">
+                          <rect x="11" y="11" width="9" height="9" rx="1"/>
+                          </mask>
+                          <rect x="11" y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-3-inside-3_2404_2)"/>
+                          <mask id="path-4-inside-4_2404_2" fill="white">
+                          <rect x="11" width="9" height="9" rx="1"/>
+                          </mask>
+                          <rect x="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-4-inside-4_2404_2)"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                     <div class="search-bar-div mx-2 px-1">
                       <input type="text" class="form-control search-file-input" placeholder="Search">
                       <span class="search-icon-span"><img src="@/assets/images/icons/search.svg" aria-checked="img-fluid" alt="Search"></span>
                     </div>
-                    <div class="sort-dropdown-div d-flex align-items-center">
-                      <label class="bold-fw me-2">Sort</label>
-                      <div class="dropdown sort-dropdown">
-                        <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                          <span>Last Name (A-Z)</span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="sortingBtn">
-                          <li><a class="dropdown-item semi-bold-fw active" data-sort="ascending"
-                              href="#">Last Name (A-Z)</a></li>
-                          <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="#">Last Name (Z-A)</a></li>
-                          <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="#">Last Edited</a></li>
-                          <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="#">First Edited</a></li>
-                        </ul>
+                    <div class="d-flex flex-1 align-items-center justify-content-between illustration-mid flex-1">
+                      <div class="sort-dropdown-div d-flex align-items-center">
+                        <label class="bold-fw me-2">Sort</label>
+                        <div class="dropdown sort-dropdown">
+                          <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <span>Last Name (A-Z)</span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="sortingBtn">
+                            <li><a class="dropdown-item semi-bold-fw active" data-sort="ascending"
+                                href="#">Last Name (A-Z)</a></li>
+                            <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="#">Last Name (Z-A)</a></li>
+                            <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="#">Last Edited</a></li>
+                            <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="#">First Edited</a></li>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
+                      <label class="upload-illustration-label cursor-pointer" id="uploadIllustraiton">
+                        <input type="file" id="uploadIllustraiton" hidden>
+                        <img src="@/assets/images/icons/upload-illustration.svg" class="img-fluid" alt="Upload Illustration">
+                      </label>
                   </div>
-                  <label class="upload-illustration-label cursor-pointer" id="uploadIllustraiton">
-                    <input type="file" id="uploadIllustraiton" hidden>
-                    <img src="@/assets/images/icons/upload-illustration.svg" class="img-fluid" alt="Upload Illustration">
-                  </label>
+                  
                 </div>
                 <div class="file-container-div">
                   <div class="file-list-view">

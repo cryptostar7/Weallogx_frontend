@@ -408,6 +408,9 @@ body::-webkit-scrollbar {
     transform: translate(-50%) rotate(0deg);
     z-index: 3;
   }
+  .sidebar.collapsed .nav-item .nav-link .side-client-label{
+    display: none;
+  }
 .right-area {
   flex: 1;
   height: calc(100vh - var(--top-margin));
@@ -2619,7 +2622,8 @@ color: #fff;
     display: none;
   }
   .sidebar{
-    min-width: auto;
+    min-width: 100px !important;    
+    text-align: center;
   }
   .sidebar .hi-username{
     display: none;
@@ -2632,6 +2636,9 @@ color: #fff;
   }
   .sidebar .sidebar-nav .nav-link svg{
     margin-right: 0;
+  }
+  .sidebar .sidebar-nav .side-client-label{
+    display: none;
   }
   .right-area{
    margin-left: 90px; 
@@ -2666,6 +2673,16 @@ color: #fff;
 }
 /* For Mobile Devices less than 767px */
 @media screen and (max-width: 767px) {
+  .menu-btn{
+    padding-right: .25rem;
+  }
+  .list-wrapper .illustration-heading, .list-wrapper .search-bar-div, .list-wrapper .illustration-mid{
+    width: 100%;
+    margin-bottom: .75rem;
+  }
+  .list-wrapper .search-bar-div{
+    margin-inline: 0 !important;
+  }
   .fs-mob-10 {
     font-size: 0.625rem !important;
   }
@@ -5168,9 +5185,9 @@ input[type=number] {
 }
 
 /* Illustration Section CSS */
-.illustration-mid{
+/*.illustration-mid{
   margin-left: 25px;
-}
+}*/
 .illustration-mid .search-bar-div .search-file-input{
   min-width: 320px;
 }
