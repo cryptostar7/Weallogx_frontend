@@ -176,11 +176,11 @@
                           <div class="row eachCardParaRow">
                             <div class="col-md-5">
                               <p class="lifeProPlusPara1">RATE OF RETURN (RoR)</p>
-                              <p class="lifeProPlusPara2">{{target_analysis.data[0].ror}}</p>
+                              <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].ror || 0).toFixed(2)}}%</p>
                             </div>
                             <div class="col-md-7">
                               <p class="lifeProPlusPara1">INTERNAL RATE OF RETURN (IRR)</p>
-                              <p class="lifeProPlusPara2">{{target_analysis.data[0].irr}}</p>
+                              <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].irr || 0).toFixed(2)}}%</p>
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1">
@@ -259,11 +259,11 @@
                                     <div class="row eachCardParaRow">
                                       <div class="col-md-5">
                                         <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">RoR</p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].ror}}</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{Number(target_analysis.data[header.id].ror || 0).toFixed(2)}}%</p>
                                       </div>
                                       <div class="col-md-7">
                                         <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">IRR</p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{target_analysis.data[header.id].irr}}</p>
+                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{Number(target_analysis.data[header.id].irr || 0).toFixed(2)}}%</p>
                                       </div>
                                     </div>
                                     <div class="row">
@@ -506,7 +506,9 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.comparativeTable.lirp_data);
+      console.log(this.mapData(this.comparativeTableLongevity));
+      // console.log(this.$store.state.data.report);
+
       // this.mapData(this.$store.state.data.report.comparative);
     },
     setCurrentTab: function(tab) {
@@ -521,19 +523,19 @@ export default {
       switch (key) {
         case "longevity":
           return this.mapData(
-            this.setCurrentTab === "target_analysis"
+            this.currentTab === "target_analysis"
               ? this.comparativeTableLongevity
               : this.comparativeTableRorLongevity
           );
         case "endingvalue":
           return this.mapData(
-            this.setCurrentTab === "target_analysis"
+            this.currentTab === "target_analysis"
               ? this.comparativeTableEndingValue
               : this.comparativeTableRorEndingValue
           );
         case "deathBenefit":
           return this.mapData(
-            this.setCurrentTab === "target_analysis"
+            this.currentTab === "target_analysis"
               ? this.comparativeTableDeathBenefit
               : this.comparativeTableRorDeathBenefit
           );
@@ -561,8 +563,8 @@ export default {
         let dst = [];
         let details = {
           id: 0,
-          ror: ct.lirp_data.rate_of_return + "%",
-          irr: ct.lirp_data.irr_percent + "%",
+          ror: ct.lirp_data.rate_of_return,
+          irr: ct.lirp_data.irr_percent,
           type: "LifePro+",
         };
         obj.forEach((item, index) => {
@@ -615,8 +617,8 @@ export default {
         let dst = [];
         let details = {
           id: 0,
-          ror: ct.tax_result.comparison.ror + "%",
-          irr: ct.tax_result.comparison.irr_percent + "%",
+          ror: ct.tax_result.comparison.ror,
+          irr: ct.tax_result.comparison.irr_percent,
           type: "LifePro+",
         };
         obj1.forEach((item, index) => {
@@ -667,8 +669,8 @@ export default {
         let list = [];
         let details = {
           id: 2,
-          ror: ct.pretax_result.comparison.ror + "%",
-          irr: ct.pretax_result.comparison.irr_percent + "%",
+          ror: ct.pretax_result.comparison.ror,
+          irr: ct.pretax_result.comparison.irr_percent,
           type: "401K/IRA",
         };
         obj2.forEach((item, index) => {
@@ -705,8 +707,8 @@ export default {
         let list = [];
         let details = {
           id: 3,
-          ror: ct.tda_result.comparison.ror + "%",
-          irr: ct.tda_result.comparison.irr_percent + "%",
+          ror: ct.tda_result.comparison.ror,
+          irr: ct.tda_result.comparison.irr_percent,
           type: "Annuity",
         };
         obj3.forEach((item, index) => {
@@ -738,7 +740,10 @@ export default {
           },
         };
       }
+
       this.target_analysis = tempData;
+
+      return tempData;
     },
   },
   watch: {

@@ -251,8 +251,7 @@ const store = createStore({
             if (payload) {
                 document.body.classList.add('presentationModeCommon');
             } else {
-                +
-                    document.body.classList.remove('presentationModeCommon');
+                document.body.classList.remove('presentationModeCommon');
             }
             context.commit("setPresentationMode", payload);
         },

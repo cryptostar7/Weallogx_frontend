@@ -33,6 +33,11 @@ export default {
       this.$store.dispatch("loader", true);
       remove(`${getUrl("scenario")}${id}/`, authHeader())
         .then(response => {
+          let sortedList = this.$store.state.data.clients.filter(item => {
+            return Number(item.id) !== Number(id);
+          });
+
+          this.$store.dispatch("clients", sortedList);
           this.$emit("removeClientScenario", id);
           this.$store.dispatch("loader", false);
           this.$toast.success("Scenario deleted successfully!");

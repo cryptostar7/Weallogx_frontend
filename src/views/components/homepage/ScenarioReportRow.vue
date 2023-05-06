@@ -1,12 +1,12 @@
 <template lang="">
     <div v-for="(item, index) in senarioReportList" :key="index">
         <div class="list-item" v-if="Number(index) < reportListLimit">
-            <div class="list-item-inner">
+            <div class="list-item-inner" @click="$router.push(`/report-builder/${item.id}`)">
                 <div class="list-item-detail">
                     <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
                     <label class="medium-fw">{{item.description}}</label>
                 </div>
-                <div class="list-item-actions">
+                <div class="list-item-actions" @click="e => e.stopPropagation()">
                     <label class="date-label grey-clr fs-14 semi-bold-fw">
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
@@ -15,7 +15,7 @@
                         </svg> {{$dateFormat(item.updated_at)}}
                     </label>
                     <div class="round-btns">
-                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#ReportBuilderNameChangeModal">
+                        <button class="btn round-btn" @click="$router.push(`/report-builder/${item.id}`)">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
@@ -55,7 +55,7 @@
                                 <path d="M12.9829 12.2159H1.01704C0.593416 12.2159 0.25 12.5594 0.25 12.983C0.25 13.4066 0.593416 13.75 1.01704 13.75H12.9829C13.4065 13.75 13.7499 13.4066 13.7499 12.983C13.7499 12.5594 13.4065 12.2159 12.9829 12.2159Z" fill="#9D9D9D" />
                             </svg>
                         </button>
-                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteReportModal">
+                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteReportModal" @click="setActionId(item.id)">
                             <span>Delete</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D" />
@@ -92,6 +92,9 @@ export default {
       this.reportListLimit = config.SCENARIO_REPORT_LIST_LIMIT;
       this.showAllList = false;
     },
+    setActionId: function (id) {
+        document.getElementById('deleteReportId').value = id;
+    }
   },
   computed: {
     senarioReportList() {

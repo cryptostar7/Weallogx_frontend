@@ -1,12 +1,12 @@
 <template lang="">
     <div v-for="(item, index) in scenariosList" :key="index">
         <div v-if="Number(index) < listLimit" class="list-item">
-            <div class="list-item-inner">
+            <div class="list-item-inner" @click="$router.push(`/scenario-details/${item.id}`)">
                 <div class="list-item-detail">
                     <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/scenario-details/${item.id}`">{{ item.scenario_details.name }} {{ item.is_draft ? '(Draft)':''}}</router-link></p>
                     <label class="medium-fw">{{item.scenario_details.description}}</label>
                 </div>
-                <div class="list-item-actions">
+                <div class="list-item-actions" @click="e => e.stopPropagation()">
                     <label class="date-label grey-clr fs-14 semi-bold-fw">
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />

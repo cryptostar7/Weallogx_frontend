@@ -14,14 +14,24 @@ export default {
       });
       console.log(allReports.filter(i => i.id === id)[0]);
     },
-    testFunction2: function() {
+    testFunction2: function(id = 28) {
       let list = this.clients;
-      console.log(list.map(i => {
-        i.reports = i.reports.map(r => {
-          
-        })
+      list = list.map(i => {
+        i.reports = i.reports.filter(r => r.id !== id);
+        if (i.scenarios) {
+          i.scenarios = i.scenarios.map(s => {
+            s.reports = {
+              reports_data: s.reports.reports_data.filter(r => r.id !== id),
+            };
+            return s;
+          });
+        }
         return i;
-      }));
+      });
+
+      
+
+      console.log(list);
     },
   },
   computed: {

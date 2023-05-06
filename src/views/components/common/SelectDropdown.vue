@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     selectList() {
-      return this.$props.list.filter(item => {
+      let list1 = this.$props.list.filter(item => {
         if (this.$props.showAll) {
           return true;
         } else {
@@ -94,6 +94,21 @@ export default {
           );
         }
       });
+
+      let list2 = this.$props.list.filter(item => {
+        if (this.$props.showAll) {
+          return false;
+        } else {
+          return (
+            item.template_name &&
+            !item.template_name
+              .toLowerCase()
+              .includes(this.templateText.trim().toLowerCase())
+          );
+        }
+      });
+
+      return [...list1, ...list2];
     },
   },
   watch: {

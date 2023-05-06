@@ -25,6 +25,9 @@
     <!-- Delete Scenario Modal -->
     <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
 
+    <!-- Delete report Modal -->
+    <delete-report-modal @removeClientReport="removeClientReport"/>
+
     <!-- Clone Scenario Modal start -->
     <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId" :client="clinetId"/>
   </section>
@@ -36,8 +39,8 @@ import IndividualClientRow from "./IndividualClientRow.vue";
 import DeleteClientModal from "../modal/DeleteClientModal.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import DeleteScenarioModal from "../modal/DeleteScenarioModal.vue";
+import DeleteReportModal from "../modal/DeleteReportModal.vue";
 import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
-
 import testClients from "../../../services/dummy-json.js";
 import { get, remove } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
@@ -53,6 +56,7 @@ export default {
     IndividualClientRow,
     DeleteClientModal,
     DeleteScenarioModal,
+    DeleteReportModal,
     EditClientCanvasModal,
     CloneScenarioModal,
   },
@@ -89,7 +93,7 @@ export default {
     },
 
     // this id used for creating a clone and editing the client data
-    setActionId: function(id, client=false) {
+    setActionId: function(id, client = false) {
       console.log(id);
       this.actionId = id;
       this.clinetId = client;
@@ -132,14 +136,14 @@ export default {
       });
       return this.$store.dispatch("clients", this.sortedList);
     },
-
+    // remove report form list
+    removeClientReport: function(deleteId) {
+      console.log(this.clients);
+      this.sortedList = this.clients;
+    },
+    // remove scenario form list
     removeClientScenario: function(deleteId) {
-      this.sortedList = this.clients.map(i => {
-        i.scenarios = i.scenarios.filter(j => j.id !== Number(deleteId));
-        return i;
-      });
-
-      return this.$store.dispatch("clients", this.sortedList);
+      this.sortedList = this.clients;
     },
     // sort client list
     newModified: function() {

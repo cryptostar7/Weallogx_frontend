@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.comparativeReport);
+      console.log(this.$store.state.data.report);
     },
     getComparativeData: function(id) {
       // get default data

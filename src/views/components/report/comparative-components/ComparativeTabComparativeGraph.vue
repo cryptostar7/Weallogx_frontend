@@ -65,11 +65,11 @@
                       <div class="d-flex">
                         <div class="compGraphtopParaTwo">
                           <p>Rate of Return</p>
-                          <p>{{item.ror}}</p>
+                          <p>{{Number(item.ror || 0).toFixed(2)}}%</p>
                         </div>
                         <div class="compGraphtopParaTwo cardParLeftMar">
                           <p>IRR</p>
-                          <p>{{item.irr}}</p>
+                          <p>{{Number(item.irr || 0).toFixed(2)}}%</p>
                         </div>
                       </div>
                     </div>
@@ -395,7 +395,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: maxAcc1,
+              max: Number(maxAcc1).toFixed(0),
               // stacked: true,
               ticks: {
                 padding: 8,
@@ -426,10 +426,10 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: maxAcc2,
+              max: Number(maxAcc2).toFixed(0),
               ticks: {
                 padding: 8,
-                stepSize: maxAcc2,
+                // stepSize: maxAcc2,
                 callback: function(value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -503,29 +503,29 @@ export default {
         let chart3 = this.comparative.tda_result;
 
         if (chart) {
-          this.data[0].ror = chart.rate_of_return + "%";
+          this.data[0].ror = chart.rate_of_return;
           this.data[0].longevity_year = chart.chart_output.year.length;
-          this.data[0].irr = chart.irr_percent + "%";
+          this.data[0].irr = chart.irr_percent;
           this.data[0].cumulative_income = chart.cummulative_income;
         }
 
         if (chart1) {
-          this.data[1].ror = chart1.comparison.ror + "%";
-          this.data[1].irr = chart1.comparison.irr_percent + "%";
+          this.data[1].ror = chart1.comparison.ror;
+          this.data[1].irr = chart1.comparison.irr_percent;
           this.data[1].longevity_year = chart.chart_output.year.length;
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].ror = chart2.comparison.ror + "%";
-          this.data[2].irr = chart2.comparison.irr_percent + "%";
+          this.data[2].ror = chart2.comparison.ror;
+          this.data[2].irr = chart2.comparison.irr_percent;
           this.data[2].longevity_year = chart.chart_output.year.length;
           this.data[2].cumulative_income = chart2.comparison.cummulative_income;
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].ror = chart3.comparison.ror + "%";
-          this.data[3].irr = chart3.comparison.irr_percent + "%";
+          this.data[3].ror = chart3.comparison.ror;
+          this.data[3].irr = chart3.comparison.irr_percent;
           this.data[3].longevity_year = chart.chart_output.year.length;
           this.data[3].cumulative_income = chart3.comparison.cummulative_income;
         }
