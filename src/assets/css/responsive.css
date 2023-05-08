@@ -2,6 +2,10 @@
     .reportBuilderNav {
         display: none !important;
     }
+    .illustration-file-table tr .list-item-actions{
+        opacity: 1;
+        visibility: visible;
+    }
 
     #mainSection {
         margin-top: 0;

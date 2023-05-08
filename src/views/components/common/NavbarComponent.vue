@@ -12,7 +12,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
-              <li><a class="dropdown-item" @click="logout()">Logout</a></li>
+              <li><a class="dropdown-item cursor-pointer" @click="logout()">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -49,6 +49,7 @@ export default {
     if (!this.$store.state.data.user) {
       this.getProfile();
     }
+
     var menuBtn = document.getElementById("menuBtn");
     var menuIcon = false;
     var closeIcon = false;
