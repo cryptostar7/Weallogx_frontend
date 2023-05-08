@@ -198,7 +198,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/></td>
+                              <td class="" data-label=""><input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/></td>
                               <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td> 
                               <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(item.surrender_value)" readonly/></td>
                               <td data-label="death"><input type="text" :value="$numFormatWithDollar(item.death_benefit)" readonly/></td>
@@ -283,7 +283,7 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td class="blankTd" data-label="blank">
+                                        <td class="" data-label="">
                                           <input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/>
                                         </td>
                                         <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.net_balance)" readonly/></td>
@@ -334,15 +334,15 @@
                             <tbody>
                               <tr>
                                 <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total) || '-'" readonly/></td>
-                                <td class="blankTd w-75" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total) || '-'" readonly/></td>
+                                <td class="w-75" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total) || '-'" readonly/></td>
                               </tr>
                               <tr>
                                 <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-'" readonly/></td>
-                                <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'" readonly/></td>
+                                <td class="" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'" readonly/></td>
                               </tr>
                               <tr>
                                 <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-'" readonly/></td>
-                                <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-'" readonly/></td>
+                                <td class="" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-'" readonly/></td>
                               </tr>
                             </tbody>
                           </table>
@@ -363,15 +363,15 @@
                                 <tbody>
                                   <tr>
                                     <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'" readonly/></td>
-                                    <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-'" readonly/></td>
+                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-'" readonly/></td>
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-'" readonly/></td>
-                                    <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'" readonly/></td>
+                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'" readonly/></td>
                                   </tr>
                                   <tr>
                                     <td width="50%" class="shortFallValueTd" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'" readonly/></td>
-                                    <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'" readonly/></td>
+                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'" readonly/></td>
                                   </tr>
                                 </tbody>
                               </table>
