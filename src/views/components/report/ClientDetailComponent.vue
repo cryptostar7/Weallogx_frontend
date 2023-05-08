@@ -13,9 +13,12 @@
 </template>
 <script>
 export default {
-    
-}
+  computed: {
+    comparative() {
+      return this.$store.state.data.report.comparative;
+    },
+  },
+};
 </script>
 <style lang="">
-    
 </style>

@@ -17,14 +17,8 @@ export default {
     testFunction2: function(id = 28) {
       let list = this.clients;
       list = list.map(i => {
-        i.reports = i.reports.filter(r => r.id !== id);
         if (i.scenarios) {
-          i.scenarios = i.scenarios.map(s => {
-            s.reports = {
-              reports_data: s.reports.reports_data.filter(r => r.id !== id),
-            };
-            return s;
-          });
+          i.scenarios = i.scenarios.filter(s => s.id !== id);
         }
         return i;
       });

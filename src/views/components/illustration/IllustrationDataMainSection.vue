@@ -278,7 +278,7 @@ import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post, put } from "../../../network/requests.js";
-import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { getUrl } from "../../../network/url.js";
 import "@/assets/js/jquery.min.js";
 
@@ -299,7 +299,12 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 const fileReader = new FileReader();
 
 export default {
-  components: { SelectDropdown, ScenarioSteps, DeleteColomnModal, ScenarioLabelComponent },
+  components: {
+    SelectDropdown,
+    ScenarioSteps,
+    DeleteColomnModal,
+    ScenarioLabelComponent,
+  },
   refs: ["cancelCsvBtn"],
   data() {
     return {
@@ -429,8 +434,8 @@ export default {
       let array = this.$store.state.data.templates.illustration || [];
       return array;
     },
-    
-    // return year of illustrations 
+
+    // return year of illustrations
     illustrateYear() {
       let scenario = this.$store.state.data.active_scenario;
       if (scenario) {
@@ -596,14 +601,14 @@ export default {
               for (var i = 1; i <= pdf.numPages; i++) {
                 generateCanvas(i, pdf);
               }
-              document.getElementById('stopLoaderBtn').click();
+              document.getElementById("stopLoaderBtn").click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
             },
             function(reason) {
               // PDF loading error
-              document.getElementById('stopLoaderBtn').click();
+              document.getElementById("stopLoaderBtn").click();
               console.error(reason);
             }
           );
@@ -899,7 +904,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-        this.$store.dispatch('loader', true);
+        this.$store.dispatch("loader", true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -941,7 +946,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
-        this.$store.dispatch('loader', true);
+        this.$store.dispatch("loader", true);
         this.getPreview(file);
       }
 
@@ -1136,6 +1141,28 @@ export default {
       return seq;
     },
 
+    filterNoneHeaders: function(obj = {}) {
+      let headers = obj.headers;
+      let data = obj.data;
+      let noneHeaders = [];
+      let filterHeaders = [];
+      let filterData = [];
+
+      headers.forEach((element, i) => {
+        if (element === "none") {
+          noneHeaders.push(i);
+        } else {
+          filterHeaders.push(element);
+        }
+      });
+
+      filterData = data.map(items =>
+        items.filter((i, k) => !noneHeaders.includes(k))
+      );
+
+      return { headers: filterHeaders, data: filterData };
+    },
+
     // handle form data
     submitHandler: function(e, review = false) {
       if (e) {
@@ -1163,6 +1190,13 @@ export default {
         }
         if (!this.csvPreview.headers.includes("9")) {
           return alert(`${this.illustrationFields["9"].name} is required.`);
+        }
+
+        if (
+          !this.csvPreview.headers.includes("3") &&
+          !this.csvPreview.headers.includes("5")
+        ) {
+          return alert(`Please select at least one distribution column.`);
         }
       } else {
         if (this.uploadFromFile) {
@@ -1236,12 +1270,12 @@ export default {
           }
         });
 
-        let tableData = JSON.stringify(
-          this.filterObject({
-            data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
-            headers: tempHeader,
-          })
-        );
+        let tableData = this.filterObject({
+          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+          headers: tempHeader,
+        });
+
+        tableData = JSON.stringify(this.filterNoneHeaders(tableData));
 
         if (data.upload_file_checkbox) {
           formData.append("illustration_data.upload_from_file", tableData);
