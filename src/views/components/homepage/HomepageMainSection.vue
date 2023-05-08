@@ -107,7 +107,7 @@ export default {
           this.$store.dispatch("clients", mapClientList(response.data.data));
           console.log(response.data.data);
           this.sortedList = mapClientList(response.data.data);
-          this.newModified();
+          this.oldModified();
           if (clone) {
             this.$toast.success("Scenario clone created successfully!");
           }
@@ -138,11 +138,11 @@ export default {
     },
     // remove report form list
     removeClientReport: function(deleteId) {
-      console.log(this.clients);
       this.sortedList = this.clients;
     },
     // remove scenario form list
     removeClientScenario: function(deleteId) {
+      console.log(this.clients);
       this.sortedList = this.clients;
     },
     // sort client list
@@ -190,7 +190,7 @@ export default {
     }
     if (this.$store.state.data.clients) {
       this.sortedList = this.$store.state.data.clients;
-      this.newModified();
+      this.oldModified();
     } else {
       this.getClient();
     }

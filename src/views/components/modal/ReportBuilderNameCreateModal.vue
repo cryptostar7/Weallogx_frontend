@@ -125,7 +125,7 @@ export default {
           this.getClient(true);
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
-          this.$router.push("/report-builder/" + response.data.data.id);
+          window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
           console.log(error.message);

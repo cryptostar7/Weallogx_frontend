@@ -78,23 +78,25 @@ export default {
     },
     scenarioDetails() {
       let sid = this.$props.id;
-      let detail = this.clientDetail || [];
-      let scenario = [];
-      if (detail.scenarios) {
-        scenario = detail.scenarios.filter(
-          item => item.id === this.$props.id
-        )[0];
+      if (sid) {
+        let detail = this.clientDetail || [];
+        let scenario = {};
+        if (detail && detail.scenarios) {
+          scenario = detail.scenarios.filter(
+            item => Number(item.id) === Number(sid)
+          )[0];
+        }
+        if (scenario && scenario.scenario_details) {
+          scenario = scenario.scenario_details;
+        }
+        return scenario.name || "";
       }
-
-      if (scenario.scenario_details) {
-        scenario = scenario.scenario_details;
-      }
-      return scenario.name || "";
+      return "";
     },
   },
   watch: {
-    "scenarioDetails"(e) {
-      if(e){
+    scenarioDetails(e) {
+      if (e) {
         this.name = `Copy of ${e}`;
       }
     },

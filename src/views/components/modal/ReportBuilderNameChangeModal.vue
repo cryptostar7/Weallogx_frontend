@@ -112,7 +112,7 @@ export default {
           this.$toast.success(response.data.message);
           this.getClient(true);
           this.$store.dispatch("loader", false);
-          this.$router.push("/report-builder/" + response.data.data.id);
+          window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
           console.log(error.message);

@@ -52,7 +52,7 @@
 export default {
   data() {
     return {
-      currentFilter: "First Edited",
+      currentFilter: "Last Edited",
     };
   },
 };

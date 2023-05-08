@@ -32,7 +32,7 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Build Report</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn">Test Function</button>
+            <!-- <button type="button" @click="testFunction" class="btn yes-delete-btn">Test Function</button> -->
           </div>
         </form>
       </div>
@@ -138,7 +138,7 @@ export default {
           this.getClient(true);
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
-          this.$router.push("/report-builder/" + response.data.data.id);
+          window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
           console.log(error.message);

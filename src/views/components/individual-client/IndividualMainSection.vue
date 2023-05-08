@@ -14,13 +14,13 @@
                     <div class="list-groups">
                       <div class="list-div">
                         <div v-if="client.scenarios && client.scenarios.length > 0" class="list-div">
-                            <ScenariosRow :clientId="client.id" :scenarios="client.scenarios" />
+                            <ScenariosRow :clientId="client.id" :scenarios="client.scenarios" @setActionId="id => actionId = id"/>
                         </div>
                       </div>
                     </div>
                   </li>
                 </ul>
-                <button class="btn d-block large-add-btn">
+                <button class="btn d-block large-add-btn" @click="$router.push(`/scenario-details?client=${client.id}`)">
                   <span>+</span>
                 </button>
               </div>
@@ -36,7 +36,7 @@
                     </div>
                   </li>
                 </ul>
-                <button class="btn d-block large-add-btn extra">
+                <button class="btn d-block large-add-btn extra" @click="$router.push(`/report-builder?client=${client.id}`)">
                   <span>+</span>
                 </button>
               </div>
@@ -541,14 +541,21 @@
       </div>
     </div>
   </div>
-   
+  <clone-scenario-modal @cloneScenario="getClient()" :id="actionId" :client="client.id"/>   
 </template>
 <script>
 import testClients from "../../../services/dummy-json";
-import { getParams, authHeader, getFirstError, mapClientList } from "../../../services/helper";
+import {
+  getParams,
+  authHeader,
+  getFirstError,
+  mapClientList,
+} from "../../../services/helper";
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.vue";
+import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
+
 import ScenariosRow from "../homepage/ScenariosRow.vue";
 import ReportRow from "../homepage/ReportRow.vue";
 import { getUrl } from "../../../network/url";
@@ -558,8 +565,14 @@ export default {
     EditClientCanvasModal,
     LeftSidebarComponent,
     IndividualClientNavbar,
+    CloneScenarioModal,
     ScenariosRow,
     ReportRow,
+  },
+  data() {
+    return {
+      actionId: false,
+    };
   },
   methods: {
     testFunction: function() {
@@ -591,51 +604,56 @@ export default {
     }
 
     let changeGridBtn = document.getElementById("changeGridBtn");
-    let listView = document.querySelector(".file-container-div .file-list-view");
-    let gridView = document.querySelector(".file-container-div .file-grid-view");
+    let listView = document.querySelector(
+      ".file-container-div .file-list-view"
+    );
+    let gridView = document.querySelector(
+      ".file-container-div .file-grid-view"
+    );
 
     const gridViewSVG = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="path-1-inside-1_2404_2" fill="white"><rect width="9" height="9" rx="1"/></mask><rect width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2404_2)"/><mask id="path-2-inside-2_2404_2" fill="white"><rect y="11" width="9" height="9" rx="1"/></mask><rect y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-2-inside-2_2404_2)"/><mask id="path-3-inside-3_2404_2" fill="white"><rect x="11" y="11" width="9" height="9" rx="1"/></mask><rect x="11" y="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-3-inside-3_2404_2)"/><mask id="path-4-inside-4_2404_2" fill="white"><rect x="11" width="9" height="9" rx="1"/></mask><rect x="11" width="9" height="9" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-4-inside-4_2404_2)"/></svg>`;
 
     const listViewSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16" fill="none"><rect x="5.25" y="15.25" width="18.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/><rect x="5.25" y="0.25" width="18.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/><rect x="0.25" y="0.25" width="2.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/><rect x="0.25" y="7.75" width="2.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/><rect x="0.25" y="15.25" width="2.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/><rect x="5.25" y="7.75" width="18.5" height="0.5" rx="0.25" fill="white" stroke="#9D9D9D" stroke-width="0.5"/></svg>`;
 
-    changeGridBtn.addEventListener("click", function(e){
+    changeGridBtn.addEventListener("click", function(e) {
       e.currentTarget.classList.toggle("grid");
       e.currentTarget.classList.toggle("list");
-      if(e.currentTarget.classList.contains("grid")){
-        console.log(e.currentTarget)
+      if (e.currentTarget.classList.contains("grid")) {
+        console.log(e.currentTarget);
         e.currentTarget.innerHTML = listViewSVG;
-      }else{
+      } else {
         e.currentTarget.innerHTML = gridViewSVG;
       }
       listView.classList.toggle("d-none");
       gridView.classList.toggle("d-none");
     });
 
-
     const gridCardWrappers = document.querySelectorAll(".grid-card-wrapper");
-    const allFileDropdowns = document.querySelectorAll(".grid-card-wrapper .dropdown");
-    gridCardWrappers.forEach(function(card){
-      card.addEventListener("contextmenu", (e) => {
+    const allFileDropdowns = document.querySelectorAll(
+      ".grid-card-wrapper .dropdown"
+    );
+    gridCardWrappers.forEach(function(card) {
+      card.addEventListener("contextmenu", e => {
         e.preventDefault();
         e.stopPropagation();
-        allFileDropdowns.forEach(function(dropdown){
-          if(dropdown.classList.contains("show")){
+        allFileDropdowns.forEach(function(dropdown) {
+          if (dropdown.classList.contains("show")) {
             let dropdownList = new bootstrap.Dropdown(dropdown);
-            dropdownList.toggle();  
-          }          
+            dropdownList.toggle();
+          }
         });
         let curTarget = e.currentTarget.querySelector(".dropdown");
         const dropdownList = new bootstrap.Dropdown(curTarget);
         console.log(curTarget, dropdownList);
         dropdownList.toggle();
-      });  
-    })
+      });
+    });
   },
   computed: {
-    client(){
+    client() {
       return this.$store.getters.getClientUsingId(this.$route.params.id);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="">

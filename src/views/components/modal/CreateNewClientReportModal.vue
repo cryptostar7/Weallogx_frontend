@@ -35,7 +35,7 @@
           </div>
           <div class="gap-13 pt-4 mt-2 pb-2 text-center">
             <button type="submit" class="btn yes-delete-btn">Build Report</button>
-            <button type="button" class="btn yes-delete-btn d-none" @click="testFunction()">Test Report</button>
+            <!-- <button type="button" class="btn yes-delete-btn d-none" @click="testFunction()">Test Report</button> -->
           </div>
         </form>
       </div>
@@ -168,7 +168,7 @@ export default {
           this.$refs.closeModalRef.click();
           this.getClient(true);
           this.$store.dispatch("loader", false);
-          this.$router.push("/report-builder/" + response.data.data.id);
+          window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
           console.log(error.message);
