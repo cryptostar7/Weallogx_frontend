@@ -15,11 +15,7 @@
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
-              </div> 
-            </div>
+            <scenario-label-component />
             <div class="form-wrapper form-wrapper-responsive">
               <div class="container containerWidth">
                 <div class="col-md-10 offset-md-1">
@@ -161,6 +157,7 @@ import { putPercentage } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 import GrowthParameters from "./GrowthParameters.vue";
 import FeesComponent from "./FeesComponent.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
@@ -177,6 +174,7 @@ export default {
     GrowthParameters,
     AnalysisParameters,
     EnhancementsComponent,
+    ScenarioLabelComponent,
     FeesComponent,
     SaveStrategyTemplate,
     StretagyWeightFirstComponent,

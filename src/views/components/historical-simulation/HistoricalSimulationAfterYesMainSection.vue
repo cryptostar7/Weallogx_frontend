@@ -16,11 +16,7 @@
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)">New Scenario</h2>
-              </div>
-            </div>
+            <scenario-label-component />
             <div class="form-wrapper form-wrapper-responsive">
               <div class="container containerWidth">
                 <div class="row">
@@ -274,6 +270,7 @@ import { getUrl } from "../../../network/url";
 import { authHeader, getFirstError } from "../../../services/helper";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 import "@/assets/js/jquery.min.js";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -285,7 +282,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 const fileReader = new FileReader();
 export default {
-  components: { SelectDropdown, DeleteColomnModal },
+  components: { SelectDropdown, DeleteColomnModal, ScenarioLabelComponent },
   data() {
     return {
       cfs: true,
@@ -1008,6 +1005,14 @@ export default {
     submitHandler: function(e, review = false) {
       if (e) {
         e.preventDefault();
+      }
+      
+      if(!this.cfs){
+       return this.$router.push(
+              `/historical-simulations/${
+                this.$route.params.scenario
+              }?pid=${this.getPortfolioId()}`
+            );
       }
       // if (
       //   this.csvPreview &&

@@ -1,7 +1,3 @@
-<script setup>
-import NavbarComponent from '../components/common/NavbarComponent.vue';
-import HistoricalSimulationAfterNoMainSection from '../components/historical-simulation/HistoricalSimulationAfterNoMainSection.vue';
-</script>
 <template>
 <div>
    <navbar-component />
@@ -9,6 +5,8 @@ import HistoricalSimulationAfterNoMainSection from '../components/historical-sim
 </div>
 </template>
 <script>
+import NavbarComponent from '../components/common/NavbarComponent.vue';
+import HistoricalSimulationAfterNoMainSection from '../components/historical-simulation/HistoricalSimulationAfterNoMainSection.vue';
 export default {
   components: { NavbarComponent, HistoricalSimulationAfterNoMainSection },
 }
