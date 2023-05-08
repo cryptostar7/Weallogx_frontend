@@ -6,11 +6,7 @@
         <div class="row justify-content-center form-row">
           <div class="col-md-9">
             <div class="main-form-div">
-              <div class="main-form-heading">
-                <div class="heading-container">
-                  <h2 class="fs-34 bold-fw main-tab-heading me-2"> New Scenario </h2>
-                </div>
-              </div>
+              <scenario-label-component />
               <div class="form-wrapper side-grey-line">
                 <div class="form-wrapper-inner no-style newScenarioVehicleInner">
                   <h4 class="form-subheading fs-22 fw-bold"> Comparative Vehicles </h4>
@@ -304,11 +300,12 @@
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 import { get, post, put } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
 import { authHeader, getFirstError } from "../../../services/helper";
 export default {
-  components: { SelectDropdown, ScenarioSteps },
+  components: { SelectDropdown, ScenarioSteps, ScenarioLabelComponent },
   data() {
     return {
       vehicle: {

@@ -15,11 +15,7 @@
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">New Scenario</h2>
-              </div>
-            </div>
+            <scenario-label-component />
             <div class="form-wrapper">
               <p class="historicalTopPara1">Add Historical Simulations?</p>
               <p class="historicalTopPara2">OPTIONALS</p>
@@ -70,3 +66,12 @@
     </div>
   </section>
 </template>
+<script>
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+export default {
+  components: {ScenarioLabelComponent},
+}
+</script>
+<style lang="">
+  
+</style>

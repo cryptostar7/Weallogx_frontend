@@ -1,17 +1,11 @@
 <template>
   <section class="main-section">
-     <scenario-steps />
+   <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">
-                  New Scenario  
-                </h2>
-              </div>
-            </div>
+            <scenario-label-component />
             <form class="form-wrapper side-grey-line" novalidate @submit="submitHandler" autocomplete="off">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="clients" label="Client" id="clientSelected" :addNewClient="true" :defaultSelected="defaultClient.template_name" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="setExistingClientId" @inputText="setExistingClientName"/>
@@ -168,6 +162,7 @@
 <script>
 import { get, post, put } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 import {
   authHeader,
   getServerErrors,
@@ -176,7 +171,7 @@ import {
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { SelectDropdown, ScenarioSteps },
+  components: { SelectDropdown, ScenarioSteps, ScenarioLabelComponent },
   data() {
     return {
       existingClientId: false,

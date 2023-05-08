@@ -1,15 +1,11 @@
 <template>
-  <section class="main-section" id="main-section-element">
+  <section class="main-section" id="main-section-element" :style="{'scroll-padding-top': '100px'}">
     <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <form class="main-form-div" @submit="submitHandler" autocomplete="off">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2" id="stopLoaderBtn" @click="$store.dispatch('loader', false)"> New Scenario </h2>
-              </div>
-            </div>
+            <scenario-label-component />
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
                 <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
@@ -282,6 +278,7 @@ import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post, put } from "../../../network/requests.js";
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 import { getUrl } from "../../../network/url.js";
 import "@/assets/js/jquery.min.js";
 
@@ -302,7 +299,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 const fileReader = new FileReader();
 
 export default {
-  components: { SelectDropdown, ScenarioSteps, DeleteColomnModal },
+  components: { SelectDropdown, ScenarioSteps, DeleteColomnModal, ScenarioLabelComponent },
   refs: ["cancelCsvBtn"],
   data() {
     return {
@@ -453,7 +450,7 @@ export default {
         },
         {
           name: "Distribution - Loan",
-          value: "index_load_credits",
+          value: "distribution_loan",
           multiple: false,
         },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
@@ -474,7 +471,7 @@ export default {
         none: "0",
         age: "1",
         account_value: "2",
-        index_load_credits: "3",
+        distribution_loan: "3",
         death_benefit: "4",
         distributions: "5",
         total_loan_charge: "6",

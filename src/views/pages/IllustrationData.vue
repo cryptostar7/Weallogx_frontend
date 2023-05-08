@@ -1,7 +1,3 @@
-<script setup>
-import IllustrationDataMainSection from '../components/illustration/IllustrationDataMainSection.vue';
-import NavbarComponent from "./../components/common/NavbarComponent.vue";
-</script>
 <template>
 <div>
     <navbar-component />
@@ -9,6 +5,8 @@ import NavbarComponent from "./../components/common/NavbarComponent.vue";
 </div>
 </template>
 <script>
+import IllustrationDataMainSection from '../components/illustration/IllustrationDataMainSection.vue';
+import NavbarComponent from "./../components/common/NavbarComponent.vue";
 export default {
     components:{NavbarComponent, IllustrationDataMainSection}
 }

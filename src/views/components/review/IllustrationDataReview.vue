@@ -141,7 +141,7 @@ export default {
         none: "None",
         age: "Age",
         account_value: "Accumulation Value",
-        index_load_credits: "Distribution - Loan",
+        distribution_loan: "Distribution - Loan",
         death_benefit: "Death Benefit",
         distributions: "Distribution - Withdrawal",
         total_loan_charge: "Fees",

@@ -35,7 +35,7 @@ const myPlugin = {
                         }
                     });
                 }
-                return name.toUpperCase();
+                return name.toUpperCase().slice(name.length, 2);
             },
             app.config.globalProperties.$getPlanName = (key) => {
                 let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };

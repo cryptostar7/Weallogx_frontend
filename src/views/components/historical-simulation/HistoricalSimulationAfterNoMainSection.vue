@@ -1,6 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-</script>
 <template>
   <section class="main-section mt-0 historical-mainSection">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic historicalMarginBottom">
@@ -18,14 +15,9 @@ import { RouterLink } from "vue-router";
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">New Scenario</h2>
-              </div>
-            </div>
+            <scenario-label-component />
             <div class="form-wrapper">
               <p class="historicalAllSetPara">Your Scenario is all set!</p>
-              
               <div class="text-center mt-30">
                 <router-link :to="`/review-summary/${$route.params.scenario}`" class="nav-link d-inline-block btn form-next-btn fs-14 active">Review</router-link>
                 <span class="d-block mb-2"></span>
@@ -40,8 +32,9 @@ import { RouterLink } from "vue-router";
   </section>
 </template>
 <script>
+import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
 export default {
-    components:{RouterLink},
+    components:{ScenarioLabelComponent},
 }
 </script>
 <style lang="">
