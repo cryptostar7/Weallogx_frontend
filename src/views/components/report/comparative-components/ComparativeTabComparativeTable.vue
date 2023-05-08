@@ -198,10 +198,10 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td class="" data-label=""><input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/></td>
-                              <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td> 
-                              <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(item.surrender_value)" readonly/></td>
-                              <td data-label="death"><input type="text" :value="$numFormatWithDollar(item.death_benefit)" readonly/></td>
+                              <td class="" data-label="">{{ $numFormatWithDollar(item.distributions) || '-'}}</td>
+                              <td data-label="acount">{{ $numFormatWithDollar(item.account_value) || '-'}}</td> 
+                              <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) || '-'}}</td>
+                              <td data-label="death">{{$numFormatWithDollar(item.death_benefit) || '-'}}</td>
                             </tr>
                           </tbody>
                         </table> 
@@ -283,10 +283,9 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td class="" data-label="">
-                                          <input type="text" :value="$numFormatWithDollar(item.distributions) || '-'" readonly/>
+                                        <td class="" data-label="">{{$numFormatWithDollar(item.distributions) || '-'}}
                                         </td>
-                                        <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.net_balance)" readonly/></td>
+                                        <td data-label="acount">{{$numFormatWithDollar(item.net_balance) || '-'}}</td>
                                       </tr>
                                     </tbody>
                                   </table>

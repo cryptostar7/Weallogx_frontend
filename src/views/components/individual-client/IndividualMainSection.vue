@@ -97,9 +97,9 @@
                   
                 </div>
                 <div class="file-container-div">
-                  <div class="file-list-view">
-                    <div class="table-responsive">
-                      <table width="100%" class="illustration-file-table">
+                  <div class="file-list-view w-100 h-100">
+                    <div class="table-responsive w-100 h-100">
+                      <table class="illustration-file-table table">
                         <tbody>
                           <tr>
                             <th width="45%%">Name</th>

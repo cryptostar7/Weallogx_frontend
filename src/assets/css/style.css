@@ -5220,6 +5220,7 @@ input[type=number] {
   padding: 0.35rem 0.75rem;
   white-space: nowrap;
   color: #202020;
+  vertical-align: middle;
 }
 .illustration-file-table td .illustration-file-name{
   text-decoration: none;

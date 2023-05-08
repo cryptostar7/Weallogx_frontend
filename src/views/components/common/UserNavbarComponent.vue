@@ -95,7 +95,7 @@
                                                                         alt="Change Password">Change Password</router-link>
                                                                     <router-link to="payment-history"><img src="@/assets/images/user/my-payment.svg" alt="My Payment">My
                                                                     Payments</router-link>
-                                                                    <router-link to="" @click="logout()"><img src="@/assets/images/user/logout.svg" alt="Log Out">Log out</router-link>
+                                                                    <router-link to="" @click="logout()" class="cursor-pointer"><img src="@/assets/images/user/logout.svg" alt="Log Out">Log out</router-link>
                                                                     <div class="navDropDownButtomDiv">
                                                                     <h6>Free Plan</h6>
                                                                     <p>You are using FREE plan.</p>

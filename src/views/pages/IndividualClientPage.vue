@@ -31,43 +31,6 @@ export default {
     ReportBuilderNameChangeModal
   },
   mounted() {
-    //When clicked on menu button below 1200px device
-    var menuBtn = document.getElementById("menuBtn");
-    var menuIcon = false;
-    var closeIcon = false;
-    var sidebar = document.querySelector(".sidebar");
-
-    if (menuBtn) {
-      menuIcon = menuBtn.querySelector(".menu-icon");
-      closeIcon = menuBtn.querySelector(".close-icon");
-
-      menuBtn.addEventListener("click", function(e) {
-        console.log(menuIcon);
-        menuIcon.classList.toggle("d-none");
-        closeIcon.classList.toggle("d-none");
-        if (sidebar) {
-          sidebar.classList.toggle("collapsed");
-        }
-      });
-    }
-
-    document.addEventListener("mouseup", function(e) {
-      e.stopPropagation();
-      if (sidebar && sidebar.classList.contains("collapsed")) {
-        if (
-          !e.target.parentNode.closest(".sidebar") &&
-          !e.target.closest(".menu-btn")
-        ) {
-          if (menuIcon) {
-            menuIcon.classList.remove("d-none");
-          }
-          if (closeIcon) {
-            closeIcon.classList.add("d-none");
-          }
-          sidebar.classList.remove("collapsed");
-        }
-      }
-    });
 
     // When clicked on Right Action Buttons
     let rightActionBtns = document.querySelectorAll(".right-action-btn");
