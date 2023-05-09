@@ -148,6 +148,7 @@
                     </div>
                   </div>
               </div>
+              <button type="button" @click="testFunction()">testFunction</button>
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
@@ -162,11 +163,15 @@
 <script>
 import { get, post, put } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
-import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import {
   authHeader,
   getServerErrors,
   mapClientList,
+  setScenarioStep1,
+  getScenarioStep1,
+  getCurrentScenario,
+  setCurrentScenario,
 } from "./../../../services/helper";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -228,20 +233,24 @@ export default {
     }
 
     // populate scenario details if scenario detail id exist in url
-    this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-      .then(response => {
-        console.log(response.data.data);
-        let id = false;
-        console.log(response.data.data.scenerio_details);
-        if (response.data.data.scenerio_details) {
-          id = response.data.data.scenerio_details.id;
-          this.detailId = id;
+    let scenarioData = getCurrentScenario();
+
+    console.log("scenarioData()");
+    console.log(scenarioData);
+
+    if (this.$route.params.scenario) {
+      if (
+        scenarioData &&
+        scenarioData.id === Number(this.$route.params.scenario)
+      ) {
+        let details = scenarioData.scenerio_details;
+        let id = details;
+        if (typeof details === "object") {
+          id = details.id;
         }
 
-        let client_id = response.data.data.client;
-        this.$store.dispatch("activeScenario", response.data.data);
-        this.$store.dispatch("loader", false);
+        let client_id = scenarioData.client;
+        this.$store.dispatch("activeScenario", scenarioData);
         if (id) {
           if (client_id) {
             if (this.clients && this.clients.length) {
@@ -254,16 +263,52 @@ export default {
               this.setClientAsDefault = client_id;
             }
           }
-          this.populateScenarioDetail(id);
         }
-      })
-      .catch(error => {
-        console.log(error);
-        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
-          this.$toast.error(error.message);
-        }
-        this.$store.dispatch("loader", false);
-      });
+        return this.populateScenarioDetail(id);
+      }
+
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then(response => {
+          console.log("response.data.data");
+          console.log(response.data.data);
+          let id = false;
+          console.log(response.data.data.scenerio_details);
+          if (response.data.data.scenerio_details) {
+            id = response.data.data.scenerio_details.id;
+            this.detailId = id;
+          }
+
+          let client_id = response.data.data.client;
+          this.$store.dispatch("activeScenario", response.data.data);
+          setCurrentScenario(response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            if (client_id) {
+              if (this.clients && this.clients.length) {
+                this.$router.push(
+                  `?client=${client_id}${
+                    this.$route.query.review ? "&review=true" : ""
+                  }`
+                );
+              } else {
+                this.setClientAsDefault = client_id;
+              }
+            }
+            this.populateScenarioDetail(id);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    }
 
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
@@ -286,6 +331,9 @@ export default {
     );
   },
   methods: {
+    testFunction: function() {
+      console.log(getScenarioStep1());
+    },
     // set existing client name on change the input
     setExistingClientName: function(name) {
       this.clientName = name;
@@ -406,61 +454,66 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-
-    populateScenarioDetail: function(id) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("scenario-details")}${id}`, authHeader())
-        .then(response => {
-          console.log(response.data);
-          this.$store.dispatch("loader", false);
-          let detail = response.data.data;
-          this.scenarioName = detail.name;
-          this.scenarioDescription = detail.description;
-          this.clientAgeYearToIllustrate =
-            detail.client_age_1_year_illustration;
-          this.setInputWithId(
-            "clientAge",
-            detail.client_age_1_year_illustration
-          );
-          this.errors.client_age_year = false;
-          this.illustrateYear = detail.years_to_illustrate;
-          this.setInputWithId("illustratedAge", detail.years_to_illustrate);
-          this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
-          this.firstTaxRate = detail.first_tax_rate
-            ? detail.first_tax_rate
-            : "";
-          this.setInputWithId(
-            "firstTaxRate",
-            detail.first_tax_rate ? detail.first_tax_rate : ""
-          );
-          this.firstTaxRate = detail.first_tax_rate
-            ? detail.first_tax_rate
-            : "";
-          this.setInputWithId(
-            "secondTaxRate",
-            detail.second_tax_rate ? detail.second_tax_rate : ""
-          );
-          this.secondTaxRateYear = detail.second_tax_rate_year
-            ? detail.second_tax_rate_year
-            : "";
-          if (!this.simpleTaxRate) {
-            this.setScheduleData(detail.schedule_tax_rate.data);
-          } else {
-            this.clearScheduleData();
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
+    setFormInputs: function(detail) {
+      this.scenarioName = detail.name;
+      this.scenarioDescription = detail.description;
+      this.clientAgeYearToIllustrate = detail.client_age_1_year_illustration;
+      this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
+      this.errors.client_age_year = false;
+      this.illustrateYear = detail.years_to_illustrate;
+      this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+      this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
+      this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
+      this.setInputWithId(
+        "firstTaxRate",
+        detail.first_tax_rate ? detail.first_tax_rate : ""
+      );
+      this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
+      this.setInputWithId(
+        "secondTaxRate",
+        detail.second_tax_rate ? detail.second_tax_rate : ""
+      );
+      this.secondTaxRateYear = detail.second_tax_rate_year
+        ? detail.second_tax_rate_year
+        : "";
+      if (!this.simpleTaxRate) {
+        this.setScheduleData(detail.schedule_tax_rate.data);
+      } else {
+        this.clearScheduleData();
+      }
     },
 
+    populateScenarioDetail: function(id) {
+      if (!id) {
+        return false;
+      }
+      let step1 = getScenarioStep1();
+      console.log("step1..........");
+      console.log(id);
+      if (step1 && step1.id === Number(id)) {
+        this.detailId = step1.id;
+        return this.setFormInputs(step1);
+      } else {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("scenario-details")}${id}`, authHeader())
+          .then(response => {
+            console.log(response.data);
+            this.$store.dispatch("loader", false);
+            this.setFormInputs(response.data.data);
+            setScenarioStep1(response.data.data);
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
+    },
     setScheduleData: function(data = []) {
       this.errors.tax_rate = "";
       this.clearScheduleData();
@@ -739,6 +792,7 @@ export default {
       post(getUrl("scenario-details"), data, authHeader())
         .then(response => {
           let id = response.data.data.id;
+          setScenarioStep1(response.data.data);
           this.detailId = id;
           if (id) {
             this.createScenarioWithDetailId(id);
@@ -780,6 +834,7 @@ export default {
     updateScenarioDetail: function(data, review) {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then(response => {
+          setScenarioStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
           if (review) {
@@ -827,6 +882,7 @@ export default {
       )
         .then(response => {
           console.log(response.data);
+          setCurrentScenario(response.data);
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
           this.$router.push(`/illustration-data/${response.data.id}`);
@@ -835,46 +891,6 @@ export default {
           console.log(error);
           this.$store.dispatch("loader", false);
           this.$toast.error(error.message);
-        });
-    },
-
-    createScenarioWithScheduleId: function(data) {
-      post(getUrl("scenario-with-schedule_id"), data, authHeader())
-        .then(response => {
-          console.log(response.data);
-          if (response.data.data.id) {
-            this.createScenarioWithDetailId(response.data.data.id);
-          } else {
-            this.$store.dispatch("loader", false);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          this.$store.dispatch("loader", false);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            var serverErrors = getServerErrors(error);
-            this.errors = serverErrors;
-            this.errors.scenario_name = serverErrors.name;
-            this.errors.client_age_year =
-              serverErrors.client_age_1_year_illustration;
-            this.errors.illustrate_year = serverErrors.years_to_illustrate;
-            this.errors.first_tax = serverErrors.first_tax_rate;
-            this.errors.second_tax = serverErrors.second_tax_rate;
-            this.errors.second_tax_year = serverErrors.second_tax_rate_year;
-            this.errors.details_template = serverErrors.template_name;
-            this.errors.description = serverErrors.description;
-            if (
-              this.errors.schedule_tax_rate &&
-              this.errors.schedule_tax_rate.error
-            ) {
-              this.$toast.error(this.errors.schedule_tax_rate.error[0]);
-            }
-          }
         });
     },
 

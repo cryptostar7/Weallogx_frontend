@@ -132,7 +132,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <button type="button" @click="testFunction()">test</button> -->
+              <button type="button" @click="testFunction()">test</button>
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
@@ -287,6 +287,9 @@ import {
   authHeader,
   getNumber,
   getBaseUrl,
+  getCurrentScenario,
+  getScenarioStep2,
+  setScenarioStep2,
 } from "../../../services/helper.js";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -377,25 +380,46 @@ export default {
     );
 
     // populate illuatration data if illuatration data id exist in url
-    this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-      .then(response => {
-        let id = response.data.data.illustration;
-        this.illustrationId = id;
-        this.$store.dispatch("activeScenario", response.data.data);
-        if (id) {
-          this.populateInsuranceProfile(id);
-        } else {
-          this.$store.dispatch("loader", false);
+    let scenarioData = getCurrentScenario();
+    if (this.$route.params.scenario) {
+      let getScenarioAPI = true;
+      if (
+        scenarioData &&
+        scenarioData.id === Number(this.$route.params.scenario)
+      ) {
+        if (scenarioData.illustration && typeof scenarioData.scenerio_details === "object") {
+          this.$store.dispatch("activeScenario", scenarioData);
+          this.populateInsuranceProfile(scenarioData.illustration);
+          getScenarioAPI = false;
         }
-      })
-      .catch(error => {
-        console.log(error);
-        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
-          this.$toast.error(error.message);
-        }
-        this.$store.dispatch("loader", false);
-      });
+      }
+      console.log('getScenarioAPI', getScenarioAPI);
+      if (getScenarioAPI) {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+          .then(response => {
+            let id = response.data.data.illustration;
+            this.illustrationId = id;
+            this.$store.dispatch("activeScenario", response.data.data);
+            if (id) {
+              this.populateInsuranceProfile(id);
+            } else {
+              this.$store.dispatch("loader", false);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
+    }
+
     if (!this.existingInsuranceList.length) {
       this.getExistingInsurance();
     }
@@ -524,55 +548,73 @@ export default {
       }
     },
 
-    // populate the isurance data on selectig the existing dropdown template list
+    setFormInputs: function(data = []) {
+      this.insuranceCompany = data.insurance_company;
+      this.insurancePolicyName = data.insurance_policy_name;
+      this.PolicyNickname = data.insurance_policy_nickname;
+      this.setInputWithId(
+        "deathBenefit",
+        data.initial_death_benifit.toLocaleString()
+      );
+      this.setInputWithId(
+        "policyReturn",
+        Number(data.policy_return).toFixed(2)
+      );
+      this.uploadFromFile = data.illustration_data.upload_file_checkbox;
+      let filteredCsv = { data: [], headers: [] };
+      if (this.uploadFromFile) {
+        let filteredCsv = {
+          data: data.illustration_data.upload_from_file.data,
+          headers: [],
+        };
+        filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
+          i => this.illustrationFieldsIndex[i]
+        );
+
+        this.csvPreview = this.filterObject(filteredCsv);
+        this.setScrollbar();
+      } else {
+        if (
+          data.illustration_data.copy_paste &&
+          data.illustration_data.copy_paste.headers.length
+        ) {
+          // this.csvPreview = data.illustration_data.copy_paste;
+          let filteredCsv = {
+            data: data.illustration_data.copy_paste.data,
+            headers: [],
+          };
+          filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
+            i => this.illustrationFieldsIndex[i]
+          );
+
+          this.csvPreview = this.filterObject(filteredCsv);
+          this.setScrollbar();
+        }
+      }
+    },
+
+    // populate the insurance data on selectig the existing dropdown template list
     populateInsuranceProfile: function(id) {
+      if (!id) {
+        return false;
+      }
+      this.illustrationId = id;
+      let step2 = getScenarioStep2();
+      if (step2 && step2.id === Number(id)) {
+        console.log("step2.data");
+        console.log(step2);
+        return this.setFormInputs(step2);
+      }
+      console.log(id);
+
+      console.log("step2.data api");
+
       this.$store.dispatch("loader", true);
       get(`${getUrl("illustration")}${id}`, authHeader())
         .then(response => {
           let data = response.data.data;
-          console.log(data);
-          this.insuranceCompany = data.insurance_company;
-          this.insurancePolicyName = data.insurance_policy_name;
-          this.PolicyNickname = data.insurance_policy_nickname;
-          this.setInputWithId(
-            "deathBenefit",
-            data.initial_death_benifit.toLocaleString()
-          );
-          this.setInputWithId(
-            "policyReturn",
-            Number(data.policy_return).toFixed(2)
-          );
-          this.uploadFromFile = data.illustration_data.upload_file_checkbox;
-          let filteredCsv = { data: [], headers: [] };
-          if (this.uploadFromFile) {
-            let filteredCsv = {
-              data: data.illustration_data.upload_from_file.data,
-              headers: [],
-            };
-            filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
-              i => this.illustrationFieldsIndex[i]
-            );
-
-            this.csvPreview = this.filterObject(filteredCsv);
-            this.setScrollbar();
-          } else {
-            if (
-              data.illustration_data.copy_paste &&
-              data.illustration_data.copy_paste.headers.length
-            ) {
-              // this.csvPreview = data.illustration_data.copy_paste;
-              let filteredCsv = {
-                data: data.illustration_data.copy_paste.data,
-                headers: [],
-              };
-              filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
-                i => this.illustrationFieldsIndex[i]
-              );
-
-              this.csvPreview = this.filterObject(filteredCsv);
-              this.setScrollbar();
-            }
-          }
+          setScenarioStep2(data);
+          this.setFormInputs(data);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -1311,6 +1353,7 @@ export default {
         )
           .then(response => {
             this.$store.dispatch("loader", false);
+            setScenarioStep2(response.data.data);
             this.$toast.success(response.data.message);
             this.$router.push(
               `/${review ? "review-summary" : "comparative-vehicles"}/${
@@ -1339,6 +1382,8 @@ export default {
               response.data.message || "Illustration data created successfully!"
             );
             this.illustrationId = response.data.data.id;
+            setScenarioStep2(response.data.data);
+
             this.$router.push(
               `/comparative-vehicles/${this.$route.params.scenario}`
             );
@@ -1488,7 +1533,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      console.log(this.illustrationFile);
+      console.log(this.activeScenario);
     },
     // remove column from the illustration data table
     removeColumn: function() {

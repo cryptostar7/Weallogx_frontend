@@ -184,4 +184,44 @@ export const mapClientList = (array = []) => {
   });
 }
 
+export const setCurrentScenario = (obj) => {
+  return localStorage.setItem('currentScenario', JSON.stringify(obj));
+}
+
+export const getCurrentScenario = (obj) => {
+  return JSON.parse(localStorage.getItem('currentScenario'));
+}
+
+export const setScenarioStep1 = (obj) => {
+  return localStorage.setItem('scenarioStep1', JSON.stringify(obj));
+}
+
+export const getScenarioStep1 = () => {
+  return JSON.parse(localStorage.getItem('scenarioStep1'));
+}
+
+export const setScenarioStep2 = (obj) => {
+  return localStorage.setItem('scenarioStep2', JSON.stringify(obj));
+}
+
+export const getScenarioStep2 = () => {
+  return JSON.parse(localStorage.getItem('scenarioStep2'));
+}
+
+export const setScenarioStep3 = (obj) => {
+  return localStorage.setItem('scenarioStep3', JSON.stringify(obj));
+}
+
+export const getScenarioStep3 = () => {
+  return JSON.parse(localStorage.getItem('scenarioStep3'));
+}
+
+export const setScenarioStep4 = (obj) => {
+  return localStorage.setItem('scenarioStep3', JSON.stringify(obj));
+}
+
+export const getScenarioStep4 = () => {
+  return JSON.parse(localStorage.getItem('scenarioStep4'));
+}
+
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;

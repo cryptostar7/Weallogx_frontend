@@ -165,11 +165,9 @@ export default {
       rightArea.classList.toggle("wider");
       var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       if(indexSidebar.classList.contains("collapsed")){
-        console.log("hello")
         return new bootstrap.Tooltip(tooltipTriggerEl)
       }
       if(!indexSidebar.classList.contains("collapsed")){
-        console.log("hello")
         return new bootstrap.Tooltip(tooltipTriggerEl).disable();
       }
     })

@@ -300,10 +300,16 @@
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
-import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { get, post, put } from "../../../network/requests.js";
 import { getUrl } from "../../../network/url.js";
-import { authHeader, getFirstError } from "../../../services/helper";
+import {
+  authHeader,
+  getFirstError,
+  setScenarioStep3,
+getCurrentScenario,
+setCurrentScenario,
+} from "../../../services/helper";
 export default {
   components: { SelectDropdown, ScenarioSteps, ScenarioLabelComponent },
   data() {
@@ -417,26 +423,49 @@ export default {
     );
 
     // populate comparative data if comparative data id exist in url
-    this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-      .then(response => {
-        console.log(response.data.data);
-        let id = response.data.data.comperative;
-        this.cvId = id;
-        this.$store.dispatch("activeScenario", response.data.data);
-        if (id) {
-          this.getPortfolioData(id);
-        } else {
-          this.$store.dispatch("loader", false);
+
+    let scenarioData = getCurrentScenario();
+    if (this.$route.params.scenario) {
+      let getScenarioAPI = true;
+      if (
+        scenarioData &&
+        scenarioData.id === Number(this.$route.params.scenario)
+      ) {
+        if (scenarioData.comperative && typeof scenarioData.scenerio_details === "object") {
+          this.$store.dispatch("activeScenario", scenarioData);
+          this.getPortfolioData(scenarioData.comperative);
+          getScenarioAPI = false;
         }
-      })
-      .catch(error => {
-        console.log(error);
-        if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
-          this.$toast.error(error.message);
-        }
-        this.$store.dispatch("loader", false);
-      });
+      }
+      console.log("getScenarioAPI", getScenarioAPI);
+      if (getScenarioAPI) {
+        this.$store.dispatch("loader", true);
+        get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+          .then(response => {
+            console.log(response.data.data);
+            setCurrentScenario(response.data.data);
+            let id = response.data.data.comperative;
+            this.cvId = id;
+            this.$store.dispatch("activeScenario", response.data.data);
+            if (id) {
+              this.getPortfolioData(id);
+            } else {
+              this.$store.dispatch("loader", false);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
+    }
+
     if (!this.existingVehicles.length) {
       this.getExistingVehicles();
     }
@@ -618,7 +647,11 @@ export default {
 
     // get portfolio data
     getPortfolioData: function(id) {
+      if (!id) {
+        return false;
+      }
       this.$store.dispatch("loader", true);
+      this.cvId = id;
       get(`${getUrl("comparative")}${id}`, authHeader())
         .then(response => {
           var data = response.data.data;
@@ -1254,6 +1287,7 @@ export default {
         put(`${getUrl("comparative")}${this.cvId}/`, formData, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
+            setScenarioStep3(response.data.data);
             this.$toast.success(response.data.message);
             this.$router.push(
               `/${
@@ -1278,6 +1312,7 @@ export default {
           .then(response => {
             this.$store.dispatch("loader", false);
             this.cvId = response.data.data.id;
+            setScenarioStep3(response.data.data);
             this.$toast.success(response.data.message);
             this.$router.push(
               `/select-historical-simulations/${this.$route.params.scenario}`
