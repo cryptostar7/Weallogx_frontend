@@ -437,7 +437,6 @@ export default {
           getScenarioAPI = false;
         }
       }
-      console.log("getScenarioAPI", getScenarioAPI);
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())

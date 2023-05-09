@@ -41,7 +41,6 @@
     <share-report-modal />
   </section> 
 </template>
-
 <script>
 import SidebarTabsList from "./SidebarTabsList.vue";
 import ComparativeParentTab from "./ComparativeParentTab.vue";
