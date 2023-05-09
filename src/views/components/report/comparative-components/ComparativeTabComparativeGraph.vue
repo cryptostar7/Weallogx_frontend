@@ -174,7 +174,7 @@ export default {
   },
   mounted() {
     // this.setGraph();
-    if (this.comparative.tax_result) {
+    if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
       this.setGraph(); // generate graph
     }
@@ -188,18 +188,18 @@ export default {
       let contribution = [];
       let distribution = [];
       let years = [];
-      if (Object.values(this.comparative.tax_result).length) {
+      if (Object.values(this.comparative.cv_1).length) {
         let chart = Object.values(this.comparativeLirp).length
           ? this.comparativeLirp.chart_output
           : false;
-        let chart1 = Object.values(this.comparative.tax_result).length
-          ? this.comparative.tax_result.comparison.chart_output
+        let chart1 = Object.values(this.comparative.cv_1).length
+          ? this.comparative.cv_1.comparison.chart_output
           : false;
-        let chart2 = Object.values(this.comparative.pretax_result).length
-          ? this.comparative.pretax_result.comparison.chart_output
+        let chart2 = Object.values(this.comparative.cv_2).length
+          ? this.comparative.cv_2.comparison.chart_output
           : false;
-        let chart3 = Object.values(this.comparative.tda_result).length
-          ? this.comparative.tda_result.comparison.chart_output
+        let chart3 = Object.values(this.comparative.cv_3).length
+          ? this.comparative.cv_3.comparison.chart_output
           : false;
 
         cv = chart ? chart["Deposits"] : [];
@@ -496,15 +496,15 @@ export default {
       this.mapData();
     },
     mapData: function() {
-      if (this.comparative.tax_result) {
+      if (this.comparative.cv_1) {
         let chart = this.comparativeLirp;
-        let chart1 = this.comparative.tax_result;
-        let chart2 = this.comparative.pretax_result;
-        let chart3 = this.comparative.tda_result;
+        let chart1 = this.comparative.cv_1;
+        let chart2 = this.comparative.cv_2;
+        let chart3 = this.comparative.cv_3;
 
-        let ror_chart1 = this.comparative_ror_longevity.tax_result;
-        let ror_chart2 = this.comparative_ror_longevity.pretax_result;
-        let ror_chart3 = this.comparative_ror_longevity.tda_result;
+        let ror_chart1 = this.comparative_ror_longevity.cv_1;
+        let ror_chart2 = this.comparative_ror_longevity.cv_2;
+        let ror_chart3 = this.comparative_ror_longevity.cv_3;
 
         if (chart) {
           this.data[0].ror = chart.rate_of_return;

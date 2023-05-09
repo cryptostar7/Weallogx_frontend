@@ -143,11 +143,11 @@ export default {
   },
   methods: {
     mapData: function() {
-      if (this.comparative.tax_result) {
+      if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
-        let chart1 = this.comparative.tax_result;
-        let chart2 = this.comparative.pretax_result;
-        let chart3 = this.comparative.tda_result;
+        let chart1 = this.comparative.cv_1;
+        let chart2 = this.comparative.cv_2;
+        let chart3 = this.comparative.cv_3;
 
         if (chart) {
           this.data[0].value_efficiency_ratio = chart.total_value_fee_ratio || 0;

@@ -491,9 +491,9 @@ export default {
   mounted() {
     let cr = this.comparativeTable;
     this.mapData(cr);
-    let obj1 = cr.tax_result.comparison;
-    let obj2 = cr.pretax_result.comparison;
-    let obj3 = cr.tda_result.comparison;
+    let obj1 = cr.cv_1.comparison;
+    let obj2 = cr.cv_2.comparison;
+    let obj3 = cr.cv_3.comparison;
 
     if (!obj2) {
       this.$store.dispatch("reportCvDeleteId", 2);
@@ -549,12 +549,12 @@ export default {
       };
 
       let obj = ct.lirp_data ? ct.lirp_data.table_output : false;
-      let obj1 = ct.tax_result.comparison.table_output;
-      let obj2 = ct.pretax_result.comparison
-        ? ct.pretax_result.comparison.table_output
+      let obj1 = ct.cv_1.comparison.table_output;
+      let obj2 = ct.cv_2.comparison
+        ? ct.cv_2.comparison.table_output
         : false;
-      let obj3 = ct.tda_result.comparison
-        ? ct.tda_result.comparison.table_output
+      let obj3 = ct.cv_3.comparison
+        ? ct.cv_3.comparison.table_output
         : false;
 
       if (obj) {
@@ -616,8 +616,8 @@ export default {
         let dst = [];
         let details = {
           id: 0,
-          ror: ct.tax_result.comparison.ror,
-          irr: ct.tax_result.comparison.irr_percent,
+          ror: ct.cv_1.comparison.ror,
+          irr: ct.cv_1.comparison.irr_percent,
           type: "LifePro+",
         };
         obj1.forEach((item, index) => {
@@ -645,16 +645,16 @@ export default {
         tempData.data[1] = details;
 
         this.summary_data.deposits.totals =
-          ct.tax_result.comparison.total_value;
+          ct.cv_1.comparison.total_value;
         this.summary_data.deposits.shortfall =
-          ct.tax_result.comparison.diff_from_lirp;
+          ct.cv_1.comparison.diff_from_lirp;
 
         this.summary_data.data[1] = {
           id: 1,
           distribution: {
-            total: ct.tax_result.comparison.total_value,
-            total_value: ct.tax_result.comparison.total_value,
-            shortfall: ct.tax_result.comparison.diff_from_lirp,
+            total: ct.cv_1.comparison.total_value,
+            total_value: ct.cv_1.comparison.total_value,
+            shortfall: ct.cv_1.comparison.diff_from_lirp,
           },
           net_balance: {
             total: "",
@@ -668,8 +668,8 @@ export default {
         let list = [];
         let details = {
           id: 2,
-          ror: ct.pretax_result.comparison.ror,
-          irr: ct.pretax_result.comparison.irr_percent,
+          ror: ct.cv_2.comparison.ror,
+          irr: ct.cv_2.comparison.irr_percent,
           type: "401K/IRA",
         };
         obj2.forEach((item, index) => {
@@ -690,9 +690,9 @@ export default {
         this.summary_data.data[2] = {
           id: 2,
           distribution: {
-            total: ct.pretax_result.comparison.total_value,
-            total_value: ct.pretax_result.comparison.total_value,
-            shortfall: ct.pretax_result.comparison.diff_from_lirp,
+            total: ct.cv_2.comparison.total_value,
+            total_value: ct.cv_2.comparison.total_value,
+            shortfall: ct.cv_2.comparison.diff_from_lirp,
           },
           net_balance: {
             total: "",
@@ -706,8 +706,8 @@ export default {
         let list = [];
         let details = {
           id: 3,
-          ror: ct.tda_result.comparison.ror,
-          irr: ct.tda_result.comparison.irr_percent,
+          ror: ct.cv_3.comparison.ror,
+          irr: ct.cv_3.comparison.irr_percent,
           type: "Annuity",
         };
         obj3.forEach((item, index) => {
@@ -728,9 +728,9 @@ export default {
         this.summary_data.data[3] = {
           id: 3,
           distribution: {
-            total: ct.tda_result.comparison.total_value,
-            total_value: ct.tda_result.comparison.total_value,
-            shortfall: ct.tda_result.comparison.diff_from_lirp,
+            total: ct.cv_3.comparison.total_value,
+            total_value: ct.cv_3.comparison.total_value,
+            shortfall: ct.cv_3.comparison.diff_from_lirp,
           },
           net_balance: {
             total: "",

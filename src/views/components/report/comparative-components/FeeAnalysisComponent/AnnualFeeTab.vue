@@ -92,11 +92,11 @@ export default {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
     mapData: function() {
-      if (this.comparative.tax_result) {
+      if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
-        let chart1 = this.comparative.tax_result;
-        let chart2 = this.comparative.pretax_result;
-        let chart3 = this.comparative.tda_result;
+        let chart1 = this.comparative.cv_1;
+        let chart2 = this.comparative.cv_2;
+        let chart3 = this.comparative.cv_3;
 
         if (chart) {
           this.data[0].total_value_in_percent = chart.total_value_fee_ratio;      
@@ -162,11 +162,11 @@ export default {
         ],
       };
 
-      if (this.comparative.tax_result) {
+      if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
-        let chart1 = this.comparative.tax_result;
-        let chart2 = this.comparative.pretax_result;
-        let chart3 = this.comparative.tda_result;
+        let chart1 = this.comparative.cv_1;
+        let chart2 = this.comparative.cv_2;
+        let chart3 = this.comparative.cv_3;
 
         if (chart1) {
           annualFeesData.datasets[0].data = chart.chart_output.fees || [];
