@@ -400,6 +400,9 @@
 <script>
 import { VueDraggableNext } from "vue-draggable-next";
 import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
+import { patch } from "../../../../network/requests";
+import { getUrl } from "../../../../network/url";
+import { authHeader } from "../../../../services/helper";
 
 export default {
   props: ["keyId"],
@@ -518,6 +521,35 @@ export default {
     },
     saveCvName: function(index, name) {
       this.$store.dispatch("cvName", { index: index, name: name });
+      let cvId = this.comparativeTable.vehicle_1_id;
+
+      let url = "vehicle-type1";
+      let data = { insurance_policy_nickname: name };
+      if (index === 2) {
+        cvId = this.comparativeTable.vehicle_2_id;
+        url = "vehicle-type2";
+      }
+
+      if (index === 3) {
+        cvId = this.comparativeTable.vehicle_3_id;
+        url = "vehicle-type3";
+      }
+
+      if (!index) {
+        data = { insurance_policy_nickname: name };
+        url = "illustration";
+        cvId = this.comparativeTable.illustration_id;
+      }
+
+      console.log(cvId);
+      patch(`${getUrl(url)}${cvId}/`, data, authHeader())
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$toast.error("Something went wrong.");
+        });
     },
     setCurrentTab: function(tab) {
       this.currentTab = tab;

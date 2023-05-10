@@ -1,7 +1,7 @@
 <template lang="">
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
-      <router-link class="navbar-brand backToscenario" to="/">
+      <router-link class="navbar-brand backToscenario" :to="comparative ? `/scenario-details/${comparative.scenerio_id}` : ''" @click="testFunction()">
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect y="4.9502" width="7" height="2" rx="1" transform="rotate(-45 0 4.9502)" fill="black" />
           <rect x="1.41406" y="3.84473" width="7" height="2" rx="1" transform="rotate(45 1.41406 3.84473)"
@@ -139,6 +139,9 @@ import {
 export default {
   components: { ThemeDropdown },
   methods: {
+    testFunction: function(){
+      console.log(this.comparative.scenerio_id);
+    },
     getProfile: function() {
       get(getUrl("profile"), authHeader())
         .then(response => {
@@ -179,7 +182,10 @@ export default {
     companyLogo(){
       let logos = getComapanyLogo();
       return logos;
-    }
+    },
+    comparative() {
+      return this.$store.state.data.report.comparative;
+    },
   }
 };
 </script>

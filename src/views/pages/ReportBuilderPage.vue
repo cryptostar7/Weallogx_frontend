@@ -18,9 +18,6 @@
   <!-- Report Buider Name Change Modal start -->
   <report-builder-name-create-modal />
 
-  <!-- Report Buider Name Change Modal start -->
-  <report-builder-name-change-modal />
-
   <!-- Share report Modal start -->
   <create-report-modal />
 
@@ -40,7 +37,6 @@ import DeleteComparativeCvModal from "../components/modal/DeleteComparativeCvMod
 import DeleteHistoricalCvModal from "../components/modal/DeleteHistoricalCvModal.vue";
 import DeleteAnnuityModal from "../components/modal/DeleteAnnuityModal.vue";
 import DeleteEraModal from "../components/modal/DeleteEraModal.vue";
-import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 import ReportBuilderNameCreateModal from "../components/modal/ReportBuilderNameCreateModal.vue";
 import ShareModal from "../components/modal/ShareModal.vue";
 import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
@@ -56,7 +52,6 @@ export default {
     DeleteHistoricalCvModal,
     DeleteAnnuityModal,
     DeleteEraModal,
-    ReportBuilderNameChangeModal,
     ReportBuilderNameCreateModal,
     ShareModal,
     ReportBuilderMainSection,

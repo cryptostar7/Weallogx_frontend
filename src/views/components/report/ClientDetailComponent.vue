@@ -9,22 +9,28 @@
             </div>
         </div>
 
-          <div class="d-flex align-items-center d-none">
-            <button @click="testFunction" class="reportBuilderBr">Edit </button>
+          <div class="d-flex align-items-center">
+            <button @click="testFunction" class="" data-bs-target="#ReportBuilderNameChangeModal" data-bs-toggle="modal">Edit </button>
             <div>
                 <h2 class="fs-28 bold-fw m-0 ms-2 reportBuilderBrTxt">
                 <span class="fs-20 medium-fw report-scenario-name">{{comparative.report_name}}</span>
                 </h2>
             </div>
-        </div>
+          </div>
     </div>
+
+      <!-- Report Buider Name Change Modal start -->
+      <report-builder-name-change-modal />
 </template>
 <script>
+import ReportBuilderNameChangeModal from "../modal/ReportBuilderNameChangeModal.vue";
+
 export default {
+  components: { ReportBuilderNameChangeModal },
   methods: {
     testFunction: function() {
       console.log(this.comparative);
-    }
+    },
   },
   computed: {
     comparative() {
