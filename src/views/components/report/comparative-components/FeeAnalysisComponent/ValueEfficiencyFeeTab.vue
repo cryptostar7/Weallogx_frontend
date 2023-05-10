@@ -19,7 +19,7 @@
                 </div>
               </div>
             </div>            
-            <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+            <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Value Efficiency</p>
               <p class="legacyCardPara2 text-right">{{$numFormatWithDollar(item.value_efficiency.toFixed(2))}}</p>
@@ -94,50 +94,50 @@ export default {
       ],
       data: [
         {
-          type: "LifePro+",
-          value_efficiency_ratio: "1:6:15",
-          value_efficiency: 454516,
-          total_fees: 544565,
-          total_value: 256556,
-          value_efficiency_in_percent: "30%",
-          total_fee_in_percent: "50%",
-          total_value_in_percent: "70%",
+          type: "",
+          value_efficiency_ratio: "",
+          value_efficiency: 0,
+          total_fees: 0,
+          total_value: 0,
+          value_efficiency_in_percent: "",
+          total_fee_in_percent: "",
+          total_value_in_percent: "",
         },
         {
-          type: "Brokerage Account",
-          value_efficiency_ratio: "1:6:15",
-          value_efficiency: 454516,
-          total_fees: 564640,
-          total_value: 656455,
-          value_efficiency_in_percent: "30%",
-          total_fee_in_percent: "65%",
-          total_value_in_percent: "20%",
+          type: "",
+          value_efficiency_ratio: "",
+          value_efficiency: 0,
+          total_fees: 0,
+          total_value: 0,
+          value_efficiency_in_percent: "",
+          total_fee_in_percent: "",
+          total_value_in_percent: "",
         },
         {
-          type: "401/IRA",
-          value_efficiency_ratio: "1:6:15",
-          value_efficiency: 454516,
-          total_fees: 478922,
-          total_value: 685455,
-          value_efficiency_in_percent: "40%",
-          total_fee_in_percent: "58%",
-          total_value_in_percent: "35%",
+          type: "",
+          value_efficiency_ratio: "",
+          value_efficiency: 0,
+          total_fees: 0,
+          total_value: 0,
+          value_efficiency_in_percent: "",
+          total_fee_in_percent: "",
+          total_value_in_percent: "",
         },
         {
-          type: "Annuity",
-          value_efficiency_ratio: "1:6:15",
-          value_efficiency: 454516,
-          total_fees: 845645,
-          total_value: 465402,
-          value_efficiency_in_percent: "19%",
-          total_fee_in_percent: "48%",
-          total_value_in_percent: "25%",
+          type: "",
+          value_efficiency_ratio: "",
+          value_efficiency: 0,
+          total_fees: 0,
+          total_value: 0,
+          value_efficiency_in_percent: "",
+          total_fee_in_percent: "",
+          total_value_in_percent: "",
         },
       ],
     };
   },
   mounted() {
-    if(this.comparative){
+    if (this.comparative) {
       this.mapData();
     }
   },
@@ -150,7 +150,8 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart) {
-          this.data[0].value_efficiency_ratio = chart.total_value_fee_ratio || 0;
+          this.data[0].value_efficiency_ratio =
+            chart.total_value_fee_ratio || 0;
           this.data[0].value_efficiency = chart.value_efficiency || 0;
           this.data[0].total_fees = chart.fees || 0;
           this.data[0].total_value = chart.total_value || 0;
@@ -158,21 +159,24 @@ export default {
 
         if (chart1) {
           this.data[1].value_efficiency = chart1.comparison.value_efficiency;
-          this.data[1].value_efficiency_ratio = chart1.comparison.total_value_fee_ratio;
+          this.data[1].value_efficiency_ratio =
+            chart1.comparison.total_value_fee_ratio;
           this.data[1].total_fees = chart1.comparison.fees;
           this.data[1].total_value = chart1.comparison.total_value;
         }
 
         if (Object.values(chart2).length) {
           this.data[2].value_efficiency = chart2.comparison.value_efficiency;
-          this.data[2].value_efficiency_ratio = chart2.comparison.total_value_fee_ratio;
+          this.data[2].value_efficiency_ratio =
+            chart2.comparison.total_value_fee_ratio;
           this.data[2].total_fees = chart2.comparison.fees;
           this.data[2].total_value = chart2.comparison.total_value;
         }
 
         if (Object.values(chart3).length) {
           this.data[3].value_efficiency = chart3.comparison.value_efficiency;
-          this.data[3].value_efficiency_ratio = chart3.comparison.total_value_fee_ratio;
+          this.data[3].value_efficiency_ratio =
+            chart3.comparison.total_value_fee_ratio;
           this.data[3].total_fees = chart3.comparison.fees;
           this.data[3].total_value = chart3.comparison.total_value;
         }
@@ -199,10 +203,13 @@ export default {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
+    },
     comparative() {
       return this.$store.state.data.report.comparative || false;
     },
-     maxFeeValue() {
+    maxFeeValue() {
       let data = this.data;
       return this.$roundFigureNum(
         Math.max(

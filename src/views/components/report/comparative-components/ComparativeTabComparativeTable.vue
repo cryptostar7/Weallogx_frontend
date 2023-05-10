@@ -184,7 +184,7 @@
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1">
-                            <p><input type="text" value="LifePro+" class="tableHeadInputs" readonly></p>
+                            <p><input type="text" :value="cv_name[0]" class="tableHeadInputs" @blur="e => saveCvName(0, e.target.value)"></p>
                           </div>
                         </div>
                         <table class="table table3 mt-1 w-100">
@@ -269,7 +269,7 @@
                                     <div class="row">
                                       <div class="col-12">
                                         <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                          <p><input type="text" v-model="target_analysis.data[header.id].type" class="tableHeadInputs" readonly/></p>
+                                          <p><input type="text" :value="cv_name[header.id]" class="tableHeadInputs" @blur="e => saveCvName(header.id, e.target.value)"/></p>
                                         </div>
                                       </div>
                                     </div>
@@ -283,8 +283,7 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td class="" data-label="">{{$numFormatWithDollar(item.distributions) || '-'}}
-                                        </td>
+                                        <td class="" data-label="">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
                                         <td data-label="acount">{{$numFormatWithDollar(item.net_balance) || '-'}}</td>
                                       </tr>
                                     </tbody>
@@ -391,7 +390,7 @@
               </div>
             </div>
             <!-- <button @click="testFunction()">testFunction</button> -->
-            <comparative-disclosure-component v-if="activeTabs[keyId]" :hideFee="true"/>
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="1" :hideFee="true"/>
           </div>
         </div>
       </div>
@@ -495,6 +494,14 @@ export default {
     let obj2 = cr.cv_2.comparison;
     let obj3 = cr.cv_3.comparison;
 
+    this.$store.dispatch("cvName", {
+      index: 0,
+      name: cr.lirp_data.insurance_policy_nickname,
+    });
+    this.$store.dispatch("cvName", { index: 1, name: cr.cv1_name });
+    this.$store.dispatch("cvName", { index: 2, name: cr.cv2_name });
+    this.$store.dispatch("cvName", { index: 3, name: cr.cv3_name });
+
     if (!obj2) {
       this.$store.dispatch("reportCvDeleteId", 2);
     }
@@ -507,8 +514,10 @@ export default {
     testFunction: function() {
       console.log(this.mapData(this.comparativeTableLongevity));
       // console.log(this.$store.state.data.report);
-
       // this.mapData(this.$store.state.data.report.comparative);
+    },
+    saveCvName: function(index, name) {
+      this.$store.dispatch("cvName", { index: index, name: name });
     },
     setCurrentTab: function(tab) {
       this.currentTab = tab;
@@ -550,12 +559,8 @@ export default {
 
       let obj = ct.lirp_data ? ct.lirp_data.table_output : false;
       let obj1 = ct.cv_1.comparison.table_output;
-      let obj2 = ct.cv_2.comparison
-        ? ct.cv_2.comparison.table_output
-        : false;
-      let obj3 = ct.cv_3.comparison
-        ? ct.cv_3.comparison.table_output
-        : false;
+      let obj2 = ct.cv_2.comparison ? ct.cv_2.comparison.table_output : false;
+      let obj3 = ct.cv_3.comparison ? ct.cv_3.comparison.table_output : false;
 
       if (obj) {
         let list = [];
@@ -564,7 +569,6 @@ export default {
           id: 0,
           ror: ct.lirp_data.rate_of_return,
           irr: ct.lirp_data.irr_percent,
-          type: "LifePro+",
         };
         obj.forEach((item, index) => {
           let ar = {
@@ -615,10 +619,9 @@ export default {
         let list = [];
         let dst = [];
         let details = {
-          id: 0,
+          id: 1,
           ror: ct.cv_1.comparison.ror,
           irr: ct.cv_1.comparison.irr_percent,
-          type: "LifePro+",
         };
         obj1.forEach((item, index) => {
           let ar = {
@@ -641,11 +644,9 @@ export default {
           }
         });
         details.list = list;
-        details.type = "Account";
         tempData.data[1] = details;
 
-        this.summary_data.deposits.totals =
-          ct.cv_1.comparison.total_value;
+        this.summary_data.deposits.totals = ct.cv_1.comparison.total_value;
         this.summary_data.deposits.shortfall =
           ct.cv_1.comparison.diff_from_lirp;
 
@@ -670,7 +671,6 @@ export default {
           id: 2,
           ror: ct.cv_2.comparison.ror,
           irr: ct.cv_2.comparison.irr_percent,
-          type: "401K/IRA",
         };
         obj2.forEach((item, index) => {
           let ar = {
@@ -708,7 +708,6 @@ export default {
           id: 3,
           ror: ct.cv_3.comparison.ror,
           irr: ct.cv_3.comparison.irr_percent,
-          type: "Annuity",
         };
         obj3.forEach((item, index) => {
           let ar = {
@@ -764,6 +763,9 @@ export default {
   computed: {
     comparativeTable() {
       return this.$store.state.data.report.comparative;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     comparativeTableLongevity() {
       return this.$store.state.data.report.comparative_longevity;

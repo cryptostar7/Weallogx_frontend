@@ -48,7 +48,7 @@
                           </a>
                         </div>
                       </div>
-                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                       <div class="d-flex justify-content-between mt-1">
                         <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
                           <p>Longevity</p>
@@ -113,7 +113,7 @@
               </div>
             </div>
             <!-- <button @click="testFunction">testFunction</button> -->
-            <comparative-disclosure-component />
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="2"  />
           </div>
         </div>
       </div>
@@ -142,29 +142,29 @@ export default {
       },
       data: [
         {
-          type: "LIRP Balance",
-          longevity_year: "65 Years",
+          type: "",
+          longevity_year: "",
           cumulative_income: 0,
           ror: "",
           irr: "",
         },
         {
-          type: "Brokerage Account Balance",
-          longevity_year: "61 Years",
+          type: "",
+          longevity_year: "",
           cumulative_income: 0,
           ror: "",
           irr: "",
         },
         {
-          type: "401/IRA Balance",
-          longevity_year: "35 Years",
+          type: "",
+          longevity_year: "",
           cumulative_income: 0,
           ror: "",
           irr: "",
         },
         {
-          type: "Annuity Balance",
-          longevity_year: "75 Years",
+          type: "",
+          longevity_year: "",
           cumulative_income: 0,
           ror: "",
           irr: "",
@@ -233,24 +233,24 @@ export default {
                 : "#1660A4",
             borderWidth: 4,
             radius: 0,
-            data: this.deletedItems.includes(1) ? [] : cv1,
+            data: this.deletedItems.includes(1) ? [] : cv1 || [],
           },
           {
             borderColor: "#763CA3",
             borderWidth: 4,
             radius: 0,
-            data: this.deletedItems.includes(2) ? [] : cv2,
+            data: this.deletedItems.includes(2) ? [] : cv2 || [],
           },
           {
             borderColor: "#9D2B2B",
             borderWidth: 4,
             radius: 0,
-            data: this.deletedItems.includes(3) ? [] : cv3,
+            data: this.deletedItems.includes(3) ? [] : cv3 || [],
           },
           {
             backgroundColor: "rgba(14, 103, 82, .4)",
             radius: 0,
-            data: contribution,
+            data: contribution || [],
             type: "bar",
             borderRadius: 2,
             yAxisID: "B",
@@ -258,7 +258,7 @@ export default {
           {
             backgroundColor: "rgba(131, 159, 175, .6)",
             radius: 2,
-            data: distribution,
+            data: distribution || [],
             type: "bar",
             borderRadius: 2,
             yAxisID: "B",
@@ -338,18 +338,19 @@ export default {
       };
 
       let graphData = this.getDataSet();
+      console.log(graphData);
       let maxAcc1 = Math.max(
         ...[
-          Math.max(...graphData.datasets[0].data),
-          Math.max(...graphData.datasets[1].data),
-          Math.max(...graphData.datasets[2].data),
-          Math.max(...graphData.datasets[3].data),
+          Math.max(...(graphData.datasets[0].data || [])),
+          Math.max(...(graphData.datasets[1].data || [])),
+          Math.max(...(graphData.datasets[2].data || [])),
+          Math.max(...(graphData.datasets[3].data || [])),
         ]
       );
       let maxAcc2 = Math.max(
         ...[
-          Math.max(...graphData.datasets[4].data),
-          Math.max(...graphData.datasets[5].data),
+          Math.max(...(graphData.datasets[4].data || [])),
+          Math.max(...(graphData.datasets[5].data || [])),
         ]
       );
 
@@ -468,29 +469,31 @@ export default {
       });
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");
-      assestShowHide.addEventListener("click", e => {
-        e.target.classList.toggle("on");
-      });
+      if (assestShowHide) {
+        assestShowHide.addEventListener("click", e => {
+          e.target.classList.toggle("on");
+        });
 
-      document
-        .querySelector(".presentationModeBtn")
-        .addEventListener("click", function() {
-          if (assestShowHide.classList.contains("on")) {
-            htmlLegendPlugin0.hideAll(
+        document
+          .querySelector(".presentationModeBtn")
+          .addEventListener("click", function() {
+            if (assestShowHide.classList.contains("on")) {
+              htmlLegendPlugin0.hideAll(
+                window.comparativeGraphChart,
+                comparativeValuesConfig.options
+              );
+            }
+          });
+
+        document
+          .querySelector(".fullScreenCloseBtn")
+          .addEventListener("click", function() {
+            htmlLegendPlugin0.showAll(
               window.comparativeGraphChart,
               comparativeValuesConfig.options
             );
-          }
-        });
-
-      document
-        .querySelector(".fullScreenCloseBtn")
-        .addEventListener("click", function() {
-          htmlLegendPlugin0.showAll(
-            window.comparativeGraphChart,
-            comparativeValuesConfig.options
-          );
-        });
+          });
+      }
     },
     testFunction: function() {
       this.mapData();
@@ -513,7 +516,7 @@ export default {
           this.data[0].cumulative_income = chart.cummulative_income;
         }
 
-        if (chart1) {
+        if (Object.values(chart1).length) {
           this.data[1].ror = ror_chart1.comparison.ror;
           this.data[1].irr = chart1.comparison.irr_percent;
           this.data[1].longevity_year = chart.chart_output.year.length;
@@ -542,6 +545,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     comparative() {
       return this.$store.state.data.report.comparative_longevity;

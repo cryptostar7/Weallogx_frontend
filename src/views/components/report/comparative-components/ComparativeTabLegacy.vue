@@ -47,7 +47,7 @@
                           </a>
                         </div>
                       </div>                      
-                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                       <div class="mt-2 ">
                         <p class="legacyCardPara">Ending Value (Age {{item.age}})</p>
                       </div>
@@ -83,7 +83,7 @@
                 </div>
               </div>
             </div>
-            <comparative-disclosure-component v-if="activeTabs[keyId]" />
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="5"/>
           </div>
         </div>
       </div>
@@ -107,32 +107,32 @@ export default {
       ],
       data: [
         {
-          type: "LifePro+",
-          ending_value: 65477,
-          age: 65,
-          shortfall: 45000,
-          shortfall_percentage: "40%",
+          type: "",
+          ending_value: '',
+          age: '',
+          shortfall: '',
+          shortfall_percentage: "",
         },
         {
-          type: "Brokerage Account",
+          type: "",
           ending_value: 61477,
-          age: 41,
-          shortfall: 33000,
-          shortfall_percentage: "100%",
+          age: '',
+          shortfall: '',
+          shortfall_percentage: "",
         },
         {
-          type: "401/IRA",
-          ending_value: 35477,
-          age: 25,
-          shortfall: 55624,
-          shortfall_percentage: "30%",
+          type: "",
+          ending_value: '',
+          age: '',
+          shortfall: '',
+          shortfall_percentage: "",
         },
         {
-          type: "Annuity",
-          ending_value: 75477,
-          age: 33,
-          shortfall: 25645,
-          shortfall_percentage: "65%",
+          type: "",
+          ending_value: '',
+          age: '',
+          shortfall: '',
+          shortfall_percentage: "",
         },
       ],
     };
@@ -157,17 +157,20 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function() { 
+    testFunction: function() {
       console.log(this.data);
     },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
     getPercentValue: function(value1, value2) {
-      value1 = Number(value1.toString().replaceAll('-', ''));
-      value2 = Number(value2.toString().replace('-', ''));
-      let unit = (Number(value1.toString().replace('-'))+Number(value2.toString().replace('-')))/100;
-      return value2/unit;
+      value1 = Number(value1.toString().replaceAll("-", ""));
+      value2 = Number(value2.toString().replace("-", ""));
+      let unit =
+        (Number(value1.toString().replace("-")) +
+          Number(value2.toString().replace("-"))) /
+        100;
+      return value2 / unit;
     },
     mapData: function() {
       if (this.comparative.cv_1) {
@@ -186,30 +189,32 @@ export default {
           this.data[0].ending_value = chart1.match_distributions.surrender_value;
           this.data[1].ending_value = chart1.match_distributions.surrender_value;
           this.data[1].shortfall = chart1.comparison.diff_from_lirp;
-          
-          let age1 = chart1.comparison.chart_output.Age
+          let age1 = chart1.comparison.chart_output.Age;
           this.data[1].age = age1[age1.length - 1];
         }
 
         if (Object.values(chart2).length) {
           this.data[2].ending_value = chart2.match_distributions.surrender_value;
           this.data[2].shortfall = chart2.comparison.diff_from_lirp;
-          let age2 = chart2.comparison.chart_output.Age
+          let age2 = chart2.comparison.chart_output.Age;
           this.data[2].age = age2[age2.length - 1];
         }
 
         if (Object.values(chart3).length) {
           this.data[3].ending_value = chart3.match_distributions.surrender_value;
           this.data[3].shortfall = chart3.comparison.diff_from_lirp;
-          let age3 = chart3.comparison.chart_output.Age
+          let age3 = chart3.comparison.chart_output.Age;
           this.data[3].age = age3[age3.length - 1];
         }
       }
     },
   },
-   computed: {
+  computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;

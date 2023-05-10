@@ -43,7 +43,7 @@
                 <value-efficiency-fee-tab /> 
               </div>
             </div>
-            <comparative-disclosure-component v-if="activeTabs[keyId]" :feetab="true"/>
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :feetab="true" :currentTab="6"/>
           </div>
         </div>
       </div>

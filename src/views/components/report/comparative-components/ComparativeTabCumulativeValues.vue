@@ -57,7 +57,7 @@
                               </a>
                             </div>
                           </div>                          
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                          <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                           <div class="mt-2 d-flex">
                             <div :class="`mt-1 CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.cumulative_income[index].active ? '': 'boxProgress'}`">
                               <div class="CardProgress"></div>
@@ -113,7 +113,7 @@
                           <div class="d-flex justify-content-between">
                             <div class="distrbnCard1paras">
                               <p>Total Value</p>
-                              <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                              <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
@@ -181,7 +181,7 @@
               </div>
             </div>
             <!-- <button @click="testFunction">testFunction</button> -->
-            <comparative-disclosure-component v-if="activeTabs[keyId]" />
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="4" />
           </div>
         </div>
       </div>
@@ -215,44 +215,44 @@ export default {
       data: {
         cumulative_income: [
           {
-            type: "LifePro+",
+            type: "",
             cumulative_income: "",
             shortfall: "",
           },
           {
-            type: "Account",
+            type: "",
             cumulative_income: "",
             shortfall: "",
           },
           {
-            type: "401k/IRA",
+            type: "",
             cumulative_income: "",
             shortfall: "",
           },
           {
-            type: "Annuity",
+            type: "",
             cumulative_income: "",
             shortfall: "",
           },
         ],
         total_value: [
           {
-            type: "LifePro+",
+            type: "",
             total_value: "",
             shortfall: "",
           },
           {
-            type: "Account",
+            type: "",
             total_value: "",
             shortfall: "",
           },
           {
-            type: "401k/IRA",
+            type: "",
             total_value: "",
             shortfall: "",
           },
           {
-            type: "Annuity",
+            type: "",
             total_value: "",
             shortfall: "",
           },
@@ -287,12 +287,12 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart) {
-          this.data.cumulative_income[0].cumulative_income = chart.cummulative_income;
+          this.data.cumulative_income[0].cumulative_income =
+            chart.cummulative_income;
           this.data.cumulative_income[0].shortfall = chart.shortfall;
           this.data.total_value[0].total_value = chart.total_value;
           this.data.total_value[0].shortfall = chart.shortfall;
         }
-
 
         if (chart1) {
           this.data.cumulative_income[1].cumulative_income =
@@ -354,6 +354,9 @@ export default {
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     notes() {
       let note = this.$store.state.data.report.notes || [];

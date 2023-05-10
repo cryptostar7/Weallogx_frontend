@@ -25,7 +25,7 @@
                 </a>
               </div>
             </div>            
-            <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+            <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Total Value Fee Ratio</p>
               <p class="legacyCardPara2 text-right">{{Number(item.total_value_in_percent).toFixed(2)}}%</p>
@@ -61,28 +61,28 @@ export default {
       ],
       data: [
         {
-          type: "LifePro+",
-          total_value_in_percent: "65%",
-          cumulative_income_in_percent: "45%",
-          death_benefit_in_percent: "45%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "Brokerage Account",
-          total_value_in_percent: "61%",
-          cumulative_income_in_percent: "33%",
-          death_benefit_in_percent: "21%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "401/IRA",
-          total_value_in_percent: "35%",
-          cumulative_income_in_percent: "55%",
-          death_benefit_in_percent: "98%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "Annuity",
-          total_value_in_percent: "75%",
-          cumulative_income_in_percent: "25%",
-          death_benefit_in_percent: "65%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
       ],
     };
@@ -401,6 +401,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;

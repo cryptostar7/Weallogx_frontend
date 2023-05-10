@@ -38,6 +38,7 @@ const store = createStore({
             },
             report: {
                 notes:[],
+                cv_names:['CV','CV1','CV2','CV3'],
                 comparative: [],
                 historical: [],
                 deleted_cv_ids: [],
@@ -194,6 +195,9 @@ const store = createStore({
         setNotes(state, payload) {
             state.data.report.notes = payload;
         },
+        setCvName(state, payload) {
+            state.data.report.cv_names[payload.index] = payload.name;
+        },
         setComparativeReport(state, payload) {
             state.data.report.comparative = payload;
         },
@@ -284,6 +288,9 @@ const store = createStore({
         },
         notes(context, payload) {
             context.commit('setNotes', payload);
+        },
+        cvName(context, payload){
+            context.commit('setCvName', payload);
         },
         comparativeReport(context, payload) {
             context.commit('setComparativeReport', payload);

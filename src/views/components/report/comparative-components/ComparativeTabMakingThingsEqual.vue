@@ -64,7 +64,7 @@
                               </a>
                             </div>
                           </div>                          
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                          <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                           <div class="mt-2 d-flex ">
                             <div :class="`CardProgressBar lightProgress${1+index} groupBoxProgressCommon${1+index}  ${cards.distributions[index].active ? '':'boxProgress'}`">
                               <div class="CardProgress"></div>
@@ -359,7 +359,7 @@
               </div>
             </div>
             <!-- <button @click="testFunction">testFunction</button> -->
-            <comparative-disclosure-component v-if="activeTabs[keyId]" />
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="3" />
           </div>
         </div>
       </div>
@@ -406,7 +406,7 @@ export default {
       data: {
         distribution: [
           {
-            type: "LifePro+",
+            type: "",
             distributions: 0,
             longevity: 0,
             longevity_in_percent: "",
@@ -416,7 +416,7 @@ export default {
             death_benefit: "",
           },
           {
-            type: "Account",
+            type: "",
             distributions: 0,
             longevity: 0,
             longevity_in_percent: "",
@@ -426,7 +426,7 @@ export default {
             death_benefit: "",
           },
           {
-            type: "401/IRA",
+            type: "",
             distributions: 0,
             longevity: 0,
             longevity_in_percent: "",
@@ -436,7 +436,7 @@ export default {
             death_benefit: "",
           },
           {
-            type: "Annuity",
+            type: "",
             distributions: 0,
             longevity: 0,
             longevity_in_percent: "",
@@ -448,7 +448,7 @@ export default {
         ],
         rate_of_returns: [
           {
-            type: "LifePro+",
+            type: "",
             ror: "",
             longevity: "",
             ending_value: "",
@@ -458,7 +458,7 @@ export default {
             death_benefit_in_percent: "",
           },
           {
-            type: "Account",
+            type: "",
             ror: "",
             longevity: "",
             ending_value: "",
@@ -468,7 +468,7 @@ export default {
             death_benefit_in_percent: "",
           },
           {
-            type: "401/IRA",
+            type: "",
             ror: "",
             longevity: "",
             ending_value: "",
@@ -478,7 +478,7 @@ export default {
             death_benefit_in_percent: "",
           },
           {
-            type: "Annuity",
+            type: "",
             ror: "",
             longevity: "",
             ending_value: "",
@@ -519,10 +519,10 @@ export default {
   },
   mounted() {
     if (this.comparative) {
-      
       if (this.comparative.cv_1) {
         this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
         this.data.rate_of_returns[0].ror = this.comparative.lirp_data.making_things_equal_rate_of_return;
+
         this.data.distribution[1].longevity = this.comparative.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.comparative.cv_1.match_distributions.death_benefit;
         this.data.distribution[1].ending_value = this.comparative.cv_1.match_distributions.surrender_value;
@@ -642,6 +642,9 @@ export default {
     },
     death_benefit() {
       return this.$store.state.data.report.comparative_death_benefit || false;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     notes() {
       let note = this.$store.state.data.report.notes || [];

@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     </div>                    
-                    <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                    <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                     <div class="mt-1 d-flex justify-content-between">
                     <p class="legacyCardPara">Total Value Fee Ratio</p>
                     <p class="legacyCardPara2 text-right">{{Number(item.total_value_in_percent).toFixed(2)}}%</p>
@@ -51,28 +51,28 @@ export default {
       ],
       data: [
         {
-          type: "LifePro+",
-          total_value_in_percent: "65%",
-          cumulative_income_in_percent: "45%",
-          death_benefit_in_percent: "45%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "Brokerage Account",
-          total_value_in_percent: "61%",
-          cumulative_income_in_percent: "33%",
-          death_benefit_in_percent: "21%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "401/IRA",
-          total_value_in_percent: "35%",
-          cumulative_income_in_percent: "55%",
-          death_benefit_in_percent: "98%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
         {
-          type: "Annuity",
-          total_value_in_percent: "75%",
-          cumulative_income_in_percent: "25%",
-          death_benefit_in_percent: "65%",
+          type: "",
+          total_value_in_percent: "",
+          cumulative_income_in_percent: "",
+          death_benefit_in_percent: "",
         },
       ],
     };
@@ -87,10 +87,10 @@ export default {
 
         if (chart) {
           this.data[0].total_value_in_percent = chart.total_value_fee_ratio;
-          this.data[0].cumulative_income_in_percent = chart.cumulative_income_fee_ratio;
+          this.data[0].cumulative_income_in_percent =
+            chart.cumulative_income_fee_ratio;
         }
 
-        
         if (chart1) {
           this.data[1].total_value_in_percent =
             chart1.comparison.total_value_fee_ratio;
@@ -168,7 +168,6 @@ export default {
         ],
       };
 
-
       if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
         let chart1 = this.comparative.cv_1;
@@ -176,7 +175,8 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart) {
-          cumulativeFeesData.datasets[0].data = chart.chart_output.cummulative_fees || [];
+          cumulativeFeesData.datasets[0].data =
+            chart.chart_output.cummulative_fees || [];
           let years = chart.chart_output.year;
           cumulativeFeesData.labels = [
             1,
@@ -185,15 +185,18 @@ export default {
         }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
-          cumulativeFeesData.datasets[1].data = chart1.comparison.chart_output.cummulative_fees;
+          cumulativeFeesData.datasets[1].data =
+            chart1.comparison.chart_output.cummulative_fees;
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
-          cumulativeFeesData.datasets[2].data = chart2.comparison.chart_output.cummulative_fees;
+          cumulativeFeesData.datasets[2].data =
+            chart2.comparison.chart_output.cummulative_fees;
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
-          cumulativeFeesData.datasets[3].data = chart3.comparison.chart_output.cummulative_fees;
+          cumulativeFeesData.datasets[3].data =
+            chart3.comparison.chart_output.cummulative_fees;
         }
       }
       return cumulativeFeesData;
@@ -267,7 +270,6 @@ export default {
           });
         },
       };
-
 
       let graphData = this.getDataSet();
       let maxAxis = Math.max(
@@ -397,7 +399,7 @@ export default {
   mounted() {
     if (this.comparative) {
       this.mapData();
-      setTimeout(() => this.setGraph(),100);
+      setTimeout(() => this.setGraph(), 100);
     }
   },
   watch: {
@@ -422,6 +424,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;
