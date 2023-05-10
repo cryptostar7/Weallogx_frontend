@@ -132,7 +132,7 @@
                   </div>
                 </div>
               </div>
-              <button type="button" @click="testFunction()">test</button>
+              <!-- <button type="button" @click="testFunction()">test</button> -->
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">

@@ -420,22 +420,22 @@ export default {
       showAll: false,
       target_analysis: {
         distributions: [
-          { year: 1, age: 28, deposits: 65777 },
-          { year: 1, age: 28, deposits: 65777 },
-          { year: 1, age: 28, deposits: 65777 },
-          { year: 1, age: 28, deposits: 65777 },
-          { year: 1, age: 28, deposits: 65777 },
+          { year: 1, age: 28, deposits: 0 },
+          { year: 1, age: 28, deposits: 0 },
+          { year: 1, age: 28, deposits: 0 },
+          { year: 1, age: 28, deposits: 0 },
+          { year: 1, age: 28, deposits: 0 },
         ],
         data: [],
       },
       summary_data: {
-        deposits: { totals: "328885", total_values: "", shortfall: "" },
+        deposits: { totals: "", total_values: "", shortfall: "" },
         data: [
           {
             id: 0,
             distribution: {
-              total: 6577,
-              total_value: "6577",
+              total: "",
+              total_value: "",
               shortfall: "",
             },
             net_balance: {
@@ -447,9 +447,9 @@ export default {
           {
             id: 1,
             distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: 6577,
+              total: 0,
+              total_value: 0,
+              shortfall: 0,
             },
             net_balance: {
               total: "",
@@ -460,9 +460,9 @@ export default {
           {
             id: 2,
             distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: 68577,
+              total: 0,
+              total_value: 0,
+              shortfall: 0,
             },
             net_balance: {
               total: "",
@@ -473,8 +473,8 @@ export default {
           {
             id: 3,
             distribution: {
-              total: 6577,
-              total_value: 6577,
+              total: 0,
+              total_value: 0,
               shortfall: 62577,
             },
             net_balance: {
@@ -512,7 +512,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.mapData(this.comparativeTableLongevity));
+      console.log(this.target_analysis);
       // console.log(this.$store.state.data.report);
       // this.mapData(this.$store.state.data.report.comparative);
     },
@@ -558,9 +558,9 @@ export default {
       };
 
       let obj = ct.lirp_data ? ct.lirp_data.table_output : false;
-      let obj1 = ct.cv_1.comparison.table_output;
-      let obj2 = ct.cv_2.comparison ? ct.cv_2.comparison.table_output : false;
-      let obj3 = ct.cv_3.comparison ? ct.cv_3.comparison.table_output : false;
+      let obj1 = ct.cv_1.comparison.chart_output;
+      let obj2 = ct.cv_2.comparison ? ct.cv_2.comparison.chart_output : false;
+      let obj3 = ct.cv_3.comparison ? ct.cv_3.comparison.chart_output : false;
 
       if (obj) {
         let list = [];
@@ -623,26 +623,22 @@ export default {
           ror: ct.cv_1.comparison.ror,
           irr: ct.cv_1.comparison.irr_percent,
         };
-        obj1.forEach((item, index) => {
+
+        obj1.year.forEach((item, index) => {
           let ar = {
-            distributions: item[5],
-            account_value: item[16],
-            surrender_value: item[17],
-            death_benefit: item[18],
-            net_balance: item[13],
+            distributions: obj1.distributions[index],
+            net_balance: obj1.net_balance[index],
           };
 
           let ar2 = {
-            year: item[0],
-            age: item[1],
-            deposits: item[2],
+            year: item,
+            age: obj1.Age[index],
+            deposits: obj1.Deposits[index],
           };
-
-          if (index) {
-            list.push(ar);
-            dst.push(ar2);
-          }
+          list.push(ar);
+          dst.push(ar2);
         });
+
         details.list = list;
         tempData.data[1] = details;
 
@@ -672,17 +668,12 @@ export default {
           ror: ct.cv_2.comparison.ror,
           irr: ct.cv_2.comparison.irr_percent,
         };
-        obj2.forEach((item, index) => {
+        obj2.distributions.forEach((item, index) => {
           let ar = {
-            distributions: item[13],
-            account_value: null,
-            surrender_value: null,
-            death_benefit: null,
-            net_balance: item[15],
+            distributions: item,
+            net_balance: obj2.net_balance[index],
           };
-          if (index) {
-            list.push(ar);
-          }
+          list.push(ar);
         });
         details.list = list;
         tempData.data[2] = details;
@@ -709,17 +700,12 @@ export default {
           ror: ct.cv_3.comparison.ror,
           irr: ct.cv_3.comparison.irr_percent,
         };
-        obj3.forEach((item, index) => {
+        obj3.distributions.forEach((item, index) => {
           let ar = {
-            distributions: item[10],
-            account_value: null,
-            surrender_value: null,
-            death_benefit: null,
-            net_balance: item[17],
+            distributions: item,
+            net_balance: obj3.net_balance[index],
           };
-          if (index) {
-            list.push(ar);
-          }
+          list.push(ar);
         });
         details.list = list;
         tempData.data[3] = details;
@@ -740,7 +726,6 @@ export default {
       }
 
       this.target_analysis = tempData;
-
       return tempData;
     },
   },
