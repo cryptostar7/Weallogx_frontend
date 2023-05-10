@@ -64,6 +64,9 @@ body::-webkit-scrollbar {
 .grey-clr {
   color: var(--grey-clr);
 }
+.grey-clr-1 {
+  color: #707070;
+}
 
 .green-bg {
   background-color: var(--green-clr);
@@ -857,6 +860,9 @@ body::-webkit-scrollbar {
 }
 .section-heading-div.report {
   top: 65px;
+}
+.section-heading-div.extra {
+  padding-right: 1rem;
 }
 
 .section-heading-bg {
