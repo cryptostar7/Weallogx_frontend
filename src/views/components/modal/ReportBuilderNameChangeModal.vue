@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" ref="createReportModal"  id="ReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="ReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
+  <div class="modal fade common-modal" ref="updateReportModal"  id="ReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="ReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -7,13 +7,13 @@
             <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
           </button>
         </div>
-        <form class="modal-body" @submit="createReport">
-          <div class="d-flex align-items-center justify-content-center w-100">
+        <form class="modal-body" @submit="updateReport">
+          <!-- <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv" v-if="client">
               <button class="modalReportBuilderBr">{{$sortName(`${client.firstname.trim()} ${client.lastname.trim()}`)}}</button>
               <h2 class="modalReportBuilderBrTxt">{{`${client.firstname} ${client.middlename || ''} ${client.lastname || ''}`}} <span>Age {{client.age || ''}}</span></h2>
             </div>
-          </div>
+          </div> -->
           <div class="modalParaBorderDiv text-center">
             <p class="modalParaReportBuilder">Report Builder</p>
             <p class="modalSmallborder"></p>
@@ -31,7 +31,7 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Build Report</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
+            <button type="button" @click="testFunction" class="btn yes-delete-btn ">Test Function</button>
           </div>
         </form>
       </div>
@@ -47,72 +47,42 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
   components: { SelectDropdown },
   refs: ["closeModalRef"],
+  emits: ["setUpdatedData"],
+  props: ["id", "name", "reportDescription", "updateData"],
   data() {
     return {
       errors: [],
-      clientId: "",
-      response: false,
-      clientName: "",
-      scenarioName: "",
       reportName: "",
       description: "",
     };
   },
   mounted() {
-  //fdfd
+    console.log('mounted');
   },
   methods: {
     testFunction: function() {
-      console.log(this.$route.query);
+      console.log(this.$props.updateData);
     },
-    validateForm: function() {
-      var validate = true;
-      if (!this.$route.query.client) {
-        validate = false;
-        this.$toast.error("Invalid client detail.");
-      }
 
-      if (!this.$route.query.scenario) {
-        validate = false;
-        this.$toast.error("Invalid client detail.");
-      }
-
-      if (!this.reportName) {
-        this.errors.report_name = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.report_name = "";
-      }
-
-      return validate;
-    },
-    createReport: function(e) {
+    updateReport: function(e) {
       e.preventDefault();
 
       let data = {
-        client: this.$route.query.client,
-        scenario: this.$route.query.scenario,
         name: this.reportName,
         description: this.description,
       };
 
       this.$refs.closeModalRef.click();
+      console.log(data);
       return false;
 
-      if (!this.validateForm()) {
-        console.log(this.errors);
-        return false;
-      }
-
       this.$store.dispatch("loader", true);
-      post(`${getUrl("add-report")}`, data, authHeader())
+      patch(`${getUrl("report")}${this.$props.id}`, data, authHeader())
         .then(response => {
           console.log(response.data);
-          this.response = true;
           this.$toast.success(response.data.message);
-          this.getClient(true);
+          // this.getClient(true);
           this.$store.dispatch("loader", false);
-          window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
           console.log(error.message);
@@ -148,11 +118,18 @@ export default {
         });
     },
   },
-  computed: {
-    // client detail
-    client() {
-      return this.$store.getters.getClientUsingId(this.$route.query.client);
-    },
-  },
+  watch: {
+    "$props.updateData" (e) {
+        console.log('updated');
+
+      if(e){
+        this.reportName = this.$props.name;
+        this.description = this.$props.reportDescription;
+        this.$emit('setUpdatedData', false);
+        console.log('data updated');
+      }
+    }
+  }
+
 };
 </script>

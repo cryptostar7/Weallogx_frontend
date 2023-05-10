@@ -19,17 +19,26 @@
           </div>
     </div>
 
-      <!-- Report Buider Name Change Modal start -->
-      <report-builder-name-change-modal />
+    <!-- Report Buider Name Change Modal start -->
+    <report-builder-name-change-modal :id="comparative.report_id" :name="comparative.report_name" :reportDescription="comparative.report_description" :updateData="updateData" @setUpdatedData="setUpdatedData"/>
+
 </template>
 <script>
 import ReportBuilderNameChangeModal from "../modal/ReportBuilderNameChangeModal.vue";
 
 export default {
   components: { ReportBuilderNameChangeModal },
+  data() {
+    return {
+      updateData: false,
+    }
+  },
   methods: {
     testFunction: function() {
-      console.log(this.comparative);
+      this.setUpdatedData(true);
+    },
+    setUpdatedData: function(val){
+      this.updateData = val;
     },
   },
   computed: {
