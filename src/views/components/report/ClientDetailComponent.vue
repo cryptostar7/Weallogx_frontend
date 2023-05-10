@@ -4,7 +4,7 @@
             <button @click="testFunction" class="reportBuilderBr"> {{$sortName(`${comparative.client_firstname} ${comparative.client_lastname}`)}} </button>
             <div>
                 <h2 class="fs-28 bold-fw m-0 ms-2 reportBuilderBrTxt">{{comparative.client_firstname}}, {{comparative.client_lastname}}
-                <span class="fs-20 medium-fw report-scenario-name">{{comparative.scenario_name}}</span>
+                <span class="fs-20 medium-fw report-scenario-name">{{comparative.sceneriodetails_name}}</span>
                 </h2>
             </div>
         </div>

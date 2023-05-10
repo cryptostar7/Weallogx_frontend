@@ -617,7 +617,6 @@ export default {
 
       if (obj1) {
         let list = [];
-        let dst = [];
         let details = {
           id: 1,
           ror: ct.cv_1.comparison.ror,
@@ -630,13 +629,7 @@ export default {
             net_balance: obj1.net_balance[index],
           };
 
-          let ar2 = {
-            year: item,
-            age: obj1.Age[index],
-            deposits: obj1.Deposits[index],
-          };
           list.push(ar);
-          dst.push(ar2);
         });
 
         details.list = list;
