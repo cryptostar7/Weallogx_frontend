@@ -209,8 +209,6 @@ export default {
 
         years = chart1 ? chart1.year : [];
         contribution = cv;
-
-        console.log(contribution);
         distribution = chart ? chart["distributions"] : [];
       }
 
