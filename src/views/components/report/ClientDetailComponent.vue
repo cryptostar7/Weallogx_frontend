@@ -1,7 +1,7 @@
 <template lang="">
     <div v-if="!$store.state.app.presentation_mode" class="section-heading-div extra report section-heading-bg pt-2 d-flex justify-content-between gap-20 flex-wrap flex-md-nowrap align-items-center">
         <div class="d-flex align-items-center">
-            <button @click="testFunction" class="reportBuilderBr"> {{$sortName(`${comparative.client_firstname} ${comparative.client_lastname}`)}} </button>
+            <button @click="setUpdatedData(true)" class="reportBuilderBr"> {{$sortName(`${comparative.client_firstname} ${comparative.client_lastname}`)}} </button>
             <div>
                 <h2 class="fs-28 bold-fw m-0 ms-2 reportBuilderBrTxt">{{comparative.client_firstname}}, {{comparative.client_lastname}}
                 <span class="fs-20 medium-fw report-scenario-name">{{comparative.sceneriodetails_name}}</span>
@@ -16,14 +16,14 @@
             <div class="me-2">
 
               <p class="fs-16 m-0 ms-2 medium-fw grey-clr-1">
-                {{comparative.report_name}}
+                {{reportName}}
               </p>
           </div>
         </div>
     </div>
 
     <!-- Report Buider Name Change Modal start -->
-    <report-builder-name-change-modal :id="comparative.report_id" :name="comparative.report_name" :reportDescription="comparative.report_description" :updateData="updateData" @setUpdatedData="setUpdatedData"/>
+    <report-builder-name-change-modal :id="comparative.report_id" :name="reportName" :reportDescription="reportDescription" :updateData="updateData" @setUpdatedData="setUpdatedData" @setReportName="name => reportName = name" @setReportDescription="value => reportDescription = value"/>
 
 </template>
 <script>
@@ -34,6 +34,8 @@ export default {
   data() {
     return {
       updateData: false,
+      reportName: '',
+      reportDescription: '',
     }
   },
   methods: {
@@ -43,6 +45,10 @@ export default {
     setUpdatedData: function(val){
       this.updateData = val;
     },
+  },
+  mounted() {
+    this.reportName = this.comparative.report_name;
+    this.reportDescription = this.comparative.report_description;
   },
   computed: {
     comparative() {

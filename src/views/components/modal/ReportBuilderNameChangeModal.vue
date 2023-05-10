@@ -30,8 +30,8 @@
             </div>
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
-            <button class="btn yes-delete-btn">Build Report</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn ">Test Function</button>
+            <button class="btn yes-delete-btn">Save</button>
+            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
           </div>
         </form>
       </div>
@@ -47,7 +47,7 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
   components: { SelectDropdown },
   refs: ["closeModalRef"],
-  emits: ["setUpdatedData"],
+  emits: ["setUpdatedData", "setReportName", "setReportDescription"],
   props: ["id", "name", "reportDescription", "updateData"],
   data() {
     return {
@@ -71,6 +71,9 @@ export default {
         name: this.reportName,
         description: this.description,
       };
+
+      this.$emit('setReportName', data.name);
+      this.$emit('setReportDescription', data.description);
 
       this.$refs.closeModalRef.click();
       console.log(data);
