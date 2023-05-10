@@ -190,10 +190,10 @@
                         <table class="table table3 mt-1 w-100">
                           <thead class="heading-tr">
                             <tr>
-                              <th>Distributions</th>
-                              <th>Account Value</th>
-                              <th>Surrender Value</th>
-                              <th>Death Benefit</th>
+                              <th width="25%">Distributions</th>
+                              <th width="25%">Account Value</th>
+                              <th width="25%">Surrender Value</th>
+                              <th width="25%">Death Benefit</th>
                             </tr>
                           </thead>
                           <tbody>
