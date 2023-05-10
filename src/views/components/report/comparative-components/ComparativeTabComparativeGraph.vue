@@ -208,7 +208,7 @@ export default {
         cv3 = chart3 ? chart3["net_balance"] : [];
 
         years = chart1 ? chart1.year : [];
-        contribution = cv;
+        contribution = chart ? chart["Deposits"] : [];
         distribution = chart ? chart["distributions"] : [];
       }
 
@@ -505,9 +505,9 @@ export default {
         let chart2 = this.comparative.cv_2;
         let chart3 = this.comparative.cv_3;
 
-        let ror_chart1 = this.comparative_ror_longevity.cv_1;
-        let ror_chart2 = this.comparative_ror_longevity.cv_2;
-        let ror_chart3 = this.comparative_ror_longevity.cv_3;
+        // let ror_chart1 = this.comparative_ror_longevity.cv_1;
+        // let ror_chart2 = this.comparative_ror_longevity.cv_2;
+        // let ror_chart3 = this.comparative_ror_longevity.cv_3;
 
         if (chart) {
           this.data[0].ror = chart.rate_of_return;
@@ -517,21 +517,21 @@ export default {
         }
 
         if (Object.values(chart1).length) {
-          this.data[1].ror = ror_chart1.comparison.ror;
+          this.data[1].ror = chart1.comparison.ror;
           this.data[1].irr = chart1.comparison.irr_percent;
           this.data[1].longevity_year = chart.chart_output.year.length;
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].ror = ror_chart2.comparison.ror;
+          this.data[2].ror = chart2.comparison.ror;
           this.data[2].irr = chart2.comparison.irr_percent;
           this.data[2].longevity_year = chart.chart_output.year.length;
           this.data[2].cumulative_income = chart2.comparison.cummulative_income;
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].ror = ror_chart3.comparison.ror;
+          this.data[3].ror = chart3.comparison.ror;
           this.data[3].irr = chart3.comparison.irr_percent;
           this.data[3].longevity_year = chart.chart_output.year.length;
           this.data[3].cumulative_income = chart3.comparison.cummulative_income;
