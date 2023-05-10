@@ -202,16 +202,16 @@ export default {
           ? this.comparative.cv_3.comparison.chart_output
           : false;
 
-        cv = chart ? chart["Deposits"] : [];
-        cv1 = chart1 ? chart1["BOY Balance"] : [];
-        cv2 = chart2 ? chart2["BOY pre-tax Balance"] : [];
-        cv3 = chart3 ? chart3["BOY Balance"] : [];
+        cv = chart ? chart["account_value"] : [];
+        cv1 = chart1 ? chart1["net_balance"] : [];
+        cv2 = chart2 ? chart2["net_balance"] : [];
+        cv3 = chart3 ? chart3["net_balance"] : [];
 
         years = chart1 ? chart1.year : [];
         contribution = cv;
 
         console.log(contribution);
-        distribution = chart1 ? chart1.distributions : [];
+        distribution = chart ? chart["distributions"] : [];
       }
 
       let dataset = {
