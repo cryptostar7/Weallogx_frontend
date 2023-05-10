@@ -208,7 +208,7 @@ export default {
         cv3 = chart3 ? chart3["BOY Balance"] : [];
 
         years = chart1 ? chart1.year : [];
-        contribution = chart1 ? chart1.Deposits : [];
+        contribution = cv;
 
         console.log(contribution);
         distribution = chart1 ? chart1.distributions : [];
