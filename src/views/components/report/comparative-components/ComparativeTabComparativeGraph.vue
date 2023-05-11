@@ -496,7 +496,19 @@ export default {
       }
     },
     testFunction: function() {
-      this.mapData();
+      console.log(this.data);
+    },
+    getYear: function(array, age) {
+      console.log(array);
+      console.log(age);
+      let year = array.filter(i => i);
+      console.log(year);
+
+      year = year.length;
+      console.log(year);
+
+      console.log('....................');
+      return age[year];
     },
     mapData: function() {
       if (this.comparative.cv_1) {
@@ -519,21 +531,32 @@ export default {
         if (Object.values(chart1).length) {
           this.data[1].ror = chart1.comparison.ror;
           this.data[1].irr = chart1.comparison.irr_percent;
-          this.data[1].longevity_year = chart.chart_output.year.length;
+          this.data[1].longevity_year = this.getYear(
+            this.comparative_main.cv_1.comparison.chart_output.net_balance,
+            chart1.comparison.chart_output.year
+          );
+
+          console.log('this.data[1].longevity_year', this.data[1].longevity_year);
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
           this.data[2].ror = chart2.comparison.ror;
           this.data[2].irr = chart2.comparison.irr_percent;
-          this.data[2].longevity_year = chart.chart_output.year.length;
+          this.data[2].longevity_year = this.getYear(
+            this.comparative_main.cv_2.comparison.chart_output.net_balance,
+            chart2.comparison.chart_output.year
+          );
           this.data[2].cumulative_income = chart2.comparison.cummulative_income;
         }
 
         if (Object.values(chart3).length) {
           this.data[3].ror = chart3.comparison.ror;
           this.data[3].irr = chart3.comparison.irr_percent;
-          this.data[3].longevity_year = chart.chart_output.year.length;
+          this.data[3].longevity_year = this.getYear(
+            this.comparative_main.cv_3.comparison.chart_output.net_balance,
+            chart2.comparison.chart_output.year
+          );
           this.data[3].cumulative_income = chart3.comparison.cummulative_income;
         }
       }
@@ -548,6 +571,9 @@ export default {
     },
     cv_name() {
       return this.$store.state.data.report.cv_names;
+    },
+    comparative_main() {
+      return this.$store.state.data.report.comparative;
     },
     comparative() {
       return this.$store.state.data.report.comparative_longevity;

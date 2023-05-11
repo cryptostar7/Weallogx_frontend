@@ -298,7 +298,7 @@ export default {
           this.data.cumulative_income[1].cumulative_income =
             chart1.comparison.cummulative_income;
           this.data.cumulative_income[1].shortfall =
-            chart1.comparison.diff_from_lirp;
+            chart1.comparison.diff_cummulative_income;
 
           this.data.total_value[1].total_value = chart1.comparison.total_value;
           this.data.total_value[1].shortfall = chart1.comparison.diff_from_lirp;
@@ -308,7 +308,7 @@ export default {
           this.data.cumulative_income[2].cumulative_income =
             chart2.comparison.cummulative_income;
           this.data.cumulative_income[2].shortfall =
-            chart2.comparison.diff_from_lirp;
+            chart2.comparison.diff_cummulative_income;
 
           this.data.total_value[2].total_value = chart2.comparison.total_value;
           this.data.total_value[2].shortfall = chart2.comparison.diff_from_lirp;
@@ -318,7 +318,7 @@ export default {
           this.data.cumulative_income[3].cumulative_income =
             chart3.comparison.cummulative_income;
           this.data.cumulative_income[3].shortfall =
-            chart3.comparison.diff_from_lirp;
+            chart3.comparison.diff_cummulative_income;
 
           this.data.total_value[3].total_value = chart3.comparison.total_value;
           this.data.total_value[3].shortfall = chart3.comparison.diff_from_lirp;

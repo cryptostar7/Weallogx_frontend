@@ -108,30 +108,30 @@ export default {
       data: [
         {
           type: "",
-          ending_value: '',
-          age: '',
-          shortfall: '',
+          ending_value: "",
+          age: "",
+          shortfall: "",
           shortfall_percentage: "",
         },
         {
           type: "",
           ending_value: 61477,
-          age: '',
-          shortfall: '',
+          age: "",
+          shortfall: "",
           shortfall_percentage: "",
         },
         {
           type: "",
-          ending_value: '',
-          age: '',
-          shortfall: '',
+          ending_value: "",
+          age: "",
+          shortfall: "",
           shortfall_percentage: "",
         },
         {
           type: "",
-          ending_value: '',
-          age: '',
-          shortfall: '',
+          ending_value: "",
+          age: "",
+          shortfall: "",
           shortfall_percentage: "",
         },
       ],
@@ -178,6 +178,7 @@ export default {
         let chart1 = this.comparative.cv_1;
         let chart2 = this.comparative.cv_2;
         let chart3 = this.comparative.cv_3;
+        let death_benefit = 0;
 
         if (chart) {
           this.data[0].ending_value = chart.ending_age;
@@ -186,23 +187,33 @@ export default {
         }
 
         if (chart1) {
-          this.data[0].ending_value = chart1.match_distributions.surrender_value;
-          this.data[1].ending_value = chart1.match_distributions.surrender_value;
-          this.data[1].shortfall = chart1.comparison.diff_from_lirp;
+          let tempEnding = chart.chart_output.death_benefit;
+          death_benefit = tempEnding[tempEnding.length - 1];
+          let netBalance = chart1.comparison.chart_output.net_balance;
+
+          this.data[0].ending_value = tempEnding[tempEnding.length - 1];
+          this.data[1].ending_value = netBalance[netBalance.length - 1];
+          this.data[1].shortfall =
+            death_benefit - netBalance[netBalance.length - 1];
           let age1 = chart1.comparison.chart_output.Age;
           this.data[1].age = age1[age1.length - 1];
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].ending_value = chart2.match_distributions.surrender_value;
-          this.data[2].shortfall = chart2.comparison.diff_from_lirp;
+          let netBalance = chart2.comparison.chart_output.net_balance;
+          this.data[2].ending_value = netBalance[netBalance.length - 1];
+          this.data[2].shortfall =
+            death_benefit - netBalance[netBalance.length - 1];
+
           let age2 = chart2.comparison.chart_output.Age;
           this.data[2].age = age2[age2.length - 1];
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].ending_value = chart3.match_distributions.surrender_value;
-          this.data[3].shortfall = chart3.comparison.diff_from_lirp;
+          let netBalance = chart3.comparison.chart_output.net_balance;
+          this.data[3].ending_value = netBalance[netBalance.length - 1];
+          this.data[3].shortfall =
+            death_benefit - netBalance[netBalance.length - 1];
           let age3 = chart3.comparison.chart_output.Age;
           this.data[3].age = age3[age3.length - 1];
         }
