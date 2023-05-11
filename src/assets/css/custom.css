@@ -3267,7 +3267,9 @@ p.allCardHeadPara{
   width: 100%;
   position: absolute;
   text-align: center;
-  top: -2.2rem;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .shortFallCount p:nth-child(1) {
