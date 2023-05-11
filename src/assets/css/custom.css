@@ -3923,6 +3923,7 @@ Blank div css end here
   overflow: hidden;
   line-height: 1.5;
   border-radius: .25rem;
+  color: #000;
 }
 
 .add-note-input-div .add-note-para:hover {
