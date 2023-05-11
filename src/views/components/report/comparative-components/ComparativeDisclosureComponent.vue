@@ -21,10 +21,8 @@
             <button class="btn round-btn disclosure-save " v-if="saveDisclosure" @click="saveMessage()">
                 <span>Save</span>
                 <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
-                <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
-                    transform="rotate(135 15.6938 2.42676)" fill="#9D9D9D" />
-                <rect x="5.74683" y="12.4258" width="7.78182" height="2.12203" rx="1.06101"
-                    transform="rotate(-135 5.74683 12.4258)" fill="#9D9D9D" />
+                <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"  transform="rotate(135 15.6938 2.42676)" fill="#9D9D9D" />
+                <rect x="5.74683" y="12.4258" width="7.78182" height="2.12203" rx="1.06101"  transform="rotate(-135 5.74683 12.4258)" fill="#9D9D9D" />
                 </svg>
             </button>
             </div>
@@ -47,11 +45,11 @@
             <div v-if="!is_schedule" class="col-md-6">
                 <div>
                 <h6 class="bold-one">Taxes assumed: </h6>
-                <p><span><b>{{tax_rate}}</b> years <b>1-{{year}}</b>;</span>
-                    <span><b>{{second_tax_rate}}</b> years <b>{{year+1}}+</b>;</span>
+                <p><span><b>{{tax_rate}}</b> years <b>1-{{year}}</b>; </span>
+                    <span><b>{{second_tax_rate}}</b> years <b>{{year+1}}+</b>{{capital_gains.length ? ';':''}}</span>
                     <!-- [If capital gains are included for a taxable investment, then we include]: -->
                     <span v-for="(item, index) in capital_gains" :key="index">
-                    <span>Capital gains ratio: <b>{{item.ratio}}%</b>;</span>
+                    <span> Capital gains ratio: <b>{{item.ratio}}%</b>; </span>
                     <span>Capital gains tax rate: <b>{{item.tax}}%</b>;</span>
                     </span>
                     <!-- If taxes are scheduled, then the last line is simply: -->
@@ -136,7 +134,7 @@ export default {
     disclosure.push({
       name: names[0],
       fees:
-        "actual current costs Fof insurance, as per the carrier illustration",
+        "actual current costs of insurance, as per the carrier illustration",
     });
     this.fees = disclosure;
 

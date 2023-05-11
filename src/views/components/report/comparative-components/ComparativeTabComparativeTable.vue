@@ -390,7 +390,7 @@
               </div>
             </div>
             <!-- <button @click="testFunction()">testFunction</button> -->
-            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="1" :hideFee="true"/>
+            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="1" :hideFee="false"/>
           </div>
         </div>
       </div>

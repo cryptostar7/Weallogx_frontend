@@ -14,7 +14,7 @@ const myPlugin = {
                 let day = temp.getDate().toString().slice(-2);
                 let month = Number(temp.getMonth() + 1).toString().slice(-2);
                 let year = temp.getFullYear().toString().slice(-2);
-                return `${day.length < 2 ? '0' + day : day}/${month.length < 2 ? '0' + month : month}/${year}`;
+                return `${month.length < 2 ? '0' + month : month}/${day.length < 2 ? '0' + day : day}/${year}`;
             },
             app.config.globalProperties.$appTheme = () => {
                 return localStorage.getItem("mode") || 'light-green';

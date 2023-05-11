@@ -148,7 +148,7 @@
                     </div>
                   </div>
               </div>
-              <!-- <button type="button" @click="testFunction()">testFunction</button> -->
+              <button type="button" @click="testFunction()">testFunction</button>
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
@@ -270,10 +270,7 @@ export default {
       this.$store.dispatch("loader", true);
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
         .then(response => {
-          console.log("response.data.data");
-          console.log(response.data.data);
           let id = false;
-          console.log(response.data.data.scenerio_details);
           if (response.data.data.scenerio_details) {
             id = response.data.data.scenerio_details.id;
             this.detailId = id;
@@ -332,7 +329,9 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(getScenarioStep1());
+      console.log(this.$route.query.client);
+      console.log(this.existingClientId);
+      console.log(this.existingScenarioList);      
     },
     // set existing client name on change the input
     setExistingClientName: function(name) {
@@ -488,8 +487,6 @@ export default {
         return false;
       }
       let step1 = getScenarioStep1();
-      console.log("step1..........");
-      console.log(id);
       if (step1 && step1.id === Number(id)) {
         this.detailId = step1.id;
         return this.setFormInputs(step1);
@@ -945,6 +942,13 @@ export default {
         tempDefaultClient = this.clients.filter(item => {
           return Number(item.id) === Number(id);
         });
+
+        if (tempDefaultClient[0]) {
+          // existingClientId
+          console.log("tempDefaultClient[0]");
+          console.log(tempDefaultClient[0]);
+          this.existingClientId = this.$route.query.client;
+        }
       }
       return tempDefaultClient[0] ? tempDefaultClient[0] : [];
     },
@@ -952,6 +956,12 @@ export default {
     // existing scenario details dropdown list data
     existingScenarioList() {
       let array = this.$store.state.data.templates.scenario_details || [];
+
+      if (this.existingClientId) {
+        array = array.filter(
+          i => Number(i.client) === Number(this.existingClientId)
+        );
+      }
       return array;
     },
 
