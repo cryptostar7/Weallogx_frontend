@@ -530,19 +530,18 @@ export default {
 
         if (Object.values(chart1).length) {
           this.data[1].ror = chart1.comparison.ror;
-          this.data[1].irr = chart1.comparison.irr_percent;
+          this.data[1].irr = this.comparative_main.cv_1.comparison.irr_percent;
           this.data[1].longevity_year = this.getYear(
             this.comparative_main.cv_1.comparison.chart_output.net_balance,
             chart1.comparison.chart_output.year
           );
 
-          console.log('this.data[1].longevity_year', this.data[1].longevity_year);
           this.data[1].cumulative_income = chart1.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
           this.data[2].ror = chart2.comparison.ror;
-          this.data[2].irr = chart2.comparison.irr_percent;
+          this.data[2].irr = this.comparative_main.cv_2.comparison.irr_percent;
           this.data[2].longevity_year = this.getYear(
             this.comparative_main.cv_2.comparison.chart_output.net_balance,
             chart2.comparison.chart_output.year
@@ -552,7 +551,7 @@ export default {
 
         if (Object.values(chart3).length) {
           this.data[3].ror = chart3.comparison.ror;
-          this.data[3].irr = chart3.comparison.irr_percent;
+          this.data[3].irr = this.comparative_main.cv_3.comparison.irr_percent;
           this.data[3].longevity_year = this.getYear(
             this.comparative_main.cv_3.comparison.chart_output.net_balance,
             chart2.comparison.chart_output.year

@@ -266,7 +266,7 @@
                                 <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[1].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[1].ror).toFixed(2)}}%</span> </div>
+                                <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror).toFixed(2)}}%</span> </div>
                               </div>
                             </div>
                             <div class="progressBarEachBtm">
@@ -296,7 +296,7 @@
                                 <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[1].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[2].ror).toFixed(2)}}%</span>
+                                <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
                                 </div>
                               </div>
                             </div>
@@ -326,7 +326,7 @@
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
                                 <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[1].ror)*100/maxRor}%`}"></div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[3].ror).toFixed(2)}}%</span>
+                                <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
                                 </div>
                               </div>
                             </div>
