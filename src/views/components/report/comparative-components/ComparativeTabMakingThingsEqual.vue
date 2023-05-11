@@ -104,7 +104,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.distributions.longevity ? '': 'disableGroupedBar'}`">
                               <div v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.distribution[index].longevity : data.distribution[1].distributions)*100/maxDistribution}%` }"></div>
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.distribution[index].longevity : data.distribution[0].distributions)*100/maxDistribution}%` }"></div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${1+index}`">{{ $numFormat(index ? data.distribution[index].longevity : data.distribution[0].distributions)}}</span> </div>
                               </div>
@@ -133,7 +133,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars2 ${graphs.distributions.ending_value ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.distribution[index].ending_value : data.distribution[1].distributions)*100/maxDistribution}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.distribution[index].ending_value : data.distribution[0].distributions)*100/maxDistribution}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${5+index}`">{{$numFormat(index ? data.distribution[index].ending_value : data.distribution[0].distributions)}}</span>
@@ -165,7 +165,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.distribution[index].death_benefit : data.distribution[1].distributions)*100/maxDistribution}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)*100/maxDistribution}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                   $<span :class="`thingEqualProg${9+index}`">{{$numFormat(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)}}</span>
@@ -207,7 +207,7 @@
                           <div class="d-flex justify-content-between">
                             <div class="distrbnCard1paras">
                               <p>Rate of Return</p>
-                              <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                              <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
@@ -263,7 +263,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.rate_of_returns.longevity ? '': 'disableGroupedBar'}`">
                               <div v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[1].ror)*100/maxRor}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror).toFixed(2)}}%</span> </div>
@@ -293,7 +293,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars2 ${graphs.rate_of_returns.ending_value ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[1].ror)*100/maxRor}%`}">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror)*100/maxRor}%`}">
                                 </div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
@@ -324,7 +324,7 @@
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
                               <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[1].ror)*100/maxRor}%`}"></div>
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror)*100/maxRor}%`}"></div>
                                 <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
                                 <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
                                 </div>
@@ -500,7 +500,7 @@ export default {
         v => v
       )[0];
 
-     this.data.distribution[1].longevity = this.longevity.cv_1.comparison.chart_output.distributions.filter(
+      this.data.distribution[1].longevity = this.longevity.cv_1.comparison.chart_output.distributions.filter(
         v => v
       )[0];
 
@@ -613,28 +613,24 @@ export default {
     },
     maxDistribution() {
       let dst = this.data.distribution;
-      return this.$roundFigureNum(
-        Math.max(
-          ...[
-            ...dst.map(i => Number(i.distributions)),
-            ...dst.map(i => Number(i.longevity)),
-            ...dst.map(i => Number(i.ending_value)),
-            ...dst.map(i => Number(i.death_benefit)),
-          ]
-        )
+      return Math.max(
+        ...[
+          ...dst.map(i => Number(i.distributions)),
+          ...dst.map(i => Number(i.longevity)),
+          ...dst.map(i => Number(i.ending_value)),
+          ...dst.map(i => Number(i.death_benefit)),
+        ]
       );
     },
     maxRor() {
       let ror = this.data.rate_of_returns;
-      return this.$roundFigureNum(
-        Math.max(
-          ...[
-            ...ror.map(i => Number(i.ror)),
-            ...ror.map(i => Number(i.longevity)),
-            ...ror.map(i => Number(i.ending_value)),
-            ...ror.map(i => Number(i.death_benefit)),
-          ]
-        )
+      return Math.max(
+        ...[
+          ...ror.map(i => Number(i.ror)),
+          ...ror.map(i => Number(i.longevity)),
+          ...ror.map(i => Number(i.ending_value)),
+          ...ror.map(i => Number(i.death_benefit)),
+        ]
       );
     },
     comparative() {

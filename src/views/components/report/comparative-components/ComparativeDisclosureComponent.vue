@@ -38,7 +38,7 @@
                 <h6 class="bold-one">Fees assumed:</h6>
                 <div>
                 <p>
-                    <span v-for="(item, index) in fees" :key="index">{{item.name}}: <b>{{item.fees}}</b> per annum; </span>
+                    <span v-for="(item, index) in fees" :key="index">{{item.name}}: <b>{{item.fees}}</b> {{fees.length -1  === index ? '' :'per annum; '}} </span>
                 </p>
                 </div>
             </div>
@@ -134,7 +134,7 @@ export default {
     disclosure.push({
       name: names[0],
       fees:
-        "actual current costs of insurance, as per the carrier illustration",
+        "actual current costs of insurance, as per the carrier illustration.",
     });
     this.fees = disclosure;
 

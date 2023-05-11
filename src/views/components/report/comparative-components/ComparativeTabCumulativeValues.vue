@@ -138,7 +138,7 @@
                             </div>
 
                             <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
-                              <span>Cumulative Income</span><br />
+                              <span>Total Value</span><br />
                               {{$numFormatWithDollar(item.total_value)}}
                             </p> 
                             <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">

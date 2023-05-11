@@ -674,7 +674,7 @@ export default {
         this.summary_data.data[1] = {
           id: 1,
           distribution: {
-            total: ct.cv_1.comparison.total_value,
+            total: ct.cv_1.comparison.cummulative_income,
             total_value: ct.cv_1.comparison.total_value,
             shortfall: ct.cv_1.comparison.diff_from_lirp,
           },
@@ -706,7 +706,7 @@ export default {
         this.summary_data.data[2] = {
           id: 2,
           distribution: {
-            total: ct.cv_2.comparison.total_value,
+            total: ct.cv_2.comparison.cummulative_income,
             total_value: ct.cv_2.comparison.total_value,
             shortfall: ct.cv_2.comparison.diff_from_lirp,
           },
