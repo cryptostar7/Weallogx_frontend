@@ -171,6 +171,10 @@ export default {
         i => i.tab_type === this.tabs[this.$props.currentTab]
       ) || [];
     this.currentItem = disclosures[0] ? disclosures[0] : [];
+    if(this.currentItem.text){
+      console.log('data saved');
+      this.$refs.editableDiv.innerHTML = this.currentItem.text;
+    }
   },
   methods: {
     testFunction: function() {
@@ -196,7 +200,7 @@ export default {
         report_id: this.$route.params.report,
         report_type: 'comperative',
         tab_type: this.tabs[this.$props.currentTab],
-        text: this.$refs.editableDiv.innerHTML.trim(),
+        text: this.$refs.editableDiv.innerHTML,
         vehicle_type: this.$props.cvType,
       };
 
