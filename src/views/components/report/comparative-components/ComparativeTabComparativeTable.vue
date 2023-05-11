@@ -632,7 +632,7 @@ export default {
         this.summary_data.data[0] = {
           id: 0,
           distribution: {
-            total: ct.lirp_data.total_value,
+            total: ct.lirp_data.cummulative_income,
             total_value: ct.lirp_data.total_value,
             shortfall: ct.lirp_data.shortfall,
           },
