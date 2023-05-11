@@ -66,16 +66,16 @@
                   <div class="CompProgressAbsltCls legacy">
                     <div class="progressAllBarsDivMain">
                       <div class="d-flex justify-content-between w-100">
-                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                        <div v-for="(item, index) in data" :key="index" :class="`p-relative cumulativeValuesProgrees progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                               <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.ending_value)}}</span></p>
                             </div>
-                            <div class="shortFallCount">
+                          </div>
+                          <div class="shortFallCount">
                               <p class="">SHORTFALL</p>
                               <p>${{$numFormat(item.shortfall)}}</p>
                             </div>
-                          </div>
                         </div>
                       </div>
                     </div>

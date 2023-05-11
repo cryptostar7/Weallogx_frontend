@@ -248,6 +248,8 @@ export default {
             data: this.deletedItems.includes(3) ? [] : cv3 || [],
           },
           {
+            barPercentage: 1,
+            barThickness: 15,
             backgroundColor: "rgba(14, 103, 82, .4)",
             radius: 0,
             data: contribution || [],
@@ -256,6 +258,8 @@ export default {
             yAxisID: "B",
           },
           {
+            barPercentage: 1,
+            barThickness: 15,
             backgroundColor: "rgba(131, 159, 175, .6)",
             radius: 2,
             data: distribution || [],
@@ -263,6 +267,7 @@ export default {
             borderRadius: 2,
             yAxisID: "B",
           },
+
         ],
       };
       console.log(dataset);
@@ -383,6 +388,7 @@ export default {
                 color: "transparent",
               },
               ticks: {
+                align: "end",
                 font: {
                   size: 11,
                   family: "Inter",
@@ -429,6 +435,7 @@ export default {
               min: 0,
               max: Number(maxAcc2).toFixed(0),
               ticks: {
+                align: "start",
                 padding: 8,
                 // stepSize: maxAcc2,
                 callback: function(value, index, ticks) {
