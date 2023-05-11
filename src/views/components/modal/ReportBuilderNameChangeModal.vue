@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import { get, post } from "../../../network/requests";
+import { get, post, patch } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, mapClientList } from "../../../services/helper";
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -77,10 +77,10 @@ export default {
 
       this.$refs.closeModalRef.click();
       console.log(data);
-      return false;
+      // return false;
 
       this.$store.dispatch("loader", true);
-      patch(`${getUrl("report")}${this.$props.id}`, data, authHeader())
+      patch(`${getUrl("report")}${this.$props.id}/`, data, authHeader())
         .then(response => {
           console.log(response.data);
           this.$toast.success(response.data.message);

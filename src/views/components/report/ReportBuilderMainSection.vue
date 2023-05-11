@@ -119,6 +119,7 @@ export default {
 
       // get all notes of active report
       this.getNotes();
+      this.getDesclosures();
     },
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
@@ -153,6 +154,8 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    // get all notes of current report
     getNotes: function() {
       get(
         `${getUrl("notes")}?report=${this.$route.params.report}`,
@@ -160,6 +163,20 @@ export default {
       )
         .then(response => {
           this.$store.dispatch("notes", response.data);
+        })
+        .catch(error => {
+          console.log();
+        });
+    },
+
+    // get all disclosures of current report
+    getDesclosures: function() {
+      get(
+        `${getUrl("disclosures")}?report=${this.$route.params.report}`,
+        authHeader()
+      )
+        .then(response => {
+          this.$store.dispatch("disclosures", response.data);
         })
         .catch(error => {
           console.log();

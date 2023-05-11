@@ -31,7 +31,7 @@
         </div>
         <div :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable':''}`">
             <div class="disclosure-textarea" contenteditable="true" ref="editableDiv" @focus="() => this.saveDisclosure = true" @input="handleDisclosure()">
-            {{disclosure_msg}}
+            {{currentItem.text || disclosure_msg}}
             </div>
         </div>
         <div :class="`disclosure-footer ${$props.hideFee ? 'd-none':''}`">
@@ -39,28 +39,27 @@
             <div class="col-md-6">
                 <h6 class="bold-one">Fees assumed:</h6>
                 <div>
-                <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                    <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                    <span>Annuity: <b>2.3%</b> per annum; </span>
-                    <span>LIRP: actual current costs of insurance, as per the carrier
-                    illustration</span>
+                <p>
+                    <span v-for="(item, index) in fees" :key="index">{{item.name}}: <b>{{item.fees}}</b> per annum; </span>
                 </p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div v-if="!is_schedule" class="col-md-6">
                 <div>
                 <h6 class="bold-one">Taxes assumed: </h6>
-                <p><span><b>27%</b> years <b>1-6</b>;</span>
-                    <span><b>35%</b> years <b>7+</b>;</span>
+                <p><span><b>{{tax_rate}}</b> years <b>1-{{year}}</b>;</span>
+                    <span><b>{{second_tax_rate}}</b> years <b>{{year+1}}+</b>;</span>
                     <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                    <span>Capital gains ratio: <b>50%</b>;</span>
-                    <span>Capital gains tax rate: <b>20%</b>;</span>
+                    <span v-for="(item, index) in capital_gains" :key="index">
+                    <span>Capital gains ratio: <b>{{item.ratio}}%</b>;</span>
+                    <span>Capital gains tax rate: <b>{{item.tax}}%</b>;</span>
+                    </span>
                     <!-- If taxes are scheduled, then the last line is simply: -->
                 </p>
                 </div>
             </div>
             </div>
-            <p><span>Taxes assumed: <b>Per schedule</b></span></p>
+            <p v-if="is_schedule"><span>Taxes assumed: <b>Per schedule</b></span></p>
         </div>
         </div>
     </div>
@@ -87,37 +86,157 @@
       </div>
     </div>
   </div>
+  <!-- <button @click="testFunction">testFunction</button> -->
 
   <!-- Disclosure Required Ends -->
 </template>
 <script>
+// import { post, patch } from "../../../../network/requests";
+import { get, post, put, patch } from "../../../../network/requests";
+import { getUrl } from '../../../../network/url';
+import { authHeader } from '../../../../services/helper';
 
 export default {
-  props:['hideFee', "feetab", "currentTab"],
+  props: ["hideFee", "feetab", "currentTab"],
   data() {
     return {
       saveDisclosure: false,
-      disclosure_msg:'',
+      disclosure_msg: "",
+      currentItem: [],
+      fees: [],
+      capital_gains: [],
+      tax_rate: "0%",
+      second_tax_rate: "0%",
+      year: "0",
+      is_schedule: false,
     };
   },
-  mounted(){
+  mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
+    let data = this.comparative.disclosure;
+    console.log(data);
+    let names = this.cv_name;
+    let disclosure = [{ name: names[1], fees: data.cv1_fees + "%" }];
+
+    this.tax_rate = data.tax_rate + "%";
+    this.second_tax_rate = data.second_tax_rate + "%";
+
+    if (!this.tax_rate) {
+      is_schedule = true;
+    } else {
+      this.year = data.second_tax_rate_year - 1;
+    }
+
+    if (names[2]) {
+      disclosure.push({ name: names[2], fees: data.cv2_fees + "%" });
+    }
+    if (names[3]) {
+      disclosure.push({ name: names[3], fees: data.cv3_fees + "%" });
+    }
+    disclosure.push({
+      name: names[0],
+      fees:
+        "actual current costs Fof insurance, as per the carrier illustration",
+    });
+    this.fees = disclosure;
+
+    // for capital gains
+    let cg = [];
+
+    let cg1_tax = data.cv1_capital_gains_tax_rate;
+    let cg1_account = data.cv1_percentage_of_account_as_capital_gains;
+
+    let cg2_tax = data.cv2_capital_gains_tax_rate;
+    let cg2_account = data.cv2_percentage_of_account_as_capital_gains;
+
+    let cg3_tax = data.cv3_capital_gains_tax_rate;
+    let cg3_account = data.cv3_percentage_of_account_as_capital_gains;
+
+    if (cg1_tax || cg1_account) {
+      cg.push({ name: "", tax: cg1_tax, ratio: cg1_account });
+    }
+
+    if (cg2_tax || cg2_account) {
+      cg.push({ name: "", tax: cg2_tax, ratio: cg2_account });
+    }
+
+    if (cg3_tax || cg3_account) {
+      cg.push({ name: "", tax: cg3_tax, ratio: cg3_account });
+    }
+
+    this.capital_gains = cg;
+
+    let disclosures =
+      this.$store.state.data.report.disclosures.filter(
+        i => i.tab_type === this.tabs[this.$props.currentTab]
+      ) || [];
+    this.currentItem = disclosures[0] ? disclosures[0] : [];
   },
   methods: {
-    handleDisclosure: function() {
-        if(!this.$refs.editableDiv.innerHTML){
-          new bootstrap.Modal(this.$refs.disclosureModal).show();
-        }
+    testFunction: function() {
+      console.log(this.currentItem);
     },
-    setDefaultMessage: function(){
+    handleDisclosure: function() {
+      if (!this.$refs.editableDiv.innerHTML) {
+        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      }
+    },
+    setDefaultMessage: function() {
       this.$refs.editableDiv.innerHTML = this.disclosure_msg;
-    }, 
-    saveMessage: function(){
-        if(!this.$refs.editableDiv.innerHTML){
-         return new bootstrap.Modal(this.$refs.disclosureModal).show();
-        }
-        this.saveDisclosure = false;
-    }
+    },
+    saveMessage: function() {
+      if (!this.$refs.editableDiv.innerHTML) {
+        return new bootstrap.Modal(this.$refs.disclosureModal).show();
+      }
+      console.log('data saved');
+      console.log(this.$refs.editableDiv.innerHTML);
+      this.saveDisclosure = false;
+
+      let data = {
+        report_id: this.$route.params.report,
+        report_type: 'comperative',
+        tab_type: this.tabs[this.$props.currentTab],
+        text: this.$refs.editableDiv.innerHTML.trim(),
+        vehicle_type: this.$props.cvType,
+      };
+
+      if (this.currentItem.id) {
+        patch(`${getUrl("disclosures")}${this.currentItem.id}/`, data, authHeader())
+          .then(response => {
+            this.$toast.success("Disclosure saved successfully!");
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        post(getUrl("disclosures"), data, authHeader())
+          .then(response => {
+            this.currentItem = response.data;
+            this.$toast.success("Disclosure saved successfully!");
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    },
+  },
+  computed: {
+    comparative() {
+      return this.$store.state.data.report.comparative;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
+    },
+    tabs() {
+      return {
+        1: "comperative_table",
+        2: "comperative_graph",
+        3: "comperative_making_things_equal",
+        4: "cummulative_values",
+        5: "legacy",
+        6: "fee_analysis",
+      };
+    },
   },
 };
 </script>

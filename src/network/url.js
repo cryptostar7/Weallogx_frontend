@@ -95,6 +95,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/death-ror/`
     case 'notes':
       return `${baseUrl}/report/add-note/`
+    case 'disclosures':
+      return `${baseUrl}/report/add-disclosure/`
     case 'historical_report':
       return `${baseUrl}/historical/`
     default:
