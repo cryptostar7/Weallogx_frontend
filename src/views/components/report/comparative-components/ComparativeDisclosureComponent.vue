@@ -91,8 +91,8 @@
 <script>
 // import { post, patch } from "../../../../network/requests";
 import { get, post, put, patch } from "../../../../network/requests";
-import { getUrl } from '../../../../network/url';
-import { authHeader } from '../../../../services/helper';
+import { getUrl } from "../../../../network/url";
+import { authHeader } from "../../../../services/helper";
 
 export default {
   props: ["hideFee", "feetab", "currentTab"],
@@ -110,73 +110,79 @@ export default {
     };
   },
   mounted() {
-    this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
-    let data = this.comparative.disclosure;
-    console.log(data);
-    let names = this.cv_name;
-    let disclosure = [{ name: names[1], fees: data.cv1_fees + "%" }];
-
-    this.tax_rate = data.tax_rate + "%";
-    this.second_tax_rate = data.second_tax_rate + "%";
-
-    if (!this.tax_rate) {
-      is_schedule = true;
-    } else {
-      this.year = data.second_tax_rate_year - 1;
-    }
-
-    if (names[2]) {
-      disclosure.push({ name: names[2], fees: data.cv2_fees + "%" });
-    }
-    if (names[3]) {
-      disclosure.push({ name: names[3], fees: data.cv3_fees + "%" });
-    }
-    disclosure.push({
-      name: names[0],
-      fees:
-        "actual current costs of insurance, as per the carrier illustration.",
-    });
-    this.fees = disclosure;
-
-    // for capital gains
-    let cg = [];
-
-    let cg1_tax = data.cv1_capital_gains_tax_rate;
-    let cg1_account = data.cv1_percentage_of_account_as_capital_gains;
-
-    let cg2_tax = data.cv2_capital_gains_tax_rate;
-    let cg2_account = data.cv2_percentage_of_account_as_capital_gains;
-
-    let cg3_tax = data.cv3_capital_gains_tax_rate;
-    let cg3_account = data.cv3_percentage_of_account_as_capital_gains;
-
-    if (cg1_tax || cg1_account) {
-      cg.push({ name: "", tax: cg1_tax, ratio: cg1_account });
-    }
-
-    if (cg2_tax || cg2_account) {
-      cg.push({ name: "", tax: cg2_tax, ratio: cg2_account });
-    }
-
-    if (cg3_tax || cg3_account) {
-      cg.push({ name: "", tax: cg3_tax, ratio: cg3_account });
-    }
-
-    this.capital_gains = cg;
-
-    let disclosures =
-      this.$store.state.data.report.disclosures.filter(
-        i => i.tab_type === this.tabs[this.$props.currentTab]
-      ) || [];
-    this.currentItem = disclosures[0] ? disclosures[0] : [];
-    if(this.currentItem.text){
-      console.log('data saved');
-      this.$refs.editableDiv.innerHTML = this.currentItem.text;
-    }
+    this.mapData();
   },
   methods: {
     testFunction: function() {
-      console.log(this.currentItem);
+      console.log(this.cv_name);
+    },
+    mapData: function() {
+      this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
+      let data = this.comparative.disclosure;
+      let names = this.cv_name;
+      if (this.$props.currentTab === 1) {
+        console.log("names.........");
+        console.log(names);
+      }
+      let disclosure = [{ name: names[1], fees: data.cv1_fees + "%" }];
+
+      this.tax_rate = data.tax_rate + "%";
+      this.second_tax_rate = data.second_tax_rate + "%";
+
+      if (!this.tax_rate) {
+        is_schedule = true;
+      } else {
+        this.year = data.second_tax_rate_year - 1;
+      }
+
+      if (names[2]) {
+        disclosure.push({ name: names[2], fees: data.cv2_fees + "%" });
+      }
+      if (names[3]) {
+        disclosure.push({ name: names[3], fees: data.cv3_fees + "%" });
+      }
+      disclosure.push({
+        name: names[0],
+        fees:
+          "actual current costs of insurance, as per the carrier illustration.",
+      });
+      this.fees = disclosure;
+
+      // for capital gains
+      let cg = [];
+
+      let cg1_tax = data.cv1_capital_gains_tax_rate;
+      let cg1_account = data.cv1_percentage_of_account_as_capital_gains;
+
+      let cg2_tax = data.cv2_capital_gains_tax_rate;
+      let cg2_account = data.cv2_percentage_of_account_as_capital_gains;
+
+      let cg3_tax = data.cv3_capital_gains_tax_rate;
+      let cg3_account = data.cv3_percentage_of_account_as_capital_gains;
+
+      if (cg1_tax || cg1_account) {
+        cg.push({ name: "", tax: cg1_tax, ratio: cg1_account });
+      }
+
+      if (cg2_tax || cg2_account) {
+        cg.push({ name: "", tax: cg2_tax, ratio: cg2_account });
+      }
+
+      if (cg3_tax || cg3_account) {
+        cg.push({ name: "", tax: cg3_tax, ratio: cg3_account });
+      }
+
+      this.capital_gains = cg;
+
+      let disclosures =
+        this.$store.state.data.report.disclosures.filter(
+          i => i.tab_type === this.tabs[this.$props.currentTab]
+        ) || [];
+      this.currentItem = disclosures[0] ? disclosures[0] : [];
+      if (this.currentItem.text) {
+        console.log("data saved");
+        this.$refs.editableDiv.innerHTML = this.currentItem.text;
+      }
     },
     handleDisclosure: function() {
       if (!this.$refs.editableDiv.innerHTML) {
@@ -190,20 +196,23 @@ export default {
       if (!this.$refs.editableDiv.innerHTML) {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
-      console.log('data saved');
-      console.log(this.$refs.editableDiv.innerHTML);
+
       this.saveDisclosure = false;
 
       let data = {
         report_id: this.$route.params.report,
-        report_type: 'comperative',
+        report_type: "comperative",
         tab_type: this.tabs[this.$props.currentTab],
         text: this.$refs.editableDiv.innerHTML,
         vehicle_type: this.$props.cvType,
       };
 
       if (this.currentItem.id) {
-        patch(`${getUrl("disclosures")}${this.currentItem.id}/`, data, authHeader())
+        patch(
+          `${getUrl("disclosures")}${this.currentItem.id}/`,
+          data,
+          authHeader()
+        )
           .then(response => {
             this.$toast.success("Disclosure saved successfully!");
           })
@@ -229,6 +238,9 @@ export default {
     cv_name() {
       return this.$store.state.data.report.cv_names;
     },
+    first_cv_name() {
+      return this.$store.state.data.report.cv_names[0];
+    },
     tabs() {
       return {
         1: "comperative_table",
@@ -238,6 +250,12 @@ export default {
         5: "legacy",
         6: "fee_analysis",
       };
+    },
+  },
+  watch: {
+    first_cv_name() {
+      console.log("changed....");
+      this.mapData();
     },
   },
 };
