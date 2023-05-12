@@ -212,6 +212,7 @@ export default {
     } else {
       // set default client age
       let df_client = this.$route.query.client;
+      this.existingClientId = df_client;
       if (df_client) {
         this.$store.state.data.clients.forEach(element => {
           if (Number(df_client) === Number(element.id)) {
@@ -234,9 +235,6 @@ export default {
 
     // populate scenario details if scenario detail id exist in url
     let scenarioData = getCurrentScenario();
-
-    console.log("scenarioData()");
-    console.log(scenarioData);
 
     if (this.$route.params.scenario) {
       if (
@@ -331,11 +329,21 @@ export default {
     testFunction: function() {
       console.log(this.$route.query.client);
       console.log(this.existingClientId);
-      console.log(this.existingScenarioList);      
+      console.log(this.existingScenarioList);
     },
     // set existing client name on change the input
     setExistingClientName: function(name) {
       this.clientName = name;
+      let templateId = this.$getTemplateId(name, this.clients);
+      if (!templateId) {
+        this.$router.push(`${this.$route.query.review ? "&review=true" : ""}`);
+      } else {
+        console.log(templateId);
+        this.$router.push(
+          `?client=${templateId}${this.$route.query.review ? "&review=true" : ""}`
+        );
+      }
+      // this.existingClientId = false;
     },
 
     // set existing scenario detail template name on change the input
@@ -351,9 +359,14 @@ export default {
     // set existing client id on selecting the input dropdown data
     setExistingClientId: function(id) {
       this.existingClientId = id;
+      this.$router.push(
+        `?client=${id}${this.$route.query.review ? "&review=true" : ""}`
+      );
+
       let age = this.$store.state.data.clients.filter(item => {
         return Number(item.id) === Number(id);
       })[0].age;
+      console.log(id);
       this.setInputWithId("clientAge", age);
       this.clientAgeYearToIllustrate = age;
       this.errors.client_age_year = false;
@@ -362,6 +375,16 @@ export default {
     // set the existing scenari o detail id on selecting the input dropdown data
     setExistingScenarioDetailId: function(id) {
       this.existingScenarioDetailId = id;
+      let client_id = this.existingScenarioList.filter(i => i.id === id)[0]
+        .client;
+      console.log(id);
+
+      this.existingClientId = client_id;
+      this.setClientAsDefault = client_id;
+      this.$router.push(
+        `?client=${client_id}${this.$route.query.review ? "&review=true" : ""}`
+      );
+
       this.errors = [];
       this.populateScenarioDetail(id);
     },
@@ -944,9 +967,6 @@ export default {
         });
 
         if (tempDefaultClient[0]) {
-          // existingClientId
-          console.log("tempDefaultClient[0]");
-          console.log(tempDefaultClient[0]);
           this.existingClientId = this.$route.query.client;
         }
       }
