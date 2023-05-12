@@ -41,7 +41,7 @@ export default {
       if (this.note_id) {
         patch(`${getUrl("notes")}${this.note_id}/`, data, authHeader())
           .then(response => {
-            this.$toast.success("Note saved successfully!");
+            // this.$toast.success("Note saved successfully!");
           })
           .catch(error => {
             console.log(error);

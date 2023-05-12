@@ -3,7 +3,7 @@
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`" id="comparativeGraphTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop2 ${activeTabs[keyId] ? 'active':''}`">
-          <div class="d-flex justify-content-between px-3 py-2 bb-grey">
+          <div class="d-flex justify-content-between px-3 py-2 bb-grey tab-head">
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
