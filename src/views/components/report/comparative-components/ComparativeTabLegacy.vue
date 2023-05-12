@@ -64,7 +64,7 @@
                     </div>
                   </div>
                   <div class="CompProgressAbsltCls legacy">
-                    <div class="progressAllBarsDivMain">
+                    <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                       <div class="d-flex justify-content-between w-100">
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(item.shortfall, item.ending_value) > 35 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
@@ -223,6 +223,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    activeCards() {
+      return 4 - this.deletedItems.length;
     },
     cv_name() {
       return this.$store.state.data.report.cv_names;

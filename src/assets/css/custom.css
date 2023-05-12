@@ -2681,7 +2681,7 @@ p.allCardHeadPara{
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
   margin-top: 10px;
-  margin-left: 8px;
+  margin-inline: 5px;
   margin-bottom: 1rem;
 }
 
@@ -2713,7 +2713,7 @@ p.allCardHeadPara{
   width: 100%;
   position: absolute;
   bottom: 1.35rem;
-  left: 54.2%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
@@ -2721,8 +2721,11 @@ p.allCardHeadPara{
   display: flex;
   justify-content: space-between;
   width: 92%;
+  margin: 0 auto;
 }
-
+.progressAllBarsDivMain.twoEffect{
+  width: 63%;
+}
 .mainProgBrdrDivs {
   margin-bottom: 14px;
 }
@@ -3205,7 +3208,7 @@ p.allCardHeadPara{
 .CompProgressAbsltCls {
   width: 100%;
   position: absolute;
-  left: 54.2%;
+  left: 50%;
   transform: translateX(-50%);
   bottom: 1.90rem;
   display: flex;
@@ -3229,8 +3232,8 @@ p.allCardHeadPara{
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
   margin-top: 10px;
-  margin-left: 8px;
   margin-bottom: 1rem;
+  margin-inline: 5px;
 }
 
 .cumulativeValuesProgrees {
@@ -4066,14 +4069,16 @@ Blank div css end here
   justify-content: center;
   padding-inline: 0.5rem;
 }
-
-.feeProgressBarEachDivMain:nth-child(1) {
+.progressAllBarsDivMain.twoEffect .feeProgressBarEachDivMain{
+  flex-basis: 50%;
+}
+/*.feeProgressBarEachDivMain:nth-child(1) {
   justify-content: flex-start;
 }
 
 .feeProgressBarEachDivMain:nth-child(4) {
   justify-content: flex-end;
-}
+}*/
 
 .feeMainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
@@ -4380,7 +4385,7 @@ background: #1D856C;
   width: 100%;
   position: absolute;
   bottom: 3rem;
-  left: 54.2%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
