@@ -813,6 +813,7 @@ export default {
         .then(response => {
           let id = response.data.data.id;
           setScenarioStep1(response.data.data);
+          this.getExistingScenarioDetails();
           this.detailId = id;
           if (id) {
             this.createScenarioWithDetailId(id);
@@ -857,6 +858,7 @@ export default {
           setScenarioStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
+          this.getExistingScenarioDetails();
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
