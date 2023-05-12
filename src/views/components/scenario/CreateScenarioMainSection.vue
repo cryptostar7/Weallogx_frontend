@@ -148,7 +148,7 @@
                     </div>
                   </div>
               </div>
-              <button type="button" @click="testFunction()">testFunction</button>
+              <!-- <button type="button" @click="testFunction()">testFunction</button> -->
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
