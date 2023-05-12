@@ -3262,7 +3262,9 @@ p.allCardHeadPara{
   display: flex;
   align-items: flex-end;
 }
-
+.cumulativeprogreeDivcommon.p-static{
+  position: static;
+}
 .shortFallCount {
   width: 100%;
   position: absolute;
@@ -3276,16 +3278,18 @@ p.allCardHeadPara{
   margin: 0;
   font-weight: 600;
   font-size: 8px;
-  color: #000000;
+  color: #fff;
 }
 
 .shortFallCount p:nth-child(2) {
   font-weight: 600;
   font-size: 13px;
-  color: #000000;
+  color: #fff;
   margin: 0;
 }
-
+.cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(1), .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(2){
+  color: #000;
+}
 .bottomComulativeIncome {
   width: 100%;
   text-align: center;
