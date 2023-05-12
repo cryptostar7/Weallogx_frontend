@@ -270,7 +270,7 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    getPercentValue: function(value1, value2) {
+    getPercentValue: function(value1=0, value2=0) {
       value1 = Number(value1.toString().replaceAll("-", ""));
       value2 = Number(value2.toString().replace("-", ""));
       let unit =
