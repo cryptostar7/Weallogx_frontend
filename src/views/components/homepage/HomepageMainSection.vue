@@ -48,6 +48,7 @@ import {
   authHeader,
   getFirstError,
   mapClientList,
+clearScenarioCacheData,
 } from "../../../services/helper";
 export default {
   components: {
@@ -184,6 +185,9 @@ export default {
     },
   },
   mounted() {
+    // clear scenario cache from localstorage
+    clearScenarioCacheData();
+    
     // clear active scenario data
     if (this.$store.state.data.active_scenario) {
       this.$store.dispatch("activeScenario", false);

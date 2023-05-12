@@ -217,11 +217,19 @@ export const getScenarioStep3 = () => {
 }
 
 export const setScenarioStep4 = (obj) => {
-  return localStorage.setItem('scenarioStep3', JSON.stringify(obj));
+  return localStorage.setItem('scenarioStep4', JSON.stringify(obj));
 }
 
 export const getScenarioStep4 = () => {
   return JSON.parse(localStorage.getItem('scenarioStep4'));
+}
+
+export const clearScenarioCacheData = () => {
+  localStorage.setItem('currentScenario', null);
+  localStorage.setItem('scenarioStep1', null);
+  localStorage.setItem('scenarioStep2', null);
+  localStorage.setItem('scenarioStep3', null);
+  localStorage.setItem('scenarioStep4', null);
 }
 
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;

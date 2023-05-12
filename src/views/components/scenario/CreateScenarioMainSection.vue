@@ -340,7 +340,9 @@ export default {
       } else {
         console.log(templateId);
         this.$router.push(
-          `?client=${templateId}${this.$route.query.review ? "&review=true" : ""}`
+          `?client=${templateId}${
+            this.$route.query.review ? "&review=true" : ""
+          }`
         );
       }
       // this.existingClientId = false;
@@ -862,7 +864,11 @@ export default {
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
-            this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+            if (this.activeScenario.id) {
+              this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+            } else {
+              this.$toast.error("Something went wrong.");
+            }
           }
         })
         .catch(error => {
@@ -903,11 +909,17 @@ export default {
         authHeader()
       )
         .then(response => {
+          console.log("scenario............");
           console.log(response.data);
           setCurrentScenario(response.data);
+          this.getClient();
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
-          this.$router.push(`/illustration-data/${response.data.id}`);
+          if (response.data.id) {
+            this.$router.push(`/illustration-data/${response.data.id}`);
+          } else {
+            this.$toast.error("Something went wrong.");
+          }
         })
         .catch(error => {
           console.log(error);
