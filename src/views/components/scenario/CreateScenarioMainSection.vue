@@ -266,6 +266,36 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
+      this.getScenarionDetails();
+    }
+
+    // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach(element =>
+      element.addEventListener("input", function(e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
+        }
+      })
+    );
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.$route.query.client);
+      console.log(this.existingClientId);
+      console.log(this.existingScenarioList);
+    },
+    getScenarionDetails: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
         .then(response => {
           let id = false;
@@ -303,33 +333,6 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
-    }
-
-    // input validation for min and max value
-    const inputs = document.querySelectorAll(".handleLimit");
-    inputs.forEach(element =>
-      element.addEventListener("input", function(e) {
-        let len = e.target.value.length;
-        let current = e.target.value;
-        let min = Number(e.target.getAttribute("min"));
-        let max = Number(e.target.getAttribute("max"));
-        if (
-          Number(current) < min ||
-          Number(current) > max ||
-          isNaN(Number(current))
-        ) {
-          let actualValue = current.slice(0, len - 1);
-          e.target.value = actualValue;
-          return false;
-        }
-      })
-    );
-  },
-  methods: {
-    testFunction: function() {
-      console.log(this.$route.query.client);
-      console.log(this.existingClientId);
-      console.log(this.existingScenarioList);
     },
     // set existing client name on change the input
     setExistingClientName: function(name) {
@@ -861,6 +864,7 @@ export default {
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
           this.getExistingScenarioDetails();
+          this.getScenarionDetails();
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
@@ -909,8 +913,6 @@ export default {
         authHeader()
       )
         .then(response => {
-          console.log("scenario............");
-          console.log(response.data);
           setCurrentScenario(response.data);
           this.getClient();
           this.$toast.success("Scenario details created successfully!");
