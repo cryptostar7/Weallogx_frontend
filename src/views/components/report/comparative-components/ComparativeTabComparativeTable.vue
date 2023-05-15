@@ -24,7 +24,7 @@
           <div>
             <div :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
-              <div class="px-3 py-3">
+              <div class="px-3 py-3 whole-table-wrapper">
                 <div class="position-relative">
                   <div class="d-flex align-items-center float-end">
                     <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
@@ -114,7 +114,7 @@
                       </div>
                       <div class="d-flex mt-1">
                         <div class="reportTablesDiv reportTablesDiv1">
-                          <table class="table">
+                          <table class="table sticky-header">
                             <thead class="heading-tr">
                               <tr>
                                 <th>Yr</th>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="reportTablesDiv ms-2 reportTablesDiv2">
                           <table class="table">
-                            <thead class="heading-tr">
+                            <thead class="heading-tr sticky-header">
                               <tr>
                                 <th>Deposits</th>
                               </tr>
@@ -187,7 +187,7 @@
                             <p><input type="text" :value="cv_name[0]" class="tableHeadInputs" @blur="e => saveCvName(0, e.target.value)"></p>
                           </div>
                         </div>
-                        <table class="table table3 mt-1 w-100">
+                        <table class="table table3 mt-1 w-100 sticky-header">
                           <thead class="heading-tr">
                             <tr>
                               <th width="25%">Distributions</th>
@@ -403,6 +403,11 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 import { patch } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
+import "@/assets/js/jquery.min.js";
+
+
+// Table Header Sticky code starts
+  // Table Header Sticky code ends here
 
 export default {
   props: ["keyId"],
@@ -512,6 +517,8 @@ export default {
     if (!obj3) {
       this.$store.dispatch("reportCvDeleteId", 3);
     }
+
+    
   },
   methods: {
     testFunction: function() {

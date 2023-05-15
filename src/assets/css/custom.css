@@ -605,6 +605,9 @@ body::-webkit-scrollbar {
 }
 
 /* table */
+.table{
+  position: relative;
+}
 .illusnTableMainDiv .table {
   width: 100%;
   border-collapse: collapse;
@@ -4868,13 +4871,26 @@ border: none;
 
 .tablesMainDiv {
   position: relative;
-  z-index: 0;
 }
 
 .heading-tr {
   position: relative;
 }
-
+.whole-table-wrapper {
+  max-height: 600px;
+  overflow-y: auto;
+  sidebar-width: 0;
+}
+.whole-table-wrapper::-webkit-scrollbar{
+  display: none;
+}
+.tablesMainDiv table{
+  position: relative;
+}
+.tablesMainDiv table thead{
+  position: sticky;
+  top: -16px;
+}
 .heading-tr::before {
   position: absolute;
   content: '';
