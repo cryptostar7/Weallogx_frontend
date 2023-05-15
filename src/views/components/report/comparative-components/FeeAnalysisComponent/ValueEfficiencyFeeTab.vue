@@ -46,7 +46,7 @@
         </div>
 
         <div class="feeProgressAbsltCls">
-          <div class="progressAllBarsDivMain flex-gap-12">
+          <div :class="`progressAllBarsDivMain flex-gap-12 ${activeCards == 2 ? 'twoEffect' : ''}`">
             <div v-for="(item, index) in data" :key="index" :class="`feeProgressBarEachDivMain feeDivDisplayNone${1+index} ${cards[index].active ? '' : 'feebarGroupDisplayNone'}  ${deletedItems.includes(index) ? 'd-none':''}`">
               <div class="d-flex groupedFourBars2">
                 <div
@@ -202,6 +202,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    activeCards(){
+      return 4 - this.deletedItems.length;
     },
     cv_name() {
       return this.$store.state.data.report.cv_names;

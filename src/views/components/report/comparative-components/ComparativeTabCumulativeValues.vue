@@ -85,10 +85,10 @@
                         </div>
                       </div>
                       <div class="CompProgressAbsltCls">
-                        <div class="progressAllBarsDivMain">
+                        <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} `" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 35 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.cumulative_income)}}</span></p>
                                 </div>
@@ -159,9 +159,9 @@
                         </div>
                       </div>
                       <div class="CompProgressAbsltCls">
-                        <div class="progressAllBarsDivMain">
+                        <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between w-100">
-                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${getPercentValue(index ? item.shortfall : 0, item.total_value) > 35 ? '' : 'p-static'}`">
                               <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.total_value)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.total_value)}}</span></p>
@@ -270,7 +270,7 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    getPercentValue: function(value1=0, value2=0) {
+    getPercentValue: function(value1, value2) {
       value1 = Number(value1.toString().replaceAll("-", ""));
       value2 = Number(value2.toString().replace("-", ""));
       let unit =
@@ -351,6 +351,9 @@ export default {
   computed: {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
+    },
+    activeCards(){
+      return 4 - this.deletedItems.length;
     },
     comparative() {
       return this.$store.state.data.report.comparative || false;

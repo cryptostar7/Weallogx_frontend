@@ -2222,10 +2222,13 @@
 }
 
 .dark-green .shortFallCount p:first-child {
-  color: #8C8C8C;
+  color: #fff;
 }
 
 .dark-green .shortFallCount p:last-child {
+  color: #fff;
+}
+.dark-green .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(1), .dark-green .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(2){
   color: #fff;
 }
 
