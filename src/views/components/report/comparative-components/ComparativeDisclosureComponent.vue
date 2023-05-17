@@ -1,6 +1,6 @@
 <template lang="">
  <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
-    <div class="container-fluid">
+    <div :class="`${$props.containerFluid ? '':'container-fluid'}`">
         <div class="disclosure-div">
         <div class="disclosure-header-div d-flex align-items-center justify-content-between">
             <h4 class="disclosure-heading">Disclosure</h4>
@@ -95,7 +95,7 @@ import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
 
 export default {
-  props: ["hideFee", "feetab", "currentTab"],
+  props: ["hideFee", "feetab", "currentTab", "containerFluid"],
   data() {
     return {
       saveDisclosure: false,

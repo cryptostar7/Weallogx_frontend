@@ -70,7 +70,7 @@
                 </div>
                 <div class="container-fluid table-fluid mt-5">
                   <div class="row tablesMainDiv" v-if="target_analysis.data.length">
-                    <div class="col-3 col-md-2 pe-1">
+                    <div class="col-3 col-md-2 ps-0 pe-1">
                       <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
                         <div class="dblLineAbslt">
                           <img src="@/assets/images/icons/double-line.svg" alt="line">
@@ -129,9 +129,9 @@
                             </tbody>
                           </table>
                         </div>
-                        <div class="reportTablesDiv ms-2 reportTablesDiv2">
-                          <table class="table">
-                            <thead class="heading-tr sticky-header">
+                        <div class="reportTablesDiv ms-1 reportTablesDiv2">
+                          <table class="table sticky-header">
+                            <thead class="heading-tr">
                               <tr>
                                 <th>Deposits</th>
                               </tr>
@@ -145,7 +145,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-9 col-md-4 px-1">
+                    <div class="col-9 col-md-4 ps-0 pe-0">
                       <div class="reportTablesDiv reportTablesDiv3">
                         <div class="lifeProPlus">
                           <div class="row">
@@ -209,7 +209,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                       <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} ${deletedItems.length} px-1 drag-col ${header.active ? '' : 'order-last'}`">
+                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} ${deletedItems.length} ps-1 pe-0 drag-col ${header.active ? '' : 'order-last'}`">
                           <div class="empty-inner" data-empty="1">
                             <div class="fill-inner" data-fill="1">
                               <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -274,7 +274,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <table class="table tableCommonForDisable  mt-1 tableCommonHide">
+                                  <table class="table sticky-header tableCommonForDisable mt-1 tableCommonHide">
                                     <thead class="heading-tr">
                                       <tr>
                                         <th>Distributions</th>
@@ -299,7 +299,7 @@
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
                   <div class="mt-2 summary-analysis">
                     <div class="row">
-                      <div class="col-3 col-md-2 px-1">
+                      <div class="col-3 col-md-2 ps-0 pe-1">
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
@@ -321,7 +321,7 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-9 col-md-4 px-1">
+                      <div class="col-9 col-md-4 ps-0 pe-1">
                         <div class="reportTablesDiv reportTablesDiv3">
                           <table class="table table3 mt-1 secondTable summaryTableFont">
                             <thead class="heading-tr">
@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 px-1 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 ps-0 pe-1 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
@@ -383,14 +383,14 @@
               </div>
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
-                  <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn">
+                  <div class="comparativeSeeAllBtn  mt-2" id="comparativeSeeAllBtn">
                     <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
                   </div>
                 </div>
               </div>
             </div>
             <!-- <button @click="testFunction()">testFunction</button> -->
-            <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="1" :hideFee="false"/>
+            <comparative-disclosure-component :containerFluid="true" v-if="activeTabs[keyId]" :currentTab="1" :hideFee="false"/>
           </div>
         </div>
       </div>
@@ -517,8 +517,107 @@ export default {
     if (!obj3) {
       this.$store.dispatch("reportCvDeleteId", 3);
     }
+    let tables = [];
 
+    function getOffset(element) {
+        var x = 0;
+        var y = 0;
+        while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+          x += element.offsetLeft - element.scrollLeft;
+          y += element.offsetTop - element.scrollTop;
+          element = element.offsetParent;
+        }
+        return { top: y, left: x };
+    }
+
+    function getScrollTop() {
+      if (typeof window.pageYOffset !== 'undefined') {
+        return window.pageYOffset;
+      }
+      var docElement = document.documentElement;
+      if (!docElement.clientHeight) {
+        docElement = document.body;
+      }
+      return docElement.scrollTop;
+    }
+
+    function Table(element) {
+      this.element = element;
+      this.originalHeader = element.getElementsByTagName('thead')[0];
+      this.floatingHeader = this.originalHeader.cloneNode(true);
+      this.top = 0;
+      this.bottom = 0;
+      this.originalThs = this.originalHeader.getElementsByTagName('th');
+      this.floatingThs = this.floatingHeader.getElementsByTagName('th');
+
+      if (!this.element.style.position) {
+        this.element.style.position = 'relative';
+      }
+      this.floatingHeader.setAttribute('aria-hidden', 'true');
+      this.floatingHeader.style.position = 'absolute';
+      this.floatingHeader.style.top = '0';
+
+      this.refreshHeaderSize();
+      this.attachFloatHeader();
+    }
+
+    Table.prototype.refreshHeaderSize = function () {
+      var offset = getOffset(this.element);
+      var trs = this.element.getElementsByTagName('tr');
+      var padding;
+      this.top = offset.top;
+      this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+      for (var i = 0; i < this.originalThs.length; i++) {
+        var th = this.originalThs[i];
+        // var style = window.getComputedStyle(th);
+        // var paddingLeft = style.getPropertyValue('padding-left')
+        //     .replace('px', '');
+        // var paddingRight = style.getPropertyValue('padding-right')
+        //     .replace('px', '');
+        // padding = parseFloat(paddingLeft, 10) + parseFloat(paddingRight, 10);
+        this.floatingThs[i].style.width = (th.offsetWidth + 9) + 'px';
+        this.floatingThs[i].style.height = (th.offsetHeight) + 'px';
+      }
+    };
+
+    Table.prototype.attachFloatHeader = function () {
+      this.element.insertBefore(this.floatingHeader, this.element.firstChild);
+    };
     
+    function init() {
+      var matches = document.querySelectorAll('table.sticky-header');
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].tagName === 'TABLE') {
+          tables[i] = new Table(matches[i]);
+        }
+      }
+      console.log(tables);
+    }
+
+    setTimeout(() => {
+      init();  
+    }, 3000);
+    
+
+    function windowScroll() {
+      for (var i = 0; i < tables.length; i++) {
+        var windowTop = getScrollTop();
+        if (windowTop > tables[i].top) {
+          tables[i].floatingHeader.style.top =
+              (Math.min(windowTop - tables[i].top, tables[i].bottom) + 55) + 'px';
+        } else {
+          tables[i].floatingHeader.style.top = '0';
+        }
+      }
+    }
+
+    function refreshHeaderSizes() {
+      for (var i = 0; i < tables.length; i++) {
+        tables[i].refreshHeaderSize();
+      }
+    }
+
+    window.addEventListener("scroll", windowScroll);
   },
   methods: {
     testFunction: function() {
