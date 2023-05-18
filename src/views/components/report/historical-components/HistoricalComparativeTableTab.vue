@@ -40,7 +40,7 @@
                 </div>
                 <div class="container-fluid table-fluid reportbuilder-container-div">
                   <div class="row tablesMainDiv">
-                    <div class="col-3 col-md-2 px-1">
+                    <div class="col-3 col-md-2 ps-0 pe-1">
                       <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
                         <div class="dblLineAbslt">
                           <img src="@/assets/images/icons/double-line.svg" alt="line">
@@ -110,7 +110,7 @@
                           </table>
                         </div>
                         <!-- 1 end -->
-                        <div class="reportTablesDiv ms-2 reportTablesDiv2">
+                        <div class="reportTablesDiv ms-1 reportTablesDiv2">
                           <table class="table">
                             <thead class="heading-tr">
                               <tr>
@@ -126,7 +126,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-4 col-md-2 px-1">
+                    <div class="col-4 col-md-2 ps-0 pe-1">
                       <div class="commonTableMainTopDiv4">
                         <div class="reportTablesDiv reportTablesDiv8">
                           <div class="lifeProPlus position-relative tablesCmnClr">
@@ -201,7 +201,7 @@
                     <!-- draggable column -->
                     <div class="col">
                         <draggable v-model="draggableColumns"  :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/(4-deletedItems.length)}  px-1 drag-col ${header.active ? '' : 'order-last'} ${deletedItems.includes(header.id) ? 'd-none':''}`">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/(4-deletedItems.length)}  ps-0 pe-1 drag-col ${header.active ? '' : 'order-last'} ${deletedItems.includes(header.id) ? 'd-none':''}`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
                                 <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -289,7 +289,7 @@
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
                   <div class="mt-2">
                     <div class="row">
-                      <div class="col-3 col-md-2 px-1">
+                      <div class="col-3 col-md-2 ps-0 pe-1">
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
@@ -313,7 +313,7 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-4 col-md-2 px-1">
+                      <div class="col-4 col-md-2 ps-0 pe-1">
                         <div class="commonBottomTableMainTopDiv4">
                           <div class="reportTablesDiv reportTablesDiv8">
                             <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
@@ -342,7 +342,7 @@
                       </div>
                       <div class="col-12 col-md-8">
                         <div class="row summary-row">
-                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 px-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 ps-0 pe-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id} `">
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
@@ -375,13 +375,13 @@
               </div>
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
-                  <div class="comparativeSeeAllBtn container-fluid  mt-2" id="comparativeSeeAllBtn2">
+                  <div class="comparativeSeeAllBtn mt-2" id="comparativeSeeAllBtn2">
                     <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
                   </div>
                 </div>
               </div>
             </div>
-              <historical-disclosure-component :hideFee="true"/>
+              <historical-disclosure-component :containerFluid="true" :hideFee="true"/>
           </div>
         </div>
       </div>

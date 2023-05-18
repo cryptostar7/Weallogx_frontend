@@ -1,5 +1,6 @@
 <template lang="">
   <div class="bottom-disclosure pt-0 px-3" id="disclosure7" data-dc="7">
+    <div :class="`${$props.containerFluid ? '':'container-fluid'}`">
     <div class="disclosure-div">
       <div class="disclosure-header-div d-flex align-items-center justify-content-between">
         <h4 class="disclosure-heading">Disclosure</h4>
@@ -82,13 +83,14 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- Disclosure Required Ends -->
 </template>
 <script>
 export default {
-  props:['hideFee'],
+  props:['hideFee', 'containerFluid'],
 
   data() {
     return {

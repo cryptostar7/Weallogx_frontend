@@ -1247,6 +1247,9 @@ body::-webkit-scrollbar {
   background: #fff;
   color: #999;
 }
+.comparativeSeeAllBtn button:focus{
+  border-color: #e5e5e5;
+}
 
 #comparativeSeeLessBtn {
   display: none;
@@ -2707,7 +2710,7 @@ p.allCardHeadPara{
 
 .CardProgressBig {
   background: var(--green-clr);
-  border-radius: 8px 8px 0 0;
+  border-radius: 8px;
   width: 100%;
   transform: rotate(180deg);
 }
@@ -4876,21 +4879,21 @@ border: none;
 .heading-tr {
   position: relative;
 }
-.whole-table-wrapper {
+/*.whole-table-wrapper {
   max-height: 600px;
   overflow-y: auto;
   sidebar-width: 0;
 }
 .whole-table-wrapper::-webkit-scrollbar{
   display: none;
-}
-.tablesMainDiv table{
+}*/
+/*.tablesMainDiv table{
   position: relative;
-}
-.tablesMainDiv table thead{
+}*/
+/*.tablesMainDiv table thead{
   position: sticky;
   top: -16px;
-}
+}*/
 .heading-tr::before {
   position: absolute;
   content: '';
