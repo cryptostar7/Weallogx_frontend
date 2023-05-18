@@ -280,7 +280,6 @@ import ScenarioSteps from "../common/ScenarioSteps.vue";
 import { get, post, put } from "../../../network/requests.js";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { getUrl } from "../../../network/url.js";
-import "@/assets/js/jquery.min.js";
 
 import {
   getFirstError,
@@ -1508,13 +1507,14 @@ export default {
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
-        $(function() {
-          $(".div-wrapper").scroll(function() {
-            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
-          });
-          $(".table-responsive").scroll(function() {
-            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
-          });
+
+        var tableResponsive = document.querySelector(".table-responsive");
+        var divWrapper = document.querySelector(".div-wrapper");
+        divWrapper.addEventListener("scroll", () => {
+          tableResponsive.scrollLeft = divWrapper.scrollLeft;
+        });
+        tableResponsive.addEventListener("scroll", () => {
+          divWrapper.scrollLeft = tableResponsive.scrollLeft;
         });
 
         var addColumnBtn = document.querySelector(".add-table-column-btn");

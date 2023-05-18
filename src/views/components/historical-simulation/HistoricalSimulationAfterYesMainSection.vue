@@ -271,7 +271,6 @@ import { authHeader, getFirstError } from "../../../services/helper";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
-import "@/assets/js/jquery.min.js";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
@@ -862,13 +861,13 @@ export default {
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
-        $(function() {
-          $(".div-wrapper").scroll(function() {
-            $(".table-responsive").scrollLeft($(".div-wrapper").scrollLeft());
-          });
-          $(".table-responsive").scroll(function() {
-            $(".div-wrapper").scrollLeft($(".table-responsive").scrollLeft());
-          });
+        var tableResponsive = document.querySelector(".table-responsive");
+        var divWrapper = document.querySelector(".div-wrapper");
+        divWrapper.addEventListener("scroll", () => {
+          tableResponsive.scrollLeft = divWrapper.scrollLeft;
+        });
+        tableResponsive.addEventListener("scroll", () => {
+          divWrapper.scrollLeft = tableResponsive.scrollLeft;
         });
 
         var addColumnBtn = document.querySelector(".add-table-column-btn");
