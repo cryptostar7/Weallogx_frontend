@@ -191,14 +191,14 @@ export default {
         let chart = Object.values(this.comparativeLirp).length
           ? this.comparativeLirp.chart_output
           : false;
-        let chart1 = Object.values(this.comparative.cv_1).length
-          ? this.comparative.cv_1.comparison.chart_output
+        let chart1 = Object.values(this.comparative_main.cv_1).length
+          ? this.comparative_main.cv_1.comparison.chart_output
           : false;
-        let chart2 = Object.values(this.comparative.cv_2).length
-          ? this.comparative.cv_2.comparison.chart_output
+        let chart2 = Object.values(this.comparative_main.cv_2).length
+          ? this.comparative_main.cv_2.comparison.chart_output
           : false;
-        let chart3 = Object.values(this.comparative.cv_3).length
-          ? this.comparative.cv_3.comparison.chart_output
+        let chart3 = Object.values(this.comparative_main.cv_3).length
+          ? this.comparative_main.cv_3.comparison.chart_output
           : false;
 
         cv = chart ? chart["account_value"] : [];
@@ -248,7 +248,7 @@ export default {
           },
           {
             barPercentage: 1,
-            barThickness: 15,
+            barThickness: 12,
             backgroundColor: "rgba(14, 103, 82, .4)",
             radius: 0,
             data: contribution || [],
@@ -258,7 +258,7 @@ export default {
           },
           {
             barPercentage: 1,
-            barThickness: 15,
+            barThickness: 12,
             backgroundColor: "rgba(131, 159, 175, .6)",
             radius: 2,
             data: distribution || [],
@@ -342,7 +342,6 @@ export default {
       };
 
       let graphData = this.getDataSet();
-      console.log(graphData);
       let maxAcc1 = Math.max(
         ...[
           Math.max(...(graphData.datasets[0].data || [])),
@@ -501,7 +500,7 @@ export default {
       }
     },
     testFunction: function() {
-      console.log(this.data);
+      console.log(this.comparative);
     },
     getYear: function(array, age) {
       let year = array.filter(i => i);
