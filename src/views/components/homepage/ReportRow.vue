@@ -101,9 +101,13 @@ export default {
   },
   computed: {
     reportList() {
-      return this.$props.reports.sort(
-        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
-      );
+      let reports = this.$props.reports;
+      if (reports) {
+        return this.$props.reports.sort(
+          (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+        );
+      }
+      return [];
     },
   },
 };

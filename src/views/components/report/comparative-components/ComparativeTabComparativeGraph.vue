@@ -173,7 +173,6 @@ export default {
     };
   },
   mounted() {
-    // this.setGraph();
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
       this.setGraph(); // generate graph
@@ -433,7 +432,7 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: Number(maxAcc2).toFixed(0),
+              max: Number(maxAcc2*2).toFixed(0),
               ticks: {
                 align: "start",
                 padding: 8,
@@ -506,15 +505,8 @@ export default {
       console.log(this.data);
     },
     getYear: function(array, age) {
-      console.log(array);
-      console.log(age);
       let year = array.filter(i => i);
-      console.log(year);
-
       year = year.length;
-      console.log(year);
-
-      console.log('....................');
       return age[year];
     },
     mapData: function() {
@@ -523,10 +515,6 @@ export default {
         let chart1 = this.comparative.cv_1;
         let chart2 = this.comparative.cv_2;
         let chart3 = this.comparative.cv_3;
-
-        // let ror_chart1 = this.comparative_ror_longevity.cv_1;
-        // let ror_chart2 = this.comparative_ror_longevity.cv_2;
-        // let ror_chart3 = this.comparative_ror_longevity.cv_3;
 
         if (chart) {
           this.data[0].ror = chart.rate_of_return;
@@ -609,6 +597,10 @@ export default {
         this.graphs.annual_contribution = true;
         this.graphs.annual_distribution = true;
       }
+    },
+    "comparative.cv_1.length"() {
+      console.log('graph set');
+      this.setGraph();
     },
     "deletedItems.length"(val) {
       this.setGraph();

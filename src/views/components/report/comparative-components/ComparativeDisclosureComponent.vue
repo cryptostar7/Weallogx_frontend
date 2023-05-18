@@ -110,7 +110,9 @@ export default {
     };
   },
   mounted() {
-    this.mapData();
+    if(this.first_cv_name){
+      this.mapData();
+    }
   },
   methods: {
     testFunction: function() {
@@ -120,12 +122,7 @@ export default {
       this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
       let data = this.comparative.disclosure;
       let names = this.cv_name;
-      if (this.$props.currentTab === 1) {
-        console.log("names.........");
-        console.log(names);
-      }
       let disclosure = [{ name: names[1], fees: data.cv1_fees + "%" }];
-
       this.tax_rate = data.tax_rate + "%";
       this.second_tax_rate = data.second_tax_rate + "%";
 
@@ -254,7 +251,6 @@ export default {
   },
   watch: {
     first_cv_name() {
-      console.log("changed....");
       this.mapData();
     },
   },

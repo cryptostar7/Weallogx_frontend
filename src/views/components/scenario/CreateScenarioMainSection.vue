@@ -871,7 +871,7 @@ export default {
             if (this.activeScenario.id) {
               this.$router.push(`/illustration-data/${this.activeScenario.id}`);
             } else {
-              this.$toast.error("Something went wrong.");
+              this.$toast.error("Something went wrong. Please try again.");
             }
           }
         })
