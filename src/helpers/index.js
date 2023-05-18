@@ -51,7 +51,10 @@ const myPlugin = {
                 return false;
             },
             app.config.globalProperties.$roundFigureNum = (value) => {
-                return value + (value / 100) * 5
+                let a = value.toString();
+                let b = a.substr(1);
+                let c = "1".padEnd(a.length - 1, "0");
+                return Number(c) - Number(b) + Number(a);
             }
     }
 }

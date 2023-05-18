@@ -432,11 +432,10 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: Number(maxAcc2*2).toFixed(0),
+              max: this.$roundFigureNum(Number(maxAcc2*2)).toFixed(0),
               ticks: {
                 align: "start",
                 padding: 8,
-                // stepSize: maxAcc2,
                 callback: function(value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
