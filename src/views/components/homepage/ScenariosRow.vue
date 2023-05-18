@@ -51,7 +51,7 @@
                                     <path d="M9.23926 3.53613H6.48926C6.31667 3.53613 6.17676 3.67444 6.17676 3.84505C6.17676 4.01567 6.31667 4.15397 6.48926 4.15397H9.23926C9.41185 4.15397 9.55176 4.01567 9.55176 3.84505C9.55176 3.67444 9.41185 3.53613 9.23926 3.53613Z" fill="white" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.86426 3.84501C5.86426 3.50379 6.14408 3.22717 6.48926 3.22717H9.23926C9.58444 3.22717 9.86426 3.50379 9.86426 3.84501C9.86426 4.18624 9.58444 4.46285 9.23926 4.46285H6.48926C6.14408 4.46285 5.86426 4.18624 5.86426 3.84501Z" fill="#9D9D9D" />
                                     <path d="M10.7402 6.00745H4.99023C4.81765 6.00745 4.67773 6.14575 4.67773 6.31637C4.67773 6.48698 4.81765 6.62529 4.99023 6.62529H10.7402C10.9128 6.62529 11.0527 6.48698 11.0527 6.31637C11.0527 6.14575 10.9128 6.00745 10.7402 6.00745Z" fill="white" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.36523 6.31645C4.36523 5.97522 4.64506 5.69861 4.99023 5.69861H10.7402C11.0854 5.69861 11.3652 5.97522 11.3652 6.31645C11.3652 6.65767 11.0854 6.93429 10.7402 6.93429H4.99023C4.64506 6.93429 4.36523 6.65767 4.36523 6.31645Z" fill="#9D9D9D" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.36523 6.31645C4.36523 5.zz 4.64506 5.69861 4.99023 5.69861H10.7402C11.0854 5.69861 11.3652 5.97522 11.3652 6.31645C11.3652 6.65767 11.0854 6.93429 10.7402 6.93429H4.99023C4.64506 6.93429 4.36523 6.65767 4.36523 6.31645Z" fill="#9D9D9D" />
                                     <path d="M10.7402 7.98462H4.99023C4.81765 7.98462 4.67773 8.12293 4.67773 8.29354C4.67773 8.46415 4.81765 8.60246 4.99023 8.60246H10.7402C10.9128 8.60246 11.0527 8.46415 11.0527 8.29354C11.0527 8.12293 10.9128 7.98462 10.7402 7.98462Z" fill="white" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M4.36523 8.2935C4.36523 7.95228 4.64506 7.67566 4.99023 7.67566H10.7402C11.0854 7.67566 11.3652 7.95228 11.3652 8.2935C11.3652 8.63472 11.0854 8.91134 10.7402 8.91134H4.99023C4.64506 8.91134 4.36523 8.63472 4.36523 8.2935Z" fill="#9D9D9D" />
                                     <path d="M10.7402 9.96167H4.99023C4.81765 9.96167 4.67773 10.1 4.67773 10.2706C4.67773 10.4412 4.81765 10.5795 4.99023 10.5795H10.7402C10.9128 10.5795 11.0527 10.4412 11.0527 10.2706C11.0527 10.1 10.9128 9.96167 10.7402 9.96167Z" fill="white" />
@@ -80,7 +80,6 @@
                             </svg>
                         </button>
                     </div>
-                    <!-- <button @click="testFunction(item)">Test</button> -->
                     <router-link :to="`/report-builder?scenario=${item.id}&client=${$props.clientId}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
@@ -107,23 +106,24 @@ export default {
     };
   },
   methods: {
+    // expand the more scenarios data in list
     viewMore: function() {
       this.listLimit = this.scenariosList.length;
       this.showAllList = true;
     },
+    // Show the less scenario data in list
     viewLess: function() {
       this.listLimit = config.SCENARIO_LIST_LIMIT;
       this.showAllList = false;
     },
+    // save delete action id in hidden input
     addDeleteId: function(id) {
       document.getElementById("deleteScenarioId").value = id;
-    },
-    testFunction: function() {
-      console.log(this.$props.clientId);
     },
   },
   computed: {
     scenariosList() {
+      // returns the scenario list with latest first order
       return this.$props.scenarios.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
       );

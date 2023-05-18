@@ -26,7 +26,7 @@
             <client-detail-component />
               <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
                 <draggable class="dragArea list-group w-full" :list="list.comparative">
-                  <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" />
+                  <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" :sidebar="sidebar.collapse"/>
                 </draggable>
               </div>
             <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`">
@@ -74,9 +74,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.$store.state.data.report);
-    },
     getComparativeData: function(id) {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");

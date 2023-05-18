@@ -405,12 +405,11 @@ import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
 import "@/assets/js/jquery.min.js";
 
-
 // Table Header Sticky code starts
-  // Table Header Sticky code ends here
+// Table Header Sticky code ends here
 
 export default {
-  props: ["keyId"],
+  props: ["keyId", "sidebar"],
   components: {
     ComparativeDisclosureComponent,
     draggable: VueDraggableNext,
@@ -520,18 +519,22 @@ export default {
     let tables = [];
 
     function getOffset(element) {
-        var x = 0;
-        var y = 0;
-        while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
-          x += element.offsetLeft - element.scrollLeft;
-          y += element.offsetTop - element.scrollTop;
-          element = element.offsetParent;
-        }
-        return { top: y, left: x };
+      var x = 0;
+      var y = 0;
+      while (
+        element &&
+        !isNaN(element.offsetLeft) &&
+        !isNaN(element.offsetTop)
+      ) {
+        x += element.offsetLeft - element.scrollLeft;
+        y += element.offsetTop - element.scrollTop;
+        element = element.offsetParent;
+      }
+      return { top: y, left: x };
     }
 
     function getScrollTop() {
-      if (typeof window.pageYOffset !== 'undefined') {
+      if (typeof window.pageYOffset !== "undefined") {
         return window.pageYOffset;
       }
       var docElement = document.documentElement;
@@ -543,30 +546,31 @@ export default {
 
     function Table(element) {
       this.element = element;
-      this.originalHeader = element.getElementsByTagName('thead')[0];
+      this.originalHeader = element.getElementsByTagName("thead")[0];
       this.floatingHeader = this.originalHeader.cloneNode(true);
       this.top = 0;
       this.bottom = 0;
-      this.originalThs = this.originalHeader.getElementsByTagName('th');
-      this.floatingThs = this.floatingHeader.getElementsByTagName('th');
+      this.originalThs = this.originalHeader.getElementsByTagName("th");
+      this.floatingThs = this.floatingHeader.getElementsByTagName("th");
 
       if (!this.element.style.position) {
-        this.element.style.position = 'relative';
+        this.element.style.position = "relative";
       }
-      this.floatingHeader.setAttribute('aria-hidden', 'true');
-      this.floatingHeader.style.position = 'absolute';
-      this.floatingHeader.style.top = '0';
+      this.floatingHeader.setAttribute("aria-hidden", "true");
+      this.floatingHeader.style.position = "absolute";
+      this.floatingHeader.style.top = "0";
 
       this.refreshHeaderSize();
       this.attachFloatHeader();
     }
 
-    Table.prototype.refreshHeaderSize = function () {
+    Table.prototype.refreshHeaderSize = function() {
       var offset = getOffset(this.element);
-      var trs = this.element.getElementsByTagName('tr');
+      var trs = this.element.getElementsByTagName("tr");
       var padding;
       this.top = offset.top;
-      this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+      this.bottom =
+        this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
       for (var i = 0; i < this.originalThs.length; i++) {
         var th = this.originalThs[i];
         // var style = window.getComputedStyle(th);
@@ -575,19 +579,19 @@ export default {
         // var paddingRight = style.getPropertyValue('padding-right')
         //     .replace('px', '');
         // padding = parseFloat(paddingLeft, 10) + parseFloat(paddingRight, 10);
-        this.floatingThs[i].style.width = (th.offsetWidth + 9) + 'px';
-        this.floatingThs[i].style.height = (th.offsetHeight) + 'px';
+        this.floatingThs[i].style.width = th.offsetWidth + 9 + "px";
+        this.floatingThs[i].style.height = th.offsetHeight + "px";
       }
     };
 
-    Table.prototype.attachFloatHeader = function () {
+    Table.prototype.attachFloatHeader = function() {
       this.element.insertBefore(this.floatingHeader, this.element.firstChild);
     };
-    
+
     function init() {
-      var matches = document.querySelectorAll('table.sticky-header');
+      var matches = document.querySelectorAll("table.sticky-header");
       for (var i = 0; i < matches.length; i++) {
-        if (matches[i].tagName === 'TABLE') {
+        if (matches[i].tagName === "TABLE") {
           tables[i] = new Table(matches[i]);
         }
       }
@@ -595,18 +599,17 @@ export default {
     }
 
     setTimeout(() => {
-      init();  
+      init();
     }, 3000);
-    
 
     function windowScroll() {
       for (var i = 0; i < tables.length; i++) {
         var windowTop = getScrollTop();
         if (windowTop > tables[i].top) {
           tables[i].floatingHeader.style.top =
-              (Math.min(windowTop - tables[i].top, tables[i].bottom) + 55) + 'px';
+            Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
         } else {
-          tables[i].floatingHeader.style.top = '0';
+          tables[i].floatingHeader.style.top = "0";
         }
       }
     }
@@ -622,8 +625,9 @@ export default {
   methods: {
     testFunction: function() {
       console.log(this.target_analysis);
-      // console.log(this.$store.state.data.report);
-      // this.mapData(this.$store.state.data.report.comparative);
+    },
+    handleSidebar: function() {
+      // sidebar script....
     },
     saveCvName: function(index, name) {
       this.$store.dispatch("cvName", { index: index, name: name });
@@ -874,6 +878,9 @@ export default {
           element.active = true;
         });
       }
+    },
+    "$props.sidebar"(value) {
+      this.handleSidebar();
     },
   },
   computed: {

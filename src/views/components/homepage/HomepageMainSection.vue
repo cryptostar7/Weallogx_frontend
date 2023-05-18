@@ -126,6 +126,7 @@ export default {
         });
     },
 
+    // this function will trigger when any new scenario clone request made   
     cloneScenario: function() {
       this.getClient(true);
     },
@@ -201,9 +202,11 @@ export default {
   },
   computed: {
     clients() {
+      // returns all clients data form vuex store
       return this.$store.state.data.clients;
     },
     client() {
+      // returns single client data 
       return this.$store.getters.getClientUsingId(this.actionId);
     },
   },

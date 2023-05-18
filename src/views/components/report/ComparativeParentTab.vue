@@ -1,5 +1,5 @@
 <template lang="">
-    <comparative-tab-comparative-table  v-if="tabID === 1" :keyId="keyId"/>
+    <comparative-tab-comparative-table  v-if="tabID === 1" :keyId="keyId" :sidebar="$props.sidebar"/>
     <comparative-tab-comparative-graph  v-if="tabID === 2" :keyId="keyId"/>
     <comparative-tab-making-things-equal  v-if="tabID === 3" :keyId="keyId"/>
     <comparative-tab-cumulative-values  v-if="tabID === 4" :keyId="keyId"/>
@@ -15,7 +15,7 @@ import ComparativeTabLegacy from "./comparative-components/ComparativeTabLegacy.
 import ComparativeTabFeeAnalysis from "./comparative-components/ComparativeTabFeeAnalysis.vue";
 
 export default {
-  props: ["tabID", 'keyId'],
+  props: ["tabID", 'keyId', "sidebar"],
   components: {
     ComparativeTabComparativeTable,
     ComparativeTabComparativeGraph,

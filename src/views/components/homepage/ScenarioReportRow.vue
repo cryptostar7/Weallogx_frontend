@@ -1,7 +1,7 @@
 <template lang="">
     <div v-for="(item, index) in senarioReportList" :key="index">
         <div class="list-item" v-if="Number(index) < reportListLimit">
-            <div class="list-item-inner" @click="$router.push(`/report-builder/${item.id}`)">
+            <div class="list-item-inner" @click="goToReport(`/report-builder/${item.id}`)">
                 <div class="list-item-detail">
                     <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
                     <label class="medium-fw">{{item.description}}</label>
@@ -15,7 +15,7 @@
                         </svg> {{$dateFormat(item.updated_at)}}
                     </label>
                     <div class="round-btns">
-                        <button class="btn round-btn" @click="$router.push(`/report-builder/${item.id}`)">
+                        <button class="btn round-btn" @click="goToReport(`/report-builder/${item.id}`)">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
@@ -74,7 +74,6 @@
 </template>
 <script>
 import config from "../../../services/config.js";
-
 export default {
   props: ["senarioReports", "listLimit"],
   data() {
@@ -84,20 +83,28 @@ export default {
     };
   },
   methods: {
+    // expand the more reports data in list
     viewMore: function() {
       this.reportListLimit = this.senarioReportList.length;
       this.showAllList = true;
     },
+    // Show the less report data in list
     viewLess: function() {
       this.reportListLimit = config.SCENARIO_REPORT_LIST_LIMIT;
       this.showAllList = false;
     },
-    setActionId: function (id) {
-        document.getElementById('deleteReportId').value = id;
-    }
+    // save delete action id in hidden input
+    setActionId: function(id) {
+      document.getElementById("deleteReportId").value = id;
+    },
+    // redirect to report page
+    goToReport: function(url) {
+      window.location.href = url;
+    },
   },
   computed: {
     senarioReportList() {
+      // return the report list with latest first order
       return this.$props.senarioReports.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
       );

@@ -1,7 +1,7 @@
 <template lang="">
     <div v-for="(item, index) in reportList" :key="index">
         <div v-if="Number(index) < reportListLimit"  class="list-item">
-            <div class="list-item-inner" @click="$router.push(`/report-builder/${item.id}`)">
+            <div class="list-item-inner" @click="goToReport(`/report-builder/${item.id}`)">
                 <div class="list-item-detail">
                 <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
                 <label class="medium-fw">{{item.description}}</label>
@@ -87,10 +87,12 @@ export default {
     };
   },
   methods: {
+    // expand the more reports data in list
     viewMore: function() {
       this.reportListLimit = this.reportList.length;
       this.showAllList = true;
     },
+    // Show the less report data in list
     viewLess: function() {
       this.reportListLimit = config.REPORT_LIST_LIMIT;
       this.showAllList = false;
@@ -98,9 +100,14 @@ export default {
     setActionId: function(id) {
       document.getElementById("deleteReportId").value = id;
     },
+    // redirect to the report page
+    goToReport: function(url) {
+      return window.location.href = url;
+    },
   },
   computed: {
     reportList() {
+      // returns the report list with latest first order
       let reports = this.$props.reports;
       if (reports) {
         return this.$props.reports.sort(

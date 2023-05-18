@@ -20,20 +20,21 @@
     </div>
 </template>
 <script>
-import ScenarioReportRow from "../homepage/ScenarioReportRow.vue"
+import ScenarioReportRow from "../homepage/ScenarioReportRow.vue";
 export default {
-    components:{ScenarioReportRow},
-    props: ['senarioReports', 'collapseCustomId'],
-    data(){
-       return {
-        senarioReportItems:[],
-        collapseId:'',
-        }
-    },
-    mounted(){
-        this.senarioReportItems = this.$props.senarioReports;
-        this.collapseId = this.$props.collapseCustomId;
-    }
+  components: { ScenarioReportRow },
+  props: ["senarioReports", "collapseCustomId"],
+  data() {
+    return {
+      senarioReportItems: [],
+      collapseId: "",
+    };
+  },
+  mounted() {
+    // get the props data in current component data variable
+    this.senarioReportItems = this.$props.senarioReports;
+    this.collapseId = this.$props.collapseCustomId;
+  },
 };
 </script>
 <style lang="">
