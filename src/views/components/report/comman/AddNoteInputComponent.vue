@@ -50,7 +50,7 @@ export default {
         post(getUrl("notes"), data, authHeader())
           .then(response => {
             this.note_id = response.data.id;
-            this.$toast.success("Note added successfully!");
+            // this.$toast.success("Note added successfully!");
           })
           .catch(error => {
             console.log(error);
