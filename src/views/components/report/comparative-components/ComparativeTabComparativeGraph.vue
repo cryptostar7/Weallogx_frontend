@@ -78,7 +78,7 @@
               </div>
               <div class="container-fluid pb-2">
                 <div class="graph-container-div">
-                  <canvas id="comparativeValuesChart" width="400" height="150"></canvas>
+                  <canvas id="comparativeValuesChart" width="400" height="115"></canvas>
                   <div class="progressBarEachBtm comparative">
                     <div class="bar-container contribution-radio d-flex justify-content-between align-items-center">
                       <div class="progressBarBtnDiv">
@@ -259,7 +259,7 @@ export default {
           {
             barPercentage: 1,
             barThickness: 12,
-            backgroundColor: "rgba(131, 159, 175, .6)",
+            backgroundColor: "rgba(131, 159, 175, .7)",
             radius: 2,
             data: distribution || [],
             type: "bar",
