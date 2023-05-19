@@ -40,7 +40,10 @@
             <div class="SaveCloseButton">
                 <router-link to="/" class="btn">Save & Close</router-link>
             </div>
-            <div class="BuildSaveCloseButton">
+            <div class="SaveCloseButton mt-2">
+                <router-link :to="`/report-builder/${reportId}`" class="btn">Return To Current Report</router-link>
+            </div>
+             <div class="BuildSaveCloseButton">
                 <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>
             </div>
             <!-- Historical Vehicles end -->
@@ -66,11 +69,12 @@ export default {
   data() {
     return {
       client: false,
+      reportId: "",
     };
   },
   methods: {
     testFunction: function() {
-      console.log(this.client.id);
+      console.log(this.client);
     },
     // get client detail from API then save in redux store
     getClient: function(clientId) {
