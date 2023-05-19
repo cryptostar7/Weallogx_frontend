@@ -179,6 +179,7 @@ export default {
     }
   },
   methods: {
+    // returns dataset variable data for the graph
     getDataSet: function() {
       let cv = [];
       let cv1 = [];
@@ -269,12 +270,12 @@ export default {
 
         ],
       };
-      console.log(dataset);
       return dataset;
     },
-
+    // Render graph 
     setGraph: function() {
       if (window.comparativeGraphChart) {
+        // clear the old initialized graph
         window.comparativeGraphChart.destroy();
       }
 
@@ -502,11 +503,13 @@ export default {
     testFunction: function() {
       console.log(this.comparative);
     },
+    // to get the longevity year 
     getYear: function(array, age) {
       let year = array.filter(i => i);
       year = year.length;
       return age[year];
     },
+    // map API data for the CV cards
     mapData: function() {
       if (this.comparative.cv_1) {
         let chart = this.comparativeLirp;
@@ -553,6 +556,7 @@ export default {
         }
       }
     },
+    // set deleted cv id in hidden input
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },

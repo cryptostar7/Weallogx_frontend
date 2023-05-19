@@ -673,7 +673,6 @@ export default {
         cvId = this.comparativeTable.illustration_id;
       }
 
-      console.log(cvId);
       patch(`${getUrl(url)}${cvId}/`, data, authHeader())
         .then(response => {
           console.log(response);
