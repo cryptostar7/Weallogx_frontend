@@ -595,7 +595,6 @@ export default {
           tables[i] = new Table(matches[i]);
         }
       }
-      console.log(tables);
     }
 
     setTimeout(() => {
@@ -629,6 +628,7 @@ export default {
     handleSidebar: function() {
       // sidebar script....
     },
+    // to save and update the CV cards name 
     saveCvName: function(index, name) {
       this.$store.dispatch("cvName", { index: index, name: name });
       let cvId = this.comparativeTable.vehicle_1_id;
@@ -661,13 +661,18 @@ export default {
           this.$toast.error("Something went wrong.");
         });
     },
+    // to update the current comparative report type with default filter data 
     setCurrentTab: function(tab) {
-      this.currentTab = tab;
-      this.setCurrentFilter(this.currentFilter);
+       if (this.currentTab !== tab) {
+        this.currentTab = tab;
+        this.setCurrentFilter("default");
+      }
     },
+    // save the deleted cv id in hidden input
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
+    // to filter the report data  
     setCurrentFilter: function(key) {
       this.currentFilter = key;
       switch (key) {
@@ -693,6 +698,7 @@ export default {
           return this.mapData(this.comparativeTable);
       }
     },
+    // to map the API data for the table and cv cards 
     mapData: function(ct) {
       let tempData = {
         distributions: [],
