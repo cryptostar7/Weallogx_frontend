@@ -79,6 +79,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/`
     case 'add-report':
       return `${baseUrl}/report/`
+    case 'latest-report':
+      return `${baseUrl}/report/latest-report/`
     case 'comparative_report':
       return `${baseUrl}/report/calc/`
     case 'comparative_report_longevity':

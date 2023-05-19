@@ -392,7 +392,7 @@ export default {
           getScenarioAPI = false;
         }
       }
-      console.log('getScenarioAPI', getScenarioAPI);
+
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
@@ -597,16 +597,12 @@ export default {
       if (!id) {
         return false;
       }
+      
       this.illustrationId = id;
       let step2 = getScenarioStep2();
       if (step2 && step2.id === Number(id)) {
-        console.log("step2.data");
-        console.log(step2);
         return this.setFormInputs(step2);
       }
-      console.log(id);
-
-      console.log("step2.data api");
 
       this.$store.dispatch("loader", true);
       get(`${getUrl("illustration")}${id}`, authHeader())
@@ -857,7 +853,6 @@ export default {
 
     // get existing insurance profile template
     getExistingInsurance: function() {
-      this.$store.dispatch("loader", true);
       get(getUrl("existing-illustration"), authHeader())
         .then(response => {
           let template = [];
@@ -869,6 +864,7 @@ export default {
               });
             });
           }
+          console.log(template);
           this.$store.dispatch("template", {
             type: "insurance",
             data: template,

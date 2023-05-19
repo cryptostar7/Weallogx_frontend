@@ -74,7 +74,7 @@
             <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
         </div>
         <div class="modal-body text-center">
-          <h5 class="modal-title fs-24 semi-bold-fw" id="disclosureRequiredLabel">Disclosure Required</h5>
+          <h5 class="modal-title fs-24 semi-bold-fw" id="disclosureRequiredLabel" @click="handleDisclosure">Disclosure Required</h5>
           <p class="fs-14">A discourse is required. You may use the default disclosure <br> or use your own.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn" @click="setDefaultMessage()" data-bs-dismiss="modal" aria-label="Close">Use Default</button>
@@ -110,7 +110,7 @@ export default {
     };
   },
   mounted() {
-    if(this.first_cv_name){
+    if (this.first_cv_name) {
       this.mapData();
     }
   },
@@ -118,6 +118,7 @@ export default {
     testFunction: function() {
       console.log(this.cv_name);
     },
+    // map the data from API
     mapData: function() {
       this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
       let data = this.comparative.disclosure;
@@ -182,8 +183,11 @@ export default {
       }
     },
     handleDisclosure: function() {
-      if (!this.$refs.editableDiv.innerHTML) {
-        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      if (!this.$refs.editableDiv.innerHTML.replaceAll("<div><br></div>", "")) {
+        this.$refs.editableDiv.innerHTML = this.$refs.editableDiv.innerHTML.replaceAll("<div><br></div>", "");
+        if(!this.$refs.disclosureModal.classList.contains('show')){
+          new bootstrap.Modal(this.$refs.disclosureModal).show();
+        }
       }
     },
     setDefaultMessage: function() {

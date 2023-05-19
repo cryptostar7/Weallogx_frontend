@@ -41,7 +41,7 @@
                 <router-link to="/" class="btn">Save & Close</router-link>
             </div>
             <div class="SaveCloseButton mt-2">
-                <router-link :to="`/report-builder/${reportId}`" class="btn">Return To Current Report</router-link>
+                <a :href="`/report-builder/${reportId}`" class="btn">Return To Current Report</a>
             </div>
              <div class="BuildSaveCloseButton">
                 <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>
@@ -76,6 +76,27 @@ export default {
     testFunction: function() {
       console.log(this.client);
     },
+    getLatestReportId: function() {
+      get(
+        `${getUrl("latest-report")}${this.$route.params.scenario}/`,
+        authHeader()
+      )
+        .then(response => {
+          this.reportId = response.data.latest_report_id;
+        })
+        .catch(error => {
+          this.$store.dispatch("loader", false);
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
+          }
+        });
+    },
     // get client detail from API then save in redux store
     getClient: function(clientId) {
       if (clientId) {
@@ -101,6 +122,8 @@ export default {
     },
   },
   mounted() {
+    this.getLatestReportId();
+
     // get scenario data
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())

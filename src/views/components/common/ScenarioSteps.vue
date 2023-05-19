@@ -43,6 +43,10 @@ export default {
         response.class = "done";
       }
 
+      if (route === "illustration-data") {
+        response.class = "active";
+      }
+
       if (response.class) {
         response.url = `/illustration-data/${this.$route.params.scenario ||
           ""}`;
@@ -80,8 +84,8 @@ export default {
       }
 
       if (response.class === "done") {
-        response.url = `/historical-simulations/${this.$route
-          .params.scenario || ""}`;
+        response.url = `/historical-simulations/${this.$route.params.scenario ||
+          ""}`;
       }
 
       return response;
