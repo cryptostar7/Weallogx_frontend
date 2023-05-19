@@ -389,7 +389,6 @@
                 </div>
               </div>
             </div>
-            <!-- <button @click="testFunction()">testFunction</button> -->
             <comparative-disclosure-component :containerFluid="true" v-if="activeTabs[keyId]" :currentTab="1" :hideFee="false"/>
           </div>
         </div>
@@ -623,7 +622,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.target_analysis);
+      // console.log(this.mapData(this.comparativeTable));
     },
     handleSidebar: function() {
       // sidebar script....
@@ -709,7 +708,7 @@ export default {
       let obj1 = ct.cv_1.comparison.chart_output;
       let obj2 = ct.cv_2.comparison ? ct.cv_2.comparison.chart_output : false;
       let obj3 = ct.cv_3.comparison ? ct.cv_3.comparison.chart_output : false;
-
+    
       if (obj) {
         let list = [];
         let dst = [];
@@ -767,7 +766,7 @@ export default {
         let list = [];
         let details = {
           id: 1,
-          ror: ct.cv_1.comparison.ror,
+          ror: ct.cv_1.comparison.ror || obj1['Rate of Return'][0],
           irr: ct.cv_1.comparison.irr_percent,
         };
 
@@ -806,7 +805,7 @@ export default {
         let list = [];
         let details = {
           id: 2,
-          ror: ct.cv_2.comparison.ror,
+          ror: ct.cv_2.comparison.ror || obj2['Rate of Return'][0],
           irr: ct.cv_2.comparison.irr_percent,
         };
         obj2.distributions.forEach((item, index) => {
@@ -838,7 +837,7 @@ export default {
         let list = [];
         let details = {
           id: 3,
-          ror: ct.cv_3.comparison.ror,
+          ror: ct.cv_3.comparison.ror || obj3['Rate of Return'][0],
           irr: ct.cv_3.comparison.irr_percent,
         };
         obj3.distributions.forEach((item, index) => {
