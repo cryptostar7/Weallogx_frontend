@@ -133,7 +133,14 @@ export default {
               this.$appTheme() == "dark-blue"
                 ? "#1660A4"
                 : "#0E6651",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
+                : "#0E6651",
+
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: [],
           },
@@ -143,19 +150,29 @@ export default {
               this.$appTheme() == "dark-blue"
                 ? "#0E6651"
                 : "#1660A4",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#0E6651"
+                : "#1660A4",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: [],
           },
           {
             borderColor: "#763CA3",
+            pointBackgroundColor: "#763CA3",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: [],
           },
           {
             borderColor: "#9D2B2B",
+            pointBackgroundColor: "#9D2B2B",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: [],
           },

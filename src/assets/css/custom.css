@@ -71,7 +71,9 @@ body::-webkit-scrollbar {
 .green-bg {
   background-color: var(--green-clr);
 }
-
+.mt-2px{
+  margin-top: 2px;
+}
 .p-relative {
   position: relative;
 }
@@ -2922,23 +2924,24 @@ p.allCardHeadPara{
   }
 
   .reportSideBar {
-    left: calc(-1*var(--sidebar-width) + 20px)
+    left: calc(-1*var(--sidebar-width) + 12px)
   }
 
   .report-builder-right-area {
     margin-left: 0;
   }
 
-  /* .main-section .sidebar-arrow svg {
+  .main-section .sidebar-arrow svg {
     transform: rotate(180deg) !important;
-  } */
+  } 
 
-  .main-section .sidebar-inner {
+/*  .main-section .sidebar-inner {
     display: none !important;
   }
-
+*/
   .main-section.active .sidebar-arrow {
-    right: -265px;
+    right: -185px;
+    transform: rotate(0deg) !important;
   }
 
   .main-section.active .sidebar-arrow svg {
@@ -4245,39 +4248,40 @@ background: #1D856C;
 }
 
 .compGraphtopPara p:nth-child(1) {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
   color: #9D9D9D;
   margin: 0;
 }
-
+.compGraphtopPara p.fs-12{
+  font-size: 12px;
+}
 .compGraphtopPara p:nth-child(2) {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #0E6651;
   margin: 0;
 }
 
 .compGraphtopParaTwo p:nth-child(1) {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 500;
   color: #9D9D9D;
   margin: 0;
 }
 
 .compGraphtopParaTwo p:nth-child(2) {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: #000000;
   margin: 0;
 }
 
 .compGraphSmallBdr p {
-  width: 59px;
+  width: 111px;
   height: 1px;
   background: #25967B;
   margin: 0;
-  /*margin-left: 5px;*/
 }
 
 /*.bgChangerComGraph1 p:nth-child(2) {
@@ -5076,38 +5080,64 @@ border: none;
 .cardRadioSwtchpara1 {
   color: #0E6651 !important;
   font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 7px;
+  font-size: 12px;
+  margin-bottom: 7px;
 }
-
 .cardRadioSwtchpara2 {
   color: #1660A4 !important;
   font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 7px;
+  font-size: 12px;
+  margin-bottom: 7px;
 }
-
 .cardRadioSwtchpara3 {
   color: #763CA3 !important;
   font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 7px;
+  font-size: 12px;
+  margin-bottom: 7px;
 }
-
 .cardRadioSwtchpara4 {
   color: #9D2B2B !important;
   font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 7px;
+  font-size: 12px;
+  margin-bottom: 7px;
 }
-
 .cardRadioSwtchpara5 {
   color: #E8662F !important;
   font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 7px;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+.cardMainHeading1 {
+  color: #0E6651 !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
 }
 
+.cardMainHeading2 {
+  color: #1660A4 !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.cardMainHeading3 {
+  color: #763CA3 !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.cardMainHeading4 {
+  color: #9D2B2B !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.cardMainHeading5 {
+  color: #E8662F !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
 .makeEqualPara1 {
   color: #0E6651;
 }
