@@ -136,26 +136,27 @@
                     </div>
                   </div>
                 </div>
-                  <div class="pb-3">
-                    <div class="form-check form-switch custom-switch pt-2">
-                      <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioDetailName ? true : false" v-model="saveDetailsTemplate" id="scenarioTemplateCheckbox" />
-                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Scenario Detail as Template</label>
-                    </div>
-                    <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveDetailsTemplate ? '' : 'none'}">
-                      <label for="templateName" class="fs-12 medium-fw">Template Name</label>
-                      <input type="text" id="templateName" class="form-control" :disabled="existingScenarioDetailName ? true : false" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
-                      <small class="text-danger" v-if="errors.details_template">{{errors.details_template[0]}}</small>
-                    </div>
+                <div class="pb-3">
+                  <div class="form-check form-switch custom-switch pt-2">
+                    <input class="form-check-input" type="checkbox" role="switch" :disabled="existingScenarioDetailName ? true : false" v-model="saveDetailsTemplate" id="scenarioTemplateCheckbox" />
+                    <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Scenario Detail as Template</label>
                   </div>
+                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveDetailsTemplate ? '' : 'none'}">
+                    <label for="templateName" class="fs-12 medium-fw">Template Name</label>
+                    <input type="text" id="templateName" class="form-control" :disabled="existingScenarioDetailName ? true : false" v-model="detailsTemplate" @keyup="errors.details_template = false"/>
+                    <small class="text-danger" v-if="errors.details_template">{{errors.details_template[0]}}</small>
+                  </div>
+                </div>
               </div>
               <!-- <button type="button" @click="testFunction()">testFunction</button> -->
               <div class="text-center mt-30">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
-                <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
+                <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /> Save & Return to Review</button>
               </div>
-              
-              <div class="d-flex justify-content-center mt-2">
-                <router-link v-if="reportId" :to="`/report-builder/${reportId}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"> <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Return to Current Report</router-link>
+              <div class="d-flex justify-content-center">
+                <router-link :to="`/report-builder/${reportId}`" :class="`nav-link btn form-back-btn fs-14 mt-2 ${reportId ? '':'d-none'}`" disabled="true">
+                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Return to Current Report
+                </router-link> 
               </div>
             </form>
           </div>
@@ -211,9 +212,8 @@ export default {
     };
   },
   mounted() {
-    console.log("......................");
-    console.log(this.$route.query);
     this.reportId = this.$route.query.report || false;
+    
     // get existing client
     if (!this.$store.state.data.clients) {
       this.getClient();
@@ -261,9 +261,9 @@ export default {
           if (client_id) {
             if (this.clients && this.clients.length) {
               this.$router.push(
-                `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${
-                  this.$route.query.review ? "&review=true" : ""
-                }`
+                `?client=${client_id}${
+                  this.reportId ? `&report=${this.reportId}` : ""
+                }${this.$route.query.review ? "&review=true" : ""}`
               );
             } else {
               this.setClientAsDefault = client_id;
@@ -318,9 +318,9 @@ export default {
             if (client_id) {
               if (this.clients && this.clients.length) {
                 this.$router.push(
-                  `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${
-                    this.$route.query.review ? "&review=true" : ""
-                  }`
+                  `?client=${client_id}${
+                    this.reportId ? `&report=${this.reportId}` : ""
+                  }${this.$route.query.review ? "&review=true" : ""}`
                 );
               } else {
                 this.setClientAsDefault = client_id;
@@ -348,9 +348,9 @@ export default {
         this.$router.push(`${this.$route.query.review ? "&review=true" : ""}`);
       } else {
         this.$router.push(
-          `?client=${templateId}${this.reportId ? `&report=${this.reportId}`: ''}${
-            this.$route.query.review ? "&review=true" : ""
-          }`
+          `?client=${templateId}${
+            this.reportId ? `&report=${this.reportId}` : ""
+          }${this.$route.query.review ? "&review=true" : ""}`
         );
       }
       // this.existingClientId = false;
@@ -370,7 +370,9 @@ export default {
     setExistingClientId: function(id) {
       this.existingClientId = id;
       this.$router.push(
-        `?client=${id}${this.reportId ? `&report=${this.reportId}`: ''}${this.$route.query.review ? "&review=true" : ""}`
+        `?client=${id}${this.reportId ? `&report=${this.reportId}` : ""}${
+          this.$route.query.review ? "&review=true" : ""
+        }`
       );
 
       let age = this.$store.state.data.clients.filter(item => {
@@ -392,7 +394,9 @@ export default {
       this.existingClientId = client_id;
       this.setClientAsDefault = client_id;
       this.$router.push(
-        `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${this.$route.query.review ? "&review=true" : ""}`
+        `?client=${client_id}${
+          this.reportId ? `&report=${this.reportId}` : ""
+        }${this.$route.query.review ? "&review=true" : ""}`
       );
 
       this.errors = [];
@@ -446,9 +450,9 @@ export default {
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
             this.$router.push(
-              `?client=${this.setClientAsDefault}${this.reportId ? `&report=${this.reportId}`: ''}${
-                this.$route.query.review ? "&review=true" : ""
-              }`
+              `?client=${this.setClientAsDefault}${
+                this.reportId ? `&report=${this.reportId}` : ""
+              }${this.$route.query.review ? "&review=true" : ""}`
             );
             this.setClientAsDefault = false;
           }

@@ -245,6 +245,11 @@
                     <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active flex-shrink-0 mx-0"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/> Save & Return to Review</button>
                   </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                  <router-link v-if="$route.query.report" :to="`/report-builder/${$route.query.report}`" class="nav-link btn form-back-btn fs-14 mt-2" disabled="true">
+                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Return to Current Report
+                  </router-link> 
+                </div>
             </div>
           </form>
         </div>
@@ -387,7 +392,10 @@ export default {
         scenarioData &&
         scenarioData.id === Number(this.$route.params.scenario)
       ) {
-        if (scenarioData.illustration && typeof scenarioData.scenerio_details === "object") {
+        if (
+          scenarioData.illustration &&
+          typeof scenarioData.scenerio_details === "object"
+        ) {
           this.$store.dispatch("activeScenario", scenarioData);
           this.populateInsuranceProfile(scenarioData.illustration);
           getScenarioAPI = false;
@@ -598,7 +606,7 @@ export default {
       if (!id) {
         return false;
       }
-      
+
       this.illustrationId = id;
       let step2 = getScenarioStep2();
       if (step2 && step2.id === Number(id)) {

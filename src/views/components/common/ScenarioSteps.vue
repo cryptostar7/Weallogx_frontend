@@ -1,10 +1,10 @@
 <template lang="">
     <div class="reviewProgressMainDiv py-5">
         <ul class="mt-1 review-progress" id="reviewProgress">
-            <li :class="scenarioDetail.class"><router-link :to="scenarioDetail.url" class="nav-link p-0">Scenario Details</router-link></li>
-            <li :class="illustrationDetail.class"><router-link :to="illustrationDetail.url" class="nav-link p-0">Illustration Data</router-link></li>
-            <li :class="comparativeDetail.class"><router-link :to="comparativeDetail.url" class="nav-link p-0">Comparative Vehicles</router-link></li>
-            <li :class="historicalDetail.class"><router-link :to="historicalDetail.url" class="nav-link p-0">Historical Simulations</router-link></li>
+            <li :class="scenarioDetail.class"><router-link :to="`${scenarioDetail.url}${$route.query.report ? `?report=${$route.query.report}`:''}`" class="nav-link p-0">Scenario Details</router-link></li>
+            <li :class="illustrationDetail.class"><router-link :to="`${illustrationDetail.url}${$route.query.report ? `?report=${$route.query.report}`:''}`" class="nav-link p-0">Illustration Data</router-link></li>
+            <li :class="comparativeDetail.class"><router-link :to="`${comparativeDetail.url}${$route.query.report ? `?report=${$route.query.report}`:''}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+            <li :class="historicalDetail.class"><router-link :to="`${historicalDetail.url}${$route.query.report ? `?report=${$route.query.report}`:''}`" class="nav-link p-0">Historical Simulations</router-link></li>
         </ul>
       <router-link to="/">
         <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" />
