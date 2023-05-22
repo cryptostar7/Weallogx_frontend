@@ -195,15 +195,27 @@ export default {
         }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
-          annualFeesData.datasets[1].data = chart1.comparison.chart_output.fees;
+          if(chart1.type === 'pretax'){
+            annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data;
+          }else{
+            annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees;
+          }
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
-          annualFeesData.datasets[2].data = chart2.comparison.chart_output.fees;
+          if(chart2.type === 'pretax'){
+            annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data;
+          }else{
+            annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees;
+          }
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
-          annualFeesData.datasets[3].data = chart3.comparison.chart_output.fees;
+           if(chart3.type === 'pretax'){
+            annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data;
+          }else{
+            annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees;
+          }
         }
       }
       return annualFeesData;
