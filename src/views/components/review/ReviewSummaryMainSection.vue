@@ -57,7 +57,7 @@ import ComparativeVehiclesReview from "../review/ComparativeVehiclesReview.vue";
 import HistoricalSimulationsReview from "../review/HistoricalSimulationsReview.vue";
 import { get } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
-import { authHeader } from "../../../services/helper";
+import { authHeader, getFirstError } from "../../../services/helper";
 
 export default {
   components: {
