@@ -331,16 +331,16 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total) || '-'" readonly/></td>
-                                <td class="w-75" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total) || '-'" readonly/></td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) || '-' }}</td>
+                                <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) || '-' }}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-'" readonly/></td>
-                                <td class="" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'" readonly/></td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-' }}</td>
+                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-' }}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-'" readonly/></td>
-                                <td class="" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-'" readonly/></td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-' }}</td>
+                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-' }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div v-for="header in draggableColumns" :key="header.id" :class="`col-4 ps-0 pe-1 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-0 ${index < draggableColumns.length - 1 ? 'pe-1' : 'pe-0'} ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
@@ -360,16 +360,16 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'" readonly/></td>
-                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-'" readonly/></td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'}}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-' }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-'" readonly/></td>
-                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-'" readonly/></td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-' }}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-' }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-'" readonly/></td>
-                                    <td width="50%" class="" data-label=""><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-'" readonly/></td>
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-' }}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-' }}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -383,7 +383,7 @@
               </div>
               <div class="pt-5">
                 <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
-                  <div class="comparativeSeeAllBtn  mt-2" id="comparativeSeeAllBtn">
+                  <div class="comparativeSeeAllBtn mt-2" id="comparativeSeeAllBtn">
                     <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
                   </div>
                 </div>
@@ -402,11 +402,11 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 import { patch } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
-import "@/assets/js/jquery.min.js";
+// import "@/assets/js/jquery.min.js";
 
 // Table Header Sticky code starts
 // Table Header Sticky code ends here
-
+let tables = [];
 export default {
   props: ["keyId", "sidebar"],
   components: {
@@ -515,7 +515,6 @@ export default {
     if (!obj3) {
       this.$store.dispatch("reportCvDeleteId", 3);
     }
-    let tables = [];
 
     function getOffset(element) {
       var x = 0;
@@ -532,16 +531,16 @@ export default {
       return { top: y, left: x };
     }
 
-    function getScrollTop() {
-      if (typeof window.pageYOffset !== "undefined") {
-        return window.pageYOffset;
-      }
-      var docElement = document.documentElement;
-      if (!docElement.clientHeight) {
-        docElement = document.body;
-      }
-      return docElement.scrollTop;
-    }
+    // function getScrollTop() {
+    //   if (typeof window.pageYOffset !== "undefined") {
+    //     return window.pageYOffset;
+    //   }
+    //   var docElement = document.documentElement;
+    //   if (!docElement.clientHeight) {
+    //     docElement = document.body;
+    //   }
+    //   return docElement.scrollTop;
+    // }
 
     function Table(element) {
       this.element = element;
@@ -572,12 +571,6 @@ export default {
         this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
       for (var i = 0; i < this.originalThs.length; i++) {
         var th = this.originalThs[i];
-        // var style = window.getComputedStyle(th);
-        // var paddingLeft = style.getPropertyValue('padding-left')
-        //     .replace('px', '');
-        // var paddingRight = style.getPropertyValue('padding-right')
-        //     .replace('px', '');
-        // padding = parseFloat(paddingLeft, 10) + parseFloat(paddingRight, 10);
         this.floatingThs[i].style.width = th.offsetWidth + 9 + "px";
         this.floatingThs[i].style.height = th.offsetHeight + "px";
       }
@@ -598,11 +591,52 @@ export default {
 
     setTimeout(() => {
       init();
+      console.log(tables);
     }, 3000);
 
-    function windowScroll() {
+
+    // function windowScroll() {
+    //   for (var i = 0; i < tables.length; i++) {
+    //     var windowTop = getScrollTop();
+    //     if (windowTop > tables[i].top) {
+    //       tables[i].floatingHeader.style.top =
+    //         Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
+    //     } else {
+    //       tables[i].floatingHeader.style.top = "0";
+    //     }
+    //   }
+    // }
+
+    // function refreshHeaderSizes() {
+    //   for (var i = 0; i < tables.length; i++) {
+    //     tables[i].refreshHeaderSize();
+    //   }
+    // }
+
+    window.addEventListener("scroll", this.windowScroll);
+  },
+  methods: {
+    testFunction: function() {
+      // console.log(this.mapData(this.comparativeTable));
+    },
+    refreshHeaderSizes: function(){
       for (var i = 0; i < tables.length; i++) {
-        var windowTop = getScrollTop();
+        tables[i].refreshHeaderSize();
+      }
+    },
+    getScrollTop: function(){
+      if (typeof window.pageYOffset !== "undefined") {
+        return window.pageYOffset;
+      }
+      var docElement = document.documentElement;
+      if (!docElement.clientHeight) {
+        docElement = document.body;
+      }
+      return docElement.scrollTop;
+    },
+    windowScroll: function(){
+      for (var i = 0; i < tables.length; i++) {
+        var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
           tables[i].floatingHeader.style.top =
             Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
@@ -610,22 +644,11 @@ export default {
           tables[i].floatingHeader.style.top = "0";
         }
       }
-    }
-
-    function refreshHeaderSizes() {
-      for (var i = 0; i < tables.length; i++) {
-        tables[i].refreshHeaderSize();
-      }
-    }
-
-    window.addEventListener("scroll", windowScroll);
-  },
-  methods: {
-    testFunction: function() {
-      // console.log(this.mapData(this.comparativeTable));
     },
-    handleSidebar: function() {
-      // sidebar script....
+    handleSidebar: function(status) {
+      this.refreshHeaderSizes()
+      // console.log(status);
+      return status;
     },
     // to save and update the CV cards name 
     saveCvName: function(index, name) {
@@ -884,7 +907,7 @@ export default {
       }
     },
     "$props.sidebar"(value) {
-      this.handleSidebar();
+      this.handleSidebar(value);
     },
   },
   computed: {

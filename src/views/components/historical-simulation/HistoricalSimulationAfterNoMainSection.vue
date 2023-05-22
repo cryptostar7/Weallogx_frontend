@@ -1,6 +1,6 @@
 <template>
   <section class="main-section mt-0 historical-mainSection">
-    <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic historicalMarginBottom">
+    <div class="reviewProgressMainDiv py-4 HistoricalPositionStatic mb-3">
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
         <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
@@ -12,9 +12,9 @@
       </router-link>
     </div>
     <div class="container-fluid">
-      <div class="row justify-content-center form-row">
+      <div class="row justify-content-center form-row mt-0">
         <div class="col-md-9">
-          <div class="main-form-div">
+          <div class="main-form-div mb-0">
             <scenario-label-component />
             <div class="form-wrapper">
               <p class="historicalAllSetPara">Your Scenario is all set!</p>
@@ -23,6 +23,7 @@
                 <span class="d-block mb-2"></span>
                 <router-link :to="`/select-historical-simulations/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14 active"><img
                     src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
+                    <br>
               </div>
             </div>
           </div>

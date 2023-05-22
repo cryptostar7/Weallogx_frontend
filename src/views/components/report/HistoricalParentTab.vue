@@ -1,5 +1,5 @@
 <template lang="">
-    <historical-comparative-table-tab  v-if="tabID === 1" :keyId="keyId"/>
+    <historical-comparative-table-tab  v-if="tabID === 1" :keyId="keyId" :sidebar="$props.sidebar"/>
     <historical-income-analysis-tab  v-if="tabID === 2" :keyId="keyId"/>
     <historical-irr-analysis-tab  v-if="tabID === 3" :keyId="keyId"/>
     <historical-total-values-tab  v-if="tabID === 4" :keyId="keyId"/>
@@ -16,7 +16,7 @@ import HistoricalComparativeValuesTab from "./historical-components/HistoricalCo
 
 
 export default {
-  props: ["tabID", "keyId"],
+  props: ["tabID", "keyId", "sidebar"],
   components: {
     HistoricalComparativeTableTab,
     HistoricalComparativeValuesTab,

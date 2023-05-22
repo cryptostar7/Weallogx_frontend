@@ -1468,6 +1468,9 @@ color: #fff;
   top: 2px;
   left: 3px;
 }
+.custom-switch .form-check-label.no-event {
+  pointer-events: none;
+}
 /*  */
 .autocomplete1 {
   position: relative;
@@ -2942,7 +2945,7 @@ color: #fff;
   line-height: 39px;
   text-align: center;
   color: #000000;
-  margin: 6rem 0 14rem 0;
+  margin: 2rem 0 4rem 0;
 }
 .historical-paraCheckBox {
   margin: 0;

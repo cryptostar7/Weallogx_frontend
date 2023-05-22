@@ -30,7 +30,7 @@
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '':'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <p class="allCardHeadPara">Longevity</p>                         
+                          <p :class="`cardMainHeading${1+index}`">{{cv_name[index]}}</p>                 
                         </div>                                
                         <div class="d-flex">
                           <div class="button-cover2">
@@ -48,26 +48,25 @@
                           </a>
                         </div>
                       </div>
-                      <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
-                      <div class="d-flex justify-content-between mt-1">
-                        <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
-                          <p>Longevity</p>
-                          <p>{{item.longevity_year}}</p>
-                        </div>
-                        <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
-                          <p class="text-end">Cumulative Income</p>
-                          <p class="text-end">{{$numFormatWithDollar(item.cumulative_income)}}</p>
+                      <div class="d-flex justify-content-between mt-2px">
+                        <div :class="`compGraphtopPara d-flex bgChangerComGraph${1+index}`">
+                          <p class="fs-12 me-1">Longevity</p>
+                          <p>{{item.longevity_year}} Years</p>
                         </div>
                       </div>
                       <div :class="`compGraphSmallBdr compGraphSmallBdrClr${1+index} pt-1 mb-two`">
                         <p></p>
                       </div>
-                      <div class="d-flex">
+                      <div class="d-flex justify-content-between">
+                        <div :class="`compGraphtopPara bgChangerComGraph${1+index}`">
+                          <p>Cumulative Income</p>
+                          <p>{{$numFormatWithDollar(item.cumulative_income)}}</p>
+                        </div>
                         <div class="compGraphtopParaTwo">
                           <p>Rate of Return</p>
                           <p>{{Number(item.ror || 0).toFixed(2)}}%</p>
                         </div>
-                        <div class="compGraphtopParaTwo cardParLeftMar">
+                        <div class="compGraphtopParaTwo">
                           <p>IRR</p>
                           <p>{{Number(item.irr || 0).toFixed(2)}}%</p>
                         </div>
@@ -78,7 +77,7 @@
               </div>
               <div class="container-fluid pb-2">
                 <div class="graph-container-div">
-                  <canvas id="comparativeValuesChart" width="400" height="150"></canvas>
+                  <canvas id="comparativeValuesChart" width="400" height="115"></canvas>
                   <div class="progressBarEachBtm comparative">
                     <div class="bar-container contribution-radio d-flex justify-content-between align-items-center">
                       <div class="progressBarBtnDiv">
@@ -221,9 +220,18 @@ export default {
               this.$appTheme() == "dark-blue"
                 ? "#1660A4"
                 : "#0E6651",
+            pointBackgroundColor: this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
+                : "#0E6651",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: cv,
+            TooltipLabelStyle: {
+              backgroundColor: "white",
+              borderColor: "white",
+            }
           },
           {
             borderColor:
@@ -231,19 +239,29 @@ export default {
               this.$appTheme() == "dark-blue"
                 ? "#0E6651"
                 : "#1660A4",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#0E6651"
+                : "#1660A4",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: this.deletedItems.includes(1) ? [] : cv1 || [],
           },
           {
             borderColor: "#763CA3",
+            pointBackgroundColor: "#763CA3",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: this.deletedItems.includes(2) ? [] : cv2 || [],
           },
           {
             borderColor: "#9D2B2B",
+            pointBackgroundColor: "#9D2B2B",
             borderWidth: 4,
+            pointBorderWidth: 1,
             radius: 0,
             data: this.deletedItems.includes(3) ? [] : cv3 || [],
           },
@@ -251,6 +269,8 @@ export default {
             barPercentage: 1,
             barThickness: 12,
             backgroundColor: "rgba(14, 103, 82, .4)",
+            pointBackgroundColor: "rgba(14, 103, 82, 1)",
+            pointBorderWidth: 1,
             radius: 0,
             data: contribution || [],
             type: "bar",
@@ -260,7 +280,9 @@ export default {
           {
             barPercentage: 1,
             barThickness: 12,
-            backgroundColor: "rgba(131, 159, 175, .6)",
+            backgroundColor: "rgba(131, 159, 175, .7)",
+            pointBackgroundColor: "rgba(131, 159, 175, 1)",
+            pointBorderWidth: 1,
             radius: 2,
             data: distribution || [],
             type: "bar",
@@ -378,6 +400,16 @@ export default {
             legend: {
               display: false,
             },
+            tooltip: {
+                callbacks: {
+                    labelPointStyle: function(context) {
+                        return {
+                            pointStyle: 'triangle',
+                            rotation: 0
+                        };
+                    }
+                }
+            }
           },
           scales: {
             x: {

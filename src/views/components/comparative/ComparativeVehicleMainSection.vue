@@ -17,7 +17,7 @@
                         <button :class="`nav-link ${vehicle.tab === 1 && tabs.vehicle1 ? 'active' : `${tabs.vehicle1 ? 'activeOnly':''}`}`" id="vehicleType1-tab" type="button" role="tab" aria-controls="vehicleType1">
                           <div class="form-check form-switch custom-switch"> 
                             <input class="form-check-input" type="checkbox" role="switch" id="vehicleType1" checked="true"/> 
-                            <label class="form-check-label fs-12 semi-bold-fw mb-0" for="vehicleType1">Vehicle #1</label> 
+                            <label class="form-check-label no-event fs-12 semi-bold-fw mb-0" for="">Vehicle #1</label> 
                           </div>
                         </button> 
                       </li>
@@ -25,7 +25,7 @@
                         <button :class="`nav-link ${vehicle.tab === 2 && tabs.vehicle2 ? 'active' : `${tabs.vehicle2 ? 'activeOnly':''}`}`" id="vehicleType2-tab" type="button" role="tab" aria-controls="vehicleType2">
                           <div class="form-check form-switch custom-switch"> 
                             <input class="form-check-input" type="checkbox" role="switch" id="vehicleType2" @click="setActiveTab2" /> 
-                            <label class="form-check-label fs-12 semi-bold-fw mb-0" for="" @click="setActiveTab2">Vehicle #2</label> 
+                            <label class="form-check-label no-event fs-12 semi-bold-fw mb-0" for="" @click="setActiveTab2">Vehicle #2</label> 
                           </div>
                         </button> 
                       </li>
@@ -33,7 +33,7 @@
                         <button :class="`nav-link ${vehicle.tab === 3 && tabs.vehicle3 ? 'active' : `${tabs.vehicle3 ? 'activeOnly':''}`}`" id="vehicleType3-tab" type="button" role="tab" aria-controls="vehicleType3">
                           <div class="form-check form-switch custom-switch"> 
                             <input class="form-check-input" type="checkbox" role="switch" id="vehicleType3" @click="setActiveTab3" /> 
-                            <label class="form-check-label fs-12 semi-bold-fw mb-0" for="" @click="setActiveTab3">Vehicle #3</label> 
+                            <label class="form-check-label no-event fs-12 semi-bold-fw mb-0" for="" @click="setActiveTab3">Vehicle #3</label> 
                           </div>
                         </button> 
                       </li>

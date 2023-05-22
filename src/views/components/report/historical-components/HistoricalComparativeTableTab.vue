@@ -393,7 +393,7 @@ import HistoricalDisclosureComponent from "./HistoricalDisclosureComponent.vue";
 import { VueDraggableNext } from "vue-draggable-next";
 
 export default {
-  props: ["keyId"],
+  props: ["keyId", "sidebar"],
   components: { HistoricalDisclosureComponent, draggable: VueDraggableNext },
   data() {
     return {
@@ -532,6 +532,11 @@ export default {
     testFunction: function() {
       this.mapData();
     },
+    handleSidebar: function(status) {
+      // this.refreshHeaderSizes()
+      console.log(status);
+      return status;
+    },
     setActionId: function(id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },
@@ -645,6 +650,10 @@ export default {
           element.active = true;
         });
       }
+    },
+    "$props.sidebar"(value) {
+      console.log(value);
+      // this.handleSidebar(value);
     },
   },
   computed: {

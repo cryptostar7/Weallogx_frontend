@@ -1134,6 +1134,18 @@
 .light-blue .cardRadioSwtchpara4{
   color: #9D2B2B!important;
 }
+.light-blue .cardMainHeading1 {
+  color: #1660A4 !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+.light-blue .cardMainHeading2 {
+  color: #0E6651 !important;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
 .light-blue .compGraphSmallBdrClr1 p{
   background: #287BC7;
 }
