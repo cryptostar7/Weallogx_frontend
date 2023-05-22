@@ -1525,38 +1525,34 @@ body::-webkit-scrollbar {
 .lifeProBtmDiv p{
   width: 100%;
   overflow: hidden;
+  font-size: 15px;
 }
 .lifeProBtmDiv1 p {
   font-weight: 700;
-  font-size: 14px;
   color: var(--green-clr);
   margin: 0;
 }
 
 .lifeProBtmDiv2 p {
   font-weight: 700;
-  font-size: 14px;
   color: #1660A4;
   margin: 0;
 }
 
 .lifeProBtmDiv3 p {
   font-weight: 700;
-  font-size: 14px;
   color: #763CA3;
   margin: 0;
 }
 
 .lifeProBtmDiv4 p {
   font-weight: 700;
-  font-size: 14px;
   color: #9D2B2B;
   margin: 0;
 }
 
 .lifeProBtmDiv5 p {
   font-weight: 700;
-  font-size: 14px;
   color: #E8662F;
   margin: 0;
 }

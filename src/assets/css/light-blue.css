@@ -845,7 +845,7 @@
   color: #004885;
 }
 .light-blue .reportTablesDiv3 table thead th {
-  background: #1660A4 !important;
+  background: #004885 !important;
 }
 .light-blue .reportTablesDiv3 .table th {
   border-left-color: #2977BF;
@@ -862,16 +862,16 @@
   color: #0E6651;
 }
 .light-blue .lifeProPlusPara3 {
-  color: #0E6651;
+  color: #089875;
 }
 .light-blue .lifeProBtmDiv2 p {
-  color: #0E6651;
+  color: #089875;
 }
 .light-blue .reportTablesDiv4 table thead th {
-  background: #0E6651!important;
+  background: #089875! important;
 }
 .light-blue .reportTablesDiv4 .table th {
-  border-left-color: #2E7665!important;
+  border-left-color: #2C997E! important;
 }
 .light-blue .commonTableCls .editBtnAccount svg rect,
 .light-blue .commonTableCls .editBtnAccount svg path,
@@ -903,7 +903,7 @@
   color: #1660A4;
 }
 .light-blue .equalDistCard2 {
-  border-top-color: #0E6651;
+  border-top-color: #089875;
 }
 .light-blue .distrbnCard2paras p:last-child {
   color: #0E6651 !important;
@@ -915,7 +915,7 @@
   color: #0E6651;
 }
 .light-blue .switch1 .checkbox2:checked~.layer2 {
-  background: #0E6651 !important;
+  background: #089875 !important;
 }
 .light-blue .greenProgress1 {
   background: #1660A4;
@@ -956,7 +956,7 @@
   background: #1660A4;
 }
 .light-blue .cumulativeProgLifePro2 {
-  background: #0E6651;
+  background: #089875;
 }
 .light-blue .cumulativeProgLifePro3 {
   background: #763CA3;
@@ -968,7 +968,7 @@
   background: #287BC7;
 }
 .light-blue .BottomcumulativeLifePro2 {
-  background: #25967B;
+  background: #10B78E;
 }
 .light-blue .BottomcumulativeLifePro3 {
   background: #9453C8;
@@ -990,7 +990,7 @@
   background: #287BC7;
 }
 .light-blue .CardProgressBig2 {
-  background: #0E6651 !important;
+  background: #089875 !important;
 }
 .light-blue .progressBarOvrwrt2 {
   background: #10B78E;
@@ -1164,10 +1164,10 @@
 }
 
 .light-blue .lightProgress2{
-  background: #0E6651;
+  background: #089875;
 }
 .light-blue .lightProgress2 div{
-  background: #209579;
+  background: #10B78E;
 }
 .light-blue .lightProgress1{
   background: #1660A4;

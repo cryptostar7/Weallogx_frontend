@@ -40,8 +40,8 @@
             <div class="SaveCloseButton">
                 <router-link to="/" class="btn">Save & Close</router-link>
             </div>
-            <div class="SaveCloseButton mt-2">
-                <a :href="`/report-builder/${reportId}`" class="btn">Return To Current Report</a>
+            <div class="d-flex justify-content-center mt-2">
+                <a :href="`/report-builder/${reportId}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Return to Current Report</a>
             </div>
              <div class="BuildSaveCloseButton">
                 <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>

@@ -238,11 +238,12 @@
               </div>
               <div class="text-center mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
-                <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active mt-2">Save & Return to Review</button>
-                <span class="d-block mb-2"></span> 
-                  <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'scenario-details'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
-                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
-                  </router-link> 
+                <div class="d-flex justify-content-center gap-3 mt-3">
+                    <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'scenario-details'}/${$route.params.scenario}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0" disabled="true">
+                      <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Back
+                    </router-link> 
+                    <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active flex-shrink-0 mx-0"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/> Save & Return to Review</button>
+                  </div>
                 </div>
             </div>
           </form>

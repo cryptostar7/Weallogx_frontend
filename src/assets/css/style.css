@@ -1361,17 +1361,18 @@ color: #fff;
 }
 .form-back-btn {
   border-radius: 6.5rem;
-  padding: 0.625rem 1rem;
-  max-width: 230px;
+  padding: 0.625rem 1.5rem;
+/*  max-width: 230px;*/
   margin: 0 auto;
   font-weight: var(--semi-bold-fw);
   background-color: transparent;
   color: #a0a0a0;
-  border: 1px solid #dfdfdf;
+  border: 1px solid transparent;
 }
 .form-back-btn:hover,
 .form-back-btn:focus {
-  background-color: #f1f1f1;
+  background-color: #f5f5f5;
+  border: 1px solid #eee;
   color: #000;
 }
 .form-back-btn img {

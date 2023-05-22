@@ -87,8 +87,10 @@
                                                                 <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon">
                                                                 <div class="navDropMenuItems">
                                                                     <h5 class="navDropDownHeader"> {{$currentUser() ? `${$currentUser().first_name} ${$currentUser().last_name}` : '' }} </h5>
-                                                                    <router-link to="/"><img src="@/assets/images/user/dashboard-icon.svg"
+                                                                    <router-link to="profile-details"><img src="@/assets/images/user/dashboard-icon.svg"
                                                                         alt="Dashboard">Dashboard</router-link>
+                                                                    <router-link to="/"><img src="@/assets/images/user/clients-line.svg"
+                                                                        alt="Clients">Clients</router-link>
                                                                     <router-link to="edit-profile"><img src="@/assets/images/user/update-profile-icon.svg"
                                                                         alt="Profile">Update Profile</router-link>
                                                                     <router-link to="change-password"><img src="@/assets/images/user/change-password.svg"

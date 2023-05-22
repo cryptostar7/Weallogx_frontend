@@ -153,8 +153,9 @@
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
               </div>
-              <div v-if="reportId" class="text-center mt-2 d-none d-none">
-                <router-link :to="`/report-builder/${reportId}`" class="">return to current report</router-link>
+              
+              <div class="d-flex justify-content-center mt-2">
+                <router-link v-if="reportId" :to="`/report-builder/${reportId}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"> <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Return to Current Report</router-link>
               </div>
             </form>
           </div>

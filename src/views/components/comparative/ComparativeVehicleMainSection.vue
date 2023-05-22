@@ -283,7 +283,7 @@
                           </div>
                         </div>
                         <div class="d-flex justify-content-center pt-3">
-                            <button  v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn m-0 form-next-btn fs-14 active comparative-next-btn mt-2 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)">Save & Return to Review</button>
+                            <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Save & Return to Review</button>
                           </div>
                       </div>
                     </div>
