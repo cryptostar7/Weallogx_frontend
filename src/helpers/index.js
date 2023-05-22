@@ -6,7 +6,11 @@ const myPlugin = {
             return Number(key).toLocaleString();
         },
             app.config.globalProperties.$numFormatWithDollar = (key) => {
-                key = Number(key || 0).toFixed(0);
+                key = Number(key || 0);
+                if(!key){
+                   return '-';
+                }
+                key = key.toFixed(0);
                 return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
             },
             app.config.globalProperties.$dateFormat = (date) => {

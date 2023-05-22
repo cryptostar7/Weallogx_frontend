@@ -284,7 +284,10 @@
                         </div>
                         <div class="d-flex justify-content-center pt-3">
                             <button  v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn m-0 form-next-btn fs-14 active comparative-next-btn mt-2 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)">Save & Return to Review</button>
-                          </div>
+                        </div>
+                        <router-link v-if="$route.query.report" :to="`/report-builder/${$route.query.report}`" class="nav-link btn form-back-btn fs-14 mt-2" disabled="true">
+                          <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Return to current report
+                        </router-link> 
                       </div>
                     </div>
                   </div>
@@ -307,8 +310,8 @@ import {
   authHeader,
   getFirstError,
   setScenarioStep3,
-getCurrentScenario,
-setCurrentScenario,
+  getCurrentScenario,
+  setCurrentScenario,
 } from "../../../services/helper";
 export default {
   components: { SelectDropdown, ScenarioSteps, ScenarioLabelComponent },
@@ -431,7 +434,10 @@ export default {
         scenarioData &&
         scenarioData.id === Number(this.$route.params.scenario)
       ) {
-        if (scenarioData.comperative && typeof scenarioData.scenerio_details === "object") {
+        if (
+          scenarioData.comperative &&
+          typeof scenarioData.scenerio_details === "object"
+        ) {
           this.$store.dispatch("activeScenario", scenarioData);
           this.getPortfolioData(scenarioData.comperative);
           getScenarioAPI = false;
