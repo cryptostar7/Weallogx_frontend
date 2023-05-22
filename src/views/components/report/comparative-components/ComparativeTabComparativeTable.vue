@@ -198,7 +198,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
+                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
                               <td data-label="acount">{{ $numFormatWithDollar(item.account_value) || '-'}}</td> 
                               <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) || '-'}}</td>
                               <td data-label="death">{{$numFormatWithDollar(item.death_benefit) || '-'}}</td>
@@ -283,7 +283,7 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
+                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
                                         <td data-label="acount">{{$numFormatWithDollar(item.net_balance) || '-'}}</td>
                                       </tr>
                                     </tbody>

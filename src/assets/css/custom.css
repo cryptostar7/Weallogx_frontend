@@ -47,7 +47,9 @@ body::-webkit-scrollbar {
 .navbar-brand .logo-dark {
   display: none;
 }
-
+.td-bold{
+  font-weight: 600;
+}
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
