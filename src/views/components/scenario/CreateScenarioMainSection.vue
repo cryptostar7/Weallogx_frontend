@@ -153,7 +153,7 @@
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
               </div>
-              <div v-if="reportId" class="text-center mt-2 d-none">
+              <div v-if="reportId" class="text-center mt-2 d-none d-none">
                 <router-link :to="`/report-builder/${reportId}`" class="">return to current report</router-link>
               </div>
             </form>
