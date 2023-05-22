@@ -8,7 +8,7 @@ const myPlugin = {
             app.config.globalProperties.$numFormatWithDollar = (key) => {
                 key = Number(key || 0);
                 if(!key){
-                   return '-';
+                   return '';
                 }
                 key = key.toFixed(0);
                 return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';

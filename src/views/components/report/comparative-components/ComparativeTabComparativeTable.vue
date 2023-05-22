@@ -198,7 +198,7 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td :class="`${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`" data-label="">{{ $numFormatWithDollar(item.distributions) || '-'}}</td>
+                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
                               <td data-label="acount">{{ $numFormatWithDollar(item.account_value) || '-'}}</td> 
                               <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) || '-'}}</td>
                               <td data-label="death">{{$numFormatWithDollar(item.death_benefit) || '-'}}</td>
@@ -283,7 +283,7 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td :class="`${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`" data-label="">{{$numFormatWithDollar(item.distributions) || '-'}}</td>
+                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
                                         <td data-label="acount">{{$numFormatWithDollar(item.net_balance) || '-'}}</td>
                                       </tr>
                                     </tbody>
@@ -594,7 +594,6 @@ export default {
       console.log(tables);
     }, 3000);
 
-
     // function windowScroll() {
     //   for (var i = 0; i < tables.length; i++) {
     //     var windowTop = getScrollTop();
@@ -619,12 +618,12 @@ export default {
     testFunction: function() {
       // console.log(this.mapData(this.comparativeTable));
     },
-    refreshHeaderSizes: function(){
+    refreshHeaderSizes: function() {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
       }
     },
-    getScrollTop: function(){
+    getScrollTop: function() {
       if (typeof window.pageYOffset !== "undefined") {
         return window.pageYOffset;
       }
@@ -634,7 +633,7 @@ export default {
       }
       return docElement.scrollTop;
     },
-    windowScroll: function(){
+    windowScroll: function() {
       for (var i = 0; i < tables.length; i++) {
         var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
@@ -646,11 +645,11 @@ export default {
       }
     },
     handleSidebar: function(status) {
-      this.refreshHeaderSizes()
+      this.refreshHeaderSizes();
       // console.log(status);
       return status;
     },
-    // to save and update the CV cards name 
+    // to save and update the CV cards name
     saveCvName: function(index, name) {
       this.$store.dispatch("cvName", { index: index, name: name });
       let cvId = this.comparativeTable.vehicle_1_id;
@@ -682,9 +681,9 @@ export default {
           this.$toast.error("Something went wrong.");
         });
     },
-    // to update the current comparative report type with default filter data 
+    // to update the current comparative report type with default filter data
     setCurrentTab: function(tab) {
-       if (this.currentTab !== tab) {
+      if (this.currentTab !== tab) {
         this.currentTab = tab;
         this.setCurrentFilter("default");
       }
@@ -693,7 +692,7 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    // to filter the report data  
+    // to filter the report data
     setCurrentFilter: function(key) {
       this.currentFilter = key;
       switch (key) {
@@ -719,7 +718,7 @@ export default {
           return this.mapData(this.comparativeTable);
       }
     },
-    // to map the API data for the table and cv cards 
+    // to map the API data for the table and cv cards
     mapData: function(ct) {
       let tempData = {
         distributions: [],
@@ -730,7 +729,7 @@ export default {
       let obj1 = ct.cv_1.comparison.chart_output;
       let obj2 = ct.cv_2.comparison ? ct.cv_2.comparison.chart_output : false;
       let obj3 = ct.cv_3.comparison ? ct.cv_3.comparison.chart_output : false;
-    
+
       if (obj) {
         let list = [];
         let dst = [];
@@ -788,7 +787,7 @@ export default {
         let list = [];
         let details = {
           id: 1,
-          ror: ct.cv_1.comparison.ror || obj1['Rate of Return'][0],
+          ror: ct.cv_1.comparison.ror || obj1["Rate of Return"][0],
           irr: ct.cv_1.comparison.irr_percent,
         };
 
@@ -827,7 +826,7 @@ export default {
         let list = [];
         let details = {
           id: 2,
-          ror: ct.cv_2.comparison.ror || obj2['Rate of Return'][0],
+          ror: ct.cv_2.comparison.ror || obj2["Rate of Return"][0],
           irr: ct.cv_2.comparison.irr_percent,
         };
         obj2.distributions.forEach((item, index) => {
@@ -859,7 +858,7 @@ export default {
         let list = [];
         let details = {
           id: 3,
-          ror: ct.cv_3.comparison.ror || obj3['Rate of Return'][0],
+          ror: ct.cv_3.comparison.ror || obj3["Rate of Return"][0],
           irr: ct.cv_3.comparison.irr_percent,
         };
         obj3.distributions.forEach((item, index) => {
