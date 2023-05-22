@@ -148,12 +148,12 @@ export default {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+                ? "#089875"
                 : "#1660A4",
             pointBackgroundColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+                ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -374,7 +374,7 @@ export default {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           annualFeesData.datasets[0].borderColor = "#1660A4";
-          annualFeesData.datasets[1].borderColor = "#0E6651";
+          annualFeesData.datasets[1].borderColor = "#089875";
           annualFeesChart.update();
         } else {
           annualFeesData.datasets[0].borderColor = "#0E6651";

@@ -6,7 +6,7 @@
     <div class="DashBoardRightHeading">
         <div class="DashBoardRightPara1Div">
             <p>Days left</p>
-        <p>2 out of 14</p>
+        <p>2 out of 7</p>
         </div>
         <div class="DashBoardRightPara2Div">
             <div class="infoParaMainDiv">Cases Created  <span class="infoClass"><img src="@/assets/images/user/dashboard-info-icon.svg" class="infoClass" alt="Icon"/>

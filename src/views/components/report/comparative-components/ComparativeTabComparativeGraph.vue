@@ -237,12 +237,12 @@ export default {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+                ? "#089875"
                 : "#1660A4",
             pointBackgroundColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+                ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -418,6 +418,7 @@ export default {
                 drawBorder: false,
                 color: "transparent",
               },
+              min: 1,
               ticks: {
                 align: "end",
                 font: {
@@ -496,7 +497,7 @@ export default {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
-          graphData.datasets[1].borderColor = "#0E6651";
+          graphData.datasets[1].borderColor = "#089875";
           window.comparativeGraphChart.update();
         } else {
           graphData.datasets[0].borderColor = "#0E6651";

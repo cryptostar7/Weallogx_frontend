@@ -139,12 +139,12 @@ export default {
             backgroundColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "rgba(14, 102, 81, .5)"
+                ? "rgba(8, 152, 117, .5)"
                 : "rgba(22, 96, 164, .3)",
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+                ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             pointBorderWidth: 1,
