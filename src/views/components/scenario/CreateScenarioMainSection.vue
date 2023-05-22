@@ -1,6 +1,6 @@
 <template>
   <section class="main-section">
-   <scenario-steps />
+   <scenario-steps/>
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
@@ -149,14 +149,15 @@
                 </div>
               </div>
               <!-- <button type="button" @click="testFunction()">testFunction</button> -->
-              <div class="text-center mt-30">
+              <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
-                <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /> Save & Return to Review</button>
+                <div class="return-btn-div">
+                  <router-link :to="`/report-builder/${reportId}`" :class="`nav-link btn return-to-report-btn fs-14 ${reportId ? '':'d-none'}`" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />
+                  </router-link> 
+                </div>
               </div>
-              <div class="d-flex justify-content-center">
-                <router-link :to="`/report-builder/${reportId}`" :class="`nav-link btn form-back-btn fs-14 mt-2 ${reportId ? '':'d-none'}`" disabled="true">
-                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Return to Current Report
-                </router-link> 
+              <div class="text-center">
+                <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /> Save & Return to Review</button>
               </div>
             </form>
           </div>
