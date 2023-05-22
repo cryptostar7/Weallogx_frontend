@@ -198,10 +198,10 @@
                           </thead>
                           <tbody>
                             <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
-                              <td data-label="acount">{{ $numFormatWithDollar(item.account_value) || '-'}}</td> 
-                              <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) || '-'}}</td>
-                              <td data-label="death">{{$numFormatWithDollar(item.death_benefit) || '-'}}</td>
+                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span></td>
+                              <td data-label="acount">{{ $numFormatWithDollar(item.account_value) }}</td> 
+                              <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) }}</td>
+                              <td data-label="death">{{$numFormatWithDollar(item.death_benefit) }}</td>
                             </tr>
                           </tbody>
                         </table> 
@@ -283,8 +283,8 @@
                                     </thead>
                                     <tbody>
                                       <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span><span v-else>-</span></td>
-                                        <td data-label="acount">{{$numFormatWithDollar(item.net_balance) || '-'}}</td>
+                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span></td>
+                                        <td data-label="acount">{{ $numFormatWithDollar(item.net_balance) }}</td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -331,16 +331,16 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) || '-' }}</td>
-                                <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) || '-' }}</td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
+                                <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-' }}</td>
-                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-' }}</td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
+                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.shortfall) || '-' }}</td>
-                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.shortfall) || '-' }}</td>
+                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.shortfall) }}</td>
+                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.shortfall) }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -360,16 +360,16 @@
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'}}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-' }}</td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-' }}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-' }}</td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) || '-' }}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) || '-' }}</td>
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) }}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) }}</td>
                                   </tr>
                                 </tbody>
                               </table>

@@ -21,13 +21,13 @@
                     </div>                    
                     <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                     <div class="mt-1 d-flex justify-content-between">
-                    <p class="legacyCardPara">Total Value Fee Ratio</p>
+                    <p class="legacyCardPara">Total Value Expense Ratio</p>
                     <p class="legacyCardPara2 text-right">{{Number(item.total_value_in_percent).toFixed(2)}}%</p>
                     </div>
-                    <div v-if="index" class="mt-1 d-flex justify-content-between">
+             <!--        <div v-if="index" class="mt-1 d-flex justify-content-between">
                     <p class="legacyCardPara">Cumulative Income Fee Ratio</p>
                     <p class="legacyCardPara2 text-right">{{Number(item.cumulative_income_in_percent).toFixed(2)}}%</p>
-                    </div>                    
+                    </div>    -->                 
                 </div>
             </div>
         </div>
