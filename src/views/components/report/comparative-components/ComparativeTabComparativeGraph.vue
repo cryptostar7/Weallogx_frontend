@@ -202,7 +202,7 @@ export default {
           ? this.comparative_main.cv_3.comparison.chart_output
           : false;
 
-        cv = chart ? chart["account_value"] : [];
+        cv = chart ? chart["comperative_account_value"] : [];
         cv1 = chart1 ? chart1["net_balance"] : [];
         cv2 = chart2 ? chart2["net_balance"] : [];
         cv3 = chart3 ? chart3["net_balance"] : [];

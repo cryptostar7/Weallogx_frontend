@@ -153,6 +153,9 @@
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <button v-if="$route.query.review === 'true'" class="nav-link btn form-next-btn active fs-14 mt-2" type="button" @click="submitHandler(false, true)">Save & Return to Review</button>
               </div>
+              <div v-if="reportId" class="text-center mt-2 d-none">
+                <router-link :to="`/report-builder/${reportId}`" class="">return to current report</router-link>
+              </div>
             </form>
           </div>
         </div>
@@ -203,9 +206,13 @@ export default {
       scheduleTemplateInput: 0,
       scheduleTaxRate: [],
       errors: [],
+      reportId: "",
     };
   },
   mounted() {
+    console.log("......................");
+    console.log(this.$route.query);
+    this.reportId = this.$route.query.report || false;
     // get existing client
     if (!this.$store.state.data.clients) {
       this.getClient();
@@ -253,7 +260,7 @@ export default {
           if (client_id) {
             if (this.clients && this.clients.length) {
               this.$router.push(
-                `?client=${client_id}${
+                `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${
                   this.$route.query.review ? "&review=true" : ""
                 }`
               );
@@ -291,9 +298,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.$route.query.client);
-      console.log(this.existingClientId);
-      console.log(this.existingScenarioList);
+      console.log(this.reportId);
     },
     getScenarionDetails: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
@@ -312,7 +317,7 @@ export default {
             if (client_id) {
               if (this.clients && this.clients.length) {
                 this.$router.push(
-                  `?client=${client_id}${
+                  `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${
                     this.$route.query.review ? "&review=true" : ""
                   }`
                 );
@@ -341,9 +346,8 @@ export default {
       if (!templateId) {
         this.$router.push(`${this.$route.query.review ? "&review=true" : ""}`);
       } else {
-        console.log(templateId);
         this.$router.push(
-          `?client=${templateId}${
+          `?client=${templateId}${this.reportId ? `&report=${this.reportId}`: ''}${
             this.$route.query.review ? "&review=true" : ""
           }`
         );
@@ -365,7 +369,7 @@ export default {
     setExistingClientId: function(id) {
       this.existingClientId = id;
       this.$router.push(
-        `?client=${id}${this.$route.query.review ? "&review=true" : ""}`
+        `?client=${id}${this.reportId ? `&report=${this.reportId}`: ''}${this.$route.query.review ? "&review=true" : ""}`
       );
 
       let age = this.$store.state.data.clients.filter(item => {
@@ -387,7 +391,7 @@ export default {
       this.existingClientId = client_id;
       this.setClientAsDefault = client_id;
       this.$router.push(
-        `?client=${client_id}${this.$route.query.review ? "&review=true" : ""}`
+        `?client=${client_id}${this.reportId ? `&report=${this.reportId}`: ''}${this.$route.query.review ? "&review=true" : ""}`
       );
 
       this.errors = [];
@@ -441,7 +445,7 @@ export default {
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
             this.$router.push(
-              `?client=${this.setClientAsDefault}${
+              `?client=${this.setClientAsDefault}${this.reportId ? `&report=${this.reportId}`: ''}${
                 this.$route.query.review ? "&review=true" : ""
               }`
             );
