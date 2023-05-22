@@ -36,12 +36,18 @@
             
               <historical-simulations-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.historical : false" :client="client" />
             <!-- Historical Vehicles start -->
-
-            <div class="SaveCloseButton">
-                <router-link to="/" class="btn">Save & Close</router-link>
-            </div>
-            <div class="d-flex justify-content-center mt-2">
-                <a :href="`/report-builder/${reportId}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Return to Current Report</a>
+            
+            <div class="container mx-auto ">
+              <div class="row">
+                <div class="col-sm-12 p-relative">
+                  <div class="SaveCloseButton">
+                      <router-link to="/" class="btn">Save & Close</router-link>
+                  </div>
+                  <div class="return-btn-div">
+                      <a :href="`/report-builder/${reportId}`" class="nav-link btn return-to-report-btn fs-14 flex-shrink-0">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/></a>
+                  </div>
+                </div>
+              </div>
             </div>
              <div class="BuildSaveCloseButton">
                 <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>

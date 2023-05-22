@@ -232,8 +232,10 @@
               <div class="text-center mt-30 pt-3">
                 <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Next</button>
                 <span class="d-block mb-3"></span>
-                <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn fs-14">
-                <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
+                <div class="d-flex justify-content-center">
+                  <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14">
+                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
+                </div>
               </div>
             </div>
           </div>

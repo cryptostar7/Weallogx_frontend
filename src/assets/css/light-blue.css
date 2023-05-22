@@ -32,6 +32,9 @@
 .light-blue .sidebar-nav .nav-link:hover .otherModecls svg path {
   fill: #ABD5F9;
 }
+.light-blue .compGraphSmallBdrClr2 p{
+  background: #089875;
+}
 .light-blue .sidebar-nav .nav-link:hover .otherModecls svg rect {
   fill: #ABD5F9;
 }

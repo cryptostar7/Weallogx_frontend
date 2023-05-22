@@ -1362,7 +1362,6 @@ color: #fff;
 .form-back-btn {
   border-radius: 6.5rem;
   padding: 0.625rem 1.5rem;
-/*  max-width: 230px;*/
   margin: 0 auto;
   font-weight: var(--semi-bold-fw);
   background-color: transparent;
@@ -1376,6 +1375,31 @@ color: #fff;
   color: #000;
 }
 .form-back-btn img {
+  position: relative;
+  top: -1px;
+}
+.return-btn-div{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
+.return-to-report-btn {
+  border-radius: 6.5rem;
+  padding: 0.625rem 1.5rem;
+  margin: 0 auto;
+  font-weight: var(--semi-bold-fw);
+  background-color: transparent;
+  color: #202020;
+  border: 1px solid transparent;
+}
+.return-to-report-btn:hover,
+.return-to-report-btn:focus {
+  background-color: #f3f3f3;
+  border: 1px solid #eee;
+  color: #202020;
+}
+.return-to-report-btn img {
   position: relative;
   top: -1px;
 }
@@ -2582,6 +2606,14 @@ color: #fff;
   } */
 }
 @media screen and (max-width: 1200px) {
+  .return-btn-div{
+    position: relative;
+    max-width: 235px;
+    margin: 0 auto;
+    padding-top: 1rem;
+    top: 0;
+    transform: none;
+  }
   .illusnTableMainDiv .table thead {
     display: none;
   }

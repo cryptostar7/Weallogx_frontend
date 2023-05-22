@@ -271,25 +271,28 @@
                         <label for="portfolioTemplateName" class="fs-12 semi-bold-fw">Portfolio Name</label> 
                         <input type="text" id="portfolioTemplateName" class="form-control width-adjust" v-model="vehicle.portfolio_name"/> 
                       </div>
-                      <div class="text-center mt-30 d-flex flex-column justify-content-center">
-                        <div class="d-flex justify-content-center">
-                          <div>
-                            <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
-                            <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid"  alt="Chevron" width="6" /> Back
-                            </router-link> 
-                          </div>
-                          <div> 
-                            <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button>
-                          </div>
-                        </div>
-                        <div class="d-flex justify-content-center pt-3">
-                            <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Save & Return to Review</button>
-                            <router-link v-if="$route.query.report" :to="`/report-builder/${$route.query.report}`" class="nav-link btn form-back-btn fs-14 mt-2" disabled="true">
-                          <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Return to Current Report
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="text-center mt-30 d-flex flex-column justify-content-center p-relative">
+                      <div class="d-flex justify-content-center">
+                      <div>
+                        <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
+                        <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid"  alt="Chevron" width="6" /> Back
                         </router-link> 
-                          </div>
+                      </div>
+                      <div> 
+                        <button class="nav-link btn form-next-btn fs-14 active comparative-next-btn" @click="submitHandler">Next</button>
                       </div>
                     </div>
+                    <div class="return-btn-div">
+                      <router-link v-if="$route.query.report" :to="`/report-builder/${$route.query.report}`" class="nav-link btn return-to-report-btn fs-14" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />
+                      </router-link> 
+                    </div>
+                  </div>
+                   <div class="d-flex justify-content-center pt-3">
+                        <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Save & Return to Review</button>
+                      </div>
                   </div>
                 </div>
               </div>
