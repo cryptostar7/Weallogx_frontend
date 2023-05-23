@@ -882,7 +882,8 @@ export default {
             console.log(this.activeScenario);
             if (this.activeScenario.id) {
               console.log("active scenario");
-              this.$router.push({
+              console.log(`/illustration-data/${this.activeScenario.id}`);
+              return this.$router.push({
                 path: `/illustration-data/${this.activeScenario.id}`,
               });
             } else {
