@@ -214,7 +214,7 @@ export default {
   },
   mounted() {
     this.reportId = this.$route.query.report || false;
-    
+
     // get existing client
     if (!this.$store.state.data.clients) {
       this.getClient();
@@ -878,13 +878,15 @@ export default {
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
-            console.log('this.activeScenario..................');
+            console.log("this.activeScenario..................");
             console.log(this.activeScenario);
             if (this.activeScenario.id) {
-              console.log('active scenario');
-              this.$router.push(`/illustration-data/${this.activeScenario.id}`);
+              console.log("active scenario");
+              this.$router.push({
+                path: `/illustration-data/${this.activeScenario.id}`,
+              });
             } else {
-              console.log('data not found.');
+              console.log("data not found.");
               this.$toast.error("Something went wrong. Please try again.");
             }
           }
@@ -931,10 +933,10 @@ export default {
           this.getClient();
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
-          console.log('response.data.id...........');
+          console.log("response.data.id...........");
           console.log(response.data.id);
           if (response.data.id) {
-            console.log('illustration')
+            console.log("illustration");
             this.$router.push(`/illustration-data/${response.data.id}`);
           } else {
             this.$toast.error("Something went wrong.");
