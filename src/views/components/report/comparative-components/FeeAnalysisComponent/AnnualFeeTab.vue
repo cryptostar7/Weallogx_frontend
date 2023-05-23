@@ -300,7 +300,7 @@ export default {
         ]
       );
 
-      maxAxis = maxAxis.toFixed(0);
+      maxAxis = this.$roundFigureNum(maxAxis).toFixed(0);
 
       const annualFeesConfig = {
         type: "line",

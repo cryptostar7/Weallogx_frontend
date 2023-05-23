@@ -7,8 +7,8 @@ const myPlugin = {
         },
             app.config.globalProperties.$numFormatWithDollar = (key) => {
                 key = Number(key || 0);
-                if(!key){
-                   return '';
+                if (!key) {
+                    return '';
                 }
                 key = key.toFixed(0);
                 return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
@@ -55,10 +55,7 @@ const myPlugin = {
                 return false;
             },
             app.config.globalProperties.$roundFigureNum = (value) => {
-                let a = value.toString();
-                let b = a.substr(1);
-                let c = "1".padEnd(a.length - 1, "0");
-                return Number(c) - Number(b) + Number(a);
+                return Math.ceil(Number(value) / 10000) * 10000;
             }
     }
 }

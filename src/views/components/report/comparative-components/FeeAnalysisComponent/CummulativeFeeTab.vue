@@ -281,7 +281,7 @@ export default {
         ]
       );
 
-      maxAxis = maxAxis.toFixed(0);
+      maxAxis = this.$roundFigureNum(maxAxis).toFixed(0);
 
       const cumulativeFeesConfig = {
         type: "line",

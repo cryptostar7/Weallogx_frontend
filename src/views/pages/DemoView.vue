@@ -10,12 +10,7 @@ export default {
       console.log(this.roundFigureNum(1320423));
     },
     roundFigureNum: function(value) {
-      let a = value.toString();
-      let b = a.substr(1);
-      let c = "1".padEnd(a.length -1, "0");
-      let d = Number(c) - Number(b);
-      d = Math.abs(d);
-      return d + Number(b) + Number(a);
+      return Math.ceil(Number(value) / 10000) * 10000;
     },
   },
 };
