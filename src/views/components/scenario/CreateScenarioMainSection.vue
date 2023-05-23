@@ -233,14 +233,14 @@ export default {
     }
 
     // get existing scenario details
-    if (!this.$store.state.data.templates.scenario_details) {
+    // if (!this.$store.state.data.templates.scenario_details) {
       this.getExistingScenarioDetails();
-    }
+    // }
 
     // get existing scenario schedule template list
-    if (!this.$store.state.data.templates.scenario_schedules) {
+    // if (!this.$store.state.data.templates.scenario_schedules) {
       this.getExistingScenarioSchedule();
-    }
+    // }
 
     // populate scenario details if scenario detail id exist in url
     let scenarioData = getCurrentScenario();
@@ -471,7 +471,7 @@ export default {
     },
 
     getExistingScenarioSchedule: function() {
-      this.$store.dispatch("loader", true);
+      // this.$store.dispatch("loader", true);
       get(getUrl("existing-scenario-schedule"), authHeader())
         .then(response => {
           this.$store.dispatch("template", {
@@ -567,7 +567,7 @@ export default {
     },
 
     getExistingScenarioDetails: function() {
-      this.$store.dispatch("loader", true);
+      // this.$store.dispatch("loader", true);
       get(getUrl("existing-scenario-detail"), authHeader())
         .then(response => {
           this.$store.dispatch("template", {
