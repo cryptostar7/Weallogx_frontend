@@ -434,7 +434,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: Number(maxAcc1).toFixed(0),
+              max: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
               // stacked: true,
               ticks: {
                 padding: 8,
