@@ -873,8 +873,8 @@ export default {
           setScenarioStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          this.getExistingScenarioDetails();
-          this.getScenarionDetails();
+          // this.getExistingScenarioDetails();
+          // this.getScenarionDetails();
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
@@ -883,12 +883,12 @@ export default {
             if (this.activeScenario.id) {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
-              setTimeout(this.$router.push({
-                path: `/illustration-data/${this.activeScenario.id}`,
-              }), 100)
-              // return this.$router.push({
+              // setTimeout(this.$router.push({
               //   path: `/illustration-data/${this.activeScenario.id}`,
-              // });
+              // }), 100)
+              this.$router.push({
+                path: `/illustration-data/${this.activeScenario.id}`,
+              });
             } else {
               console.log("data not found.");
               this.$toast.error("Something went wrong. Please try again.");
