@@ -153,15 +153,16 @@ export default {
           this.data[0].value_efficiency_ratio =
             chart.total_value_fee_ratio || 0;
           this.data[0].value_efficiency = chart.value_efficiency || 0;
-          this.data[0].total_fees = chart.fees || 0;
-          this.data[0].total_value = chart.total_value || 0;
+          this.data[0].total_fees = chart.fee_data || 0;
+          let lirpTotal = chart.chart_output.total_valaue_data;
+          this.data[0].total_value = lirpTotal[lirpTotal.length - 1] || 0;
         }
 
         if (chart1) {
           this.data[1].value_efficiency = chart1.comparison.value_efficiency;
           this.data[1].value_efficiency_ratio =
             chart1.comparison.total_value_fee_ratio;
-          this.data[1].total_fees = chart1.comparison.fees;
+          this.data[1].total_fees = chart1.comparison.total_comprehensive_fees;
           this.data[1].total_value = chart1.comparison.total_value;
         }
 
@@ -169,7 +170,7 @@ export default {
           this.data[2].value_efficiency = chart2.comparison.value_efficiency;
           this.data[2].value_efficiency_ratio =
             chart2.comparison.total_value_fee_ratio;
-          this.data[2].total_fees = chart2.comparison.fees;
+          this.data[2].total_fees = chart2.comparison.total_comprehensive_fees;
           this.data[2].total_value = chart2.comparison.total_value;
         }
 
@@ -177,7 +178,7 @@ export default {
           this.data[3].value_efficiency = chart3.comparison.value_efficiency;
           this.data[3].value_efficiency_ratio =
             chart3.comparison.total_value_fee_ratio;
-          this.data[3].total_fees = chart3.comparison.fees;
+          this.data[3].total_fees = chart3.comparison.total_comprehensive_fees;
           this.data[3].total_value = chart3.comparison.total_value;
         }
       }
@@ -203,7 +204,7 @@ export default {
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },
-    activeCards(){
+    activeCards() {
       return 4 - this.deletedItems.length;
     },
     cv_name() {
