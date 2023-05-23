@@ -131,14 +131,13 @@ export default {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+                ? "#1660A4" : this.$appTheme() == "dark-green" ? "#26AB8B"
                 : "#0E6651",
             pointBackgroundColor:
               this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+              this.$appTheme() == "dark-blue" 
+                ? "#1660A4" ? this.$appTheme() == "dark-green" : "#26AB8B"
                 : "#0E6651",
-
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
@@ -377,12 +376,14 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-          window.annualChart.update();
+        }else if(screenMode == "dark-green"){
+          graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[1].borderColor = "#23669E";
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
-          window.annualChart.update();
         }
+        window.annualChart.update();
       });
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");
