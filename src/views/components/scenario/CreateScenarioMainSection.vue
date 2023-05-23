@@ -883,9 +883,12 @@ export default {
             if (this.activeScenario.id) {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
-              return this.$router.push({
-                path: '/illustration-data/321',
-              });
+              return setTimeout(this.$router.push({
+                path: `/illustration-data/${this.activeScenario.id}`,
+              }), 100)
+              // return this.$router.push({
+              //   path: `/illustration-data/${this.activeScenario.id}`,
+              // });
             } else {
               console.log("data not found.");
               this.$toast.error("Something went wrong. Please try again.");
