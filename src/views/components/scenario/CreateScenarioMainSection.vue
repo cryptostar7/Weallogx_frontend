@@ -233,14 +233,10 @@ export default {
     }
 
     // get existing scenario details
-    // if (!this.$store.state.data.templates.scenario_details) {
-      this.getExistingScenarioDetails();
-    // }
+    this.getExistingScenarioDetails();
 
     // get existing scenario schedule template list
-    // if (!this.$store.state.data.templates.scenario_schedules) {
-      this.getExistingScenarioSchedule();
-    // }
+    this.getExistingScenarioSchedule();
 
     // populate scenario details if scenario detail id exist in url
     let scenarioData = getCurrentScenario();
@@ -873,8 +869,6 @@ export default {
           setScenarioStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          // this.getExistingScenarioDetails();
-          // this.getScenarionDetails();
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
@@ -883,9 +877,6 @@ export default {
             if (this.activeScenario.id) {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
-              // setTimeout(this.$router.push({
-              //   path: `/illustration-data/${this.activeScenario.id}`,
-              // }), 100)
               this.$router.push({
                 path: `/illustration-data/${this.activeScenario.id}`,
               });
