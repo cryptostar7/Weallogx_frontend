@@ -549,6 +549,7 @@ export default {
         });
     },
 
+    // get existing portfolio data 
     getExistingPortfolio: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-comparative"), authHeader())

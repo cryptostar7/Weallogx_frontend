@@ -8,9 +8,6 @@
 
     <!-- Share  Modal  -->
     <share-modal />
-
-    <!-- Report Buider Name Change Modal  -->
-    <report-builder-name-change-modal />
   </div>
 </template>
 
