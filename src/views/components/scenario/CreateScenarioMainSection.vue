@@ -883,7 +883,7 @@ export default {
             if (this.activeScenario.id) {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
-              return setTimeout(this.$router.push({
+              setTimeout(this.$router.push({
                 path: `/illustration-data/${this.activeScenario.id}`,
               }), 100)
               // return this.$router.push({
