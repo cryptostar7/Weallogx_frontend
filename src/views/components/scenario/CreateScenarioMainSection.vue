@@ -884,7 +884,7 @@ export default {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
               return this.$router.push({
-                path: `/illustration-data/${this.activeScenario.id}`,
+                path: '/illustration-data/321',
               });
             } else {
               console.log("data not found.");
