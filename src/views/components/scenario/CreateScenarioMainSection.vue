@@ -148,7 +148,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <button type="button" @click="testFunction()">testFunction</button> -->
+              <button type="button" @click="testFunction()">testFunction</button>
               <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <div class="return-btn-div">
@@ -300,7 +300,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.reportId);
+      console.log(getCurrentScenario());
     },
     getScenarionDetails: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
@@ -878,9 +878,13 @@ export default {
           if (review) {
             this.$router.push(`/review-summary/${this.activeScenario.id}`);
           } else {
+            console.log('this.activeScenario..................');
+            console.log(this.activeScenario);
             if (this.activeScenario.id) {
+              console.log('active scenario');
               this.$router.push(`/illustration-data/${this.activeScenario.id}`);
             } else {
+              console.log('data not found.');
               this.$toast.error("Something went wrong. Please try again.");
             }
           }
@@ -927,7 +931,10 @@ export default {
           this.getClient();
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
+          console.log('response.data.id...........');
+          console.log(response.data.id);
           if (response.data.id) {
+            console.log('illustration')
             this.$router.push(`/illustration-data/${response.data.id}`);
           } else {
             this.$toast.error("Something went wrong.");

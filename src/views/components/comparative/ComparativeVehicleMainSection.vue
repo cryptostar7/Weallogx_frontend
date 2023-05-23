@@ -429,7 +429,6 @@ export default {
     );
 
     // populate comparative data if comparative data id exist in url
-
     let scenarioData = getCurrentScenario();
     if (this.$route.params.scenario) {
       let getScenarioAPI = true;
@@ -693,6 +692,8 @@ export default {
           if (vehicle3) {
             this.tabs.vehicle3 = true;
             this.populateVehicle(3, 3, vehicle3);
+          }else{
+            this.tabs.vehicle3 = false;
           }
           this.$store.dispatch("loader", false);
         })
@@ -1296,6 +1297,9 @@ export default {
           .then(response => {
             this.$store.dispatch("loader", false);
             setScenarioStep3(response.data.data);
+            // update the template list
+            this.getExistingPortfolio();
+            this.getExistingVehicles();
             this.$toast.success(response.data.message);
             this.$router.push(
               `/${
@@ -1321,6 +1325,9 @@ export default {
             this.$store.dispatch("loader", false);
             this.cvId = response.data.data.id;
             setScenarioStep3(response.data.data);
+            // update the template list
+            this.getExistingPortfolio();
+            this.getExistingVehicles();
             this.$toast.success(response.data.message);
             this.$router.push(
               `/select-historical-simulations/${this.$route.params.scenario}`

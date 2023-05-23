@@ -1166,6 +1166,8 @@ export default {
       };
       return finalObj;
     },
+
+    // get serialized page group
     getPageSequenceGroup: function(pages) {
       let seq = [];
       let currentSeq = [];
@@ -1357,6 +1359,8 @@ export default {
           .then(response => {
             this.$store.dispatch("loader", false);
             setScenarioStep2(response.data.data);
+            this.getExistingIllustration();
+            this.getExistingInsurance();
             this.$toast.success(response.data.message);
             this.$router.push(
               `/${review ? "review-summary" : "comparative-vehicles"}/${
@@ -1386,6 +1390,8 @@ export default {
             );
             this.illustrationId = response.data.data.id;
             setScenarioStep2(response.data.data);
+            this.getExistingIllustration();
+            this.getExistingInsurance();
 
             this.$router.push(
               `/comparative-vehicles/${this.$route.params.scenario}`

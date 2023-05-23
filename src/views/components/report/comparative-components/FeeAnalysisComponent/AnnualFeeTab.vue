@@ -186,6 +186,8 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart1) {
+          // console.log('...................');
+          // console.log(chart.chart_output.fees.filter((i, k) => k));
           annualFeesData.datasets[0].data = chart.chart_output.fees || [];
           let years = chart.chart_output.year;
           annualFeesData.labels = [

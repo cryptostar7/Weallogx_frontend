@@ -41,7 +41,6 @@ import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import DeleteScenarioModal from "../modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../modal/DeleteReportModal.vue";
 import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
-import testClients from "../../../services/dummy-json.js";
 import { get, remove } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import {
