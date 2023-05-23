@@ -558,7 +558,7 @@ export default {
         this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
       for (var i = 0; i < this.originalThs.length; i++) {
         var th = this.originalThs[i];
-        this.floatingThs[i].style.width = th.offsetWidth + 9 + "px";
+        this.floatingThs[i].style.width = th.offsetWidth + "px";
         this.floatingThs[i].style.height = th.offsetHeight + "px";
       }
     };

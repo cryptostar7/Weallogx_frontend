@@ -3809,7 +3809,18 @@
 .dark-green .pdf-spinner div span{
   color: #fff;
 }
-
+.dark-green .cardMainHeading1{
+  color: #26AB8B !important;
+}
+.dark-green .cardMainHeading2{
+  color: #53a9f1 !important;
+}
+.dark-green .cardMainHeading3{
+  color: #B556FF !important;
+}
+.dark-green .cardMainHeading4{
+  color: #F04F4F !important;
+}
 .dark-green .file-container-div{
   background: #34383D;
   border: 1px solid #656565;
