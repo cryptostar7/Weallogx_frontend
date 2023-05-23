@@ -357,11 +357,11 @@ export default {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
-          graphData.datasets[1].borderColor = "#0E6651";
+          graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[0].backgroundColor =
             "rgba(22, 96, 164, .3)";
           graphData.datasets[1].backgroundColor =
-            "rgba(14, 102, 81, .5)";
+            "rgba(8, 152, 117, .25)";
           window.cumulativeChart.update();
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
