@@ -24,10 +24,6 @@
                     <p class="legacyCardPara">Total Value Expense Ratio</p>
                     <p class="legacyCardPara2 text-right">{{Number(item.total_value_in_percent).toFixed(2)}}%</p>
                     </div>
-             <!--        <div v-if="index" class="mt-1 d-flex justify-content-between">
-                    <p class="legacyCardPara">Cumulative Income Fee Ratio</p>
-                    <p class="legacyCardPara2 text-right">{{Number(item.cumulative_income_in_percent).toFixed(2)}}%</p>
-                    </div>    -->                 
                 </div>
             </div>
         </div>
@@ -360,21 +356,21 @@ export default {
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
-          cumulativeFeesData.datasets[0].borderColor = "#1660A4";
-          cumulativeFeesData.datasets[1].borderColor = "#0E6651";
-          cumulativeFeesData.datasets[0].backgroundColor =
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#0E6651";
+          graphData.datasets[0].backgroundColor =
             "rgba(22, 96, 164, .3)";
-          cumulativeFeesData.datasets[1].backgroundColor =
+          graphData.datasets[1].backgroundColor =
             "rgba(14, 102, 81, .5)";
-          cumulativeFeesChart.update();
+          window.cumulativeChart.update();
         } else {
-          cumulativeFeesData.datasets[0].borderColor = "#0E6651";
-          cumulativeFeesData.datasets[0].backgroundColor =
+          graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[0].backgroundColor =
             "rgba(14, 102, 81, .5)";
-          cumulativeFeesData.datasets[1].borderColor = "#1660A4";
-          cumulativeFeesData.datasets[1].backgroundColor =
+          graphData.datasets[1].borderColor = "#1660A4";
+          graphData.datasets[1].backgroundColor =
             "rgba(22, 96, 164, .3)";
-          cumulativeFeesChart.update();
+          window.cumulativeChart.update();
         }
       });
 
@@ -384,7 +380,7 @@ export default {
         .addEventListener("click", function() {
           if (assestShowHide.classList.contains("on")) {
             htmlLegendPlugin2.hideAll(
-              cumulativeFeesChart,
+              window.cumulativeChart,
               cumulativeFeesConfig.options
             );
           }
@@ -394,7 +390,7 @@ export default {
         .querySelector(".fullScreenCloseBtn")
         .addEventListener("click", function() {
           htmlLegendPlugin2.showAll(
-            cumulativeFeesChart,
+            window.cumulativeChart,
             cumulativeFeesConfig.options
           );
         });

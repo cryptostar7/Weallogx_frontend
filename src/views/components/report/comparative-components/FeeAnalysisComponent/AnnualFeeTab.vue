@@ -375,13 +375,13 @@ export default {
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
-          annualFeesData.datasets[0].borderColor = "#1660A4";
-          annualFeesData.datasets[1].borderColor = "#089875";
-          annualFeesChart.update();
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#089875";
+          window.annualChart.update();
         } else {
-          annualFeesData.datasets[0].borderColor = "#0E6651";
-          annualFeesData.datasets[1].borderColor = "#1660A4";
-          annualFeesChart.update();
+          graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[1].borderColor = "#1660A4";
+          window.annualChart.update();
         }
       });
 
@@ -391,7 +391,7 @@ export default {
         .addEventListener("click", function() {
           if (assestShowHide.classList.contains("on")) {
             htmlLegendPlugin1.hideAll(
-              annualFeesChart,
+              window.annualChart,
               annualFeesConfig.options
             );
           }
@@ -400,7 +400,7 @@ export default {
       document
         .querySelector(".fullScreenCloseBtn")
         .addEventListener("click", function() {
-          htmlLegendPlugin1.showAll(annualFeesChart, annualFeesConfig.options);
+          htmlLegendPlugin1.showAll(window.annualChart, annualFeesConfig.options);
         });
     },
   },
