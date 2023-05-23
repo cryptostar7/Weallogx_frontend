@@ -303,7 +303,7 @@
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <th width="80" style="background: none!important;border: none !important;"></th>
+                              <th width="105" style="background: none!important;border: none !important;"></th>
                               <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
                             </thead>
                             <tbody>
@@ -321,7 +321,7 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-9 col-md-4 ps-0 pe-1">
+                      <div class="col-9 col-md-4 ps-0 pe-0">
                         <div class="reportTablesDiv reportTablesDiv3">
                           <table class="table table3 mt-1 secondTable summaryTableFont">
                             <thead class="heading-tr">
@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="row summary-row">
-                          <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-0 ${index < draggableColumns.length - 1 ? 'pe-1' : 'pe-0'} ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-1 pe-0 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">

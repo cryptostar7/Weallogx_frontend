@@ -1307,6 +1307,9 @@
 .dark-green .dwnldReportBtn svg rect {
   fill: white;
 }
+.dark-green .dwnldReportBtn svg path {
+  stroke: white;
+}
 
 .dark-green .frwrdReportBtn {
   background: transparent;

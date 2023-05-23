@@ -1,6 +1,7 @@
 :root {
   --blue-clr: #004885;
   --blue-clr-2: #23669E;
+  --blue-clr-3: #53A9F1;
 }
 
 .dark-blue .navbar-brand .logo-blue {
@@ -113,11 +114,11 @@
 }
 
 .dark-blue .historical-yes-div svg rect {
-  fill: #53A9F1;
+  fill: var(--blue-clr-3);
 }
 
 .dark-blue .historical-no-div svg rect {
-  fill: #53A9F1 !important;
+  fill: var(--blue-clr-3) !important;
 }
 
 .dark-blue .comparative-vehicle-tabs {
@@ -1681,6 +1682,9 @@
 .dark-blue .dwnldReportBtn svg rect {
   fill: white;
 }
+.dark-blue .dwnldReportBtn svg path {
+  stroke: white;
+}
 
 .dark-blue .frwrdReportBtn {
   background: transparent;
@@ -1947,8 +1951,8 @@
 
 .dark-blue .mltplSwtchDiv div.active {
   background: #2E3135;
-  border: 1.25px solid #53A9F1;
-  color: #53A9F1;
+  border: 1.25px solid var(--blue-clr-3);
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .lifeProPlus {
@@ -2297,7 +2301,7 @@
 .dark-blue .comparativeSeeAllBtn button {
   background: #34383D;
   border: 1px solid #34383D;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .comparativeSeeAllBtn button:hover {
@@ -2317,19 +2321,19 @@
   color: white;
 }
 .dark-blue .distrbnCard1paras p:nth-child(2) {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .carValue1 {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .distrbnCard1paras .CardProgressnym {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .CardProgressnym {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .redRadioSwtchpara {
@@ -2400,15 +2404,15 @@
 
 /* blue */
 .dark-blue .deleteBtn1 {
-  border: 1px solid #53A9F1;
+  border: 1px solid var(--blue-clr-3);
 }
 
 .dark-blue .deleteBtn1 svg path {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .deleteBtn1 svg rect {
-  fill: #53A9F1;
+  fill: var(--blue-clr-3);
 }
 
 /* voilet */
@@ -2671,13 +2675,13 @@
 }
 
 .dark-blue .summary-heading p {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .summary-editBox {
   background: #2E3135;
-  border: 1px solid #53A9F1;
-  border-top: 8px solid #53A9F1;
+  border: 1px solid var(--blue-clr-3);
+  border-top: 8px solid var(--blue-clr-3);
 }
 
 .dark-blue .summaryInputsDiv label {
@@ -2703,7 +2707,7 @@
 }
 
 .dark-blue .historyHead2 p {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .compVehcleBorder {
@@ -2772,7 +2776,7 @@
 }
 
 .dark-blue .summaryMainDiv h5 {
-  color: #53A9F1 !important;
+  color: var(--blue-clr-3) !important;
 }
 
 .dark-blue .Schedule-para {
@@ -2782,12 +2786,12 @@
 
 .dark-blue .editBtnCommon svg rect {
   fill: none;
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .editBtnCommon svg path {
-  fill: #53A9F1;
-  stroke: #53A9F1;
+  fill: var(--blue-clr-3);
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .switch1 .deleteBtn svg path {
@@ -2796,7 +2800,7 @@
 
 .dark-blue .editBtnCommon {
   background: transparent;
-  border: 1px solid #53A9F1;
+  border: 1px solid var(--blue-clr-3);
   border-radius: 50%;
   width: 43px;
   height: 43px;
@@ -2806,8 +2810,8 @@
 }
 
 .dark-blue .editBtnCommon:hover {
-  background: #53A9F1;
-  border: 1px solid #53A9F1;
+  background: var(--blue-clr-3);
+  border: 1px solid var(--blue-clr-3);
 }
 
 .dark-blue .editBtnCommon:hover svg rect {
@@ -2828,14 +2832,14 @@
 .dark-blue .illusnTableMainDiv button {
   border: 2px solid #34383D;
   background: #34383D;
-  color: #53A9F1 !important;
+  color: var(--blue-clr-3) !important;
 }
 
 .dark-blue .illusnTableMainDiv button:hover {
   border: 2px solid #353B46;
   background:
     #353B46;
-  color: #53A9F1 !important;
+  color: var(--blue-clr-3) !important;
 }
 
 .dark-blue .reportbuilderRightInner {
@@ -2859,7 +2863,7 @@
 }
 
 .dark-blue .historyHead2 .hisBorder {
-  background: #53A9F1;
+  background: var(--blue-clr-3);
 }
 
 .dark-blue .illustrationPdfAncor {
@@ -2872,8 +2876,8 @@
 }
 
 .dark-blue .illustrationPdfDiv:hover {
-  background: #53A9F1;
-  border: 1px solid #53A9F1;
+  background: var(--blue-clr-3);
+  border: 1px solid var(--blue-clr-3);
 }
 
 .dark-blue .illustrationPdfDiv span {
@@ -2898,12 +2902,12 @@
 }
 
 .dark-blue .schedule-icon-btn svg rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .schedule-icon-btn:hover {
-  background: #53A9F1;
-  border: 1px solid #53A9F1;
+  background: var(--blue-clr-3);
+  border: 1px solid var(--blue-clr-3);
 }
 
 .dark-blue .schedule-icon-btn:hover svg rect {
@@ -2942,7 +2946,7 @@
 
 .dark-blue .lifeProPlusPara1 {
   font-weight: 600;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .lifeProPlusPara3 {
@@ -2952,7 +2956,7 @@
 
 .dark-blue .lifeProBtmDiv1 p {
   font-weight: 700;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
   margin: 0;
 }
 
@@ -2963,12 +2967,12 @@
 }
 
 .dark-blue .lifeProEditBtn rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .lifeProEditBtn path {
-  fill: #53A9F1;
-  stroke: #53A9F1;
+  fill: var(--blue-clr-3);
+  stroke: var(--blue-clr-3);
 }
 
 /*.dark-blue .viewBtnAccount svg path,
@@ -3066,12 +3070,12 @@
 }
 
 .dark-blue .lifeProEditBtn rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .lifeProEditBtn path {
-  fill: #53A9F1;
-  stroke: #53A9F1;
+  fill: var(--blue-clr-3);
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .viewBtnIra svg path,
@@ -3134,12 +3138,12 @@
 }
 
 .dark-blue .lifeProEditBtn rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .lifeProEditBtn path {
-  fill: #53A9F1;
-  stroke: #53A9F1;
+  fill: var(--blue-clr-3);
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .viewBtnAnnuity svg path,
@@ -3381,7 +3385,7 @@
 
 .dark-blue .viewBtnLirp {
   background: transparent;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .editBtnLirp svg path,
@@ -3402,16 +3406,16 @@
 
 .dark-blue .editBtnLirp {
   background: transparent;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .deleteBtnLirp {
   background: transparent;
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .lirpPara8 {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .lirpPara2 {
@@ -3419,7 +3423,7 @@
 }
 
 .dark-blue .lirpBtmDiv8 p {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .reportTablesDiv8 table thead th {
@@ -3480,7 +3484,7 @@
 }
 
 .dark-blue .bgChangerComGraph1 p:nth-child(2) {
-  color: #53a9f1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .bgChangerComGraph2 p:nth-child(2) {
@@ -3577,17 +3581,17 @@
 
 .dark-blue .viewBtnLirp svg path,
 .dark-blue .viewBtnLirp svg circle {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .editBtnLirp svg path,
 .dark-blue .editBtnLirp svg rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .deleteBtnLirp svg path,
 .dark-blue .deleteBtnLirp svg rect {
-  stroke: #53A9F1;
+  stroke: var(--blue-clr-3);
 }
 
 .dark-blue .reportTablesDiv8 table thead th:last-child {
@@ -3711,7 +3715,7 @@
 }
 
 .dark-blue .commonTableCls .hideBtnLirp:hover.hideBtnLirp::before {
-  color: #53a9f1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .commonTableCls .hideBtnLirp:hover {
@@ -3726,12 +3730,12 @@
 .dark-blue .commonTableCls .hideBtnLirp svg path,
 .dark-blue .hideBtnLirp svg circle,
 .dark-blue .hideBtnLirp svg rect {
-  stroke: #53a9f1 !important;
+  stroke: var(--blue-clr-3) !important;
   fill: transparent;
 }
 
 .dark-blue .hideBtnLirp svg rect {
-  fill: #53a9f1;
+  fill: var(--blue-clr-3);
 }
 
 .dark-blue .commonTableCls .deleteBtnLirp svg path {
@@ -3746,7 +3750,7 @@
 }
 
 .dark-blue .commonTableCls .hideBtnMedian svg rect {
-  fill: #53a9f1;
+  fill: var(--blue-clr-3);
 }
 
 .dark-blue .commonTableCls .deleteBtnMedian {
@@ -3756,13 +3760,11 @@
 .dark-blue .irrvaluebarbg3 {
   background: #30AD8F;
 }
-
 .dark-blue .irrBarHeight3 {
   background: #209579;
   border-radius: 8px;
 }
 
-/*  */
 .dark-blue .irrvaluebarbg4 {
   background: #25967B;
 }
@@ -3771,24 +3773,8 @@
   background: #0E6651;
   border-radius: 8px;
 }
-
-/*  */
-/* .dark-blue .irrvaluebarbg1 {
-  background: #0F7ADC;
-}
-.dark-blue .irrBarHeight1 {
-  background: #1A89EE;
-} */
-/*  */
-/* .dark-blue .irrvaluebarbg2 {
-  background: #287BC7;
-}
-.dark-blue .irrBarHeight2 {
-  background: #1660A4;
-} */
-/*  */
 .dark-blue .compGraphSmallBdrClr1 p {
-  background: #287BC7;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .compGraphSmallBdrClr2 p {
@@ -3922,7 +3908,7 @@
 }
 
 .dark-blue .cardRadioSwtchpara1 {
-  color: #53A9F1 !important;
+  color: var(--blue-clr-3) !important;
 }
 
 .dark-blue .cardRadioSwtchpara3 {
@@ -3933,13 +3919,13 @@
   color: #F04F4F !important;
 }
 .dark-blue .cardMainHeading1 {
-  color: #1660A4 !important;
+  color: var(--blue-clr-3) !important;
   font-weight: 700;
   font-size: 16px;
   margin-bottom: 0;
 }
 .dark-blue .cardMainHeading2 {
-  color: #0E6651 !important;
+  color: #089875 !important;
   font-weight: 700;
   font-size: 16px;
   margin-bottom: 0;
@@ -3949,7 +3935,7 @@
 }
 
 .dark-blue .makeEqualPara1 {
-  color: #53A9F1;
+  color: var(--blue-clr-3);
 }
 
 .dark-blue .makeEqualPara3 {
@@ -3977,7 +3963,7 @@
 }
 
 .dark-blue .lightProgress1 div {
-  background: #53A9F1;
+  background: var(--blue-clr-3);
 }
 
 .dark-blue .lightProgress3 {
