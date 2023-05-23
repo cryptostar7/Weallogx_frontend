@@ -10,7 +10,7 @@
         </div>
 
           <div class="d-flex align-items-center">
-            <button @click="testFunction" class="editBtnLirp btn" data-bs-target="#ReportBuilderNameChangeModal" data-bs-toggle="modal">
+            <button @click="testFunction" class="editBtnLirp btn" data-bs-target="#ReportBuilderNameEditModal" data-bs-toggle="modal">
               <svg class="ms-1" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white" stroke="#1660A4" stroke-width="1.15"></rect><path d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z" stroke="#1660A4" stroke-width="1.25"></path></svg>
               </button>
             <div class="me-2">
@@ -22,15 +22,15 @@
         </div>
     </div>
 
-    <!-- Report Buider Name Change Modal start -->
-    <report-builder-name-change-modal :id="comparative.report_id" :name="reportName" :reportDescription="reportDescription" :updateData="updateData" @setUpdatedData="setUpdatedData" @setReportName="name => reportName = name" @setReportDescription="value => reportDescription = value"/>
+    <!-- Report Buider Name edit Modal start -->
+    <report-builder-name-edit-modal :id="comparative.report_id" :name="reportName" :reportDescription="reportDescription" :updateData="updateData" @setUpdatedData="setUpdatedData" @setReportName="name => reportName = name" @setReportDescription="value => reportDescription = value"/>
 
 </template>
 <script>
-import ReportBuilderNameChangeModal from "../modal/ReportBuilderNameChangeModal.vue";
+import ReportBuilderNameEditModal from "../modal/ReportBuilderNameEditModal.vue";
 
 export default {
-  components: { ReportBuilderNameChangeModal },
+  components: { ReportBuilderNameEditModal },
   data() {
     return {
       updateData: false,

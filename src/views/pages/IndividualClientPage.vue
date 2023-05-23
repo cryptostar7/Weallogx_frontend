@@ -9,8 +9,6 @@
   <!-- Delete Report Modal --> 
   <delete-report-modal />       
   
-  <!-- Report Buider Name Change Modal  -->
-  <report-builder-name-change-modal />  
 </div>  
 </template>
 <script>
@@ -19,7 +17,6 @@ import IndividualMainSection from "../components/individual-client/IndividualMai
 import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
-import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 
 export default {
   components: {
@@ -28,7 +25,6 @@ export default {
     DeleteClientModal,
     NavbarComponent,
     IndividualMainSection,
-    ReportBuilderNameChangeModal
   },
   mounted() {
 

@@ -4,7 +4,7 @@
             <div class="client-name semi-bold-fw fs-18">
                 <span class="name-initial-circle">{{$sortName(`${item.firstname.trim()} ${item.lastname.trim()}`)}}</span>
                 <router-link :to="`/individual-client/${item.id}`" class="nav-link px-0">
-                <span class="name-span">{{ item.firstname }}</span>
+                <span class="name-span">{{item.lastname }}, {{ item.firstname }}</span>
                     <svg width="9" height="12" viewBox="0 0 9 12" fill="none" class="ms-1" xmlns="http://www.w3.org/2000/svg">
                         <rect x="2.41797" width="8" height="2.5" rx="1.25" transform="rotate(45 2.41797 0)" fill="black" />
                         <rect x="8.07422" y="5.76562" width="8" height="2.5" rx="1.25" transform="rotate(135 8.07422 5.76562)" fill="black" />
@@ -72,7 +72,7 @@
                 </svg>
             </h4>
             <div class="list-div">
-               <ReportRow :reports="item.reports" />
+               <ReportRow :reports="item.reports"  @setReportActionId="id => $emit('setReportId', id)" />
             </div>
         </div>
     </li>
@@ -88,7 +88,7 @@ import getSortName from "../../../services/sort_name.js";
 
 export default {
   props: ["clients", "search"],
-  emits: ["setActionId"],
+  emits: ["setActionId", "setReportId"],
   components: { ScenariosRow, ReportRow },
   data() {
     return {
@@ -97,7 +97,7 @@ export default {
     };
   },
   methods: {
-    // this function is using for handling the dropdown button of scenario and report 
+    // this function is using for handling the dropdown button of scenario and report
     handleRef: function(id, button = "scenario", e) {
       let btn1 = document
         .getElementById(`scenarioCollapseBtn${id}`)

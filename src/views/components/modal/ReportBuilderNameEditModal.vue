@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" ref="updateReportModal"  id="ReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="ReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
+  <div class="modal fade common-modal" ref="updateReportModal"  id="ReportBuilderNameEditModal" tabindex="-1" aria-labelledby="ReportBuilderNameEditModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -47,7 +47,8 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
   components: { SelectDropdown },
   refs: ["closeModalRef"],
-  props: ["reportId"],
+  emits: ["setUpdatedData", "setReportName", "setReportDescription"],
+  props: ["id", "name", "reportDescription", "updateData"],
   data() {
     return {
       errors: [],
@@ -56,56 +57,11 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted");
+    console.log('mounted');
   },
   methods: {
     testFunction: function() {
-      console.log(this.reportName);
-      console.log(this.description);
-    },
-    mapReportData: function() {
-      return this.clients.map(i => {
-        // update report data in reports object
-        if (i.reports.length) {
-          i.reports.map(r => {
-            if (r.id === this.$props.reportId) {
-              r.name = this.reportName;
-              r.description = this.description;
-            }
-            return r;
-          });
-        }
-
-        // update report data in scenario object
-        i.scenarios.map(i => {
-          if (i.reports.length) {
-            i.reports.map(r => {
-              if (r.id === this.$props.reportId) {
-                r.name = name;
-                r.description = description;
-              }
-              return r;
-            });
-          }
-        });
-
-        return i;
-      });
-    },
-    getSingleReport: function() {
-      let a = this.clients.map(i => i.reports);
-      let report = [];
-      a.forEach(item => {
-        if (item.length) {
-          item.forEach(i => {
-            if (i.id === Number(this.$props.reportId)) {
-              console.log(i);
-              report.push(i);
-            }
-          });
-        }
-      });
-      return report;
+      console.log(this.$props.updateData);
     },
 
     updateReport: function(e) {
@@ -116,14 +72,19 @@ export default {
         description: this.description,
       };
 
+      this.$emit('setReportName', data.name);
+      this.$emit('setReportDescription', data.description);
+
       this.$refs.closeModalRef.click();
+      console.log(data);
+      // return false;
 
       this.$store.dispatch("loader", true);
-      patch(`${getUrl("report")}${this.$props.reportId}/`, data, authHeader())
+      patch(`${getUrl("report")}${this.$props.id}/`, data, authHeader())
         .then(response => {
           console.log(response.data);
           this.$toast.success(response.data.message);
-          this.$store.dispatch("clients", this.mapReportData());
+          // this.getClient(true);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -137,24 +98,41 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    
+    // get clients detail from API
+    getClient: function(update = false) {
+      if (!update) {
+        this.$store.dispatch("loader", true);
+      }
+      get(getUrl("clients"), authHeader())
+        .then(response => {
+          let list = mapClientList(response.data.data);
+          this.$store.dispatch("clients", list);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error.message);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
   },
   watch: {
-    "$props.reportId"(e) {
-      if (e) {
-        let report = this.getSingleReport();
-        report = report[0];
-        if (report) {
-          this.reportName = report.name;
-          this.description = report.description;
-        }
+    "$props.updateData" (e) {
+        console.log('updated');
+
+      if(e){
+        this.reportName = this.$props.name;
+        this.description = this.$props.reportDescription;
+        this.$emit('setUpdatedData', false);
+        console.log('data updated');
       }
-    },
-  },
-  computed: {
-    clients() {
-      return this.$store.state.data.clients;
-    },
-  },
+    }
+  }
+
 };
 </script>

@@ -294,6 +294,7 @@ import {
   getCurrentScenario,
   getScenarioStep2,
   setScenarioStep2,
+mapClientList,
 } from "../../../services/helper.js";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -435,6 +436,9 @@ export default {
       this.getExistingIllustration();
     }
 
+    // get update clients data
+    this.getClient();
+
     // handle pdf file preview modal
     document
       .getElementById("pdfPreviewCanvasModal")
@@ -555,6 +559,7 @@ export default {
       }
     },
 
+    // populate the form data
     setFormInputs: function(data = []) {
       this.insuranceCompany = data.insurance_company;
       this.insurancePolicyName = data.insurance_policy_name;
@@ -837,6 +842,27 @@ export default {
       }
 
       return validate;
+    },
+
+    // get clients detail from API
+    getClient: function() {
+      // this.$store.dispatch("loader", true);
+      get(getUrl("clients"), authHeader())
+        .then(response => {
+          this.$store.dispatch("clients", mapClientList(response.data.data));
+          this.sortedList = mapClientList(response.data.data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error.message);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
 
     // remove error

@@ -8,7 +8,7 @@
             <ChooseClientNavbar  @newModified="newModified" @oldModified="oldModified" @sortAsc="sortAsc" @sortDesc="sortDesc" @updateList="updateList"/>
             <div class="client-list-div">
               <ul v-if="clients && clients.length > 0" class="nav flex-column client-list-ul">
-                <IndividualClientRow :clients="clients" :search="search" @setActionId="setActionId" />
+                <IndividualClientRow :clients="clients" :search="search" @setActionId="setActionId" @setReportId="id => reportId = id"/>
               </ul>
             </div>
           </div>
@@ -30,6 +30,9 @@
 
     <!-- Clone Scenario Modal start -->
     <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId" :client="clinetId"/>
+      
+    <!-- Report Buider Name Change Modal  -->
+    <report-builder-name-change-modal :reportId="reportId" />  
   </section>
 </template>
 <script>
@@ -41,6 +44,7 @@ import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import DeleteScenarioModal from "../modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../modal/DeleteReportModal.vue";
 import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
+import ReportBuilderNameChangeModal from "../modal/ReportBuilderNameChangeModal.vue";
 import { get, remove } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import {
@@ -59,12 +63,14 @@ export default {
     DeleteReportModal,
     EditClientCanvasModal,
     CloneScenarioModal,
+    ReportBuilderNameChangeModal,
   },
   data() {
     return {
       sortedList: false,
       search: "",
       actionId: false,
+      reportId: false,
       clinetId: false,
     };
   },

@@ -31,7 +31,7 @@
                   <li class="nav-item border-0">
                     <div class="list-groups">
                       <div v-if="client.reports && client.reports.length > 0" class="list-div">
-                        <ReportRow :reports="client.reports"/>
+                        <ReportRow :reports="client.reports" @setReportActionId="id => reportActionId = id"/>
                       </div>
                     </div>
                   </li>
@@ -542,9 +542,10 @@
     </div>
   </div>
   <clone-scenario-modal @cloneScenario="getClient()" :id="actionId" :client="client.id"/>   
+    <!-- Report Buider Name Change Modal  -->
+  <report-builder-name-change-modal :reportId="reportActionId" />  
 </template>
 <script>
-import testClients from "../../../services/dummy-json";
 import {
   getParams,
   authHeader,
@@ -554,6 +555,7 @@ import {
 import LeftSidebarComponent from "../common/LeftSidebarComponent.vue";
 import EditClientCanvasModal from "../modal/EditClientCanvasModal.vue";
 import IndividualClientNavbar from "../individual-client/IndividualClientNavbar.vue";
+import ReportBuilderNameChangeModal from "../modal/ReportBuilderNameChangeModal.vue";
 import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
 
 import ScenariosRow from "../homepage/ScenariosRow.vue";
@@ -565,6 +567,7 @@ export default {
     EditClientCanvasModal,
     LeftSidebarComponent,
     IndividualClientNavbar,
+    ReportBuilderNameChangeModal,
     CloneScenarioModal,
     ScenariosRow,
     ReportRow,
@@ -572,12 +575,20 @@ export default {
   data() {
     return {
       actionId: false,
+      reportActionId: false,
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.$store.state.data.clients);
+    testFunction: function(id = "120") {
+      let clients = this.$store.state.data.clients;
+
+      console.log(clients);
+
+      this.updateReportData(clients, 'Test Report ', 'Test Report ', '120');
+      console.log(clients);
+      // console.log(this.getSingleReport(clients, "120"));
     },
+  
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())
