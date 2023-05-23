@@ -303,7 +303,7 @@
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <th width="105" style="background: none!important;border: none !important;"></th>
+                              <th :width="`${$props.sidebar ? 125 : 105}`" style="background: none!important;border: none !important;"></th>
                               <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
                             </thead>
                             <tbody>
@@ -402,10 +402,7 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 import { patch } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
-// import "@/assets/js/jquery.min.js";
 
-// Table Header Sticky code starts
-// Table Header Sticky code ends here
 let tables = [];
 export default {
   props: ["keyId", "sidebar"],
@@ -528,19 +525,9 @@ export default {
         y += element.offsetTop - element.scrollTop;
         element = element.offsetParent;
       }
+      console.log(y);
       return { top: y, left: x };
     }
-
-    // function getScrollTop() {
-    //   if (typeof window.pageYOffset !== "undefined") {
-    //     return window.pageYOffset;
-    //   }
-    //   var docElement = document.documentElement;
-    //   if (!docElement.clientHeight) {
-    //     docElement = document.body;
-    //   }
-    //   return docElement.scrollTop;
-    // }
 
     function Table(element) {
       this.element = element;
@@ -594,24 +581,6 @@ export default {
       console.log(tables);
     }, 3000);
 
-    // function windowScroll() {
-    //   for (var i = 0; i < tables.length; i++) {
-    //     var windowTop = getScrollTop();
-    //     if (windowTop > tables[i].top) {
-    //       tables[i].floatingHeader.style.top =
-    //         Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
-    //     } else {
-    //       tables[i].floatingHeader.style.top = "0";
-    //     }
-    //   }
-    // }
-
-    // function refreshHeaderSizes() {
-    //   for (var i = 0; i < tables.length; i++) {
-    //     tables[i].refreshHeaderSize();
-    //   }
-    // }
-
     window.addEventListener("scroll", this.windowScroll);
   },
   methods: {
@@ -637,6 +606,7 @@ export default {
       for (var i = 0; i < tables.length; i++) {
         var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
+          // console.log(windowTop, tables[i].top, tables[i].bottom);
           tables[i].floatingHeader.style.top =
             Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
         } else {
@@ -645,8 +615,9 @@ export default {
       }
     },
     handleSidebar: function(status) {
+      let sectionHeadingDiv = document.querySelector(".section-heading-div");
+      console.log(sectionHeadingDiv);
       this.refreshHeaderSizes();
-      // console.log(status);
       return status;
     },
     // to save and update the CV cards name
