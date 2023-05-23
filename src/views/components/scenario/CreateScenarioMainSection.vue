@@ -148,7 +148,7 @@
                   </div>
                 </div>
               </div>
-              <button type="button" @click="testFunction()">testFunction</button>
+              <!-- <button type="button" @click="testFunction()">testFunction</button> -->
               <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <div class="return-btn-div">
