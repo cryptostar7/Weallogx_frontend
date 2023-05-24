@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">{{data.vehicle_type_1.vehicle_type_1 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
-                                        <input type="text" class="form-control" :value="data.vehicle_type_1.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_1.pre_age_59_penality ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">{{data.vehicle_type_2.vehicle_type_2 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
-                                        <input type="text" class="form-control" :value="data.vehicle_type_2.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_2.pre_age_59_penality ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_2.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
@@ -150,7 +150,7 @@
                                     </div>
                                     <div class="col-md-6 summaryInputsDiv">
                                         <label for="client name">{{data.vehicle_type_3.vehicle_type_3 === 'Taxable' ? 'Capital Gains?' : 'Pre 59 1/2 Penalty?'}}</label>
-                                        <input type="text" class="form-control" :value="data.vehicle_type_3.capital_gain_tax_checkbox ? 'Yes':'No'" readonly>
+                                        <input type="text" class="form-control" :value="data.vehicle_type_3.pre_age_59_penality ? 'Yes':'No'" readonly>
                                     </div>
                                     <div v-if="data.vehicle_type_3.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">Capital Gains Tax Rate</label>
