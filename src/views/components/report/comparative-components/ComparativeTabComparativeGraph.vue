@@ -218,7 +218,7 @@ export default {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+                ? "#1660A4" : this.$appTheme() == "dark-green" ? '#26AB8B'
                 : "#0E6651",
             pointBackgroundColor: this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
@@ -498,12 +498,15 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-          window.comparativeGraphChart.update();
-        } else {
+        } else if(screenMode == "dark-green"){
+          graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[1].borderColor = "#23669E";
+        }
+        else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
-          window.comparativeGraphChart.update();
         }
+        window.comparativeGraphChart.update();
       });
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");

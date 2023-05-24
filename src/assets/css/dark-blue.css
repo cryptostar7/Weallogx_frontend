@@ -4246,3 +4246,9 @@ background: #0C4A83;
   border: 1px solid #656565;
   background-color: #34383D;
 }
+.dark-blue .cardMainHeading3{
+  color: #B556FF !important;
+}
+.dark-blue .cardMainHeading4{
+  color: #F04F4F !important;
+}

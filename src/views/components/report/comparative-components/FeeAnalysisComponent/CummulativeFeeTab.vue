@@ -130,12 +130,12 @@ export default {
             backgroundColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "rgba(22, 96, 164, .3)"
-                : "rgba(14, 102, 81, .5)",
+                ? "rgba(22, 96, 164, .4)"
+                : "rgba(14, 102, 81, .35)",
             borderColor:
               this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+              this.$appTheme() == "dark-blue" 
+                ? "#1660A4" : this.$appTheme() == "dark-green" ? "#26AB8B"
                 : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -370,16 +370,27 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-          graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, .3)";
-          graphData.datasets[1].backgroundColor = "rgba(8, 152, 117, .25)";
-          window.cumulativeChart.update();
+          graphData.datasets[0].backgroundColor =
+            "rgba(22, 96, 164, .4)";
+          graphData.datasets[1].backgroundColor =
+            "rgba(8, 152, 117, .35)";
+        }else if(screenMode == "dark-green"){
+          graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[1].borderColor = "#23669E";
+          graphData.datasets[0].backgroundColor =
+            "rgba(8, 152, 117, .35)";
+          graphData.datasets[1].backgroundColor =
+            "rgba(22, 96, 164, .4)";
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
-          graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, .5)";
+          graphData.datasets[0].backgroundColor =
+            "rgba(14, 102, 81, .4)";
           graphData.datasets[1].borderColor = "#1660A4";
-          graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .3)";
-          window.cumulativeChart.update();
+          graphData.datasets[1].backgroundColor =
+            "rgba(22, 96, 164, .35)";
+          
         }
+        window.cumulativeChart.update();
       });
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");
