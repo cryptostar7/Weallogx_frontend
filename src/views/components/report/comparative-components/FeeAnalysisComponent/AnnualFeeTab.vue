@@ -30,14 +30,6 @@
               <p class="legacyCardPara">Total Value Expense Ratio</p>
               <p class="legacyCardPara2 text-right">{{Number(item.total_value_in_percent).toFixed(2)}}%</p>
             </div>
-           <!--  <div v-if="index" class="mt-1 d-flex justify-content-between">
-              <p class="legacyCardPara">Cumulative Income Fee Ratio</p>
-              <p class="legacyCardPara2 text-right">{{Number(item.cumulative_income_in_percent).toFixed(2)}}%</p>
-            </div>
-            <div class="mt-1 d-flex justify-content-between d-none">
-              <p class="legacyCardPara">Death Benefit Fee Ratio</p>
-              <p class="legacyCardPara2 text-right">{{item.death_benefit_in_percent}}</p>
-            </div> -->
           </div>
         </div>
       </div>
@@ -63,26 +55,18 @@ export default {
         {
           type: "",
           total_value_in_percent: "",
-          cumulative_income_in_percent: "",
-          death_benefit_in_percent: "",
         },
         {
           type: "",
           total_value_in_percent: "",
-          cumulative_income_in_percent: "",
-          death_benefit_in_percent: "",
         },
         {
           type: "",
           total_value_in_percent: "",
-          cumulative_income_in_percent: "",
-          death_benefit_in_percent: "",
         },
         {
           type: "",
           total_value_in_percent: "",
-          cumulative_income_in_percent: "",
-          death_benefit_in_percent: "",
         },
       ],
     };
@@ -99,29 +83,51 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart) {
-          this.data[0].total_value_in_percent = chart.total_value_fee_ratio;      
-          this.data[0].cumulative_income_in_percent = chart.cumulative_income_fee_ratio;
+          this.data[0].total_value_in_percent = chart.total_value_fee_ratio;
         }
-        
+
         if (chart1) {
-          this.data[1].total_value_in_percent = chart1.comparison.total_value_fee_ratio;
-          this.data[1].cumulative_income_in_percent = chart1.comparison.cumulative_income_fee_ratio;
+          let cv1_fees = chart1.comparison.chart_output.comprehensive_fees;
+          if (chart1.type === "pretax") {
+            cv1_fees =
+              chart1.comparison.chart_output_data.comprehensive_fees_data;
+          }
+          this.data[1].total_value_in_percent = this.getAvgData(
+            chart1.comparison.chart_output.Total_value,
+            cv1_fees
+          );
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].total_value_in_percent =
-            chart2.comparison.total_value_fee_ratio;
-          this.data[2].cumulative_income_in_percent =
-            chart2.comparison.cumulative_income_fee_ratio;
+          let cv2_fees = chart2.comparison.chart_output.comprehensive_fees;
+          console.log(chart2.type);
+          if (chart2.type === "pretax") {
+            cv2_fees =
+              chart2.comparison.chart_output_data.comprehensive_fees_data;
+          }
+          this.data[2].total_value_in_percent = this.getAvgData(
+            chart2.comparison.chart_output.Total_value,
+            cv2_fees
+          );
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].total_value_in_percent =
-            chart3.comparison.total_value_fee_ratio;
-          this.data[3].cumulative_income_in_percent =
-            chart3.comparison.cumulative_income_fee_ratio;
+          let cv3_fees = chart3.comparison.chart_output.comprehensive_fees;
+          if (chart3.type === "pretax") {
+            cv3_fees =
+              chart3.comparison.chart_output_data.comprehensive_fees_data;
+          }
+          this.data[3].total_value_in_percent = this.getAvgData(
+            chart3.comparison.chart_output.Total_value,
+            cv3_fees
+          );
         }
       }
+    },
+    getAvgData: function(totalValue = [], fees = []) {
+      let total = totalValue.filter(i => i);
+      total = total[total.length - 1];
+      return this.$average(fees) / total * 100;
     },
     getDataSet: function() {
       let annualFeesData = {
@@ -197,26 +203,32 @@ export default {
         }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
-          if(chart1.type === 'pretax'){
-            annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data;
-          }else{
-            annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees;
+          if (chart1.type === "pretax") {
+            annualFeesData.datasets[1].data =
+              chart1.comparison.chart_output_data.comprehensive_fees_data;
+          } else {
+            annualFeesData.datasets[1].data =
+              chart1.comparison.chart_output.comprehensive_fees;
           }
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
-          if(chart2.type === 'pretax'){
-            annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data;
-          }else{
-            annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees;
+          if (chart2.type === "pretax") {
+            annualFeesData.datasets[2].data =
+              chart2.comparison.chart_output_data.comprehensive_fees_data;
+          } else {
+            annualFeesData.datasets[2].data =
+              chart2.comparison.chart_output.comprehensive_fees;
           }
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
-           if(chart3.type === 'pretax'){
-            annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data;
-          }else{
-            annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees;
+          if (chart3.type === "pretax") {
+            annualFeesData.datasets[3].data =
+              chart3.comparison.chart_output_data.comprehensive_fees_data;
+          } else {
+            annualFeesData.datasets[3].data =
+              chart3.comparison.chart_output.comprehensive_fees;
           }
         }
       }
@@ -400,7 +412,10 @@ export default {
       document
         .querySelector(".fullScreenCloseBtn")
         .addEventListener("click", function() {
-          htmlLegendPlugin1.showAll(window.annualChart, annualFeesConfig.options);
+          htmlLegendPlugin1.showAll(
+            window.annualChart,
+            annualFeesConfig.options
+          );
         });
     },
   },

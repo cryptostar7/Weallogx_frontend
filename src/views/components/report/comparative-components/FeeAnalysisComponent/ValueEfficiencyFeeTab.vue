@@ -22,15 +22,15 @@
             <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Value Efficiency</p>
-              <p class="legacyCardPara2 text-right">{{$numFormatWithDollar(item.value_efficiency.toFixed(2))}}</p>
+              <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.value_efficiency).toFixed(2))}}</p>
             </div>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Total Fees</p>
-              <p class="legacyCardPara2 text-right">{{$numFormatWithDollar(item.total_fees.toFixed(2))}}</p>
+              <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.total_fees).toFixed(2))}}</p>
             </div>
             <div class="mt-1 d-flex justify-content-between">
               <p class="legacyCardPara">Total Value </p>
-              <p class="legacyCardPara2 text-right">{{$numFormatWithDollar(item.total_value.toFixed(2))}}</p>
+              <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.total_value).toFixed(2))}}</p>
             </div>
           </div>
         </div>
@@ -142,6 +142,7 @@ export default {
     }
   },
   methods: {
+    // map the data from API 
     mapData: function() {
       if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
@@ -152,34 +153,34 @@ export default {
         if (chart) {
           this.data[0].value_efficiency_ratio =
             chart.total_value_fee_ratio || 0;
-          this.data[0].value_efficiency = chart.value_efficiency || 0;
           this.data[0].total_fees = chart.fee_data || 0;
           let lirpTotal = chart.chart_output.total_valaue_data;
           this.data[0].total_value = lirpTotal[lirpTotal.length - 1] || 0;
+          this.data[0].value_efficiency = this.data[0].total_value/this.data[0].total_fees;
         }
 
         if (chart1) {
-          this.data[1].value_efficiency = chart1.comparison.value_efficiency;
-          this.data[1].value_efficiency_ratio =
-            chart1.comparison.total_value_fee_ratio;
+          this.data[1].value_efficiency_ratio = chart1.comparison.total_value_fee_ratio;
           this.data[1].total_fees = chart1.comparison.total_comprehensive_fees;
-          this.data[1].total_value = chart1.comparison.total_value;
+          let cv1Total = chart1.comparison.chart_output.Total_value.filter(i => i);
+          this.data[1].total_value = cv1Total[cv1Total.length -1];
+          this.data[1].value_efficiency = this.data[1].total_value/this.data[1].total_fees;
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].value_efficiency = chart2.comparison.value_efficiency;
-          this.data[2].value_efficiency_ratio =
-            chart2.comparison.total_value_fee_ratio;
+          this.data[2].value_efficiency_ratio =  chart2.comparison.total_value_fee_ratio;
           this.data[2].total_fees = chart2.comparison.total_comprehensive_fees;
-          this.data[2].total_value = chart2.comparison.total_value;
+          let cv2Total = chart2.comparison.chart_output.Total_value.filter(i => i);
+          this.data[2].total_value = cv2Total[cv2Total.length -1];
+          this.data[2].value_efficiency = this.data[2].total_value/this.data[2].total_fees;
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].value_efficiency = chart3.comparison.value_efficiency;
-          this.data[3].value_efficiency_ratio =
-            chart3.comparison.total_value_fee_ratio;
+          this.data[3].value_efficiency_ratio = chart3.comparison.total_value_fee_ratio;
           this.data[3].total_fees = chart3.comparison.total_comprehensive_fees;
-          this.data[3].total_value = chart3.comparison.total_value;
+          let cv3Total = chart3.comparison.chart_output.Total_value.filter(i => i);
+          this.data[3].total_value = cv3Total[cv3Total.length -1];
+          this.data[3].value_efficiency = this.data[3].total_value/this.data[3].total_fees;
         }
       }
     },

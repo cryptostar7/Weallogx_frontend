@@ -56,6 +56,13 @@ const myPlugin = {
             },
             app.config.globalProperties.$roundFigureNum = (value) => {
                 return Math.ceil(Number(value) / 10000) * 10000;
+            },
+            app.config.globalProperties.$average = (list) => {
+                list = list.filter(i => i >= 1);
+                return list.reduce((prev, curr) => prev + curr) / list.length;
+            },
+            app.config.globalProperties.$clientName = (first, last, middle = '') => {
+                return `${last}, ${first} ${middle}`;
             }
     }
 }

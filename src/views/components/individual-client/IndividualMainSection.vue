@@ -527,8 +527,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><img
-              src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <img  src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
         </div>
         <div class="modal-body text-center">
           <h5 class="modal-title fs-24 semi-bold-fw" id="deleteFileModalLabel">Delete this file?</h5>
