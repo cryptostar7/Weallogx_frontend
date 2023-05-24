@@ -10,8 +10,8 @@
         <form class="modal-body" @submit="createReport">
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv" v-if="client">
-              <button class="modalReportBuilderBr">{{$sortName(`${client.firstname.trim()} ${client.lastname.trim()}`)}}</button>
-              <h2 class="modalReportBuilderBrTxt">{{`${client.firstname} ${client.middlename || ''} ${client.lastname || ''}`}} <span>Age {{client.age || ''}}</span></h2>
+              <button class="modalReportBuilderBr">{{ $sortName(client.firstname, client.lastname, client.middlename) }}</button>
+              <h2 class="modalReportBuilderBrTxt">{{ $clientName(client.firstname, client.lastname, client.middlename) }} <span>Age {{client.age || ''}}</span></h2>
             </div>
           </div>
           <div class="modalParaBorderDiv text-center">

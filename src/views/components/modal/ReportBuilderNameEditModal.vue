@@ -8,12 +8,6 @@
           </button>
         </div>
         <form class="modal-body" @submit="updateReport">
-          <!-- <div class="d-flex align-items-center justify-content-center w-100">
-            <div class="d-flex align-items-center section-heading-bg modalHeadingDiv" v-if="client">
-              <button class="modalReportBuilderBr">{{$sortName(`${client.firstname.trim()} ${client.lastname.trim()}`)}}</button>
-              <h2 class="modalReportBuilderBrTxt">{{`${client.firstname} ${client.middlename || ''} ${client.lastname || ''}`}} <span>Age {{client.age || ''}}</span></h2>
-            </div>
-          </div> -->
           <div class="modalParaBorderDiv text-center">
             <p class="modalParaReportBuilder">Report Builder</p>
             <p class="modalSmallborder"></p>

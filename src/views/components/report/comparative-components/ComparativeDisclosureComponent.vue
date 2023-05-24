@@ -5,7 +5,7 @@
         <div class="disclosure-header-div d-flex align-items-center justify-content-between">
             <h4 class="disclosure-heading">Disclosure</h4>
             <div class="disclosure-right-actions">
-            <button class="btn round-btn disclosure-edit" v-if="!saveDisclosure" @click="() => this.saveDisclosure = true" >
+            <button class="btn round-btn disclosure-edit" v-if="!saveDisclosure && !$store.state.app.presentation_mode" @click="() => this.saveDisclosure = true" >
                 <span>Edit</span>
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable':''}`">
-            <div class="disclosure-textarea" contenteditable="true" ref="editableDiv" @focus="() => this.saveDisclosure = true" @input="handleDisclosure()">
+            <div class="disclosure-textarea" :contenteditable="$store.state.app.presentation_mode ? false : true" ref="editableDiv" @focus="() => this.saveDisclosure = true" @input="handleDisclosure()">
             {{currentItem.text || disclosure_msg}}
             </div>
         </div>

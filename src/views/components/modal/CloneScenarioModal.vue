@@ -10,8 +10,8 @@
         <div class="modal-body pt-0 text-center">
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
-              <button class="modalReportBuilderBr" v-if="clientDetail">{{$sortName(`${clientDetail.firstname.trim()} ${clientDetail.lastname.trim()}`)}}</button>
-              <h2 class="modalReportBuilderBrTxt" v-if="clientDetail">{{clientDetail.firstname || ""}} {{clientDetail.middlename || ""}} {{clientDetail.lastname || ""}} <span>{{scenarioDetails}}</span></h2>
+              <button class="modalReportBuilderBr" v-if="clientDetail">{{ $sortName(clientDetail.firstname, clientDetail.lastname, clientDetail.middlename) }}</button>
+              <h2 class="modalReportBuilderBrTxt" v-if="clientDetail">{{ $clientName(clientDetail.firstname, clientDetail.lastname, clientDetail.middlename) }} <span>{{scenarioDetails}}</span></h2>
             </div>
           </div>
           <div class="modalParaBorderDiv">

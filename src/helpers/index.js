@@ -29,17 +29,8 @@ const myPlugin = {
             app.config.globalProperties.$currentUser = () => {
                 return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;
             },
-            app.config.globalProperties.$sortName = (string) => {
-                var name = '';
-                if (string) {
-                    var arr = string.trim().split(' ');
-                    arr.forEach(element => {
-                        if (element) {
-                            name += element.split('')[0];
-                        }
-                    });
-                }
-                return name.toUpperCase().substring(0, 2);
+            app.config.globalProperties.$sortName = (first = '', last = '', middle = '') => {
+                return `${last.substring(0, 1)}${first.substring(0, 1)}`.toUpperCase();
             },
             app.config.globalProperties.$getPlanName = (key) => {
                 let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };
@@ -62,7 +53,7 @@ const myPlugin = {
                 return list.reduce((prev, curr) => prev + curr) / list.length;
             },
             app.config.globalProperties.$clientName = (first, last, middle = '') => {
-                return `${last}, ${first} ${middle}`;
+                return `${last || ''}, ${first || ''} ${middle || ''}`;
             }
     }
 }
