@@ -3853,3 +3853,14 @@
   border: 1px solid #656565;
   background-color: #34383D;
 }
+.dark-green .return-btn-div .return-to-report-btn{
+  background-color: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+.dark-green .return-btn-div .return-to-report-btn:hover{
+  background-color: #000;
+}
+.dark-green .return-btn-div .return-to-report-btn img{
+  filter: contrast(0);
+}

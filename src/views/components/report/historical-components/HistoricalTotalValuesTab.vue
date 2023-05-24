@@ -412,11 +412,11 @@ export default {
           }
         });
 
-      document
-        .querySelector(".fullScreenCloseBtn")
-        .addEventListener("click", function() {
-          htmlLegendPlugin3.showAll(totalValueChart, totalValueConfig.options);
-        });
+      // document
+      //   .querySelector(".fullScreenCloseBtn")
+      //   .addEventListener("click", function() {
+      //     htmlLegendPlugin3.showAll(totalValueChart, totalValueConfig.options);
+      //   });
     },
   },
   computed: {

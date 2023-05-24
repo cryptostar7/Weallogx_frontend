@@ -404,6 +404,58 @@ import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
 
 let tables = [];
+function getOffset(element) {
+  var x = 0;
+  var y = 0;
+  while (
+    element &&
+    !isNaN(element.offsetLeft) &&
+    !isNaN(element.offsetTop)
+  ) {
+    x += element.offsetLeft - element.scrollLeft;
+    y += element.offsetTop - element.scrollTop;
+    element = element.offsetParent;
+  }
+  return { top: y, left: x };
+}
+
+function Table(element) {
+  this.element = element;
+  this.originalHeader = element.getElementsByTagName("thead")[0];
+  this.floatingHeader = this.originalHeader.cloneNode(true);
+  this.top = 0;
+  this.bottom = 0;
+  this.originalThs = this.originalHeader.getElementsByTagName("th");
+  this.floatingThs = this.floatingHeader.getElementsByTagName("th");
+
+  if (!this.element.style.position) {
+    this.element.style.position = "relative";
+  }
+  this.floatingHeader.setAttribute("aria-hidden", "true");
+  this.floatingHeader.style.position = "absolute";
+  this.floatingHeader.style.top = "0";
+
+  this.refreshHeaderSize();
+  this.attachFloatHeader();
+}
+
+Table.prototype.refreshHeaderSize = function() {
+  var offset = getOffset(this.element);
+  var trs = this.element.getElementsByTagName("tr");
+  var padding;
+  this.top = offset.top;
+  this.bottom =
+    this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    this.floatingThs[i].style.width = th.offsetWidth + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+}
+
+Table.prototype.attachFloatHeader = function() {
+  this.element.insertBefore(this.floatingHeader, this.element.firstChild);
+}
 export default {
   props: ["keyId", "sidebar"],
   components: {
@@ -513,83 +565,44 @@ export default {
       this.$store.dispatch("reportCvDeleteId", 3);
     }
 
-    function getOffset(element) {
-      var x = 0;
-      var y = 0;
-      while (
-        element &&
-        !isNaN(element.offsetLeft) &&
-        !isNaN(element.offsetTop)
-      ) {
-        x += element.offsetLeft - element.scrollLeft;
-        y += element.offsetTop - element.scrollTop;
-        element = element.offsetParent;
-      }
-      console.log(y);
-      return { top: y, left: x };
-    }
+    setTimeout(() => {
+      this.init();
+      // console.log(tables);
+    }, 3000);
+    
+    window.addEventListener("scroll", this.windowScroll);   
+  },
+  methods: {
+    testFunction: function() {
+      // console.log(this.mapData(this.comparativeTable));
+    },
 
-    function Table(element) {
-      this.element = element;
-      this.originalHeader = element.getElementsByTagName("thead")[0];
-      this.floatingHeader = this.originalHeader.cloneNode(true);
-      this.top = 0;
-      this.bottom = 0;
-      this.originalThs = this.originalHeader.getElementsByTagName("th");
-      this.floatingThs = this.floatingHeader.getElementsByTagName("th");
-
-      if (!this.element.style.position) {
-        this.element.style.position = "relative";
-      }
-      this.floatingHeader.setAttribute("aria-hidden", "true");
-      this.floatingHeader.style.position = "absolute";
-      this.floatingHeader.style.top = "0";
-
-      this.refreshHeaderSize();
-      this.attachFloatHeader();
-    }
-
-    Table.prototype.refreshHeaderSize = function() {
-      var offset = getOffset(this.element);
-      var trs = this.element.getElementsByTagName("tr");
-      var padding;
-      this.top = offset.top;
-      this.bottom =
-        this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
-      for (var i = 0; i < this.originalThs.length; i++) {
-        var th = this.originalThs[i];
-        this.floatingThs[i].style.width = th.offsetWidth + "px";
-        this.floatingThs[i].style.height = th.offsetHeight + "px";
-      }
-    };
-
-    Table.prototype.attachFloatHeader = function() {
-      this.element.insertBefore(this.floatingHeader, this.element.firstChild);
-    };
-
-    function init() {
+    init: function() {
       var matches = document.querySelectorAll("table.sticky-header");
       for (var i = 0; i < matches.length; i++) {
         if (matches[i].tagName === "TABLE") {
           tables[i] = new Table(matches[i]);
         }
       }
-    }
-
-    setTimeout(() => {
-      init();
-      console.log(tables);
-    }, 3000);
-
-    window.addEventListener("scroll", this.windowScroll);
-  },
-  methods: {
-    testFunction: function() {
-      // console.log(this.mapData(this.comparativeTable));
     },
     refreshHeaderSizes: function() {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
+      }
+      if(this.$store.state.app.presentation_mode){
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderSize();
+        }
+        window.addEventListener("scroll", this.windowScrollMinus);
+        return;
+      }
+      if(this.$store.state.app.presentation_mode == false && this.$props.sidebar == false){
+        return;
+      }
+      if(this.$store.state.app.presentation_mode == false && (this.$props.sidebar || !this.$props.sidebar)){
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderSize();
+        }
       }
     },
     getScrollTop: function() {
@@ -606,7 +619,6 @@ export default {
       for (var i = 0; i < tables.length; i++) {
         var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
-          // console.log(windowTop, tables[i].top, tables[i].bottom);
           tables[i].floatingHeader.style.top =
             Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
         } else {
@@ -614,9 +626,18 @@ export default {
         }
       }
     },
+    windowScrollMinus: function() {
+      for (var i = 0; i < tables.length; i++) {
+        var windowTop = this.getScrollTop();
+        if (windowTop > tables[i].top) {
+          tables[i].floatingHeader.style.top =
+            Math.min(windowTop - tables[i].top, tables[i].bottom) + "px";
+        } else {
+          tables[i].floatingHeader.style.top = "0";
+        }
+      }
+    },
     handleSidebar: function(status) {
-      let sectionHeadingDiv = document.querySelector(".section-heading-div");
-      console.log(sectionHeadingDiv);
       this.refreshHeaderSizes();
       return status;
     },
@@ -878,6 +899,7 @@ export default {
     },
     "$props.sidebar"(value) {
       this.handleSidebar(value);
+      // console.log(value)
     },
   },
   computed: {
