@@ -93,14 +93,6 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            this.$toast.error(getFirstError(error));
-          }
         });
     },
     // get client detail from API then save in redux store

@@ -1226,7 +1226,6 @@ export default {
             this.vehicle.vehicle2.type_id !== 1
               ? true
               : false,
-          pre_age_59_penality: false,
           save_this_vehicle_as_template: this.vehicle.vehicle2.templateCheckbox,
           vehicle_template_name: this.vehicle.vehicle2.templateCheckbox
             ? this.vehicle.vehicle2.template_name
