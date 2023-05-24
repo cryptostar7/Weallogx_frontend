@@ -86,22 +86,9 @@ export default {
       get(
         `${getUrl("latest-report")}${this.$route.params.scenario}/`,
         authHeader()
-      )
-        .then(response => {
-          this.reportId = response.data.latest_report_id;
-        })
-        .catch(error => {
-          this.$store.dispatch("loader", false);
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          } else {
-            this.$toast.error(getFirstError(error));
-          }
-        });
+      ).then(response => {
+        this.reportId = response.data.latest_report_id;
+      });
     },
     // get client detail from API then save in redux store
     getClient: function(clientId) {

@@ -9,7 +9,7 @@
               <scenario-label-component />
               <div class="form-wrapper side-grey-line">
                 <div class="form-wrapper-inner no-style newScenarioVehicleInner">
-                  <h4 class="form-subheading fs-22 fw-bold"> Comparative Vehicles </h4>
+                  <h4 class="form-subheading fs-22 fw-bold" @click="testFunction"> Comparative Vehicles </h4>
                   <SelectDropdown :list="cvPortfolios" label="Use Existing Comparative Vehicle Portfolio" id="existingComparativeVehiclePortfolio"  class="form-group less pt-3" :error="errors.existing_portfolio" @clearError="() => errors.existing_portfolio = false" @onSelectItem="setExistingPortfolioId" @inputText="setExistingPortfolioName"/>
                   <div :class="`comparative-vehicle-tab-wrapper ${vehicle.tab ? '' : 'noVehicleTyupeSelectPadd'} mb-3`" id="noVehicleTyupeSelectPadd">
                     <ul class="nav nav-tabs comparative-vehicle-tabs" role="tablist">
@@ -42,7 +42,7 @@
                       <div :class="`tab-pane ${vehicle.tab === 1 ? 'active':''}`" id="vehicleType1Tab" role="tabpanel" aria-labelledby="vehicleType1-tab">
                         <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 1" id="comparativeVehicleType" class="form-group less pt-3"  :error="errors.vehicle1.type_id" @clearError="() => errors.vehicle1.type_id = false" :defaultSelected="defaultVehicle.vehicle1.template_name" @onSelectItem="(e) => setVehicleType(1, e)" @inputText="(e) => setVehicleTypeName(1, e)" :showAll="true"/>
                         <div :class="`${this.vehicle.vehicle1.type_id && vehicleSelected ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea1">
-                          <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle1" @clearError="() => errors.existing_vehicle1 = false" @onSelectItem="(e) => setExistingVehicle(1, e)" @inputText="(e) => setExistingVehicleName(1, e)"/> 
+                          <SelectDropdown :list="existingVehicles1" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle1" @clearError="() => errors.existing_vehicle1 = false" @onSelectItem="(e) => setExistingVehicle(1, e)" @inputText="(e) => setExistingVehicleName(1, e)"/> 
                           <span class="or-text-span">or</span>
                           <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                           <div class="form-group pt-2 less"> 
@@ -115,7 +115,7 @@
                       <div :class="`tab-pane ${vehicle.tab === 2 ? 'active':''}`" id="vehicleType2Tab" role="tabpanel" aria-labelledby="vehicleType2-tab">
                         <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 2" id="comparativeVehicleType2" class="form-group less pt-3"  :error="errors.vehicle2.type_id" @clearError="() => errors.vehicle2.type_id = false" :defaultSelected="defaultVehicle.vehicle2.template_name" @onSelectItem="(e) => setVehicleType(2, e)" @inputText="(e) => setVehicleTypeName(2, e)" :showAll="true" />
                         <div :class="`${vehicle.vehicle2.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea2">
-                          <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle2" @clearError="() => errors.existing_vehicle2 = false" @onSelectItem="(e) => setExistingVehicle(2, e)"  @inputText="(e) => setExistingVehicleName(2, e)" />
+                          <SelectDropdown :list="existingVehicles2" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle2" @clearError="() => errors.existing_vehicle2 = false" @onSelectItem="(e) => setExistingVehicle(2, e)"  @inputText="(e) => setExistingVehicleName(2, e)" />
                            <span class="or-text-span">or</span>
                           <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                           <div class="form-group pt-2 less"> 
@@ -186,7 +186,7 @@
                       <div :class="`tab-pane ${vehicle.tab === 3 ? 'active':''}`" id="vehicleType3Tab" role="tabpanel" aria-labelledby="vehicleType3-tab">
                         <SelectDropdown :list="dropdown.VehicleType" label="Vehicle Type 3"  id="comparativeVehicleType3" class="form-group less pt-3" :error="errors.vehicle3.type_id" @clearError="() => errors.vehicle3.type_id = false" :defaultSelected="defaultVehicle.vehicle3.template_name" @onSelectItem="(e) => setVehicleType(3, e)" @inputText="(e) => setVehicleTypeName(3, e)" :showAll="true" />
                         <div :class="`${vehicle.vehicle3.type_id ? '' : 'vehicleaTypeArea'} mt-4`" id="taxableArea3">
-                          <SelectDropdown :list="existingVehicles" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle3" @clearError="() => errors.existing_vehicle3 = false" @onSelectItem="(e) => setExistingVehicle(3, e)"  @inputText="(e) => setExistingVehicleName(3, e)"/> 
+                          <SelectDropdown :list="existingVehicles3" label="Use Existing Comparative Vehicle" id="comparativeVehicleType" :error="errors.existing_vehicle3" @clearError="() => errors.existing_vehicle3 = false" @onSelectItem="(e) => setExistingVehicle(3, e)"  @inputText="(e) => setExistingVehicleName(3, e)"/> 
                           <span class="or-text-span">or</span>
                           <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                           <div class="form-group pt-2 less"> 
@@ -487,14 +487,41 @@ export default {
       return this.$store.state.data.active_scenario;
     },
 
+    vehicleTypeIds() {
+      // return { taxable: 1, pretax: 2, pretax: 3 };
+    },
+
     existingVehicles() {
       return this.$store.state.data.templates.vehicles || [];
     },
+
+    existingVehicles1() {
+      return this.existingVehicles.filter(i => i.vehicle_type === this.vehicle.vehicle1.type) || [];
+    },
+
+    existingVehicles2() {
+      return this.existingVehicles.filter(i => i.vehicle_type === this.vehicle.vehicle2.type) || [];
+    },
+
+    existingVehicles3() {
+      return this.existingVehicles.filter(i => i.vehicle_type === this.vehicle.vehicle3.type) || [];
+    },
+
     cvPortfolios() {
       return this.$store.state.data.templates.cv_portfolio || [];
     },
   },
   methods: {
+    testFunction: function() {
+      // console.log(this.vehicle.vehicle1.type);
+      // console.log(this.vehicle.vehicle2.type);
+      // console.log(this.vehicle.vehicle3.type);
+      console.log(this.existingVehicles);
+      console.log(this.existingVehicles1);
+      console.log(this.existingVehicles2);
+      console.log(this.existingVehicles3);
+    },
+
     getExistingVehicles: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-vehicletype"), authHeader())
@@ -507,6 +534,7 @@ export default {
             temp.push({
               id: index++,
               uid: item.id,
+              vehicle_type: item.type,
               type: 1,
               template_name: item.vehicle_template_name,
             });
@@ -517,6 +545,7 @@ export default {
             temp.push({
               id: index++,
               uid: item.id,
+              vehicle_type: item.type,
               type: 2,
               template_name: item.vehicle_template_name,
             });
@@ -527,6 +556,7 @@ export default {
             temp.push({
               id: index++,
               uid: item.id,
+              vehicle_type: item.type,
               type: 3,
               template_name: item.vehicle_template_name,
             });
@@ -549,7 +579,7 @@ export default {
         });
     },
 
-    // get existing portfolio data 
+    // get existing portfolio data
     getExistingPortfolio: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("existing-comparative"), authHeader())
@@ -578,8 +608,8 @@ export default {
         });
     },
 
+    // to update the current vehicle tab
     setVehicleTab: function(val) {
-      console.log(val);
       if (Number(val) === 1) {
         this.vehicle.tab = Number(val);
       }
@@ -596,6 +626,7 @@ export default {
         }
       }
     },
+
     setActiveTab2: function(event) {
       if (this.vehicle.tab !== 2) {
         this.tabs.vehicle2 = !this.tabs.vehicle2;
@@ -615,6 +646,7 @@ export default {
       event.stopPropagation();
       event.preventDefault();
     },
+
     setActiveTab3: function(event) {
       if (this.tabs.vehicle2 && this.vehicle.tab !== 3) {
         this.tabs.vehicle3 = !this.tabs.vehicle3;
@@ -693,7 +725,7 @@ export default {
           if (vehicle3) {
             this.tabs.vehicle3 = true;
             this.populateVehicle(3, 3, vehicle3);
-          }else{
+          } else {
             this.tabs.vehicle3 = false;
           }
           this.$store.dispatch("loader", false);
@@ -968,6 +1000,7 @@ export default {
       }
       return templateId ? true : false;
     },
+    // check validation for vehicle type 1
     validateVehicle1: function() {
       let valid = true;
       if (this.vehicle.vehicle1.existing.name) {
@@ -1037,6 +1070,8 @@ export default {
       }
       return valid;
     },
+
+    // check validation for vehicle type 2
     validateVehicle2: function() {
       let valid = true;
       if (this.vehicle.vehicle2.existing.name) {
@@ -1107,6 +1142,8 @@ export default {
 
       return valid;
     },
+
+    // check validation for vehicle type 3
     validateVehicle3: function() {
       let valid = true;
       if (this.vehicle.vehicle3.existing.name) {
@@ -1226,7 +1263,6 @@ export default {
             this.vehicle.vehicle2.type_id !== 1
               ? true
               : false,
-          pre_age_59_penality: false,
           save_this_vehicle_as_template: this.vehicle.vehicle2.templateCheckbox,
           vehicle_template_name: this.vehicle.vehicle2.templateCheckbox
             ? this.vehicle.vehicle2.template_name

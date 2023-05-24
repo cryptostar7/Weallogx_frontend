@@ -970,9 +970,7 @@ export default {
 
       if (array && array.length > 0) {
         array.forEach(element => {
-          var name = `${element.firstname}${
-            element.middlename ? ` ${element.middlename}` : ""
-          }${element.lastname ? ` ${element.lastname}` : ""}`;
+          var name = this.$clientName(element.firstname, element.lastname, element.middlename); 
 
           let df_client = this.$route.query.client;
           if (Number(df_client) === element.id) {

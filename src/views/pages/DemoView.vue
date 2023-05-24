@@ -4,14 +4,18 @@
   </div>
 </template>
 <script>
+import { get } from '../../network/requests';
+import { authHeader } from '../../services/helper';
 export default {
   methods: {
     testFunction: function() {
-      console.log(this.roundFigureNum(1320423));
+      get('https://wlxpy.bizbybot.com/auth/existing-illustrationdata/94/', authHeader()).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      })
     },
-    roundFigureNum: function(value) {
-      return Math.ceil(Number(value) / 10000) * 10000;
-    },
+ 
   },
 };
 </script>
