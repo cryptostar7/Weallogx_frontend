@@ -639,6 +639,8 @@ export default {
         if (!this.clientName) {
           this.errors.client = "";
         } else {
+          console.log(this.clientName);
+          console.log(this.clients);
           let templateId = this.$getTemplateId(this.clientName, this.clients);
           if (!templateId) {
             validate = false;
@@ -885,7 +887,7 @@ export default {
               this.$toast.error("Something went wrong. Please try again.");
             }
           }
-        })
+        }) 
         .catch(error => {
           console.log(error);
           this.$store.dispatch("loader", false);
@@ -970,14 +972,12 @@ export default {
 
       if (array && array.length > 0) {
         array.forEach(element => {
-          // var name = this.$clientName(
-          //   element.firstname,
-          //   element.lastname,
-          //   element.middlename
-          // );
-          var name = `${element.firstname}${
-            element.middlename ? ` ${element.middlename}` : ""
-          }${element.lastname ? ` ${element.lastname}` : ""}`;
+          var name = this.$clientName(
+            element.firstname,
+            element.lastname,
+            element.middlename
+          );
+          name = name.trim();
           let df_client = this.$route.query.client;
           if (Number(df_client) === element.id) {
             this.setInputWithId("clientAge", element.age);
