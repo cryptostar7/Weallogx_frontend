@@ -404,6 +404,7 @@ import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
 
 let tables = [];
+let isPresentationClicked = false;
 function getOffset(element) {
   var x = 0;
   var y = 0;
@@ -446,6 +447,15 @@ Table.prototype.refreshHeaderSize = function() {
   this.top = offset.top;
   this.bottom =
     this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    this.floatingThs[i].style.width = th.offsetWidth + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+}
+
+Table.prototype.refreshHeaderWidth = function() {
+  var trs = this.element.getElementsByTagName("tr");
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
     this.floatingThs[i].style.width = th.offsetWidth + "px";
@@ -596,14 +606,14 @@ export default {
         window.addEventListener("scroll", this.windowScrollMinus);
         return;
       }
-      if(this.$store.state.app.presentation_mode == false && this.$props.sidebar == false){
-        return;
-      }
-      if(this.$store.state.app.presentation_mode == false && (this.$props.sidebar || !this.$props.sidebar)){
-        for (var i = 0; i < tables.length; i++) {
-          tables[i].refreshHeaderSize();
-        }
-      }
+      // if(this.$store.state.app.presentation_mode == false && this.$props.sidebar == false){
+      //   return;
+      // }
+      // if(this.$store.state.app.presentation_mode == false && (this.$props.sidebar || !this.$props.sidebar)){
+      //   for (var i = 0; i < tables.length; i++) {
+      //     tables[i].refreshHeaderSize();
+      //   }
+      // }
     },
     getScrollTop: function() {
       if (typeof window.pageYOffset !== "undefined") {
@@ -638,6 +648,12 @@ export default {
       }
     },
     handleSidebar: function(status) {
+      if(isPresentationClicked && this.$store.state.app.presentation_mode == false){
+       for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderWidth();
+        }        
+        return;
+      }
       this.refreshHeaderSizes();
       return status;
     },
@@ -884,6 +900,9 @@ export default {
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
+      if(val){
+        isPresentationClicked = true;
+      }
       if (
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets1
@@ -899,7 +918,6 @@ export default {
     },
     "$props.sidebar"(value) {
       this.handleSidebar(value);
-      // console.log(value)
     },
   },
   computed: {

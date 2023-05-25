@@ -841,9 +841,11 @@ body::-webkit-scrollbar {
   padding-top: 1rem;
   padding-inline: 3rem;
   padding-right: 17px;
-  scroll-margin-top: 70px;
+  scroll-margin-top: 105px;
 }
-
+.presentationModeCommon .report-client-list-div {
+ scroll-margin-top: 65px; 
+}
 .report-top-navbar {
   padding: 0.625rem 2.5rem;
   background-color: #fff;
@@ -4816,6 +4818,19 @@ border: none;
   background: #0E6651;
   border-radius: 0;
 }
+.presentationModeCommon .reportBuilderLftInner {
+  background: #0E6651;
+  border-radius: 0;
+  padding-block: 0;
+}
+.presentationModeCommon .reportBuilderLftInner .lftRadioBtnDiv {
+  width: 100%;
+}
+.presentationModeCommon .reportBuilderLftInner label {
+  padding-block: .85rem;
+  display: block;
+  width: 100%;
+}
 
 .presentationModeCommon .reportBuilderLftInner.active .lftRadioBtnDiv label {
   color: #fff;
@@ -4881,21 +4896,6 @@ border: none;
 .heading-tr {
   position: relative;
 }
-/*.whole-table-wrapper {
-  max-height: 600px;
-  overflow-y: auto;
-  sidebar-width: 0;
-}
-.whole-table-wrapper::-webkit-scrollbar{
-  display: none;
-}*/
-/*.tablesMainDiv table{
-  position: relative;
-}*/
-/*.tablesMainDiv table thead{
-  position: sticky;
-  top: -16px;
-}*/
 .heading-tr::before {
   position: absolute;
   content: '';
