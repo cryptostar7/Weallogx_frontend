@@ -192,6 +192,10 @@ export default {
     },
   },
   mounted() {
+    if(this.$route.query.present === 'true'){
+      this.$store.dispatch('presentation', true);
+    }
+    // fetch comarative reports data from API
     if (this.$route.params.report) {
       this.getComparativeData(this.$route.params.report);
       this.getHistoricalData();

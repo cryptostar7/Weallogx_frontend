@@ -188,7 +188,7 @@ export default {
 
         if (chart) {
           cumulativeFeesData.datasets[0].data =
-            chart.chart_output.cummulative_fees || [];
+            chart.chart_output.cummulative_fees.map(i => i.toFixed(0)) || [];
           let years = chart.chart_output.year;
           cumulativeFeesData.labels = [
             1,
@@ -198,17 +198,17 @@ export default {
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
           cumulativeFeesData.datasets[1].data =
-            chart1.comparison.chart_output.cummulative_fees;
+            chart1.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
           cumulativeFeesData.datasets[2].data =
-            chart2.comparison.chart_output.cummulative_fees;
+            chart2.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
           cumulativeFeesData.datasets[3].data =
-            chart3.comparison.chart_output.cummulative_fees;
+            chart3.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
         }
       }
       return cumulativeFeesData;

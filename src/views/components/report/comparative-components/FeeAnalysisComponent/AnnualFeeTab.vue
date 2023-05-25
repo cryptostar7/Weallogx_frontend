@@ -191,9 +191,7 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart1) {
-          // console.log('...................');
-          // console.log(chart.chart_output.fees.filter((i, k) => k));
-          annualFeesData.datasets[0].data = chart.chart_output.fees || [];
+          annualFeesData.datasets[0].data = chart.chart_output.fees.map(i => i.toFixed(0)) || [];
           let years = chart.chart_output.year;
           annualFeesData.labels = [
             1,
@@ -204,30 +202,30 @@ export default {
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
           if (chart1.type === "pretax") {
             annualFeesData.datasets[1].data =
-              chart1.comparison.chart_output_data.comprehensive_fees_data;
+              chart1.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
           } else {
             annualFeesData.datasets[1].data =
-              chart1.comparison.chart_output.comprehensive_fees;
+              chart1.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
           }
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
           if (chart2.type === "pretax") {
             annualFeesData.datasets[2].data =
-              chart2.comparison.chart_output_data.comprehensive_fees_data;
+              chart2.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
           } else {
             annualFeesData.datasets[2].data =
-              chart2.comparison.chart_output.comprehensive_fees;
+              chart2.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
           }
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
           if (chart3.type === "pretax") {
             annualFeesData.datasets[3].data =
-              chart3.comparison.chart_output_data.comprehensive_fees_data;
+              chart3.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
           } else {
             annualFeesData.datasets[3].data =
-              chart3.comparison.chart_output.comprehensive_fees;
+              chart3.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
           }
         }
       }

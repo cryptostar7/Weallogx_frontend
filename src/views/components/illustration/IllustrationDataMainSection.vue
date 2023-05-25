@@ -397,6 +397,7 @@ export default {
           typeof scenarioData.scenerio_details === "object"
         ) {
           this.$store.dispatch("activeScenario", scenarioData);
+          this.illustrationId = scenarioData.illustration;
           this.populateInsuranceProfile(scenarioData.illustration);
           getScenarioAPI = false;
         }
@@ -611,7 +612,6 @@ export default {
         return false;
       }
 
-      this.illustrationId = id;
       let step2 = getScenarioStep2();
       if (step2 && step2.id === Number(id)) {
         return this.setFormInputs(step2);

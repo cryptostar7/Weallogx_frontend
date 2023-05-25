@@ -386,8 +386,6 @@ export default {
       this.existingScenarioDetailId = id;
       let client_id = this.existingScenarioList.filter(i => i.id === id)[0]
         .client;
-      console.log(id);
-
       this.existingClientId = client_id;
       this.setClientAsDefault = client_id;
       this.$router.push(

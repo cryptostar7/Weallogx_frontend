@@ -60,7 +60,7 @@
         
         <div class="d-flex justify-content-center align-items-center gap-3">
           <theme-dropdown type="2"/>
-          <a href="javascript:void(0)" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive" @click="() => $store.dispatch('presentation', true)">
+          <router-link to="?present=true" class="btn ms-3 my-2 my-lg-0 navbar-nav-scroll presentationModeBtn prstnBtnResponsive" @click="() => $store.dispatch('presentation', true)">
             <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <mask id="path-1-inside-1_1_94760" fill="white">
                 <rect x="1" y="0.75" width="15" height="13" rx="1" />
@@ -86,7 +86,7 @@
               <rect x="6.07422" y="4.76953" width="6" height="1.5" rx="0.75" transform="rotate(135 6.07422 4.76953)"
                 fill="white" />
             </svg>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>
@@ -179,6 +179,7 @@ export default {
         this.$store.dispatch("fullScreen");
       }
       this.$store.dispatch("presentation", false);
+      this.$router.push('');
     },
   },
   beforeUnmount() {

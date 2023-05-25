@@ -227,7 +227,7 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: cv,
+            data: cv.map(i => i.toFixed(0)),
             TooltipLabelStyle: {
               backgroundColor: "white",
               borderColor: "white",
@@ -247,7 +247,7 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(1) ? [] : cv1 || [],
+            data: this.deletedItems.includes(1) ? [] : cv1.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#763CA3",
@@ -255,7 +255,7 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(2) ? [] : cv2 || [],
+            data: this.deletedItems.includes(2) ? [] : cv2.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -263,7 +263,7 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(3) ? [] : cv3 || [],
+            data: this.deletedItems.includes(3) ? [] : cv3.map(i => i.toFixed(0)) || [],
           },
           {
             barPercentage: 1,
