@@ -1390,9 +1390,6 @@
 
 .dark-green .reportBuilderLftInner .lftRadioBtnDiv label {
   color: #6D6D6D;
-  font-size: 13px;
-  font-weight: 600;
-  margin: 0.5rem;
 }
 
 .dark-green .reportBuilderLftInner.active .lftRadioBtnDiv label {

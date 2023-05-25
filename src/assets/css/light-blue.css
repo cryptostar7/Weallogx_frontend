@@ -1340,3 +1340,6 @@ background: #0C4A83;
 .light-blue .upload-illustration-label{
   background-color: var(--blue-clr-2);
 }
+.light-blue .sidebar-username-label{
+  background-color: #23669E;
+}

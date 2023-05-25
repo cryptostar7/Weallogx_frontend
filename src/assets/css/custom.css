@@ -1086,14 +1086,12 @@ body::-webkit-scrollbar {
   font-size: 13px;
   font-weight: 600;
   margin: 0.5rem;
+  margin-left: 45px;
+  cursor: pointer;
 }
 
 .reportBuilderLftInner.active .lftRadioBtnDiv label {
-  color: #000000;
-  font-size: 13px;
-  font-weight: 600;
-  margin: 0.5rem;
-  cursor: pointer;
+  color: #000;
 }
 
 .reportBuilderLft2 {
@@ -5419,4 +5417,10 @@ font-size:16px!important;
   .sidebar {
   min-width: var(--sidebar-width);
   }
+}
+.reportBldrLftscroll .button-cover{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 12px;
 }
