@@ -4253,3 +4253,14 @@ background: #0C4A83;
 .dark-blue .sidebar-username-label{
   background-color: #23669E;
 }
+.dark-blue .return-btn-div .return-to-report-btn{
+  background-color: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+.dark-blue .return-btn-div .return-to-report-btn:hover{
+  background-color: #000;
+}
+.dark-blue .return-btn-div .return-to-report-btn img{
+  filter: contrast(0);
+}
