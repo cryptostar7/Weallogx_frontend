@@ -41,7 +41,7 @@
               <div class="row">
                 <div class="col-sm-12 p-relative">
                   <div class="SaveCloseButton">
-                      <router-link to="/" class="btn">Save & Close</router-link>
+                      <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>
                   </div>
                   <div class="return-btn-div" v-if="reportId">
                       <a :href="`/report-builder/${reportId}`" class="nav-link btn return-to-report-btn fs-14 flex-shrink-0">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/></a>
@@ -50,7 +50,7 @@
               </div>
             </div>
              <div class="BuildSaveCloseButton">
-              <router-link :to="`/report-builder?scenario=${$route.params.scenario}&client=${client.id}`" class="btn">Save & Build Report</router-link>
+              <router-link  to="/"  class="btn">Save & Close</router-link>
             </div>
             <!-- Historical Vehicles end -->
         </div>
