@@ -50,11 +50,19 @@ export const getUrl = (type) => {
     case 'pdf_extract':
       return `${baseUrl}/pdf/extract/`;
     case 'vehicle-type1':
-      return `${baseUrl}/auth/template-vehicle1/`;
+      return `${baseUrl}/auth/vehicle-type1/`;
     case 'vehicle-type2':
-      return `${baseUrl}/auth/template-vehicle2/`;
+      return `${baseUrl}/auth/vehicle-type2/`;
     case 'vehicle-type3':
+      return `${baseUrl}/auth/vehicle-type3/`;
+    case 'template-vehicle1':
+      return `${baseUrl}/auth/template-vehicle1/`;
+    case 'template-vehicle2':
+      return `${baseUrl}/auth/template-vehicle2/`;
+    case 'template-vehicle3':
       return `${baseUrl}/auth/template-vehicle3/`;
+    case 'vehicles-templates':
+      return `${baseUrl}/auth/vehicle-template/`;
     case 'vehicles-templates':
       return `${baseUrl}/auth/vehicle-template/`;
     case 'vehicle-portfolio':
