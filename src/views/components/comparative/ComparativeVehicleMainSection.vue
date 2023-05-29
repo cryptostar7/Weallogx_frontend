@@ -513,13 +513,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      // console.log(this.vehicle.vehicle1.type);
-      // console.log(this.vehicle.vehicle2.type);
-      // console.log(this.vehicle.vehicle3.type);
-      console.log(this.existingVehicles);
-      console.log(this.existingVehicles1);
-      console.log(this.existingVehicles2);
-      console.log(this.existingVehicles3);
+      console.log(this.cvId);
     },
 
     getExistingVehicles: function() {
@@ -693,7 +687,9 @@ export default {
         return false;
       }
       this.$store.dispatch("loader", true);
-      this.cvId = id;
+      if(!portfolio){
+        this.cvId = id;
+      }
       get(`${getUrl(portfolio ? "vehicle-portfolio" : "comparative")}${id}`, authHeader())
         .then(response => {
           var data = response.data.data;
