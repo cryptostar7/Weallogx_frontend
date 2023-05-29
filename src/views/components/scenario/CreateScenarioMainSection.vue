@@ -493,14 +493,16 @@ export default {
       this.clientAgeYearToIllustrate = detail.client_age_1_year_illustration;
       this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
       this.errors.client_age_year = false;
+      console.log(template);
+
       if (template) {
-        // this.illustrateYear = "";
-        // document.getElementById("illustratedAge").value = "";
+        this.illustrateYear = "";
+        document.getElementById("illustratedAge").value = "";
       } else {
         this.illustrateYear = detail.years_to_illustrate;
         this.setInputWithId("illustratedAge", detail.years_to_illustrate);
       }
-      this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
       this.setInputWithId(
