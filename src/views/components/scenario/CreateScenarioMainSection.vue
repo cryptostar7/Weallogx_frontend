@@ -296,8 +296,9 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(getCurrentScenario());
+      console.log(this.simpleTaxRate);
     },
+    // get previous scebario detail information
     getScenarionDetails: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
         .then(response => {
@@ -395,14 +396,14 @@ export default {
       );
 
       this.errors = [];
-      this.populateScenarioDetail(id);
+      this.populateScenarioDetail(id, true);
     },
 
     // set the existing scenario schedule id on selecting the input dropdown data
     setExistingScenarioScheduleId: function(id) {
       this.existingScenarioScheduleId = id;
       this.errors.schedule_template = [];
-      this.populateScheduleTax(id);
+      this.populateScheduleTax(id, true);
     },
 
     // set the client age year value to illustrate the data. Note: v-model not working for this input
@@ -464,9 +465,10 @@ export default {
         });
     },
 
+    // get schedule templates
     getExistingScenarioSchedule: function() {
-      // this.$store.dispatch("loader", true);
-      get(getUrl("existing-scenario-schedule"), authHeader())
+      console.log("schedule template");
+      get(getUrl("scenario-schedule-templates"), authHeader())
         .then(response => {
           this.$store.dispatch("template", {
             type: "scenario_schedules",
@@ -485,13 +487,19 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    setFormInputs: function(detail) {
+    setFormInputs: function(detail, template = false) {
       this.scenarioName = detail.name;
       this.scenarioDescription = detail.description;
       this.clientAgeYearToIllustrate = detail.client_age_1_year_illustration;
       this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
       this.errors.client_age_year = false;
-      this.illustrateYear = detail.years_to_illustrate;
+      if (template) {
+        // this.illustrateYear = "";
+        // document.getElementById("illustratedAge").value = "";
+      } else {
+        this.illustrateYear = detail.years_to_illustrate;
+        this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+      }
       this.setInputWithId("illustratedAge", detail.years_to_illustrate);
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
@@ -507,28 +515,36 @@ export default {
       this.secondTaxRateYear = detail.second_tax_rate_year
         ? detail.second_tax_rate_year
         : "";
-      if (!this.simpleTaxRate) {
+
+      console.log(detail);
+
+      if (!this.simpleTaxRate && detail.schedule_tax_rate) {
         this.setScheduleData(detail.schedule_tax_rate.data);
       } else {
         this.clearScheduleData();
       }
     },
 
-    populateScenarioDetail: function(id) {
+    populateScenarioDetail: function(id, template = false) {
       if (!id) {
         return false;
       }
       let step1 = getScenarioStep1();
       if (step1 && step1.id === Number(id)) {
         this.detailId = step1.id;
-        return this.setFormInputs(step1);
+        return this.setFormInputs(step1, template);
       } else {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("scenario-details")}${id}`, authHeader())
+        get(
+          `${getUrl(
+            template ? "scenario-detail-templates" : "scenario-details"
+          )}${id}`,
+          authHeader()
+        )
           .then(response => {
             console.log(response.data);
             this.$store.dispatch("loader", false);
-            this.setFormInputs(response.data.data);
+            this.setFormInputs(response.data.data, template);
             setScenarioStep1(response.data.data);
           })
           .catch(error => {
@@ -562,7 +578,7 @@ export default {
 
     getExistingScenarioDetails: function() {
       // this.$store.dispatch("loader", true);
-      get(getUrl("existing-scenario-detail"), authHeader())
+      get(getUrl("scenario-detail-templates"), authHeader())
         .then(response => {
           this.$store.dispatch("template", {
             type: "scenario_details",
@@ -582,9 +598,12 @@ export default {
         });
     },
 
-    populateScheduleTax: function(id) {
+    populateScheduleTax: function(id, template = false) {
       this.$store.dispatch("loader", true);
-      get(`${getUrl("schedule")}${id}`, authHeader())
+      get(
+        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}`,
+        authHeader()
+      )
         .then(response => {
           this.$store.dispatch("loader", false);
           let detail = response.data.data.data;
@@ -806,10 +825,6 @@ export default {
           : null,
       };
 
-      if (data.existings.schedule_tax_id) {
-        formData.schedule_tax_rate = data.existings.schedule_tax_id;
-      }
-
       this.$store.dispatch("loader", true);
 
       if (this.detailId) {
@@ -885,7 +900,7 @@ export default {
               this.$toast.error("Something went wrong. Please try again.");
             }
           }
-        }) 
+        })
         .catch(error => {
           console.log(error);
           this.$store.dispatch("loader", false);
@@ -945,6 +960,7 @@ export default {
     },
 
     clearDetailTemplate: function() {
+      return false;
       if (this.existingScenarioDetailName) {
         this.detailTemplateInput = 1;
       }

@@ -294,7 +294,7 @@ import {
   getCurrentScenario,
   getScenarioStep2,
   setScenarioStep2,
-mapClientList,
+  mapClientList,
 } from "../../../services/helper.js";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -527,13 +527,14 @@ export default {
     setExistingInsuranceProfileId: function(id) {
       this.existingInsuranceProfileId = id;
       this.errors = [];
-      this.populateInsuranceProfile(id);
+      this.populateInsuranceProfile(id, true);
       this.clearIllustrateTemplate();
     },
 
     // set existing illustration id on selecting the input dropdown data
     setExistingIllustrationId: function(id) {
       this.existingIllustrationId = id;
+      this.populateIllustrationProfile(id);
       this.clearInsuranceTemplate();
       this.errors = [];
     },
@@ -561,53 +562,67 @@ export default {
     },
 
     // populate the form data
-    setFormInputs: function(data = []) {
-      this.insuranceCompany = data.insurance_company;
-      this.insurancePolicyName = data.insurance_policy_name;
-      this.PolicyNickname = data.insurance_policy_nickname;
-      this.setInputWithId(
-        "deathBenefit",
-        data.initial_death_benifit.toLocaleString()
-      );
-      this.setInputWithId(
-        "policyReturn",
-        Number(data.policy_return).toFixed(2)
-      );
-      this.uploadFromFile = data.illustration_data.upload_file_checkbox;
-      let filteredCsv = { data: [], headers: [] };
-      if (this.uploadFromFile) {
-        let filteredCsv = {
-          data: data.illustration_data.upload_from_file.data,
-          headers: [],
-        };
-        filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
-          i => this.illustrationFieldsIndex[i]
-        );
+    setFormInputs: function(data = [], type = "") {
+      if (type !== "illustration") {
+        this.insuranceCompany = data.insurance_company;
+        this.insurancePolicyName = data.insurance_policy_name;
+        this.PolicyNickname = data.insurance_policy_nickname;
+      }
 
-        this.csvPreview = this.filterObject(filteredCsv);
-        this.setScrollbar();
-      } else {
-        if (
-          data.illustration_data.copy_paste &&
-          data.illustration_data.copy_paste.headers.length
-        ) {
-          // this.csvPreview = data.illustration_data.copy_paste;
+      if (type !== "insurance") {
+        if (data.initial_death_benifit) {
+          this.setInputWithId(
+            "deathBenefit",
+            data.initial_death_benifit.toLocaleString()
+          );
+        }
+
+        if (data.policy_return) {
+          this.setInputWithId(
+            "policyReturn",
+            Number(data.policy_return).toFixed(2)
+          );
+        }
+        console.log(data);
+        if (type === "illustration") {
+          data.illustration_data = data;
+        }
+        this.uploadFromFile = data.illustration_data.upload_file_checkbox;
+        let filteredCsv = { data: [], headers: [] };
+        if (this.uploadFromFile) {
           let filteredCsv = {
-            data: data.illustration_data.copy_paste.data,
+            data: data.illustration_data.upload_from_file.data,
             headers: [],
           };
-          filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
+          filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
             i => this.illustrationFieldsIndex[i]
           );
 
           this.csvPreview = this.filterObject(filteredCsv);
           this.setScrollbar();
+        } else {
+          if (
+            data.illustration_data.copy_paste &&
+            data.illustration_data.copy_paste.headers.length
+          ) {
+            // this.csvPreview = data.illustration_data.copy_paste;
+            let filteredCsv = {
+              data: data.illustration_data.copy_paste.data,
+              headers: [],
+            };
+            filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
+              i => this.illustrationFieldsIndex[i]
+            );
+
+            this.csvPreview = this.filterObject(filteredCsv);
+            this.setScrollbar();
+          }
         }
       }
     },
 
     // populate the insurance data on selectig the existing dropdown template list
-    populateInsuranceProfile: function(id) {
+    populateInsuranceProfile: function(id, template = false) {
       if (!id) {
         return false;
       }
@@ -618,11 +633,43 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("illustration")}${id}`, authHeader())
+      get(
+        `${getUrl(
+          template ? "template-insurance-profile" : "illustration"
+        )}${id}`,
+        authHeader()
+      )
         .then(response => {
           let data = response.data.data;
-          setScenarioStep2(data);
-          this.setFormInputs(data);
+          if (!template) {
+            setScenarioStep2(data);
+          }
+          this.setFormInputs(data, "insurance");
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    // populate the illustration data on selectig the existing dropdown template list
+    populateIllustrationProfile: function(id, template = false) {
+      if (!id) {
+        return false;
+      }
+
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("illustration-template")}${id}`, authHeader())
+        .then(response => {
+          let data = response.data.data;
+          this.setFormInputs(data, "illustration");
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -868,8 +915,7 @@ export default {
     // remove error
     clearError: function(key) {
       this.errors[key] = false;
-      this.clearInsuranceTemplate();
-      // this.clearIllustrateTemplate();
+      // this.clearInsuranceTemplate();
     },
 
     // this function has return the input value
@@ -887,7 +933,7 @@ export default {
 
     // get existing insurance profile template
     getExistingInsurance: function() {
-      get(getUrl("existing-illustration"), authHeader())
+      get(getUrl("template-insurance-profile"), authHeader())
         .then(response => {
           let template = [];
           if (response.data.data.length) {
@@ -1323,52 +1369,49 @@ export default {
       }
 
       let file = "";
-      if (!this.existingIllustrationId) {
-        formData.append(
-          "illustration_data.upload_file_checkbox",
-          data.upload_file_checkbox
-        );
 
-        formData.append(
-          "illustration_data.copy_paste_checkbox",
-          !data.upload_file_checkbox
-        );
+      formData.append(
+        "illustration_data.upload_file_checkbox",
+        data.upload_file_checkbox
+      );
 
-        let tempHeader = [];
-        this.csvPreview.headers.forEach(item => {
-          if (this.illustrationFields[item]) {
-            tempHeader.push(this.illustrationFields[item].value);
-          } else {
-            tempHeader.push("none");
-          }
-        });
+      formData.append(
+        "illustration_data.copy_paste_checkbox",
+        !data.upload_file_checkbox
+      );
 
-        let tableData = this.filterObject({
-          data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
-          headers: tempHeader,
-        });
-
-        tableData = JSON.stringify(this.filterNoneHeaders(tableData));
-
-        if (data.upload_file_checkbox) {
-          formData.append("illustration_data.upload_from_file", tableData);
+      let tempHeader = [];
+      this.csvPreview.headers.forEach(item => {
+        if (this.illustrationFields[item]) {
+          tempHeader.push(this.illustrationFields[item].value);
         } else {
-          formData.append("illustration_data.copy_paste", tableData);
+          tempHeader.push("none");
         }
+      });
 
-        formData.append(
-          "illustration_data.save_this_template_name",
-          data.illustration.template
-        );
+      let tableData = this.filterObject({
+        data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+        headers: tempHeader,
+      });
 
-        if (data.illustration.template) {
-          formData.append(
-            "illustration_data.template_name",
-            data.illustration.template_name
-          );
-        }
+      tableData = JSON.stringify(this.filterNoneHeaders(tableData));
+
+      if (data.upload_file_checkbox) {
+        formData.append("illustration_data.upload_from_file", tableData);
       } else {
-        formData.append("illustration_data", this.existingIllustrationId);
+        formData.append("illustration_data.copy_paste", tableData);
+      }
+
+      formData.append(
+        "illustration_data.save_this_template_name",
+        data.illustration.template
+      );
+
+      if (data.illustration.template) {
+        formData.append(
+          "illustration_data.template_name",
+          data.illustration.template_name
+        );
       }
 
       formData.append("initial_death_benifit", data.initial_death_benifit);
@@ -1404,6 +1447,11 @@ export default {
             ) {
               this.$toast.error(error.message);
             } else {
+              if (error.response.data.error) {
+                console.log(error.response.data.error.insurance_template_name);
+                this.errors.insurance_template_name =
+                  error.response.data.error.insurance_template_name;
+              }
               this.$toast.error(getFirstError(error));
             }
           });
@@ -1432,6 +1480,13 @@ export default {
             ) {
               this.$toast.error(error.message);
             } else {
+              console.log(error.response.data.error);
+              if (
+                error.response.data.error &&
+                error.response.data.error.insurance_template_name
+              ) {
+                console.log(error.response.data.error.insurance_template_name);
+              }
               this.$toast.error(getFirstError(error));
             }
           });
@@ -1522,7 +1577,7 @@ export default {
           this.csvPreview = this.filterObject(obj);
         } else {
           this.csvPreview = { data: [], headers: [] };
-          alert("Please paste a valid CSV..");
+          alert("Please paste a valid CSV.");
         }
       } else {
         this.csvPreview = { data: [], headers: [] };
@@ -1569,7 +1624,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      console.log(this.activeScenario);
+      // console.log(this.errors);
     },
     // remove column from the illustration data table
     removeColumn: function() {

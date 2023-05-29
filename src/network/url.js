@@ -33,30 +33,32 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/scenariodetails/`;
     case 'scenario-with-schedule_id':
       return `${baseUrl}/auth/scenario-schedule/`;
-    case 'existing-scenario-detail':
-      return `${baseUrl}/auth/existing-scenario-details/`;
-    case 'existing-scenario-schedule':
-      return `${baseUrl}/auth/schedule/`;
+    case 'scenario-detail-templates':
+      return `${baseUrl}/auth/template-sceneriodetails/`;
+    case 'scenario-schedule-templates':
+      return `${baseUrl}/auth/template-schedule/`;
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':
       return `${baseUrl}/auth/illustration/`;
-    case 'existing-illustration':
-      return `${baseUrl}/auth/existing-illustration/`;
+    case 'template-insurance-profile':
+      return `${baseUrl}/auth/template-insurance-profile/`;
     case 'illustration-id':
       return `${baseUrl}/auth/illustrationid/`;
     case 'illustration-template':
-      return `${baseUrl}/auth/illustration-datalist`;
+      return `${baseUrl}/auth/template-exsiting-illustration/`;
     case 'pdf_extract':
       return `${baseUrl}/pdf/extract/`;
     case 'vehicle-type1':
-      return `${baseUrl}/auth/vehicle-type1/`;
+      return `${baseUrl}/auth/template-vehicle1/`;
     case 'vehicle-type2':
-      return `${baseUrl}/auth/vehicle-type2/`;
+      return `${baseUrl}/auth/template-vehicle2/`;
     case 'vehicle-type3':
-      return `${baseUrl}/auth/vehicle-type3/`;
-    case 'existing-vehicletype':
-      return `${baseUrl}/auth/existing-vehicletype/`;
+      return `${baseUrl}/auth/template-vehicle3/`;
+    case 'vehicles-templates':
+      return `${baseUrl}/auth/vehicle-template/`;
+    case 'vehicle-portfolio':
+      return `${baseUrl}/auth/vehicle-portfolio/`;
     case 'comparative':
       return `${baseUrl}/auth/comperative/`
     case 'existing-comparative':

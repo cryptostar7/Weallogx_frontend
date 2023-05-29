@@ -269,7 +269,7 @@
                       </div>
                       <div :class="`form-group less width-adjust ${(vehicle.portfolio_checkbox && tabs.vehicle2 && vehicle.tab !== 1) ? '' : 'd-none'}`" id="vehicleTempName10"> 
                         <label for="portfolioTemplateName" class="fs-12 semi-bold-fw">Portfolio Name</label> 
-                        <input type="text" id="portfolioTemplateName" class="form-control width-adjust" v-model="vehicle.portfolio_name"/> 
+                        <input type="text" id="portfolioTemplateName" class="form-control width-adjust" v-model="vehicle.portfolio_name" autocomplete="off"/> 
                       </div>
                     </div>
                   </div>
@@ -524,12 +524,14 @@ export default {
 
     getExistingVehicles: function() {
       this.$store.dispatch("loader", true);
-      get(getUrl("existing-vehicletype"), authHeader())
+      get(getUrl("vehicles-templates"), authHeader())
         .then(response => {
           var data = response.data.data;
+          console.log('response.data.data');
+          console.log(response.data.data);
           var temp = [];
           let index = 1;
-          // push vehicle #1 templates in temp variable
+          // add vehicle #1 templates in temp variable
           data.vehicle_type_1.forEach(item => {
             temp.push({
               id: index++,
@@ -540,7 +542,7 @@ export default {
             });
           });
 
-          // push vehicle #2 templates in temp variable
+          // add vehicle #2 templates in temp variable
           data.vehicle_type_2.forEach(item => {
             temp.push({
               id: index++,
@@ -551,7 +553,7 @@ export default {
             });
           });
 
-          // push vehicle #3 templates in temp variable
+          // add vehicle #3 templates in temp variable
           data.vehicle_type_3.forEach(item => {
             temp.push({
               id: index++,
@@ -582,7 +584,7 @@ export default {
     // get existing portfolio data
     getExistingPortfolio: function() {
       this.$store.dispatch("loader", true);
-      get(getUrl("existing-comparative"), authHeader())
+      get(getUrl("vehicle-portfolio"), authHeader())
         .then(response => {
           var data = response.data.data;
           var temp = [];
@@ -679,20 +681,20 @@ export default {
     },
     setExistingPortfolioId: function(id) {
       this.existingPortfolioId = id;
-      this.getPortfolioData(id);
+      this.getPortfolioData(id, true);
       this.errors.vehicle1 = [];
       this.errors.vehicle2 = [];
       this.errors.vehicle3 = [];
     },
 
     // get portfolio data
-    getPortfolioData: function(id) {
+    getPortfolioData: function(id, portfolio=false) {
       if (!id) {
         return false;
       }
       this.$store.dispatch("loader", true);
       this.cvId = id;
-      get(`${getUrl("comparative")}${id}`, authHeader())
+      get(`${getUrl(portfolio ? "vehicle-portfolio" : "comparative")}${id}`, authHeader())
         .then(response => {
           var data = response.data.data;
           var vehicle1 = data.vehicle_type_1;
@@ -1380,7 +1382,6 @@ export default {
             } else {
               this.$toast.error(getFirstError(error));
             }
-            console.log(error.data.error.vehicle_type_1.description);
             this.$store.dispatch("loader", false);
           });
       }

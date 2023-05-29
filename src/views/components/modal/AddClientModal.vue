@@ -19,20 +19,20 @@
         <div class="offcanvasBodyContent">
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">First Name</label>
-            <Field type="text" name="firstname" id="fname" class="form-control CanvasinputField" />
+            <Field type="text" name="firstname" id="fname" class="form-control CanvasinputField" autocomplete="off" />
             <p class="inputError">{{errors.firstname}}</p>
             <p class="inputError" v-if="serverErrors.firstname">{{serverErrors.firstname[0]}}</p>
           </div>
           <div class="offcanInputDiv">
             <label for="mname" class="form-label">Middle Name</label>
             <label for="mname" class="optionalLabel">Optional</label>
-            <Field type="text" name="middlename" id="mname" class="form-control CanvasinputField" />
+            <Field type="text" name="middlename" id="mname" class="form-control CanvasinputField" autocomplete="off" />
             <p class="inputError">{{errors.middlename}}</p>
             <p class="inputError" v-if="serverErrors.middlename">{{serverErrors.middlename[0]}}</p>
           </div>
           <div class="offcanInputDiv">
             <label for="fname" class="form-label">Last Name</label>
-            <Field type="text" name="lastname" id="fname" class="form-control CanvasinputField" />
+            <Field type="text" name="lastname" id="fname" class="form-control CanvasinputField"  autocomplete="off" />
             <p class="inputError">{{errors.lastname}}</p>
             <p class="inputError" v-if="serverErrors.lastname">{{serverErrors.lastname[0]}}</p>
             <!-- <p class="inputError">Client already exists. <span>Add Middle Name</span>.</p> -->
