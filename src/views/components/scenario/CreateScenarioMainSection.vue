@@ -152,8 +152,7 @@
               <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <div class="return-btn-div">
-                  <router-link :to="`/report-builder/${reportId}`" :class="`nav-link btn return-to-report-btn fs-14 ${reportId ? '':'d-none'}`" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />
-                  </router-link> 
+                  <a :href="`/report-builder/${reportId}`" :class="`nav-link btn return-to-report-btn fs-14 ${reportId ? '':'d-none'}`" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                 </div>
               </div>
               <div class="text-center">
@@ -502,7 +501,6 @@ export default {
         this.illustrateYear = detail.years_to_illustrate;
         this.setInputWithId("illustratedAge", detail.years_to_illustrate);
       }
-      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
       this.setInputWithId(
@@ -561,7 +559,7 @@ export default {
           });
       }
     },
-    setScheduleData: function(data = []) {
+    setScheduleData: function(data = [], template=false) {
       this.errors.tax_rate = "";
       this.clearScheduleData();
       data.forEach(element => {
@@ -611,11 +609,11 @@ export default {
           let detail = response.data.data.data;
           if (detail) {
             this.illustrateYear = detail.length ? detail.length : 0;
-            this.setInputWithId(
-              "illustratedAge",
-              detail.length ? detail.length : 0
-            );
-            this.setScheduleData(detail);
+            // this.setInputWithId(
+            //   "illustratedAge",
+            //   detail.length ? detail.length : 0
+            // );
+            this.setScheduleData(detail, template);
           } else {
             this.clearScheduleData();
           }
@@ -686,7 +684,7 @@ export default {
           this.errors.client_age_year = "";
         }
 
-        if (!this.illustrateYear) {
+        if (!this.illustrateYear || !this.getInputUsingId('illustratedAge')) {
           this.errors.illustrate_year = ["This field is required."];
           validate = false;
         } else {

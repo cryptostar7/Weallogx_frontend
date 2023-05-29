@@ -286,8 +286,7 @@
                       </div>
                     </div>
                     <div class="return-btn-div">
-                      <router-link v-if="$route.query.report" :to="`/report-builder/${$route.query.report}`" class="nav-link btn return-to-report-btn fs-14" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />
-                      </router-link> 
+                      <a v-if="$route.query.report" :href="`/report-builder/${$route.query.report}`" class="nav-link btn return-to-report-btn fs-14" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                     </div>
                   </div>
                    <div class="d-flex justify-content-center pt-3">
