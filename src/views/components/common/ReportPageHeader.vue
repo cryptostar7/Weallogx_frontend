@@ -1,4 +1,12 @@
 <template lang="">
+  <div :class="`pdf-spinner advanced text-center ${fileLoader ? 'bgAnim' : 'd-none'}`">
+    <div>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border text-secondary" role="status"></div>
+      </div>
+      <span class="mt-3 d-inline-block">Hold on please while we are preparing the presentation mode for you!</span>
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
       <router-link class="navbar-brand backToscenario" :to="comparative ? `/scenario-details/${comparative.scenerio_id}?report=${$route.params.report}` : ''" @click="testFunction()">
@@ -134,6 +142,8 @@
   </nav>
 
 
+
+
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
@@ -146,6 +156,11 @@ import {
 
 export default {
   components: { ThemeDropdown },
+  data(){
+    return{
+    fileLoader: false,
+    }
+  },
   methods: {
     testFunction: function(){
       console.log(this.comparative.scenerio_id);
@@ -195,7 +210,20 @@ export default {
     comparative() {
       return this.$store.state.data.report.comparative;
     },
-  }
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if(val){
+        this.fileLoader = true;
+        setTimeout(() => {
+          this.fileLoader = false;
+        }, 4000);
+        // let topTable = document.getElementById("comparativeTableTabView");
+        // topTable.scrollIntoView();
+      }
+      
+    }
+  },
 };
 </script>
 <style lang="">

@@ -5182,6 +5182,12 @@ input[type=number] {
   background-color: #dfdfdf;
   pointer-events: none;
 }
+.pdf-spinner.advanced{
+  position: fixed;
+  z-index: 1999;
+  perspective: 600px;
+  overflow: hidden;
+}
 /* Chart Related CSS */
 .graph-container-div{
   position: relative;
@@ -5219,11 +5225,6 @@ input[type=number] {
 .historical-upload-info p{
   line-height: 1.4;
 }
-
-/* Illustration Section CSS */
-/*.illustration-mid{
-  margin-left: 25px;
-}*/
 .illustration-mid .search-bar-div .search-file-input{
   min-width: 320px;
 }
@@ -5336,3 +5337,23 @@ input[type=number] {
   word-break: break-all;
 }
 /* Illustration Section CSS Ends here */
+.bgAnim{
+  animation: bgAnim 1500ms linear;
+}
+@keyframes bgAnim{
+  0%{
+    background-color: #a0a0a0;
+  }
+  25%{
+    background-color: #aaa;
+  }
+  50%{
+    background-color: #b0b0b0;
+  }
+  75%{
+    background-color: #ccc;
+  }
+  100%{
+    background-color: #dfdfdf;
+  }
+}

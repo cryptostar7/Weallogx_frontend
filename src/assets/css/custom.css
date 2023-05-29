@@ -2634,7 +2634,7 @@ p.allCardHeadPara{
   margin: 0;
   /*margin-bottom: 2rem;*/
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--green-clr);
 }
 
@@ -2642,6 +2642,7 @@ p.allCardHeadPara{
   font-weight: 500;
   font-size: 9px;
   color: #9D9D9D;
+  display: block;
 }
 
 .AddNoteBtn {
@@ -2744,7 +2745,8 @@ p.allCardHeadPara{
   font-size: 11px;
   text-align: center;
   color: #FFF;
-  padding: 0.3rem 0;
+  padding: 0.4375rem 0;
+  line-height: 1;
 }
 
 .CardProgressBig1 {
@@ -2823,17 +2825,17 @@ p.allCardHeadPara{
   margin: 1rem;
 }
 
-.contribution-radio .checkbox2:checked~.layer2 {
-  background-color: rgba(14, 103, 82, .4) !important;
+.contribution-radio .checkbox2:checked~ .layer2 {
+  background-color: rgba(14, 103, 82, 0.4) !important;
 }
 
-.distribution-radio .checkbox2:checked~.layer2 {
-  background-color: rgba(131, 159, 175, .6) !important;
+.distribution-radio .checkbox2:checked~ .layer2 {
+  background-color: rgba(131, 159, 175, 0.6) !important;
 }
 
 .progressBarEachBtm.comparative p {
   position: relative;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: #000000;
   margin-right: 1rem;
@@ -2848,18 +2850,16 @@ p.allCardHeadPara{
   transform: translateY(-50%);
   width: 13px;
   height: 21px;
-
-  opacity: 0.4;
   border-radius: 2px;
 
 }
 
 .progressBarEachBtm.comparative .contribution-radio p::before {
-  background: rgba(14, 103, 82, .4);
+  background: rgba(14, 103, 82, 0.4);
 }
 
 .progressBarEachBtm.comparative .distribution-radio p::before {
-  background: rgba(131, 159, 175, .6);
+  background: rgba(131, 159, 175, 0.6);
 }
 
 @media (max-width:1500px) {
@@ -3194,10 +3194,12 @@ p.allCardHeadPara{
   margin: 0;
   z-index: 5;
 }
-
-.commonRedRadioSwtchpara {
+.CardProgressnym{
+  font-size: 13px;
+  line-height: 1.35;
   font-weight: 600;
-  font-size: 12px;
+}
+.commonRedRadioSwtchpara {  
   color: #EA0000;
 }
 
@@ -3283,17 +3285,15 @@ p.allCardHeadPara{
   left: 50%;
   transform: translateX(-50%);
 }
-
 .shortFallCount p:nth-child(1) {
   margin: 0;
   font-weight: 600;
   font-size: 8px;
   color: #fff;
 }
-
 .shortFallCount p:nth-child(2) {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 11px;
   color: #fff;
   margin: 0;
 }
@@ -4059,7 +4059,7 @@ Blank div css end here
 .feeProgressAbsltCls {
   width: 100%;
   position: absolute;
-  bottom: 2.175rem;
+  bottom: 2.25rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -4067,7 +4067,7 @@ Blank div css end here
 }
 
 .feeProgressAbsltCls .progressAllBarsDivMain {
-  width: calc(100% - 40px);
+  width: calc(100% - 15px);
 }
 
 .feeProgressBarEachDivMain {
@@ -4945,7 +4945,7 @@ border: none;
 
 .position-up2 {
   position: relative;
-  top: -4px;
+  top: -2px;
 }
 
 .pos-top {

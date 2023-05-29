@@ -518,12 +518,15 @@ export default {
         document
           .querySelector(".presentationModeBtn")
           .addEventListener("click", function() {
+
             if (assestShowHide.classList.contains("on")) {
               htmlLegendPlugin0.hideAll(
                 window.comparativeGraphChart,
                 comparativeValuesConfig.options
               );
             }
+            // let topTable = document.getElementById("comparativeTableTabView");
+            // topTable.scrollIntoView();
           });
 
         document
@@ -533,6 +536,9 @@ export default {
               window.comparativeGraphChart,
               comparativeValuesConfig.options
             );
+            let topTable = document.getElementById("comparativeTableTabView");
+            topTable.scrollIntoView();
+            
           });
       }
     },

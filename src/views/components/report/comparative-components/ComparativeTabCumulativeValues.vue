@@ -59,16 +59,16 @@
                           </div>                          
                           <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                           <div class="mt-2 d-flex">
-                            <div :class="`mt-1 CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.cumulative_income[index].active ? '': 'boxProgress'}`">
+                            <div :class="`CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.cumulative_income[index].active ? '': 'boxProgress'}`">
                               <div class="CardProgress"></div>
                               <p class="lineUnderBars"></p>
                             </div>
                             <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
-                              <span>Cumulative Income</span><br />
+                              <span>Cumulative Income</span>
                               {{$numFormatWithDollar(item.cumulative_income)}}
                             </p> 
                             <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
-                              <span>Shortfall</span><br />
+                              <span>Shortfall</span>
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
                           </div>
@@ -132,17 +132,17 @@
                             </div>
                           </div>
                           <div class="mt-2 d-flex">
-                            <div :class="`mt-1 CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.total_value[index].active ? '': 'boxProgress'}`">
+                            <div :class="`CardProgressBar lightProgress${1+index} boxProgressCommon${1+index} ${cards.total_value[index].active ? '': 'boxProgress'}`">
                               <div :class="`CardProgress darkProgress${1+index}`"></div>
                               <p class="lineUnderBars"></p>
                             </div>
 
                             <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
-                              <span>Total Value</span><br />
+                              <span>Total Value</span>
                               {{$numFormatWithDollar(item.total_value)}}
                             </p> 
                             <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
-                              <span>Shortfall</span><br />
+                              <span>Shortfall</span>
                               {{$numFormatWithDollar(item.shortfall)}}
                             </p>
                           </div>
