@@ -213,15 +213,16 @@ export default {
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
+      let topTable;
       if(val){
         this.fileLoader = true;
         setTimeout(() => {
           this.fileLoader = false;
+          topTable = document.getElementById("comparativeTableTabView");
+          topTable.scrollIntoView();
         }, 4000);
-        // let topTable = document.getElementById("comparativeTableTabView");
-        // topTable.scrollIntoView();
-      }
-      
+        
+      }      
     }
   },
 };
