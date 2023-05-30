@@ -467,6 +467,9 @@ export default {
 
     existingIllustrationList() {
       let array = this.$store.state.data.templates.illustration || [];
+      if(array){
+        array= array.filter(i => i.client === this.activeScenario.client)
+      }
       return array;
     },
 
@@ -1622,7 +1625,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      // console.log(this.errors);
+      console.log(this.$store.state.data.active_scenario.client);
     },
     // remove column from the illustration data table
     removeColumn: function() {
