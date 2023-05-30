@@ -675,7 +675,8 @@ export default {
       }
 
       if (!index) {
-        data = { insurance_policy_nickname: name };
+        data = new FormData();
+        data.append('insurance_policy_nickname', name);
         url = "illustration";
         cvId = this.comparativeTable.illustration_id;
       }
