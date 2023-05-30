@@ -4108,7 +4108,9 @@ Blank div css end here
   padding: 35px 12px 20px 12px;
   width: 100%;
 }
-
+.feeMainProgrssBarDiv .feeMainProgBrdrDivs:nth-of-type(1) p{
+  margin-top: 0;
+}
 /*  */
 
 .feeAnalysisLeftBar1{
@@ -4194,7 +4196,7 @@ background: #1D856C;
 .feeProgressBarEachDiv {
   position: relative;
   width: 75px;
-  height: 200px;
+  height: 215px;
   background: transparent;
   border-radius: 8px;
   display: flex;
