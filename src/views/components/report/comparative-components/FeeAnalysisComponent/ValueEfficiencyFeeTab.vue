@@ -214,12 +214,22 @@ export default {
     },
     maxFees() {
       let data = this.data;
-      return Math.max(...[...data.map(i => Number(i.total_fees))]);
+      return Math.max(
+        ...[
+          ...data.map(i => Number(i.total_fees)),
+          ...data.map(i => Number(i.total_value)),
+        ]
+      );
     },
 
     maxTotalValue() {
       let data = this.data;
-      return Math.max(...[...data.map(i => Number(i.total_value))]);
+      Math.max(
+        ...[
+          ...data.map(i => Number(i.total_fees)),
+          ...data.map(i => Number(i.total_value)),
+        ]
+      );
     },
   },
 };
