@@ -296,7 +296,7 @@
                       </draggable> 
                     </div>
                   </div>
-                  <p class="compSumAnlysPara mt-2">Summary Analysis</p>
+                  <p class="compSumAnlysPara mt-2" @click="testFunction">Summary Analysis</p>
                   <div class="mt-2 summary-analysis">
                     <div class="row">
                       <div class="col-3 col-md-2 ps-0 pe-1">
@@ -584,7 +584,7 @@ export default {
   },
   methods: {
     testFunction: function() {
-      // console.log(this.mapData(this.comparativeTable));
+      console.log(this.summary_data.deposits.totals);
     },
 
     init: function() {
@@ -663,7 +663,7 @@ export default {
       let cvId = this.comparativeTable.vehicle_1_id;
 
       let url = "vehicle-type1";
-      let data = { insurance_policy_nickname: name };
+      let data = { name: name };
       if (index === 2) {
         cvId = this.comparativeTable.vehicle_2_id;
         url = "vehicle-type2";
@@ -770,7 +770,7 @@ export default {
         tempData.distributions = dst;
         tempData.data[0] = details;
 
-        this.summary_data.deposits.totals = ct.lirp_data.total_value;
+        this.summary_data.deposits.totals = ct.lirp_data.lirp_total_deposite;
         this.summary_data.deposits.shortfall = ct.lirp_data.shortfall;
 
         this.summary_data.data[0] = {
@@ -811,9 +811,9 @@ export default {
         details.list = list;
         tempData.data[1] = details;
 
-        this.summary_data.deposits.totals = ct.cv_1.comparison.total_value;
-        this.summary_data.deposits.shortfall =
-          ct.cv_1.comparison.diff_from_lirp;
+        // this.summary_data.deposits.totals = ct.cv_1.comparison.total_value;
+        // this.summary_data.deposits.shortfall =
+        //   ct.cv_1.comparison.diff_from_lirp;
 
         this.summary_data.data[1] = {
           id: 1,
