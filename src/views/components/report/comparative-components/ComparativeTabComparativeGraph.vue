@@ -432,7 +432,7 @@ export default {
               },
               min: 1,
               ticks: {
-                align: "end",
+                align: "start",
                 font: {
                   size: 12,
                   family: "Inter",
