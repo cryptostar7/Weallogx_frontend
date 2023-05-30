@@ -1430,11 +1430,10 @@ export default {
             this.getExistingIllustration();
             this.getExistingInsurance();
             this.$toast.success(response.data.message);
-            this.$router.push(
-              `/${review ? "review-summary" : "comparative-vehicles"}/${
-                this.$route.params.scenario
-              }`
-            );
+            let url = `/${review ? "review-summary" : "comparative-vehicles"}/${
+              this.$route.params.scenario
+            }`;
+            this.$router.push({ path: url, query: this.$route.query });
             console.log(response);
           })
           .catch(error => {
