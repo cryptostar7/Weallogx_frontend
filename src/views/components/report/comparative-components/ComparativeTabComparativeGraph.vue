@@ -212,15 +212,22 @@ export default {
       }
 
       let dataset = {
-        labels: [1, ...years.map(i => (years.includes(i / 5) ? i : ""))],
+        labels: [
+          1,
+          ...years
+            .filter(i => i > 1)
+            .map(i => (years.includes(i / 5) ? i : "")),
+        ],
+        // labels: years,
         datasets: [
           {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#1660A4" : this.$appTheme() == "dark-green" ? '#26AB8B'
-                : "#0E6651",
-            pointBackgroundColor: this.$appTheme() == "light-blue" ||
+                ? "#1660A4"
+                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
                 ? "#1660A4"
                 : "#0E6651",
@@ -231,7 +238,7 @@ export default {
             TooltipLabelStyle: {
               backgroundColor: "white",
               borderColor: "white",
-            }
+            },
           },
           {
             borderColor:
@@ -247,7 +254,9 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(1) ? [] : cv1.map(i => i.toFixed(0)) || [],
+            data: this.deletedItems.includes(1)
+              ? []
+              : cv1.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#763CA3",
@@ -255,7 +264,9 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(2) ? [] : cv2.map(i => i.toFixed(0)) || [],
+            data: this.deletedItems.includes(2)
+              ? []
+              : cv2.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -263,10 +274,12 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(3) ? [] : cv3.map(i => i.toFixed(0)) || [],
+            data: this.deletedItems.includes(3)
+              ? []
+              : cv3.map(i => i.toFixed(0)) || [],
           },
           {
-            barPercentage: 1,
+            barPercentage: 0,
             barThickness: 12,
             backgroundColor: "rgba(14, 103, 82, .4)",
             pointBackgroundColor: "rgba(14, 103, 82, 1)",
@@ -278,7 +291,7 @@ export default {
             yAxisID: "B",
           },
           {
-            barPercentage: 1,
+            barPercentage: 0,
             barThickness: 12,
             backgroundColor: "rgba(131, 159, 175, .7)",
             pointBackgroundColor: "rgba(131, 159, 175, 1)",
@@ -289,12 +302,11 @@ export default {
             borderRadius: 2,
             yAxisID: "B",
           },
-
         ],
       };
       return dataset;
     },
-    // Render graph 
+    // Render graph
     setGraph: function() {
       if (window.comparativeGraphChart) {
         // clear the old initialized graph
@@ -401,15 +413,15 @@ export default {
               display: false,
             },
             tooltip: {
-                callbacks: {
-                    labelPointStyle: function(context) {
-                        return {
-                            pointStyle: 'triangle',
-                            rotation: 0
-                        };
-                    }
-                }
-            }
+              callbacks: {
+                labelPointStyle: function(context) {
+                  return {
+                    pointStyle: "triangle",
+                    rotation: 0,
+                  };
+                },
+              },
+            },
           },
           scales: {
             x: {
@@ -422,7 +434,7 @@ export default {
               ticks: {
                 align: "end",
                 font: {
-                  size: 11,
+                  size: 12,
                   family: "Inter",
                   weight: "500",
                 },
@@ -465,7 +477,7 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: this.$roundFigureNum(Number(maxAcc2*2)).toFixed(0),
+              max: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
               ticks: {
                 align: "start",
                 padding: 8,
@@ -498,11 +510,10 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-        } else if(screenMode == "dark-green"){
+        } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
-        }
-        else {
+        } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
         }
@@ -518,7 +529,6 @@ export default {
         document
           .querySelector(".presentationModeBtn")
           .addEventListener("click", function() {
-
             if (assestShowHide.classList.contains("on")) {
               htmlLegendPlugin0.hideAll(
                 window.comparativeGraphChart,
@@ -538,14 +548,13 @@ export default {
             );
             let topTable = document.getElementById("comparativeTableTabView");
             topTable.scrollIntoView();
-            
           });
       }
     },
     testFunction: function() {
       console.log(this.comparative);
     },
-    // to get the longevity year 
+    // to get the longevity year
     getYear: function(array, age) {
       let year = array.filter(i => i);
       year = year.length;
@@ -643,7 +652,7 @@ export default {
       }
     },
     "comparative.cv_1.length"() {
-      console.log('graph set');
+      console.log("graph set");
       this.setGraph();
     },
     "deletedItems.length"(val) {
