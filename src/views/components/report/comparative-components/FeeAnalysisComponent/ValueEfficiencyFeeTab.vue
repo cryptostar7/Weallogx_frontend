@@ -40,8 +40,8 @@
     <div class="container-fluid mt-20">
       <div class="feeMainProgrssBarDiv">
         <div>
-          <div v-for="(item, index) in 6" :key="index" :class="`d-flex feeMainProgBrdrDivs ${index > 4 ? 'm-0 p-0' : ''}`">
-            <p class="feeMainProgBrdr"></p>
+          <div v-for="(item, index) in 6" :key="index" :class="`d-flex feeMainProgBrdrDivs ${index > 4 ? 'mb-0' : ''}`">
+            <p class="feeMainProgBrdr ${index > 5 ? 'mb-0' : ''}`"></p>
           </div>
         </div>
 
