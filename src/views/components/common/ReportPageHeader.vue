@@ -1,10 +1,10 @@
 <template lang="">
-  <div :class="`pdf-spinner advanced text-center ${fileLoader ? 'bgAnim' : 'd-none'}`">
+  <div :class="`pdf-spinner advanced text-center ${pLoader ? 'bgAnim' : 'd-none'}`">
     <div>
       <div class="d-flex justify-content-center">
         <div class="spinner-border text-secondary" role="status"></div>
       </div>
-      <span class="mt-3 d-inline-block">Hold on please while we are preparing the presentation mode for you!</span>
+      <span class="mt-3 d-inline-block medium-fw">This could be the start of something epic...</span>
     </div>
   </div>
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
@@ -158,7 +158,7 @@ export default {
   components: { ThemeDropdown },
   data(){
     return{
-    fileLoader: false,
+    pLoader: false,
     }
   },
   methods: {
@@ -215,9 +215,9 @@ export default {
     "$store.state.app.presentation_mode"(val) {
       let topTable;
       if(val){
-        this.fileLoader = true;
+        this.pLoader = true;
         setTimeout(() => {
-          this.fileLoader = false;
+          this.pLoader = false;
           topTable = document.getElementById("comparativeTableTabView");
           topTable.scrollIntoView();
         }, 4000);

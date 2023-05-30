@@ -535,8 +535,6 @@ export default {
                 comparativeValuesConfig.options
               );
             }
-            // let topTable = document.getElementById("comparativeTableTabView");
-            // topTable.scrollIntoView();
           });
 
         document
