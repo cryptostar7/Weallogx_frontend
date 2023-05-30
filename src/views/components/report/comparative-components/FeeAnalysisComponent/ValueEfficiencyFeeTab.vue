@@ -224,7 +224,7 @@ export default {
 
     maxTotalValue() {
       let data = this.data;
-      Math.max(
+      return Math.max(
         ...[
           ...data.map(i => Number(i.total_fees)),
           ...data.map(i => Number(i.total_value)),
