@@ -192,7 +192,7 @@ export default {
           let years = chart.chart_output.year;
           cumulativeFeesData.labels = [
             1,
-            ...years.map(i => (years.includes(i / 5) ? i : "")),
+            ...years.filter(i => i > 1).map(i => (years.includes(i / 5) ? i : "")),
           ];
         }
 
