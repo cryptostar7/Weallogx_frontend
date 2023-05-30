@@ -893,7 +893,7 @@ export default {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
               this.$router.push({
-                path: `/illustration-data/${this.activeScenario.id}`,
+                path: `/illustration-data/${this.activeScenario.id}`, query: this.$route.query
               });
             } else {
               console.log("data not found.");
@@ -947,7 +947,7 @@ export default {
           console.log(response.data.id);
           if (response.data.id) {
             console.log("illustration");
-            this.$router.push(`/illustration-data/${response.data.id}`);
+            this.$router.push({path : `/illustration-data/${response.data.id}`, query: this.$route.query});
           } else {
             this.$toast.error("Something went wrong.");
           }

@@ -7,7 +7,7 @@
           <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '' : 'inactive'}`">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <p class="allCardHeadPara">Value Efficiency</p>
+                <p class="allCardHeadPara" @click="testFunction">Value Efficiency</p>
               </div>
               <div class="d-flex">
                 <div class="button-cover2">
@@ -51,7 +51,7 @@
               <div class="d-flex groupedFourBars2">
                 <div
                   class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
-                  <div :class="`CardProgressBig feeAnalysisLeftBar${1+index}`" :style="{height: `${Number(item.value_efficiency)*100/maxFeeValue}%`}">
+                  <div :class="`CardProgressBig feeAnalysisLeftBar${1+index}`" :style="{height: `${Number(item.value_efficiency)*100/maxEfficiency}%`}">
                   </div>
                   <div :class="`position-absolute progressBarbtmNum feeAnalysisLeftBarBtm${1+index}`">
                     $<span>{{$numFormat(item.value_efficiency.toFixed(2))}}</span>
@@ -59,7 +59,7 @@
                 </div>
                 <div
                   class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
-                  <div :class="`CardProgressBig feeAnalysisMiddleBar${1+index}`" :style="{height:  `${Number(item.total_fees)*100/maxFeeValue}%`}">
+                  <div :class="`CardProgressBig feeAnalysisMiddleBar${1+index}`" :style="{height:  `${Number(item.total_fees)*100/maxFees}%`}">
                   </div>
                   <div :class="`position-absolute progressBarbtmNum feeAnalysismiddleBarBtm${1+index}`">
                     $<span>{{$numFormat(item.total_fees.toFixed(2))}}</span>
@@ -67,7 +67,7 @@
                 </div>
                 <div
                   class="bgImgNoneAndTabRadius feeProgressBarEachDiv">
-                  <div :class="`CardProgressBig feeAnalysisRightBar${1+index}`" :style="{height:  `${Number(item.total_value)*100/maxFeeValue}%`}">
+                  <div :class="`CardProgressBig feeAnalysisRightBar${1+index}`" :style="{height:  `${Number(item.total_value)*100/maxTotalValue}%`}">
                   </div>
                   <div :class="`position-absolute progressBarbtmNum feeAnalysisrightBarBtm${1+index}`">
                     $<span>{{$numFormat(item.total_value.toFixed(2))}}</span>
@@ -95,43 +95,27 @@ export default {
       data: [
         {
           type: "",
-          value_efficiency_ratio: "",
           value_efficiency: 0,
           total_fees: 0,
           total_value: 0,
-          value_efficiency_in_percent: "",
-          total_fee_in_percent: "",
-          total_value_in_percent: "",
         },
         {
           type: "",
-          value_efficiency_ratio: "",
           value_efficiency: 0,
           total_fees: 0,
           total_value: 0,
-          value_efficiency_in_percent: "",
-          total_fee_in_percent: "",
-          total_value_in_percent: "",
         },
         {
           type: "",
-          value_efficiency_ratio: "",
           value_efficiency: 0,
           total_fees: 0,
           total_value: 0,
-          value_efficiency_in_percent: "",
-          total_fee_in_percent: "",
-          total_value_in_percent: "",
         },
         {
           type: "",
-          value_efficiency_ratio: "",
           value_efficiency: 0,
           total_fees: 0,
           total_value: 0,
-          value_efficiency_in_percent: "",
-          total_fee_in_percent: "",
-          total_value_in_percent: "",
         },
       ],
     };
@@ -142,7 +126,12 @@ export default {
     }
   },
   methods: {
-    // map the data from API 
+    testFunction: function() {
+      console.log(this.maxEfficiency);
+      console.log(this.maxFees);
+      console.log(this.maxTotalValue);
+    },
+    // map the data from API
     mapData: function() {
       if (this.comparative.cv_1) {
         let chart = this.comparative.lirp_data;
@@ -151,36 +140,41 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart) {
-          this.data[0].value_efficiency_ratio =
-            chart.total_value_fee_ratio || 0;
           this.data[0].total_fees = chart.fee_data || 0;
           let lirpTotal = chart.chart_output.total_valaue_data;
           this.data[0].total_value = lirpTotal[lirpTotal.length - 1] || 0;
-          this.data[0].value_efficiency = this.data[0].total_value/this.data[0].total_fees;
+          this.data[0].value_efficiency =
+            this.data[0].total_value / this.data[0].total_fees;
         }
 
         if (chart1) {
-          this.data[1].value_efficiency_ratio = chart1.comparison.total_value_fee_ratio;
           this.data[1].total_fees = chart1.comparison.total_comprehensive_fees;
-          let cv1Total = chart1.comparison.chart_output.Total_value.filter(i => i);
-          this.data[1].total_value = cv1Total[cv1Total.length -1];
-          this.data[1].value_efficiency = this.data[1].total_value/this.data[1].total_fees;
+          let cv1Total = chart1.comparison.chart_output.Total_value.filter(
+            i => i
+          );
+          this.data[1].total_value = cv1Total[cv1Total.length - 1];
+          this.data[1].value_efficiency =
+            this.data[1].total_value / this.data[1].total_fees;
         }
 
         if (Object.values(chart2).length) {
-          this.data[2].value_efficiency_ratio =  chart2.comparison.total_value_fee_ratio;
           this.data[2].total_fees = chart2.comparison.total_comprehensive_fees;
-          let cv2Total = chart2.comparison.chart_output.Total_value.filter(i => i);
-          this.data[2].total_value = cv2Total[cv2Total.length -1];
-          this.data[2].value_efficiency = this.data[2].total_value/this.data[2].total_fees;
+          let cv2Total = chart2.comparison.chart_output.Total_value.filter(
+            i => i
+          );
+          this.data[2].total_value = cv2Total[cv2Total.length - 1];
+          this.data[2].value_efficiency =
+            this.data[2].total_value / this.data[2].total_fees;
         }
 
         if (Object.values(chart3).length) {
-          this.data[3].value_efficiency_ratio = chart3.comparison.total_value_fee_ratio;
           this.data[3].total_fees = chart3.comparison.total_comprehensive_fees;
-          let cv3Total = chart3.comparison.chart_output.Total_value.filter(i => i);
-          this.data[3].total_value = cv3Total[cv3Total.length -1];
-          this.data[3].value_efficiency = this.data[3].total_value/this.data[3].total_fees;
+          let cv3Total = chart3.comparison.chart_output.Total_value.filter(
+            i => i
+          );
+          this.data[3].total_value = cv3Total[cv3Total.length - 1];
+          this.data[3].value_efficiency =
+            this.data[3].total_value / this.data[3].total_fees;
         }
       }
     },
@@ -214,17 +208,18 @@ export default {
     comparative() {
       return this.$store.state.data.report.comparative || false;
     },
-    maxFeeValue() {
+    maxEfficiency() {
       let data = this.data;
-      return this.$roundFigureNum(
-        Math.max(
-          ...[
-            ...data.map(i => Number(i.value_efficiency)),
-            ...data.map(i => Number(i.total_fees)),
-            ...data.map(i => Number(i.total_value)),
-          ]
-        )
-      );
+      return Math.max(...[...data.map(i => Number(i.value_efficiency))]);
+    },
+    maxFees() {
+      let data = this.data;
+      return Math.max(...[...data.map(i => Number(i.total_fees))]);
+    },
+
+    maxTotalValue() {
+      let data = this.data;
+      return Math.max(...[...data.map(i => Number(i.total_value))]);
     },
   },
 };
