@@ -127,8 +127,8 @@ export default {
       this.tax_rate = data.tax_rate + "%";
       this.second_tax_rate = data.second_tax_rate + "%";
 
-      if (!this.tax_rate) {
-        is_schedule = true;
+      if (!data.tax_rate) {
+        this.is_schedule = true;
       } else {
         this.year = data.second_tax_rate_year - 1;
       }
