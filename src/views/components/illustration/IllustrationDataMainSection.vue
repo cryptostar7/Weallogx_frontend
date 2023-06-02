@@ -1391,7 +1391,7 @@ export default {
       this.csvPreview.headers.forEach(item => {
         if (this.illustrationFields[item]) {
           var field = this.illustrationFields[item].value;
-          // set custome keys for multiple fees data 
+          // set custome keys for multiple fees data
           if (item === "6") {
             if (currentFeeCol) {
               field += currentFeeCol;
@@ -1711,8 +1711,12 @@ export default {
     // filter illustarion object data
     filterObject: function(array = { data: [], headers: [] }) {
       array.data = array.data.map(i =>
-        i.map(e => e.split("/")[1] || e.split("/")[0])
-      ); // map data for "58/59" format values. ----- return "59" value
+        i.map(e => {
+          e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
+          e = e.split('.')[0]; // remove decimal points
+          return e;
+        })
+      ); 
       array.data = array.data.filter((i, k) => k < this.illustrateYear);
       return array;
     },
