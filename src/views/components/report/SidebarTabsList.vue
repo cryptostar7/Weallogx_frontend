@@ -37,7 +37,6 @@ export default {
   components: { draggable: VueDraggableNext },
   data() {
     return {
-      activeTabs: this.$store.state.data.reportTabs.active,
       presentation_tab:'',
     };
   },
@@ -51,6 +50,11 @@ export default {
       element.scrollIntoView({ behavior: "smooth" });
     },
   },
+  computed: {
+    activeTabs() {
+        return this.$store.state.data.reportTabs.active;
+    }
+  }
 };
 </script>
 <style lang="">

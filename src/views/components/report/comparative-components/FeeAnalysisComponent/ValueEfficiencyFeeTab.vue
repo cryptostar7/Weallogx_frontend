@@ -86,12 +86,12 @@
 export default {
   data() {
     return {
-      cards: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-        { id: 4, active: true },
-      ],
+      // cards: [
+      //   { id: 1, active: true },
+      //   { id: 2, active: true },
+      //   { id: 3, active: true },
+      //   { id: 4, active: true },
+      // ],
       data: [
         {
           type: "",
@@ -196,6 +196,9 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards.cmp_fee_analysis.value_efficiency_fee;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

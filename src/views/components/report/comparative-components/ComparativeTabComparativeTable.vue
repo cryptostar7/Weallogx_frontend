@@ -481,11 +481,7 @@ export default {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "target_analysis",
       currentFilter: "default",
-      draggableColumns: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-      ],
+      // draggableColumns: this.$store.state.data.reportTabs.active_cards.cmp_comparative_table,
       showAll: false,
       target_analysis: {
         distributions: [
@@ -926,6 +922,9 @@ export default {
     },
   },
   computed: {
+    draggableColumns() {
+       return this.$store.state.data.reportTabs.active_cards.cmp_comparative_table;
+    },
     comparativeTable() {
       return this.$store.state.data.report.comparative;
     },

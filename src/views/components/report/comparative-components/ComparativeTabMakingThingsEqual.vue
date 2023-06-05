@@ -377,32 +377,32 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "distributions amounts",
-      cards: {
-        distributions: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
-          { id: 4, active: true },
-        ],
-        rate_of_returns: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
-          { id: 4, active: true },
-        ],
-      },
-      graphs: {
-        distributions: {
-          longevity: true,
-          ending_value: true,
-          death_benefit: true,
-        },
-        rate_of_returns: {
-          longevity: true,
-          ending_value: true,
-          death_benefit: true,
-        },
-      },
+      // cards: {
+      //   distributions: [
+      //     { id: 1, active: true },
+      //     { id: 2, active: true },
+      //     { id: 3, active: true },
+      //     { id: 4, active: true },
+      //   ],
+      //   rate_of_returns: [
+      //     { id: 1, active: true },
+      //     { id: 2, active: true },
+      //     { id: 3, active: true },
+      //     { id: 4, active: true },
+      //   ],
+      // },
+      // graphs: {
+      //   distributions: {
+      //     longevity: true,
+      //     ending_value: true,
+      //     death_benefit: true,
+      //   },
+      //   rate_of_returns: {
+      //     longevity: true,
+      //     ending_value: true,
+      //     death_benefit: true,
+      //   },
+      // },
       data: {
         distribution: [
           {
@@ -608,6 +608,14 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards
+        .cmp_making_things.cards;
+    },
+    graphs() {
+      return this.$store.state.data.reportTabs.active_cards
+        .cmp_making_things.graphs;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

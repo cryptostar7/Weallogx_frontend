@@ -10,7 +10,7 @@
         </button>
         <div class="position-sticky h-100 sidebar-inner sidebarInnerJs1 px-0 py-0 position-relative" :style="{display: sidebar.collapse ? 'none' : 'block'}">
           <div class="reportBuilderLft1 px-10 py-4">
-            <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
+            <h3 class="fs-26 bold-fw text-white mb-20" @click="testFunction">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'comparative' ? 'active':''}`" @click="() => sidebar.currentTab = 'comparative'">Comparative Analysis</button>
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" disabled @click="() => sidebar.currentTab = 'historical'">Historical Simulations</button>
@@ -65,7 +65,6 @@ export default {
     return {
       enabled: true,
       dragging: false,
-      list: this.$store.state.data.reportTabs,
       sidebar: {
         collapse: false,
         currentTab: "comparative",
@@ -74,6 +73,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function() {
+      console.log(this.$store.state.data.reportTabs);
+    },
     getComparativeData: function(id) {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");
@@ -118,6 +120,7 @@ export default {
       this.getNotes();
       this.getDesclosures();
     },
+    // fetch comparative report data from API
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
       get(`${getUrl(url)}${this.$route.params.report}`, authHeader())
@@ -137,6 +140,8 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+
+    // get historical report data
     getHistoricalData: function() {
       this.$store.dispatch("loader", true);
       get(`${getUrl("historical_report")}`, authHeader())
@@ -148,6 +153,33 @@ export default {
         })
         .catch(error => {
           this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getCurrentReportInfo: function() {
+      get(`${getUrl("report")}${this.$route.params.report}/`, authHeader())
+        .then(response => {
+          console.log("response.data report");
+          console.log(response.data.data.saved_action.active_tabs);
+          this.$store.dispatch(
+            "activeReportTabs",
+            response.data.data.saved_action.active_tabs
+          );
+          this.$store.dispatch(
+            "activeReportCards",
+            response.data.data.saved_action.active_cards
+          );
+          // this.$store.dispatch('', response.data.data.saved_action);
+        })
+        .catch(error => {
+          console.log(error.message);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
           this.$store.dispatch("loader", false);
         });
     },
@@ -192,13 +224,14 @@ export default {
     },
   },
   mounted() {
-    if(this.$route.query.present === 'true'){
-      this.$store.dispatch('presentation', true);
+    if (this.$route.query.present === "true") {
+      this.$store.dispatch("presentation", true);
     }
     // fetch comarative reports data from API
     if (this.$route.params.report) {
       this.getComparativeData(this.$route.params.report);
       this.getHistoricalData();
+      this.getCurrentReportInfo();
     }
   },
   watch: {
@@ -210,9 +243,12 @@ export default {
     },
   },
   computed: {
+    list() {
+      return this.$store.state.data.reportTabs;
+    },
     comparativeReport() {
       return this.$store.state.data.report.comparative;
-    },
+    }
   },
 };
 </script>

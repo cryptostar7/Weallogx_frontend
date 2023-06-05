@@ -39,12 +39,12 @@
 export default {
   data() {
     return {
-      cards: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-        { id: 4, active: true },
-      ],
+      // cards: [
+      //   { id: 1, active: true },
+      //   { id: 2, active: true },
+      //   { id: 3, active: true },
+      //   { id: 4, active: true },
+      // ],
       data: [
         {
           type: "",
@@ -134,9 +134,9 @@ export default {
                 : "rgba(14, 102, 81, .35)",
             borderColor:
               this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue" 
-                ? "#1660A4" : this.$appTheme() == "dark-green" ? "#26AB8B"
-                : "#0E6651",
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
+                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
@@ -192,23 +192,28 @@ export default {
           let years = chart.chart_output.year;
           cumulativeFeesData.labels = [
             1,
-            ...years.filter(i => i > 1).map(i => (years.includes(i / 5) ? i : "")),
+            ...years
+              .filter(i => i > 1)
+              .map(i => (years.includes(i / 5) ? i : "")),
           ];
         }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
-          cumulativeFeesData.datasets[1].data =
-            chart1.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
+          cumulativeFeesData.datasets[1].data = chart1.comparison.chart_output.cummulative_fees.map(
+            i => i.toFixed(0)
+          );
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
-          cumulativeFeesData.datasets[2].data =
-            chart2.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
+          cumulativeFeesData.datasets[2].data = chart2.comparison.chart_output.cummulative_fees.map(
+            i => i.toFixed(0)
+          );
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
-          cumulativeFeesData.datasets[3].data =
-            chart3.comparison.chart_output.cummulative_fees.map(i => i.toFixed(0));
+          cumulativeFeesData.datasets[3].data = chart3.comparison.chart_output.cummulative_fees.map(
+            i => i.toFixed(0)
+          );
         }
       }
       return cumulativeFeesData;
@@ -370,25 +375,18 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-          graphData.datasets[0].backgroundColor =
-            "rgba(22, 96, 164, .4)";
-          graphData.datasets[1].backgroundColor =
-            "rgba(8, 152, 117, .35)";
-        }else if(screenMode == "dark-green"){
+          graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, .4)";
+          graphData.datasets[1].backgroundColor = "rgba(8, 152, 117, .35)";
+        } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
-          graphData.datasets[0].backgroundColor =
-            "rgba(8, 152, 117, .35)";
-          graphData.datasets[1].backgroundColor =
-            "rgba(22, 96, 164, .4)";
+          graphData.datasets[0].backgroundColor = "rgba(8, 152, 117, .35)";
+          graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .4)";
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
-          graphData.datasets[0].backgroundColor =
-            "rgba(14, 102, 81, .4)";
+          graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, .4)";
           graphData.datasets[1].borderColor = "#1660A4";
-          graphData.datasets[1].backgroundColor =
-            "rgba(22, 96, 164, .35)";
-          
+          graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .35)";
         }
         window.cumulativeChart.update();
       });
@@ -441,6 +439,9 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards.cmp_fee_analysis.cummulative_fee;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

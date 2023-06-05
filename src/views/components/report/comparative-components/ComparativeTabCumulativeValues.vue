@@ -198,20 +198,20 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      cards: {
-        cumulative_income: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
-          { id: 4, active: true },
-        ],
-        total_value: [
-          { id: 1, active: true },
-          { id: 2, active: true },
-          { id: 3, active: true },
-          { id: 4, active: true },
-        ],
-      },
+      // cards: {
+      //   cumulative_income: [
+      //     { id: 1, active: true },
+      //     { id: 2, active: true },
+      //     { id: 3, active: true },
+      //     { id: 4, active: true },
+      //   ],
+      //   total_value: [
+      //     { id: 1, active: true },
+      //     { id: 2, active: true },
+      //     { id: 3, active: true },
+      //     { id: 4, active: true },
+      //   ],
+      // },
       data: {
         cumulative_income: [
           {
@@ -349,10 +349,14 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards
+        .cmp_cumulative_values;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },
-    activeCards(){
+    activeCards() {
       return 4 - this.deletedItems.length;
     },
     comparative() {
