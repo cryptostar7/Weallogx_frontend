@@ -8,7 +8,7 @@
             <scenario-label-component />
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
-                <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Profile" id="existingInsuranceProfiles" class="form-group less" />
+                <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Company Profile" id="existingInsuranceProfiles" class="form-group less" />
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
                 <div class="form-group pt-2 less">
@@ -37,28 +37,48 @@
                     <input class="form-check-input" type="checkbox" role="switch" :disabled="existingInsuranceProfileName ? true: false" v-model="saveInsuranceTemplate"  id="scheduleTemplateCheckbox" /> 
                       <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save this Insurance Company Profile</label> 
                     </div>
-                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
+                  <div class="form-group mb-2 pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
                     <label for="templateName" class="fs-12 medium-fw">Template Name</label> 
                     <input type="text" id="templateName" class="form-control" :disabled="existingInsuranceProfileName ? true: false" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
                     <small class="text-danger" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</small>
                   </div>
                 </div>
-                <hr class="hr-separator" size="1.25" />
+                <hr class="hr-separator mt-2 mb-3" size="1.25" />
                 <div class="row">
-                  <div class="col-12 col-md-7">
-                    <div class="form-group less"> 
+                  <div class="col-12">
+                    <div class="form-group"> 
                       <label for="deathBenefit" class="fs-12 medium-fw">Initial Death Benefit</label> 
                       <input type="text" id="deathBenefit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benifit')"> 
                       <small class="text-danger" v-if="errors.initial_death_benifit">{{errors.initial_death_benifit[0]}}</small>
                     </div>
                   </div>
-                  <div class="col-12 col-md-5">
-                    <div class="form-group less"> 
-                      <label for="policyReturn" class="fs-12 medium-fw">Policy Return</label> 
-                      <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
-                      <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
+                  <div class="form-group-wrapper">
+                      <div class="form-group"> 
+                        <label for="policyReturn" class="fs-12 medium-fw">Initial Policy Return</label> 
+                        <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
+                        <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
+                      </div>
+                      <div class="form-group"> 
+                        <label for="policyReturn" class="fs-12 medium-fw">Second Policy Return</label> 
+                        <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99">
+                        <small class="text-danger" v-if="errors.policy_return"></small>
+                      </div>
+                      <div class="form-group">
+                        <label for="secondTaxRateYear" class="fs-12 medium-fw">Change Year</label>
+                        <select name="" id="changeYear" class="form-select form-control">
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
                 </div>
                 <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration" id="existingIllustration" />
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
