@@ -251,7 +251,7 @@
               <div class="p-relative mt-30"> 
                 <button class="nav-link btn form-next-btn fs-14 active">Next</button>
                 <div class="return-btn-div">
-                  <a v-if="$route.query.report" :href="`/report-builder/${$route.query.report}`" class="nav-link btn return-to-report-btn fs-14" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
+                  <a v-if="$route.query.report" href="javascript:void(0)" class="nav-link btn return-to-report-btn fs-14" disabled="true" @click="submitHandler(false, false, true)">Save & Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                 </div>
               </div>
                 <div class="d-flex justify-content-center gap-3 mt-3">
@@ -1313,7 +1313,7 @@ export default {
     },
 
     // handle form data
-    submitHandler: function(e, review = false) {
+    submitHandler: function(e, review = false, report = false) {
       if (e) {
         e.preventDefault();
       }
@@ -1478,8 +1478,12 @@ export default {
             let url = `/${review ? "review-summary" : "comparative-vehicles"}/${
               this.$route.params.scenario
             }`;
-            this.$router.push({ path: url, query: this.$route.query });
-            console.log(response);
+
+            if(report){
+              window.location.href = `/report-builder/${this.$route.query.report}`;
+            }
+            
+            this.$router.push({ path: url, query: report ? null : this.$route.query });
           })
           .catch(error => {
             console.log(error);

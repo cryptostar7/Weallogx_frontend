@@ -286,7 +286,7 @@
                       </div>
                     </div>
                     <div class="return-btn-div">
-                      <a v-if="$route.query.report" :href="`/report-builder/${$route.query.report}`" class="nav-link btn return-to-report-btn fs-14" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
+                      <a v-if="$route.query.report" href="javascript:void(0)" class="nav-link btn return-to-report-btn fs-14" disabled="true" @click="submitHandler(false, false, true)">Save & Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                     </div>
                   </div>
                    <div class="d-flex justify-content-center pt-3">
@@ -1213,7 +1213,7 @@ export default {
     },
 
     // this is the main function to save the comparative vehicle data
-    submitHandler: function(e, review = false) {
+    submitHandler: function(e, review = false, report= false) {
       if (e) {
         e.preventDefault();
       }
@@ -1335,6 +1335,11 @@ export default {
             this.getExistingPortfolio();
             this.getExistingVehicles();
             this.$toast.success(response.data.message);
+
+            if(report){
+             return window.location.href = `/report-builder/${this.$route.query.report}`
+            }
+            
             this.$router.push(
               `/${
                 review ? "review-summary" : "select-historical-simulations"
