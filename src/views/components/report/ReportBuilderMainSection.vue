@@ -162,14 +162,20 @@ export default {
         .then(response => {
           console.log("response.data report");
           console.log(response.data.data.saved_action.active_tabs);
-          this.$store.dispatch(
-            "activeReportTabs",
-            response.data.data.saved_action.active_tabs
-          );
-          this.$store.dispatch(
-            "activeReportCards",
-            response.data.data.saved_action.active_cards
-          );
+          if (response.data.data.saved_action.active_tabs) {
+            this.$store.dispatch(
+              "activeReportTabs",
+              response.data.data.saved_action.active_tabs
+            );
+          }
+
+          if (response.data.data.saved_action.active_cards) {
+            this.$store.dispatch(
+              "activeReportCards",
+              response.data.data.saved_action.active_cards
+            );
+          }
+
           // this.$store.dispatch('', response.data.data.saved_action);
         })
         .catch(error => {
@@ -248,7 +254,7 @@ export default {
     },
     comparativeReport() {
       return this.$store.state.data.report.comparative;
-    }
+    },
   },
 };
 </script>
