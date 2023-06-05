@@ -45,12 +45,12 @@
 export default {
   data() {
     return {
-      cards: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-        { id: 4, active: true },
-      ],
+      // cards: [
+      //   { id: 1, active: true },
+      //   { id: 2, active: true },
+      //   { id: 3, active: true },
+      //   { id: 4, active: true },
+      // ],
       data: [
         {
           type: "",
@@ -137,11 +137,11 @@ export default {
             borderColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
-                ? "#1660A4" : this.$appTheme() == "dark-green" ? "#26AB8B"
-                : "#0E6651",
+                ? "#1660A4"
+                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             pointBackgroundColor:
               this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue" 
+              this.$appTheme() == "dark-blue"
                 ? "#1660A4" ? this.$appTheme() == "dark-green" : "#26AB8B"
                 : "#0E6651",
             borderWidth: 4,
@@ -191,41 +191,50 @@ export default {
         let chart3 = this.comparative.cv_3;
 
         if (chart1) {
-          annualFeesData.datasets[0].data = chart.chart_output.fees.map(i => i.toFixed(0)) || [];
+          annualFeesData.datasets[0].data =
+            chart.chart_output.fees.map(i => i.toFixed(0)) || [];
           let years = chart.chart_output.year;
           annualFeesData.labels = [
             1,
-            ...years.filter(i => i > 1).map(i => (years.includes(i / 5) ? i : "")),
+            ...years
+              .filter(i => i > 1)
+              .map(i => (years.includes(i / 5) ? i : "")),
           ];
         }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
           if (chart1.type === "pretax") {
-            annualFeesData.datasets[1].data =
-              chart1.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
+            annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data.map(
+              i => i.toFixed(0)
+            );
           } else {
-            annualFeesData.datasets[1].data =
-              chart1.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
+            annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees.map(
+              i => i.toFixed(0)
+            );
           }
         }
 
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
           if (chart2.type === "pretax") {
-            annualFeesData.datasets[2].data =
-              chart2.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
+            annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data.map(
+              i => i.toFixed(0)
+            );
           } else {
-            annualFeesData.datasets[2].data =
-              chart2.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
+            annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees.map(
+              i => i.toFixed(0)
+            );
           }
         }
 
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
           if (chart3.type === "pretax") {
-            annualFeesData.datasets[3].data =
-              chart3.comparison.chart_output_data.comprehensive_fees_data.map(i => i.toFixed(0));
+            annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data.map(
+              i => i.toFixed(0)
+            );
           } else {
-            annualFeesData.datasets[3].data =
-              chart3.comparison.chart_output.comprehensive_fees.map(i => i.toFixed(0));
+            annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees.map(
+              i => i.toFixed(0)
+            );
           }
         }
       }
@@ -386,7 +395,7 @@ export default {
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
-        }else if(screenMode == "dark-green"){
+        } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
         } else {
@@ -444,6 +453,9 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards.cmp_fee_analysis.annual_fees;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

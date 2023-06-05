@@ -129,16 +129,8 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTheme: this.$store.state.app.current_theme,
-      cards: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-        { id: 4, active: true },
-      ],
-      graphs: {
-        annual_contribution: true,
-        annual_distribution: true,
-      },
+      // cards: this.$store.state.data.reportTabs.active_cards.cmp_comparative_graph.cards,
+      // graphs: this.$store.state.data.reportTabs.active_cards.cmp_comparative_graph.graphs,
       data: [
         {
           type: "",
@@ -611,6 +603,14 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards
+        .cmp_comparative_graph.cards;
+    },
+    graphs() {
+      return this.$store.state.data.reportTabs.active_cards
+        .cmp_comparative_graph.graphs;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

@@ -152,7 +152,7 @@
               <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <div class="return-btn-div">
-                  <a :href="`/report-builder/${reportId}`" :class="`nav-link btn return-to-report-btn fs-14 ${reportId ? '':'d-none'}`" disabled="true">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
+                  <a href="javascript:void(0)" :class="`nav-link btn return-to-report-btn fs-14 ${reportId ? '':'d-none'}`" @click="submitHandler(false, false, true)" disabled="true">Save & Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                 </div>
               </div>
               <div class="text-center">
@@ -754,7 +754,7 @@ export default {
       return validate;
     },
     // Handle form submission
-    submitHandler: function(e, review = false) {
+    submitHandler: function(e, review = false, report = false) {
       if (e) {
         e.preventDefault();
       }
@@ -823,7 +823,7 @@ export default {
       this.$store.dispatch("loader", true);
 
       if (this.detailId) {
-        this.updateScenarioDetail(formData, review);
+        this.updateScenarioDetail(formData, review, report);
       } else {
         this.createScenarioDetail(formData);
       }
@@ -873,28 +873,31 @@ export default {
     },
 
     // update previous secnario detail data
-    updateScenarioDetail: function(data, review) {
+    updateScenarioDetail: function(data, review, report) {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then(response => {
           setScenarioStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
+          let url = `/illustration-data/${this.activeScenario.id}`;
           if (review) {
-            this.$router.push(`/review-summary/${this.activeScenario.id}`);
+            return this.$router.push(`/review-summary/${this.activeScenario.id}`);
+          }
+
+          console.log('report', report);
+
+          if (report) {
+            window.location.href = `/report-builder/${this.reportId}`;
+          }
+
+          if (this.activeScenario.id) {
+            this.$router.push({
+              path: url,
+              query: this.$route.query,
+            });
           } else {
-            console.log("this.activeScenario..................");
-            console.log(this.activeScenario);
-            if (this.activeScenario.id) {
-              console.log("active scenario");
-              console.log(`/illustration-data/${this.activeScenario.id}`);
-              this.$router.push({
-                path: `/illustration-data/${this.activeScenario.id}`,
-                query: this.$route.query,
-              });
-            } else {
-              console.log("data not found.");
-              this.$toast.error("Something went wrong. Please try again.");
-            }
+            console.log("data not found.");
+            this.$toast.error("Something went wrong. Please try again.");
           }
         })
         .catch(error => {
@@ -907,6 +910,7 @@ export default {
             this.$toast.error(error.message);
           } else {
             var serverErrors = getServerErrors(error);
+            console.log(serverErrors);
             this.errors = serverErrors;
             this.errors.scenario_name = serverErrors.name;
             this.errors.client_age_year =

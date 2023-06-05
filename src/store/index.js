@@ -34,6 +34,99 @@ const store = createStore({
                     hst_total_values: true,
                     hst_cumulative_values: true,
                     hst_comparative_values: true,
+                },
+                active_cards: {
+                    cmp_comparative_table: [
+                        { id: 1, active: true },
+                        { id: 2, active: true },
+                        { id: 3, active: true },
+                    ],
+                    cmp_comparative_graph: {
+                        cards: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ],
+                        graphs: {
+                            annual_contribution: true,
+                            annual_distribution: true,
+                        }
+                    },
+                    cmp_making_things: {
+                        cards: {
+                            distributions: [
+                                { id: 1, active: true },
+                                { id: 2, active: true },
+                                { id: 3, active: true },
+                                { id: 4, active: true },
+                            ],
+                            rate_of_returns: [
+                                { id: 1, active: true },
+                                { id: 2, active: true },
+                                { id: 3, active: true },
+                                { id: 4, active: true },
+                            ],
+                        },
+                        graphs: {
+                            distributions: {
+                                longevity: true,
+                                ending_value: true,
+                                death_benefit: true,
+                            },
+                            rate_of_returns: {
+                                longevity: true,
+                                ending_value: true,
+                                death_benefit: true,
+                            },
+                        },
+                    },
+                    cmp_cumulative_values: {
+                        cumulative_income: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ],
+                        total_value: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ],
+                    },
+                    cmp_legacy: [
+                        { id: 1, active: true },
+                        { id: 2, active: true },
+                        { id: 3, active: true },
+                        { id: 4, active: true },
+                    ],
+                    cmp_fee_analysis: {
+                        annual_fees: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ],
+                        cummulative_fee: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ],
+                        value_efficiency_fee: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
+                        ]
+                    },
+                    hst_comparative_table: true,
+                    hst_income_analysis: true,
+                    hst_irr_analysis: true,
+                    hst_total_values: true,
+                    hst_cumulative_values: true,
+                    hst_comparative_values: true,
                 }
             },
             report: {
@@ -112,6 +205,12 @@ const store = createStore({
     mutations: {
         setActiveReportTab(state, payload) {
             state.data.reportTabs.active[payload] = !state.data.reportTabs.active[payload];
+        },
+        setActiveReportTabs(state, payload) {
+            state.data.reportTabs.active = payload;
+        },
+        setActiveReportCards(state, payload) {
+            state.data.reportTabs.active_cards = payload;
         },
         setTheme(state, type) {
             state.app.current_theme = type;
@@ -236,6 +335,12 @@ const store = createStore({
     actions: {
         toggleReportTabByID(context, payload) {
             context.commit("setActiveReportTab", payload);
+        },
+        activeReportTabs(context, payload) {
+            context.commit("setActiveReportTabs", payload);
+        },
+        activeReportCards(context, payload) {
+            context.commit('setActiveReportCards', payload);
         },
         toggleAssets1(context) {
             context.commit("setShowAsset1");

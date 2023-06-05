@@ -99,12 +99,12 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      cards: [
-        { id: 1, active: true },
-        { id: 2, active: true },
-        { id: 3, active: true },
-        { id: 4, active: true },
-      ],
+      // cards: [
+      //   { id: 1, active: true },
+      //   { id: 2, active: true },
+      //   { id: 3, active: true },
+      //   { id: 4, active: true },
+      // ],
       data: [
         {
           type: "",
@@ -221,6 +221,9 @@ export default {
     },
   },
   computed: {
+    cards() {
+      return this.$store.state.data.reportTabs.active_cards.cmp_legacy;
+    },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
     },

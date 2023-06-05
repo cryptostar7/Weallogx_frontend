@@ -9,7 +9,7 @@
   </div>
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
-      <router-link class="navbar-brand backToscenario" :to="comparative ? `/scenario-details/${comparative.scenerio_id}?report=${$route.params.report}` : ''" @click="testFunction()">
+      <router-link class="navbar-brand backToscenario" :to="comparative ? `/scenario-details/${comparative.scenerio_id}?report=${$route.params.report}` : ''" >
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect y="4.9502" width="7" height="2" rx="1" transform="rotate(-45 0 4.9502)" fill="black" />
           <rect x="1.41406" y="3.84473" width="7" height="2" rx="1" transform="rotate(45 1.41406 3.84473)"
@@ -28,7 +28,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-center">
           <li class="nav-item">
-            <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll saveReportBtn">Save Report</a>
+            <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll saveReportBtn" @click="saveReport">Save Report</a>
           </li>
           <li class="nav-item text-center">
             <router-link :to="`/`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Clients">
@@ -140,19 +140,17 @@
       </div>
     </div>
   </nav>
-
-
-
-
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
 import {
   authHeader,
   getComapanyLogo,
-  setComapanyLogo ,
-  setCurrentUser ,
+  setComapanyLogo,
+  setCurrentUser,
 } from "../../../services/helper";
+import { patch, get } from '../../../network/requests';
+import { getUrl } from '../../../network/url';
 
 // document.addEventListener("click", (event) => {
 //   if (document.fullscreenElement) {
@@ -164,20 +162,54 @@ import {
 
 export default {
   components: { ThemeDropdown },
-  data(){
-    return{
-    pLoader: false,
-    }
+  data() {
+    return {
+      pLoader: false,
+    };
   },
   methods: {
-    testFunction: function(){
-      console.log(this.comparative.scenerio_id);
+    testFunction: function() {
+    },
+    saveReport: function() {
+      console.log(this.$route.params.report);
+      let data = {
+        saved_action: {
+          active_tabs: this.$store.state.data.reportTabs.active,
+          active_cards: this.$store.state.data.reportTabs.active_cards
+        },
+      };
+      this.$store.dispatch("loader", true);
+      patch(
+        `${getUrl("report")}${this.$route.params.report}/`,
+        data,
+        authHeader()
+      )
+        .then(response => {
+          console.log(response.data);
+          this.$toast.success(response.data.message);
+          // this.getClient(true);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error.message);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
     getProfile: function() {
       get(getUrl("profile"), authHeader())
         .then(response => {
           let user = response.data.data;
-          setComapanyLogo(user.business_logo_green, user.business_logo_blue, user.business_logo_dark)
+          setComapanyLogo(
+            user.business_logo_green,
+            user.business_logo_blue,
+            user.business_logo_dark
+          );
           this.$store.dispatch("user", user);
           setCurrentUser({
             first_name: user.first_name,
@@ -191,7 +223,7 @@ export default {
             error.code === "ERR_NETWORK"
           ) {
             this.$toast.error(error.message);
-          } 
+          }
         });
     },
     handleFullscreen: function() {
@@ -239,16 +271,16 @@ export default {
       }
       this.$store.dispatch("presentation", false);
       this.$router.push('');
-      document.querySelector("body").classList.remove("fullScreen")
+      document.querySelector("body").classList.remove("fullScreen");
     },
   },
   beforeUnmount() {
-    if(this.$store.state.app.presentation_mode){
+    if (this.$store.state.app.presentation_mode) {
       this.$refs.fullScreenCloseBtn.click();
     }
   },
-  computed:{
-    companyLogo(){
+  computed: {
+    companyLogo() {
       let logos = getComapanyLogo();
       return logos;
     },
@@ -259,16 +291,15 @@ export default {
   watch: {
     "$store.state.app.presentation_mode"(val) {
       let topTable;
-      if(val){
+      if (val) {
         this.pLoader = true;
         setTimeout(() => {
           this.pLoader = false;
           topTable = document.getElementById("comparativeTableTabView");
           topTable.scrollIntoView();
         }, 4000);
-        
-      }      
-    }
+      }
+    },
   },
 };
 </script>
