@@ -152,6 +152,14 @@ import {
 import { patch, get } from '../../../network/requests';
 import { getUrl } from '../../../network/url';
 
+// document.addEventListener("click", (event) => {
+//   if (document.fullscreenElement) {
+//     document.exitFullscreen().then(() => {
+//         document.querySelector("body").classList.remove("fullScreen")
+//       }.catch((err) => console.error(err));
+//   }
+// });
+
 export default {
   components: { ThemeDropdown },
   data() {
@@ -219,6 +227,42 @@ export default {
         });
     },
     handleFullscreen: function() {
+      let allReportCards = document.querySelectorAll(".report-card-wrapper");
+      let topBarHeight = 66;
+      let tabHeadHeight = 60;
+      let tabMenuHeight = 95;
+      let cardHeight = 0;
+      let graphHeight = 0;
+      let screenHeight = screen.height;
+      let reportHeight = 0;
+
+      allReportCards.forEach(report => {
+        let cardsAreas = report.querySelectorAll(".cards-area");
+        let graphAreas = report.querySelectorAll(".graph-area");
+        let tabMenus = report.querySelectorAll(".tab-menu");
+        // if(tabMenus){
+        //   for(let i = 0; i < tabMenus.length; i++){
+        //     if(tabMenus[i].offsetHeight > 0){
+        //       tabMenuHeight = tabMenus[i].offsetHeight;
+        //       break;
+        //     }
+        //   }  
+        // }
+        for(let i = 0; i < cardsAreas.length; i++){
+          if(cardsAreas[i].offsetHeight > 0){
+            cardHeight = cardsAreas[i].offsetHeight;
+            break;
+          }
+        }
+
+        reportHeight = topBarHeight + tabHeadHeight + (tabMenus ? tabMenuHeight : -25) + cardHeight;
+        graphHeight = screenHeight - reportHeight;
+        console.log(reportHeight, graphHeight, screenHeight);
+        graphAreas.forEach(graph => {
+          graph.style.height = graphHeight + "px";
+        });        
+      });
+      document.querySelector("body").classList.add("fullScreen")
       this.$store.dispatch("fullScreen");
     },
     backToNormalScreen: function() {
@@ -226,7 +270,8 @@ export default {
         this.$store.dispatch("fullScreen");
       }
       this.$store.dispatch("presentation", false);
-      this.$router.push("");
+      this.$router.push('');
+      document.querySelector("body").classList.remove("fullScreen");
     },
   },
   beforeUnmount() {

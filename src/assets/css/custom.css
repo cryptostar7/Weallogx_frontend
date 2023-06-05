@@ -2674,9 +2674,12 @@ p.allCardHeadPara{
   background: #FFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 30px 12px 65px 12px;
+  padding: 30px 12px 15px 12px;
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .mainProgBrdrPara {
@@ -2690,21 +2693,45 @@ p.allCardHeadPara{
 .mainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-  margin-top: 10px;
   margin-inline: 5px;
-  margin-bottom: 1rem;
+  
 }
-
+.progressAllBarsDivMain {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+  z-index: 1;
+  margin: 0 auto;
+  --bar-width: 80px;
+  --big-bar-width: 150px;
+  --bar-height: 195px;
+  --big-bar-height: 250px;
+  --legacy-bar-height: 285px;
+  --value-bar-width: 75px;
+  --value-bar-height: 215px;
+  --gap: 4px;
+}
+body.fullscren .progressAllBarsDivMain{
+  --bar-width: 90px;
+  --big-bar-width: 165px;
+  --bar-height: 355px;
+  --big-bar-height: 450px;
+  --legacy-bar-height: 350px;
+  --value-bar-width: 85px;
+  --value-bar-height: 415px;
+}
+.progressAllBarsDivMain .progressBarEachDivMain{
+  padding-top: 25px;
+}
 .groupedFourBars1,
 .groupedFourBars2,
 .groupedFourBars3 {
-  gap: 4px;
+  gap: var(--gap);
 }
-
 .progressBarEachDiv {
   position: relative;
-  width: 80px;
-  height: 192px;
+  width: var(--bar-width);
+  height: var(--bar-height);
   background: #E9E9E9;
   border-radius: 8px;
   display: flex;
@@ -2718,28 +2745,18 @@ p.allCardHeadPara{
   width: 100%;
   transform: rotate(180deg);
 }
-
 .progressAbsltCls {
   width: 100%;
+}
+.lines-div{
   position: absolute;
-  bottom: 1.35rem;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
 }
 
-.progressAllBarsDivMain {
-  display: flex;
-  justify-content: space-between;
-  width: 92%;
-  margin: 0 auto;
-}
 .progressAllBarsDivMain.twoEffect{
   width: 63%;
 }
-.mainProgBrdrDivs {
-  margin-bottom: 14px;
-}
-
 .progressBarbtmNum {
   background: #25967B;
   border-radius: 8px;
@@ -2791,6 +2808,15 @@ p.allCardHeadPara{
   padding: 10px;
   margin-top: 12px;
   line-height: 1;
+}
+.barItems2 .progressBarEachBtm{
+  width: calc((var(--bar-width) * 2) + (var(--gap) * 1));
+}
+.barItems3 .progressBarEachBtm{
+  width: calc((var(--bar-width) * 3) + (var(--gap) * 2));
+}
+.barItems4 .progressBarEachBtm{
+  width: calc((var(--bar-width) * 4) + (var(--gap) * 3));
 }
 
 .progressBarBtnDiv p:nth-child(1) {
@@ -3212,24 +3238,27 @@ p.allCardHeadPara{
   background: #FFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 30px 12px 15px 12px;
+  padding: 34px 12px 29px 12px;
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .CompProgressAbsltCls {
   width: 100%;
-  position: absolute;
+/*  position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 1.90rem;
+  bottom: 1.90rem;*/
   display: flex;
   justify-content: space-between;
 }
 
-.comulativeProgBrdrDivs {
+/*.comulativeProgBrdrDivs {
   margin-bottom: 16px;
-}
+}*/
 
 .comulativeProgBrdrPara {
   font-weight: 500;
@@ -3243,14 +3272,16 @@ p.allCardHeadPara{
 .comulativeProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 1rem;
+/*  margin-top: 10px;*/
+/*  margin-bottom: 1rem;*/
   margin-inline: 5px;
 }
-
+.cumulative-value-bar, .legacy-vertical-bar{
+  padding-top: 25px;
+}
 .cumulativeValuesProgrees {
-  width: 146px;
-  height: 255px;
+  width: var(--big-bar-width);
+  height: var(--big-bar-height);
   background-image: url('../images/icons/progreess-bar-design.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -3263,7 +3294,7 @@ p.allCardHeadPara{
 
 .CompProgressAbsltCls.legacy .cumulativeValuesProgrees,
 .CompProgressAbsltCls.income .cumulativeValuesProgrees {
-  height: 285px;
+  height: var(--legacy-bar-height);
 }
 
 .CompProgressAbsltCls.cumulative .cumulativeValuesProgrees {
@@ -4061,10 +4092,10 @@ Blank div css end here
 
 .feeProgressAbsltCls {
   width: 100%;
-  position: absolute;
+ /* position: absolute;
   bottom: 2.25rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%);*/
   display: flex;
   justify-content: center;
 }
@@ -4093,23 +4124,26 @@ Blank div css end here
 .feeMainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-  margin-top: 10px;
+/*  margin-top: 10px;*/
   margin-left: 8px;
   margin-right: 8px;
-  margin-bottom: 1rem;
+/*  margin-bottom: 1rem;*/
 }
 
-.feeMainProgBrdrDivs {
+/*.feeMainProgBrdrDivs {
   margin-bottom: 16px;
-}
+}*/
 
 .feeMainProgrssBarDiv {
   position: relative;
   background: #FFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 35px 12px 20px 12px;
+  padding: 30px 12px 30px 12px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .feeMainProgrssBarDiv .feeMainProgBrdrDivs:nth-of-type(1) p{
   margin-top: 0;
@@ -4198,8 +4232,8 @@ background: #1D856C;
 /*  */
 .feeProgressBarEachDiv {
   position: relative;
-  width: 75px;
-  height: 215px;
+  width: var(--value-bar-width);
+  height: var(--value-bar-height);
   background: transparent;
   border-radius: 8px;
   display: flex;

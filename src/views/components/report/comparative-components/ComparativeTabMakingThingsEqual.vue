@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="2">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="2">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="3">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"
         id="makingThingsEqualTabView">
@@ -28,7 +28,7 @@
           <div class="collapseDivMain collapseDiv3" :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <hr class="collapseDivHr">
             <div class="px-3 pt-3 pb-2">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center tab-menu">
                 <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
                   <div class="active" id="v-pills-distributions-tab" @click="() => currentTab='distributions amounts'" data-bs-toggle="pill" data-bs-target="#v-pills-distributions" type="button" role="tab" aria-controls="v-pills-distributions" aria-selected="true">
                     Distribution
@@ -40,7 +40,7 @@
               </div>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-distributions" role="tabpanel" aria-labelledby="v-pills-distributions-tab">
-                  <div class="container-fluid">
+                  <div class="container-fluid cards-area">
                     <div class="d-flex flex-gap-12 justify-content-between">
                       <div v-for="(item, index) in data.distribution" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 making equalDistCard${1+index} position-relative w-100 ${cards.distributions[index].active ? '':'inactive'}`">
@@ -92,14 +92,14 @@
 
                     </div>
                   </div>
-                  <div class="container-fluid ">
-                    <div class="mainProgrssBarDiv">
-                      <div>
-                        <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
-                          <p class="mainProgBrdr"></p>
-                        </div>
-                      </div>
-                      <div class="progressAbsltCls makeThinkEqualDiv">
+                  <div class="container-fluid">
+                    <div class="mainProgrssBarDiv graph-area">
+                      <div class="progressAbsltCls makeThinkEqualDiv p-relative">
+                        <div class="lines-div d-flex flex-column justify-content-between">
+                            <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
+                              <p class="mainProgBrdr"></p>
+                            </div>
+                          </div>
                         <div class="progressAllBarsDivMain">
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.distributions.longevity ? '': 'disableGroupedBar'}`">
@@ -109,6 +109,34 @@
                                   $<span :class="`thingEqualProg${1+index}`">{{ $numFormat(index ? data.distribution[index].longevity : data.distribution[0].distributions)}}</span> </div>
                               </div>
                             </div>
+                            
+                          </div>
+                          <div class="progressBarEachDivMain">
+                            <div :class="`d-flex groupedFourBars2 ${graphs.distributions.ending_value ? '': 'disableGroupedBar'}`">
+                              <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.distribution[index].ending_value : data.distribution[0].distributions)*100/maxDistribution}%`}">
+                                </div>
+                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
+                                  $<span :class="`thingEqualProg${5+index}`">{{$numFormat(index ? data.distribution[index].ending_value : data.distribution[0].distributions)}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                          <div class="progressBarEachDivMain">
+                            <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benefit ? '': 'disableGroupedBar'}`">
+                              <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)*100/maxDistribution}%`}">
+                                </div>
+                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
+                                  $<span :class="`thingEqualProg${9+index}`">{{$numFormat(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)}}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                        <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
                             <div class="progressBarEachBtm">
                               <div class="d-flex align-items-center justify-content-between">
                                 <div class="progressBarBtnDiv">
@@ -126,17 +154,6 @@
                                   <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
                                     <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
                                   </a> -->
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars2 ${graphs.distributions.ending_value ? '': 'disableGroupedBar'}`">
-                              <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.distribution[index].ending_value : data.distribution[0].distributions)*100/maxDistribution}%`}">
-                                </div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                  $<span :class="`thingEqualProg${5+index}`">{{$numFormat(index ? data.distribution[index].ending_value : data.distribution[0].distributions)}}</span>
                                 </div>
                               </div>
                             </div>
@@ -161,17 +178,6 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars3 ${graphs.distributions.death_benefit ? '': 'disableGroupedBar'}`">
-                              <div  v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)*100/maxDistribution}%`}">
-                                </div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                  $<span :class="`thingEqualProg${9+index}`">{{$numFormat(index ? data.distribution[index].death_benefit : data.distribution[0].distributions)}}</span>
-                                </div>
-                              </div>
-                            </div>
                             <div class="progressBarEachBtm">
                               <div class="d-flex align-items-center justify-content-between">
                                 <div class="progressBarBtnDiv">
@@ -193,14 +199,12 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
+                      </div>                  
                   </div>
                 </div>
                 <!-- Rate of return tab start -->
                 <div class="tab-pane fade show" id="v-pills-rateOfReturn" role="tabpanel" aria-labelledby="v-pills-rateOfReturn-tab">
-                  <div class="container-fluid">
+                  <div class="container-fluid cards-area">
                     <div class="d-flex flex-gap-12 justify-content-between">
                       <div v-for="(item, index) in data.rate_of_returns" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 making equalDistCard${1+index} position-relative w-100 ${cards.rate_of_returns[index].active ? '':'inactive'}`">
@@ -251,108 +255,111 @@
                       </div>
                     </div>
                   </div>
-                  <div class="container-fluid ">
-                    <div class="mainProgrssBarDiv">
-                      <div>
-                        <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
-                          <p class="mainProgBrdr"></p>
-                        </div>
-                      </div>
-                      <div class="progressAbsltCls makeThinkEqualDiv">
-                        <div class="progressAllBarsDivMain">
-                          <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars1 ${graphs.rate_of_returns.longevity ? '': 'disableGroupedBar'}`">
-                              <div v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror)*100/maxRor}%`}">
-                                </div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror).toFixed(2)}}%</span> </div>
-                              </div>
-                            </div>
-                            <div class="progressBarEachBtm">
-                              <div class="d-flex align-items-center justify-content-between">
-                                <div class="progressBarBtnDiv">
-                                  <p>MATCH</p>
-                                  <p>Longevity</p>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="button-cover2">   
-                                    <div class="radioBtnDiv r2 " id="button-2">
-                                      <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1" :checked="graphs.rate_of_returns.longevity" v-model="graphs.rate_of_returns.longevity" />
-                                      <div class="knobs2"></div>
-                                      <div class="layer2"></div>
-                                    </div>
-                                  </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
-                                </div>
-                              </div>
+                  <div class="container-fluid">
+                    <div class="mainProgrssBarDiv graph-area">
+                        <div class="progressAbsltCls makeThinkEqualDiv p-relative">
+                          <div class="lines-div d-flex flex-column justify-content-between">
+                            <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
+                              <p class="mainProgBrdr"></p>
                             </div>
                           </div>
-                          <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars2 ${graphs.rate_of_returns.ending_value ? '': 'disableGroupedBar'}`">
-                              <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror)*100/maxRor}%`}">
-                                </div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="progressBarEachBtm">
-                              <div class="d-flex align-items-center justify-content-between">
-                                <div class="progressBarBtnDiv">
-                                  <p>MATCH</p>
-                                  <p>Ending Value</p>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="button-cover2">
-                                    <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"  :checked="graphs.rate_of_returns.ending_value" v-model="graphs.rate_of_returns.ending_value"/>
-                                      <div class="knobs2"></div>
-                                      <div class="layer2"></div>
-                                    </div>
+                          <div class="progressAllBarsDivMain">
+                            <div class="progressBarEachDivMain">
+                              <div :class="`d-flex groupedFourBars1 ${graphs.rate_of_returns.longevity ? '': 'disableGroupedBar'}`">
+                                <div v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                                  <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${1+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror)*100/maxRor}%`}">
                                   </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
+                                  <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
+                                  <span :class="`thingEqualProg${1+index}`">{{Number(index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror).toFixed(2)}}%</span> </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
-                              <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                                <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror)*100/maxRor}%`}"></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
-                                <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="progressBarEachBtm">
-                              <div class="d-flex align-items-center justify-content-between">
-                                <div class="progressBarBtnDiv">
-                                  <p>MATCH</p>
-                                  <p>Death Benefit</p>
-                                </div>
-                                <div class="d-flex">
-                                  <div class="button-cover2">
-                                    <div class="radioBtnDiv r2" id="button-2">
-                                      <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" :checked="graphs.rate_of_returns.death_benefit" v-model="graphs.rate_of_returns.death_benefit" />
-                                      <div class="knobs2"></div>
-                                      <div class="layer2"></div>
-                                    </div>
+                            <div class="progressBarEachDivMain">
+                              <div :class="`d-flex groupedFourBars2 ${graphs.rate_of_returns.ending_value ? '': 'disableGroupedBar'}`">
+                                <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${5+index} groupedSecBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                                  <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${5+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror)*100/maxRor}%`}">
                                   </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
+                                  <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
+                                  <span :class="`thingEqualProg${5+index}`">{{Number(index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
+                                  </div>
                                 </div>
-                              </div>
+                              </div>                              
+                            </div>
+                            <div class="progressBarEachDivMain">
+                              <div :class="`d-flex groupedFourBars3 ${graphs.rate_of_returns.death_benefit ? '': 'disableGroupedBar'}`">
+                                <div  v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv  progressBarEachHeight${9+index} groupedThirdBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                                  <div :class="`CardProgressBig CardProgressBig${1+index} thingEqualPercent${9+index}`" :style="{height: `${Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror)*100/maxRor}%`}"></div>
+                                  <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1+index}`">
+                                  <span :class="`thingEqualProg${9+index}`">{{Number(index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror).toFixed(2)}}%</span>
+                                  </div>
+                                </div>
+                              </div>                              
                             </div>
                           </div>
                         </div>
-                      </div>
+                        <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
+                          <div class="progressBarEachBtm">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <div class="progressBarBtnDiv">
+                                <p>MATCH</p>
+                                <p>Longevity</p>
+                              </div>
+                              <div class="d-flex">
+                                <div class="button-cover2">   
+                                  <div class="radioBtnDiv r2 " id="button-2">
+                                    <input type="checkbox" class="checkbox2 longevityMatchJSCls1 commonRadioBtn1" :checked="graphs.rate_of_returns.longevity" v-model="graphs.rate_of_returns.longevity" />
+                                    <div class="knobs2"></div>
+                                    <div class="layer2"></div>
+                                  </div>
+                                </div>
+                                <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
+                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
+                                </a> -->
+                              </div>
+                            </div>
+                          </div>
+                          <div class="progressBarEachBtm">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <div class="progressBarBtnDiv">
+                                <p>MATCH</p>
+                                <p>Ending Value</p>
+                              </div>
+                              <div class="d-flex">
+                                <div class="button-cover2">
+                                  <div class="radioBtnDiv r2" id="button-2">
+                                    <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"  :checked="graphs.rate_of_returns.ending_value" v-model="graphs.rate_of_returns.ending_value"/>
+                                    <div class="knobs2"></div>
+                                    <div class="layer2"></div>
+                                  </div>
+                                </div>
+                                <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
+                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
+                                </a> -->
+                              </div>
+                            </div>
+                          </div>
+                          <div class="progressBarEachBtm">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <div class="progressBarBtnDiv">
+                                <p>MATCH</p>
+                                <p>Death Benefit</p>
+                              </div>
+                              <div class="d-flex">
+                                <div class="button-cover2">
+                                  <div class="radioBtnDiv r2" id="button-2">
+                                    <input type="checkbox" class="checkbox2 commonRadioBtn1 longevityMatchJSCls3" :checked="graphs.rate_of_returns.death_benefit" v-model="graphs.rate_of_returns.death_benefit" />
+                                    <div class="knobs2"></div>
+                                    <div class="layer2"></div>
+                                  </div>
+                                </div>
+                                <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
+                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
+                                </a> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      
                     </div>
                   </div>
                 </div>

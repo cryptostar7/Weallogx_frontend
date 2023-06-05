@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="3">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="3">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="4">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"  id="cumulativeValuesTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop4 ${activeTabs[keyId] ? 'active':''}`">
@@ -25,7 +25,7 @@
           <div class="collapseDivMain collapseDiv4" :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <hr class="collapseDivHr">
             <div class="px-3 pt-3 pb-2">
-              <div class="d-flex justify-content-center mt-2">
+              <div class="d-flex justify-content-center mt-2 tab-menu">
                 <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
                   <div class="active" id="v-pills-annualFees1-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-annualFees1" type="button" role="tab" aria-controls="v-pills-annualFees1"  aria-selected="true">Cumulative Income</div>
                   <div id="v-pills-comulativeFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees1"  type="button" role="tab" aria-controls="v-pills-comulativeFees1" aria-selected="false">Total Value</div>
@@ -33,7 +33,7 @@
               </div>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-annualFees1" role="tabpanel"  aria-labelledby="v-pills-annualFees1-tab">
-                  <div class="container-fluid">
+                  <div class="container-fluid cards-area">
                     <div class="d-flex justify-content-between flex-gap-12">
                       <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.cumulative_income[index].active ? '': 'inactive'}`">
@@ -78,15 +78,15 @@
                     </div>
                   </div>
                   <div class="container-fluid">
-                    <div class="CompMainProgrssBarDiv">
-                      <div class="w-100">
+                    <div class="CompMainProgrssBarDiv graph-area">
+                      <div class="CompProgressAbsltCls p-relative">
+                      <div class="lines-div d-flex flex-column justify-content-between">
                         <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
                           <p class="comulativeProgBrdr"></p>
                         </div>
                       </div>
-                      <div class="CompProgressAbsltCls">
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
-                          <div class="d-flex justify-content-between w-100">
+                          <div class="d-flex justify-content-between w-100 cumulative-value-bar">
                             <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                               <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 35 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
@@ -106,7 +106,7 @@
                 </div>
                 <!-- New tab -->
                 <div class="tab-pane fade" id="v-pills-comulativeFees1" role="tabpanel" aria-labelledby="v-pills-comulativeFees1-tab">
-                  <div class="container-fluid">
+                  <div class="container-fluid cards-area">
                     <div class="d-flex justify-content-between flex-gap-12">
                       <div v-for="(item, index) in data.total_value" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards.total_value[index].active ? '': 'inactive'}`">
@@ -152,15 +152,15 @@
                     </div>
                   </div>
                   <div class="container-fluid">
-                    <div class="CompMainProgrssBarDiv">
-                      <div class="w-100">
-                        <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
-                          <p class="comulativeProgBrdr"></p>
+                    <div class="CompMainProgrssBarDiv graph-area">
+                      <div class="CompProgressAbsltCls p-relative">
+                        <div class="lines-div d-flex flex-column justify-content-between">
+                          <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
+                            <p class="comulativeProgBrdr"></p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="CompProgressAbsltCls">
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
-                          <div class="d-flex justify-content-between w-100">
+                          <div class="d-flex justify-content-between w-100 cumulative-value-bar">
                             <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${getPercentValue(index ? item.shortfall : 0, item.total_value) > 35 ? '' : 'p-static'}`">
                               <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.total_value)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">

@@ -1,7 +1,7 @@
 <template lang="">
   <div class="tab-pane fade show" id="v-pills-valueEfficiency" role="tabpanel"
     aria-labelledby="v-pills-valueEfficiency-tab">
-    <div class="container-fluid">
+    <div class="container-fluid cards-area">
       <div class="d-flex justify-content-between flex-gap-12">
         <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
           <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '' : 'inactive'}`">
@@ -38,14 +38,14 @@
       </div>
     </div>
     <div class="container-fluid mt-20">
-      <div class="feeMainProgrssBarDiv">
-        <div>
-          <div v-for="(item, index) in 6" :key="index" :class="`d-flex feeMainProgBrdrDivs ${index > 4 ? 'mb-0' : ''}`">
-            <p class="feeMainProgBrdr ${index > 5 ? 'mb-0' : ''}`"></p>
-          </div>
-        </div>
+      <div class="feeMainProgrssBarDiv graph-area">
 
-        <div class="feeProgressAbsltCls">
+        <div class="feeProgressAbsltCls p-relative">
+          <div class="lines-div d-flex flex-column justify-content-between">
+            <div v-for="(item, index) in 6" :key="index" :class="`d-flex feeMainProgBrdrDivs ${index > 4 ? 'mb-0' : ''}`">
+              <p class="feeMainProgBrdr ${index > 5 ? 'mb-0' : ''}`"></p>
+            </div>
+          </div>
           <div :class="`progressAllBarsDivMain flex-gap-12 ${activeCards == 2 ? 'twoEffect' : ''}`">
             <div v-for="(item, index) in data" :key="index" :class="`feeProgressBarEachDivMain feeDivDisplayNone${1+index} ${cards[index].active ? '' : 'feebarGroupDisplayNone'}  ${deletedItems.includes(index) ? 'd-none':''}`">
               <div class="d-flex groupedFourBars2">
