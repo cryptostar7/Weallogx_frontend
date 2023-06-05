@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="4">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="4">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="5">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`" id="legacyTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop5 ${activeTabs[keyId] ? 'active':''}`">
@@ -24,7 +24,7 @@
           <div class="collapseDivMain collapseDiv5" :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <hr class="collapseDivHr">
             <div class="px-3 pt-3 pb-2">
-              <div class="container-fluid">
+              <div class="container-fluid cards-area">
                 <div class="d-flex justify-content-between flex-gap-12">
                   <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '': 'inactive'}`">
@@ -57,15 +57,15 @@
                 </div>
               </div>
               <div class="container-fluid">
-                <div class="CompMainProgrssBarDiv">
-                  <div class="w-100">
-                    <div v-for="(item, index) in 8" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 6 ?'m-0 p-0' : ''}`">
-                      <p class="comulativeProgBrdr"></p>
+                <div class="CompMainProgrssBarDiv graph-area">
+                  <div class="CompProgressAbsltCls legacy p-relative">
+                    <div class="lines-div d-flex flex-column justify-content-between">
+                      <div v-for="(item, index) in 8" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 6 ?'m-0 p-0' : ''}`">
+                        <p class="comulativeProgBrdr"></p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="CompProgressAbsltCls legacy">
                     <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
-                      <div class="d-flex justify-content-between w-100">
+                      <div class="d-flex justify-content-between w-100 legacy-vertical-bar">
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.ending_value) > 35 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">

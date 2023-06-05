@@ -1,5 +1,5 @@
 <template lang="">
-  <div :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="5">
+  <div :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="5">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="6">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`" id="feeAnalysisTabView">
         <div :class="`ComparativeTableMainDiv rightDivTop6 ${activeTabs[keyId] ? 'active':''}`">
@@ -24,7 +24,7 @@
           <div class="collapseDivMain collapseDiv6" :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <hr class="collapseDivHr">
             <div class="px-3 pt-3 pb-2">
-              <div class="d-flex justify-content-center">
+              <div class="d-flex justify-content-center tab-menu">
                 <div class="nav SwtchBtnRprtBldr wide nav-pills" role="tablist" aria-orientation="vertical">
                   <div class="active" id="v-pills-annualFees-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-annualFees" type="button" role="tab" aria-controls="v-pills-annualFees" aria-selected="true">
                     Annual Fees

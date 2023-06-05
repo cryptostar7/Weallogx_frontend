@@ -1,7 +1,7 @@
 <template lang="">
   <div class="tab-pane fade show active" id="v-pills-annualFees" role="tabpanel"
     aria-labelledby="v-pills-annualFees-tab">
-    <div class="container-fluid" id="annualFeesFluid">
+    <div class="container-fluid cards-area" id="annualFeesFluid">
       <div class="d-flex justify-content-between flex-gap-12">
         <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
           <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100  ${cards[index].active ? '':'inactive'}`">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="graph-container-div fh">
+      <div class="graph-container-div fh graph-area">
         <canvas id="annualFeesChart" width="500" height="116"></canvas>
       </div>
     </div>
