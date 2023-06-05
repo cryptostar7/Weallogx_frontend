@@ -2304,7 +2304,9 @@
   background: transparent;
   color: #fff;
 }
-
+.dark-green .summaryVehiclePara{
+  color: #fff;
+}
 .dark-green .compVehcleCol {
   background: #34383D;
   border: 1.5px solid #353B46;
