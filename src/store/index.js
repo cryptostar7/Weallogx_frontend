@@ -260,6 +260,9 @@ const store = createStore({
                     count = count + 1;
                 } else {
                     count = count - 1;
+                    if(count <= 0){
+                        count = 0;
+                    }
                 }
 
                 state.app.loader_count = count;

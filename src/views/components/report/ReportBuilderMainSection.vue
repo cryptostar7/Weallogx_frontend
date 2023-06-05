@@ -161,8 +161,10 @@ export default {
       get(`${getUrl("report")}${this.$route.params.report}/`, authHeader())
         .then(response => {
           console.log("response.data report");
-          console.log(response.data.data.saved_action.active_tabs);
-          if (response.data.data.saved_action.active_tabs) {
+          console.log(response.data.data.saved_action);
+
+          if(response.data.data.saved_action){
+   if (response.data.data.saved_action.active_tabs) {
             this.$store.dispatch(
               "activeReportTabs",
               response.data.data.saved_action.active_tabs
@@ -175,6 +177,9 @@ export default {
               response.data.data.saved_action.active_cards
             );
           }
+          }
+
+       
 
           // this.$store.dispatch('', response.data.data.saved_action);
         })
