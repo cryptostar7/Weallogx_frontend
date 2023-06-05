@@ -59,23 +59,15 @@
                         <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
                       </div>
                       <div class="form-group"> 
-                        <label for="policyReturn" class="fs-12 medium-fw">Second Policy Return</label> 
-                        <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99">
+                        <label for="policyReturn2" class="fs-12 medium-fw">Second Policy Return</label> 
+                        <input type="text" id="policyReturn2" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return2')">
                         <small class="text-danger" v-if="errors.policy_return"></small>
                       </div>
                       <div class="form-group">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw">Change Year</label>
-                        <select name="" id="changeYear" class="form-select form-control">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
+                        <select name="" id="changeTaxYear" class="form-select form-control">
+                          <option value=""></option>
+                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(Number(illustrateYear).toFixed(0))" :key="index" :value="item">{{item}}</option>
                         </select>
                       </div>
                     </div>
@@ -421,6 +413,7 @@ export default {
           getScenarioAPI = false;
         }
       }
+      
 
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
@@ -599,13 +592,24 @@ export default {
           );
         }
 
-        if (data.policy_return) {
+        if (data.initial_policy_return) {
           this.setInputWithId(
             "policyReturn",
-            Number(data.policy_return).toFixed(2)
+            Number(data.initial_policy_return).toFixed(2)
           );
         }
-        console.log(data);
+
+        if (data.second_policy_return) {
+          this.setInputWithId(
+            "policyReturn2",
+            Number(data.second_policy_return).toFixed(2)
+          );
+        }
+
+        if (data.change_year) {
+          this.setInputWithId("changeTaxYear", data.change_year);
+        }
+
         if (type === "illustration") {
           data.illustration_data = data;
         }
@@ -670,7 +674,7 @@ export default {
           if (!template) {
             setScenarioStep2(data);
           }
-          this.setFormInputs(data, "insurance");
+          this.setFormInputs(data, template ? "insurance" : "");
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -1363,7 +1367,9 @@ export default {
         policy_name: this.insurancePolicyName,
         nickname: this.PolicyNickname,
         initial_death_benifit: getNumber(this.getInputWithId("deathBenefit")),
-        policy_return: this.getInputWithId("policyReturn"),
+        initial_policy_return: this.getInputWithId("policyReturn"),
+        second_policy_return: this.getInputWithId("policyReturn2"),
+        change_year: this.getInputWithId("changeTaxYear"),
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
         upload_file_checkbox: this.uploadFromFile ? true : false,
@@ -1450,7 +1456,9 @@ export default {
       }
 
       formData.append("initial_death_benifit", data.initial_death_benifit);
-      formData.append("policy_return", data.policy_return);
+      formData.append("initial_policy_return", data.initial_policy_return);
+      formData.append("second_policy_return", data.second_policy_return);
+      formData.append("change_year", data.change_year);
       formData.append("scenerio_id", this.$route.params.scenario);
       // return false;
       this.$store.dispatch("loader", true);
@@ -1659,7 +1667,7 @@ export default {
       }, 100);
     },
     testFunction: function() {
-      console.log(this.csvPreview);
+      this.setInputWithId("changeTaxYear", data.change_year);
     },
     // remove column from the illustration data table
     removeColumn: function() {
@@ -1733,10 +1741,10 @@ export default {
       array.data = array.data.map(i =>
         i.map(e => {
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
-          e = e.split('.')[0]; // remove decimal points
+          e = e.split(".")[0]; // remove decimal points
           return e;
         })
-      ); 
+      );
       array.data = array.data.filter((i, k) => k < this.illustrateYear);
       return array;
     },

@@ -495,8 +495,8 @@ export default {
       console.log(template);
 
       if (template) {
-        this.illustrateYear = "";
-        document.getElementById("illustratedAge").value = "";
+        // this.illustrateYear = "";
+        // document.getElementById("illustratedAge").value = "";
       } else {
         this.illustrateYear = detail.years_to_illustrate;
         this.setInputWithId("illustratedAge", detail.years_to_illustrate);
@@ -559,13 +559,13 @@ export default {
           });
       }
     },
-    setScheduleData: function(data = [], template=false) {
+    setScheduleData: function(data = [], template = false) {
       this.errors.tax_rate = "";
       this.clearScheduleData();
       data.forEach(element => {
         this.setInputWithId(
           `schedule_tax_rate_${element.year}`,
-          element.tax_rate
+          element.year <= this.illustrateYear ? element.tax_rate : ""
         );
       });
     },
@@ -608,11 +608,6 @@ export default {
           this.$store.dispatch("loader", false);
           let detail = response.data.data.data;
           if (detail) {
-            this.illustrateYear = detail.length ? detail.length : 0;
-            // this.setInputWithId(
-            //   "illustratedAge",
-            //   detail.length ? detail.length : 0
-            // );
             this.setScheduleData(detail, template);
           } else {
             this.clearScheduleData();
@@ -684,7 +679,7 @@ export default {
           this.errors.client_age_year = "";
         }
 
-        if (!this.illustrateYear || !this.getInputUsingId('illustratedAge')) {
+        if (!this.illustrateYear || !this.getInputUsingId("illustratedAge")) {
           this.errors.illustrate_year = ["This field is required."];
           validate = false;
         } else {
@@ -893,7 +888,8 @@ export default {
               console.log("active scenario");
               console.log(`/illustration-data/${this.activeScenario.id}`);
               this.$router.push({
-                path: `/illustration-data/${this.activeScenario.id}`, query: this.$route.query
+                path: `/illustration-data/${this.activeScenario.id}`,
+                query: this.$route.query,
               });
             } else {
               console.log("data not found.");
@@ -947,7 +943,10 @@ export default {
           console.log(response.data.id);
           if (response.data.id) {
             console.log("illustration");
-            this.$router.push({path : `/illustration-data/${response.data.id}`, query: this.$route.query});
+            this.$router.push({
+              path: `/illustration-data/${response.data.id}`,
+              query: this.$route.query,
+            });
           } else {
             this.$toast.error("Something went wrong.");
           }
