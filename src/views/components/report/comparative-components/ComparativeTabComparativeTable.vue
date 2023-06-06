@@ -178,7 +178,7 @@
                               <p class="lifeProPlusPara1 d-flex p-relative">RATE OF RETURN (RoR) 
                                 <img class="ms-1 info-icon-img" src="@/assets/images/icons/info-icon.svg" alt="Info"/>
                                 <img class="ms-1 dark-info-icon-img" src="@/assets/images/icons/dark-i-icon.svg" alt="Info"/> 
-                                <span class="info-message-par ticipationRate">This value represents a weighted average rate of return</span>
+                                <span class="info-message-participationRate">This value represents a weighted average rate of return</span>
                               </p>
                               <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].ror || 0).toFixed(2)}}%</p>
                             </div>

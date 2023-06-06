@@ -170,6 +170,8 @@ export default {
         .then(response => {
           console.log("response.data report");
           console.log(response.data.data);
+          this.$store.dispatch('shareReportData', {name: 'report_id', data: response.data.data.id});
+          this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${response.data.data.id}/${response.data.data.view_token}`});
 
           if (response.data.data.saved_action) {
             // update sidebar tab switch toggle actions
@@ -187,7 +189,6 @@ export default {
             //   );
             // }
           }
-          // this.$store.dispatch('', response.data.data.saved_action);
         })
         .catch(error => {
           console.log(error.message);

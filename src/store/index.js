@@ -154,6 +154,16 @@ const store = createStore({
                 monthly: 'MONTHLY_PLAN',
                 yearly: 'YEARLY_PLAN',
             },
+            share_report: {
+                client: {
+                    firstname: '',
+                    middlename: '',
+                    lastname: '',
+                },
+                scenario: { name: '' },
+                report_id: '',
+                report_link: ''
+            },
             clients: null,
             current_plan: false,
             active_scenario: false,
@@ -218,7 +228,7 @@ const store = createStore({
         setFullScreen(state) {
             state.app.full_screen = !state.app.full_screen;
             var elem = document.documentElement || document.fullscreenElement;
-            if (state.app.full_screen) {                
+            if (state.app.full_screen) {
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -260,7 +270,7 @@ const store = createStore({
                     count = count + 1;
                 } else {
                     count = count - 1;
-                    if(count <= 0){
+                    if (count <= 0) {
                         count = 0;
                     }
                 }
@@ -333,7 +343,10 @@ const store = createStore({
         },
         setHistoricalDeleteCvId(state, payload) {
             state.data.report.deleted_historical_cv_ids = [...state.data.report.deleted_historical_cv_ids, payload];
-        }
+        },
+        setShareReportData(state, payload) {
+            state.data.share_report[payload.name] = payload.data;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -436,6 +449,9 @@ const store = createStore({
         },
         historicalCvDeleteId(context, payload) {
             context.commit('setHistoricalDeleteCvId', payload);
+        },
+        shareReportData(context, payload) {
+            context.commit('setShareReportData', payload);
         },
     }
 })
