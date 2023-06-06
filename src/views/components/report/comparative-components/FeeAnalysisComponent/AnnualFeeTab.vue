@@ -36,7 +36,7 @@
     </div>
     <div class="container-fluid">
       <div class="graph-container-div fh graph-area">
-        <canvas id="annualFeesChart" width="500" height="116"></canvas>
+        <canvas id="annualFeesChart" width="100%" height="300"></canvas>
       </div>
     </div>
   </div>
@@ -324,6 +324,7 @@ export default {
         type: "line",
         data: graphData,
         options: {
+          maintainAspectRatio: false,
           interaction: {
             intersect: false,
             mode: "index",

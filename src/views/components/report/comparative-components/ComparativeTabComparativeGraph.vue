@@ -77,7 +77,9 @@
               </div>
               <div class="container-fluid pb-2">
                 <div class="graph-container-div graph-area">
-                  <canvas id="comparativeValuesChart" width="400" height="115"></canvas>
+                  <div class="comparative-graph-container w-100">
+                    <canvas id="comparativeValuesChart" width="400" height="350"></canvas>
+                  </div>
                   <div class="progressBarEachBtm comparative">
                     <div class="bar-container contribution-radio d-flex justify-content-between align-items-center">
                       <div class="progressBarBtnDiv">
@@ -388,6 +390,7 @@ export default {
         type: "line",
         data: graphData,
         options: {
+          maintainAspectRatio: false,
           interaction: {
             intersect: false,
             mode: "index",

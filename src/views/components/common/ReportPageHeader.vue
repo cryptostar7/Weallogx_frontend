@@ -152,13 +152,6 @@ import {
 import { patch, get } from '../../../network/requests';
 import { getUrl } from '../../../network/url';
 
-// document.addEventListener("click", (event) => {
-//   if (document.fullscreenElement) {
-//     document.exitFullscreen().then(() => {
-//         document.querySelector("body").classList.remove("fullScreen")
-//       }.catch((err) => console.error(err));
-//   }
-// });
 
 export default {
   components: { ThemeDropdown },
@@ -166,6 +159,34 @@ export default {
     return {
       pLoader: false,
     };
+  },
+  mounted(){
+    // document.addEventListener("click", async (event) => {
+    //   if (document.fullscreenElement) {
+    //     try {
+    //       await document.exitFullscreen();
+    //       console.log("exited");
+    //       document.querySelector("body").classList.remove("fullScreen");
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   }
+      
+    // });
+    document.addEventListener('fullscreenchange', exitHandler);
+    document.addEventListener('webkitfullscreenchange', exitHandler);
+    document.addEventListener('mozfullscreenchange', exitHandler);
+    document.addEventListener('MSFullscreenChange', exitHandler);
+    function exitHandler() {
+        if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+          document.querySelector("body").classList.remove("fullScreen");
+          let graphAreas = document.querySelectorAll(".graph-area");
+          graphAreas.forEach(graph => {
+            graph.removeAttribute("style");
+          });
+          console.log("yes");
+        }
+    }    
   },
   methods: {
     testFunction: function() {
@@ -260,12 +281,18 @@ export default {
         console.log(reportHeight, graphHeight, screenHeight);
         graphAreas.forEach(graph => {
           graph.style.height = graphHeight + "px";
-        });        
+          let canvas = graph.querySelector("canvas");
+          if(canvas){
+            console.log(canvas);
+            canvas.setAttribute("height", "400px");
+          }
+        });      
       });
-      document.querySelector("body").classList.add("fullScreen")
+      document.querySelector("body").classList.add("fullScreen");
       this.$store.dispatch("fullScreen");
     },
     backToNormalScreen: function() {
+      console.log("yes, exited");
       if (this.$store.state.app.full_screen) {
         this.$store.dispatch("fullScreen");
       }
