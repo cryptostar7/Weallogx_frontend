@@ -11,7 +11,7 @@
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv" v-if="client">
               <button class="modalReportBuilderBr">{{ $sortName(client.firstname, client.lastname, client.middlename) }}</button>
-              <h2 class="modalReportBuilderBrTxt">{{ $clientName(client.firstname, client.lastname, client.middlename) }} <span>Age {{client.age || ''}}</span></h2>
+              <h2 class="modalReportBuilderBrTxt">{{ $clientName(client.firstname, client.lastname, client.middlename) }} <span>{{scenarioName}}</span></h2>
             </div>
           </div>
           <div class="modalParaBorderDiv text-center">
@@ -72,7 +72,14 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.$route.query);
+      let scenario = this.client.scenarios.filter(
+        i => i.id === Number(this.$route.query.scenario || 0)
+      )[0];
+      let scenario_name = "";
+      if (scenario && scenario.scenario_details) {
+        scenario_name = scenario.scenario_details.name;
+      }
+      return scenario_name;
     },
     validateForm: function() {
       var validate = true;
@@ -96,7 +103,7 @@ export default {
       return validate;
     },
     handleModal: function() {
-      console.log('clicked');
+      console.log("clicked");
       if (!this.response) {
         this.$router.go(-1);
       }
@@ -166,6 +173,16 @@ export default {
     client() {
       return this.$store.getters.getClientUsingId(this.$route.query.client);
     },
+    scenarioName() {
+      let scenario = this.client.scenarios.filter(
+        i => i.id === Number(this.$route.query.scenario || 0)
+      )[0];
+      let scenario_name = "";
+      if (scenario && scenario.scenario_details) {
+        scenario_name = scenario.scenario_details.name;
+      }
+      return scenario_name;
+    }
   },
 };
 </script>

@@ -120,7 +120,7 @@
 
               </div>
               <div class="upload-logo-div">
-                <div class="businessLogoUploadDiv green">
+                <div class="businessLogoUploadDiv green drag-drop-label" @drop="handleDragFile1" @dragover="dragover1" @dragleave="dragleave1">
                   <label class="businessLogoLabel" >Logo for Green Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
@@ -130,7 +130,7 @@
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-green-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'green')" hidden>
+                          <input type="file" ref="file" id="business-logo-green-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'green')" hidden>
                           <label for="business-logo-green-upload" ><img src="@/assets/images/user/logo-upload-icon.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
@@ -138,7 +138,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="businessLogoUploadDiv blue" >
+                <div class="businessLogoUploadDiv blue drag-drop-label" @drop="handleDragFile2" @dragover="dragover2" @dragleave="dragleave2">
                   <label class="businessLogoLabel">Logo for Blue Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
@@ -148,7 +148,7 @@
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-blue-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'blue')" hidden>
+                          <input type="file" ref="file2" id="business-logo-blue-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'blue')" hidden>
                           <label for="business-logo-blue-upload" ><img src="@/assets/images/user/logo-upload-icon-blue.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
@@ -156,7 +156,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="businessLogoUploadDiv dark">
+                <div class="businessLogoUploadDiv dark drag-drop-label" @drop="handleDragFile3" @dragover="dragover3" @dragleave="dragleave3">
                   <label class="businessLogoLabel" >Logo for Dark Mode</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
@@ -166,7 +166,7 @@
                       
                       <div class="businesslogoUploadImgDiv" >
                         <div class="text-center">
-                          <input type="file" id="business-logo-dark-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'dark')" hidden>
+                          <input type="file" ref="file3" id="business-logo-dark-upload" accept="image/*" class="business-image-upload-cls" @change="(e) => addBusinessLogo(e, 'dark')" hidden>
                           <label for="business-logo-dark-upload" ><img src="@/assets/images/user/logo-upload-icon-white.svg" alt="Upload" ></label>
                           <p>Upload Logo</p>
                         </div>
@@ -200,7 +200,7 @@ import {
   authHeader,
   getFirstError,
   getServerErrors,
-  setComapanyLogo ,
+  setComapanyLogo,
   setCurrentUser,
 } from "../../services/helper";
 export default {
@@ -275,7 +275,11 @@ export default {
             first_name: this.user.first_name,
             last_name: this.user.last_name,
           });
-          setComapanyLogo(this.businessLogoGreen, this.businessLogoBlue, this.businessLogoDark);
+          setComapanyLogo(
+            this.businessLogoGreen,
+            this.businessLogoBlue,
+            this.businessLogoDark
+          );
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -391,6 +395,71 @@ export default {
             this.$toast.error(getFirstError(error));
           }
         });
+    },
+    dragover1(event) {
+      event.preventDefault();
+      // add blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.add("dragging");
+    },
+    dragleave1(event) {
+      // remove blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.remove("dragging");
+    },
+    handleDragFile1: function(e) {
+      e.preventDefault();
+      this.$refs.file.files = e.dataTransfer.files;
+      this.handleFile("green");
+    },
+    dragover2(event) {
+      event.preventDefault();
+      // add blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.add("dragging");
+    },
+    dragleave2(event) {
+      // remove blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.remove("dragging");
+    },
+    handleDragFile2: function(e) {
+      e.preventDefault();
+      this.$refs.file2.files = e.dataTransfer.files;
+      this.handleFile("blue");
+    },
+    dragover3(event) {
+      event.preventDefault();
+      // add blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.add("dragging");
+    },
+    dragleave3(event) {
+      // remove blur effect
+      var parent = event.target.closest(".drag-drop-label");
+      parent.classList.remove("dragging");
+    },
+    handleDragFile3: function(e) {
+      e.preventDefault();
+      this.$refs.file3.files = e.dataTransfer.files;
+      this.handleFile("dark");
+    },
+    handleFile: function(type = "green") {
+      console.log(type);
+      if (type === "green") {
+        this.businessLogoGreenFile = this.$refs.file.files[0];
+        this.businessLogoGreen = URL.createObjectURL(this.$refs.file.files[0]);
+      }
+
+      if (type === "blue") {
+        this.businessLogoBlueFile = this.$refs.file2.files[0];
+        this.businessLogoBlue = URL.createObjectURL(this.$refs.file2.files[0]);
+      }
+
+      if (type === "dark") {
+        this.businessLogoDarkFile = this.$refs.file3.files[0];
+        this.businessLogoDark = URL.createObjectURL(this.$refs.file3.files[0]);
+      }
     },
   },
   mounted() {
