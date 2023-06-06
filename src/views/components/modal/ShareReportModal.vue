@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import { post } from "../../../network/requests";
+import { post, patch } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader } from "../../../services/helper";
 
@@ -82,7 +82,7 @@ export default {
       emails: "",
       message: "",
       includePdf: true,
-      errors:[],
+      errors: [],
     };
   },
   methods: {
@@ -99,21 +99,20 @@ export default {
     handleForm: function(e) {
       e.preventDefault();
       let valid = true;
-      if(!this.emails.trim()){
-        this.errors.email = 'This field is required.'; 
+      if (!this.emails.trim()) {
+        this.errors.email = "This field is required.";
         valid = false;
       }
 
-      if(!this.message.trim()){
-        this.errors.message = 'This field is required.'; 
+      if (!this.message.trim()) {
+        this.errors.message = "This field is required.";
         valid = false;
       }
 
-      if(!valid){
+      if (!valid) {
         return false;
       }
 
-      
       let data = {
         client_email: this.emails.split(","),
         message: this.message,
@@ -131,6 +130,7 @@ export default {
           this.emails = "";
           this.message = "";
           this.includePdf = true;
+          this.saveReport();
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
           this.$toast.success("Report shared successfully!");
@@ -140,6 +140,32 @@ export default {
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
           this.$toast.error("Something went wrong.");
+        });
+    },
+    saveReport: function() {
+      console.log(this.$route.params.report);
+      let data = {
+        saved_action: {
+          active_tabs: this.$store.state.data.reportTabs.active,
+          active_cards: this.$store.state.data.reportTabs.active_cards,
+        },
+      };
+      patch(
+        `${getUrl("report")}${this.$route.params.report}/`,
+        data,
+        authHeader()
+      )
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error.message);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
         });
     },
   },
