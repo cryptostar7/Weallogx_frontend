@@ -149,7 +149,7 @@
                       <div class="reportTablesDiv reportTablesDiv3">
                         <div class="lifeProPlus">
                           <div class="row">
-                            <div :class="`col-12 ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`">
+                            <div :class="`col-12 ${$store.state.app.presentation_mode ? 'd-none' : ''}`">
                               <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0 ">
                                 <router-link :to="`/illustration-data/${comparativeTable.illustration_id}?report=${$route.params.report}`"  class="editBtnLirp disableBtnsForAll">&nbsp;
                                   <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -230,7 +230,7 @@
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
                                           </div>                                                                                                                                                                                                              
-                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`">
+                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'd-none' : ''}`">
                                             <router-link :to="`/comparative-vehicles/${comparativeTable.scenerio_id}?tab=${header.id}&report=${$route.params.report}`" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
@@ -481,7 +481,7 @@ export default {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "target_analysis",
       currentFilter: "default",
-      // draggableColumns: this.$store.state.data.reportTabs.active_cards.cmp_comparative_table,
+      draggableColumns: this.$store.state.data.reportTabs.active_cards.cmp_comparative_table,
       showAll: false,
       target_analysis: {
         distributions: [
@@ -922,9 +922,9 @@ export default {
     },
   },
   computed: {
-    draggableColumns() {
-       return this.$store.state.data.reportTabs.active_cards.cmp_comparative_table;
-    },
+    // draggableColumns() {
+    //    return this.$store.state.data.reportTabs.active_cards.cmp_comparative_table;
+    // },
     comparativeTable() {
       return this.$store.state.data.report.comparative;
     },
