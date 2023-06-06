@@ -229,8 +229,8 @@
                                             <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`" :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
-                                          </div>                                                                                                                                                                                                              
-                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'd-none' : ''}`">
+                                          </div>                             
+                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'share-hide' : ''}`">
                                             <router-link :to="`/comparative-vehicles/${comparativeTable.scenerio_id}?tab=${header.id}&report=${$route.params.report}`" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
