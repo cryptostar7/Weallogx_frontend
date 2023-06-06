@@ -14,7 +14,7 @@
                     <div class="list-groups">
                       <div class="list-div">
                         <div v-if="client.scenarios && client.scenarios.length > 0" class="list-div">
-                            <ScenariosRow :clientId="client.id" :scenarios="client.scenarios" @setActionId="id => actionId = id"/>
+                            <ScenariosRow :clientId="client.id" :client="client" :scenarios="client.scenarios" @setActionId="id => actionId = id"/>
                         </div>
                       </div>
                     </div>
@@ -31,7 +31,7 @@
                   <li class="nav-item border-0">
                     <div class="list-groups">
                       <div v-if="client.reports && client.reports.length > 0" class="list-div">
-                        <ReportRow :reports="client.reports" @setReportActionId="id => reportActionId = id"/>
+                        <ReportRow :reports="client.reports" :client="client" @setReportActionId="id => reportActionId = id"/>
                       </div>
                     </div>
                   </li>

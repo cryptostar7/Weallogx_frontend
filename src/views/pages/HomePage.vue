@@ -6,24 +6,26 @@
     <!-- Add Client Canvas -->
     <add-client-modal />
 
-    <!-- Share  Modal  -->
-    <share-modal />
+    <!-- Share report Modal  -->
+    <share-report-modal />
+    
   </div>
 </template>
 
 <script>
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import AddClientModal from "../components/modal/AddClientModal.vue";
-import ShareModal from "../components/modal/ShareModal.vue";
+import ShareReportModal from "../components/modal/ShareReportModal.vue";
 import ReportBuilderNameChangeModal from "../components/modal/ReportBuilderNameChangeModal.vue";
 import HomepageMainSection from "../components/homepage/HomepageMainSection.vue";
+
 
 export default {
   components: {
     NavbarComponent,
     AddClientModal,
     ReportBuilderNameChangeModal,
-    ShareModal,
+    ShareReportModal,
     HomepageMainSection,
   },
 };

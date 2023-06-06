@@ -83,7 +83,7 @@
                     <router-link :to="`/report-builder?scenario=${item.id}&client=${$props.clientId}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
-            <SenarioReports :senarioReports="item.reports.reports_data" :collapseCustomId="`innerReportCollapse${index}`"/>
+            <SenarioReports :senarioReports="item.reports.reports_data" :client="$props.client" :collapseCustomId="`innerReportCollapse${index}`"/>
         </div>
     </div>
     <div class="text-center" v-if="scenariosList.length >= listLimit">
@@ -97,7 +97,7 @@ import SenarioReports from "../homepage/SenarioReports.vue";
 import config from "../../../services/config.js";
 export default {
   components: { SenarioReports },
-  props: ["scenarios", "clientId"],
+  props: ["scenarios", "clientId", "client"],
   emits: ["setActionId"],
   data() {
     return {

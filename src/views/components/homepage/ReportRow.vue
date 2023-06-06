@@ -26,7 +26,7 @@
                         <path  d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                     </svg>
                     </button>
-                    <button class="btn round-btn" data-bs-target="#IndexShareModal" data-bs-toggle="modal">
+                    <button class="btn round-btn" data-bs-target="#reportShareModal" data-bs-toggle="modal" @click="shareReport(item)">
                     <span>Share</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path  d="M13.2957 5.28354C13.5982 4.98107 13.5982 4.49066 13.2957 4.18818C12.9933 3.88571 12.5028 3.88571 12.2004 4.18818L8.91401 7.47454C8.61153 7.77702 8.61153 8.26743 8.91401 8.5699C9.21648 8.87238 9.70689 8.87238 10.0094 8.5699L13.2957 5.28354Z"  fill="#9D9D9D" />
@@ -79,7 +79,7 @@
 import config from "../../../services/config.js";
 
 export default {
-  props: ["reports"],
+  props: ["reports", "client"],
   emits : ["setReportActionId"],
   data() {
     return {
@@ -105,6 +105,15 @@ export default {
     goToReport: function(url) {
       return window.location.href = url;
     },
+    // share report 
+    shareReport: function(item){
+      let client = this.$props.client;
+      client = {firstname: client.firstname, lastname: client.lastname, middlename: client.middlename};
+      this.$store.dispatch('shareReportData', {name: 'client', data: client});
+      this.$store.dispatch('shareReportData', {name: 'report_id', data: item.id});
+      this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${item.id}/${item.view_token}`});
+      this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: item.scenario_name}});
+    }
   },
   computed: {
     reportList() {

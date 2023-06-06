@@ -7,7 +7,9 @@
   <!-- Delete Scenario Modal -->
   <delete-scenario-modal />          
   <!-- Delete Report Modal --> 
-  <delete-report-modal />       
+  <delete-report-modal />    
+  <!-- Share report Modal  -->
+  <share-report-modal />   
   
 </div>  
 </template>
@@ -17,6 +19,7 @@ import IndividualMainSection from "../components/individual-client/IndividualMai
 import DeleteClientModal from "../components/modal/DeleteClientModal.vue";
 import DeleteScenarioModal from "../components/modal/DeleteScenarioModal.vue";
 import DeleteReportModal from "../components/modal/DeleteReportModal.vue";
+import ShareReportModal from "../components/modal/ShareReportModal.vue";
 
 export default {
   components: {
@@ -25,6 +28,7 @@ export default {
     DeleteClientModal,
     NavbarComponent,
     IndividualMainSection,
+    ShareReportModal,
   },
   mounted() {
 

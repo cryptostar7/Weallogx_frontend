@@ -15,7 +15,7 @@
                 </svg>
                 &nbsp;Reports
             </h4>
-            <ScenarioReportRow :senarioReports="senarioReports" />
+            <ScenarioReportRow :senarioReports="senarioReports" :client="$props.client"/>
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@
 import ScenarioReportRow from "../homepage/ScenarioReportRow.vue";
 export default {
   components: { ScenarioReportRow },
-  props: ["senarioReports", "collapseCustomId"],
+  props: ["senarioReports", "collapseCustomId", "client"],
   data() {
     return {
       senarioReportItems: [],

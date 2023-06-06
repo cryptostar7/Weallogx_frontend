@@ -102,7 +102,7 @@
 
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar presentation_navbar" :style="{display:$store.state.app.presentation_mode ? 'block':'none'}">
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" :to="$route.params.view_token ? '' : '/'">
         <img :src="companyLogo.green" class="img-fluid logo-green" alt="WealthLogix Logo" width="170">
         <img :src="companyLogo.blue" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170">
         <img :src="companyLogo.dark" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170">
@@ -152,7 +152,6 @@ import {
 import { patch, get } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 
-
 export default {
   components: { ThemeDropdown },
   data() {
@@ -160,7 +159,7 @@ export default {
       pLoader: false,
     };
   },
-  mounted(){
+  mounted() {
     // document.addEventListener("click", async (event) => {
     //   if (document.fullscreenElement) {
     //     try {
@@ -171,22 +170,27 @@ export default {
     //       console.log(err);
     //     }
     //   }
-      
+
     // });
-    document.addEventListener('fullscreenchange', exitHandler);
-    document.addEventListener('webkitfullscreenchange', exitHandler);
-    document.addEventListener('mozfullscreenchange', exitHandler);
-    document.addEventListener('MSFullscreenChange', exitHandler);
+    document.addEventListener("fullscreenchange", exitHandler);
+    document.addEventListener("webkitfullscreenchange", exitHandler);
+    document.addEventListener("mozfullscreenchange", exitHandler);
+    document.addEventListener("MSFullscreenChange", exitHandler);
     function exitHandler() {
-        if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-          document.querySelector("body").classList.remove("fullScreen");
-          let graphAreas = document.querySelectorAll(".graph-area");
-          graphAreas.forEach(graph => {
-            graph.removeAttribute("style");
-          });
-          console.log("yes");
-        }
-    }    
+      if (
+        !document.fullscreenElement &&
+        !document.webkitIsFullScreen &&
+        !document.mozFullScreen &&
+        !document.msFullscreenElement
+      ) {
+        document.querySelector("body").classList.remove("fullScreen");
+        let graphAreas = document.querySelectorAll(".graph-area");
+        graphAreas.forEach(graph => {
+          graph.removeAttribute("style");
+        });
+        console.log("yes");
+      }
+    }
   },
   methods: {
     saveReport: function() {
@@ -205,7 +209,7 @@ export default {
       )
         .then(response => {
           console.log(response.data);
-          this.$toast.success('Report saved successfully!');
+          this.$toast.success("Report saved successfully!");
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -282,11 +286,11 @@ export default {
         graphAreas.forEach(graph => {
           graph.style.height = graphHeight + "px";
           let canvas = graph.querySelector("canvas");
-          if(canvas){
+          if (canvas) {
             console.log(canvas);
             canvas.setAttribute("height", "400px");
           }
-        });      
+        });
       });
       document.querySelector("body").classList.add("fullScreen");
       this.$store.dispatch("fullScreen");
