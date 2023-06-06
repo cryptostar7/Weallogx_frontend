@@ -48,7 +48,7 @@
                     </div>
                     <div class="d-flex justify-content-center">
                       <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-                        <button type="submit" class="btn yes-delete-btn">Send Report</button>
+                        <button type="submit" class="btn yes-delete-btn">Send Presentation</button>
                       </div>
                     </div>
                     <p class="modalShareLinksPara m-0 mt-4">Copy Link</p>
