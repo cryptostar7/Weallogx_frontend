@@ -2711,15 +2711,26 @@ p.allCardHeadPara{
   --value-bar-height: 215px;
   --gap: 4px;
 }
-body.fullscren .progressAllBarsDivMain{
-  --bar-width: 90px;
-  --big-bar-width: 165px;
-  --bar-height: 355px;
-  --big-bar-height: 450px;
-  --legacy-bar-height: 350px;
-  --value-bar-width: 85px;
-  --value-bar-height: 415px;
+body.fullScreen .CompProgressAbsltCls, body.fullScreen .feeProgressAbsltCls, body.fullScreen .comparative-graph-container{
+  height: 92%;
 }
+body.fullScreen .makeThinkEqualDiv{
+  height: 80%;
+}
+body.fullScreen .makeThinkEqualDivInner{
+  height: 100%;
+}
+body.fullScreen .progressAllBarsDivMain{
+  --bar-width: 85px;
+  --big-bar-width: 165px;
+  --bar-height: 100%;
+  --big-bar-height: 100%;
+  --legacy-bar-height: 100%;
+  --value-bar-width: 85px;
+  --value-bar-height: 100%;
+  width: 95%;
+}
+
 .progressAllBarsDivMain .progressBarEachDivMain{
   padding-top: 25px;
 }
@@ -2727,6 +2738,7 @@ body.fullscren .progressAllBarsDivMain{
 .groupedFourBars2,
 .groupedFourBars3 {
   gap: var(--gap);
+  height: 100%;
 }
 .progressBarEachDiv {
   position: relative;
@@ -2747,6 +2759,9 @@ body.fullscren .progressAllBarsDivMain{
 }
 .progressAbsltCls {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 .lines-div{
   position: absolute;
@@ -2841,9 +2856,11 @@ body.fullscren .progressAllBarsDivMain{
   padding: 0;
   margin-top: 0;
   display: flex;
-  margin-left: 4rem;
+  margin-left: 7rem;
   gap: 3rem;
   border-radius: .25rem;
+  width: 100%;
+  padding-bottom: 10px;
 }
 
 .progressBarEachBtm.comparative .bar-container {
@@ -2852,6 +2869,7 @@ body.fullscren .progressAllBarsDivMain{
   border-radius: 8px;
   padding: 10px 1rem;
   margin: 1rem;
+  margin-bottom: 0;
 }
 
 .contribution-radio .checkbox2:checked~ .layer2 {
@@ -4925,6 +4943,10 @@ border: none;
   padding: 20px 28px 8px;
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .graph-container-div.fh {
@@ -5471,6 +5493,9 @@ font-size:16px!important;
 }
 .menu-icon-report-btn{
   min-height: 45px;
+}
+.pointer-none{
+  pointer-events: none;
 }
 @media screen and (max-width: 1200px){
   .saveReportBtn{

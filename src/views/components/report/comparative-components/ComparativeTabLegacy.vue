@@ -65,7 +65,7 @@
                       </div>
                     </div>
                     <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
-                      <div class="d-flex justify-content-between w-100 legacy-vertical-bar">
+                      <div class="d-flex justify-content-between align-items-end w-100 legacy-vertical-bar">
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.ending_value) > 35 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">

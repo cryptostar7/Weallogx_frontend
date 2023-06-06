@@ -95,12 +95,12 @@
                   <div class="container-fluid">
                     <div class="mainProgrssBarDiv graph-area">
                       <div class="progressAbsltCls makeThinkEqualDiv p-relative">
-                        <div class="lines-div d-flex flex-column justify-content-between">
+                        <div class="lines-div d-flex flex-column justify-content-between h-100">
                             <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
                               <p class="mainProgBrdr"></p>
                             </div>
                           </div>
-                        <div class="progressAllBarsDivMain">
+                        <div class="progressAllBarsDivMain makeThinkEqualDivInner">
                           <div class="progressBarEachDivMain">
                             <div :class="`d-flex groupedFourBars1 ${graphs.distributions.longevity ? '': 'disableGroupedBar'}`">
                               <div v-for="(item, index) in data.distribution.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.distributions[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">
@@ -258,12 +258,12 @@
                   <div class="container-fluid">
                     <div class="mainProgrssBarDiv graph-area">
                         <div class="progressAbsltCls makeThinkEqualDiv p-relative">
-                          <div class="lines-div d-flex flex-column justify-content-between">
+                          <div class="lines-div d-flex flex-column justify-content-between h-100">
                             <div v-for="(item, index) in 6" :key="index" :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0':''}`">
                               <p class="mainProgBrdr"></p>
                             </div>
                           </div>
-                          <div class="progressAllBarsDivMain">
+                          <div class="progressAllBarsDivMain makeThinkEqualDivInner">
                             <div class="progressBarEachDivMain">
                               <div :class="`d-flex groupedFourBars1 ${graphs.rate_of_returns.longevity ? '': 'disableGroupedBar'}`">
                                 <div v-for="(item, index) in data.rate_of_returns.length" :key="index" :class="`progressBarEachDiv progressBarEachHeight${1+index} groupedBarsSigleClr${1+index} ${cards.rate_of_returns[index].active ? '':'disableGroupedBar'} ${deletedItems.includes(index) ? 'd-none':''}`">

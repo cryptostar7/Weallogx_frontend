@@ -217,8 +217,8 @@ const store = createStore({
         },
         setFullScreen(state) {
             state.app.full_screen = !state.app.full_screen;
-            if (state.app.full_screen) {
-                var elem = document.documentElement;
+            var elem = document.documentElement || document.fullscreenElement;
+            if (state.app.full_screen) {                
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -227,11 +227,11 @@ const store = createStore({
                     elem.msRequestFullscreen();
                 }
             } else {
-                if (document) {
+                if (document || document.fullscreenElement || document.documentElement) {
                     document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { /* Safari */
+                } else if (document.webkitExitFullscreen || document.fullscreenElement || document.documentElement) { /* Safari */
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { /* IE11 */
+                } else if (document.msExitFullscreen || document.fullscreenElement || document.documentElement) { /* IE11 */
                     document.msExitFullscreen();
                 }
             }
