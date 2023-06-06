@@ -1,5 +1,5 @@
 <template lang="">
-   <div class="d-flex justify-content-center addNotesMainDiv" :style="{bottom: historical ? '9px':''}">
+   <div :class="`d-flex justify-content-center addNotesMainDiv ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" :style="{bottom: historical ? '9px':''}">
         <button type="button" :class="`AddNoteBtn ${(note || active) ? 'd-none':''}`" @click="setActive">Add Note</button>
         <form :class="`add-note-input-div ${(note || active) ? '':'d-none'}`" @submit="submitHandler">
             <p :class="`flex-1 add-note-para text-center mb-1 ${note && !active ? '':'d-none'}`" @click="setActive" >{{note}}</p>

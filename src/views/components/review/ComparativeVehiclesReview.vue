@@ -60,7 +60,7 @@
                                     </div>
                                     <div v-if="data.vehicle_type_1.capital_gain_tax_checkbox" class="col-md-6 summaryInputsDiv">
                                         <label for="client name">% Portfolio Applied to Capital Gains</label>
-                                        <p class="summaryVehiclePara pt-1">{`{${Number(data.vehicle_type_1.percentage_of_account_as_capital_gains).toFixed(2)}%`}}</p>
+                                        <p class="summaryVehiclePara pt-1">{{`${Number(data.vehicle_type_1.percentage_of_account_as_capital_gains).toFixed(2)}%`}}</p>
                                     </div>
                                 </div>
                             </div>

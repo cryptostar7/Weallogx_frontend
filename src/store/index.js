@@ -252,7 +252,7 @@ const store = createStore({
             state.data.user = profile;
         },
         setLoader(state, payload) {
-            if (!window.location.pathname.includes('/report-builder')) {
+            if (!window.location.pathname.includes('/report')) {
                 state.app.loader = payload;
             } else {
                 let count = state.app.loader_count;

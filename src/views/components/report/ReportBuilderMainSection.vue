@@ -123,7 +123,11 @@ export default {
     // fetch comparative report data from API
     getData: function(id, url, store) {
       this.$store.dispatch("loader", true);
-      get(`${getUrl(url)}${this.$route.params.report}`, authHeader())
+      let api_url = `${getUrl(url)}${this.$route.params.report}`;
+      if (this.$route.params.view_token) {
+        api_url += `?view_token=${this.$route.params.view_token}`;
+      }
+      get(api_url, authHeader())
         .then(response => {
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
@@ -158,29 +162,31 @@ export default {
     },
 
     getCurrentReportInfo: function() {
-      get(`${getUrl("report")}${this.$route.params.report}/`, authHeader())
+      let api_url = `${getUrl("report")}${this.$route.params.report}`;
+      if (this.$route.params.view_token) {
+        api_url += `?view_token=${this.$route.params.view_token}`;
+      }
+      get(api_url, authHeader())
         .then(response => {
           console.log("response.data report");
-          console.log(response.data.data.saved_action);
+          console.log(response.data.data);
 
-          if(response.data.data.saved_action){
-   if (response.data.data.saved_action.active_tabs) {
-            this.$store.dispatch(
-              "activeReportTabs",
-              response.data.data.saved_action.active_tabs
-            );
+          if (response.data.data.saved_action) {
+            // update sidebar tab switch toggle actions
+            if (response.data.data.saved_action.active_tabs) {
+              this.$store.dispatch(
+                "activeReportTabs",
+                response.data.data.saved_action.active_tabs
+              );
+            }
+            // update card toggle actions
+            // if (response.data.data.saved_action.active_cards) {
+            //   this.$store.dispatch(
+            //     "activeReportCards",
+            //     response.data.data.saved_action.active_cards
+            //   );
+            // }
           }
-
-          if (response.data.data.saved_action.active_cards) {
-            this.$store.dispatch(
-              "activeReportCards",
-              response.data.data.saved_action.active_cards
-            );
-          }
-          }
-
-       
-
           // this.$store.dispatch('', response.data.data.saved_action);
         })
         .catch(error => {
@@ -222,6 +228,7 @@ export default {
           console.log();
         });
     },
+
     updateElementJs: function() {
       let eachInput = document.querySelectorAll(".tableHeadInputs");
       eachInput.forEach(function(eachInputFun) {
@@ -235,9 +242,10 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.present === "true") {
+    if (this.$route.query.present === "true" || this.$route.params.view_token) {
       this.$store.dispatch("presentation", true);
     }
+
     // fetch comarative reports data from API
     if (this.$route.params.report) {
       this.getComparativeData(this.$route.params.report);
@@ -263,5 +271,8 @@ export default {
   },
 };
 </script>
-<style lang="">
+<style>
+.pointer-none {
+  pointer-events: none;
+}
 </style>

@@ -149,9 +149,9 @@
                       <div class="reportTablesDiv reportTablesDiv3">
                         <div class="lifeProPlus">
                           <div class="row">
-                            <div class="col-12">
-                              <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0">
-                                <router-link :to="`/illustration-data/${comparativeTable.illustration_id}?report=${$route.params.report}`" class="editBtnLirp disableBtnsForAll">&nbsp;
+                            <div :class="`col-12 ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`">
+                              <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0 ">
+                                <router-link :to="`/illustration-data/${comparativeTable.illustration_id}?report=${$route.params.report}`"  class="editBtnLirp disableBtnsForAll">&nbsp;
                                   <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white" stroke="#1660A4" stroke-width="1.15"></rect>
                                     <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25"></path>
@@ -178,7 +178,7 @@
                               <p class="lifeProPlusPara1 d-flex p-relative">RATE OF RETURN (RoR) 
                                 <img class="ms-1 info-icon-img" src="@/assets/images/icons/info-icon.svg" alt="Info"/>
                                 <img class="ms-1 dark-info-icon-img" src="@/assets/images/icons/dark-i-icon.svg" alt="Info"/> 
-                                <span class="info-message-participationRate">This value represents a weighted average rate of return</span>
+                                <span class="info-message-par ticipationRate">This value represents a weighted average rate of return</span>
                               </p>
                               <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].ror || 0).toFixed(2)}}%</p>
                             </div>
@@ -188,7 +188,7 @@
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1">
-                            <p><input type="text" :value="cv_name[0]" class="tableHeadInputs" @blur="e => saveCvName(0, e.target.value)"></p>
+                            <p><input type="text" :value="cv_name[0]" :class="`tableHeadInputs ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @blur="e => saveCvName(0, e.target.value)"></p>
                           </div>
                         </div>
                         <table class="table table3 mt-1 w-100 sticky-header">
@@ -230,7 +230,7 @@
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
                                           </div>                                                                                                                                                                                                              
-                                          <div class="d-flex align-items-center">
+                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`">
                                             <router-link :to="`/comparative-vehicles/${comparativeTable.scenerio_id}?tab=${header.id}&report=${$route.params.report}`" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
                                               <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                 <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
@@ -273,7 +273,7 @@
                                     <div class="row">
                                       <div class="col-12">
                                         <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                          <p><input type="text" :value="cv_name[header.id]" class="tableHeadInputs" @blur="e => saveCvName(header.id, e.target.value)"/></p>
+                                          <p><input type="text" :value="cv_name[header.id]" :class="`tableHeadInputs ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @blur="e => saveCvName(header.id, e.target.value)" /></p>
                                         </div>
                                       </div>
                                     </div>

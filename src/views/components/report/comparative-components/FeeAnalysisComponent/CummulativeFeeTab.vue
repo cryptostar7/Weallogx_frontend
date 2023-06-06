@@ -1,6 +1,5 @@
 <template lang="">
-  <div class="tab-pane fade" id="v-pills-comulativeFees" role="tabpanel"
-    aria-labelledby="v-pills-comulativeFees-tab">
+  <div class="tab-pane fade" id="v-pills-comulativeFees" role="tabpanel" aria-labelledby="v-pills-comulativeFees-tab">
     <div class="container-fluid cards-area" id="cumulativeFeesFluid">
         <div class="d-flex justify-content-between flex-gap-12">
             <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
@@ -12,7 +11,7 @@
                     <div class="d-flex">
                         <div class="button-cover2">
                           <div :class="`radioBtnDiv switch${index} r2`" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active != cards[index].active" />
+                              <input type="checkbox" class="checkbox2 commonRadioBtn1" :checked="cards[index].active" @change="() => cards[index].active = !cards[index].active" />
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
                           </div>
@@ -39,12 +38,6 @@
 export default {
   data() {
     return {
-      // cards: [
-      //   { id: 1, active: true },
-      //   { id: 2, active: true },
-      //   { id: 3, active: true },
-      //   { id: 4, active: true },
-      // ],
       data: [
         {
           type: "",

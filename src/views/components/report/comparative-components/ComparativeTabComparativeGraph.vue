@@ -40,7 +40,7 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor ${index ? '':'d-none'} deleteBtn${1+index}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal" data-bs-toggle="modal">
+                          <a :class="`ms-2 deleteButtonAncor ${index ? '':'d-none'} deleteBtn${1+index} ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @click="setActionId(index)" data-bs-target="#DeleteComparativeCvModal" data-bs-toggle="modal">
                             <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z" stroke="#9D9D9D" />
                               <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
@@ -166,6 +166,9 @@ export default {
   mounted() {
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
+      // cvGraphInputToogle${index}
+      console.log("this.cards");
+      console.log(this.graphs);
       this.setGraph(); // generate graph
     }
   },
@@ -199,8 +202,12 @@ export default {
         cv3 = chart3 ? chart3["net_balance"] : [];
 
         years = chart1 ? chart1.year : [];
-        contribution = chart ? chart["Deposits"] : [];
-        distribution = chart ? chart["distributions"] : [];
+        contribution =
+          chart && this.graphs.annual_contribution ? chart["Deposits"] : [];
+        distribution =
+          chart && this.graphs.annual_distribution
+            ? chart["distributions"]
+            : [];
       }
 
       let dataset = {
@@ -226,7 +233,7 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: cv.map(i => i.toFixed(0)),
+            data: !this.cards[0].active ? [] : cv.map(i => i.toFixed(0)),
             TooltipLabelStyle: {
               backgroundColor: "white",
               borderColor: "white",
@@ -246,9 +253,10 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(1)
-              ? []
-              : cv1.map(i => i.toFixed(0)) || [],
+            data:
+              this.deletedItems.includes(1) || !this.cards[1].active
+                ? []
+                : cv1.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#763CA3",
@@ -256,9 +264,10 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(2)
-              ? []
-              : cv2.map(i => i.toFixed(0)) || [],
+            data:
+              this.deletedItems.includes(2) || !this.cards[2].active
+                ? []
+                : cv2.map(i => i.toFixed(0)) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -266,9 +275,10 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: this.deletedItems.includes(3)
-              ? []
-              : cv3.map(i => i.toFixed(0)) || [],
+            data:
+              this.deletedItems.includes(3) || !this.cards[3].active
+                ? []
+                : cv3.map(i => i.toFixed(0)) || [],
           },
           {
             barPercentage: 0,
@@ -607,9 +617,13 @@ export default {
       return this.$store.state.data.reportTabs.active_cards
         .cmp_comparative_graph.cards;
     },
+
     graphs() {
       return this.$store.state.data.reportTabs.active_cards
         .cmp_comparative_graph.graphs;
+    },
+    toggleActions() {
+      return JSON.stringify(this.cards) + JSON.stringify(this.graphs);
     },
     deletedItems() {
       return this.$store.state.data.report.deleted_cv_ids;
@@ -631,6 +645,9 @@ export default {
     },
   },
   watch: {
+    toggleActions() {
+      // this.setGraph();
+    },
     "$store.state.app.presentation_mode"(val) {
       if (
         this.$store.state.app.presentation_mode &&
@@ -650,7 +667,6 @@ export default {
       }
     },
     "comparative.cv_1.length"() {
-      console.log("graph set");
       this.setGraph();
     },
     "deletedItems.length"(val) {

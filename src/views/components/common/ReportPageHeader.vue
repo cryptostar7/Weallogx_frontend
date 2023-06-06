@@ -1,5 +1,5 @@
 <template lang="">
-  <div :class="`pdf-spinner advanced text-center ${pLoader ? 'bgAnim' : 'd-none'}`">
+  <div :class="`pdf-spinner advanced text-center ${pLoader && !$route.params.view_token ? 'bgAnim' : 'd-none'}`">
     <div>
       <div class="d-flex justify-content-center">
         <div class="spinner-border text-secondary" role="status"></div>
@@ -128,7 +128,7 @@
           </a>
         </div>
         
-        <a href="javascript:void(0)" @click="backToNormalScreen()" ref="fullScreenCloseBtn"
+        <a href="javascript:void(0)" @click="backToNormalScreen()" ref="fullScreenCloseBtn" :style="{display: $route.params.view_token ? 'none !important' :''}"
           class="fullScreenCloseBtn btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn d-flex justify-content-center align-items-center fullScreenCloseBtnHide">
           <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2.0459" y="0.000915527" width="21.6354" height="2.40393" rx="1.20197"
@@ -149,8 +149,8 @@ import {
   setComapanyLogo,
   setCurrentUser,
 } from "../../../services/helper";
-import { patch, get } from '../../../network/requests';
-import { getUrl } from '../../../network/url';
+import { patch, get } from "../../../network/requests";
+import { getUrl } from "../../../network/url";
 
 // document.addEventListener("click", (event) => {
 //   if (document.fullscreenElement) {
@@ -168,14 +168,12 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-    },
     saveReport: function() {
       console.log(this.$route.params.report);
       let data = {
         saved_action: {
           active_tabs: this.$store.state.data.reportTabs.active,
-          active_cards: this.$store.state.data.reportTabs.active_cards
+          active_cards: this.$store.state.data.reportTabs.active_cards,
         },
       };
       this.$store.dispatch("loader", true);
@@ -186,8 +184,7 @@ export default {
       )
         .then(response => {
           console.log(response.data);
-          this.$toast.success(response.data.message);
-          // this.getClient(true);
+          this.$toast.success('Report saved successfully!');
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
@@ -246,23 +243,26 @@ export default {
         //       tabMenuHeight = tabMenus[i].offsetHeight;
         //       break;
         //     }
-        //   }  
+        //   }
         // }
-        for(let i = 0; i < cardsAreas.length; i++){
-          if(cardsAreas[i].offsetHeight > 0){
+        for (let i = 0; i < cardsAreas.length; i++) {
+          if (cardsAreas[i].offsetHeight > 0) {
             cardHeight = cardsAreas[i].offsetHeight;
             break;
           }
         }
 
-        reportHeight = topBarHeight + tabHeadHeight + (tabMenus ? tabMenuHeight : -25) + cardHeight;
+        reportHeight =
+          topBarHeight +
+          tabHeadHeight +
+          (tabMenus ? tabMenuHeight : -25) +
+          cardHeight;
         graphHeight = screenHeight - reportHeight;
-        console.log(reportHeight, graphHeight, screenHeight);
         graphAreas.forEach(graph => {
           graph.style.height = graphHeight + "px";
-        });        
+        });
       });
-      document.querySelector("body").classList.add("fullScreen")
+      document.querySelector("body").classList.add("fullScreen");
       this.$store.dispatch("fullScreen");
     },
     backToNormalScreen: function() {
@@ -270,7 +270,7 @@ export default {
         this.$store.dispatch("fullScreen");
       }
       this.$store.dispatch("presentation", false);
-      this.$router.push('');
+      this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
     },
   },

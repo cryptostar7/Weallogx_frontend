@@ -7,17 +7,21 @@
 export default {
   methods: {
     testFunction: function() {
-      console.log(this.object);
+      let value = 950396;
+      let a = value.toString();
+      let b = a.substr(1);
+      let c = "1".padEnd(a.length, "0");
+      console.log(c);
     },
   },
   computed: {
     object() {
-     return {
-      fees: '4544',
-      fees: '3534',
-      fees: '4325',
-      fees: '5532',
-     };
+      return {
+        fees: "4544",
+        fees: "3534",
+        fees: "4325",
+        fees: "5532",
+      };
     },
   },
 };

@@ -75,6 +75,11 @@ const router = createRouter({
       component: () => import("../views/pages/ReportBuilderPage.vue"),
     },
     {
+      path: "/report/:report/:view_token",
+      name: "report",
+      component: () => import("../views/pages/ReportBuilderPage.vue"),
+    },
+    {
       path: "/sign-up/:plan?",
       name: "signup",
       component: () => import("../views/pages/SignupPage.vue"),

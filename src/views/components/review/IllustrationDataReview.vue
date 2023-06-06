@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-2 summaryInputsDiv">
                             <label for="client name">Illustration Return</label>
-                            <input type="text" class="form-control" :value="`${Number(data.policy_return).toFixed(2)}%`" readonly>
+                            <input type="text" class="form-control" :value="`${Number(data.initial_policy_return || 0).toFixed(2)}%`" readonly>
                         </div>
                         <div class="col-md-2 summaryInputsDiv">
                             <label for="client name">Initial Death Benefit</label>
