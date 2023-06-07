@@ -3233,10 +3233,11 @@
 
 .dark-blue .creditBonusInputDiv input {
   background-image: url("../images/icons/dark-percent.svg") !important;
-  background-repeat: no-repeat !important;
   background-position: 88% 50% !important;
 }
-
+.dark-blue .creditBonusInputDiv.customAmountNoPercent input {
+  background-image: none !important;
+}
 .dark-blue .review-progress li.active .nav-link,
 .dark-blue .review-progress li.done .nav-link {
   color: #fff;

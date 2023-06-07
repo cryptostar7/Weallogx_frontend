@@ -15,8 +15,7 @@
     </div>
     </div>
 </div>
-<div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent "
-    data-bs-parent="#accordionFlushExample">
+<div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#accordionFlushExample">
     <form action="javascript:void(0)" autocomplete="off">
       <div class="formParabrdrLavelDiv mb-1">
         <p>index</p>
@@ -35,9 +34,13 @@
         <div class="or-div">
         or
         </div>
-        <div class="customAmountInputDiv creditBonusInputDiv customInputWidth">
-        <label :for="`rollingCustomAmount${currentTab}`">Custom Amount</label>
-        <input :id="`rollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input backgroundImageNone handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+        <div class="customAmountInputDiv customAmountNoPercent creditBonusInputDiv customInputWidth">
+        <label :for="`rollingCustomAmount${currentTab}`" class="position-relative rolling-time-label">Custom Amount
+          <img src="@/assets/images/icons/info-icon.svg" alt="info" class="info-icon-img">
+          <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="dark-info-icon-img">
+          <span class="info-message-analyze" id="rollingTimeInfoContent">Choose a rolling period between 15 and 55 years.</span>
+        </label>
+        <input :id="`rollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
         </div>
     </div>
 
@@ -118,6 +121,17 @@ export default {
       // console.log(this.$refs.indexRef.value);
     },
     updateRollingPeriod: function(val) {
+      let infoContent = document.querySelector("#rollingTimeInfoContent");
+      if(val == 1){
+        infoContent.textContent = `Choose a rolling period between 15 and 55 years.`;
+      }else if(val == 2 || val == 7){
+        infoContent.textContent = `Choose a rolling period between 15 and 30 years.`;
+      }else if(val == 3 || val == 4 || val == 6){
+        infoContent.textContent = `You must choose 15 years.`;
+      }else{
+        infoContent.textContent = `Choose a rolling period between 15 and 20 years.`;
+      }
+
       this.rollingPeriod.max_val = this.indexStrategies.filter(
         i => i.id === val
       )[0].max_limit;

@@ -183,6 +183,7 @@ export default {
         !document.mozFullScreen &&
         !document.msFullscreenElement
       ) {
+        document.querySelector(".fullScreenCloseBtn").click();
         document.querySelector("body").classList.remove("fullScreen");
         let graphAreas = document.querySelectorAll(".graph-area");
         graphAreas.forEach(graph => {
@@ -276,18 +277,12 @@ export default {
             break;
           }
         }
-
-        reportHeight =
-          topBarHeight +
-          tabHeadHeight +
-          (tabMenus ? tabMenuHeight : -25) +
-          cardHeight;
+        reportHeight = topBarHeight + tabHeadHeight + (tabMenus ? tabMenuHeight : -25) + cardHeight;
         graphHeight = screenHeight - reportHeight;
         graphAreas.forEach(graph => {
           graph.style.height = graphHeight + "px";
           let canvas = graph.querySelector("canvas");
           if (canvas) {
-            console.log(canvas);
             canvas.setAttribute("height", "400px");
           }
         });

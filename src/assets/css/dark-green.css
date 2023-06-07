@@ -3114,6 +3114,9 @@
   background-repeat: no-repeat !important;
   background-position: 88% 50% !important;
 }
+.dark-green .creditBonusInputDiv.customAmountNoPercent input {
+  background-image: none !important;
+}
 
 .dark-green .common-modal .yes-delete-btn {
   min-width: 225px;
