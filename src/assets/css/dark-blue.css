@@ -2226,8 +2226,7 @@
 }
 
 .dark-blue .reportTablesDiv .table4Hide thead th {
-  background:
-    #2E3135 !important;
+  background: #2E3135 !important;
   opacity: 0.6;
   border: 1px solid #292c30;
 }
@@ -3233,6 +3232,7 @@
 
 .dark-blue .creditBonusInputDiv input {
   background-image: url("../images/icons/dark-percent.svg") !important;
+  background-repeat: no-repeat !important;
   background-position: 88% 50% !important;
 }
 .dark-blue .creditBonusInputDiv.customAmountNoPercent input {
