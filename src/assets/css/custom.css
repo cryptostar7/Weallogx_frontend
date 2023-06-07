@@ -2856,7 +2856,7 @@ body.fullScreen .progressAllBarsDivMain{
   padding: 0;
   margin-top: 0;
   display: flex;
-  margin-left: 7rem;
+  padding-left: 4rem;
   gap: 3rem;
   border-radius: .25rem;
   width: 100%;
@@ -3183,6 +3183,9 @@ body.fullScreen .progressAllBarsDivMain{
   font-size: 12px;
   margin: 0;
   color: #202020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalHeadingDiv {
@@ -4940,7 +4943,7 @@ border: none;
   background: #FFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
-  padding: 20px 28px 8px;
+  padding: 20px 28px 15px;
   width: 100%;
   margin-top: 20px;
   display: flex;

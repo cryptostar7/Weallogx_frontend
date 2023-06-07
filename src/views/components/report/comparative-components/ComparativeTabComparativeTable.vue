@@ -145,7 +145,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-9 col-md-4 ps-0 pe-0">
+                    <div :class="`col-9 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'} ps-0 pe-0`">
                       <div class="reportTablesDiv reportTablesDiv3">
                         <div class="lifeProPlus">
                           <div class="row">
@@ -211,7 +211,7 @@
                         </table> 
                       </div>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div :class="`col-12 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'}`">
                       <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
                         <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} ${deletedItems.length} ps-1 pe-0 drag-col ${header.active ? '' : 'order-last'}`">
                           <div class="empty-inner" data-empty="1">
@@ -307,25 +307,27 @@
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <th :width="`${$props.sidebar ? 125 : 105}`" style="background: none!important;border: none !important;"></th>
+                              <!-- :width="`${$props.sidebar ? 125 : 105}`" -->
+                              <th style="background: none !important; border: none !important;"></th>
+                              <th style="background: none !important; border: none !important;"></th>
                               <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
                             </thead>
                             <tbody>
                               <tr>
-                                <td class="table1Td tableotalTd text-start" data-label="Year">Totals</td>
+                                <td colspan="2" class="table1Td tableotalTd text-start" data-label="Year">Totals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value</td>
+                                <td colspan="3" class="table1Td totalValueTd" data-label="Age">Total Value</td>
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">Shortfall</td>
+                                <td colspan="3" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">Shortfall</td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                      <div class="col-9 col-md-4 ps-0 pe-0">
+                      <div :class="`col-9 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'} ps-0 pe-0`">
                         <div class="reportTablesDiv reportTablesDiv3">
                           <table class="table table3 mt-1 secondTable summaryTableFont">
                             <thead class="heading-tr">
@@ -350,7 +352,7 @@
                           </table>
                         </div>
                       </div>
-                      <div class="col-12 col-md-6">
+                      <div :class="`col-12 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'}`">
                         <div class="row summary-row">
                           <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-1 pe-0 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
@@ -426,6 +428,11 @@ function getOffset(element) {
 
 function Table(element) {
   this.element = element;
+  this.element.querySelectorAll("thead").forEach(thead => {
+    if(thead.classList.contains("cloned")){
+      thead.remove();
+    }
+  });
   this.originalHeader = element.getElementsByTagName("thead")[0];
   this.floatingHeader = this.originalHeader.cloneNode(true);
   this.top = 0;
@@ -437,6 +444,7 @@ function Table(element) {
     this.element.style.position = "relative";
   }
   this.floatingHeader.setAttribute("aria-hidden", "true");
+  this.floatingHeader.classList.add("cloned");
   this.floatingHeader.style.position = "absolute";
   this.floatingHeader.style.top = "0";
 
@@ -453,15 +461,16 @@ Table.prototype.refreshHeaderSize = function() {
     this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
+    // console.log(th);
     this.floatingThs[i].style.width = th.offsetWidth + "px";
     this.floatingThs[i].style.height = th.offsetHeight + "px";
   }
 }
 
 Table.prototype.refreshHeaderWidth = function() {
-  var trs = this.element.getElementsByTagName("tr");
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
+    // console.log(th);
     this.floatingThs[i].style.width = th.offsetWidth + "px";
     this.floatingThs[i].style.height = th.offsetHeight + "px";
   }
@@ -588,10 +597,11 @@ export default {
     },
 
     init: function() {
+      tables = [];
       var matches = document.querySelectorAll("table.sticky-header");
       for (var i = 0; i < matches.length; i++) {
         if (matches[i].tagName === "TABLE") {
-          tables[i] = new Table(matches[i]);
+          tables.push(new Table(matches[i]));
         }
       }
     },
@@ -606,14 +616,6 @@ export default {
         window.addEventListener("scroll", this.windowScrollMinus);
         return;
       }
-      // if(this.$store.state.app.presentation_mode == false && this.$props.sidebar == false){
-      //   return;
-      // }
-      // if(this.$store.state.app.presentation_mode == false && (this.$props.sidebar || !this.$props.sidebar)){
-      //   for (var i = 0; i < tables.length; i++) {
-      //     tables[i].refreshHeaderSize();
-      //   }
-      // }
     },
     getScrollTop: function() {
       if (typeof window.pageYOffset !== "undefined") {
@@ -919,6 +921,14 @@ export default {
     },
     "$props.sidebar"(value) {
       this.handleSidebar(value);
+    },
+    "deletedItems.length"(val) {
+      setTimeout(() => {
+        this.init();
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderWidth();
+        }
+      }, 3000);
     },
   },
   computed: {
