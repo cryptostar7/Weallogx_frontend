@@ -30,7 +30,8 @@ const myPlugin = {
                 return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;
             },
             app.config.globalProperties.$sortName = (first = '', last = '', middle = '') => {
-                return `${last.substring(0, 1)}${first.substring(0, 1)}`.toUpperCase();
+                let str = last.substring(0, 1).toUpperCase() + last.substring(1, 2).toLowerCase();
+                return str;
             },
             app.config.globalProperties.$getPlanName = (key) => {
                 let plans = { '1': 'Free Trial', '2': 'Monthly Plan', '3': 'Yearly Plan' };

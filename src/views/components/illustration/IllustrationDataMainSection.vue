@@ -1751,7 +1751,7 @@ export default {
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
           e = e.split(".")[0]; // remove decimal points
           if (!e) {
-            e = 0;
+            e = 0; // set default value 0 for blank value
           }
           return e;
         })
