@@ -1604,8 +1604,6 @@ export default {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
 
-          console.log(temp_data);
-
           this.csvPreview = this.filterObject({
             data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
             headers: [...this.csvPreview.headers, ...obj.headers],
