@@ -633,11 +633,6 @@
   background: #34383D;
   border: 1px solid #515151;
   color: #fff;
-  background-image: url('../images/icons/dark-mode-percent.svg');
-  background-repeat: no-repeat;
-  background-position: 88% 50%;
-  padding-right: 23%;
-  padding-left: 5%;
 }
 
 .dark-green .customAmountInputDiv input:focus {
