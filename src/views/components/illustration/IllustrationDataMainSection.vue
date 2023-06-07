@@ -1768,10 +1768,11 @@ export default {
               data = data.map(i => this.parseRow2(i));
             }
           }
+
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
           data = data.filter(
-            i => i.filter(j => j).length && !this.checkIsHeader(i)
+            i => i.length && !this.checkIsHeader(i)
           );
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
