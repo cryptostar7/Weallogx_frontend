@@ -928,7 +928,7 @@ export default {
         for (var i = 0; i < tables.length; i++) {
           tables[i].refreshHeaderWidth();
         }
-      }, 3000);
+      }, 1000);
     },
   },
   computed: {
