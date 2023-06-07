@@ -413,7 +413,6 @@ export default {
           getScenarioAPI = false;
         }
       }
-      
 
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
@@ -1479,11 +1478,16 @@ export default {
               this.$route.params.scenario
             }`;
 
-            if(report){
-              window.location.href = `/report-builder/${this.$route.query.report}`;
+            if (report) {
+              window.location.href = `/report-builder/${
+                this.$route.query.report
+              }`;
             }
-            
-            this.$router.push({ path: url, query: report ? null : this.$route.query });
+
+            this.$router.push({
+              path: url,
+              query: report ? null : this.$route.query,
+            });
           })
           .catch(error => {
             console.log(error);
@@ -1600,8 +1604,10 @@ export default {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
 
+          console.log(temp_data);
+
           this.csvPreview = this.filterObject({
-            data: temp_data.map(a => a.map(i => i.replace("-", ""))),
+            data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
             headers: [...this.csvPreview.headers, ...obj.headers],
           });
           this.setInputWithId("add_new_csv_col", "");
@@ -1746,6 +1752,9 @@ export default {
         i.map(e => {
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
           e = e.split(".")[0]; // remove decimal points
+          if (!e) {
+            e = 0;
+          }
           return e;
         })
       );
@@ -1771,9 +1780,7 @@ export default {
 
           data = data.map(i => i.map(r => r.replace("\r", "")));
           total_columns = data[0].length;
-          data = data.filter(
-            i => i.length && !this.checkIsHeader(i)
-          );
+          data = data.filter(i => i.length && !this.checkIsHeader(i));
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
           }
