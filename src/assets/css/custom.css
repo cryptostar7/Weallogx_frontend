@@ -2711,11 +2711,20 @@ p.allCardHeadPara{
   --value-bar-height: 215px;
   --gap: 4px;
 }
-body.fullScreen .CompProgressAbsltCls, body.fullScreen .feeProgressAbsltCls, body.fullScreen .comparative-graph-container{
-  height: 92%;
+.graph-container-inner{
+  height: 100%;
+}
+body.fullScreen .CompProgressAbsltCls, body.fullScreen .comparative-graph-container{
+  height: 86%;
+}
+body.fullScreen .feeProgressAbsltCls{
+  height: 70%; 
 }
 body.fullScreen .makeThinkEqualDiv{
-  height: 80%;
+  height: 65%;
+}
+body.fullScreen .graph-container-inner{
+  height: 75%;
 }
 body.fullScreen .makeThinkEqualDivInner{
   height: 100%;
@@ -5519,5 +5528,8 @@ font-size:16px!important;
 .share-hide{
   visibility: hidden;
   opacity: 0;
+  pointer-events: none;
+}
+body.presentationModeCommon .rghtTopHeadcommon{
   pointer-events: none;
 }

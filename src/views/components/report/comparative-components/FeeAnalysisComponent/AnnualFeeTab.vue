@@ -36,7 +36,9 @@
     </div>
     <div class="container-fluid">
       <div class="graph-container-div fh graph-area">
-        <canvas id="annualFeesChart" width="100%" height="300"></canvas>
+        <div class="graph-container-inner w-100">
+          <canvas id="annualFeesChart" width="100%" height="300"></canvas>
+        </div>
       </div>
     </div>
   </div>

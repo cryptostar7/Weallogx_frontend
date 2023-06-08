@@ -28,9 +28,11 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="graph-container-div fh graph-area">
-            <canvas id="cumulativeFeesChart" width="100%" height="300"></canvas>
+      <div class="graph-container-div fh graph-area">
+        <div class="graph-container-inner w-100">
+           <canvas id="cumulativeFeesChart" width="100%" height="300"></canvas>
         </div>
+      </div>
     </div>
 </div>
 </template>
