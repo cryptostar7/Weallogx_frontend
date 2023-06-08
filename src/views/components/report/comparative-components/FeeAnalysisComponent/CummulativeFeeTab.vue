@@ -123,14 +123,10 @@ export default {
           {
             fill: true,
             backgroundColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "rgba(22, 96, 164, .4)"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "rgba(22, 96, 164, .4)"
                 : "rgba(14, 102, 81, .35)",
             borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
                 : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,

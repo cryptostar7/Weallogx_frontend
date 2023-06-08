@@ -137,15 +137,11 @@ export default {
         datasets: [
           {
             borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
                 : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             pointBackgroundColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4" ? this.$appTheme() == "dark-green" : "#26AB8B"
-                : "#0E6651",
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4" : 
+              this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
@@ -153,14 +149,10 @@ export default {
           },
           {
             borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#089875"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
                 : "#1660A4",
             pointBackgroundColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#089875"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -397,13 +389,19 @@ export default {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
+          graphData.datasets[1].pointBackgroundColor = "#089875";
         } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[0].pointBackgroundColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
+          graphData.datasets[1].pointBackgroundColor = "#23669E";
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
+          graphData.datasets[1].pointBackgroundColor = "#1660A4";
         }
         window.annualChart.update();
       });
