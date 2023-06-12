@@ -2,6 +2,7 @@
 <template>
 <div>
   <navbar-component />
+  <!-- main historical component -->
   <historical-simulation-main-section />
 </div>
 </template>

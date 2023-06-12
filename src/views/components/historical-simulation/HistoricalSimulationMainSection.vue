@@ -72,6 +72,3 @@ export default {
   components: {ScenarioLabelComponent},
 }
 </script>
-<style lang="">
-  
-</style>
