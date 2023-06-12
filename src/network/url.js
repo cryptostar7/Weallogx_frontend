@@ -74,7 +74,7 @@ export const getUrl = (type) => {
     case 'historical':
       return `${baseUrl}/auth/historical/`;
     case 'historical-template':
-      return `${baseUrl}/auth/indexstrategy-template/`;
+      return `${baseUrl}/auth/template-index/`;
     case 'historical-portfolio':
       return `${baseUrl}/auth/historical-portfolio/`;
     case 'historical-simulation-object':

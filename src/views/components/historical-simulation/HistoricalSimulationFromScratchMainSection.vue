@@ -710,8 +710,8 @@ export default {
       this.setFeesData(tab, data);
     },
     // get previous data
-    populateHistoricalSimulationData: function(id) {
-      get(`${getUrl("historical")}${id}`, authHeader())
+    populateHistoricalSimulationData: function(id, portfolio=false) {
+      get(`${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`, authHeader())
         .then(response => {
           let data = response.data.data;
           console.log(data);
@@ -1470,6 +1470,10 @@ export default {
       get(getUrl("historical-template"), authHeader())
         .then(response => {
           var data = response.data.data;
+
+console.log('data ....................');
+console.log(data);
+
           var temp = [];
           let index = 1;
           // push index #1 templates in temp variable
@@ -1566,7 +1570,7 @@ export default {
       this.getExistingIndex();
     }
     if (this.$route.query.pid && this.$route.query.pid !== 'null') {
-      this.populateHistoricalSimulationData(this.$route.query.pid);
+      this.populateHistoricalSimulationData(this.$route.query.pid, true);
     }
   },
   computed: {
