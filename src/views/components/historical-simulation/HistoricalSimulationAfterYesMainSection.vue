@@ -272,7 +272,7 @@ import { getUrl } from "../../../network/url";
 import { authHeader, getFirstError } from "../../../services/helper";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
-import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
@@ -333,7 +333,7 @@ export default {
                 generateCanvas(i, pdf);
               }
 
-              document.getElementById('stopLoaderBtn').click();
+              document.getElementById("stopLoaderBtn").click();
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
@@ -512,7 +512,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-        this.$store.dispatch('loader', true);
+        this.$store.dispatch("loader", true);
         this.getPreview(file);
       }
       this.illustrationFile.file = file ? file : "";
@@ -554,7 +554,7 @@ export default {
           return false;
         }
         this.illustrationFile.file = file ? file : "";
-        this.$store.dispatch('loader', true);
+        this.$store.dispatch("loader", true);
         this.getPreview(file);
       }
 
@@ -1007,44 +1007,44 @@ export default {
       if (e) {
         e.preventDefault();
       }
-      
-      if(!this.cfs){
-       return this.$router.push(
-              `/historical-simulations/${
-                this.$route.params.scenario
-              }?pid=${this.getPortfolioId()}`
-            );
+
+      if (!this.cfs) {
+        return this.$router.push(
+          `/historical-simulations/${
+            this.$route.params.scenario
+          }?pid=${this.getPortfolioId()}`
+        );
       }
-      // if (
-      //   this.csvPreview &&
-      //   this.csvPreview.headers &&
-      //   this.csvPreview.headers.length > 6
-      // ) {
-      //   if (!this.csvPreview.headers.includes("1")) {
-      //     return alert(`${this.illustrationFields["1"].name} is required.`);
-      //   }
-      //   if (!this.csvPreview.headers.includes("2")) {
-      //     return alert(`${this.illustrationFields["2"].name} is required.`);
-      //   }
-      //   if (!this.csvPreview.headers.includes("4")) {
-      //     return alert(`${this.illustrationFields["4"].name} is required.`);
-      //   }
-      //   if (!this.csvPreview.headers.includes("7")) {
-      //     return alert(`${this.illustrationFields["7"].name} is required.`);
-      //   }
-      //   if (!this.csvPreview.headers.includes("8")) {
-      //     return alert(`${this.illustrationFields["8"].name} is required.`);
-      //   }
-      //   if (!this.csvPreview.headers.includes("9")) {
-      //     return alert(`${this.illustrationFields["9"].name} is required.`);
-      //   }
-      // } else {
-      //   if (this.uploadFromFile) {
-      //     return this.$toast.warning("Please upload illustration pdf data.");
-      //   } else {
-      //     return this.$toast.warning("CSV data is required.");
-      //   }
-      // }
+      if (
+        this.csvPreview &&
+        this.csvPreview.headers &&
+        this.csvPreview.headers.length > 6
+      ) {
+        if (!this.csvPreview.headers.includes("1")) {
+          return alert(`${this.illustrationFields["1"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("2")) {
+          return alert(`${this.illustrationFields["2"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("4")) {
+          return alert(`${this.illustrationFields["4"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("7")) {
+          return alert(`${this.illustrationFields["7"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("8")) {
+          return alert(`${this.illustrationFields["8"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("9")) {
+          return alert(`${this.illustrationFields["9"].name} is required.`);
+        }
+      } else {
+        if (this.uploadFromFile) {
+          return this.$toast.warning("Please upload illustration pdf data.");
+        } else {
+          return this.$toast.warning("CSV data is required.");
+        }
+      }
       console.log("submitted");
 
       if (!this.validateForm()) {
@@ -1065,9 +1065,18 @@ export default {
         formData.append("copy_paste_checkbox", !upload_file_checkbox);
 
         let tempHeader = [];
+        let currentFeeCol = 0;
         this.csvPreview.headers.forEach(item => {
           if (this.illustrationFields[item]) {
-            tempHeader.push(this.illustrationFields[item].value);
+            var field = this.illustrationFields[item].value;
+            // set custome keys for multiple fees data
+            if (item === "6") {
+              if (currentFeeCol) {
+                field += currentFeeCol;
+              }
+              currentFeeCol++;
+            }
+            tempHeader.push(field);
           } else {
             tempHeader.push("none");
           }
@@ -1147,7 +1156,17 @@ export default {
       }
     },
     // filter illustarion object data
-    filterObject: function(array = { data: [], data: [] }) {
+    filterObject: function(array = { data: [], headers: [] }) {
+      array.data = array.data.map(i =>
+        i.map(e => {
+          e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
+          e = e.split(".")[0]; // remove decimal points
+          if (!e) {
+            e = 0; // set default value 0 for blank value
+          }
+          return e;
+        })
+      );
       array.data = array.data.filter((i, k) => k < this.illustrateYear);
       return array;
     },

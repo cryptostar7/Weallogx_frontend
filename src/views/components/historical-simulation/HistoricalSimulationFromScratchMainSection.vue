@@ -1428,7 +1428,7 @@ export default {
     // populate existing index details
     populateIndexTemplate: function(iType = 1, id = null, type = 1) {
       this.$store.dispatch("loader", true);
-      get(`${getUrl(`strategy-index${type}`)}${id}/`, authHeader())
+      get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
         .then(response => {
           var data = response.data.data;
           this.populateIndex(iType, data);
@@ -1470,10 +1470,6 @@ export default {
       get(getUrl("historical-template"), authHeader())
         .then(response => {
           var data = response.data.data;
-
-console.log('data ....................');
-console.log(data);
-
           var temp = [];
           let index = 1;
           // push index #1 templates in temp variable
