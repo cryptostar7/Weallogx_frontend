@@ -20,15 +20,15 @@
               </div>
             </div>            
             <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
-            <div class="mt-1 d-flex justify-content-between">
+            <div class="d-flex justify-content-between color color1">
               <p class="legacyCardPara">Value Efficiency</p>
               <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.value_efficiency).toFixed(2))}}</p>
             </div>
-            <div class="mt-1 d-flex justify-content-between">
+            <div class="d-flex justify-content-between color color2">
               <p class="legacyCardPara">Total Fees</p>
               <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.total_fees).toFixed(2))}}</p>
             </div>
-            <div class="mt-1 d-flex justify-content-between">
+            <div class="d-flex justify-content-between color color3">
               <p class="legacyCardPara">Total Value </p>
               <p class="legacyCardPara2 text-right">${{$numFormat(Number(item.total_value).toFixed(2))}}</p>
             </div>

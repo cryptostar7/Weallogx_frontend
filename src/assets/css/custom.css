@@ -2552,9 +2552,7 @@ background: transparent;
 .distributionCard1.inactive .compGraphSmallBdrClr4 p,
 .distributionCard1.inactive .compGraphSmallBdrClr5 p {
   background-color: #dfdfdf !important;
-  ;
   background: #dfdfdf !important;
-  ;
 }
 
 .equalDistCard1 {
@@ -2573,6 +2571,62 @@ background: transparent;
   border-top: 6px solid #9D2B2B;
 }
 
+.distributionCard1 .color{
+  position: relative;
+  padding-left: .75rem;
+  margin-bottom: 2px;
+}
+.distributionCard1 .color3{
+  margin-bottom: 0;
+}
+.distributionCard1 .color::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  width: 7px;
+  height: 18px;
+  border-radius: 1px;
+}
+.equalDistCard1 .color1::before{
+  background-color: #0E6651;
+}
+.equalDistCard1 .color2::before{
+  background-color: #209579;
+}
+.equalDistCard1 .color3::before{
+  background-color: #3ECAA8;
+}
+.equalDistCard2 .color1::before{
+  background-color: #1660A4;
+}
+.equalDistCard2 .color2::before{
+  background-color: #207ACD;
+}
+.equalDistCard2 .color3::before{
+  background-color: #1A89EE;
+}
+.equalDistCard3 .color1::before{
+  background-color: #763CA3;
+}
+.equalDistCard3 .color2::before{
+  background-color: #954FCB;
+}
+.equalDistCard3 .color3::before{
+  background-color: #B770EF;
+}
+.equalDistCard4 .color1::before{
+  background-color: #9D2B2B;
+}
+.equalDistCard4 .color2::before{
+  background-color: #CA3939;
+}
+.equalDistCard4 .color3::before{
+  background-color: #E55050;
+}
+.distributionCard1.inactive .color::before{
+  background-color: #dfdfdf;
+}
 .deleteButtonAncor {
   border: 1px solid #DFDFDF;
   width: 21px;
@@ -2710,6 +2764,9 @@ p.allCardHeadPara{
   --value-bar-width: 75px;
   --value-bar-height: 215px;
   --gap: 4px;
+}
+.expenseCard .progressAllBarsDivMain{
+  --big-bar-width: 100px;
 }
 .graph-container-inner{
   height: 100%;
@@ -3321,7 +3378,9 @@ body.fullScreen .progressAllBarsDivMain{
   align-items: flex-end;
   overflow: hidden;
 }
-
+.expenseCard .cumulativeValuesProgrees{
+  background-image: none;
+}
 .CompProgressAbsltCls.legacy .cumulativeValuesProgrees,
 .CompProgressAbsltCls.income .cumulativeValuesProgrees {
   height: var(--legacy-bar-height);
@@ -3337,6 +3396,9 @@ body.fullScreen .progressAllBarsDivMain{
   vertical-align: middle;
   display: flex;
   align-items: flex-end;
+}
+.expenseCard .cumulativeValuesProgrees .cumulativeprogreeDivcommon{
+  border-radius: 8px;
 }
 .cumulativeprogreeDivcommon.p-static{
   position: static;

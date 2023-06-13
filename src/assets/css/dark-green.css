@@ -2196,6 +2196,9 @@
   overflow: hidden;
   background-repeat: repeat;
 }
+.dark-green .expenseCard .cumulativeValuesProgrees{
+  background-image: none;
+}
 
 .dark-green .cumulativeValuesProgrees.bigbarsmaincolorDisable {
   background-image: none;
