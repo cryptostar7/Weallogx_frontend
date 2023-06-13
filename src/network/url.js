@@ -86,11 +86,11 @@ export const getUrl = (type) => {
     case 'strategy-index3':
       return `${baseUrl}/auth/indexstrategy3/`;
     case 'strategy-index-template1':
-      return `${baseUrl}/auth/template-indexstratgy1/`;
+      return `${baseUrl}/auth/template-indexstrategy1/`;
     case 'strategy-index-template2':
-      return `${baseUrl}/auth/template-indexstratgy2/`;
+      return `${baseUrl}/auth/template-indexstrategy2/`;
     case 'strategy-index-template3':
-      return `${baseUrl}/auth/template-indexstratgy3/`;
+      return `${baseUrl}/auth/template-indexstrategy3/`;
     case 'report':
       return `${baseUrl}/report/`
     case 'add-report':
