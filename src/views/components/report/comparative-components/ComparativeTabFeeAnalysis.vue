@@ -12,7 +12,11 @@
                   <div class="layer2"></div>
                 </div>
               </div>
-              <label for="rightCheckBox6" class="rghtTopHeadcommon">Fee Analysis</label>
+              <div class="d-flex">
+                <label for="rightCheckBox6" class="rghtTopHeadcommon activeTabs[keyId]">Fee Analysis <span
+                  class="ms-3 equalThingTabTxt" id="feeSubText"></span></label>
+                <!-- <p></p> -->
+              </div>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,16 +30,12 @@
             <div class="px-3 pt-3 pb-2">
               <div class="d-flex justify-content-center tab-menu">
                 <div class="nav SwtchBtnRprtBldr wide nav-pills" role="tablist" aria-orientation="vertical">
-                  <div class="active" id="v-pills-annualFees-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-annualFees" type="button" role="tab" aria-controls="v-pills-annualFees" aria-selected="true">
-                    Annual Fees
-                  </div>
-                  <div id="v-pills-comulativeFees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees" type="button" role="tab" aria-controls="v-pills-comulativeFees" aria-selected="false">Cumulative
-                    Fees
-                  </div>
-                  <div id="v-pills-valueEfficiency-tab" data-bs-toggle="pill" data-bs-target="#v-pills-valueEfficiency" type="button" role="tab" aria-controls="v-pills-valueEfficiency" aria-selected="false">Value
-                    Efficiency
-                  </div>
-                  <div id="v-pills-expenseRatio-tab" data-bs-toggle="pill" data-bs-target="#v-pills-expenseRatio" type="button" role="tab" aria-controls="v-pills-expenseRatio" aria-selected="false">Expanse Ratio</div>
+                  <div class="active" id="v-pills-annualFees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-annualFees" type="button" role="tab" aria-controls="v-pills-annualFees" aria-selected="true" @click="manageText($event, 1)">
+                    Annual Fees </div>
+                  <div id="v-pills-comulativeFees-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees" type="button" role="tab" aria-controls="v-pills-comulativeFees" aria-selected="false" @click="manageText($event, 2)">Cumulative
+                    Fees </div>
+                  <div id="v-pills-valueEfficiency-tab" data-bs-toggle="pill" data-bs-target="#v-pills-valueEfficiency" type="button" role="tab" aria-controls="v-pills-valueEfficiency" aria-selected="false" @click="manageText($event, 3)">Value Efficiency </div>
+                  <div id="v-pills-expenseRatio-tab" data-bs-toggle="pill" data-bs-target="#v-pills-expenseRatio" type="button" role="tab" aria-controls="v-pills-expenseRatio" aria-selected="false" @click="manageText($event, 4)">Expanse Ratio </div>
                 </div>
               </div>
               <div class="tab-content" id="pills-tabContent">
@@ -210,6 +210,15 @@
         let expenseCard = document.querySelector(".expenseCard");
         let targetBar = expenseCard.querySelectorAll(".cumulativeprogreeDivcommon")[idx];
         targetBar.classList.toggle("d-none");
+      },
+      manageText: function(e, idx){
+        if(e.target.classList.contains("active") && idx == 3){
+          document.getElementById("feeSubText").textContent = "For ever dollar in fees, how much value do you receive in return?";
+        }else if(e.target.classList.contains("active") && idx == 4){
+          document.getElementById("feeSubText").textContent = "Average total value expense ratio";
+        }else{
+          document.getElementById("feeSubText").textContent = "";
+        }
       }
     },
 
