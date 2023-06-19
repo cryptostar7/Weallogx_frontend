@@ -291,6 +291,44 @@ export default {
 
       maxAxis = this.$roundFigureNum(maxAxis).toFixed(0);
 
+      // const hoverTrigger = {
+      //   id: "hoverTrigger",
+      //   beforeDatasetsDraw(chart, args, plugins){
+      //     setTimeout(()=> {
+      //       let { data } = chart;
+      //       const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
+      //       for(let i = 0; i < datasetMetaArray.length; i++){
+      //         const dataMetaSet = datasetMetaArray[i];
+      //         const index = dataMetaSet.index;
+      //         // console.log(dataMetaSet.data.some(dataPoint => dataPoint.active));
+      //         if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
+      //           data.datasets[index].fill = true;
+      //           // data.datasets.forEach((dataset, idx) => {
+                  
+      //           // })
+      //           chart.update();
+      //           break;
+      //         }
+
+      //       }
+      //     }, 3000)
+      //   },
+      //   afterEvent(chart, args){
+      //     let { data } = chart;
+      //     if(args.inChartArea){
+      //       function setFill(active, index, status){
+      //         return active ? status : true;
+      //       }
+      //       console.log(chart.getDatasetMeta(0).data[0].active, chart.getDatasetMeta(1).data[0].active, chart.getDatasetMeta(2).data[0].active, chart.getDatasetMeta(3).data[0].active);
+      //       data.datasets[0].fill = setFill(chart.getDatasetMeta(0).data[0].active, 0, false)
+      //       data.datasets[1].fill = setFill(chart.getDatasetMeta(1).data[0].active, 1, false)
+      //       data.datasets[2].fill = setFill(chart.getDatasetMeta(2).data[0].active, 2, false)
+      //       data.datasets[3].fill = setFill(chart.getDatasetMeta(3).data[0].active, 3, false)
+      //     }
+      //     args.changed = true;
+      //   }
+      // }
+
       const cumulativeFeesConfig = {
         type: "line",
         data: graphData,
@@ -298,7 +336,7 @@ export default {
           maintainAspectRatio: false,
           interaction: {
             intersect: false,
-            mode: "index",
+            mode: "nearest",
           },
           font: {
             size: 16,
@@ -360,6 +398,22 @@ export default {
         document.getElementById("cumulativeFeesChart"),
         cumulativeFeesConfig
       );
+
+      // const cumulativeFeesChart = document.querySelector("#cumulativeFeesChart");
+
+      // function resetColors(chart, mouseout){
+      //   chart.config.data.datasets[0].fill = true;
+      //   chart.config.data.datasets[1].fill = true;
+      //   chart.config.data.datasets[2].fill = true;
+      //   chart.config.data.datasets[3].fill = true;
+      //   chart.update();
+      // }
+
+      // // console.log()
+
+      // window.cumulativeChart.canvas.addEventListener("mouseout", (e) => {
+      //   resetColors(window.cumulativeChart, e)
+      // })
 
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {

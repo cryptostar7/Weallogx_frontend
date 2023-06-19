@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="graph-container-div fh graph-area">
+      <div class="graph-container-div fh graph-area" id="annualFeeGraphArea">
         <div class="graph-container-inner w-100">
           <canvas id="annualFeesChart" width="100%" height="300"></canvas>
         </div>
@@ -186,7 +186,8 @@ export default {
 
         if (chart1) {
           annualFeesData.datasets[0].data =
-            chart.chart_output.fees.map(i => i.toFixed(0)) || [];
+            // chart.chart_output.fees.map(i => i.toFixed(0)) || [];
+            chart.chart_output.fees.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) || [];
           let years = chart.chart_output.year;
           annualFeesData.labels = [
             1,
@@ -196,26 +197,71 @@ export default {
           ];
         }
 
+        // if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
+        //   if (chart1.type === "pretax") {
+        //     annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   } else {
+        //     annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   }
+        // }
+
+        // if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
+        //   if (chart2.type === "pretax") {
+        //     annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   } else {
+        //     annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   }
+        // }
+
+        // if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
+        //   if (chart3.type === "pretax") {
+        //     annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   } else {
+        //     annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees.map(
+        //       i => i.toFixed(0)
+        //     );
+        //   }
+        // }
+
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
           if (chart1.type === "pretax") {
             annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           } else {
             annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           }
         }
 
+
         if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
           if (chart2.type === "pretax") {
             annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           } else {
             annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           }
         }
@@ -223,16 +269,21 @@ export default {
         if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
           if (chart3.type === "pretax") {
             annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           } else {
             annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees.map(
-              i => i.toFixed(0)
+              (i, idx) => {
+                return { x: idx, y: i.toFixed(0) }
+              }
             );
           }
         }
       }
       return annualFeesData;
+
     },
     setGraph: function() {
       if (window.annualChart) {
@@ -303,16 +354,88 @@ export default {
       };
 
       let graphData = this.getDataSet();
+      // let maxAxis = Math.max(
+      //   ...[
+      //     Math.max(...graphData.datasets[0].data),
+      //     Math.max(...graphData.datasets[1].data),
+      //     Math.max(...graphData.datasets[2].data),
+      //     Math.max(...graphData.datasets[3].data),
+      //   ]
+      // );
+
       let maxAxis = Math.max(
         ...[
-          Math.max(...graphData.datasets[0].data),
-          Math.max(...graphData.datasets[1].data),
-          Math.max(...graphData.datasets[2].data),
-          Math.max(...graphData.datasets[3].data),
+          Math.max(...graphData.datasets[0].data.map(i => i.y)),
+          Math.max(...graphData.datasets[1].data.map(i => i.y)),
+          Math.max(...graphData.datasets[2].data.map(i => i.y)),
+          Math.max(...graphData.datasets[3].data.map(i => i.y)),
         ]
       );
 
+
       maxAxis = this.$roundFigureNum(maxAxis).toFixed(0);
+
+      const annualFeesChart = document.getElementById("annualFeesChart");
+      const annualFeeGraphArea = document.querySelector("#annualFeeGraphArea");
+
+      const totalDuration = 4500;
+      const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
+      const previousY = (annualFeesChart) => annualFeesChart.index === 0 ? annualFeesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : annualFeesChart.chart.getDatasetMeta(annualFeesChart.datasetIndex).data[annualFeesChart.index - 1].getProps(['y'], true).y;
+
+      // Function to handle the intersection changes
+      function handleIntersection(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            // If the graph is visible, animate it
+            animateChart(window.annualChart);
+            observer.unobserve(entry.target);
+            window.annualChart.config.options.animation = {};      
+          } else {
+            // If the graph is not visible, stop the animation
+            window.annualChart.stop();
+          }
+        });
+      }
+
+      // Create a new Intersection Observer instance
+      const observer = new IntersectionObserver(handleIntersection, {
+        threshold: 0.25 
+      });
+
+      // Start observing the chart container
+      observer.observe(annualFeeGraphArea);
+
+      function animateChart(chart) {
+        chart.options.animation = {
+           x: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: NaN, // the point is initially skipped
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.xStarted) {
+                return 0;
+              }
+              ctx.xStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          },
+          y: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: previousY,
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.yStarted) {
+                return 0;
+              }
+              ctx.yStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          }
+        };
+        chart.update();
+      }
 
       const annualFeesConfig = {
         type: "line",
@@ -329,6 +452,7 @@ export default {
           },
           responsive: true,
           plugins: {
+            legend: false,
             anuualFeesLegend: {
               containerID: "annualFeesFluid",
             },
@@ -338,6 +462,7 @@ export default {
           },
           scales: {
             x: {
+              type: 'linear',
               grid: {
                 display: false,
                 drawBorder: false,

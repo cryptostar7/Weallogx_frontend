@@ -76,7 +76,7 @@
                 </div>
               </div>
               <div class="container-fluid pb-2">
-                <div class="graph-container-div graph-area">
+                <div class="graph-container-div graph-area" id="comparativeGraphArea">
                   <div class="comparative-graph-container w-100">
                     <canvas id="comparativeValuesChart" width="400" height="350"></canvas>
                   </div>
@@ -198,10 +198,15 @@ export default {
           ? this.comparative_main.cv_3.comparison.chart_output
           : false;
 
-        cv = chart ? chart["comperative_account_value"] : [];
-        cv1 = chart1 ? chart1["net_balance"] : [];
-        cv2 = chart2 ? chart2["net_balance"] : [];
-        cv3 = chart3 ? chart3["net_balance"] : [];
+        // cv = chart ? chart["comperative_account_value"] : [];
+        // cv1 = chart1 ? chart1["net_balance"] : [];
+        // cv2 = chart2 ? chart2["net_balance"] : [];
+        // cv3 = chart3 ? chart3["net_balance"] : [];
+
+        cv = chart ? chart["comperative_account_value"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
+        cv1 = chart1 ? chart1["net_balance"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
+        cv2 = chart2 ? chart2["net_balance"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
+        cv3 = chart3 ? chart3["net_balance"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
 
         years = chart1 ? chart1.year : [];
         contribution =
@@ -231,7 +236,8 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            data: !this.cards[0].active ? [] : cv.map(i => i.toFixed(0)),
+            // data: !this.cards[0].active ? [] : cv.map(i => i.toFixed(0)),
+            data: !this.cards[0].active ? [] : cv.map(i => i.y),
             TooltipLabelStyle: {
               backgroundColor: "white",
               borderColor: "white",
@@ -250,7 +256,8 @@ export default {
             data:
               this.deletedItems.includes(1) || !this.cards[1].active
                 ? []
-                : cv1.map(i => i.toFixed(0)) || [],
+                // : cv1.map(i => i.toFixed(0)) || [],
+                : cv1.map(i => i.y) || [],
           },
           {
             borderColor: "#763CA3",
@@ -261,7 +268,8 @@ export default {
             data:
               this.deletedItems.includes(2) || !this.cards[2].active
                 ? []
-                : cv2.map(i => i.toFixed(0)) || [],
+                // : cv2.map(i => i.toFixed(0)) || [],
+                : cv2.map(i => i.y) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -272,7 +280,8 @@ export default {
             data:
               this.deletedItems.includes(3) || !this.cards[3].active
                 ? []
-                : cv3.map(i => i.toFixed(0)) || [],
+                // : cv3.map(i => i.toFixed(0)) || [],
+                : cv3.map(i => i.y) || [],
           },
           {
             barPercentage: 0,
@@ -285,6 +294,8 @@ export default {
             type: "bar",
             borderRadius: 2,
             yAxisID: "B",
+            hoverBorderWidth: 2,
+            hoverBorderColor: "rgba(14, 103, 82, .85)",
           },
           {
             barPercentage: 0,
@@ -297,6 +308,8 @@ export default {
             type: "bar",
             borderRadius: 2,
             yAxisID: "B",
+            hoverBorderWidth: 2,
+            hoverBorderColor: "rgba(131, 159, 175, 1)",
           },
         ],
       };
@@ -381,12 +394,76 @@ export default {
           Math.max(...(graphData.datasets[3].data || [])),
         ]
       );
+
       let maxAcc2 = Math.max(
         ...[
           Math.max(...(graphData.datasets[4].data || [])),
           Math.max(...(graphData.datasets[5].data || [])),
         ]
       );
+      
+
+      const comparativeValuesChart = document.getElementById("comparativeValuesChart");
+      const comparativeGraphArea = document.querySelector("#comparativeGraphArea");
+
+      const totalDuration = 4500;
+      const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
+      const previousY = (comparativeValuesChart) => comparativeValuesChart.index === 0 ? comparativeValuesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : comparativeValuesChart.chart.getDatasetMeta(comparativeValuesChart.datasetIndex).data[comparativeValuesChart.index - 1].getProps(['y'], true).y;
+
+      // Function to handle the intersection changes
+      function handleIntersection(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            // If the graph is visible, animate it
+            animateChart(window.comparativeGraphChart);
+            observer.unobserve(entry.target);
+            window.comparativeGraphChart.config.options.animation = {};      
+          } else {
+            // If the graph is not visible, stop the animation
+            window.comparativeGraphChart.stop();
+          }
+        });
+      }
+
+      // Create a new Intersection Observer instance
+      const observer = new IntersectionObserver(handleIntersection, {
+        threshold: 0.25 
+      });
+
+      // Start observing the chart container
+      observer.observe(comparativeGraphArea);
+
+      function animateChart(chart) {
+        chart.options.animation = {
+           x: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: NaN, // the point is initially skipped
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.xStarted) {
+                return 0;
+              }
+              ctx.xStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          },
+          y: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: previousY,
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.yStarted) {
+                return 0;
+              }
+              ctx.yStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          }
+        };
+        chart.update();
+      }
 
       const comparativeValuesConfig = {
         type: "line",
