@@ -175,9 +175,9 @@
                           </div>
                           <div class="row eachCardParaRow">
                             <div class="col-md-5">
-                              <p class="lifeProPlusPara1 d-flex p-relative">RATE OF RETURN (RoR) 
-                                <img class="ms-1 info-icon-img" src="@/assets/images/icons/info-icon.svg" alt="Info"/>
-                                <img class="ms-1 dark-info-icon-img" src="@/assets/images/icons/dark-i-icon.svg" alt="Info"/> 
+                              <p class="lifeProPlusPara1 d-flex p-relative ws-nowrap">RATE OF RETURN (RoR) 
+                                <img class="ms-2px info-icon-img" src="@/assets/images/icons/info-icon.svg" alt="Info"/>
+                                <img class="ms-2px dark-info-icon-img" src="@/assets/images/icons/dark-i-icon.svg" alt="Info"/> 
                                 <span class="info-message-participationRate">This value represents a weighted average rate of return</span>
                               </p>
                               <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].ror || 0).toFixed(2)}}%</p>

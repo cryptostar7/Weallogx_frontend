@@ -3389,6 +3389,7 @@ input[type=number] {
   left: 2.5rem;
   top: -4.2rem;
   display: none;
+  white-space: initial;
 }
 .dark-info-icon-img {
   display: none;
