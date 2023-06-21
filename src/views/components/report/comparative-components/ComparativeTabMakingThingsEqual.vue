@@ -533,7 +533,7 @@ export default {
     if (this.comparative) {
       if (this.comparative.cv_1) {
         this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
-        this.data.rate_of_returns[0].ror = this.comparative.lirp_data.making_things_equal_rate_of_return;
+        this.data.rate_of_returns[0].ror = this.comparative.lirp_data.rate_of_return;
         console.log(this.data.distribution[0].distributions);
 
         this.data.distribution[1].longevity = this.comparative.cv_1.match_distributions.longevity;
