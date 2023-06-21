@@ -410,6 +410,8 @@ export default {
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
       const previousY = (comparativeValuesChart) => comparativeValuesChart.index === 0 ? comparativeValuesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : comparativeValuesChart.chart.getDatasetMeta(comparativeValuesChart.datasetIndex).data[comparativeValuesChart.index - 1].getProps(['y'], true).y;
 
+      let animationTimeout = false;
+
       // Function to handle the intersection changes
       function handleIntersection(entries, observer) {
         entries.forEach(entry => {
@@ -417,7 +419,8 @@ export default {
             // If the graph is visible, animate it
             animateChart(window.comparativeGraphChart);
             observer.unobserve(entry.target);
-            window.comparativeGraphChart.config.options.animation = {};      
+            window.comparativeGraphChart.config.options.animation = {};
+            animationTimeout = true;
           } else {
             // If the graph is not visible, stop the animation
             window.comparativeGraphChart.stop();
@@ -465,6 +468,58 @@ export default {
         chart.update();
       }
 
+      let bordercolors;
+
+      let screenMode = localStorage.getItem("mode");
+      if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+      } else if (screenMode == "dark-green") {
+        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+      } else {
+        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+      }
+
+      const highlightLine = {
+        id: "highlightLine",
+        beforeDatasetsDraw(chart, args, plugins){
+          let { data } = chart;
+          const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
+          if(animationTimeout){
+            setTimeout(() => {
+              animationTimeout = false;
+            }, totalDuration);
+          }else{
+            for(let i = 0; i < datasetMetaArray.length; i++){
+              const dataMetaSet = datasetMetaArray[i];
+              const index = dataMetaSet.index;
+              if(index <= 3 && dataMetaSet.data.some(dataPoint => dataPoint.active)){
+                data.datasets[index].borderColor = bordercolors[index];
+                data.datasets[index].borderWidth = 6;
+                chart.update();
+                break;            
+              }
+            }
+          } 
+        },
+        afterEvent(chart, args){
+          let { data } = chart;
+          if(args.inChartArea){
+            function setBorderColor(active, index, borderColor){
+              return active ? borderColor : '#eee';
+            }
+            data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0])
+            data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
+            data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2])
+            data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3])
+            data.datasets[0].borderWidth = 4;
+            data.datasets[1].borderWidth = 4;
+            data.datasets[2].borderWidth = 4;
+            data.datasets[3].borderWidth = 4;
+          }
+          args.changed = true;
+        }
+      }
+
       const comparativeValuesConfig = {
         type: "line",
         data: graphData,
@@ -472,7 +527,7 @@ export default {
           maintainAspectRatio: false,
           interaction: {
             intersect: false,
-            mode: "index",
+            mode: "nearest",
           },
           font: {
             size: 16,
@@ -570,13 +625,37 @@ export default {
             },
           },
         },
-        plugins: [htmlLegendPlugin0],
+        plugins: [htmlLegendPlugin0, highlightLine],
       };
 
       window.comparativeGraphChart = new Chart(
         document.getElementById("comparativeValuesChart"),
         comparativeValuesConfig
       );
+
+      function resetColors(chart){
+        chart.config.data.datasets[0].borderColor = bordercolors[0];
+        chart.config.data.datasets[1].borderColor = bordercolors[1];
+        chart.config.data.datasets[2].borderColor = bordercolors[2];
+        chart.config.data.datasets[3].borderColor = bordercolors[3];
+
+        chart.config.data.datasets[0].borderWidth = 4;
+        chart.config.data.datasets[1].borderWidth = 4;
+        chart.config.data.datasets[2].borderWidth = 4;
+        chart.config.data.datasets[3].borderWidth = 4;
+
+        chart.update();
+      }
+
+      window.comparativeGraphChart.canvas.addEventListener("mouseleave", (e) => {
+         if(animationTimeout){
+            setTimeout(() => {
+              animationTimeout = false;
+            }, totalDuration);
+          }else{
+          resetColors(window.comparativeGraphChart);
+        }
+      });
 
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
@@ -586,16 +665,22 @@ export default {
           graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[1].pointBackgroundColor = "#089875";
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+          resetColors(window.comparativeGraphChart)
         } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[0].pointBackgroundColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
           graphData.datasets[1].pointBackgroundColor = "#23669E";
+          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+          resetColors(window.comparativeGraphChart)
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
           graphData.datasets[1].pointBackgroundColor = "#1660A4";
+          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+          resetColors(window.comparativeGraphChart)
         }
         window.comparativeGraphChart.update();
       });

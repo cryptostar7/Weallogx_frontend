@@ -4266,3 +4266,21 @@ background: #0C4A83;
 .dark-blue .return-btn-div .return-to-report-btn img{
   filter: contrast(0);
 }
+.dark-blue .equalDistCard1 .color1::before{
+  background-color: #1660A4;
+}
+.dark-blue .equalDistCard1 .color2::before{
+  background-color: #207ACD;
+}
+.dark-blue .equalDistCard1 .color3::before{
+  background-color: #1A89EE;
+}
+.dark-blue .equalDistCard2 .color1::before{
+  background-color: #0E6651;
+}
+.dark-blue .equalDistCard2 .color2::before{
+  background-color: #209579;
+}
+.dark-blue .equalDistCard2 .color3::before{
+  background-color: #3ECAA8;
+}
