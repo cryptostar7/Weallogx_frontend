@@ -3004,20 +3004,23 @@ body.fullScreen .progressAllBarsDivMain{
 }
 
 @media (max-width:1500px) {
-  .progressBarEachDiv {
-    width: 74px;
+  .progressAllBarsDivMain {
+    --bar-width: 74px;
+    width: 93%;
   }
 }
 
 @media (max-width: 1400px) {
-  .progressBarEachDiv {
-    width: 66px;
+  .progressAllBarsDivMain {
+    --bar-width: 66px;
+    width: 94%;
   }
 }
 
 @media (max-width: 1300px) {
-  .progressBarEachDiv {
-    width: 60px;
+  .progressAllBarsDivMain {
+    --bar-width: 60px;
+    width: 95%;
   }
 }
 
