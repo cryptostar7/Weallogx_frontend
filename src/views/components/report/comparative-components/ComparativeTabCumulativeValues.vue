@@ -88,12 +88,12 @@
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
                             <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 35 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 95 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
                                 </div>
                                 <div class="shortFallCount" v-if="index">
-                                  <p class="">SHORTFALL</p>
+                                  <p :class="`${$numFormat(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                                   <p>{{$numFormatWithDollar(item.shortfall)}}</p>
                                 </div>
                               </div>
