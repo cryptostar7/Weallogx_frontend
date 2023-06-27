@@ -36,7 +36,7 @@
     </div>
     <div class="container-fluid">
       <div class="graph-container-div fh graph-area" id="annualFeeGraphArea">
-        <div class="graph-container-inner w-100">
+        <div class="graph-container-inner w-100 pt-md-3">
           <canvas id="annualFeesChart" width="100%" height="300"></canvas>
         </div>
       </div>
@@ -443,18 +443,21 @@ export default {
       let bordercolors;
 
       let screenMode = localStorage.getItem("mode");
-      if (screenMode == "light-blue" || screenMode == "dark-blue") {
-        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+      if (screenMode == "light-blue") {
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
+      } else if (screenMode == "dark-blue"){
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
       } else if (screenMode == "dark-green") {
-        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
       } else {
-        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
       }
 
       const highlightLine = {
         id: "highlightLine",
         beforeDatasetsDraw(chart, args, plugins){
           let { data } = chart;
+          // console.log(chart.titleBlock.top);
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
           if(animationTimeout){
             setTimeout(() => {
@@ -477,7 +480,8 @@ export default {
           let { data } = chart;
           if(args.inChartArea){
             function setBorderColor(active, index, borderColor){
-              return active ? borderColor : '#eee';
+              console.log(borderColor, bordercolors[4]);
+              return active ? borderColor : bordercolors[4];
             }
             data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0])
             data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
@@ -570,15 +574,16 @@ export default {
         chart.config.data.datasets[2].borderColor = bordercolors[2];
         chart.config.data.datasets[3].borderColor = bordercolors[3];
 
-        chart.config.data.datasets[0].borderWidth = 4;
-        chart.config.data.datasets[1].borderWidth = 4;
-        chart.config.data.datasets[2].borderWidth = 4;
-        chart.config.data.datasets[3].borderWidth = 4;
+        // chart.config.data.datasets[0].borderWidth = 4;
+        // chart.config.data.datasets[1].borderWidth = 4;
+        // chart.config.data.datasets[2].borderWidth = 4;
+        // chart.config.data.datasets[3].borderWidth = 4;
 
         chart.update();
       }
 
-      window.annualChart.canvas.addEventListener("mouseleave", (e) => {
+
+      annualFeeGraphArea.addEventListener("mouseleave", (e) => {
          if(animationTimeout){
             setTimeout(() => {
               animationTimeout = false;
@@ -591,26 +596,33 @@ export default {
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        if (screenMode == "light-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[1].pointBackgroundColor = "#089875";
-          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
+          resetColors(window.annualChart)
+        } else if (screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[0].pointBackgroundColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#089875";
+          graphData.datasets[1].pointBackgroundColor = "#089875";
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
           resetColors(window.annualChart)
         } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[0].pointBackgroundColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
           graphData.datasets[1].pointBackgroundColor = "#23669E";
-          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
           resetColors(window.annualChart)
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
           graphData.datasets[1].pointBackgroundColor = "#1660A4";
-          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
           resetColors(window.annualChart)
         }
         window.annualChart.update();

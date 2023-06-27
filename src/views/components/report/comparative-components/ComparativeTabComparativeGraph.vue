@@ -77,7 +77,7 @@
               </div>
               <div class="container-fluid pb-2">
                 <div class="graph-container-div graph-area" id="comparativeGraphArea">
-                  <div class="comparative-graph-container w-100">
+                  <div class="comparative-graph-container w-100 pt-md-3">
                     <canvas id="comparativeValuesChart" width="400" height="350"></canvas>
                   </div>
                   <div class="progressBarEachBtm comparative">
@@ -471,12 +471,14 @@ export default {
       let bordercolors;
 
       let screenMode = localStorage.getItem("mode");
-      if (screenMode == "light-blue" || screenMode == "dark-blue") {
-        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+      if (screenMode == "light-blue") {
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
+      } else if (screenMode == "dark-blue"){
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
       } else if (screenMode == "dark-green") {
-        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
       } else {
-        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
       }
 
       const highlightLine = {
@@ -505,16 +507,12 @@ export default {
           let { data } = chart;
           if(args.inChartArea){
             function setBorderColor(active, index, borderColor){
-              return active ? borderColor : '#eee';
+              return active ? borderColor : bordercolors[4];
             }
             data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0])
             data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
             data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2])
             data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3])
-            // data.datasets[0].borderWidth = 4;
-            // data.datasets[1].borderWidth = 4;
-            // data.datasets[2].borderWidth = 4;
-            // data.datasets[3].borderWidth = 4;
           }
           args.changed = true;
         }
@@ -634,52 +632,59 @@ export default {
       );
 
       function resetColors(chart){
-        chart.config.data.datasets[0].borderColor = bordercolors[0];
-        chart.config.data.datasets[1].borderColor = bordercolors[1];
-        chart.config.data.datasets[2].borderColor = bordercolors[2];
-        chart.config.data.datasets[3].borderColor = bordercolors[3];
-
-        chart.config.data.datasets[0].borderWidth = 4;
-        chart.config.data.datasets[1].borderWidth = 4;
-        chart.config.data.datasets[2].borderWidth = 4;
-        chart.config.data.datasets[3].borderWidth = 4;
-
+        console.log(chart.config);
+        comparativeValuesConfig.data.datasets[0].borderColor = bordercolors[0];
+        comparativeValuesConfig.data.datasets[1].borderColor = bordercolors[1];
+        comparativeValuesConfig.data.datasets[2].borderColor = bordercolors[2];
+        comparativeValuesConfig.data.datasets[3].borderColor = bordercolors[3];
+        // chart.config.data.datasets[0].borderWidth = 4;
+        // chart.config.data.datasets[1].borderWidth = 4;
+        // chart.config.data.datasets[2].borderWidth = 4;
+        // chart.config.data.datasets[3].borderWidth = 4;
         chart.update();
       }
 
-      window.comparativeGraphChart.canvas.addEventListener("mouseleave", (e) => {
-         if(animationTimeout){
-            setTimeout(() => {
-              animationTimeout = false;
-            }, totalDuration);
-          }else{
+      const graphContainer = document.querySelector(".comparative-graph-container");
+
+      graphContainer.addEventListener("mouseout", (e) => {
+       if(animationTimeout){
+          setTimeout(() => {
+            animationTimeout = false;
+          }, totalDuration);
+        }else{
           resetColors(window.comparativeGraphChart);
-        }
+        }   
       });
 
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        if (screenMode == "light-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[1].pointBackgroundColor = "#089875";
-          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
           resetColors(window.comparativeGraphChart)
+        } else if (screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[0].pointBackgroundColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#089875";
+          graphData.datasets[1].pointBackgroundColor = "#089875";
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
         } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[0].pointBackgroundColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
           graphData.datasets[1].pointBackgroundColor = "#23669E";
-          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
           resetColors(window.comparativeGraphChart)
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
           graphData.datasets[1].pointBackgroundColor = "#1660A4";
-          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B"];
+          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
           resetColors(window.comparativeGraphChart)
         }
         window.comparativeGraphChart.update();
