@@ -49,6 +49,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/template-exsiting-illustration/`;
     case 'pdf_extract':
       return `${baseUrl}/pdf/extract/`;
+      case 'illustration-files':
+      return `${baseUrl}/auth/media/`;
     case 'vehicle-type1':
       return `${baseUrl}/auth/vehicle-type1/`;
     case 'vehicle-type2':

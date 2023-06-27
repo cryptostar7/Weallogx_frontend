@@ -69,28 +69,26 @@
                     </div>
                   </div>
                     <div class="search-bar-div mx-2 px-1">
-                      <input type="text" class="form-control search-file-input" placeholder="Search">
+                      <input type="text" class="form-control search-file-input" placeholder="Search" v-model="searchFile">
                       <span class="search-icon-span"><img src="@/assets/images/icons/search.svg" aria-checked="img-fluid" alt="Search"></span>
                     </div>
                     <div class="d-flex flex-1 align-items-center justify-content-between illustration-mid flex-1">
                       <div class="sort-dropdown-div d-flex align-items-center">
                         <label class="bold-fw me-2">Sort</label>
                         <div class="dropdown sort-dropdown">
-                          <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <span>Last Name (A-Z)</span>
+                          <button class="btn dropdown-toggle" role="button" id="sortingBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>{{illustationFilter}}</span>
                           </button>
                           <ul class="dropdown-menu" aria-labelledby="sortingBtn">
-                            <li><a class="dropdown-item semi-bold-fw active" data-sort="ascending"
-                                href="#">Last Name (A-Z)</a></li>
-                            <li><a class="dropdown-item semi-bold-fw" data-sort="descending" href="#">Last Name (Z-A)</a></li>
-                            <li><a class="dropdown-item semi-bold-fw" data-sort="lastEdited" href="#">Last Edited</a></li>
-                            <li><a class="dropdown-item semi-bold-fw" data-sort="firstEdited" href="#">First Edited</a></li>
+                            <li><a :class="`dropdown-item semi-bold-fw ${illustationFilter === 'Last Name (A-Z)' ? 'active' : ''}`"  href="javascript:void(0)" @click="illustationFilter = 'Last Name (A-Z)'">Last Name (A-Z)</a></li>
+                            <li><a :class="`dropdown-item semi-bold-fw ${illustationFilter === 'Last Name (Z-A)' ? 'active' : ''}`"  href="javascript:void(0)" @click="illustationFilter = 'Last Name (Z-A)'">Last Name (Z-A)</a></li>
+                            <li><a :class="`dropdown-item semi-bold-fw ${illustationFilter === 'Last Edited' ? 'active' : ''}`"  href="javascript:void(0)" @click="illustationFilter = 'Last Edited'">Last Edited</a></li>
+                            <li><a :class="`dropdown-item semi-bold-fw ${illustationFilter === 'First Edited' ? 'active' : ''}`"  href="javascript:void(0)" @click="illustationFilter = 'First Edited'">First Edited</a></li>
                           </ul>
                         </div>
                       </div>
                       <label class="upload-illustration-label cursor-pointer" id="uploadIllustraiton">
-                        <input type="file" id="uploadIllustraiton" hidden>
+                        <input type="file" id="uploadIllustraiton" accept=".pdf" hidden @change="uploadIllustrationFile">
                         <img src="@/assets/images/icons/upload-illustration.svg" class="img-fluid" alt="Upload Illustration">
                       </label>
                   </div>
@@ -106,13 +104,13 @@
                             <th width="25%">Last Modified</th>
                             <th width="20%"></th>
                           </tr>
-                          <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">illustration file 1.pdf</a></td>
-                            <td>March 23, 2023</td>
+                          <tr v-for="(item, index) in illustrationFiles" :key="index">
+                            <td><a :href="item.s3_url" class="illustration-file-name" target="new">{{item.name}}</a></td>
+                            <td>{{$customDateFormat(item.updated_at, 'MMM D, Y')}}</td>
                             <td>
                               <div class="list-item-actions justify-content-end">
                                 <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
+                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal" @click="() => { fileActionId = item.id; fileName = item.name }">
                                     <span>Rename</span>
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                       <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
@@ -120,132 +118,7 @@
                                       <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
                                     </svg>
                                   </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
-                                    <span>Delete</span>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
-                                      <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                           <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">illustration-main-file-1.pdf</a></td>
-                            <td>March 23, 2023</td>
-                             <td>
-                              <div class="list-item-actions justify-content-end">
-                                <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
-                                    <span>Rename</span>
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                      <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                      <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
-                                    <span>Delete</span>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
-                                      <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                           <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">illustration scenario.pdf</a></td>
-                            <td>March 23, 2023</td>
-                             <td>
-                              <div class="list-item-actions justify-content-end">
-                                <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
-                                    <span>Rename</span>
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                      <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                      <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
-                                    <span>Delete</span>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
-                                      <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                           <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">superIllustration file.pdf</a></td>
-                            <td>March 23, 2023</td>
-                             <td>
-                              <div class="list-item-actions justify-content-end">
-                                <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
-                                    <span>Rename</span>
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                      <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                      <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
-                                    <span>Delete</span>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
-                                      <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">illustration 2.pdf</a></td>
-                            <td>March 23, 2023</td>
-                             <td>
-                              <div class="list-item-actions justify-content-end">
-                                <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
-                                    <span>Rename</span>
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                      <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                      <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
-                                    <span>Delete</span>
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
-                                      <path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><a href="javascript:void(0)" class="illustration-file-name">illustrationFile.pdf</a></td>
-                            <td>March 23, 2023</td>
-                             <td>
-                              <div class="list-item-actions justify-content-end">
-                                <div class="round-btns">
-                                  <button class="btn round-btn" data-bs-target="#renameFileModal" data-bs-toggle="modal">
-                                    <span>Rename</span>
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                      <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                      <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                    </svg>
-                                  </button>
-                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal">
+                                  <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal" @click="fileActionId = item.id">
                                     <span>Delete</span>
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                       <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D"></path>
@@ -260,225 +133,43 @@
                       </table>
                     </div>
                   </div>
-
                   <div class="file-grid-view d-none">
-                    <div class="grid-card-wrapper p-relative">
+                    <div class="grid-card-wrapper p-relative" v-for="(item, index) in illustrationFiles" :key="index">
                       <div class="dropdown" data-bs-toggle="dropdown"></div>
                       <ul class="dropdown-menu card-grid-dropdown">
                         <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button></li>
                         <li><button class="dropdown-item semi-bold-fw" data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16"><span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">illustration file 1.pdf</div>
-                        </a>
-                    </div>
-                    <div class="grid-card-wrapper p-relative">
-                      <div class="dropdown" data-bs-toggle="dropdown"></div>
-                      <ul class="dropdown-menu card-grid-dropdown">
-                          <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button>
-                          </li>
-                          <li><button class="dropdown-item semi-bold-fw"
-                              data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img
-                                src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16">
-                              <span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">illustration-main-file-1.pdf</div>
-                        </a>
-                    </div>
-                    <div class="grid-card-wrapper p-relative">
-                      <div class="dropdown" data-bs-toggle="dropdown"></div>
-                      <ul class="dropdown-menu card-grid-dropdown">
-                          <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button>
-                          </li>
-                          <li><button class="dropdown-item semi-bold-fw"
-                              data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img
-                                src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16">
-                              <span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">illustration scenario.pdf</div>
-                        </a>
-                    </div>
-                    <div class="grid-card-wrapper p-relative">
-                      <div class="dropdown" data-bs-toggle="dropdown"></div>
-                      <ul class="dropdown-menu card-grid-dropdown">
-                          <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button>
-                          </li>
-                          <li><button class="dropdown-item semi-bold-fw"
-                              data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img
-                                src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16">
-                              <span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">superIllustration file.pdf</div>
-                        </a>
-                    </div>
-                    <div class="grid-card-wrapper p-relative">
-                      <div class="dropdown" data-bs-toggle="dropdown"></div>
-                      <ul class="dropdown-menu card-grid-dropdown">
-                          <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button>
-                          </li>
-                          <li><button class="dropdown-item semi-bold-fw"
-                              data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img
-                                src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16">
-                              <span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">illustration 2.pdf</div>
-                        </a>
-                    </div>
-                    <div class="grid-card-wrapper p-relative">
-                      <div class="dropdown" data-bs-toggle="dropdown"></div>
-                      <ul class="dropdown-menu card-grid-dropdown">
-                          <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button>
-                          </li>
-                          <li><button class="dropdown-item semi-bold-fw"
-                              data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img
-                                src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16">
-                              <span>Delete</span></button></li>
-                        </ul>
-                        <a href="javascript:void(0)" class="grid-file-card">
-                          <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <mask id="path-1-inside-1_2530_2" fill="white">
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
-                            </mask>
-                            <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
-                            <mask id="path-2-inside-2_2530_2" fill="white">
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
-                            <mask id="path-3-inside-3_2530_2" fill="white">
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
-                            <mask id="path-4-inside-4_2530_2" fill="white">
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
-                            <mask id="path-5-inside-5_2530_2" fill="white">
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
-                            </mask>
-                            <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
-                          </svg>
-                          <div class="grid-file-name text-center">illustrationFile.pdf</div>
-                        </a>
+                      </ul>
+                      <a href="javascript:void(0)" class="grid-file-card">
+                        <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <mask id="path-1-inside-1_2530_2" fill="white">
+                          <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
+                          </mask>
+                          <rect x="0.236328" y="0.591797" width="30" height="35" rx="1" fill="white" stroke="#9D9D9D" stroke-width="2.5" mask="url(#path-1-inside-1_2530_2)"/>
+                          <mask id="path-2-inside-2_2530_2" fill="white">
+                          <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1"/>
+                          </mask>
+                          <rect x="10.2363" y="8.0918" width="10" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-2-inside-2_2530_2)"/>
+                          <mask id="path-3-inside-3_2530_2" fill="white">
+                          <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1"/>
+                          </mask>
+                          <rect x="6.48633" y="14.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-3-inside-3_2530_2)"/>
+                          <mask id="path-4-inside-4_2530_2" fill="white">
+                          <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1"/>
+                          </mask>
+                          <rect x="6.48633" y="19.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-4-inside-4_2530_2)"/>
+                          <mask id="path-5-inside-5_2530_2" fill="white">
+                          <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1"/>
+                          </mask>
+                          <rect x="6.48633" y="24.3418" width="17.5" height="3.125" rx="1" fill="white" stroke="#9D9D9D" stroke-width="3.125" mask="url(#path-5-inside-5_2530_2)"/>
+                        </svg>
+                        <div class="grid-file-name text-center">{{item.name}}</div>
+                      </a>
                     </div>
                   </div>
                   <br><br>
                 </div>
               </div>
-
             </div>  
         </div>
       </div>
@@ -495,10 +186,11 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header pb-0">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><img
-              src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
+          </button>
         </div>
-        <div class="modal-body pt-0 text-center">
+        <form class="modal-body pt-0 text-center" @submit="saveFileName">
           <div class="modalParaBorderDiv">
             <p class="modalParaReportBuilder">Rename the Illustration File</p>
             <p class="modalSmallborder"></p>
@@ -507,15 +199,15 @@
             <form action="">
               <div class="form-group">
                 <label for="reportBulder">File Name</label>
-                <input type="text" class="form-control custom-control" value="Illustration-File-1">
+                <input type="text" class="form-control custom-control" v-model="fileName">
               </div>
             </form>
           </div>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-            <button type="button" class="btn yes-delete-btn">Rename the File</button>
+            <button type="submit" class="btn yes-delete-btn" data-bs-dismiss="modal" aria-label="Close">Rename the File</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -534,7 +226,7 @@
           <h5 class="modal-title fs-24 semi-bold-fw" id="deleteFileModalLabel">Delete this file?</h5>
           <p class="fs-14">Deleting the illustration file will cause you losing the information of comparative vehicles & other related data. Please consider once more as this action cannot be undone.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-            <button type="button" class="btn yes-delete-btn">Yes, Delete</button>
+            <button type="button" class="btn yes-delete-btn" @click="deleteIllustrationFile()" data-bs-dismiss="modal" aria-label="Close">Yes, Delete</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
           </div>
         </div>
@@ -561,7 +253,9 @@ import CloneScenarioModal from "../modal/CloneScenarioModal.vue";
 import ScenariosRow from "../homepage/ScenariosRow.vue";
 import ReportRow from "../homepage/ReportRow.vue";
 import { getUrl } from "../../../network/url";
-import { get } from "../../../network/requests";
+import { get, patch, remove, post } from "../../../network/requests";
+import moment from 'moment';
+
 export default {
   components: {
     EditClientCanvasModal,
@@ -575,20 +269,94 @@ export default {
   data() {
     return {
       actionId: false,
+      fileActionId: false,
+      fileName: "",
       reportActionId: false,
+      searchFile: "",
+      illustationFilter: "Last Edited",
     };
   },
   methods: {
-    testFunction: function(id = "120") {
-      let clients = this.$store.state.data.clients;
-
-      console.log(clients);
-
-      this.updateReportData(clients, 'Test Report ', 'Test Report ', '120');
-      console.log(clients);
-      // console.log(this.getSingleReport(clients, "120"));
+    testFunction: function(id) {
+      console.log(this.fileActionId);
+      console.log(this.fileName);      
     },
-  
+    uploadIllustrationFile(e) {
+       console.log(e.target);
+       console.log(e.target.files[0]);
+       if(!e.target.files[0]){
+        return false;
+       }
+      var data = new FormData();
+      data.append("pdffile", e.target.files[0]);
+      data.append("page", "");
+      data.append("business", "Allianz");
+      this.$store.dispatch('loader', true);
+      post(getUrl("pdf_extract"), data, authHeader()).then((response) => {
+        console.log(response.data);
+        let data2 = {s3_url: response.data.s3_url, client: this.client.id, name: e.target.files[0].name, scenario_id: 90};
+        post(getUrl("illustration-files"), data2, authHeader()).then((response) => {
+        console.log(response.data.results);
+        this.$store.dispatch("illustrationFiles", [response.data.results, ...this.illustrationFiles]);
+        this.$store.dispatch('loader', false);
+        }).catch((error) => {
+          console.log(error);
+        this.$store.dispatch('loader', false);
+        });
+      }).catch((error) => {
+        this.$store.dispatch('loader', false);
+        console.log(error);
+      })
+    },
+    deleteIllustrationFile() {
+      console.log(this.fileActionId);   
+      remove(`${getUrl("illustration-files")}${this.fileActionId}/`, authHeader())
+        .then(response => {
+          console.log(response.data);
+          var updatedData = this.illustrationFiles.filter((item) => item.id !== this.fileActionId);
+          console.log(updatedData);
+          this.$store.dispatch('loader', false);
+        })
+        .catch(error => {
+          this.$store.dispatch('loader', false);
+          console.log(error);
+        });
+    },
+    saveFileName(e) {
+      e.preventDefault();
+      if(this.fileActionId){
+      console.log({name:this.fileName});
+      this.$store.dispatch('loader', true);
+      patch(`${getUrl("illustration-files")}${this.fileActionId}/`, {name:this.fileName}, authHeader())
+        .then(response => {
+          console.log(response.data);
+          var updatedData = this.illustrationFiles.map((item) => {
+            if(item.id === this.fileActionId){
+              item.name = this.fileName;
+            }
+            return item;
+          })
+          console.log(updatedData);
+          this.$store.dispatch("illustrationFiles", updatedData);
+          this.$store.dispatch('loader', false);
+        })
+        .catch(error => {
+          this.$store.dispatch('loader', false);
+          console.log(error);
+        });
+      }
+    },    
+    getIllsutrationFiles() {
+      console.log('get illustration files');
+      get(getUrl("illustration-files") , authHeader())
+        .then(response => {
+          console.log(response.data);
+          this.$store.dispatch("illustrationFiles", response.data.results);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())
@@ -612,6 +380,10 @@ export default {
   mounted() {
     if (!this.$store.state.data.clients) {
       this.getClient();
+    }
+
+    if(!this.$store.state.data.illustration_files.length){
+      this.getIllsutrationFiles();
     }
 
     let changeGridBtn = document.getElementById("changeGridBtn");
@@ -663,6 +435,56 @@ export default {
   computed: {
     client() {
       return this.$store.getters.getClientUsingId(this.$route.params.id);
+    },
+    illustrationFiles() {
+      function newModified(a, b) { 
+        return new Date(a.updated_at) - new Date(b.updated_at)
+      }
+
+      function oldModified(a, b) { 
+        return new Date(b.updated_at) - new Date(a.updated_at)
+      }
+
+      function sortAsc(a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+ 
+      function sortDesc(a, b) {
+        if (a.name > b.name) return -1;
+        if (a.name < b.name) return 1;
+        return 0;
+      }
+
+      var files = this.$store.state.data.illustration_files.filter((item) => {
+        if(item.client === this.client.id){
+          if(this.searchFile){
+           return item.name.toLowerCase().includes(this.searchFile);
+          }
+          return true;
+        }
+          return false;
+        });
+      
+
+      if(this.illustationFilter === 'Last Name (A-Z)'){
+        files = files.sort(sortAsc);
+      }
+
+      if(this.illustationFilter === 'Last Name (Z-A)'){
+        files = files.sort(sortDesc);
+      }
+
+      if(this.illustationFilter === 'Last Edited'){
+        files = files.sort(oldModified);
+      }
+
+      if(this.illustationFilter === 'First Edited'){
+        files = files.sort(newModified);
+      }
+      
+      return files;
     },
   },
 };

@@ -1,5 +1,5 @@
 import { authCheck } from "../services/helper";
-
+import moment from "moment/moment";
 const myPlugin = {
     install(app) {
         app.config.globalProperties.$numFormat = (key) => {
@@ -19,6 +19,9 @@ const myPlugin = {
                 let month = Number(temp.getMonth() + 1).toString().slice(-2);
                 let year = temp.getFullYear().toString().slice(-2);
                 return `${month.length < 2 ? '0' + month : month}/${day.length < 2 ? '0' + day : day}/${year}`;
+            },
+            app.config.globalProperties.$customDateFormat = (date, dateFormat) => {
+                return moment(date).format(dateFormat);
             },
             app.config.globalProperties.$appTheme = () => {
                 return localStorage.getItem("mode") || 'light-green';

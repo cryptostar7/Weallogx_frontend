@@ -165,6 +165,7 @@ const store = createStore({
                 report_link: ''
             },
             clients: null,
+            illustration_files: [],
             current_plan: false,
             active_scenario: false,
             templates: [],
@@ -282,13 +283,15 @@ const store = createStore({
                     state.app.loader = true;
                 }
             }
-
         },
         setUserTempForm(state, payload) {
             state.forms.temp_user = payload;
         },
         setUserFormError(state, payload) {
             state.errors.temp_user = payload;
+        },
+        setIllustrationFiles(state, payload){
+            state.data.illustration_files = payload;
         },
         setUserCurrentPlan(state, payload) {
             state.data.current_plan = payload;
@@ -398,6 +401,9 @@ const store = createStore({
         },
         userTempFormError(context, payload) {
             context.commit('setUserFormError', payload);
+        },
+        illustrationFiles(context, payload){
+            context.commit('setIllustrationFiles', payload);
         },
         clients(context, payload) {
             context.commit('setClients', payload);
