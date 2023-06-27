@@ -137,10 +137,10 @@
                     <div class="grid-card-wrapper p-relative" v-for="(item, index) in illustrationFiles" :key="index">
                       <div class="dropdown" data-bs-toggle="dropdown"></div>
                       <ul class="dropdown-menu card-grid-dropdown">
-                        <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button></li>
-                        <li><button class="dropdown-item semi-bold-fw" data-bs-target="#deleteFileModal" data-bs-toggle="modal"><img src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16"><span>Delete</span></button></li>
+                        <li><button class="dropdown-item semi-bold-fw" data-bs-toggle="modal" data-bs-target="#renameFileModal" @click="() => { fileActionId = item.id; fileName = item.name }"><img src="@/assets/images/icons/edit.svg" class="img-fluid flex-shrink-0 me-3" alt="Rename" width="16"> <span>Rename</span></button></li>
+                        <li><button class="dropdown-item semi-bold-fw" data-bs-target="#deleteFileModal" data-bs-toggle="modal"  @click="fileActionId = item.id"><img src="@/assets/images/icons/delete.svg" class="img-fluid flex-shrink-0 me-3" alt="Delete" width="16"><span>Delete</span></button></li>
                       </ul>
-                      <a href="javascript:void(0)" class="grid-file-card">
+                      <a :href="item.s3_url" class="grid-file-card">
                         <svg width="31" height="36" viewBox="0 0 31 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <mask id="path-1-inside-1_2530_2" fill="white">
                           <rect x="0.236328" y="0.591797" width="30" height="35" rx="1"/>
@@ -291,7 +291,7 @@ export default {
       data.append("page", "");
       data.append("business", "Allianz");
       this.$store.dispatch("loader", true);
-      // this API returns s3 url 
+      // this API returns s3 url
       post(getUrl("pdf_extract"), data, authHeader())
         .then(response => {
           console.log(response.data);
@@ -310,6 +310,11 @@ export default {
                 response.data.results,
                 ...this.illustrationFiles,
               ]);
+
+              setTimeout(() => {
+                this.renderGridJs();
+              }, 5000);
+
               this.$store.dispatch("loader", false);
             })
             .catch(error => {
@@ -333,6 +338,7 @@ export default {
           var updatedData = this.illustrationFiles.filter(
             item => item.id !== this.fileActionId
           );
+            this.$store.dispatch("illustrationFiles", updatedData);
           console.log(updatedData);
           this.$store.dispatch("loader", false);
         })
@@ -374,8 +380,10 @@ export default {
     getIllsutrationFiles() {
       get(getUrl("illustration-files"), authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("illustrationFiles", response.data.results);
+          setTimeout(() => {
+            this.renderGridJs();
+          }, 5000);
         })
         .catch(error => {
           console.log(error);
@@ -400,6 +408,28 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
+    },
+    renderGridJs() {
+      const gridCardWrappers = document.querySelectorAll(".grid-card-wrapper");
+      const allFileDropdowns = document.querySelectorAll(
+        ".grid-card-wrapper .dropdown"
+      );
+      gridCardWrappers.forEach(function(card) {
+        card.addEventListener("contextmenu", e => {
+          e.preventDefault();
+          e.stopPropagation();
+          allFileDropdowns.forEach(function(dropdown) {
+            if (dropdown.classList.contains("show")) {
+              let dropdownList = new bootstrap.Dropdown(dropdown);
+              dropdownList.toggle();
+            }
+          });
+          let curTarget = e.currentTarget.querySelector(".dropdown");
+          const dropdownList = new bootstrap.Dropdown(curTarget);
+          console.log(curTarget, dropdownList);
+          dropdownList.toggle();
+        });
+      });
     },
   },
   mounted() {
@@ -436,31 +466,13 @@ export default {
       gridView.classList.toggle("d-none");
     });
 
-    const gridCardWrappers = document.querySelectorAll(".grid-card-wrapper");
-    const allFileDropdowns = document.querySelectorAll(
-      ".grid-card-wrapper .dropdown"
-    );
-    gridCardWrappers.forEach(function(card) {
-      card.addEventListener("contextmenu", e => {
-        e.preventDefault();
-        e.stopPropagation();
-        allFileDropdowns.forEach(function(dropdown) {
-          if (dropdown.classList.contains("show")) {
-            let dropdownList = new bootstrap.Dropdown(dropdown);
-            dropdownList.toggle();
-          }
-        });
-        let curTarget = e.currentTarget.querySelector(".dropdown");
-        const dropdownList = new bootstrap.Dropdown(curTarget);
-        console.log(curTarget, dropdownList);
-        dropdownList.toggle();
-      });
-    });
+    this.renderGridJs();
   },
   computed: {
     client() {
       return this.$store.getters.getClientUsingId(this.$route.params.id);
     },
+
     illustrationFiles() {
       // search and filter illustration files
       var files = this.$store.state.data.illustration_files.filter(item => {
