@@ -448,7 +448,7 @@ export default {
       this.getExistingIllustration();
     }
 
-    // get update clients data
+    // get updated clients data
     this.getClient();
 
     // handle pdf file preview modal
@@ -922,7 +922,6 @@ export default {
 
     // get clients detail from API
     getClient: function() {
-      // this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())
         .then(response => {
           this.$store.dispatch("clients", mapClientList(response.data.data));
@@ -1014,6 +1013,18 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    // save illustration file
+    saveIllustrationFile(file_url, filename) {
+      // create a new illustration file data
+      let data = {
+        s3_url: file_url,
+        client: this.activeScenario.client,
+        name: filename,
+        scenario_id: this.activeScenario.id,
+      };
+
+      post(getUrl("illustration-files"), data, authHeader());
+    },
     dragover(event) {
       event.preventDefault();
       // add blur effect
@@ -1030,13 +1041,12 @@ export default {
       this.$refs.file.files = e.dataTransfer.files;
       this.handleFile();
     },
-
+    // column add with dragged file
     addColDragFile: function(e) {
       e.preventDefault();
       this.$refs.file2.files = e.dataTransfer.files;
       this.addColByFile();
     },
-
     // handle illustration file uploading
     handleFile: function() {
       let file = this.$refs.file.files[0];
@@ -1133,6 +1143,9 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then(response => {
           var res = response.data;
+          if (res.s3_url) {
+            this.saveIllustrationFile(res.s3_url, file.name);
+          }
           let allData = { data: [], headers: [] };
 
           if (page && res) {
@@ -1289,6 +1302,7 @@ export default {
       return seq;
     },
 
+    // remove none header data form object
     filterNoneHeaders: function(obj = {}) {
       let headers = obj.headers;
       let data = obj.data;
@@ -1353,7 +1367,6 @@ export default {
           return this.$toast.warning("CSV data is required.");
         }
       }
-      console.log("submitted");
 
       if (!this.validateForm()) {
         console.log(this.errors);
@@ -1605,7 +1618,7 @@ export default {
           }
 
           this.csvPreview = this.filterObject({
-            data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+            data: temp_data.map(a => a.map(i => (i ? i.replace("-", "") : ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
           });
           this.setInputWithId("add_new_csv_col", "");

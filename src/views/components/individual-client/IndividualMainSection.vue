@@ -254,7 +254,7 @@ import ScenariosRow from "../homepage/ScenariosRow.vue";
 import ReportRow from "../homepage/ReportRow.vue";
 import { getUrl } from "../../../network/url";
 import { get, patch, remove, post } from "../../../network/requests";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   components: {
@@ -279,76 +279,100 @@ export default {
   methods: {
     testFunction: function(id) {
       console.log(this.fileActionId);
-      console.log(this.fileName);      
+      console.log(this.fileName);
     },
+    // upload a new illustration file in s3
     uploadIllustrationFile(e) {
-       console.log(e.target);
-       console.log(e.target.files[0]);
-       if(!e.target.files[0]){
+      if (!e.target.files[0]) {
         return false;
-       }
+      }
       var data = new FormData();
       data.append("pdffile", e.target.files[0]);
       data.append("page", "");
       data.append("business", "Allianz");
-      this.$store.dispatch('loader', true);
-      post(getUrl("pdf_extract"), data, authHeader()).then((response) => {
-        console.log(response.data);
-        let data2 = {s3_url: response.data.s3_url, client: this.client.id, name: e.target.files[0].name, scenario_id: 90};
-        post(getUrl("illustration-files"), data2, authHeader()).then((response) => {
-        console.log(response.data.results);
-        this.$store.dispatch("illustrationFiles", [response.data.results, ...this.illustrationFiles]);
-        this.$store.dispatch('loader', false);
-        }).catch((error) => {
-          console.log(error);
-        this.$store.dispatch('loader', false);
-        });
-      }).catch((error) => {
-        this.$store.dispatch('loader', false);
-        console.log(error);
-      })
-    },
-    deleteIllustrationFile() {
-      console.log(this.fileActionId);   
-      remove(`${getUrl("illustration-files")}${this.fileActionId}/`, authHeader())
+      this.$store.dispatch("loader", true);
+      // this API returns s3 url 
+      post(getUrl("pdf_extract"), data, authHeader())
         .then(response => {
           console.log(response.data);
-          var updatedData = this.illustrationFiles.filter((item) => item.id !== this.fileActionId);
-          console.log(updatedData);
-          this.$store.dispatch('loader', false);
+          let data2 = {
+            s3_url: response.data.s3_url,
+            client: this.client.id,
+            name: e.target.files[0].name,
+            scenario_id: 90,
+          };
+          // create a new illustration file data
+          post(getUrl("illustration-files"), data2, authHeader())
+            .then(response => {
+              console.log(response.data.results);
+              // update new file data in store cache
+              this.$store.dispatch("illustrationFiles", [
+                response.data.results,
+                ...this.illustrationFiles,
+              ]);
+              this.$store.dispatch("loader", false);
+            })
+            .catch(error => {
+              console.log(error);
+              this.$store.dispatch("loader", false);
+            });
         })
         .catch(error => {
-          this.$store.dispatch('loader', false);
+          this.$store.dispatch("loader", false);
           console.log(error);
         });
     },
+    // delete illustration file
+    deleteIllustrationFile() {
+      remove(
+        `${getUrl("illustration-files")}${this.fileActionId}/`,
+        authHeader()
+      )
+        .then(response => {
+          console.log(response.data);
+          var updatedData = this.illustrationFiles.filter(
+            item => item.id !== this.fileActionId
+          );
+          console.log(updatedData);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          this.$store.dispatch("loader", false);
+          console.log(error);
+        });
+    },
+    // update illustration file name
     saveFileName(e) {
       e.preventDefault();
-      if(this.fileActionId){
-      console.log({name:this.fileName});
-      this.$store.dispatch('loader', true);
-      patch(`${getUrl("illustration-files")}${this.fileActionId}/`, {name:this.fileName}, authHeader())
-        .then(response => {
-          console.log(response.data);
-          var updatedData = this.illustrationFiles.map((item) => {
-            if(item.id === this.fileActionId){
-              item.name = this.fileName;
-            }
-            return item;
+      if (this.fileActionId) {
+        this.$store.dispatch("loader", true);
+        patch(
+          `${getUrl("illustration-files")}${this.fileActionId}/`,
+          { name: this.fileName },
+          authHeader()
+        )
+          .then(response => {
+            console.log(response.data);
+            var updatedData = this.illustrationFiles.map(item => {
+              if (item.id === this.fileActionId) {
+                item.name = this.fileName;
+                item.updated_at = response.data.results.updated_at;
+              }
+              return item;
+            });
+            console.log(updatedData);
+            this.$store.dispatch("illustrationFiles", updatedData);
+            this.$store.dispatch("loader", false);
           })
-          console.log(updatedData);
-          this.$store.dispatch("illustrationFiles", updatedData);
-          this.$store.dispatch('loader', false);
-        })
-        .catch(error => {
-          this.$store.dispatch('loader', false);
-          console.log(error);
-        });
+          .catch(error => {
+            this.$store.dispatch("loader", false);
+            console.log(error);
+          });
       }
-    },    
+    },
+    // fetch illustration file data from API
     getIllsutrationFiles() {
-      console.log('get illustration files');
-      get(getUrl("illustration-files") , authHeader())
+      get(getUrl("illustration-files"), authHeader())
         .then(response => {
           console.log(response.data);
           this.$store.dispatch("illustrationFiles", response.data.results);
@@ -357,6 +381,7 @@ export default {
           console.log(error);
         });
     },
+    // get client data from API
     getClient: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("clients"), authHeader())
@@ -382,7 +407,7 @@ export default {
       this.getClient();
     }
 
-    if(!this.$store.state.data.illustration_files.length){
+    if (!this.$store.state.data.illustration_files.length) {
       this.getIllsutrationFiles();
     }
 
@@ -437,12 +462,24 @@ export default {
       return this.$store.getters.getClientUsingId(this.$route.params.id);
     },
     illustrationFiles() {
-      function newModified(a, b) { 
-        return new Date(a.updated_at) - new Date(b.updated_at)
+      // search and filter illustration files
+      var files = this.$store.state.data.illustration_files.filter(item => {
+        if (item.client === this.client.id) {
+          if (this.searchFile) {
+            return item.name.toLowerCase().includes(this.searchFile);
+          }
+          return true;
+        }
+        return false;
+      });
+
+      // sort functions started for illustration files
+      function newModified(a, b) {
+        return new Date(b.updated_at) - new Date(a.updated_at);
       }
 
-      function oldModified(a, b) { 
-        return new Date(b.updated_at) - new Date(a.updated_at)
+      function oldModified(a, b) {
+        return new Date(a.updated_at) - new Date(b.updated_at);
       }
 
       function sortAsc(a, b) {
@@ -450,40 +487,29 @@ export default {
         if (a.name > b.name) return 1;
         return 0;
       }
- 
+
       function sortDesc(a, b) {
         if (a.name > b.name) return -1;
         if (a.name < b.name) return 1;
         return 0;
       }
 
-      var files = this.$store.state.data.illustration_files.filter((item) => {
-        if(item.client === this.client.id){
-          if(this.searchFile){
-           return item.name.toLowerCase().includes(this.searchFile);
-          }
-          return true;
-        }
-          return false;
-        });
-      
-
-      if(this.illustationFilter === 'Last Name (A-Z)'){
+      if (this.illustationFilter === "Last Name (A-Z)") {
         files = files.sort(sortAsc);
       }
 
-      if(this.illustationFilter === 'Last Name (Z-A)'){
+      if (this.illustationFilter === "Last Name (Z-A)") {
         files = files.sort(sortDesc);
       }
 
-      if(this.illustationFilter === 'Last Edited'){
+      if (this.illustationFilter === "Last Edited") {
         files = files.sort(oldModified);
       }
 
-      if(this.illustationFilter === 'First Edited'){
+      if (this.illustationFilter === "First Edited") {
         files = files.sort(newModified);
       }
-      
+
       return files;
     },
   },

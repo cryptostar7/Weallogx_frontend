@@ -36,8 +36,8 @@
                             <label for="client name">Initial Death Benefit</label>
                             <input type="text" class="form-control" :value="`$${Number(data.initial_death_benifit).toLocaleString()}`" readonly>
                         </div>
-                        <div class="col-md-2 illustrationPdfCol">
-                          <a href="javascript:void(0)" class="illustrationPdfAncor">
+                        <div class="col-md-2 illustrationPdfCol" v-for="(item, index) in illustrationFiles" :key="index">
+                          <a :href="item.s3_url" class="illustrationPdfAncor">
                               <button class="illustrationPdfDiv btn">
                                   <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                       <rect x="0.75" y="0.75" width="16.5" height="19.5" rx="1.25" fill="white" stroke="#0E6651" stroke-width="1.5" />
@@ -46,7 +46,7 @@
                                       <rect x="3.375" y="12.375" width="7.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
                                       <rect x="3.375" y="5.375" width="6.25" height="0.75" rx="0.375" fill="white" stroke="#0E6651" stroke-width="0.75" />
                                   </svg>
-                                  &nbsp;<span>PDF Illustration</span>
+                                  &nbsp;<span>{{item.name}}</span>
                               </button>
                           </a>
                         </div>
@@ -87,6 +87,7 @@ export default {
     return {
       data: false,
       illustration: false,
+      illustrationFiles: [],
       showAll: false,
     };
   },
@@ -94,9 +95,9 @@ export default {
     testFunction: function(item) {
       console.log(item);
     },
-    handleTable: function(){
+    handleTable: function() {
       this.showAll = !this.showAll;
-      document.getElementById('illustrationScheduleRateTable').scrollIntoView();
+      document.getElementById("illustrationScheduleRateTable").scrollIntoView();
     },
     getIllustrationData: function() {
       if (this.$props.id) {
@@ -124,11 +125,22 @@ export default {
           });
       }
     },
+    getIllsutrationFiles: function() {
+      console.log("get illustration files");
+      get(getUrl("illustration-files"), authHeader())
+        .then(response => {
+          this.illustrationFiles = response.data.results.filter(i => i.scenario_id === Number(this.$route.params.scenario));
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
     if (this.$props.id) {
       this.getIllustrationData(this.$props.id);
     }
+    this.getIllsutrationFiles();
   },
   watch: {
     "$props.id"(e) {
@@ -150,6 +162,6 @@ export default {
         year: "Year",
       };
     },
-  }
+  },
 };
 </script>

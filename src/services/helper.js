@@ -47,7 +47,7 @@ export function setRefreshToken(value) {
 
 export function setAccessToken(value) {
   const now = new Date();
-  const ttl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN) * 3600000;
+  const ttl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN) * 600000;
   const item = {
     value: value,
     expiry: now.getTime() + ttl,
