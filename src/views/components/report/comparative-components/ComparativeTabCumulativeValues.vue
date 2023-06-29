@@ -88,7 +88,7 @@
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
                             <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 95 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.cumulative_income) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
                                 </div>
@@ -161,8 +161,8 @@
                         </div>
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
-                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${getPercentValue(index ? item.shortfall : 0, item.total_value) > 35 ? '' : 'p-static'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.total_value)}%`}">
+                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.total_value) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(index ? item.shortfall : 0, item.total_value)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.total_value)}}</span></p>
                                 </div>

@@ -469,7 +469,6 @@ export default {
               const index = dataMetaSet.index;
               if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
                 data.datasets[index].borderColor = bordercolors[index];
-                // data.datasets[index].borderWidth = 6;
                 chart.update();
                 break;            
               }
@@ -487,10 +486,6 @@ export default {
             data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
             data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2])
             data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3])
-            // data.datasets[0].borderWidth = 4;
-            // data.datasets[1].borderWidth = 4;
-            // data.datasets[2].borderWidth = 4;
-            // data.datasets[3].borderWidth = 4;
           }
           args.changed = true;
         }
@@ -573,12 +568,6 @@ export default {
         chart.config.data.datasets[1].borderColor = bordercolors[1];
         chart.config.data.datasets[2].borderColor = bordercolors[2];
         chart.config.data.datasets[3].borderColor = bordercolors[3];
-
-        // chart.config.data.datasets[0].borderWidth = 4;
-        // chart.config.data.datasets[1].borderWidth = 4;
-        // chart.config.data.datasets[2].borderWidth = 4;
-        // chart.config.data.datasets[3].borderWidth = 4;
-
         chart.update();
       }
 
