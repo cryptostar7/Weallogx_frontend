@@ -283,7 +283,7 @@
     position: absolute;
     width: 100%;
     overflow-y: auto;
-    max-height: 295px;
+    max-height: 200px;
     background: #fff;
     border: 1.25px solid #DFDFDF;
     border-top: 0;

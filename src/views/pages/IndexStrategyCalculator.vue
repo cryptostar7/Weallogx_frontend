@@ -68,6 +68,9 @@
                                 <li class="option">
                                   <span class="option-text">Pre-tax</span>
                                 </li>
+                                <li class="option">
+                                  <span class="option-text">Tax-Deferred</span>
+                                </li>
                               </ul>
                             </div>
                           </div>
@@ -210,7 +213,7 @@
                               <label for="beginningBalance">Start Year</label>
                               <div class="select-menu">
                                 <div class="select-btn">
-                                  <span class="sBtn-text">Taxable</span>
+                                  <span class="sBtn-text">1960</span>
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
@@ -218,7 +221,34 @@
                                     <span class="option-text">1960</span>
                                   </li>
                                   <li class="option">
-                                    <span class="option-text">1980</span>
+                                    <span class="option-text">1961</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1962</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1963</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1964</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1965</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1966</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1967</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1968</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1969</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">1970</span>
                                   </li>
                                 </ul>
                               </div>
@@ -227,15 +257,39 @@
                               <label for="beginningBalance">End Year</label>
                               <div class="select-menu">
                                 <div class="select-btn">
-                                  <span class="sBtn-text">2023</span>
+                                  <span class="sBtn-text">2022</span>
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
-                                  <li class="option active">
-                                    <span class="option-text">2023</span>
+                                  <li class="option">
+                                    <span class="option-text">2014</span>
                                   </li>
                                   <li class="option">
+                                    <span class="option-text">2015</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2016</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2017</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2018</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2019</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2020</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2021</span>
+                                  </li>
+                                  <li class="option active">
                                     <span class="option-text">2022</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">2023</span>
                                   </li>
                                 </ul>
                               </div>
@@ -337,15 +391,39 @@
                                 </span></label>
                               <div class="select-menu">
                                 <div class="select-btn">
-                                  <span class="sBtn-text">1960</span>
+                                  <span class="sBtn-text">1</span>
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
                                   <li class="option active">
-                                    <span class="option-text">1960</span>
+                                    <span class="option-text">1</span>
                                   </li>
                                   <li class="option">
-                                    <span class="option-text">1980</span>
+                                    <span class="option-text">2</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">3</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">4</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">5</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">6</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">7</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">8</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">9</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">10</span>
                                   </li>
                                 </ul>
                               </div>
@@ -377,15 +455,39 @@
                                 </span></label>
                               <div class="select-menu">
                                 <div class="select-btn">
-                                  <span class="sBtn-text">1960</span>
+                                  <span class="sBtn-text">1</span>
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
                                   <li class="option active">
-                                    <span class="option-text">1960</span>
+                                    <span class="option-text">1</span>
                                   </li>
                                   <li class="option">
-                                    <span class="option-text">1980</span>
+                                    <span class="option-text">2</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">3</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">4</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">5</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">6</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">7</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">8</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">9</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">10</span>
                                   </li>
                                 </ul>
                               </div>
@@ -435,21 +537,22 @@ export default {
     // Select Dropdown Start
     let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
-      showHide.addEventListener("click", () =>
-        showHide.closest('.select-menu').classList.toggle("active")
-      );
-      var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
-      allOptions.forEach((option) => {
-        option.addEventListener("click", () => {
-          allOptions.forEach(opt => {
-            opt.querySelector(".option-text").parentElement.classList.remove('active');
-          })
-          option.querySelector(".option-text").parentElement.classList.add('active');
-          let selectedOption = option.querySelector(".option-text").innerText;
-          option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
-          option.parentElement.parentElement.classList.remove("active");
+      showHide.addEventListener("click", () => {
+        showHide.closest('.select-menu').classList.toggle("active");
+        var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
+          allOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            allOptions.forEach(opt => {
+              opt.querySelector(".option-text").parentElement.classList.remove('active');
+            })
+            option.querySelector(".option-text").parentElement.classList.add('active');
+            let selectedOption = option.querySelector(".option-text").innerText;
+            option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
+            option.parentElement.parentElement.classList.remove("active");
+          });
         });
       });
+      
     });
     
     // Close when click outside
