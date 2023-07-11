@@ -95,7 +95,7 @@
                 </label>
               </a>
             </li>
-<!--             <li class="nav-item">
+<!--        <li class="nav-item">
               <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Phase 3 Title">
                 <label class="cursor-pointer otherModecls">
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -109,7 +109,7 @@
               </a>
             </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Index Strategy Calculator">
+              <router-link to="/index-strategy-calculator" class="nav-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Index Strategy Calculator">
                 <label class="cursor-pointer otherModecls">
                   <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -130,7 +130,7 @@
                   </svg>
                   <span>Index Strategy Calculator</span>
                 </label>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>

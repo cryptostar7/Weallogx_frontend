@@ -154,6 +154,16 @@ const router = createRouter({
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
     },
+    {
+      path: "/index-strategy-calculator",
+      name: "index-strategy-calculator",
+      component: () => import("../views/pages/IndexStrategyCalculator.vue"),
+    },
+    {
+      path: "/index-strategy-calculator-run",
+      name: "index-strategy-calculator-run",
+      component: () => import("../views/pages/IndexStrategyCalculatorRun.vue"),
+    },
   ],
 });
 
@@ -176,6 +186,8 @@ const authRoutes = [
   'historical-simulation',
   'review-summary',
   'report-builder',
+  'index-strategy-calculator',
+  'index-strategy-calculator-run',
 ];
 
 // these routes are secure with active plans

@@ -144,7 +144,7 @@
 }
 
 .dark-blue .form-group .form-control:focus {
-  border: 1px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
 }
 
 .dark-blue .tax-rate-tabs {
@@ -157,7 +157,7 @@
 
 .dark-blue .tax-rate-tabs .nav-item button.nav-link.active {
   color: #fff;
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .boxTickImage circle {
@@ -748,7 +748,7 @@
 }
 
 .dark-blue .twoBtnSwtchMainDiv div.active {
-  background: #23669E;
+  background: var(--blue-clr-2);
   color: #fff;
 }
 
@@ -891,7 +891,7 @@
 }
 
 .dark-blue .eachRadioBtnBgDiv.active {
-  background: #23669E;
+  background: var(--blue-clr-2);
   ;
 }
 
@@ -952,7 +952,7 @@
 }
 
 .dark-blue .indexStrategyallDivs.active {
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .indexStrategyallDivs svg rect {
@@ -1046,7 +1046,7 @@
 }
 
 .dark-blue .customAmountInputDiv input:focus {
-  border: 1.5px solid #23669E;
+  border: 1.5px solid var(--blue-clr-2);
 }
 
 .dark-blue .info-icon-img {
@@ -1120,7 +1120,7 @@
 }
 
 .dark-blue .enhancementFixedSheduleBtn div.active {
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .nav-tabs {
@@ -1228,12 +1228,12 @@
 }
 
 .dark-blue .sidebar-nav .nav-link.active {
-  background-color: #23669E;
+  background-color: var(--blue-clr-2);
   color: #fff;
 }
 
 .dark-blue .sidebar-nav .nav-link.active:hover {
-  background-color: #23669E;
+  background-color: var(--blue-clr-2);
   color: #fff;
 }
 
@@ -1305,11 +1305,11 @@
 .dark-blue .client-list-ul .nav-item {
   background: #292B2F;
   border: 1.5px solid #353B46;
-  color: #23669E;
+  color: var(--blue-clr-2);
 }
 
 .dark-blue .client-list-ul .client-name .name-initial-circle {
-  background: #23669E;
+  background: var(--blue-clr-2);
   color: #fff;
 }
 
@@ -1388,14 +1388,14 @@
 }
 
 .dark-blue .round-btn:hover {
-  background: #23669E;
-  border: 1px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
   color: #fff;
 }
 
 .dark-blue .round-btn:hover {
-  background: #23669E;
-  border: 1px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
   color: #fff;
 }
 
@@ -1461,9 +1461,9 @@
 }
 
 .dark-blue .common-round-btn {
-  color: #23669E;
+  color: var(--blue-clr-2);
   background: transparent;
-  border: 1px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
 }
 
 .dark-blue .common-round-btn svg rect,
@@ -1473,15 +1473,15 @@
 }
 
 .dark-blue .common-round-btn:hover {
-  border: 1px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
   color: #fff;
-  background: #23669E;
-  border: 1px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
 }
 
 .dark-blue .main-client-initials {
-  background: #23669E;
-  border: 1px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1px solid var(--blue-clr-2);
   color: #fff;
 }
 
@@ -1537,7 +1537,7 @@
 }
 
 .dark-blue .offcanInputDiv input:focus {
-  border: 1px solid #23669E;
+  border: 1px solid var(--blue-clr-2);
 }
 
 .dark-blue .offcanBtnDiv .SaveAddBtn {
@@ -1641,36 +1641,36 @@
 }
 
 .dark-blue .backToscenario:hover svg rect {
-  fill: #23669E;
+  fill: var(--blue-clr-2);
 }
 
 .dark-blue .backToscenario:hover {
-  color: #23669E;
+  color: var(--blue-clr-2);
 }
 
 .dark-blue .saveReportBtn {
   background: transparent;
-  border: 1.5px solid #23669E;
+  border: 1.5px solid var(--blue-clr-2);
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
 
 .dark-blue .saveReportBtn:hover {
-  background: #23669E;
-  border: 1.5px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
   color: #fff;
 }
 
 .dark-blue .dwnldReportBtn {
   background: transparent;
-  border: 1.5px solid #23669E;
+  border: 1.5px solid var(--blue-clr-2);
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
 
 .dark-blue .dwnldReportBtn:hover {
-  background: #23669E;
-  border: 1.5px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
   color: #fff;
 }
 
@@ -1683,14 +1683,14 @@
 
 .dark-blue .frwrdReportBtn {
   background: transparent;
-  border: 1.5px solid #23669E;
+  border: 1.5px solid var(--blue-clr-2);
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   color: #fff;
 }
 
 .dark-blue .frwrdReportBtn:hover {
-  background: #23669E;
-  border: 1.5px solid #23669E;
+  background: var(--blue-clr-2);
+  border: 1.5px solid var(--blue-clr-2);
   color: #fff;
 }
 
@@ -2459,7 +2459,7 @@
 }
 
 .dark-blue .greenProgress1.switchBg .CardProgress {
-  background-color: #23669E !important;
+  background-color: var(--blue-clr-2) !important;
 }
 
 .dark-blue .greenRadioSwtch .checkbox2:checked~.layer2 {
@@ -2498,7 +2498,7 @@
 }
 
 .dark-blue .CardProgressBig1 {
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .progressBarOvrwrt1 {
@@ -2600,7 +2600,7 @@
 
 
 .dark-blue .cumulativeProgLifePro1 {
-  background: #23669E !important;
+  background: var(--blue-clr-2) !important;
 }
 
 .dark-blue .cumulativeProgLifePro2 {
@@ -2746,8 +2746,8 @@
 }
 
 .dark-blue .BuildSaveCloseButton button:hover {
-  border: 1px solid #23669E;
-  color: #23669E;
+  border: 1px solid var(--blue-clr-2);
+  color: var(--blue-clr-2);
 }
 
 .dark-blue .ScenarioLeft {
@@ -3379,7 +3379,7 @@
 /* new css start */
 .dark-blue .viewBtnLirp svg path,
 .dark-blue .viewBtnLirp svg circle {
-  stroke: #23669E;
+  stroke: var(--blue-clr-2);
   fill: transparent;
 }
 
@@ -3390,18 +3390,18 @@
 
 .dark-blue .editBtnLirp svg path,
 .dark-blue .editBtnLirp svg rect {
-  stroke: #23669E;
+  stroke: var(--blue-clr-2);
   fill: transparent;
 }
 
 .dark-blue .editBtnLirp {
   background: transparent;
-  color: #23669E;
+  color: var(--blue-clr-2);
 }
 
 .dark-blue .deleteBtnLirp {
   background: transparent;
-  color: #23669E;
+  color: var(--blue-clr-2);
 }
 
 .dark-blue .editBtnLirp {
@@ -3959,7 +3959,7 @@
 }
 
 .dark-blue .lightProgress1 {
-  background:  #23669E;
+  background:  var(--blue-clr-2);
 }
 
 .dark-blue .lightProgress1 div {
@@ -3997,7 +3997,7 @@
 }
 
 .dark-blue .irrCardParaTop1 {
-  color: #23669E;
+  color: var(--blue-clr-2);
   font-weight: 600;
   font-size: 13px;
   margin: 0;
@@ -4015,7 +4015,7 @@
 
 /*  */
 .dark-blue .cumulativeProgAccount1 {
-  background: #23669E;
+  background: var(--blue-clr-2);
 }
 
 .dark-blue .BottomcumulativeAccount1 {
@@ -4170,7 +4170,7 @@ color: #55575a !important;
   color: #fff;
 }
 .dark-blue .illustration-data-table tr th input[type=checkbox]{
-  accent-color: #23669E;
+  accent-color: var(--blue-clr-2);
 }
 .dark-blue .feeAnalysisLeftBar1{
   background-color: #1660A4;
@@ -4253,7 +4253,7 @@ background: #0C4A83;
   color: #F04F4F !important;
 }
 .dark-blue .sidebar-username-label{
-  background-color: #23669E;
+  background-color: var(--blue-clr-2);
 }
 .dark-blue .return-btn-div .return-to-report-btn{
   background-color: #34383D;
@@ -4283,4 +4283,332 @@ background: #0C4A83;
 }
 .dark-blue .equalDistCard2 .color3::before{
   background-color: #3ECAA8;
+}
+/* Calculator */
+
+.dark-blue .strategy-calc-main-div {
+  border: 1px solid var(--blue-clr-2);
+  background: transparent;
+}
+
+.dark-blue .index-strategy-head-div {
+  border-bottom-color: var(--blue-clr-2);
+}
+
+.dark-blue .index-strategy-table-content-div {
+  border-top-color: var(--blue-clr-2);
+}
+
+.dark-blue .index-strategy-content-inner-div {
+  background: transparent;
+}
+
+.dark-blue .calc-tab-graph-tab {
+  background: #2E3135;
+}
+
+.dark-blue .calc-tab-graph-tab div {
+  background: #2E3135;
+  color: #fff;
+}
+
+.dark-blue .index-strategy-table-heading.blueClr {
+  background: #26AB8B;
+  border-color: #353B46;
+}
+
+.dark-blue .index-strategy-table-heading.greenClr {
+  background: var(--blue-clr-2);
+  border-color: #353B46;
+}
+
+.dark-blue .table-graph-bottom-each-main-div .table-graph-bottom-head.blueClr {
+  background: #26AB8B;
+}
+
+.dark-blue .table-graph-bottom-each-main-div .table-graph-bottom-head.greenClr {
+  background: var(--blue-clr-2);
+}
+
+
+.dark-blue .calc-tab-graph-tab div.active {
+  background: var(--blue-clr-2);
+}
+
+.dark-blue .index-strategy-head-div * {
+  color: #fff;
+}
+
+.dark-blue .index-strategy-head-div h1::before {
+  background-color: #ABD5F9;
+}
+
+.dark-blue .index-strategy-table-heading.blueClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after,
+.dark-blue .table-graph-bottom-head.blueClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after {
+  background: #26AB8B;
+}
+
+.dark-blue .index-strategy-table-heading.greenClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after,
+.dark-blue .table-graph-bottom-head.greenClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after {
+  background: var(--blue-clr-2);
+}
+
+.dark-blue table.index-strategy-table tr {
+  border-color: #353B46;
+}
+
+.dark-blue table.index-strategy-table tr td,
+.dark-blue table.index-strategy-table tr th {
+  border-color: #353B46 !important;
+  background: #24292D;
+  color: #fff;
+}
+
+.dark-blue table.index-strategy-table thead tr:first-child th:first-child {
+  border-color: #353B46 !important;
+  color: #fff;
+
+
+}
+
+.dark-blue table.index-strategy-table thead tr:first-child th:last-child {
+  border-color: #353B46 !important;
+}
+
+.dark-blue .index-strategy-table-heading.greenClr~.table-responsive .index-strategy-table tr td,
+.dark-blue .index-strategy-table-heading.greenClr~.table-responsive .index-strategy-table tr th {
+  background: #262B29;
+}
+
+.dark-blue .table-graph-bottom-each-main-div {
+  border-color: #353B46;
+}
+
+.dark-blue .table-graph-bottom-content-div p {
+  color: #fff;
+}
+
+ .dark-blue .table-graph-bottom-each-main-div.inactive1 .table-graph-bottom-head.blueClr, .dark-blue .table-graph-bottom-each-main-div.inactive1 .table-graph-bottom-head.greenClr{
+  background: #c4c4c4;
+ }
+
+.dark-blue svg path#Vector_2.setting-icon-all {
+  fill: #53a9f1;
+  stroke: transparent;
+}
+.dark-blue .index-strategy-each-tabs-head svg path#Vector_2.setting-icon-all{
+  fill: #5BB3FF;
+  stroke: transparent;
+  }
+.dark-blue .index-strategy-content-div {
+  border-top-color: var(--blue-clr-2);
+}
+
+.dark-blue .index-strategy-each-tabs-head {
+  border-color: #353B46;
+  background: var(--blue-clr-2);
+}
+.dark-blue .index-strategy-each-tabs-head p::before {
+  background: #53a9f1;
+}
+
+.dark-blue .index-strategy-content-inner-div.withBoxShadow {
+  background: #292B2F;
+  border: 1.5px solid #353B46;
+}
+
+.dark-blue .index-strategy-inputs-div label {
+  color: #fff;
+}
+
+.dark-blue .index-strategy-inputs-div label::before {
+  background: #1660A4;
+}
+
+.dark-blue .label-common-tooltip-svg g circle:first-child {
+  fill: #515151;
+}
+
+.dark-blue .label-common-tooltip-svg g circle:last-child {
+  fill: #fff !important;
+}
+
+.dark-blue .label-common-tooltip-svg g rect {
+  fill: #fff;
+}
+.dark-blue .index-strategy-each-inputs {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-blue .index-strategy-each-inputs {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-blue .index-strategy-inputs-div .index-strategy-each-inputs input {
+  color: #fff;
+}
+
+.dark-blue .index-strategy-inputs-div .index-strategy-each-inputs span {
+  color: #b1b1b1;
+}
+
+.dark-blue .index-strategy-each-inputs:has(> input:valid) span {
+  color: #fff;
+}
+
+.dark-blue .select-menu .select-btn {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-blue .select-menu .select-btn i img {
+  filter: contrast(0%);
+}
+
+.dark-blue .select-menu .options {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-blue .select-menu .options .option {
+  background: #34383D;
+  color: #fff;
+}
+
+.dark-blue .select-menu .options .option span {
+  color: #fff;
+}
+
+.dark-blue .select-menu .options .option span:before {
+  filter: contrast(0%);
+}
+
+.dark-blue .strategy-parameter-heading {
+  color: #fff;
+}
+.dark-blue .multi-radio-main-div {
+  background: #2E3135;
+}
+.dark-blue .each-radio-switch.active {
+  background: var(--blue-clr-2);
+}
+.dark-blue .each-radio-switch .each-radio-label {
+  color: #fff;
+}
+.dark-blue .each-radio-switch .form-check-input:focus {
+    border: 0;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+.dark-blue .each-radio-switch .form-check-input:checked {
+  background-color: var(--blue-clr-2) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+.dark-blue .each-radio-switch.active .form-check-input:checked {
+  background-color: #fff !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2323669E'/%3e%3c/svg%3e") !important;
+}
+
+.dark-blue .strategy-allocation-head-para {
+  color: #fff;
+}
+
+.dark-blue .strategy-allocation-head-para::before {
+  background: #1660A4;
+}
+
+.dark-blue .strategy-allocation-all-div {
+  background: #2E3135;
+}
+
+.dark-blue .strategy-allocation-all-div div {
+  background: #34383D;
+}
+
+.dark-blue .strategy-allocation-all-div div.active  .allocation-input{
+    background: var(--blue-clr-2);
+}
+
+.dark-blue .three-radio-button-input-div label {
+  background: #34383D;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-blue .three-radio-button-input-div input:checked ~ label {
+  border: 1.5px solid var(--blue-clr-2);
+}
+
+.dark-blue .run-reset-btn-div a.run-button {
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .index-strategy-table-heading .icon-span span{
+  background: #202124;
+  color: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.60);
+}
+.dark-blue  .index-strategy-inputs-div label span span{
+  background: #202124;
+  color: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.60);
+}
+.dark-blue .strategy-allocation-head-para span span{
+  background: #202124;
+  color: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.60);
+}
+
+.dark-blue  .calc-preview-modal a.calc-preview-save-run-button{
+  background-color: var(--blue-clr-2);
+}
+
+.dark-blue .preview-modal-close svg rect{
+  fill: #53a9f1;
+}
+.dark-blue .select-menu .options .option:hover {
+  background: #222;
+}
+.dark-blue .chart-dropdown.green .tool-tip-second-main-div {
+  border: 3px solid var(--blue-clr-2);
+  background: var(--blue-clr-2);
+}
+.dark-blue .chart-dropdown.blue .tool-tip-second-main-div {
+  border: 3px solid #26AB8B;
+  background: #26AB8B;
+}
+.dark-blue .chart-dropdown.green .tooltip-head {
+  background: var(--blue-clr-2);
+}
+.dark-blue .chart-dropdown.blue .tooltip-head {
+  background: #26AB8B;
+}
+.dark-blue .chart-dropdown.blue .tooltipbtn svg circle{
+  stroke: #26AB8B;
+}
+.dark-blue .chart-dropdown.blue .tooltipbtn svg path{
+  stroke: #26AB8B;
+}
+.dark-blue .chart-dropdown.green .tooltipbtn svg circle{
+  stroke: var(--blue-clr-2);
+}
+.dark-blue .chart-dropdown.green .tooltipbtn svg path{
+  stroke: var(--blue-clr-2);
+}
+.dark-blue .bottom-to-top-btn{
+    background-color: #fff;
+    border: 4px solid var(--blue-clr-2);
+}
+.dark-blue .bottom-to-top-btn svg rect{
+    fill: var(--blue-clr-2);
+}
+.dark-blue .bottom-to-top-btn:hover{
+    background-color: var(--blue-clr-2);
+}
+.dark-blue .bottom-to-top-btn:hover svg rect{
+    fill: #fff;
 }
