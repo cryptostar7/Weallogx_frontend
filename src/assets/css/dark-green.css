@@ -501,6 +501,7 @@
 
 .dark-green .radioClassDarkMode .form-check-input {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e");
+  background-color: #515151;
 }
 
 .dark-green .historicalYesDivCommon {
@@ -3925,12 +3926,15 @@ background: transparent;
   background: #26AB8B;
 }
 
+.dark-green .index-strategy-head-radio input[type="checkbox"].switch_1{
+background-color: #515151;
+}
 .dark-green table.index-strategy-table tr{
   border-color: #353B46;
 }
 .dark-green table.index-strategy-table tr td, .dark-green table.index-strategy-table tr th{
   border-color: #353B46!important;
-  background: #262B29;
+ background: #24292D;
   color: #fff;
 }
 .dark-green table.index-strategy-table thead tr:first-child th:first-child{
@@ -3943,7 +3947,7 @@ background: transparent;
 
 .dark-green .index-strategy-table-heading.greenClr ~ .table-responsive .index-strategy-table tr td,
 .dark-green .index-strategy-table-heading.greenClr ~ .table-responsive .index-strategy-table tr th{
-background: #24292D;
+background: #262B29;
 }
 
 .dark-green .table-graph-bottom-each-main-div .table-graph-bottom-each-main-div{
@@ -4099,14 +4103,21 @@ background: #24292D;
   background: #2E3135;
 }
 
- .dark-green .strategy-allocation-all-div div {
-  background: #34383D;
+ .dark-green .strategy-allocation-all-div input {
+  background: #34383D!important;
 }
 
-.dark-green .strategy-allocation-all-div div.active  .allocation-input{
-      background: #26AB8B;
+.dark-green .strategy-allocation-all-div div.active .allocation-input{
+      background: #26AB8B!important;
   }
 
+  .dark-green .strategy-allocated-div{
+    border-color:#2E3135 ;
+  }
+  .dark-green .strategy-allocation-all-div .allocation-input:focus, .dark-green .strategy-allocation-all-div div.active .allocation-input:focus {
+    color: #fff!important;
+    background: #1f1f1f!important;
+}
 .dark-green .three-radio-button-input-div label {
   background: #34383D;
   border: 1px solid #515151;
@@ -4167,4 +4178,20 @@ background: #24292D;
 }
 .dark-green .table-graph-bottom-each-main-div {
   border-color: #353B46;
+}
+
+.dark-green .half-col.inactive .index-strategy-table-heading{
+  background: #2E3135!important;
+    color: rgb(160, 160, 160);
+}
+.dark-green .half-col.inactive .index-strategy-table-heading .icon-span svg circle {
+  fill: #515151!important;
+}
+.dark-green .table-graph-bottom-each-main-div.inactive .table-graph-bottom-head{
+  background: #2E3135;
+  color: rgb(160, 160, 160);
+}
+.dark-green .table-graph-bottom-each-main-div.inactive1 .table-graph-bottom-head {
+  background: #2E3135!important;
+  color: rgb(160, 160, 160);
 }

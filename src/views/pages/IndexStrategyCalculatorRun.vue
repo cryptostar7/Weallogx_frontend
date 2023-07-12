@@ -168,7 +168,7 @@
                                       </tr>
                                       <tr>
                                         <td>1962</td>
-                                        <td class="highlighted">22%</td>
+                                        <td>22%</td>
                                         <td>$96,954</td>
                                       </tr>
                                       <tr>
@@ -193,7 +193,7 @@
                                       </tr>
                                       <tr>
                                         <td>1967</td>
-                                        <td class="highlighted">-15%</td>
+                                        <td>-15%</td>
                                         <td>$153,113</td>
                                       </tr>
                                       <tr>
@@ -251,15 +251,15 @@
               </section>
 
               <section class="strategy-calc-main-section" id="detailsTable">
-                <div class="container-fluid px-0">
-                  <div class="row gx-5 table-data-row">
+                <div class="container-fluid">
+                  <div class="row table-data-row">
                     <div class="col-md-6">
                       <div class="table-graph-bottom-each-main-div">
                         <div class="table-graph-bottom-head blueClr">
                           Summary
                         </div>
                         <div class="table-graph-bottom-content-div">
-                          <div class="container-fluid px-4">
+                          <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
@@ -334,7 +334,7 @@
                                 <p>Standard Deviation</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>$100,000</p>
+                                <p>15.6%</p>
                               </div>
                             </div>
                             <div class="row">
@@ -342,7 +342,7 @@
                                 <p>Sharpe Ratio</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>59</p>
+                                <p>0.59</p>
                               </div>
                             </div>
                           </div>
@@ -355,13 +355,13 @@
                           Summary
                         </div>
                         <div class="table-graph-bottom-content-div">
-                          <div class="container-fluid px-4">
+                          <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="highlighted">$100,000</p>
+                                <p>$100,000</p>
                               </div>
                             </div>
                             <div class="row">
@@ -386,7 +386,7 @@
                                 <p>Total Taxes</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>8.1%</p>
+                                <p>$0</p>
                               </div>
                             </div>
                             <div class="row">
@@ -422,7 +422,7 @@
                                 <p>Actual Rate of Return</p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="highlighted">7.7%</p>
+                                <p>7.7%</p>
                               </div>
                             </div>
                             <div class="row">
@@ -446,7 +446,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row gx-5 graph-data-row d-none">
+                  <div class="row graph-data-row d-none">
                     <div class="col-md-6">
                       <div class="table-graph-bottom-each-main-div">
                         <div class="table-graph-bottom-head blueClr">
@@ -456,7 +456,7 @@
                           Summary
                         </div>
                         <div class="table-graph-bottom-content-div">
-                          <div class="container-fluid px-4">
+                          <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
@@ -531,7 +531,7 @@
                                 <p>Standard Deviation</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>$100,000</p>
+                                <p>15.6%</p>
                               </div>
                             </div>
                             <div class="row">
@@ -539,7 +539,7 @@
                                 <p>Sharpe Ratio</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>59</p>
+                                <p>0.59</p>
                               </div>
                             </div>
                           </div>
@@ -555,13 +555,13 @@
                           Summary
                         </div>
                         <div class="table-graph-bottom-content-div">
-                          <div class="container-fluid px-4">
+                          <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="highlighted">$100,000</p>
+                                <p>$100,000</p>
                               </div>
                             </div>
                             <div class="row">
@@ -586,7 +586,7 @@
                                 <p>Total Taxes</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>8.1%</p>
+                                <p>$0</p>
                               </div>
                             </div>
                             <div class="row">
@@ -622,7 +622,7 @@
                                 <p>Actual Rate of Return</p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="highlighted">7.7%</p>
+                                <p>7.7%</p>
                               </div>
                             </div>
                             <div class="row">
@@ -1094,16 +1094,17 @@
                     <div class="col-md-6 col-lg-3 inp-mar-top">
                       <label for="beginningBalance">Par Rate</label>
                       <div class="index-strategy-each-inputs">
-                        <input type="number" value="0" required="">
+                        <input type="number" value="100" required="">
                         <span>%</span>
                       </div>
                     </div>
                     <div class="col-md-6 col-lg-3 inp-mar-top">
                       <label for="beginningBalance">Floor</label>
-                      <div class="index-strategy-each-inputs">
+                      <div class="index-strategy-each-inputs /*error*/">
                         <input type="text" value="0" required="">
                         <span>%</span>
                       </div>
+                      <p class="error-text">This is a required field</p>
                     </div>
                     <div class="col-md-6 col-lg-3 inp-mar-top">
                       <label for="beginningBalance">Performance Multiplier <span><svg class="label-common-tooltip-svg"
@@ -1118,7 +1119,7 @@
                             strategy has a 40% multiplier, you would enter 1.4 here. If none, enter 1.</span>
                         </span></label>
                       <div class="index-strategy-each-inputs">
-                        <input type="text" required="">
+                        <input type="text" value="1" required="">
                       </div>
                     </div>
                     <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -1323,7 +1324,7 @@ export default {
         </div>
         <div class="tooltip-head">Snap Shot</div>
         <div class="tooltip-inner-div">
-          <p>No Taxes 2</p>
+          <p>No Taxes</p>
           <p>No Market Losses</p>
           <p>Less Volatility</p>
         </div>
@@ -1350,34 +1351,50 @@ export default {
     document.body.appendChild(chartDropdown0);
     document.body.appendChild(chartDropdown1);
 
-    // Select Dropdown Start
-    let selectBtn = document.querySelectorAll(".select-btn");
+     // Select Dropdown Start
+
+  let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
-      showHide.addEventListener("click", () => {
-        showHide.closest('.select-menu').classList.toggle("active");
-        var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
-          allOptions.forEach((option) => {
-          option.addEventListener("click", () => {
-            allOptions.forEach(opt => {
-              opt.querySelector(".option-text").parentElement.classList.remove('active');
-            })
-            option.querySelector(".option-text").parentElement.classList.add('active');
-            let selectedOption = option.querySelector(".option-text").innerText;
-            option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
-            option.parentElement.parentElement.classList.remove("active");
+      showHide.addEventListener("click", () =>
+        showHide.closest('.select-menu').classList.toggle("active")
+      );
+      var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
+      allOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          let items = e.target.closest('ul').querySelectorAll('li');
+          items.forEach(element => {
+            element.classList.remove('active');
           });
+          e.target.closest('li').classList.add('active');
+          let selectedOption = option.querySelector(".option-text").innerText;
+          option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
+          option.parentElement.parentElement.classList.remove("active");
         });
       });
+    });
+
+    let dropdowns = document.querySelectorAll('.select-menu');
+    dropdowns.forEach(element => {
+      element.addEventListener('click', (e) => {
+        dropdowns.forEach((item) => {
+          if (item.className.includes('active')) {
+            item.classList.remove('active')
+          }
+        });
+        e.target.closest('.select-menu').classList.add('active')
+      })
     });
 
     // Close when click outside
     window.onclick = function (event) {
       if (!event.target.matches('.select-menu')) {
+
         var sharedowns = document.getElementsByClassName("select-menu");
         var i;
         for (i = 0; i < sharedowns.length; i++) {
           var openSelectdropdown = sharedowns[i];
-          if(openSelectdropdown.classList.contains('active')) {
+          if (openSelectdropdown.classList.contains('active')) {
             openSelectdropdown.classList.remove('active');
           }
         }

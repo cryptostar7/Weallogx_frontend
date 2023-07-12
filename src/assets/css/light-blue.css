@@ -1499,3 +1499,24 @@ background: #1660A4;
 .light-blue .bottom-to-top-btn:hover svg rect{
     fill: #fff;
 }
+
+.light-blue .table-graph-bottom-each-main-div .blueClr~.table-graph-bottom-content-div .row:hover {
+  background: rgba(20, 125, 100, 0.15);
+  cursor: pointer;
+}
+.light-blue .table-graph-bottom-each-main-div .greenClr~.table-graph-bottom-content-div .row:hover {
+  background: rgba(22, 96, 164, 0.15);
+  cursor: pointer;
+}
+
+.light-blue .index-strategy-table-heading~.table-responsive .index-strategy-table tr:hover td{
+  background: rgba(20, 125, 100, 0.15);
+  cursor: pointer;
+}
+.light-blue .index-strategy-table-heading.greenClr~.table-responsive .index-strategy-table tr:hover td{
+  background: rgba(22, 96, 164, 0.15);
+  cursor: pointer;
+}
+.light-blue .three-radio-button-input-div input:checked ~ label{
+  border-color: #004885;
+}

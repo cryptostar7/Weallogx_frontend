@@ -412,16 +412,17 @@
                             <div class="col-md-6 col-lg-3 inp-mar-top">
                               <label for="beginningBalance">Par Rate</label>
                               <div class="index-strategy-each-inputs">
-                                <input type="number" value="0" required>
+                                <input type="number" value="100" required>
                                 <span>%</span>
                               </div>
                             </div>
                             <div class="col-md-6 col-lg-3 inp-mar-top">
                               <label for="beginningBalance">Floor</label>
-                              <div class="index-strategy-each-inputs">
+                              <div class="index-strategy-each-inputs /*error*/">
                                 <input type="text" value="0" required>
                                 <span>%</span>
                               </div>
+                              <p class="error-text">This is a required field</p>
                             </div>
                             <div class="col-md-6 col-lg-3 inp-mar-top">
                               <label for="beginningBalance">Performance Multiplier <span><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -434,7 +435,7 @@
                                   <span>If you are using a multiplier, enter that value here. For example, if your strategy has a 40% multiplier, you would enter 1.4 here. If none, enter 1.</span>
                                 </span></label>
                               <div class="index-strategy-each-inputs">
-                                <input type="text" required>
+                                <input type="text" value="1" required>
                               </div>
                             </div>
                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -618,30 +619,45 @@ export default {
     LeftSidebarComponent,
   },
   mounted(){
-    // Select Dropdown Start
-    let selectBtn = document.querySelectorAll(".select-btn");
+  // Select Dropdown Start
+
+  let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
-      showHide.addEventListener("click", () => {
-        showHide.closest('.select-menu').classList.toggle("active");
-        var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
-          allOptions.forEach((option) => {
-          option.addEventListener("click", () => {
-            allOptions.forEach(opt => {
-              opt.querySelector(".option-text").parentElement.classList.remove('active');
-            })
-            option.querySelector(".option-text").parentElement.classList.add('active');
-            let selectedOption = option.querySelector(".option-text").innerText;
-            option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
-            option.parentElement.parentElement.classList.remove("active");
+      showHide.addEventListener("click", () =>
+        showHide.closest('.select-menu').classList.toggle("active")
+      );
+      var allOptions = showHide.closest('.select-menu').querySelector('.options').querySelectorAll('.option');
+      allOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          let items = e.target.closest('ul').querySelectorAll('li');
+          items.forEach(element => {
+            element.classList.remove('active');
           });
+          e.target.closest('li').classList.add('active');
+          let selectedOption = option.querySelector(".option-text").innerText;
+          option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
+          option.parentElement.parentElement.classList.remove("active");
         });
       });
-      
     });
-    
+
+    let dropdowns = document.querySelectorAll('.select-menu');
+    dropdowns.forEach(element => {
+      element.addEventListener('click', (e) => {
+        dropdowns.forEach((item) => {
+          if (item.className.includes('active')) {
+            item.classList.remove('active')
+          }
+        });
+        e.target.closest('.select-menu').classList.add('active')
+      })
+    });
+
     // Close when click outside
     window.onclick = function (event) {
       if (!event.target.matches('.select-menu')) {
+
         var sharedowns = document.getElementsByClassName("select-menu");
         var i;
         for (i = 0; i < sharedowns.length; i++) {
@@ -652,7 +668,6 @@ export default {
         }
       }
     }
-
     var allSelectMenus = document.querySelectorAll(".select-menu");
     allSelectMenus.forEach((eachSelectMenus) => {
       eachSelectMenus.addEventListener('click', function (event) {
