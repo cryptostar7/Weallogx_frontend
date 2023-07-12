@@ -376,6 +376,9 @@ body::-webkit-scrollbar {
 .sidebar-nav .nav-link svg rect {
   fill: #3CB79A;
 }
+.sidebar-nav .nav-link.active svg rect {
+  fill: #000;
+}
 .sidebar-username-label{
   height: 50px;
   width: 100%;

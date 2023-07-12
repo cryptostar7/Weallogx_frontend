@@ -7,7 +7,7 @@
           </div>
           <ul class="nav flex-column flex-nowrap h-100 sidebar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Comparative Analysis">
+              <a :class="`nav-link`" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Comparative Analysis">
                 <label class="cursor-pointer otherModecls">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none">
                     <path
@@ -109,7 +109,7 @@
               </a>
             </li> -->
             <li class="nav-item">
-              <router-link to="/index-strategy-calculator" class="nav-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Index Strategy Calculator">
+              <router-link to="/index-strategy-calculator" :class="`nav-link ${$route.path == '/index-strategy-calculator' ? 'active' : ''} ${$route.path == '/index-strategy-calculator-run' ? 'active' : ''}`" data-bs-toggle="tooltip" data-bs-placement="right" title="Index Strategy Calculator">
                 <label class="cursor-pointer otherModecls">
                   <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"

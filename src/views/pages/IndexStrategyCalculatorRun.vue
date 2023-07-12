@@ -1304,9 +1304,7 @@ import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vu
 import "../../assets/js/chart.min";
 import canvasPlus from '../../assets/images/icons/canvas-plus.svg';
 import canvasPlusBlue from '../../assets/images/icons/canvas-plus-blue.svg';
-
-console.log(canvasPlus, canvasPlusBlue);
-
+import canvasPlusGrey from '../../assets/images/icons/grey-plus.svg';
 export default {
   components: {
     NavbarComponent,
@@ -1473,24 +1471,26 @@ export default {
     chartDot1.src = canvasPlus;
     var chartDot2 = new Image(20, 20);
     chartDot2.src = canvasPlusBlue;
+    var chartDot3 = new Image(20, 20);
+    chartDot3.src = canvasPlusGrey;
     
-    var pointImageArr = [chartDot1, chartDot2]
+    var pointImageArr = [chartDot1, chartDot2, chartDot3]
 
-    var lineColors = ["#147D64", "#1660A4"]
+    var lineColors = ["#147D64", "#1660A4", "#eee"]
 
     let screenMode = localStorage.getItem("mode");
     if (screenMode == "light-blue") {
-      pointImageArr = [chartDot2, chartDot1];
-      lineColors = ["#1660A4", "#089875"];
+      pointImageArr = [chartDot2, chartDot1, chartDot3];
+      lineColors = ["#1660A4", "#089875", "#eee"];
     } else if (screenMode == "dark-blue"){
-      pointImageArr = [chartDot2, chartDot1];
-      lineColors = ["#1660A4", "#089875"];
+      pointImageArr = [chartDot2, chartDot1, chartDot3];
+      lineColors = ["#1660A4", "#089875", "#eee"];
     } else if (screenMode == "dark-green") {
-      pointImageArr = [chartDot1, chartDot2];
-      lineColors = ["#26AB8B", "#23669E"];
+      pointImageArr = [chartDot1, chartDot2, chartDot3];
+      lineColors = ["#26AB8B", "#23669E", "#eee"];
     } else {
-      pointImageArr = [chartDot1, chartDot2];
-      lineColors = ["#147D64", "#1660A4"];
+      pointImageArr = [chartDot1, chartDot2, chartDot3];
+      lineColors = ["#147D64", "#1660A4", "#eee"];
     }
 
     const ctx = document.getElementById('myChart');
@@ -1536,6 +1536,46 @@ export default {
         }
     };
 
+    const highlightLine = {
+      id: "highlightLine",
+      beforeDatasetsDraw(chart, args, plugins){
+        let { data } = chart;
+        // console.log(chart.titleBlock.top);
+        const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
+        // if(animationTimeout){
+        //   setTimeout(() => {
+        //     animationTimeout = false;
+        //   }, totalDuration);
+        // }else{
+          for(let i = 0; i < datasetMetaArray.length; i++){
+            const dataMetaSet = datasetMetaArray[i];
+            const index = dataMetaSet.index;
+            if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
+              data.datasets[index].borderColor = lineColors[index];
+              data.datasets[index].pointStyle = pointImageArr[index];
+              chart.update();
+              break;        
+            }
+          }
+        // } 
+      },
+      afterEvent(chart, args){
+        let { data } = chart;
+        if(args.inChartArea){
+          function setBorderColor(active, index, borderColor){
+            // console.log(borderColor, lineColors[2]);
+            return active ? borderColor : lineColors[2];
+          }
+          data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0])
+          data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1])
+          data.datasets[0].pointStyle = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) === "eee" ? pointImageArr[0] : pointImageArr[2];
+          data.datasets[1].pointStyle = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) === "eee" ? pointImageArr[1] : pointImageArr[2];
+          console.log(setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) === "eee");
+        }
+        args.changed = true;
+      }
+    }
+
     var config = {
       type: 'line',
       data: {
@@ -1563,7 +1603,6 @@ export default {
           borderWidth: 3,
           pointHoverRadius: [0, 0, 0, 0, 0, 0, 14],
         },
-        
         ]
       },
 
@@ -1630,7 +1669,7 @@ export default {
           }
         }
       },
-      plugins: [htmlLegendPlugin]
+      plugins: [htmlLegendPlugin, highlightLine]
     };
 
     const chartBox = document.querySelector('.index-strategy-content-inner-div');
@@ -1651,7 +1690,7 @@ export default {
               dropdownBox.classList.toggle("d-none")
               dropdownBox.classList.toggle("d-block")
               dropdownBox.style.display = 'block';
-              dropdownBox.style.left = chartBoxX + layerX + "px";
+              dropdownBox.style.left = chartBoxX + layerX - 8 + "px";
               console.log(pageY, dropdownBox.getBoundingClientRect().height, pageY - dropdownBox.getBoundingClientRect().height)
               dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 22 +  "px";
               myChart.update();
@@ -1665,6 +1704,23 @@ export default {
     
     myChart.canvas.addEventListener("click", clickHandler);
     let chartDropdowns = document.querySelectorAll(".chart-dropdown");
+
+    function resetColors(chart){
+        chart.config.data.datasets[0].borderColor = lineColors[0];
+        chart.config.data.datasets[1].borderColor = lineColors[1];
+        chart.update();
+      }
+
+
+    myChart.canvas.addEventListener("mouseleave", (e) => {
+       // if(animationTimeout){
+       //    setTimeout(() => {
+       //      animationTimeout = false;
+       //    }, totalDuration);
+       //  }else{
+        resetColors(myChart);
+      // }
+    });
 
     document.addEventListener("mouseup", (e) => {
       e.stopPropagation();
