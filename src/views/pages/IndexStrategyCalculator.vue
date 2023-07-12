@@ -68,9 +68,6 @@
                                 <li class="option">
                                   <span class="option-text">Pre-tax</span>
                                 </li>
-                                <li class="option">
-                                  <span class="option-text">Tax-Deferred</span>
-                                </li>
                               </ul>
                             </div>
                           </div>
@@ -217,39 +214,68 @@
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
-                                  <li class="option active">
-                                    <span class="option-text">1960</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1961</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1962</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1963</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1964</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1965</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1966</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1967</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1968</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1969</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">1970</span>
-                                  </li>
+                                  <li class="option active"><span class="option-text">1960</span></li>
+                                  <li class="option"><span class="option-text">1961</span></li>
+                                  <li class="option"><span class="option-text">1962</span></li>
+                                  <li class="option"><span class="option-text">1963</span></li>
+                                  <li class="option"><span class="option-text">1964</span></li>
+                                  <li class="option"><span class="option-text">1965</span></li>
+                                  <li class="option"><span class="option-text">1966</span></li>
+                                  <li class="option"><span class="option-text">1967</span></li>
+                                  <li class="option"><span class="option-text">1968</span></li>
+                                  <li class="option"><span class="option-text">1969</span></li>
+                                  <li class="option"><span class="option-text">1970</span></li>
+                                  <li class="option"><span class="option-text">1971</span></li>
+                                  <li class="option"><span class="option-text">1972</span></li>
+                                  <li class="option"><span class="option-text">1973</span></li>
+                                  <li class="option"><span class="option-text">1974</span></li>
+                                  <li class="option"><span class="option-text">1975</span></li>
+                                  <li class="option"><span class="option-text">1976</span></li>
+                                  <li class="option"><span class="option-text">1977</span></li>
+                                  <li class="option"><span class="option-text">1978</span></li>
+                                  <li class="option"><span class="option-text">1979</span></li>
+                                  <li class="option"><span class="option-text">1980</span></li>
+                                  <li class="option"><span class="option-text">1981</span></li>
+                                  <li class="option"><span class="option-text">1982</span></li>
+                                  <li class="option"><span class="option-text">1983</span></li>
+                                  <li class="option"><span class="option-text">1984</span></li>
+                                  <li class="option"><span class="option-text">1985</span></li>
+                                  <li class="option"><span class="option-text">1986</span></li>
+                                  <li class="option"><span class="option-text">1987</span></li>
+                                  <li class="option"><span class="option-text">1988</span></li>
+                                  <li class="option"><span class="option-text">1989</span></li>
+                                  <li class="option"><span class="option-text">1990</span></li>
+                                  <li class="option"><span class="option-text">1991</span></li>
+                                  <li class="option"><span class="option-text">1992</span></li>
+                                  <li class="option"><span class="option-text">1993</span></li>
+                                  <li class="option"><span class="option-text">1994</span></li>
+                                  <li class="option"><span class="option-text">1995</span></li>
+                                  <li class="option"><span class="option-text">1996</span></li>
+                                  <li class="option"><span class="option-text">1997</span></li>
+                                  <li class="option"><span class="option-text">1998</span></li>
+                                  <li class="option"><span class="option-text">1999</span></li>
+                                  <li class="option"><span class="option-text">2000</span></li>
+                                  <li class="option"><span class="option-text">2001</span></li>
+                                  <li class="option"><span class="option-text">2002</span></li>
+                                  <li class="option"><span class="option-text">2003</span></li>
+                                  <li class="option"><span class="option-text">2004</span></li>
+                                  <li class="option"><span class="option-text">2005</span></li>
+                                  <li class="option"><span class="option-text">2006</span></li>
+                                  <li class="option"><span class="option-text">2007</span></li>
+                                  <li class="option"><span class="option-text">2008</span></li>
+                                  <li class="option"><span class="option-text">2009</span></li>
+                                  <li class="option"><span class="option-text">2010</span></li>
+                                  <li class="option"><span class="option-text">2011</span></li>
+                                  <li class="option"><span class="option-text">2012</span></li>
+                                  <li class="option"><span class="option-text">2013</span></li>
+                                  <li class="option"><span class="option-text">2014</span></li>
+                                  <li class="option"><span class="option-text">2015</span></li>
+                                  <li class="option"><span class="option-text">2016</span></li>
+                                  <li class="option"><span class="option-text">2017</span></li>
+                                  <li class="option"><span class="option-text">2018</span></li>
+                                  <li class="option"><span class="option-text">2019</span></li>
+                                  <li class="option"><span class="option-text">2020</span></li>
+                                  <li class="option"><span class="option-text">2021</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -261,36 +287,68 @@
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
-                                  <li class="option">
-                                    <span class="option-text">2014</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2015</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2016</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2017</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2018</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2019</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2020</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2021</span>
-                                  </li>
-                                  <li class="option active">
-                                    <span class="option-text">2022</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2023</span>
-                                  </li>
+                                  <li class="option"><span class="option-text">1961</span></li>
+                                  <li class="option"><span class="option-text">1962</span></li>
+                                  <li class="option"><span class="option-text">1963</span></li>
+                                  <li class="option"><span class="option-text">1964</span></li>
+                                  <li class="option"><span class="option-text">1965</span></li>
+                                  <li class="option"><span class="option-text">1966</span></li>
+                                  <li class="option"><span class="option-text">1967</span></li>
+                                  <li class="option"><span class="option-text">1968</span></li>
+                                  <li class="option"><span class="option-text">1969</span></li>
+                                  <li class="option"><span class="option-text">1970</span></li>
+                                  <li class="option"><span class="option-text">1971</span></li>
+                                  <li class="option"><span class="option-text">1972</span></li>
+                                  <li class="option"><span class="option-text">1973</span></li>
+                                  <li class="option"><span class="option-text">1974</span></li>
+                                  <li class="option"><span class="option-text">1975</span></li>
+                                  <li class="option"><span class="option-text">1976</span></li>
+                                  <li class="option"><span class="option-text">1977</span></li>
+                                  <li class="option"><span class="option-text">1978</span></li>
+                                  <li class="option"><span class="option-text">1979</span></li>
+                                  <li class="option"><span class="option-text">1980</span></li>
+                                  <li class="option"><span class="option-text">1981</span></li>
+                                  <li class="option"><span class="option-text">1982</span></li>
+                                  <li class="option"><span class="option-text">1983</span></li>
+                                  <li class="option"><span class="option-text">1984</span></li>
+                                  <li class="option"><span class="option-text">1985</span></li>
+                                  <li class="option"><span class="option-text">1986</span></li>
+                                  <li class="option"><span class="option-text">1987</span></li>
+                                  <li class="option"><span class="option-text">1988</span></li>
+                                  <li class="option"><span class="option-text">1989</span></li>
+                                  <li class="option"><span class="option-text">1990</span></li>
+                                  <li class="option"><span class="option-text">1991</span></li>
+                                  <li class="option"><span class="option-text">1992</span></li>
+                                  <li class="option"><span class="option-text">1993</span></li>
+                                  <li class="option"><span class="option-text">1994</span></li>
+                                  <li class="option"><span class="option-text">1995</span></li>
+                                  <li class="option"><span class="option-text">1996</span></li>
+                                  <li class="option"><span class="option-text">1997</span></li>
+                                  <li class="option"><span class="option-text">1998</span></li>
+                                  <li class="option"><span class="option-text">1999</span></li>
+                                  <li class="option"><span class="option-text">2000</span></li>
+                                  <li class="option"><span class="option-text">2001</span></li>
+                                  <li class="option"><span class="option-text">2002</span></li>
+                                  <li class="option"><span class="option-text">2003</span></li>
+                                  <li class="option"><span class="option-text">2004</span></li>
+                                  <li class="option"><span class="option-text">2005</span></li>
+                                  <li class="option"><span class="option-text">2006</span></li>
+                                  <li class="option"><span class="option-text">2007</span></li>
+                                  <li class="option"><span class="option-text">2008</span></li>
+                                  <li class="option"><span class="option-text">2009</span></li>
+                                  <li class="option"><span class="option-text">2010</span></li>
+                                  <li class="option"><span class="option-text">2011</span></li>
+                                  <li class="option"><span class="option-text">2012</span></li>
+                                  <li class="option"><span class="option-text">2013</span></li>
+                                  <li class="option"><span class="option-text">2014</span></li>
+                                  <li class="option"><span class="option-text">2015</span></li>
+                                  <li class="option"><span class="option-text">2016</span></li>
+                                  <li class="option"><span class="option-text">2017</span></li>
+                                  <li class="option"><span class="option-text">2018</span></li>
+                                  <li class="option"><span class="option-text">2019</span></li>
+                                  <li class="option"><span class="option-text">2020</span></li>
+                                  <li class="option"><span class="option-text">2021</span></li>
+                                  <li class="option active"><span class="option-text">2022</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -395,36 +453,49 @@
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
-                                  <li class="option active">
-                                    <span class="option-text">1</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">3</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">4</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">5</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">6</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">7</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">8</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">9</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">10</span>
-                                  </li>
+                                  <li class="option active"><span class="option-text">1</span></li>
+                                  <li class="option"><span class="option-text">2</span></li>
+                                  <li class="option"><span class="option-text">3</span></li>
+                                  <li class="option"><span class="option-text">4</span></li>
+                                  <li class="option"><span class="option-text">5</span></li>
+                                  <li class="option"><span class="option-text">6</span></li>
+                                  <li class="option"><span class="option-text">7</span></li>
+                                  <li class="option"><span class="option-text">8</span></li>
+                                  <li class="option"><span class="option-text">9</span></li>
+                                  <li class="option"><span class="option-text">10</span></li>
+                                  <li class="option"><span class="option-text">11</span></li>
+                                  <li class="option"><span class="option-text">12</span></li>
+                                  <li class="option"><span class="option-text">13</span></li>
+                                  <li class="option"><span class="option-text">14</span></li>
+                                  <li class="option"><span class="option-text">15</span></li>
+                                  <li class="option"><span class="option-text">16</span></li>
+                                  <li class="option"><span class="option-text">17</span></li>
+                                  <li class="option"><span class="option-text">18</span></li>
+                                  <li class="option"><span class="option-text">19</span></li>
+                                  <li class="option"><span class="option-text">20</span></li>
+                                  <li class="option"><span class="option-text">21</span></li>
+                                  <li class="option"><span class="option-text">22</span></li>
+                                  <li class="option"><span class="option-text">23</span></li>
+                                  <li class="option"><span class="option-text">24</span></li>
+                                  <li class="option"><span class="option-text">25</span></li>
+                                  <li class="option"><span class="option-text">26</span></li>
+                                  <li class="option"><span class="option-text">27</span></li>
+                                  <li class="option"><span class="option-text">28</span></li>
+                                  <li class="option"><span class="option-text">29</span></li>
+                                  <li class="option"><span class="option-text">30</span></li>
+                                  <li class="option"><span class="option-text">31</span></li>
+                                  <li class="option"><span class="option-text">32</span></li>
+                                  <li class="option"><span class="option-text">33</span></li>
+                                  <li class="option"><span class="option-text">34</span></li>
+                                  <li class="option"><span class="option-text">35</span></li>
+                                  <li class="option"><span class="option-text">36</span></li>
+                                  <li class="option"><span class="option-text">37</span></li>
+                                  <li class="option"><span class="option-text">38</span></li>
+                                  <li class="option"><span class="option-text">39</span></li>
+                                  <li class="option"><span class="option-text">40</span></li>
+                                  <li class="option"><span class="option-text">41</span></li>
+                                  <li class="option"><span class="option-text">42</span></li>
+                                  <li class="option"><span class="option-text">43</span></li>
                                 </ul>
                               </div>
                             </div>
@@ -459,36 +530,49 @@
                                   <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
                                 </div>
                                 <ul class="options">
-                                  <li class="option active">
-                                    <span class="option-text">1</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">2</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">3</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">4</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">5</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">6</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">7</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">8</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">9</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">10</span>
-                                  </li>
+                                  <li class="option active"><span class="option-text">1</span></li>
+                                  <li class="option"><span class="option-text">2</span></li>
+                                  <li class="option"><span class="option-text">3</span></li>
+                                  <li class="option"><span class="option-text">4</span></li>
+                                  <li class="option"><span class="option-text">5</span></li>
+                                  <li class="option"><span class="option-text">6</span></li>
+                                  <li class="option"><span class="option-text">7</span></li>
+                                  <li class="option"><span class="option-text">8</span></li>
+                                  <li class="option"><span class="option-text">9</span></li>
+                                  <li class="option"><span class="option-text">10</span></li>
+                                  <li class="option"><span class="option-text">11</span></li>
+                                  <li class="option"><span class="option-text">12</span></li>
+                                  <li class="option"><span class="option-text">13</span></li>
+                                  <li class="option"><span class="option-text">14</span></li>
+                                  <li class="option"><span class="option-text">15</span></li>
+                                  <li class="option"><span class="option-text">16</span></li>
+                                  <li class="option"><span class="option-text">17</span></li>
+                                  <li class="option"><span class="option-text">18</span></li>
+                                  <li class="option"><span class="option-text">19</span></li>
+                                  <li class="option"><span class="option-text">20</span></li>
+                                  <li class="option"><span class="option-text">21</span></li>
+                                  <li class="option"><span class="option-text">22</span></li>
+                                  <li class="option"><span class="option-text">23</span></li>
+                                  <li class="option"><span class="option-text">24</span></li>
+                                  <li class="option"><span class="option-text">25</span></li>
+                                  <li class="option"><span class="option-text">26</span></li>
+                                  <li class="option"><span class="option-text">27</span></li>
+                                  <li class="option"><span class="option-text">28</span></li>
+                                  <li class="option"><span class="option-text">29</span></li>
+                                  <li class="option"><span class="option-text">30</span></li>
+                                  <li class="option"><span class="option-text">31</span></li>
+                                  <li class="option"><span class="option-text">32</span></li>
+                                  <li class="option"><span class="option-text">33</span></li>
+                                  <li class="option"><span class="option-text">34</span></li>
+                                  <li class="option"><span class="option-text">35</span></li>
+                                  <li class="option"><span class="option-text">36</span></li>
+                                  <li class="option"><span class="option-text">37</span></li>
+                                  <li class="option"><span class="option-text">38</span></li>
+                                  <li class="option"><span class="option-text">39</span></li>
+                                  <li class="option"><span class="option-text">40</span></li>
+                                  <li class="option"><span class="option-text">41</span></li>
+                                  <li class="option"><span class="option-text">42</span></li>
+                                  <li class="option"><span class="option-text">43</span></li>
                                 </ul>
                               </div>
                             </div>
