@@ -1484,10 +1484,10 @@ export default {
       lineColors = ["#1660A4", "#089875", "#eee"];
     } else if (screenMode == "dark-blue"){
       pointImageArr = [chartDot2, chartDot1, chartDot3];
-      lineColors = ["#1660A4", "#089875", "#eee"];
+      lineColors = ["#1660A4", "#089875", "#333"];
     } else if (screenMode == "dark-green") {
       pointImageArr = [chartDot1, chartDot2, chartDot3];
-      lineColors = ["#26AB8B", "#23669E", "#eee"];
+      lineColors = ["#26AB8B", "#23669E", "#333"];
     } else {
       pointImageArr = [chartDot1, chartDot2, chartDot3];
       lineColors = ["#147D64", "#1660A4", "#eee"];
@@ -1566,11 +1566,11 @@ export default {
             // console.log(borderColor, lineColors[2]);
             return active ? borderColor : lineColors[2];
           }
+          console.log(pointImageArr);
           data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0])
           data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1])
           data.datasets[0].pointStyle = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) === "eee" ? pointImageArr[0] : pointImageArr[2];
           data.datasets[1].pointStyle = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) === "eee" ? pointImageArr[1] : pointImageArr[2];
-          console.log(setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) === "eee");
         }
         args.changed = true;
       }
@@ -1708,6 +1708,8 @@ export default {
     function resetColors(chart){
         chart.config.data.datasets[0].borderColor = lineColors[0];
         chart.config.data.datasets[1].borderColor = lineColors[1];
+        chart.config.data.datasets[0].pointStyle = pointImageArr[0];
+        chart.config.data.datasets[1].pointStyle = pointImageArr[1];
         chart.update();
       }
 
@@ -1902,6 +1904,8 @@ export default {
     redioInp.addEventListener("click", function(e) {
       let screenMode = localStorage.getItem("mode");
       if (screenMode == "light-blue") {
+        pointImageArr = [chartDot2, chartDot1, chartDot3];
+        lineColors = ["#1660A4", "#089875", "#eee"];
         config.data.datasets[0].borderColor = "#1660A4";
         config.data.datasets[0].pointBackgroundColor = "#1660A4";
         config.data.datasets[0].pointStyle = chartDot2;
@@ -1909,6 +1913,8 @@ export default {
         config.data.datasets[1].pointBackgroundColor = "#089875";
         config.data.datasets[1].pointStyle = chartDot1;
       } else if (screenMode == "dark-blue") {
+        pointImageArr = [chartDot2, chartDot1, chartDot3];
+        lineColors = ["#1660A4", "#089875", "#333"];
         config.data.datasets[0].borderColor = "#1660A4";
         config.data.datasets[0].pointBackgroundColor = "#1660A4";
         config.data.datasets[0].pointStyle = chartDot2;
@@ -1916,6 +1922,8 @@ export default {
         config.data.datasets[1].pointBackgroundColor = "#089875";
         config.data.datasets[1].pointStyle = chartDot1;
       } else if (screenMode == "dark-green") {
+        pointImageArr = [chartDot1, chartDot2, chartDot3];
+        lineColors = ["#26AB8B", "#23669E", "#333"];
         config.data.datasets[0].borderColor = "#26AB8B";
         config.data.datasets[0].pointBackgroundColor = "#26AB8B";
         config.data.datasets[0].pointStyle = chartDot1;
@@ -1923,6 +1931,8 @@ export default {
         config.data.datasets[1].pointBackgroundColor = "#23669E";
         config.data.datasets[1].pointStyle = chartDot2;
       } else {
+        pointImageArr = [chartDot1, chartDot2, chartDot3];
+        lineColors = ["#147D64", "#1660A4", "#eee"];
         config.data.datasets[0].borderColor = "#0E6651";
         config.data.datasets[0].pointBackgroundColor = "#0E6651";
         config.data.datasets[0].pointStyle = chartDot1;
@@ -1930,8 +1940,6 @@ export default {
         config.data.datasets[1].pointBackgroundColor = "#1660A4";
         config.data.datasets[1].pointStyle = chartDot2;
       }
-      console.log(screenMode);
-      console.log(config.data.datasets[0].pointStyle, config.data.datasets[1].pointStyle);
       myChart.update();
     });
 
