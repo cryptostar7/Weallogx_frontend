@@ -47,12 +47,6 @@
 export default {
   data() {
     return {
-      // cards: [
-      //   { id: 1, active: true },
-      //   { id: 2, active: true },
-      //   { id: 3, active: true },
-      //   { id: 4, active: true },
-      // ],
       data: [
         {
           type: "",
@@ -102,7 +96,6 @@ export default {
 
         if (Object.values(chart2).length) {
           let cv2_fees = chart2.comparison.chart_output.comprehensive_fees;
-          console.log(chart2.type);
           if (chart2.type === "pretax") {
             cv2_fees =
               chart2.comparison.chart_output_data.comprehensive_fees_data;
@@ -126,6 +119,7 @@ export default {
         }
       }
     },
+    // calculation fot total value 
     getAvgData: function(totalValue = [], fees = []) {
       let total = totalValue.filter(i => i);
       total = total[total.length - 1];
@@ -186,7 +180,6 @@ export default {
 
         if (chart1) {
           annualFeesData.datasets[0].data =
-            // chart.chart_output.fees.map(i => i.toFixed(0)) || [];
             chart.chart_output.fees.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) || [];
           let years = chart.chart_output.year;
           annualFeesData.labels = [
@@ -196,42 +189,6 @@ export default {
               .map(i => (years.includes(i / 5) ? i : "")),
           ];
         }
-
-        // if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
-        //   if (chart1.type === "pretax") {
-        //     annualFeesData.datasets[1].data = chart1.comparison.chart_output_data.comprehensive_fees_data.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   } else {
-        //     annualFeesData.datasets[1].data = chart1.comparison.chart_output.comprehensive_fees.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   }
-        // }
-
-        // if (!this.deletedItems.includes(2) && Object.values(chart2).length) {
-        //   if (chart2.type === "pretax") {
-        //     annualFeesData.datasets[2].data = chart2.comparison.chart_output_data.comprehensive_fees_data.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   } else {
-        //     annualFeesData.datasets[2].data = chart2.comparison.chart_output.comprehensive_fees.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   }
-        // }
-
-        // if (!this.deletedItems.includes(3) && Object.values(chart3).length) {
-        //   if (chart3.type === "pretax") {
-        //     annualFeesData.datasets[3].data = chart3.comparison.chart_output_data.comprehensive_fees_data.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   } else {
-        //     annualFeesData.datasets[3].data = chart3.comparison.chart_output.comprehensive_fees.map(
-        //       i => i.toFixed(0)
-        //     );
-        //   }
-        // }
 
         if (!this.deletedItems.includes(1) && Object.values(chart1).length) {
           if (chart1.type === "pretax") {

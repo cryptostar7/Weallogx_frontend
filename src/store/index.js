@@ -119,6 +119,12 @@ const store = createStore({
                             { id: 2, active: true },
                             { id: 3, active: true },
                             { id: 4, active: true },
+                        ],
+                        value_efficiency_expense_ratio: [
+                            { id: 1, active: true },
+                            { id: 2, active: true },
+                            { id: 3, active: true },
+                            { id: 4, active: true },
                         ]
                     },
                     hst_comparative_table: true,
@@ -290,7 +296,7 @@ const store = createStore({
         setUserFormError(state, payload) {
             state.errors.temp_user = payload;
         },
-        setIllustrationFiles(state, payload){
+        setIllustrationFiles(state, payload) {
             state.data.illustration_files = payload;
         },
         setUserCurrentPlan(state, payload) {
@@ -402,7 +408,7 @@ const store = createStore({
         userTempFormError(context, payload) {
             context.commit('setUserFormError', payload);
         },
-        illustrationFiles(context, payload){
+        illustrationFiles(context, payload) {
             context.commit('setIllustrationFiles', payload);
         },
         clients(context, payload) {

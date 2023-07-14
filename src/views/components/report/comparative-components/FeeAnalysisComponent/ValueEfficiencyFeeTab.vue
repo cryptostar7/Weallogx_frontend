@@ -7,7 +7,7 @@
           <div :class="`distributionCard1 equalDistCard${1+index} position-relative w-100 ${cards[index].active ? '' : 'inactive'}`">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <p class="allCardHeadPara" @click="testFunction">Value Efficiency</p>
+                <p class="allCardHeadPara">Value Efficiency</p>
               </div>
               <div class="d-flex">
                 <div class="button-cover2">
@@ -126,11 +126,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function() {
-      console.log(this.maxEfficiency);
-      console.log(this.maxFees);
-      console.log(this.maxTotalValue);
-    },
     // map the data from API
     mapData: function() {
       if (this.comparative.cv_1) {
