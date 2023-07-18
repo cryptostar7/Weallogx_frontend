@@ -12,7 +12,7 @@
     <div class="customAmountInputDiv ms-2">
         <label for="customAmount">Custom Amount</label>
         <div class="percent-input-div">
-          <input type="text" class="handleLimit" min="0" max="100" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
+          <input type="text" class="handleLimit" min="0" max="1000" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
           <span class="percent-span">%</span>
         </div>
     </div>
