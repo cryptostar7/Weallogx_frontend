@@ -1249,6 +1249,12 @@
 .dark-blue .sidebar-nav .nav-link svg circle {
   stroke: #ABD5F9;
 }
+.dark-blue .sidebar-nav .all-clients-link svg path {
+  stroke: #ABD5F9;
+}
+.dark-blue .sidebar-nav .all-clients-link.active svg path {
+  stroke: #fff;
+}
 
 .dark-blue .sidebar-nav .nav-link svg rect {
   fill: #ABD5F9;
@@ -4656,4 +4662,10 @@ background: #0C4A83;
 .dark-blue .table-graph-bottom-each-main-div.inactive1 .table-graph-bottom-head {
   background: #2E3135!important;
   color: rgb(160, 160, 160);
+}
+.dark-blue .sidebar-arrow-1{
+  border-color: var(--blue-clr);
+}
+.dark-blue .sidebar-arrow-1 svg rect{
+  fill: var(--blue-clr);
 }

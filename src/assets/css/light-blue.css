@@ -23,6 +23,12 @@
 .light-blue .otherModecls svg path {
   fill: #ABD5F9;
 }
+.light-blue .sidebar-nav .all-clients-link svg path {
+  stroke: #ABD5F9;
+}
+.light-blue .sidebar-nav .all-clients-link.active svg path {
+  stroke: #000;
+}
 .light-blue .otherModecls svg rect {
   fill: #ABD5F9;
 }
@@ -1519,4 +1525,10 @@ background: #1660A4;
 }
 .light-blue .three-radio-button-input-div input:checked ~ label{
   border-color: #004885;
+}
+.light-blue .sidebar-arrow-1{
+  border-color: var(--blue-clr);
+}
+.light-blue .sidebar-arrow-1 svg rect{
+  fill: var(--blue-clr);
 }

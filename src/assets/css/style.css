@@ -323,14 +323,21 @@ body::-webkit-scrollbar {
   padding-inline: 1.25rem;
   transition: all 0.125s ease-in;
 }
+
 .sidebar .sidebar-inner {
   padding-top: 3.85rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding-bottom: 25px;
+}
+.sidebar .sidebar-inner::-webkit-scrollbar {
+  display: none;
 }
 .sidebar-nav .nav-item {
   margin-bottom: 15px;
 }
 .sidebar-nav .nav-item:last-of-type {
-  margin-bottom: 0;
+  margin-bottom: 2rem;
 }
 .sidebar-nav .nav-link {
   border-radius: 0.5rem;
@@ -358,6 +365,9 @@ body::-webkit-scrollbar {
 }
 .sidebar-nav .nav-link.active svg path {
   fill: #000;
+}
+.sidebar-nav .all-clients-link.active svg path {
+  stroke: #000;
 }
 .sidebar-nav .nav-link .indivisualLftArrow svg path {
   fill: #8F8F8F;

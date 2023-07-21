@@ -841,6 +841,12 @@
 .dark-green .sidebar-nav .nav-link svg circle {
   stroke: #abf9c9;
 }
+.dark-green .sidebar-nav .all-clients-link svg path {
+  stroke: #abf9c9;
+}
+.dark-green .sidebar-nav .all-clients-link.active svg path {
+  stroke: #fff;
+}
 
 .dark-green .sidebar-nav .nav-link svg rect {
   fill: #abf9c9;
