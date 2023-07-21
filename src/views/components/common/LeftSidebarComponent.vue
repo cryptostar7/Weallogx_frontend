@@ -7,15 +7,7 @@
           </div>
           <ul class="nav flex-column flex-nowrap h-100 sidebar-nav">
             <li class="nav-item">
-              <router-link to="/" :class="`nav-link all-clients-link ${$route.path == '/' ? 'active' : ''}`"  aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="All Clients">
-                <label class="cursor-pointer otherModecls">
-                  <svg width="23" height="23" viewBox="1 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.9232 19.9208C16.9232 18.0618 14.4113 16.5551 11.3137 16.5551C8.21609 16.5551 5.70413 18.0618 5.70413 19.9208M21.4109 16.5551C21.4109 15.1751 20.0264 13.9893 18.0452 13.4698M1.21649 16.5551C1.21649 15.1751 2.60093 13.9893 4.58222 13.4698M18.0452 8.96647C18.3775 8.67263 18.6485 8.31598 18.8426 7.91703C19.0366 7.51808 19.1499 7.0847 19.1759 6.64182C19.2018 6.19894 19.14 5.7553 18.9939 5.33641C18.8478 4.91752 18.6203 4.53164 18.3245 4.20097C18.0288 3.87031 17.6706 3.60138 17.2705 3.40965C16.8704 3.21792 16.4364 3.10717 15.9934 3.08378C15.5503 3.06039 15.1071 3.12482 14.689 3.27335C14.271 3.42189 13.8865 3.6516 13.5575 3.94928M4.58222 8.96647C3.92288 8.36978 3.52646 7.5364 3.47957 6.64837C3.43269 5.76035 3.73914 4.88986 4.33199 4.22706C4.92484 3.56425 5.7559 3.163 6.64364 3.11095C7.53137 3.05891 8.40363 3.3603 9.06987 3.94928M11.3137 13.1893C10.8717 13.1893 10.434 13.1023 10.0257 12.9331C9.61733 12.764 9.24629 12.5161 8.93376 12.2035C8.62122 11.891 8.3733 11.52 8.20416 11.1116C8.03501 10.7033 7.94796 10.2656 7.94796 9.82361C7.94796 9.38161 8.03501 8.94395 8.20416 8.5356C8.3733 8.12725 8.62122 7.75621 8.93376 7.44367C9.24629 7.13114 9.61733 6.88322 10.0257 6.71408C10.434 6.54493 10.8717 6.45787 11.3137 6.45787C12.2063 6.45787 13.0624 6.81248 13.6936 7.44367C14.3248 8.07487 14.6794 8.93096 14.6794 9.82361C14.6794 10.7163 14.3248 11.5723 13.6936 12.2035C13.0624 12.8347 12.2063 13.1893 11.3137 13.1893Z" stroke="#3CB79A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                  <span>All Clients</span>
-                </label>
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <a :class="`nav-link`" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Comparative Analysis">
+              <router-link to="/" :class="`nav-link ${$route.path == '/' ? 'active' : ''}`" aria-current="page" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Comparative Analysis">
                 <label class="cursor-pointer otherModecls">
                   <svg width="18" height="19" viewBox="0 0 18 19" fill="none">
                     <path
@@ -45,16 +37,16 @@
                   </svg>
                   <span>Comparative Analysis</span>
                 </label>
-                 <label v-if="$props.client" class="side-client-label indivisualLftArrow semi-bold-fw fs-14">
-                  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                 <label v-if="$props.client" class="side-client-label d-flex align-items-center indivisualLftArrow semi-bold-fw fs-14">
+                  <svg width="5" height="9" viewBox="0 0 5 9" fill="#fff">
                     <path
                       d="M0 7.5903V0.866386C0 0.696202 0.0693989 0.533377 0.192168 0.415519C0.434019 0.183342 0.815982 0.183342 1.05783 0.41552L4.78358 3.99224C4.92184 4.12497 5 4.30834 5 4.5C5 4.69166 4.92184 4.87503 4.78358 5.00776L1.44977 8.20822C1.03756 8.60394 0.36082 8.49277 0.0968658 7.98598C0.0332282 7.8638 0 7.72807 0 7.5903Z"
-                      fill="#8f8f8f" />
+                      fill="#fff" />
                   </svg>
-                  <span>{{$props.client.firstname}}</span>
+                  <span class="me-1">{{$props.client.firstname}}</span>
                   <router-link to="/"><button class="btn"><img src="@/assets/images/icons/cross-small.svg" class="img-fluid" alt="Chevron"></button></router-link>
                 </label>
-              </a>
+              </router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Historical Simulations">

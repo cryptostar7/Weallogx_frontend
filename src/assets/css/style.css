@@ -369,9 +369,9 @@ body::-webkit-scrollbar {
 .sidebar-nav .all-clients-link.active svg path {
   stroke: #000;
 }
-.sidebar-nav .nav-link .indivisualLftArrow svg path {
+/*.sidebar-nav .nav-link .indivisualLftArrow svg path {
   fill: #8F8F8F;
-}
+}*/
 .sidebar-nav .nav-link svg {
   margin-right: 0.875rem;
   position: relative;
@@ -1011,11 +1011,19 @@ color: #fff;
 /* End of Choose Client */
 /* Individual Client */
 .side-client-label {
-  color: #8f8f8f;
+  color: #fff;
   display: flex;
   align-items: center;
   margin-left: 3rem;
   margin-top: 0.25rem;
+}
+.sidebar-nav .side-client-label svg {
+  margin-right: .5rem;
+  position: relative;
+  top: 1px;
+}
+.sidebar-nav .side-client-label svg path {  
+  fill: #fff;
 }
 .side-client-label .btn {
   flex-shrink: 0;
