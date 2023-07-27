@@ -275,7 +275,6 @@ import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
-import { type } from 'os';
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
@@ -629,7 +628,9 @@ export default {
                   }
 
                   this.csvPreview = this.filterObject({
-                    data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+                    data: temp_data.map(a =>
+                      a.map(i => (i ? i.replace("-", "") : ""))
+                    ),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
                   });
                   document.getElementById("cancelCsvBtn").click();
@@ -725,7 +726,7 @@ export default {
       }
 
       finalObj = {
-        data: filterData.map(a => a.map(i => i ? i.replace("-", "") : "")),
+        data: filterData.map(a => a.map(i => (i ? i.replace("-", "") : ""))),
         headers: headers,
       };
       return finalObj;
@@ -817,7 +818,7 @@ export default {
           }
 
           this.csvPreview = this.filterObject({
-            data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+            data: temp_data.map(a => a.map(i => (i ? i.replace("-", "") : ""))),
             headers: [...this.csvPreview.headers, ...obj.headers],
           });
           this.setInputWithId("add_new_csv_col", "");
@@ -973,7 +974,7 @@ export default {
           let data = values.split("\n");
           let headers = [];
           if (values.match("\t")) {
-            data = data.map(i => typeof i === "string" ? i.split("\t") : i);
+            data = data.map(i => (typeof i === "string" ? i.split("\t") : i));
           } else {
             if (values.match('"')) {
               data = data.map(i => this.parseRow(i));
@@ -1085,7 +1086,9 @@ export default {
 
         let tableData = JSON.stringify(
           this.filterObject({
-            data: this.csvPreview.data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+            data: this.csvPreview.data.map(a =>
+              a.map(i => (i ? i.replace("-", "") : ""))
+            ),
             headers: tempHeader,
           })
         );
@@ -1160,8 +1163,10 @@ export default {
     filterObject: function(array = { data: [], headers: [] }) {
       array.data = array.data.map(i =>
         i.map(e => {
-          e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
-          e = e.split(".")[0]; // remove decimal points
+          if (typeof e === "string") {
+            e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
+            e = e.split(".")[0]; // remove decimal points
+          }
           if (!e) {
             e = 0; // set default value 0 for blank value
           }
