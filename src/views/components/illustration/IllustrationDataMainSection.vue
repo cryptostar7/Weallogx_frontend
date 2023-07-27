@@ -1179,7 +1179,7 @@ export default {
                   }
 
                   this.csvPreview = this.filterObject({
-                    data: temp_data.map(a => a.map(i => i.replace("-", ""))),
+                    data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
                   });
                   document.getElementById("cancelCsvBtn").click();
@@ -1275,7 +1275,7 @@ export default {
       }
 
       finalObj = {
-        data: filterData.map(a => a.map(i => i.replace("-", ""))),
+        data: filterData.map(a => a.map(i => i ? i.replace("-", "") : "")),
         headers: headers,
       };
       return finalObj;
@@ -1443,7 +1443,7 @@ export default {
       });
 
       let tableData = this.filterObject({
-        data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+        data: this.csvPreview.data.map(a => a.map(i => i ? i.replace("-", "") : "")),
         headers: tempHeader,
       });
 
@@ -1798,7 +1798,7 @@ export default {
           }
 
           return {
-            data: data.map(a => a.map(i => i.replace("-", ""))),
+            data: data.map(a => a.map(i => i ? i.replace("-", "") : "")),
             headers: headers,
           };
         } catch (err) {

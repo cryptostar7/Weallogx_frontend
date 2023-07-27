@@ -628,7 +628,7 @@ export default {
                   }
 
                   this.csvPreview = this.filterObject({
-                    data: temp_data.map(a => a.map(i => i.replace("-", ""))),
+                    data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
                   });
                   document.getElementById("cancelCsvBtn").click();
@@ -724,7 +724,7 @@ export default {
       }
 
       finalObj = {
-        data: filterData.map(a => a.map(i => i.replace("-", ""))),
+        data: filterData.map(a => a.map(i => i ? i.replace("-", "") : "")),
         headers: headers,
       };
       return finalObj;
@@ -816,7 +816,7 @@ export default {
           }
 
           this.csvPreview = this.filterObject({
-            data: temp_data.map(a => a.map(i => i.replace("-", ""))),
+            data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
             headers: [...this.csvPreview.headers, ...obj.headers],
           });
           this.setInputWithId("add_new_csv_col", "");
@@ -1084,7 +1084,7 @@ export default {
 
         let tableData = JSON.stringify(
           this.filterObject({
-            data: this.csvPreview.data.map(a => a.map(i => i.replace("-", ""))),
+            data: this.csvPreview.data.map(a => a.map(i => i ? i.replace("-", "") : "")),
             headers: tempHeader,
           })
         );
