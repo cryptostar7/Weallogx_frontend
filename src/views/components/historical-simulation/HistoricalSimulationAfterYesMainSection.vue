@@ -275,6 +275,7 @@ import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 
 import "https://mozilla.github.io/pdf.js/build/pdf.js";
+import { type } from 'os';
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
@@ -972,7 +973,7 @@ export default {
           let data = values.split("\n");
           let headers = [];
           if (values.match("\t")) {
-            data = data.map(i => i.split("\t"));
+            data = data.map(i => typeof i === "string" ? i.split("\t") : i);
           } else {
             if (values.match('"')) {
               data = data.map(i => this.parseRow(i));
