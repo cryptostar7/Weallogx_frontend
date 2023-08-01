@@ -58,7 +58,7 @@
                                             <td data-label="Year">{{item}}</td>
                                             <td data-label="Rate" class="innerTableInputTd">
                                                 <div class="percent-input-div">
-                                                    <input type="text" class="form-control handleLimit" min="1" max="10" :id="`crd_schedule_rate${currentTab}${item}`" @keypress="$emit('clearError', 'enhancements_credit_schedule_rate')" autocomplete="off">
+                                                    <input type="text" class="form-control handleLimit" min="0" max="10" :id="`crd_schedule_rate${currentTab}${item}`" @keypress="$emit('clearError', 'enhancements_credit_schedule_rate')" autocomplete="off">
                                                     <span class="percent-span">%</span>
                                                 </div>
                                             </td>
