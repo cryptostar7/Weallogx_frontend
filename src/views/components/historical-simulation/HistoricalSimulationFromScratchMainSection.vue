@@ -604,8 +604,9 @@ export default {
           `credit_schedule_type${tab}`,
           obj.flat_credit_schedule_rate ? "rate" : "amount"
         );
-        if (!obj.flat_fixed_value && obj.flat_credit_schedule_amount) {
-          obj.flat_credit_schedule_amount.forEach(i => {
+        if (!obj.flat_fixed_value && (obj.flat_credit_schedule_amount || obj.flat_credit_schedule_rate)) {
+          let fcb_schedule = obj.flat_credit_schedule_rate || obj.flat_credit_schedule_amount;
+          fcb_schedule.forEach(i => {
             this.setInputWithId(
               `${
                 obj.flat_credit_schedule_rate
