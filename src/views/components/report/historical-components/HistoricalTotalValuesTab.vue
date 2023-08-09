@@ -147,11 +147,11 @@ export default {
       document.getElementById("historical_cv_delete_id").value = id;
     },
     getDataSet: function() {
-      let card1 = this.historical.average;
-      let card2 = this.historical.most_recent;
-      let card3 = this.historical.worst;
-      let card4 = this.historical.median;
-      let card5 = this.historical.best;
+      let card1 = this.historical.lirp_data;
+      let card2 = this.historical.min.result;
+      let card3 = this.historical.most_recent.result;
+      let card4 = this.historical.median.result;
+      let card5 = this.historical.max.result;
 
       let value1 = [];
       let value2 = [];
@@ -161,7 +161,7 @@ export default {
       let years = [];
 
       if (card1) {
-        value1 = card1.chart_output.total_value;
+        value1 = card1.chart_output.total_values;
         years = card1.chart_output.Age;
       }
 
@@ -439,7 +439,7 @@ export default {
       }
     },
     "deletedItems.length"(val) {
-      this.setGraph();
+      // this.setGraph();
     },
   },
 };

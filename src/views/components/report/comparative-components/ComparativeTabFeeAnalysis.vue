@@ -15,7 +15,6 @@
               <div class="d-flex">
                 <label for="rightCheckBox6" class="rghtTopHeadcommon activeTabs[keyId]">Fee Analysis <span
                   class="ms-3 equalThingTabTxt" id="feeSubText"></span></label>
-                <!-- <p></p> -->
               </div>
             </div>
             <div class="rightLeftDoubleLIneDegine">

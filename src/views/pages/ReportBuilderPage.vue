@@ -61,10 +61,4 @@ export default {
     CreateNewClientReportModal,
   },
 };
-</script>
-
-    
-
-
-
-    
+</script> 

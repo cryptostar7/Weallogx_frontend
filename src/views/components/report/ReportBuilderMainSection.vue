@@ -13,23 +13,24 @@
             <h3 class="fs-26 bold-fw text-white mb-20" @click="testFunction">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'comparative' ? 'active':''}`" @click="() => sidebar.currentTab = 'comparative'">Comparative Analysis</button>
-              <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" disabled @click="() => sidebar.currentTab = 'historical'">Historical Simulations</button>
+              <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" @click="() => sidebar.currentTab = 'historical'">Historical Simulations</button>
             </div>
           </div>
           <sidebar-tabs-list :list="list.comparative" v-if="sidebar.currentTab === 'comparative'"/>
           <sidebar-tabs-list :list="list.historical" v-if="sidebar.currentTab === 'historical'"/>
         </div>
       </div>
+      <button @click="testFunction">Test</button>
       <main class="ms-sm-autopx-md-4 report-builder-right-area comparative-sections">
         <div class="right-area-inner p-relative">
-          <div class="right-area-wrapper" v-if="allDataLoaded">
+          <div class="right-area-wrapper" v-if="ComparativeDataLoaded">
             <client-detail-component />
-              <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
-                <draggable class="dragArea list-group w-full" :list="list.comparative">
-                  <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" :sidebar="sidebar.collapse"/>
-                </draggable>
-              </div>
-            <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`">
+            <div :class="`tab-wrapper-1 ${sidebar.currentTab === 'comparative' ? '':'d-none'}`">
+              <draggable class="dragArea list-group w-full" :list="list.comparative">
+                <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" :sidebar="sidebar.collapse"/>
+              </draggable>
+            </div>
+            <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`" v-if="HistoricalDataLoaded">
               <draggable class="dragArea list-group w-full" :list="list.historical">
                 <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
               </draggable>
@@ -69,12 +70,13 @@ export default {
         collapse: false,
         currentTab: "comparative",
       },
-      allDataLoaded: false,
+      ComparativeDataLoaded: false,
+      HistoricalDataLoaded: false,
     };
   },
   methods: {
     testFunction: function() {
-      console.log(this.$store.state.data.reportTabs);
+      console.log(this.ComparativeDataLoaded, this.HistoricalDataLoaded);
     },
     getComparativeData: function(id) {
       // get default data
@@ -134,7 +136,7 @@ export default {
           setTimeout(() => {
             console.log(this.$store.state.app.loader_count);
             if (!this.$store.state.app.loader_count) {
-              this.allDataLoaded = true;
+              this.ComparativeDataLoaded = true;
               setTimeout(() => this.updateElementJs(), 100);
             }
           }, 100);
@@ -147,17 +149,17 @@ export default {
 
     // get historical report data
     getHistoricalData: function() {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl("historical_report")}`, authHeader())
+      get(
+        `${getUrl("historical_report")}${this.$route.params.report}`,
+        authHeader()
+      )
         .then(response => {
           console.log(response.data);
-          // this.allDataLoaded = true;
+          this.HistoricalDataLoaded = true;
           this.$store.dispatch("historicalReport", response.data);
-          this.$store.dispatch("loader", false);
         })
         .catch(error => {
           this.$toast.error(error.message);
-          this.$store.dispatch("loader", false);
         });
     },
 
@@ -168,10 +170,16 @@ export default {
       }
       get(api_url, authHeader())
         .then(response => {
-          console.log("response.data report");
-          console.log(response.data.data);
-          this.$store.dispatch('shareReportData', {name: 'report_id', data: response.data.data.id});
-          this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${response.data.data.id}/${response.data.data.view_token}`});
+          this.$store.dispatch("shareReportData", {
+            name: "report_id",
+            data: response.data.data.id,
+          });
+          this.$store.dispatch("shareReportData", {
+            name: "report_link",
+            data: `http://wlxvue.bizbybot.com/report/${response.data.data.id}/${
+              response.data.data.view_token
+            }`,
+          });
 
           if (response.data.data.saved_action) {
             // update sidebar tab switch toggle actions

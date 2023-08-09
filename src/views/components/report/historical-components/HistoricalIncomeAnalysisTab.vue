@@ -7,9 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 rightCheckBox8" 
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"  class="checkbox2 rightCheckBox8"   @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -114,35 +112,35 @@ export default {
     };
   },
   mounted() {
-    let card1 = this.historical.average;
-    let card2 = this.historical.most_recent;
-    let card3 = this.historical.worst;
-    let card4 = this.historical.median;
-    let card5 = this.historical.best;
+    let card1 = this.historical.lirp_data;
+    let card2 = this.historical.min.result;
+    let card3 = this.historical.most_recent.result;
+    let card4 = this.historical.median.result;
+    let card5 = this.historical.max.result;
 
     if (card1) {
       this.data[0].type = "LIRP";
-      this.data[0].annual_income = card1.sum_of_all_total_value;
+      this.data[0].annual_income = card1.cummulative_income;
     }
 
     if (card2) {
       this.data[1].type = "Most Recent";
-      this.data[1].annual_income = card2.sum_of_all_total_value;
+      this.data[1].annual_income = card2.cummulative_income;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
-      this.data[2].annual_income = card3.sum_of_all_total_value;
+      this.data[2].annual_income = card3.cummulative_income;
     }
 
     if (card4) {
       this.data[3].type = "Worst";
-      this.data[3].annual_income = card4.sum_of_all_total_value;
+      this.data[3].annual_income = card4.cummulative_income;
     }
 
     if (card5) {
       this.data[4].type = "Worst";
-      this.data[4].annual_income = card5.sum_of_all_total_value;
+      this.data[4].annual_income = card5.cummulative_income;
     }
   },
   methods: {
@@ -194,9 +192,7 @@ export default {
     },
     maxIncome() {
       let dst = this.data;
-      return this.$roundFigureNum(
-        Math.max(...[...dst.map(i => Number(i.annual_income || 0))])
-      );
+      return Math.max(...[...dst.map(i => Number(i.annual_income || 0))])
     },
   },
 };

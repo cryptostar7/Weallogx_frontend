@@ -119,7 +119,7 @@
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in distributions" :key="index">
-                                <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
+                                <td data-label="Year">{{ $numFormatWithDollar(item.deposits) }}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -190,8 +190,8 @@
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in data[0].list" :key="index">
-                                <td data-label="blank">{{$numFormatWithDollar(item.net_balance) ||  '-'}}</td>
                                 <td data-label="acount">{{ $numFormatWithDollar(item.distributions) || '-'}}</td>
+                                <td data-label="blank">{{ $numFormatWithDollar(item.net_balance) ||  '-'}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -273,8 +273,8 @@
                                       </thead>
                                       <tbody>
                                         <tr v-for="(item, index) in data[header.id].list" :key="index">
-                                          <td class="" data-label="blank">{{ $numFormatWithDollar(item.net_balance) || '-'}}</td>
                                           <td data-label="acount">{{ $numFormatWithDollar(item.distributions) || "-"}}</td>
+                                          <td class="" data-label="blank">{{ $numFormatWithDollar(item.net_balance) || '-'}}</td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -408,59 +408,59 @@ export default {
       distributions: [],
       data: [
         {
-          illustration_rate: "6.25%",
-          illustration_carg: "3.65%",
-          strategy_average: "8.15%",
-          strategy_carg: "1.14%",
-          irr: "5.76%",
+          illustration_rate: "",
+          illustration_carg: "",
+          strategy_average: "",
+          strategy_carg: "",
+          irr: "",
           type: "Allianz - LIRP",
           list: [],
         },
         {
-          illustration_rate: "5.25%",
-          illustration_carg: "4.25%",
-          strategy_average: "8.95%",
-          strategy_carg: "2.14%",
-          irr: "5.66%",
+          illustration_rate: "",
+          illustration_carg: "",
+          strategy_average: "",
+          strategy_carg: "",
+          irr: "",
           type: "TSA - Worst",
           list: [],
         },
         {
-          illustration_rate: "6.25%",
-          illustration_carg: "6.25%",
-          strategy_average: "8.95%",
-          strategy_carg: "4.14%",
-          irr: "3.66%",
+          illustration_rate: "",
+          illustration_carg: "",
+          strategy_average: "",
+          strategy_carg: "",
+          irr: "",
           type: "TSA - Most Recent",
           list: [],
         },
         {
-          illustration_rate: "3.25%",
-          illustration_carg: "1.25%",
-          strategy_average: "8.11%",
-          strategy_carg: "4.25%",
-          irr: "5.11%",
+          illustration_rate: "",
+          illustration_carg: "",
+          strategy_average: "",
+          strategy_carg: "",
+          irr: "",
           type: "TSA - Median",
           list: [],
         },
         {
-          illustration_rate: "6.25%",
-          illustration_carg: "6.25%",
-          strategy_average: "8.95%",
-          strategy_carg: "4.14%",
-          irr: "5.66%",
+          illustration_rate: "",
+          illustration_carg: "",
+          strategy_average: "",
+          strategy_carg: "",
+          irr: "",
           type: "TSA - Best",
           list: [],
         },
       ],
       summary_data: {
-        deposits: { totals: 328885, total_values: "", surplus: "" },
+        deposits: { totals: "", total_values: "", surplus: "" },
         data: [
           {
             id: 0,
             distribution: {
-              total: 25655,
-              total_value: 45135,
+              total: "",
+              total_value: "",
               surplus: "",
             },
             net_balance: {
@@ -472,9 +472,9 @@ export default {
           {
             id: 1,
             distribution: {
-              total: 75611,
-              total_value: 65141,
-              surplus: 32474,
+              total: "",
+              total_value: "",
+              surplus: "",
             },
             net_balance: {
               total: "",
@@ -485,9 +485,9 @@ export default {
           {
             id: 2,
             distribution: {
-              total: 94213,
-              total_value: 6577,
-              surplus: 68577,
+              total: "",
+              total_value: "",
+              surplus: "",
             },
             net_balance: {
               total: "",
@@ -498,9 +498,9 @@ export default {
           {
             id: 3,
             distribution: {
-              total: 6577,
-              total_value: 88444,
-              surplus: 62577,
+              total: "",
+              total_value: "",
+              surplus: "",
             },
             net_balance: {
               total: "",
@@ -511,9 +511,9 @@ export default {
           {
             id: 4,
             distribution: {
-              total: 3377,
-              total_value: 4511,
-              surplus: 34544,
+              total: "",
+              total_value: "",
+              surplus: "",
             },
             net_balance: {
               total: "",
@@ -541,97 +541,132 @@ export default {
       document.getElementById("historical_cv_delete_id").value = id;
     },
     mapData: function() {
-      if (this.table.average) {
-        let data = this.table.average.table_output;
-        let list = data[0];
+      if (this.table.lirp_data) {
+        let data = this.table.lirp_data.chart_output;
+
+        let list = data.Age;
         if (list.length) {
           let tempList = [];
           let tempDeposits = [];
 
           for (let i = 0; i < list.length; i++) {
-            if (i) {
-              tempList.push({
-                distributions: data[i] ? data[i][35] : null,
-                net_balance: data[i] ? data[i][26] : null,
-              });
-              tempDeposits.push({
-                year: data[i] ? data[i][1] : null,
-                age: data[i] ? data[i][0] : null,
-                deposits: data[i] ? data[i][2] : null,
-              });
-            }
+            tempList.push({
+              distributions: data.distributions ? data.distributions[i] : null,
+              net_balance: data.death_benefit ? data.death_benefit[i] : null,
+            });
+
+            tempDeposits.push({
+              year: data.year ? data.year[i] : null,
+              age: data.Age ? data.Age[i] : null,
+              deposits: data.Deposits ? data.Deposits[i] : null,
+            });
           }
 
           this.data[0].list = tempList;
+          this.data[0].illustration_rate = this.table.lirp_data.illustration_rate;
+          this.data[0].illustration_carg = this.table.lirp_data.illustraton_cagr;
+          this.data[0].irr = this.table.lirp_data.irr_percent;
           this.distributions = tempDeposits;
+          this.summary_data.data[0].distribution.total = this.table.lirp_data.total_distribution;
+          this.summary_data.data[0].distribution.surplus = 0;
+          this.summary_data.deposits.totals = this.table.lirp_data.total_deposit;
         }
       }
 
-      if (this.table.worst) {
-        let data = this.table.worst.table_output;
-        let list = data[0];
+      if (this.table.min.result) {
+        let data = this.table.min.result.chart_output;
+        let list = data.age;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
-            if (i) {
-              tempList.push({
-                distributions: data[i] ? data[i][34] : null,
-                net_balance: data[i] ? data[i][26] : null,
-              });
-            }
+            tempList.push({
+              distributions: data.tax_free_distributions
+                ? data.tax_free_distributions[i]
+                : null,
+              net_balance: data.eoy_accumulation_value_after_credit
+                ? data.eoy_accumulation_value_after_credit[i]
+                : null,
+            });
           }
           this.data[1].list = tempList;
+          this.data[1].strategy_average = this.table.min.result.stratgy_average;
+          this.data[1].strategy_carg = this.table.min.result.tsa_cagr_percent;
+          this.data[1].irr = this.table.min.result.irr_percent;
+          this.summary_data.data[1].distribution.total = this.table.min.result.cummulative_distribution;
+          this.summary_data.data[1].distribution.surplus = this.table.min.result.Surplus;
         }
       }
 
       if (this.table.most_recent) {
-        let data = this.table.most_recent.table_output;
-        let list = data[0];
+        let data = this.table.most_recent.result.chart_output;
+        let list = data.age;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
-            if (i) {
-              tempList.push({
-                distributions: data[i] ? data[i][34] : null,
-                net_balance: data[i] ? data[i][26] : null,
-              });
-            }
+            tempList.push({
+              distributions: data.tax_free_distributions
+                ? data.tax_free_distributions[i]
+                : null,
+              net_balance: data.eoy_accumulation_value_after_credit
+                ? data.eoy_accumulation_value_after_credit[i]
+                : null,
+            });
           }
           this.data[2].list = tempList;
+
+          this.data[2].strategy_average = this.table.most_recent.result.stratgy_average;
+          this.data[2].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
+          this.data[2].irr = this.table.most_recent.result.irr_percent;
+          this.summary_data.data[2].distribution.total = this.table.most_recent.result.cummulative_distribution;
+          this.summary_data.data[2].distribution.surplus = this.table.most_recent.result.Surplus;
         }
       }
 
       if (this.table.median) {
-        let data = this.table.median.table_output;
-        let list = data[0];
+        let data = this.table.median.result.chart_output;
+        let list = data.age;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
-            if (i) {
-              tempList.push({
-                distributions: data[i] ? data[i][34] : null,
-                net_balance: data[i] ? data[i][26] : null,
-              });
-            }
+            tempList.push({
+              distributions: data.tax_free_distributions
+                ? data.tax_free_distributions[i]
+                : null,
+              net_balance: data.eoy_accumulation_value_after_credit
+                ? data.eoy_accumulation_value_after_credit[i]
+                : null,
+            });
           }
           this.data[3].list = tempList;
+          this.data[3].strategy_average = this.table.median.result.stratgy_average;
+          this.data[3].strategy_carg = this.table.median.result.tsa_cagr_percent;
+          this.data[3].irr = this.table.median.result.irr_percent;
+          this.summary_data.data[3].distribution.total = this.table.median.result.cummulative_distribution;
+          this.summary_data.data[3].distribution.surplus = this.table.median.result.Surplus;
         }
       }
 
-      if (this.table.best) {
-        let data = this.table.best.table_output;
-        let list = data[0];
+      if (this.table.max) {
+        let data = this.table.max.result.chart_output;
+        let list = data.age;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
-            if (i) {
-              tempList.push({
-                distributions: data[i] ? data[i][34] : null,
-                net_balance: data[i] ? data[i][26] : null,
-              });
-            }
+            tempList.push({
+              distributions: data.tax_free_distributions
+                ? data.tax_free_distributions[i]
+                : null,
+              net_balance: data.eoy_accumulation_value_after_credit
+                ? data.eoy_accumulation_value_after_credit[i]
+                : null,
+            });
           }
           this.data[4].list = tempList;
+          this.data[4].strategy_average = this.table.max.result.stratgy_average;
+          this.data[4].strategy_carg = this.table.max.result.tsa_cagr_percent;
+          this.data[4].irr = this.table.max.result.irr_percent;
+          this.summary_data.data[4].distribution.total = this.table.max.result.cummulative_distribution;
+          this.summary_data.data[4].distribution.surplus = this.table.max.result.Surplus;
         }
       }
     },

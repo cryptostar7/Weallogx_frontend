@@ -53,7 +53,6 @@ export default {
       clientId: "",
       response: false,
       clientName: "",
-      scenarioName: "",
       reportName: "",
       description: "",
     };
@@ -103,7 +102,6 @@ export default {
       return validate;
     },
     handleModal: function() {
-      console.log("clicked");
       if (!this.response) {
         this.$router.go(-1);
       }

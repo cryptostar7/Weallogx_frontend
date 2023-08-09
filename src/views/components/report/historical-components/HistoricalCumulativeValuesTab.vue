@@ -97,7 +97,7 @@
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.cummulative_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${18+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${18+index} eachBarMainBgNone ${cards.cummulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${18+index}`" :style="{height:item.income_in_percent}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${18+index}`" :style="{height: `${Number(data[index].income)*100/maxCummulativeIncome}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${18+index}`">{{$numFormat(item.income)}}</span></p>
                                 </div>
@@ -167,7 +167,7 @@
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.total_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${23+index} cumulativeProgCommon2 bigBarsAreaJsCls${23+index} eachBarMainBgNone ${cards.total_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${23+index}`"  :style="{height:item.income_in_percent}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${23+index}`"  :style="{height: `${Number(data[index].income)*100/maxTotalIncome}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${23+index}`">{{$numFormat(item.income)}}</span></p>
                                 </div>
@@ -218,59 +218,96 @@ export default {
         cummulative_income: [
           {
             type: "LIRP",
-            income: 4504500,
-            income_in_percent: "45%",
+            income: "",
           },
           {
             type: "Most Recent",
-            income: 3303300,
-            income_in_percent: "100%",
+            income: "",
           },
           {
             type: "Worst",
-            income: 5565564,
-            income_in_percent: "30%",
+            income: "",
           },
           {
             type: "Median",
-            income: 2562565,
-            income_in_percent: "66%",
+            income: "",
           },
           {
             type: "Best",
-            income: 2562565,
-            income_in_percent: "80%",
+            income: "",
           },
         ],
         total_income: [
           {
             type: "LIRP",
-            income: 4504500,
-            income_in_percent: "100%",
+            income: "",
           },
           {
             type: "Most Recent",
-            income: 3303300,
-            income_in_percent: "60%",
+            income: "",
           },
           {
             type: "Worst",
-            income: 5565564,
-            income_in_percent: "90%",
+            income: "",
           },
           {
             type: "Median",
-            income: 2562565,
-            income_in_percent: "25%",
+            income: "",
           },
           {
             type: "Best",
-            income: 2562565,
-            income_in_percent: "55%",
+            income: "",
           },
         ],
       },
     };
+  },
+  mounted() {
+    let card1 = this.historical.lirp_data;
+    let card2 = this.historical.min.result;
+    let card3 = this.historical.most_recent.result;
+    let card4 = this.historical.median.result;
+    let card5 = this.historical.max.result;
+
+    if (card1) {
+      this.data.cummulative_income[0].type = "LIRP";
+      this.data.cummulative_income[0].income = card1.cummulative_income;
+
+      this.data.total_income[0].type = "LIRP";
+      this.data.total_income[0].income = card1.cummulative_income_total_value;
+    }
+
+    if (card2) {
+      this.data.cummulative_income[1].type = "Most Recent";
+      this.data.cummulative_income[1].income = card2.cummulative_income;
+
+      this.data.total_income[1].type = "Most Recent";
+      this.data.total_income[1].income = card2.cummulative_income_total_value;
+    }
+
+    if (card3) {
+      this.data.cummulative_income[2].type = "Worst";
+      this.data.cummulative_income[2].income = card3.cummulative_income;
+
+      this.data.total_income[2].type = "Worst";
+      this.data.total_income[2].income = card3.cummulative_income_total_value;
+    }
+
+    if (card4) {
+      this.data.cummulative_income[3].type = "Worst";
+      this.data.cummulative_income[3].income = card4.cummulative_income;
+
+      this.data.total_income[3].type = "Worst";
+      this.data.total_income[3].income = card4.cummulative_income_total_value;
+    }
+
+    if (card5) {
+      this.data.cummulative_income[4].type = "Worst";
+      this.data.cummulative_income[4].income = card5.cummulative_income;
+
+      this.data.total_income[4].type = "Worst";
+      this.data.total_income[4].income = card5.cummulative_income_total_value;
+    }
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -292,6 +329,22 @@ export default {
           element.active = true;
         });
       }
+    },
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
+    maxCummulativeIncome() {
+      let dst = this.data.cummulative_income;
+      return Math.max(...[...dst.map(i => Number(i.income || 0))]);
+    },
+    maxTotalIncome() {
+      let dst = this.data.total_income;
+      return Math.max(...[...dst.map(i => Number(i.income || 0))]);
     },
   },
 };

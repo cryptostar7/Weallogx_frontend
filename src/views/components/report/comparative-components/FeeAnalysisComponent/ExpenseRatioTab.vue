@@ -164,10 +164,7 @@ export default {
           element.active = true;
         });
       }
-    },
-    "deletedItems.length"(val) {
-      this.setGraph();
-    },
+    }
   },
   computed: {
     cards() {

@@ -179,11 +179,11 @@ export default {
     },
   },
   mounted() {
-    let card1 = this.historical.average;
-    let card2 = this.historical.most_recent;
-    let card3 = this.historical.worst;
-    let card4 = this.historical.median;
-    let card5 = this.historical.best;
+    let card1 = this.historical.lirp_data;
+    let card2 = this.historical.min.result;
+    let card3 = this.historical.most_recent.result;
+    let card4 = this.historical.median.result;
+    let card5 = this.historical.max.result;
 
     if (card1) {
       this.data[0].type = "LIRP";
@@ -248,9 +248,7 @@ export default {
     },
     maxIRR() {
       let dst = this.data;
-      return this.$roundFigureNum(
-        Math.max(...[...dst.map(i => Number(i.internal_rate_of_return || 0)), ...dst.map(i => Number(i.taxable_equivalent || 0))])
-      );
+      return Math.max(...[...dst.map(i => Number(i.internal_rate_of_return || 0)), ...dst.map(i => Number(i.taxable_equivalent || 0))]);
     },
   },
 };
