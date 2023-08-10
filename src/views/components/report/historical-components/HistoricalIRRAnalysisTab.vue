@@ -80,33 +80,36 @@
               </div>
               <div class="container-fluid ">
                 <div class="irrMainProgrssBarDiv">
-                  <div>
-                    <div v-for="item, in 7" :key="item" :class="`d-flex mainProgBrdrDivs ${item > 6 ? 'm-0 p-0' : ''}`">
-                      <p class="mainProgBrdr"></p>
+                  <div class="irrAbsltCls p-relative">
+                  
+                    <div class="lines-div d-flex flex-column justify-content-between">
+                        <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
+                          <p class="comulativeProgBrdr"></p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="irrAbsltCls">
-                    <div class="progressAllBarsDivMain">
-                      <div v-for="(item, index) in data" :key="index" :class="`progressBarEachDivMain ${deletedItems.includes(index) ? 'd-none':''}`">
-                        <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
-                          <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div class="CardProgressBig irrBarHeight1" :style="{height: `${Number(data[index].internal_rate_of_return)*100/maxIRR}%`}">
+                    
+                      <div class="progressAllBarsDivMain">
+                        <div v-for="(item, index) in data" :key="index" :class="`progressBarEachDivMain ${deletedItems.includes(index) ? 'd-none':''}`">
+                          <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
+                            <div class="progressBarEachDiv eachBarMainBgNone">
+                              <div class="CardProgressBig irrBarHeight1" :style="{height: `${Number(data[index].internal_rate_of_return)*100/maxIRR}%`}">
+                              </div>
+                              <div class="position-absolute progressBarbtmNum irrvaluebarbg1">
+                                <span class="`irrEachBarValue1">{{Number(item.internal_rate_of_return).toFixed(2)}}%</span>
+                              </div>
                             </div>
-                            <div class="position-absolute progressBarbtmNum irrvaluebarbg1">
-                              <span class="`irrEachBarValue1">{{Number(item.internal_rate_of_return).toFixed(2)}}%</span>
-                            </div>
-                          </div>
-                          <div class="progressBarEachDiv eachBarMainBgNone">
-                            <div class="CardProgressBig irrBarHeight2" :style="{height: `${Number(data[index].taxable_equivalent)*100/maxIRR}%`}">
-                            </div>
-                            <div class="position-absolute progressBarbtmNum irrvaluebarbg2">
-                              <span class="irrEachBarValue2">{{Number(item.taxable_equivalent).toFixed(2)}}%</span>
+                            <div class="progressBarEachDiv eachBarMainBgNone">
+                              <div class="CardProgressBig irrBarHeight2" :style="{height: `${Number(data[index].taxable_equivalent)*100/maxIRR}%`}">
+                              </div>
+                              <div class="position-absolute progressBarbtmNum irrvaluebarbg2">
+                                <span class="irrEachBarValue2">{{Number(item.taxable_equivalent).toFixed(2)}}%</span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+
                 </div>
               </div>
             </div>

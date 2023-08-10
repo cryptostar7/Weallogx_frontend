@@ -62,19 +62,21 @@
                 </div>
               </div>
               <div class="container-fluid">
-                <div class="CompMainProgrssBarDiv">
-                  <div class="w-100">
-                    <div v-for="item in 8" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 7 ? 'm-0 p-0':''}`">
-                      <p class="comulativeProgBrdr"></p>
+                <div class="CompMainProgrssBarDiv graph-area">
+                  <div class="CompProgressAbsltCls legacy p-relative">
+                    <div class="lines-div d-flex flex-column justify-content-between">
+                      <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
+                        <p class="comulativeProgBrdr"></p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="CompProgressAbsltCls income">
-                    <div class="progressAllBarsDivMain">
-                      <div class="d-flex justify-content-between w-100">
-                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                          <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:  `${Number(data[index].annual_income)*100/maxIncome}%`}">
-                            <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
-                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.annual_income)}}</span></p>
+                    <div class="CompProgressAbsltCls income">
+                      <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
+                        <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
+                          <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                            <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:`${Number(data[index].annual_income)*100/maxIncome}%`}">
+                              <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
+                                <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.annual_income)}}</span></p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -189,6 +191,9 @@ export default {
     },
     deletedItems() {
       return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
+    activeCards() {
+      return 4 - this.deletedItems.length;
     },
     maxIncome() {
       let dst = this.data;
