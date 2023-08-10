@@ -384,7 +384,7 @@ export default {
             type: 'number',
             easing: 'linear',
             duration: delayBetweenPoints,
-            from: previousY,
+            from: 0,
             delay(ctx) {
               if (ctx.type !== 'data' || ctx.yStarted) {
                 return 0;
@@ -436,13 +436,12 @@ export default {
           let { data } = chart;
           if(args.inChartArea){
             function setBorderColor(active, index, borderColor){
-              console.log(borderColor, bordercolors[4]);
               return active ? borderColor : bordercolors[4];
             }
-            data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0])
-            data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
-            data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2])
-            data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3])
+            chart.getDatasetMeta(0).data[0] ? data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0]) : bordercolors[4];
+            chart.getDatasetMeta(1).data[0] ? data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1]) : bordercolors[4];
+            chart.getDatasetMeta(2).data[0] ? data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2]) : bordercolors[4];
+            chart.getDatasetMeta(3).data[0] ? data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3]) : bordercolors[4];
           }
           args.changed = true;
         }

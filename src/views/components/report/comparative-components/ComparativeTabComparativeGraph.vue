@@ -408,7 +408,8 @@ export default {
 
       const totalDuration = 4500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
-      const previousY = (comparativeValuesChart) => comparativeValuesChart.index === 0 ? comparativeValuesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : comparativeValuesChart.chart.getDatasetMeta(comparativeValuesChart.datasetIndex).data[comparativeValuesChart.index - 1].getProps(['y'], true).y;
+      console.log(comparativeValuesChart, comparativeValuesChart.chart, comparativeValuesChart.index)
+      const previousY = ctx => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 
       let animationTimeout = false;
 
@@ -455,7 +456,7 @@ export default {
             type: 'number',
             easing: 'linear',
             duration: delayBetweenPoints,
-            from: previousY,
+            from: 0,
             delay(ctx) {
               if (ctx.type !== 'data' || ctx.yStarted) {
                 return 0;
@@ -509,10 +510,10 @@ export default {
             function setBorderColor(active, index, borderColor){
               return active ? borderColor : bordercolors[4];
             }
-            data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0])
-            data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1])
-            data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2])
-            data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3])
+            chart.getDatasetMeta(0).data[0] ? data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0]) : bordercolors[4];
+            chart.getDatasetMeta(1).data[0] ? data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1]) : bordercolors[4];
+            chart.getDatasetMeta(2).data[0] ? data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2]) : bordercolors[4];
+            chart.getDatasetMeta(3).data[0] ? data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3]) : bordercolors[4];
           }
           args.changed = true;
         }
