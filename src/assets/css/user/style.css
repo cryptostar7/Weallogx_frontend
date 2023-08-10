@@ -2388,17 +2388,35 @@ input:checked+.paymentSlider:before {
     color: #0E6651;
     position: absolute;
     top: -15px;
-    left: 30px;
+    left: 15px;
     background: #fff;
     padding: 2px 8px;
 }
+.businessLogoUploadDiv .delete-logo-btn{
+    position: absolute;
+    top: -16px;
+    right: 15px;
+    border-color: #298B74;
+}
 .businessLogoUploadDiv.blue .businessLogoLabel {
     color: #004885;
+}
+.businessLogoUploadDiv.blue .delete-logo-btn{
+    border-color: #004885;
+}
+.businessLogoUploadDiv.blue .delete-logo-btn:hover{
+    background-color: #004885;
 }
 .businessLogoUploadDiv.dark .businessLogoLabel {
     color: #fff;
     background-color: #202124;
     border-radius: 25px;
+}
+.businessLogoUploadDiv.dark .delete-logo-btn{
+    border-color: #202124;
+}
+.businessLogoUploadDiv.dark .delete-logo-btn:hover{
+    background-color: #202124;
 }
 .businessLogoInnerDiv {
     display: flex;
@@ -2509,7 +2527,7 @@ input:checked+.paymentSlider:before {
         margin-bottom: 2rem;
     }
 }
-@media (max-width:568px) {
+@media (max-width: 767px) {
     .upload-logo-div {
         flex-wrap: wrap;
     }

@@ -121,7 +121,7 @@
               </div>
               <div class="upload-logo-div">
                 <div class="businessLogoUploadDiv green drag-drop-label" @drop="handleDragFile1" @dragover="dragover1" @dragleave="dragleave1">
-                  <label class="businessLogoLabel" >Logo for Green Mode</label>
+                  <label class="businessLogoLabel" >Green Mode Logo</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
                       <div class="businessLogoImageDiv" v-if="businessLogoGreen">
@@ -137,10 +137,11 @@
                       </div>
                     </div>
                   </div>
-                  <button @click="logoRemove('green')">Remove Logo</button>
+                  <!-- <button class="btn remove-btn-logo" @click="logoRemove('green')">Remove Logo</button> -->
+                  <button class="btn round-btn delete-logo-btn" @click="logoRemove('green')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#298B74"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#298B74"></path></svg></button>
                 </div>
                 <div class="businessLogoUploadDiv blue drag-drop-label" @drop="handleDragFile2" @dragover="dragover2" @dragleave="dragleave2">
-                  <label class="businessLogoLabel">Logo for Blue Mode</label>
+                  <label class="businessLogoLabel">Blue Mode Logo</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
                       <div class="businessLogoImageDiv" v-if="businessLogoBlue">
@@ -156,10 +157,11 @@
                       </div>
                     </div>
                   </div>
-                  <button @click="logoRemove('blue')">Remove Logo</button>
+                  <!-- <button @click="logoRemove('blue')">Remove Logo</button> -->
+                  <button class="btn round-btn delete-logo-btn" @click="logoRemove('blue')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#004885"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#004885"></path></svg></button>
                 </div>
                 <div class="businessLogoUploadDiv dark drag-drop-label" @drop="handleDragFile3" @dragover="dragover3" @dragleave="dragleave3">
-                  <label class="businessLogoLabel" >Logo for Dark Mode</label>
+                  <label class="businessLogoLabel" >Dark Mode Logo</label>
                   <div class="businessLogoInnerDiv" >
                     <div>
                       <div class="businessLogoImageDiv" v-if="businessLogoDark">
@@ -175,7 +177,8 @@
                       </div>
                     </div>
                   </div>
-                  <button @click="logoRemove('dark')">Remove Logo</button>
+                  <!-- <button @click="logoRemove('dark')">Remove Logo</button> -->
+                  <button class="btn round-btn delete-logo-btn" @click="logoRemove('dark')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#202124"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#202124"></path></svg></button>
                 </div>
               </div>
               <div class="text-center">

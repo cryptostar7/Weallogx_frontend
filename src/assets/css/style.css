@@ -5396,3 +5396,6 @@ input[type=number] {
 .ChooseTimePeriodInputs .rolling-time-label{
   top: -10px;
 }
+.w-66{
+  width: 66%;
+}

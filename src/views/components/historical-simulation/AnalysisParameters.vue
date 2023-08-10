@@ -91,6 +91,22 @@
         </div>
         </div>
     </div>
+    <div class="formParabrdrLavelDiv mt-3 mb-2">
+        <p class="position-relative">Distributions</p>
+        <p></p>
+    </div>
+    <div class="d-flex align-items-center px-4">
+        <div class="IndexStrategyBtn w-66">
+        <div class="w-100">
+            <input type="radio" name="analysisDistribution" :id="`annuallyDist${currentTab}`" checked>
+            <label :for="`annuallyDist${currentTab}`">Annually </label>
+        </div>
+        <div class="w-100">
+            <input type="radio" name="analysisDistribution" :id="`monthlyDist${currentTab}`">
+            <label :for="`monthlyDist${currentTab}`">Monthly</label>
+        </div>
+        </div>
+    </div>
     <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
     <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze" ref="analyzeRef"/>
     <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod" ref="credRef" />
