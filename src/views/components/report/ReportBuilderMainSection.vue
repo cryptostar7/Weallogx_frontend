@@ -20,7 +20,6 @@
           <sidebar-tabs-list :list="list.historical" v-if="sidebar.currentTab === 'historical'"/>
         </div>
       </div>
-      <button @click="testFunction">Test</button>
       <main class="ms-sm-autopx-md-4 report-builder-right-area comparative-sections">
         <div class="right-area-inner p-relative">
           <div class="right-area-wrapper" v-if="ComparativeDataLoaded">

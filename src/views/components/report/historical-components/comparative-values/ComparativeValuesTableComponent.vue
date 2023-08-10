@@ -1,4 +1,4 @@
-           <template lang="">
+<template lang="">
   <div class="tab-pane fade show active" id="v-pills-compTable" role="tabpanel" aria-labelledby="pills-home-tab">
     <div class="d-flex justify-content-center mt-2">
       <div class="nav mltplSwtchDiv nav-pills">
@@ -257,21 +257,21 @@
                                 <div class="row eachCardParaRow">
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy Avg</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].strategy_average}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].strategy_average}}</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CAGR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].strategy_cagr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].strategy_cagr}}</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">IRR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].irr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].irr}}</p>
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-12">
                                     <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                      <p><input type="text" v-model="table.data[header.id].type" class="tableHeadInputs" readonly/></p>
+                                      <p><input type="text" v-model="table.data[header.id].catogories[tsa_type].type" class="tableHeadInputs" readonly/></p>
                                     </div>
                                   </div>
                                 </div>
@@ -284,7 +284,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="(item, index) in table.data[header.id].list" :key="index">
+                                  <tr v-for="(item, index) in table.data[header.id].catogories[tsa_type].list" :key="index">
                                     <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions)" readonly/></td>
                                     <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td>
                                   </tr>
@@ -342,16 +342,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total)" readonly/></td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.total)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.total)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.total_value)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.total_value)" readonly/></td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.total_value)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.total_value)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].distribution.shortfall)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)" readonly/></td>
+                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.shortfall)" readonly/></td>
+                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.shortfall)" readonly/></td>
                                 </tr>
                             </tbody>
                             </table>
@@ -369,16 +369,16 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].net_balance.shortfall)" readonly/>{{$numFormatWithDollar(summary_data.data[header.id].net_balance.total)}}</td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.total)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.shortfall)" readonly/>{{$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.total)}}</td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total_value)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.total_value)" readonly/></td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.total_value)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.total_value)" readonly/></td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.shortfall)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall)" readonly/></td>
+                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.shortfall)" readonly/></td>
+                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.shortfall)" readonly/></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -401,6 +401,7 @@
     <!-- Comparative Values Table ends  -->
   </div>
 </template>
+
 <script>
 import { VueDraggableNext } from "vue-draggable-next";
 export default {
@@ -415,263 +416,701 @@ export default {
       showAll: false,
       tsa_type: "most_recent",
       table: {
-        distributions: [
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-          { year: 1, age: 28, deposits: "65777" },
-        ],
+        distributions: [],
         data: [
           {
             id: 0,
             catogories: {
               most_recent: {
-                strategy_average: "8.15%",
-                strategy_cagr: "1.14%",
-                irr: "5.76%",
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
                 type: "TSA - Most Recent",
-                list: [
-                  { distributions: 12354, net_balance: "" },
-                  { distributions: 45684, net_balance: "" },
-                  { distributions: 66544, net_balance: "" },
-                  { distributions: 95645, net_balance: "" },
-                  { distributions: 95564, net_balance: "" },
-                ],
+                list: [],
               },
               worst: {
-                strategy_average: "6.15%",
-                strategy_cagr: "3.14%",
-                irr: "2.76%",
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
                 type: "TSA - Worst",
-                list: [
-                  { distributions: 89745, net_balance: "" },
-                  { distributions: 45684, net_balance: "" },
-                  { distributions: 66544, net_balance: "" },
-                  { distributions: 95645, net_balance: "" },
-                  { distributions: 95564, net_balance: "" },
-                ],
+                list: [],
               },
               median: {
-                strategy_average: "4.15%",
-                strategy_cagr: "6.14%",
-                irr: "1.76%",
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
                 type: "TSA - Median",
-                list: [
-                  { distributions: 33148, net_balance: "" },
-                  { distributions: 45684, net_balance: "" },
-                  { distributions: 66544, net_balance: "" },
-                  { distributions: 95645, net_balance: "" },
-                  { distributions: 95564, net_balance: "" },
-                ],
+                list: [],
               },
               best: {
-                strategy_average: "7.15%",
-                strategy_cagr: "5.14%",
-                irr: "1.76%",
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
                 type: "TSA - Best",
-                list: [
-                  { distributions: 25466, net_balance: "" },
-                  { distributions: 45684, net_balance: "" },
-                  { distributions: 66544, net_balance: "" },
-                  { distributions: 95645, net_balance: "" },
-                  { distributions: 95564, net_balance: "" },
-                ],
+                list: [],
               },
             },
           },
+
           {
             id: 1,
-            strategy_average: "6.15%",
-            strategy_cagr: "6.15%",
-            irr: "5.65%",
-            type: "Brokerage Account",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+            catogories: {
+              most_recent: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Brokerage Account - Most Recent",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              worst: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Brokerage Account - Worst",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              median: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Brokerage Account - Median",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              best: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Brokerage Account - Best",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
-              },
-            ],
+            },
           },
+
           {
             id: 2,
-            strategy_average: "6.15%",
-            strategy_cagr: "6.15%",
-            irr: "5.65%",
-            type: "401K/IRA",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+            catogories: {
+              most_recent: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "401K/IRA - Most Recent",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              worst: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "401K/IRA - Worst",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              median: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "401K/IRA - Median",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              best: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "401K/IRA - Best",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
-              },
-            ],
+            },
           },
+
           {
             id: 3,
-            strategy_average: "6.15%",
-            strategy_cagr: "6.15%",
-            irr: "5.65%",
-            type: "Annuity",
-            list: [
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+            catogories: {
+              most_recent: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Annuity - Most Recent",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              worst: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Annuity - Worst",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              median: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Annuity - Median",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
+              best: {
+                strategy_average: "",
+                strategy_cagr: "",
+                irr: "",
+                type: "Annuity - Best",
+                list: [],
               },
-              {
-                distributions: "",
-                account_value: 65777,
-                surrender_value: 65777,
-                death_benefit: 65777,
-                net_balance: 65777,
-              },
-            ],
+            },
           },
         ],
       },
       summary_data: {
-        deposits: { totals: 328885, total_values: "", shortfall: "" },
+        deposits: { totals: "", total_values: "", shortfall: "" },
         data: [
           {
             id: 0,
-            distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: "",
-            },
-            net_balance: {
-              total: "",
-              total_value: "",
-              shortfall: "",
+            catogories: {
+              most_recent: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              worst: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              median: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              best: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
             },
           },
           {
             id: 1,
-            distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: 6577,
-            },
-            net_balance: {
-              total: "",
-              total_value: "",
-              shortfall: "",
+            catogories: {
+              most_recent: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              worst: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              median: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              best: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
             },
           },
           {
             id: 2,
-            distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: 68577,
-            },
-            net_balance: {
-              total: "",
-              total_value: "",
-              shortfall: "",
+            catogories: {
+              most_recent: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              worst: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              median: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              best: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
             },
           },
           {
             id: 3,
-            distribution: {
-              total: 6577,
-              total_value: 6577,
-              shortfall: 62577,
-            },
-            net_balance: {
-              total: "",
-              total_value: "",
-              shortfall: "",
+            catogories: {
+              most_recent: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              worst: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              median: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
+              best: {
+                distribution: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+                net_balance: {
+                  total: "",
+                  total_value: "",
+                  shortfall: "",
+                },
+              },
             },
           },
         ],
       },
     };
+  },
+  methods: {
+    testFunction: function() {
+      console.log(this.summary_data);
+    },
+    mapSummaryData: function() {},
+    filterDeposits: function() {
+      var data = this.historical.lirp_data;
+      let tempList = [];
+      if (data.chart_output) {
+        let chart_data = data.chart_output;
+        let age = chart_data.Age;
+        if (age.length) {
+          for (let i = 0; i < age.length; i++) {
+            tempList.push({
+              age: age ? age[i] : null,
+              year: chart_data.year ? chart_data.year[i] : null,
+              deposits: chart_data.Deposits ? chart_data.Deposits[i] : null,
+            });
+          }
+        }
+      }
+
+      return tempList;
+    },
+    filterData: function(data, type) {
+      let finalData = {
+        strategy_average: "",
+        strategy_cagr: "",
+        irr: "",
+        type: type,
+        list: [],
+      };
+
+      if (data.chart_output) {
+        let chart_data = data.chart_output;
+        let list = chart_data.age;
+        if (list.length) {
+          let tempList = [];
+          let distributions =
+            chart_data.distributions || chart_data.tax_free_distributions;
+          let account_value =
+            chart_data.net_balance ||
+            chart_data.eoy_accumulation_value_after_credit;
+          for (let i = 0; i < list.length; i++) {
+            tempList.push({
+              distributions: distributions ? distributions[i] : null,
+              account_value: account_value ? account_value[i] : null,
+            });
+          }
+          finalData.list = tempList;
+          finalData.strategy_average = data.stratgy_average;
+          finalData.strategy_cagr = data.tsa_cagr_percent || data.tsa_cagr;
+          finalData.irr = data.irr_percent;
+        }
+      }
+      return finalData;
+    },
+    mapColumn1Data: function() {
+      return {
+        data: {
+          id: 0,
+          catogories: {
+            most_recent: this.filterData(
+              this.historical.most_recent.result,
+              "TSA - Most Recent"
+            ),
+            worst: this.filterData(this.historical.min.result, "TSA - Worst"),
+            median: this.filterData(
+              this.historical.median.result,
+              "TSA - Median"
+            ),
+            best: this.filterData(this.historical.max.result, "TSA - Best"),
+          },
+        },
+        summary: {
+          id: 0,
+          catogories: {
+            most_recent: {
+              distribution: {
+                total: this.historical.most_recent.result.sum_of_all_total_value,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            worst: {
+              distribution: {
+                total: this.historical.min.result.sum_of_all_total_value,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            median: {
+              distribution: {
+                total: this.historical.median.result.sum_of_all_total_value,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            best: {
+              distribution: {
+                total: this.historical.max.result.sum_of_all_total_value,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+          },
+        },
+      };
+    },
+    mapColumn2Data: function() {
+      return {
+        data: {
+          id: 1,
+          catogories: {
+            most_recent: this.filterData(
+              this.historical.most_recent.tda_most_recent,
+              "Brokerage Account - Most Recent"
+            ),
+            worst: this.filterData(
+              this.historical.min.tda_min,
+              "Brokerage Account - Worst"
+            ),
+            median: this.filterData(
+              this.historical.median.tda_median,
+              "Brokerage Account - Median"
+            ),
+            best: this.filterData(
+              this.historical.max.tda_max,
+              "Brokerage Account - Best"
+            ),
+          },
+        },
+        summary: {
+          id: 1,
+          catogories: {
+            most_recent: {
+              distribution: {
+                total: this.historical.most_recent.tda_most_recent
+                  .final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            worst: {
+              distribution: {
+                total: this.historical.min.tda_min.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            median: {
+              distribution: {
+                total: this.historical.median.tda_median.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            best: {
+              distribution: {
+                total: this.historical.max.tda_max.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+          },
+        },
+      };
+    },
+    mapColumn3Data: function() {
+      return {
+        data: {
+          id: 2,
+          catogories: {
+            most_recent: this.filterData(
+              this.historical.most_recent.pre_tax_most_recent,
+              "401K/IRA - Most Recent"
+            ),
+            worst: this.filterData(
+              this.historical.min.pre_tax_min,
+              "401K/IRA - Worst"
+            ),
+            median: this.filterData(
+              this.historical.median.pre_tax_median,
+              "401K/IRA - Median"
+            ),
+            best: this.filterData(
+              this.historical.max.pre_tax_max,
+              "401K/IRA - Best"
+            ),
+          },
+        },
+        summary: {
+          id: 2,
+          catogories: {
+            most_recent: {
+              distribution: {
+                total: this.historical.most_recent.pre_tax_most_recent
+                  .final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            worst: {
+              distribution: {
+                total: this.historical.min.pre_tax_min.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            median: {
+              distribution: {
+                total: this.historical.median.pre_tax_median.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            best: {
+              distribution: {
+                total: this.historical.max.pre_tax_max.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+          },
+        },
+      };
+    },
+    mapColumn4Data: function() {
+      return {
+        data: {
+          id: 3,
+          catogories: {
+            most_recent: this.filterData(
+              this.historical.most_recent.taxable_most_recent,
+              "Annuity - Most Recent"
+            ),
+            worst: this.filterData(
+              this.historical.min.taxable_min,
+              "Annuity - Worst"
+            ),
+            median: this.filterData(
+              this.historical.median.taxable_median,
+              "Annuity - Median"
+            ),
+            best: this.filterData(
+              this.historical.max.taxable_max,
+              "Annuity - Best"
+            ),
+          },
+        },
+        summary: {
+          id: 3,
+          catogories: {
+            most_recent: {
+              distribution: {
+                total: this.historical.most_recent.taxable_most_recent
+                  .final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            worst: {
+              distribution: {
+                total: this.historical.min.taxable_min.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            median: {
+              distribution: {
+                total: this.historical.median.taxable_median.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+
+            best: {
+              distribution: {
+                total: this.historical.max.taxable_max.final_balance,
+                total_value: "",
+                shortfall: "",
+              },
+              net_balance: { total: "", total_value: "", shortfall: "" },
+            },
+          },
+        },
+      };
+    },
+    mapData: function() {
+      this.table.data[0] = this.mapColumn1Data().data;
+      this.table.data[1] = this.mapColumn2Data().data;
+      this.table.data[2] = this.mapColumn3Data().data;
+      this.table.data[3] = this.mapColumn4Data().data;
+
+      this.summary_data.data[0] = this.mapColumn1Data().summary;
+      this.summary_data.data[1] = this.mapColumn2Data().summary;
+      this.summary_data.data[2] = this.mapColumn3Data().summary;
+      this.summary_data.data[3] = this.mapColumn4Data().summary;
+    },
+  },
+  mounted() {
+    this.table.distributions = this.filterDeposits();
+    this.mapData();
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -679,11 +1118,11 @@ export default {
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets2
       ) {
-        this.draggableColumns.forEach((element) => {
+        this.draggableColumns.forEach(element => {
           element.active = false;
         });
       } else {
-        this.draggableColumns.forEach((element) => {
+        this.draggableColumns.forEach(element => {
           element.active = true;
         });
       }
@@ -691,5 +1130,3 @@ export default {
   },
 };
 </script>
-<style lang="">
-</style>

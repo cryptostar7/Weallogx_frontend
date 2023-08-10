@@ -13,7 +13,7 @@
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
-              </div>
+              </div>                    
               <label for="rightCheckBox12" class="rghtTopHeadcommon">Comparative Values</label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
