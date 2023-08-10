@@ -11,6 +11,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/user-exists/`;
     case 'profile':
       return `${baseUrl}/auth/profile`;
+    case 'profile':
+      return `${baseUrl}/auth/remove-logo`;
     case 'login':
       return `${baseUrl}/auth/login/`;
     case 'current_plan':
@@ -49,7 +51,7 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/template-exsiting-illustration/`;
     case 'pdf_extract':
       return `${baseUrl}/pdf/extract/`;
-      case 'illustration-files':
+    case 'illustration-files':
       return `${baseUrl}/auth/media/`;
     case 'vehicle-type1':
       return `${baseUrl}/auth/vehicle-type1/`;

@@ -896,19 +896,19 @@ export default {
           id: 1,
           catogories: {
             most_recent: this.filterData(
-              this.historical.most_recent.tda_most_recent,
+              this.historical.most_recent.taxable_most_recent,
               "Brokerage Account - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.tda_min,
+              this.historical.min.taxable_min,
               "Brokerage Account - Worst"
             ),
             median: this.filterData(
-              this.historical.median.tda_median,
+              this.historical.median.taxable_median,
               "Brokerage Account - Median"
             ),
             best: this.filterData(
-              this.historical.max.tda_max,
+              this.historical.max.taxable_max,
               "Brokerage Account - Best"
             ),
           },
@@ -918,7 +918,7 @@ export default {
           catogories: {
             most_recent: {
               distribution: {
-                total: this.historical.most_recent.tda_most_recent
+                total: this.historical.most_recent.taxable_most_recent
                   .final_balance,
                 total_value: "",
                 shortfall: "",
@@ -928,7 +928,7 @@ export default {
 
             worst: {
               distribution: {
-                total: this.historical.min.tda_min.final_balance,
+                total: this.historical.min.taxable_min.final_balance,
                 total_value: "",
                 shortfall: "",
               },
@@ -937,7 +937,7 @@ export default {
 
             median: {
               distribution: {
-                total: this.historical.median.tda_median.final_balance,
+                total: this.historical.median.taxable_median.final_balance,
                 total_value: "",
                 shortfall: "",
               },
@@ -946,7 +946,7 @@ export default {
 
             best: {
               distribution: {
-                total: this.historical.max.tda_max.final_balance,
+                total: this.historical.max.taxable_max.final_balance,
                 total_value: "",
                 shortfall: "",
               },
@@ -1028,19 +1028,19 @@ export default {
           id: 3,
           catogories: {
             most_recent: this.filterData(
-              this.historical.most_recent.taxable_most_recent,
+              this.historical.most_recent.tda_most_recent,
               "Annuity - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.taxable_min,
+              this.historical.min.tda_min,
               "Annuity - Worst"
             ),
             median: this.filterData(
-              this.historical.median.taxable_median,
+              this.historical.median.tda_median,
               "Annuity - Median"
             ),
             best: this.filterData(
-              this.historical.max.taxable_max,
+              this.historical.max.tda_max,
               "Annuity - Best"
             ),
           },
@@ -1050,7 +1050,7 @@ export default {
           catogories: {
             most_recent: {
               distribution: {
-                total: this.historical.most_recent.taxable_most_recent
+                total: this.historical.most_recent.tda_most_recent
                   .final_balance,
                 total_value: "",
                 shortfall: "",
@@ -1060,7 +1060,7 @@ export default {
 
             worst: {
               distribution: {
-                total: this.historical.min.taxable_min.final_balance,
+                total: this.historical.min.tda_min.final_balance,
                 total_value: "",
                 shortfall: "",
               },
@@ -1069,7 +1069,7 @@ export default {
 
             median: {
               distribution: {
-                total: this.historical.median.taxable_median.final_balance,
+                total: this.historical.median.tda_median.final_balance,
                 total_value: "",
                 shortfall: "",
               },
@@ -1078,7 +1078,7 @@ export default {
 
             best: {
               distribution: {
-                total: this.historical.max.taxable_max.final_balance,
+                total: this.historical.max.tda_max.final_balance,
                 total_value: "",
                 shortfall: "",
               },

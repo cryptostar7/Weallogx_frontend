@@ -195,25 +195,25 @@ export default {
     }
 
     if (card2) {
-      this.data[1].type = "Most Recent";
+      this.data[1].type = "Worst";
       this.data[1].internal_rate_of_return = card2.irr_percent;
       this.data[1].taxable_equivalent = card2.taxable_equivalent;
     }
 
     if (card3) {
-      this.data[2].type = "Worst";
+      this.data[2].type = "Most Recent";
       this.data[2].internal_rate_of_return = card3.irr_percent;
       this.data[2].taxable_equivalent = card3.taxable_equivalent;
     }
 
     if (card4) {
-      this.data[3].type = "Worst";
+      this.data[3].type = "Median";
       this.data[3].internal_rate_of_return = card4.irr_percent;
       this.data[3].taxable_equivalent = card4.taxable_equivalent;
     }
 
     if (card5) {
-      this.data[4].type = "Worst";
+      this.data[4].type = "Best";
       this.data[4].internal_rate_of_return = card5.irr_percent;
       this.data[4].taxable_equivalent = card5.taxable_equivalent;
     }

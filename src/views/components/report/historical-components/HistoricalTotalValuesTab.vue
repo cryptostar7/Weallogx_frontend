@@ -105,7 +105,7 @@ export default {
     };
   },
   mounted() {
-    let card1 = this.historical.average;
+    let card1 = this.historical.lirp_data;
     let card2 = this.historical.most_recent;
     let card3 = this.historical.worst;
     let card4 = this.historical.median;
@@ -117,22 +117,22 @@ export default {
     }
 
     if (card2) {
-      this.data[1].type = "Most Recent";
+      this.data[1].type = "Worst";
       this.data[1].total_value = card2.sum_of_all_total_value;
     }
 
     if (card3) {
-      this.data[2].type = "Worst";
+      this.data[2].type = "Most Recent";
       this.data[2].total_value = card3.sum_of_all_total_value;
     }
 
     if (card4) {
-      this.data[3].type = "Worst";
+      this.data[3].type = "Median";
       this.data[3].total_value = card4.sum_of_all_total_value;
     }
 
     if (card5) {
-      this.data[4].type = "Worst";
+      this.data[4].type = "Best";
       this.data[4].total_value = card5.sum_of_all_total_value;
     }
 

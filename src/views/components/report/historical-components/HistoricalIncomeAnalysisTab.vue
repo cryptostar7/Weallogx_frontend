@@ -126,22 +126,22 @@ export default {
     }
 
     if (card2) {
-      this.data[1].type = "Most Recent";
+      this.data[1].type = "Worst";
       this.data[1].annual_income = card2.cummulative_income;
     }
 
     if (card3) {
-      this.data[2].type = "Worst";
+      this.data[2].type = "Most Recent";
       this.data[2].annual_income = card3.cummulative_income;
     }
 
     if (card4) {
-      this.data[3].type = "Worst";
+      this.data[3].type = "Median";
       this.data[3].annual_income = card4.cummulative_income;
     }
 
     if (card5) {
-      this.data[4].type = "Worst";
+      this.data[4].type = "Best";
       this.data[4].annual_income = card5.cummulative_income;
     }
   },

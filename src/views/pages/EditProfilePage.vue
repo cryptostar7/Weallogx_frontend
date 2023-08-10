@@ -137,6 +137,7 @@
                       </div>
                     </div>
                   </div>
+                  <button @click="logoRemove('green')">Remove Logo</button>
                 </div>
                 <div class="businessLogoUploadDiv blue drag-drop-label" @drop="handleDragFile2" @dragover="dragover2" @dragleave="dragleave2">
                   <label class="businessLogoLabel">Logo for Blue Mode</label>
@@ -155,6 +156,7 @@
                       </div>
                     </div>
                   </div>
+                  <button @click="logoRemove('blue')">Remove Logo</button>
                 </div>
                 <div class="businessLogoUploadDiv dark drag-drop-label" @drop="handleDragFile3" @dragover="dragover3" @dragleave="dragleave3">
                   <label class="businessLogoLabel" >Logo for Dark Mode</label>
@@ -173,6 +175,7 @@
                       </div>
                     </div>
                   </div>
+                  <button @click="logoRemove('dark')">Remove Logo</button>
                 </div>
               </div>
               <div class="text-center">
@@ -392,6 +395,42 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.errors = getServerErrors(error);
+            this.$toast.error(getFirstError(error));
+          }
+        });
+    },
+    logoRemove: function(type) {
+      this.$store.dispatch("loader", true);
+      var userData = new FormData();
+
+      if (type === "dark") {
+        userData.append("business_logo_dark", null);
+      }
+
+      if (type === "blue") {
+        userData.append("business_logo_blue", null);
+      }
+
+      if (type === "green") {
+        userData.append("business_logo_green", null);
+      }
+
+      patch(`${getUrl("remove-logo")}/${this.user.id}/`, userData, authHeader())
+        .then(response => {
+          console.log(response);
+          this.getProfile();
+          this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
             this.$toast.error(getFirstError(error));
           }
         });
