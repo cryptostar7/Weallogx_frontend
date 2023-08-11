@@ -37,6 +37,10 @@
                         <label for="client name">Credit Base Method</label>
                         <input type="text" class="form-control" :value="$props.data.credit_base_method" readonly>
                     </div>
+                    <div class="col-md-6 summaryInputsDiv">
+                        <label for="client name">Distributions</label>
+                        <input type="text" class="form-control" :value="$props.data.distributions" readonly>
+                    </div>
                 </div>
             </form>
             <div class="historyHead2">

@@ -20,7 +20,7 @@
               <div class="container containerWidth">
                 <div class="col-md-10 offset-md-1">
                   <div class="d-flex align-items-center"> <label for="scheduleTemplateCheckbox"
-                      class="historical-paraCheckBox">Historical Simulations</label>
+                      class="historical-paraCheckBox" @click="testFunction">Historical Simulations</label>
                     <div class="form-check form-switch custom-switch ms-2">
                        <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
                   </div>
@@ -157,7 +157,7 @@ import { putPercentage } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";
-import ScenarioLabelComponent from '../common/ScenarioLabelComponent.vue';
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import GrowthParameters from "./GrowthParameters.vue";
 import FeesComponent from "./FeesComponent.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
@@ -297,8 +297,7 @@ export default {
       }
     },
     testFunction: function() {
-      this.error = "provider message";
-      console.log(this.$store.state.data.templates.historical);
+      console.log(this.getInputWithId("distribution_method1"));
     },
     // this function has return the input value
     getInputWithId: function(id) {
@@ -333,10 +332,14 @@ export default {
             rolling_time: this.getInputWithId("rolling_time" + i),
             analyze: this.getInputWithId("analyze_type" + i),
             credit_method: this.getInputWithId("credit_base_method" + i),
+            distributions: this.getInputWithId("distribution_method" + i),
           };
           arr.push(obj);
         }
       }
+
+      console.log('arr .........');
+      console.log(arr);
       return arr;
     },
     getGrowthData: function() {
@@ -544,6 +547,9 @@ export default {
       this.setInputWithId(`rolling_time${tab}`, obj.rolling_time_period_years);
       this.setInputWithId(`analyze_type${tab}`, obj.analyze);
       this.setInputWithId(`credit_base_method${tab}`, obj.credit_base_method);
+      console.log('obj.distributions');
+      console.log(obj.distributions);
+      this.setInputWithId(`distribution_method${tab}`, obj.distributions);
       this.update.analysis_parameters = true;
     },
     setGrowthData: function(tab, obj = []) {
@@ -604,8 +610,12 @@ export default {
           `credit_schedule_type${tab}`,
           obj.flat_credit_schedule_rate ? "rate" : "amount"
         );
-        if (!obj.flat_fixed_value && (obj.flat_credit_schedule_amount || obj.flat_credit_schedule_rate)) {
-          let fcb_schedule = obj.flat_credit_schedule_rate || obj.flat_credit_schedule_amount;
+        if (
+          !obj.flat_fixed_value &&
+          (obj.flat_credit_schedule_amount || obj.flat_credit_schedule_rate)
+        ) {
+          let fcb_schedule =
+            obj.flat_credit_schedule_rate || obj.flat_credit_schedule_amount;
           fcb_schedule.forEach(i => {
             this.setInputWithId(
               `${
@@ -711,8 +721,11 @@ export default {
       this.setFeesData(tab, data);
     },
     // get previous data
-    populateHistoricalSimulationData: function(id, portfolio=false) {
-      get(`${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`, authHeader())
+    populateHistoricalSimulationData: function(id, portfolio = false) {
+      get(
+        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`,
+        authHeader()
+      )
         .then(response => {
           let data = response.data.data;
           console.log(data);
@@ -1026,6 +1039,7 @@ export default {
           rolling_time_period_years: analysis[0].rolling_time,
           analyze: analysis[0].analyze,
           credit_base_method: analysis[0].credit_method,
+          distributions: analysis[0].distributions,
 
           cap_rate: growth[0].cap_rate_range,
           participation_rate: growth[0].participation_range,
@@ -1150,6 +1164,7 @@ export default {
           rolling_time_period_years: analysis[1].rolling_time,
           analyze: analysis[1].analyze,
           credit_base_method: analysis[1].credit_method,
+          distributions: analysis[1].distributions,
 
           cap_rate: growth[1].cap_rate_range,
           participation_rate: growth[1].participation_range,
@@ -1267,6 +1282,7 @@ export default {
           rolling_time_period_years: analysis[2].rolling_time,
           analyze: analysis[2].analyze,
           credit_base_method: analysis[2].credit_method,
+          distributions: analysis[2].distributions,
 
           cap_rate: growth[2].cap_rate_range,
           participation_rate: growth[2].participation_range,
@@ -1566,7 +1582,7 @@ export default {
     if (!this.existingIndex.length) {
       this.getExistingIndex();
     }
-    if (this.$route.query.pid && this.$route.query.pid !== 'null') {
+    if (this.$route.query.pid && this.$route.query.pid !== "null") {
       this.populateHistoricalSimulationData(this.$route.query.pid, true);
     }
   },

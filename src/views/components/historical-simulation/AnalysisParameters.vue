@@ -98,18 +98,19 @@
     <div class="d-flex align-items-center px-4">
         <div class="IndexStrategyBtn w-66">
         <div class="w-100">
-            <input type="radio" name="analysisDistribution" :id="`annuallyDist${currentTab}`" checked>
-            <label :for="`annuallyDist${currentTab}`">Annually </label>
+            <input type="radio" :name="`analysisDistribution${currentTab}`" :id="`annuallyDist${currentTab}`" :checked="distributions === 'Annually' ? true : false">
+            <label :for="`annuallyDist${currentTab}`" @click="distributions = 'Annually'">Annually </label>
         </div>
         <div class="w-100">
-            <input type="radio" name="analysisDistribution" :id="`monthlyDist${currentTab}`">
-            <label :for="`monthlyDist${currentTab}`">Monthly</label>
+            <input type="radio" :name="`analysisDistribution${currentTab}`" :id="`monthlyDist${currentTab}`" :checked="distributions === 'Monthly' ? true : false">
+            <label :for="`monthlyDist${currentTab}`" @click="distributions = 'Monthly'">Monthly</label>
         </div>
         </div>
     </div>
     <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
     <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze" ref="analyzeRef"/>
     <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod" ref="credRef" />
+    <input type="hidden" :id="`distribution_method${currentTab}`" :value="distributions" ref="distributionsRef" />
     </form>
 </div>
 </template>
@@ -125,6 +126,7 @@ export default {
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
       analyze: "Index",
       credMethod: "Monthly Average Value",
+      distributions: "Annually",
       rollingPeriod: {
         value: 30,
         custom: "",
@@ -133,18 +135,15 @@ export default {
     };
   },
   methods: {
-    checkFunction: function() {
-      // console.log(this.$refs.indexRef.value);
-    },
     updateRollingPeriod: function(val) {
       let infoContent = document.querySelector("#rollingTimeInfoContent");
-      if(val == 1){
+      if (val == 1) {
         infoContent.textContent = `Choose a rolling period between 15 and 55 years.`;
-      }else if(val == 2 || val == 7){
+      } else if (val == 2 || val == 7) {
         infoContent.textContent = `Choose a rolling period between 15 and 30 years.`;
-      }else if(val == 3 || val == 4 || val == 6){
+      } else if (val == 3 || val == 4 || val == 6) {
         infoContent.textContent = `You must choose 15 years.`;
-      }else{
+      } else {
         infoContent.textContent = `Choose a rolling period between 15 and 20 years.`;
       }
 
@@ -177,16 +176,23 @@ export default {
       if (e) {
         this.$emit("setUpdated");
         let rolling = Number(this.$refs.rollingRef.value);
-        let index = this.indexStrategies.filter(i => i.template_name === document.getElementById(`analysis_index${this.currentTab}`).value)[0]
+        let index = this.indexStrategies.filter(
+          i =>
+            i.template_name ===
+            document.getElementById(`analysis_index${this.currentTab}`).value
+        )[0];
         this.updateRollingPeriod(index ? index.id : 1);
         if (this.rollingTimePeriod.includes(rolling)) {
           this.rollingPeriod.value = rolling;
         } else {
           this.rollingPeriod.custom = rolling;
-          document.getElementById(`rollingCustomAmount${this.currentTab}`).value = rolling;
+          document.getElementById(
+            `rollingCustomAmount${this.currentTab}`
+          ).value = rolling;
         }
         this.analyze = this.$refs.analyzeRef.value;
         this.credMethod = this.$refs.credRef.value;
+        this.distributions = this.$refs.distributionsRef.value;
       }
     },
   },
