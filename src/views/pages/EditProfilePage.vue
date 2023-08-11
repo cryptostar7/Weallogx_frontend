@@ -404,23 +404,38 @@ export default {
     },
     logoRemove: function(type) {
       this.$store.dispatch("loader", true);
-      var userData = new FormData();
-
+      let userData = {};
       if (type === "dark") {
-        userData.append("business_logo_dark", null);
+        userData = {business_logo_dark: null};
       }
 
       if (type === "blue") {
-        userData.append("business_logo_blue", null);
+        userData = {business_logo_blue: null};
       }
 
       if (type === "green") {
-        userData.append("business_logo_green", null);
+        userData = {business_logo_green: null};
       }
 
-      patch(`${getUrl("remove-logo")}/${this.user.id}/`, userData, authHeader())
+      patch(`${getUrl("remove-logo")}/`, userData, authHeader())
         .then(response => {
           console.log(response);
+
+        if (type === "green") {
+          this.businessLogoGreenFile = false;
+          this.businessLogoGreen = null;
+        }
+
+        if (type === "blue") {
+          this.businessLogoBlueFile = false;
+          this.businessLogoBlue = null;
+        }
+
+        if (type === "dark") {
+          this.businessLogoDarkFile = false;
+          this.businessLogoDark = null;
+        }
+
           this.getProfile();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);

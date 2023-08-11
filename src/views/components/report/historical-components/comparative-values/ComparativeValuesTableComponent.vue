@@ -919,36 +919,36 @@ export default {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.taxable_most_recent
-                  .final_balance,
-                total_value: "",
-                shortfall: "",
+                  .total_distribution,
+                total_value: this.historical.most_recent.taxable_most_recent.total_value,
+                shortfall: this.historical.most_recent.taxable_most_recent.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.taxable_min.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.min.taxable_min.total_distribution,
+                total_value: this.historical.min.taxable_min.total_value,
+                shortfall: this.historical.min.taxable_min.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.taxable_median.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.median.taxable_median.total_distribution,
+                total_value: this.historical.median.taxable_median.total_value,
+                shortfall: this.historical.median.taxable_median.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.taxable_max.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.max.taxable_max.total_distribution,
+                total_value: this.historical.max.taxable_max.total_value,
+                shortfall: this.historical.max.taxable_max.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -984,37 +984,36 @@ export default {
           catogories: {
             most_recent: {
               distribution: {
-                total: this.historical.most_recent.pre_tax_most_recent
-                  .final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.most_recent.pre_tax_most_recent.total_distribution,
+                total_value: this.historical.most_recent.pre_tax_most_recent.total_value,
+                shortfall: this.historical.most_recent.pre_tax_most_recent.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.pre_tax_min.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.min.pre_tax_min.total_distribution,
+                total_value: this.historical.most_recent.pre_tax_most_recent.total_value,
+                shortfall: this.historical.most_recent.pre_tax_most_recent.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.pre_tax_median.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.median.pre_tax_median.total_distribution,
+                total_value: this.historical.median.pre_tax_median.total_value,
+                shortfall: this.historical.median.pre_tax_median.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.pre_tax_max.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.max.pre_tax_max.total_distribution,
+                total_value: this.historical.max.pre_tax_max.total_value,
+                shortfall: this.historical.max.pre_tax_max.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -1051,36 +1050,36 @@ export default {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.tda_most_recent
-                  .final_balance,
-                total_value: "",
-                shortfall: "",
+                  .total_distribution,
+                total_value: this.historical.most_recent.tda_most_recent.total_value,
+                shortfall: this.historical.most_recent.tda_most_recent.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.tda_min.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.min.tda_min.total_distribution,
+                total_value: this.historical.min.tda_min.total_value,
+                shortfall: this.historical.min.tda_min.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.tda_median.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.median.tda_median.total_distribution,
+                total_value: this.historical.median.tda_median.total_value,
+                shortfall: this.historical.median.tda_median.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.tda_max.final_balance,
-                total_value: "",
-                shortfall: "",
+                total: this.historical.max.tda_max.total_distribution,
+                total_value: this.historical.max.tda_max.total_value,
+                shortfall: this.historical.max.tda_max.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },

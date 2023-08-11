@@ -198,11 +198,6 @@ export default {
           ? this.comparative_main.cv_3.comparison.chart_output
           : false;
 
-        // cv = chart ? chart["comperative_account_value"] : [];
-        // cv1 = chart1 ? chart1["net_balance"] : [];
-        // cv2 = chart2 ? chart2["net_balance"] : [];
-        // cv3 = chart3 ? chart3["net_balance"] : [];
-
         cv = chart ? chart["comperative_account_value"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
         cv1 = chart1 ? chart1["net_balance"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
         cv2 = chart2 ? chart2["net_balance"].map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];

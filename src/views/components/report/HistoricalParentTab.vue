@@ -13,8 +13,6 @@ import HistoricalIrrAnalysisTab from "./historical-components/HistoricalIRRAnaly
 import HistoricalTotalValuesTab from "./historical-components/HistoricalTotalValuesTab.vue";
 import HistoricalCumulativeValuesTab from "./historical-components/HistoricalCumulativeValuesTab.vue";
 import HistoricalComparativeValuesTab from "./historical-components/HistoricalComparativeValuesTab.vue";
-
-
 export default {
   props: ["tabID", "keyId", "sidebar"],
   components: {
