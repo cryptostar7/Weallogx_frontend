@@ -5668,3 +5668,27 @@ font-size:16px!important;
 body.presentationModeCommon .rghtTopHeadcommon{
   pointer-events: none;
 }
+.form-next-btn:disabled{
+  background-color: #DFDFDF;
+  color: #707070;
+}
+.cur-ol-label{
+  position: relative;
+}
+.cur-ol-label::before{
+  content: "";
+  position: absolute;
+  background-color: #dfdfdf;
+  top: 13px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  z-index: 1;
+}
+.cur-ol-label label{
+  font-size: 14px;
+  padding: 0.125rem .75rem;
+  background-color: #fff;
+  z-index: 2;
+  position: relative;
+}

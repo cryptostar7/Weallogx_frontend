@@ -4669,3 +4669,6 @@ background: #0C4A83;
 .dark-blue .sidebar-arrow-1 svg rect{
   fill: var(--blue-clr);
 }
+.dark-blue .first-ellipse{
+  fill: var(--blue-clr-2);
+}
