@@ -35,13 +35,29 @@
                     <div class="after-yes-middle-div my-2">
                       <p class="afterYesMdlPara pb-2">How would you like to build your Index Strategy Allocation?</p>
                       <div class="twoBtnSwtchMainDiv nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <div :class="`${cfs ? 'active' : ''}`" id="v-pills-scratch-tab" data-bs-toggle="pill" data-bs-target="#v-pills-scratch" type="button" role="tab" aria-controls="v-pills-scratch" aria-selected="true" @click="cfs = true">Create from Scratch</div>
-                        <div :class="`${cfs ? '' : 'active'}`" id="v-pills-indexStrategy-tab" data-bs-toggle="pill" data-bs-target="#v-pills-indexStrategy" type="button" role="tab" aria-controls="v-pills-indexStrategy" aria-selected="false" @click="cfs = false">Use Existing Index Strategy Allocation</div>
+                        <div :class="`${createFormScratch ? 'active' : ''}`" id="v-pills-scratch-tab" data-bs-toggle="pill" data-bs-target="#v-pills-scratch" type="button" role="tab" aria-controls="v-pills-scratch" aria-selected="true" @click="createFormScratch = true">Create from Scratch</div>
+                        <div :class="`${createFormScratch ? '' : 'active'}`" id="v-pills-indexStrategy-tab" data-bs-toggle="pill" data-bs-target="#v-pills-indexStrategy" type="button" role="tab" aria-controls="v-pills-indexStrategy" aria-selected="false" @click="createFormScratch = false">Use Existing Index Strategy Allocation</div>
                       </div>
                       <div class="tab-content mt-4" id="v-pills-tabContent">
-                        <div :class="`tab-pane fade ${cfs ? 'show active' : ''}`" id="v-pills-scratch" role="tabpanel" aria-labelledby="v-pills-scratch-tab">
-                          <div class="historical-upload-info d-flex">
-                            <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><ellipse class="first-ellipse" cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5" fill="#0E6651"/><ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white"/><rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white"/></svg></div>
+                        <div :class="`tab-pane fade ${createFormScratch ? 'show active' : ''}`" id="v-pills-scratch" role="tabpanel" aria-labelledby="v-pills-scratch-tab">
+                        
+                        </div>
+                        <div :class="`tab-pane fade ${createFormScratch ? '' : 'show active'}`" id="v-pills-indexStrategy" role="tabpanel"  aria-labelledby="v-pills-indexStrategy-tab">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md-8 offset-md-2 strategyAllocation">
+                                <form action="javascript:void(0)">
+                                  <SelectDropdown :list="portfolio" label="Choose Existing Index Strategy Allocation"  id="historicalIndexPortfolio" class="form-group less pt-3" @inputText="(e) => portfolioName = e"/>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="historical-upload-info d-flex">
+                        <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><ellipse class="first-ellipse" cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5" fill="#0E6651"/><ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white"/><rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white"/></svg></div>
                           <p class="fs-12 mb-0">It is highly recommended to upload a bare-bones version of the illustration that is accumulation only. Do not include loans, withdrawals, or optional enhancements (such as multipliers or credits) regardless of whether or not they cost additional fees. Those elements will be added later in the process.</p>
                           </div>
                           <div class="pt-2">
@@ -106,32 +122,19 @@
                                 </div>
                                 <div class="cur-ol-label text-center"> <label>or</label> </div>
                                   <div class="form-check form-switch custom-switch mt-2 d-flex align-items-center justify-content-center">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="useCurrentIllustration">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="useCurrentIllustration" @change="setIllustratioCsv">
                                     <label class="form-check-label ms-1 fs-12 semi-bold-fw mb-0" for="useCurrentIllustration"> Use Current Illustration</label>
                                   </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div :class="`tab-pane fade ${cfs ? '' : 'show active'}`" id="v-pills-indexStrategy" role="tabpanel"  aria-labelledby="v-pills-indexStrategy-tab">
-                          <div class="container">
-                            <div class="row">
-                              <div class="col-md-8 offset-md-2 strategyAllocation">
-                                <form action="javascript:void(0)">
-                                  <SelectDropdown :list="portfolio" label="Choose Existing Index Strategy Allocation"  id="historicalIndexPortfolio" class="form-group less pt-3" @inputText="(e) => portfolioName = e"/>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- table start -->
-              <div v-if="csvPreview.headers.length" :class="`illustration-data-table-div w-100 ${cfs ? '' : 'd-none'}`">
+              <div v-if="csvPreview.headers.length" :class="`illustration-data-table-div w-100`">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
                     <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
@@ -235,7 +238,7 @@
                 </div>
               </div>
               <div class="text-center mt-30 pt-3">
-                <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">Next</button>
+                <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()" :disabled="!isvalidCsvData">Next</button>
                 <span class="d-block mb-3"></span>
                 <div class="d-flex justify-content-center">
                   <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14">
@@ -291,7 +294,7 @@ export default {
   components: { SelectDropdown, DeleteColomnModal, ScenarioLabelComponent },
   data() {
     return {
-      cfs: true,
+      createFormScratch: true,
       errors: [],
       portfolio: [],
       portfolioName: "",
@@ -307,6 +310,7 @@ export default {
         type: "new",
       },
       csvPreview: { data: [], headers: [] },
+      // illustrationData: { data: [], headers: [] },
       removeColId: [],
     };
   },
@@ -894,10 +898,61 @@ export default {
         }
       }, 100);
     },
+    getIllustrationData: function(id) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl("illustration")}${id}`, authHeader())
+        .then(response => {
+          let illustration_data =
+            response.data.data.illustration_data.copy_paste;
 
-    testFunction: function() {
-      let clone = { ...this.csvPreview };
-      console.log(clone);
+          let headerKeys = {
+            none: "none",
+            age: "age",
+            year: "duration",
+            premium_outlay: "premium_outlay",
+            distributions: "net_distributions",
+            total_loan_charge: "total_loan_charges",
+            account_value: "accumulation_value",
+            distribution_loan: "index_loan_credits",
+            surrender_value: "cash_value",
+            death_benefit: "death_benefit",
+          };
+
+          // convert illustration columns ccording to historical column table headers
+          illustration_data.headers = illustration_data.headers.map(
+            i => headerKeys[i]
+          );
+
+          illustration_data.headers = illustration_data.headers.map(
+            i => this.illustrationFieldsIndex[i]
+          );
+
+          this.csvPreview = this.filterObject(illustration_data);
+            this.$store.dispatch("loader", false);
+
+        })
+        .catch(error => {
+            console.log(error);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+        });
+    },
+    setIllustratioCsv: function(e) {
+      let scenario = this.$store.state.data.active_scenario;
+      if(e.target.checked){
+        if(scenario.illustration){
+          this.getIllustrationData(scenario.illustration);
+        }else{
+          this.$toast.error('Data not found.');
+        }
+      }else{
+        this.resetCsv();
+      }
     },
 
     // remove column from the illustration data table
@@ -1015,7 +1070,7 @@ export default {
         e.preventDefault();
       }
 
-      if (!this.cfs) {
+      if (!this.createFormScratch) {
         return this.$router.push(
           `/historical-simulations/${
             this.$route.params.scenario
@@ -1064,7 +1119,7 @@ export default {
         return false;
       }
       console.log("submitted");
-    
+
       let upload_file_checkbox = this.uploadFromFile ? true : false;
 
       let formData = new FormData();
@@ -1317,6 +1372,44 @@ export default {
         duration: "9",
       };
     },
+    isvalidCsvData() {
+      if(!this.createFormScratch && !this.getPortfolioId()){
+        return false;
+      }
+
+      if (
+        this.csvPreview &&
+        this.csvPreview.headers &&
+        this.csvPreview.headers.length > 6
+      ) {
+        if (!this.csvPreview.headers.includes("1")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("2")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("5")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("6")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("8")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("9")) {
+          return false;
+        }
+      } else {
+       return false;
+      }
+       return true;
+    }
   },
 };
 </script>
