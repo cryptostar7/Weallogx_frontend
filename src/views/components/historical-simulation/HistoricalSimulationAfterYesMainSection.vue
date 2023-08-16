@@ -1025,18 +1025,23 @@ export default {
         if (!this.csvPreview.headers.includes("1")) {
           return alert(`${this.illustrationFields["1"].name} is required.`);
         }
+
         if (!this.csvPreview.headers.includes("2")) {
           return alert(`${this.illustrationFields["2"].name} is required.`);
         }
-        if (!this.csvPreview.headers.includes("4")) {
-          return alert(`${this.illustrationFields["4"].name} is required.`);
+
+        if (!this.csvPreview.headers.includes("5")) {
+          return alert(`${this.illustrationFields["5"].name} is required.`);
         }
-        if (!this.csvPreview.headers.includes("7")) {
-          return alert(`${this.illustrationFields["7"].name} is required.`);
+
+        if (!this.csvPreview.headers.includes("6")) {
+          return alert(`${this.illustrationFields["6"].name} is required.`);
         }
+
         if (!this.csvPreview.headers.includes("8")) {
           return alert(`${this.illustrationFields["8"].name} is required.`);
         }
+
         if (!this.csvPreview.headers.includes("9")) {
           return alert(`${this.illustrationFields["9"].name} is required.`);
         }
@@ -1047,14 +1052,14 @@ export default {
           return this.$toast.warning("CSV data is required.");
         }
       }
-      console.log("submitted");
 
       if (!this.validateForm()) {
         console.log(this.errors);
         document.getElementById("main-section-element").scrollIntoView();
         return false;
       }
-
+      console.log("submitted");
+    
       let upload_file_checkbox = this.uploadFromFile ? true : false;
 
       let formData = new FormData();
@@ -1266,50 +1271,45 @@ export default {
       return [
         { name: "None", value: "none", multiple: true },
         { name: "Age", value: "age", multiple: false },
-        { name: "Duration", value: "duration", multiple: false },
-        { name: "Premium Outlay", value: "premium_outlay", multiple: false },
-        {
-          name: "Net Distributions",
-          value: "net_distributions",
-          multiple: false,
-        },
-        {
-          name: "Index / Loan Credits",
-          value: "index_loan_credits",
-          multiple: false,
-        },
-        {
-          name: "Total Policy Charges",
-          value: "total_policy_charges",
-          multiple: false,
-        },
-        {
-          name: "Total Loan Charges",
-          value: "total_loan_charges",
-          multiple: false,
-        },
         {
           name: "Accumulation Value",
           value: "accumulation_value",
           multiple: false,
         },
-        { name: "Cash Value", value: "cash_value", multiple: false },
+        {
+          name: "Distribution - Loan",
+          value: "index_loan_credits",
+          multiple: false,
+        },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
+        {
+          name: "Distribution - Withdrawal",
+          value: "net_distributions",
+          multiple: false,
+        },
+        {
+          name: "Fees",
+          value: "total_loan_charges",
+          multiple: false,
+        },
+        { name: "Premium", value: "premium_outlay", multiple: false },
+
+        { name: "Surrender Value", value: "cash_value", multiple: false },
+        { name: "Year", value: "duration", multiple: false },
       ];
     },
     illustrationFieldsIndex() {
       return {
         none: "0",
         age: "1",
-        duration: "2",
-        premium_outlay: "3",
-        net_distributions: "4",
-        index_loan_credits: "5",
-        total_policy_charges: "6",
-        total_loan_charges: "7",
-        accumulation_value: "8",
-        cash_value: "9",
-        death_benefit: "10",
+        accumulation_value: "2",
+        index_loan_credits: "3",
+        death_benefit: "4",
+        net_distributions: "5",
+        total_loan_charges: "6",
+        premium_outlay: "7",
+        cash_value: "8",
+        duration: "9",
       };
     },
   },
