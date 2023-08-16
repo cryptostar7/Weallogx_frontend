@@ -41,10 +41,10 @@
                       <div class="tab-content mt-4" id="v-pills-tabContent">
                         <div :class="`tab-pane fade ${cfs ? 'show active' : ''}`" id="v-pills-scratch" role="tabpanel" aria-labelledby="v-pills-scratch-tab">
                           <div class="historical-upload-info d-flex">
-                            <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5" fill="#0E6651"/><ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white"/><rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white"/></svg></div>
-                          <p class="fs-12 mb-0">Please upload a bare bones version of the illustration that is accumulation only. Do not include loans, withdrawals, or optional enhancements that require additional fees. Those elements will be added later in the process.</p>
+                            <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><ellipse class="first-ellipse" cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5" fill="#0E6651"/><ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white"/><rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white"/></svg></div>
+                          <p class="fs-12 mb-0">It is highly recommended to upload a bare-bones version of the illustration that is accumulation only. Do not include loans, withdrawals, or optional enhancements (such as multipliers or credits) regardless of whether or not they cost additional fees. Those elements will be added later in the process.</p>
                           </div>
-                          <div class="mt-3 pt-2">
+                          <div class="pt-2">
                             <div class="form-wrapper-inner px-0 shadow-none">
                               <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                                 <li class="nav-item" role="presentation">  
@@ -104,6 +104,11 @@
                                     </div>
                                   </div>
                                 </div>
+                                <div class="cur-ol-label text-center"> <label>or</label> </div>
+                                  <div class="form-check form-switch custom-switch mt-2 d-flex align-items-center justify-content-center">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="useCurrentIllustration">
+                                    <label class="form-check-label ms-1 fs-12 semi-bold-fw mb-0" for="useCurrentIllustration"> Use Current Illustration</label>
+                                  </div>
                               </div>
                             </div>
                           </div>

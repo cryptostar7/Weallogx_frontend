@@ -386,6 +386,10 @@
   background-color: var(--blue-clr);
   color: #fff;
 }
+.light-blue .form-next-btn:disabled{
+  background-color: #DFDFDF;
+  color: #707070;
+}
 .light-blue .custom-switch .form-check-input:checked,
 .light-blue .custom-switch .form-check-input:checked:focus {
   border: 0;
@@ -1531,4 +1535,7 @@ background: #1660A4;
 }
 .light-blue .sidebar-arrow-1 svg rect{
   fill: var(--blue-clr);
+}
+.light-blue .first-ellipse{
+  fill: var(--blue-clr-2);
 }
