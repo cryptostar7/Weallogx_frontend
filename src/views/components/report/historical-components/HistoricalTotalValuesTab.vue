@@ -395,7 +395,7 @@ export default {
         }
       });
 
-      var assestShowHide2 = document.querySelector(".showAssetsCheckBox2");
+      var assestShowHide2 = document.querySelector(".showAssetsCheckBox");
 
       assestShowHide2.addEventListener("click", e => {
         e.target.classList.toggle("on");

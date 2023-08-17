@@ -144,21 +144,21 @@
                         <div class="row eachCardParaRow">
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">Strategy Avg</p>
-                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].strategy_average}}</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].categories[tsa_type].strategy_average}}</p>
                           </div>
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
-                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].strategy_cagr}}</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].categories[tsa_type].strategy_cagr}}</p>
                           </div>
                           <div class="d-flex justify-content-between">
                             <p class="lirpPara8 m-0 mb-1">IRR</p>
-                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].catogories[tsa_type].irr}}</p>
+                            <p class="lirpPara2 m-0 mb-1">{{table.data[0].categories[tsa_type].irr}}</p>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12">
                             <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                              <p><input type="text" v-model="table.data[0].catogories[tsa_type].type" class="tableHeadInputs" readonly/></p>
+                              <p><input type="text" v-model="table.data[0].categories[tsa_type].type" class="tableHeadInputs" readonly/></p>
                             </div>
                           </div>
                         </div>
@@ -171,7 +171,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in table.data[0].catogories[tsa_type].list" :key="index">
+                            <tr v-for="(item, index) in table.data[0].categories[tsa_type].list" :key="index">
                                 <td  data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions)" readonly/></td>
                                 <td class="blankTd" data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td>
                             </tr>
@@ -239,15 +239,10 @@
                                               </defs>
                                             </svg>
                                           </a>
-                                        <a href="javascript:void(0)" data-bs-target="#deleteAccountModal"
-                                          data-bs-toggle="modal" class="deleteBtnAccount deleteBtn disableBtnsForAll">&nbsp;<svg
-                                            width="12" height="13" viewBox="0 0 12 13" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                              d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
-                                              stroke="#1660A4" stroke-width="1.25" />
-                                            <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"
-                                              transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
+                                        <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal" class="deleteBtnAccount deleteBtn disableBtnsForAll">&nbsp;
+                                          <svg  width="12" height="13" viewBox="0 0 12 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
+                                            <path  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"  stroke="#1660A4" stroke-width="1.25" />
+                                            <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
                                           </svg>
                                         </a>
                                       </div>
@@ -257,21 +252,21 @@
                                 <div class="row eachCardParaRow">
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy Avg</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].strategy_average}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].strategy_average}}</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CAGR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].strategy_cagr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].strategy_cagr}}</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">IRR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].catogories[tsa_type].irr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].irr}}</p>
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-12">
                                     <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                      <p><input type="text" v-model="table.data[header.id].catogories[tsa_type].type" class="tableHeadInputs" readonly/></p>
+                                      <p><input type="text" v-model="table.data[header.id].categories[tsa_type].type" class="tableHeadInputs" readonly/></p>
                                     </div>
                                   </div>
                                 </div>
@@ -284,7 +279,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="(item, index) in table.data[header.id].catogories[tsa_type].list" :key="index">
+                                  <tr v-for="(item, index) in table.data[header.id].categories[tsa_type].list" :key="index">
                                     <td class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(item.distributions)" readonly/></td>
                                     <td data-label="acount"><input type="text" :value="$numFormatWithDollar(item.account_value)" readonly/></td>
                                   </tr>
@@ -342,16 +337,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.total)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.total)" readonly/></td>
+                                  <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.total)" readonly/></td>
+                                  <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.total_value)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.total_value)" readonly/></td>
+                                  <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.total_value)" readonly/></td>
+                                  <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total_value)" readonly/></td>
                                 </tr>
                                 <tr>
-                                <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].distribution.shortfall)" readonly/></td>
-                                <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].catogories[tsa_type].net_balance.shortfall)" readonly/></td>
+                                  <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.shortfall)" readonly/></td>
+                                  <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.shortfall)" readonly/></td>
                                 </tr>
                             </tbody>
                             </table>
@@ -369,16 +364,16 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.total)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.shortfall)" readonly/>{{$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.total)}}</td>
+                                              <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].distribution.total)" readonly/></td>
+                                              <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.shortfall)" readonly/>{{$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.total)}}</td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.total_value)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.total_value)" readonly/></td>
+                                              <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].distribution.total_value)" readonly/></td>
+                                              <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.total_value)" readonly/></td>
                                             </tr>
                                             <tr>
-                                            <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].distribution.shortfall)" readonly/></td>
-                                            <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].catogories[tsa_type].net_balance.shortfall)" readonly/></td>
+                                              <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].distribution.shortfall)" readonly/></td>
+                                              <td width="50%" class="blankTd" data-label="blank"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.shortfall)" readonly/></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -420,7 +415,7 @@ export default {
         data: [
           {
             id: 0,
-            catogories: {
+            categories: {
               most_recent: {
                 strategy_average: "",
                 strategy_cagr: "",
@@ -454,7 +449,7 @@ export default {
 
           {
             id: 1,
-            catogories: {
+            categories: {
               most_recent: {
                 strategy_average: "",
                 strategy_cagr: "",
@@ -488,7 +483,7 @@ export default {
 
           {
             id: 2,
-            catogories: {
+            categories: {
               most_recent: {
                 strategy_average: "",
                 strategy_cagr: "",
@@ -522,7 +517,7 @@ export default {
 
           {
             id: 3,
-            catogories: {
+            categories: {
               most_recent: {
                 strategy_average: "",
                 strategy_cagr: "",
@@ -560,7 +555,7 @@ export default {
         data: [
           {
             id: 0,
-            catogories: {
+            categories: {
               most_recent: {
                 distribution: {
                   total: "",
@@ -613,7 +608,7 @@ export default {
           },
           {
             id: 1,
-            catogories: {
+            categories: {
               most_recent: {
                 distribution: {
                   total: "",
@@ -666,7 +661,7 @@ export default {
           },
           {
             id: 2,
-            catogories: {
+            categories: {
               most_recent: {
                 distribution: {
                   total: "",
@@ -719,7 +714,7 @@ export default {
           },
           {
             id: 3,
-            catogories: {
+            categories: {
               most_recent: {
                 distribution: {
                   total: "",
@@ -776,9 +771,8 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.summary_data);
+      console.log(this.historical);
     },
-    mapSummaryData: function() {},
     filterDeposits: function() {
       var data = this.historical.lirp_data;
       let tempList = [];
@@ -835,7 +829,7 @@ export default {
       return {
         data: {
           id: 0,
-          catogories: {
+          categories: {
             most_recent: this.filterData(
               this.historical.most_recent.result,
               "TSA - Most Recent"
@@ -850,7 +844,7 @@ export default {
         },
         summary: {
           id: 0,
-          catogories: {
+          categories: {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.result.sum_of_all_total_value,
@@ -894,7 +888,7 @@ export default {
       return {
         data: {
           id: 1,
-          catogories: {
+          categories: {
             most_recent: this.filterData(
               this.historical.most_recent.taxable_most_recent,
               "Brokerage Account - Most Recent"
@@ -915,7 +909,7 @@ export default {
         },
         summary: {
           id: 1,
-          catogories: {
+          categories: {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.taxable_most_recent
@@ -960,7 +954,7 @@ export default {
       return {
         data: {
           id: 2,
-          catogories: {
+          categories: {
             most_recent: this.filterData(
               this.historical.most_recent.pre_tax_most_recent,
               "401K/IRA - Most Recent"
@@ -981,7 +975,7 @@ export default {
         },
         summary: {
           id: 2,
-          catogories: {
+          categories: {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.pre_tax_most_recent.total_distribution,
@@ -1025,7 +1019,7 @@ export default {
       return {
         data: {
           id: 3,
-          catogories: {
+          categories: {
             most_recent: this.filterData(
               this.historical.most_recent.tda_most_recent,
               "Annuity - Most Recent"
@@ -1046,7 +1040,7 @@ export default {
         },
         summary: {
           id: 3,
-          catogories: {
+          categories: {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.tda_most_recent

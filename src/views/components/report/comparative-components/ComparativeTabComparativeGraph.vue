@@ -628,15 +628,10 @@ export default {
       );
 
       function resetColors(chart){
-        console.log(chart.config);
         comparativeValuesConfig.data.datasets[0].borderColor = bordercolors[0];
         comparativeValuesConfig.data.datasets[1].borderColor = bordercolors[1];
         comparativeValuesConfig.data.datasets[2].borderColor = bordercolors[2];
         comparativeValuesConfig.data.datasets[3].borderColor = bordercolors[3];
-        // chart.config.data.datasets[0].borderWidth = 4;
-        // chart.config.data.datasets[1].borderWidth = 4;
-        // chart.config.data.datasets[2].borderWidth = 4;
-        // chart.config.data.datasets[3].borderWidth = 4;
         chart.update();
       }
 
