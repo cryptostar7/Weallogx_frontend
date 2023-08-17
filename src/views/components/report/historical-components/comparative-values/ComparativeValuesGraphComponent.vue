@@ -305,7 +305,7 @@ export default {
               irr: "11.55%",
             },
           },
-        },       
+        },
       ],
     };
   },
@@ -333,14 +333,13 @@ export default {
             chart_data.net_balance ||
             chart_data.eoy_accumulation_value_after_credit;
           finalData = {
-            cummulative_income : data.cummulative_income || data.final_balance,
-            ror : "",
+            cummulative_income: data.cummulative_income || data.final_balance,
+            ror: "",
             type: type,
-            irr : data.irr_percent,
-            longevity_year:this.getYear(account_value, duration)
-          }
+            irr: data.irr_percent,
+            longevity_year: this.getYear(account_value, duration),
+          };
           finalData.account_value = account_value;
-         
         }
       }
       return finalData;
@@ -348,7 +347,7 @@ export default {
     mapColumn1Data: function() {
       return {
         data: {
-          id:0,
+          id: 0,
           categories: {
             most_recent: this.filterData(
               this.historical.most_recent.result,
@@ -367,7 +366,7 @@ export default {
     mapColumn2Data: function() {
       return {
         data: {
-          id:1,
+          id: 1,
           categories: {
             most_recent: this.filterData(
               this.historical.most_recent.taxable_most_recent,
@@ -392,7 +391,7 @@ export default {
     mapColumn3Data: function() {
       return {
         data: {
-          id:2,
+          id: 2,
           categories: {
             most_recent: this.filterData(
               this.historical.most_recent.pre_tax_most_recent,
@@ -417,7 +416,7 @@ export default {
     mapColumn4Data: function() {
       return {
         data: {
-          id:3,
+          id: 3,
           categories: {
             most_recent: this.filterData(
               this.historical.most_recent.tda_most_recent,
@@ -461,16 +460,31 @@ export default {
             ? chart["distributions"]
             : [];
 
-            
         chart = this.mapColumn1Data().data.categories[this.tsa_type];
         let chart1 = this.mapColumn2Data().data.categories[this.tsa_type];
         let chart2 = this.mapColumn3Data().data.categories[this.tsa_type];
         let chart3 = this.mapColumn4Data().data.categories[this.tsa_type];
-       
-        cv = chart ? chart.account_value.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
-        cv1 = chart1 ? chart1.account_value.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
-        cv2 = chart2 ? chart2.account_value.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
-        cv3 = chart3 ? chart3.account_value.map((i, idx) => { return {x: idx, y: i.toFixed(0)}}) : [];
+
+        cv = chart
+          ? chart.account_value.map((i, idx) => {
+              return { x: idx, y: i.toFixed(0) };
+            })
+          : [];
+        cv1 = chart1
+          ? chart1.account_value.map((i, idx) => {
+              return { x: idx, y: i.toFixed(0) };
+            })
+          : [];
+        cv2 = chart2
+          ? chart2.account_value.map((i, idx) => {
+              return { x: idx, y: i.toFixed(0) };
+            })
+          : [];
+        cv3 = chart3
+          ? chart3.account_value.map((i, idx) => {
+              return { x: idx, y: i.toFixed(0) };
+            })
+          : [];
       }
 
       let dataset = {
@@ -484,10 +498,14 @@ export default {
         datasets: [
           {
             borderColor:
-              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
                 : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             pointBackgroundColor:
-              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
                 : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -501,10 +519,14 @@ export default {
           },
           {
             borderColor:
-              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#089875"
                 : "#1660A4",
             pointBackgroundColor:
-              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             pointBorderWidth: 1,
@@ -512,8 +534,8 @@ export default {
             data:
               this.deletedItems.includes(1) || !this.cards[0].active
                 ? []
-                // : cv1.map(i => i.toFixed(0)) || [],
-                : cv1.map(i => i.y) || [],
+                : // : cv1.map(i => i.toFixed(0)) || [],
+                  cv1.map(i => i.y) || [],
           },
           {
             borderColor: "#763CA3",
@@ -524,8 +546,8 @@ export default {
             data:
               this.deletedItems.includes(2) || !this.cards[1].active
                 ? []
-                // : cv2.map(i => i.toFixed(0)) || [],
-                : cv2.map(i => i.y) || [],
+                : // : cv2.map(i => i.toFixed(0)) || [],
+                  cv2.map(i => i.y) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -536,8 +558,8 @@ export default {
             data:
               this.deletedItems.includes(3) || !this.cards[2].active
                 ? []
-                // : cv3.map(i => i.toFixed(0)) || [],
-                : cv3.map(i => i.y) || [],
+                : // : cv3.map(i => i.toFixed(0)) || [],
+                  cv3.map(i => i.y) || [],
           },
           {
             barPercentage: 0,
@@ -594,7 +616,7 @@ export default {
             .getElementById(options.containerID)
             .querySelectorAll("input[type=checkbox]");
           items.forEach((item, index) => {
-            if(checkboxes[index]){
+            if (checkboxes[index]) {
               checkboxes[index].onclick = e => {
                 const { type } = chart.config;
                 if (type === "pie" || type === "doughnut") {
@@ -660,13 +682,25 @@ export default {
           Math.max(...(graphData.datasets[5].data || [])),
         ]
       );
-    
-      const comparativeValuesChart2 = document.getElementById("comparativeValuesChart2");
-      const comparativeGraphArea2 = document.querySelector("#comparativeGraphArea2");
+
+      const comparativeValuesChart2 = document.getElementById(
+        "comparativeValuesChart2"
+      );
+      const comparativeGraphArea2 = document.querySelector(
+        "#comparativeGraphArea2"
+      );
 
       const totalDuration = 4500;
-      const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
-      const previousY = ctx => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+      const delayBetweenPoints =
+        totalDuration / graphData.datasets[0].data.length;
+      const previousY = ctx =>
+        ctx.index === 0
+          ? ctx.chart.scales.y.getPixelForValue(
+              graphData.datasets[0].data.length
+            )
+          : ctx.chart
+              .getDatasetMeta(ctx.datasetIndex)
+              .data[ctx.index - 1].getProps(["y"], true).y;
 
       let animationTimeout = false;
 
@@ -688,7 +722,7 @@ export default {
 
       // Create a new Intersection Observer instance
       const observer = new IntersectionObserver(handleIntersection, {
-        threshold: 0.25 
+        threshold: 0.25,
       });
 
       // Start observing the chart container
@@ -696,32 +730,32 @@ export default {
 
       function animateChart(chart) {
         chart.options.animation = {
-           x: {
-            type: 'number',
-            easing: 'linear',
+          x: {
+            type: "number",
+            easing: "linear",
             duration: delayBetweenPoints,
             from: NaN, // the point is initially skipped
             delay(ctx) {
-              if (ctx.type !== 'data' || ctx.xStarted) {
+              if (ctx.type !== "data" || ctx.xStarted) {
                 return 0;
               }
               ctx.xStarted = true;
               return ctx.index * delayBetweenPoints;
-            }
+            },
           },
           y: {
-            type: 'number',
-            easing: 'linear',
+            type: "number",
+            easing: "linear",
             duration: delayBetweenPoints,
             from: 0,
             delay(ctx) {
-              if (ctx.type !== 'data' || ctx.yStarted) {
+              if (ctx.type !== "data" || ctx.yStarted) {
                 return 0;
               }
               ctx.yStarted = true;
               return ctx.index * delayBetweenPoints;
-            }
-          }
+            },
+          },
         };
         chart.update();
       }
@@ -730,51 +764,78 @@ export default {
 
       let screenMode = localStorage.getItem("mode");
       if (screenMode == "light-blue") {
-        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
-      } else if (screenMode == "dark-blue"){
-        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
+        bordercolors = ["#1660A4", "#089875", "#763CA3", "#9D2B2B", "#eee"];
+      } else if (screenMode == "dark-blue") {
+        bordercolors = ["#1660A4", "#089875", "#763CA3", "#9D2B2B", "#333"];
       } else if (screenMode == "dark-green") {
-        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
+        bordercolors = ["#26AB8B", "#23669E", "#763CA3", "#9D2B2B", "#333"];
       } else {
-        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
+        bordercolors = ["#0E6651", "#1660A4", "#763CA3", "#9D2B2B", "#eee"];
       }
 
       const highlightLine = {
         id: "highlightLine",
-        beforeDatasetsDraw(chart, args, plugins){
+        beforeDatasetsDraw(chart, args, plugins) {
           let { data } = chart;
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
-          if(animationTimeout){
+          if (animationTimeout) {
             setTimeout(() => {
               animationTimeout = false;
             }, totalDuration);
-          }else{
-            for(let i = 0; i < datasetMetaArray.length; i++){
+          } else {
+            for (let i = 0; i < datasetMetaArray.length; i++) {
               const dataMetaSet = datasetMetaArray[i];
               const index = dataMetaSet.index;
-              if(index <= 3 && dataMetaSet.data.some(dataPoint => dataPoint.active)){
+              if (
+                index <= 3 &&
+                dataMetaSet.data.some(dataPoint => dataPoint.active)
+              ) {
                 data.datasets[index].borderColor = bordercolors[index];
                 // data.datasets[index].borderWidth = 6;
                 chart.update();
-                break;            
+                break;
               }
             }
-          } 
+          }
         },
-        afterEvent(chart, args){
+        afterEvent(chart, args) {
           let { data } = chart;
-          if(args.inChartArea){
-            function setBorderColor(active, index, borderColor){
+          if (args.inChartArea) {
+            function setBorderColor(active, index, borderColor) {
               return active ? borderColor : bordercolors[4];
             }
-            chart.getDatasetMeta(0).data[0] ? data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0]) : bordercolors[4];
-            chart.getDatasetMeta(1).data[0] ? data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1]) : bordercolors[4];
-            chart.getDatasetMeta(2).data[0] ? data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2]) : bordercolors[4];
-            chart.getDatasetMeta(3).data[0] ? data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3]) : bordercolors[4];
+            chart.getDatasetMeta(0).data[0]
+              ? (data.datasets[0].borderColor = setBorderColor(
+                  chart.getDatasetMeta(0).data[0].active,
+                  0,
+                  bordercolors[0]
+                ))
+              : bordercolors[4];
+            chart.getDatasetMeta(1).data[0]
+              ? (data.datasets[1].borderColor = setBorderColor(
+                  chart.getDatasetMeta(1).data[0].active,
+                  1,
+                  bordercolors[1]
+                ))
+              : bordercolors[4];
+            chart.getDatasetMeta(2).data[0]
+              ? (data.datasets[2].borderColor = setBorderColor(
+                  chart.getDatasetMeta(2).data[0].active,
+                  2,
+                  bordercolors[2]
+                ))
+              : bordercolors[4];
+            chart.getDatasetMeta(3).data[0]
+              ? (data.datasets[3].borderColor = setBorderColor(
+                  chart.getDatasetMeta(3).data[0].active,
+                  3,
+                  bordercolors[3]
+                ))
+              : bordercolors[4];
           }
           args.changed = true;
-        }
-      }
+        },
+      };
 
       const comparativeValuesConfig = {
         type: "line",
@@ -889,7 +950,7 @@ export default {
         comparativeValuesConfig
       );
 
-      function resetColors(chart){
+      function resetColors(chart) {
         comparativeValuesConfig.data.datasets[0].borderColor = bordercolors[0];
         comparativeValuesConfig.data.datasets[1].borderColor = bordercolors[1];
         comparativeValuesConfig.data.datasets[2].borderColor = bordercolors[2];
@@ -897,16 +958,18 @@ export default {
         chart.update();
       }
 
-      const graphContainer = document.querySelector(".comparative-graph-container");
+      const graphContainer = document.querySelector(
+        ".comparative-graph-container"
+      );
 
-      graphContainer.addEventListener("mouseout", (e) => {
-       if(animationTimeout){
+      graphContainer.addEventListener("mouseout", e => {
+        if (animationTimeout) {
           setTimeout(() => {
             animationTimeout = false;
           }, totalDuration);
-        }else{
+        } else {
           resetColors(window.comparativeGraphChart2);
-        }   
+        }
       });
 
       var redioInp = document.querySelector(".dropdown-menu");
@@ -917,28 +980,28 @@ export default {
           graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[1].pointBackgroundColor = "#089875";
-          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#eee"];
-          resetColors(window.comparativeGraphChart2)
+          bordercolors = ["#1660A4", "#089875", "#763CA3", "#9D2B2B", "#eee"];
+          resetColors(window.comparativeGraphChart2);
         } else if (screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[0].pointBackgroundColor = "#1660A4";
           graphData.datasets[1].borderColor = "#089875";
           graphData.datasets[1].pointBackgroundColor = "#089875";
-          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#333"];
+          bordercolors = ["#1660A4", "#089875", "#763CA3", "#9D2B2B", "#333"];
         } else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[0].pointBackgroundColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
           graphData.datasets[1].pointBackgroundColor = "#23669E";
-          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#333"];
-          resetColors(window.comparativeGraphChart2)
+          bordercolors = ["#26AB8B", "#23669E", "#763CA3", "#9D2B2B", "#333"];
+          resetColors(window.comparativeGraphChart2);
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
           graphData.datasets[1].pointBackgroundColor = "#1660A4";
-          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#eee"];
-          resetColors(window.comparativeGraphChart2)
+          bordercolors = ["#0E6651", "#1660A4", "#763CA3", "#9D2B2B", "#eee"];
+          resetColors(window.comparativeGraphChart2);
         }
         window.comparativeGraphChart2.update();
       });
@@ -983,12 +1046,11 @@ export default {
     },
     // map API data for the CV cards
     mapData: function() {
-      console.log('this.mapColumn1Data()');
+      console.log("this.mapColumn1Data()");
       console.log(this.mapColumn1Data().data);
       console.log(this.mapColumn2Data().data);
       console.log(this.mapColumn3Data().data);
       console.log(this.mapColumn4Data().data);
-
 
       this.data[0] = this.mapColumn1Data().data;
       this.data[1] = this.mapColumn2Data().data;
@@ -1049,6 +1111,9 @@ export default {
       this.setGraph();
     },
     "deletedItems.length"(val) {
+      this.setGraph();
+    },
+    tsa_type(val) {
       this.setGraph();
     },
   },
