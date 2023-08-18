@@ -11,7 +11,7 @@
           role="tab" aria-controls="card-best" aria-selected="true"  @click="() => tsa_type = 'best'">Best</div>
       </div>
     </div>
-    <button @click="testFunction">testFunction</button>
+    <!-- <button @click="testFunction">testFunction</button> -->
     <div class="px-3 py-3" id="comparativeValuesFluid2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
@@ -113,8 +113,7 @@
                     <p>{{data[card.id].categories[tsa_type].irr}}</p>
                   </div>
                 </div>
-              </div>
-       
+              </div>     
           
             </div>
           </div>
@@ -125,7 +124,7 @@
         <div class="container-fluid pb-2">
           <div class="graph-container-div graph-area" id="comparativeGraphArea2">
             <div class="comparative-graph-container w-100 pt-md-3">
-              <canvas id="comparativeValuesChart2" width="400" height="350"></canvas>
+              <canvas id="comparativeValuesChart2" width="400" height="300"></canvas>
             </div>
             <div class="progressBarEachBtm comparative">
               <div class="bar-container contribution-radio d-flex justify-content-between align-items-center">

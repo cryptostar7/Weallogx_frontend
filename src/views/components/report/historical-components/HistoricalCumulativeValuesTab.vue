@@ -87,13 +87,14 @@
                     </div>
                   </div>
                   <div class="container-fluid">
-                    <div class="CompMainProgrssBarDiv">
-                      <div class="w-100">
-                        <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
-                          <p class="comulativeProgBrdr"></p>
+                    <div class="CompMainProgrssBarDiv graph-area">
+                      <div class="CompProgressAbsltCls cumulative p-relative">
+                        <div class="lines-div d-flex flex-column justify-content-between">
+                          <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
+                            <p class="comulativeProgBrdr"></p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="CompProgressAbsltCls cumulative">
+                      
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.cummulative_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${18+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${18+index} eachBarMainBgNone ${cards.cummulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
@@ -107,6 +108,7 @@
                         </div>
                       </div>
                     </div>
+                  
                   </div>
                 </div>
                 <div class="tab-pane fade" role="tabpanel" aria-labelledby="historyTotalValueTab"
@@ -157,13 +159,14 @@
                     </div>
                   </div>
                   <div class="container-fluid">
-                    <div class="CompMainProgrssBarDiv">
-                      <div class="w-100">
-                       <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
-                          <p class="comulativeProgBrdr"></p>
+                    <div class="CompMainProgrssBarDiv graph-area">
+                      <div class="CompProgressAbsltCls cumulative p-relative">
+                        <div class="lines-div d-flex flex-column justify-content-between">
+                         <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
+                            <p class="comulativeProgBrdr"></p>
+                          </div>
                         </div>
-                      </div>
-                      <div class="CompProgressAbsltCls cumulative">
+                      
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
                             <div v-for="(item, index) in data.total_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${23+index} cumulativeProgCommon2 bigBarsAreaJsCls${23+index} eachBarMainBgNone ${cards.total_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
