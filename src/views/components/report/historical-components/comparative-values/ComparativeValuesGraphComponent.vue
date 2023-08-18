@@ -11,6 +11,7 @@
           role="tab" aria-controls="card-best" aria-selected="true"  @click="() => tsa_type = 'best'">Best</div>
       </div>
     </div>
+    <button @click="testFunction">testFunction</button>
     <div class="px-3 py-3" id="comparativeValuesFluid2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
@@ -334,10 +335,10 @@ export default {
             chart_data.eoy_accumulation_value_after_credit;
           finalData = {
             cummulative_income: data.cummulative_income || data.final_balance,
-            ror: "",
             type: type,
+            ror: data.index_average,
             irr: data.irr_percent,
-            longevity_year: this.getYear(account_value, duration),
+            longevity_years: this.getYear(account_value, duration) + ' Years',
           };
           finalData.account_value = account_value;
         }
@@ -605,6 +606,8 @@ export default {
         return legendContainer;
       };
 
+      const current_tsa = this.tsa_type;
+
       const htmlLegendPlugin1 = {
         id: "comparativeValues2",
         afterUpdate(chart, args, options) {
@@ -615,6 +618,23 @@ export default {
           let checkboxes = document
             .getElementById(options.containerID)
             .querySelectorAll("input[type=checkbox]");
+
+            let tsa_indexes = {
+              most_recent:0,
+              worst:1,
+              median:2,
+              best:3,
+            };
+
+            let tsa_index = tsa_indexes[current_tsa];
+            let newCheckboxes = []
+            checkboxes.forEach((element, index) => {
+              if(index === tsa_index || index > 3){
+                newCheckboxes.push(element);
+              }
+            });
+
+            checkboxes = newCheckboxes;
           items.forEach((item, index) => {
             if (checkboxes[index]) {
               checkboxes[index].onclick = e => {
@@ -1042,7 +1062,7 @@ export default {
     getYear: function(array, age) {
       let year = array.filter(i => i);
       year = year.length;
-      return age[year];
+      return age[year-1];
     },
     // map API data for the CV cards
     mapData: function() {
