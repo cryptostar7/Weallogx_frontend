@@ -20,7 +20,7 @@
               <div class="container containerWidth">
                 <div class="col-md-10 offset-md-1">
                   <div class="d-flex align-items-center"> <label for="scheduleTemplateCheckbox"
-                      class="historical-paraCheckBox" @click="testFunction">Historical Simulations</label>
+                      class="historical-paraCheckBox">Historical Simulations</label>
                     <div class="form-check form-switch custom-switch ms-2">
                        <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
                   </div>
@@ -296,9 +296,6 @@ export default {
         event.preventDefault();
       }
     },
-    testFunction: function() {
-      console.log(this.getInputWithId("distribution_method1"));
-    },
     // this function has return the input value
     getInputWithId: function(id) {
       return document.getElementById(id).value;
@@ -337,9 +334,6 @@ export default {
           arr.push(obj);
         }
       }
-
-      console.log('arr .........');
-      console.log(arr);
       return arr;
     },
     getGrowthData: function() {
@@ -672,6 +666,13 @@ export default {
       }
 
       // performance multiplier fee
+
+
+console.log('obj.performance_multiplier');
+console.log(obj.performance_multiplier);
+console.log('.........');
+
+
       if (obj.performance_multiplier) {
         if (obj.loan_in_advanced_performance_multiplier_same_in_all_years) {
           this.setUnChecked(`multiplierFee${tab}`);
@@ -1135,7 +1136,7 @@ export default {
           ? fees[0].pmf.schedule
           : null;
       } else {
-        formData.index_strategy_1.loan_in_advanced_performance_multiplier = 1;
+        formData.index_strategy_1.loan_in_advanced_performance_multiplier = 0;
         formData.index_strategy_1.loan_in_advanced_same_in_all_years = true;
         formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = null;
       }
@@ -1252,7 +1253,7 @@ export default {
             ? fees[1].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_2.loan_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_2.loan_in_advanced_performance_multiplier = 0;
           formData.index_strategy_2.loan_in_advanced_same_in_all_years = true;
           formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = null;
         }
@@ -1370,7 +1371,7 @@ export default {
             ? fees[2].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_3.loan_in_advanced_performance_multiplier = 1;
+          formData.index_strategy_3.loan_in_advanced_performance_multiplier = 0;
           formData.index_strategy_3.loan_in_advanced_same_in_all_years = true;
           formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = null;
         }
