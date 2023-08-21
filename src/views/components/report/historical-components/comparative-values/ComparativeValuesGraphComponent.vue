@@ -51,11 +51,11 @@
                   <div class="d-flex">
                     <div class="compGraphtopParaTwo">
                       <p>Rate of Return</p>
-                      <p>{{item.ror}}</p>
+                      <p>{{ Number(item.ror).toFixed(2)}}%</p>
                     </div>
                     <div class="compGraphtopParaTwo cardParLeftMar">
                       <p>IRR</p>
-                      <p>{{item.irr}}</p>
+                      <p>{{ Number(item.irr).toFixed(2)}}%</p>
                     </div>
                   </div>
                 </div>
@@ -106,11 +106,11 @@
                 <div class="d-flex">
                   <div class="compGraphtopParaTwo">
                     <p>Rate of Return</p>
-                    <p>{{data[card.id].categories[tsa_type].ror}}</p>
+                    <p>{{ Number(data[card.id].categories[tsa_type].ror).toFixed(2) }}%</p>
                   </div>
                   <div class="compGraphtopParaTwo cardParLeftMar">
                     <p>IRR</p>
-                    <p>{{data[card.id].categories[tsa_type].irr}}</p>
+                    <p>{{ Number(data[card.id].categories[tsa_type].irr).toFixed(2) }}%</p>
                   </div>
                 </div>
               </div>     
@@ -182,31 +182,31 @@ export default {
           categories: {
             most_recent: {
               type: "TSA - Most Recent",
-              longevity_years: "35 Years+",
-              cummulative_income: 6510354,
-              ror: "21.4%",
-              irr: "33.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             worst: {
               type: "TSA- Worst",
-              longevity_years: "22 Years",
-              cummulative_income: 6510354,
-              ror: "14.4%",
-              irr: "10.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             median: {
               type: "TSA - Median",
-              longevity_years: "65 Years",
-              cummulative_income: 6510354,
-              ror: "44.6%",
-              irr: "05.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             best: {
               type: "TSA - Best",
-              longevity_years: "33 Years+",
-              cummulative_income: 6510354,
-              ror: "36.4%",
-              irr: "11.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
           },
         },
@@ -214,31 +214,31 @@ export default {
           categories: {
             most_recent: {
               type: "Brokerage - Most Recent",
-              longevity_years: "35 Years+",
-              cummulative_income: 6510354,
-              ror: "21.4%",
-              irr: "33.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             worst: {
               type: "Brokerage- Worst",
-              longevity_years: "22 Years",
-              cummulative_income: 6510354,
-              ror: "14.4%",
-              irr: "10.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             median: {
               type: "Brokerage - Median",
-              longevity_years: "65 Years",
-              cummulative_income: 6510354,
-              ror: "44.6%",
-              irr: "05.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             best: {
               type: "Brokerage - Best",
-              longevity_years: "33 Years+",
-              cummulative_income: 6510354,
-              ror: "36.4%",
-              irr: "11.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
           },
         },
@@ -246,31 +246,31 @@ export default {
           categories: {
             most_recent: {
               type: "401/IRA Balance",
-              longevity_years: "35 Years+",
-              cummulative_income: 6510354,
-              ror: "21.4%",
-              irr: "33.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             worst: {
               type: "401/IRA- Worst",
-              longevity_years: "22 Years",
-              cummulative_income: 6510354,
-              ror: "14.4%",
-              irr: "10.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             median: {
               type: "401/IRA - Median",
-              longevity_years: "65 Years",
-              cummulative_income: 6510354,
-              ror: "44.6%",
-              irr: "05.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             best: {
               type: "401/IRA - Best",
-              longevity_years: "33 Years+",
-              cummulative_income: 6510354,
-              ror: "36.4%",
-              irr: "11.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
           },
         },
@@ -278,31 +278,31 @@ export default {
           categories: {
             most_recent: {
               type: "Annuity Balance",
-              longevity_years: "35 Years+",
-              cummulative_income: 6510354,
-              ror: "21.4%",
-              irr: "33.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             worst: {
               type: "Annuity- Worst",
-              longevity_years: "22 Years",
-              cummulative_income: 6510354,
-              ror: "14.4%",
-              irr: "10.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             median: {
               type: "Annuity - Median",
-              longevity_years: "65 Years",
-              cummulative_income: 6510354,
-              ror: "44.6%",
-              irr: "05.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
             best: {
               type: "Annuity - Best",
-              longevity_years: "33 Years+",
-              cummulative_income: 6510354,
-              ror: "36.4%",
-              irr: "11.55%",
+              longevity_years: "",
+              cummulative_income: "",
+              ror: "",
+              irr: "",
             },
           },
         },

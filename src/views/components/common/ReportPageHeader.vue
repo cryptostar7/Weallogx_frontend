@@ -160,18 +160,6 @@ export default {
     };
   },
   mounted() {
-    // document.addEventListener("click", async (event) => {
-    //   if (document.fullscreenElement) {
-    //     try {
-    //       await document.exitFullscreen();
-    //       console.log("exited");
-    //       document.querySelector("body").classList.remove("fullScreen");
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   }
-
-    // });
     document.addEventListener("fullscreenchange", exitHandler);
     document.addEventListener("webkitfullscreenchange", exitHandler);
     document.addEventListener("mozfullscreenchange", exitHandler);
@@ -263,14 +251,6 @@ export default {
         let cardsAreas = report.querySelectorAll(".cards-area");
         let graphAreas = report.querySelectorAll(".graph-area");
         let tabMenus = report.querySelectorAll(".tab-menu");
-        // if(tabMenus){
-        //   for(let i = 0; i < tabMenus.length; i++){
-        //     if(tabMenus[i].offsetHeight > 0){
-        //       tabMenuHeight = tabMenus[i].offsetHeight;
-        //       break;
-        //     }
-        //   }
-        // }
         for (let i = 0; i < cardsAreas.length; i++) {
           if (cardsAreas[i].offsetHeight > 0) {
             cardHeight = cardsAreas[i].offsetHeight;

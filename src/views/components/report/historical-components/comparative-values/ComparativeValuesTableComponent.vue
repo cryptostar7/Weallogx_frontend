@@ -252,15 +252,15 @@
                                 <div class="row eachCardParaRow">
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy Avg</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].strategy_average}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(table.data[header.id].categories[tsa_type].strategy_average).toFixed(2) }}%</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CAGR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].strategy_cagr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(table.data[header.id].categories[tsa_type].strategy_cagr).toFixed(2) }}%</p>
                                   </div>
                                   <div class="d-flex justify-content-between">
                                     <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">IRR</p>
-                                    <p class="lifeProPlusPara2 m-0 mb-1">{{table.data[header.id].categories[tsa_type].irr}}</p>
+                                    <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(table.data[header.id].categories[tsa_type].irr).toFixed(2) }}%</p>
                                   </div>
                                 </div>
                                 <div class="row">

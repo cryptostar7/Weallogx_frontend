@@ -13,7 +13,7 @@
             <h3 class="fs-26 bold-fw text-white mb-20" @click="testFunction">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'comparative' ? 'active':''}`" @click="() => sidebar.currentTab = 'comparative'">Comparative Analysis</button>
-              <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" @click="() => sidebar.currentTab = 'historical'">Historical Simulations</button>
+              <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" @click="showHistoricalReport()">Historical Simulations</button>
             </div>
           </div>
           <sidebar-tabs-list :list="list.comparative" v-if="sidebar.currentTab === 'comparative'"/>
@@ -156,6 +156,9 @@ export default {
           console.log(response.data);
           this.HistoricalDataLoaded = true;
           this.$store.dispatch("historicalReport", response.data);
+          if(this.sidebar.currentTab = 'historical'){
+            this.$store.dispatch("loader", false);
+          }
         })
         .catch(error => {
           this.$toast.error(error.message);
@@ -188,13 +191,6 @@ export default {
                 response.data.data.saved_action.active_tabs
               );
             }
-            // update card toggle actions
-            // if (response.data.data.saved_action.active_cards) {
-            //   this.$store.dispatch(
-            //     "activeReportCards",
-            //     response.data.data.saved_action.active_cards
-            //   );
-            // }
           }
         })
         .catch(error => {
@@ -248,6 +244,14 @@ export default {
         });
       });
     },
+
+    // display historica report section
+    showHistoricalReport: function(){
+      this.sidebar.currentTab = 'historical';
+      if(!this.HistoricalDataLoaded){
+        this.$store.dispatch("loader", true);
+      }
+    }
   },
   mounted() {
     if (this.$route.query.present === "true" || this.$route.params.view_token) {

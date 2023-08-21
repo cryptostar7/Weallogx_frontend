@@ -7,9 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox12" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 rightCheckBox12" rightCheckAttr="12"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox12" type="checkbox" :checked="activeTabs[keyId]"  class="checkbox2 rightCheckBox12" rightCheckAttr="12"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>

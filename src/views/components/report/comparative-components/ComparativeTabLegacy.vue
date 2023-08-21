@@ -69,11 +69,11 @@
                         <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.ending_value) > 95 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
-                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.ending_value)}}</span></p>
+                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{ Number(item.ending_value).toFixed(0) }}</span></p>
                             </div>
                             <div class="shortFallCount" v-if="index">
                               <p>SHORTFALL</p>
-                              <p>${{$numFormat(item.shortfall)}}</p>
+                              <p>${{ Number(item.shortfall).toFixed(0) }}</p>
                             </div>
                           </div>
                         </div>

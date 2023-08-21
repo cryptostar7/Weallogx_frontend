@@ -162,15 +162,15 @@
                             <div class="row eachCardParaRow">
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">Illustration Rate</p>
-                                <p class="lirpPara2 m-0 mb-1">{{data[0].illustration_rate}}</p>
+                                <p class="lirpPara2 m-0 mb-1">{{Number(data[0].illustration_rate).toFixed(2)}}%</p>
                               </div>
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">Illustration CAGR</p>
-                                <p class="lirpPara2 m-0 mb-1">{{data[0].illustration_carg}}</p>
+                                <p class="lirpPara2 m-0 mb-1">{{Number(data[0].illustration_carg).toFixed(2)}}%</p>
                               </div>
                               <div class="d-flex justify-content-between">
                                 <p class="lirpPara8 m-0 mb-1">IRR</p>
-                                <p class="lirpPara2 m-0 mb-1">{{data[0].irr}}</p>
+                                <p class="lirpPara2 m-0 mb-1">{{Number(data[0].irr).toFixed(2)}}%</p>
                               </div>
                             </div>
                             <div class="row">
@@ -245,15 +245,15 @@
                                       <div class="row eachCardParaRow">
                                         <div class="d-flex justify-content-between">
                                           <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy Avg</p>
-                                          <p class="lifeProPlusPara2 m-0 mb-1">{{data[header.id].strategy_average}}</p>
+                                          <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_average).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                           <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CARG</p>
-                                          <p class="lifeProPlusPara2 m-0 mb-1">{{data[header.id].strategy_carg}}</p>
+                                          <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_carg).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                           <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">IRR</p>
-                                          <p class="lifeProPlusPara2 m-0 mb-1">{{data[header.id].irr}}</p>
+                                          <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].irr).toFixed(2) }}%</p>
                                         </div>
                                       </div>
                                       <div class="row">
@@ -552,7 +552,7 @@ export default {
           for (let i = 0; i < list.length; i++) {
             tempList.push({
               distributions: data.distributions ? data.distributions[i] : null,
-              net_balance: data.death_benefit ? data.death_benefit[i] : null,
+              net_balance: data.comperative_account_value ? data.comperative_account_value[i] : null,
             });
 
             tempDeposits.push({
