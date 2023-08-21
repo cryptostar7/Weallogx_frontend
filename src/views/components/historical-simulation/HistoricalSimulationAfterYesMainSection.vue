@@ -928,29 +928,28 @@ export default {
           );
 
           this.csvPreview = this.filterObject(illustration_data);
-            this.$store.dispatch("loader", false);
-
+          this.$store.dispatch("loader", false);
         })
         .catch(error => {
-            console.log(error);
-            if (
-              error.code === "ERR_BAD_RESPONSE" ||
-              error.code === "ERR_NETWORK"
-            ) {
-              this.$toast.error(error.message);
-            }
-            this.$store.dispatch("loader", false);
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
         });
     },
     setIllustratioCsv: function(e) {
       let scenario = this.$store.state.data.active_scenario;
-      if(e.target.checked){
-        if(scenario.illustration){
+      if (e.target.checked) {
+        if (scenario.illustration) {
           this.getIllustrationData(scenario.illustration);
-        }else{
-          this.$toast.error('Data not found.');
+        } else {
+          this.$toast.error("Data not found.");
         }
-      }else{
+      } else {
         this.resetCsv();
       }
     },
@@ -1088,6 +1087,10 @@ export default {
 
         if (!this.csvPreview.headers.includes("2")) {
           return alert(`${this.illustrationFields["2"].name} is required.`);
+        }
+
+        if (!this.csvPreview.headers.includes("4")) {
+          return alert(`${this.illustrationFields["4"].name} is required.`);
         }
 
         if (!this.csvPreview.headers.includes("5")) {
@@ -1373,7 +1376,7 @@ export default {
       };
     },
     isvalidCsvData() {
-      if(!this.createFormScratch && !this.getPortfolioId()){
+      if (!this.createFormScratch && !this.getPortfolioId()) {
         return false;
       }
 
@@ -1387,6 +1390,10 @@ export default {
         }
 
         if (!this.csvPreview.headers.includes("2")) {
+          return false;
+        }
+
+        if (!this.csvPreview.headers.includes("4")) {
           return false;
         }
 
@@ -1406,10 +1413,10 @@ export default {
           return false;
         }
       } else {
-       return false;
+        return false;
       }
-       return true;
-    }
+      return true;
+    },
   },
 };
 </script>
