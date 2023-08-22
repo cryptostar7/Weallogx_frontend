@@ -156,7 +156,7 @@ export default {
           console.log(response.data);
           this.HistoricalDataLoaded = true;
           this.$store.dispatch("historicalReport", response.data);
-          if(this.sidebar.currentTab = 'historical'){
+          if(this.sidebar.currentTab === 'historical'){
             this.$store.dispatch("loader", false);
           }
         })

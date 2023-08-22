@@ -40,12 +40,6 @@
                               <div class="layer2"></div>
                             </div>
                           </div>
-                          <a :class="`ms-2 deleteButtonAncor deleteBtn${1+index} ${index ? '' : 'd-none'}`" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal"  data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"  xmlns="http://www.w3.org/2000/svg">
-                              <path  d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"  stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5" transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
                         </div>
                       </div>
                       <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
@@ -115,8 +109,8 @@ export default {
   },
   mounted() {
     let card1 = this.historical.lirp_data;
-    let card2 = this.historical.min.result;
-    let card3 = this.historical.most_recent.result;
+    let card2 = this.historical.most_recent.result;
+    let card3 = this.historical.min.result;
     let card4 = this.historical.median.result;
     let card5 = this.historical.max.result;
 
@@ -126,12 +120,12 @@ export default {
     }
 
     if (card2) {
-      this.data[1].type = "Worst";
+      this.data[1].type = "Most Recent";
       this.data[1].annual_income = card2.cummulative_income;
     }
 
     if (card3) {
-      this.data[2].type = "Most Recent";
+      this.data[2].type = "Worst";
       this.data[2].annual_income = card3.cummulative_income;
     }
 

@@ -267,8 +267,8 @@ export default {
   },
   mounted() {
     let card1 = this.historical.lirp_data;
-    let card2 = this.historical.min.result;
-    let card3 = this.historical.most_recent.result;
+    let card2 = this.historical.most_recent.result;
+    let card3 = this.historical.min.result;
     let card4 = this.historical.median.result;
     let card5 = this.historical.max.result;
 
@@ -297,18 +297,18 @@ export default {
     }
 
     if (card4) {
-      this.data.cummulative_income[3].type = "Worst";
+      this.data.cummulative_income[3].type = "Median";
       this.data.cummulative_income[3].income = card4.cummulative_income;
 
-      this.data.total_income[3].type = "Worst";
+      this.data.total_income[3].type = "Median";
       this.data.total_income[3].income = card4.cummulative_income_total_value;
     }
 
     if (card5) {
-      this.data.cummulative_income[4].type = "Worst";
+      this.data.cummulative_income[4].type = "Best";
       this.data.cummulative_income[4].income = card5.cummulative_income;
 
-      this.data.total_income[4].type = "Worst";
+      this.data.total_income[4].type = "Best";
       this.data.total_income[4].income = card5.cummulative_income_total_value;
     }
   },

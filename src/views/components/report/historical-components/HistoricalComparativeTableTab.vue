@@ -307,7 +307,7 @@
                               </tr>
                               <tr>
                                 <td colspan="2" class="table1Td surplusTdMain" data-label="Age">
-                                  Surplus</td>
+                                  Surplus/Shortfall</td>
                               </tr>
                             </tbody>
                           </table>
@@ -360,8 +360,8 @@
                                     <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-' }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="surplusTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus) || '-' }}</td>
-                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus) || '-' }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus) || '-' }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus) || '-' }}</td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -422,7 +422,7 @@ export default {
           strategy_average: "",
           strategy_carg: "",
           irr: "",
-          type: "TSA - Worst",
+          type: "TSA - Most Recent",
           list: [],
         },
         {
@@ -431,7 +431,7 @@ export default {
           strategy_average: "",
           strategy_carg: "",
           irr: "",
-          type: "TSA - Most Recent",
+          type: "TSA - Worst",
           list: [],
         },
         {
@@ -588,12 +588,19 @@ export default {
                 : null,
             });
           }
-          this.data[1].list = tempList;
-          this.data[1].strategy_average = this.table.min.result.stratgy_average;
-          this.data[1].strategy_carg = this.table.min.result.tsa_cagr_percent;
-          this.data[1].irr = this.table.min.result.irr_percent;
-          this.summary_data.data[1].distribution.total = this.table.min.result.cummulative_distribution;
-          this.summary_data.data[1].distribution.surplus = this.table.min.result.Surplus;
+          // this.data[1].list = tempList;
+          // this.data[1].strategy_average = this.table.min.result.stratgy_average;
+          // this.data[1].strategy_carg = this.table.min.result.tsa_cagr_percent;
+          // this.data[1].irr = this.table.min.result.irr_percent;
+          // this.summary_data.data[1].distribution.total = this.table.min.result.cummulative_distribution;
+          // this.summary_data.data[1].distribution.surplus = this.table.min.result.Surplus;
+
+          this.data[2].list = tempList;
+          this.data[2].strategy_average = this.table.min.result.stratgy_average;
+          this.data[2].strategy_carg = this.table.min.result.tsa_cagr_percent;
+          this.data[2].irr = this.table.min.result.irr_percent;
+          this.summary_data.data[2].distribution.total = this.table.min.result.cummulative_distribution;
+          this.summary_data.data[2].distribution.surplus = this.table.min.result.Surplus;
         }
       }
 
@@ -612,13 +619,19 @@ export default {
                 : null,
             });
           }
-          this.data[2].list = tempList;
-
-          this.data[2].strategy_average = this.table.most_recent.result.stratgy_average;
-          this.data[2].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
-          this.data[2].irr = this.table.most_recent.result.irr_percent;
-          this.summary_data.data[2].distribution.total = this.table.most_recent.result.cummulative_distribution;
-          this.summary_data.data[2].distribution.surplus = this.table.most_recent.result.Surplus;
+          // this.data[2].list = tempList;
+          // this.data[2].strategy_average = this.table.most_recent.result.stratgy_average;
+          // this.data[2].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
+          // this.data[2].irr = this.table.most_recent.result.irr_percent;
+          // this.summary_data.data[2].distribution.total = this.table.most_recent.result.cummulative_distribution;
+          // this.summary_data.data[2].distribution.surplus = this.table.most_recent.result.Surplus;
+         
+          this.data[1].list = tempList;
+          this.data[1].strategy_average = this.table.most_recent.result.stratgy_average;
+          this.data[1].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
+          this.data[1].irr = this.table.most_recent.result.irr_percent;
+          this.summary_data.data[1].distribution.total = this.table.most_recent.result.cummulative_distribution;
+          this.summary_data.data[1].distribution.surplus = this.table.most_recent.result.Surplus;
         }
       }
 
