@@ -48,7 +48,7 @@
                       </div>
                       <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
                       <div class="mt-2 d-flex ">
-                        <div :class="`CardProgressBar lessWidth switchBg lightProgress${1+index} irrBoxProgressCommon${1+index} ${cards[index].active ? '':'boxProgress'}`">
+                        <div :class="`CardProgressBar lessWidth switchBg irr lightProgress${1+index} irrBoxProgressCommon${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress" style="height: 50%;"></div>
                           <!-- <p class="lineUnderBars"></p> -->
                         </div>
@@ -80,14 +80,14 @@
                       <div class="progressAllBarsDivMain">
                         <div v-for="(item, index) in data" :key="index" :class="`progressBarEachDivMain ${deletedItems.includes(index) ? 'd-none':''}`">
                           <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
-                            <div class="progressBarEachDiv eachBarMainBgNone">
+                            <div class="progressBarEachDiv noHover eachBarMainBgNone">
                               <div class="CardProgressBig irrBarHeight1" :style="{height: `${Number(data[index].internal_rate_of_return)*100/maxIRR}%`}">
                               </div>
                               <div class="position-absolute progressBarbtmNum irrvaluebarbg1">
                                 <span class="`irrEachBarValue1">{{Number(item.internal_rate_of_return).toFixed(2)}}%</span>
                               </div>
                             </div>
-                            <div class="progressBarEachDiv eachBarMainBgNone">
+                            <div class="progressBarEachDiv noHover eachBarMainBgNone">
                               <div class="CardProgressBig irrBarHeight2" :style="{height: `${Number(data[index].taxable_equivalent)*100/maxIRR}%`}">
                               </div>
                               <div class="position-absolute progressBarbtmNum irrvaluebarbg2">

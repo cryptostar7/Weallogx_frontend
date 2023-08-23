@@ -97,7 +97,7 @@
                       
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
-                            <div v-for="(item, index) in data.cummulative_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${18+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${18+index} eachBarMainBgNone ${cards.cummulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
+                            <div v-for="(item, index) in data.cummulative_income" :key="index" :class="`cumulativeValuesProgrees noHover bgImgNoneAndTabRadius progBarSecEachDiv${18+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${18+index} eachBarMainBgNone ${cards.cummulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
                               <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${18+index}`" :style="{height: `${Number(item.income)*100/maxCummulativeIncome}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${18+index}`">{{$numFormat(item.income)}}</span></p>
@@ -169,7 +169,7 @@
                       
                         <div class="progressAllBarsDivMain">
                           <div class="d-flex justify-content-between w-100">
-                            <div v-for="(item, index) in data.total_income" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${23+index} cumulativeProgCommon2 bigBarsAreaJsCls${23+index} eachBarMainBgNone ${cards.total_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
+                            <div v-for="(item, index) in data.total_income" :key="index" :class="`cumulativeValuesProgrees noHover bgImgNoneAndTabRadius progBarSecEachDiv${23+index} cumulativeProgCommon2 bigBarsAreaJsCls${23+index} eachBarMainBgNone ${cards.total_income[index].active ? '': 'bigbarsmaincolorDisable'}`">
                               <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${23+index}`"  :style="{height: `${Number(item.income)*100/maxTotalIncome}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                   <p>$<span :class="`bigBarNumberJsCls${23+index}`">{{$numFormat(item.income)}}</span></p>

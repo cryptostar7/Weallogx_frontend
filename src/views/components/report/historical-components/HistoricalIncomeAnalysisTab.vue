@@ -66,7 +66,7 @@
                     <div class="CompProgressAbsltCls income">
                       <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                         <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
-                          <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                          <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees noHover bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
                             <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:`${Number(data[index].annual_income)*100/maxIncome}%`}">
                               <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
                                 <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.annual_income)}}</span></p>

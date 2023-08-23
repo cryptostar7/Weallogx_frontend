@@ -2822,7 +2822,7 @@ body.fullScreen .progressAllBarsDivMain{
   align-items: flex-end;
   overflow: hidden;
 }
-.progressBarEachDiv::after{
+.progressBarEachDiv::after, .progressBarEachDiv.noHover .CardProgressBig::after{
   content: "";
   position: absolute;
   top: 0;
@@ -2835,10 +2835,12 @@ body.fullScreen .progressAllBarsDivMain{
   z-index: 1  ;
   border: 4px solid transparent;
 }
-.progressBarEachDiv:hover::after{
+.progressBarEachDiv.noHover::after{
+  display: none;
+}
+.progressBarEachDiv:hover::after, .progressBarEachDiv.noHover .CardProgressBig:hover::after{
   opacity: 1;
   border: 4px solid rgba(0,0,0,0.075);
-
 }
 .CardProgressBig {
   background: var(--green-clr);
@@ -2846,7 +2848,6 @@ body.fullScreen .progressAllBarsDivMain{
   width: 100%;
   transform: rotate(180deg);
   transition: 0.25s ease-in;
-  
 }
 .CardProgressBig:hover{
   
@@ -3423,6 +3424,9 @@ body.fullScreen .progressAllBarsDivMain{
   z-index: 1  ;
   border: 4px solid transparent;
 }
+.noHover::after{
+  display: none;
+}
 .cumulativeValuesProgrees:hover::after{
   opacity: 1;
   border: 4px solid rgba(0,0,0,0.1);
@@ -3433,7 +3437,7 @@ body.fullScreen .progressAllBarsDivMain{
 .expenseCard .cumulativeValuesProgrees::after{
   display: none;
 }
-.expenseCard .cumulativeValuesProgrees .cumulativeprogreeDivcommon::after{
+.expenseCard .cumulativeValuesProgrees .cumulativeprogreeDivcommon::after, .cumulativeValuesProgrees.noHover .cumulativeprogreeDivcommon::after{
   content: "";
   position: absolute;
   top: 0;
@@ -3447,7 +3451,7 @@ body.fullScreen .progressAllBarsDivMain{
   border: 4px solid transparent;
   border-radius: 8px;
 }
-.expenseCard .cumulativeValuesProgrees .cumulativeprogreeDivcommon:hover::after{
+.expenseCard .cumulativeValuesProgrees .cumulativeprogreeDivcommon:hover::after, .cumulativeValuesProgrees.noHover .cumulativeprogreeDivcommon:hover::after{
   opacity: 1;
   border: 4px solid rgba(0,0,0,0.1);
 }
@@ -4849,7 +4853,7 @@ background: #1D856C;
   line-height: 1;
 }
 .irrTopDiv{
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.25rem;
 }
 /* tables Left head Border */
 .reportTablesDiv1 .table th {
@@ -5384,46 +5388,45 @@ border: none;
 }
 
 
-.lightProgress1 div {
+.lightProgress1 div, .lightProgress1.irr {
   background: #209579;
 }
 
-.lightProgress1 {
+.lightProgress1, .lightProgress1.irr div {
   background: #0E6651;
 }
 
-.lightProgress2 div {
+.lightProgress2 div, .lightProgress2.irr {
   background: #1A89EE;
 }
 
-.lightProgress2 {
+.lightProgress2, .lightProgress2.irr div {
   background: #1660A4;
 }
 
-.lightProgress3 div {
+.lightProgress3 div, .lightProgress3.irr {
   background: #B770EF;
 }
 
-.lightProgress3 {
+.lightProgress3, .lightProgress3.irr div {
   background: #763CA3;
 }
 
-.lightProgress4 div {
+.lightProgress4 div, .lightProgress4.irr {
   background: #CA3939;
 }
 
-.lightProgress4 {
+.lightProgress4, .lightProgress4.irr div {
   background: #9D2B2B;
 }
 
-.lightProgress5 div {
+.lightProgress5 div, .lightProgress5.irr {
   background: #F67F4C;
 }
 
-.lightProgress5 {
+.lightProgress5, .lightProgress5.irr div {
   background: #E8662F;
 }
-
 .irrCardParaTop1 {
   color: #0F8266;
   font-weight: 600;
@@ -5635,9 +5638,9 @@ border: none;
 .reportTablesDiv7 .table tbody tr td{
   background: #FFFAF7;
 }
-.sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
+/*.sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
 font-size:16px!important;
-}
+}*/
 .menu-icon-report-btn{
   min-height: 45px;
 }
