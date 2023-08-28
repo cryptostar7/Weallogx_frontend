@@ -194,8 +194,8 @@
                             </thead>
                             <tbody>
                               <tr v-for="(item, index) in data[0].list" :key="index">
-                                <td data-label="acount">{{ $numFormatWithDollar(item.distributions) || '-'}}</td>
-                                <td data-label="blank">{{ $numFormatWithDollar(item.net_balance) ||  '-'}}</td>
+                                <td data-label="acount"> <span class="td-bold">{{ $numFormatWithDollar(item.distributions) }}</span></td>
+                                <td data-label="blank">{{ $numFormatWithDollar(item.net_balance)}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -277,8 +277,8 @@
                                       </thead>
                                       <tbody>
                                         <tr v-for="(item, index) in data[header.id].list" :key="index">
-                                          <td data-label="acount">{{ $numFormatWithDollar(item.distributions) || "-"}}</td>
-                                          <td class="" data-label="blank">{{ $numFormatWithDollar(item.net_balance) || '-'}}</td>
+                                          <td data-label="acount"><span class="td-bold">{{ $numFormatWithDollar(item.distributions) }}</span></td>
+                                          <td class="" data-label="blank">{{ $numFormatWithDollar(item.net_balance)}}</td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -304,7 +304,7 @@
                             <tbody>
                               <tr>
                                 <td class="table1Td" data-label="Year" style="border:none">Totals</td>
-                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) || "-" }}</td>
+                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td>
                               </tr>
                               <tr>
                                 <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value</td>
@@ -328,16 +328,16 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total) || '-' }}</td>
-                                  <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) || '-' }}</td>
+                                  <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
+                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td>
                                 </tr>
                                 <tr>
-                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) || '-' }}</td>
-                                  <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) || '-'}}</td>
+                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
+                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td>
                                 </tr>
                                 <tr>
-                                  <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].distribution.surplus) || '-' }}</td>
-                                  <td width="50%" class="" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].net_balance.surplus) || '-' }}</td>
+                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].distribution.surplus) }}</td>
+                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].net_balance.surplus) }}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -351,21 +351,21 @@
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                   <tr>
-                                    <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                                    <th colspan="2" style="border-radius:6px; vertical-align: middle;">Distributions</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td width="50%" data-label="acount"><input type="text" :value="$numFormatWithDollar(summary_data.data[header.id].distribution.total) || '-'" readonly/></td>
-                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) || '-' }}</td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total) }}</td>
+                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) || '-' }}</td>
-                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) || '-' }}</td>
+                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
+                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus) || '-' }}</td>
-                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus) || '-' }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus) }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus) }}</td>
                                   </tr>
                                 </tbody>
                               </table>

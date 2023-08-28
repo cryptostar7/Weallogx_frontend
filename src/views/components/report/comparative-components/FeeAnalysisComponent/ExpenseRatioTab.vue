@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="progressAllBarsDivMain">
-                <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar" v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
+                <div class="d-flex justify-content-center align-items-end w-100 cumulative-value-bar" v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`cumulativeValuesProgrees progBarSecEachDiv${index+1} cumulativeProgCommon${index+1} bigBarsAreaJsCls1`">
                         <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${index+1} bigBarHeightJs${index+1}`" :style="{height: `${Number(data[index].total_value_in_percent)*100/maxTotalValue}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${index+1}`"><p>

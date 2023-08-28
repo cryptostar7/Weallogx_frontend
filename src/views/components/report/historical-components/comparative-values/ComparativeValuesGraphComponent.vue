@@ -67,7 +67,7 @@
           <div class="flex-1" v-for="(card, index) in cards" >
             <div :class="`distributionCard1 equalDistCard${2+index} position-relative w-100 ${card.active ? '':'inactive'}`" :key="card.id">
               <div class="d-flex justify-content-between align-items-center">
-                <div class="distrbnCard1paras">
+                <div>
                   <p class="allCardHeadPara">Longevity</p>
                 </div>
                 <div class="d-flex">
