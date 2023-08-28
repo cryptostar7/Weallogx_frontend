@@ -277,8 +277,8 @@
                                       </thead>
                                       <tbody>
                                         <tr v-for="(item, index) in data[header.id].list" :key="index">
-                                          <td data-label="acount"><span class="td-bold">{{ $numFormatWithDollar(item.distributions) }}</span></td>
-                                          <td class="" data-label="blank">{{ $numFormatWithDollar(item.net_balance)}}</td>
+                                          <td data-labe.l="acount"><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${data[header.id].list[index+1] ? '' : 'text-danger'}`">{{ $numFormatWithDollar(item.distributions) }}</span></td>
+                                          <td data-label="blank">{{ $numFormatWithDollar(item.net_balance)}}</td>
                                         </tr>
                                       </tbody>
                                     </table>

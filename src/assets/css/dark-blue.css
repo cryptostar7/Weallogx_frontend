@@ -3956,37 +3956,42 @@
 .dark-blue .cumulativeValuesProgrees {
   background-color: none !important;
 }
-
-.dark-blue .lightProgress2 {
-  background: #0F8266;
-}
-
-.dark-blue .lightProgress2 div {
-  background: #26AB8B;
-}
-
-.dark-blue .lightProgress1 {
+.dark-blue .lightProgress1, .dark-blue .lightProgress1.irr div {
   background:  var(--blue-clr-2);
 }
 
-.dark-blue .lightProgress1 div {
+.dark-blue .lightProgress1 div, .dark-blue .lightProgress1.irr {
   background: var(--blue-clr-3);
 }
+.dark-blue .lightProgress2, .dark-blue .lightProgress2.irr div {
+  background: #0F8266;
+}
 
-.dark-blue .lightProgress3 {
+.dark-blue .lightProgress2 div, .dark-blue .lightProgress2.irr {
+  background: #26AB8B;
+}
+
+.dark-blue .lightProgress3, .dark-blue .lightProgress3.irr div {
   background: #8137BB;
 }
 
-.dark-blue .lightProgress3 div {
+.dark-blue .lightProgress3 div, .dark-blue .lightProgress3.irr {
   background: #B556FF;
 }
 
-.dark-blue .lightProgress4 {
+.dark-blue .lightProgress4, .dark-blue .lightProgress4.irr div {
   background: #DA4343;
 }
 
-.dark-blue .lightProgress4 div {
+.dark-blue .lightProgress4 div, .dark-blue .lightProgress4.irr {
+  background: #E8662F;
+}
+.dark-blue .lightProgress5, .dark-blue .lightProgress5.irr div {
   background: #F04F4F;
+}
+
+.dark-blue .lightProgress5 div, .dark-blue .lightProgress5.irr {
+  background: #F67F4C;
 }
 
 .dark-blue .irrCardParaTop2 {

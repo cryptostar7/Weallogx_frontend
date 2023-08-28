@@ -1174,29 +1174,35 @@
 .light-blue .makeEqualPara4{
   color: #9D2B2B! important;
 }
-.light-blue .lightProgress2{
-  background: #089875;
-}
-.light-blue .lightProgress2 div{
-  background: #10B78E;
-}
-.light-blue .lightProgress1{
+.light-blue .lightProgress1, .light-blue .lightProgress1.irr div{
   background: #1660A4;
 }
-.light-blue .lightProgress1 div{
+.light-blue .lightProgress1 div, .light-blue .lightProgress1.irr{
   background: #1A89EE;
 }
-.light-blue .lightProgress3{
+.light-blue .lightProgress2, .light-blue .lightProgress2.irr div{
+  background: #089875;
+}
+.light-blue .lightProgress2 div, .light-blue .lightProgress2.irr{
+  background: #10B78E;
+}
+.light-blue .lightProgress3, .light-blue .lightProgress3.irr div{
   background: #763CA3;
 }
-.light-blue .lightProgress3 div{
+.light-blue .lightProgress3 div, .light-blue .lightProgress3.irr{
   background: #B770EF;
 }
-.light-blue .lightProgress4{
+.light-blue .lightProgress4, .light-blue .lightProgress4.irr div{
    background: #9D2B2B;
 }
-.light-blue .lightProgress4 div{
+.light-blue .lightProgress4 div, .light-blue .lightProgress4.irr{
   background: #CA3939;
+}
+.light-blue .lightProgress5, .light-blue .lightProgress5.irr div{
+   background: #E8662F;
+}
+.light-blue .lightProgress5 div, .light-blue .lightProgress5.irr{
+  background: #F67F4C;
 }
 
 .light-blue .irrCardParaTop2{
