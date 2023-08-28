@@ -140,7 +140,9 @@
                         <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                       </router-link> 
                       <router-link :to="`/review-summary/${$route.params.scenario}`" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
-                      <router-link to="" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" @click="submitHandler(true)">Save Scenario as Draft</router-link> </div>
+                      <a href="javascript:void(0)" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" v-if="$route.query.report" @click="submitHandler(false, true)">Save & Return to Current Report</a> 
+                      <router-link to="" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" v-if="!$route.query.report" @click="submitHandler(true)">Save Scenario as Draft</router-link> 
+                    </div>
                   </div>
                 </div>
               </div>
@@ -944,7 +946,7 @@ console.log('.........');
     },
 
     // handle form submitted data
-    submitHandler: function(draft = false) {
+    submitHandler: function(draft = false, report = false) {
       this.analysis = this.getAnalysisData();
       this.growth = this.getGrowthData();
       this.enhancements = this.getEnhancementData();
@@ -1006,7 +1008,6 @@ console.log('.........');
                   area.scrollIntoView();
                 }
               }
-              console.log(focus);
             }
             valid = false;
           }
@@ -1406,7 +1407,11 @@ console.log('.........');
             console.log(response.data);
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
-            this.$router.push(`/review-summary/${this.$route.params.scenario}`);
+            if(report){
+              this.$router.push(`/report-builder/${this.$route.query.report}`);
+            }else{
+              this.$router.push(`/review-summary/${this.$route.params.scenario}`);
+            }
           })
           .catch(error => {
             console.log(error);

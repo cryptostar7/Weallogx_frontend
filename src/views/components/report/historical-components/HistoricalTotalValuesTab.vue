@@ -100,27 +100,27 @@ export default {
 
     if (card1) {
       this.data[0].type = "LIRP";
-      this.data[0].total_value = card1.sum_of_all_total_value;
+      this.data[0].total_value = card1.cummulative_income_total_value;
     }
 
     if (card2) {
       this.data[1].type = "Most Recent";
-      this.data[1].total_value = card2.result.sum_of_all_total_value;
+      this.data[1].total_value = card2.result.cummulative_income_total_value;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
-      this.data[2].total_value = card3.result.sum_of_all_total_value;
+      this.data[2].total_value = card3.result.cummulative_income_total_value;
     }
 
     if (card4) {
       this.data[3].type = "Median";
-      this.data[3].total_value = card4.result.sum_of_all_total_value;
+      this.data[3].total_value = card4.result.cummulative_income_total_value;
     }
 
     if (card5) {
       this.data[4].type = "Best";
-      this.data[4].total_value = card5.result.sum_of_all_total_value;
+      this.data[4].total_value = card5.result.cummulative_income_total_value;
     }
 
     this.setGraph();

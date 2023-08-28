@@ -22,7 +22,7 @@
             </div>
           </div>
           <div>
-            <button class="d-none" @click="testFunction()">test</button>
+            <button class="d-none">test</button>
             <div :class="`commonCollapse  ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv7 position-relative tableDivHeight2`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
               <div class="px-3 py-3">
@@ -54,12 +54,14 @@
                                 <div class="layer2"></div>
                               </div>
                               <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;
+                                <!-- Edit button -->
+                                <router-link :to="`/illustration-data/${scenario_id}?report=${$route.params.report}`" class="editBtnLirp disableBtnsForAll">&nbsp;
                                   <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"  stroke="#1660A4" stroke-width="1.15"></rect>
                                     <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z" stroke="#1660A4" stroke-width="1.25"></path>
                                   </svg>
-                                </a>
+                                </router-link>
+                                <!-- Delete button -->
                                 <a href="javascript:void(0)" @click="setActionId(index)" data-bs-target="#DeleteHistoricalCvModal" data-bs-toggle="modal" class="deleteBtnLirp disableBtnsForAll">&nbsp;
                                   <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z" stroke="#1660A4" stroke-width="1.25"></path>
@@ -134,12 +136,14 @@
                               <div class="col-12">
                                 <div class="d-flex align-items-center justify-content-between mt-2 allActionBtns me-0">
                                   <div class="d-flex w-100 justify-content-end align-items-center">
-                                    <a href="javascript:void(0)" class="editBtnLirp disableBtnsForAll">&nbsp;
+                                    <!-- Edit button -->
+                                    <router-link :to="`/illustration-data/${scenario_id}?report=${$route.params.report}`" class="editBtnLirp disableBtnsForAll">&nbsp;
                                       <svg  width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white"  stroke="#1660A4" stroke-width="1.15" />
                                         <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                       </svg>
-                                    </a>
+                                    </router-link>
+                                    <!-- Delete button -->
                                     <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;<svg width="13"
                                         height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_1862_4)">
@@ -201,7 +205,7 @@
                     <!-- draggable column -->
                     <div class="col">
                         <draggable v-model="draggableColumns"  :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/(4-deletedItems.length)}  ps-0 pe-1 drag-col ${header.active ? '' : 'order-last'} ${deletedItems.includes(header.id) ? 'd-none':''}`">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/4}  ps-0 pe-1 drag-col ${header.active ? '' : 'order-last'}`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
                                 <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -220,12 +224,12 @@
                                               <div class="layer2"></div>
                                             </div>
                                             <div :class="`d-flex align-items-center switch${header.id}`">
-                                              <a href="javascript:void(0)" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;
+                                              <router-link :to="`/historical-simulations/${scenario_id}?report=${$route.params.report}`" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;
                                                 <svg  width="13" height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                   <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
                                                   <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
                                                 </svg>
-                                              </a>
+                                              </router-link>
                                               <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;<svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                   <g clip-path="url(#clip0_1862_4)">
                                                     <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
@@ -529,9 +533,6 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function() {
-      this.mapData();
-    },
     handleSidebar: function(status) {
       // this.refreshHeaderSizes()
       console.log(status);
@@ -568,6 +569,7 @@ export default {
           this.data[0].irr = this.table.lirp_data.irr_percent;
           this.distributions = tempDeposits;
           this.summary_data.data[0].distribution.total = this.table.lirp_data.total_distribution;
+          this.summary_data.data[0].distribution.total_value = this.table.lirp_data.cummulative_income_total_value;
           this.summary_data.data[0].distribution.surplus = 0;
           this.summary_data.deposits.totals = this.table.lirp_data.total_deposit;
         }
@@ -588,18 +590,12 @@ export default {
                 : null,
             });
           }
-          // this.data[1].list = tempList;
-          // this.data[1].strategy_average = this.table.min.result.stratgy_average;
-          // this.data[1].strategy_carg = this.table.min.result.tsa_cagr_percent;
-          // this.data[1].irr = this.table.min.result.irr_percent;
-          // this.summary_data.data[1].distribution.total = this.table.min.result.cummulative_distribution;
-          // this.summary_data.data[1].distribution.surplus = this.table.min.result.Surplus;
-
           this.data[2].list = tempList;
           this.data[2].strategy_average = this.table.min.result.stratgy_average;
           this.data[2].strategy_carg = this.table.min.result.tsa_cagr_percent;
           this.data[2].irr = this.table.min.result.irr_percent;
           this.summary_data.data[2].distribution.total = this.table.min.result.cummulative_distribution;
+          this.summary_data.data[2].distribution.total_value = this.table.min.result.cummulative_income_total_value;
           this.summary_data.data[2].distribution.surplus = this.table.min.result.Surplus;
         }
       }
@@ -607,6 +603,7 @@ export default {
       if (this.table.most_recent) {
         let data = this.table.most_recent.result.chart_output;
         let list = data.age;
+
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
@@ -619,18 +616,13 @@ export default {
                 : null,
             });
           }
-          // this.data[2].list = tempList;
-          // this.data[2].strategy_average = this.table.most_recent.result.stratgy_average;
-          // this.data[2].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
-          // this.data[2].irr = this.table.most_recent.result.irr_percent;
-          // this.summary_data.data[2].distribution.total = this.table.most_recent.result.cummulative_distribution;
-          // this.summary_data.data[2].distribution.surplus = this.table.most_recent.result.Surplus;
          
           this.data[1].list = tempList;
           this.data[1].strategy_average = this.table.most_recent.result.stratgy_average;
           this.data[1].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
           this.data[1].irr = this.table.most_recent.result.irr_percent;
           this.summary_data.data[1].distribution.total = this.table.most_recent.result.cummulative_distribution;
+          this.summary_data.data[1].distribution.total_value = this.table.most_recent.result.cummulative_income_total_value;
           this.summary_data.data[1].distribution.surplus = this.table.most_recent.result.Surplus;
         }
       }
@@ -655,6 +647,7 @@ export default {
           this.data[3].strategy_carg = this.table.median.result.tsa_cagr_percent;
           this.data[3].irr = this.table.median.result.irr_percent;
           this.summary_data.data[3].distribution.total = this.table.median.result.cummulative_distribution;
+          this.summary_data.data[3].distribution.total_value = this.table.median.result.cummulative_income_total_value;
           this.summary_data.data[3].distribution.surplus = this.table.median.result.Surplus;
         }
       }
@@ -679,6 +672,7 @@ export default {
           this.data[4].strategy_carg = this.table.max.result.tsa_cagr_percent;
           this.data[4].irr = this.table.max.result.irr_percent;
           this.summary_data.data[4].distribution.total = this.table.max.result.cummulative_distribution;
+          this.summary_data.data[4].distribution.total_value = this.table.max.result.cummulative_income_total_value;
           this.summary_data.data[4].distribution.surplus = this.table.max.result.Surplus;
         }
       }
@@ -699,18 +693,14 @@ export default {
         });
       }
     },
-    "$props.sidebar"(value) {
-      console.log(value);
-      // this.handleSidebar(value);
-    },
   },
   computed: {
     table() {
       return this.$store.state.data.report.historical;
     },
-    deletedItems() {
-      return this.$store.state.data.report.deleted_historical_cv_ids;
-    },
+    scenario_id() {
+      return this.$store.state.data.report.comparative.scenerio_id;
+    }
   },
 };
 </script>
