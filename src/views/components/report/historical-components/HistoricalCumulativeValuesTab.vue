@@ -69,7 +69,7 @@
                             </div>
                           </div>
                           
-                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
+                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{item.period}} Years</span><br> <span>Starting Date: {{item.starting_date}}</span> </span></label></p>
                           <div class="pt-2 mt-auto d-flex">
                             <div :class="`pos-top CardProgressBar lightProgress${1+index} lessWidth boxProgressCommon${18+index} ${cards.cummulative_income[index].active ? '' : 'boxProgress'}`">
                               <div class="CardProgress"></div>
@@ -142,7 +142,7 @@
                               </a>
                             </div>
                           </div>
-                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
+                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{item.period}} Years</span><br> <span>Starting Date: {{item.starting_date}}</span> </span></label></p>
                           <div class="mt-2 d-flex">
                             <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${23+index}  ${cards.total_income[index].active ? '' : 'boxProgress'}`">
                               <div class="CardProgress"></div>
@@ -284,33 +284,49 @@ export default {
     if (card2) {
       this.data.cummulative_income[1].type = "Most Recent";
       this.data.cummulative_income[1].income = card2.cummulative_income;
+      this.data.cummulative_income[1].starting_date = this.$customDateFormat(card2.starting_date, 'M/D/y');
+      this.data.cummulative_income[1].period = this.historical.discloser.period;
 
       this.data.total_income[1].type = "Most Recent";
       this.data.total_income[1].income = card2.cummulative_income_total_value;
+      this.data.total_income[1].starting_date = this.$customDateFormat(card2.starting_date, 'M/D/y');
+      this.data.total_income[1].period = this.historical.discloser.period;
     }
 
     if (card3) {
       this.data.cummulative_income[2].type = "Worst";
       this.data.cummulative_income[2].income = card3.cummulative_income;
+      this.data.cummulative_income[2].starting_date = this.$customDateFormat(card3.starting_date, 'M/D/y');
+      this.data.cummulative_income[2].period = this.historical.discloser.period;
 
       this.data.total_income[2].type = "Worst";
       this.data.total_income[2].income = card3.cummulative_income_total_value;
+      this.data.total_income[2].starting_date = this.$customDateFormat(card3.starting_date, 'M/D/y');
+      this.data.total_income[2].period = this.historical.discloser.period;
     }
 
     if (card4) {
       this.data.cummulative_income[3].type = "Median";
       this.data.cummulative_income[3].income = card4.cummulative_income;
+      this.data.cummulative_income[3].starting_date = this.$customDateFormat(card4.starting_date, 'M/D/y');
+      this.data.cummulative_income[3].period = this.historical.discloser.period;
 
       this.data.total_income[3].type = "Median";
       this.data.total_income[3].income = card4.cummulative_income_total_value;
+      this.data.total_income[3].starting_date = this.$customDateFormat(card4.starting_date, 'M/D/y');
+      this.data.total_income[3].period = this.historical.discloser.period;
     }
 
     if (card5) {
       this.data.cummulative_income[4].type = "Best";
       this.data.cummulative_income[4].income = card5.cummulative_income;
+      this.data.cummulative_income[4].starting_date = this.$customDateFormat(card5.starting_date, 'M/D/y');
+      this.data.cummulative_income[4].period = this.historical.discloser.period;
 
       this.data.total_income[4].type = "Best";
       this.data.total_income[4].income = card5.cummulative_income_total_value;
+      this.data.total_income[4].starting_date = this.$customDateFormat(card5.starting_date, 'M/D/y');
+      this.data.total_income[4].period = this.historical.discloser.period;
     }
   },
   watch: {

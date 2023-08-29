@@ -42,7 +42,7 @@
                           </div>
                         </div>
                       </div>
-                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{data[index].period}} Years</span><br> <span>Starting Date: {{data[index].starting_date}}</span> </span></label></p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
                           <div class="CardProgress"></div>
@@ -122,21 +122,29 @@ export default {
     if (card2) {
       this.data[1].type = "Most Recent";
       this.data[1].annual_income = card2.annual_income;
+      this.data[1].starting_date = this.$customDateFormat(card2.starting_date, 'M/D/y');
+      this.data[1].period = this.historical.discloser.period;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
       this.data[2].annual_income = card3.annual_income;
+      this.data[2].starting_date = this.$customDateFormat(card3.starting_date, 'M/D/y');
+      this.data[2].period = this.historical.discloser.period;
     }
 
     if (card4) {
       this.data[3].type = "Median";
       this.data[3].annual_income = card4.annual_income;
+      this.data[3].starting_date = this.$customDateFormat(card4.starting_date, 'M/D/y');
+      this.data[3].period = this.historical.discloser.period;
     }
 
     if (card5) {
       this.data[4].type = "Best";
       this.data[4].annual_income = card5.annual_income;
+      this.data[4].starting_date = this.$customDateFormat(card5.starting_date, 'M/D/y');
+      this.data[4].period = this.historical.discloser.period;
     }
   },
   methods: {
@@ -191,7 +199,7 @@ export default {
     },
     maxIncome() {
       let dst = this.data;
-      return Math.max(...[...dst.map(i => Number(i.annual_income || 0))])
+      return Math.max(...[...dst.map(i => Number(i.annual_income || 0))]);
     },
   },
 };

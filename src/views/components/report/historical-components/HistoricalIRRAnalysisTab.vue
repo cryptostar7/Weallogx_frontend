@@ -46,7 +46,7 @@
                         </div>
                         
                       </div>
-                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : ''}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : ''}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{item.period}} Years</span><br> <span>Starting Date: {{item.starting_date}}</span> </span></label></p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth switchBg irr lightProgress${1+index} irrBoxProgressCommon${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress" style="height: 50%;"></div>
@@ -187,24 +187,44 @@ export default {
       this.data[1].type = "Most Recent";
       this.data[1].internal_rate_of_return = card2.irr_percent;
       this.data[1].taxable_equivalent = card2.taxable_equivalent;
+      this.data[1].starting_date = this.$customDateFormat(
+        card2.starting_date,
+        "M/D/y"
+      );
+      this.data[1].period = this.historical.discloser.period;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
       this.data[2].internal_rate_of_return = card3.irr_percent;
       this.data[2].taxable_equivalent = card3.taxable_equivalent;
+      this.data[2].starting_date = this.$customDateFormat(
+        card3.starting_date,
+        "M/D/y"
+      );
+      this.data[2].period = this.historical.discloser.period;
     }
 
     if (card4) {
       this.data[3].type = "Median";
       this.data[3].internal_rate_of_return = card4.irr_percent;
       this.data[3].taxable_equivalent = card4.taxable_equivalent;
+      this.data[3].starting_date = this.$customDateFormat(
+        card4.starting_date,
+        "M/D/y"
+      );
+      this.data[3].period = this.historical.discloser.period;
     }
 
     if (card5) {
       this.data[4].type = "Best";
       this.data[4].internal_rate_of_return = card5.irr_percent;
       this.data[4].taxable_equivalent = card5.taxable_equivalent;
+      this.data[4].starting_date = this.$customDateFormat(
+        card5.starting_date,
+        "M/D/y"
+      );
+      this.data[4].period = this.historical.discloser.period;
     }
   },
   methods: {
@@ -240,7 +260,12 @@ export default {
     },
     maxIRR() {
       let dst = this.data;
-      return Math.max(...[...dst.map(i => Number(i.internal_rate_of_return || 0)), ...dst.map(i => Number(i.taxable_equivalent || 0))]);
+      return Math.max(
+        ...[
+          ...dst.map(i => Number(i.internal_rate_of_return || 0)),
+          ...dst.map(i => Number(i.taxable_equivalent || 0)),
+        ]
+      );
     },
   },
 };

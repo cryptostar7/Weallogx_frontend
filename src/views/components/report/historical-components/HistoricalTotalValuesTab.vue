@@ -43,7 +43,7 @@
                           </div>
                         </div>
                       </div>                      
-                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{item.period}} Years</span><br> <span>Starting Date: {{item.starting_date}}</span> </span></label></p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${14+index} totalValueProgress${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress"></div>
@@ -104,21 +104,29 @@ export default {
     if (card2) {
       this.data[1].type = "Most Recent";
       this.data[1].total_value = card2.result.cummulative_income_total_value;
+      this.data[1].starting_date = this.$customDateFormat(card2.result.starting_date, 'M/D/y');
+      this.data[1].period = this.historical.discloser.period;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
       this.data[2].total_value = card3.result.cummulative_income_total_value;
+      this.data[2].starting_date = this.$customDateFormat(card3.result.starting_date, 'M/D/y');
+      this.data[2].period = this.historical.discloser.period;
     }
 
     if (card4) {
       this.data[3].type = "Median";
       this.data[3].total_value = card4.result.cummulative_income_total_value;
+      this.data[3].starting_date = this.$customDateFormat(card4.result.starting_date, 'M/D/y');
+      this.data[3].period = this.historical.discloser.period;
     }
 
     if (card5) {
       this.data[4].type = "Best";
       this.data[4].total_value = card5.result.cummulative_income_total_value;
+      this.data[4].starting_date = this.$customDateFormat(card5.result.starting_date, 'M/D/y');
+      this.data[4].period = this.historical.discloser.period;
     }
 
     this.setGraph();

@@ -224,7 +224,7 @@
                                               <div class="layer2"></div>
                                             </div>
                                             <div :class="`d-flex align-items-center switch${header.id}`">
-                                              <p class="position-relative cursor-pointer top-1"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="me-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="me-1 dark-info-icon-img"><span :class="`info-message-rollingTime ${index+1 == draggableColumns.length ? 'right' : '' }`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></p>
+                                              <p class="position-relative cursor-pointer top-1"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="me-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="me-1 dark-info-icon-img"><span :class="`info-message-rollingTime ${index+1 == draggableColumns.length ? 'right' : '' }`"> <span>Rolling Time Period: {{data[header.id].period}} Years</span><br> <span>Starting Date: {{data[header.id].starting_date}}</span> </span></p>
                                               <router-link :to="`/historical-simulations/${scenario_id}?report=${$route.params.report}`" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;
                                                 <svg  width="13" height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                   <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
@@ -554,7 +554,9 @@ export default {
           for (let i = 0; i < list.length; i++) {
             tempList.push({
               distributions: data.distributions ? data.distributions[i] : null,
-              net_balance: data.comperative_account_value ? data.comperative_account_value[i] : null,
+              net_balance: data.comperative_account_value
+                ? data.comperative_account_value[i]
+                : null,
             });
 
             tempDeposits.push({
@@ -592,6 +594,8 @@ export default {
             });
           }
           this.data[2].list = tempList;
+          this.data[2].period = this.table.discloser.period;
+          this.data[2].starting_date = this.$customDateFormat(this.table.min.result.starting_date, 'M/D/y');
           this.data[2].strategy_average = this.table.min.result.stratgy_average;
           this.data[2].strategy_carg = this.table.min.result.tsa_cagr_percent;
           this.data[2].irr = this.table.min.result.irr_percent;
@@ -617,8 +621,10 @@ export default {
                 : null,
             });
           }
-         
+
           this.data[1].list = tempList;
+          this.data[1].period = this.table.discloser.period;
+          this.data[1].starting_date = this.$customDateFormat(this.table.most_recent.result.starting_date, 'M/D/y');
           this.data[1].strategy_average = this.table.most_recent.result.stratgy_average;
           this.data[1].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
           this.data[1].irr = this.table.most_recent.result.irr_percent;
@@ -644,6 +650,8 @@ export default {
             });
           }
           this.data[3].list = tempList;
+          this.data[3].period = this.table.discloser.period;
+          this.data[3].starting_date = this.$customDateFormat(this.table.median.result.starting_date, 'M/D/y');
           this.data[3].strategy_average = this.table.median.result.stratgy_average;
           this.data[3].strategy_carg = this.table.median.result.tsa_cagr_percent;
           this.data[3].irr = this.table.median.result.irr_percent;
@@ -669,6 +677,8 @@ export default {
             });
           }
           this.data[4].list = tempList;
+          this.data[4].period = this.table.discloser.period;
+          this.data[4].starting_date = this.$customDateFormat(this.table.max.result.starting_date, 'M/D/y');
           this.data[4].strategy_average = this.table.max.result.stratgy_average;
           this.data[4].strategy_carg = this.table.max.result.tsa_cagr_percent;
           this.data[4].irr = this.table.max.result.irr_percent;
@@ -701,7 +711,7 @@ export default {
     },
     scenario_id() {
       return this.$store.state.data.report.comparative.scenerio_id;
-    }
+    },
   },
 };
 </script>

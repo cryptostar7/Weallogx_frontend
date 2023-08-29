@@ -38,27 +38,37 @@
           <div class="col-md-6">
             <h6 class="bold-one">Fees assumed:</h6>
             <div>
-              <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                <span>Annuity: <b>2.3%</b> per annum; </span>
+              <p><span>Brokerage Account: <b>{{disclosure.cv1_fees}}%</b> per annum;</span>
+                <span>401K/IRA: <b>{{disclosure.cv2_fees}}%</b> per annum; </span>
+                <span>Annuity: <b>{{disclosure.cv3_fees}}%</b> per annum; </span>
                 <span>LIRP: actual current costs of insurance, as per the carrier illustration</span>
               </p>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" v-if="!disclosure.cv1_capital_gains_tax_rate && !disclosure.cv2_capital_gains_tax_rate && !disclosure.cv3_capital_gains_tax_rate">
+              <h6 class="bold-one">Taxes assumed: </h6>
+              <p><span><b>{{disclosure.tax_rate}}%</b> years <b>1-{{disclosure.second_tax_rate_year}}</b>;</span>
+                <span><b>{{disclosure.second_tax_rate}}%</b> years <b>{{disclosure.second_tax_rate_year}}+</b>;</span>
+              </p>
+          </div>
+          <div class="col-md-6" v-if="disclosure.cv1_capital_gains_tax_rate || disclosure.cv2_capital_gains_tax_rate || disclosure.cv3_capital_gains_tax_rate">
             <div>
               <h6 class="bold-one">Taxes assumed: </h6>
-              <p><span><b>27%</b> years <b>1-6</b>;</span>
-                <span><b>35%</b> years <b>7+</b>;</span>
+              <p><span><b>{{disclosure.tax_rate}}%</b> years <b>1-{{disclosure.second_tax_rate_year}}</b>;</span>
+                <span><b>{{disclosure.second_tax_rate}}%</b> years <b>{{disclosure.second_tax_rate_year}}+</b>;</span>
                 <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                <span>Capital gains ratio: <b>50%</b>;</span>
-                <span>Capital gains tax rate: <b>20%</b>;</span>
+                <span v-if="disclosure.cv1_percentage_of_account_as_capital_gains">Capital gains ratio: <b>{{disclosure.cv1_percentage_of_account_as_capital_gains}}%</b>;</span>
+                <span v-if="disclosure.cv2_percentage_of_account_as_capital_gains">Capital gains ratio: <b>{{disclosure.cv2_percentage_of_account_as_capital_gains}}%</b>;</span>
+                <span v-if="disclosure.cv3_percentage_of_account_as_capital_gains">Capital gains ratio: <b>{{disclosure.cv3_percentage_of_account_as_capital_gains}}%</b>;</span>
+                <span v-if="disclosure.cv1_capital_gains_tax_rate">Capital gains tax rate: <b>{{disclosure.cv1_capital_gains_tax_rate}}%</b>;</span>
+                <span v-if="disclosure.cv2_capital_gains_tax_rate">Capital gains tax rate: <b>{{disclosure.cv2_capital_gains_tax_rate}}%</b>;</span>
+                <span v-if="disclosure.cv3_capital_gains_tax_rate">Capital gains tax rate: <b>{{disclosure.cv3_capital_gains_tax_rate}}%</b>;</span>
                 <!-- If taxes are scheduled, then the last line is simply: -->
               </p>
             </div>
           </div>
         </div>
-        <p><span>Taxes assumed: <b>Per schedule</b></span></p>
+        <p v-if="!disclosure.cv1_capital_gains_tax_rate && !disclosure.cv2_capital_gains_tax_rate && !disclosure.cv3_capital_gains_tax_rate"><span>Taxes assumed: <b>Per schedule</b></span></p>
       </div>
     </div>
   </div>
@@ -90,7 +100,7 @@
 </template>
 <script>
 export default {
-  props:['hideFee', 'containerFluid'],
+  props: ["hideFee", "containerFluid"],
 
   data() {
     return {
@@ -108,14 +118,42 @@ export default {
         new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
     },
+    getDefaultDisclosure: function() {
+      let index = this.disclosure.index;
+      let period = this.disclosure.period;
+      return `This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
+      It is not a real world insurance policy. It is  not an official illustration. 
+      You may not assume the data presented here relating to the TSA infers or expresses any guarantee of how a real world insurance policy would perform. 
+      Comparisons made to the official <b>Pacific Life</b> illustration(s), which use hypothetical assumptions that are not guaranteed, 
+      are designed to be educational and instructive as to how the insurance policies compared <b>may have</b> performed through different historical periods. 
+      The data uses the raw returns of the <b>${index}</b>, and simulates the potential returns that the insurance policy <b>may have</b> 
+      achieved if the current cap rates, participation rates, floors, fees, and borrowing costs were in place during the historical periods tested. 
+      Cap rates, participation rates, and policy fees can and do change. We analyzed <b>${period}</b>-year periods of the index. 
+      In the case where a time period portrayed is greater than <b>${period}</b> years, the data was looped for purposes of the simulation. 
+      This simulation of a TSA took the actual current monthly fees of the <b>Pacific Life</b> insurance policy and increased them by 15%. 
+      All distributions assume the use of an index/participating loan. We assumed a <b>5.4%</b> borrowing rate in the simulation of the TSA. 
+      Presented here are the most recent, worst, median, and best <b>${period}</b>-year periods with respect to the insurance policy’s intended 
+      allocation in the <b>${index}</b> index strategy. However, these results are not the results of an actual insurance policy, 
+      but those of the TSA, which does not exist in the real world. It is entirely possible that 
+      the real world experience of the actual policy could be even worse than the worst <b>${period}</b>-year period analyzed, just as it is entirely possible that 
+      the real world policy could perform better than the best <b>${period}</b>-year period analyzed.`;
+    },
     setDefaultMessage: function() {
-      this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+      this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
     },
     saveMessage: function() {
       if (!this.$refs.editableDiv.innerHTML) {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
       this.saveDisclosure = false;
+    },
+    mapData: function() {
+      console.log(disclosure);
+    },
+  },
+  computed: {
+    disclosure() {
+      return this.$store.state.data.report.historical.discloser || [];
     },
   },
 };
