@@ -950,6 +950,35 @@ body::-webkit-scrollbar {
 .common-modal .gap-13 {
   gap: 13px;
 }
+.gap-24{
+  gap: 24px;
+}
+.btn-close.right-pos{
+  position: absolute;
+  right: 1.25rem;
+  top: 1.5rem;
+  filter: brightness(0);
+}
+.disclosure-content-sect{
+  padding: .5rem;
+  border-radius: 5px;
+  border: 1.25px solid #DFDFDF;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.line-thick{
+  position: relative;
+}
+.line-thick::after{
+  content: '';
+  position: absolute;
+  width: 17px;
+  height: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -5px;
+  background-color: #0E6651;
+}
 .common-modal .yes-delete-btn {
   min-width: 225px;
   background-color: var(--green-clr);
@@ -958,6 +987,10 @@ body::-webkit-scrollbar {
   font-weight: var(--semi-bold-fw);
   font-size: 0.875rem;
   border-radius: 6.5rem;
+}
+.yes-delete-btn.disabled{
+  background: rgba(191, 191, 191, 0.75);
+  color: #fff;
 }
 .common-modal .yes-delete-btn:hover {
   background-color: var(--green-clr-2);
@@ -979,6 +1012,45 @@ background: #F9F9F9!important;
 padding:0.8rem 0.75rem;
 border-radius:0 0 0.5rem 0.5rem;
 margin-top:0;
+}
+.disclosure-radios label{
+  position: relative;
+  width: 150px;
+  margin-left: 40px;
+  color: rgba(161, 161, 161, 0.75);
+}
+.disclosure-radios label::before{
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 14px;
+  left: -40px;
+  right: auto;
+  top: 3px;
+  border-radius: 100px;
+  background: #D9D9D9;
+  transition: all .15s ease-in;
+}
+.disclosure-radios label::after{
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: -37px;
+  top: 5px;
+  border-radius: 50%;
+  background-color: #FFF;
+  transition: all .15s ease-in;
+}
+.disclosure-radios input[type=checkbox]:checked ~ label::before{
+  background: #0E6651;
+}
+.disclosure-radios input[type=checkbox]:checked ~ label::after{
+  left: auto;
+  right: 158px;
+}
+.disclosure-radios input[type=checkbox]:checked ~ label{
+  color: #000;
 }
 
 .report-round-btn:not(.collapsed) svg path{
