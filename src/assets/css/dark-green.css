@@ -4201,3 +4201,16 @@ background: #262B29;
   background: #2E3135!important;
   color: rgb(160, 160, 160);
 }
+.dark-green .line-thick::after{
+  background-color: #26AB8B; 
+}
+.dark-green .disclosure-radios input[type=checkbox]:checked ~ label::before{
+  background: #26AB8B;
+}
+.dark-green .yes-delete-btn.disabled {
+  background: rgba(191, 191, 191, 0.75);
+  color: #fff;
+}
+.dark-green .disclosure-radios input[type=checkbox]:checked ~ label{
+  color: #26AB8B;
+}

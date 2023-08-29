@@ -4677,3 +4677,16 @@ background: #0C4A83;
 .dark-blue .first-ellipse{
   fill: var(--blue-clr-2);
 }
+.dark-blue .line-thick::after{
+  background-color: var(--blue-clr-2);
+}
+.dark-blue .disclosure-radios input[type=checkbox]:checked ~ label::before{
+  background: var(--blue-clr-2);
+}
+.dark-blue .yes-delete-btn.disabled {
+  background: rgba(191, 191, 191, 0.75);
+  color: #fff;
+}
+.dark-blue .disclosure-radios input[type=checkbox]:checked ~ label{
+  color: var(--blue-clr-2);
+}
