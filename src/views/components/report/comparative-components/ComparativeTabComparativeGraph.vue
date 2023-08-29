@@ -113,7 +113,6 @@
                 </div>
               </div>
             </div>
-            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="2"  />
           </div>
         </div>
@@ -169,8 +168,6 @@ export default {
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
       // cvGraphInputToogle${index}
-      console.log("this.cards");
-      console.log(this.graphs);
       this.setGraph(); // generate graph
     }
   },
@@ -710,9 +707,6 @@ export default {
           });
       }
     },
-    testFunction: function() {
-      console.log(this.comparative);
-    },
     // to get the longevity year
     getYear: function(array, age) {
       let year = array.filter(i => i);
@@ -726,6 +720,10 @@ export default {
         let chart1 = this.comparative.cv_1;
         let chart2 = this.comparative.cv_2;
         let chart3 = this.comparative.cv_3;
+
+        let cv_1_cummlative = this.comparative_main.cv_1;
+        let cv_2_cummlative = this.comparative_main.cv_2;
+        let cv_3_cummlative = this.comparative_main.cv_3;
 
         if (chart) {
           this.data[0].ror = chart.rate_of_return;
@@ -742,7 +740,7 @@ export default {
             chart1.comparison.chart_output.year
           );
 
-          this.data[1].cumulative_income = chart1.comparison.cummulative_income;
+          this.data[1].cumulative_income = cv_1_cummlative.comparison.cummulative_income;
         }
 
         if (Object.values(chart2).length) {
@@ -752,7 +750,7 @@ export default {
             this.comparative_main.cv_2.comparison.chart_output.net_balance,
             chart2.comparison.chart_output.year
           );
-          this.data[2].cumulative_income = chart2.comparison.cummulative_income;
+          this.data[2].cumulative_income = cv_2_cummlative.comparison.cummulative_income;
         }
 
         if (Object.values(chart3).length) {
@@ -762,7 +760,7 @@ export default {
             this.comparative_main.cv_3.comparison.chart_output.net_balance,
             chart2.comparison.chart_output.year
           );
-          this.data[3].cumulative_income = chart3.comparison.cummulative_income;
+          this.data[3].cumulative_income = cv_3_cummlative.comparison.cummulative_income;
         }
       }
     },
