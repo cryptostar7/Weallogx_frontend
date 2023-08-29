@@ -32,9 +32,7 @@
                   <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
                     <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '': 'inactive'}`">
                       <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                          <p class="allCardHeadPara">Total Value</p>
-                        </div>
+                        <p class="allCardHeadPara">Total Value</p>
                         <div class="d-flex">
                           <div class="button-cover2">
                             <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch4 extra':''}`" id="button-2">
@@ -45,7 +43,7 @@
                           </div>
                         </div>
                       </div>                      
-                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${14+index} totalValueProgress${1+index} ${cards[index].active ? '':'boxProgress'}`">
                           <div class="CardProgress"></div>

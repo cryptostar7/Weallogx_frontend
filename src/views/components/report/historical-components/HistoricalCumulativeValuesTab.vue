@@ -69,7 +69,7 @@
                             </div>
                           </div>
                           
-                          <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
                           <div class="pt-2 mt-auto d-flex">
                             <div :class="`pos-top CardProgressBar lightProgress${1+index} lessWidth boxProgressCommon${18+index} ${cards.cummulative_income[index].active ? '' : 'boxProgress'}`">
                               <div class="CardProgress"></div>
@@ -117,10 +117,10 @@
                     <div class="d-flex justify-content-between flex-gap-12">
                       <div class="mt-3 flex-1" v-for="(item, index) in data.total_income" :key="index">
                         <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards.total_income[index].active ? '': 'inactive'}`">
-                          <div class="d-flex justify-content-between">
+                          <div class="d-flex justify-content-between align-items-center">
                             <div class="distrbnCard1paras">
-                              <p>Total Value</p>
-                              <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                              <p class="allCardHeadPara1">Total Value</p>
+                              <p class="d-none"></p>
                             </div>
                             <div class="d-flex">
                               <div class="button-cover2">
@@ -142,6 +142,7 @@
                               </a>
                             </div>
                           </div>
+                          <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
                           <div class="mt-2 d-flex">
                             <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${23+index}  ${cards.total_income[index].active ? '' : 'boxProgress'}`">
                               <div class="CardProgress"></div>

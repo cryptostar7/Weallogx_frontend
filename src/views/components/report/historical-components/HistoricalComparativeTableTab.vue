@@ -224,6 +224,7 @@
                                               <div class="layer2"></div>
                                             </div>
                                             <div :class="`d-flex align-items-center switch${header.id}`">
+                                              <p class="position-relative cursor-pointer top-1"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="me-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="me-1 dark-info-icon-img"><span :class="`info-message-rollingTime ${index+1 == draggableColumns.length ? 'right' : '' }`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></p>
                                               <router-link :to="`/historical-simulations/${scenario_id}?report=${$route.params.report}`" class="editBtn editBtnAccount disableBtnsForAll">&nbsp;
                                                 <svg  width="13" height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
                                                   <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />

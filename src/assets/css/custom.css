@@ -464,7 +464,7 @@ body::-webkit-scrollbar {
 .summaryMainDiv p {
   margin: 0;
   padding: 0;
-  color: #000000;
+  color: #000;
   font-size: 34px;
   font-weight: 700;
 }
@@ -524,7 +524,7 @@ body::-webkit-scrollbar {
   background: white;
   border-radius: 0;
   font-size: 18px;
-  color: #000000;
+  color: #000;
   font-weight: 500;
   padding-left: 0;
 }
@@ -632,7 +632,7 @@ body::-webkit-scrollbar {
 
 .illusnTableMainDiv .table th {
   background: #EEEEEE;
-  color: #000000;
+  color: #000;
   font-size: 12px;
   font-weight: 600;
   border-bottom: 1px solid #DFDFDF;
@@ -649,7 +649,7 @@ body::-webkit-scrollbar {
 .illusnTableMainDiv .table tbody tr td {
   font-size: 15px;
   font-weight: 400;
-  color: #000000;
+  color: #000;
 }
 
 /*responsive*/
@@ -686,7 +686,7 @@ body::-webkit-scrollbar {
   padding: 0;
   font-size: 21px;
   font-weight: 700;
-  color: #000000;
+  color: #000;
 }
 
 .compVehcleBorder {
@@ -772,7 +772,7 @@ body::-webkit-scrollbar {
 
 .modalTableDiv .table th {
   background: #EEEEEE;
-  color: #000000;
+  color: #000;
   font-size: 12px;
   font-weight: 700;
   border-bottom: 1px solid #DFDFDF;
@@ -790,14 +790,14 @@ body::-webkit-scrollbar {
 .modalTableDiv .table tbody tr td {
   font-size: 15px;
   font-weight: 400;
-  color: #000000;
+  color: #000;
 }
 
 .ModalHeasingPara {
   font-weight: 700;
   font-size: 16px;
   text-align: center;
-  color: #000000;
+  color: #000;
   margin-top: 0;
 }
 
@@ -925,7 +925,7 @@ body::-webkit-scrollbar {
 /*  */
 .backToscenario {
   text-decoration: none;
-  color: #000000;
+  color: #000;
   font-size: 15px;
   font-weight: 500;
 }
@@ -1060,7 +1060,7 @@ body::-webkit-scrollbar {
 .reportSwtchLeft.active {
   background: #FFF;
   border-radius: 100px;
-  color: #000000;
+  color: #000;
 }
 
 .reportBuilderLft2 {
@@ -1208,7 +1208,7 @@ body::-webkit-scrollbar {
 }
 
 .reportBuilderBrTxt {
-  color: #000000;
+  color: #000;
   font-size: 28px;
   font-weight: 700;
 }
@@ -1422,7 +1422,7 @@ body::-webkit-scrollbar {
   padding: 0.325rem 0;
   font-weight: 600;
   font-size: 13px;
-  color: #000000;
+  color: #000;
   cursor: pointer;
 }
 
@@ -1450,7 +1450,7 @@ body::-webkit-scrollbar {
   padding: 0.325rem 0;
   font-weight: 600;
   font-size: 11px;
-  color: #000000;
+  color: #000;
   text-align: center;
 }
 
@@ -1486,7 +1486,7 @@ body::-webkit-scrollbar {
 .lifeProPlusPara2 {
   font-weight: 600;
   font-size: 13px;
-  color: #000000;
+  color: #000;
   margin: 0;
 }
 
@@ -2310,8 +2310,6 @@ background: transparent;
 /* Voilet delete end */
 .reportTablesDiv {
   width: 100%;
-  position: relative;
-  z-index: 0;
 }
 
 /* table */
@@ -2362,7 +2360,7 @@ background: transparent;
 
 .reportTablesDiv .table th {
   background: #EEEEEE;
-  color: #000000;
+  color: #000;
   font-size: 13px;
   font-weight: 600;
   border-left: 1.5px solid #DFDFDF;
@@ -2402,7 +2400,7 @@ background: transparent;
 .reportTablesDiv .table tbody tr td {
   font-size: 14px;
   font-weight: 400;
-  color: #000000;
+  color: #000;
 }
 
 /* responsive end*/
@@ -2644,21 +2642,21 @@ background: transparent;
   cursor: pointer;
 }
 .headingAllCard{
-  color: #000000;
+  color: #000;
   font-size: 16px;
   font-weight: 700;
   margin: 0;
   margin-bottom: 1px;
 }
 .distrbnCard1paras p:first-child {
-  color: #000000;
+  color: #000;
   font-size: 16px;
   font-weight: 700;
   margin: 0;
   margin-bottom: 1px;
 }
 p.allCardHeadPara{
-  color: #000000;
+  color: #000;
   font-size: 16px;
   font-weight: 700;
   margin: 0;
@@ -2670,6 +2668,13 @@ p.allCardHeadPara{
   font-weight: 700;
   margin: 0;
   line-height: 1;
+}
+p.allCardHeadPara1{
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 1px;
 }
 
 .CardProgressBar {
@@ -2940,7 +2945,7 @@ body.fullScreen .progressAllBarsDivMain{
 .progressBarBtnDiv p:nth-child(2) {
   font-size: 14px;
   font-weight: 700;
-  color: #000000;
+  color: #000;
   margin: 0;
 }
 
@@ -2979,7 +2984,7 @@ body.fullScreen .progressAllBarsDivMain{
   position: relative;
   font-size: 12px;
   font-weight: 700;
-  color: #000000;
+  color: #000;
   margin-right: 1rem;
   padding-left: 1.5rem;
 }
@@ -3257,7 +3262,7 @@ body.fullScreen .progressAllBarsDivMain{
 
 /* table five css for hide end */
 .modalReportBuilderBrTxt {
-  color: #000000;
+  color: #000;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
@@ -3303,7 +3308,7 @@ body.fullScreen .progressAllBarsDivMain{
   font-weight: 700;
   font-size: 22px;
   text-align: center;
-  color: #000000;
+  color: #000;
   margin: 0;
   margin-top: 30px;
 }
@@ -3325,7 +3330,7 @@ body.fullScreen .progressAllBarsDivMain{
 .modalformDiv label {
   font-weight: 600;
   font-size: 12px;
-  color: #000000;
+  color: #000;
 }
 
 .modalformDiv input {
@@ -3338,7 +3343,7 @@ body.fullScreen .progressAllBarsDivMain{
   font-weight: 600;
   font-size: 20px;
   text-align: center;
-  color: #000000;
+  color: #000;
   margin: 0;
   z-index: 5;
 }
@@ -3622,7 +3627,7 @@ Blank div css start here
 .modalSharePara {
   font-weight: 600;
   font-size: 22px;
-  color: #000000;
+  color: #000;
   margin: 0;
 }
 
@@ -3635,14 +3640,14 @@ Blank div css start here
   padding: 0.2rem 1rem;
   font-weight: 500;
   font-size: 12px;
-  color: #000000;
+  color: #000;
 }
 
 .modalShareReportForm label {
   font-weight: 600;
   font-size: 12px;
   line-height: 15px;
-  color: #000000;
+  color: #000;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -3665,13 +3670,13 @@ Blank div css start here
   margin-left: 5px;
   font-weight: 600;
   font-size: 12px;
-  color: #000000;
+  color: #000;
 }
 
 .modalShareLinksPara {
   font-weight: 700;
   font-size: 16px;
-  color: #000000;
+  color: #000;
 }
 
 .copyBtnModal {
@@ -3721,7 +3726,7 @@ Blank div css end here
   text-align: left !important;
   font-weight: 600 !important;
   font-size: 14px !important;
-  color: #000000 !important;
+  color: #000 !important;
 }
 
 .shortFallTd {
@@ -3814,7 +3819,7 @@ Blank div css end here
 .dropdown-items-li.active,
 .dropdown-item:active {
   background: none;
-  color: #000000;
+  color: #000;
 }
 
 .theme-btn-dropdown .dropdown-menu {
@@ -3989,7 +3994,7 @@ Blank div css end here
 .lirpPara2 {
   font-weight: 600;
   font-size: 13px;
-  color: #000000;
+  color: #000;
 }
 
 .lirpBtmDiv8 p {
@@ -4388,7 +4393,7 @@ background: #1D856C;
   padding: 9px;
   font-weight: 500;
   font-size: 11px;
-  color: #000000;
+  color: #000;
   text-align: center;
   background: #FFFFFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
@@ -4477,7 +4482,7 @@ background: #1D856C;
 .compGraphtopParaTwo p:nth-child(2) {
   font-size: 13px;
   font-weight: 500;
-  color: #000000;
+  color: #000;
   margin: 0;
 }
 
@@ -5585,8 +5590,6 @@ border: none;
   background: #F67F4C;
 }
 
-
-
 .reportTablesDiv .table td input {
   background: transparent;
   width: 100%;
@@ -5694,4 +5697,7 @@ body.presentationModeCommon .rghtTopHeadcommon{
   background-color: #fff;
   z-index: 2;
   position: relative;
+}
+.top-1{
+  top: -1px;
 }

@@ -82,8 +82,8 @@
               </div>  
  
               <div v-if="data[card.id] && data[card.id].categories">
-
-                <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].categories[tsa_type].type}}</p>
+                
+                <p :class="`cardRadioSwtchpara${2+index} d-flex align-items-center`">{{data[card.id].categories[tsa_type].type}} <label :class="`p-relative`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
                 <div class="d-flex justify-content-between mt-1">
                   <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
                     <p>Longevity</p>

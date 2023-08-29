@@ -42,7 +42,7 @@
                           </div>
                         </div>
                       </div>
-                      <p :class="`cardRadioSwtchpara${1+index}`">{{item.type}}</p>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></label></p>
                       <div class="mt-2 d-flex ">
                         <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
                           <div class="CardProgress"></div>

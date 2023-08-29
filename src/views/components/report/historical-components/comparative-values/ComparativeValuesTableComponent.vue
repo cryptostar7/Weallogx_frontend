@@ -14,7 +14,7 @@
     </div>
     <!-- Comparative Values Table starts  -->
     <div :class="`tableCollapseDiv tableDivHeight3 ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv3'}`">
-      <div class="container-fluid table-fluid reportbuilder-container-div mt-5">
+      <div class="container-fluid table-fluid reportbuilder-container-div mt-5 pt-3">
         <div class="row tablesMainDiv">
           <div class="col-md-2 pe-2">
             <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
@@ -201,6 +201,7 @@
                                         <div class="layer2"></div>
                                       </div>
                                       <div class="d-flex align-items-center">
+                                        <p class="position-relative cursor-pointer top-1"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="dark-info-icon-img"><span :class="`info-message-rollingTime ${index+1 == draggableColumns.length ? 'right' : '' }`"> <span>Rolling Time Period: 40 Years</span><br> <span>Starting Date: 01/01/1983</span> </span></p>
                                         <a href="javascript:void(0)" class="hideBtnAccount commonShowBtn showBtn10">
                                           <svg width="19" height="12" viewBox="0 0 19 12" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
