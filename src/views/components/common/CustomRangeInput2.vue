@@ -29,7 +29,7 @@ export default {
   emits: ["setUpdated"],
   data() {
     return {
-      range: "0",
+      range: "100",
       rangePercentage: "calc(0% + 16px)",
       customAmount: "",
     };

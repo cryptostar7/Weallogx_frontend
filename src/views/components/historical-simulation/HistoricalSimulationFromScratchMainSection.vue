@@ -668,13 +668,6 @@ export default {
       }
 
       // performance multiplier fee
-
-
-console.log('obj.performance_multiplier');
-console.log(obj.performance_multiplier);
-console.log('.........');
-
-
       if (obj.performance_multiplier) {
         if (obj.loan_in_advanced_performance_multiplier_same_in_all_years) {
           this.setUnChecked(`multiplierFee${tab}`);
