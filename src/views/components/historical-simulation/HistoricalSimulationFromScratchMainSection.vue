@@ -1564,7 +1564,7 @@ export default {
         let id = response.data.data.historical;
         this.historicalId = id;
         this.$store.dispatch("activeScenario", response.data.data);
-        if (!this.$route.query.pid && id) {
+        if ((!this.$route.query.pid || this.$route.query.pid === 'null') && id) {
           this.populateHistoricalSimulationData(id);
         } else {
           this.$store.dispatch("loader", false);
