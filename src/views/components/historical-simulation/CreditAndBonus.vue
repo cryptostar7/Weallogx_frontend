@@ -11,7 +11,7 @@
                 <form action="javascript:void(0)"  autocomplete="off">
                     <div class="creditBonusInputDiv form-group mt-3" id="creditBonusinputDiv">
                         <label for="creditBonusinput">Credit/Bonus</label>
-                        <input type="text" class="form-control handleLimit" value="1" min="1" max="10" :id="`credit_bonus_input${currentTab}`">
+                        <input type="text" class="form-control handleLimit" value="1" min="0" max="10" :id="`credit_bonus_input${currentTab}`">
                     </div>
                     <div class="multiplierInputDiv mt-3">
                         <label for="Start Year">Start Year</label>
