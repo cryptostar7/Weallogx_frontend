@@ -4864,80 +4864,65 @@ background: #1D856C;
 .reportTablesDiv1 .table th {
   border-left: 0.5px solid #565656;
 }
-
 .reportTablesDiv3 .table th {
   border-left: 0.5px solid #2E7665;
 }
-
 .reportTablesDiv4 .table th {
   border-left: 0.5px solid #2977BF;
 }
-
 .reportTablesDiv5 .table th {
   border-left: 0.5px solid #914DC6;
 }
-
 .reportTablesDiv6 .table th {
   border-left: 0.5px solid #A94444;
 }
-
 .reportTablesDiv7 .table th {
   border-left: 0.5px solid #DE835C;
 }
-
 .leftEachDivs {
   cursor: pointer;
 }
-
 .allActionBtns {
   margin-right: 5px;
 }
-
 .eachCardParaRow {
   margin-top: 10px;
 }
-
 .seeAllBtnMainDiv {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
 }
-
 .cardParLeftMar {
   margin-left: 2rem;
 }
-
 .tableotalTd {
   border: none;
   text-align: left !important;
 }
-
 .shortFallValueTd {
   color: #FF0101 !important;
 }
-
 .commonTableCls .tablesCmnClr * {
   color: #CDCDCD;
 }
-
 .commonTableCls .commonBottomTxt * {
   color: #cdcdcd !important;
 }
-
 .commonTableCls .tableCommonHide th,
 .commonTableCls .tableCommonHide td {
   color: #CDCDCD !important;
 }
-
+.commonTableCls .tableCommonHide tr td span.text-danger {
+  color: rgb(245, 197, 201) !important;
+}
 .commonTableCls .tableCommonHide thead th {
   background: #ECECEC !important;
 }
-
 .commonTableCls.tableCommonColor {
   background: #F6F6F6;
 }
-
 .commonTableCls .tableCommonForDisable td {
   background: #F6F6F6;
 }
