@@ -65,6 +65,11 @@ const router = createRouter({
       component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
     },
     {
+      path: "/historical-simulations-new/:scenario?",
+      name: "historical-simulations-new",
+      component: () => import("../views/pages/HistoricalSimulationsFromScratchPageNew.vue"),
+    },
+    {
       path: "/review-summary/:scenario?",
       name: "review-summary",
       component: () => import("../views/pages/ReviewSummaryPage.vue"),
