@@ -156,12 +156,15 @@ export default {
           console.log(response.data);
           this.HistoricalDataLoaded = true;
           this.$store.dispatch("historicalReport", response.data);
-          if(this.sidebar.currentTab === 'historical'){
+          if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
         })
         .catch(error => {
           this.$toast.error(error.message);
+          if (this.sidebar.currentTab === "historical") {
+            this.$store.dispatch("loader", false);
+          }
         });
     },
 
@@ -246,12 +249,12 @@ export default {
     },
 
     // display historica report section
-    showHistoricalReport: function(){
-      this.sidebar.currentTab = 'historical';
-      if(!this.HistoricalDataLoaded){
+    showHistoricalReport: function() {
+      this.sidebar.currentTab = "historical";
+      if (!this.HistoricalDataLoaded) {
         this.$store.dispatch("loader", true);
       }
-    }
+    },
   },
   mounted() {
     if (this.$route.query.present === "true" || this.$route.params.view_token) {
