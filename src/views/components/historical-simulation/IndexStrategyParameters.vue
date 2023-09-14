@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="index-strategy-parameters" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#index-strategy-parameters" autocomplete="off">
-      <div class="after-yes-middle-div my-2 p-4">
+      <div class="after-yes-middle-div my-2 p-20">
         <p class="numberIndexStrtegiesPara">Number of Index Strategies</p>
         <div class="d-flex justify-content-center">
             <div class="multiRadioBtnMainDiv"> 

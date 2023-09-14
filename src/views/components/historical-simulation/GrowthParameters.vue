@@ -34,21 +34,22 @@
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 :hiddenInputId="`margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 :hiddenInputId="`floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <segment-duration-year :hiddenInputId="`segment_year_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
     </form>
 </template>
 <script>
 import CustomRangeInput from '../common/CustomRangeInput.vue';
 import CustomRangeInput2 from '../common/CustomRangeInput2.vue';
+import CustomRangeInput3 from '../common/CustomRangeInput3.vue';
 import SegmentDurationYear from './SegmentDurationYear.vue';
 export default {
-  components: { CustomRangeInput, CustomRangeInput2, SegmentDurationYear},
+  components: { CustomRangeInput, CustomRangeInput2, CustomRangeInput3, SegmentDurationYear},
   props: ["currentTab", "update"],
   emits: ["setUpdated"],
   methods: {

@@ -253,6 +253,9 @@ body::-webkit-scrollbar {
 .navbar-brand {
   flex-shrink: 0;
 }
+.top-minus{
+  top: -4px;
+}
 .top-navbar {
   padding: 0.625rem 2.5rem;
   background-color: #fff;
@@ -304,6 +307,9 @@ body::-webkit-scrollbar {
 }
 .gap-20 {
   gap: 1.25rem;
+}
+.p-20 {
+  padding: 1.25rem;
 }
 .flex-1 {
   flex: 1;
@@ -3090,6 +3096,9 @@ color: #fff;
   border-radius: 12px;
   padding: 67px 28px 35px;
 }
+.p-20 {
+  padding: 1.25rem;
+}
 .afterYesMdlPara {
   font-weight: 600;
   font-size: 22px;
@@ -3246,9 +3255,9 @@ color: #fff;
 .indexStrategyallDivs.active .indexStrategyheadBrdr p {
   color: white;
 }
-.indexStrategyallDivs.active svg rect {
+/*.indexStrategyallDivs.active svg rect {
   fill: #FFFFFF;
-}
+}*/
 .indexStrategyallDivs.active .indexStrategyheadBrdr div {
   width: 13px;
   height: 2px;
@@ -5501,4 +5510,18 @@ input[type=number] {
 }
 .w-66{
   width: 66%;
+}
+.mw-78{
+  max-width: 78%;
+}
+.middle-divider{
+  position: relative;
+  padding-block: 1rem;
+}
+.divider-line{
+  position: absolute;
+  width: calc(100% + 42px);
+  left: -21px;
+  height: 1px;
+  background-color: #DFDFDF;
 }

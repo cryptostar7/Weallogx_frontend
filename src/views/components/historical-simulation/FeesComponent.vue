@@ -145,12 +145,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center mt-2">
-                    <div class="form-check form-switch custom-switch ms-2">
-                        <input class="form-check-input" type="checkbox" role="switch" :id="`multiplierFee${currentTab}`" v-model="sameInAllYears.multiplier_fee">
+                <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-switch custom-switch ms-2">
+                            <input class="form-check-input" type="checkbox" role="switch" :id="`multiplierFee${currentTab}`" v-model="sameInAllYears.multiplier_fee">
+                        </div>
+                        <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
                     </div>
-                    <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-switch custom-switch">
+                            <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll3${currentTab}`">
+                        </div>
+                        <label :for="`applyAll3${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                    </div>
                 </div>
+
                 <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.multiplier_fee ? 'd-none':''}`">
                     <div class="schduleTableDiv mt-5 ">
                         <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule">{{errors[currentTab].fee_pmf_schedule}}</label>
@@ -172,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div :class="$props.flatCreditBonus ? '':'d-none'">
+            <div :class="$props.flatCreditBonus ? '':''">
                 <div class="formParabrdrLavelDiv mt-4">
                     <p>Flat Credit/Bonus Fee</p>
                     <p></p>
@@ -195,11 +204,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex align-items-center mt-2">
-                    <div class="form-check form-switch custom-switch ms-2">
-                        <input class="form-check-input" type="checkbox" role="switch" :id="`flat-credit-fee-radio${currentTab}`" v-model="sameInAllYears.credit_bonus_fee">
+                <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-switch custom-switch ms-2">
+                            <input class="form-check-input" type="checkbox" role="switch" :id="`flat-credit-fee-radio${currentTab}`" v-model="sameInAllYears.credit_bonus_fee">
+                        </div>
+                        <label :for="`flat-credit-fee-radio${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
                     </div>
-                    <label :for="`flat-credit-fee-radio${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
+                    <div class="d-flex align-items-center">
+                        <div class="form-check form-switch custom-switch">
+                            <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll4${currentTab}`">
+                        </div>
+                        <label :for="`applyAll4${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                    </div>
                 </div>
                 <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.credit_bonus_fee ? 'd-none' : ''}`">
                     <div class="schduleTableDiv mt-5 ">

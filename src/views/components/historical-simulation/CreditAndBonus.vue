@@ -51,7 +51,7 @@
                                 <table class="table">
                                     <thead>
                                         <th>Year</th>
-                                        <th>Multiplier Rate</th>
+                                        <th>Rate</th>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, index) in illustrateYear" :key="index">

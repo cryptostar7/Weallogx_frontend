@@ -18,7 +18,7 @@
             <input type="radio" :name="`segment-duration${$props.currentTab}`" class="d-none" :checked="segment === 2 ? true : false">
             <span class="timePeriodYear" @click="segment = 2">2</span>
         </label>
-        <label class="ms-3">
+        <label class="ms-2">
             <input type="radio" :name="`segment-duration${$props.currentTab}`" class="d-none" :checked="segment === 3 ? true : false">
             <span class="timePeriodYear" @click="segment = 3">3</span>
         </label>

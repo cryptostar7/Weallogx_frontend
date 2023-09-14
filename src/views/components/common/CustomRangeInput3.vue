@@ -1,27 +1,22 @@
 <template lang="">
-<div class="d-flex align-items-center range-slider-div">
+  <div class="d-flex align-items-center range-slider-div">
     <div class="w-100" @click="reActive()">
-     <div :class="`range-slider range-slider1 position-relative ${customAmount ? 'disabled':''}`">
-        <p class="rangeSliderMiddleLine1"></p>
-        <p class="rangeSliderMiddleLine2"></p>
-        <div id="tooltip1" :style="`left: ${rangePercentage}`"><span>{{range}}</span></div>
-        <input class="position-relative" id="range1"  ref="input" type="range" v-model="range" min="0" max="20" :style="`--range-progress1: ${rangePercentage}`">
-        <p class="rangeSliderMiddleNum">10%</p>
-        <p class="rangeSliderMiddleNumEnd">20%</p>
+      <div :class="`range-slider range-slider2 position-relative ${customAmount ? 'disabled':''}`" id="rangeSlider2">
+        <div id="tooltip2"  :style="`left: ${rangePercentage}`"><span>{{range}}</span></div>
+        <input id="range2" class="position-relative" ref="input" type="range" v-model="range" min="0" max="100" :style="`--range-progress2: ${rangePercentage}`">
+      </div>
     </div>
-   </div>
     <div class="or-div ms-4 position-relative top-minus">
-        or
-    </div>
+      or
+    </div> 
     <div class="customAmountInputDiv ms-2 top-minus">
-        <label for="customAmount">Custom Amount</label>
-        <div class="percent-input-div">
-          <input type="text" class="handleLimit" min="0" max="1000" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
-          
-        </div>
+      <label for="customAmount">Custom Amount</label>
+      <div class="percent-input-div">
+        <input type="text" id="customRangeValue2" class="handleLimit" min="0" max="200" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
+      </div>
     </div>
     <input type="hidden" :value="customAmount || range" :id="$props.hiddenInputId" ref="rangeHiddenRef"/>
-</div>
+  </div>
 </template>
 <script>
 export default {
@@ -29,7 +24,7 @@ export default {
   emits: ["setUpdated"],
   data() {
     return {
-      range: "0",
+      range: "100",
       rangePercentage: "calc(0% + 16px)",
       customAmount: "",
     };

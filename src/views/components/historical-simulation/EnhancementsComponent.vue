@@ -14,18 +14,37 @@
         </div>
     </div>
     <form :id="`enhanceTab${currentTab}`" class="accordion-collapse collapse analysisParametersContent " :data-bs-parent="`#enhancements${currentTab}`" autocomplete="off">
-        <div class="d-flex align-items-center mb-2">
-            <div class="form-check form-switch custom-switch">
-                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange', tab1)">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center mb-2">
+                <div class="form-check form-switch custom-switch">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange', tab1)">
+                </div>
+                <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
             </div>
-            <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
+            <div class="d-flex align-items-center mb-2">
+                <div class="form-check form-switch custom-switch">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll1${currentTab}`">
+                </div>
+                <label :for="`applyAll1${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+            </div>
         </div>
         <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
-        <div class="d-flex align-items-center mt-2" id="addBorderAbove">
-            <div class="form-check form-switch custom-switch">
-                <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange', tab2)">
+        <div class="middle-divider">
+            <div class="divider-line"></div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between pt-2 pb-1">
+            <div class="d-flex align-items-center" id="addBorderAbove">
+                <div class="form-check form-switch custom-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange', tab2)">
+                </div>
+                <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
             </div>
-            <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
+            <div class="d-flex align-items-center">
+                <div class="form-check form-switch custom-switch">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll2${currentTab}`">
+                </div>
+                <label :for="`applyAll2${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+            </div>
         </div>
         <CreditAndBonus :visible="tab2" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
         <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />

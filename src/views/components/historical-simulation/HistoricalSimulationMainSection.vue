@@ -13,7 +13,7 @@
     </div>
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
-        <div class="col-md-9">
+        <div class="col-sm-12 col-lg-10 col-xxl-9">
           <div class="main-form-div">
             <scenario-label-component />
             <div class="form-wrapper">

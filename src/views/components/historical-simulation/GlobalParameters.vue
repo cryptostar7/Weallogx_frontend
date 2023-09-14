@@ -1,5 +1,5 @@
 <template lang="">
-<div class="indexStrategyallDivs active accordion-button collapsed" data-bs-toggle="collapse"
+<div class="indexStrategyallDivs active accordion-button collapsed mt-2" data-bs-toggle="collapse"
     data-bs-target="#analysis-parameters3" aria-expanded="false"
     aria-controls="analysis-parameters3">
     <div class="d-flex justify-content-between align-items-center">
@@ -66,7 +66,7 @@
           </div>
           </div>
       </div>
-      <div class="formParabrdrLavelDiv mt-3 mb-2">
+      <div class="formParabrdrLavelDiv mt-3 pt-2 mb-2">
           <p class="position-relative">Credit Base Method</p>
           <p></p>
       </div>
@@ -86,11 +86,11 @@
           </div>
           </div>
       </div>
-      <div class="formParabrdrLavelDiv mt-3 mb-2">
+      <div class="formParabrdrLavelDiv mt-3 pt-2 mb-2">
           <p class="position-relative">Distributions</p>
           <p></p>
       </div>
-      <div class="d-flex align-items-center px-4">
+      <div class="d-flex justify-content-center align-items-center px-4">
           <div class="IndexStrategyBtn w-66">
           <div class="w-100">
               <input type="radio" :name="`analysisDistribution${currentTab}`" :id="`annuallyDist${currentTab}`" :checked="distributions === 'Annually' ? true : false">

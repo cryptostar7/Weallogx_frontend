@@ -1,5 +1,5 @@
 <template lang="">
-    <div :class="`enhancementsContent pb-5 ${visible ? '' : 'd-none'}`">
+    <div :class="`enhancementsContent pb-2 ${visible ? '' : 'd-none'}`">
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
                 <div :class="tab === 'fixed' ? 'active' : ''" :id="`nav-fixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-fixedValue${currentTab}`" role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
