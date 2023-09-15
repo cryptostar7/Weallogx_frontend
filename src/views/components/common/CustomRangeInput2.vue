@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       range: "100",
-      rangePercentage: "calc(0% + 16px)",
+      rangePercentage: "calc(50% + 0px)",
       customAmount: "",
     };
   },

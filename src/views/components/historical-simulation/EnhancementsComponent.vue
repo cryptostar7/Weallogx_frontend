@@ -21,7 +21,7 @@
                 </div>
                 <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
             </div>
-            <div class="d-flex align-items-center mb-2">
+            <div class="d-flex align-items-center mb-2" v-if="tab1">
                 <div class="form-check form-switch custom-switch">
                     <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll1${currentTab}`">
                 </div>
@@ -39,7 +39,7 @@
                 </div>
                 <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" v-if="tab2">
                 <div class="form-check form-switch custom-switch">
                     <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll2${currentTab}`">
                 </div>

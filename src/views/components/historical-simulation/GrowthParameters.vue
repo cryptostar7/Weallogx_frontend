@@ -14,6 +14,11 @@
         </div>
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
+        <div class="formParabrdrLavelDiv mb-1">
+            <p>index</p>
+            <p></p>
+        </div>
+        <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateRollingPeriod" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p @click="testFunction()">Cap Rate</p>
         <p></p>
@@ -44,18 +49,68 @@
     </form>
 </template>
 <script>
-import CustomRangeInput from '../common/CustomRangeInput.vue';
-import CustomRangeInput2 from '../common/CustomRangeInput2.vue';
-import CustomRangeInput3 from '../common/CustomRangeInput3.vue';
-import SegmentDurationYear from './SegmentDurationYear.vue';
+import CustomRangeInput from "../common/CustomRangeInput.vue";
+import CustomRangeInput2 from "../common/CustomRangeInput2.vue";
+import CustomRangeInput3 from "../common/CustomRangeInput3.vue";
+import SegmentDurationYear from "./SegmentDurationYear.vue";
+import SelectDropdown from "../common/SelectDropdown.vue";
+import config from "../../../services/config.js";
+
 export default {
-  components: { CustomRangeInput, CustomRangeInput2, CustomRangeInput3, SegmentDurationYear},
+  components: {
+    CustomRangeInput,
+    CustomRangeInput2,
+    CustomRangeInput3,
+    SegmentDurationYear,
+    SelectDropdown
+  },
   props: ["currentTab", "update"],
   emits: ["setUpdated"],
-  methods: {
-    testFunction: function(){
-        console.log(this.$props.update);
-    }
+  data() {
+    return {
+      rollingPeriod: {
+        value: 30,
+        custom: "",
+        max_val: 55,
+      },
+    };
   },
-}
+  methods: {
+    testFunction: function() {
+      console.log(this.$props.update);
+    },
+    updateRollingPeriod: function(val) {
+      let infoContent = document.querySelector("#rollingTimeInfoContent");
+      if (val == 1) {
+        infoContent.textContent = `Choose a rolling period between 15 and 55 years.`;
+      } else if (val == 2 || val == 7) {
+        infoContent.textContent = `Choose a rolling period between 15 and 30 years.`;
+      } else if (val == 3 || val == 4 || val == 6) {
+        infoContent.textContent = `You must choose 15 years.`;
+      } else {
+        infoContent.textContent = `Choose a rolling period between 15 and 20 years.`;
+      }
+
+      this.rollingPeriod.max_val = this.indexStrategies.filter(
+        i => i.id === val
+      )[0].max_limit;
+      this.rollingPeriod.value = this.rollingPeriod.max_val;
+      if (
+        this.rollingPeriod.custom &&
+        Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
+      ) {
+        document.getElementById(
+          `rollingCustomAmount${this.currentTab}`
+        ).value = this.rollingPeriod.max_val;
+        this.rollingPeriod.custom = this.rollingPeriod.max_val;
+        this.customRollingPeriod = this.rollingPeriod.max_val;
+      }
+    },
+  },
+  computed: {
+    indexStrategies() {
+      return config.INDEX_STRATEGIES;
+    },
+  },
+};
 </script>
