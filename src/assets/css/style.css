@@ -194,6 +194,9 @@ body::-webkit-scrollbar {
 .me-10 {
   margin-right: 0.625rem;
 }
+.mt-20 {
+  margin-top: 1.25rem;
+}
 .mt-30 {
   margin-top: 1.875rem;
 }
