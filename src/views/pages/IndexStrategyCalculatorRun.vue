@@ -250,7 +250,7 @@
                 </div>
               </section>
 
-              <section class="strategy-calc-main-section mb-0">
+              <section class="strategy-calc-main-section mb-3">
                 <div class="row table-data-row">
                   <div class="col-md-6 half-col-left">
                     <div class="table-graph-bottom-each-main-div">
@@ -377,7 +377,7 @@
                                 </span></p>
                             </div>
                             <div class="col-sm-4">
-                              <p>7,442,551</p>
+                              <p>$7,442,551</p>
                             </div>
                           </div>
                           <div class="row">
@@ -429,7 +429,7 @@
                               <p>Standard Deviation</p>
                             </div>
                             <div class="col-sm-4">
-                              <p>5.23</p>
+                              <p>5.23%</p>
                             </div>
                           </div>
                           <div class="row">
@@ -1690,7 +1690,7 @@ export default {
           tooltip: {
             callbacks: {
               labelColor: function (context) {
-                console.log(context);
+                // console.log(context);
                 return {
                   backgroundColor: lineColors[context.datasetIndex],
                 };
@@ -1720,7 +1720,7 @@ export default {
             config.data.datasets[point.datasetIndex].pointStyle[n] = "";
             dropdownBox.classList.toggle("d-none")
             dropdownBox.classList.toggle("d-block")
-            dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
+            dropdownBox.style.left = chartBoxX + layerX - 45 + "px"
             console.log(pageY, dropdownBox.getBoundingClientRect().height, pageY - dropdownBox.getBoundingClientRect().height)
             dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 22 +  "px";
             myChart.update();

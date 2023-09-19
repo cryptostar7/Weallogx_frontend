@@ -923,6 +923,10 @@ table.index-strategy-table tr th {
     margin: 0;
     padding: 8px 20px;
 }
+.table-graph-bottom-content-div .row div:nth-of-type(2) p{
+    padding-left: 50px;
+    padding-right: 10px;
+}
 .table-graph-bottom-content-div p.highlighted {
     color: #DD3611;
 }
