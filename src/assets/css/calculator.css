@@ -923,6 +923,12 @@ table.index-strategy-table tr th {
     margin: 0;
     padding: 8px 20px;
 }
+.table-graph-bottom-content-div p.table-blue-clr{
+    color: #1660A4;
+}
+.table-graph-bottom-content-div p.table-green-clr{
+    color: #147D64;
+}
 .table-graph-bottom-content-div .row div:nth-of-type(2) p{
     padding-left: 50px;
     padding-right: 10px;
@@ -935,8 +941,8 @@ table.index-strategy-table tr th {
 }
 .table-graph-bottom-content-div p .tooltips {
     position: relative;
+    top: -3px;
 }
-
 .table-graph-bottom-content-div p .tooltips span {
     display: none;
     position: absolute;
@@ -1091,3 +1097,62 @@ table.index-strategy-table tr th {
 .bottom-to-top-btn:hover svg rect{
     fill: #fff;
 }
+.w-225{
+    width: 225px !important;
+}
+.w-250{
+    width: 250px !important;
+}
+/*.table-plus-btn{
+    position: absolute;
+    left: 0;
+    top: 1px;
+    padding: 4px;
+}*/
+.table-plus-btn{
+    position: absolute;
+    left: 5px;
+    top: 12px;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+}
+.table-plus-btn::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2.5px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 20px;
+}
+.table-plus-btn::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2.5px;
+    border-radius: 20px;
+    left: 50%;
+    top: 6px;
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+}
+.table-plus-btn.blue.collapsed::before, .table-plus-btn.blue.collapsed::after{
+    background-color: #1660A4;
+}
+.table-plus-btn.blue::before{
+    background-color: #1660A4;
+}
+.table-plus-btn.blue::after{
+    background-color: transparent;
+}
+.table-plus-btn.green.collapsed::before, .table-plus-btn.green.collapsed::after{
+    background-color: #147D64;
+}
+.table-plus-btn.green::before{
+    background-color: #147D64;
+}
+.table-plus-btn.green::after{
+    background-color: transparent;
+}
+

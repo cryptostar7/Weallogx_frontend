@@ -165,8 +165,8 @@ const router = createRouter({
       component: () => import("../views/pages/IndexStrategyCalculator.vue"),
     },
     {
-      path: "/tech-error",
-      name: "tech-error",
+      path: "/index-strategy-calculator-run",
+      name: "index-strategy-calculator-run",
       component: () => import("../views/pages/IndexStrategyCalculatorRun.vue"),
     },
     {
@@ -197,7 +197,7 @@ const authRoutes = [
   'review-summary',
   'report-builder',
   'index-strategy-calculator',
-  'tech-error',
+  'index-strategy-calculator-run',
 ];
 
 // these routes are secure with active plans

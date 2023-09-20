@@ -52,7 +52,7 @@
                                 <div class="index-strategy-table-heading blueClr">
                                   <div class="index-strategy-head-radio">
                                     <input type="checkbox" class="switch_1 table-box1" data-attr="1" checked>
-                                  </div>S&P 500<span class="icon-span"><sup>
+                                  </div>S&P 500 <span class="icon-span"><sup>
                                       <svg class="table-common-tooltip-svg2" width="11" height="11" viewBox="0 0 11 11"
                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g id="Group 1951">
@@ -277,7 +277,7 @@
                                       fill="white" />
                                   </g>
                                 </svg>
-                                <span>Represents the net ending balance after all taxes and fees</span>
+                                <span class="w-225">Represents the net ending balance after all taxes and fees</span>
                               </span></p>
                             </div>
                             <div class="col-sm-4">
@@ -302,7 +302,23 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-8">
-                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                              <p class="p-relative">Average Rate of Return <button class="btn table-plus-btn blue collapsed" data-bs-toggle="collapse" href="#aror1" role="button" aria-expanded="false" aria-controls="aror1"></button></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>8.9%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror1">
+                            <div class="col-sm-8">
+                              <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-blue-clr">7.3%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p class="p-relative">Actual Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
                                     width="13" height="13" viewBox="0 0 13 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="Group 1968">
@@ -312,20 +328,21 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                    portfolio’s performance</span>
-                                </span></p>
-                            </div>
-                            <div class="col-sm-4">
-                              <p>8.9%</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-8">
-                              <p>Actual Rate of Return</p>
+                                  <span class="w-250">The Compound Annual Growth Rate (CAGR) is a more accurate measure of a portfolio’s performance</span>
+                                </span>
+                                <button class="btn table-plus-btn blue collapsed" data-bs-toggle="collapse" href="#aror2" role="button" aria-expanded="false" aria-controls="aror2"></button>
+                              </p>
                             </div>
                             <div class="col-sm-4">
                               <p>6.5%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror2">
+                            <div class="col-sm-8">
+                              <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-blue-clr">5.5%</p>
                             </div>
                           </div>
                           <div class="row">
@@ -373,7 +390,7 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>Represents the net ending balance after all fees</span>
+                                  <span class="w-225">Represents the net ending balance after all fees</span>
                                 </span></p>
                             </div>
                             <div class="col-sm-4">
@@ -398,7 +415,23 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-8">
-                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                              <p class="p-relative">Average Rate of Return <button class="btn table-plus-btn green collapsed" data-bs-toggle="collapse" href="#aror3" role="button" aria-expanded="false" aria-controls="aror3"></button></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>7.8%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror3">
+                            <div class="col-sm-8">
+                              <p class="table-green-clr ms-2">Net Average Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-green-clr">7.3%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p class="p-relative">Actual Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
                                     width="13" height="13" viewBox="0 0 13 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="Group 1968">
@@ -408,20 +441,21 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                    portfolio’s performance</span>
-                                </span></p>
-                            </div>
-                            <div class="col-sm-4">
-                              <p>8.1%</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-8">
-                              <p>Actual Rate of Return</p>
+                                  <span class="w-250">The Compound Annual Growth Rate (CAGR) is a more accurate measure of a portfolio’s performance</span>
+                                </span>
+                                <button class="btn table-plus-btn green collapsed" data-bs-toggle="collapse" href="#aror4" role="button" aria-expanded="false" aria-controls="aror4"></button>
+                              </p>
                             </div>
                             <div class="col-sm-4">
                               <p>7.7%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror4">
+                            <div class="col-sm-8">
+                              <p class="table-green-clr ms-2">Net Actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-green-clr">5.5%</p>
                             </div>
                           </div>
                           <div class="row">
@@ -477,7 +511,7 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>Represents the net ending balance after all taxes and fees</span>
+                                  <span class="w-225">Represents the net ending balance after all taxes and fees</span>
                                 </span></p>
                             </div>
                             <div class="col-sm-4">
@@ -502,7 +536,26 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-8">
-                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                              <p class="p-relative">Average Rate of Return <button class="btn table-plus-btn blue collapsed" data-bs-toggle="collapse" href="#aror5" role="button" aria-expanded="false" aria-controls="aror5"></button>                               
+                              </p>
+                            </div>
+
+                            <div class="col-sm-4">
+                              <p>8.9%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror5">
+                            <div class="col-sm-8">
+                              <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-blue-clr">7.3%</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p class="p-relative">Actual Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
                                     width="13" height="13" viewBox="0 0 13 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="Group 1968">
@@ -512,20 +565,21 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                    portfolio’s performance</span>
-                                </span></p>
-                            </div>
-                            <div class="col-sm-4">
-                              <p>8.9%</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-8">
-                              <p>Actual Rate of Return</p>
+                                  <span class="w-250">The Compound Annual Growth Rate (CAGR) is a more accurate measure of a portfolio’s performance</span>
+                                </span>
+                                <button class="btn table-plus-btn blue collapsed" data-bs-toggle="collapse" href="#aror6" role="button" aria-expanded="false" aria-controls="aror6"></button>
+                              </p>
                             </div>
                             <div class="col-sm-4">
                               <p>6.5%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror6">
+                            <div class="col-sm-8">
+                              <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-blue-clr">5.5%</p>
                             </div>
                           </div>
                           <div class="row">
@@ -576,7 +630,7 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>Represents the net ending balance after all fees</span>
+                                  <span class="w-225">Represents the net ending balance after all fees</span>
                                 </span></p>
                             </div>
                             <div class="col-sm-4">
@@ -601,7 +655,23 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-8">
-                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                              <p class="p-relative">Average Rate of Return <button class="btn table-plus-btn green collapsed" data-bs-toggle="collapse" href="#aror7" role="button" aria-expanded="false" aria-controls="aror7"></button></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>8.1%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror7">
+                            <div class="col-sm-8">
+                              <p class="table-green-clr ms-2">Net average Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-green-clr">7.3%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p class="p-relative">Actual Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
                                     width="13" height="13" viewBox="0 0 13 13" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="Group 1968">
@@ -611,20 +681,21 @@
                                         fill="white" />
                                     </g>
                                   </svg>
-                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                    portfolio’s performance</span>
-                                </span></p>
-                            </div>
-                            <div class="col-sm-4">
-                              <p>8.1%</p>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-8">
-                              <p>Actual Rate of Return</p>
+                                  <span class="w-250">The Compound Annual Growth Rate (CAGR) is a more accurate measure of a portfolio’s performance</span>
+                                </span>
+                                <button class="btn table-plus-btn green collapsed" data-bs-toggle="collapse" href="#aror8" role="button" aria-expanded="false" aria-controls="aror8"></button>
+                              </p>
                             </div>
                             <div class="col-sm-4">
                               <p>7.7%</p>
+                            </div>
+                          </div>
+                          <div class="row collapse" id="aror8">
+                            <div class="col-sm-8">
+                              <p class="table-green-clr ms-2">Net actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="table-green-clr">5.5%</p>
                             </div>
                           </div>
                           <div class="row">
