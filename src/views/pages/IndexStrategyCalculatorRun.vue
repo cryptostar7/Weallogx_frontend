@@ -1547,21 +1547,21 @@ export default {
     var chartDot3 = new Image(20, 20);
     chartDot3.src = canvasPlusGrey;
     
-    var pointImageArr = [chartDot1, chartDot2, chartDot3];
+    var pointImageArr = [chartDot1, chartDot2, chartDot3, ""];
 
     var lineColors = ["#147D64", "#1660A4", "#eee"];
     let screenMode = localStorage.getItem("mode");
     if (screenMode == "light-blue") {
-      pointImageArr = [chartDot2, chartDot1, chartDot3];
+      pointImageArr = [chartDot2, chartDot1, chartDot3, ""];
       lineColors = ["#1660A4", "#089875", "#eee"];
     } else if (screenMode == "dark-blue"){
-      pointImageArr = [chartDot2, chartDot1, chartDot3];
+      pointImageArr = [chartDot2, chartDot1, chartDot3, ""];
       lineColors = ["#1660A4", "#089875", "#333"];
     } else if (screenMode == "dark-green") {
-      pointImageArr = [chartDot1, chartDot2, chartDot3];
+      pointImageArr = [chartDot1, chartDot2, chartDot3, ""];
       lineColors = ["#26AB8B", "#23669E", "#333"];
     } else {
-      pointImageArr = [chartDot1, chartDot2, chartDot3];
+      pointImageArr = [chartDot1, chartDot2, chartDot3, ""];
       lineColors = ["#147D64", "#1660A4", "#eee"];
     }
 
@@ -1616,7 +1616,9 @@ export default {
     const highlightLine = {
       id: "highlightLine",
       beforeDatasetsDraw(chart, args, plugins){
+        // if(isDropdownOpen){ return; }
         let { data } = chart;
+        let { isOpen, idx0, idx1 } = dropdownStatus;
         // console.log(chart.titleBlock.top);
         const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
         // if(animationTimeout){
@@ -1630,7 +1632,18 @@ export default {
             const index = dataMetaSet.index;
             if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
               data.datasets[index].borderColor = lineColors[index];
-              data.datasets[index].pointStyle[lastPoint] = pointImageArr[index];
+              if(!isOpen){
+                data.datasets[index].pointStyle[lastPoint] = data.datasets[index].borderColor !== "#eee" ? pointImageArr[index] : pointImageArr[2];
+              }else{
+                if(idx0 != -1){
+                  data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
+                  data.datasets[idx0].borderColor = lineColors[idx0];  
+                }
+                if(idx1 != -1){
+                  data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
+                  data.datasets[idx1].borderColor = lineColors[idx1];  
+                }
+              }              
               chart.update();
               break;        
             }
@@ -1638,24 +1651,51 @@ export default {
         // } 
       },
       afterEvent(chart, args){
+        // if(isDropdownOpen){ return; }
         let { data } = chart;
+        let { isOpen, idx0, idx1 } = dropdownStatus;
         if(args.replay){
           function setBorderColor(active, index, borderColor){
             return active ? borderColor : lineColors[2];
           }
-          data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0])
-          data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1])
-          data.datasets[0].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) === "eee" ? pointImageArr[0] : pointImageArr[2];
-          data.datasets[1].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) === "eee" ? pointImageArr[1] : pointImageArr[2];
+          data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]);
+          data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]);
+          if(!isOpen){
+            console.log(!isOpen, data.datasets[0].borderColor);
+            data.datasets[0].pointStyle[lastPoint] = data.datasets[0].borderColor != "#eee" ? pointImageArr[0] : pointImageArr[2];
+
+            data.datasets[1].pointStyle[lastPoint] = data.datasets[0].borderColor != "#eee" ? pointImageArr[1] : pointImageArr[2];
+          }else{
+            if(idx0 != -1){
+              data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
+              data.datasets[idx0].borderColor = lineColors[idx0];  
+            }
+            if(idx1 != -1){
+              data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
+              data.datasets[idx1].borderColor = lineColors[idx1];  
+            }
+          }
         }
         else{
           data.datasets[0].borderColor = lineColors[0];
           data.datasets[1].borderColor = lineColors[1];
-          data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
-          data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
+          if(!isOpen){
+            data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
+            data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
+          }else{
+            if(idx0 != -1){
+              data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
+              data.datasets[idx0].borderColor = lineColors[idx0];  
+            }
+            if(idx1 != -1){
+              data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
+              data.datasets[idx1].borderColor = lineColors[idx1];  
+            }
+          }
         }
         args.changed = true;
       }
+
     }
 
     var config = {
@@ -1777,7 +1817,7 @@ export default {
     let chartBoxX = chartBox.getBoundingClientRect().x;
     let chartBoxY = chartBox.getBoundingClientRect().y;
     let n = config.data.datasets[0].data.length - 1;
-
+    let dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
 
     // Clicking to show and hide the dropdown on graph
     const clickHandler = click => {
@@ -1788,11 +1828,17 @@ export default {
           let currentIndex = point.datasetIndex;            
           if(point.index === config.data.labels.length - 2){
             const dropdownBox = document.getElementById(`chartDropdown${currentIndex}`);
-            config.data.datasets[point.datasetIndex].pointStyle[n] = "";
-            dropdownBox.classList.toggle("d-none")
-            dropdownBox.classList.toggle("d-block")
-            dropdownBox.style.left = chartBoxX + layerX - 45 + "px"
-            console.log(pageY, dropdownBox.getBoundingClientRect().height, pageY - dropdownBox.getBoundingClientRect().height)
+            config.data.datasets[point.datasetIndex].pointStyle[n] = pointImageArr[3];
+            dropdownBox.classList.toggle("d-none");
+            dropdownBox.classList.toggle("d-block");
+            dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
+            dropdownStatus.isOpen = true;
+            if(currentIndex == 0){
+              dropdownStatus.idx0 = 0;
+            }
+            if(currentIndex == 1){
+              dropdownStatus.idx1 = 1;  
+            }
             dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 22 +  "px";
             myChart.update();
           }
@@ -1824,32 +1870,46 @@ export default {
       // }
     // });
 
-    // document.addEventListener("mouseup", (e) => {
-    //   e.stopPropagation();
-    //   let chartDropdowns = document.querySelectorAll(".chart-dropdown");
-    //     chartDropdowns.forEach(dropdownBox => {
+    document.addEventListener("mouseup", (e) => {
+      e.stopPropagation();
+      let chartDropdowns = document.querySelectorAll(".chart-dropdown");
+        chartDropdowns.forEach(dropdownBox => {
           
-    //       if(dropdownBox.classList.contains("d-block") && !e.target.classList.contains("tooltipbtn") && !e.target.closest(".tooltipbtn")){
-    //         let id = dropdownBox.getAttribute("id");
-    //         let idx = +id[id.length-1];            
-    //         config.data.datasets[idx].pointStyle = pointImageArr[idx];
-    //         config.data.datasets[idx].pointRadius = [0, 0, 0, 0, 0, 0, 14];     
-    //         config.data.datasets[idx].pointHoverRadius = [0, 0, 0, 0, 0, 0, 14];     
-    //         dropdownBox.classList.toggle("d-none");
-    //         dropdownBox.classList.toggle("d-block");
-    //         myChart.update();
-    //       }
-    //   });
-    // });
+          if(dropdownBox.classList.contains("d-block") && !e.target.classList.contains("tooltipbtn") && !e.target.closest(".tooltipbtn")){
+            let id = dropdownBox.getAttribute("id");
+            let idx = +id[id.length-1];            
+            config.data.datasets[0].pointStyle[n] = pointImageArr[0];
+            config.data.datasets[0].borderColor = lineColors[0];
+            config.data.datasets[1].pointStyle[n] = pointImageArr[1];
+            config.data.datasets[1].borderColor = lineColors[1];    
+            dropdownBox.classList.toggle("d-none");
+            dropdownBox.classList.toggle("d-block");
+            dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
+            myChart.update();
+          }
+      });
+    });
     
     chartDropdowns.forEach(dropdownBox => {
       dropdownBox.querySelector(".tooltipbtn").addEventListener("click", function(){
         let id = dropdownBox.getAttribute("id");
         let idx = +id[id.length-1];
         let n = config.data.datasets[0].data.length - 1;
-        config.data.datasets[idx].pointStyle[n] = pointImageArr[idx];
         dropdownBox.classList.toggle("d-none");
         dropdownBox.classList.toggle("d-block");
+        if(idx == 0){
+          dropdownStatus.idx0 = -1;
+        }
+        if(idx == 1){
+          dropdownStatus.idx1 = -1;  
+        }1     
+        if(dropdownStatus.idx0 == -1 && dropdownStatus.idx1 == -1){
+          dropdownStatus.isOpen = false;
+        }else{
+          dropdownStatus.isOpen = true;
+        }
+        config.data.datasets[idx].pointStyle[n] = pointImageArr[idx];
+        console.log(dropdownStatus);
         myChart.update();
       });
     });
@@ -2001,7 +2061,7 @@ export default {
     redioInp.addEventListener("click", function(e) {
       let screenMode = localStorage.getItem("mode");
       if (screenMode == "light-blue") {
-        pointImageArr = [chartDot2, chartDot1, chartDot3];
+        pointImageArr = [chartDot2, chartDot1, chartDot3, ""];
         lineColors = ["#1660A4", "#089875", "#eee"];
         config.data.datasets[0].borderColor = "#1660A4";
         config.data.datasets[0].pointHoverBackgroundColor = "#1660A4";
@@ -2010,7 +2070,7 @@ export default {
         config.data.datasets[1].pointHoverBackgroundColor = "#089875";
         config.data.datasets[1].pointStyle[n] = chartDot1;
       } else if (screenMode == "dark-blue") {
-        pointImageArr = [chartDot2, chartDot1, chartDot3];
+        pointImageArr = [chartDot2, chartDot1, chartDot3, ""];
         lineColors = ["#1660A4", "#089875", "#333"];
         config.data.datasets[0].borderColor = "#1660A4";
         config.data.datasets[0].pointHoverBackgroundColor = "#1660A4";
@@ -2019,7 +2079,7 @@ export default {
         config.data.datasets[1].pointHoverBackgroundColor = "#089875";
         config.data.datasets[1].pointStyle[n] = chartDot1;
       } else if (screenMode == "dark-green") {
-        pointImageArr = [chartDot1, chartDot2, chartDot3];
+        pointImageArr = [chartDot1, chartDot2, chartDot3, ""];
         lineColors = ["#26AB8B", "#23669E", "#333"];
         config.data.datasets[0].borderColor = "#26AB8B";
         config.data.datasets[0].pointHoverBackgroundColor = "#26AB8B";
@@ -2028,7 +2088,7 @@ export default {
         config.data.datasets[1].pointHoverBackgroundColor = "#23669E";
         config.data.datasets[1].pointStyle[n] = chartDot2;
       } else {
-        pointImageArr = [chartDot1, chartDot2, chartDot3];
+        pointImageArr = [chartDot1, chartDot2, chartDot3, ""];
         lineColors = ["#147D64", "#1660A4", "#eee"];
         config.data.datasets[0].borderColor = "#0E6651";
         config.data.datasets[0].pointHoverBackgroundColor = "#0E6651";
