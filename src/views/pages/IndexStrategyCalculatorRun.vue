@@ -6,7 +6,7 @@
         <LeftSidebarComponent />
         <main class="right-area">
           <div class="right-area-inner p-relative rightInnerDarkbg">
-            <div class="right-area-wrapper pt-0 pb-5">
+            <div class="right-area-wrapper pt-0">
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div">
                   <div class="index-strategy-head-div">
@@ -48,7 +48,7 @@
                                     </g>
                                   </svg>
                                   <span>Review and edit parameters.</span></span></div>
-                              <div class="col-6 half-col-left">
+                              <div class="col-6 half-col half-col-left">
                                 <div class="index-strategy-table-heading blueClr">
                                   <div class="index-strategy-head-radio">
                                     <input type="checkbox" class="switch_1 table-box1" data-attr="1" checked>
@@ -125,7 +125,7 @@
                                   </table>
                                 </div>
                               </div>
-                              <div class="col-6 half-col-right">
+                              <div class="col-6 half-col half-col-right">
                                 <div class="index-strategy-table-heading greenClr">
                                   <div class="index-strategy-head-radio">
                                     <input type="checkbox" class="switch_1 table-box2" data-attr="2" checked>
@@ -207,6 +207,7 @@
                             </div>
                           </div>
                         </div>
+
                         <div class="tab-pane show fade" id="v-pills-rate-of-return" role="tabpanel"
                           aria-labelledby="pills-home-tab">
                           <div class="graph-tab-head">
@@ -242,206 +243,6 @@
                           <div class="canvas-graph-div">
                             <canvas id="myChart"></canvas>
                           </div>
-                          <div class="row graph-data-row mt-5 mb-3" id="detailsTable">
-                            <div class="col-md-6">
-                              <div class="table-graph-bottom-each-main-div">
-                                <div class="table-graph-bottom-head blueClr">
-                                  <div class="index-strategy-head-radio">
-                                    <input type="checkbox" class="switch_1 bottom-box1" btm-data-attr="1" checked>
-                                  </div>
-                                  Summary
-                                </div>
-                                <div class="table-graph-bottom-content-div">
-                                  <div class="container-fluid px-0">
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Beginning Balance</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>$100,000</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Ending Balance <span class="tooltips"><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <g id="Group 1968">
-                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
-                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
-                                                <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
-                                                  fill="white" />
-                                              </g>
-                                            </svg>
-                                            <span>Represents the net ending balance after all taxes and fees</span>
-                                          </span></p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>$5,402,222</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Total Taxes</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p class="highlighted">$1,189,001</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Years with Market Losses</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p class="highlighted">17</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
-                                              width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                              xmlns="http://www.w3.org/2000/svg">
-                                              <g id="Group 1968">
-                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
-                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
-                                                <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
-                                                  fill="white" />
-                                              </g>
-                                            </svg>
-                                            <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                              portfolio’s performance</span>
-                                          </span></p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>8.9%</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Actual Rate of Return</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>6.5%</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Standard Deviation</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>15.6%</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Sharpe Ratio</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>0.59</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-md-6 mt-md-0 mt-sm-3">
-                              <div class="table-graph-bottom-each-main-div">
-                                <div class="table-graph-bottom-head greenClr">
-                                  <div class="index-strategy-head-radio">
-                                    <input type="checkbox" class="switch_1 bottom-box2" btm-data-attr="2" checked>
-                                  </div>
-                                  Summary
-                                </div>
-                                <div class="table-graph-bottom-content-div">
-                                  <div class="container-fluid px-0">
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Beginning Balance</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>$100,000</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Ending Balance <span class="tooltips"><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <g id="Group 1968">
-                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
-                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
-                                                <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
-                                                  fill="white" />
-                                              </g>
-                                            </svg>
-                                            <span>Represents the net ending balance after all fees</span>
-                                          </span></p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>7,442,551</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Total Taxes</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>$0</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Years with Market Losses</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>0</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
-                                              width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                              xmlns="http://www.w3.org/2000/svg">
-                                              <g id="Group 1968">
-                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
-                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
-                                                <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
-                                                  fill="white" />
-                                              </g>
-                                            </svg>
-                                            <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
-                                              portfolio’s performance</span>
-                                          </span></p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>8.1%</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Actual Rate of Return</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>7.7%</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Standard Deviation</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>5.23</p>
-                                      </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-8">
-                                        <p>Sharpe Ratio</p>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <p>1.46</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -449,7 +250,7 @@
                 </div>
               </section>
 
-              <section class="strategy-calc-main-section">
+              <section class="strategy-calc-main-section mb-3">
                 <div class="row table-data-row">
                   <div class="col-md-6 half-col-left">
                     <div class="table-graph-bottom-each-main-div">
@@ -576,6 +377,209 @@
                                 </span></p>
                             </div>
                             <div class="col-sm-4">
+                              <p>$7,442,551</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Total Taxes</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>$0</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Years with Market Losses</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>0</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                                    width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 1968">
+                                      <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
+                                      <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
+                                      <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
+                                        fill="white" />
+                                    </g>
+                                  </svg>
+                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
+                                    portfolio’s performance</span>
+                                </span></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>8.1%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>7.7%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Standard Deviation</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>5.23%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Sharpe Ratio</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>1.46</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>         
+              </section>
+
+              <section class="strategy-calc-main-section mt-0 mb-0">
+                <div class="row graph-data-row mt-20 mb-3 d-none" id="detailsTable">
+                  <div class="col-md-6 half-col-left">
+                    <div class="table-graph-bottom-each-main-div">
+                      <div class="table-graph-bottom-head blueClr">
+                        <div class="index-strategy-head-radio">
+                          <input type="checkbox" class="switch_1 bottom-box1" btm-data-attr="1" checked>
+                        </div>
+                        Summary
+                      </div>
+                      <div class="table-graph-bottom-content-div">
+                        <div class="container-fluid px-0">
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Beginning Balance</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>$100,000</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Ending Balance <span class="tooltips"><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 1968">
+                                      <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
+                                      <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
+                                      <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
+                                        fill="white" />
+                                    </g>
+                                  </svg>
+                                  <span>Represents the net ending balance after all taxes and fees</span>
+                                </span></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>$5,402,222</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Total Taxes</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="highlighted">$1,189,001</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Years with Market Losses</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p class="highlighted">17</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Average Rate of Return <span class="tooltips"><svg class="label-common-tooltip-svg"
+                                    width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 1968">
+                                      <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
+                                      <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
+                                      <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
+                                        fill="white" />
+                                    </g>
+                                  </svg>
+                                  <span>The Compound Annual Growth Rate (CAGR) is a more accurate measure of a
+                                    portfolio’s performance</span>
+                                </span></p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>8.9%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Actual Rate of Return</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>6.5%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Standard Deviation</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>15.6%</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Sharpe Ratio</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>0.59</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-md-0 mt-sm-3 half-col-right">
+                    <div class="table-graph-bottom-each-main-div">
+                      <div class="table-graph-bottom-head greenClr">
+                        <div class="index-strategy-head-radio">
+                          <input type="checkbox" class="switch_1 bottom-box2" btm-data-attr="2" checked>
+                        </div>
+                        Summary
+                      </div>
+                      <div class="table-graph-bottom-content-div">
+                        <div class="container-fluid px-0">
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Beginning Balance</p>
+                            </div>
+                            <div class="col-sm-4">
+                              <p>$100,000</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-8">
+                              <p>Ending Balance <span class="tooltips"><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="Group 1968">
+                                      <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0" />
+                                      <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white" />
+                                      <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75"
+                                        fill="white" />
+                                    </g>
+                                  </svg>
+                                  <span>Represents the net ending balance after all fees</span>
+                                </span></p>
+                            </div>
+                            <div class="col-sm-4">
                               <p>7,442,551</p>
                             </div>
                           </div>
@@ -643,7 +647,7 @@
                       </div>
                     </div>
                   </div>
-                </div>         
+                </div>
               </section>
             </div>
           </div>
@@ -1686,7 +1690,7 @@ export default {
           tooltip: {
             callbacks: {
               labelColor: function (context) {
-                console.log(context);
+                // console.log(context);
                 return {
                   backgroundColor: lineColors[context.datasetIndex],
                 };
@@ -1716,7 +1720,7 @@ export default {
             config.data.datasets[point.datasetIndex].pointStyle[n] = "";
             dropdownBox.classList.toggle("d-none")
             dropdownBox.classList.toggle("d-block")
-            dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
+            dropdownBox.style.left = chartBoxX + layerX - 45 + "px"
             console.log(pageY, dropdownBox.getBoundingClientRect().height, pageY - dropdownBox.getBoundingClientRect().height)
             dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 22 +  "px";
             myChart.update();
@@ -1970,9 +1974,11 @@ export default {
     calcTabs.addEventListener("click", (e) => {
       if(e.target.id == "iscTab1"){
         document.querySelector(".table-data-row").classList.remove("d-none");
+        document.querySelector(".graph-data-row").classList.add("d-none");
         parentTableDiv.classList.add("more-padding");
       }else if(e.target.id == "iscTab2"){
         document.querySelector(".table-data-row").classList.add("d-none");
+        document.querySelector(".graph-data-row").classList.remove("d-none");
         parentTableDiv.classList.remove("more-padding");
       }
     });

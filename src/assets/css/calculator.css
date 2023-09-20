@@ -27,6 +27,7 @@
     border: 1px solid #DFDFDF;
     background: #FFF;
     padding-bottom: 40px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .index-strategy-head-div {
@@ -907,6 +908,7 @@ table.index-strategy-table tr th {
 .table-graph-bottom-each-main-div.inactive, .table-graph-bottom-each-main-div.inactive1{
     box-shadow: none;
     border-color: transparent;
+    border-radius: 0;
 }
 .table-graph-bottom-each-main-div.inactive .table-graph-bottom-content-div, .table-graph-bottom-each-main-div.inactive1 .table-graph-bottom-content-div{
     display: none;
@@ -920,6 +922,10 @@ table.index-strategy-table tr th {
     font-weight: 500;
     margin: 0;
     padding: 8px 20px;
+}
+.table-graph-bottom-content-div .row div:nth-of-type(2) p{
+    padding-left: 50px;
+    padding-right: 10px;
 }
 .table-graph-bottom-content-div p.highlighted {
     color: #DD3611;

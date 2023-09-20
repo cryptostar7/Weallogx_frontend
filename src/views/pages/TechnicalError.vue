@@ -3,12 +3,12 @@
   <div>
     <div class="error-main-div">
       <div class="error-inner-div">
-        <img src="@/assets/images/wlx-404.png" alt="404" class="error-inner-img" />
+        <img src="@/assets/images/icons/tech-error.svg" alt="Technology" class="error-inner-img" />
         <p class="error-para1">
-          Sorry! The page you’re looking for, doesn’t exist.
+          Oops! we encountered a technical problem. We're working hard to fix it as soon as possible.
         </p>
         <p class="error-para2">
-          Please choose one of the following options to move to the next step.
+          Please refresh the page or check back later.
         </p>
         <a
           href="javascript:void(0)"
@@ -93,11 +93,11 @@
 }
 .error-inner-div{
     max-width: 840px;
-background: #FFFFFF;
-box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
-border-radius: 14px;
-padding: 65px 116px;
-}
+  background: #FFFFFF;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  padding: 65px 85px;
+  }
 .error-para1{
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
@@ -163,23 +163,25 @@ margin: 15px auto 10px auto;
 }
 .side-logo-div{
   position: absolute;
-  left: 1rem;
-  top: 1rem;
+  left: .75rem;
+  top: .75rem;
 }
 .side-logo-div img{
   max-width: 200px;
 }
 @media (max-width:768px) {
   .error-main-div{
-    padding-top: 10px;
+    padding-top: 15px;
   }
     .error-inner-div{
         padding:35px;
     }
-     .side-logo-div{
+    .side-logo-div{
       width: 100%;
       text-align: center;
+      
     }
+
 }
 
 @media (max-width:375px) {
