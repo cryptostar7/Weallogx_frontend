@@ -29,7 +29,7 @@
                 <comparative-parent-tab v-for="component in list.comparative" :key="component.id" :tabID="component.id" :keyId="component.key" :sidebar="sidebar.collapse"/>
               </draggable>
             </div>
-            <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`" v-if="HistoricalDataLoaded">
+            <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`" v-if="HistoricalDataLoaded && Object.keys($store.state.data.report.historical).length">
               <draggable class="dragArea list-group w-full" :list="list.historical">
                 <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
               </draggable>
@@ -155,13 +155,20 @@ export default {
         .then(response => {
           console.log(response.data);
           this.HistoricalDataLoaded = true;
-          this.$store.dispatch("historicalReport", response.data);
+          console.log("Historical data...");
+          console.log(response.data);
+          if (Object.keys(response.data).length) {
+            this.$store.dispatch("historicalReport", response.data);
+          }
+          console.log("Historical data...");
           if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
         })
         .catch(error => {
           this.$toast.error(error.message);
+          this.HistoricalDataLoaded = true;
+
           if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
@@ -250,8 +257,14 @@ export default {
 
     // display historica report section
     showHistoricalReport: function() {
-      this.sidebar.currentTab = "historical";
+      if (
+        this.HistoricalDataLoaded &&
+        Object.keys(this.$store.state.data.report.historical).length
+      ) {
+        this.sidebar.currentTab = "historical";
+      }
       if (!this.HistoricalDataLoaded) {
+        this.sidebar.currentTab = "historical";
         this.$store.dispatch("loader", true);
       }
     },

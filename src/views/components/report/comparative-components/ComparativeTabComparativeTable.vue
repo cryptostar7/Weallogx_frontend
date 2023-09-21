@@ -12,7 +12,7 @@
                   <div class="layer2"></div>
                 </div>
               </div>                                   
-              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table</label>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon" @click="testFunction()">Comparative Table</label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -593,7 +593,8 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.summary_data.deposits.totals);
+      console.log(this.target_analysis);
+      console.log(this.summary_data);
     },
 
     init: function() {
