@@ -30,12 +30,12 @@
           or
           </div>
           <div class="customAmountInputDiv customAmountNoPercent creditBonusInputDiv customInputWidth">
-          <label :for="`rollingCustomAmount${currentTab}`" class="position-relative rolling-time-label">Custom Amount
+          <label for="rollingCustomAmount" class="position-relative rolling-time-label">Custom Amount
             <img src="@/assets/images/icons/info-icon.svg" alt="info" class="info-icon-img">
             <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="dark-info-icon-img">
             <span class="info-message-analyze" id="rollingTimeInfoContent">Choose a rolling period between 15 and 55 years.</span>
           </label>
-          <input :id="`rollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+          <input id="rollingCustomAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
           </div>
       </div>
 
@@ -53,16 +53,16 @@
       <div class="d-flex justify-content-center align-items-center px-4">
           <div class="IndexStrategyBtn w-100">
           <div class="w-100">
-              <input type="radio" name="indexStrategy" :id="`index${currentTab}`"  :checked="analyze === 'Index'">
-              <label :for="`index${currentTab}`" @click="analyze = 'Index'">Index </label>
+              <input type="radio" name="indexStrategy" id="index"  :checked="analyze === 'Index'">
+              <label for="index" @click="analyze = 'Index'">Index </label>
           </div>
           <div class="w-100">
-              <input type="radio" name="indexStrategy" :id="`strategy${currentTab}`"  :checked="analyze === 'Strategy'">
-              <label :for="`strategy${currentTab}`" @click="analyze = 'Strategy'">Strategy </label>
+              <input type="radio" name="indexStrategy" id="strategy"  :checked="analyze === 'Strategy'">
+              <label for="strategy" @click="analyze = 'Strategy'">Strategy </label>
           </div>
           <div class="w-100">
-              <input type="radio" name="indexStrategy" :id="`distributions${currentTab}`"  :checked="analyze === 'Distributions'">
-              <label :for="`distributions${currentTab}`" @click="analyze = 'Distributions'">Distributions </label>
+              <input type="radio" name="indexStrategy" id="distributions"  :checked="analyze === 'Distributions'">
+              <label for="distributions" @click="analyze = 'Distributions'">Distributions </label>
           </div>
           </div>
       </div>
@@ -73,16 +73,16 @@
       <div class="d-flex justify-content-center align-items-center px-4">
           <div class="IndexStrategyBtn w-100">
           <div class="w-100">
-              <input type="radio" name="CreditBaseMethod1" :id="`monthlyAverageValue${currentTab}`" :checked="credMethod === 'Monthly Average Value'">
-              <label :for="`monthlyAverageValue${currentTab}`" @click="credMethod = 'Monthly Average Value'">Monthly Average Value </label>
+              <input type="radio" name="CreditBaseMethod1" id="monthlyAverageValue" :checked="credMethod === 'Monthly Average Value'">
+              <label for="monthlyAverageValue" @click="credMethod = 'Monthly Average Value'">Monthly Average Value </label>
           </div>
           <div class="w-100">
-              <input type="radio" name="CreditBaseMethod1" :id="`beginningValue${currentTab}`" :checked="credMethod === 'Beginning Value'">
-              <label :for="`beginningValue${currentTab}`" @click="credMethod = 'Beginning Value'">Beginning Value</label>
+              <input type="radio" name="CreditBaseMethod1" id="beginningValue" :checked="credMethod === 'Beginning Value'">
+              <label for="beginningValue" @click="credMethod = 'Beginning Value'">Beginning Value</label>
           </div>
           <div class="w-100">
-              <input type="radio" name="CreditBaseMethod1" :id="`yearValue${currentTab}`" :checked="credMethod === 'End of Year Value'">
-              <label :for="`yearValue${currentTab}`" @click="credMethod = 'End of Year Value'">End of Year Value</label>
+              <input type="radio" name="CreditBaseMethod1" id="yearValue" :checked="credMethod === 'End of Year Value'">
+              <label for="yearValue" @click="credMethod = 'End of Year Value'">End of Year Value</label>
           </div>
           </div>
       </div>
@@ -93,22 +93,22 @@
       <div class="d-flex justify-content-center align-items-center px-4">
           <div class="IndexStrategyBtn w-66">
           <div class="w-100">
-              <input type="radio" :name="`analysisDistribution${currentTab}`" :id="`annuallyDist${currentTab}`" :checked="distributions === 'Annually' ? true : false">
-              <label :for="`annuallyDist${currentTab}`" @click="distributions = 'Annually'">Annually </label>
+              <input type="radio" name="analysisDistribution" id="annuallyDist" :checked="distributions === 'Annually' ? true : false">
+              <label for="annuallyDist" @click="distributions = 'Annually'">Annually </label>
           </div>
           <div class="w-100">
-              <input type="radio" :name="`analysisDistribution${currentTab}`" :id="`monthlyDist${currentTab}`" :checked="distributions === 'Monthly' ? true : false">
-              <label :for="`monthlyDist${currentTab}`" @click="distributions = 'Monthly'">Monthly</label>
+              <input type="radio" name="analysisDistribution" id="monthlyDist" :checked="distributions === 'Monthly' ? true : false">
+              <label for="monthlyDist" @click="distributions = 'Monthly'">Monthly</label>
           </div>
           </div>
       </div>
       <!-- Fees Global Section Start -->
         <global-fees-component />
       <!-- Fees Global Section End -->
-      <input type="hidden" :id="`rolling_time${currentTab}`" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
-      <input type="hidden" :id="`analyze_type${currentTab}`" :value="analyze" ref="analyzeRef"/>
-      <input type="hidden" :id="`credit_base_method${currentTab}`" :value="credMethod" ref="credRef" />
-      <input type="hidden" :id="`distribution_method${currentTab}`" :value="distributions" ref="distributionsRef" />
+      <input type="hidden" id="rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
+      <input type="hidden" id="analyze_type" :value="analyze" ref="analyzeRef"/>
+      <input type="hidden" id="credit_base_method" :value="credMethod" ref="credRef" />
+      <input type="hidden" id="distribution_method" :value="distributions" ref="distributionsRef" />
     </form>
 </div>
 </template>
@@ -118,7 +118,7 @@ import GlobalFeesComponent from "./GlobalFeesComponent.vue";
 import config from "../../../services/config.js";
 export default {
   components: { SelectDropdown, GlobalFeesComponent },
-  props: ["currentTab", "update"],
+  props: ["update"],
   emits: ["setUpdated"],
   data() {
     return {
@@ -155,7 +155,7 @@ export default {
         Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
       ) {
         document.getElementById(
-          `rollingCustomAmount${this.currentTab}`
+          'rollingCustomAmount'
         ).value = this.rollingPeriod.max_val;
         this.rollingPeriod.custom = this.rollingPeriod.max_val;
         this.customRollingPeriod = this.rollingPeriod.max_val;
@@ -178,7 +178,7 @@ export default {
         let index = this.indexStrategies.filter(
           i =>
             i.template_name ===
-            document.getElementById(`analysis_index${this.currentTab}`).value
+            document.getElementById('analysis_index').value
         )[0];
         this.updateRollingPeriod(index ? index.id : 1);
         if (this.rollingTimePeriod.includes(rolling)) {
@@ -186,7 +186,7 @@ export default {
         } else {
           this.rollingPeriod.custom = rolling;
           document.getElementById(
-            `rollingCustomAmount${this.currentTab}`
+            'rollingCustomAmount'
           ).value = rolling;
         }
         this.analyze = this.$refs.analyzeRef.value;

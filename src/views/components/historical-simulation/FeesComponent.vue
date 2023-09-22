@@ -300,6 +300,7 @@ export default {
       flatAmount: 0,
       customHipCapAmount: "",
       hipCapAmount: 0,
+      errors:[]
     };
   },
   methods: {

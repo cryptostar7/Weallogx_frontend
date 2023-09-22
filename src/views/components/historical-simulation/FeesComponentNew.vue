@@ -156,14 +156,11 @@
             </div>
             </div>
         
-        <input type="hidden" :value="customPremiumCharge || premiumCharge" :id="`premium_charge_fees${currentTab}`" />
         <input type="hidden" :value="sameInAllYears.premium_charge ? 1 : 0" :id="`pcf_all_year${currentTab}`" />
         <input type="hidden" :value="customPerformanceFeeAmount || performanceFeeAmount" :id="`performance_multiplier_fees${currentTab}`" />
         <input type="hidden" :value="sameInAllYears.multiplier_fee ? 1 : 0" :id="`pmf_all_year${currentTab}`" />
         <input type="hidden" :value="customFlatAmount || flatAmount" :id="`flat_credit_fees${currentTab}`" />
         <input type="hidden" :value="sameInAllYears.credit_bonus_fee ? 1 : 0" :id="`fcf_all_year${currentTab}`" />
-        <input type="hidden" :value="customInterestAmount || loanInterest" :id="`loan_interest_fees${currentTab}`" />
-        <input type="hidden" :value="sameInAllYears.loan_interest ? 1 : 0" :id="`lif_all_year${currentTab}`" />   
         <input type="hidden" :value="customHipCapAmount || hipCapAmount" :id="`high_cap_fees${currentTab}`" />
         <input type="hidden" :value="Arrears ? 1 : 0" :id="`in_arrears${currentTab}`" />
     </form>
@@ -175,19 +172,12 @@ export default {
   emits: ["clearError", "setUpdated"],
   data() {
     return {
-      MaxPremiumCharge: 8,
-      premiumCharge: 0,
-      MaxLoanInterest: 8,
-      loanInterest: 0,
       MaxPerformanceMultiplierFee: 8,
       sameInAllYears: {
-        premium_charge: true,
-        loan_interest: true,
         multiplier_fee: true,
         credit_bonus_fee: true,
       },
       Arrears: false,
-      customPremiumCharge: "",
       customInterestAmount: "",
       customPerformanceFeeAmount: "",
       performanceFeeAmount: 0,
@@ -199,12 +189,9 @@ export default {
   },
   methods: {
     handlePcCheckbox: function(item) {
-      this.premiumCharge = item;
-      this.customPremiumCharge = "";
       this.$refs.customPCRef.value = "";
     },
     handleLICheckbox: function(item) {
-      this.loanInterest = item;
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
     },
@@ -243,45 +230,6 @@ export default {
         )
           ? true
           : false;
-
-        // premium charge
-        this.sameInAllYears.premium_charge = document.getElementById(
-          `premiumcharge${this.currentTab}`
-        ).checked;
-        if (this.sameInAllYears.premium_charge) {
-          let pc = Number(
-            document.getElementById(`premium_charge_fees${this.currentTab}`)
-              .value
-          );
-          if (charges.includes(pc)) {
-            this.premiumCharge = pc;
-          } else {
-            this.customPremiumCharge = pc;
-            this.$refs.customPCRef.value = pc;
-          }
-        } else {
-          this.premiumCharge = "";
-        }
-
-        // Loan interest rate
-        this.sameInAllYears.loan_interest = document.getElementById(
-          `loanIntrest${this.currentTab}`
-        ).checked;
-
-        if (this.sameInAllYears.loan_interest) {
-          let li = Number(
-            document.getElementById(`loan_interest_fees${this.currentTab}`)
-              .value
-          );
-          if (charges.includes(li)) {
-            this.loanInterest = li;
-          } else {
-            this.customInterestAmount = li;
-            this.$refs.customLIRef.value = li;
-          }
-        } else {
-          this.loanInterest = "";
-        }
 
         // Performance multiplier rate
         this.sameInAllYears.multiplier_fee = document.getElementById(
