@@ -38,7 +38,7 @@
                   <tr v-for="(item, index) in illustrateYear" :key="index">
                       <td data-label="Year">{{item}}</td>
                       <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                          <input type="text" class="form-control handleLimit" min="0" max="15" id="pcf_schedule{item}`" @keypress="$emit('clearError',currentTab , 'fee_pc_schedule')">
+                          <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${item}`" @keypress="$emit('clearError',currentTab , 'fee_pc_schedule')">
                           <label for="amount">%</label>
                       </td>
                   </tr>
@@ -86,7 +86,7 @@
               <tr v-for="(item, index) in illustrateYear" :key="index">
                   <td data-label="Year">{{item}}</td>
                   <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                      <input type="text" class="form-control handleLimit"  min="0" max="12" id="lif_schedule{item}`" @keypress="$emit('clearError',currentTab , 'fee_lif_schedule')">
+                      <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${item}`" @keypress="$emit('clearError',currentTab , 'fee_lif_schedule')">
                       <label for="amount">%</label>
                   </td>
               </tr>
@@ -140,6 +140,9 @@ export default {
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
     },
+    testFunction: function() {
+      console.log(this.illustrateYear);
+    },
   },
   computed: {
     illustrateYear() {
@@ -155,19 +158,17 @@ export default {
       if (e) {
         let charges = [1, 2, 3, 4, 5, 6, 7, 8];
 
-        this.Arrears = Number(
-          document.getElementById(`in_arrears${this.currentTab}`).value
-        )
+        this.Arrears = Number(document.getElementById("in_arrears").value)
           ? true
           : false;
 
         // premium charge
         this.sameInAllYears.premium_charge = document.getElementById(
-          `premiumcharge${this.currentTab}`
+          `premiumcharge`
         ).checked;
         if (this.sameInAllYears.premium_charge) {
           let pc = Number(
-            document.getElementById(`premium_charge_fees${this.currentTab}`)
+            document.getElementById(`premium_charge_fees`)
               .value
           );
           if (charges.includes(pc)) {
@@ -182,12 +183,12 @@ export default {
 
         // Loan interest rate
         this.sameInAllYears.loan_interest = document.getElementById(
-          `loanIntrest${this.currentTab}`
+          `loanIntrest`
         ).checked;
 
         if (this.sameInAllYears.loan_interest) {
           let li = Number(
-            document.getElementById(`loan_interest_fees${this.currentTab}`)
+            document.getElementById(`loan_interest_fees`)
               .value
           );
           if (charges.includes(li)) {

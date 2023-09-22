@@ -94,7 +94,7 @@
 
         <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.loan_interest ? 'd-none':''}`">
             <div class="schduleTableDiv mt-5 ">
-                <label :class="`error text-center ${errors[currentTab] && errors[currentTab].fee_lif_schedule ? '' : 'd-none'}`" >{{errors[currentTab].fee_lif_schedule}}</label>
+                <label :class="`error text-center ${errors[currentTab] && errors[currentTab].fee_lif_schedule ? '' : 'd-none'}`" >{{errors[currentTab] ? errors[currentTab].fee_lif_schedule : ""}}</label>
                 <table class="table">
                 <thead>
                     <th>Year</th>

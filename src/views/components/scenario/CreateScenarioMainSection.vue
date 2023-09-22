@@ -651,8 +651,6 @@ export default {
         if (!this.clientName) {
           this.errors.client = "";
         } else {
-          console.log(this.clientName);
-          console.log(this.clients);
           let templateId = this.$getTemplateId(this.clientName, this.clients);
           if (!templateId) {
             validate = false;
@@ -943,10 +941,7 @@ export default {
           this.getClient();
           this.$toast.success("Scenario details created successfully!");
           this.$store.dispatch("loader", false);
-          console.log("response.data.id...........");
-          console.log(response.data.id);
           if (response.data.id) {
-            console.log("illustration");
             this.$router.push({
               path: `/illustration-data/${response.data.id}`,
               query: this.$route.query,

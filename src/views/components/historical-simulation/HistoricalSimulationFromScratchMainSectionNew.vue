@@ -25,7 +25,7 @@
                       <div class="form-check form-switch custom-switch ms-2">
                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
                     </div>
-                      <global-parameters /> 
+                      <global-parameters :update="update"/> 
                       <index-strategy-parameters :update="update"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
@@ -58,6 +58,7 @@ import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { post, get, put } from "../../../network/requests";
 import { authHeader, getFirstError } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
+import { computed } from "vue";
 export default {
   components: {
     RouterLink,
@@ -68,16 +69,31 @@ export default {
   data() {
     return {
       update: {
-        analysis_parameters: false,
+        global_parameters: false,
         growth_parameters: false,
         enhancement: false,
+        fees: false,
       },
+      error: {
+        1: [],
+        2: [],
+        3: [],
+        global: [],
+      },
+    };
+  },
+  provide() {
+    // use function syntax so that we can access `this`
+    return {
+      errors: computed(() => this.error),
     };
   },
   methods: {
     // this function has return the input value
     getInputWithId: function(id) {
-      return document.getElementById(id).value;
+      return document.getElementById(id)
+        ? document.getElementById(id).value
+        : null;
     },
     // this function has return the input checked status
     isChecked: function(id) {
@@ -105,23 +121,63 @@ export default {
       return value;
     },
     getActiveTabs: function() {
-      return [true, false, false];
+      let tab1 = document.getElementById("index_stategy_tab1").checked;
+      let tab2 = document.getElementById("index_stategy_tab2").checked;
+      let tab3 = document.getElementById("index_stategy_tab3").checked;
+      return [tab1, tab2, tab3];
     },
-    getAnalysisData: function() {
-      let arr = [];
-      let activeTabs = this.getActiveTabs();
-      for (var i = 1; i < 4; i++) {
-        if (activeTabs[i - 1]) {
-          let obj = {
-            rolling_time: this.getInputWithId("rolling_time"),
-            analyze: this.getInputWithId("analyze_type"),
-            credit_method: this.getInputWithId("credit_base_method"),
-            distributions: this.getInputWithId("distribution_method"),
-          };
-          arr.push(obj);
+    getGlobalParameterData: function() {
+      let obj = {
+        rolling_time: this.getInputWithId("rolling_time"),
+        analyze: this.getInputWithId("analyze_type"),
+        credit_method: this.getInputWithId("credit_base_method"),
+        distributions: this.getInputWithId("distribution_method"),
+      };
+
+      //premium charge fees
+      let pcf_all_year = Number(this.getInputWithId("pcf_all_year"));
+      let pcfobj = {
+        fees: this.getInputWithId("premium_charge_fees"),
+        same_all_year: pcf_all_year,
+      };
+
+      if (!pcf_all_year) {
+        let tempData = [];
+
+        console.log("this.illustrateYear");
+        console.log(this.illustrateYear);
+
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          tempData.push({
+            year: y,
+            value: this.getInputWithId(`pcf_schedule${y}`),
+          });
         }
+        pcfobj.schedule = tempData;
       }
-      return arr;
+
+      obj.pcf = pcfobj;
+
+      //loan interest rate fees
+      let lif_all_year = Number(this.getInputWithId("lif_all_year"));
+      let lifobj = {
+        fees: this.getInputWithId("loan_interest_fees"),
+        same_all_year: lif_all_year,
+      };
+
+      if (!lif_all_year) {
+        let tempData = [];
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          tempData.push({
+            year: y,
+            value: this.getInputWithId(`lif_schedule${y}`),
+          });
+        }
+        lifobj.schedule = tempData;
+      }
+      obj.lif = lifobj;
+
+      return obj;
     },
     getGrowthData: function() {
       let arr = [];
@@ -129,6 +185,7 @@ export default {
       for (var i = 1; i < 4; i++) {
         if (activeTabs[i - 1]) {
           let obj = {
+            index: this.getInputWithId("analysis_index" + i),
             cap_rate_range: this.getInputWithId("cap_rate_range" + i),
             participation_range: this.getInputWithId("participation_range" + i),
             margin_spread_range: this.getInputWithId("margin_spread_range" + i),
@@ -212,7 +269,6 @@ export default {
       let arr = [];
       let activeTabs = this.getActiveTabs();
       for (var i = 1; i < 4; i++) {
-        var in_arrears = Number(this.getInputWithId(`in_arrears${i}`));
         if (activeTabs[i - 1]) {
           let performance_checkbox = Number(
             this.getInputWithId("performance_checkbox" + i)
@@ -221,24 +277,6 @@ export default {
           let flat_checkbox = Number(
             this.getInputWithId("credit_checkbox" + i)
           );
-
-          //performance multiplier fees
-          let pcf_all_year = Number(this.getInputWithId("pcf_all_year" + i));
-          let pcfobj = {
-            fees: this.getInputWithId("premium_charge_fees" + i),
-            same_all_year: pcf_all_year,
-          };
-
-          if (!pcf_all_year) {
-            let tempData = [];
-            for (var y = 1; y < this.illustrateYear + 1; y++) {
-              tempData.push({
-                year: y,
-                value: this.getInputWithId(`pcf_schedule${i}${y}`),
-              });
-            }
-            pcfobj.schedule = tempData;
-          }
 
           //performance multiplier fees
           var pmfobj = false;
@@ -283,32 +321,12 @@ export default {
             }
           }
 
-          //loan interest rate fees
-          let lif_all_year = Number(this.getInputWithId("lif_all_year" + i));
-          let lifobj = {
-            fees: this.getInputWithId("loan_interest_fees" + i),
-            same_all_year: lif_all_year,
-          };
-
-          if (!lif_all_year) {
-            let tempData = [];
-            for (var y = 1; y < this.illustrateYear + 1; y++) {
-              tempData.push({
-                year: y,
-                value: this.getInputWithId(`lif_schedule${i}${y}`),
-              });
-            }
-            lifobj.schedule = tempData;
-          }
-
           //High cap fees
           let hcfobj = {
             fees: this.getInputWithId("high_cap_fees" + i),
           };
 
           arr.push({
-            lif: lifobj,
-            pcf: pcfobj,
             hcf: hcfobj,
             pmf: pmfobj,
             fcf: fcfobj,
@@ -319,7 +337,7 @@ export default {
     },
     // handle form submitted data
     submitHandler: function(draft = false, report = false) {
-      this.analysis = this.getAnalysisData();
+      this.analysis = this.getGlobalParameterData();
       this.growth = this.getGrowthData();
       this.enhancements = this.getEnhancementData();
       this.fees = this.getFeesData();
@@ -331,6 +349,14 @@ export default {
       var focus = false;
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
+
+      let portFolio = document.getElementById("savePortfolioCheckbox")
+        ? document.getElementById("savePortfolioCheckbox").checked
+        : false;
+
+      let portFolioName = document.getElementById("portFolioNameInput")
+        ? document.getElementById("portFolioNameInput").value
+        : false;
 
       // get template detail
       activeTabs.forEach((t, i) => {
@@ -366,7 +392,6 @@ export default {
                   document
                     .getElementById(`enhanceTab${i + 1}`)
                     .classList.add("show");
-                  console.log("removed collapsed");
                 }
                 area.scrollIntoView();
               }
@@ -408,13 +433,36 @@ export default {
       };
 
       var formData = {
-        index_strategy_1: {
-          index: analysis[0].index,
-          rolling_time_period_years: analysis[0].rolling_time,
-          analyze: analysis[0].analyze,
-          credit_base_method: analysis[0].credit_method,
-          distributions: analysis[0].distributions,
+        rolling_time_period_years: analysis.rolling_time,
+        analyze: analysis.analyze,
+        credit_base_method: analysis.credit_method,
+        distributions: analysis.distributions,
 
+        premium_charge: analysis.pcf.fees || 0,
+        premium_same_in_all_years: analysis.pcf.same_all_year ? true : false,
+        premium_charges_same_in_all_years: !analysis.pcf.same_all_year
+          ? analysis.pcf.schedule
+          : null,
+
+        loan_intrest_rate: analysis.lif.fees || 0,
+        loan_same_in_all_years: analysis.lif.same_all_year ? true : false,
+        loan_intrest_rate_same_in_all_years: !analysis.lif.same_all_year
+          ? analysis.lif.schedule
+          : null,
+
+        loan_intrest_charged_in_advanced: Number(
+          this.getInputWithId("in_arrears")
+        )
+          ? false
+          : true,
+        loan_intrest_charged_in_arrears: Number(
+          this.getInputWithId("in_arrears")
+        )
+          ? true
+          : false,
+
+        index_strategy_1: {
+          index: growth[0].index,
           cap_rate: growth[0].cap_rate_range,
           participation_rate: growth[0].participation_range,
           margin_spread: growth[0].margin_spread_range,
@@ -461,39 +509,16 @@ export default {
               : null,
 
           fees: true,
-          premium_charge: fees[0].pcf.fees || 0,
-          premium_same_in_all_years: fees[0].pcf.same_all_year ? true : false,
-          premium_charges_same_in_all_years: !fees[0].pcf.same_all_year
-            ? fees[0].pcf.schedule
-            : null,
-
-          loan_intrest_rate: fees[0].lif.fees,
-          loan_same_in_all_years: fees[0].lif.same_all_year ? true : false,
-          loan_intrest_rate_same_in_all_years: !fees[0].lif.same_all_year
-            ? fees[0].lif.schedule
-            : null,
-
-          loan_intrest_charged_in_advanced: Number(
-            this.getInputWithId(`in_arrears1`)
-          )
-            ? false
-            : true,
-          loan_intrest_charged_in_arrears: Number(
-            this.getInputWithId(`in_arrears1`)
-          )
-            ? true
-            : false,
-          high_cap_fee: fees[0].hcf.fees,
+          high_cap_fee: Number(fees[0].hcf.fees),
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
+          flat_credit_bonus_fees_apply_for_all_indexes: false,
         },
-        // index_strategy_2: null,
-        // index_strategy_3: null,
         save_scenario_as_draft: draft,
         scenario_id: this.$route.params.scenario,
-        save_portfolio: this.portFolioCheckbox,
-        portfolio_name: this.portFolioCheckbox ? this.portFolioName : "",
+        save_portfolio: portFolio,
+        portfolio_name: portFolio ? portFolioName : "",
       };
 
       // index strategy data append for first tab
@@ -521,25 +546,24 @@ export default {
           .fcf.same_all_year
           ? true
           : false;
-        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[0]
+        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years =
+          fees[0].fcf.same_all_year;
+
+        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[0]
           .fcf.same_all_year
           ? fees[0].fcf.schedule
           : null;
       } else {
         formData.index_strategy_1.in_advanced_flat_credit_bonus_fees = 0;
         formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = false;
-        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
+        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years = false;
+        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years_schedule = false;
       }
 
       // index strategy data append for middle tab
       if (activeTabs[1]) {
         formData.index_strategy_2 = {
-          index: analysis[1].index,
-          rolling_time_period_years: analysis[1].rolling_time,
-          analyze: analysis[1].analyze,
-          credit_base_method: analysis[1].credit_method,
-          distributions: analysis[1].distributions,
-
+          index: growth[1].index,
           cap_rate: growth[1].cap_rate_range,
           participation_rate: growth[1].participation_range,
           margin_spread: growth[1].margin_spread_range,
@@ -586,32 +610,11 @@ export default {
               : null,
 
           fees: true,
-          premium_charge: fees[1].pcf.fees || 0,
-          premium_same_in_all_years: fees[1].pcf.same_all_year ? true : false,
-          premium_charges_same_in_all_years: !fees[1].pcf.same_all_year
-            ? fees[1].pcf.schedule
-            : null,
-
-          loan_intrest_rate: fees[1].lif.fees,
-          loan_same_in_all_years: fees[1].lif.same_all_year ? true : false,
-          loan_intrest_rate_same_in_all_years: !fees[1].lif.same_all_year
-            ? fees[1].lif.schedule
-            : null,
-
-          loan_intrest_charged_in_advanced: Number(
-            this.getInputWithId(`in_arrears2`)
-          )
-            ? false
-            : true,
-          loan_intrest_charged_in_arrears: Number(
-            this.getInputWithId(`in_arrears2`)
-          )
-            ? true
-            : false,
-          high_cap_fee: fees[1].hcf.fees,
+          high_cap_fee: Number(fees[1].hcf.fees),
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
+          flat_credit_bonus_fees_apply_for_all_indexes: false,
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
@@ -638,26 +641,26 @@ export default {
             .fcf.same_all_year
             ? true
             : false;
-          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[1]
+
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years =
+            fees[1].fcf.same_all_year;
+
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[1]
             .fcf.same_all_year
             ? fees[1].fcf.schedule
             : null;
         } else {
           formData.index_strategy_2.in_advanced_flat_credit_bonus_fees = 0;
           formData.index_strategy_2.in_advanced_flat_credit_same_in_all_years = false;
-          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years = false;
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule = null;
         }
       }
 
       // index strategy data append for last tab
       if (activeTabs[2]) {
         formData.index_strategy_3 = {
-          index: analysis[2].index,
-          rolling_time_period_years: analysis[2].rolling_time,
-          analyze: analysis[2].analyze,
-          credit_base_method: analysis[2].credit_method,
-          distributions: analysis[2].distributions,
-
+          index: growth[2].index,
           cap_rate: growth[2].cap_rate_range,
           participation_rate: growth[2].participation_range,
           margin_spread: growth[2].margin_spread_range,
@@ -704,32 +707,11 @@ export default {
               : null,
 
           fees: true,
-          premium_charge: fees[2].pcf.fees || 0,
-          premium_same_in_all_years: fees[2].pcf.same_all_year ? true : false,
-          premium_charges_same_in_all_years: !fees[2].pcf.same_all_year
-            ? fees[2].pcf.schedule
-            : null,
-
-          loan_intrest_rate: fees[2].lif.fees,
-          loan_same_in_all_years: fees[2].lif.same_all_year ? true : false,
-          loan_intrest_rate_same_in_all_years: !fees[2].lif.same_all_year
-            ? fees[2].lif.schedule
-            : null,
-
-          loan_intrest_charged_in_advanced: Number(
-            this.getInputWithId(`in_arrears3`)
-          )
-            ? false
-            : true,
-          loan_intrest_charged_in_arrears: Number(
-            this.getInputWithId(`in_arrears3`)
-          )
-            ? true
-            : false,
-          high_cap_fee: fees[2].hcf.fees,
+          high_cap_fee: Number(fees[2].hcf.fees),
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
+          flat_credit_bonus_fees_apply_for_all_indexes: false,
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
@@ -756,14 +738,18 @@ export default {
             .fcf.same_all_year
             ? true
             : false;
-          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees_same_in_all_years = !fees[2]
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years =
+            fees[2].fcf.same_all_year;
+
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[2]
             .fcf.same_all_year
             ? fees[2].fcf.schedule
             : null;
         } else {
           formData.index_strategy_3.in_advanced_flat_credit_bonus_fees = 0;
           formData.index_strategy_3.in_advanced_flat_credit_same_in_all_years = false;
-          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees_same_in_all_years = null;
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years = false;
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule = null;
         }
       }
 
@@ -822,21 +808,8 @@ export default {
           });
       }
     },
-
-    // remove error
-    clearError: function(tab = 1, key = "") {
-      if (this.error[tab][key]) {
-        this.error[tab][key] = false;
-      }
-    },
-    setGlobalParameters: function(tab, obj = []) {
-      this.setInputWithId(`rolling_time${tab}`, obj.rolling_time_period_years);
-      this.setInputWithId(`analyze_type${tab}`, obj.analyze);
-      this.setInputWithId(`credit_base_method${tab}`, obj.credit_base_method);
-      this.setInputWithId(`distribution_method${tab}`, obj.distributions);
-      this.update.analysis_parameters = true;
-    },
     setGrowthData: function(tab, obj = []) {
+      this.setInputWithId(`analysis_index${tab}`, obj.index);
       this.setInputWithId(`cap_rate_range${tab}`, obj.cap_rate);
       this.setInputWithId(`participation_range${tab}`, obj.participation_rate);
       this.setInputWithId(`margin_spread_range${tab}`, obj.margin_spread);
@@ -926,35 +899,6 @@ export default {
       this.update.enhancement = true;
     },
     setFeesData: function(tab, obj = []) {
-      this.setInputWithId(
-        `in_arrears${tab}`,
-        obj.loan_intrest_charged_in_arrears ? 1 : 0
-      );
-
-      // Premium charge
-      if (obj.premium_charges_same_in_all_years) {
-        this.setUnChecked(`premiumcharge${tab}`);
-        this.setInputWithId(`premium_charge_fees${tab}`, "");
-        obj.premium_charges_same_in_all_years.forEach(i => {
-          this.setInputWithId(`pcf_schedule${tab}${i.year}`, i.value);
-        });
-      } else {
-        this.setChecked(`premiumcharge${tab}`);
-        this.setInputWithId(`premium_charge_fees${tab}`, obj.premium_charge);
-      }
-
-      // Loan interest rate
-      if (obj.loan_intrest_rate_same_in_all_years) {
-        this.setUnChecked(`loanIntrest${tab}`);
-        this.setInputWithId(`loan_interest_fees${tab}`, "");
-        obj.loan_intrest_rate_same_in_all_years.forEach(i => {
-          this.setInputWithId(`lif_schedule${tab}${i.year}`, i.value);
-        });
-      } else {
-        this.setChecked(`loanIntrest${tab}`);
-        this.setInputWithId(`loan_interest_fees${tab}`, obj.loan_intrest_rate);
-      }
-
       // performance multiplier fee
       if (obj.performance_multiplier) {
         if (obj.loan_in_advanced_performance_multiplier_same_in_all_years) {
@@ -976,14 +920,14 @@ export default {
 
       // flat flat/credit fee
       if (obj.flat_credit_bonus) {
-        if (obj.in_advanced_flat_credit_bonus_fees_same_in_all_years) {
+        if (obj.flat_credit_bonus_fees_same_in_all_years) {
           this.setUnChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(`flat_credit_fees${tab}`, "");
-          obj.in_advanced_flat_credit_bonus_fees_same_in_all_years.forEach(
-            i => {
+          if (!obj.flat_credit_bonus_fees_same_in_all_years) {
+            obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach(i => {
               this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
-            }
-          );
+            });
+          }
         } else {
           this.setChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(
@@ -998,8 +942,42 @@ export default {
       this.setInputWithId(`high_cap_fees${tab}`, obj.high_cap_fee);
       this.update.fees = true;
     },
+    populateGlobalParameters: function(obj) {
+      this.setInputWithId("rolling_time", obj.rolling_time_period_years);
+      this.setInputWithId("analyze_type", obj.analyze);
+      this.setInputWithId("credit_base_method", obj.credit_base_method);
+      this.setInputWithId("distribution_method", obj.distributions);
+
+
+
+      // Premium charge
+      if (obj.premium_charges_same_in_all_years) {
+        this.setUnChecked('premiumcharge');
+        this.setInputWithId('premium_charge_fees', "");
+        obj.premium_charges_same_in_all_years.forEach(i => {
+          this.setInputWithId(`pcf_schedule${i.year}`, i.value);
+        });
+      } else {
+        this.setChecked('premiumcharge');
+        this.setInputWithId('premium_charge_fees', obj.premium_charge);
+      }
+
+      // Loan interest rate
+      if (obj.loan_intrest_rate_same_in_all_years) {
+        this.setUnChecked('loanIntrest');
+        this.setInputWithId('loan_interest_fees', "");
+        obj.loan_intrest_rate_same_in_all_years.forEach(i => {
+          this.setInputWithId(`lif_schedule${i.year}`, i.value);
+        });
+      } else {
+        this.setChecked('loanIntrest');
+        this.setInputWithId('loan_interest_fees', obj.loan_intrest_rate);
+      }
+
+
+      this.update.global_parameters = true;
+    },
     populateIndex: function(tab = 1, data) {
-      this.setGlobalParameters(tab, data);
       this.setGrowthData(tab, data);
       this.setEnhancementData(tab, data);
       this.setFeesData(tab, data);
@@ -1013,15 +991,14 @@ export default {
         .then(response => {
           let data = response.data.data;
           console.log(data);
+          this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
             this.tabs.tab2 = true;
-            // this.strategWeight1 = data.index_strategy_2.strategy_weight;
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
             this.tabs.tab3 = true;
-            // this.strategWeight2 = data.index_strategy_3.strategy_weight;
             this.populateIndex(3, data.index_strategy_3);
           }
 
@@ -1053,14 +1030,20 @@ export default {
     },
     validatateForm: function(tab = 0) {
       var valid = true;
-      let analysis = this.analysis[tab];
+      let analysis = this.analysis;
       let growth = this.growth[tab];
       let enhancements = this.enhancements[tab];
       let fees = this.fees[tab];
       this.error[tab + 1].fees = false;
       this.error[tab + 1].enhancements = false;
+      let portFolio = document.getElementById("savePortfolioCheckbox")
+        ? document.getElementById("savePortfolioCheckbox").checked
+        : false;
+      let portFolioName = document.getElementById("portFolioNameInput")
+        ? document.getElementById("portFolioNameInput").value
+        : false;
 
-      if (this.portFolioCheckbox && !this.portFolioName) {
+      if (portFolio && !portFolioName) {
         valid = false;
         this.error.portfolio_name = "This field is required.";
       } else {
@@ -1125,58 +1108,6 @@ export default {
         }
       }
 
-      // premium charge fees validation
-      if (fees && !fees.pcf.same_all_year) {
-        let obj = fees.pcf.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach(item => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error[tab + 1].fees = true;
-          this.error[tab + 1].fee_pc_schedule =
-            "Please fill premium charge rate for all years.";
-        } else {
-          this.error[tab + 1].fee_pc_schedule = "";
-        }
-      }
-
-      if (fees.lif.fees < 0.1) {
-        valid = false;
-        this.error[tab + 1].fees = true;
-        this.$toast.warning("Loan interest rate must be grater than 0.1");
-      }
-
-      // loan interest fees validation
-      if (fees && !fees.lif.same_all_year) {
-        let obj = fees.lif.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach(item => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error[tab + 1].fees = true;
-          this.error[tab + 1].fee_lif_schedule =
-            "Please fill loan interest rate for all years.";
-        } else {
-          this.error[tab + 1].fee_lif_schedule = "";
-        }
-      }
-
       // performance multiplier fees validation
       if (fees && fees.pmf && !fees.pmf.same_all_year) {
         let obj = fees.pmf.schedule;
@@ -1197,6 +1128,58 @@ export default {
             "Please fill performance multiplier fee rate for all years.";
         } else {
           this.error[tab + 1].fee_pmf_schedule = "";
+        }
+      }
+
+      // premium charge fees validation
+      if (analysis && !analysis.pcf.same_all_year) {
+        let obj = analysis.pcf.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].analysis = true;
+          this.error[tab + 1].analysis_pc_schedule =
+            "Please fill premium charge rate for all years.";
+        } else {
+          this.error[tab + 1].analysis_pc_schedule = "";
+        }
+      }
+
+      if (analysis.lif.analysis < 0.1) {
+        valid = false;
+        this.error[tab + 1].analysis = true;
+        this.$toast.warning("Loan interest rate must be grater than 0.1");
+      }
+
+      // loan interest analysis validation
+      if (analysis && !analysis.lif.same_all_year) {
+        let obj = analysis.lif.schedule;
+        let obj_valid = true;
+        if (obj) {
+          obj.forEach(item => {
+            if (!item.value) {
+              obj_valid = false;
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+        if (!obj_valid) {
+          valid = false;
+          this.error[tab + 1].analysis = true;
+          this.error[tab + 1].analysis_lif_schedule =
+            "Please fill loan interest rate for all years.";
+        } else {
+          this.error[tab + 1].analysis_lif_schedule = "";
         }
       }
 
@@ -1224,30 +1207,6 @@ export default {
       }
 
       return valid;
-    },
-    // populate existing index details
-    populateIndexTemplate: function(iType = 1, id = null, type = 1) {
-      this.$store.dispatch("loader", true);
-      get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
-        .then(response => {
-          var data = response.data.data;
-          this.populateIndex(iType, data);
-          this.$store.dispatch("loader", false);
-        })
-        .catch(error => {
-          console.log(error);
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
-          }
-          this.$store.dispatch("loader", false);
-        });
-    },
-    getTemplateDataId: function(id) {
-      var temp = this.existingIndex.filter(i => i.id === id)[0];
-      return temp ? temp : null;
     },
   },
   mounted() {
@@ -1296,12 +1255,18 @@ export default {
         this.$store.dispatch("loader", false);
       });
 
-    // if (!this.existingIndex.length) {
-    //   this.getExistingIndex();
-    // }
     if (this.$route.query.pid && this.$route.query.pid !== "null") {
       this.populateHistoricalSimulationData(this.$route.query.pid, true);
     }
+  },
+  computed: {
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
   },
 };
 </script>

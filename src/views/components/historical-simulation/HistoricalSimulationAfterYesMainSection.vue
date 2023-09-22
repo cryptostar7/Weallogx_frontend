@@ -902,8 +902,13 @@ export default {
       this.$store.dispatch("loader", true);
       get(`${getUrl("illustration")}${id}`, authHeader())
         .then(response => {
-          let illustration_data =
-            response.data.data.illustration_data.copy_paste;
+          var result = response.data.data.illustration_data;
+          let illustration_data = [];
+          if (result.copy_paste_checkbox) {
+            illustration_data = result.copy_paste;
+          } else {
+            illustration_data = result.upload_from_file;
+          }
 
           let headerKeys = {
             none: "none",
@@ -1109,11 +1114,9 @@ export default {
       }
 
       if (!this.validateForm()) {
-        console.log(this.errors);
         document.getElementById("main-section-element").scrollIntoView();
         return false;
       }
-      console.log("submitted");
 
       let upload_file_checkbox = this.uploadFromFile ? true : false;
 

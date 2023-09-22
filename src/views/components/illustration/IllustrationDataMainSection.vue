@@ -972,7 +972,6 @@ export default {
               });
             });
           }
-          console.log(template);
           this.$store.dispatch("template", {
             type: "insurance",
             data: template,
@@ -1512,7 +1511,6 @@ export default {
               this.$toast.error(error.message);
             } else {
               if (error.response.data.error) {
-                console.log(error.response.data.error.insurance_template_name);
                 this.errors.insurance_template_name =
                   error.response.data.error.insurance_template_name;
               }
@@ -1761,7 +1759,6 @@ export default {
     filterObject: function(array = { data: [], headers: [] }) {
       array.data = array.data.map(i =>
         i.map(e => {
-          console.log(e)
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
           e = e.split(".")[0]; // remove decimal points
           if (!e) {

@@ -18,7 +18,7 @@
 <div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#accordionFlushExample">
     <form action="javascript:void(0)" autocomplete="off">
       <div class="formParabrdrLavelDiv mt-3 mb-2">
-          <p @click="checkFunction">Rolling Time Period (Years)</p>
+          <p @click="testFunction">Rolling Time Period (Years)</p>
           <p></p>
       </div>
       <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center" id="rollingTimePeriod1">
@@ -103,7 +103,7 @@
           </div>
       </div>
       <!-- Fees Global Section Start -->
-        <global-fees-component />
+        <global-fees-component :update="$props.update.global_parameters" />
       <!-- Fees Global Section End -->
       <input type="hidden" id="rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
       <input type="hidden" id="analyze_type" :value="analyze" ref="analyzeRef"/>
@@ -134,28 +134,18 @@ export default {
     };
   },
   methods: {
+    testFunction: function() {
+      console.log(this.$props.update);
+    },
     updateRollingPeriod: function(val) {
       let infoContent = document.querySelector("#rollingTimeInfoContent");
-      if (val == 1) {
-        infoContent.textContent = `Choose a rolling period between 15 and 55 years.`;
-      } else if (val == 2 || val == 7) {
-        infoContent.textContent = `Choose a rolling period between 15 and 30 years.`;
-      } else if (val == 3 || val == 4 || val == 6) {
-        infoContent.textContent = `You must choose 15 years.`;
-      } else {
-        infoContent.textContent = `Choose a rolling period between 15 and 20 years.`;
-      }
-
-      this.rollingPeriod.max_val = this.indexStrategies.filter(
-        i => i.id === val
-      )[0].max_limit;
       this.rollingPeriod.value = this.rollingPeriod.max_val;
       if (
         this.rollingPeriod.custom &&
         Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
       ) {
         document.getElementById(
-          'rollingCustomAmount'
+          "rollingCustomAmount"
         ).value = this.rollingPeriod.max_val;
         this.rollingPeriod.custom = this.rollingPeriod.max_val;
         this.customRollingPeriod = this.rollingPeriod.max_val;
@@ -165,29 +155,29 @@ export default {
       this.customRollingPeriod = e.target.value;
     },
   },
+  mounted() {
+    console.log(this.$props.update);
+    console.log('this.$props.update');
+  },
   computed: {
     indexStrategies() {
       return config.INDEX_STRATEGIES;
     },
   },
   watch: {
-    "$props.update"(e) {
+    "$props.update.global_parameters"(e) {
+        console.log("updated...");
       if (e) {
         this.$emit("setUpdated");
         let rolling = Number(this.$refs.rollingRef.value);
-        let index = this.indexStrategies.filter(
-          i =>
-            i.template_name ===
-            document.getElementById('analysis_index').value
-        )[0];
+        console.log(rolling);
+        console.log("rolling...");
         this.updateRollingPeriod(index ? index.id : 1);
         if (this.rollingTimePeriod.includes(rolling)) {
           this.rollingPeriod.value = rolling;
         } else {
           this.rollingPeriod.custom = rolling;
-          document.getElementById(
-            'rollingCustomAmount'
-          ).value = rolling;
+          document.getElementById("rollingCustomAmount").value = rolling;
         }
         this.analyze = this.$refs.analyzeRef.value;
         this.credMethod = this.$refs.credRef.value;

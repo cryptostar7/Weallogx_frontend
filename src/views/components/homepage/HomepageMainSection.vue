@@ -111,7 +111,6 @@ export default {
       get(getUrl("clients"), authHeader())
         .then(response => {
           this.$store.dispatch("clients", mapClientList(response.data.data));
-          console.log(response.data.data);
           this.sortedList = mapClientList(response.data.data);
           this.oldModified();
           if (clone) {
