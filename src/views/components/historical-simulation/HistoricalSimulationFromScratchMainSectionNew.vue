@@ -143,10 +143,6 @@ export default {
 
       if (!pcf_all_year) {
         let tempData = [];
-
-        console.log("this.illustrateYear");
-        console.log(this.illustrateYear);
-
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
@@ -494,9 +490,15 @@ export default {
           flat_credit_schedule:
             enhancements[0].credit.type === "schedule" ? true : false,
 
-          flat_fixed_credit_bonus: enhancements[0].credit.credit || 0,
+          flat_fixed_credit_bonus:
+            enhancements[0].credit.type === "fixed"
+              ? enhancements[0].credit.credit
+              : 0,
 
-          flat_fixed_start_year: enhancements[0].credit.start_year || 0,
+          flat_fixed_start_year:
+            enhancements[0].credit.type === "fixed"
+              ? enhancements[0].credit.start_year
+              : 0,
 
           flat_credit_schedule_amount:
             enhancements[0].credit.schedule_type === "amount"
@@ -523,26 +525,27 @@ export default {
 
       // index strategy data append for first tab
       if (formData.index_strategy_1.performance_multiplier) {
-        formData.index_strategy_1.loan_in_advanced_performance_multiplier =
+        formData.index_strategy_1.performance_multiplier_fees =
           fees[0].pmf.fees;
-        formData.index_strategy_1.loan_in_advanced_same_in_all_years = fees[0]
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years = fees[0]
           .pmf.same_all_year
           ? true
           : false;
-        formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[0]
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule = !fees[0]
           .pmf.same_all_year
           ? fees[0].pmf.schedule
           : null;
+          
       } else {
-        formData.index_strategy_1.loan_in_advanced_performance_multiplier = 0;
-        formData.index_strategy_1.loan_in_advanced_same_in_all_years = true;
-        formData.index_strategy_1.loan_in_advanced_performance_multiplier_same_in_all_years = null;
+        formData.index_strategy_1.performance_multiplier_fees = 0;
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years = true;
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule = null;
       }
 
       if (formData.index_strategy_1.flat_credit_bonus) {
-        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees =
+        formData.index_strategy_1.flat_credit_bonus_fees =
           fees[0].fcf.fees || 0;
-        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = fees[0]
+        formData.index_strategy_1.flat_credit_same_in_all_years = fees[0]
           .fcf.same_all_year
           ? true
           : false;
@@ -554,8 +557,8 @@ export default {
           ? fees[0].fcf.schedule
           : null;
       } else {
-        formData.index_strategy_1.in_advanced_flat_credit_bonus_fees = 0;
-        formData.index_strategy_1.in_advanced_flat_credit_same_in_all_years = false;
+        formData.index_strategy_1.flat_credit_bonus_fees = 0;
+        formData.index_strategy_1.flat_credit_same_in_all_years = false;
         formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years = false;
         formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years_schedule = false;
       }
@@ -618,26 +621,26 @@ export default {
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
-          formData.index_strategy_2.loan_in_advanced_performance_multiplier =
+          formData.index_strategy_2.performance_multiplier_fees =
             fees[1].pmf.fees;
-          formData.index_strategy_2.loan_in_advanced_same_in_all_years = fees[1]
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years = fees[1]
             .pmf.same_all_year
             ? true
             : false;
-          formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[1]
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule = !fees[1]
             .pmf.same_all_year
             ? fees[1].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_2.loan_in_advanced_performance_multiplier = 0;
-          formData.index_strategy_2.loan_in_advanced_same_in_all_years = true;
-          formData.index_strategy_2.loan_in_advanced_performance_multiplier_same_in_all_years = null;
+          formData.index_strategy_2.performance_multiplier_fees = 0;
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years = true;
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule = null;
         }
 
         if (formData.index_strategy_2.flat_credit_bonus) {
-          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees =
+          formData.index_strategy_2.flat_credit_bonus_fees =
             fees[1].fcf.fees;
-          formData.index_strategy_2.in_advanced_flat_credit_same_in_all_years = fees[1]
+          formData.index_strategy_2.flat_credit_same_in_all_years = fees[1]
             .fcf.same_all_year
             ? true
             : false;
@@ -650,8 +653,8 @@ export default {
             ? fees[1].fcf.schedule
             : null;
         } else {
-          formData.index_strategy_2.in_advanced_flat_credit_bonus_fees = 0;
-          formData.index_strategy_2.in_advanced_flat_credit_same_in_all_years = false;
+          formData.index_strategy_2.flat_credit_bonus_fees = 0;
+          formData.index_strategy_2.flat_credit_same_in_all_years = false;
           formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years = false;
           formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule = null;
         }
@@ -715,26 +718,26 @@ export default {
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
-          formData.index_strategy_3.loan_in_advanced_performance_multiplier =
+          formData.index_strategy_3.performance_multiplier_fees =
             fees[2].pmf.fees;
-          formData.index_strategy_3.loan_in_advanced_same_in_all_years = fees[2]
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years = fees[2]
             .pmf.same_all_year
             ? true
             : false;
-          formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = !fees[2]
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule = !fees[2]
             .pmf.same_all_year
             ? fees[2].pmf.schedule
             : null;
         } else {
-          formData.index_strategy_3.loan_in_advanced_performance_multiplier = 0;
-          formData.index_strategy_3.loan_in_advanced_same_in_all_years = true;
-          formData.index_strategy_3.loan_in_advanced_performance_multiplier_same_in_all_years = null;
+          formData.index_strategy_3.performance_multiplier_fees = 0;
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years = true;
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule = null;
         }
 
         if (formData.index_strategy_3.flat_credit_bonus) {
-          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees =
+          formData.index_strategy_3.flat_credit_bonus_fees =
             fees[2].fcf.fees;
-          formData.index_strategy_3.in_advanced_flat_credit_same_in_all_years = fees[2]
+          formData.index_strategy_3.flat_credit_same_in_all_years = fees[2]
             .fcf.same_all_year
             ? true
             : false;
@@ -746,8 +749,8 @@ export default {
             ? fees[2].fcf.schedule
             : null;
         } else {
-          formData.index_strategy_3.in_advanced_flat_credit_bonus_fees = 0;
-          formData.index_strategy_3.in_advanced_flat_credit_same_in_all_years = false;
+          formData.index_strategy_3.flat_credit_bonus_fees = 0;
+          formData.index_strategy_3.flat_credit_same_in_all_years = false;
           formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years = false;
           formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule = null;
         }
@@ -901,10 +904,10 @@ export default {
     setFeesData: function(tab, obj = []) {
       // performance multiplier fee
       if (obj.performance_multiplier) {
-        if (obj.loan_in_advanced_performance_multiplier_same_in_all_years) {
+        if (obj.performance_multiplier_fees_same_in_all_years_schedule) {
           this.setUnChecked(`multiplierFee${tab}`);
           this.setInputWithId(`performance_multiplier_fees${tab}`, "");
-          obj.loan_in_advanced_performance_multiplier_same_in_all_years.forEach(
+          obj.performance_multiplier_fees_same_in_all_years_schedule.forEach(
             i => {
               this.setInputWithId(`pmf_schedule${tab}${i.year}`, i.value);
             }
@@ -913,26 +916,27 @@ export default {
           this.setChecked(`multiplierFee${tab}`);
           this.setInputWithId(
             `performance_multiplier_fees${tab}`,
-            obj.loan_intrest_rate
+            obj.performance_multiplier_fees
           );
         }
       }
 
       // flat flat/credit fee
       if (obj.flat_credit_bonus) {
-        if (obj.flat_credit_bonus_fees_same_in_all_years) {
+        console.log("fee object");
+        console.log(obj);
+        if (!obj.flat_credit_bonus_fees_same_in_all_years) {
           this.setUnChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(`flat_credit_fees${tab}`, "");
-          if (!obj.flat_credit_bonus_fees_same_in_all_years) {
-            obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach(i => {
-              this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
-            });
-          }
+          obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach(i => {
+            this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
+          });
         } else {
+          console.log(`flat-credit-fee-radio${tab}` + "........checked........");
           this.setChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(
             `flat_credit_fees${tab}`,
-            obj.in_advanced_flat_credit_bonus_fees
+            obj.flat_credit_bonus_fees
           );
         }
       }
@@ -948,32 +952,29 @@ export default {
       this.setInputWithId("credit_base_method", obj.credit_base_method);
       this.setInputWithId("distribution_method", obj.distributions);
 
-
-
       // Premium charge
       if (obj.premium_charges_same_in_all_years) {
-        this.setUnChecked('premiumcharge');
-        this.setInputWithId('premium_charge_fees', "");
+        this.setUnChecked("premiumcharge");
+        this.setInputWithId("premium_charge_fees", "");
         obj.premium_charges_same_in_all_years.forEach(i => {
           this.setInputWithId(`pcf_schedule${i.year}`, i.value);
         });
       } else {
-        this.setChecked('premiumcharge');
-        this.setInputWithId('premium_charge_fees', obj.premium_charge);
+        this.setChecked("premiumcharge");
+        this.setInputWithId("premium_charge_fees", obj.premium_charge);
       }
 
       // Loan interest rate
       if (obj.loan_intrest_rate_same_in_all_years) {
-        this.setUnChecked('loanIntrest');
-        this.setInputWithId('loan_interest_fees', "");
+        this.setUnChecked("loanIntrest");
+        this.setInputWithId("loan_interest_fees", "");
         obj.loan_intrest_rate_same_in_all_years.forEach(i => {
           this.setInputWithId(`lif_schedule${i.year}`, i.value);
         });
       } else {
-        this.setChecked('loanIntrest');
-        this.setInputWithId('loan_interest_fees', obj.loan_intrest_rate);
+        this.setChecked("loanIntrest");
+        this.setInputWithId("loan_interest_fees", obj.loan_intrest_rate);
       }
-
 
       this.update.global_parameters = true;
     },

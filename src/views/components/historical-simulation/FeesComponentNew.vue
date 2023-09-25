@@ -242,6 +242,7 @@ export default {
           this.performanceFeeAmount = "";
         }
 
+    
         // Flat Credit/Bonus rate
         this.sameInAllYears.credit_bonus_fee = document.getElementById(
           `flat-credit-fee-radio${this.currentTab}`
@@ -251,7 +252,8 @@ export default {
           let ff = Number(
             document.getElementById(`flat_credit_fees${this.currentTab}`).value
           );
-          if (charges.includes(ff)) {
+
+          if ([1, 2, 3].includes(ff)) {
             this.flatAmount = ff;
           } else {
             this.customFlatAmount = ff;
