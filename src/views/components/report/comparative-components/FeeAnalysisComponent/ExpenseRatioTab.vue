@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    <p :class="`cardRadioSwtchpara${index+1} mb-0`">LifePro+</p>
+                    <p :class="`cardRadioSwtchpara${index+1} mb-0`">{{cv_name[index]}}</p>
                 </div>
             </div>
         </div>
