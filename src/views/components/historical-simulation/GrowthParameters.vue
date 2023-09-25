@@ -15,7 +15,7 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p>index</p>
+            <p @click="testFunction">index</p>
             <p></p>
         </div>
         <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
@@ -64,12 +64,15 @@ export default {
     SegmentDurationYear,
     SelectDropdown,
   },
-  props: ["currentTab", "update"],
+  props: ["currentTab", "update", "rollingTime"],
   emits: ["setUpdated"],
   data() {
     return {};
   },
   methods: {
+    testFunction: function() {
+      console.log(this.$props.rollingTime);
+    },
     updateStrategyIndex: function(val) {
       let index = this.indexStrategies.filter(
         i =>
@@ -80,7 +83,8 @@ export default {
   },
   computed: {
     indexStrategies() {
-      return config.INDEX_STRATEGIES;
+      let rolling = this.$props.rollingTime;
+      return config.INDEX_STRATEGIES.filter(item => item.max_limit <= rolling);
     },
   },
 };

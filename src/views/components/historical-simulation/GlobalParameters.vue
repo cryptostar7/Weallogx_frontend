@@ -103,7 +103,7 @@
           </div>
       </div>
       <!-- Fees Global Section Start -->
-        <global-fees-component :update="$props.update.global_parameters" />
+        <global-fees-component :update="$props.update.global_parameters" @clearError="clearError" />
       <!-- Fees Global Section End -->
       <input type="hidden" id="rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
       <input type="hidden" id="analyze_type" :value="analyze" ref="analyzeRef"/>
@@ -119,7 +119,7 @@ import config from "../../../services/config.js";
 export default {
   components: { SelectDropdown, GlobalFeesComponent },
   props: ["update"],
-  emits: ["setUpdated"],
+  emits: ["clearError", "setUpdated", "setRollingTime"],
   data() {
     return {
       rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
@@ -135,7 +135,13 @@ export default {
   },
   methods: {
     testFunction: function() {
-      console.log(this.$props.update);
+      let rolling = Number(this.$refs.rollingRef.value);
+
+      console.log(rolling);
+    },
+    // remove error
+    clearError: function(key = "") {
+      this.$emit("clearError", key);
     },
     updateRollingPeriod: function(val) {
       let infoContent = document.querySelector("#rollingTimeInfoContent");
@@ -155,23 +161,23 @@ export default {
       this.customRollingPeriod = e.target.value;
     },
   },
-  mounted() {
-    console.log(this.$props.update);
-    console.log('this.$props.update');
-  },
   computed: {
     indexStrategies() {
       return config.INDEX_STRATEGIES;
     },
   },
   watch: {
+    "rollingPeriod.value"(e) {
+      this.$emit("setRollingTime", e);
+    },
+
+    "rollingPeriod.custom"(e) {
+      this.$emit("setRollingTime", e);
+    },
     "$props.update.global_parameters"(e) {
-        console.log("updated...");
       if (e) {
         this.$emit("setUpdated");
         let rolling = Number(this.$refs.rollingRef.value);
-        console.log(rolling);
-        console.log("rolling...");
         this.updateRollingPeriod(index ? index.id : 1);
         if (this.rollingTimePeriod.includes(rolling)) {
           this.rollingPeriod.value = rolling;

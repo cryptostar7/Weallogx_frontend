@@ -42,14 +42,14 @@
                         <table class="table">
                             <thead>
                                 <th>Year</th>
-                                <th>Multiplier Rate</th>
+                                <th>Multiplier Ratee</th>
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in illustrateYear" :key="index">
                                     <td data-label="Year">{{item}}</td>
                                     <td data-label="Rate" class="innerTableInputTd">
                                         <div class="percent-input-div">
-                                            <input type="text" class="form-control handleLimit" min="1" max="10" :id="`multiplier_schedule${currentTab}${item}`" @keypress="$emit('clearError', 'enhancements_performance_schedule')"  autocomplete="off">
+                                            <input type="text" class="form-control handleLimit" min="1" max="10" :id="`multiplier_schedule${currentTab}${item}`" @keypress="() => $emit('clearError', 'enhancements_performance_schedule')"  autocomplete="off">
                                             <span class="percent-span">%</span>
                                         </div>
                                     </td>

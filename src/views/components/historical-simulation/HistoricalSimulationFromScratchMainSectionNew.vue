@@ -25,8 +25,8 @@
                       <div class="form-check form-switch custom-switch ms-2">
                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
                     </div>
-                      <global-parameters :update="update"/> 
-                      <index-strategy-parameters :update="update"/>
+                      <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime"/> 
+                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
                       <!-- <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14 mx-2" id="nextBtnVsblOnSlct" @click="submitHandler()">Save & Return Review</router-link>  -->
@@ -74,6 +74,7 @@ export default {
         enhancement: false,
         fees: false,
       },
+      rollingTime:30,
       error: {
         1: [],
         2: [],
@@ -119,6 +120,22 @@ export default {
         document.getElementById(id).value = value;
       }
       return value;
+    },
+    // set rollin time period data
+    setRollingTime: function(value) {
+      this.rollingTime = value;
+    },
+    // remove error
+    clearError: function(tab = 1, key = "") {
+      if (this.error[tab][key]) {
+        this.error[tab][key] = false;
+      }
+    },
+    // remove error
+    clearGlobalErrors: function(key = "") {
+      if (this.error[key]) {
+        this.error[key] = false;
+      }
     },
     getActiveTabs: function() {
       let tab1 = document.getElementById("index_stategy_tab1").checked;
@@ -407,6 +424,21 @@ export default {
         }
       });
 
+      // error focus on global premium charge tab
+      if (this.error.analysis_pc_schedule) {
+        var area = document.getElementById('globalPcTab');
+        focus = true;
+        area.scrollIntoView();
+      }
+
+      
+      // error focus on global premium charge tab
+      if (this.error.analysis_lif_schedule) {
+        var area = document.getElementById('globaLifTab');
+        focus = true;
+        area.scrollIntoView();
+      }
+
       if (!valid) {
         console.log(this.error);
         return false;
@@ -535,7 +567,6 @@ export default {
           .pmf.same_all_year
           ? fees[0].pmf.schedule
           : null;
-          
       } else {
         formData.index_strategy_1.performance_multiplier_fees = 0;
         formData.index_strategy_1.performance_multiplier_fees_same_in_all_years = true;
@@ -545,8 +576,8 @@ export default {
       if (formData.index_strategy_1.flat_credit_bonus) {
         formData.index_strategy_1.flat_credit_bonus_fees =
           fees[0].fcf.fees || 0;
-        formData.index_strategy_1.flat_credit_same_in_all_years = fees[0]
-          .fcf.same_all_year
+        formData.index_strategy_1.flat_credit_same_in_all_years = fees[0].fcf
+          .same_all_year
           ? true
           : false;
         formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years =
@@ -638,10 +669,9 @@ export default {
         }
 
         if (formData.index_strategy_2.flat_credit_bonus) {
-          formData.index_strategy_2.flat_credit_bonus_fees =
-            fees[1].fcf.fees;
-          formData.index_strategy_2.flat_credit_same_in_all_years = fees[1]
-            .fcf.same_all_year
+          formData.index_strategy_2.flat_credit_bonus_fees = fees[1].fcf.fees;
+          formData.index_strategy_2.flat_credit_same_in_all_years = fees[1].fcf
+            .same_all_year
             ? true
             : false;
 
@@ -735,10 +765,9 @@ export default {
         }
 
         if (formData.index_strategy_3.flat_credit_bonus) {
-          formData.index_strategy_3.flat_credit_bonus_fees =
-            fees[2].fcf.fees;
-          formData.index_strategy_3.flat_credit_same_in_all_years = fees[2]
-            .fcf.same_all_year
+          formData.index_strategy_3.flat_credit_bonus_fees = fees[2].fcf.fees;
+          formData.index_strategy_3.flat_credit_same_in_all_years = fees[2].fcf
+            .same_all_year
             ? true
             : false;
           formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years =
@@ -932,7 +961,6 @@ export default {
             this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
           });
         } else {
-          console.log(`flat-credit-fee-radio${tab}` + "........checked........");
           this.setChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(
             `flat_credit_fees${tab}`,
@@ -1147,17 +1175,17 @@ export default {
         }
         if (!obj_valid) {
           valid = false;
-          this.error[tab + 1].analysis = true;
-          this.error[tab + 1].analysis_pc_schedule =
+          this.error.analysis = true;
+          this.error.analysis_pc_schedule =
             "Please fill premium charge rate for all years.";
         } else {
-          this.error[tab + 1].analysis_pc_schedule = "";
+          this.error.analysis_pc_schedule = "";
         }
       }
 
       if (analysis.lif.analysis < 0.1) {
         valid = false;
-        this.error[tab + 1].analysis = true;
+        this.error.analysis = true;
         this.$toast.warning("Loan interest rate must be grater than 0.1");
       }
 
@@ -1176,11 +1204,11 @@ export default {
         }
         if (!obj_valid) {
           valid = false;
-          this.error[tab + 1].analysis = true;
-          this.error[tab + 1].analysis_lif_schedule =
+          this.error.analysis = true;
+          this.error.analysis_lif_schedule =
             "Please fill loan interest rate for all years.";
         } else {
-          this.error[tab + 1].analysis_lif_schedule = "";
+          this.error.analysis_lif_schedule = "";
         }
       }
 
@@ -1271,5 +1299,8 @@ export default {
   },
 };
 </script>
-<style lang="">
+<style>
+.error {
+  color: red;
+}
 </style>

@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     clearError: function(name) {
+        console.log('name');
       this.$emit("clearError", this.currentTab, name);
     }
   },

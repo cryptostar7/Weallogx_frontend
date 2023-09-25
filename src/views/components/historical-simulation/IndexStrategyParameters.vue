@@ -53,7 +53,7 @@
                 </div>
               </div>
             </div>
-            <growth-parameters :currentTab="1" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false"/> 
+            <growth-parameters :currentTab="1" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
             <enhancements-component :currentTab="1" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" @clearError="clearError"  @performanceChange="(val) => strategies[0].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[0].enhancements.credit_bonus_fee = val"/> 
             <fees-component :currentTab="1" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" @clearError="clearError"/> 
             <save-strategy-template :currentTab="1" @clearError="clearError"/>
@@ -75,7 +75,7 @@
                 </div>
                 </div>
             </div>
-            <growth-parameters :currentTab="2"  :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" /> 
+            <growth-parameters :currentTab="2"  :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime" /> 
             <enhancements-component :currentTab="2" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" @clearError="clearError" @performanceChange="(val) => strategies[1].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[1].enhancements.credit_bonus_fee = val"/> 
             <fees-component :currentTab="2" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" @clearError="clearError"/> 
             <save-strategy-template :currentTab="2" @clearError="clearError"/>
@@ -97,7 +97,7 @@
                 </div>
                 </div>
             </div>
-            <growth-parameters :currentTab="3" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" /> 
+            <growth-parameters :currentTab="3" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
             <enhancements-component :currentTab="3" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" @clearError="clearError"  @performanceChange="() => strategies[2].enhancements.performance_multiplier = !strategies[2].enhancements.performance_multiplier" @creditBonusChange="() => strategies[2].enhancements.credit_bonus_fee = !strategies[2].enhancements.credit_bonus_fee"/> 
             <fees-component :currentTab="3" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" @clearError="clearError"/> 
             <save-strategy-template :currentTab="3" @clearError="clearError"/>
@@ -146,7 +146,8 @@ export default {
     StretagyWeightFirstComponent,
     StretagyWeightSecondComponent,
   },
-  props: ["update"],
+  props: ["update", "rollingTime"],
+  emits: ["clearError", "setUpdated"],
   data() {
     return {
       activeTab: 1,
@@ -162,11 +163,6 @@ export default {
       },
       strategWeight1: false,
       strategWeight2: false,
-      rollingTimePeriod: [15, 20, 25, 30, 35, 40, 45, 50],
-      rollingPeriod1: {
-        value: "",
-        time: 50,
-      },
       strategies: [
         {
           enhancements: {
@@ -245,9 +241,7 @@ export default {
     },
     // remove error
     clearError: function(tab = 1, key = "") {
-      if (this.error[tab][key]) {
-        this.error[tab][key] = false;
-      }
+      this.$emit("clearError", tab, key);
     },
     getTemplateDataId: function(id) {
       var temp = this.existingIndex.filter(i => i.id === id)[0];

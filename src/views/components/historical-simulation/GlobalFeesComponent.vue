@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="formParabrdrLavelDiv mt-4">
+  <div class="formParabrdrLavelDiv mt-4" id="globalPcTab">
     <p>Premium Charge</p>
     <p></p>
   </div>
@@ -28,7 +28,7 @@
   </div>
   <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.premium_charge ? 'd-none' : ''}`">
       <div class="schduleTableDiv mt-5 ">
-          <label class="error text-center" v-if="errors && errors.fee_pc_schedule">{{errors.fee_pc_schedule}}</label>
+          <label class="error text-center" v-if="errors && errors.analysis_pc_schedule">{{errors.analysis_pc_schedule}}</label>
           <table class="table">
               <thead>
                   <th>Year</th>
@@ -38,7 +38,7 @@
                   <tr v-for="(item, index) in illustrateYear" :key="index">
                       <td data-label="Year">{{item}}</td>
                       <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                          <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${item}`" @keypress="$emit('clearError',currentTab , 'fee_pc_schedule')">
+                          <input type="text" class="form-control handleLimit" min="0" max="15" :id="`pcf_schedule${item}`" @keypress="$emit('clearError', 'analysis_pc_schedule')">
                           <label for="amount">%</label>
                       </td>
                   </tr>
@@ -46,7 +46,7 @@
           </table>
       </div>
   </div>
-  <div class="formParabrdrLavelDiv mt-4">
+  <div class="formParabrdrLavelDiv mt-4" id="globaLifTab">
     <p>Loan Interest Rate</p>
     <p></p>
   </div>
@@ -76,7 +76,7 @@
 
   <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.loan_interest ? 'd-none':''}`">
       <div class="schduleTableDiv mt-5 ">
-          <label :class="`error text-center ${errors && errors.fee_lif_schedule ? '' : 'd-none'}`" ></label>
+          <label class="error text-center" v-if="errors && errors.analysis_lif_schedule">{{errors.analysis_lif_schedule}}</label>
           <table class="table">
           <thead>
               <th>Year</th>
@@ -86,7 +86,7 @@
               <tr v-for="(item, index) in illustrateYear" :key="index">
                   <td data-label="Year">{{item}}</td>
                   <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                      <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${item}`" @keypress="$emit('clearError',currentTab , 'fee_lif_schedule')">
+                      <input type="text" class="form-control handleLimit"  min="0" max="12" :id="`lif_schedule${item}`" @keypress="$emit('clearError', 'analysis_lif_schedule')">
                       <label for="amount">%</label>
                   </td>
               </tr>
@@ -110,8 +110,8 @@
 </template>
 <script>
 export default {
-  props: ["currentTab", "performance", "flatCreditBonus", "update"],
-  // inject: ["errors"],
+  props: ["performance", "flatCreditBonus", "update"],
+  inject: ["errors"],
   emits: ["clearError", "setUpdated"],
   data() {
     return {
@@ -126,7 +126,6 @@ export default {
       },
       Arrears: false,
       customInterestAmount: "",
-      errors: [],
     };
   },
   methods: {
@@ -141,7 +140,7 @@ export default {
       this.$refs.customLIRef.value = "";
     },
     testFunction: function() {
-      console.log(this.illustrateYear);
+      console.log(this.errors);
     },
   },
   computed: {
