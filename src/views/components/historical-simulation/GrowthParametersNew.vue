@@ -15,10 +15,10 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p>index</p>
+            <p @click="testFunction">index</p>
             <p></p>
         </div>
-        <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
+        <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Cap Rate</p>
         <p></p>
@@ -83,7 +83,10 @@ export default {
   },
   computed: {
     indexStrategies() {
-      return config.INDEX_STRATEGIES;
+      let rolling = this.$props.rollingTime;
+      return (
+        config.INDEX_STRATEGIES.filter(item => item.max_limit <= rolling) || []
+      );
     },
   },
 };

@@ -125,7 +125,7 @@ import { putPercentage } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";
-import GrowthParameters from "./GrowthParameters.vue";
+import GrowthParameters from "./GrowthParametersNew.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import FeesComponent from "./FeesComponentNew.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";

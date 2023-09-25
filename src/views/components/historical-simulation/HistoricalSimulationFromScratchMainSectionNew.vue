@@ -29,7 +29,6 @@
                       <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
-                      <!-- <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14 mx-2" id="nextBtnVsblOnSlct" @click="submitHandler()">Save & Return Review</router-link>  -->
                       <span class="d-block mb-3"></span>
                       <div class="d-flex position-relative mb-5"> 
                         <router-link :to="`/${$route.query.review === 'true' ? 'review-summary':'select-historical-index-strategy-allocation'}/${$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
