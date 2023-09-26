@@ -83,9 +83,9 @@ export default {
   },
   computed: {
     indexStrategies() {
-      let rolling = this.$props.rollingTime;
+      let rolling = this.$props.rollingTime || 30;
       return (
-        config.INDEX_STRATEGIES.filter(item => item.max_limit <= rolling) || []
+        config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
       );
     },
   },
