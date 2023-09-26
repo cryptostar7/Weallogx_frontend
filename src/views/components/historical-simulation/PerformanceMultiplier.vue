@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-center align-items-center mt-3">
             <div class="enhancementFixedSheduleBtn nav nav-tabs" id="nav-tab" role="tablist">
                 <div :class="tab === 'fixed' ? 'active' : ''" :id="`nav-fixedValue-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-fixedValue${currentTab}`" role="tab" :aria-controls="`nav-fixedValue${currentTab}`" aria-selected="true" @click="tab = 'fixed'">Fixed Value</div>
-                <div :class="tab === 'schedule' ? 'active' : ''" id="nav-schedule-tab" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab" :aria-controls="`nav-schedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
+                <div :class="tab === 'schedule' ? 'active' : ''" :id="`nav-schedule-tab${currentTab}`" data-bs-toggle="tab" :data-bs-target="`#nav-schedule${currentTab}`" role="tab" :aria-controls="`nav-schedule${currentTab}`" aria-selected="false" @click="tab = 'schedule'">Schedule</div>
             </div>
         </div>
         <div class="tab-content" id="nav-tabContent">
@@ -14,7 +14,7 @@
                         <input type="text" class="form-control handleLimit" min="1" max="10" value="1" :id="`multiplier_input${currentTab}`">
                     </div>
                     <div class="multiplierInputDiv mt-3">
-                        <label for="Start Year">Start Year</label>
+                        <label for="Start Year" @click="testFunction">Start Year</label>
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="fixeValueYearRadio d-flex justify-content-between align-items-center px-1">
@@ -35,14 +35,14 @@
                     </div>
                 </form>
             </div>
-            <div :class="`tab-pane fade ${tab === 'schedule' ? 'show active' : ''}`" :id="`nav-schedule${currentTab}`" role="tabpanel" aria-labelledby="nav-schedule-tab">
+            <div :class="`tab-pane fade ${tab === 'schedule' ? 'show active' : ''}`" :id="`nav-schedule${currentTab}`" role="tabpanel" :aria-labelledby="`nav-schedule-tab${currentTab}`">
                 <div class="d-flex justify-content-center w-100">
                     <div class="schduleTableDiv mt-5 ">
                         <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].enhancements_performance_schedule">{{errors[currentTab].enhancements_performance_schedule}}</label>
                         <table class="table">
                             <thead>
                                 <th>Year</th>
-                                <th>Multiplier Ratee</th>
+                                <th>Multiplier Rate</th>
                             </thead>
                             <tbody>
                                 <tr v-for="(item, index) in illustrateYear" :key="index">
@@ -62,14 +62,13 @@
         </div>
     <input type="hidden" :value="tab" :id="`performance_type${currentTab}`" />
     <input type="hidden" :value="customAmount || startYear" :id="`prf_start_year${currentTab}`" />
-
     </div>
 </template>
 <script>
 export default {
-  props: ["currentTab", "visible", "update"],
+  props: ["currentTab", "visible", "update", "applyPmAllIndex"],
   inject: ["errors"],
-  emits: ["clearError"],
+  emits: ["clearError", "setApplyPmAllIndex"],
   data() {
     return {
       tab: "fixed",
@@ -100,23 +99,13 @@ export default {
     );
   },
   methods: {
+    testFunction: function() {},
     handleStartYear: function(item) {
       this.startYear = item;
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
     },
-  },
-  computed: {
-    illustrateYear() {
-      let scenario = this.$store.state.data.active_scenario;
-      if (scenario) {
-        return scenario.scenerio_details.years_to_illustrate;
-      }
-      return 0;
-    },
-  },
-  watch: {
-    "$props.update"() {
+    updateLatestData: function() {
       this.tab = document.getElementById(
         `performance_type${this.currentTab}`
       ).value;
@@ -130,6 +119,24 @@ export default {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;
       }
+    },
+  },
+  computed: {
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
+  },
+  watch: {
+    "$props.update"() {
+      this.updateLatestData();
+    },
+    "$props.applyPmAllIndex"() {
+      this.$emit("setApplyPmAllIndex", false);
+      this.updateLatestData();
     },
   },
 };

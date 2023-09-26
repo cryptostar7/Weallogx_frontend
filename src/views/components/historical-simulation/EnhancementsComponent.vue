@@ -21,14 +21,14 @@
                 </div>
                 <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
             </div>
-            <div class="d-flex align-items-center mb-2" v-if="tab1">
+            <div :class="`d-flex align-items-center mb-2 ${tab1 ? '' : 'd-none'}`">
                 <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll1${currentTab}`">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPm${currentTab}`" @change="applyToAllIndex">
                 </div>
-                <label :for="`applyAll1${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                <label :for="`applyAllPm${currentTab}`" :id="`applyAllPmLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
             </div>
         </div>
-        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
+        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)"/>
         <div class="middle-divider">
             <div class="divider-line"></div>
         </div>
@@ -56,8 +56,14 @@ import PerformanceMultiplier from "./PerformanceMultiplier.vue";
 import CreditAndBonus from "./CreditAndBonus.vue";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
-  props: ["currentTab", "update"],
-  emits: ["performanceChange", "creditBonusChange", "clearError", "setUpdated"],
+  props: ["currentTab", "update", "applyPmAllIndex"],
+  emits: [
+    "performanceChange",
+    "creditBonusChange",
+    "clearError",
+    "setUpdated",
+    "setApplyPmAllIndex",
+  ],
   data() {
     return {
       tab1: false,
@@ -66,22 +72,146 @@ export default {
   },
   methods: {
     clearError: function(name) {
-        console.log('name');
       this.$emit("clearError", this.currentTab, name);
-    }
+    },
+    isChecked: function(id) {
+      return document.getElementById(id).checked;
+    },
+    isAnyPmAppliedToggle: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach(tab => {
+        if (this.isChecked(`applyAllPm${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+      return toggle;
+    },
+    applyToAllIndex: function(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let performance_type = document.getElementById(
+        `performance_type${currentTab}`
+      ).value;
+
+      let performance_multiplier = document.getElementById(
+        `multiplier_input${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      let start_year = document.getElementById(`prf_start_year${currentTab}`)
+        .value; // get current tab multiplier input value
+
+      if (!this.isAnyPmAppliedToggle() && e.target.checked) {
+        tabs.forEach(tab => {
+          if (currentTab !== tab) {
+            document.getElementById(`applyAllPm${tab}`).checked = !e.target
+              .checked; // unchecked the toggle input
+            document.getElementById(`applyAllPm${tab}`).disabled = !e.target
+              .checked; // disabled the toggle input
+            document
+              .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+
+            if (performance_type === "schedule") {
+              document.getElementById(`nav-schedule-tab${tab}`).click(); // open the fixed value tab in all tabs
+            } else {
+              document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
+            }
+
+            this.$emit("setApplyPmAllIndex", true);
+          }
+        });
+
+        if (performance_type === "schedule") {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `multiplier_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach(tab => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `multiplier_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach(tab => {
+            if (currentTab !== tab) {
+              document.getElementById(
+                `multiplier_input${tab}`
+              ).value = performance_multiplier; // set multiplier value in all tabs
+
+              document.getElementById(
+                `prf_start_year${tab}`
+              ).value = start_year; // set start year value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
+            document
+              .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+  },
+  computed: {
+    illustrateYear() {
+      let scenario = this.$store.state.data.active_scenario;
+      if (scenario) {
+        return scenario.scenerio_details.years_to_illustrate;
+      }
+      return 0;
+    },
   },
   watch: {
-    "$props.update"(e){
-      if(e){
-        this.tab1 = Number(document.getElementById(`performance_checkbox${this.currentTab}`).value) ? true : false;
+    "$props.update"(e) {
+      if (e) {
+        this.tab1 = Number(
+          document.getElementById(`performance_checkbox${this.currentTab}`)
+            .value
+        )
+          ? true
+          : false;
         this.$emit("performanceChange", this.tab1);
-        this.tab2 = Number(document.getElementById(`credit_checkbox${this.currentTab}`).value) ? true : false;
+        this.tab2 = Number(
+          document.getElementById(`credit_checkbox${this.currentTab}`).value
+        )
+          ? true
+          : false;
         this.$emit("creditBonusChange", this.tab2);
         this.$emit("setUpdated");
       }
-    }
-  }
+    },
+    tab1(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = this.$props.currentTab;
+      if (!e && this.isChecked(`applyAllPm${currentTab}`)) {
+        document.getElementById(`applyAllPm${currentTab}`).checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
+            document
+              .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+    "$props.applyPmAllIndex"(e) {
+      console.log("variable change.....");
+    },
+  },
 };
 </script>
-<style lang="">
+<style>
+label.disabled {
+  color: gray;
+}
 </style>

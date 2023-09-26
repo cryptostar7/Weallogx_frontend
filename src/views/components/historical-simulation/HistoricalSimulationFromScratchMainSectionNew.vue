@@ -951,8 +951,6 @@ export default {
 
       // flat flat/credit fee
       if (obj.flat_credit_bonus) {
-        console.log("fee object");
-        console.log(obj);
         if (!obj.flat_credit_bonus_fees_same_in_all_years) {
           this.setUnChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(`flat_credit_fees${tab}`, "");

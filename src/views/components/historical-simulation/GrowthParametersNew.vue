@@ -73,6 +73,7 @@ export default {
     testFunction: function() {
       console.log(this.$props.rollingTime);
     },
+
     updateStrategyIndex: function(val) {
       let index = this.indexStrategies.filter(
         i =>
