@@ -1631,9 +1631,7 @@ export default {
             if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
               data.datasets[index].borderColor = lineColors[index];
               data.datasets[index].pointStyle[lastPoint] = data.datasets[index].borderColor !== "#eee" ? pointImageArr[index] : pointImageArr[2];
-              if(!isOpen){
-                data.datasets[index].pointStyle[lastPoint] = data.datasets[index].borderColor !== "#eee" ? pointImageArr[index] : pointImageArr[2];
-              }else{
+              if(isOpen){
                 if(idx0 != -1){
                   data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
                   data.datasets[idx0].borderColor = lineColors[0];
@@ -1642,6 +1640,7 @@ export default {
                   data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
                   data.datasets[idx1].borderColor = lineColors[1];  
                 }
+                console.log(isOpen, "before")
               }
               chart.update();              
               break;        
@@ -1652,15 +1651,12 @@ export default {
       afterEvent(chart, args){
         let { data } = chart;
         let { isOpen, idx0, idx1 } = dropdownStatus;
+        let isActive;
         if(args.replay){
           function setBorderColor(active, index, borderColor){
+            isActive = active;
             return active ? borderColor : lineColors[2];
           }
-          data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]);
-          data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]);
-          
-          data.datasets[0].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) !== "#eee" ? pointImageArr[0] : pointImageArr[2];
-          data.datasets[1].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) !== "#eee" ? pointImageArr[1] : pointImageArr[2];
           if(!isOpen){
             if(idx0 != -1){
               data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
@@ -1670,7 +1666,22 @@ export default {
               data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
               data.datasets[idx1].borderColor = lineColors[idx1];
             }
-          }          
+          }else{
+            if(idx0 == -1){
+              data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
+            }
+            if(idx1 == -1){
+              data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
+            }
+            return;
+          }
+          data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]);
+          data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]);
+          
+          data.datasets[0].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) !== "#eee" ? pointImageArr[0] : pointImageArr[2];
+          data.datasets[1].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) !== "#eee" ? pointImageArr[1] : pointImageArr[2];
+          // console.log(isOpen, "after")
+
         }
         else{
           data.datasets[0].borderColor = lineColors[0];
@@ -1878,7 +1889,7 @@ export default {
       }
       let chartDropdowns = document.querySelectorAll(".chart-dropdown");
         chartDropdowns.forEach(dropdownBox => {
-        // console.log(dropdownBox.classList.contains("d-block"))      
+          
           if(dropdownBox.classList.contains("d-block") && !e.target.classList.contains("tooltipbtn") && !e.target.closest(".tooltipbtn")){
             let id = dropdownBox.getAttribute("id");
             let idx = +id[id.length-1];            
