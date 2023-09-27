@@ -73,7 +73,7 @@ export default {
         enhancement: false,
         fees: false,
       },
-      rollingTime:30,
+      rollingTime: 30,
       error: {
         1: [],
         2: [],
@@ -425,15 +425,14 @@ export default {
 
       // error focus on global premium charge tab
       if (this.error.analysis_pc_schedule) {
-        var area = document.getElementById('globalPcTab');
+        var area = document.getElementById("globalPcTab");
         focus = true;
         area.scrollIntoView();
       }
 
-      
       // error focus on global premium charge tab
       if (this.error.analysis_lif_schedule) {
-        var area = document.getElementById('globaLifTab');
+        var area = document.getElementById("globaLifTab");
         focus = true;
         area.scrollIntoView();
       }
@@ -784,6 +783,10 @@ export default {
         }
       }
 
+      console.log(formData);
+
+      return false;
+
       this.$store.dispatch("loader", true);
 
       if (this.historicalId) {
@@ -1020,11 +1023,11 @@ export default {
           this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
-            this.tabs.tab2 = true;
+            // this.tabs.tab2 = true;1
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
-            this.tabs.tab3 = true;
+            // this.tabs.tab3 = true;
             this.populateIndex(3, data.index_strategy_3);
           }
 

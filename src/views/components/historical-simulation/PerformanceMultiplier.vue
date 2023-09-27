@@ -68,7 +68,7 @@
 export default {
   props: ["currentTab", "visible", "update", "applyPmAllIndex"],
   inject: ["errors"],
-  emits: ["clearError", "setApplyPmAllIndex"],
+  emits: ["clearError", "setApplyPmAllIndex", "validatePmValues"],
   data() {
     return {
       tab: "fixed",
@@ -131,6 +131,9 @@ export default {
     },
   },
   watch: {
+    tab() {
+      this.$emit("validatePmValues", this.tab);
+    },
     "$props.update"() {
       this.updateLatestData();
     },

@@ -28,7 +28,7 @@
                 <label :for="`applyAllPm${currentTab}`" :id="`applyAllPmLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
             </div>
         </div>
-        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)"/>
+        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)" @validatePmValues="validatePmValues"/>
         <div class="middle-divider">
             <div class="divider-line"></div>
         </div>
@@ -72,7 +72,21 @@ export default {
   },
   methods: {
     clearError: function(name) {
-      this.$emit("clearError", this.currentTab, name);
+      this.$emit("clearError", this.$props.currentTab, name);
+    },
+    removeApllyAllIndex: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      if (this.isChecked(`applyAllPm${currentTab}`)) {
+        document.getElementById(`applyAllPm${currentTab}`).checked = false;
+
+        tabs.forEach(tab => {
+          document.getElementById(`applyAllPm${tab}`).disabled = false; // enable the toggle input
+          document
+            .getElementById(`applyAllPmLabel${tab}`)
+            .classList.remove("disabled"); // disabled the label
+        });
+      }
     },
     isChecked: function(id) {
       return document.getElementById(id).checked;
@@ -87,19 +101,38 @@ export default {
           toggle = true;
         }
       });
+
       return toggle;
     },
-    validatePmValues: function() {
+    validatePmValues: function(tab) {
       let valid = true;
-      for (let i = 0; i < this.illustrateYear; i++) {
-          let value = document.getElementById(
-          `multiplier_schedule${this.$props.currentTab}${i + 1}`
-        ).value; // get current schedule input value
+      let currentTab = Number(this.$props.currentTab);
+      let performance_type = document.getElementById(
+        `performance_type${currentTab}`
+      ).value;
 
-        if(!value){
-         return valid = false;
+      if (tab) {
+        performance_type = tab;
+      }
+
+      console.log(performance_type);
+
+      if (performance_type === "schedule") {
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = document.getElementById(
+            `multiplier_schedule${this.$props.currentTab}${i + 1}`
+          ).value; // get current schedule input value
+
+          if (!value) {
+            valid = false;
+          }
         }
       }
+
+      if (!valid) {
+        this.removeApllyAllIndex();
+      }
+
       return valid;
     },
     applyToAllIndex: function(e) {
@@ -109,9 +142,9 @@ export default {
         `performance_type${currentTab}`
       ).value;
 
-      if(performance_type === 'schedule' && !this.validatePmValues()){
-        this.$toast.warning('Please enter all years schedule values');
-        e.target.checked = false;
+      // Show warning message if shedule data is not filled in all inputs
+      if (!this.isAnyPmAppliedToggle() && performance_type === "schedule" && !this.validatePmValues()) {
+        this.$toast.warning("Please enter all years schedule values");
         return false;
       }
 
@@ -134,11 +167,13 @@ export default {
               .classList.toggle("disabled"); // disabled the label
 
             if (performance_type === "schedule") {
-              document.getElementById(`nav-schedule-tab${tab}`).click(); // open the fixed value tab in all tabs
+              document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
+              document.getElementById(`performance_type${tab}`).value =
+                "schedule";
             } else {
               document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
+              document.getElementById(`performance_type${tab}`).value = "fixed";
             }
-
             this.$emit("setApplyPmAllIndex", true);
           }
         });
@@ -159,6 +194,8 @@ export default {
         } else {
           tabs.forEach(tab => {
             if (currentTab !== tab) {
+              performance_type;
+
               document.getElementById(
                 `multiplier_input${tab}`
               ).value = performance_multiplier; // set multiplier value in all tabs
@@ -222,9 +259,6 @@ export default {
           }
         });
       }
-    },
-    "$props.applyPmAllIndex"(e) {
-      console.log("variable change.....");
     },
   },
 };
