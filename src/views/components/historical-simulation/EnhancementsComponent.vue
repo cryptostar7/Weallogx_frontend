@@ -89,7 +89,25 @@ export default {
       });
       return toggle;
     },
+    validatePmValues: function() {
+      let valid = true;
+      for (let i = 0; i < this.illustrateYear; i++) {
+          let value = document.getElementById(
+          `multiplier_schedule${this.$props.currentTab}${i + 1}`
+        ).value; // get current schedule input value
+
+        if(!value){
+         return valid = false;
+        }
+      }
+      return valid;
+    },
     applyToAllIndex: function(e) {
+
+      if(!this.validatePmValues()){
+        this.$toast.warning('Please enter all years schedule values');
+        e.target.checked = false;
+      }
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
