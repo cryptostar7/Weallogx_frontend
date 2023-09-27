@@ -1019,11 +1019,13 @@ export default {
           this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
-            // this.tabs.tab2 = true;1
+            // this.tabs.tab2 = true;
+            this.setChecked('index_stategy_tab2');
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
             // this.tabs.tab3 = true;
+            this.setChecked('index_stategy_tab3');
             this.populateIndex(3, data.index_strategy_3);
           }
 
