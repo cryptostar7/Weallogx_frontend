@@ -783,10 +783,6 @@ export default {
         }
       }
 
-      console.log(formData);
-
-      return false;
-
       this.$store.dispatch("loader", true);
 
       if (this.historicalId) {
