@@ -23,7 +23,8 @@
                     <div class="d-flex align-items-center"> <label for="scheduleTemplateCheckbox"
                         class="historical-paraCheckBox">Historical Simulations</label>
                       <div class="form-check form-switch custom-switch ms-2">
-                         <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked /> </div>
+                         <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked @change="skipHistoricalStep" /> 
+                      </div>
                     </div>
                       <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime"/> 
                       <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime"/>
@@ -89,6 +90,18 @@ export default {
     };
   },
   methods: {
+    skipHistoricalStep: function(e) {
+      if (!e.target.checked) {
+        let confirmation = confirm(
+          "Are you sure? Changes you made may not be saved."
+        );
+        if (confirmation) {
+          this.$router.push(`/review-summary/${this.$route.params.scenario}`); // redirect to review summary page if historical simulation toggle off
+        } else {
+          e.target.checked = true;
+        }
+      }
+    },
     // this function has return the input value
     getInputWithId: function(id) {
       return document.getElementById(id)
@@ -1020,12 +1033,12 @@ export default {
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
             // this.tabs.tab2 = true;
-            this.setChecked('index_stategy_tab2');
+            this.setChecked("index_stategy_tab2");
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
             // this.tabs.tab3 = true;
-            this.setChecked('index_stategy_tab3');
+            this.setChecked("index_stategy_tab3");
             this.populateIndex(3, data.index_strategy_3);
           }
 
