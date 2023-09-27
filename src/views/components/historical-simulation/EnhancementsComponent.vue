@@ -103,16 +103,17 @@ export default {
       return valid;
     },
     applyToAllIndex: function(e) {
-
-      if(!this.validatePmValues()){
-        this.$toast.warning('Please enter all years schedule values');
-        e.target.checked = false;
-      }
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
         `performance_type${currentTab}`
       ).value;
+
+      if(performance_type === 'schedule' && !this.validatePmValues()){
+        this.$toast.warning('Please enter all years schedule values');
+        e.target.checked = false;
+        return false;
+      }
 
       let performance_multiplier = document.getElementById(
         `multiplier_input${currentTab}`
