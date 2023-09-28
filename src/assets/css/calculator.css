@@ -1104,12 +1104,27 @@ table.index-strategy-table tr th {
 .w-250{
     width: 250px !important;
 }
-/*.table-plus-btn{
-    position: absolute;
-    left: 0;
-    top: 1px;
-    padding: 4px;
+/*.chart-dropdown.gray{
+
 }*/
+.chart-dropdown.gray .tool-tip-second-main-div{
+    border: 3px solid #ddd;
+}
+.chart-dropdown.gray .tool-tip-second-main-div{
+    background-color: #ddd;
+}
+.chart-dropdown.gray .tooltip-head{
+    background: #ddd;
+}
+.chart-dropdown.gray .tooltipbtn svg circle{
+    stroke: #ddd;
+}
+.chart-dropdown.gray .tooltipbtn svg path{
+    stroke: #ddd;
+}
+.chart-dropdown.gray .tooltip-inner-div p{
+    color: #ddd;
+}
 .table-plus-btn{
     position: absolute;
     left: 5px;
@@ -1156,4 +1171,3 @@ table.index-strategy-table tr th {
 .table-plus-btn.green::after{
     background-color: transparent;
 }
-
