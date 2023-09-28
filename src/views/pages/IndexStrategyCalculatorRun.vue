@@ -6,7 +6,7 @@
         <LeftSidebarComponent />
         <main class="right-area">
           <div class="right-area-inner p-relative rightInnerDarkbg">
-            <div class="right-area-wrapper pt-0">
+            <div class="right-area-wrapper pt-0 pb-3">
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div">
                   <div class="index-strategy-head-div">
@@ -933,30 +933,6 @@
 
                 <div class="container-fluid index-strategy-inputs-div pb-0 mt-3">
                   <div class="row">
-
-                    <div class="col-md-6 col-lg-3 inp-mar-top">
-                      <label for="beginningBalance">Index</label>
-                      <div class="select-menu">
-                        <div class="select-btn">
-                          <span class="sBtn-text">S&P 500</span>
-                          <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
-                        </div>
-                        <ul class="options">
-                          <li class="option active">
-                            <span class="option-text">S&P 500</span>
-                          </li>
-                          <li class="option">
-                            <span class="option-text">Blended Index</span>
-                          </li>
-                          <li class="option">
-                            <span class="option-text">Bloomberg US Dyn Bal II ER</span>
-                          </li>
-                          <li class="option">
-                            <span class="option-text">PIMCO Tactical Bal ER</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
                     <div class="col-md-6 col-lg-3 inp-mar-top">
                       <label for="beginningBalance">Start Year</label>
                       <div class="select-menu">
@@ -1102,6 +1078,31 @@
                         </ul>
                       </div>
                     </div>
+
+                    <div class="col-md-6 col-lg-3 inp-mar-top">
+                      <label for="beginningBalance">Index</label>
+                      <div class="select-menu">
+                        <div class="select-btn">
+                          <span class="sBtn-text">S&P 500</span>
+                          <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
+                        </div>
+                        <ul class="options">
+                          <li class="option active">
+                            <span class="option-text">S&P 500</span>
+                          </li>
+                          <li class="option">
+                            <span class="option-text">Blended Index</span>
+                          </li>
+                          <li class="option">
+                            <span class="option-text">Bloomberg US Dyn Bal II ER</span>
+                          </li>
+                          <li class="option">
+                            <span class="option-text">PIMCO Tactical Bal ER</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    
                     <div class="col-md-6 col-lg-3 inp-mar-top">
                       <label>Segment Duration (Years) <span><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Group 1968">
@@ -1630,19 +1631,25 @@ export default {
             const index = dataMetaSet.index;
             if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
               data.datasets[index].borderColor = lineColors[index];
+              if(index == 0){
+                document.getElementById(`chartDropdown0`).classList.remove("gray");
+                document.getElementById(`chartDropdown1`).classList.add("gray");
+              }else{
+                document.getElementById(`chartDropdown0`).classList.add("gray");
+                document.getElementById(`chartDropdown1`).classList.remove("gray");
+              }
               data.datasets[index].pointStyle[lastPoint] = data.datasets[index].borderColor !== "#eee" ? pointImageArr[index] : pointImageArr[2];
               if(isOpen){
                 if(idx0 != -1){
                   data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
-                  data.datasets[idx0].borderColor = lineColors[0];
+                  // data.datasets[idx0].borderColor = lineColors[0];
                 }
                 if(idx1 != -1){
                   data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
-                  data.datasets[idx1].borderColor = lineColors[1];  
+                  // data.datasets[idx1].borderColor = lineColors[1];  
                 }
-                console.log(isOpen, "before")
               }
-              chart.update();              
+              chart.update();            
               break;        
             }
           }
@@ -1657,14 +1664,15 @@ export default {
             isActive = active;
             return active ? borderColor : lineColors[2];
           }
+
           if(!isOpen){
             if(idx0 != -1){
               data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
-              data.datasets[idx0].borderColor = lineColors[idx0];
+              // data.datasets[idx0].borderColor = lineColors[idx0];
             }
             if(idx1 != -1){
               data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
-              data.datasets[idx1].borderColor = lineColors[idx1];
+              // data.datasets[idx1].borderColor = lineColors[idx1];
             }
           }else{
             if(idx0 == -1){
@@ -1673,7 +1681,7 @@ export default {
             if(idx1 == -1){
               data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
             }
-            return;
+            // return;
           }
           data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]);
           data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]);
@@ -1682,23 +1690,25 @@ export default {
           data.datasets[1].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) !== "#eee" ? pointImageArr[1] : pointImageArr[2];
           // console.log(isOpen, "after")
 
+          console.log(isActive);
+
         }
         else{
-          data.datasets[0].borderColor = lineColors[0];
-          data.datasets[1].borderColor = lineColors[1];
+          // data.datasets[0].borderColor = lineColors[0];
+          // data.datasets[1].borderColor = lineColors[1];
           if(!isOpen){
-            data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
-            data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
-            chart.update();
-            return;
+            // data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
+            // data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
+            // chart.update();
+            // return;
           }else{
             if(idx0 != -1){
               data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
-              data.datasets[idx0].borderColor = lineColors[0];
+              // data.datasets[idx0].borderColor = lineColors[0];
             }
             if(idx1 != -1){
               data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
-              data.datasets[idx1].borderColor = lineColors[1];
+              // data.datasets[idx1].borderColor = lineColors[1];
             }
             chart.update();
             return;
@@ -1721,7 +1731,7 @@ export default {
           borderColor: lineColors[0],
           data: [100000, 1200000, 1300000, 2200000, 2300000, 3600000, 4500000],
           pointStyle: ['circle', 'circle', 'circle', 'circle', 'circle', 'circle', pointImageArr[0]],
-          pointRadius: [10, 10, 10, 10, 10, 10, 14], // Last dot
+          pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
           borderWidth: 3,
           pointBackgroundColor: 'transparent',
           pointHoverBackgroundColor: lineColors[0],
@@ -1735,7 +1745,7 @@ export default {
           borderColor: lineColors[1],
           data: [100000, 1600000, 1400000, 2400000, 900000, 1800000, 2500000],
           pointStyle: ['circle', 'circle', 'circle', 'circle', 'circle', 'circle', pointImageArr[1]],
-          pointRadius: [10, 10, 10, 10, 10, 10, 14], // Last dot
+          pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
           borderWidth: 3,
           pointBackgroundColor: 'transparent',
           pointHoverBackgroundColor: lineColors[1],
@@ -1745,14 +1755,14 @@ export default {
         ]
       },
       options: {
-        interaction: {
-          mode: 'index',
-          intersect: false,          
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
+        interaction:{
+            mode: "nearest",
+            intersect: false
+          },
+        // hover: {
+        //   mode: 'nearest',
+        //   intersect: true
+        // },
         responsive: true,
         tooltips: {
           enabled: true,
@@ -1839,19 +1849,29 @@ export default {
           let currentIndex = point.datasetIndex;            
           if(point.index === config.data.labels.length - 2){
             const dropdownBox = document.getElementById(`chartDropdown${currentIndex}`);
-            // config.data.datasets[point.datasetIndex].pointStyle[n] = pointImageArr[3];
             dropdownBox.classList.toggle("d-none");
             dropdownBox.classList.toggle("d-block");
             dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
             dropdownStatus.isOpen = true;
             if(currentIndex == 0){
               dropdownStatus.idx0 = 0;
+              config.data.datasets[0].borderColor = lineColors[0];
             }
             if(currentIndex == 1){
               dropdownStatus.idx1 = 1; 
+              config.data.datasets[1].borderColor = lineColors[1];
             }
             dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 16 +  "px";
             myChart.update();
+            setTimeout(() => {
+              if(currentIndex == 0){
+                config.data.datasets[0].borderColor = lineColors[0];
+              }
+              if(currentIndex == 1){
+                config.data.datasets[1].borderColor = lineColors[1];
+              }
+              myChart.update();
+            }, 250)
             return;
           }
         })
@@ -1872,15 +1892,15 @@ export default {
         chart.update();
       }
 
-    // myChart.canvas.addEventListener("mouseleave", (e) => {
+    myChart.canvas.addEventListener("mouseleave", (e) => {
        // if(animationTimeout){
        //    setTimeout(() => {
        //      animationTimeout = false;
        //    }, totalDuration);
        //  }else{
-        // resetColors(myChart);
+        resetColors(myChart);
       // }
-    // });
+    });
 
     document.addEventListener("mouseup", (e) => {
       e.stopPropagation();
@@ -1917,16 +1937,29 @@ export default {
         }
         if(idx == 1){
           dropdownStatus.idx1 = -1;  
-        }1     
+        }   
         if(dropdownStatus.idx0 == -1 && dropdownStatus.idx1 == -1){
           dropdownStatus.isOpen = false;
         }else{
           dropdownStatus.isOpen = true;
         }
         config.data.datasets[idx].pointStyle[n] = pointImageArr[idx];
-        // console.log(dropdownStatus);
         myChart.update();
       });
+
+
+      dropdownBox.addEventListener("mouseover", function(){
+        let id = dropdownBox.getAttribute("id");
+        let idx = +id[id.length-1];
+        if(idx == 0){
+          config.data.datasets[0].borderColor = lineColors[0];
+        }
+        if(idx == 1){
+          config.data.datasets[1].borderColor = lineColors[1];
+        }
+        myChart.update();
+      });
+
     });
 
     // Three Switch Buttons and Three Allocation Inputs

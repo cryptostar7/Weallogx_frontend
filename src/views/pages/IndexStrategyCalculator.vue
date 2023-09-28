@@ -184,29 +184,6 @@
                         <div class="container-fluid index-strategy-inputs-div pb-0 mt-3">
                           <div class="row">
                             <div class="col-md-6 col-lg-3 inp-mar-top">
-                              <label for="beginningBalance">Index</label>
-                              <div class="select-menu">
-                                <div class="select-btn">
-                                  <span class="sBtn-text">S&P 500</span>
-                                  <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
-                                </div>
-                                <ul class="options">
-                                  <li class="option active">
-                                    <span class="option-text">S&P 500</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">Blended Index</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">Bloomberg US Dyn Bal II ER</span>
-                                  </li>
-                                  <li class="option">
-                                    <span class="option-text">PIMCO Tactical Bal ER</span>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 inp-mar-top">
                               <label for="beginningBalance">Start Year</label>
                               <div class="select-menu">
                                 <div class="select-btn">
@@ -278,7 +255,7 @@
                                   <li class="option"><span class="option-text">2021</span></li>
                                 </ul>
                               </div>
-                            </div>
+                            </div>                            
                             <div class="col-md-6 col-lg-3 inp-mar-top">
                               <label for="beginningBalance">End Year</label>
                               <div class="select-menu">
@@ -349,6 +326,29 @@
                                   <li class="option"><span class="option-text">2020</span></li>
                                   <li class="option"><span class="option-text">2021</span></li>
                                   <li class="option active"><span class="option-text">2022</span></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                              <label for="beginningBalance">Index</label>
+                              <div class="select-menu">
+                                <div class="select-btn">
+                                  <span class="sBtn-text">S&P 500</span>
+                                  <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"></i>
+                                </div>
+                                <ul class="options">
+                                  <li class="option active">
+                                    <span class="option-text">S&P 500</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">Blended Index</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">Bloomberg US Dyn Bal II ER</span>
+                                  </li>
+                                  <li class="option">
+                                    <span class="option-text">PIMCO Tactical Bal ER</span>
+                                  </li>
                                 </ul>
                               </div>
                             </div>
