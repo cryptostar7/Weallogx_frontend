@@ -27,7 +27,7 @@
                       </div>
                     </div>
                       <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime"/> 
-                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime"/>
+                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime" @populateIndexTemplate="populateIndexTemplate"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
                       <span class="d-block mb-3"></span>
@@ -1022,6 +1022,27 @@ export default {
       this.setEnhancementData(tab, data);
       this.setFeesData(tab, data);
     },
+    // populate existing index details
+    populateIndexTemplate: function(iType = 1, id = null, type = 1) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
+        .then(response => {
+          var data = response.data.data;
+          this.populateGlobalParameters(data);
+          this.populateIndex(iType, data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
     // get previous data
     populateHistoricalSimulationData: function(id, portfolio = false) {
       get(
@@ -1250,6 +1271,60 @@ export default {
 
       return valid;
     },
+    //  all template data from API
+    getExistingIndex: function() {
+      this.$store.dispatch("loader", true);
+      get(getUrl("historical-template"), authHeader())
+        .then(response => {
+          var data = response.data.data;
+          var temp = [];
+          let index = 1;
+          // push index #1 templates in temp variable
+          data.index_strategy_1.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 1,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #2 templates in temp variable
+          data.index_strategy_2.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 2,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #3 templates in temp variable
+          data.index_strategy_3.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 3,
+              template_name: item.template_name,
+            });
+          });
+          this.$store.dispatch("template", {
+            type: "historical",
+            data: temp,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
   },
   mounted() {
     // input validation for min and max value
@@ -1300,6 +1375,11 @@ export default {
     if (this.$route.query.pid && this.$route.query.pid !== "null") {
       this.populateHistoricalSimulationData(this.$route.query.pid, true);
     }
+
+    // get template list
+    if (!this.existingIndex.length) {
+      this.getExistingIndex();
+    }
   },
   computed: {
     illustrateYear() {
@@ -1308,6 +1388,9 @@ export default {
         return scenario.scenerio_details.years_to_illustrate;
       }
       return 0;
+    },
+    existingIndex() {
+      return this.$store.state.data.templates.historical || [];
     },
   },
 };

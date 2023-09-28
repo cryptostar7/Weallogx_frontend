@@ -1849,7 +1849,6 @@ export default {
           let currentIndex = point.datasetIndex;            
           if(point.index === config.data.labels.length - 2){
             const dropdownBox = document.getElementById(`chartDropdown${currentIndex}`);
-            // config.data.datasets[point.datasetIndex].pointStyle[n] = pointImageArr[3];
             dropdownBox.classList.toggle("d-none");
             dropdownBox.classList.toggle("d-block");
             dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
@@ -1863,7 +1862,6 @@ export default {
               config.data.datasets[1].borderColor = lineColors[1];
             }
             dropdownBox.style.top = pageY - Math.floor(dropdownBox.getBoundingClientRect().height) - 16 +  "px";
-
             myChart.update();
             setTimeout(() => {
               if(currentIndex == 0){
@@ -1946,7 +1944,6 @@ export default {
           dropdownStatus.isOpen = true;
         }
         config.data.datasets[idx].pointStyle[n] = pointImageArr[idx];
-        // console.log(dropdownStatus);
         myChart.update();
       });
 
