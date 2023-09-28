@@ -27,7 +27,7 @@
                       </div>
                     </div>
                       <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime"/> 
-                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime"/>
+                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime" @populateIndexTemplate="populateIndexTemplate"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
                       <span class="d-block mb-3"></span>
@@ -1021,6 +1021,27 @@ export default {
       this.setGrowthData(tab, data);
       this.setEnhancementData(tab, data);
       this.setFeesData(tab, data);
+    },
+    // populate existing index details
+    populateIndexTemplate: function(iType = 1, id = null, type = 1) {
+      this.$store.dispatch("loader", true);
+      get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
+        .then(response => {
+          var data = response.data.data;
+          this.populateGlobalParameters(data);
+          this.populateIndex(iType, data);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
     },
     // get previous data
     populateHistoricalSimulationData: function(id, portfolio = false) {

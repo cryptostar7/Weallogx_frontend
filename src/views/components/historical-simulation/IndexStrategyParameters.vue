@@ -147,7 +147,7 @@ export default {
     StretagyWeightSecondComponent,
   },
   props: ["update", "rollingTime"],
-  emits: ["clearError", "setUpdated"],
+  emits: ["clearError", "setUpdated", "populateIndexTemplate"],
   data() {
     return {
       activeTab: 1,
@@ -254,7 +254,7 @@ export default {
     setExistingIndex: function(iType, id) {
       let template = this.getTemplateDataId(id);
       if (template) {
-        this.populateIndexTemplate(iType, template.uid, template.type);
+        this.$emit('populateIndexTemplate', iType, template.uid, template.type);
       }
       this.error[`existing_${iType}`] = [];
     },
