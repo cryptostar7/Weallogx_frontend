@@ -1250,6 +1250,60 @@ export default {
 
       return valid;
     },
+    //  all template data from API
+    getExistingIndex: function() {
+      this.$store.dispatch("loader", true);
+      get(getUrl("historical-template"), authHeader())
+        .then(response => {
+          var data = response.data.data;
+          var temp = [];
+          let index = 1;
+          // push index #1 templates in temp variable
+          data.index_strategy_1.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 1,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #2 templates in temp variable
+          data.index_strategy_2.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 2,
+              template_name: item.template_name,
+            });
+          });
+
+          // push index #3 templates in temp variable
+          data.index_strategy_3.forEach(item => {
+            temp.push({
+              id: index++,
+              uid: item.id,
+              type: 3,
+              template_name: item.template_name,
+            });
+          });
+          this.$store.dispatch("template", {
+            type: "historical",
+            data: temp,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          console.log(error);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
   },
   mounted() {
     // input validation for min and max value
@@ -1300,6 +1354,11 @@ export default {
     if (this.$route.query.pid && this.$route.query.pid !== "null") {
       this.populateHistoricalSimulationData(this.$route.query.pid, true);
     }
+
+    // get template list
+    if (!this.existingIndex.length) {
+      this.getExistingIndex();
+    }
   },
   computed: {
     illustrateYear() {
@@ -1308,6 +1367,9 @@ export default {
         return scenario.scenerio_details.years_to_illustrate;
       }
       return 0;
+    },
+    existingIndex() {
+      return this.$store.state.data.templates.historical || [];
     },
   },
 };
