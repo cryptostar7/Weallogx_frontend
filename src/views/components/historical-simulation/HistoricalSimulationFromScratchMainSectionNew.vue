@@ -560,6 +560,8 @@ export default {
           strategy_weight: strategy_weight1,
           flat_credit_bonus_fees_apply_for_all_indexes: false,
         },
+        index_strategy_2: null,
+        index_strategy_3: null,
         save_scenario_as_draft: draft,
         scenario_id: this.$route.params.scenario,
         save_portfolio: portFolio,
