@@ -924,13 +924,12 @@ export default {
           };
 
           // convert illustration columns ccording to historical column table headers
-          illustration_data.headers = illustration_data.headers.map(
-            i => headerKeys[i]
-          );
-
-          illustration_data.headers = illustration_data.headers.map(
-            i => this.illustrationFieldsIndex[i]
-          );
+          illustration_data.headers = illustration_data.headers.map(i => {
+            if (i.includes("total_loan_charge")) {
+              i = "total_loan_charge";
+            }
+            return this.illustrationFieldsIndex[headerKeys[i]];
+          });
 
           this.csvPreview = this.filterObject(illustration_data);
           this.$store.dispatch("loader", false);
@@ -1252,9 +1251,13 @@ export default {
               data: data.upload_from_file.data,
               headers: [],
             };
-            filteredCsv.headers = data.upload_from_file.headers.map(
-              i => this.illustrationFieldsIndex[i]
-            );
+
+            filteredCsv.headers = data.upload_from_file.headers.map(i => {
+              if (i.includes("total_loan_charges")) {
+                i = "total_loan_charges";
+              }
+              return this.illustrationFieldsIndex[i];
+            });
 
             this.csvPreview = this.filterObject(filteredCsv);
             this.setScrollbar();
@@ -1264,9 +1267,13 @@ export default {
                 data: data.copy_paste.data,
                 headers: [],
               };
-              filteredCsv.headers = data.copy_paste.headers.map(
-                i => this.illustrationFieldsIndex[i]
-              );
+
+              filteredCsv.headers = data.copy_paste.headers.map(i => {
+                if (i.includes("total_loan_charges")) {
+                  i = "total_loan_charges";
+                }
+                return this.illustrationFieldsIndex[i];
+              });
 
               this.csvPreview = this.filterObject(filteredCsv);
               this.setScrollbar();
@@ -1348,7 +1355,7 @@ export default {
         {
           name: "Fees",
           value: "total_loan_charges",
-          multiple: false,
+          multiple: true,
         },
         { name: "Premium", value: "premium_outlay", multiple: false },
 
