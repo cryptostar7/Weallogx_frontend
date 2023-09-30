@@ -25,7 +25,7 @@
                       <div class="d-flex align-items-center">
                         <label class="historical-paraCheckBox" for="scheduleTemplateCheckbox">Historical Simulations</label>
                         <div class="form-check form-switch custom-switch ms-2">
-                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked>
+                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked @change="skipHistoricalStep">
                         </div>
                       </div>
                       <div>
@@ -315,6 +315,18 @@ export default {
     };
   },
   methods: {
+    skipHistoricalStep: function(e) {
+      if (!e.target.checked) {
+        let confirmation = confirm(
+          "Are you sure? Changes you made may not be saved."
+        );
+        if (confirmation) {
+          this.$router.push(`/review-summary/${this.$route.params.scenario}`); // redirect to review summary page if historical simulation toggle off
+        } else {
+          e.target.checked = true;
+        }
+      }
+    },
     // get portfolio data from API
     getPortfolioId: function() {
       var temp = this.portfolio.filter(
