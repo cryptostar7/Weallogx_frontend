@@ -36,6 +36,12 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.pwd-btn{
+  position: absolute;
+  bottom: 50%;
+  right: .85rem;
+  transform: translateY(50%);
+}
 .not-scollable {
   overflow: hidden;
 }
