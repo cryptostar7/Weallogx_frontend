@@ -158,13 +158,10 @@ export default {
       if (!this.isAnyPmAppliedToggle() && e.target.checked) {
         tabs.forEach(tab => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPm${tab}`).checked = !e.target
-              .checked; // unchecked the toggle input
-            document.getElementById(`applyAllPm${tab}`).disabled = !e.target
-              .checked; // disabled the toggle input
-            document
-              .getElementById(`applyAllPmLabel${tab}`)
-              .classList.toggle("disabled"); // disabled the label
+            document.getElementById(`applyAllPm${tab}`).checked = !e.target.checked; // unchecked the toggle input
+            document.getElementById(`applyAllPm${tab}`).disabled = !e.target.checked; // disabled the toggle input
+            document.getElementById(`applyAllPmLabel${tab}`).classList.toggle("disabled"); // disabled the label
+            document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
