@@ -14,7 +14,7 @@
                         <input type="text" class="form-control handleLimit" min="1" max="10" value="1" :id="`multiplier_input${currentTab}`">
                     </div>
                     <div class="multiplierInputDiv mt-3">
-                        <label for="Start Year" @click="testFunction">Start Year</label>
+                        <label for="Start Year">Start Year</label>
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="fixeValueYearRadio d-flex justify-content-between align-items-center px-1">

@@ -101,9 +101,9 @@
 <script>
 import { getNumber } from "../../../services/helper.js";
 export default {
-  props: ["currentTab", "visible", "update"],
+  props: ["currentTab", "visible", "update", "applyFcAllIndex"],
   inject: ["errors"],
-  emits: ["clearError"],
+  emits: ["clearError", "setApplyFcAllIndex", "validateFcValues"],
   data() {
     return {
       tab: "fixed",
@@ -118,6 +118,22 @@ export default {
       this.startYear = item;
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
+    },
+    updateLatestData: function() {
+      this.tab = document.getElementById(`credit_type${this.currentTab}`).value;
+      let years = [1, 2, 3, 4, 5];
+      let year = Number(
+        document.getElementById(`crd_start_year${this.currentTab}`).value
+      );
+      this.schedule_type = document.getElementById(
+        `credit_schedule_type${this.currentTab}`
+      ).value;
+      if (years.includes(year)) {
+        this.startYear = year;
+      } else {
+        this.customAmount = year;
+        this.$refs.customInputRef.value = year;
+      }
     },
   },
   mounted() {
@@ -168,19 +184,18 @@ export default {
     },
   },
   watch: {
+    tab() {
+      this.$emit("validateFcValues", this.tab);
+    },
+    schedule_type() {
+      this.$emit("validateFcValues", this.tab, this.schedule_type);
+    },
     "$props.update"() {
-      this.tab = document.getElementById(`credit_type${this.currentTab}`).value;
-      let years = [1, 2, 3, 4, 5];
-      let year = Number(
-        document.getElementById(`crd_start_year${this.currentTab}`).value
-      );
-      this.schedule_type = document.getElementById(`credit_schedule_type${this.currentTab}`).value;
-      if (years.includes(year)) {
-        this.startYear = year;
-      } else {
-        this.customAmount = year;
-        this.$refs.customInputRef.value = year;
-      }
+      this.updateLatestData();
+    },
+    "$props.applyFcAllIndex"() {
+      this.$emit("setApplyFcAllIndex", false);
+      this.updateLatestData();
     },
   },
 };

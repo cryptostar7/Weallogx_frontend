@@ -23,7 +23,7 @@
             </div>
             <div :class="`d-flex align-items-center mb-2 ${tab1 ? '' : 'd-none'}`">
                 <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPm${currentTab}`" @change="applyToAllIndex">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPm${currentTab}`" @change="applyPmToAllIndex">
                 </div>
                 <label :for="`applyAllPm${currentTab}`" :id="`applyAllPmLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
             </div>
@@ -39,14 +39,14 @@
                 </div>
                 <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
             </div>
-            <div class="d-flex align-items-center" v-if="tab2">
+            <div :class="`d-flex align-items-center ${tab2 ? '' : 'd-none'}`">
                 <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll2${currentTab}`">
+                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllFc${currentTab}`" @change="applyFcToAllIndex">
                 </div>
-                <label :for="`applyAll2${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                <label :for="`applyAllFc${currentTab}`" :id="`applyAllFcLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
             </div>
         </div>
-        <CreditAndBonus :visible="tab2" :currentTab="currentTab" @clearError="clearError" :update="$props.update"/>
+        <CreditAndBonus :visible="tab2" :currentTab="currentTab" @clearError="clearError" :update="$props.update"  :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="(val) => $emit('setApplyFcAllIndex', val)" @validateFcValues="validateFcValues"/>
         <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />
         <input type="hidden" :value="tab2 ? 1 : 0" :id="`credit_checkbox${currentTab}`" />
     </form>
@@ -56,13 +56,14 @@ import PerformanceMultiplier from "./PerformanceMultiplier.vue";
 import CreditAndBonus from "./CreditAndBonus.vue";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
-  props: ["currentTab", "update", "applyPmAllIndex"],
+  props: ["currentTab", "update", "applyPmAllIndex", "applyFcAllIndex"],
   emits: [
     "performanceChange",
     "creditBonusChange",
     "clearError",
     "setUpdated",
     "setApplyPmAllIndex",
+    "setApplyFcAllIndex",
   ],
   data() {
     return {
@@ -74,7 +75,11 @@ export default {
     clearError: function(name) {
       this.$emit("clearError", this.$props.currentTab, name);
     },
-    removeApllyAllIndex: function() {
+    isChecked: function(id) {
+      return document.getElementById(id).checked;
+    },
+    // Performance multiplier apply to all tabs
+    removePmApllyAllIndex: function() {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`applyAllPm${currentTab}`)) {
@@ -87,9 +92,6 @@ export default {
             .classList.remove("disabled"); // disabled the label
         });
       }
-    },
-    isChecked: function(id) {
-      return document.getElementById(id).checked;
     },
     isAnyPmAppliedToggle: function() {
       let tabs = [1, 2, 3];
@@ -130,12 +132,12 @@ export default {
       }
 
       if (!valid) {
-        this.removeApllyAllIndex();
+        this.removePmApllyAllIndex();
       }
 
       return valid;
     },
-    applyToAllIndex: function(e) {
+    applyPmToAllIndex: function(e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
@@ -143,7 +145,11 @@ export default {
       ).value;
 
       // Show warning message if shedule data is not filled in all inputs
-      if (!this.isAnyPmAppliedToggle() && performance_type === "schedule" && !this.validatePmValues()) {
+      if (
+        !this.isAnyPmAppliedToggle() &&
+        performance_type === "schedule" &&
+        !this.validatePmValues()
+      ) {
         this.$toast.warning("Please enter all years schedule values");
         return false;
       }
@@ -158,9 +164,13 @@ export default {
       if (!this.isAnyPmAppliedToggle() && e.target.checked) {
         tabs.forEach(tab => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPm${tab}`).checked = !e.target.checked; // unchecked the toggle input
-            document.getElementById(`applyAllPm${tab}`).disabled = !e.target.checked; // disabled the toggle input
-            document.getElementById(`applyAllPmLabel${tab}`).classList.toggle("disabled"); // disabled the label
+            document.getElementById(`applyAllPm${tab}`).checked = !e.target
+              .checked; // unchecked the toggle input
+            document.getElementById(`applyAllPm${tab}`).disabled = !e.target
+              .checked; // disabled the toggle input
+            document
+              .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
             document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
 
             if (performance_type === "schedule") {
@@ -214,6 +224,179 @@ export default {
         });
       }
     },
+    // Flat credit/bonus apply to all tabs
+    removeFcApllyAllIndex: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      if (this.isChecked(`applyAllFc${currentTab}`)) {
+        document.getElementById(`applyAllFc${currentTab}`).checked = false;
+
+        tabs.forEach(tab => {
+          document.getElementById(`applyAllFc${tab}`).disabled = false; // enable the toggle input
+          document
+            .getElementById(`applyAllFcLabel${tab}`)
+            .classList.remove("disabled"); // disabled the label
+        });
+      }
+    },
+    isAnyFcAppliedToggle: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach(tab => {
+        if (this.isChecked(`applyAllFc${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+
+      return toggle;
+    },
+    validateFcValues: function(tab, subTab) {
+      let valid = true;
+      let currentTab = Number(this.$props.currentTab);
+      let credit_type = document.getElementById(`credit_type${currentTab}`)
+        .value;
+
+      if (tab) {
+        credit_type = tab;
+      }
+
+      if (credit_type === "schedule") {
+        let credit_schedule_type = document.getElementById(
+          `credit_schedule_type${currentTab}`
+        ).value;
+
+        if (subTab) {
+          credit_schedule_type = subTab;
+        }
+
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = "";
+          if (credit_schedule_type === "amount") {
+            value = document.getElementById(
+              `crd_schedule_amt${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+          } else {
+            value = document.getElementById(
+              `crd_schedule_rate${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+          }
+          if (!value) {
+            valid = false;
+          }
+        }
+      }
+
+      if (!valid) {
+        this.removeFcApllyAllIndex();
+      }
+
+      return valid;
+    },
+    applyFcToAllIndex: function(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let credit_type = document.getElementById(`credit_type${currentTab}`)
+        .value;
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyFcAppliedToggle() &&
+        credit_type === "schedule" &&
+        !this.validateFcValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let credit_bonus = document.getElementById(
+        `credit_bonus_input${currentTab}`
+      ).value; // get current tab credit bonus input value
+
+      let start_year = document.getElementById(`crd_start_year${currentTab}`)
+        .value; // get current tab start year input value
+
+      if (!this.isAnyFcAppliedToggle() && e.target.checked) {
+        tabs.forEach(tab => {
+          if (currentTab !== tab) {
+            document.getElementById(`applyAllFc${tab}`).checked = !e.target
+              .checked; // unchecked the toggle input
+            document.getElementById(`applyAllFc${tab}`).disabled = !e.target
+              .checked; // disabled the toggle input
+            document
+              .getElementById(`applyAllFcLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+            document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
+
+            if (credit_type === "schedule") {
+              document.getElementById(`nav-flatSchedule-tab${tab}`).click(); // open the schedule value tab in all tabs
+              document.getElementById(`credit_type${tab}`).value = "schedule";
+            } else {
+              document
+                .getElementById(`navCreadit-flatfixedValue-tab${tab}`)
+                .click(); // open the fixed value tab in all tabs
+              document.getElementById(`credit_type${tab}`).value = "fixed";
+            }
+            this.$emit("setApplyFcAllIndex", true);
+          }
+        });
+
+        if (credit_type === "schedule") {
+          let credit_schedule_type = document.getElementById(
+            `credit_schedule_type${currentTab}`
+          ).value;
+          let schedule_input_id = `crd_schedule_rate`;
+
+          if (credit_schedule_type === "amount") {
+            schedule_input_id = `crd_schedule_amt`;
+          }
+
+          // set schedule type value in all tabs
+          tabs.forEach(tab => {
+            if (currentTab !== tab) {
+              document.getElementById(
+                `credit_schedule_type${tab}`
+              ).value = credit_schedule_type;
+            }
+          });
+
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `${schedule_input_id}${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach(tab => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `${schedule_input_id}${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach(tab => {
+            if (currentTab !== tab) {
+              document.getElementById(
+                `credit_bonus_input${tab}`
+              ).value = credit_bonus; // set credit bonus value in all tabs
+
+              document.getElementById(
+                `crd_start_year${tab}`
+              ).value = start_year; // set start year value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
+            document
+              .getElementById(`applyAllFcLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
   },
   computed: {
     illustrateYear() {
@@ -252,6 +435,20 @@ export default {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
               .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+    tab2(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = this.$props.currentTab;
+      if (!e && this.isChecked(`applyAllFc${currentTab}`)) {
+        document.getElementById(`applyAllFc${currentTab}`).checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
+            document
+              .getElementById(`applyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
