@@ -246,8 +246,13 @@ export default {
             if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
               this.$toast.error(error.message);
             } else {
-              this.$toast.error(error.response.data.messages[0].message);
+            //   this.$toast.error(error.response.data.messages[0].message);
             }
+            localStorage.removeItem("refresh_token");
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("plan_active");
+            localStorage.removeItem("currentUser");
+            this.$router.push("/sign-in");
           });
       }
     },

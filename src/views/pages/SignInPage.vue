@@ -19,8 +19,9 @@
               <div>
                 <div class="auth-form">
                   <label for="password" :class="user.password ? 'active':''">Password</label>
-                  <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false" placeholder=" ">
+                  <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false" placeholder=" " ref="passwordRef">
                 </div>
+                <button type="button" :style="{color:'blue', float:'right', margin:'10px'}" @click="handlePassword"><span v-if="passwordVisible">Hide Password</span><span v-else>Show Password</span></button>
                 <label class="error fs-14 text-center d-block" v-if="user.password === ''">*This field is required.</label>
                 <label class="error fs-14 text-center d-block" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
               </div>
@@ -70,6 +71,7 @@ export default {
         email: null,
         password: null,
       },
+      passwordVisible: false,
       rememberMe: rememberMe() ? true : false,
       errors: [],
       serverError: [],
@@ -84,6 +86,10 @@ export default {
         return true;
       }
       return false;
+    },
+    handlePassword: function() {
+      this.passwordVisible = !this.passwordVisible;
+      this.$refs.passwordRef.type = this.passwordVisible ? 'text' : 'password';
     },
     checkValidation: function() {
       this.errors = [];
@@ -253,29 +259,28 @@ export default {
       });
     });
 
-    setTimeout(()=> {
+    setTimeout(() => {
       const mobNavTrigger = document.querySelector(".mobile-nav-trigger");
-      
-        let mobMenu = document.querySelector(".js-side-nav");
-        let overlay = document.querySelector(".js-side-nav-shield");
-        let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
-        console.log(mobNavTrigger, mobMenu, overlay, crossBtn);
 
-        mobNavTrigger.addEventListener("click", () => {
-          mobMenu.classList.toggle("show-side-nav");
-          overlay.classList.toggle("side-nav-shield--show");   
-        });
+      let mobMenu = document.querySelector(".js-side-nav");
+      let overlay = document.querySelector(".js-side-nav-shield");
+      let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
+      console.log(mobNavTrigger, mobMenu, overlay, crossBtn);
 
-        overlay.addEventListener("click", () => {
-          mobMenu.classList.toggle("show-side-nav");
-          overlay.classList.toggle("side-nav-shield--show");     
-        });
+      mobNavTrigger.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
 
-        crossBtn.addEventListener("click", () => {
-          mobMenu.classList.toggle("show-side-nav");
-          overlay.classList.toggle("side-nav-shield--show");     
-        });
+      overlay.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
 
+      crossBtn.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
     }, 2000);
   },
 };
