@@ -16,7 +16,7 @@
     <div class="customAmountInputDiv ms-2 top-minus">
         <label for="customAmount">Custom Amount</label>
         <div class="percent-input-div">
-          <input type="text" class="handleLimit" min="0" max="1000" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
+          <input type="text" id="custAmtInp" class="handleLimit" min="0" max="1000" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
           
         </div>
     </div>
@@ -25,13 +25,14 @@
 </template>
 <script>
 export default {
-  props: ["hiddenInputId", "update"],
+  props: ["hiddenInputId", "update", "isCapActive"],
   emits: ["setUpdated"],
   data() {
     return {
       range: "10",
       rangePercentage: "calc(45% + 16px)",
       customAmount: "",
+      toggleCapActive: true
     };
   },
   methods: {
@@ -54,6 +55,21 @@ export default {
         this.range = this.$refs.rangeHiddenRef.value;
       }
     },
+    "$props.isCapActive"(e){
+      if(e){
+        document.getElementById("range1").removeAttribute("disabled");
+        document.getElementById("custAmtInp").removeAttribute("disabled");
+        this.range = 10;
+
+      }else{
+        document.getElementById("range1").setAttribute("disabled", true);
+        document.getElementById("custAmtInp").setAttribute("disabled", true);
+        this.$refs.rangeHiddenRef.setAttribute("disabled", true);
+        this.range = 0;
+      }
+      document.getElementById("tooltip1").classList.toggle("d-none");
+      // console.log(this.toggleCapActive);
+    }
   },
 };
 </script>
