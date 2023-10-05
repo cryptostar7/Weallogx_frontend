@@ -93,6 +93,7 @@ export default {
         });
       }
     },
+    // check any applied toggle for performance multiplier
     isAnyPmAppliedToggle: function() {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
@@ -106,6 +107,7 @@ export default {
 
       return toggle;
     },
+    // check data is valid or not for performance multiplier
     validatePmValues: function(tab) {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
@@ -137,6 +139,7 @@ export default {
 
       return valid;
     },
+    // handle apply to all index strategies for performance multiplier
     applyPmToAllIndex: function(e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
@@ -239,6 +242,7 @@ export default {
         });
       }
     },
+    // check any applied toggle for flat credit bonus
     isAnyFcAppliedToggle: function() {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
@@ -252,6 +256,7 @@ export default {
 
       return toggle;
     },
+    // check data is valid or not for flat credit bonus
     validateFcValues: function(tab, subTab) {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
@@ -294,6 +299,7 @@ export default {
 
       return valid;
     },
+    // handle apply to all index strategies for flat credit bonus 
     applyFcToAllIndex: function(e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
@@ -427,6 +433,7 @@ export default {
       }
     },
     tab1(e) {
+      // performace multiplier section
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`applyAllPm${currentTab}`)) {
@@ -441,6 +448,7 @@ export default {
       }
     },
     tab2(e) {
+      // for flat credit bonus section
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`applyAllFc${currentTab}`)) {

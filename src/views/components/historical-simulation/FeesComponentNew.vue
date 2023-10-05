@@ -49,9 +49,9 @@
               </div>
               <div class="d-flex align-items-center">
                   <div class="form-check form-switch custom-switch">
-                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll3${currentTab}`">
+                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPmf${currentTab}`" @change="applyPmfToAllIndex">
                   </div>
-                  <label :for="`applyAll3${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                  <label :for="`applyAllPmf${currentTab}`" :id="`applyAllPmfLabel${currentTab}`"  class="buttonSaveRadioPara">Apply To All Index Strategies</label>
               </div>
           </div>
 
@@ -108,7 +108,7 @@
               </div>
               <div class="d-flex align-items-center">
                   <div class="form-check form-switch custom-switch">
-                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll4${currentTab}`">
+                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll4${currentTab}`" @change="applyPmToAllIndex">
                   </div>
                   <label :for="`applyAll4${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
               </div>
@@ -241,7 +241,6 @@ export default {
         } else {
           this.performanceFeeAmount = "";
         }
-
     
         // Flat Credit/Bonus rate
         this.sameInAllYears.credit_bonus_fee = document.getElementById(
