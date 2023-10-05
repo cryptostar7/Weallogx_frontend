@@ -9,7 +9,8 @@ const config = {
         { id: 4, max_limit: 15, template_name: "PIMCO Tactical Balanced ER" },
         { id: 5, max_limit: 20, template_name: "Fidelity Multifactor Yield 5% ER" },
         { id: 6, max_limit: 15, template_name: "Barclays Trailblazer Sectors 5" },
-        { id: 7, max_limit: 30, template_name: "S&P Prism" }
+        { id: 7, max_limit: 30, template_name: "S&P Prism" },
+        { id: 8, max_limit: 55, template_name: "Putnam Dynamic Low Volatility Excess Return Index" },
     ]
 };
 

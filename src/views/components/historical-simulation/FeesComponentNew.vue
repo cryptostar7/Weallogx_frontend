@@ -241,7 +241,6 @@ export default {
         } else {
           this.performanceFeeAmount = "";
         }
-
     
         // Flat Credit/Bonus rate
         this.sameInAllYears.credit_bonus_fee = document.getElementById(
