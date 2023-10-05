@@ -211,7 +211,9 @@ export default {
         if (activeTabs[i - 1]) {
           let obj = {
             index: this.getInputWithId("analysis_index" + i),
-            cap_rate_range: this.getInputWithId("cap_rate_range" + i),
+            cap_rate_range: this.isChecked("is_active_cap_rate_range" + i)
+              ? this.getInputWithId("cap_rate_range" + i)
+              : 1000,
             participation_range: this.getInputWithId("participation_range" + i),
             margin_spread_range: this.getInputWithId("margin_spread_range" + i),
             floor_range: this.getInputWithId("floor_range" + i),
@@ -807,7 +809,6 @@ export default {
           authHeader()
         )
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             if (report) {
@@ -833,7 +834,6 @@ export default {
       } else {
         post(getUrl("historical"), formData, authHeader())
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.historicalId = response.data.data.id;
@@ -855,7 +855,12 @@ export default {
     },
     setGrowthData: function(tab, obj = []) {
       this.setInputWithId(`analysis_index${tab}`, obj.index);
-      this.setInputWithId(`cap_rate_range${tab}`, obj.cap_rate);
+      if (Number(obj.cap_rate) === 1000) {
+        this.setUnChecked(`is_active_cap_rate_range${tab}`);
+      } else {
+        this.setChecked(`is_active_cap_rate_range${tab}`);
+        this.setInputWithId(`cap_rate_range${tab}`, Number(obj.cap_rate));
+      }
       this.setInputWithId(`participation_range${tab}`, obj.participation_rate);
       this.setInputWithId(`margin_spread_range${tab}`, obj.margin_spread);
       this.setInputWithId(`floor_range${tab}`, obj.floor);
@@ -1351,7 +1356,6 @@ export default {
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
       .then(response => {
-        console.log(response.data);
         let id = response.data.data.historical;
         this.historicalId = id;
         this.$store.dispatch("activeScenario", response.data.data);

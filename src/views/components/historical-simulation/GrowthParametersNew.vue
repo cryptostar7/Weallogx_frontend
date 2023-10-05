@@ -15,7 +15,7 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p @click="testFunction">index</p>
+            <p>index</p>
             <p></p>
         </div>
         <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
@@ -25,11 +25,11 @@
             <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-2 dark-info-icon-img">
             <span class="info-message-participationRate" :style="`top: -3.2rem; left: -1rem;`">If your strategy does not use a cap, turn it off here.</span>
 
-            <div class="form-check form-switch custom-switch ms-2 mb-0"><input class="form-check-input enhanceInputCheckBox less-height" type="checkbox" checked role=":switch" id="capRateCheckbox" @click="handleCapRate"></div>
+            <div class="form-check form-switch custom-switch ms-2 mb-0"><input class="form-check-input enhanceInputCheckBox less-height" type="checkbox" checked role=":switch" :id="`is_active_cap_rate_range${currentTab}`" @click="handleCapRate"></div>
         </p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`cap_rate_range${currentTab}`" :isCapActive="isCapActive" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input :hiddenInputId="`cap_rate_range${currentTab}`" :isCapActive="isCapActive" :update="$props.update" :currentTab="$props.currentTab" @setUpdated="() => $emit('setUpdated')"/>
 
         <div class="formParabrdrLavelDiv mt-3 mb-2">
         <p class="position-relative">Participation Rate
@@ -71,18 +71,14 @@ export default {
     SegmentDurationYear,
     SelectDropdown,
   },
-  props: ["currentTab", "update", "rollingTime", "isCapActive"],
+  props: ["currentTab", "update", "rollingTime"],
   emits: ["setUpdated"],
   data() {
     return {
-      isCapActive: true
+      isCapActive: true,
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.$props.rollingTime);
-    },
-
     updateStrategyIndex: function(val) {
       let index = this.indexStrategies.filter(
         i =>
@@ -91,13 +87,13 @@ export default {
       )[0];
     },
 
-    handleCapRate(e){
-      if(e.target.checked){
+    handleCapRate(e) {
+      if (e.target.checked) {
         this.isCapActive = true;
-      }else{
+      } else {
         this.isCapActive = false;
       }
-    }
+    },
   },
   computed: {
     indexStrategies() {
@@ -105,6 +101,15 @@ export default {
       return (
         config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
       );
+    },
+  },
+  watch: {
+    "$props.update"(e) {
+      if (e) {
+        this.isCapActive = document.getElementById(
+          `is_active_cap_rate_range${this.$props.currentTab}`
+        ).checked;
+      }
     },
   },
 };
