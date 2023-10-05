@@ -20,8 +20,9 @@
                 <div class="auth-form">
                   <label for="password" :class="user.password ? 'active':''">Password</label>
                   <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false" placeholder=" " ref="passwordRef">
+                  <button type="button" class="btn p-0 pwd-btn"  @click="handlePassword"><span v-if="passwordVisible"><img src="@/assets/images/icons/eye-slash.svg" alt="Hide Pwd" width="24"></span><span v-else><img src="@/assets/images/icons/eye.svg" alt="Show Pwd"></span></button>
                 </div>
-                <button type="button" :style="{color:'blue', float:'right', margin:'10px'}" @click="handlePassword"><span v-if="passwordVisible">Hide Password</span><span v-else>Show Password</span></button>
+                
                 <label class="error fs-14 text-center d-block" v-if="user.password === ''">*This field is required.</label>
                 <label class="error fs-14 text-center d-block" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
               </div>
