@@ -55,7 +55,7 @@
             </div>
             <growth-parameters :currentTab="1" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
             <enhancements-component :currentTab="1" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[0].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[0].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="1" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+            <fees-component :currentTab="1" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="1" @clearError="clearError"/>
           </div>
         </div>
@@ -77,7 +77,7 @@
             </div>
             <growth-parameters :currentTab="2"  :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime" /> 
             <enhancements-component :currentTab="2" :update="$props.update.enhancement" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @setUpdated="() => update.enhancement = false" @clearError="clearError" @performanceChange="(val) => strategies[1].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[1].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="2" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+            <fees-component :currentTab="2" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="2" @clearError="clearError"/>
             </div>
         </div> 
@@ -99,7 +99,7 @@
             </div>
             <growth-parameters :currentTab="3" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
             <enhancements-component :currentTab="3" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[2].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[2].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="3" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" @clearError="clearError"/> 
+            <fees-component :currentTab="3" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="3" @clearError="clearError"/>
             </div>                
         </div>
@@ -185,7 +185,9 @@ export default {
       ],
       historicalId: false,
       applyPmAllIndex: false,
+      applyPmfAllIndex: false,
       applyFcAllIndex: false,
+      applyFcfAllIndex: false,
       portFolioCheckbox: false,
       portFolioName: "",
       error: {
@@ -199,8 +201,14 @@ export default {
     setApplyPmAllIndex: function(val) {
       this.applyPmAllIndex = val;
     },
+    setApplyPmfAllIndex: function(val) {
+      this.applyPmfAllIndex = val;
+    },
     setApplyFcAllIndex: function(val) {
       this.applyFcAllIndex = val;
+    },
+    setApplyFcfAllIndex: function(val) {
+      this.applyFcfAllIndex = val;
     },
     setActiveTab: function(tab) {
       if (tab === 1) {
@@ -258,7 +266,7 @@ export default {
     setExistingIndex: function(iType, id) {
       let template = this.getTemplateDataId(id);
       if (template) {
-        this.$emit('populateIndexTemplate', iType, template.uid, template.type);
+        this.$emit("populateIndexTemplate", iType, template.uid, template.type);
       }
       this.error[`existing_${iType}`] = [];
     },

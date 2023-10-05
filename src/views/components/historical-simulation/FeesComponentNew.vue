@@ -19,7 +19,7 @@
     <form :id="`fees-parameters${currentTab}`" class="accordion-collapse collapse analysisParametersContent" :data-bs-parent="`#fees-parameters${currentTab}`" autocomplete="off">
       <div :class="$props.performance ? '':'d-none'">
           <div class="formParabrdrLavelDiv mt-2">
-              <p>Performance Multiplier Fee</p>
+              <p @click="testFunction">Performance Multiplier Fee</p>
               <p></p>
               </div>
               <div class="d-flex justify-content-between align-items-center parent-radio-div">
@@ -108,9 +108,9 @@
               </div>
               <div class="d-flex align-items-center">
                   <div class="form-check form-switch custom-switch">
-                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAll4${currentTab}`" @change="applyPmToAllIndex">
+                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllFcf${currentTab}`" @change="applyFcfToAllIndex">
                   </div>
-                  <label :for="`applyAll4${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
+                  <label :for="`applyAllFcf${currentTab}`" :id="`applyAllFcfLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
               </div>
           </div>
           <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.credit_bonus_fee ? 'd-none' : ''}`">
@@ -165,9 +165,21 @@
 </template>
 <script>
 export default {
-  props: ["currentTab", "performance", "flatCreditBonus", "update"],
+  props: [
+    "currentTab",
+    "performance",
+    "flatCreditBonus",
+    "update",
+    "applyPmfAllIndex",
+    "applyFcfAllIndex",
+  ],
   inject: ["errors"],
-  emits: ["clearError", "setUpdated"],
+  emits: [
+    "clearError",
+    "setUpdated",
+    "setApplyPmfAllIndex",
+    "setApplyFcfAllIndex",
+  ],
   data() {
     return {
       MaxPerformanceMultiplierFee: 8,
@@ -185,6 +197,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function() {
+      console.log(this.performanceFeeAmount);
+    },
     handlePcCheckbox: function(item) {
       this.$refs.customPCRef.value = "";
     },
@@ -207,6 +222,326 @@ export default {
       this.customHipCapAmount = "";
       this.$refs.hcCustomRef.value = "";
     },
+    isChecked: function(id) {
+      return document.getElementById(id).checked;
+    },
+    // Performance multiplier apply to all tabs
+    removePmfApllyAllIndex: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      if (this.isChecked(`applyAllPmf${currentTab}`)) {
+        document.getElementById(`applyAllPmf${currentTab}`).checked = false;
+
+        tabs.forEach(tab => {
+          document.getElementById(`applyAllPmf${tab}`).disabled = false; // enable the toggle input
+          document
+            .getElementById(`applyAllPmfLabel${tab}`)
+            .classList.remove("disabled"); // disabled the label
+        });
+      }
+    },
+    // check any applied toggle for performance multiplier fee
+    isAnyPmfAppliedToggle: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach(tab => {
+        if (this.isChecked(`applyAllPmf${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+
+      return toggle;
+    },
+    // check data is valid or not for performance multiplier fee
+    validatePmfValues: function() {
+      let valid = true;
+      let currentTab = Number(this.$props.currentTab);
+      let pmf_all_year = Number(this.sameInAllYears.multiplier_fee);
+
+      if (!pmf_all_year) {
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = document.getElementById(
+            `pmf_schedule${this.$props.currentTab}${i + 1}`
+          ).value; // get current schedule input value
+
+          if (!value) {
+            valid = false;
+          }
+        }
+      }
+
+      if (!valid) {
+        this.removePmfApllyAllIndex();
+      }
+
+      return valid;
+    },
+    // handle apply to all index strategies for performance multiplier fee
+    applyPmfToAllIndex: function(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let pmf_all_year = Number(
+        document.getElementById(`pmf_all_year${currentTab}`).value
+      );
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyPmfAppliedToggle() &&
+        !pmf_all_year &&
+        !this.validatePmfValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let pmf_fee = document.getElementById(
+        `performance_multiplier_fees${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      if (!this.isAnyPmfAppliedToggle() && e.target.checked) {
+        tabs.forEach(tab => {
+          if (currentTab !== tab) {
+            document.getElementById(`applyAllPmf${tab}`).checked = !e.target
+              .checked; // unchecked the toggle input
+            document.getElementById(`applyAllPmf${tab}`).disabled = !e.target
+              .checked; // disabled the toggle input
+            document
+              .getElementById(`applyAllPmfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+
+            if (!pmf_all_year) {
+              document.getElementById(`multiplierFee${tab}`).checked = false; // open the schedule inputs in all tabs
+            } else {
+              document.getElementById(`multiplierFee${tab}`).checked = true; // close the schedule inputs in all tabs
+            }
+
+            this.$emit("setApplyPmfAllIndex", true);
+          }
+        });
+
+        if (!pmf_all_year) {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `pmf_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach(tab => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `pmf_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach(tab => {
+            if (currentTab !== tab) {
+              document.getElementById(
+                `performance_multiplier_fees${tab}`
+              ).value = pmf_fee; // set multiplier value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyPmfAppliedToggle()) {
+            document
+              .getElementById(`applyAllPmfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+
+    // Flat credit bonus fee apply to all tabs
+    removeFcfApllyAllIndex: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      if (this.isChecked(`applyAllFcf${currentTab}`)) {
+        document.getElementById(`applyAllFcf${currentTab}`).checked = false;
+
+        tabs.forEach(tab => {
+          document.getElementById(`applyAllFcf${tab}`).disabled = false; // enable the toggle input
+          document
+            .getElementById(`applyAllFcfLabel${tab}`)
+            .classList.remove("disabled"); // disabled the label
+        });
+      }
+    },
+    // check any applied toggle for Flat credit bonus fee fee
+    isAnyFcfAppliedToggle: function() {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach(tab => {
+        if (this.isChecked(`applyAllFcf${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+
+      return toggle;
+    },
+    // check data is valid or not for Flat credit bonus fee fee
+    validateFcfValues: function() {
+      let valid = true;
+      let currentTab = Number(this.$props.currentTab);
+      let fcf_all_year = Number(this.sameInAllYears.credit_bonus_fee);
+
+      if (!fcf_all_year) {
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = document.getElementById(
+            `fcf_schedule${this.$props.currentTab}${i + 1}`
+          ).value; // get current schedule input value
+
+          if (!value) {
+            valid = false;
+          }
+        }
+      }
+
+      if (!valid) {
+        this.removeFcfApllyAllIndex();
+      }
+
+      return valid;
+    },
+    // handle apply to all index strategies for Flat credit bonus fee fee
+    applyFcfToAllIndex: function(e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let fcf_all_year = Number(
+        document.getElementById(`flat-credit-fee-radio${currentTab}`).checked
+      );
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyFcfAppliedToggle() &&
+        !fcf_all_year &&
+        !this.validateFcfValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let pmf_fee = document.getElementById(`flat_credit_fees${currentTab}`)
+        .value; // get current tab multiplier input value
+
+      if (!this.isAnyFcfAppliedToggle() && e.target.checked) {
+        tabs.forEach(tab => {
+          if (currentTab !== tab) {
+            document.getElementById(`applyAllFcf${tab}`).checked = !e.target
+              .checked; // unchecked the toggle input
+            document.getElementById(`applyAllFcf${tab}`).disabled = !e.target
+              .checked; // disabled the toggle input
+            document
+              .getElementById(`applyAllFcfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+
+            if (!fcf_all_year) {
+              document.getElementById(`flat-credit-fee-radio${tab}`).checked = false; // open the schedule inputs in all tabs
+            } else {
+              document.getElementById(`flat-credit-fee-radio${tab}`).checked = true; // close the schedule inputs in all tabs
+            }
+
+            this.$emit("setApplyFcfAllIndex", true);
+          }
+        });
+
+        if (!fcf_all_year) {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `fcf_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach(tab => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `fcf_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach(tab => {
+            if (currentTab !== tab) {
+              console.log('value set');
+              document.getElementById(`flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach(tab => {
+          if (currentTab !== tab && !this.isAnyFcfAppliedToggle()) {
+            document
+              .getElementById(`applyAllFcfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+    // populate latest data in input fields
+    updateLatestData: function() {
+      let charges = [1, 2, 3, 4, 5, 6, 7, 8];
+      // Performance multiplier rate
+      this.sameInAllYears.multiplier_fee = document.getElementById(
+        `multiplierFee${this.currentTab}`
+      ).checked;
+
+      if (this.sameInAllYears.multiplier_fee) {
+        let ml = Number(
+          document.getElementById(
+            `performance_multiplier_fees${this.currentTab}`
+          ).value
+        );
+
+        if (charges.includes(ml)) {
+          this.performanceFeeAmount = ml;
+        } else {
+          this.customPerformanceFeeAmount = ml;
+          this.$refs.customPMRef.value = ml;
+        }
+      } else {
+        this.performanceFeeAmount = "";
+      }
+
+      // Flat Credit/Bonus rate
+      this.sameInAllYears.credit_bonus_fee = document.getElementById(
+        `flat-credit-fee-radio${this.currentTab}`
+      ).checked;
+
+      // (this.sameInAllYears.credit_bonus_fee)
+
+      if (this.sameInAllYears.credit_bonus_fee) {
+        let ff = Number(
+          document.getElementById(`flat_credit_fees${this.currentTab}`).value
+        );
+
+        if ([1, 2, 3].includes(ff)) {
+          this.flatAmount = ff;
+        } else {
+          this.customFlatAmount = ff;
+          this.$refs.customFCRef.value = ff;
+        }
+      } else {
+        this.flatAmount = "";
+      }
+
+      // high cap fee
+      let hc = Number(
+        document.getElementById(`high_cap_fees${this.currentTab}`).value
+      );
+      if ([1, 2, 3].includes(hc)) {
+        this.hipCapAmount = hc;
+      } else {
+        this.customHipCapAmount = hc;
+        this.$refs.hcCustomRef.value = hc;
+      }
+
+      this.$emit("setUpdated");
+    },
   },
   computed: {
     illustrateYear() {
@@ -220,61 +555,22 @@ export default {
   watch: {
     "$props.update"(e) {
       if (e) {
-        let charges = [1, 2, 3, 4, 5, 6, 7, 8];
-        // Performance multiplier rate
-        this.sameInAllYears.multiplier_fee = document.getElementById(
-          `multiplierFee${this.currentTab}`
-        ).checked;
-
-        if (this.sameInAllYears.multiplier_fee) {
-          let ml = Number(
-            document.getElementById(
-              `performance_multiplier_fees${this.currentTab}`
-            ).value
-          );
-          if (charges.includes(ml)) {
-            this.performanceFeeAmount = ml;
-          } else {
-            this.customPerformanceFeeAmount = ml;
-            this.$refs.customPMRef.value = ml;
-          }
-        } else {
-          this.performanceFeeAmount = "";
-        }
-    
-        // Flat Credit/Bonus rate
-        this.sameInAllYears.credit_bonus_fee = document.getElementById(
-          `flat-credit-fee-radio${this.currentTab}`
-        ).checked;
-
-        if (this.sameInAllYears.credit_bonus_fee) {
-          let ff = Number(
-            document.getElementById(`flat_credit_fees${this.currentTab}`).value
-          );
-
-          if ([1, 2, 3].includes(ff)) {
-            this.flatAmount = ff;
-          } else {
-            this.customFlatAmount = ff;
-            this.$refs.customFCRef.value = ff;
-          }
-        } else {
-          this.flatAmount = "";
-        }
-
-        // high cap fee
-        let hc = Number(
-          document.getElementById(`high_cap_fees${this.currentTab}`).value
-        );
-        if ([1, 2, 3].includes(hc)) {
-          this.hipCapAmount = hc;
-        } else {
-          this.customHipCapAmount = hc;
-          this.$refs.hcCustomRef.value = hc;
-        }
-
-        this.$emit("setUpdated");
+        this.updateLatestData();
       }
+    },
+    "sameInAllYears.multiplier_fee"() {
+      this.validatePmfValues();
+    },
+    "sameInAllYears.credit_bonus_fee"() {
+      this.validatePmfValues();
+    },
+    "$props.applyPmfAllIndex"() {
+      this.$emit("setApplyPmfAllIndex", false);
+      this.updateLatestData();
+    },
+    "$props.applyFcfAllIndex"() {
+      this.$emit("setApplyFcfAllIndex", false);
+      this.updateLatestData();
     },
   },
 };

@@ -178,8 +178,7 @@ export default {
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`performance_type${tab}`).value =
-                "schedule";
+              document.getElementById(`performance_type${tab}`).value = "schedule";
             } else {
               document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
               document.getElementById(`performance_type${tab}`).value = "fixed";
