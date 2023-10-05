@@ -23,7 +23,7 @@
         <p class="position-relative d-flex align-items-center">Cap Rate
           <img src="@/assets/images/icons/info-icon.svg" alt="info" class="ms-2 info-icon-img">
             <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-2 dark-info-icon-img">
-            <span class="info-message-participationRate">If your strategy does not use a cap, turn it off here.</span>
+            <span class="info-message-participationRate" :style="`top: -3.2rem; left: -1rem;`">If your strategy does not use a cap, turn it off here.</span>
 
             <div class="form-check form-switch custom-switch ms-2 mb-0"><input class="form-check-input enhanceInputCheckBox less-height" type="checkbox" checked role=":switch" id="capRateCheckbox" @click="handleCapRate"></div>
         </p>
