@@ -180,7 +180,6 @@
                 </div>
               </div>
             </div>
-            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="4" />
           </div>
         </div>
@@ -264,9 +263,6 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function() {
-      console.log(this.comparative);
-    },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },

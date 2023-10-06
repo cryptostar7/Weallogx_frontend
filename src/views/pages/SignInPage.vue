@@ -122,7 +122,6 @@ export default {
     submitForm: function(e) {
       e.preventDefault();
       if (!this.checkValidation()) {
-        console.log(this.errors);
         return false;
       }
       this.$store.dispatch("loader", true);
@@ -167,7 +166,6 @@ export default {
                   }
                 })
                 .catch(error => {
-                  console.log(error);
                   this.$store.dispatch("loader", false);
                   if (
                     error.code === "ERR_BAD_RESPONSE" ||
@@ -180,7 +178,6 @@ export default {
                 });
             })
             .catch(error => {
-              console.log(error);
               this.$store.dispatch("loader", false);
               if (
                 error.code === "ERR_BAD_RESPONSE" ||
@@ -193,9 +190,7 @@ export default {
             });
         })
         .catch(error => {
-          console.log(error);
           this.errors = getServerErrors(error);
-          console.log(this.errors);
           this.server.status = false;
           this.server.message = this.errors.message;
           this.$store.dispatch("loader", false);
@@ -266,7 +261,6 @@ export default {
       let mobMenu = document.querySelector(".js-side-nav");
       let overlay = document.querySelector(".js-side-nav-shield");
       let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
-      console.log(mobNavTrigger, mobMenu, overlay, crossBtn);
 
       mobNavTrigger.addEventListener("click", () => {
         mobMenu.classList.toggle("show-side-nav");

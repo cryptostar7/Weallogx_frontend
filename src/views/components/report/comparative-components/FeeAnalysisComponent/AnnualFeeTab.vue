@@ -406,7 +406,6 @@ export default {
         id: "highlightLine",
         beforeDatasetsDraw(chart, args, plugins){
           let { data } = chart;
-          // console.log(chart.titleBlock.top);
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
           if(animationTimeout){
             setTimeout(() => {

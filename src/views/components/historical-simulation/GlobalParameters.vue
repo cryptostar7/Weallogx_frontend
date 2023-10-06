@@ -18,7 +18,7 @@
 <div id="analysis-parameters3" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#accordionFlushExample">
     <form action="javascript:void(0)" autocomplete="off">
       <div class="formParabrdrLavelDiv mt-3 mb-2">
-          <p @click="testFunction">Rolling Time Period (Years)</p>
+          <p>Rolling Time Period (Years)</p>
           <p></p>
       </div>
       <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center" id="rollingTimePeriod1">
@@ -134,11 +134,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      let rolling = Number(this.$refs.rollingRef.value);
-
-      console.log(rolling);
-    },
     // remove error
     clearError: function(key = "") {
       this.$emit("clearError", key);

@@ -12,7 +12,7 @@
                   <div class="layer2"></div>
                 </div>
               </div>                                   
-              <label for="rightCheckBox1" class="rghtTopHeadcommon" @click="testFunction()">Comparative Table</label>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table</label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +300,7 @@
                       </draggable> 
                     </div>
                   </div>
-                  <p class="compSumAnlysPara mt-2" @click="testFunction">Summary Analysis</p>
+                  <p class="compSumAnlysPara mt-2">Summary Analysis</p>
                   <div class="mt-2 summary-analysis">
                     <div class="row">
                       <div class="col-3 col-md-2 ps-0 pe-1">
@@ -414,11 +414,7 @@ let isPresentationClicked = false;
 function getOffset(element) {
   var x = 0;
   var y = 0;
-  while (
-    element &&
-    !isNaN(element.offsetLeft) &&
-    !isNaN(element.offsetTop)
-  ) {
+  while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
     x += element.offsetLeft - element.scrollLeft;
     y += element.offsetTop - element.scrollTop;
     element = element.offsetParent;
@@ -429,7 +425,7 @@ function getOffset(element) {
 function Table(element) {
   this.element = element;
   this.element.querySelectorAll("thead").forEach(thead => {
-    if(thead.classList.contains("cloned")){
+    if (thead.classList.contains("cloned")) {
       thead.remove();
     }
   });
@@ -457,28 +453,25 @@ Table.prototype.refreshHeaderSize = function() {
   var trs = this.element.getElementsByTagName("tr");
   var padding;
   this.top = offset.top;
-  this.bottom =
-    this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+  this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
-    // console.log(th);
     this.floatingThs[i].style.width = th.offsetWidth + "px";
     this.floatingThs[i].style.height = th.offsetHeight + "px";
   }
-}
+};
 
 Table.prototype.refreshHeaderWidth = function() {
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
-    // console.log(th);
     this.floatingThs[i].style.width = th.offsetWidth + "px";
     this.floatingThs[i].style.height = th.offsetHeight + "px";
   }
-}
+};
 
 Table.prototype.attachFloatHeader = function() {
   this.element.insertBefore(this.floatingHeader, this.element.firstChild);
-}
+};
 export default {
   props: ["keyId", "sidebar"],
   components: {
@@ -490,7 +483,8 @@ export default {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "target_analysis",
       currentFilter: "default",
-      draggableColumns: this.$store.state.data.reportTabs.active_cards.cmp_comparative_table,
+      draggableColumns: this.$store.state.data.reportTabs.active_cards
+        .cmp_comparative_table,
       showAll: false,
       target_analysis: {
         distributions: [
@@ -586,17 +580,11 @@ export default {
 
     setTimeout(() => {
       this.init();
-      // console.log(tables);
     }, 3000);
-    
-    window.addEventListener("scroll", this.windowScroll);   
+
+    window.addEventListener("scroll", this.windowScroll);
   },
   methods: {
-    testFunction: function() {
-      console.log(this.target_analysis);
-      console.log(this.summary_data);
-    },
-
     init: function() {
       tables = [];
       var matches = document.querySelectorAll("table.sticky-header");
@@ -610,7 +598,7 @@ export default {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
       }
-      if(this.$store.state.app.presentation_mode){
+      if (this.$store.state.app.presentation_mode) {
         for (var i = 0; i < tables.length; i++) {
           tables[i].refreshHeaderSize();
         }
@@ -651,10 +639,13 @@ export default {
       }
     },
     handleSidebar: function(status) {
-      if(isPresentationClicked && this.$store.state.app.presentation_mode == false){
-       for (var i = 0; i < tables.length; i++) {
+      if (
+        isPresentationClicked &&
+        this.$store.state.app.presentation_mode == false
+      ) {
+        for (var i = 0; i < tables.length; i++) {
           tables[i].refreshHeaderWidth();
-        }        
+        }
         return;
       }
       this.refreshHeaderSizes();
@@ -679,19 +670,14 @@ export default {
 
       if (!index) {
         data = new FormData();
-        data.append('insurance_policy_nickname', name);
+        data.append("insurance_policy_nickname", name);
         url = "illustration";
         cvId = this.comparativeTable.illustration_id;
       }
 
-      patch(`${getUrl(url)}${cvId}/`, data, authHeader())
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error);
-          this.$toast.error("Something went wrong.");
-        });
+      patch(`${getUrl(url)}${cvId}/`, data, authHeader()).catch(error => {
+        this.$toast.error("Something went wrong.");
+      });
     },
     // to update the current comparative report type with default filter data
     setCurrentTab: function(tab) {
@@ -904,7 +890,7 @@ export default {
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
-      if(val){
+      if (val) {
         isPresentationClicked = true;
       }
       if (

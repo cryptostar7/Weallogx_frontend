@@ -39,22 +39,12 @@ export default {
       };
 
       if (this.note_id) {
-        patch(`${getUrl("notes")}${this.note_id}/`, data, authHeader())
-          .then(response => {
-            // this.$toast.success("Note saved successfully!");
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        patch(`${getUrl("notes")}${this.note_id}/`, data, authHeader());
       } else {
         post(getUrl("notes"), data, authHeader())
           .then(response => {
             this.note_id = response.data.id;
-            // this.$toast.success("Note added successfully!");
           })
-          .catch(error => {
-            console.log(error);
-          });
       }
     },
     setActive: function(e) {

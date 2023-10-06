@@ -228,9 +228,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function() {
-      console.log(this.maxIRR);
-    },
     setActionId: function(id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },

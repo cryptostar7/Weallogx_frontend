@@ -670,7 +670,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           this.fileLoader = false;
           this.fileLoader2 = false;
           if (
@@ -947,7 +946,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1195,10 +1193,8 @@ export default {
                 this.$route.params.scenario
               }?pid=${this.getPortfolioId()}`
             );
-            console.log(response);
           })
           .catch(error => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1220,7 +1216,6 @@ export default {
             );
           })
           .catch(error => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1254,7 +1249,6 @@ export default {
     populatePreviousData: function(id) {
       get(`${getUrl("historical-simulation-object")}${id}`, authHeader())
         .then(response => {
-          console.log(response.data);
           let data = response.data;
           this.uploadFromFile = data.upload_file_checkbox;
           let filteredCsv = { data: [], headers: [] };
@@ -1292,9 +1286,6 @@ export default {
             }
           }
         })
-        .catch(error => {
-          console.log(error);
-        });
     },
   },
   mounted() {
@@ -1307,7 +1298,6 @@ export default {
         this.$store.dispatch("loader", false);
       })
       .catch(error => {
-        console.log(error);
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }
@@ -1328,7 +1318,6 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error);
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }

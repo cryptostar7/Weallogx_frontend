@@ -1583,7 +1583,6 @@ export default {
         let radios = container.querySelectorAll(".graph-data-row .index-strategy-head-radio input");
         items.forEach((item, index) => {
           radios[index].onclick = (e) => {
-            console.log(item, index);
             const {type} = chart.config;
             if (type === 'pie' || type === 'doughnut') {
               // Pie and doughnut charts only have a single dataset and visibility is per item
@@ -1688,9 +1687,6 @@ export default {
           
           data.datasets[0].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, lineColors[0]) !== "#eee" ? pointImageArr[0] : pointImageArr[2];
           data.datasets[1].pointStyle[lastPoint] = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, lineColors[1]) !== "#eee" ? pointImageArr[1] : pointImageArr[2];
-          // console.log(isOpen, "after")
-
-          console.log(isActive);
 
         }
         else{
@@ -1822,7 +1818,6 @@ export default {
           tooltip: {
             callbacks: {
               labelColor: function (context) {
-                // console.log(context);
                 return {
                   backgroundColor: lineColors[context.datasetIndex],
                 };
@@ -2071,7 +2066,6 @@ export default {
         item.classList.add("active");
         threeCheckInputs[index].checked = true;
         if(index == 1){
-          console.log(allocationInputs[2].checked);
           if(allocationInputs[2].checked == true){
             threeCheckInputs[1].checked = true;
             strategyAllocatedDivs[index].classList.add("active");

@@ -124,16 +124,12 @@ export default {
         confirm_new_password: this.confirm_new_password,
       };
 
-      console.log(data);
       if (!this.checkValidation()) {
-        console.log(this.errors);
         return false;
       }
-      console.log(data);
       this.$store.dispatch("loader", true);
       post(getUrl("change-password"), data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.message);
           this.$router.push("/sign-in");
@@ -145,7 +141,6 @@ export default {
           ) {
             this.$toast.error(error.message);
           } else {
-            console.log(error.response.data);
             this.errors = getServerErrors(error);
             this.$toast.error(getFirstError(error));
           }

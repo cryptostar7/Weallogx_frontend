@@ -88,7 +88,6 @@ export default {
       post(getUrl("client"), data, authHeader())
         .then(response => {
           resetForm();
-          console.log(response.data.data);
           this.$store.dispatch("addClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();
@@ -100,7 +99,6 @@ export default {
         .catch(error => {
           this.$store.dispatch("loader", false);
           this.createScenario = 0;
-          console.log(error);
           this.$refs.openModalRef.click();
           this.serverErrors = getServerErrors(error);
            if(error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK"){

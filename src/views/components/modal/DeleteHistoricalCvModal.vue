@@ -29,7 +29,6 @@ export default {
     deleteCv: function(){
       this.$store.dispatch('historicalCvDeleteId', Number(document.getElementById('historical_cv_delete_id').value));
       let index = Number(document.getElementById('historical_cv_delete_id').value);
-      console.log(index);
     }
   }
 };

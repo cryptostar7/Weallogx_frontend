@@ -453,7 +453,6 @@ export default {
       }
 
       if (!valid) {
-        console.log(this.error);
         return false;
       }
 
@@ -820,7 +819,6 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -840,7 +838,6 @@ export default {
             this.$router.push(`/review-summary/${this.$route.params.scenario}`);
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -1038,7 +1035,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1056,7 +1052,6 @@ export default {
       )
         .then(response => {
           let data = response.data.data;
-          console.log(data);
           this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
@@ -1086,7 +1081,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1320,7 +1314,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1369,7 +1362,6 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error);
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }

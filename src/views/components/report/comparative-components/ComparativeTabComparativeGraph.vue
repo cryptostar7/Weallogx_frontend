@@ -400,7 +400,6 @@ export default {
 
       const totalDuration = 4500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
-      console.log(comparativeValuesChart, comparativeValuesChart.chart, comparativeValuesChart.index)
       const previousY = ctx => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 
       let animationTimeout = false;

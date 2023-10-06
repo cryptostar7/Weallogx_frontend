@@ -177,13 +177,11 @@ export default {
         graphAreas.forEach(graph => {
           graph.removeAttribute("style");
         });
-        console.log("yes");
       }
     }
   },
   methods: {
     saveReport: function() {
-      console.log(this.$route.params.report);
       let data = {
         saved_action: {
           active_tabs: this.$store.state.data.reportTabs.active,
@@ -197,12 +195,10 @@ export default {
         authHeader()
       )
         .then(response => {
-          console.log(response.data);
           this.$toast.success("Report saved successfully!");
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -228,7 +224,6 @@ export default {
           });
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -271,7 +266,6 @@ export default {
       this.$store.dispatch("fullScreen");
     },
     backToNormalScreen: function() {
-      console.log("yes, exited");
       if (this.$store.state.app.full_screen) {
         this.$store.dispatch("fullScreen");
       }

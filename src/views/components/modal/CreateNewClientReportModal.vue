@@ -35,7 +35,6 @@
           </div>
           <div class="gap-13 pt-4 mt-2 pb-2 text-center">
             <button type="submit" class="btn yes-delete-btn">Build Report</button>
-            <!-- <button type="button" class="btn yes-delete-btn d-none" @click="testFunction()">Test Report</button> -->
           </div>
         </form>
       </div>
@@ -78,9 +77,6 @@ export default {
       if (!this.response) {
         this.$router.go(-1);
       }
-    },
-    testFunction: function() {
-      console.log(this.validateForm());
     },
     seClientName: function(name) {
       this.clientName = name;
@@ -148,7 +144,6 @@ export default {
       e.preventDefault();
 
       if (!this.validateForm()) {
-        console.log(this.errors);
         return false;
       }
 
@@ -162,7 +157,6 @@ export default {
       this.$store.dispatch("loader", true);
       post(`${getUrl("add-report")}`, data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.response = true;
           this.$toast.success(response.data.message);
           this.$refs.closeModalRef.click();
@@ -171,7 +165,6 @@ export default {
           window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -193,7 +186,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

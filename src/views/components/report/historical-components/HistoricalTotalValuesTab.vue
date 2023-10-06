@@ -132,9 +132,6 @@ export default {
     this.setGraph();
   },
   methods: {
-    testFunction: function() {
-      console.log(this.historical);
-    },
     setActionId: function(id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },

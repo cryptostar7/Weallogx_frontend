@@ -52,11 +52,9 @@ export default {
           .then(response => {
             this.$store.dispatch("loader", false);
             let detail = response.data.data;
-            console.log(detail);
             this.data = detail;
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"

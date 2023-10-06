@@ -74,14 +74,12 @@ export default {
           };
         }
       }
-      console.log(remainingTime);
       this.timeleft = remainingTime.timeleft ? remainingTime.days : 0;
       return remainingTime;
     },
     getCurrentPlan: function() {
       get(getUrl("current_plan"), authHeader())
         .then(response => {
-          console.log(response);
           this.getRemainingTime(
             response.data.data.start_date,
             response.data.data.end_date
@@ -93,7 +91,6 @@ export default {
           );
         })
         .catch(error => {
-          console.log(error);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
           } else {

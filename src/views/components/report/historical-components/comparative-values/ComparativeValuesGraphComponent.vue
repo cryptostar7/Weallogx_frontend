@@ -11,7 +11,6 @@
           role="tab" aria-controls="card-best" aria-selected="true"  @click="() => tsa_type = 'best'">Best</div>
       </div>
     </div>
-    <!-- <button @click="testFunction">testFunction</button> -->
     <div class="px-3 py-3" id="comparativeValuesFluid2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
@@ -304,9 +303,6 @@ export default {
   mounted() {
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
-      // cvGraphInputToogle${index}
-      console.log("this.cards");
-      console.log(this.graphs);
       this.setGraph(); // generate graph
     }
   },
@@ -1046,9 +1042,6 @@ export default {
           });
       }
     },
-    testFunction: function() {
-      console.log(this.data);
-    },
     // to get the longevity year
     getYear: function(array, age) {
       let year = array.filter(i => i);
@@ -1057,12 +1050,6 @@ export default {
     },
     // map API data for the CV cards
     mapData: function() {
-      console.log("this.mapColumn1Data()");
-      console.log(this.mapColumn1Data().data);
-      console.log(this.mapColumn2Data().data);
-      console.log(this.mapColumn3Data().data);
-      console.log(this.mapColumn4Data().data);
-
       this.data[0] = this.mapColumn1Data().data;
       this.data[1] = this.mapColumn2Data().data;
       this.data[2] = this.mapColumn3Data().data;

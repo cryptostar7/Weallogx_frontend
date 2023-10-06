@@ -69,20 +69,16 @@ export default {
 
     sendForgotRequest: function() {
       if (!this.checkValidation()) {
-        console.log(this.errors);
         return false;
       }
-      console.log(this.email);
       this.$store.dispatch("loader", true);
       post(getUrl("forgot-password"), { email: this.email }, authHeader())
         .then(response => {
-          console.log(response.data.success);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.success);
           this.$router.push("/sign-in");
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
@@ -125,8 +121,7 @@ export default {
         let mobMenu = document.querySelector(".js-side-nav");
         let overlay = document.querySelector(".js-side-nav-shield");
         let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
-        console.log(mobNavTrigger, mobMenu, overlay, crossBtn);
-
+        
         mobNavTrigger.addEventListener("click", () => {
           mobMenu.classList.toggle("show-side-nav");
           overlay.classList.toggle("side-nav-shield--show");   

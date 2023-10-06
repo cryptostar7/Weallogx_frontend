@@ -8,7 +8,7 @@
           <IndividualClientNavbar :client="client" />  
             <div class="client-list-div less-gap">
               <div class="list-wrapper listWrapperDarkBg">
-                <h3 class="bold-fw fs-28 pb-2 mb-0" @click="testFunction">Scenarios</h3>
+                <h3 class="bold-fw fs-28 pb-2 mb-0">Scenarios</h3>
                 <ul class="nav flex-column client-list-ul">
                   <li class="nav-item clientAllListItem">
                     <div class="list-groups">
@@ -277,10 +277,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function(id) {
-      console.log(this.fileActionId);
-      console.log(this.fileName);
-    },
     // upload a new illustration file in s3
     uploadIllustrationFile(e) {
       if (!e.target.files[0]) {
@@ -294,7 +290,6 @@ export default {
       // this API returns s3 url
       post(getUrl("pdf_extract"), data, authHeader())
         .then(response => {
-          console.log(response.data);
           let data2 = {
             s3_url: response.data.s3_url,
             client: this.client.id,
@@ -304,7 +299,6 @@ export default {
           // create a new illustration file data
           post(getUrl("illustration-files"), data2, authHeader())
             .then(response => {
-              console.log(response.data.results);
               // update new file data in store cache
               this.$store.dispatch("illustrationFiles", [
                 response.data.results,
@@ -318,13 +312,11 @@ export default {
               this.$store.dispatch("loader", false);
             })
             .catch(error => {
-              console.log(error);
               this.$store.dispatch("loader", false);
             });
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
-          console.log(error);
         });
     },
     // delete illustration file
@@ -334,17 +326,14 @@ export default {
         authHeader()
       )
         .then(response => {
-          console.log(response.data);
           var updatedData = this.illustrationFiles.filter(
             item => item.id !== this.fileActionId
           );
             this.$store.dispatch("illustrationFiles", updatedData);
-          console.log(updatedData);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
-          console.log(error);
         });
     },
     // update illustration file name
@@ -358,7 +347,6 @@ export default {
           authHeader()
         )
           .then(response => {
-            console.log(response.data);
             var updatedData = this.illustrationFiles.map(item => {
               if (item.id === this.fileActionId) {
                 item.name = this.fileName;
@@ -366,13 +354,11 @@ export default {
               }
               return item;
             });
-            console.log(updatedData);
             this.$store.dispatch("illustrationFiles", updatedData);
             this.$store.dispatch("loader", false);
           })
           .catch(error => {
             this.$store.dispatch("loader", false);
-            console.log(error);
           });
       }
     },
@@ -385,9 +371,6 @@ export default {
             this.renderGridJs();
           }, 5000);
         })
-        .catch(error => {
-          console.log(error);
-        });
     },
     // get client data from API
     getClient: function() {
@@ -399,7 +382,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -426,7 +408,6 @@ export default {
           });
           let curTarget = e.currentTarget.querySelector(".dropdown");
           const dropdownList = new bootstrap.Dropdown(curTarget);
-          console.log(curTarget, dropdownList);
           dropdownList.toggle();
         });
       });
@@ -457,7 +438,6 @@ export default {
       e.currentTarget.classList.toggle("grid");
       e.currentTarget.classList.toggle("list");
       if (e.currentTarget.classList.contains("grid")) {
-        console.log(e.currentTarget);
         e.currentTarget.innerHTML = listViewSVG;
       } else {
         e.currentTarget.innerHTML = gridViewSVG;

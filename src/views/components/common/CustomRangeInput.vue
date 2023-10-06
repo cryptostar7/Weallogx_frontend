@@ -10,7 +10,7 @@
         <p class="rangeSliderMiddleNumEnd">20%</p>
     </div>
    </div>
-    <div class="or-div ms-4 position-relative top-minus" @click="testFunction">
+    <div class="or-div ms-4 position-relative top-minus">
         or 
     </div>
     <div class="customAmountInputDiv ms-2 top-minus">
@@ -35,9 +35,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.range);
-    },
     saveCustomAmount: function(e) {
       this.customAmount = e.target.value;
     },

@@ -9,7 +9,7 @@
               <scenario-label-component />
               <div class="form-wrapper side-grey-line">
                 <div class="form-wrapper-inner no-style newScenarioVehicleInner">
-                  <h4 class="form-subheading fs-22 fw-bold" @click="testFunction"> Comparative Vehicles </h4>
+                  <h4 class="form-subheading fs-22 fw-bold"> Comparative Vehicles </h4>
                   <SelectDropdown :list="cvPortfolios" label="Use Existing Comparative Vehicle Portfolio" id="existingComparativeVehiclePortfolio"  class="form-group less pt-3" :error="errors.existing_portfolio" @clearError="() => errors.existing_portfolio = false" @onSelectItem="setExistingPortfolioId" @inputText="setExistingPortfolioName"/>
                   <div :class="`comparative-vehicle-tab-wrapper ${vehicle.tab ? '' : 'noVehicleTyupeSelectPadd'} mb-3`" id="noVehicleTyupeSelectPadd">
                     <ul class="nav nav-tabs comparative-vehicle-tabs" role="tablist">
@@ -448,7 +448,6 @@ export default {
         this.$store.dispatch("loader", true);
         get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
           .then(response => {
-            console.log(response.data.data);
             setCurrentScenario(response.data.data);
             let id = response.data.data.comperative;
             this.cvId = id;
@@ -460,7 +459,6 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -511,17 +509,11 @@ export default {
     },
   },
   methods: {
-    testFunction: function() {
-      console.log(this.cvId);
-    },
-
     getExistingVehicles: function() {
       this.$store.dispatch("loader", true);
       get(getUrl("vehicles-templates"), authHeader())
         .then(response => {
           var data = response.data.data;
-          console.log('response.data.data');
-          console.log(response.data.data);
           var temp = [];
           let index = 1;
           // add vehicle #1 templates in temp variable
@@ -563,7 +555,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -592,7 +583,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -728,7 +718,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -861,7 +850,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -934,7 +922,6 @@ export default {
     // switch to next vehicle tab
     setNextTab: function() {
       if (!this.validationForm()) {
-        console.log(this.errors);
         return false;
       }
 
@@ -1218,7 +1205,6 @@ export default {
         e.preventDefault();
       }
       if (!this.validationForm()) {
-        console.log(this.errors);
         return false;
       }
 
@@ -1347,7 +1333,6 @@ export default {
             );
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -1373,7 +1358,6 @@ export default {
             );
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"

@@ -788,7 +788,6 @@ export default {
         item.classList.add("active");
         threeCheckInputs[index].checked = true;
         if(index == 1){
-          console.log(allocationInputs[2].checked);
           if(allocationInputs[2].checked == true){
             threeCheckInputs[1].checked = true;
             strategyAllocatedDivs[index].classList.add("active");

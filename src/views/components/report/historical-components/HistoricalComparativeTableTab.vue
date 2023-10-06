@@ -535,8 +535,6 @@ export default {
   },
   methods: {
     handleSidebar: function(status) {
-      // this.refreshHeaderSizes()
-      console.log(status);
       return status;
     },
     setActionId: function(id) {

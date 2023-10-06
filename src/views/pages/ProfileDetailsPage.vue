@@ -114,7 +114,6 @@ export default {
     getCurrentPlan: function() {
       get(getUrl("current_plan"), authHeader())
         .then(response => {
-          console.log(response);
           this.$store.dispatch("currentPlan", response.data.data);
           localStorage.setItem(
             "plan_active",
@@ -122,7 +121,6 @@ export default {
           );
         })
         .catch(error => {
-          console.log(error);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
           } else {
@@ -134,7 +132,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("profile"), authHeader())
         .then(response => {
-          console.log(response.data.data);
           this.user = response.data.data;
           this.$store.dispatch("user", this.user);
           setCurrentUser({
@@ -144,7 +141,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
           }

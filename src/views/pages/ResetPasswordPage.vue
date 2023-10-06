@@ -92,20 +92,16 @@ export default {
         uidb64: this.uidb64,
       };
       if (!this.checkValidation()) {
-        console.log(this.errors);
         return false;
       }
-      console.log(data);
       this.$store.dispatch("loader", true);
       patch(getUrl("reset-password"), data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.message);
           this.$router.push("/sign-in");
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);

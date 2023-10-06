@@ -32,7 +32,6 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Build Report</button>
-            <!-- <button type="button" @click="testFunction" class="btn yes-delete-btn">Test Function</button> -->
           </div>
         </form>
       </div>
@@ -69,9 +68,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function() {
-      console.log(this.$route.query);
-    },
     validateForm: function() {
       var validate = true;
       if (!this.$route.query.client) {
@@ -125,14 +121,12 @@ export default {
       };
 
       if (!this.validateForm()) {
-        console.log(this.errors);
         return false;
       }
 
       this.$store.dispatch("loader", true);
       post(`${getUrl("add-report")}`, data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.response = true;
           this.$toast.success(response.data.message);
           this.getClient(true);
@@ -141,7 +135,6 @@ export default {
           window.location.href = "/report-builder/" + response.data.data.id;
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -163,7 +156,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

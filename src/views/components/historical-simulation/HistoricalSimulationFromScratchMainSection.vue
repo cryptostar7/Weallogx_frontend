@@ -250,7 +250,6 @@ export default {
   },
   methods: {
     setUpdatedTab: function() {
-      console.log("data updated");
       this.update.enhancement = false;
     },
     setActiveTab: function(tab) {
@@ -543,8 +542,6 @@ export default {
       this.setInputWithId(`rolling_time${tab}`, obj.rolling_time_period_years);
       this.setInputWithId(`analyze_type${tab}`, obj.analyze);
       this.setInputWithId(`credit_base_method${tab}`, obj.credit_base_method);
-      console.log('obj.distributions');
-      console.log(obj.distributions);
       this.setInputWithId(`distribution_method${tab}`, obj.distributions);
       this.update.analysis_parameters = true;
     },
@@ -724,7 +721,6 @@ export default {
       )
         .then(response => {
           let data = response.data.data;
-          console.log(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
             this.tabs.tab2 = true;
@@ -753,7 +749,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -987,7 +982,6 @@ export default {
                   document
                     .getElementById(`enhanceTab${i + 1}`)
                     .classList.add("show");
-                  console.log("removed collapsed");
                 }
                 area.scrollIntoView();
               }
@@ -1008,7 +1002,6 @@ export default {
       });
 
       if (!valid) {
-        console.log(this.error);
         return false;
       }
 
@@ -1397,7 +1390,6 @@ export default {
           authHeader()
         )
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             if(report){
@@ -1407,7 +1399,6 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -1421,14 +1412,12 @@ export default {
       } else {
         post(getUrl("historical"), formData, authHeader())
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.historicalId = response.data.data.id;
             this.$router.push(`/review-summary/${this.$route.params.scenario}`);
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -1451,7 +1440,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1470,8 +1458,6 @@ export default {
       let template = this.getTemplateDataId(id);
       if (template) {
         this.populateIndexTemplate(iType, template.uid, template.type);
-        console.log(iType, template.uid, template.type);
-        console.log("populate index data ");
       }
       this.error[`existing_${iType}`] = [];
     },
@@ -1524,7 +1510,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1560,7 +1545,6 @@ export default {
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
       .then(response => {
-        console.log(response.data);
         let id = response.data.data.historical;
         this.historicalId = id;
         this.$store.dispatch("activeScenario", response.data.data);
@@ -1571,7 +1555,6 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error);
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }
@@ -1609,7 +1592,6 @@ export default {
         const inputs = document.querySelectorAll(".handleLimit");
         inputs.forEach(element =>
           element.addEventListener("input", function(e) {
-            console.log(e.target.value);
             let len = e.target.value.length;
             let current = e.target.value;
             let min = Number(e.target.getAttribute("min"));

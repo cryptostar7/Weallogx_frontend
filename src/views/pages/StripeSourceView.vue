@@ -31,9 +31,7 @@ export default {
           phone: '88408680841',
         }
       }).then(function(result) {
-        console.log(result);
         // this.sourceId = result.source.id;
-        // console.log(this.sourceId);
         // Access the token with result.token
       });
     },

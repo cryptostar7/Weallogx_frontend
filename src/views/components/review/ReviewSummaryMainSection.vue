@@ -79,9 +79,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.client);
-    },
     getLatestReportId: function() {
       get(
         `${getUrl("latest-report")}${this.$route.params.scenario}/`,
@@ -101,7 +98,6 @@ export default {
           })
           .catch(error => {
             this.$store.dispatch("loader", false);
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -123,7 +119,6 @@ export default {
       .then(response => {
         var detail = response.data.data;
         this.$store.dispatch("activeScenario", detail);
-        console.log(this.$store.state.data.active_scenario);
         if (this.$store.state.data.clients) {
           this.client = this.$store.getters.getClientUsingId(detail.client);
         } else {
@@ -132,7 +127,6 @@ export default {
         this.$store.dispatch("loader", false);
       })
       .catch(error => {
-        console.log(error);
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }

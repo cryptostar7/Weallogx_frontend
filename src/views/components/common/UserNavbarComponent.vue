@@ -241,7 +241,6 @@ export default {
             this.$router.push("/sign-in");
           })
           .catch(error => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
               this.$toast.error(error.message);
@@ -256,10 +255,7 @@ export default {
           });
       }
     },
-  },
-  mounted() {
-    console.log(this.$currentUser());
-  },
+  }
 };
 </script>
 <style lang="">

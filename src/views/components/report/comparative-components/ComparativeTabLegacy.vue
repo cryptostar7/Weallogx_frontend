@@ -157,9 +157,6 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function() {
-      console.log(this.data);
-    },
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },

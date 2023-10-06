@@ -99,7 +99,6 @@ export default {
     );
   },
   methods: {
-    testFunction: function() {},
     handleStartYear: function(item) {
       this.startYear = item;
       this.customAmount = "";

@@ -85,7 +85,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -100,7 +99,6 @@ export default {
 
     // this id used for creating a clone and editing the client data
     setActionId: function(id, client = false) {
-      console.log(id);
       this.actionId = id;
       this.clinetId = client;
     },
@@ -119,7 +117,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -148,7 +145,6 @@ export default {
     },
     // remove scenario form list
     removeClientScenario: function(deleteId) {
-      console.log(this.clients);
       this.sortedList = this.clients;
     },
     // sort client list

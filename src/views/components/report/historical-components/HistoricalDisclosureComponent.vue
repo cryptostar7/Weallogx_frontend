@@ -147,9 +147,6 @@ export default {
       }
       this.saveDisclosure = false;
     },
-    mapData: function() {
-      console.log(disclosure);
-    },
   },
   computed: {
     disclosure() {

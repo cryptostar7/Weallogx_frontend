@@ -6,7 +6,7 @@
                 <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
                 <label class="medium-fw">{{item.description}}</label>
                 <br>
-                <span class="report-scenario-span mt-1" @click="testFunction(item)">{{item.scenario_name}}</span>
+                <span class="report-scenario-span mt-1" >{{item.scenario_name}}</span>
                 </div>
                 <div class="list-item-actions" @click="e => e.stopPropagation()">
                 <label class="date-label grey-clr fs-14 semi-bold-fw">

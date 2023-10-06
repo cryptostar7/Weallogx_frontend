@@ -48,7 +48,6 @@
   }
 
   function listen(e, elem, func) {
-    console.log(e, elem, func)
     if (elem.addEventListener) {
       elem.addEventListener(e, func, false);
     } else if (elem.attachEvent) {
@@ -112,7 +111,6 @@
   function windowScroll() {
     init();
     for (var i = 0; i < tables.length; i++) {
-      console.log(i);
       var windowTop = getScrollTop();
       if (windowTop > tables[i].top) {
         tables[i].floatingHeader.style.top =

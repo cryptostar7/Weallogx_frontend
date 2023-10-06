@@ -764,9 +764,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.historical);
-    },
     filterDeposits: function() {
       var data = this.historical.lirp_data;
       let tempList = [];

@@ -8,7 +8,7 @@
               src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
         </div>
         <div class="modal-body">
-          <p class="modalSharePara text-center" @click="testFunction">Share Report</p>
+          <p class="modalSharePara text-center">Share Report</p>
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
               <button class="modalReportBuilderBr">{{$sortName(report.client.firstname, report.client.lastname, report.client.middlename)}}</button>
@@ -86,9 +86,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log();
-    },
     copyLink() {
       navigator.clipboard.writeText(this.report.report_link);
       this.$refs.copyButtonRef.innerText = "Copied!";
@@ -121,12 +118,10 @@ export default {
         link: this.report.report_link,
       };
 
-      console.log(data);
       this.$store.dispatch("loader", true);
 
       post(`${getUrl("report")}share/`, data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.emails = "";
           this.message = "";
           this.includePdf = true;
@@ -136,14 +131,12 @@ export default {
           this.$toast.success("Report shared successfully!");
         })
         .catch(error => {
-          console.log(error);
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
           this.$toast.error("Something went wrong.");
         });
     },
     saveReport: function() {
-      console.log(this.$route.params.report);
       if(!this.$route.params.report){
         return false;
       }
@@ -158,11 +151,7 @@ export default {
         data,
         authHeader()
       )
-        .then(response => {
-          console.log(response.data);
-        })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

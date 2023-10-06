@@ -185,7 +185,6 @@ export default {
       if (this.user.stripe_source_id) {
         post(getUrl("signup"), this.user)
           .then(response => {
-            console.log(response);
             this.$store.dispatch("userTempForm", false);
             setRefreshToken(response.data.data.tokens.refresh);
             setAccessToken(response.data.data.tokens.access);
@@ -201,7 +200,6 @@ export default {
             this.$router.push("/profile-details");
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -224,7 +222,6 @@ export default {
             this.$router.push(`${"payment-method"}${getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""}`);
             this.$store.dispatch("loader", false);
          }).catch((error) => {
-          console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"

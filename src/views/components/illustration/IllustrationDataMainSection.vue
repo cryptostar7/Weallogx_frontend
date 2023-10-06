@@ -144,7 +144,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <button type="button" @click="testFunction()">test</button> -->
               <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
                 <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
@@ -428,7 +427,6 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -677,7 +675,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -702,7 +699,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -929,7 +925,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -979,7 +974,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1002,7 +996,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1197,7 +1190,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           this.fileLoader = false;
           this.fileLoader2 = false;
           if (
@@ -1368,7 +1360,6 @@ export default {
       }
 
       if (!this.validateForm()) {
-        console.log(this.errors);
         document.getElementById("main-section-element").scrollIntoView();
         return false;
       }
@@ -1502,7 +1493,6 @@ export default {
             });
           })
           .catch(error => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1534,7 +1524,6 @@ export default {
             );
           })
           .catch(error => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1542,13 +1531,10 @@ export default {
             ) {
               this.$toast.error(error.message);
             } else {
-              console.log(error.response.data.error);
               if (
                 error.response.data.error &&
                 error.response.data.error.insurance_template_name
-              ) {
-                console.log(error.response.data.error.insurance_template_name);
-              }
+              ) 
               this.$toast.error(getFirstError(error));
             }
           });
@@ -1684,9 +1670,6 @@ export default {
           });
         }
       }, 100);
-    },
-    testFunction: function() {
-      this.setInputWithId("changeTaxYear", data.change_year);
     },
     // remove column from the illustration data table
     removeColumn: function() {

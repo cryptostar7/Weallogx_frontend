@@ -91,7 +91,6 @@ export default {
       this.$store.dispatch("loader", true);
       patch(`${getUrl("client")}${this.clientDetail.id}/`, data, authHeader())
         .then(response => {
-          console.log(response);
           this.$store.dispatch("loader", false);
           this.clientDetail.firstname = data.firstname;
           this.clientDetail.middlename = data.middlename;
@@ -106,7 +105,6 @@ export default {
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
-          console.log(error);
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message);
           } else {

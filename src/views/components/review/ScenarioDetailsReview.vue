@@ -118,7 +118,6 @@
                 </div>
             </div>
         </section>
-        <button class="d-none" @click="testFunction()">Test</button>
     </div>
 </template>
 <script>
@@ -133,22 +132,16 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.data);
-      console.log(this.client);
-    },
     getScenarioData: function() {
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("scenario-details")}${this.$props.id}`, authHeader())
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             let detail = response.data.data;
             this.data = detail;
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"

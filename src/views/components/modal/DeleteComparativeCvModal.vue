@@ -32,8 +32,6 @@ export default {
       let cv = this.$store.state.data.report.comparative
       if(cv && cv.comperative_vehicle_id){
         let cvId = cv.comperative_vehicle_id;
-        console.log(cv.comperative_vehicle_id);
-
         var data = {vehicle_type_1 : null};
 
         if(index === 2){
@@ -45,10 +43,8 @@ export default {
         }
 
         patch(`${getUrl('comparative')}${cv.comperative_vehicle_id}/`, data, authHeader()).then((response) => {
-          console.log(response);
           this.$toast.success('CV deleted successfully!')
         }).catch((error) => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

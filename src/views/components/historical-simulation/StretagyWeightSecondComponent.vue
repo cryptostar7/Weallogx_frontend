@@ -68,8 +68,6 @@ export default {
     watch: {
     "$props.ratio"(e) {
       if (e) {
-        console.log(e);
-        console.log('updated ratio...');
         document.getElementById('swInput1').value = `${e.weight_1}%`;
         document.getElementById('swInput2').value = `${e.weight_2}%`;
         document.getElementById('swInput3').value = `${e.weight_2}%`;

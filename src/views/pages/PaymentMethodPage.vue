@@ -161,9 +161,6 @@ export default {
 
     cardNumber.on("change", function(event) {
       // Switch brand logo
-      if (event.brand) {
-        console.log(event.brand);
-      }
     });
   },
   methods: {
@@ -180,7 +177,6 @@ export default {
           },
         })
         .then(response => {
-          console.log(response);
           if (response.source) {
             this.user.stripe_source_id = response.source.id;
             this.createUser();
@@ -201,8 +197,6 @@ export default {
 
       post(getUrl("signup"), formData)
         .then(response => {
-          console.log(response);
-          console.log(response.data.message);
           this.$store.dispatch("userTempForm", false);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);

@@ -40,7 +40,7 @@
     </div>
   </div>
 </div>
-<p class="strategyErrorPara" @click="testFunction()">
+<p class="strategyErrorPara">
   Sum of all weights must equal 100%.
 </p>
 </template>
@@ -56,20 +56,9 @@ export default {
       },
     };
   },
-  methods: {
-    testFunction: function() {
-      this.range1 = {
-        midRange: 50,
-        midRange1: "30.00%",
-        midRange2: "70.00%",
-      };
-      console.log(this.range1);
-    },
-  },
   watch: {
     "$props.ratio"(e) {
       if (e) {
-        console.log(e);
         this.range1.midRange1 = `${e.weight_1}%`;
         this.range1.midRange2 = `${e.weight_2}%`;
       }

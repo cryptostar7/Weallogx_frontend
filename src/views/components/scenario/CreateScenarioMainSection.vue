@@ -148,7 +148,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <button type="button" @click="testFunction()">testFunction</button> -->
               <div class="mt-30 text-center p-relative">
                 <button class="nav-link btn form-next-btn active fs-14" type="submit">Next</button>
                 <div class="return-btn-div">
@@ -294,9 +293,6 @@ export default {
     );
   },
   methods: {
-    testFunction: function() {
-      console.log(this.simpleTaxRate);
-    },
     // get previous scebario detail information
     getScenarionDetails: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
@@ -327,7 +323,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -375,7 +370,6 @@ export default {
       let age = this.$store.state.data.clients.filter(item => {
         return Number(item.id) === Number(id);
       })[0].age;
-      console.log(id);
       this.setInputWithId("clientAge", age);
       this.clientAgeYearToIllustrate = age;
       this.errors.client_age_year = false;
@@ -453,7 +447,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -466,7 +459,6 @@ export default {
 
     // get schedule templates
     getExistingScenarioSchedule: function() {
-      console.log("schedule template");
       get(getUrl("scenario-schedule-templates"), authHeader())
         .then(response => {
           this.$store.dispatch("template", {
@@ -476,7 +468,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -492,7 +483,6 @@ export default {
       this.clientAgeYearToIllustrate = detail.client_age_1_year_illustration;
       this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
       this.errors.client_age_year = false;
-      console.log(template);
 
       if (template) {
         // this.illustrateYear = "";
@@ -515,8 +505,6 @@ export default {
       this.secondTaxRateYear = detail.second_tax_rate_year
         ? detail.second_tax_rate_year
         : "";
-
-      console.log(detail);
 
       if (!this.simpleTaxRate && detail.schedule_tax_rate) {
         this.setScheduleData(detail.schedule_tax_rate.data);
@@ -542,13 +530,11 @@ export default {
           authHeader()
         )
           .then(response => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.setFormInputs(response.data.data, template);
             setScenarioStep1(response.data.data);
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -587,7 +573,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -614,7 +599,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -766,7 +750,6 @@ export default {
       }
 
       if (!this.validateForm()) {
-        console.log(this.errors);
         return false;
       }
 
@@ -841,7 +824,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -882,8 +864,6 @@ export default {
             return this.$router.push(`/review-summary/${this.activeScenario.id}`);
           }
 
-          console.log('report', report);
-
           if (report) {
             window.location.href = `/report-builder/${this.reportId}`;
           }
@@ -894,12 +874,10 @@ export default {
               query: this.$route.query,
             });
           } else {
-            console.log("data not found.");
             this.$toast.error("Something went wrong. Please try again.");
           }
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -908,7 +886,6 @@ export default {
             this.$toast.error(error.message);
           } else {
             var serverErrors = getServerErrors(error);
-            console.log(serverErrors);
             this.errors = serverErrors;
             this.errors.scenario_name = serverErrors.name;
             this.errors.client_age_year =
@@ -951,7 +928,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           this.$toast.error(error.message);
         });

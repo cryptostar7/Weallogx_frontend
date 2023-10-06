@@ -19,7 +19,7 @@
     <form :id="`fees-parameters${currentTab}`" class="accordion-collapse collapse analysisParametersContent" :data-bs-parent="`#fees-parameters${currentTab}`" autocomplete="off">
       <div :class="$props.performance ? '':'d-none'">
           <div class="formParabrdrLavelDiv mt-2">
-              <p @click="testFunction">Performance Multiplier Fee</p>
+              <p>Performance Multiplier Fee</p>
               <p></p>
               </div>
               <div class="d-flex justify-content-between align-items-center parent-radio-div">
@@ -197,9 +197,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.performanceFeeAmount);
-    },
     handlePcCheckbox: function(item) {
       this.$refs.customPCRef.value = "";
     },
@@ -466,7 +463,6 @@ export default {
         } else {
           tabs.forEach(tab => {
             if (currentTab !== tab) {
-              console.log('value set');
               document.getElementById(`flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
             }
           });

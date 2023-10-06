@@ -10,7 +10,7 @@
         </button>
         <div class="position-sticky h-100 sidebar-inner sidebarInnerJs1 px-0 py-0 position-relative" :style="{display: sidebar.collapse ? 'none' : 'block'}">
           <div class="reportBuilderLft1 px-10 py-4">
-            <h3 class="fs-26 bold-fw text-white mb-20" @click="testFunction">Report Builder</h3>
+            <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'comparative' ? 'active':''}`" @click="() => sidebar.currentTab = 'comparative'">Comparative Analysis</button>
               <button :class="`btn reportSwtchLeft ${sidebar.currentTab === 'historical' ? 'active':''}`" @click="showHistoricalReport()">Historical Simulations</button>
@@ -74,9 +74,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.ComparativeDataLoaded, this.HistoricalDataLoaded);
-    },
     getComparativeData: function(id) {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");
@@ -133,7 +130,6 @@ export default {
           this.$store.dispatch(store, response.data);
           this.$store.dispatch("loader", false);
           setTimeout(() => {
-            console.log(this.$store.state.app.loader_count);
             if (!this.$store.state.app.loader_count) {
               this.ComparativeDataLoaded = true;
               setTimeout(() => this.updateElementJs(), 100);
@@ -153,14 +149,10 @@ export default {
         authHeader()
       )
         .then(response => {
-          console.log(response.data);
           this.HistoricalDataLoaded = true;
-          console.log("Historical data...");
-          console.log(response.data);
           if (Object.keys(response.data).length) {
             this.$store.dispatch("historicalReport", response.data);
           }
-          console.log("Historical data...");
           if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
@@ -204,7 +196,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -220,13 +211,9 @@ export default {
       get(
         `${getUrl("notes")}?report=${this.$route.params.report}`,
         authHeader()
-      )
-        .then(response => {
-          this.$store.dispatch("notes", response.data);
-        })
-        .catch(error => {
-          console.log();
-        });
+      ).then(response => {
+        this.$store.dispatch("notes", response.data);
+      });
     },
 
     // get all disclosures of current report
@@ -234,13 +221,9 @@ export default {
       get(
         `${getUrl("disclosures")}?report=${this.$route.params.report}`,
         authHeader()
-      )
-        .then(response => {
-          this.$store.dispatch("disclosures", response.data);
-        })
-        .catch(error => {
-          console.log();
-        });
+      ).then(response => {
+        this.$store.dispatch("disclosures", response.data);
+      });
     },
 
     updateElementJs: function() {

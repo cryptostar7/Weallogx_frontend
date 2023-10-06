@@ -119,8 +119,6 @@ export default {
         performance_type = tab;
       }
 
-      console.log(performance_type);
-
       if (performance_type === "schedule") {
         for (let i = 0; i < this.illustrateYear; i++) {
           let value = document.getElementById(

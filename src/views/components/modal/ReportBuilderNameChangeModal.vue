@@ -25,7 +25,6 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Save</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
           </div>
         </form>
       </div>
@@ -49,14 +48,7 @@ export default {
       description: "",
     };
   },
-  mounted() {
-    console.log("mounted");
-  },
   methods: {
-    testFunction: function() {
-      console.log(this.reportName);
-      console.log(this.description);
-    },
     mapReportData: function() {
       return this.clients.map(i => {
         // update report data in reports object
@@ -93,7 +85,6 @@ export default {
         if (item.length) {
           item.forEach(i => {
             if (i.id === Number(this.$props.reportId)) {
-              console.log(i);
               report.push(i);
             }
           });
@@ -115,13 +106,11 @@ export default {
       this.$store.dispatch("loader", true);
       patch(`${getUrl("report")}${this.$props.reportId}/`, data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("clients", this.mapReportData());
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

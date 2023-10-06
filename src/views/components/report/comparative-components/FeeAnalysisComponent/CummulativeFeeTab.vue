@@ -87,7 +87,6 @@ export default {
 
         if (Object.values(chart2).length) {
           let cv2_fees = chart2.comparison.chart_output.comprehensive_fees;
-          console.log(chart2.type);
           if (chart2.type === "pretax") {
             cv2_fees =
               chart2.comparison.chart_output_data.comprehensive_fees_data;

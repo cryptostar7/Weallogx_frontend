@@ -90,9 +90,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function(item) {
-      console.log(item);
-    },
     handleTable: function() {
       this.showAll = !this.showAll;
       document.getElementById("illustrationScheduleRateTable").scrollIntoView();
@@ -112,7 +109,6 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -124,14 +120,10 @@ export default {
       }
     },
     getIllsutrationFiles: function() {
-      console.log("get illustration files");
       get(getUrl("illustration-files"), authHeader())
         .then(response => {
           this.illustrationFiles = response.data.results.filter(i => i.scenario_id === Number(this.$route.params.scenario));
         })
-        .catch(error => {
-          console.log(error);
-        });
     },
   },
   mounted() {

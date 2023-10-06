@@ -151,9 +151,6 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -172,9 +169,6 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -192,9 +186,6 @@
                                       <div class="layer2"></div>
                                     </div>
                                   </div>
-                                  <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                                    <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                  </a> -->
                                 </div>
                               </div>
                             </div>
@@ -332,9 +323,6 @@
                                     <div class="layer2"></div>
                                   </div>
                                 </div>
-                                <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
-                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                </a> -->
                               </div>
                             </div>
                           </div>
@@ -352,9 +340,6 @@
                                     <div class="layer2"></div>
                                   </div>
                                 </div>
-                                <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal"  data-bs-toggle="modal">
-                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                </a> -->
                               </div>
                             </div>
                           </div>
@@ -365,7 +350,6 @@
                 </div>
               </div>
             </div>
-            <!-- <button @click="testFunction">testFunction</button> -->
             <comparative-disclosure-component v-if="activeTabs[keyId]" :currentTab="3" />
           </div>
         </div>
@@ -384,32 +368,6 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "distributions amounts",
-      // cards: {
-      //   distributions: [
-      //     { id: 1, active: true },
-      //     { id: 2, active: true },
-      //     { id: 3, active: true },
-      //     { id: 4, active: true },
-      //   ],
-      //   rate_of_returns: [
-      //     { id: 1, active: true },
-      //     { id: 2, active: true },
-      //     { id: 3, active: true },
-      //     { id: 4, active: true },
-      //   ],
-      // },
-      // graphs: {
-      //   distributions: {
-      //     longevity: true,
-      //     ending_value: true,
-      //     death_benefit: true,
-      //   },
-      //   rate_of_returns: {
-      //     longevity: true,
-      //     ending_value: true,
-      //     death_benefit: true,
-      //   },
-      // },
       data: {
         distribution: [
           {
@@ -525,16 +483,12 @@ export default {
       )[0];
       this.data.rate_of_returns[3].ror = this.death_benefit.cv_1.comparison.ror;
     },
-    testFunction: function() {
-      // console.log(this.notes);
-    },
   },
   mounted() {
     if (this.comparative) {
       if (this.comparative.cv_1) {
         this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
         this.data.rate_of_returns[0].ror = this.comparative.lirp_data.rate_of_return;
-        console.log(this.data.distribution[0].distributions);
 
         this.data.distribution[1].longevity = this.comparative.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.comparative.cv_1.match_distributions.death_benefit;

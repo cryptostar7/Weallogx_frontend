@@ -248,7 +248,6 @@ export default {
       }
     },
     addBusinessLogo: function(e, type = "green") {
-      console.log(type);
       if (e) {
         if (type === "green") {
           this.businessLogoGreenFile = e.target.files[0];
@@ -270,7 +269,6 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("profile"), authHeader())
         .then(response => {
-          console.log(response.data.data);
           this.user = response.data.data;
           this.profileImg = this.user.avatar;
           this.businessLogoGreen = this.user.business_logo_green;
@@ -289,7 +287,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -382,14 +379,11 @@ export default {
 
       patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
         .then(response => {
-          console.log(response);
           this.getProfile();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          // this.$router.push("/profile-details");
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -419,8 +413,6 @@ export default {
 
       patch(`${getUrl("remove-logo")}/`, userData, authHeader())
         .then(response => {
-          console.log(response);
-
         if (type === "green") {
           this.businessLogoGreenFile = false;
           this.businessLogoGreen = null;
@@ -441,7 +433,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -502,7 +493,6 @@ export default {
       this.handleFile("dark");
     },
     handleFile: function(type = "green") {
-      console.log(type);
       if (type === "green") {
         this.businessLogoGreenFile = this.$refs.file.files[0];
         this.businessLogoGreen = URL.createObjectURL(this.$refs.file.files[0]);

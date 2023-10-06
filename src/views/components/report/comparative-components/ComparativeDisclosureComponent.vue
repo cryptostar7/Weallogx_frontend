@@ -84,12 +84,9 @@
       </div>
     </div>
   </div>
-  <!-- <button @click="testFunction">testFunction</button> -->
-
   <!-- Disclosure Required Ends -->
 </template>
 <script>
-// import { post, patch } from "../../../../network/requests";
 import { get, post, put, patch } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
@@ -115,9 +112,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function() {
-      console.log(this.cv_name);
-    },
     // map the data from API
     mapData: function() {
       this.disclosure_msg = this.$store.state.data.disclosure.comparative_msg;
@@ -178,7 +172,6 @@ export default {
         ) || [];
       this.currentItem = disclosures[0] ? disclosures[0] : [];
       if (this.currentItem.text) {
-        console.log("data saved");
         this.$refs.editableDiv.innerHTML = this.currentItem.text;
       }
     },
@@ -217,18 +210,12 @@ export default {
           .then(response => {
             this.$toast.success("Disclosure saved successfully!");
           })
-          .catch(error => {
-            console.log(error);
-          });
       } else {
         post(getUrl("disclosures"), data, authHeader())
           .then(response => {
             this.currentItem = response.data;
             this.$toast.success("Disclosure saved successfully!");
           })
-          .catch(error => {
-            console.log(error);
-          });
       }
     },
   },

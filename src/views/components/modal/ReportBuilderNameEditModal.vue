@@ -25,7 +25,6 @@
           </div>
           <div class="text-center gap-13 pt-4 mt-2 pb-2">
             <button class="btn yes-delete-btn">Save</button>
-            <button type="button" @click="testFunction" class="btn yes-delete-btn d-none">Test Function</button>
           </div>
         </form>
       </div>
@@ -50,14 +49,7 @@ export default {
       description: "",
     };
   },
-  mounted() {
-    console.log('mounted');
-  },
   methods: {
-    testFunction: function() {
-      console.log(this.$props.updateData);
-    },
-
     updateReport: function(e) {
       e.preventDefault();
 
@@ -70,19 +62,15 @@ export default {
       this.$emit('setReportDescription', data.description);
 
       this.$refs.closeModalRef.click();
-      console.log(data);
-      // return false;
 
       this.$store.dispatch("loader", true);
       patch(`${getUrl("report")}${this.$props.id}/`, data, authHeader())
         .then(response => {
-          console.log(response.data);
           this.$toast.success(response.data.message);
           // this.getClient(true);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -104,7 +92,6 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch(error => {
-          console.log(error.message);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -117,13 +104,10 @@ export default {
   },
   watch: {
     "$props.updateData" (e) {
-        console.log('updated');
-
       if(e){
         this.reportName = this.$props.name;
         this.description = this.$props.reportDescription;
         this.$emit('setUpdatedData', false);
-        console.log('data updated');
       }
     }
   }

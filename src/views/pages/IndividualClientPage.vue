@@ -98,7 +98,6 @@ export default {
       let sectionHeadingDiv = e.target.querySelector(".main-cleint-name-div");
       let upperGoBackBtn = document.getElementById("upperGoBackBtn");
       let lowerGoBackBtn = document.getElementById("lowerGoBackBtn");
-      console.log(e.target.scrollTop);
       if (e.target.scrollTop > 70) {
         lowerGoBackBtn.classList.remove("d-none");
         upperGoBackBtn.classList.add("d-none");

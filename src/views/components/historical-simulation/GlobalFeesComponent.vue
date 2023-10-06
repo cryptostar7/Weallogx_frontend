@@ -138,10 +138,7 @@ export default {
       this.loanInterest = item;
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
-    },
-    testFunction: function() {
-      console.log(this.errors);
-    },
+    }
   },
   computed: {
     illustrateYear() {
