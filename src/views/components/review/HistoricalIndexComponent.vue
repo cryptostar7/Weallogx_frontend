@@ -16,7 +16,7 @@
                 </router-link>
             </div>
             <div class="historyHead2">
-                <p>Analysis Parameters</p>
+                <p>Growth Parameters</p>
                 <p class="hisBorder"></p>
             </div>
             <form action="">
@@ -25,30 +25,6 @@
                         <label for="client name">Index</label>
                         <input type="text" class="form-control" :value="$props.data.index" readonly>
                     </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Rolling Time Period</label>
-                        <input type="text" class="form-control" :value="$props.data.rolling_time_period_years" readonly>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Analyze</label>
-                        <input type="text" class="form-control" :value="$props.data.analyze" readonly>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Credit Base Method</label>
-                        <input type="text" class="form-control" :value="$props.data.credit_base_method" readonly>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Distributions</label>
-                        <input type="text" class="form-control" :value="$props.data.distributions" readonly>
-                    </div>
-                </div>
-            </form>
-            <div class="historyHead2">
-                <p>Growth Parameters</p>
-                <p class="hisBorder"></p>
-            </div>
-            <form action="">
-                <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Cap</label>
                         <input type="text" class="form-control" :value="`${$props.data.cap_rate}%`" readonly>
@@ -79,7 +55,7 @@
                 <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Performance Multiplier</label>
-                        <input v-if="$props.data.performance_multiplier_fixed_value" type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.performance_multiplier_fixed_value_multiplier : 'N/A'" readonly>
+                        <input v-if="!$props.data.performance_multiplier_schedule_check" type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.performance_multiplier_fixed_value_multiplier : 'N/A'" readonly>
                         <p v-if="$props.data.performance_multiplier_schedule_check" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.performance_multiplier_schedule, 'rate', 'Performance Multiplier')">Scheduled 
                             <button type="button" class="schedule-icon-btn">
                                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,8 +74,8 @@
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Flat Credit/Bonus</label>
-                        <input v-if="$props.data.performance_multiplier_fixed_value" type="text" :class="`form-control ${$props.data.flat_fixed_value ? '':'NAData'}`" :value="$props.data.flat_fixed_value ? $props.data.flat_fixed_credit_bonus : 'N/A'" readonly>
-                        <p v-if="$props.data.flat_credit_schedule" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal"  @click="setSchedule($props.data.flat_credit_schedule_rate || $props.data.flat_credit_schedule_amount, $props.data.flat_credit_schedule_rate ?'rate' : 'amount', 'Flat Credit/Bonus')">Scheduled 
+                        <input v-if="!$props.data.flat_credit_schedule" type="text" :class="`form-control ${$props.data.flat_fixed_value ? '':'NAData'}`" :value="$props.data.flat_fixed_value ? $props.data.flat_fixed_credit_bonus : 'N/A'" readonly>
+                        <p v-if="$props.data.flat_credit_schedule" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal"  @click="setSchedule($props.data.flat_credit_schedule_rate || $props.data.flat_credit_schedule_amount, $props.data.flat_credit_schedule_rate ?' rate' : 'amount', 'Flat Credit/Bonus')">Scheduled 
                             <button type="button" class="schedule-icon-btn">
                                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
@@ -124,48 +100,10 @@
             </div>
             <form action="">
                 <div class="row gx-5">
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Premium Charge {{$props.data.premium_same_in_all_years}}</label>
-                        <input v-if="$props.data.premium_same_in_all_years" type="text" class="form-control" :value="`${$props.data.premium_charge}%`" readonly>
-                        <p v-if="!$props.data.premium_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.premium_charges_same_in_all_years, 'rate', 'Premium Charge')">Scheduled 
-                            <button type="button" class="schedule-icon-btn">
-                                <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
-                                    <rect x="7.3125" y="3.1875" width="0.375" height="9.625" rx="0.1875" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="3.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 3.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="6.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 6.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="9.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 9.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                </svg>
-                            </button>
-                        </p>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Same in All Years?</label>
-                        <input type="text" class="form-control" :value="$props.data.premium_same_in_all_years ? 'Yes' : 'No'" readonly>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Loan Interest Rate</label>
-                        <input v-if="$props.data.loan_same_in_all_years" type="text" class="form-control" :value="`${$props.data.loan_intrest_rate}%`" readonly>
-                        <p v-if="!$props.data.loan_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.loan_intrest_rate_same_in_all_years, 'rate', 'Loan Interest Rate')">Scheduled 
-                            <button type="button" class="schedule-icon-btn">
-                                <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
-                                    <rect x="7.3125" y="3.1875" width="0.375" height="9.625" rx="0.1875" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="3.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 3.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="6.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 6.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                    <rect x="14.8125" y="9.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 9.1875)" stroke="#0E6651" stroke-width="0.375" />
-                                </svg>
-                            </button>
-                        </p>
-                    </div>
-                    <div class="col-md-6 summaryInputsDiv">
-                        <label for="client name">Same in All Years?</label>
-                        <input type="text" class="form-control" :value="$props.data.loan_same_in_all_years ? 'Yes' : 'No'" readonly>
-                    </div>
-                    <div v-if="!$props.data.loan_intrest_charged_in_arrears" class="col-md-6 summaryInputsDiv">
+                    <div v-if="$props.data.performance_multiplier" class="col-md-6 summaryInputsDiv">
                         <label for="client name">Performance Mulitiplier Fee</label>
-                        <input v-if="$props.data.loan_in_advanced_same_in_all_years" type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.loan_in_advanced_performance_multiplier : 'N/A'" readonly>
-                         <p v-if="!$props.data.loan_in_advanced_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.loan_in_advanced_performance_multiplier_same_in_all_years, 'rate', 'Performance Mulitiplier Fee')">Scheduled 
+                        <input v-if="$props.data.performance_multiplier_fees_same_in_all_years" type="text" :class="`form-control ${$props.data.performance_multiplier_fees ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.performance_multiplier_fees : 'N/A'" readonly>
+                         <p v-if="!$props.data.performance_multiplier_fees_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.performance_multiplier_fees_same_in_all_years_schedule, 'rate', 'Performance Mulitiplier Fee')">Scheduled 
                             <button type="button" class="schedule-icon-btn">
                                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
@@ -178,15 +116,15 @@
                         </p>
                     </div>
                     
-                    <div v-if="!$props.data.loan_intrest_charged_in_arrears" class="col-md-6 summaryInputsDiv">
+                    <div v-if="$props.data.performance_multiplier" class="col-md-6 summaryInputsDiv">
                         <label for="client name">Same in All Years?</label>
-                        <input type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.loan_in_advanced_same_in_all_years ? 'Yes' : 'No'" readonly>
+                        <input type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier_fees_same_in_all_years ? 'Yes' : 'No'" readonly>
                     </div>
 
-                    <div v-if="!$props.data.loan_intrest_charged_in_arrears" class="col-md-6 summaryInputsDiv">
+                    <div v-if="$props.data.flat_credit_bonus" class="col-md-6 summaryInputsDiv">
                         <label for="client name">Flat Credit/Bonus Fee</label>
-                        <input v-if="$props.data.in_advanced_flat_credit_same_in_all_years" type="text" :class="`form-control ${$props.data.flat_credit_bonus ? '': 'NAData'}`" :value="$props.data.flat_credit_bonus ? $props.data.in_advanced_flat_credit_bonus_fees : 'N/A'" readonly>
-                        <p v-if="!$props.data.in_advanced_flat_credit_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.in_advanced_flat_credit_bonus_fees_same_in_all_years, 'rate', 'Flat Credit/Bonus Fee')">Scheduled 
+                        <input v-if="$props.data.flat_credit_bonus_fees_same_in_all_years" type="text" :class="`form-control ${$props.data.flat_credit_bonus ? '': 'NAData'}`" :value="$props.data.flat_credit_bonus ? $props.data.flat_credit_bonus_fees : 'N/A'" readonly>
+                        <p v-if="!$props.data.flat_credit_bonus_fees_same_in_all_years" class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule($props.data.flat_credit_bonus_fees_same_in_all_years_schedule, 'rate', 'Flat Credit/Bonus Fee')">Scheduled 
                             <button type="button" class="schedule-icon-btn">
                                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
@@ -199,12 +137,12 @@
                         </p>
                     </div>
                     
-                    <div v-if="!$props.data.loan_intrest_charged_in_arrears" class="col-md-6 summaryInputsDiv">
+                    <div v-if="$props.data.flat_credit_bonus" class="col-md-6 summaryInputsDiv">
                         <label for="client name">Same in All Years?</label>
                         <input type="text" :class="`form-control ${$props.data.flat_credit_bonus ? '': 'NAData'}`"  :value="$props.data.in_advanced_flat_credit_same_in_all_years ? 'Yes' : 'No'" readonly>
                     </div>
 
-                    <div v-if="!$props.data.loan_intrest_charged_in_arrears" class="col-md-6 summaryInputsDiv">
+                    <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">High Cap Fee</label>
                         <input type="text" class="form-control" :value="`${$props.data.high_cap_fee}%`">
                     </div>

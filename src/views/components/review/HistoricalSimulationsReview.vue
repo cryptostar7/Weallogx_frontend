@@ -20,7 +20,7 @@
                     <div class="historyHead2 row justify-content-between align-items-center">
                       <div class="col-md-4">
                         <div class="historyHead2 mb-1 d-flex justify-content-between align-items-center">
-                        <p class="fs-24">Global Parameters</p>
+                        <p class="fs-24" @click="testFunction">Global Parameters</p>
                         
                         <a href="/historical-simulations/658?tab=1&amp;review=true" class="editbtnCommonAncor">
                             <button class="btn editBtnCommon">
@@ -44,16 +44,16 @@
                       
                     <form action="">
                         <div class="row gx-5 global-parameter-row flex-wrap">
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Rolling Time Period</label><p class="summaryVehiclePara pt-1">10</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Analyze</label><p class="summaryVehiclePara pt-1">Index</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Credit Base Method</label><p class="summaryVehiclePara pt-1">Average</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Rolling Time Period</label><p class="summaryVehiclePara pt-1">{{data.rolling_time_period_years}}</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Analyze</label><p class="summaryVehiclePara pt-1">{{data.analyze}}</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Credit Base Method</label><p class="summaryVehiclePara pt-1">{{data.credit_base_method}}</p></div>
                             <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Distributions
-                            </label><p class="summaryVehiclePara pt-1">Monthly</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Premium Charge</label><p class="summaryVehiclePara pt-1">5%</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">Yes</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest</label><p class="summaryVehiclePara pt-1">5.5%</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">Yes</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest Charged</label><p class="summaryVehiclePara pt-1">In Advance</p></div>
+                            </label><p class="summaryVehiclePara pt-1">{{data.distributions}}</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Premium Charge</label><p class="summaryVehiclePara pt-1">{{Number(data.premium_charge)}}%</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.premium_charges_same_in_all_years ? 'Yes' : 'No'}}</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest</label><p class="summaryVehiclePara pt-1">{{Number(data.loan_intrest_rate)}}%</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.loan_same_in_all_years ? 'Yes' : 'No'}}</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest Charged</label><p class="summaryVehiclePara pt-1">{{data.loan_intrest_charged_in_advanced ? 'In Advance' : 'In Arrears'}}</p></div>
                         </div>
                     </form>
                 </div>
@@ -84,6 +84,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function() {
+      console.log(this.data);
+    },
     setSchedule: function(data = [], type, title) {
       this.scheduleType = type;
       this.schedules = data;
