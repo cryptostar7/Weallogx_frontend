@@ -2,9 +2,12 @@
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
-        <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
-        <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+        <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`"
+            class="nav-link p-0">Scenario Details</router-link></li>
+        <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`"
+            class="nav-link p-0">Illustration Data</router-link></li>
+        <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`"
+            class="nav-link p-0">Comparative Vehicles</router-link></li>
         <li class="active"><router-link to="" class="nav-link p-0">Historical Simulations</router-link></li>
       </ul>
 
@@ -23,9 +26,11 @@
                   <div class="col-md-10 offset-md-1">
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="d-flex align-items-center">
-                        <label class="historical-paraCheckBox" for="scheduleTemplateCheckbox">Historical Simulations</label>
+                        <label class="historical-paraCheckBox" for="scheduleTemplateCheckbox">Historical
+                          Simulations</label>
                         <div class="form-check form-switch custom-switch ms-2">
-                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked @change="skipHistoricalStep">
+                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox"
+                            checked @change="skipHistoricalStep">
                         </div>
                       </div>
                       <div>
@@ -34,20 +39,31 @@
                     </div>
                     <div class="after-yes-middle-div my-2">
                       <p class="afterYesMdlPara pb-2">How would you like to build your Index Strategy Allocation?</p>
-                      <div class="twoBtnSwtchMainDiv nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <div :class="`${createFormScratch ? 'active' : ''}`" id="v-pills-scratch-tab" data-bs-toggle="pill" data-bs-target="#v-pills-scratch" type="button" role="tab" aria-controls="v-pills-scratch" aria-selected="true" @click="createFormScratch = true">Create from Scratch</div>
-                        <div :class="`${createFormScratch ? '' : 'active'}`" id="v-pills-indexStrategy-tab" data-bs-toggle="pill" data-bs-target="#v-pills-indexStrategy" type="button" role="tab" aria-controls="v-pills-indexStrategy" aria-selected="false" @click="createFormScratch = false">Use Existing Index Strategy Allocation</div>
+                      <div class="twoBtnSwtchMainDiv nav nav-pills" id="v-pills-tab" role="tablist"
+                        aria-orientation="vertical">
+                        <div :class="`${createFormScratch ? 'active' : ''}`" id="v-pills-scratch-tab"
+                          data-bs-toggle="pill" data-bs-target="#v-pills-scratch" type="button" role="tab"
+                          aria-controls="v-pills-scratch" aria-selected="true" @click="createFormScratch = true">Create
+                          from Scratch</div>
+                        <div :class="`${createFormScratch ? '' : 'active'}`" id="v-pills-indexStrategy-tab"
+                          data-bs-toggle="pill" data-bs-target="#v-pills-indexStrategy" type="button" role="tab"
+                          aria-controls="v-pills-indexStrategy" aria-selected="false"
+                          @click="createFormScratch = false">Use Existing Index Strategy Allocation</div>
                       </div>
                       <div class="tab-content mt-4" id="v-pills-tabContent">
-                        <div :class="`tab-pane fade ${createFormScratch ? 'show active' : ''}`" id="v-pills-scratch" role="tabpanel" aria-labelledby="v-pills-scratch-tab">
-                        
+                        <div :class="`tab-pane fade ${createFormScratch ? 'show active' : ''}`" id="v-pills-scratch"
+                          role="tabpanel" aria-labelledby="v-pills-scratch-tab">
+
                         </div>
-                        <div :class="`tab-pane fade ${createFormScratch ? '' : 'show active'}`" id="v-pills-indexStrategy" role="tabpanel"  aria-labelledby="v-pills-indexStrategy-tab">
+                        <div :class="`tab-pane fade ${createFormScratch ? '' : 'show active'}`"
+                          id="v-pills-indexStrategy" role="tabpanel" aria-labelledby="v-pills-indexStrategy-tab">
                           <div class="container">
                             <div class="row">
                               <div class="col-md-8 offset-md-2 strategyAllocation">
                                 <form action="javascript:void(0)">
-                                  <SelectDropdown :list="portfolio" label="Choose Existing Index Strategy Allocation"  id="historicalIndexPortfolio" class="form-group less pt-3" @inputText="(e) => portfolioName = e"/>
+                                  <SelectDropdown :list="portfolio" label="Choose Existing Index Strategy Allocation"
+                                    id="historicalIndexPortfolio" class="form-group less pt-3"
+                                    @inputText="(e) => portfolioName = e" />
                                 </form>
                               </div>
                             </div>
@@ -56,156 +72,229 @@
                       </div>
 
 
+                    <div v-if="createFormScratch">
                       <div class="historical-upload-info d-flex">
-                        <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><ellipse class="first-ellipse" cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5" fill="#0E6651"/><ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white"/><rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white"/></svg></div>
-                          <p class="fs-12 mb-0">It is highly recommended to upload a bare-bones version of the illustration that is accumulation only. Do not include loans, withdrawals, or optional enhancements (such as multipliers or credits) regardless of whether or not they cost additional fees. Those elements will be added later in the process.</p>
-                          </div>
-                          <div class="pt-2">
-                            <div class="form-wrapper-inner px-0 shadow-none">
-                              <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
-                                <li class="nav-item" role="presentation">  
-                                  <button :class="`nav-link ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
-                                    <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                                      <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                      <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                                      <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"  transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                                      <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                      <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
-                                    </svg> &nbsp;Upload From File 
-                                  </button> 
-                                </li>
-                                <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
-                                  <button :class="`nav-link ${uploadFromFile ? '' : 'active'}`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
-                                    <svg class="copyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                      <rect width="7" height="7" rx="1" fill="black" />
-                                      <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
-                                    </svg> &nbsp;Copy/Paste 
-                                  </button> 
-                                </li>
-                              </ul>
-                              <div class="tab-content pt-3 mt-1">
-                                <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
-                                  <small class="text-danger" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</small>
-                                  <div class="pb-4"> 
-                                    <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}" @drop="handleDragFile" @dragover="dragover" @dragleave="dragleave"> 
-                                      <input type="file" accept=".pdf" id="uploading" name="uploading" ref="file" hidden @change="handleFile"/> 
-                                      <span>
-                                        <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
-                                      </span>
-                                      <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Drag & Drop </h6>
-                                      <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
-                                      <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
-                                      <button type="button" class="btn choose-file-btn"> Choose File </button> 
-                                      <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
-                                      <div :class="`pdf-spinner text-center ${fileLoader ? '' : 'd-none'}`">
-                                        <div>
-                                          <div class="d-flex justify-content-center">
-                                            <div class="spinner-border text-secondary" role="status"></div>
-                                          </div>
-                                          <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
-                                        </div>
+                        <div class="me-2 d-flex"><svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                            <ellipse class="first-ellipse" cx="6.57563" cy="7.14709" rx="6.57563" ry="6.5"
+                              fill="#0E6651" />
+                            <ellipse cx="6.57609" cy="4.14709" rx="1.01163" ry="1" fill="white" />
+                            <rect x="5.81641" y="6.14709" width="1.51745" height="5" rx="0.758726" fill="white" />
+                          </svg></div>
+                        <p class="fs-12 mb-0">It is highly recommended to upload a bare-bones version of the
+                          illustration that is accumulation only. Do not include loans, withdrawals, or optional
+                          enhancements (such as multipliers or credits) regardless of whether or not they cost
+                          additional fees. Those elements will be added later in the process.</p>
+                      </div>
+                      <div class="pt-2">
+                        <div class="form-wrapper-inner px-0 shadow-none">
+                          <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <button :class="`nav-link ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab"
+                                @click="() => uploadFromFile = true" data-bs-toggle="tab"
+                                data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile"
+                                :aria-selected="uploadFromFile ? true : false">
+                                <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black"
+                                    stroke-width="0.5" />
+                                  <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25"
+                                    transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
+                                  <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
+                                    transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
+                                  <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"
+                                    transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
+                                  <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25"
+                                    transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
+                                  <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25"
+                                    transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
+                                </svg> &nbsp;Upload From File
+                              </button>
+                            </li>
+                            <li class="nav-item" role="presentation" @click="() => uploadFromFile = false">
+                              <button :class="`nav-link ${uploadFromFile ? '' : 'active'}`" id="copyPaste-tab"
+                                data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab"
+                                aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true">
+                                <svg class="copyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <rect width="7" height="7" rx="1" fill="black" />
+                                  <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
+                                </svg> &nbsp;Copy/Paste
+                              </button>
+                            </li>
+                          </ul>
+                          <div class="tab-content pt-3 mt-1">
+                            <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile"
+                              role="tabpanel" aria-labelledby="uploadFromFile-tab">
+                              <small class="text-danger"
+                                v-if="errors.illustration_file">{{errors.illustration_file[0]}}</small>
+                              <div class="pb-4">
+                                <label for="uploading"
+                                  class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden"
+                                  :style="{'border-color':errors.illustration_file ? 'red':''}" @drop="handleDragFile"
+                                  @dragover="dragover" @dragleave="dragleave">
+                                  <input type="file" accept=".pdf" id="uploading" name="uploading" ref="file" hidden
+                                    @change="handleFile" />
+                                  <span>
+                                    <img src="@/assets/images/icons/table-drag.svg" class="img-fluid"
+                                      alt="Drag & Drop" />
+                                  </span>
+                                  <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Drag & Drop </h6>
+                                  <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section
+                                  </p>
+                                  <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span>
+                                  <button type="button" class="btn choose-file-btn"> Choose File </button>
+                                  <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
+                                  <div :class="`pdf-spinner text-center ${fileLoader ? '' : 'd-none'}`">
+                                    <div>
+                                      <div class="d-flex justify-content-center">
+                                        <div class="spinner-border text-secondary" role="status"></div>
                                       </div>
-                                    </label>
-                                    <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${illustrationFile.type === 'new' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
-                                  </div>
-                                </div>
-                                <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
-                                  <small class="text-danger" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</small>
-                                  <div class="copy-paste-area">
-                                    <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
-                                    <div class="form-group mb-0"> 
-                                      <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                                      <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV"></textarea> 
+                                      <span class="small mt-3 d-inline-block">Please wait while we are extracting your
+                                        data from the PDF file</span>
                                     </div>
                                   </div>
-                                </div>
-                                <div class="cur-ol-label text-center"> <label>or</label> </div>
-                                  <div class="form-check form-switch custom-switch mt-2 d-flex align-items-center justify-content-center">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="useCurrentIllustration" @change="setIllustratioCsv">
-                                    <label class="form-check-label ms-1 fs-12 semi-bold-fw mb-0" for="useCurrentIllustration"> Use Current Illustration</label>
-                                  </div>
+                                </label>
+                                <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${illustrationFile.type === 'new' ? '':'d-none'}`"
+                                  id="fileName">{{illustrationFile.name}}</p>
                               </div>
                             </div>
+                            <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste"
+                              role="tabpanel" aria-labelledby="copyPaste-tab">
+                              <small class="text-danger"
+                                v-if="errors.illustration_text">{{errors.illustration_text[0]}}</small>
+                              <div class="copy-paste-area">
+                                <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
+                                <div class="form-group mb-0">
+                                  <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label>
+                                  <textarea name="" id="pasteData" cols="30" rows="5" class="form-control"
+                                    @paste="handleCSV"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="cur-ol-label text-center"> <label>or</label> </div>
+                            <div
+                              class="form-check form-switch custom-switch mt-2 d-flex align-items-center justify-content-center">
+                              <input class="form-check-input" type="checkbox" role="switch" id="useCurrentIllustration"
+                                @change="setIllustratioCsv">
+                              <label class="form-check-label ms-1 fs-12 semi-bold-fw mb-0" for="useCurrentIllustration">
+                                Use Current Illustration</label>
+                            </div>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+
+
                     </div>
                   </div>
                 </div>
               </div>
-
               <!-- table start -->
-              <div v-if="csvPreview.headers.length" :class="`illustration-data-table-div w-100`">
-                <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
+              <div v-if="csvPreview.headers.length"
+                :class="`illustration-data-table-div w-100 ${createFormScratch ? '' : 'd-none'}`">
+                <h4 class="fs-22 bold-fw mb-3 pb-4">Categorize, Review and Edit Data</h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                    <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
-                      <button type="button" class="btn add-table-column-btn">+ Add Column</button>
-                      <button type="button" v-if="removeColId.length" class="btn add-table-column-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
-                      <button type="button" v-else class="btn add-table-column-btn" @click="$toast.warning('No column selected for deletion.')">- Delete Column</button>
-                      <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
-                    </div>
-                    <div class="d-flex additional-textarea py-3 d-none">
-                      <div class="flex-1">
-                        <div class="tab-content mt-1">
-                        <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
-                          <small class="text-danger" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</small>
-                          <div class=""> 
-                            <label for="uploading2" class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
-                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="handleFile2"/> 
+                  <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
+                    <button type="button" class="btn add-table-column-btn">+ Add Column</button>
+                    <button type="button" v-if="removeColId.length" class="btn add-table-column-btn"
+                      data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
+                    <button type="button" v-else class="btn add-table-column-btn"
+                      @click="$toast.warning('No column selected for deletion.')">- Delete Column</button>
+                    <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset
+                      Table</button>
+                  </div>
+                  <div class="d-flex additional-textarea py-3 d-none">
+                    <div class="flex-1">
+                      <div class="tab-content mt-1">
+                        <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile"
+                          role="tabpanel" aria-labelledby="addFromFile-tab">
+                          <small class="text-danger"
+                            v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</small>
+                          <div class="">
+                            <label for="uploading2"
+                              class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3"
+                              :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile"
+                              @dragover="dragover" @dragleave="dragleave">
+                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden
+                                @change="handleFile2" />
                               <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
-                              <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
-                              <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
-                              <button type="button" class="btn choose-file-btn"> Choose File </button> 
+                              <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section
+                              </p>
+                              <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span>
+                              <button type="button" class="btn choose-file-btn"> Choose File </button>
                               <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
                               <div :class="`pdf-spinner text-center ${fileLoader2 ? '' : 'd-none'}`">
                                 <div>
                                   <div class="d-flex justify-content-center">
                                     <div class="spinner-border text-secondary" role="status"></div>
                                   </div>
-                                  <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                                  <span class="small mt-3 d-inline-block">Please wait while we are extracting your data
+                                    from the PDF file</span>
                                 </div>
                               </div>
                             </label>
-                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName2">{{illustrationFile.name}}</p>
+                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`"
+                              id="fileName2">{{illustrationFile.name}}</p>
                           </div>
                         </div>
-                        <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste" role="tabpanel" aria-labelledby="addCopyPaste-tab">
-                          <div class="copy-paste-area mb-0 p-1"  :style="{'border-color':errors.illustration_csv2 ? 'red':''}">
-                            <div class="form-group mb-0"> 
-                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5" class="form-control" placeholder="Paste your data here" @keypress="clearError('illustration_csv2')"></textarea>
+                        <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste"
+                          role="tabpanel" aria-labelledby="addCopyPaste-tab">
+                          <div class="copy-paste-area mb-0 p-1"
+                            :style="{'border-color':errors.illustration_csv2 ? 'red':''}">
+                            <div class="form-group mb-0">
+                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5"
+                                class="form-control" placeholder="Paste your data here"
+                                @keypress="clearError('illustration_csv2')"></textarea>
                             </div>
                           </div>
                         </div>
                       </div>
-                      </div>
-                      <div class="ps-3 flex-shrink-0">
-                        <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
-                          <li class="nav-item" role="presentation"> 
-                            <button :class="`nav-link py-12 uploadFromFile ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
-                              <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                                <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25" transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                                <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
-                              </svg> &nbsp;By Uploading File 
-                            </button> 
-                          </li>
-                          <li class="nav-item" role="presentation" @click="() => addFromFile = false"> 
-                            <button :class="`nav-link py-12 copyPaste ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
-                              <svg class="addCopyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="7" height="7" rx="1" fill="black" />
-                                <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
-                              </svg> &nbsp;By Pasting Data
-                            </button> 
-                          </li>
-                        </ul>
-                        <div class="d-flex flex-column mt-2">
-                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Submit</button>
-                          <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn" @click="resetAddDiv"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
-                        </div>
+                    </div>
+                    <div class="ps-3 flex-shrink-0">
+                      <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button :class="`nav-link py-12 uploadFromFile ${addFromFile ? 'active' : ''}`"
+                            id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab"
+                            data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile"
+                            :aria-selected="addFromFile ? true : false">
+                            <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black"
+                                stroke-width="0.5" />
+                              <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25"
+                                transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
+                              <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25"
+                                transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
+                              <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"
+                                transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
+                              <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25"
+                                transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
+                              <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25"
+                                transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
+                            </svg> &nbsp;By Uploading File
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation" @click="() => addFromFile = false">
+                          <button :class="`nav-link py-12 copyPaste ${addFromFile ? '' : 'active'} space-nowrap`"
+                            id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button"
+                            role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true">
+                            <svg class="addCopyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <rect width="7" height="7" rx="1" fill="black" />
+                              <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
+                            </svg> &nbsp;By Pasting Data
+                          </button>
+                        </li>
+                      </ul>
+                      <div class="d-flex flex-column mt-2">
+                        <button type="button" class="nav-link btn add-data-btn fs-14 active px-3"
+                          @click="addMoreCol()">+ Submit</button>
+                        <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn"
+                          @click="resetAddDiv"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid"
+                            alt="Delete" width="10" height="10" /> Cancel</button>
                       </div>
                     </div>
+                  </div>
                   <div class="div-wrapper px-3">
                     <div class="div-wrapper-inner"></div>
                   </div>
@@ -213,24 +302,35 @@
                     <table class="table illustration-data-table mb-0">
                       <tbody>
                         <tr>
-                          <td v-for="(header, index) in csvPreview.headers" :key="index" >
-                            <div class="d-flex flex-column align-items-center px-2"> 
-                              <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="Number(header) === Number(index2)" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
-                              </select> 
+                          <td v-for="(header, index) in csvPreview.headers" :key="index">
+                            <div class="d-flex flex-column align-items-center px-2">
+                              <select name="" :id="`headerSelectInput${index}`" class="form-select select-option"
+                                @change="(e) => setHeader(e, index)">
+                                <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2"
+                                  :selected="Number(header) === Number(index2)"
+                                  :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">
+                                  {{item.name}}</option>
+                              </select>
                             </div>
                           </td>
                         </tr>
                         <tr>
-                          <th v-for="(item, index) in csvPreview.headers" :key="index" :class="removeColId.includes(index) ? 'checked':''">
-                            <div class="d-flex justify-content-center align-items-center"> 
-                              <input :id="`c${index}`" type="checkbox" class="header-check me-1" :checked="removeColId.includes(index)" @click="deleteCheckbox(index)"> 
-                              <label class="cursor-pointer" :for="`c${index}`">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}} </label>
+                          <th v-for="(item, index) in csvPreview.headers" :key="index"
+                            :class="removeColId.includes(index) ? 'checked':''">
+                            <div class="d-flex justify-content-center align-items-center">
+                              <input :id="`c${index}`" type="checkbox" class="header-check me-1"
+                                :checked="removeColId.includes(index)" @click="deleteCheckbox(index)">
+                              <label class="cursor-pointer" :for="`c${index}`">{{item ?
+                                `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` :
+                                '--'}} </label>
                             </div>
-                            </th>
+                          </th>
                         </tr>
                         <tr v-for="(item, index) in csvPreview.data.length" :key="index">
-                          <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
+                          <td v-for="(list, cell) in csvPreview.headers" :key="cell">
+                            <div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ?
+                              csvPreview.data[index][cell] : '' }}</div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -238,11 +338,14 @@
                 </div>
               </div>
               <div class="text-center mt-30 pt-3">
-                <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()" :disabled="!isvalidCsvData">Next</button>
+                <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct"
+                  @click="submitHandler()" :disabled="!isvalidCsvData">Next</button>
                 <span class="d-block mb-3"></span>
                 <div class="d-flex justify-content-center">
-                  <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14">
-                  <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back</router-link>
+                  <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`"
+                    class="nav-link btn form-back-btn px-4 fs-14">
+                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6">
+                    Back</router-link>
                 </div>
               </div>
             </div>
@@ -250,28 +353,32 @@
         </div>
       </div>
     </div>
-    <delete-colomn-modal @removeCol="removeColumn"/> 
-    <div class="modal fade pdf-preview-canvas-modal" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
+    <delete-colomn-modal @removeCol="removeColumn" />
+    <div class="modal fade pdf-preview-canvas-modal" id="pdfPreviewCanvasModal" tabindex="-1"
+      aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid" alt="close" /></button>
+          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"><img
+              src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid" alt="close" /></button>
           <div class="modal-body text-center my-4">
             <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
             <p class="preview-modal-heading2 mt-0">Just click the box to select the relevant page</p>
-                <div class="container">
-                  <div id="pdfPreview" class="row"></div>
-              </div>
+            <div class="container">
+              <div id="pdfPreview" class="row"></div>
+            </div>
           </div>
           <div class="preview-modal-bottom-div py-3">
             <div class="d-flex justify-content-center">
-              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="extractPdf()">Done</a>
-              <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal" aria-label="Close">Cancel</a>
+              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal"
+                aria-label="Close" @click="extractPdf()">Done</a>
+              <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal"
+                aria-label="Close">Cancel</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <input type="hidden" id="extractPageNumber"/>
+    <input type="hidden" id="extractPageNumber" />
   </section>
 </template>
 <script>
@@ -282,12 +389,15 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 
-import "https://mozilla.github.io/pdf.js/build/pdf.js";
+// Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.js";
+import "/src/assets/js/pdfjs-3.11.174/build/pdf.js";
+
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
+
+// Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
 
 const fileReader = new FileReader();
 export default {
@@ -1247,8 +1357,8 @@ export default {
     },
     //populate previous data
     populatePreviousData: function(id) {
-      get(`${getUrl("historical-simulation-object")}${id}`, authHeader())
-        .then(response => {
+      get(`${getUrl("historical-simulation-object")}${id}`, authHeader()).then(
+        response => {
           let data = response.data;
           this.uploadFromFile = data.upload_file_checkbox;
           let filteredCsv = { data: [], headers: [] };
@@ -1285,7 +1395,8 @@ export default {
               this.setScrollbar();
             }
           }
-        })
+        }
+      );
     },
   },
   mounted() {
@@ -1379,8 +1490,12 @@ export default {
       };
     },
     isvalidCsvData() {
-      if (!this.createFormScratch && !this.getPortfolioId()) {
-        return false;
+      if (!this.createFormScratch) {
+        if (this.getPortfolioId()) {
+          return true;
+        } else {
+          return false;
+        }
       }
 
       if (
