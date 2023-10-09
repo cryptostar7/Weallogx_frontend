@@ -20,7 +20,7 @@
                 <p class="hisBorder"></p>
             </div>
             <form action="">
-                <div class="row">
+                <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Index</label>
                         <input type="text" class="form-control" :value="$props.data.index" readonly>
@@ -48,7 +48,7 @@
                 <p class="hisBorder"></p>
             </div>
             <form action="">
-                <div class="row">
+                <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Cap</label>
                         <input type="text" class="form-control" :value="`${$props.data.cap_rate}%`" readonly>
@@ -76,7 +76,7 @@
                 <p class="hisBorder"></p>
             </div>
             <form action="">
-                <div class="row">
+                <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Performance Multiplier</label>
                         <input v-if="$props.data.performance_multiplier_fixed_value" type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.performance_multiplier_fixed_value_multiplier : 'N/A'" readonly>
@@ -123,7 +123,7 @@
                 <p class="hisBorder"></p>
             </div>
             <form action="">
-                <div class="row">
+                <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Premium Charge {{$props.data.premium_same_in_all_years}}</label>
                         <input v-if="$props.data.premium_same_in_all_years" type="text" class="form-control" :value="`${$props.data.premium_charge}%`" readonly>

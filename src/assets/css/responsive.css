@@ -52,9 +52,17 @@
     .theme-dropdown-responsive {
         width: 100%;
     }
+    .global-parameter-row .col-20 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
 }
 
 @media (max-width:768px) {
+    .global-parameter-row .col-20 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
 
     .lifeProPlus {
         height: 262px !important;

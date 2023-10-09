@@ -12,8 +12,52 @@
               </button>
             </router-link>
         </div>
+
         <div class="container-fluid summary-editBox py-4">
             <div class="row">
+              <div class="col-md-12 mb-4">
+                <div class="compVehcleCol pb-0">
+                    <div class="historyHead2 row justify-content-between align-items-center">
+                      <div class="col-md-4">
+                        <div class="historyHead2 mb-1 d-flex justify-content-between align-items-center">
+                        <p class="fs-24">Global Parameters</p>
+                        
+                        <a href="/historical-simulations/658?tab=1&amp;review=true" class="editbtnCommonAncor">
+                            <button class="btn editBtnCommon">
+                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651" stroke-width="2"></rect>
+                                    <path
+                                        d="M16.5389 1.11109C16.1679 0.740094 15.5664 0.740092 15.1954 1.11109L7.33093 8.9756C6.42617 9.88036 6.42617 11.3473 7.33093 12.252C8.23569 13.1568 9.70261 13.1568 10.6074 12.252L18.4719 4.38753C18.8429 4.01653 18.8429 3.41502 18.4719 3.04403L16.5389 1.11109Z"
+                                        fill="#0E6651"
+                                        stroke="#0E6651"
+                                        stroke-width="1.5"
+                                    ></path>
+                                    <path d="M6.5 13.5L7.5 10L9.5 12L6.5 13.5Z" fill="#0E6651"></path>
+                                </svg>
+                            </button>
+                          </a>
+                        </div>
+                        <p class="hisBorder"></p>
+                      </div>
+
+                      </div>
+                      
+                    <form action="">
+                        <div class="row gx-5 global-parameter-row flex-wrap">
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Rolling Time Period</label><p class="summaryVehiclePara pt-1">10</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Analyze</label><p class="summaryVehiclePara pt-1">Index</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Credit Base Method</label><p class="summaryVehiclePara pt-1">Average</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Distributions
+                            </label><p class="summaryVehiclePara pt-1">Monthly</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Premium Charge</label><p class="summaryVehiclePara pt-1">5%</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">Yes</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest</label><p class="summaryVehiclePara pt-1">5.5%</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">Yes</p></div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest Charged</label><p class="summaryVehiclePara pt-1">In Advance</p></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
                 <historical-index-component tab="1" :data="data.index_strategy_1" @setSchedule="setSchedule" :col="column"/>
                 <historical-index-component tab="2" :data="data.index_strategy_2" @setSchedule="setSchedule" :col="column"/>
                 <historical-index-component tab="3" :data="data.index_strategy_3" @setSchedule="setSchedule" :col="column"/>
