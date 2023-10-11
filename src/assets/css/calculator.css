@@ -1171,3 +1171,247 @@ table.index-strategy-table tr th {
 .table-plus-btn.green::after{
     background-color: transparent;
 }
+
+/* Tax Score Card */
+.index-strategy-head-div.tax-scorcard h1::before {
+    left: 58px;
+}
+
+.index-strategy-inputs-div label span.optional-label {
+    color: #A1A1A1;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.task-risk-analysis-main-div {
+    padding-inline: 40px;
+    border-top: 1.25px solid #DFDFDF;
+    padding-top: 60px;
+}
+
+.task-risk-analysis-main-div .ComparativeTableMainDiv p.inner-heading {
+    color: #000;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.task-risk-analysis-main-div .ComparativeTableMainDiv svg {
+    cursor: pointer;
+}
+
+.tax-risk-analysis-outer-div {
+    padding-inline: 25px;
+    padding-block: 40px 30px;
+}
+
+.task-risk-analysis-main-div .tax-risk-each-card-row .card-inner-div {
+    padding: 20px;
+}
+
+.task-risk-analysis-main-div .tax-risk-each-card-row .card-inner-div .each-card-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.task-risk-analysis-main-div .tax-risk-each-card-row .card-inner-div .each-card-row:last-child {
+    margin-bottom: 0;
+}
+
+.tax-risk-each-card-row .card-inner-div .each-card-row .left-text {
+    color: #000;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.tax-risk-each-card-row .card-inner-div .each-card-row .right-text {
+    color: #000;
+    text-align: right;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.tax-risk-each-card-row .card-inner-div .each-card-row .left-text.total {
+    font-weight: 700;
+}
+
+.tax-risk-each-card-row .card-inner-div .each-card-row .right-text.total {
+    font-weight: 700;
+}
+
+.tax-risk-each-card {
+    border-radius: 12px;
+    border: 1px solid #DFDFDF;
+    background: #FFF;
+    box-shadow: 0px 0.25px 3px 0px rgba(0, 0, 0, 0.25);
+    height: 100%;
+}
+
+.task-risk-analysis-main-div .heading-para-tax-risk {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 35px 5px;
+    width: 100%;
+    background-color: #147D64;
+    margin: 0;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.task-risk-analysis-main-div .heading-para-tax-risk.card1 {
+    background-color: #147D64;
+}
+
+.task-risk-analysis-main-div .heading-para-tax-risk.card2 {
+    background-color: #1660A4;
+}
+
+.tax-details-graph-main-div {
+    padding: 30px 48px;
+    margin-top: 35px;
+    border-radius: 12px;
+    border: 1px solid #DFDFDF;
+    box-shadow: 0px 0.25px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.tax-details-tab-ul {
+    max-width: 435px;
+    width: 100%;
+    border-radius: 50px;
+    background: #FFF;
+    box-shadow: 0px 0.25px 2px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+    margin-inline: auto;
+}
+
+.tax-details-tab-ul li {
+    width: 100%;
+}
+
+.tax-details-tab-ul li button {
+    display: block;
+    box-shadow: none !important;
+    outline: none;
+    border: none;
+    width: 100%;
+    border-radius: 50px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.tax-details-tab-ul li button.active {
+    background: #0E6651;
+    color: #fff;
+}
+.tax-details-tab-ul li button.active.rothTaxTav {
+    background: #1660A4;
+}
+.each-tax-details-bar{
+    margin-top: 10px;
+}
+.each-tax-details-bar .heading {
+    position: relative;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.each-tax-details-bar .heading::before {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 10px;
+    left: 0;
+    bottom: 0;
+}
+
+.each-tax-details-bar .heading.clr1::before {
+    background: #25967B;
+}
+
+.each-tax-details-bar .heading.clr2::before {
+    background: #287BC7;
+}
+
+.each-tax-details-bar .heading.clr3::before {
+    background: #9453C8;
+}
+
+.each-tax-details-bar .heading.clr4::before {
+    background: #F67F4C;
+}
+
+.each-tax-details-bar .heading.clr5::before {
+    background: #C04141;
+}
+.each-tax-details-bar .heading.clr6::before {
+    background: #BAB42C;
+}
+
+.tax-details-each-bars {
+    border-radius: 5px;
+    border: 1.25px solid #DFDFDF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    color: #000;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tax-details-each-bars.barClr1{
+    background: #0E6651;
+}
+.tax-details-each-bars.barClr2{
+    background: #1660A4;
+}
+.tax-details-each-bars.barClr3{
+    background: #763CA3;
+}
+.tax-details-each-bars.barClr4{
+    background: #E8662F;
+}
+.tax-details-each-bars.barClr5{
+    background: #9D2B2B;
+}
+.tax-details-each-bars.barClr6{
+    background: #BAB42C;
+}
+
+
+
+.common-modal .modal-dialog.tax-score-preview-modal {
+    max-width: 975px !important;
+    margin: 1.5rem auto !important;
+    height: auto !important;
+}
+
+.common-modal .modal-dialog.tax-score-preview-modal .modal-content{
+    background-color: transparent;
+}
+.common-modal .index-strategy-inputs-div{
+    padding-bottom: 60px;
+    }
+.common-modal .run-reset-btn-div{
+padding-bottom: 40px!important;
+}

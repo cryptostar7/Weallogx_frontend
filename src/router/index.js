@@ -170,6 +170,16 @@ const router = createRouter({
       component: () => import("../views/pages/IndexStrategyCalculatorRun.vue"),
     },
     {
+      path: "/tax-score-card",
+      name: "tax-score-card",
+      component: () => import("../views/pages/TaxScoreCard.vue"),
+    },
+    {
+      path: "/tax-risk-analysis",
+      name: "tax-risk-analysis",
+      component: () => import("../views/pages/TaxRiskAnalysis.vue"),
+    },
+    {
       path: "/tech-error",
       name: "tech-error",
       component: () => import("../views/pages/TechnicalError.vue"),
