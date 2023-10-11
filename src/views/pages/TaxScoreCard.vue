@@ -12,7 +12,11 @@
                             <div class="strategy-calc-main-div shadow-none">
                                 <div class="index-strategy-head-div tax-scorcard">
                                     <h1>Tax Scorecard</h1>
+<<<<<<< HEAD
                                     <router-link href="#" class="back d-none"><img src="@/assets/images/icons/back-small.svg" alt="Back">Back to Parameters Screen</router-link>
+=======
+                                    <a href="#" class="back d-none"><img src="images/icons/back-small.svg" alt="Back">Back to Parameters Screen</a>
+>>>>>>> 75833737c73a4849b435827ef9a59dc957fc9e46
                                 </div>
 
                                 <div class="index-strategy-content-div">
