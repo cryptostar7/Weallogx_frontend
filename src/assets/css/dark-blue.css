@@ -4690,3 +4690,127 @@ background: #0C4A83;
 .dark-blue .disclosure-radios input[type=checkbox]:checked ~ label{
   color: var(--blue-clr-2);
 }
+
+/* Tax Score Card */
+
+.dark-blue .index-strategy-inputs-div label span.optional-label {
+  color: #fff;
+}
+
+.dark-blue .task-risk-analysis-main-div .ComparativeTableMainDiv p.inner-heading {
+  color: #fff;
+}
+
+.dark-blue .tax-risk-each-card-row .card-inner-div .each-card-row .left-text {
+  color: #fff;
+}
+
+.dark-blue .tax-risk-each-card-row .card-inner-div .each-card-row .right-text {
+  color: #fff;
+}
+
+.dark-blue .tax-risk-each-card {
+  border: 1px solid #353B46;
+  background: #242629;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dark-blue .task-risk-analysis-main-div .heading-para-tax-risk {
+  color: #FFF;
+}
+
+.dark-blue .task-risk-analysis-main-div .heading-para-tax-risk.card1 {
+  background-color: #147D64;
+}
+
+.dark-blue .task-risk-analysis-main-div .heading-para-tax-risk.card2 {
+  background-color: #1660A4;
+}
+
+.dark-blue .tax-details-graph-main-div {
+  border: 1px solid #353B46;
+  background: #242629;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.dark-blue .tax-details-tab-ul {
+  background: #2e3135;
+  box-shadow: 0px 0.25px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.dark-blue .tax-details-tab-ul li button {
+  background: transparent;
+  color: #fff;
+}
+
+.dark-blue .tax-details-tab-ul li button.active {
+ background: #26AB8B;
+  color: #fff;
+}
+.dark-blue .tax-details-tab-ul li button.active.rothTaxTav {
+  background: #23669E; 
+  color: #fff;
+}
+
+.dark-blue .each-tax-details-bar .heading {
+  color: #fff;
+}
+
+.dark-blue .each-tax-details-bar .heading.clr1::before {
+  background: #26AB8B;
+}
+
+.dark-blue .each-tax-details-bar .heading.clr2::before {
+  background: #53A9F1;
+}
+
+.dark-blue .each-tax-details-bar .heading.clr3::before {
+  background: #B556FF;
+}
+
+.dark-blue .each-tax-details-bar .heading.clr4::before {
+  background: #F67F4C;
+}
+
+.dark-blue .each-tax-details-bar .heading.clr5::before {
+  background: #C04141;
+}
+.dark-blue .each-tax-details-bar .heading.clr6::before {
+  background: #BAB42C;
+}
+
+.dark-blue .tax-details-each-bars {
+  border: 1.25px solid #353B46;
+  color: #fff;
+ }
+
+ .dark-blue .tax-details-each-bars.barClr1{
+     background: #0F8266;
+}
+.dark-blue .tax-details-each-bars.barClr2{
+  background: #23669E;
+}
+.dark-blue .tax-details-each-bars.barClr3{
+  background: #8137BB;
+}
+.dark-blue .tax-details-each-bars.barClr4{
+  background: #E8662F;
+}
+.dark-blue .tax-details-each-bars.barClr5{
+  background: #DA4343;
+}
+.dark-blue .tax-details-each-bars.barClr6{
+  background: #BAB42C;
+}
+
+
+.dark-blue .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
+  background-color: transparent;
+}
+.dark-blue .tax-risk-border-bottom{
+  border-bottom: 1.25px solid #46474a!important;
+}
+.dark-blue svg.tax-risk-setting-btn path{
+fill: #f5f5f5;
+}

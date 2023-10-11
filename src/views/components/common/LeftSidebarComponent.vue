@@ -132,6 +132,18 @@
                 </label>
               </router-link>
             </li>
+            <li class="nav-item">
+            <router-link to="/tax-score-card" :class="`nav-link ${$route.path == '/tax-score-card' ? 'active' : ''} ${$route.path == '/tax-risk-analysis' ? 'active' : ''}`" data-bs-toggle="tooltip" data-bs-placement="right" title="Tax Score Card">
+                <label class="cursor-pointer otherModecls">
+                  <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.3651 16.9746L12.0982 1.01363C11.7968 0.430909 11.2803 0.0830078 10.7168 0.0830078C10.1532 0.0830078 9.63677 0.430909 9.33552 1.01363L1.06844 16.9746C0.743438 17.6026 0.724479 18.3662 1.01802 19.0174C1.31031 19.6646 1.84552 20.0512 2.44969 20.0512H18.9839C19.5882 20.0512 20.1232 19.6646 20.4153 19.0171C20.7091 18.3662 20.6901 17.6026 20.3651 16.9746ZM17.7764 17.8013C17.5293 18.3234 17.1245 18.6226 16.6661 18.6226H4.76719C4.30885 18.6226 3.90427 18.3231 3.65698 17.8013C3.37323 17.202 3.37219 16.4573 3.6549 15.8578L9.60427 3.25462C9.84844 2.73684 10.2643 2.4279 10.7166 2.4279C11.1689 2.4279 11.5847 2.73684 11.8289 3.25462L17.7782 15.8578C18.0609 16.4573 18.0603 17.202 17.7764 17.8013Z" fill="black"/>
+                    <path d="M11.2539 5.60938H9.88765C9.73578 5.60938 9.59119 5.68909 9.49078 5.82841C9.38973 5.96848 9.34307 6.15466 9.36286 6.34491L10.2766 13.6358C10.2997 13.8177 10.4208 13.9447 10.5708 13.945C10.5708 13.945 10.5708 13.945 10.571 13.945C10.721 13.945 10.842 13.8179 10.8656 13.6358C10.8656 13.6356 10.8656 13.6353 10.8656 13.635L11.7795 6.34007C11.7987 6.15491 11.752 5.96848 11.651 5.82866C11.5504 5.68909 11.4058 5.60938 11.2539 5.60938Z" fill="black"/>
+                    <path d="M10.5703 14.5215C10.083 14.5215 9.68652 15.0079 9.68652 15.6059C9.68652 16.2032 10.083 16.6891 10.5703 16.6891C11.0582 16.6891 11.4555 16.2032 11.4555 15.6059C11.4555 15.0079 11.0582 14.5215 10.5703 14.5215Z" fill="black"/>
+                    </svg>
+                  <span>Tax Score Card</span>
+                </label>
+              </router-link>
+            </li>
           </ul>
         </div>
         <button class="sidebar-arrow-1"><svg class="sidebarArrowImgJs1" width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(360deg);">
@@ -140,6 +152,228 @@
           </svg>
         </button>
       </div>
+
+      <!-- Reset Modal Start -->
+  <div class="modal fade common-modal preview-modal-backdrop p-0" id="resetModal" tabindex="-1"
+    aria-labelledby="resetModalLabel" aria-hidden="true">
+    <a type="button" data-bs-dismiss="modal" class="preview-modal-close">
+      <svg width="45" height="48" viewBox="0 0 45 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="Group 1974" filter="url(#filter0_d_346_5079)">
+          <rect id="Rectangle 174" width="49.4476" height="5.7055" rx="2.85275"
+            transform="matrix(0.707099 0.707114 -0.707099 0.707114 7.03516 0.000488281)" fill="#0E6651" />
+          <rect id="Rectangle 175" width="49.4476" height="5.7055" rx="2.85275"
+            transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)" fill="#0E6651" />
+        </g>
+        <defs>
+          <filter id="filter0_d_346_5079" x="0.181641" y="1.18164" width="44.6367" height="46.6367"
+            filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha" />
+            <feOffset dy="6" />
+            <feGaussianBlur stdDeviation="2" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_346_5079" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_346_5079" result="shape" />
+          </filter>
+        </defs>
+      </svg>
+
+    </a>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable tax-score-preview-modal">
+      <div class="modal-content bg-none">
+
+        <div class="modal-body p-0 bg-none">
+            <div class="index-strategy-content-div p-0 border-0 bg-none">
+                <div class="index-strategy-content-inner-div withBoxShadow">
+                    <div class="index-strategy-each-tabs-head border-0">
+                        <p>Pre-tax Plan Data</p>
+                        
+                    </div>
+                    <div class="container-fluid index-strategy-inputs-div">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">IRA or 401K Balance</label>
+                                <div class="index-strategy-each-inputs dollar">
+                                    <span>$</span>
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Age</label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">RMD Age <span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>What year will RMDs start?</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" value="0" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Plan Through Age <span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>Through what age should the analysis run?</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Rate of Return<span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>This will apply to the IRA or 401K and the reinvested
+                                            capital</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Initial Tax Rate</label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Second Tax Rate <span
+                                        class="optional-label">(optional)
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Switch Year<span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>What year should the second tax rate take
+                                            effect?</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Social Security Amount</label>
+                                <div class="index-strategy-each-inputs dollar">
+                                    <span>$</span>
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Social Security Age</label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Social Security COLA<span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>What year should the second tax rate take
+                                            effect?</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                    <span>%</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3 inp-mar-top">
+                                <label for="beginningBalance">Roth Conversion Years<span><svg
+                                            class="label-common-tooltip-svg" width="13" height="13"
+                                            viewBox="0 0 13 13" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="Group 1968">
+                                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                                    fill="#D0D0D0" />
+                                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                                    fill="white" />
+                                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                                    width="1.5" height="5" rx="0.75" fill="white" />
+                                            </g>
+                                        </svg>
+                                        <span>Convert to a Roth IRA over How many years?</span>
+                                    </span></label>
+                                <div class="index-strategy-each-inputs">
+                                    <input type="text" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="run-reset-btn-div">
+                        <router-link to="/tax-risk-analysis" class="run-button /*disabled*/">Run</router-link>
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#resetModal"
+                            class="reset-button">Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reset  Modal End -->
 </template>
 <script>
 export default {
