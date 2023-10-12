@@ -127,7 +127,7 @@ export default {
     },
     getDataSet: function() {
       let annualFeesData = {
-        labels: [],
+        // labels: [],
         datasets: [
           {
             borderColor:
@@ -463,13 +463,11 @@ export default {
           },
           scales: {
             x: {
-              type: 'linear',
               grid: {
                 display: false,
                 drawBorder: false,
                 color: "transparent",
               },
-              min: 1,
               ticks: {
                 font: {
                   size: 11,

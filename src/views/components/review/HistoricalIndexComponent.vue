@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Cap</label>
-                        <input type="text" class="form-control" :value="`${$props.data.cap_rate}%`" readonly>
+                        <input type="text" class="form-control" :value="Number($props.data.cap_rate) === 1000 ? 'N/A' : `${$props.data.cap_rate}%`" readonly>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Floor</label>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Start Year</label>
-                        <input type="text" :class="`form-control ${$props.data.performance_multiplier ? '':'NAData'}`" :value="$props.data.performance_multiplier ? $props.data.performance_multiplier_fixed_value_start_year : 'N/A'" readonly>
+                        <input type="text" :class="`form-control ${$props.data.performance_multiplier && !$props.data.performance_multiplier_schedule_check ? '':'NAData'}`" :value="$props.data.performance_multiplier && !$props.data.performance_multiplier_schedule_check ? $props.data.performance_multiplier_fixed_value_start_year : 'N/A'" readonly>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Flat Credit/Bonus</label>
@@ -139,7 +139,7 @@
                     
                     <div v-if="$props.data.flat_credit_bonus" class="col-md-6 summaryInputsDiv">
                         <label for="client name">Same in All Years?</label>
-                        <input type="text" :class="`form-control ${$props.data.flat_credit_bonus ? '': 'NAData'}`"  :value="$props.data.in_advanced_flat_credit_same_in_all_years ? 'Yes' : 'No'" readonly>
+                        <input type="text" :class="`form-control ${$props.data.flat_credit_bonus ? '': 'NAData'}`"  :value="$props.data.flat_credit_bonus_fees_same_in_all_years ? 'Yes' : 'No'" readonly>
                     </div>
 
                     <div class="col-md-6 summaryInputsDiv">

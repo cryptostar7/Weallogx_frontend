@@ -59,6 +59,7 @@ export default {
             this.range = this.$refs.rangeHiddenRef.value;
           }
         }
+        this.$emit('setUpdated');
       }
     },
     "$props.isCapActive"(e) {

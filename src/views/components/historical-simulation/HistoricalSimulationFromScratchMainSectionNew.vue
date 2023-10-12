@@ -26,13 +26,13 @@
                          <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked @change="skipHistoricalStep" /> 
                       </div>
                     </div>
-                      <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime"/> 
-                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime" @populateIndexTemplate="populateIndexTemplate"/>
+                      <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime" /> 
+                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime" :strategWeight1="strategWeight1" :strategWeight2="strategWeight2" @populateIndexTemplate="populateIndexTemplate"  @setUpdated="(index) => setUpdated(index)"/>
                     <div class="text-center mt-30"> 
                       <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
                       <span class="d-block mb-3"></span>
                       <div class="d-flex position-relative mb-5"> 
-                        <router-link :to="`/${$route.query.review === 'true' ? 'review-summary':'select-historical-index-strategy-allocation'}/${$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
+                        <router-link :to="`/${$route.query.review === 'true' ? 'review-summary':'historical-index-strategy-allocation'}/${$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
                           <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
                         </router-link> 
                         <router-link :to="`/review-summary/${$route.params.scenario}`" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
@@ -75,6 +75,8 @@ export default {
         fees: false,
       },
       rollingTime: 30,
+      strategWeight1: false,
+      strategWeight2: false,
       error: {
         1: [],
         2: [],
@@ -90,6 +92,9 @@ export default {
     };
   },
   methods: {
+    setUpdated: function(index){
+      this.update[index] = false;
+    },
     skipHistoricalStep: function(e) {
       if (!e.target.checked) {
         let confirmation = confirm(
@@ -588,8 +593,10 @@ export default {
       }
 
       if (formData.index_strategy_1.flat_credit_bonus) {
-        formData.index_strategy_1.flat_credit_bonus_fees =
-          fees[0].fcf.fees || 0;
+        formData.index_strategy_1.flat_credit_bonus_fees = fees[0].fcf
+          .same_all_year
+          ? fees[0].fcf.fees
+          : 0;
         formData.index_strategy_1.flat_credit_same_in_all_years = fees[0].fcf
           .same_all_year
           ? true
@@ -643,9 +650,9 @@ export default {
           flat_credit_schedule:
             enhancements[1].credit.type === "schedule" ? true : false,
 
-          flat_fixed_credit_bonus: enhancements[1].credit.credit || 0,
+          flat_fixed_credit_bonus: enhancements[1].credit.type === "fixed" ? enhancements[1].credit.credit : 0,
 
-          flat_fixed_start_year: enhancements[1].credit.start_year || 0,
+          flat_fixed_start_year: enhancements[1].credit.type === "fixed" ? enhancements[1].credit.start_year : 0,
 
           flat_credit_schedule_amount:
             enhancements[1].credit.schedule_type === "amount"
@@ -683,7 +690,10 @@ export default {
         }
 
         if (formData.index_strategy_2.flat_credit_bonus) {
-          formData.index_strategy_2.flat_credit_bonus_fees = fees[1].fcf.fees;
+          formData.index_strategy_2.flat_credit_bonus_fees = fees[1].fcf
+            .same_all_year
+            ? fees[1].fcf.fees
+            : 0;
           formData.index_strategy_2.flat_credit_same_in_all_years = fees[1].fcf
             .same_all_year
             ? true
@@ -739,9 +749,9 @@ export default {
           flat_credit_schedule:
             enhancements[2].credit.type === "schedule" ? true : false,
 
-          flat_fixed_credit_bonus: enhancements[2].credit.credit || 0,
+          flat_fixed_credit_bonus: enhancements[2].credit.type === "fixed" ? enhancements[2].credit.credit : 0,
 
-          flat_fixed_start_year: enhancements[2].credit.start_year || 0,
+          flat_fixed_start_year: enhancements[2].credit.type === "fixed" ? enhancements[2].credit.start_year : 0,
 
           flat_credit_schedule_amount:
             enhancements[2].credit.schedule_type === "amount"
@@ -779,7 +789,10 @@ export default {
         }
 
         if (formData.index_strategy_3.flat_credit_bonus) {
-          formData.index_strategy_3.flat_credit_bonus_fees = fees[2].fcf.fees;
+          formData.index_strategy_3.flat_credit_bonus_fees = fees[2].fcf
+            .same_all_year
+            ? fees[2].fcf.fees
+            : 0;
           formData.index_strategy_3.flat_credit_same_in_all_years = fees[2].fcf
             .same_all_year
             ? true
@@ -1021,6 +1034,15 @@ export default {
     },
     populateIndex: function(tab = 1, data) {
       this.setGrowthData(tab, data);
+
+      if(tab === 2){
+        this.strategWeight1 = data.strategy_weight;
+      }
+
+      if(tab === 3){
+        this.strategWeight2 = data.strategy_weight;
+      }
+
       this.setEnhancementData(tab, data);
       this.setFeesData(tab, data);
     },
@@ -1030,7 +1052,6 @@ export default {
       get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
         .then(response => {
           var data = response.data.data;
-          this.populateGlobalParameters(data);
           this.populateIndex(iType, data);
           this.$store.dispatch("loader", false);
         })

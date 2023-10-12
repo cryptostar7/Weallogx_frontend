@@ -53,14 +53,14 @@
                 </div>
               </div>
             </div>
-            <growth-parameters :currentTab="1" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
-            <enhancements-component :currentTab="1" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[0].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[0].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="1" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
+            <growth-parameters :currentTab="1" :update="$props.update.growth_parameters" @setUpdated="() => $emit('setUpdated', 'growth_parameters')"  :rollingTime="$props.rollingTime"/> 
+            <enhancements-component :currentTab="1" :update="$props.update.enhancement" @setUpdated="() => $emit('setUpdated', 'enhancement')" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[0].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[0].enhancements.credit_bonus_fee = val"/> 
+            <fees-component :currentTab="1" :update="$props.update.fees" @setUpdated="() => $emit('setUpdated', 'fees')" :performance="strategies[0].enhancements.performance_multiplier" :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="1" @clearError="clearError"/>
           </div>
         </div>
         <div :class="`commonAllDivs ${activeTab !== 2 ? 'd-none' : ''}`"> 
-            <stretagy-weight-first-component :ratio="strategWeight1"/>
+            <stretagy-weight-first-component :ratio="$props.strategWeight1"/>
             <div class="historicalYesDivCommon margin-top-3">
             <p class="indexStrategyPara">Index Strategy #2</p>
             <div class="indexStrategyBorder">
@@ -75,14 +75,14 @@
                 </div>
                 </div>
             </div>
-            <growth-parameters :currentTab="2"  :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime" /> 
-            <enhancements-component :currentTab="2" :update="$props.update.enhancement" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @setUpdated="() => update.enhancement = false" @clearError="clearError" @performanceChange="(val) => strategies[1].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[1].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="2" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
+            <growth-parameters :currentTab="2"  :update="$props.update.growth_parameters"  @setUpdated="() => $emit('setUpdated', 'growth_parameters')"  :rollingTime="$props.rollingTime" /> 
+            <enhancements-component :currentTab="2" :update="$props.update.enhancement" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @setUpdated="() => $emit('setUpdated', 'enhancement')" @clearError="clearError" @performanceChange="(val) => strategies[1].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[1].enhancements.credit_bonus_fee = val"/> 
+            <fees-component :currentTab="2" :update="$props.update.fees" @setUpdated="() => $emit('setUpdated', 'fees')" :performance="strategies[1].enhancements.performance_multiplier" :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="2" @clearError="clearError"/>
             </div>
         </div> 
         <div :class="`commonAllDivs ${activeTab !== 3 ? 'd-none': ''}`"> 
-            <stretagy-weight-second-component :ratio="strategWeight2" />
+            <stretagy-weight-second-component :ratio="$props.strategWeight2" />
             <div class="historicalYesDivCommon margin-top-3">
             <p class="indexStrategyPara">Index Strategy #3</p>
             <div class="indexStrategyBorder">
@@ -97,9 +97,9 @@
                 </div>
                 </div>
             </div>
-            <growth-parameters :currentTab="3" :update="$props.update.growth_parameters" @setUpdated="() => update.growth_parameters = false" :rollingTime="$props.rollingTime"/> 
-            <enhancements-component :currentTab="3" :update="$props.update.enhancement" @setUpdated="() => update.enhancement = false" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[2].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[2].enhancements.credit_bonus_fee = val"/> 
-            <fees-component :currentTab="3" :update="$props.update.fees" @setUpdated="() => update.fees = false" :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
+            <growth-parameters :currentTab="3" :update="$props.update.growth_parameters" @setUpdated="() => $emit('setUpdated', 'growth_parameters')" :rollingTime="$props.rollingTime"/> 
+            <enhancements-component :currentTab="3" :update="$props.update.enhancement" @setUpdated="() => $emit('setUpdated', 'enhancement')" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="setApplyPmAllIndex" :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="setApplyFcAllIndex" @clearError="clearError"  @performanceChange="(val) => strategies[2].enhancements.performance_multiplier = val" @creditBonusChange="(val) => strategies[2].enhancements.credit_bonus_fee = val"/> 
+            <fees-component :currentTab="3" :update="$props.update.fees" @setUpdated="() => $emit('setUpdated', 'fees')"  :performance="strategies[2].enhancements.performance_multiplier" :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee" :applyPmfAllIndex="applyPmfAllIndex" @setApplyPmfAllIndex="setApplyPmfAllIndex" :applyFcfAllIndex="applyFcfAllIndex" @setApplyFcfAllIndex="setApplyFcfAllIndex" @clearError="clearError"/> 
             <save-strategy-template :currentTab="3" @clearError="clearError"/>
             </div>                
         </div>
@@ -146,7 +146,7 @@ export default {
     StretagyWeightFirstComponent,
     StretagyWeightSecondComponent,
   },
-  props: ["update", "rollingTime"],
+  props: ["update", "rollingTime", "strategWeight1", "strategWeight2"],
   emits: ["clearError", "setUpdated", "populateIndexTemplate"],
   data() {
     return {
@@ -161,8 +161,6 @@ export default {
         index2: [],
         index3: [],
       },
-      strategWeight1: false,
-      strategWeight2: false,
       strategies: [
         {
           enhancements: {

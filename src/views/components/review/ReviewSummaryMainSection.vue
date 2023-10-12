@@ -2,10 +2,10 @@
       <section>
         <div class="reviewProgressMainDiv HistoricalPositionStatic">
             <ul class="mt-1 review-progress" id="reviewProgress">
-              <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
-              <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
-              <li class="done"><router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
-              <li class="done"><router-link :to="`/select-historical-simulations/${$route.params.scenario}`" class="nav-link p-0">Historical Simulations</router-link></li>
+              <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}?review=true`" class="nav-link p-0">Scenario Details</router-link></li>
+              <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}?review=true`" class="nav-link p-0">Illustration Data</router-link></li>
+              <li class="done"><router-link :to="`/comparative-vehicles/${$route.params.scenario}?review=true`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+              <li class="done"><router-link :to="`/historical-simulations/${$route.params.scenario}?review=true`" class="nav-link p-0">Historical Simulations</router-link></li>
             </ul>
             <router-link to="/">
               <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn position">
@@ -125,6 +125,8 @@ export default {
           this.getClient(detail.client);
         }
         this.$store.dispatch("loader", false);
+        var body = document.getElementById("app");
+        body.scrollIntoView();
       })
       .catch(error => {
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {

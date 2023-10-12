@@ -337,10 +337,14 @@
                   </div>
                 </div>
               </div>
+              
               <div class="text-center mt-30 pt-3">
                 <button class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct"
                   @click="submitHandler()" :disabled="!isvalidCsvData">Next</button>
                 <span class="d-block mb-3"></span>
+                    <div class="d-flex justify-content-center pt-3">
+                        <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0 ${$route.query.review === 'true' ? 'review-summary' : 'historical-simulations'}`" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Save & Return to Review</button>
+                    </div>
                 <div class="d-flex justify-content-center">
                   <router-link :to="`/select-historical-simulations/${this.$route.params.scenario}`"
                     class="nav-link btn form-back-btn px-4 fs-14">
@@ -397,7 +401,8 @@ const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
 
 // Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
 
 const fileReader = new FileReader();
 export default {
@@ -1298,11 +1303,15 @@ export default {
             this.$toast.success(
               response.data.message || "Data saved successfully!"
             );
-            this.$router.push(
-              `/historical-simulations/${
-                this.$route.params.scenario
-              }?pid=${this.getPortfolioId()}`
-            );
+
+            var url = review
+              ? `/review-summary/${this.$route.params.scenario}`
+              : `/historical-simulations/${
+                  this.$route.params.scenario
+                }?pid=${this.getPortfolioId()}`;
+
+            console.log(url);
+            this.$router.push(url);
           })
           .catch(error => {
             this.$store.dispatch("loader", false);
@@ -1319,11 +1328,15 @@ export default {
         post(getUrl("historical-simulation-object"), formData, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
-            this.$router.push(
-              `/historical-simulations/${
-                this.$route.params.scenario
-              }?pid=${this.getPortfolioId()}`
-            );
+            
+            var url = review
+              ? `/review-summary/${this.$route.params.scenario}`
+              : `/historical-simulations/${
+                  this.$route.params.scenario
+                }?pid=${this.getPortfolioId()}`;
+           
+           console.log(url);
+            this.$router.push(url);
           })
           .catch(error => {
             this.$store.dispatch("loader", false);

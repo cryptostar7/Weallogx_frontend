@@ -289,9 +289,9 @@
                       <a v-if="$route.query.report" href="javascript:void(0)" class="nav-link btn return-to-report-btn fs-14" disabled="true" @click="submitHandler(false, false, true)">Save & Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
                     </div>
                   </div>
-                   <div class="d-flex justify-content-center pt-3">
+                    <div class="d-flex justify-content-center pt-3">
                         <button v-if="$route.query.review === 'true'" type="button" :class="`nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0 ${$route.query.review === 'true' ? 'review-summary' : 'illustration-data'}`" @click="submitHandler(false, true)"><img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Save & Return to Review</button>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

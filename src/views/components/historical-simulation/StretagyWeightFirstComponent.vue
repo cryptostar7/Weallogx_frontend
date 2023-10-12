@@ -51,8 +51,8 @@ export default {
     return {
       range1: {
         midRange: 50,
-        midRange1: "50.00%",
-        midRange2: "50.00%",
+        midRange1: "28.00%",
+        midRange2: "72.00%",
       },
     };
   },

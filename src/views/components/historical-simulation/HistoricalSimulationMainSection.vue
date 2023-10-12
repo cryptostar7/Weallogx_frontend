@@ -60,6 +60,9 @@
                   <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back
                 </router-link>
               </div>
+              <div class="text-center mt-30">
+                <router-link :to="`/review-summary/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">Return to Review</router-link>
+              </div>
             </div>
           </div>
         </div>

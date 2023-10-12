@@ -68,9 +68,12 @@ export default {
     watch: {
     "$props.ratio"(e) {
       if (e) {
+        this.midRange1 = `${e.weight_1}%`;
+        this.midRange2 = `${e.weight_2}%`;
+        this.midRange3 = `${e.weight_3}%`;
         document.getElementById('swInput1').value = `${e.weight_1}%`;
         document.getElementById('swInput2').value = `${e.weight_2}%`;
-        document.getElementById('swInput3').value = `${e.weight_2}%`;
+        document.getElementById('swInput3').value = `${e.weight_3}%`;
       }
     },
   },

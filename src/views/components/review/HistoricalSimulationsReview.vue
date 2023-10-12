@@ -49,10 +49,40 @@
                             <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Credit Base Method</label><p class="summaryVehiclePara pt-1">{{data.credit_base_method}}</p></div>
                             <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Distributions
                             </label><p class="summaryVehiclePara pt-1">{{data.distributions}}</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Premium Charge</label><p class="summaryVehiclePara pt-1">{{Number(data.premium_charge)}}%</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.premium_charges_same_in_all_years ? 'Yes' : 'No'}}</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest</label><p class="summaryVehiclePara pt-1">{{Number(data.loan_intrest_rate)}}%</p></div>
-                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.loan_same_in_all_years ? 'Yes' : 'No'}}</p></div>
+
+                            <div class="col-20 summaryInputsDiv mb-30">
+                              <label for="client name">Premium Charge</label>
+                              <p class="summaryVehiclePara pt-1" v-if="data.premium_same_in_all_years">{{Number(data.premium_charge)}}%</p>
+                              <p v-else class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule(data.premium_charges_same_in_all_years, 'rate', 'Premium Charge')">Scheduled 
+                                <button type="button" class="schedule-icon-btn">
+                                    <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
+                                        <rect x="7.3125" y="3.1875" width="0.375" height="9.625" rx="0.1875" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="3.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 3.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="6.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 6.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="9.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 9.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                    </svg>
+                                </button>
+                              </p>   
+                            </div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Premium Charge Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.premium_same_in_all_years ? 'Yes' : 'No'}}</p></div>
+
+                            <div class="col-20 summaryInputsDiv mb-30">
+                              <label for="client name">Loan Interest</label>
+                              <p class="summaryVehiclePara pt-1" v-if="data.loan_same_in_all_years">{{Number(data.loan_intrest_rate)}}%</p>
+                              <p v-else class="Schedule-para" data-bs-toggle="modal" data-bs-target="#showHistoricalScheduleModal" @click="setSchedule(data.loan_intrest_rate_same_in_all_years, 'rate', 'Loan Interest')">Scheduled 
+                                <button type="button" class="schedule-icon-btn">
+                                    <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.375" y="0.375" width="14.25" height="12.25" rx="0.625" stroke="#0E6651" stroke-width="0.75" />
+                                        <rect x="7.3125" y="3.1875" width="0.375" height="9.625" rx="0.1875" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="3.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 3.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="6.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 6.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                        <rect x="14.8125" y="9.1875" width="0.375" height="14.625" rx="0.1875" transform="rotate(90 14.8125 9.1875)" stroke="#0E6651" stroke-width="0.375" />
+                                    </svg>
+                                </button>
+                              </p>   
+                            </div>
+                            <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest Same in All Years?</label><p class="summaryVehiclePara pt-1">{{data.loan_same_in_all_years ? 'Yes' : 'No'}}</p></div>
                             <div class="col-20 summaryInputsDiv mb-30"><label for="client name">Loan Interest Charged</label><p class="summaryVehiclePara pt-1">{{data.loan_intrest_charged_in_advanced ? 'In Advance' : 'In Arrears'}}</p></div>
                         </div>
                     </form>
