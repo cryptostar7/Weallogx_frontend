@@ -132,32 +132,32 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1 text-white">
-                                                                        $<span id="wider_bar_1">127,000</span>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">127,000</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2 text-white">
-                                                                        $<span id="wider_bar_2">73,500</span>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_2">73,500</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3 text-white">
-                                                                        $<span id="wider_bar_3">244,000</span>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_3">244,000</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4 text-white">
-                                                                        $<span id="wider_bar_4">90,000</span>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_4">90,000</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        $<span id="wider_bar_5">534,500</span>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_5">534,500</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -165,38 +165,37 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1">
-                                                                        $<span id="roth_wider_bar_1">0</span>
-                                                                    </div>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">0</span></label></div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2">
-                                                                        $<span id="roth_wider_bar_2">0</span>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">0</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3">
-                                                                        $<span id="roth_wider_bar_3">0</span>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">0</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
-                                                                        $<span id="roth_wider_bar_4">0</span>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">0</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">Roth Conversion Taxes</p>
                                                                     <div class="tax-details-each-bars barClr6 text-white">
-                                                                        $<span id="roth_wider_bar_5">116,900</span>
+                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_5">116,900</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        $<span id="roth_wider_bar_6">116,900</span>
+                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_6">116,900</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -246,7 +245,7 @@ export default {
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult === 0) {
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 6 + 'px';
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 2 + 'px';
             }
         }
 
@@ -266,7 +265,7 @@ export default {
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult === 0) {
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 6 + 'px';
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 2 + 'px';
             }
         }
         /* -------------------------------------------

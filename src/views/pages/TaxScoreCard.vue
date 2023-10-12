@@ -172,7 +172,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
-                                                <label for="beginningBalance">Social Security Amount</label>
+                                                <label for="beginningBalance">Social Security Amount (Annual)</label>
                                                 <div class="index-strategy-each-inputs dollar">
                                                     <span>$</span>
                                                     <input type="text" required>
