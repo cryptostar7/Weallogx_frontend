@@ -6,6 +6,10 @@
                     <p class="compVehcleColPara">Index Strategy #{{$props.tab}}</p>
                     <p class="compVehcleBorder"></p>
                 </div>
+                <div :class="`${$props.col == 'col-lg-6' ? 'extra' : ''} ${$props.col == 'col-lg-12' ? 'extra' : ''} col summaryInputsDiv text-center`">
+                    <label for="client name text-center">Weighting</label>
+                    <p class="summaryVehiclePara small-top-border pt-1">50%</p>
+                </div>
                 <router-link :to="`/historical-simulations/${$route.params.scenario}?tab=${$props.tab}&review=true`" class="editbtnCommonAncor"><button class="btn editBtnCommon">
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1.5" y="3.5" width="14" height="14" rx="1" fill="transparent" stroke="#0E6651" stroke-width="2" />
@@ -23,27 +27,27 @@
                 <div class="row gx-5">
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Index</label>
-                        <input type="text" class="form-control" :value="$props.data.index" readonly>
+                        <p class="summaryVehiclePara pt-1">{{$props.data.index}}</p>                        
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Cap</label>
-                        <input type="text" class="form-control" :value="Number($props.data.cap_rate) === 1000 ? 'N/A' : `${$props.data.cap_rate}%`" readonly>
+                        <p class="summaryVehiclePara pt-1">{{Number($props.data.cap_rate) === 1000 ? 'N/A' : `${$props.data.cap_rate}%`}}</p>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Floor</label>
-                        <input type="text" class="form-control" :value="`${$props.data.floor}%`" readonly>
+                        <p class="summaryVehiclePara pt-1">{{`${$props.data.floor}%`}}</p>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Margin/Spread</label>
-                        <input type="text" class="form-control" :value="`${$props.data.margin_spread}%`" readonly>
+                        <p class="summaryVehiclePara pt-1">{{`${$props.data.margin_spread}%`}}</p>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Participation</label>
-                        <input type="text" class="form-control" :value="`${$props.data.participation_rate}%`" readonly>
+                        <p class="summaryVehiclePara pt-1">{{`${$props.data.participation_rate}%`}}</p>
                     </div>
                     <div class="col-md-6 summaryInputsDiv">
                         <label for="client name">Segment Duration</label>
-                        <input type="text" class="form-control" :value="$props.data.segment_duration_years" readonly>
+                        <p class="summaryVehiclePara pt-1">{{$props.data.segment_duration_years}}</p>
                     </div>
                 </div>
             </form>

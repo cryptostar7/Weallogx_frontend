@@ -1556,3 +1556,21 @@ background: #1660A4;
   background: rgba(191, 191, 191, 0.75);
   color: #fff;
 }
+.light-blue .table-plus-btn.blue::before {
+  background-color: #147D64;
+}
+.light-blue .table-plus-btn.green::before {
+  background-color: #1660A4;
+}
+.light-blue .table-plus-btn.blue.collapsed::before, .light-blue .table-plus-btn.blue.collapsed::after {
+  background-color: #147D64;
+}
+.light-blue .table-plus-btn.green.collapsed::before, .light-blue .table-plus-btn.green.collapsed::after {
+  background-color: #1660A4;
+}
+.light-blue .table-graph-bottom-content-div p.table-blue-clr{
+  color: #147D64;
+}
+.light-blue .table-graph-bottom-content-div p.table-green-clr{
+  color: #1660A4;
+}

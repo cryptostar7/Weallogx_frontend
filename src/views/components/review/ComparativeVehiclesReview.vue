@@ -1,6 +1,6 @@
 <template lang="">
     <div :class="data ? '':'d-none'">
-        <div class="container my-5 darkbgClrDiv">
+        <div class="container large my-5 darkbgClrDiv">
             <div class="summary-heading">
                 <p><span>3 </span>Comparative Vehicles</p>
                 <router-link :to="`/comparative-vehicles/${$route.params.scenario}?review=true`" class="editbtnCommonAncor"><button class="btn editBtnCommon">

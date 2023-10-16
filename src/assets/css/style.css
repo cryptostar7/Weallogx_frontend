@@ -36,6 +36,9 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.container.large{
+  max-width: 90%;
+}
 .pwd-btn{
   position: absolute;
   bottom: 50%;
@@ -2710,22 +2713,6 @@ color: #fff;
   .top-navbar .navbar-collapse {
     display: flex;
   }
-/*  .sidebar {
-    left: calc(-1 * var(--sidebar-width));
-  }
-  .sidebar.show {
-    left: 0;
-  }
-  .sidebar.show::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    left: var(--sidebar-width);
-    background-color: rgba(0, 0, 0, 0.25);
-  }*/
-  /* .reportSideBar{
-    left: 0!important;
-  } */
 }
 @media screen and (max-width: 1200px) {
   .return-btn-div{
@@ -5534,6 +5521,36 @@ input[type=number] {
   font-weight: 500;
   padding-left: 0;
   line-height: 26px;
+}
+.summaryVehiclePara.small-top-border{
+  border-top: 0;
+  position: relative;
+}
+.summaryInputsDiv.extra {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.summaryInputsDiv.extra label {
+  margin-right: 6px;
+  position: relative;
+  top: 1px;
+}
+.summaryInputsDiv.extra label::after {
+  content: ':';
+}
+.summaryInputsDiv.extra .small-top-border::before{
+  display: none;
+}
+.summaryVehiclePara.small-top-border::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 1px;
+  background-color: #e3e3e3;
 }
 .ChooseTimePeriodInputs .rolling-time-label{
   top: -10px;

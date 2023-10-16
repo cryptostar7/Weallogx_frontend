@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <div :class="`container my-5 darkbgClrDiv ${data ? '':'d-none'}`">
+        <div :class="`container large my-5 darkbgClrDiv ${data ? '':'d-none'}`">
             <div class="summary-heading">
                 <p><span>2 </span>Illustration Data</p>
                 <router-link :to="`/illustration-data/${$route.params.scenario}?review=true`" class="editbtnCommonAncor">

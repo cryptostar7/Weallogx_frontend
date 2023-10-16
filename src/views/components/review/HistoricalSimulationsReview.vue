@@ -1,5 +1,5 @@
 <template lang="">
-    <div :class="`container my-5 darkbgClrDiv ${data ? '':'d-none'}`">
+    <div :class="`container large my-5 darkbgClrDiv ${data ? '':'d-none'}`">
         <div class="summary-heading">
             <p><span>4 </span>Historical Simulations</p>
             <router-link :to="`/historical-simulations/${$route.params.scenario}?review=true`" class="editbtnCommonAncor">
@@ -163,7 +163,7 @@ export default {
       if (this.data.index_strategy_3) {
         index = 3;
       }
-      return `col-md-${12 / index}`;
+      return `col-lg-${12 / index}`;
     },
   },
 };

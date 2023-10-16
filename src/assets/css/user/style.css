@@ -775,6 +775,7 @@ p span.bold{
 .payment-methodMain-div {
     display: flex;
     margin-top: 25px;
+    gap: 50px;
 }
 
 .payment-left-card-main-div {
@@ -790,7 +791,6 @@ p span.bold{
 }
 
 .payment-right-card-main-div {
-    margin-left: 58px;
     width: 100%;
 }
 .delete-account-div{

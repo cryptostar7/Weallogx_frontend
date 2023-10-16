@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <div class="container my-5 darkbgClrDiv">
+        <div class="container large my-5 darkbgClrDiv">
             <div class="summary-heading">
                 <p><span>1 </span>Scenario Details</p>
                 <router-link :to="`/scenario-details/${$props.scenarioId}?review=true`" class="editbtnCommonAncor"><button class="btn editBtnCommon">
