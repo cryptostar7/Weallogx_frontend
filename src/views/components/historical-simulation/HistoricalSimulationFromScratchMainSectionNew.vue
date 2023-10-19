@@ -2,13 +2,39 @@
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
     <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
       <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="done"><router-link :to="`/scenario-details/${$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
-        <li class="done"><router-link :to="`/illustration-data/${$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
-        <li class="done"><router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
-        <li class="active"><router-link to="" class="nav-link p-0">Historical Simulations</router-link></li>
+        <li class="done">
+          <router-link
+            :to="`/scenario-details/${$route.params.scenario}`"
+            class="nav-link p-0"
+            >Scenario Details</router-link
+          >
+        </li>
+        <li class="done">
+          <router-link
+            :to="`/illustration-data/${$route.params.scenario}`"
+            class="nav-link p-0"
+            >Illustration Data</router-link
+          >
+        </li>
+        <li class="done">
+          <router-link
+            :to="`/comparative-vehicles/${$route.params.scenario}`"
+            class="nav-link p-0"
+            >Comparative Vehicles</router-link
+          >
+        </li>
+        <li class="active">
+          <router-link to="" class="nav-link p-0"
+            >Historical Simulations</router-link
+          >
+        </li>
       </ul>
-      <router-link to="/" class="btn mt-1 ms-1"> 
-        <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn" /> 
+      <router-link to="/" class="btn mt-1 ms-1">
+        <img
+          src="@/assets/images/icons/cross.svg"
+          alt="cross"
+          class="ReviewCrossBtn"
+        />
       </router-link>
     </div>
     <div class="container-fluid">
@@ -20,24 +46,87 @@
               <div class="container containerWidth">
                 <div class="row justify-content-center">
                   <div class="col-sm-12 col-lg-11 col-xl-9">
-                    <div class="d-flex align-items-center"> <label for="scheduleTemplateCheckbox"
-                        class="historical-paraCheckBox">Historical Simulations</label>
+                    <div class="d-flex align-items-center">
+                      <label
+                        for="scheduleTemplateCheckbox"
+                        class="historical-paraCheckBox"
+                        >Historical Simulations</label
+                      >
                       <div class="form-check form-switch custom-switch ms-2">
-                         <input class="form-check-input" type="checkbox" role="switch" id="scheduleTemplateCheckbox" checked @change="skipHistoricalStep" /> 
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          id="scheduleTemplateCheckbox"
+                          checked
+                          @change="skipHistoricalStep"
+                        />
                       </div>
                     </div>
-                      <global-parameters :update="update" @clearError="clearGlobalErrors" @setRollingTime="setRollingTime" /> 
-                      <index-strategy-parameters :update="update" @clearError="clearError" :rollingTime="rollingTime" :strategWeight1="strategWeight1" :strategWeight2="strategWeight2" @populateIndexTemplate="populateIndexTemplate"  @setUpdated="(index) => setUpdated(index)"/>
-                    <div class="text-center mt-30"> 
-                      <router-link to="" class="nav-link btn d-inline-block form-next-btn active fs-14" id="nextBtnVsblOnSlct" @click="submitHandler()">{{$route.query.review === 'true' ? 'Save & Review':'Review' }}</router-link> 
+                    <global-parameters
+                      :update="update"
+                      @clearError="clearGlobalErrors"
+                      @setRollingTime="setRollingTime"
+                    />
+                    <index-strategy-parameters
+                      :update="update"
+                      @clearError="clearError"
+                      :rollingTime="rollingTime"
+                      :strategWeight1="strategWeight1"
+                      :strategWeight2="strategWeight2"
+                      @populateIndexTemplate="populateIndexTemplate"
+                      @setUpdated="(index) => setUpdated(index)"
+                    />
+                    <div class="text-center mt-30">
+                      <router-link
+                        to=""
+                        class="nav-link btn d-inline-block form-next-btn active fs-14"
+                        id="nextBtnVsblOnSlct"
+                        @click="submitHandler()"
+                        >{{
+                          $route.query.review === "true"
+                            ? "Save & Review"
+                            : "Review"
+                        }}</router-link
+                      >
                       <span class="d-block mb-3"></span>
-                      <div class="d-flex position-relative mb-5"> 
-                        <router-link :to="`/${$route.query.review === 'true' ? 'review-summary':'historical-index-strategy-allocation'}/${$route.params.scenario}`" class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn">
-                          <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" />Back
-                        </router-link> 
-                        <router-link :to="`/review-summary/${$route.params.scenario}`" class=" nav-link btn form-back-btn fs-14 skipHistoricalBtn "> Skip Historical Simulations</router-link> 
-                        <a href="javascript:void(0)" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" v-if="$route.query.report" @click="submitHandler(false, true)">Save & Return to Current Report</a> 
-                        <router-link to="" class="nav-link btn form-back-btn fs-14 skipScenarioBtn" v-if="!$route.query.report" @click="submitHandler(true)">Save Scenario as Draft</router-link> 
+                      <div class="d-flex position-relative mb-5">
+                        <router-link
+                          :to="`/${
+                            $route.query.review === 'true'
+                              ? 'review-summary'
+                              : 'historical-index-strategy-allocation'
+                          }/${$route.params.scenario}`"
+                          class="nav-link btn form-back-btn px-4 fs-14 backHistoricalBtn"
+                        >
+                          <img
+                            src="@/assets/images/icons/chevron-left-grey.svg"
+                            class="img-fluid me-1"
+                            style="position: relative; top: 0px"
+                            alt="Chevron"
+                            width="6"
+                          />Back
+                        </router-link>
+                        <router-link
+                          :to="`/review-summary/${$route.params.scenario}`"
+                          class="nav-link btn form-back-btn fs-14 skipHistoricalBtn"
+                        >
+                          Skip Historical Simulations</router-link
+                        >
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link btn form-back-btn fs-14 skipScenarioBtn"
+                          v-if="$route.query.report"
+                          @click="submitHandler(false, true)"
+                          >Save & Return to Current Report</a
+                        >
+                        <router-link
+                          to=""
+                          class="nav-link btn form-back-btn fs-14 skipScenarioBtn"
+                          v-if="!$route.query.report"
+                          @click="submitHandler(true)"
+                          >Save Scenario as Draft</router-link
+                        >
                       </div>
                     </div>
                   </div>
@@ -92,10 +181,10 @@ export default {
     };
   },
   methods: {
-    setUpdated: function(index){
+    setUpdated: function (index) {
       this.update[index] = false;
     },
-    skipHistoricalStep: function(e) {
+    skipHistoricalStep: function (e) {
       if (!e.target.checked) {
         let confirmation = confirm(
           "Are you sure? Changes you made may not be saved."
@@ -108,59 +197,59 @@ export default {
       }
     },
     // this function has return the input value
-    getInputWithId: function(id) {
+    getInputWithId: function (id) {
       return document.getElementById(id)
         ? document.getElementById(id).value
         : null;
     },
     // this function has return the input checked status
-    isChecked: function(id) {
+    isChecked: function (id) {
       return document.getElementById(id)
         ? document.getElementById(id).checked
         : false;
     },
     // this function is used to for making the checked input
-    setChecked: function(id) {
+    setChecked: function (id) {
       if (document.getElementById(id)) {
         document.getElementById(id).checked = true;
       }
     },
     // this function is used to for making the unchecked input
-    setUnChecked: function(id) {
+    setUnChecked: function (id) {
       if (document.getElementById(id)) {
         document.getElementById(id).checked = false;
       }
     },
     // set the input value using the input id attribute
-    setInputWithId: function(id, value) {
+    setInputWithId: function (id, value) {
       if (document.getElementById(id)) {
         document.getElementById(id).value = value;
       }
       return value;
     },
     // set rollin time period data
-    setRollingTime: function(value) {
+    setRollingTime: function (value) {
       this.rollingTime = value;
     },
     // remove error
-    clearError: function(tab = 1, key = "") {
+    clearError: function (tab = 1, key = "") {
       if (this.error[tab][key]) {
         this.error[tab][key] = false;
       }
     },
     // remove error
-    clearGlobalErrors: function(key = "") {
+    clearGlobalErrors: function (key = "") {
       if (this.error[key]) {
         this.error[key] = false;
       }
     },
-    getActiveTabs: function() {
+    getActiveTabs: function () {
       let tab1 = document.getElementById("index_stategy_tab1").checked;
       let tab2 = document.getElementById("index_stategy_tab2").checked;
       let tab3 = document.getElementById("index_stategy_tab3").checked;
       return [tab1, tab2, tab3];
     },
-    getGlobalParameterData: function() {
+    getGlobalParameterData: function () {
       let obj = {
         rolling_time: this.getInputWithId("rolling_time"),
         analyze: this.getInputWithId("analyze_type"),
@@ -209,7 +298,7 @@ export default {
 
       return obj;
     },
-    getGrowthData: function() {
+    getGrowthData: function () {
       let arr = [];
       let activeTabs = this.getActiveTabs();
       for (var i = 1; i < 4; i++) {
@@ -229,7 +318,7 @@ export default {
       }
       return arr;
     },
-    getEnhancementData: function() {
+    getEnhancementData: function () {
       let arr = [];
       let activeTabs = this.getActiveTabs();
       for (var i = 1; i < 4; i++) {
@@ -297,7 +386,7 @@ export default {
       }
       return arr;
     },
-    getFeesData: function() {
+    getFeesData: function () {
       let arr = [];
       let activeTabs = this.getActiveTabs();
       for (var i = 1; i < 4; i++) {
@@ -368,7 +457,7 @@ export default {
       return arr;
     },
     // handle form submitted data
-    submitHandler: function(draft = false, report = false) {
+    submitHandler: function (draft = false, report = false) {
       this.analysis = this.getGlobalParameterData();
       this.growth = this.getGrowthData();
       this.enhancements = this.getEnhancementData();
@@ -564,7 +653,10 @@ export default {
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
-          flat_credit_bonus_fees_apply_for_all_indexes: false,
+          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc1'),
+          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm1'),
+          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf1'),
+          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf1'),
         },
         index_strategy_2: null,
         index_strategy_3: null,
@@ -578,18 +670,15 @@ export default {
       if (formData.index_strategy_1.performance_multiplier) {
         formData.index_strategy_1.performance_multiplier_fees =
           fees[0].pmf.fees;
-        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years = fees[0]
-          .pmf.same_all_year
-          ? true
-          : false;
-        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule = !fees[0]
-          .pmf.same_all_year
-          ? fees[0].pmf.schedule
-          : null;
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years =
+          fees[0].pmf.same_all_year ? true : false;
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule =
+          !fees[0].pmf.same_all_year ? fees[0].pmf.schedule : null;
       } else {
         formData.index_strategy_1.performance_multiplier_fees = 0;
         formData.index_strategy_1.performance_multiplier_fees_same_in_all_years = true;
-        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule = null;
+        formData.index_strategy_1.performance_multiplier_fees_same_in_all_years_schedule =
+          null;
       }
 
       if (formData.index_strategy_1.flat_credit_bonus) {
@@ -604,10 +693,8 @@ export default {
         formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years =
           fees[0].fcf.same_all_year;
 
-        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[0]
-          .fcf.same_all_year
-          ? fees[0].fcf.schedule
-          : null;
+        formData.index_strategy_1.flat_credit_bonus_fees_same_in_all_years_schedule =
+          !fees[0].fcf.same_all_year ? fees[0].fcf.schedule : null;
       } else {
         formData.index_strategy_1.flat_credit_bonus_fees = 0;
         formData.index_strategy_1.flat_credit_same_in_all_years = false;
@@ -650,9 +737,15 @@ export default {
           flat_credit_schedule:
             enhancements[1].credit.type === "schedule" ? true : false,
 
-          flat_fixed_credit_bonus: enhancements[1].credit.type === "fixed" ? enhancements[1].credit.credit : 0,
+          flat_fixed_credit_bonus:
+            enhancements[1].credit.type === "fixed"
+              ? enhancements[1].credit.credit
+              : 0,
 
-          flat_fixed_start_year: enhancements[1].credit.type === "fixed" ? enhancements[1].credit.start_year : 0,
+          flat_fixed_start_year:
+            enhancements[1].credit.type === "fixed"
+              ? enhancements[1].credit.start_year
+              : 0,
 
           flat_credit_schedule_amount:
             enhancements[1].credit.schedule_type === "amount"
@@ -669,24 +762,24 @@ export default {
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
-          flat_credit_bonus_fees_apply_for_all_indexes: false,
+          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc2'),
+          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm2'),
+          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf2'),
+          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf2'),
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
           formData.index_strategy_2.performance_multiplier_fees =
             fees[1].pmf.fees;
-          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years = fees[1]
-            .pmf.same_all_year
-            ? true
-            : false;
-          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule = !fees[1]
-            .pmf.same_all_year
-            ? fees[1].pmf.schedule
-            : null;
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years =
+            fees[1].pmf.same_all_year ? true : false;
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule =
+            !fees[1].pmf.same_all_year ? fees[1].pmf.schedule : null;
         } else {
           formData.index_strategy_2.performance_multiplier_fees = 0;
           formData.index_strategy_2.performance_multiplier_fees_same_in_all_years = true;
-          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule = null;
+          formData.index_strategy_2.performance_multiplier_fees_same_in_all_years_schedule =
+            null;
         }
 
         if (formData.index_strategy_2.flat_credit_bonus) {
@@ -702,15 +795,14 @@ export default {
           formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years =
             fees[1].fcf.same_all_year;
 
-          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[1]
-            .fcf.same_all_year
-            ? fees[1].fcf.schedule
-            : null;
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule =
+            !fees[1].fcf.same_all_year ? fees[1].fcf.schedule : null;
         } else {
           formData.index_strategy_2.flat_credit_bonus_fees = 0;
           formData.index_strategy_2.flat_credit_same_in_all_years = false;
           formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years = false;
-          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule = null;
+          formData.index_strategy_2.flat_credit_bonus_fees_same_in_all_years_schedule =
+            null;
         }
       }
 
@@ -749,9 +841,15 @@ export default {
           flat_credit_schedule:
             enhancements[2].credit.type === "schedule" ? true : false,
 
-          flat_fixed_credit_bonus: enhancements[2].credit.type === "fixed" ? enhancements[2].credit.credit : 0,
+          flat_fixed_credit_bonus:
+            enhancements[2].credit.type === "fixed"
+              ? enhancements[2].credit.credit
+              : 0,
 
-          flat_fixed_start_year: enhancements[2].credit.type === "fixed" ? enhancements[2].credit.start_year : 0,
+          flat_fixed_start_year:
+            enhancements[2].credit.type === "fixed"
+              ? enhancements[2].credit.start_year
+              : 0,
 
           flat_credit_schedule_amount:
             enhancements[2].credit.schedule_type === "amount"
@@ -768,24 +866,24 @@ export default {
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
-          flat_credit_bonus_fees_apply_for_all_indexes: false,
+          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc3'),
+          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm3'),
+          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf3'),
+          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf3'),
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
           formData.index_strategy_3.performance_multiplier_fees =
             fees[2].pmf.fees;
-          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years = fees[2]
-            .pmf.same_all_year
-            ? true
-            : false;
-          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule = !fees[2]
-            .pmf.same_all_year
-            ? fees[2].pmf.schedule
-            : null;
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years =
+            fees[2].pmf.same_all_year ? true : false;
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule =
+            !fees[2].pmf.same_all_year ? fees[2].pmf.schedule : null;
         } else {
           formData.index_strategy_3.performance_multiplier_fees = 0;
           formData.index_strategy_3.performance_multiplier_fees_same_in_all_years = true;
-          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule = null;
+          formData.index_strategy_3.performance_multiplier_fees_same_in_all_years_schedule =
+            null;
         }
 
         if (formData.index_strategy_3.flat_credit_bonus) {
@@ -800,15 +898,14 @@ export default {
           formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years =
             fees[2].fcf.same_all_year;
 
-          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule = !fees[2]
-            .fcf.same_all_year
-            ? fees[2].fcf.schedule
-            : null;
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule =
+            !fees[2].fcf.same_all_year ? fees[2].fcf.schedule : null;
         } else {
           formData.index_strategy_3.flat_credit_bonus_fees = 0;
           formData.index_strategy_3.flat_credit_same_in_all_years = false;
           formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years = false;
-          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule = null;
+          formData.index_strategy_3.flat_credit_bonus_fees_same_in_all_years_schedule =
+            null;
         }
       }
 
@@ -820,7 +917,7 @@ export default {
           formData,
           authHeader()
         )
-          .then(response => {
+          .then((response) => {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             if (report) {
@@ -831,7 +928,7 @@ export default {
               );
             }
           })
-          .catch(error => {
+          .catch((error) => {
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -844,13 +941,13 @@ export default {
           });
       } else {
         post(getUrl("historical"), formData, authHeader())
-          .then(response => {
+          .then((response) => {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.historicalId = response.data.data.id;
             this.$router.push(`/review-summary/${this.$route.params.scenario}`);
           })
-          .catch(error => {
+          .catch((error) => {
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -863,7 +960,7 @@ export default {
           });
       }
     },
-    setGrowthData: function(tab, obj = []) {
+    setGrowthData: function (tab, obj = []) {
       this.setInputWithId(`analysis_index${tab}`, obj.index);
       if (Number(obj.cap_rate) === 1000) {
         this.setUnChecked(`is_active_cap_rate_range${tab}`);
@@ -880,7 +977,7 @@ export default {
       );
       this.update.growth_parameters = true;
     },
-    setEnhancementData: function(tab, obj = []) {
+    setEnhancementData: function (tab, obj = []) {
       // permformance multiplier
       this.setInputWithId(
         `performance_checkbox${tab}`,
@@ -897,7 +994,7 @@ export default {
           !obj.performance_multiplier_fixed_value &&
           obj.performance_multiplier_schedule
         ) {
-          obj.performance_multiplier_schedule.forEach(i => {
+          obj.performance_multiplier_schedule.forEach((i) => {
             this.setInputWithId(`multiplier_schedule${tab}${i.year}`, i.value);
           });
         } else {
@@ -933,7 +1030,7 @@ export default {
         ) {
           let fcb_schedule =
             obj.flat_credit_schedule_rate || obj.flat_credit_schedule_amount;
-          fcb_schedule.forEach(i => {
+          fcb_schedule.forEach((i) => {
             this.setInputWithId(
               `${
                 obj.flat_credit_schedule_rate
@@ -958,14 +1055,14 @@ export default {
 
       this.update.enhancement = true;
     },
-    setFeesData: function(tab, obj = []) {
+    setFeesData: function (tab, obj = []) {
       // performance multiplier fee
       if (obj.performance_multiplier) {
         if (obj.performance_multiplier_fees_same_in_all_years_schedule) {
           this.setUnChecked(`multiplierFee${tab}`);
           this.setInputWithId(`performance_multiplier_fees${tab}`, "");
           obj.performance_multiplier_fees_same_in_all_years_schedule.forEach(
-            i => {
+            (i) => {
               this.setInputWithId(`pmf_schedule${tab}${i.year}`, i.value);
             }
           );
@@ -983,7 +1080,7 @@ export default {
         if (!obj.flat_credit_bonus_fees_same_in_all_years) {
           this.setUnChecked(`flat-credit-fee-radio${tab}`);
           this.setInputWithId(`flat_credit_fees${tab}`, "");
-          obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach(i => {
+          obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach((i) => {
             this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
           });
         } else {
@@ -1000,7 +1097,7 @@ export default {
       this.setInputWithId(`high_cap_fees${tab}`, obj.high_cap_fee);
       this.update.fees = true;
     },
-    populateGlobalParameters: function(obj) {
+    populateGlobalParameters: function (obj) {
       this.setInputWithId("rolling_time", obj.rolling_time_period_years);
       this.setInputWithId("analyze_type", obj.analyze);
       this.setInputWithId("credit_base_method", obj.credit_base_method);
@@ -1010,7 +1107,7 @@ export default {
       if (obj.premium_charges_same_in_all_years) {
         this.setUnChecked("premiumcharge");
         this.setInputWithId("premium_charge_fees", "");
-        obj.premium_charges_same_in_all_years.forEach(i => {
+        obj.premium_charges_same_in_all_years.forEach((i) => {
           this.setInputWithId(`pcf_schedule${i.year}`, i.value);
         });
       } else {
@@ -1022,7 +1119,7 @@ export default {
       if (obj.loan_intrest_rate_same_in_all_years) {
         this.setUnChecked("loanIntrest");
         this.setInputWithId("loan_interest_fees", "");
-        obj.loan_intrest_rate_same_in_all_years.forEach(i => {
+        obj.loan_intrest_rate_same_in_all_years.forEach((i) => {
           this.setInputWithId(`lif_schedule${i.year}`, i.value);
         });
       } else {
@@ -1032,14 +1129,14 @@ export default {
 
       this.update.global_parameters = true;
     },
-    populateIndex: function(tab = 1, data) {
+    populateIndex: function (tab = 1, data) {
       this.setGrowthData(tab, data);
 
-      if(tab === 2){
+      if (tab === 2) {
         this.strategWeight1 = data.strategy_weight;
       }
 
-      if(tab === 3){
+      if (tab === 3) {
         this.strategWeight2 = data.strategy_weight;
       }
 
@@ -1047,15 +1144,15 @@ export default {
       this.setFeesData(tab, data);
     },
     // populate existing index details
-    populateIndexTemplate: function(iType = 1, id = null, type = 1) {
+    populateIndexTemplate: function (iType = 1, id = null, type = 1) {
       this.$store.dispatch("loader", true);
       get(`${getUrl(`strategy-index-template${type}`)}${id}/`, authHeader())
-        .then(response => {
+        .then((response) => {
           var data = response.data.data;
           this.populateIndex(iType, data);
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1066,12 +1163,12 @@ export default {
         });
     },
     // get previous data
-    populateHistoricalSimulationData: function(id, portfolio = false) {
+    populateHistoricalSimulationData: function (id, portfolio = false) {
       get(
         `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`,
         authHeader()
       )
-        .then(response => {
+        .then((response) => {
           let data = response.data.data;
           this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
@@ -1101,7 +1198,7 @@ export default {
 
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1111,7 +1208,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    validatateForm: function(tab = 0) {
+    validatateForm: function (tab = 0) {
       var valid = true;
       let analysis = this.analysis;
       let growth = this.growth[tab];
@@ -1139,7 +1236,7 @@ export default {
           let obj = enhancements.performance.schedule;
           let obj_valid = true;
           if (obj) {
-            obj.forEach(item => {
+            obj.forEach((item) => {
               if (!item.value) {
                 obj_valid = false;
               }
@@ -1164,7 +1261,7 @@ export default {
           let obj = enhancements.credit.schedule;
           let obj_valid = true;
           if (obj) {
-            obj.forEach(item => {
+            obj.forEach((item) => {
               if (!item.value) {
                 obj_valid = false;
               }
@@ -1196,7 +1293,7 @@ export default {
         let obj = fees.pmf.schedule;
         let obj_valid = true;
         if (obj) {
-          obj.forEach(item => {
+          obj.forEach((item) => {
             if (!item.value) {
               obj_valid = false;
             }
@@ -1219,7 +1316,7 @@ export default {
         let obj = analysis.pcf.schedule;
         let obj_valid = true;
         if (obj) {
-          obj.forEach(item => {
+          obj.forEach((item) => {
             if (!item.value) {
               obj_valid = false;
             }
@@ -1248,7 +1345,7 @@ export default {
         let obj = analysis.lif.schedule;
         let obj_valid = true;
         if (obj) {
-          obj.forEach(item => {
+          obj.forEach((item) => {
             if (!item.value) {
               obj_valid = false;
             }
@@ -1271,7 +1368,7 @@ export default {
         let obj = fees.fcf.schedule;
         let obj_valid = true;
         if (obj) {
-          obj.forEach(item => {
+          obj.forEach((item) => {
             if (!item.value) {
               obj_valid = false;
             }
@@ -1292,15 +1389,15 @@ export default {
       return valid;
     },
     //  all template data from API
-    getExistingIndex: function() {
+    getExistingIndex: function () {
       this.$store.dispatch("loader", true);
       get(getUrl("historical-template"), authHeader())
-        .then(response => {
+        .then((response) => {
           var data = response.data.data;
           var temp = [];
           let index = 1;
           // push index #1 templates in temp variable
-          data.index_strategy_1.forEach(item => {
+          data.index_strategy_1.forEach((item) => {
             temp.push({
               id: index++,
               uid: item.id,
@@ -1310,7 +1407,7 @@ export default {
           });
 
           // push index #2 templates in temp variable
-          data.index_strategy_2.forEach(item => {
+          data.index_strategy_2.forEach((item) => {
             temp.push({
               id: index++,
               uid: item.id,
@@ -1320,7 +1417,7 @@ export default {
           });
 
           // push index #3 templates in temp variable
-          data.index_strategy_3.forEach(item => {
+          data.index_strategy_3.forEach((item) => {
             temp.push({
               id: index++,
               uid: item.id,
@@ -1334,7 +1431,7 @@ export default {
           });
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1348,8 +1445,8 @@ export default {
   mounted() {
     // input validation for min and max value
     const inputs = document.querySelectorAll(".handleLimit");
-    inputs.forEach(element =>
-      element.addEventListener("input", function(e) {
+    inputs.forEach((element) =>
+      element.addEventListener("input", function (e) {
         let len = e.target.value.length;
         let current = e.target.value;
         let min = Number(e.target.getAttribute("min"));
@@ -1369,7 +1466,7 @@ export default {
     // populate historical data if historical data id exist in scenario
     this.$store.dispatch("loader", true);
     get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-      .then(response => {
+      .then((response) => {
         let id = response.data.data.historical;
         this.historicalId = id;
         this.$store.dispatch("activeScenario", response.data.data);
@@ -1382,7 +1479,7 @@ export default {
           this.$store.dispatch("loader", false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
           this.$toast.error(error.message);
         }

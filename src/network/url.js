@@ -121,6 +121,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/add-disclosure/`
     case 'historical_report':
       return `${baseUrl}/historical/`
+    case 'isc_calculate':
+      return `${baseUrl}/isc/calculate/`
     default:
       return baseUrl;
   }
