@@ -1,9 +1,5 @@
 <template lang="">
-  <div
-    :class="`container-fluid index-strategy-inputs-div pb-0 mt-3 ${
-      $props.activeTab === $props.currentTab ? '' : 'd-none'
-    }`"
-  >
+  <div class="container-fluid index-strategy-inputs-div pb-0 mt-3">
     <div class="row">
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance">Start Year</label>
@@ -44,7 +40,9 @@
               v-for="(item, index) in years"
               :key="index"
               @click="endYear = item"
-              :class="`option ${endYear === item ? 'active' : ''}`"
+              :class="`option ${endYear === item ? 'active' : ''} ${
+                startYear > item ? 'd-none' : ''
+              }`"
             >
               <span class="option-text">{{ item }}</span>
             </li>
@@ -68,7 +66,7 @@
               :key="index"
               :class="`option ${
                 indexStrategy === item.template_name ? 'active' : ''
-              }`"
+              } ${item.max_year > startYear ? 'disabled' : ''}`"
               @click="indexStrategy = item.template_name"
             >
               <span class="option-text">{{ item.template_name }}</span>
@@ -195,11 +193,20 @@
           <input
             type="text"
             class="onlyPositiveNum"
-            @keyup="(e) => (capRate = e.target.value)"
+            @keyup="
+              (e) => {
+                this.capRate = e.target.value;
+                this.$emit('clearError', 'cap_rate');
+              }
+            "
             max="100"
+            min="1"
           />
           <span>%</span>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].cap_rate">
+          {{ errors[$props.currentTab].cap_rate }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance"
@@ -257,11 +264,21 @@
           <input
             type="text"
             class="onlyPositiveNum"
-            @keyup="(e) => (parRate = e.target.value)"
-            max="100"
+            value="100"
+            @keyup="
+              (e) => {
+                this.parRate = e.target.value;
+                this.$emit('clearError', 'par_rate');
+              }
+            "
+            max="1000"
+            min="1"
           />
           <span>%</span>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].par_rate">
+          {{ errors[$props.currentTab].par_rate }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance">Floor</label>
@@ -269,12 +286,20 @@
           <input
             type="text"
             class="onlyPositiveNum"
-            @keyup="(e) => (floor = e.target.value)"
-            max="100"
+            value="0"
+            @keyup="
+              (e) => {
+                this.floor = e.target.value;
+                this.$emit('clearError', 'floor');
+              }
+            "
+            max="10"
           />
           <span>%</span>
         </div>
-        <p class="error-text">This is a required field</p>
+        <p class="error" v-if="errors[$props.currentTab].floor">
+          {{ errors[$props.currentTab].floor }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance"
@@ -320,6 +345,7 @@
             type="text"
             class="onlyPositiveNum"
             @keyup="(e) => (PerformanceMultiplier = e.target.value)"
+            min="1"
             max="100"
           />
         </div>
@@ -369,15 +395,23 @@
           </div>
           <ul class="options">
             <li
-              v-for="(item, index) in 50"
+              v-for="(item, index) in endYear - startYear"
               :key="index"
               :class="`option ${pmfStartYear === item ? 'active' : ''}`"
-              @click="pmfStartYear = item"
+              @click="
+                () => {
+                  pmfStartYear = item;
+                  this.$emit('clearError', 'pm_start_year');
+                }
+              "
             >
               <span class="option-text">{{ item }}</span>
             </li>
           </ul>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].pm_start_year">
+          {{ errors[$props.currentTab].pm_start_year }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance"
@@ -421,11 +455,19 @@
           <input
             type="text"
             class="onlyPositiveNum"
-            @keyup="(e) => (flatCreditBonus = e.target.value)"
-            max="100"
+            @keyup="
+              (e) => {
+                this.flatCreditBonus = e.target.value;
+                this.$emit('clearError', 'flat_credit_bonus');
+              }
+            "
+            max="5"
           />
           <span>%</span>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].flat_credit_bonus">
+          {{ errors[$props.currentTab].flat_credit_bonus }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance"
@@ -472,15 +514,23 @@
           </div>
           <ul class="options">
             <li
-              v-for="(item, index) in 50"
+              v-for="(item, index) in endYear - startYear"
               :key="index"
               :class="`option ${fcStartYear === item ? 'active' : ''}`"
-              @click="fcStartYear = item"
+              @click="
+                () => {
+                  fcStartYear = item;
+                  this.$emit('clearError', 'fc_start_year');
+                }
+              "
             >
               <span class="option-text">{{ item }}</span>
             </li>
           </ul>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].fc_start_year">
+          {{ errors[$props.currentTab].fc_start_year }}
+        </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance"
@@ -523,47 +573,109 @@
           <input
             type="text"
             class="onlyPositiveNum"
-            @keyup="(e) => (StrategyFee = e.target.value)"
+            @keyup="
+              (e) => {
+                this.StrategyFee = e.target.value;
+                this.$emit('clearError', 'fee');
+              }
+            "
             max="100"
           />
           <span>%</span>
         </div>
+        <p class="error" v-if="errors[$props.currentTab].fee">
+          {{ errors[$props.currentTab].fee }}
+        </p>
       </div>
     </div>
 
-   <input type="hidden" :value="startYear" :id="`index_${$props.currentTab}_startYear`" />
-   <input type="hidden" :value="endYear" :id="`index_${$props.currentTab}_endYear`" />
-   <input type="hidden" :value="segment" :id="`index_${$props.currentTab}_segment`" />
-   <input type="hidden" :value="pmfStartYear" :id="`index_${$props.currentTab}_pmfStartYear`" />
-   <input type="hidden" :value="fcStartYear" :id="`index_${$props.currentTab}_fcStartYear`" />
-   <input type="hidden" :value="indexStrategy" :id="`index_${$props.currentTab}_indexStrategy`" />
-   <input type="hidden" :value="capRate" :id="`index_${$props.currentTab}_capRate`" />
-   <input type="hidden" :value="margin" :id="`index_${$props.currentTab}_margin`" />
-   <input type="hidden" :value="parRate" :id="`index_${$props.currentTab}_parRate`" />
-   <input type="hidden" :value="floor" :id="`index_${$props.currentTab}_floor`" />
-   <input type="hidden" :value="flatCreditBonus" :id="`index_${$props.currentTab}_flatCreditBonus`" />
-   <input type="hidden" :value="PerformanceMultiplier" :id="`index_${$props.currentTab}_PerformanceMultiplier`" />
-   <input type="hidden" :value="StrategyFee" :id="`index_${$props.currentTab}_StrategyFee`" />
+    <input
+      type="hidden"
+      :value="startYear"
+      :id="`index_${$props.currentTab}_startYear`"
+    />
+    <input
+      type="hidden"
+      :value="endYear"
+      :id="`index_${$props.currentTab}_endYear`"
+    />
+    <input
+      type="hidden"
+      :value="segment"
+      :id="`index_${$props.currentTab}_segment`"
+    />
+    <input
+      type="hidden"
+      :value="pmfStartYear"
+      :id="`index_${$props.currentTab}_pmfStartYear`"
+    />
+    <input
+      type="hidden"
+      :value="fcStartYear"
+      :id="`index_${$props.currentTab}_fcStartYear`"
+    />
+    <input
+      type="hidden"
+      :value="indexStrategy"
+      :id="`index_${$props.currentTab}_indexStrategy`"
+    />
+    <input
+      type="hidden"
+      :value="capRate"
+      :id="`index_${$props.currentTab}_capRate`"
+    />
+    <input
+      type="hidden"
+      :value="margin"
+      :id="`index_${$props.currentTab}_margin`"
+    />
+    <input
+      type="hidden"
+      :value="parRate"
+      :id="`index_${$props.currentTab}_parRate`"
+    />
+    <input
+      type="hidden"
+      :value="floor"
+      :id="`index_${$props.currentTab}_floor`"
+    />
+    <input
+      type="hidden"
+      :value="flatCreditBonus"
+      :id="`index_${$props.currentTab}_flatCreditBonus`"
+    />
+    <input
+      type="hidden"
+      :value="PerformanceMultiplier"
+      :id="`index_${$props.currentTab}_PerformanceMultiplier`"
+    />
+    <input
+      type="hidden"
+      :value="StrategyFee"
+      :id="`index_${$props.currentTab}_StrategyFee`"
+    />
   </div>
 </template>
 <script>
 import config from "../../../services/config.js";
 export default {
   props: ["activeTab", "currentTab"],
+  emits: ["clearError"],
+  inject: ["errors"],
   data() {
     return {
       startYear: 1960,
-      endYear: 1960,
+      endYear: 2022,
       segment: 1,
       pmfStartYear: 1,
       fcStartYear: 1,
       indexStrategy: "S&P 500",
       capRate: "",
       margin: "",
-      parRate: "",
-      floor: "",
+      parRate: 100,
+      floor: 0,
       flatCreditBonus: "",
-      PerformanceMultiplier: "",
+      PerformanceMultiplier: "1",
       StrategyFee: "",
     };
   },
@@ -577,14 +689,17 @@ export default {
     years() {
       let array = [];
       let currentYear = new Date().getFullYear();
-      for (let index = 1960; index < currentYear - 1; index++) {
+      for (let index = 1960; index < currentYear; index++) {
         array.push(index);
       }
 
       return array;
     },
     indexStrategies() {
-      return config.INDEX_STRATEGIES;
+      return config.ISC_INDEX_STRATEGIES;
+    },
+    maxStartYear() {
+      return endYear - startYear;
     },
   },
 };

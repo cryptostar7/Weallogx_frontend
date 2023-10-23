@@ -122,13 +122,22 @@
                               <span>$</span>
                               <input
                                 type="text"
-                                class="onlyPositiveNum"
+                                class="handleLimit"
                                 @keyup="
-                                  (e) => (beginningBalance = e.target.value)
+                                  (e) => {
+                                    this.beginningBalance = e.target.value;
+                                    this.clearError('beginning_balance');
+                                  }
                                 "
-                                max="9999999999"
+                                max="10000000"
                               />
                             </div>
+                            <p
+                              class="error"
+                              v-if="errors.global.beginning_balance"
+                            >
+                              {{ errors.global.beginning_balance }}
+                            </p>
                           </div>
                           <div class="col-md-6 col-lg-3 inp-mar-top">
                             <label for="beginningBalance">Vehicle Type</label>
@@ -202,12 +211,21 @@
                             <div class="index-strategy-each-inputs">
                               <input
                                 type="text"
+                                value="0"
                                 class="onlyPositiveNum"
-                                @keyup="(e) => (taxRate = e.target.value)"
-                                max="9999999999"
+                                @keyup="
+                                  (e) => {
+                                    this.taxRate = e.target.value;
+                                    this.clearError('tax_rate');
+                                  }
+                                "
+                                max="99"
                               />
                               <span>%</span>
                             </div>
+                            <p class="error" v-if="errors.global.tax_rate">
+                              {{ errors.global.tax_rate }}
+                            </p>
                           </div>
                           <div class="col-md-6 col-lg-3 inp-mar-top">
                             <label for="beginningBalance"
@@ -258,11 +276,19 @@
                                 type="text"
                                 class="onlyPositiveNum"
                                 value="1"
-                                @keyup="(e) => (vehicleFee = e.target.value)"
-                                max="9999999999"
+                                @keyup="
+                                  (e) => {
+                                    this.vehicleFee = e.target.value;
+                                    this.clearError('vehicle_fee');
+                                  }
+                                "
+                                max="99"
                               />
                               <span>%</span>
                             </div>
+                            <p class="error" v-if="errors.global.vehicle_fee">
+                              {{ errors.global.vehicle_fee }}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -456,18 +482,19 @@
                             >
                           </span>
                         </p>
-
                         <!-- Use class 'error' for showing error -->
                         <div
-                          :class="`strategy-allocation-all-div ${
-                            totalWeighting !== 100 ? 'error' : ''
-                          }`"
+                          class="strategy-allocation-all-div"
+                          id="allocation-all-div"
                         >
                           <div class="strategy-allocated-div active">
                             <input
                               type="text"
                               class="form-control allocation-input"
-                              v-model="weighting.tab1"
+                              max="100"
+                              value="100%"
+                              ref="weighting_index1"
+                              :modelInputId="`weighting_index1`"
                               :disabled="!this.tabs.tab2 && !this.tabs.tab3"
                             />
                           </div>
@@ -479,7 +506,9 @@
                             <input
                               type="text"
                               class="form-control allocation-input"
-                              v-model="weighting.tab2"
+                              ref="weighting_index2"
+                              max="100"
+                              :modelInputId="`weighting_index2`"
                               :disabled="!tabs.tab2"
                             />
                           </div>
@@ -491,7 +520,9 @@
                             <input
                               type="text"
                               class="form-control allocation-input"
-                              v-model="weighting.tab3"
+                              max="100"
+                              ref="weighting_index3"
+                              :modelInputId="`weighting_index3`"
                               :disabled="!tabs.tab3"
                             />
                           </div>
@@ -502,29 +533,15 @@
                         <index-strategy-form
                           :currentTab="1"
                           :activeTab="activeTab"
-                        />
-                        <index-strategy-form
-                          :currentTab="2"
-                          :activeTab="activeTab"
-                        />
-                        <index-strategy-form
-                          :currentTab="3"
-                          :activeTab="activeTab"
+                          @clearError="(index, tab) => clearError(index, 1)"
                         />
                       </div>
                     </div>
                   </div>
                   <div class="run-reset-btn-div">
-                    <!-- <router-link
-                      to="/index-strategy-calculator-run"
-                      class="run-button /*disabled*/"
-                      >Run</router-link
-                    > -->
-
                     <a class="run-button /*disabled*/" @click="submitHandler"
                       >Run</a
                     >
-
                     <a
                       href="javascript:void(0)"
                       data-bs-toggle="modal"
@@ -541,6 +558,9 @@
           </div>
         </main>
       </div>
+      <input type="hidden" :id="`weighting_index1`" v-model="weighting.tab1" />
+      <input type="hidden" :id="`weighting_index2`" v-model="weighting.tab2" />
+      <input type="hidden" :id="`weighting_index3`" v-model="weighting.tab3" />
     </section>
   </div>
 </template>
@@ -550,7 +570,9 @@ import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vu
 import IndexStrategyForm from "./../components/isc/IndexStrategyForm.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { authHeader } from "../../services/helper";
+import { authHeader, getNumber } from "../../services/helper";
+import { computed } from "vue";
+
 export default {
   components: {
     NavbarComponent,
@@ -570,25 +592,47 @@ export default {
         tab2: "",
         tab3: "",
       },
+      errors: {
+        1: [],
+        2: [],
+        3: [],
+        global: [],
+      },
       beginningBalance: "",
       taxRate: "",
       vehicleFee: "1",
       vehicleType: "Taxable",
+      totalWeighting: 100,
+    };
+  },
+  provide() {
+    // use function syntax so that we can access `this`
+    return {
+      errors: computed(() => this.errors),
     };
   },
   methods: {
+    testFunction: function () {
+      console.log(document.getElementById("weighting_index1").value);
+      console.log(document.getElementById("weighting_index2").value);
+      console.log(document.getElementById("weighting_index3").value);
+      console.log(this.weighting);
+    },
     setActiveTab: function (tab) {
       if (tab === 1) {
         this.tabs.tab1 = true;
         this.activeTab = tab;
         if (!this.tabs.tab2 && !this.tabs.tab3) {
           this.weighting.tab1 = "100%";
+          this.$refs.weighting_index1.value = "100%";
         }
         if (!this.tabs.tab2) {
           this.weighting.tab2 = "";
+          this.$refs.weighting_index2.value = "";
         }
         if (!this.tabs.tab3) {
           this.weighting.tab3 = "";
+          this.$refs.weighting_index3.value = "";
         }
       }
 
@@ -597,11 +641,15 @@ export default {
         this.activeTab = tab;
         if (!this.weighting.tab2) {
           this.weighting.tab1 = "50%";
+          this.$refs.weighting_index1.value = "50%";
+
           this.weighting.tab2 = "50%";
+          this.$refs.weighting_index2.value = "50%";
         }
 
         if (!this.tabs.tab3) {
           this.weighting.tab3 = "";
+          this.$refs.weighting_index3.value = "";
         }
       }
 
@@ -614,6 +662,10 @@ export default {
           this.weighting.tab1 = "33.34%";
           this.weighting.tab2 = "33.33%";
           this.weighting.tab3 = "33.33%";
+
+          this.$refs.weighting_index1.value = "33.34%";
+          this.$refs.weighting_index2.value = "33.33%";
+          this.$refs.weighting_index3.value = "33.33%";
         }
       }
     },
@@ -630,6 +682,11 @@ export default {
         this.weighting.tab1 = "100%";
         this.weighting.tab2 = "";
         this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "100%";
+        this.$refs.weighting_index2.value = "";
+        this.$refs.weighting_index3.value = "";
+
         return false;
       }
 
@@ -642,10 +699,18 @@ export default {
         this.weighting.tab1 = "50%";
         this.weighting.tab2 = "50%";
         this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "50%";
+        this.$refs.weighting_index2.value = "50%";
+        this.$refs.weighting_index3.value = "";
       } else {
         this.weighting.tab1 = "100%";
         this.weighting.tab2 = "";
         this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "100%";
+        this.$refs.weighting_index2.value = "";
+        this.$refs.weighting_index3.value = "";
       }
     },
     handleCheckBox3: function (event) {
@@ -663,16 +728,27 @@ export default {
         this.weighting.tab1 = "33.34%";
         this.weighting.tab2 = "33.33%";
         this.weighting.tab3 = "33.33%";
+
+        this.$refs.weighting_index1.value = "33.34%";
+        this.$refs.weighting_index2.value = "33.33%";
+        this.$refs.weighting_index3.value = "33.33%";
       } else {
         if (this.tabs.tab2) {
           this.weighting.tab1 = "50%";
           this.weighting.tab2 = "50%";
+
+          this.$refs.weighting_index1.value = "50%";
+          this.$refs.weighting_index2.value = "50%";
         } else {
           this.weighting.tab1 = "100%";
           this.weighting.tab2 = "";
+
+          this.$refs.weighting_index1.value = "100%";
+          this.$refs.weighting_index2.value = "";
         }
 
         this.weighting.tab3 = "";
+        this.$refs.weighting_index3.value = "";
       }
     },
     getActiveTabs: function () {
@@ -691,6 +767,9 @@ export default {
         Number(
           (Number(this.weighting.tab3.replace("%", "")) / 100).toFixed(2)
         ) || 0;
+      if (w1 + w2 + w3 === 0.99) {
+        w1 = w1 + 0.01;
+      }
       return [w1, w2, w3];
     },
     getVehicleData: function () {
@@ -699,10 +778,10 @@ export default {
         v_type = "pretax";
       }
       let obj = {
-        beginning_balance: this.beginningBalance,
+        beginning_balance: getNumber(this.beginningBalance),
         vehicle_type: v_type,
-        tax_rate: this.taxRate,
-        vehicle_fee: this.vehicleFee,
+        tax_rate: Number(this.taxRate),
+        vehicle_fee: Number(this.vehicleFee),
       };
 
       return obj;
@@ -713,42 +792,43 @@ export default {
 
       let totalActiveTab = activeTabs.filter((i) => i).length;
       let weightings = this.getIndexWeighting();
-
-      console.log(weightings);
-
+      
       for (var i = 1; i < 4; i++) {
+        let start_year = document.getElementById(`index_1_startYear`).value;
+        let end_year = document.getElementById(`index_1_endYear`).value;
+        let segment = document.getElementById(`index_1_segment`).value;
+        let pmsy = document.getElementById(`index_1_pmfStartYear`).value;
+        let fcbsy = document.getElementById(`index_1_fcStartYear`).value;
+        let cap_rate = document.getElementById(`index_1_capRate`).value;
+        let margin = document.getElementById(`index_1_margin`).value;
+        let par_rate = document.getElementById(`index_1_parRate`).value;
+        let floor = document.getElementById(`index_1_floor`).value;
+        let fcb = document.getElementById(`index_1_flatCreditBonus`).value;
+        let pm = document.getElementById(`index_1_PerformanceMultiplier`).value;
+        let fees = document.getElementById(`index_1_StrategyFee`).value;
+
         if (activeTabs[i - 1]) {
           let obj = {
             allocation: weightings[i - 1],
-            start_year: document.getElementById(`index_${i}_startYear`).value,
-            end_year: document.getElementById(`index_${i}_endYear`).value,
-            segment_duration: document.getElementById(`index_${i}_segment`)
-              .value,
-            performance_multiplier_start_year: document.getElementById(
-              `index_${i}_pmfStartYear`
-            ).value,
-            flat_credit_bonus_start_year: document.getElementById(
-              `index_${i}_fcStartYear`
-            ).value,
-            index: document.getElementById(`index_${i}_indexStrategy`).value,
-            cap_rate: document.getElementById(`index_${i}_capRate`).value,
-            margin: document.getElementById(`index_${i}_margin`).value,
-            par_rate: document.getElementById(`index_${i}_parRate`).value,
-            floor: document.getElementById(`index_${i}_floor`).value,
-            flat_credit_bonus: document.getElementById(
-              `index_${i}_flatCreditBonus`
-            ).value,
-            performance_multiplier: document.getElementById(
-              `index_${i}_PerformanceMultiplier`
-            ).value,
-            fee: document.getElementById(`index_${i}_StrategyFee`).value,
+            start_year: start_year ? Number(start_year) : "",
+            end_year: end_year ? Number(end_year) : "",
+            segment_duration: segment ? Number(segment) : "",
+            performance_multiplier_start_year: pmsy ? Number(pmsy) : "",
+            flat_credit_bonus_start_year: fcbsy ? Number(fcbsy) : "",
+            index: document.getElementById(`index_1_indexStrategy`).value,
+            cap_rate: cap_rate ? Number(cap_rate) : "",
+            margin: margin ? Number(margin) : "",
+            par_rate: par_rate ? Number(par_rate) : "",
+            floor: floor ? Number(floor) : "",
+            flat_credit_bonus: fcb ? Number(fcb) : "",
+            performance_multiplier: pm ? Number(pm) : "",
+            fee: fees ? Number(fees) : "",
           };
           arr.push(obj);
         }
       }
       return arr;
     },
-
     getStrategyObject: function (index) {
       let strategy = this.getIndexStrategiesData();
       return {
@@ -768,8 +848,97 @@ export default {
         fee: strategy[index].fee,
       };
     },
+    clearError: function (key, tab = false) {
+      if (tab) {
+        this.errors[tab][key] = "";
+      } else {
+        this.errors.global[key] = "";
+      }
+    },
+    validateStrategyForm: function (tab) {
+      let valid = true;
+      let strategy = this.getStrategyObject(tab - 1);
+      let start_year = document.getElementById(`index_1_startYear`).value;
+      let end_year = document.getElementById(`index_1_endYear`).value;
+      let maxYear = Number(end_year) - Number(start_year);
 
+      if (strategy.cap_rate !== "" && strategy.cap_rate < 1) {
+        this.errors[tab].cap_rate = "At least $1 value is required.";
+        valid = false;
+      }
+
+      if (strategy.par_rate !== "" && strategy.par_rate < 1) {
+        this.errors[tab].par_rate = "At least $1 value is required.";
+        valid = false;
+      }
+
+      if (strategy.floor === "") {
+        this.errors[tab].floor = "This field is required.";
+        valid = false;
+      }
+
+      if (
+        strategy.flat_credit_bonus !== "" &&
+        strategy.flat_credit_bonus < 0.1
+      ) {
+        this.errors[tab].flat_credit_bonus =
+          "At least $0.01 value is required.";
+        valid = false;
+      }
+
+      if (strategy.fee !== "" && strategy.fee < 0.1) {
+        this.errors[tab].fee = "At least $0.01 value is required.";
+        valid = false;
+      }
+
+      if (strategy.performance_multiplier_start_year > maxYear) {
+        this.errors[tab].pm_start_year =
+          "Maximum start year must be less than " + maxYear;
+        valid = false;
+      }
+
+      if (strategy.flat_credit_bonus_start_year > maxYear) {
+        this.errors[tab].fc_start_year =
+          "Maximum start year must be less than " + maxYear;
+        valid = false;
+      }
+
+      return valid;
+    },
+    validateForm: function () {
+      let valid = true;
+      if (!this.beginningBalance) {
+        valid = false;
+        this.errors.global["beginning_balance"] = "This field is required.";
+      }
+
+      if (this.beginningBalance && Number(this.beginningBalance) < 1) {
+        valid = false;
+        this.errors.global["beginning_balance"] = "At least $1 required.";
+      }
+
+      if (!this.taxRate) {
+        valid = false;
+        this.errors.global["tax_rate"] = "This field is required.";
+      }
+
+      if (this.vehicleFee && Number(this.vehicleFee) < 0.01) {
+        valid = false;
+        this.errors.global["vehicle_fee"] = "Minimum value should be .01%";
+      }
+
+      if (!this.validateStrategyForm(1)) {
+        valid = false;
+      }
+
+      return valid;
+    },
     submitHandler: function () {
+      if (!this.validateForm()) {
+        console.log(this.errors);
+        return false;
+      }
+
       let vehicle = this.getVehicleData();
       let strategy = this.getIndexStrategiesData();
 
@@ -800,10 +969,7 @@ export default {
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false);
-          localStorage.removeItem(
-            "isc_calculate",
-            JSON.stringify(response.data)
-          );
+          localStorage.setItem("isc_calculate", response.data);
           this.$router.push(`/index-strategy-calculator-run`);
         })
         .catch((error) => {
@@ -824,17 +990,9 @@ export default {
     vehicleTypes() {
       return ["Taxable", "Pre-Tax"];
     },
-    totalWeighting() {
-      let w1 = Number(this.weighting.tab1.replace("%", "")) || 0;
-      let w2 = Number(this.weighting.tab2.replace("%", "")) || 0;
-      let w3 = Number(this.weighting.tab3.replace("%", "")) || 0;
-      // return Number((w1 + w2 + w3).toFixed(0));
-      return w1 + w2 + w3;
-    },
   },
   mounted() {
     // Select Dropdown Start
-
     let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
       showHide.addEventListener("click", () =>
@@ -904,6 +1062,97 @@ export default {
         }
       })
     );
+
+    // input validation for min and max value with putting comma
+    const inputs2 = document.querySelectorAll(".handleLimit");
+    inputs2.forEach((element) =>
+      element.addEventListener("input", function (e) {
+        let current = getNumber(e.target.value).toString();
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (Number(current) < min || Number(current) > max) {
+          let actualValue = current.slice(0, current.length - 1);
+          e.target.value =
+            Number(current) < min ? "" : Number(actualValue).toLocaleString();
+          return false;
+        } else {
+          e.target.value = Number(current).toLocaleString();
+        }
+      })
+    );
+
+    function getTotalWeighting() {
+      let w1 =
+        Number(
+          document.getElementById("weighting_index1").value.replace("%", "")
+        ) || 0;
+      let w2 =
+        Number(
+          document.getElementById("weighting_index2").value.replace("%", "")
+        ) || 0;
+      let w3 =
+        Number(
+          document.getElementById("weighting_index3").value.replace("%", "")
+        ) || 0;
+      // return Number((w1 + w2 + w3).toFixed(0));
+      return w1 + w2 + w3;
+    }
+
+    // input validation for min and max value with putting comma
+    const inputs3 = document.querySelectorAll(".allocation-input");
+    inputs3.forEach((element) =>
+      element.addEventListener("input", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        let modelInputId = e.target.getAttribute("modelInputId");
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+        }
+
+        document.getElementById(modelInputId).value = e.target.value;
+
+        if (getTotalWeighting() === 100) {
+          document
+            .getElementById("allocation-all-div")
+            .classList.remove("error");
+        } else {
+          document.getElementById("allocation-all-div").classList.add("error");
+        }
+
+        return false;
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focus", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("blur", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focusout", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
+      })
+    );
   },
 };
 </script>
+<style>
+.error {
+  color: red !important;
+}
+</style>
