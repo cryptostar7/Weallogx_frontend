@@ -127,9 +127,9 @@
                                       />
                                     </div>
                                     {{
-                                      inputs.strategies
+                                      inputs && inputs.strategies
                                         ? inputs.strategies[0].index
-                                        : ""
+                                        : "S&P 500"
                                     }}
                                     <span class="icon-span"
                                       ><sup>
@@ -685,14 +685,17 @@
                         <div class="table-graph-bottom-head greenClr">
                           Summary
                         </div>
-                        <div class="table-graph-bottom-content-div" v-if="strategy_summary">
+                        <div
+                          class="table-graph-bottom-content-div"
+                          v-if="strategy_summary"
+                        >
                           <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
                               </div>
                               <div class="col-sm-4">
-                                 <p>
+                                <p>
                                   ${{
                                     strategy_summary.beginning_balance
                                       ? strategy_summary.beginning_balance.toFixed(
@@ -750,7 +753,7 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                  <p>
+                                <p>
                                   ${{
                                     strategy_summary.ending_balance
                                       ? strategy_summary.ending_balance.toFixed(
@@ -780,7 +783,7 @@
                                 <p>Years with Market Losses</p>
                               </div>
                               <div class="col-sm-4">
-                                 <p
+                                <p
                                   :class="
                                     strategy_summary.total_negative_years < 0
                                       ? 'highlighted'
@@ -806,7 +809,7 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                      <p>
+                                <p>
                                   {{
                                     strategy_summary.average_return
                                       ? strategy_summary.average_return.toFixed(
@@ -824,13 +827,15 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="table-green-clr">  {{
+                                <p class="table-green-clr">
+                                  {{
                                     strategy_summary.net_average_return
                                       ? strategy_summary.net_average_return.toFixed(
                                           2
                                         )
                                       : ""
-                                  }}%</p>
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -889,13 +894,15 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p> {{
+                                <p>
+                                  {{
                                     strategy_summary.actual_return
                                       ? strategy_summary.actual_return.toFixed(
                                           2
                                         )
                                       : "0"
-                                  }}%</p>
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row collapse" id="aror4">
@@ -905,13 +912,15 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="table-green-clr">{{
+                                <p class="table-green-clr">
+                                  {{
                                     strategy_summary.net_actual_return
                                       ? strategy_summary.net_actual_return.toFixed(
                                           2
                                         )
                                       : 0
-                                  }}%</p>
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -919,11 +928,13 @@
                                 <p>Standard Deviation</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>{{
+                                <p>
+                                  {{
                                     strategy_summary.standard_deviation
                                       ? strategy_summary.standard_deviation.toFixed()
                                       : 0
-                                  }}%</p>
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -931,11 +942,13 @@
                                 <p>Sharpe Ratio</p>
                               </div>
                               <div class="col-sm-4">
-                                <p> {{
+                                <p>
+                                  {{
                                     strategy_summary.sharpe_ratio
                                       ? strategy_summary.sharpe_ratio.toFixed()
                                       : 0
-                                  }}</p>
+                                  }}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -1034,9 +1047,7 @@
                                 <p>
                                   ${{
                                     index_summary.ending_balance
-                                      ? index_summary.ending_balance.toFixed(
-                                          2
-                                        )
+                                      ? index_summary.ending_balance.toFixed(2)
                                       : ""
                                   }}
                                 </p>
@@ -1091,9 +1102,7 @@
                                 <p>
                                   {{
                                     index_summary.average_return
-                                      ? index_summary.average_return.toFixed(
-                                          2
-                                        )
+                                      ? index_summary.average_return.toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -1177,9 +1186,7 @@
                                 <p>
                                   {{
                                     index_summary.actual_return
-                                      ? index_summary.actual_return.toFixed(
-                                          2
-                                        )
+                                      ? index_summary.actual_return.toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
