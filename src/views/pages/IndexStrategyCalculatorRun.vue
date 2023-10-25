@@ -12,10 +12,7 @@
                   <div class="strategy-calc-main-div">
                     <div class="index-strategy-head-div">
                       <h1 @click="testFunction">Index Strategy Calculator</h1>
-                      <router-link
-                        to="/index-strategy-calculator"
-                        href="index.html"
-                        class="back"
+                      <router-link to="/index-strategy-calculator" class="back"
                         ><img
                           src="@/assets/images/icons/back-small.svg"
                           alt="Back"
@@ -397,9 +394,9 @@
                                 </svg>
                               </label>
                             </div>
-                            <div class="canvas-graph-div">
-                              <canvas id="myChart"></canvas>
-                            </div>
+                            <!-- Graph canvas start -->
+                            <isc-graph-component />
+                            <!-- Graph canvas end -->
                           </div>
                         </div>
                       </div>
@@ -1450,79 +1447,7 @@
     </div>
 
     <!-- Reset Modal Start -->
-    <div
-      class="modal fade common-modal preview-modal-backdrop p-0"
-      id="saveRunModal"
-      tabindex="-1"
-      aria-labelledby="saveRunModalLabel"
-      aria-hidden="true"
-    >
-      <a type="button" data-bs-dismiss="modal" class="preview-modal-close">
-        <svg
-          width="40"
-          height="45"
-          viewBox="0 0 40 45"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="Group 1974" filter="url(#filter0_d_346_5079)">
-            <rect
-              id="Rectangle 174"
-              width="49.4476"
-              height="5.7055"
-              rx="2.85275"
-              transform="matrix(0.707099 0.707114 -0.707099 0.707114 7.03516 0.000488281)"
-              fill="#0E6651"
-            />
-            <rect
-              id="Rectangle 175"
-              width="49.4476"
-              height="5.7055"
-              rx="2.85275"
-              transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)"
-              fill="#0E6651"
-            />
-          </g>
-          <defs>
-            <filter
-              id="filter0_d_346_5079"
-              x="0.181641"
-              y="1.18164"
-              width="44.6367"
-              height="46.6367"
-              filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"
-              />
-              <feOffset dy="6" />
-              <feGaussianBlur stdDeviation="2" />
-              <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-              />
-              <feBlend
-                mode="normal"
-                in2="BackgroundImageFix"
-                result="effect1_dropShadow_346_5079"
-              />
-              <feBlend
-                mode="normal"
-                in="SourceGraphic"
-                in2="effect1_dropShadow_346_5079"
-                result="shape"
-              />
-            </filter>
-          </defs>
-        </svg>
-      </a>
-    </div>
+    <isc-form-edit-modal @setIscData="setIscData" />
     <!-- Reset  Modal End -->
     <button class="bottom-to-top-btn" id="bottomToTopBtn">
       <svg
@@ -1558,14 +1483,15 @@
 <script>
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
-import "../../assets/js/chart.min";
-import canvasPlus from "../../assets/images/icons/canvas-plus.svg";
-import canvasPlusBlue from "../../assets/images/icons/canvas-plus-blue.svg";
-import canvasPlusGrey from "../../assets/images/icons/grey-plus.svg";
+import IscFormEditModal from "./../components/isc/IscFormEditModal.vue";
+import IscGraphComponent from "./../components/isc/IscGraphComponent.vue";
+
 export default {
   components: {
     NavbarComponent,
     LeftSidebarComponent,
+    IscFormEditModal,
+    IscGraphComponent,
   },
   data() {
     return {
@@ -1577,15 +1503,18 @@ export default {
     };
   },
   mounted() {
-    let data = JSON.parse(localStorage.getItem("isc_calculate"));
-    console.log(data);
-    this.index_results = data.index_results;
-    this.strategy_results = data.strategy_results;
-    this.index_summary = data.index_summary;
-    this.strategy_summary = data.strategy_summary;
-    this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+    this.setIscData();
   },
   methods: {
+    setIscData: function () {
+      let data = JSON.parse(localStorage.getItem("isc_calculate"));
+      console.log(data);
+      this.index_results = data.index_results;
+      this.strategy_results = data.strategy_results;
+      this.index_summary = data.index_summary;
+      this.strategy_summary = data.strategy_summary;
+      this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+    },
     testFunction: function () {
       console.log(this.inputs);
       console.log(this.index_results);

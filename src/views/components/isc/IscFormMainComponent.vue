@@ -110,8 +110,8 @@
                   <li
                     v-for="(item, index) in vehicleTypes"
                     :key="index"
-                    :class="`option ${vehicleTypes === item ? 'active' : ''}`"
-                    @click="vehicleType = item"
+                    :class="`option ${vehicleType === item.name ? 'active' : ''}`"
+                    @click="vehicleType = item.name"
                   >
                     <span class="option-text">{{ item }}</span>
                   </li>
@@ -605,7 +605,7 @@ export default {
     getVehicleData: function () {
       let v_type = "taxable";
       if (this.vehicleType === "Pre-Tax") {
-        v_type = "pretax";
+        v_type = "pre-tax";
       }
       let obj = {
         beginning_balance: this.beginningBalance,
@@ -731,7 +731,11 @@ export default {
   },
   computed: {
     vehicleTypes() {
-      return ["Taxable", "Pre-Tax"];
+      return [
+        { name: "Taxable", value: "taxable" },
+        { name: "Pre-Tax", value: "pre-tax" },
+      ];
+    },
     },
     totalWeighting() {
       let w1 = Number(this.weighting.tab1.replace("%", "")) || 0;

@@ -162,7 +162,7 @@ const router = createRouter({
     {
       path: "/index-strategy-calculator",
       name: "index-strategy-calculator",
-      component: () => import("../views/pages/IndexStrategyCalculator.vue"),
+      component: () => import("../views/pages/IndexStrategyCalculatorPage.vue"),
     },
     {
       path: "/index-strategy-calculator-run",
