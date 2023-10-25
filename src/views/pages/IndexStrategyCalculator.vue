@@ -792,7 +792,7 @@ export default {
 
       let totalActiveTab = activeTabs.filter((i) => i).length;
       let weightings = this.getIndexWeighting();
-      
+
       for (var i = 1; i < 4; i++) {
         let start_year = document.getElementById(`index_1_startYear`).value;
         let end_year = document.getElementById(`index_1_endYear`).value;
@@ -968,8 +968,15 @@ export default {
 
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
+          let data = JSON.parse(
+            response.data.replaceAll("NaN", "0").replaceAll("Infinity", "0")
+          );
+          console.log(data);
           this.$store.dispatch("loader", false);
-          localStorage.setItem("isc_calculate", response.data);
+          localStorage.setItem(
+            "isc_calculate",
+            JSON.stringify(this.mapData(data))
+          );
           this.$router.push(`/index-strategy-calculator-run`);
         })
         .catch((error) => {
@@ -984,6 +991,37 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
+    },
+    mapData: function (data) {
+      let years = Object.values(data.index_results.year);
+      let index_rate_of_returns = data.index_results.rate_of_return;
+      let index_net_balances = data.index_results.eoy_net_balance;
+
+      let strategy_rate_of_returns = data.strategy_results.strategy_return;
+      let strategy_net_balances = data.strategy_results.net_balance;
+
+      let index_results = [];
+      let strategy_results = [];
+      years.forEach((element, index) => {
+        index_results.push({
+          year: element,
+          ror: index_rate_of_returns[index],
+          net_balance: index_net_balances[index],
+        });
+
+        strategy_results.push({
+          year: element,
+          ror: strategy_rate_of_returns[index],
+          net_balance: strategy_net_balances[index],
+        });
+      });
+
+      return {
+        index_results: index_results,
+        strategy_results: strategy_results,
+        index_summary: data.index_summary,
+        strategy_summary: data.strategy_summary,
+      };
     },
   },
   computed: {
