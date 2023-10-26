@@ -308,14 +308,17 @@ import {
 } from "../../../services/helper.js";
 
 // Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.js";
-import "/src/assets/js/pdfjs-3.11.174/build/pdf.js";
+// import "/src/assets/js/pdfjs-3.11.174/build/pdf.js";
+import "https://mozilla.github.io/pdf.js/build/pdf.js";
+
 
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
 
 // Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
-pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
+// pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
 
 const fileReader = new FileReader();
 
