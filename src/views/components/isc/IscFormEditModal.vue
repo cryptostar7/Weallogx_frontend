@@ -6,7 +6,7 @@
     aria-labelledby="saveRunModalLabel"
     aria-hidden="true"
   >
-    <a type="button" data-bs-dismiss="modal" class="preview-modal-close">
+    <a type="button" data-bs-dismiss="modal" class="preview-modal-close" ref="modalCloseRef">
       <svg
         width="40"
         height="45"
@@ -177,6 +177,7 @@
                           }
                         "
                         max="10000000"
+                        min="1"
                         ref="beginningBalanceRef"
                       />
                     </div>
@@ -576,7 +577,6 @@
                 <a
                   @click="submitHandler"
                   class="calc-preview-save-run-button"
-                  data-bs-dismiss="modal"
                   >Save & Run</a
                 >
               </div>
@@ -959,6 +959,8 @@ export default {
       if (!this.validateForm()) {
         return false;
       }
+
+      this.$refs.modalCloseRef.click();
 
       let vehicle = this.getVehicleData();
       let strategy = this.getIndexStrategiesData();
