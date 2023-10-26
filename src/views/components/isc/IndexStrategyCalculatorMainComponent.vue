@@ -98,6 +98,7 @@
                       }
                     "
                     max="10000000"
+                    min="1"
                   />
                 </div>
                 <p class="error" v-if="errors.global.beginning_balance">
@@ -119,7 +120,9 @@
                     <li
                       v-for="(item, index) in vehicleTypes"
                       :key="index"
-                      :class="`option ${vehicleType === item.name ? 'active' : ''}`"
+                      :class="`option ${
+                        vehicleType === item.name ? 'active' : ''
+                      }`"
                       @click="vehicleType = item.name"
                     >
                       <span class="option-text">{{ item.name }}</span>
@@ -477,7 +480,11 @@
       </div>
     </div>
     <div class="run-reset-btn-div">
-      <a class="run-button /*disabled*/" @click="submitHandler">Run</a>
+      <a
+        :class="`run-button ${submitBtn ? '' : 'disabled'}`"
+        @click="submitHandler"
+        >Run</a
+      >
       <a
         href="javascript:void(0)"
         data-bs-toggle="modal"
@@ -519,10 +526,11 @@ export default {
         global: [],
       },
       beginningBalance: "",
-      taxRate: "",
+      taxRate: "0",
       vehicleFee: "1",
       vehicleType: "Taxable",
       totalWeighting: 100,
+      submitBtn: false,
     };
   },
   provide() {
@@ -770,6 +778,12 @@ export default {
       };
     },
     clearError: function (key, tab = false) {
+      if (this.beginningBalance && this.taxRate !== "") {
+        this.submitBtn = true;
+      } else {
+        this.submitBtn = false;
+      }
+
       if (tab) {
         this.errors[tab][key] = "";
       } else {
@@ -784,12 +798,17 @@ export default {
       let maxYear = Number(end_year) - Number(start_year);
 
       if (strategy.cap_rate !== "" && strategy.cap_rate < 1) {
-        this.errors[tab].cap_rate = "At least $1 value is required.";
+        this.errors[tab].cap_rate = "At least 1% value is required.";
+        valid = false;
+      }
+
+      if (strategy.par_rate === "") {
+        this.errors[tab].par_rate = "This field is required.";
         valid = false;
       }
 
       if (strategy.par_rate !== "" && strategy.par_rate < 1) {
-        this.errors[tab].par_rate = "At least $1 value is required.";
+        this.errors[tab].par_rate = "At least 1% value is required.";
         valid = false;
       }
 
@@ -798,17 +817,13 @@ export default {
         valid = false;
       }
 
-      if (
-        strategy.flat_credit_bonus !== "" &&
-        strategy.flat_credit_bonus < 0.1
-      ) {
-        this.errors[tab].flat_credit_bonus =
-          "At least $0.01 value is required.";
+      if (strategy.flat_credit_bonus !== "" && strategy.flat_credit_bonus < 0) {
+        this.errors[tab].flat_credit_bonus = "At least 0 value is required.";
         valid = false;
       }
 
-      if (strategy.fee !== "" && strategy.fee < 0.1) {
-        this.errors[tab].fee = "At least $0.01 value is required.";
+      if (strategy.fee !== "" && strategy.fee < 0) {
+        this.errors[tab].fee = "At least 0 value is required.";
         valid = false;
       }
 
@@ -828,6 +843,7 @@ export default {
     },
     validateForm: function () {
       let valid = true;
+
       if (!this.beginningBalance) {
         valid = false;
         this.errors.global["beginning_balance"] = "This field is required.";
@@ -843,9 +859,9 @@ export default {
         this.errors.global["tax_rate"] = "This field is required.";
       }
 
-      if (this.vehicleFee && Number(this.vehicleFee) < 0.01) {
+      if (this.vehicleFee && Number(this.vehicleFee) < 0) {
         valid = false;
-        this.errors.global["vehicle_fee"] = "Minimum value should be .01%";
+        this.errors.global["vehicle_fee"] = "Minimum value should be 0";
       }
 
       if (!this.validateStrategyForm(1)) {
@@ -916,12 +932,11 @@ export default {
       let index_rate_of_returns = data.index_results.rate_of_return;
       let index_net_balances = [];
 
-      if(this.vehicleType === 'Taxable'){
+      if (this.vehicleType === "Taxable") {
         index_net_balances = data.index_results.eoy_net_balance;
-      }else{
+      } else {
         index_net_balances = data.index_results.net_balance;
       }
-
 
       let strategy_rate_of_returns = data.strategy_results.strategy_return;
       let strategy_net_balances = data.strategy_results.net_balance;

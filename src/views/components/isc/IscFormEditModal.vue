@@ -883,12 +883,17 @@ export default {
       let maxYear = Number(end_year) - Number(start_year);
 
       if (strategy.cap_rate !== "" && strategy.cap_rate < 1) {
-        this.errors[tab].cap_rate = "At least $1 value is required.";
+        this.errors[tab].cap_rate = "At least 1% value is required.";
+        valid = false;
+      }
+
+      if (strategy.par_rate === "") {
+        this.errors[tab].par_rate = "This field is required.";
         valid = false;
       }
 
       if (strategy.par_rate !== "" && strategy.par_rate < 1) {
-        this.errors[tab].par_rate = "At least $1 value is required.";
+        this.errors[tab].par_rate = "At least 1% value is required.";
         valid = false;
       }
 
@@ -897,17 +902,13 @@ export default {
         valid = false;
       }
 
-      if (
-        strategy.flat_credit_bonus !== "" &&
-        strategy.flat_credit_bonus < 0.1
-      ) {
-        this.errors[tab].flat_credit_bonus =
-          "At least $0.01 value is required.";
+      if (strategy.flat_credit_bonus !== "" && strategy.flat_credit_bonus < 0) {
+        this.errors[tab].flat_credit_bonus = "At least 0 value is required.";
         valid = false;
       }
 
-      if (strategy.fee !== "" && strategy.fee < 0.1) {
-        this.errors[tab].fee = "At least $0.01 value is required.";
+      if (strategy.fee !== "" && strategy.fee < 0) {
+        this.errors[tab].fee = "At least 0 value is required.";
         valid = false;
       }
 
@@ -927,6 +928,7 @@ export default {
     },
     validateForm: function () {
       let valid = true;
+
       if (!this.beginningBalance) {
         valid = false;
         this.errors.global["beginning_balance"] = "This field is required.";
@@ -942,9 +944,9 @@ export default {
         this.errors.global["tax_rate"] = "This field is required.";
       }
 
-      if (this.vehicleFee && Number(this.vehicleFee) < 0.01) {
+      if (this.vehicleFee && Number(this.vehicleFee) < 0) {
         valid = false;
-        this.errors.global["vehicle_fee"] = "Minimum value should be .01%";
+        this.errors.global["vehicle_fee"] = "Minimum value should be 0";
       }
 
       if (!this.validateStrategyForm(1)) {
@@ -955,7 +957,6 @@ export default {
     },
     submitHandler: function () {
       if (!this.validateForm()) {
-        console.log(this.errors);
         return false;
       }
 

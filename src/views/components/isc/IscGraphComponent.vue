@@ -1,6 +1,6 @@
 <template lang="">
   <div class="canvas-graph-div">
-    <canvas id="myChart"></canvas>
+    <canvas id="iscChartCanvas"></canvas>
   </div>
 </template>
 <script>
@@ -9,28 +9,31 @@ import canvasPlus from "../../../assets/images/icons/canvas-plus.svg";
 import canvasPlusBlue from "../../../assets/images/icons/canvas-plus-blue.svg";
 import canvasPlusGrey from "../../../assets/images/icons/grey-plus.svg";
 export default {
-  mounted() {
-    this.generateGraph();
-  },
+  emits: ["setReGenerateGraph"],
+  props: ["reGenerateGraph"],
   methods: {
     generateGraph: function () {
+      if (window.iscChart) {
+        window.iscChart.destroy();
+      }
+
       // Creation of Dropdown Box 1
       let chartDropdown0 = document.createElement("div");
       chartDropdown0.id = "chartDropdown0";
       chartDropdown0.className = "chart-dropdown green center d-none";
       chartDropdown0.innerHTML = `<div class="tooltip-main-div">
-      <div class="tool-tip-second-main-div">
-        <div class="tooltipbtn">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7" fill="white" stroke="#147D64" stroke-width="2"></circle><path d="M4 8H12" stroke="#147D64"></path></svg>
-        </div>
-        <div class="tooltip-head">Snap Shot</div>
-        <div class="tooltip-inner-div">
-          <p>No Taxes</p>
-          <p>No Market Losses</p>
-          <p>Less Volatility</p>
-        </div>
-      </div>
-    </div>`;
+          <div class="tool-tip-second-main-div">
+            <div class="tooltipbtn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7" fill="white" stroke="#147D64" stroke-width="2"></circle><path d="M4 8H12" stroke="#147D64"></path></svg>
+            </div>
+            <div class="tooltip-head">Snap Shot</div>
+            <div class="tooltip-inner-div">
+              <p>No Taxes</p>
+              <p>No Market Losses</p>
+              <p>Less Volatility</p>
+            </div>
+          </div>
+        </div>`;
 
       // Creation of Dropdown Box 2
       let chartDropdown1 = document.createElement("div");
@@ -177,7 +180,7 @@ export default {
         lineColors = ["#147D64", "#1660A4", "#eee"];
       }
 
-      const ctx = document.getElementById("myChart");
+      const ctx = document.getElementById("iscChartCanvas");
 
       const getTableContainer = (chart, id) => {
         const legendContainer = document.getElementById(id);
@@ -361,19 +364,23 @@ export default {
         },
       };
 
+      let result = JSON.parse(localStorage.getItem("isc_calculate"));
+      let years = result.index_results.map((i) => i.year);
+      let index_net_balance = result.index_results.map((i) => i.net_balance);
+      let strategy_net_balance = result.strategy_results.map(
+        (i) => i.net_balance
+      );
       var config = {
         type: "line",
         data: {
-          labels: [1960, 1970, 1980, 1990, 2000, 2010, 2020, ""],
+          labels: years,
           datasets: [
             {
               label: false,
               fill: false,
               backgroundColor: lineColors[0],
               borderColor: lineColors[0],
-              data: [
-                100000, 1200000, 1300000, 2200000, 2300000, 3600000, 4500000,
-              ],
+              data: index_net_balance,
               pointStyle: [
                 "circle",
                 "circle",
@@ -395,9 +402,7 @@ export default {
               fill: false,
               backgroundColor: lineColors[1],
               borderColor: lineColors[1],
-              data: [
-                100000, 1600000, 1400000, 2400000, 900000, 1800000, 2500000,
-              ],
+              data: strategy_net_balance,
               pointStyle: [
                 "circle",
                 "circle",
@@ -503,59 +508,8 @@ export default {
       let n = config.data.datasets[0].data.length - 1;
       let dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
 
-      // Clicking to show and hide the dropdown on graph
-      const clickHandler = (click) => {
-        const { layerX, pageY } = click;
-        const points = myChart.getElementsAtEventForMode(
-          click,
-          "nearest",
-          { intersect: true },
-          true
-        );
-        if (points[0]) {
-          points.forEach((point) => {
-            let currentIndex = point.datasetIndex;
-            if (point.index === config.data.labels.length - 2) {
-              const dropdownBox = document.getElementById(
-                `chartDropdown${currentIndex}`
-              );
-              dropdownBox.classList.toggle("d-none");
-              dropdownBox.classList.toggle("d-block");
-              dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
-              dropdownStatus.isOpen = true;
-              if (currentIndex == 0) {
-                dropdownStatus.idx0 = 0;
-                config.data.datasets[0].borderColor = lineColors[0];
-              }
-              if (currentIndex == 1) {
-                dropdownStatus.idx1 = 1;
-                config.data.datasets[1].borderColor = lineColors[1];
-              }
-              dropdownBox.style.top =
-                pageY -
-                Math.floor(dropdownBox.getBoundingClientRect().height) -
-                16 +
-                "px";
-              myChart.update();
-              setTimeout(() => {
-                if (currentIndex == 0) {
-                  config.data.datasets[0].borderColor = lineColors[0];
-                }
-                if (currentIndex == 1) {
-                  config.data.datasets[1].borderColor = lineColors[1];
-                }
-                myChart.update();
-              }, 250);
-              return;
-            }
-          });
-        }
-        click.stopPropagation();
-      };
+      window.iscChart = new Chart(ctx, config);
 
-      var myChart = new Chart(ctx, config);
-
-      myChart.canvas.addEventListener("click", clickHandler);
       let chartDropdowns = document.querySelectorAll(".chart-dropdown");
 
       function resetColors(chart) {
@@ -566,13 +520,13 @@ export default {
         chart.update();
       }
 
-      myChart.canvas.addEventListener("mouseleave", (e) => {
+      window.iscChart.canvas.addEventListener("mouseleave", (e) => {
         // if(animationTimeout){
         //    setTimeout(() => {
         //      animationTimeout = false;
         //    }, totalDuration);
         //  }else{
-        resetColors(myChart);
+        resetColors(window.iscChart);
         // }
       });
 
@@ -603,7 +557,7 @@ export default {
             dropdownBox.classList.toggle("d-none");
             dropdownBox.classList.toggle("d-block");
             dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
-            myChart.update();
+            window.iscChart.update();
           }
         });
       });
@@ -629,7 +583,7 @@ export default {
               dropdownStatus.isOpen = true;
             }
             config.data.datasets[idx].pointStyle[n] = pointImageArr[idx];
-            myChart.update();
+            window.iscChart.update();
           });
 
         dropdownBox.addEventListener("mouseover", function () {
@@ -641,9 +595,61 @@ export default {
           if (idx == 1) {
             config.data.datasets[1].borderColor = lineColors[1];
           }
-          myChart.update();
+          window.iscChart.update();
         });
       });
+
+      // Clicking to show and hide the dropdown on graph
+      const clickHandler = (click) => {
+        const { layerX, pageY } = click;
+        const points = window.iscChart.getElementsAtEventForMode(
+          click,
+          "nearest",
+          { intersect: true },
+          true
+        );
+        if (points[0]) {
+          points.forEach((point) => {
+            let currentIndex = point.datasetIndex;
+            if (point.index === config.data.labels.length - 2) {
+              const dropdownBox = document.getElementById(
+                `chartDropdown${currentIndex}`
+              );
+              dropdownBox.classList.toggle("d-none");
+              dropdownBox.classList.toggle("d-block");
+              dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
+              dropdownStatus.isOpen = true;
+              if (currentIndex == 0) {
+                dropdownStatus.idx0 = 0;
+                config.data.datasets[0].borderColor = lineColors[0];
+              }
+              if (currentIndex == 1) {
+                dropdownStatus.idx1 = 1;
+                config.data.datasets[1].borderColor = lineColors[1];
+              }
+              dropdownBox.style.top =
+                pageY -
+                Math.floor(dropdownBox.getBoundingClientRect().height) -
+                16 +
+                "px";
+              window.iscChart.update();
+              setTimeout(() => {
+                if (currentIndex == 0) {
+                  config.data.datasets[0].borderColor = lineColors[0];
+                }
+                if (currentIndex == 1) {
+                  config.data.datasets[1].borderColor = lineColors[1];
+                }
+                window.iscChart.update();
+              }, 250);
+              return;
+            }
+          });
+        }
+        click.stopPropagation();
+      };
+
+      window.iscChart.canvas.addEventListener("click", clickHandler);
 
       // Three Switch Buttons and Three Allocation Inputs
       const threeCheckboxContainers =
@@ -850,7 +856,7 @@ export default {
           config.data.datasets[1].pointHoverBackgroundColor = "#1660A4";
           config.data.datasets[1].pointStyle[n] = chartDot2;
         }
-        myChart.update();
+        iscChart.update();
       });
 
       let calcTabs = document.querySelector(".calc-tab-graph-tab");
@@ -873,6 +879,16 @@ export default {
       bottomToTopBtn.addEventListener("click", () => {
         window.scrollTo(0, 0);
       });
+    },
+  },
+  watch: {
+    "$props.reGenerateGraph"(e) {
+      console.log(e);
+      if (e) {
+        this.generateGraph();
+        console.log("setReGenerateGraph");
+        this.$emit("setReGenerateGraph", false);
+      }
     },
   },
 };

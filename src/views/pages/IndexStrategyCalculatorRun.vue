@@ -395,7 +395,10 @@
                               </label>
                             </div>
                             <!-- Graph canvas start -->
-                            <isc-graph-component />
+                            <isc-graph-component
+                              :reGenerateGraph="reGenerateGraph"
+                              @setReGenerateGraph="(e) => (reGenerateGraph = e)"
+                            />
                             <!-- Graph canvas end -->
                           </div>
                         </div>
@@ -1500,6 +1503,7 @@ export default {
       strategy_results: null,
       strategy_summary: null,
       inputs: [],
+      reGenerateGraph: false,
     };
   },
   mounted() {
@@ -1508,17 +1512,19 @@ export default {
   methods: {
     setIscData: function () {
       let data = JSON.parse(localStorage.getItem("isc_calculate"));
-      console.log(data);
-      this.index_results = data.index_results;
-      this.strategy_results = data.strategy_results;
-      this.index_summary = data.index_summary;
-      this.strategy_summary = data.strategy_summary;
-      this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+      if (data) {
+        this.index_results = data.index_results;
+        this.strategy_results = data.strategy_results;
+        this.index_summary = data.index_summary;
+        this.strategy_summary = data.strategy_summary;
+        this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+        this.reGenerateGraph = true;
+      }else{
+        this.$router.push(`/index-strategy-calculator`);
+      }
     },
     testFunction: function () {
-      console.log(this.inputs);
-      console.log(this.index_results);
-      console.log(this.strategy_results);
+      this.reGenerateGraph = true;
     },
   },
 };
