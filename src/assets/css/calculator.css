@@ -323,6 +323,12 @@ display: none;
     background: #fff;
     border-radius: 0;
 }
+.select-menu .options .option.disabled{
+    pointer-events: none;
+}
+.select-menu .options .option.disabled .option-text{
+    color: #aaa;
+}
 .select-menu .options .option:hover {
     background: #F2F2F2;
 }
