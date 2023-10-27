@@ -807,28 +807,9 @@ import {
   mapClientList,
 } from "../../services/helper.js";
 
-// Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.js";
-// import "pdfjs-dist/build/pdf.js";
-// import pdfjsLib from "pdfjs-dist/build/pdf";
-import pdfjsLib from "pdfjs-dist/build/pdf";
-import { getDocument } from 'pdfjs-dist';
-import { GlobalWorkerOptions } from 'pdfjs-dist/build/pdf';
-GlobalWorkerOptions.workerSrc = '/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js';
-
-// pdfjsLib.GlobalWorkerOptions.workerSrc =
-//   "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.worker.min.js";
-
-
-// Loaded via <script> tag, create shortcut to access PDF.js exports.
-// const pdfjsLib = window["pdfjs-dist/build/pdf"];
-// The workerSrc property shall be specified.
-
-// Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
-
-  // pdfjsLib.GlobalWorkerOptions.workerSrc = "/build/pdf.worker.js";
-  // pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
-// pdfjsLib.GlobalWorkerOptions.workerSrc =
-//   "https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.worker.min.js";
+import "../../../node_modules/pdfjs-dist/build/pdf.js";
+const pdfjsLib = window["pdfjs-dist/build/pdf"];
+pdfjsLib.GlobalWorkerOptions.workerSrc = "../../../node_modules/pdfjs-dist/build/pdf.worker.js";
 
 const fileReader = new FileReader();
 
@@ -944,7 +925,8 @@ export default {
         fileReader.onload = function () {
           var pdfData = new Uint8Array(this.result);
           // Using DocumentInitParameters object to load binary data.
-          var loadingTask = getDocument({ data: pdfData });
+          console.log(pdfjsLib);
+          var loadingTask = pdfjsLib.getDocument({ data: pdfData });
           loadingTask.promise.then(
             function (pdf) {
               // Fetch the pdf page
