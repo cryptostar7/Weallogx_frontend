@@ -728,7 +728,7 @@ export default {
         let segment = document.getElementById(`index_1_segment`).value;
         let pmsy = document.getElementById(`index_1_pmfStartYear`).value;
         let fcbsy = document.getElementById(`index_1_fcStartYear`).value;
-        let cap_rate = document.getElementById(`index_1_capRate`).value;
+        let cap_rate = document.getElementById(`index_1_capRate`).value || 0;
         let margin = document.getElementById(`index_1_margin`).value;
         let par_rate = document.getElementById(`index_1_parRate`).value;
         let floor = document.getElementById(`index_1_floor`).value;
@@ -745,7 +745,7 @@ export default {
             performance_multiplier_start_year: pmsy ? Number(pmsy) : "",
             flat_credit_bonus_start_year: fcbsy ? Number(fcbsy) : "",
             index: document.getElementById(`index_1_indexStrategy`).value,
-            cap_rate: cap_rate ? Number(cap_rate) : "",
+            cap_rate: cap_rate ? Number(cap_rate) : 1000,
             margin: margin ? Number(margin) : "",
             par_rate: par_rate ? Number(par_rate) : "",
             floor: floor ? Number(floor) : "",
@@ -764,17 +764,17 @@ export default {
         allocation: strategy[index].allocation,
         index: strategy[index].index,
         segment_duration: strategy[index].segment_duration,
-        cap_rate: strategy[index].cap_rate,
-        margin: strategy[index].margin,
-        par_rate: strategy[index].par_rate,
-        floor: strategy[index].floor,
-        performance_multiplier: strategy[index].performance_multiplier,
+        cap_rate: strategy[index].cap_rate || 1000,
+        margin: strategy[index].margin || 0,
+        par_rate: strategy[index].par_rate || 1,
+        floor: strategy[index].floor || 0,
+        performance_multiplier: strategy[index].performance_multiplier || 1,
         performance_multiplier_start_year:
           strategy[index].performance_multiplier_start_year,
-        flat_credit_bonus: strategy[index].flat_credit_bonus,
+        flat_credit_bonus: strategy[index].flat_credit_bonus || 0,
         flat_credit_bonus_start_year:
           strategy[index].flat_credit_bonus_start_year,
-        fee: strategy[index].fee,
+        fee: strategy[index].fee || 0,
       };
     },
     clearError: function (key, tab = false) {
