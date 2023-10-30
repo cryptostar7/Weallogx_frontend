@@ -35,7 +35,7 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ([
 /* 0 */,
 /* 1 */
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
 
@@ -65,6 +65,20 @@ exports.stringToUTF8String = stringToUTF8String;
 exports.unreachable = unreachable;
 exports.utf8StringToString = utf8StringToString;
 exports.warn = warn;
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(84);
+__w_pdfjs_require__(86);
+__w_pdfjs_require__(87);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
 const isNodeJS = typeof process === "object" && process + "" === "[object process]" && !process.versions.nw && !(process.versions.electron && process.type && process.type !== "browser");
 exports.isNodeJS = isNodeJS;
 const IDENTITY_MATRIX = [1, 0, 0, 1, 0, 0];
@@ -401,7 +415,9 @@ function _isValidProtocol(url) {
       return false;
   }
 }
-function createValidAbsoluteUrl(url, baseUrl = null, options = null) {
+function createValidAbsoluteUrl(url) {
+  let baseUrl = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   if (!url) {
     return null;
   }
@@ -426,7 +442,8 @@ function createValidAbsoluteUrl(url, baseUrl = null, options = null) {
   } catch {}
   return null;
 }
-function shadow(obj, prop, value, nonSerializable = false) {
+function shadow(obj, prop, value) {
+  let nonSerializable = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   Object.defineProperty(obj, prop, {
     value,
     enumerable: !nonSerializable,
@@ -792,7 +809,8 @@ function isArrayEqual(arr1, arr2) {
   }
   return true;
 }
-function getModificationDate(date = new Date()) {
+function getModificationDate() {
+  let date = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Date();
   const buffer = [date.getUTCFullYear().toString(), (date.getUTCMonth() + 1).toString().padStart(2, "0"), date.getUTCDate().toString().padStart(2, "0"), date.getUTCHours().toString().padStart(2, "0"), date.getUTCMinutes().toString().padStart(2, "0"), date.getUTCSeconds().toString().padStart(2, "0")];
   return buffer.join("");
 }
@@ -845,6 +863,2515 @@ exports.AnnotationPrefix = AnnotationPrefix;
 
 /***/ }),
 /* 2 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var global = __w_pdfjs_require__(4);
+var apply = __w_pdfjs_require__(69);
+var wrapErrorConstructorWithCause = __w_pdfjs_require__(70);
+var WEB_ASSEMBLY = 'WebAssembly';
+var WebAssembly = global[WEB_ASSEMBLY];
+var FORCED = Error('e', { cause: 7 }).cause !== 7;
+var exportGlobalErrorCauseWrapper = function (ERROR_NAME, wrapper) {
+ var O = {};
+ O[ERROR_NAME] = wrapErrorConstructorWithCause(ERROR_NAME, wrapper, FORCED);
+ $({
+  global: true,
+  constructor: true,
+  arity: 1,
+  forced: FORCED
+ }, O);
+};
+var exportWebAssemblyErrorCauseWrapper = function (ERROR_NAME, wrapper) {
+ if (WebAssembly && WebAssembly[ERROR_NAME]) {
+  var O = {};
+  O[ERROR_NAME] = wrapErrorConstructorWithCause(WEB_ASSEMBLY + '.' + ERROR_NAME, wrapper, FORCED);
+  $({
+   target: WEB_ASSEMBLY,
+   stat: true,
+   constructor: true,
+   arity: 1,
+   forced: FORCED
+  }, O);
+ }
+};
+exportGlobalErrorCauseWrapper('Error', function (init) {
+ return function Error(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('EvalError', function (init) {
+ return function EvalError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('RangeError', function (init) {
+ return function RangeError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('ReferenceError', function (init) {
+ return function ReferenceError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('SyntaxError', function (init) {
+ return function SyntaxError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('TypeError', function (init) {
+ return function TypeError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportGlobalErrorCauseWrapper('URIError', function (init) {
+ return function URIError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportWebAssemblyErrorCauseWrapper('CompileError', function (init) {
+ return function CompileError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportWebAssemblyErrorCauseWrapper('LinkError', function (init) {
+ return function LinkError(message) {
+  return apply(init, this, arguments);
+ };
+});
+exportWebAssemblyErrorCauseWrapper('RuntimeError', function (init) {
+ return function RuntimeError(message) {
+  return apply(init, this, arguments);
+ };
+});
+
+/***/ }),
+/* 3 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var getOwnPropertyDescriptor = (__w_pdfjs_require__(5).f);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var defineBuiltIn = __w_pdfjs_require__(48);
+var defineGlobalProperty = __w_pdfjs_require__(38);
+var copyConstructorProperties = __w_pdfjs_require__(56);
+var isForced = __w_pdfjs_require__(68);
+module.exports = function (options, source) {
+ var TARGET = options.target;
+ var GLOBAL = options.global;
+ var STATIC = options.stat;
+ var FORCED, target, key, targetProperty, sourceProperty, descriptor;
+ if (GLOBAL) {
+  target = global;
+ } else if (STATIC) {
+  target = global[TARGET] || defineGlobalProperty(TARGET, {});
+ } else {
+  target = (global[TARGET] || {}).prototype;
+ }
+ if (target)
+  for (key in source) {
+   sourceProperty = source[key];
+   if (options.dontCallGetSet) {
+    descriptor = getOwnPropertyDescriptor(target, key);
+    targetProperty = descriptor && descriptor.value;
+   } else
+    targetProperty = target[key];
+   FORCED = isForced(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
+   if (!FORCED && targetProperty !== undefined) {
+    if (typeof sourceProperty == typeof targetProperty)
+     continue;
+    copyConstructorProperties(sourceProperty, targetProperty);
+   }
+   if (options.sham || targetProperty && targetProperty.sham) {
+    createNonEnumerableProperty(sourceProperty, 'sham', true);
+   }
+   defineBuiltIn(target, key, sourceProperty, options);
+  }
+};
+
+/***/ }),
+/* 4 */
+/***/ (function(module) {
+
+
+var check = function (it) {
+ return it && it.Math === Math && it;
+};
+module.exports = check(typeof globalThis == 'object' && globalThis) || check(typeof window == 'object' && window) || check(typeof self == 'object' && self) || check(typeof global == 'object' && global) || (function () {
+ return this;
+}()) || this || Function('return this')();
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var call = __w_pdfjs_require__(8);
+var propertyIsEnumerableModule = __w_pdfjs_require__(10);
+var createPropertyDescriptor = __w_pdfjs_require__(11);
+var toIndexedObject = __w_pdfjs_require__(12);
+var toPropertyKey = __w_pdfjs_require__(18);
+var hasOwn = __w_pdfjs_require__(39);
+var IE8_DOM_DEFINE = __w_pdfjs_require__(42);
+var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+exports.f = DESCRIPTORS ? $getOwnPropertyDescriptor : function getOwnPropertyDescriptor(O, P) {
+ O = toIndexedObject(O);
+ P = toPropertyKey(P);
+ if (IE8_DOM_DEFINE)
+  try {
+   return $getOwnPropertyDescriptor(O, P);
+  } catch (error) {
+  }
+ if (hasOwn(O, P))
+  return createPropertyDescriptor(!call(propertyIsEnumerableModule.f, O, P), O[P]);
+};
+
+/***/ }),
+/* 6 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var fails = __w_pdfjs_require__(7);
+module.exports = !fails(function () {
+ return Object.defineProperty({}, 1, {
+  get: function () {
+   return 7;
+  }
+ })[1] !== 7;
+});
+
+/***/ }),
+/* 7 */
+/***/ ((module) => {
+
+
+module.exports = function (exec) {
+ try {
+  return !!exec();
+ } catch (error) {
+  return true;
+ }
+};
+
+/***/ }),
+/* 8 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_BIND = __w_pdfjs_require__(9);
+var call = Function.prototype.call;
+module.exports = NATIVE_BIND ? call.bind(call) : function () {
+ return call.apply(call, arguments);
+};
+
+/***/ }),
+/* 9 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var fails = __w_pdfjs_require__(7);
+module.exports = !fails(function () {
+ var test = function () {
+ }.bind();
+ return typeof test != 'function' || test.hasOwnProperty('prototype');
+});
+
+/***/ }),
+/* 10 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+var $propertyIsEnumerable = {}.propertyIsEnumerable;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var NASHORN_BUG = getOwnPropertyDescriptor && !$propertyIsEnumerable.call({ 1: 2 }, 1);
+exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
+ var descriptor = getOwnPropertyDescriptor(this, V);
+ return !!descriptor && descriptor.enumerable;
+} : $propertyIsEnumerable;
+
+/***/ }),
+/* 11 */
+/***/ ((module) => {
+
+
+module.exports = function (bitmap, value) {
+ return {
+  enumerable: !(bitmap & 1),
+  configurable: !(bitmap & 2),
+  writable: !(bitmap & 4),
+  value: value
+ };
+};
+
+/***/ }),
+/* 12 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var IndexedObject = __w_pdfjs_require__(13);
+var requireObjectCoercible = __w_pdfjs_require__(16);
+module.exports = function (it) {
+ return IndexedObject(requireObjectCoercible(it));
+};
+
+/***/ }),
+/* 13 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var fails = __w_pdfjs_require__(7);
+var classof = __w_pdfjs_require__(15);
+var $Object = Object;
+var split = uncurryThis(''.split);
+module.exports = fails(function () {
+ return !$Object('z').propertyIsEnumerable(0);
+}) ? function (it) {
+ return classof(it) === 'String' ? split(it, '') : $Object(it);
+} : $Object;
+
+/***/ }),
+/* 14 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_BIND = __w_pdfjs_require__(9);
+var FunctionPrototype = Function.prototype;
+var call = FunctionPrototype.call;
+var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
+module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
+ return function () {
+  return call.apply(fn, arguments);
+ };
+};
+
+/***/ }),
+/* 15 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var toString = uncurryThis({}.toString);
+var stringSlice = uncurryThis(''.slice);
+module.exports = function (it) {
+ return stringSlice(toString(it), 8, -1);
+};
+
+/***/ }),
+/* 16 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isNullOrUndefined = __w_pdfjs_require__(17);
+var $TypeError = TypeError;
+module.exports = function (it) {
+ if (isNullOrUndefined(it))
+  throw $TypeError("Can't call method on " + it);
+ return it;
+};
+
+/***/ }),
+/* 17 */
+/***/ ((module) => {
+
+
+module.exports = function (it) {
+ return it === null || it === undefined;
+};
+
+/***/ }),
+/* 18 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toPrimitive = __w_pdfjs_require__(19);
+var isSymbol = __w_pdfjs_require__(23);
+module.exports = function (argument) {
+ var key = toPrimitive(argument, 'string');
+ return isSymbol(key) ? key : key + '';
+};
+
+/***/ }),
+/* 19 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+var isObject = __w_pdfjs_require__(20);
+var isSymbol = __w_pdfjs_require__(23);
+var getMethod = __w_pdfjs_require__(30);
+var ordinaryToPrimitive = __w_pdfjs_require__(33);
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var $TypeError = TypeError;
+var TO_PRIMITIVE = wellKnownSymbol('toPrimitive');
+module.exports = function (input, pref) {
+ if (!isObject(input) || isSymbol(input))
+  return input;
+ var exoticToPrim = getMethod(input, TO_PRIMITIVE);
+ var result;
+ if (exoticToPrim) {
+  if (pref === undefined)
+   pref = 'default';
+  result = call(exoticToPrim, input, pref);
+  if (!isObject(result) || isSymbol(result))
+   return result;
+  throw $TypeError("Can't convert object to primitive value");
+ }
+ if (pref === undefined)
+  pref = 'number';
+ return ordinaryToPrimitive(input, pref);
+};
+
+/***/ }),
+/* 20 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isCallable = __w_pdfjs_require__(21);
+var $documentAll = __w_pdfjs_require__(22);
+var documentAll = $documentAll.all;
+module.exports = $documentAll.IS_HTMLDDA ? function (it) {
+ return typeof it == 'object' ? it !== null : isCallable(it) || it === documentAll;
+} : function (it) {
+ return typeof it == 'object' ? it !== null : isCallable(it);
+};
+
+/***/ }),
+/* 21 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $documentAll = __w_pdfjs_require__(22);
+var documentAll = $documentAll.all;
+module.exports = $documentAll.IS_HTMLDDA ? function (argument) {
+ return typeof argument == 'function' || argument === documentAll;
+} : function (argument) {
+ return typeof argument == 'function';
+};
+
+/***/ }),
+/* 22 */
+/***/ ((module) => {
+
+
+var documentAll = typeof document == 'object' && document.all;
+var IS_HTMLDDA = typeof documentAll == 'undefined' && documentAll !== undefined;
+module.exports = {
+ all: documentAll,
+ IS_HTMLDDA: IS_HTMLDDA
+};
+
+/***/ }),
+/* 23 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var getBuiltIn = __w_pdfjs_require__(24);
+var isCallable = __w_pdfjs_require__(21);
+var isPrototypeOf = __w_pdfjs_require__(25);
+var USE_SYMBOL_AS_UID = __w_pdfjs_require__(26);
+var $Object = Object;
+module.exports = USE_SYMBOL_AS_UID ? function (it) {
+ return typeof it == 'symbol';
+} : function (it) {
+ var $Symbol = getBuiltIn('Symbol');
+ return isCallable($Symbol) && isPrototypeOf($Symbol.prototype, $Object(it));
+};
+
+/***/ }),
+/* 24 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var isCallable = __w_pdfjs_require__(21);
+var aFunction = function (argument) {
+ return isCallable(argument) ? argument : undefined;
+};
+module.exports = function (namespace, method) {
+ return arguments.length < 2 ? aFunction(global[namespace]) : global[namespace] && global[namespace][method];
+};
+
+/***/ }),
+/* 25 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+module.exports = uncurryThis({}.isPrototypeOf);
+
+/***/ }),
+/* 26 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_SYMBOL = __w_pdfjs_require__(27);
+module.exports = NATIVE_SYMBOL && !Symbol.sham && typeof Symbol.iterator == 'symbol';
+
+/***/ }),
+/* 27 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var V8_VERSION = __w_pdfjs_require__(28);
+var fails = __w_pdfjs_require__(7);
+var global = __w_pdfjs_require__(4);
+var $String = global.String;
+module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
+ var symbol = Symbol('symbol detection');
+ return !$String(symbol) || !(Object(symbol) instanceof Symbol) || !Symbol.sham && V8_VERSION && V8_VERSION < 41;
+});
+
+/***/ }),
+/* 28 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var userAgent = __w_pdfjs_require__(29);
+var process = global.process;
+var Deno = global.Deno;
+var versions = process && process.versions || Deno && Deno.version;
+var v8 = versions && versions.v8;
+var match, version;
+if (v8) {
+ match = v8.split('.');
+ version = match[0] > 0 && match[0] < 4 ? 1 : +(match[0] + match[1]);
+}
+if (!version && userAgent) {
+ match = userAgent.match(/Edge\/(\d+)/);
+ if (!match || match[1] >= 74) {
+  match = userAgent.match(/Chrome\/(\d+)/);
+  if (match)
+   version = +match[1];
+ }
+}
+module.exports = version;
+
+/***/ }),
+/* 29 */
+/***/ ((module) => {
+
+
+module.exports = typeof navigator != 'undefined' && String(navigator.userAgent) || '';
+
+/***/ }),
+/* 30 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aCallable = __w_pdfjs_require__(31);
+var isNullOrUndefined = __w_pdfjs_require__(17);
+module.exports = function (V, P) {
+ var func = V[P];
+ return isNullOrUndefined(func) ? undefined : aCallable(func);
+};
+
+/***/ }),
+/* 31 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isCallable = __w_pdfjs_require__(21);
+var tryToString = __w_pdfjs_require__(32);
+var $TypeError = TypeError;
+module.exports = function (argument) {
+ if (isCallable(argument))
+  return argument;
+ throw $TypeError(tryToString(argument) + ' is not a function');
+};
+
+/***/ }),
+/* 32 */
+/***/ ((module) => {
+
+
+var $String = String;
+module.exports = function (argument) {
+ try {
+  return $String(argument);
+ } catch (error) {
+  return 'Object';
+ }
+};
+
+/***/ }),
+/* 33 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+var isCallable = __w_pdfjs_require__(21);
+var isObject = __w_pdfjs_require__(20);
+var $TypeError = TypeError;
+module.exports = function (input, pref) {
+ var fn, val;
+ if (pref === 'string' && isCallable(fn = input.toString) && !isObject(val = call(fn, input)))
+  return val;
+ if (isCallable(fn = input.valueOf) && !isObject(val = call(fn, input)))
+  return val;
+ if (pref !== 'string' && isCallable(fn = input.toString) && !isObject(val = call(fn, input)))
+  return val;
+ throw $TypeError("Can't convert object to primitive value");
+};
+
+/***/ }),
+/* 34 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var shared = __w_pdfjs_require__(35);
+var hasOwn = __w_pdfjs_require__(39);
+var uid = __w_pdfjs_require__(41);
+var NATIVE_SYMBOL = __w_pdfjs_require__(27);
+var USE_SYMBOL_AS_UID = __w_pdfjs_require__(26);
+var Symbol = global.Symbol;
+var WellKnownSymbolsStore = shared('wks');
+var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol['for'] || Symbol : Symbol && Symbol.withoutSetter || uid;
+module.exports = function (name) {
+ if (!hasOwn(WellKnownSymbolsStore, name)) {
+  WellKnownSymbolsStore[name] = NATIVE_SYMBOL && hasOwn(Symbol, name) ? Symbol[name] : createWellKnownSymbol('Symbol.' + name);
+ }
+ return WellKnownSymbolsStore[name];
+};
+
+/***/ }),
+/* 35 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var IS_PURE = __w_pdfjs_require__(36);
+var store = __w_pdfjs_require__(37);
+(module.exports = function (key, value) {
+ return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+ version: '3.32.2',
+ mode: IS_PURE ? 'pure' : 'global',
+ copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
+ license: 'https://github.com/zloirock/core-js/blob/v3.32.2/LICENSE',
+ source: 'https://github.com/zloirock/core-js'
+});
+
+/***/ }),
+/* 36 */
+/***/ ((module) => {
+
+
+module.exports = false;
+
+/***/ }),
+/* 37 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var defineGlobalProperty = __w_pdfjs_require__(38);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || defineGlobalProperty(SHARED, {});
+module.exports = store;
+
+/***/ }),
+/* 38 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var defineProperty = Object.defineProperty;
+module.exports = function (key, value) {
+ try {
+  defineProperty(global, key, {
+   value: value,
+   configurable: true,
+   writable: true
+  });
+ } catch (error) {
+  global[key] = value;
+ }
+ return value;
+};
+
+/***/ }),
+/* 39 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var toObject = __w_pdfjs_require__(40);
+var hasOwnProperty = uncurryThis({}.hasOwnProperty);
+module.exports = Object.hasOwn || function hasOwn(it, key) {
+ return hasOwnProperty(toObject(it), key);
+};
+
+/***/ }),
+/* 40 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var requireObjectCoercible = __w_pdfjs_require__(16);
+var $Object = Object;
+module.exports = function (argument) {
+ return $Object(requireObjectCoercible(argument));
+};
+
+/***/ }),
+/* 41 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var id = 0;
+var postfix = Math.random();
+var toString = uncurryThis(1.0.toString);
+module.exports = function (key) {
+ return 'Symbol(' + (key === undefined ? '' : key) + ')_' + toString(++id + postfix, 36);
+};
+
+/***/ }),
+/* 42 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var fails = __w_pdfjs_require__(7);
+var createElement = __w_pdfjs_require__(43);
+module.exports = !DESCRIPTORS && !fails(function () {
+ return Object.defineProperty(createElement('div'), 'a', {
+  get: function () {
+   return 7;
+  }
+ }).a !== 7;
+});
+
+/***/ }),
+/* 43 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var isObject = __w_pdfjs_require__(20);
+var document = global.document;
+var EXISTS = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+ return EXISTS ? document.createElement(it) : {};
+};
+
+/***/ }),
+/* 44 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var definePropertyModule = __w_pdfjs_require__(45);
+var createPropertyDescriptor = __w_pdfjs_require__(11);
+module.exports = DESCRIPTORS ? function (object, key, value) {
+ return definePropertyModule.f(object, key, createPropertyDescriptor(1, value));
+} : function (object, key, value) {
+ object[key] = value;
+ return object;
+};
+
+/***/ }),
+/* 45 */
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var IE8_DOM_DEFINE = __w_pdfjs_require__(42);
+var V8_PROTOTYPE_DEFINE_BUG = __w_pdfjs_require__(46);
+var anObject = __w_pdfjs_require__(47);
+var toPropertyKey = __w_pdfjs_require__(18);
+var $TypeError = TypeError;
+var $defineProperty = Object.defineProperty;
+var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var ENUMERABLE = 'enumerable';
+var CONFIGURABLE = 'configurable';
+var WRITABLE = 'writable';
+exports.f = DESCRIPTORS ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P, Attributes) {
+ anObject(O);
+ P = toPropertyKey(P);
+ anObject(Attributes);
+ if (typeof O === 'function' && P === 'prototype' && 'value' in Attributes && WRITABLE in Attributes && !Attributes[WRITABLE]) {
+  var current = $getOwnPropertyDescriptor(O, P);
+  if (current && current[WRITABLE]) {
+   O[P] = Attributes.value;
+   Attributes = {
+    configurable: CONFIGURABLE in Attributes ? Attributes[CONFIGURABLE] : current[CONFIGURABLE],
+    enumerable: ENUMERABLE in Attributes ? Attributes[ENUMERABLE] : current[ENUMERABLE],
+    writable: false
+   };
+  }
+ }
+ return $defineProperty(O, P, Attributes);
+} : $defineProperty : function defineProperty(O, P, Attributes) {
+ anObject(O);
+ P = toPropertyKey(P);
+ anObject(Attributes);
+ if (IE8_DOM_DEFINE)
+  try {
+   return $defineProperty(O, P, Attributes);
+  } catch (error) {
+  }
+ if ('get' in Attributes || 'set' in Attributes)
+  throw $TypeError('Accessors not supported');
+ if ('value' in Attributes)
+  O[P] = Attributes.value;
+ return O;
+};
+
+/***/ }),
+/* 46 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var fails = __w_pdfjs_require__(7);
+module.exports = DESCRIPTORS && fails(function () {
+ return Object.defineProperty(function () {
+ }, 'prototype', {
+  value: 42,
+  writable: false
+ }).prototype !== 42;
+});
+
+/***/ }),
+/* 47 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isObject = __w_pdfjs_require__(20);
+var $String = String;
+var $TypeError = TypeError;
+module.exports = function (argument) {
+ if (isObject(argument))
+  return argument;
+ throw $TypeError($String(argument) + ' is not an object');
+};
+
+/***/ }),
+/* 48 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isCallable = __w_pdfjs_require__(21);
+var definePropertyModule = __w_pdfjs_require__(45);
+var makeBuiltIn = __w_pdfjs_require__(49);
+var defineGlobalProperty = __w_pdfjs_require__(38);
+module.exports = function (O, key, value, options) {
+ if (!options)
+  options = {};
+ var simple = options.enumerable;
+ var name = options.name !== undefined ? options.name : key;
+ if (isCallable(value))
+  makeBuiltIn(value, name, options);
+ if (options.global) {
+  if (simple)
+   O[key] = value;
+  else
+   defineGlobalProperty(key, value);
+ } else {
+  try {
+   if (!options.unsafe)
+    delete O[key];
+   else if (O[key])
+    simple = true;
+  } catch (error) {
+  }
+  if (simple)
+   O[key] = value;
+  else
+   definePropertyModule.f(O, key, {
+    value: value,
+    enumerable: false,
+    configurable: !options.nonConfigurable,
+    writable: !options.nonWritable
+   });
+ }
+ return O;
+};
+
+/***/ }),
+/* 49 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var fails = __w_pdfjs_require__(7);
+var isCallable = __w_pdfjs_require__(21);
+var hasOwn = __w_pdfjs_require__(39);
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var CONFIGURABLE_FUNCTION_NAME = (__w_pdfjs_require__(50).CONFIGURABLE);
+var inspectSource = __w_pdfjs_require__(51);
+var InternalStateModule = __w_pdfjs_require__(52);
+var enforceInternalState = InternalStateModule.enforce;
+var getInternalState = InternalStateModule.get;
+var $String = String;
+var defineProperty = Object.defineProperty;
+var stringSlice = uncurryThis(''.slice);
+var replace = uncurryThis(''.replace);
+var join = uncurryThis([].join);
+var CONFIGURABLE_LENGTH = DESCRIPTORS && !fails(function () {
+ return defineProperty(function () {
+ }, 'length', { value: 8 }).length !== 8;
+});
+var TEMPLATE = String(String).split('String');
+var makeBuiltIn = module.exports = function (value, name, options) {
+ if (stringSlice($String(name), 0, 7) === 'Symbol(') {
+  name = '[' + replace($String(name), /^Symbol\(([^)]*)\)/, '$1') + ']';
+ }
+ if (options && options.getter)
+  name = 'get ' + name;
+ if (options && options.setter)
+  name = 'set ' + name;
+ if (!hasOwn(value, 'name') || CONFIGURABLE_FUNCTION_NAME && value.name !== name) {
+  if (DESCRIPTORS)
+   defineProperty(value, 'name', {
+    value: name,
+    configurable: true
+   });
+  else
+   value.name = name;
+ }
+ if (CONFIGURABLE_LENGTH && options && hasOwn(options, 'arity') && value.length !== options.arity) {
+  defineProperty(value, 'length', { value: options.arity });
+ }
+ try {
+  if (options && hasOwn(options, 'constructor') && options.constructor) {
+   if (DESCRIPTORS)
+    defineProperty(value, 'prototype', { writable: false });
+  } else if (value.prototype)
+   value.prototype = undefined;
+ } catch (error) {
+ }
+ var state = enforceInternalState(value);
+ if (!hasOwn(state, 'source')) {
+  state.source = join(TEMPLATE, typeof name == 'string' ? name : '');
+ }
+ return value;
+};
+Function.prototype.toString = makeBuiltIn(function toString() {
+ return isCallable(this) && getInternalState(this).source || inspectSource(this);
+}, 'toString');
+
+/***/ }),
+/* 50 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var hasOwn = __w_pdfjs_require__(39);
+var FunctionPrototype = Function.prototype;
+var getDescriptor = DESCRIPTORS && Object.getOwnPropertyDescriptor;
+var EXISTS = hasOwn(FunctionPrototype, 'name');
+var PROPER = EXISTS && function something() {
+}.name === 'something';
+var CONFIGURABLE = EXISTS && (!DESCRIPTORS || DESCRIPTORS && getDescriptor(FunctionPrototype, 'name').configurable);
+module.exports = {
+ EXISTS: EXISTS,
+ PROPER: PROPER,
+ CONFIGURABLE: CONFIGURABLE
+};
+
+/***/ }),
+/* 51 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var isCallable = __w_pdfjs_require__(21);
+var store = __w_pdfjs_require__(37);
+var functionToString = uncurryThis(Function.toString);
+if (!isCallable(store.inspectSource)) {
+ store.inspectSource = function (it) {
+  return functionToString(it);
+ };
+}
+module.exports = store.inspectSource;
+
+/***/ }),
+/* 52 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_WEAK_MAP = __w_pdfjs_require__(53);
+var global = __w_pdfjs_require__(4);
+var isObject = __w_pdfjs_require__(20);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var hasOwn = __w_pdfjs_require__(39);
+var shared = __w_pdfjs_require__(37);
+var sharedKey = __w_pdfjs_require__(54);
+var hiddenKeys = __w_pdfjs_require__(55);
+var OBJECT_ALREADY_INITIALIZED = 'Object already initialized';
+var TypeError = global.TypeError;
+var WeakMap = global.WeakMap;
+var set, get, has;
+var enforce = function (it) {
+ return has(it) ? get(it) : set(it, {});
+};
+var getterFor = function (TYPE) {
+ return function (it) {
+  var state;
+  if (!isObject(it) || (state = get(it)).type !== TYPE) {
+   throw TypeError('Incompatible receiver, ' + TYPE + ' required');
+  }
+  return state;
+ };
+};
+if (NATIVE_WEAK_MAP || shared.state) {
+ var store = shared.state || (shared.state = new WeakMap());
+ store.get = store.get;
+ store.has = store.has;
+ store.set = store.set;
+ set = function (it, metadata) {
+  if (store.has(it))
+   throw TypeError(OBJECT_ALREADY_INITIALIZED);
+  metadata.facade = it;
+  store.set(it, metadata);
+  return metadata;
+ };
+ get = function (it) {
+  return store.get(it) || {};
+ };
+ has = function (it) {
+  return store.has(it);
+ };
+} else {
+ var STATE = sharedKey('state');
+ hiddenKeys[STATE] = true;
+ set = function (it, metadata) {
+  if (hasOwn(it, STATE))
+   throw TypeError(OBJECT_ALREADY_INITIALIZED);
+  metadata.facade = it;
+  createNonEnumerableProperty(it, STATE, metadata);
+  return metadata;
+ };
+ get = function (it) {
+  return hasOwn(it, STATE) ? it[STATE] : {};
+ };
+ has = function (it) {
+  return hasOwn(it, STATE);
+ };
+}
+module.exports = {
+ set: set,
+ get: get,
+ has: has,
+ enforce: enforce,
+ getterFor: getterFor
+};
+
+/***/ }),
+/* 53 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var isCallable = __w_pdfjs_require__(21);
+var WeakMap = global.WeakMap;
+module.exports = isCallable(WeakMap) && /native code/.test(String(WeakMap));
+
+/***/ }),
+/* 54 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var shared = __w_pdfjs_require__(35);
+var uid = __w_pdfjs_require__(41);
+var keys = shared('keys');
+module.exports = function (key) {
+ return keys[key] || (keys[key] = uid(key));
+};
+
+/***/ }),
+/* 55 */
+/***/ ((module) => {
+
+
+module.exports = {};
+
+/***/ }),
+/* 56 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var hasOwn = __w_pdfjs_require__(39);
+var ownKeys = __w_pdfjs_require__(57);
+var getOwnPropertyDescriptorModule = __w_pdfjs_require__(5);
+var definePropertyModule = __w_pdfjs_require__(45);
+module.exports = function (target, source, exceptions) {
+ var keys = ownKeys(source);
+ var defineProperty = definePropertyModule.f;
+ var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
+ for (var i = 0; i < keys.length; i++) {
+  var key = keys[i];
+  if (!hasOwn(target, key) && !(exceptions && hasOwn(exceptions, key))) {
+   defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+  }
+ }
+};
+
+/***/ }),
+/* 57 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var getBuiltIn = __w_pdfjs_require__(24);
+var uncurryThis = __w_pdfjs_require__(14);
+var getOwnPropertyNamesModule = __w_pdfjs_require__(58);
+var getOwnPropertySymbolsModule = __w_pdfjs_require__(67);
+var anObject = __w_pdfjs_require__(47);
+var concat = uncurryThis([].concat);
+module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
+ var keys = getOwnPropertyNamesModule.f(anObject(it));
+ var getOwnPropertySymbols = getOwnPropertySymbolsModule.f;
+ return getOwnPropertySymbols ? concat(keys, getOwnPropertySymbols(it)) : keys;
+};
+
+/***/ }),
+/* 58 */
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
+
+
+var internalObjectKeys = __w_pdfjs_require__(59);
+var enumBugKeys = __w_pdfjs_require__(66);
+var hiddenKeys = enumBugKeys.concat('length', 'prototype');
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
+ return internalObjectKeys(O, hiddenKeys);
+};
+
+/***/ }),
+/* 59 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var hasOwn = __w_pdfjs_require__(39);
+var toIndexedObject = __w_pdfjs_require__(12);
+var indexOf = (__w_pdfjs_require__(60).indexOf);
+var hiddenKeys = __w_pdfjs_require__(55);
+var push = uncurryThis([].push);
+module.exports = function (object, names) {
+ var O = toIndexedObject(object);
+ var i = 0;
+ var result = [];
+ var key;
+ for (key in O)
+  !hasOwn(hiddenKeys, key) && hasOwn(O, key) && push(result, key);
+ while (names.length > i)
+  if (hasOwn(O, key = names[i++])) {
+   ~indexOf(result, key) || push(result, key);
+  }
+ return result;
+};
+
+/***/ }),
+/* 60 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toIndexedObject = __w_pdfjs_require__(12);
+var toAbsoluteIndex = __w_pdfjs_require__(61);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var createMethod = function (IS_INCLUDES) {
+ return function ($this, el, fromIndex) {
+  var O = toIndexedObject($this);
+  var length = lengthOfArrayLike(O);
+  var index = toAbsoluteIndex(fromIndex, length);
+  var value;
+  if (IS_INCLUDES && el !== el)
+   while (length > index) {
+    value = O[index++];
+    if (value !== value)
+     return true;
+   }
+  else
+   for (; length > index; index++) {
+    if ((IS_INCLUDES || index in O) && O[index] === el)
+     return IS_INCLUDES || index || 0;
+   }
+  return !IS_INCLUDES && -1;
+ };
+};
+module.exports = {
+ includes: createMethod(true),
+ indexOf: createMethod(false)
+};
+
+/***/ }),
+/* 61 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+ var integer = toIntegerOrInfinity(index);
+ return integer < 0 ? max(integer + length, 0) : min(integer, length);
+};
+
+/***/ }),
+/* 62 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var trunc = __w_pdfjs_require__(63);
+module.exports = function (argument) {
+ var number = +argument;
+ return number !== number || number === 0 ? 0 : trunc(number);
+};
+
+/***/ }),
+/* 63 */
+/***/ ((module) => {
+
+
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = Math.trunc || function trunc(x) {
+ var n = +x;
+ return (n > 0 ? floor : ceil)(n);
+};
+
+/***/ }),
+/* 64 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toLength = __w_pdfjs_require__(65);
+module.exports = function (obj) {
+ return toLength(obj.length);
+};
+
+/***/ }),
+/* 65 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var min = Math.min;
+module.exports = function (argument) {
+ return argument > 0 ? min(toIntegerOrInfinity(argument), 0x1FFFFFFFFFFFFF) : 0;
+};
+
+/***/ }),
+/* 66 */
+/***/ ((module) => {
+
+
+module.exports = [
+ 'constructor',
+ 'hasOwnProperty',
+ 'isPrototypeOf',
+ 'propertyIsEnumerable',
+ 'toLocaleString',
+ 'toString',
+ 'valueOf'
+];
+
+/***/ }),
+/* 67 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+exports.f = Object.getOwnPropertySymbols;
+
+/***/ }),
+/* 68 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var fails = __w_pdfjs_require__(7);
+var isCallable = __w_pdfjs_require__(21);
+var replacement = /#|\.prototype\./;
+var isForced = function (feature, detection) {
+ var value = data[normalize(feature)];
+ return value === POLYFILL ? true : value === NATIVE ? false : isCallable(detection) ? fails(detection) : !!detection;
+};
+var normalize = isForced.normalize = function (string) {
+ return String(string).replace(replacement, '.').toLowerCase();
+};
+var data = isForced.data = {};
+var NATIVE = isForced.NATIVE = 'N';
+var POLYFILL = isForced.POLYFILL = 'P';
+module.exports = isForced;
+
+/***/ }),
+/* 69 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_BIND = __w_pdfjs_require__(9);
+var FunctionPrototype = Function.prototype;
+var apply = FunctionPrototype.apply;
+var call = FunctionPrototype.call;
+module.exports = typeof Reflect == 'object' && Reflect.apply || (NATIVE_BIND ? call.bind(apply) : function () {
+ return call.apply(apply, arguments);
+});
+
+/***/ }),
+/* 70 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var getBuiltIn = __w_pdfjs_require__(24);
+var hasOwn = __w_pdfjs_require__(39);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var isPrototypeOf = __w_pdfjs_require__(25);
+var setPrototypeOf = __w_pdfjs_require__(71);
+var copyConstructorProperties = __w_pdfjs_require__(56);
+var proxyAccessor = __w_pdfjs_require__(74);
+var inheritIfRequired = __w_pdfjs_require__(75);
+var normalizeStringArgument = __w_pdfjs_require__(76);
+var installErrorCause = __w_pdfjs_require__(80);
+var installErrorStack = __w_pdfjs_require__(81);
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var IS_PURE = __w_pdfjs_require__(36);
+module.exports = function (FULL_NAME, wrapper, FORCED, IS_AGGREGATE_ERROR) {
+ var STACK_TRACE_LIMIT = 'stackTraceLimit';
+ var OPTIONS_POSITION = IS_AGGREGATE_ERROR ? 2 : 1;
+ var path = FULL_NAME.split('.');
+ var ERROR_NAME = path[path.length - 1];
+ var OriginalError = getBuiltIn.apply(null, path);
+ if (!OriginalError)
+  return;
+ var OriginalErrorPrototype = OriginalError.prototype;
+ if (!IS_PURE && hasOwn(OriginalErrorPrototype, 'cause'))
+  delete OriginalErrorPrototype.cause;
+ if (!FORCED)
+  return OriginalError;
+ var BaseError = getBuiltIn('Error');
+ var WrappedError = wrapper(function (a, b) {
+  var message = normalizeStringArgument(IS_AGGREGATE_ERROR ? b : a, undefined);
+  var result = IS_AGGREGATE_ERROR ? new OriginalError(a) : new OriginalError();
+  if (message !== undefined)
+   createNonEnumerableProperty(result, 'message', message);
+  installErrorStack(result, WrappedError, result.stack, 2);
+  if (this && isPrototypeOf(OriginalErrorPrototype, this))
+   inheritIfRequired(result, this, WrappedError);
+  if (arguments.length > OPTIONS_POSITION)
+   installErrorCause(result, arguments[OPTIONS_POSITION]);
+  return result;
+ });
+ WrappedError.prototype = OriginalErrorPrototype;
+ if (ERROR_NAME !== 'Error') {
+  if (setPrototypeOf)
+   setPrototypeOf(WrappedError, BaseError);
+  else
+   copyConstructorProperties(WrappedError, BaseError, { name: true });
+ } else if (DESCRIPTORS && STACK_TRACE_LIMIT in OriginalError) {
+  proxyAccessor(WrappedError, OriginalError, STACK_TRACE_LIMIT);
+  proxyAccessor(WrappedError, OriginalError, 'prepareStackTrace');
+ }
+ copyConstructorProperties(WrappedError, OriginalError);
+ if (!IS_PURE)
+  try {
+   if (OriginalErrorPrototype.name !== ERROR_NAME) {
+    createNonEnumerableProperty(OriginalErrorPrototype, 'name', ERROR_NAME);
+   }
+   OriginalErrorPrototype.constructor = WrappedError;
+  } catch (error) {
+  }
+ return WrappedError;
+};
+
+/***/ }),
+/* 71 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThisAccessor = __w_pdfjs_require__(72);
+var anObject = __w_pdfjs_require__(47);
+var aPossiblePrototype = __w_pdfjs_require__(73);
+module.exports = Object.setPrototypeOf || ('__proto__' in {} ? (function () {
+ var CORRECT_SETTER = false;
+ var test = {};
+ var setter;
+ try {
+  setter = uncurryThisAccessor(Object.prototype, '__proto__', 'set');
+  setter(test, []);
+  CORRECT_SETTER = test instanceof Array;
+ } catch (error) {
+ }
+ return function setPrototypeOf(O, proto) {
+  anObject(O);
+  aPossiblePrototype(proto);
+  if (CORRECT_SETTER)
+   setter(O, proto);
+  else
+   O.__proto__ = proto;
+  return O;
+ };
+}()) : undefined);
+
+/***/ }),
+/* 72 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var aCallable = __w_pdfjs_require__(31);
+module.exports = function (object, key, method) {
+ try {
+  return uncurryThis(aCallable(Object.getOwnPropertyDescriptor(object, key)[method]));
+ } catch (error) {
+ }
+};
+
+/***/ }),
+/* 73 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isCallable = __w_pdfjs_require__(21);
+var $String = String;
+var $TypeError = TypeError;
+module.exports = function (argument) {
+ if (typeof argument == 'object' || isCallable(argument))
+  return argument;
+ throw $TypeError("Can't set " + $String(argument) + ' as a prototype');
+};
+
+/***/ }),
+/* 74 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var defineProperty = (__w_pdfjs_require__(45).f);
+module.exports = function (Target, Source, key) {
+ key in Target || defineProperty(Target, key, {
+  configurable: true,
+  get: function () {
+   return Source[key];
+  },
+  set: function (it) {
+   Source[key] = it;
+  }
+ });
+};
+
+/***/ }),
+/* 75 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isCallable = __w_pdfjs_require__(21);
+var isObject = __w_pdfjs_require__(20);
+var setPrototypeOf = __w_pdfjs_require__(71);
+module.exports = function ($this, dummy, Wrapper) {
+ var NewTarget, NewTargetPrototype;
+ if (setPrototypeOf && isCallable(NewTarget = dummy.constructor) && NewTarget !== Wrapper && isObject(NewTargetPrototype = NewTarget.prototype) && NewTargetPrototype !== Wrapper.prototype)
+  setPrototypeOf($this, NewTargetPrototype);
+ return $this;
+};
+
+/***/ }),
+/* 76 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toString = __w_pdfjs_require__(77);
+module.exports = function (argument, $default) {
+ return argument === undefined ? arguments.length < 2 ? '' : $default : toString(argument);
+};
+
+/***/ }),
+/* 77 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var classof = __w_pdfjs_require__(78);
+var $String = String;
+module.exports = function (argument) {
+ if (classof(argument) === 'Symbol')
+  throw TypeError('Cannot convert a Symbol value to a string');
+ return $String(argument);
+};
+
+/***/ }),
+/* 78 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var TO_STRING_TAG_SUPPORT = __w_pdfjs_require__(79);
+var isCallable = __w_pdfjs_require__(21);
+var classofRaw = __w_pdfjs_require__(15);
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var $Object = Object;
+var CORRECT_ARGUMENTS = classofRaw((function () {
+ return arguments;
+}())) === 'Arguments';
+var tryGet = function (it, key) {
+ try {
+  return it[key];
+ } catch (error) {
+ }
+};
+module.exports = TO_STRING_TAG_SUPPORT ? classofRaw : function (it) {
+ var O, tag, result;
+ return it === undefined ? 'Undefined' : it === null ? 'Null' : typeof (tag = tryGet(O = $Object(it), TO_STRING_TAG)) == 'string' ? tag : CORRECT_ARGUMENTS ? classofRaw(O) : (result = classofRaw(O)) === 'Object' && isCallable(O.callee) ? 'Arguments' : result;
+};
+
+/***/ }),
+/* 79 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var test = {};
+test[TO_STRING_TAG] = 'z';
+module.exports = String(test) === '[object z]';
+
+/***/ }),
+/* 80 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isObject = __w_pdfjs_require__(20);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+module.exports = function (O, options) {
+ if (isObject(options) && 'cause' in options) {
+  createNonEnumerableProperty(O, 'cause', options.cause);
+ }
+};
+
+/***/ }),
+/* 81 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var clearErrorStack = __w_pdfjs_require__(82);
+var ERROR_STACK_INSTALLABLE = __w_pdfjs_require__(83);
+var captureStackTrace = Error.captureStackTrace;
+module.exports = function (error, C, stack, dropEntries) {
+ if (ERROR_STACK_INSTALLABLE) {
+  if (captureStackTrace)
+   captureStackTrace(error, C);
+  else
+   createNonEnumerableProperty(error, 'stack', clearErrorStack(stack, dropEntries));
+ }
+};
+
+/***/ }),
+/* 82 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var $Error = Error;
+var replace = uncurryThis(''.replace);
+var TEST = function (arg) {
+ return String($Error(arg).stack);
+}('zxcasd');
+var V8_OR_CHAKRA_STACK_ENTRY = /\n\s*at [^:]*:[^\n]*/;
+var IS_V8_OR_CHAKRA_STACK = V8_OR_CHAKRA_STACK_ENTRY.test(TEST);
+module.exports = function (stack, dropEntries) {
+ if (IS_V8_OR_CHAKRA_STACK && typeof stack == 'string' && !$Error.prepareStackTrace) {
+  while (dropEntries--)
+   stack = replace(stack, V8_OR_CHAKRA_STACK_ENTRY, '');
+ }
+ return stack;
+};
+
+/***/ }),
+/* 83 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var fails = __w_pdfjs_require__(7);
+var createPropertyDescriptor = __w_pdfjs_require__(11);
+module.exports = !fails(function () {
+ var error = Error('a');
+ if (!('stack' in error))
+  return true;
+ Object.defineProperty(error, 'stack', createPropertyDescriptor(1, 7));
+ return error.stack !== 7;
+});
+
+/***/ }),
+/* 84 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var defineBuiltIn = __w_pdfjs_require__(48);
+var uncurryThis = __w_pdfjs_require__(14);
+var toString = __w_pdfjs_require__(77);
+var validateArgumentsLength = __w_pdfjs_require__(85);
+var $URLSearchParams = URLSearchParams;
+var URLSearchParamsPrototype = $URLSearchParams.prototype;
+var append = uncurryThis(URLSearchParamsPrototype.append);
+var $delete = uncurryThis(URLSearchParamsPrototype['delete']);
+var forEach = uncurryThis(URLSearchParamsPrototype.forEach);
+var push = uncurryThis([].push);
+var params = new $URLSearchParams('a=1&a=2&b=3');
+params['delete']('a', 1);
+params['delete']('b', undefined);
+if (params + '' !== 'a=2') {
+ defineBuiltIn(URLSearchParamsPrototype, 'delete', function (name) {
+  var length = arguments.length;
+  var $value = length < 2 ? undefined : arguments[1];
+  if (length && $value === undefined)
+   return $delete(this, name);
+  var entries = [];
+  forEach(this, function (v, k) {
+   push(entries, {
+    key: k,
+    value: v
+   });
+  });
+  validateArgumentsLength(length, 1);
+  var key = toString(name);
+  var value = toString($value);
+  var index = 0;
+  var dindex = 0;
+  var found = false;
+  var entriesLength = entries.length;
+  var entry;
+  while (index < entriesLength) {
+   entry = entries[index++];
+   if (found || entry.key === key) {
+    found = true;
+    $delete(this, entry.key);
+   } else
+    dindex++;
+  }
+  while (dindex < entriesLength) {
+   entry = entries[dindex++];
+   if (!(entry.key === key && entry.value === value))
+    append(this, entry.key, entry.value);
+  }
+ }, {
+  enumerable: true,
+  unsafe: true
+ });
+}
+
+/***/ }),
+/* 85 */
+/***/ ((module) => {
+
+
+var $TypeError = TypeError;
+module.exports = function (passed, required) {
+ if (passed < required)
+  throw $TypeError('Not enough arguments');
+ return passed;
+};
+
+/***/ }),
+/* 86 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var defineBuiltIn = __w_pdfjs_require__(48);
+var uncurryThis = __w_pdfjs_require__(14);
+var toString = __w_pdfjs_require__(77);
+var validateArgumentsLength = __w_pdfjs_require__(85);
+var $URLSearchParams = URLSearchParams;
+var URLSearchParamsPrototype = $URLSearchParams.prototype;
+var getAll = uncurryThis(URLSearchParamsPrototype.getAll);
+var $has = uncurryThis(URLSearchParamsPrototype.has);
+var params = new $URLSearchParams('a=1');
+if (params.has('a', 2) || !params.has('a', undefined)) {
+ defineBuiltIn(URLSearchParamsPrototype, 'has', function has(name) {
+  var length = arguments.length;
+  var $value = length < 2 ? undefined : arguments[1];
+  if (length && $value === undefined)
+   return $has(this, name);
+  var values = getAll(this, name);
+  validateArgumentsLength(length, 1);
+  var value = toString($value);
+  var index = 0;
+  while (index < values.length) {
+   if (values[index++] === value)
+    return true;
+  }
+  return false;
+ }, {
+  enumerable: true,
+  unsafe: true
+ });
+}
+
+/***/ }),
+/* 87 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var uncurryThis = __w_pdfjs_require__(14);
+var defineBuiltInAccessor = __w_pdfjs_require__(88);
+var URLSearchParamsPrototype = URLSearchParams.prototype;
+var forEach = uncurryThis(URLSearchParamsPrototype.forEach);
+if (DESCRIPTORS && !('size' in URLSearchParamsPrototype)) {
+ defineBuiltInAccessor(URLSearchParamsPrototype, 'size', {
+  get: function size() {
+   var count = 0;
+   forEach(this, function () {
+    count++;
+   });
+   return count;
+  },
+  configurable: true,
+  enumerable: true
+ });
+}
+
+/***/ }),
+/* 88 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var makeBuiltIn = __w_pdfjs_require__(49);
+var defineProperty = __w_pdfjs_require__(45);
+module.exports = function (target, name, descriptor) {
+ if (descriptor.get)
+  makeBuiltIn(descriptor.get, name, { getter: true });
+ if (descriptor.set)
+  makeBuiltIn(descriptor.set, name, { setter: true });
+ return defineProperty.f(target, name, descriptor);
+};
+
+/***/ }),
+/* 89 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var toObject = __w_pdfjs_require__(40);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var setArrayLength = __w_pdfjs_require__(90);
+var doesNotExceedSafeInteger = __w_pdfjs_require__(92);
+var fails = __w_pdfjs_require__(7);
+var INCORRECT_TO_LENGTH = fails(function () {
+ return [].push.call({ length: 0x100000000 }, 1) !== 4294967297;
+});
+var properErrorOnNonWritableLength = function () {
+ try {
+  Object.defineProperty([], 'length', { writable: false }).push();
+ } catch (error) {
+  return error instanceof TypeError;
+ }
+};
+var FORCED = INCORRECT_TO_LENGTH || !properErrorOnNonWritableLength();
+$({
+ target: 'Array',
+ proto: true,
+ arity: 1,
+ forced: FORCED
+}, {
+ push: function push(item) {
+  var O = toObject(this);
+  var len = lengthOfArrayLike(O);
+  var argCount = arguments.length;
+  doesNotExceedSafeInteger(len + argCount);
+  for (var i = 0; i < argCount; i++) {
+   O[len] = arguments[i];
+   len++;
+  }
+  setArrayLength(O, len);
+  return len;
+ }
+});
+
+/***/ }),
+/* 90 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var isArray = __w_pdfjs_require__(91);
+var $TypeError = TypeError;
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var SILENT_ON_NON_WRITABLE_LENGTH_SET = DESCRIPTORS && !(function () {
+ if (this !== undefined)
+  return true;
+ try {
+  Object.defineProperty([], 'length', { writable: false }).length = 1;
+ } catch (error) {
+  return error instanceof TypeError;
+ }
+}());
+module.exports = SILENT_ON_NON_WRITABLE_LENGTH_SET ? function (O, length) {
+ if (isArray(O) && !getOwnPropertyDescriptor(O, 'length').writable) {
+  throw $TypeError('Cannot set read only .length');
+ }
+ return O.length = length;
+} : function (O, length) {
+ return O.length = length;
+};
+
+/***/ }),
+/* 91 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var classof = __w_pdfjs_require__(15);
+module.exports = Array.isArray || function isArray(argument) {
+ return classof(argument) === 'Array';
+};
+
+/***/ }),
+/* 92 */
+/***/ ((module) => {
+
+
+var $TypeError = TypeError;
+var MAX_SAFE_INTEGER = 0x1FFFFFFFFFFFFF;
+module.exports = function (it) {
+ if (it > MAX_SAFE_INTEGER)
+  throw $TypeError('Maximum allowed index exceeded');
+ return it;
+};
+
+/***/ }),
+/* 93 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var $findLast = (__w_pdfjs_require__(98).findLast);
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+exportTypedArrayMethod('findLast', function findLast(predicate) {
+ return $findLast(aTypedArray(this), predicate, arguments.length > 1 ? arguments[1] : undefined);
+});
+
+/***/ }),
+/* 94 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var NATIVE_ARRAY_BUFFER = __w_pdfjs_require__(95);
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var global = __w_pdfjs_require__(4);
+var isCallable = __w_pdfjs_require__(21);
+var isObject = __w_pdfjs_require__(20);
+var hasOwn = __w_pdfjs_require__(39);
+var classof = __w_pdfjs_require__(78);
+var tryToString = __w_pdfjs_require__(32);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var defineBuiltIn = __w_pdfjs_require__(48);
+var defineBuiltInAccessor = __w_pdfjs_require__(88);
+var isPrototypeOf = __w_pdfjs_require__(25);
+var getPrototypeOf = __w_pdfjs_require__(96);
+var setPrototypeOf = __w_pdfjs_require__(71);
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var uid = __w_pdfjs_require__(41);
+var InternalStateModule = __w_pdfjs_require__(52);
+var enforceInternalState = InternalStateModule.enforce;
+var getInternalState = InternalStateModule.get;
+var Int8Array = global.Int8Array;
+var Int8ArrayPrototype = Int8Array && Int8Array.prototype;
+var Uint8ClampedArray = global.Uint8ClampedArray;
+var Uint8ClampedArrayPrototype = Uint8ClampedArray && Uint8ClampedArray.prototype;
+var TypedArray = Int8Array && getPrototypeOf(Int8Array);
+var TypedArrayPrototype = Int8ArrayPrototype && getPrototypeOf(Int8ArrayPrototype);
+var ObjectPrototype = Object.prototype;
+var TypeError = global.TypeError;
+var TO_STRING_TAG = wellKnownSymbol('toStringTag');
+var TYPED_ARRAY_TAG = uid('TYPED_ARRAY_TAG');
+var TYPED_ARRAY_CONSTRUCTOR = 'TypedArrayConstructor';
+var NATIVE_ARRAY_BUFFER_VIEWS = NATIVE_ARRAY_BUFFER && !!setPrototypeOf && classof(global.opera) !== 'Opera';
+var TYPED_ARRAY_TAG_REQUIRED = false;
+var NAME, Constructor, Prototype;
+var TypedArrayConstructorsList = {
+ Int8Array: 1,
+ Uint8Array: 1,
+ Uint8ClampedArray: 1,
+ Int16Array: 2,
+ Uint16Array: 2,
+ Int32Array: 4,
+ Uint32Array: 4,
+ Float32Array: 4,
+ Float64Array: 8
+};
+var BigIntArrayConstructorsList = {
+ BigInt64Array: 8,
+ BigUint64Array: 8
+};
+var isView = function isView(it) {
+ if (!isObject(it))
+  return false;
+ var klass = classof(it);
+ return klass === 'DataView' || hasOwn(TypedArrayConstructorsList, klass) || hasOwn(BigIntArrayConstructorsList, klass);
+};
+var getTypedArrayConstructor = function (it) {
+ var proto = getPrototypeOf(it);
+ if (!isObject(proto))
+  return;
+ var state = getInternalState(proto);
+ return state && hasOwn(state, TYPED_ARRAY_CONSTRUCTOR) ? state[TYPED_ARRAY_CONSTRUCTOR] : getTypedArrayConstructor(proto);
+};
+var isTypedArray = function (it) {
+ if (!isObject(it))
+  return false;
+ var klass = classof(it);
+ return hasOwn(TypedArrayConstructorsList, klass) || hasOwn(BigIntArrayConstructorsList, klass);
+};
+var aTypedArray = function (it) {
+ if (isTypedArray(it))
+  return it;
+ throw TypeError('Target is not a typed array');
+};
+var aTypedArrayConstructor = function (C) {
+ if (isCallable(C) && (!setPrototypeOf || isPrototypeOf(TypedArray, C)))
+  return C;
+ throw TypeError(tryToString(C) + ' is not a typed array constructor');
+};
+var exportTypedArrayMethod = function (KEY, property, forced, options) {
+ if (!DESCRIPTORS)
+  return;
+ if (forced)
+  for (var ARRAY in TypedArrayConstructorsList) {
+   var TypedArrayConstructor = global[ARRAY];
+   if (TypedArrayConstructor && hasOwn(TypedArrayConstructor.prototype, KEY))
+    try {
+     delete TypedArrayConstructor.prototype[KEY];
+    } catch (error) {
+     try {
+      TypedArrayConstructor.prototype[KEY] = property;
+     } catch (error2) {
+     }
+    }
+  }
+ if (!TypedArrayPrototype[KEY] || forced) {
+  defineBuiltIn(TypedArrayPrototype, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && Int8ArrayPrototype[KEY] || property, options);
+ }
+};
+var exportTypedArrayStaticMethod = function (KEY, property, forced) {
+ var ARRAY, TypedArrayConstructor;
+ if (!DESCRIPTORS)
+  return;
+ if (setPrototypeOf) {
+  if (forced)
+   for (ARRAY in TypedArrayConstructorsList) {
+    TypedArrayConstructor = global[ARRAY];
+    if (TypedArrayConstructor && hasOwn(TypedArrayConstructor, KEY))
+     try {
+      delete TypedArrayConstructor[KEY];
+     } catch (error) {
+     }
+   }
+  if (!TypedArray[KEY] || forced) {
+   try {
+    return defineBuiltIn(TypedArray, KEY, forced ? property : NATIVE_ARRAY_BUFFER_VIEWS && TypedArray[KEY] || property);
+   } catch (error) {
+   }
+  } else
+   return;
+ }
+ for (ARRAY in TypedArrayConstructorsList) {
+  TypedArrayConstructor = global[ARRAY];
+  if (TypedArrayConstructor && (!TypedArrayConstructor[KEY] || forced)) {
+   defineBuiltIn(TypedArrayConstructor, KEY, property);
+  }
+ }
+};
+for (NAME in TypedArrayConstructorsList) {
+ Constructor = global[NAME];
+ Prototype = Constructor && Constructor.prototype;
+ if (Prototype)
+  enforceInternalState(Prototype)[TYPED_ARRAY_CONSTRUCTOR] = Constructor;
+ else
+  NATIVE_ARRAY_BUFFER_VIEWS = false;
+}
+for (NAME in BigIntArrayConstructorsList) {
+ Constructor = global[NAME];
+ Prototype = Constructor && Constructor.prototype;
+ if (Prototype)
+  enforceInternalState(Prototype)[TYPED_ARRAY_CONSTRUCTOR] = Constructor;
+}
+if (!NATIVE_ARRAY_BUFFER_VIEWS || !isCallable(TypedArray) || TypedArray === Function.prototype) {
+ TypedArray = function TypedArray() {
+  throw TypeError('Incorrect invocation');
+ };
+ if (NATIVE_ARRAY_BUFFER_VIEWS)
+  for (NAME in TypedArrayConstructorsList) {
+   if (global[NAME])
+    setPrototypeOf(global[NAME], TypedArray);
+  }
+}
+if (!NATIVE_ARRAY_BUFFER_VIEWS || !TypedArrayPrototype || TypedArrayPrototype === ObjectPrototype) {
+ TypedArrayPrototype = TypedArray.prototype;
+ if (NATIVE_ARRAY_BUFFER_VIEWS)
+  for (NAME in TypedArrayConstructorsList) {
+   if (global[NAME])
+    setPrototypeOf(global[NAME].prototype, TypedArrayPrototype);
+  }
+}
+if (NATIVE_ARRAY_BUFFER_VIEWS && getPrototypeOf(Uint8ClampedArrayPrototype) !== TypedArrayPrototype) {
+ setPrototypeOf(Uint8ClampedArrayPrototype, TypedArrayPrototype);
+}
+if (DESCRIPTORS && !hasOwn(TypedArrayPrototype, TO_STRING_TAG)) {
+ TYPED_ARRAY_TAG_REQUIRED = true;
+ defineBuiltInAccessor(TypedArrayPrototype, TO_STRING_TAG, {
+  configurable: true,
+  get: function () {
+   return isObject(this) ? this[TYPED_ARRAY_TAG] : undefined;
+  }
+ });
+ for (NAME in TypedArrayConstructorsList)
+  if (global[NAME]) {
+   createNonEnumerableProperty(global[NAME], TYPED_ARRAY_TAG, NAME);
+  }
+}
+module.exports = {
+ NATIVE_ARRAY_BUFFER_VIEWS: NATIVE_ARRAY_BUFFER_VIEWS,
+ TYPED_ARRAY_TAG: TYPED_ARRAY_TAG_REQUIRED && TYPED_ARRAY_TAG,
+ aTypedArray: aTypedArray,
+ aTypedArrayConstructor: aTypedArrayConstructor,
+ exportTypedArrayMethod: exportTypedArrayMethod,
+ exportTypedArrayStaticMethod: exportTypedArrayStaticMethod,
+ getTypedArrayConstructor: getTypedArrayConstructor,
+ isView: isView,
+ isTypedArray: isTypedArray,
+ TypedArray: TypedArray,
+ TypedArrayPrototype: TypedArrayPrototype
+};
+
+/***/ }),
+/* 95 */
+/***/ ((module) => {
+
+
+module.exports = typeof ArrayBuffer != 'undefined' && typeof DataView != 'undefined';
+
+/***/ }),
+/* 96 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var hasOwn = __w_pdfjs_require__(39);
+var isCallable = __w_pdfjs_require__(21);
+var toObject = __w_pdfjs_require__(40);
+var sharedKey = __w_pdfjs_require__(54);
+var CORRECT_PROTOTYPE_GETTER = __w_pdfjs_require__(97);
+var IE_PROTO = sharedKey('IE_PROTO');
+var $Object = Object;
+var ObjectPrototype = $Object.prototype;
+module.exports = CORRECT_PROTOTYPE_GETTER ? $Object.getPrototypeOf : function (O) {
+ var object = toObject(O);
+ if (hasOwn(object, IE_PROTO))
+  return object[IE_PROTO];
+ var constructor = object.constructor;
+ if (isCallable(constructor) && object instanceof constructor) {
+  return constructor.prototype;
+ }
+ return object instanceof $Object ? ObjectPrototype : null;
+};
+
+/***/ }),
+/* 97 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var fails = __w_pdfjs_require__(7);
+module.exports = !fails(function () {
+ function F() {
+ }
+ F.prototype.constructor = null;
+ return Object.getPrototypeOf(new F()) !== F.prototype;
+});
+
+/***/ }),
+/* 98 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var bind = __w_pdfjs_require__(99);
+var IndexedObject = __w_pdfjs_require__(13);
+var toObject = __w_pdfjs_require__(40);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var createMethod = function (TYPE) {
+ var IS_FIND_LAST_INDEX = TYPE === 1;
+ return function ($this, callbackfn, that) {
+  var O = toObject($this);
+  var self = IndexedObject(O);
+  var boundFunction = bind(callbackfn, that);
+  var index = lengthOfArrayLike(self);
+  var value, result;
+  while (index-- > 0) {
+   value = self[index];
+   result = boundFunction(value, index, O);
+   if (result)
+    switch (TYPE) {
+    case 0:
+     return value;
+    case 1:
+     return index;
+    }
+  }
+  return IS_FIND_LAST_INDEX ? -1 : undefined;
+ };
+};
+module.exports = {
+ findLast: createMethod(0),
+ findLastIndex: createMethod(1)
+};
+
+/***/ }),
+/* 99 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(100);
+var aCallable = __w_pdfjs_require__(31);
+var NATIVE_BIND = __w_pdfjs_require__(9);
+var bind = uncurryThis(uncurryThis.bind);
+module.exports = function (fn, that) {
+ aCallable(fn);
+ return that === undefined ? fn : NATIVE_BIND ? bind(fn, that) : function () {
+  return fn.apply(that, arguments);
+ };
+};
+
+/***/ }),
+/* 100 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var classofRaw = __w_pdfjs_require__(15);
+var uncurryThis = __w_pdfjs_require__(14);
+module.exports = function (fn) {
+ if (classofRaw(fn) === 'Function')
+  return uncurryThis(fn);
+};
+
+/***/ }),
+/* 101 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var $findLastIndex = (__w_pdfjs_require__(98).findLastIndex);
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+exportTypedArrayMethod('findLastIndex', function findLastIndex(predicate) {
+ return $findLastIndex(aTypedArray(this), predicate, arguments.length > 1 ? arguments[1] : undefined);
+});
+
+/***/ }),
+/* 102 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var call = __w_pdfjs_require__(8);
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var toOffset = __w_pdfjs_require__(103);
+var toIndexedObject = __w_pdfjs_require__(40);
+var fails = __w_pdfjs_require__(7);
+var RangeError = global.RangeError;
+var Int8Array = global.Int8Array;
+var Int8ArrayPrototype = Int8Array && Int8Array.prototype;
+var $set = Int8ArrayPrototype && Int8ArrayPrototype.set;
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+var WORKS_WITH_OBJECTS_AND_GENERIC_ON_TYPED_ARRAYS = !fails(function () {
+ var array = new Uint8ClampedArray(2);
+ call($set, array, {
+  length: 1,
+  0: 3
+ }, 1);
+ return array[1] !== 3;
+});
+var TO_OBJECT_BUG = WORKS_WITH_OBJECTS_AND_GENERIC_ON_TYPED_ARRAYS && ArrayBufferViewCore.NATIVE_ARRAY_BUFFER_VIEWS && fails(function () {
+ var array = new Int8Array(2);
+ array.set(1);
+ array.set('2', 1);
+ return array[0] !== 0 || array[1] !== 2;
+});
+exportTypedArrayMethod('set', function set(arrayLike) {
+ aTypedArray(this);
+ var offset = toOffset(arguments.length > 1 ? arguments[1] : undefined, 1);
+ var src = toIndexedObject(arrayLike);
+ if (WORKS_WITH_OBJECTS_AND_GENERIC_ON_TYPED_ARRAYS)
+  return call($set, this, src, offset);
+ var length = this.length;
+ var len = lengthOfArrayLike(src);
+ var index = 0;
+ if (len + offset > length)
+  throw RangeError('Wrong length');
+ while (index < len)
+  this[offset + index] = src[index++];
+}, !WORKS_WITH_OBJECTS_AND_GENERIC_ON_TYPED_ARRAYS || TO_OBJECT_BUG);
+
+/***/ }),
+/* 103 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toPositiveInteger = __w_pdfjs_require__(104);
+var $RangeError = RangeError;
+module.exports = function (it, BYTES) {
+ var offset = toPositiveInteger(it);
+ if (offset % BYTES)
+  throw $RangeError('Wrong offset');
+ return offset;
+};
+
+/***/ }),
+/* 104 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var $RangeError = RangeError;
+module.exports = function (it) {
+ var result = toIntegerOrInfinity(it);
+ if (result < 0)
+  throw $RangeError("The argument can't be less than 0");
+ return result;
+};
+
+/***/ }),
+/* 105 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var arrayToReversed = __w_pdfjs_require__(106);
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
+exportTypedArrayMethod('toReversed', function toReversed() {
+ return arrayToReversed(aTypedArray(this), getTypedArrayConstructor(this));
+});
+
+/***/ }),
+/* 106 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+module.exports = function (O, C) {
+ var len = lengthOfArrayLike(O);
+ var A = new C(len);
+ var k = 0;
+ for (; k < len; k++)
+  A[k] = O[len - k - 1];
+ return A;
+};
+
+/***/ }),
+/* 107 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var uncurryThis = __w_pdfjs_require__(14);
+var aCallable = __w_pdfjs_require__(31);
+var arrayFromConstructorAndList = __w_pdfjs_require__(108);
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+var sort = uncurryThis(ArrayBufferViewCore.TypedArrayPrototype.sort);
+exportTypedArrayMethod('toSorted', function toSorted(compareFn) {
+ if (compareFn !== undefined)
+  aCallable(compareFn);
+ var O = aTypedArray(this);
+ var A = arrayFromConstructorAndList(getTypedArrayConstructor(O), O);
+ return sort(A, compareFn);
+});
+
+/***/ }),
+/* 108 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+module.exports = function (Constructor, list) {
+ var index = 0;
+ var length = lengthOfArrayLike(list);
+ var result = new Constructor(length);
+ while (length > index)
+  result[index] = list[index++];
+ return result;
+};
+
+/***/ }),
+/* 109 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var arrayWith = __w_pdfjs_require__(110);
+var ArrayBufferViewCore = __w_pdfjs_require__(94);
+var isBigIntArray = __w_pdfjs_require__(111);
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var toBigInt = __w_pdfjs_require__(112);
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var getTypedArrayConstructor = ArrayBufferViewCore.getTypedArrayConstructor;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+var PROPER_ORDER = !!(function () {
+ try {
+  new Int8Array(1)['with'](2, {
+   valueOf: function () {
+    throw 8;
+   }
+  });
+ } catch (error) {
+  return error === 8;
+ }
+}());
+exportTypedArrayMethod('with', {
+ 'with': function (index, value) {
+  var O = aTypedArray(this);
+  var relativeIndex = toIntegerOrInfinity(index);
+  var actualValue = isBigIntArray(O) ? toBigInt(value) : +value;
+  return arrayWith(O, getTypedArrayConstructor(O), relativeIndex, actualValue);
+ }
+}['with'], !PROPER_ORDER);
+
+/***/ }),
+/* 110 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var $RangeError = RangeError;
+module.exports = function (O, C, index, value) {
+ var len = lengthOfArrayLike(O);
+ var relativeIndex = toIntegerOrInfinity(index);
+ var actualIndex = relativeIndex < 0 ? len + relativeIndex : relativeIndex;
+ if (actualIndex >= len || actualIndex < 0)
+  throw $RangeError('Incorrect index');
+ var A = new C(len);
+ var k = 0;
+ for (; k < len; k++)
+  A[k] = k === actualIndex ? value : O[k];
+ return A;
+};
+
+/***/ }),
+/* 111 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var classof = __w_pdfjs_require__(78);
+module.exports = function (it) {
+ var klass = classof(it);
+ return klass === 'BigInt64Array' || klass === 'BigUint64Array';
+};
+
+/***/ }),
+/* 112 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toPrimitive = __w_pdfjs_require__(19);
+var $TypeError = TypeError;
+module.exports = function (argument) {
+ var prim = toPrimitive(argument, 'number');
+ if (typeof prim == 'number')
+  throw $TypeError("Can't convert number to bigint");
+ return BigInt(prim);
+};
+
+/***/ }),
+/* 113 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var defineBuiltInAccessor = __w_pdfjs_require__(88);
+var isDetached = __w_pdfjs_require__(114);
+var ArrayBufferPrototype = ArrayBuffer.prototype;
+if (DESCRIPTORS && !('detached' in ArrayBufferPrototype)) {
+ defineBuiltInAccessor(ArrayBufferPrototype, 'detached', {
+  configurable: true,
+  get: function detached() {
+   return isDetached(this);
+  }
+ });
+}
+
+/***/ }),
+/* 114 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var arrayBufferByteLength = __w_pdfjs_require__(115);
+var slice = uncurryThis(ArrayBuffer.prototype.slice);
+module.exports = function (O) {
+ if (arrayBufferByteLength(O) !== 0)
+  return false;
+ try {
+  slice(O, 0, 0);
+  return false;
+ } catch (error) {
+  return true;
+ }
+};
+
+/***/ }),
+/* 115 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThisAccessor = __w_pdfjs_require__(72);
+var classof = __w_pdfjs_require__(15);
+var $TypeError = TypeError;
+module.exports = uncurryThisAccessor(ArrayBuffer.prototype, 'byteLength', 'get') || function (O) {
+ if (classof(O) !== 'ArrayBuffer')
+  throw $TypeError('ArrayBuffer expected');
+ return O.byteLength;
+};
+
+/***/ }),
+/* 116 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var $transfer = __w_pdfjs_require__(117);
+if ($transfer)
+ $({
+  target: 'ArrayBuffer',
+  proto: true
+ }, {
+  transfer: function transfer() {
+   return $transfer(this, arguments.length ? arguments[0] : undefined, true);
+  }
+ });
+
+/***/ }),
+/* 117 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var uncurryThis = __w_pdfjs_require__(14);
+var uncurryThisAccessor = __w_pdfjs_require__(72);
+var toIndex = __w_pdfjs_require__(118);
+var isDetached = __w_pdfjs_require__(114);
+var arrayBufferByteLength = __w_pdfjs_require__(115);
+var PROPER_TRANSFER = __w_pdfjs_require__(119);
+var TypeError = global.TypeError;
+var structuredClone = global.structuredClone;
+var ArrayBuffer = global.ArrayBuffer;
+var DataView = global.DataView;
+var min = Math.min;
+var ArrayBufferPrototype = ArrayBuffer.prototype;
+var DataViewPrototype = DataView.prototype;
+var slice = uncurryThis(ArrayBufferPrototype.slice);
+var isResizable = uncurryThisAccessor(ArrayBufferPrototype, 'resizable', 'get');
+var maxByteLength = uncurryThisAccessor(ArrayBufferPrototype, 'maxByteLength', 'get');
+var getInt8 = uncurryThis(DataViewPrototype.getInt8);
+var setInt8 = uncurryThis(DataViewPrototype.setInt8);
+module.exports = PROPER_TRANSFER && function (arrayBuffer, newLength, preserveResizability) {
+ var byteLength = arrayBufferByteLength(arrayBuffer);
+ var newByteLength = newLength === undefined ? byteLength : toIndex(newLength);
+ var fixedLength = !isResizable || !isResizable(arrayBuffer);
+ if (isDetached(arrayBuffer))
+  throw TypeError('ArrayBuffer is detached');
+ var newBuffer = structuredClone(arrayBuffer, { transfer: [arrayBuffer] });
+ if (byteLength === newByteLength && (preserveResizability || fixedLength))
+  return newBuffer;
+ if (byteLength >= newByteLength && (!preserveResizability || fixedLength))
+  return slice(newBuffer, 0, newByteLength);
+ var options = preserveResizability && !fixedLength && maxByteLength ? { maxByteLength: maxByteLength(newBuffer) } : undefined;
+ var newNewBuffer = new ArrayBuffer(newByteLength, options);
+ var a = new DataView(newBuffer);
+ var b = new DataView(newNewBuffer);
+ var copyLength = min(newByteLength, byteLength);
+ for (var i = 0; i < copyLength; i++)
+  setInt8(b, i, getInt8(a, i));
+ return newNewBuffer;
+};
+
+/***/ }),
+/* 118 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var toLength = __w_pdfjs_require__(65);
+var $RangeError = RangeError;
+module.exports = function (it) {
+ if (it === undefined)
+  return 0;
+ var number = toIntegerOrInfinity(it);
+ var length = toLength(number);
+ if (number !== length)
+  throw $RangeError('Wrong length or index');
+ return length;
+};
+
+/***/ }),
+/* 119 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var fails = __w_pdfjs_require__(7);
+var V8 = __w_pdfjs_require__(28);
+var IS_BROWSER = __w_pdfjs_require__(120);
+var IS_DENO = __w_pdfjs_require__(121);
+var IS_NODE = __w_pdfjs_require__(122);
+var structuredClone = global.structuredClone;
+module.exports = !!structuredClone && !fails(function () {
+ if (IS_DENO && V8 > 92 || IS_NODE && V8 > 94 || IS_BROWSER && V8 > 97)
+  return false;
+ var buffer = new ArrayBuffer(8);
+ var clone = structuredClone(buffer, { transfer: [buffer] });
+ return buffer.byteLength !== 0 || clone.byteLength !== 8;
+});
+
+/***/ }),
+/* 120 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var IS_DENO = __w_pdfjs_require__(121);
+var IS_NODE = __w_pdfjs_require__(122);
+module.exports = !IS_DENO && !IS_NODE && typeof window == 'object' && typeof document == 'object';
+
+/***/ }),
+/* 121 */
+/***/ ((module) => {
+
+
+module.exports = typeof Deno == 'object' && Deno && typeof Deno.version == 'object';
+
+/***/ }),
+/* 122 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var global = __w_pdfjs_require__(4);
+var classof = __w_pdfjs_require__(15);
+module.exports = classof(global.process) === 'process';
+
+/***/ }),
+/* 123 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var $transfer = __w_pdfjs_require__(117);
+if ($transfer)
+ $({
+  target: 'ArrayBuffer',
+  proto: true
+ }, {
+  transferToFixedLength: function transferToFixedLength() {
+   return $transfer(this, arguments.length ? arguments[0] : undefined, false);
+  }
+ });
+
+/***/ }),
+/* 124 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -862,22 +3389,45 @@ Object.defineProperty(exports, "SVGGraphics", ({
 exports.build = void 0;
 exports.getDocument = getDocument;
 exports.version = void 0;
+__w_pdfjs_require__(84);
+__w_pdfjs_require__(86);
+__w_pdfjs_require__(87);
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(125);
+__w_pdfjs_require__(136);
+__w_pdfjs_require__(138);
+__w_pdfjs_require__(141);
+__w_pdfjs_require__(143);
+__w_pdfjs_require__(145);
+__w_pdfjs_require__(147);
+__w_pdfjs_require__(149);
+__w_pdfjs_require__(152);
 var _util = __w_pdfjs_require__(1);
-var _annotation_storage = __w_pdfjs_require__(3);
-var _display_utils = __w_pdfjs_require__(6);
-var _font_loader = __w_pdfjs_require__(9);
-var _displayNode_utils = __w_pdfjs_require__(10);
-var _canvas = __w_pdfjs_require__(11);
-var _worker_options = __w_pdfjs_require__(14);
-var _message_handler = __w_pdfjs_require__(15);
-var _metadata = __w_pdfjs_require__(16);
-var _optional_content_config = __w_pdfjs_require__(17);
-var _transport_stream = __w_pdfjs_require__(18);
-var _displayFetch_stream = __w_pdfjs_require__(19);
-var _displayNetwork = __w_pdfjs_require__(22);
-var _displayNode_stream = __w_pdfjs_require__(23);
-var _displaySvg = __w_pdfjs_require__(24);
-var _xfa_text = __w_pdfjs_require__(25);
+var _annotation_storage = __w_pdfjs_require__(163);
+var _display_utils = __w_pdfjs_require__(168);
+var _font_loader = __w_pdfjs_require__(171);
+var _displayNode_utils = __w_pdfjs_require__(172);
+var _canvas = __w_pdfjs_require__(173);
+var _worker_options = __w_pdfjs_require__(176);
+var _message_handler = __w_pdfjs_require__(177);
+var _metadata = __w_pdfjs_require__(178);
+var _optional_content_config = __w_pdfjs_require__(179);
+var _transport_stream = __w_pdfjs_require__(180);
+var _displayFetch_stream = __w_pdfjs_require__(181);
+var _displayNetwork = __w_pdfjs_require__(184);
+var _displayNode_stream = __w_pdfjs_require__(185);
+var _displaySvg = __w_pdfjs_require__(186);
+var _xfa_text = __w_pdfjs_require__(194);
 const DEFAULT_RANGE_CHUNK_SIZE = 65536;
 const RENDERING_CANCELLED_TIMEOUT = 100;
 const DELAYED_CLEANUP_TIMEOUT = 5000;
@@ -1039,7 +3589,8 @@ function getDocument(src) {
       }
       resolve(networkStream);
     });
-    return Promise.all([workerIdPromise, networkStreamPromise]).then(function ([workerId, networkStream]) {
+    return Promise.all([workerIdPromise, networkStreamPromise]).then(function (_ref) {
+      let [workerId, networkStream] = _ref;
       if (task.destroyed) {
         throw new Error("Loading aborted");
       }
@@ -1125,7 +3676,9 @@ class PDFDocumentLoadingTask {
 }
 exports.PDFDocumentLoadingTask = PDFDocumentLoadingTask;
 class PDFDataRangeTransport {
-  constructor(length, initialData, progressiveDone = false, contentDispositionFilename = null) {
+  constructor(length, initialData) {
+    let progressiveDone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    let contentDispositionFilename = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
     this.length = length;
     this.initialData = initialData;
     this.progressiveDone = progressiveDone;
@@ -1278,7 +3831,8 @@ class PDFDocumentProxy {
   getDownloadInfo() {
     return this._transport.downloadInfoCapability.promise;
   }
-  cleanup(keepLoadedFonts = false) {
+  cleanup() {
+    let keepLoadedFonts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     return this._transport.startCleanup(keepLoadedFonts || this.isPureXfa);
   }
   destroy() {
@@ -1304,7 +3858,8 @@ exports.PDFDocumentProxy = PDFDocumentProxy;
 class PDFPageProxy {
   #delayedCleanupTimeout = null;
   #pendingCleanup = false;
-  constructor(pageIndex, pageInfo, transport, pdfBug = false) {
+  constructor(pageIndex, pageInfo, transport) {
+    let pdfBug = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     this._pageIndex = pageIndex;
     this._pageInfo = pageInfo;
     this._transport = transport;
@@ -1331,13 +3886,14 @@ class PDFPageProxy {
   get view() {
     return this._pageInfo.view;
   }
-  getViewport({
-    scale,
-    rotation = this.rotate,
-    offsetX = 0,
-    offsetY = 0,
-    dontFlip = false
-  } = {}) {
+  getViewport() {
+    let {
+      scale,
+      rotation = this.rotate,
+      offsetX = 0,
+      offsetY = 0,
+      dontFlip = false
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return new _display_utils.PageViewport({
       viewBox: this.view,
       scale,
@@ -1347,9 +3903,10 @@ class PDFPageProxy {
       dontFlip
     });
   }
-  getAnnotations({
-    intent = "display"
-  } = {}) {
+  getAnnotations() {
+    let {
+      intent = "display"
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     const intentArgs = this._transport.getRenderingIntent(intent);
     return this._transport.getAnnotations(this._pageIndex, intentArgs.renderingIntent);
   }
@@ -1365,18 +3922,19 @@ class PDFPageProxy {
   async getXfa() {
     return this._transport._htmlForXfa?.children[this._pageIndex] || null;
   }
-  render({
-    canvasContext,
-    viewport,
-    intent = "display",
-    annotationMode = _util.AnnotationMode.ENABLE,
-    transform = null,
-    background = null,
-    optionalContentConfigPromise = null,
-    annotationCanvasMap = null,
-    pageColors = null,
-    printAnnotationStorage = null
-  }) {
+  render(_ref2) {
+    let {
+      canvasContext,
+      viewport,
+      intent = "display",
+      annotationMode = _util.AnnotationMode.ENABLE,
+      transform = null,
+      background = null,
+      optionalContentConfigPromise = null,
+      annotationCanvasMap = null,
+      pageColors = null,
+      printAnnotationStorage = null
+    } = _ref2;
     this._stats?.time("Overall");
     const intentArgs = this._transport.getRenderingIntent(intent, annotationMode, printAnnotationStorage);
     this.#pendingCleanup = false;
@@ -1444,7 +4002,8 @@ class PDFPageProxy {
     });
     (intentState.renderTasks ||= new Set()).add(internalRenderTask);
     const renderTask = internalRenderTask.task;
-    Promise.all([intentState.displayReadyCapability.promise, optionalContentConfigPromise]).then(([transparency, optionalContentConfig]) => {
+    Promise.all([intentState.displayReadyCapability.promise, optionalContentConfigPromise]).then(_ref3 => {
+      let [transparency, optionalContentConfig] = _ref3;
       if (this.destroyed) {
         complete();
         return;
@@ -1458,11 +4017,12 @@ class PDFPageProxy {
     }).catch(complete);
     return renderTask;
   }
-  getOperatorList({
-    intent = "display",
-    annotationMode = _util.AnnotationMode.ENABLE,
-    printAnnotationStorage = null
-  } = {}) {
+  getOperatorList() {
+    let {
+      intent = "display",
+      annotationMode = _util.AnnotationMode.ENABLE,
+      printAnnotationStorage = null
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     function operatorListChanged() {
       if (intentState.operatorList.lastChunk) {
         intentState.opListReadCapability.resolve(intentState.operatorList);
@@ -1492,10 +4052,11 @@ class PDFPageProxy {
     }
     return intentState.opListReadCapability.promise;
   }
-  streamTextContent({
-    includeMarkedContent = false,
-    disableNormalization = false
-  } = {}) {
+  streamTextContent() {
+    let {
+      includeMarkedContent = false,
+      disableNormalization = false
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     const TEXT_CONTENT_CHUNK_SIZE = 100;
     return this._transport.messageHandler.sendWithStream("GetTextContent", {
       pageIndex: this._pageIndex,
@@ -1508,7 +4069,8 @@ class PDFPageProxy {
       }
     });
   }
-  getTextContent(params = {}) {
+  getTextContent() {
+    let params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     if (this._transport._htmlForXfa) {
       return this.getXfa().then(xfa => {
         return _xfa_text.XfaText.textContent(xfa);
@@ -1517,10 +4079,11 @@ class PDFPageProxy {
     const readableStream = this.streamTextContent(params);
     return new Promise(function (resolve, reject) {
       function pump() {
-        reader.read().then(function ({
-          value,
-          done
-        }) {
+        reader.read().then(function (_ref4) {
+          let {
+            value,
+            done
+          } = _ref4;
           if (done) {
             resolve(textContent);
             return;
@@ -1563,7 +4126,8 @@ class PDFPageProxy {
     this.#abortDelayedCleanup();
     return Promise.all(waitOn);
   }
-  cleanup(resetStats = false) {
+  cleanup() {
+    let resetStats = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     this.#pendingCleanup = true;
     const success = this.#tryCleanup(false);
     if (resetStats && success) {
@@ -1571,7 +4135,8 @@ class PDFPageProxy {
     }
     return success;
   }
-  #tryCleanup(delayed = false) {
+  #tryCleanup() {
+    let delayed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     this.#abortDelayedCleanup();
     if (!this.#pendingCleanup || this.destroyed) {
       return false;
@@ -1624,11 +4189,12 @@ class PDFPageProxy {
       this.#tryCleanup(true);
     }
   }
-  _pumpOperatorList({
-    renderingIntent,
-    cacheKey,
-    annotationStorageSerializable
-  }) {
+  _pumpOperatorList(_ref5) {
+    let {
+      renderingIntent,
+      cacheKey,
+      annotationStorageSerializable
+    } = _ref5;
     const {
       map,
       transfers
@@ -1643,10 +4209,11 @@ class PDFPageProxy {
     const intentState = this._intentStates.get(cacheKey);
     intentState.streamReader = reader;
     const pump = () => {
-      reader.read().then(({
-        value,
-        done
-      }) => {
+      reader.read().then(_ref6 => {
+        let {
+          value,
+          done
+        } = _ref6;
         if (done) {
           intentState.streamReader = null;
           return;
@@ -1679,11 +4246,12 @@ class PDFPageProxy {
     };
     pump();
   }
-  _abortOperatorList({
-    intentState,
-    reason,
-    force = false
-  }) {
+  _abortOperatorList(_ref7) {
+    let {
+      intentState,
+      reason,
+      force = false
+    } = _ref7;
     if (!intentState.streamReader) {
       return;
     }
@@ -1734,9 +4302,7 @@ class LoopbackPort {
   #deferred = Promise.resolve();
   postMessage(obj, transfer) {
     const event = {
-      data: structuredClone(obj, transfer ? {
-        transfer
-      } : null)
+      data: structuredClone(obj, null)
     };
     this.#deferred.then(() => {
       for (const listener of this.#listeners) {
@@ -1791,11 +4357,12 @@ exports.PDFWorkerUtil = PDFWorkerUtil;
 }
 class PDFWorker {
   static #workerPorts;
-  constructor({
-    name = null,
-    port = null,
-    verbosity = (0, _util.getVerbosityLevel)()
-  } = {}) {
+  constructor() {
+    let {
+      name = null,
+      port = null,
+      verbosity = (0, _util.getVerbosityLevel)()
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     this.name = name;
     this.destroyed = false;
     this.verbosity = verbosity;
@@ -2015,7 +4582,8 @@ class WorkerTransport {
     this.downloadInfoCapability = new _util.PromiseCapability();
     this.setupMessageHandler();
   }
-  #cacheSimpleMethod(name, data = null) {
+  #cacheSimpleMethod(name) {
+    let data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     const cachedPromise = this.#methodPromises.get(name);
     if (cachedPromise) {
       return cachedPromise;
@@ -2027,7 +4595,10 @@ class WorkerTransport {
   get annotationStorage() {
     return (0, _util.shadow)(this, "annotationStorage", new _annotation_storage.AnnotationStorage());
   }
-  getRenderingIntent(intent, annotationMode = _util.AnnotationMode.ENABLE, printAnnotationStorage = null, isOpList = false) {
+  getRenderingIntent(intent) {
+    let annotationMode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _util.AnnotationMode.ENABLE;
+    let printAnnotationStorage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    let isOpList = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     let renderingIntent = _util.RenderingIntentFlag.DISPLAY;
     let annotationStorageSerializable = _annotation_storage.SerializableEmpty;
     switch (intent) {
@@ -2115,10 +4686,11 @@ class WorkerTransport {
         };
       };
       sink.onPull = () => {
-        this._fullReader.read().then(function ({
-          value,
-          done
-        }) {
+        this._fullReader.read().then(function (_ref8) {
+          let {
+            value,
+            done
+          } = _ref8;
           if (done) {
             sink.close();
             return;
@@ -2170,10 +4742,11 @@ class WorkerTransport {
         return;
       }
       sink.onPull = () => {
-        rangeReader.read().then(function ({
-          value,
-          done
-        }) {
+        rangeReader.read().then(function (_ref9) {
+          let {
+            value,
+            done
+          } = _ref9;
           if (done) {
             sink.close();
             return;
@@ -2194,9 +4767,10 @@ class WorkerTransport {
         });
       };
     });
-    messageHandler.on("GetDoc", ({
-      pdfInfo
-    }) => {
+    messageHandler.on("GetDoc", _ref10 => {
+      let {
+        pdfInfo
+      } = _ref10;
       this._numPages = pdfInfo.numPages;
       this._htmlForXfa = pdfInfo.htmlForXfa;
       delete pdfInfo.htmlForXfa;
@@ -2261,7 +4835,8 @@ class WorkerTransport {
       const page = this.#pageCache.get(data.pageIndex);
       page._startRenderPage(data.transparency, data.cacheKey);
     });
-    messageHandler.on("commonobj", ([id, type, exportedData]) => {
+    messageHandler.on("commonobj", _ref11 => {
+      let [id, type, exportedData] = _ref11;
       if (this.destroyed) {
         return;
       }
@@ -2304,7 +4879,8 @@ class WorkerTransport {
           throw new Error(`Got unknown common object type ${type}`);
       }
     });
-    messageHandler.on("obj", ([id, pageIndex, type, imageData]) => {
+    messageHandler.on("obj", _ref12 => {
+      let [id, pageIndex, type, imageData] = _ref12;
       if (this.destroyed) {
         return;
       }
@@ -2505,7 +5081,8 @@ class WorkerTransport {
   getMarkInfo() {
     return this.messageHandler.sendWithPromise("GetMarkInfo", null);
   }
-  async startCleanup(keepLoadedFonts = false) {
+  async startCleanup() {
+    let keepLoadedFonts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (this.destroyed) {
       return;
     }
@@ -2542,7 +5119,8 @@ class PDFObjects {
       data: null
     };
   }
-  get(objId, callback = null) {
+  get(objId) {
+    let callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     if (callback) {
       const obj = this.#ensureObj(objId);
       obj.capability.promise.then(() => callback(obj.data));
@@ -2558,7 +5136,8 @@ class PDFObjects {
     const obj = this.#objs[objId];
     return obj?.capability.settled || false;
   }
-  resolve(objId, data = null) {
+  resolve(objId) {
+    let data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     const obj = this.#ensureObj(objId);
     obj.data = data;
     obj.capability.resolve();
@@ -2582,7 +5161,8 @@ class RenderTask {
   get promise() {
     return this.#internalRenderTask.capability.promise;
   }
-  cancel(extraDelay = 0) {
+  cancel() {
+    let extraDelay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     this.#internalRenderTask.cancel(null, extraDelay);
   }
   get separateAnnots() {
@@ -2601,20 +5181,21 @@ class RenderTask {
 exports.RenderTask = RenderTask;
 class InternalRenderTask {
   static #canvasInUse = new WeakSet();
-  constructor({
-    callback,
-    params,
-    objs,
-    commonObjs,
-    annotationCanvasMap,
-    operatorList,
-    pageIndex,
-    canvasFactory,
-    filterFactory,
-    useRequestAnimationFrame = false,
-    pdfBug = false,
-    pageColors = null
-  }) {
+  constructor(_ref13) {
+    let {
+      callback,
+      params,
+      objs,
+      commonObjs,
+      annotationCanvasMap,
+      operatorList,
+      pageIndex,
+      canvasFactory,
+      filterFactory,
+      useRequestAnimationFrame = false,
+      pdfBug = false,
+      pageColors = null
+    } = _ref13;
     this.callback = callback;
     this.params = params;
     this.objs = objs;
@@ -2643,10 +5224,11 @@ class InternalRenderTask {
   get completed() {
     return this.capability.promise.catch(function () {});
   }
-  initializeGraphics({
-    transparency = false,
-    optionalContentConfig
-  }) {
+  initializeGraphics(_ref14) {
+    let {
+      transparency = false,
+      optionalContentConfig
+    } = _ref14;
     if (this.cancelled) {
       return;
     }
@@ -2680,7 +5262,9 @@ class InternalRenderTask {
     this.graphicsReady = true;
     this.graphicsReadyCallback?.();
   }
-  cancel(error = null, extraDelay = 0) {
+  cancel() {
+    let error = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    let extraDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     this.running = false;
     this.cancelled = true;
     this.gfx?.endDrawing();
@@ -2739,7 +5323,1546 @@ const build = 'ce8716743';
 exports.build = build;
 
 /***/ }),
-/* 3 */
+/* 125 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var difference = __w_pdfjs_require__(126);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('difference')
+}, { difference: difference });
+
+/***/ }),
+/* 126 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var SetHelpers = __w_pdfjs_require__(128);
+var clone = __w_pdfjs_require__(129);
+var size = __w_pdfjs_require__(132);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSet = __w_pdfjs_require__(130);
+var iterateSimple = __w_pdfjs_require__(131);
+var has = SetHelpers.has;
+var remove = SetHelpers.remove;
+module.exports = function difference(other) {
+ var O = aSet(this);
+ var otherRec = getSetRecord(other);
+ var result = clone(O);
+ if (size(O) <= otherRec.size)
+  iterateSet(O, function (e) {
+   if (otherRec.includes(e))
+    remove(result, e);
+  });
+ else
+  iterateSimple(otherRec.getIterator(), function (e) {
+   if (has(O, e))
+    remove(result, e);
+  });
+ return result;
+};
+
+/***/ }),
+/* 127 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var has = (__w_pdfjs_require__(128).has);
+module.exports = function (it) {
+ has(it);
+ return it;
+};
+
+/***/ }),
+/* 128 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var SetPrototype = Set.prototype;
+module.exports = {
+ Set: Set,
+ add: uncurryThis(SetPrototype.add),
+ has: uncurryThis(SetPrototype.has),
+ remove: uncurryThis(SetPrototype['delete']),
+ proto: SetPrototype
+};
+
+/***/ }),
+/* 129 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var SetHelpers = __w_pdfjs_require__(128);
+var iterate = __w_pdfjs_require__(130);
+var Set = SetHelpers.Set;
+var add = SetHelpers.add;
+module.exports = function (set) {
+ var result = new Set();
+ iterate(set, function (it) {
+  add(result, it);
+ });
+ return result;
+};
+
+/***/ }),
+/* 130 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var iterateSimple = __w_pdfjs_require__(131);
+var SetHelpers = __w_pdfjs_require__(128);
+var Set = SetHelpers.Set;
+var SetPrototype = SetHelpers.proto;
+var forEach = uncurryThis(SetPrototype.forEach);
+var keys = uncurryThis(SetPrototype.keys);
+var next = keys(new Set()).next;
+module.exports = function (set, fn, interruptible) {
+ return interruptible ? iterateSimple({
+  iterator: keys(set),
+  next: next
+ }, fn) : forEach(set, fn);
+};
+
+/***/ }),
+/* 131 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+module.exports = function (record, fn, ITERATOR_INSTEAD_OF_RECORD) {
+ var iterator = ITERATOR_INSTEAD_OF_RECORD ? record : record.iterator;
+ var next = record.next;
+ var step, result;
+ while (!(step = call(next, iterator)).done) {
+  result = fn(step.value);
+  if (result !== undefined)
+   return result;
+ }
+};
+
+/***/ }),
+/* 132 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThisAccessor = __w_pdfjs_require__(72);
+var SetHelpers = __w_pdfjs_require__(128);
+module.exports = uncurryThisAccessor(SetHelpers.proto, 'size', 'get') || function (set) {
+ return set.size;
+};
+
+/***/ }),
+/* 133 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aCallable = __w_pdfjs_require__(31);
+var anObject = __w_pdfjs_require__(47);
+var call = __w_pdfjs_require__(8);
+var toIntegerOrInfinity = __w_pdfjs_require__(62);
+var getIteratorDirect = __w_pdfjs_require__(134);
+var INVALID_SIZE = 'Invalid size';
+var $RangeError = RangeError;
+var $TypeError = TypeError;
+var max = Math.max;
+var SetRecord = function (set, size, has, keys) {
+ this.set = set;
+ this.size = size;
+ this.has = has;
+ this.keys = keys;
+};
+SetRecord.prototype = {
+ getIterator: function () {
+  return getIteratorDirect(anObject(call(this.keys, this.set)));
+ },
+ includes: function (it) {
+  return call(this.has, this.set, it);
+ }
+};
+module.exports = function (obj) {
+ anObject(obj);
+ var numSize = +obj.size;
+ if (numSize !== numSize)
+  throw $TypeError(INVALID_SIZE);
+ var intSize = toIntegerOrInfinity(numSize);
+ if (intSize < 0)
+  throw $RangeError(INVALID_SIZE);
+ return new SetRecord(obj, max(intSize, 0), aCallable(obj.has), aCallable(obj.keys));
+};
+
+/***/ }),
+/* 134 */
+/***/ ((module) => {
+
+
+module.exports = function (obj) {
+ return {
+  iterator: obj,
+  next: obj.next,
+  done: false
+ };
+};
+
+/***/ }),
+/* 135 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var getBuiltIn = __w_pdfjs_require__(24);
+var createSetLike = function (size) {
+ return {
+  size: size,
+  has: function () {
+   return false;
+  },
+  keys: function () {
+   return {
+    next: function () {
+     return { done: true };
+    }
+   };
+  }
+ };
+};
+module.exports = function (name) {
+ var Set = getBuiltIn('Set');
+ try {
+  new Set()[name](createSetLike(0));
+  try {
+   new Set()[name](createSetLike(-1));
+   return false;
+  } catch (error2) {
+   return true;
+  }
+ } catch (error) {
+  return false;
+ }
+};
+
+/***/ }),
+/* 136 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var fails = __w_pdfjs_require__(7);
+var intersection = __w_pdfjs_require__(137);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+var INCORRECT = !setMethodAcceptSetLike('intersection') || fails(function () {
+ return Array.from(new Set([
+  1,
+  2,
+  3
+ ]).intersection(new Set([
+  3,
+  2
+ ]))) !== '3,2';
+});
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: INCORRECT
+}, { intersection: intersection });
+
+/***/ }),
+/* 137 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var SetHelpers = __w_pdfjs_require__(128);
+var size = __w_pdfjs_require__(132);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSet = __w_pdfjs_require__(130);
+var iterateSimple = __w_pdfjs_require__(131);
+var Set = SetHelpers.Set;
+var add = SetHelpers.add;
+var has = SetHelpers.has;
+module.exports = function intersection(other) {
+ var O = aSet(this);
+ var otherRec = getSetRecord(other);
+ var result = new Set();
+ if (size(O) > otherRec.size) {
+  iterateSimple(otherRec.getIterator(), function (e) {
+   if (has(O, e))
+    add(result, e);
+  });
+ } else {
+  iterateSet(O, function (e) {
+   if (otherRec.includes(e))
+    add(result, e);
+  });
+ }
+ return result;
+};
+
+/***/ }),
+/* 138 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var isDisjointFrom = __w_pdfjs_require__(139);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('isDisjointFrom')
+}, { isDisjointFrom: isDisjointFrom });
+
+/***/ }),
+/* 139 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var has = (__w_pdfjs_require__(128).has);
+var size = __w_pdfjs_require__(132);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSet = __w_pdfjs_require__(130);
+var iterateSimple = __w_pdfjs_require__(131);
+var iteratorClose = __w_pdfjs_require__(140);
+module.exports = function isDisjointFrom(other) {
+ var O = aSet(this);
+ var otherRec = getSetRecord(other);
+ if (size(O) <= otherRec.size)
+  return iterateSet(O, function (e) {
+   if (otherRec.includes(e))
+    return false;
+  }, true) !== false;
+ var iterator = otherRec.getIterator();
+ return iterateSimple(iterator, function (e) {
+  if (has(O, e))
+   return iteratorClose(iterator, 'normal', false);
+ }) !== false;
+};
+
+/***/ }),
+/* 140 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+var anObject = __w_pdfjs_require__(47);
+var getMethod = __w_pdfjs_require__(30);
+module.exports = function (iterator, kind, value) {
+ var innerResult, innerError;
+ anObject(iterator);
+ try {
+  innerResult = getMethod(iterator, 'return');
+  if (!innerResult) {
+   if (kind === 'throw')
+    throw value;
+   return value;
+  }
+  innerResult = call(innerResult, iterator);
+ } catch (error) {
+  innerError = true;
+  innerResult = error;
+ }
+ if (kind === 'throw')
+  throw value;
+ if (innerError)
+  throw innerResult;
+ anObject(innerResult);
+ return value;
+};
+
+/***/ }),
+/* 141 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var isSubsetOf = __w_pdfjs_require__(142);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('isSubsetOf')
+}, { isSubsetOf: isSubsetOf });
+
+/***/ }),
+/* 142 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var size = __w_pdfjs_require__(132);
+var iterate = __w_pdfjs_require__(130);
+var getSetRecord = __w_pdfjs_require__(133);
+module.exports = function isSubsetOf(other) {
+ var O = aSet(this);
+ var otherRec = getSetRecord(other);
+ if (size(O) > otherRec.size)
+  return false;
+ return iterate(O, function (e) {
+  if (!otherRec.includes(e))
+   return false;
+ }, true) !== false;
+};
+
+/***/ }),
+/* 143 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var isSupersetOf = __w_pdfjs_require__(144);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('isSupersetOf')
+}, { isSupersetOf: isSupersetOf });
+
+/***/ }),
+/* 144 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var has = (__w_pdfjs_require__(128).has);
+var size = __w_pdfjs_require__(132);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSimple = __w_pdfjs_require__(131);
+var iteratorClose = __w_pdfjs_require__(140);
+module.exports = function isSupersetOf(other) {
+ var O = aSet(this);
+ var otherRec = getSetRecord(other);
+ if (size(O) < otherRec.size)
+  return false;
+ var iterator = otherRec.getIterator();
+ return iterateSimple(iterator, function (e) {
+  if (!has(O, e))
+   return iteratorClose(iterator, 'normal', false);
+ }) !== false;
+};
+
+/***/ }),
+/* 145 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var symmetricDifference = __w_pdfjs_require__(146);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('symmetricDifference')
+}, { symmetricDifference: symmetricDifference });
+
+/***/ }),
+/* 146 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var SetHelpers = __w_pdfjs_require__(128);
+var clone = __w_pdfjs_require__(129);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSimple = __w_pdfjs_require__(131);
+var add = SetHelpers.add;
+var has = SetHelpers.has;
+var remove = SetHelpers.remove;
+module.exports = function symmetricDifference(other) {
+ var O = aSet(this);
+ var keysIter = getSetRecord(other).getIterator();
+ var result = clone(O);
+ iterateSimple(keysIter, function (e) {
+  if (has(O, e))
+   remove(result, e);
+  else
+   add(result, e);
+ });
+ return result;
+};
+
+/***/ }),
+/* 147 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var union = __w_pdfjs_require__(148);
+var setMethodAcceptSetLike = __w_pdfjs_require__(135);
+$({
+ target: 'Set',
+ proto: true,
+ real: true,
+ forced: !setMethodAcceptSetLike('union')
+}, { union: union });
+
+/***/ }),
+/* 148 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var aSet = __w_pdfjs_require__(127);
+var add = (__w_pdfjs_require__(128).add);
+var clone = __w_pdfjs_require__(129);
+var getSetRecord = __w_pdfjs_require__(133);
+var iterateSimple = __w_pdfjs_require__(131);
+module.exports = function union(other) {
+ var O = aSet(this);
+ var keysIter = getSetRecord(other).getIterator();
+ var result = clone(O);
+ iterateSimple(keysIter, function (it) {
+  add(result, it);
+ });
+ return result;
+};
+
+/***/ }),
+/* 149 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var global = __w_pdfjs_require__(4);
+var getBuiltIn = __w_pdfjs_require__(24);
+var createPropertyDescriptor = __w_pdfjs_require__(11);
+var defineProperty = (__w_pdfjs_require__(45).f);
+var hasOwn = __w_pdfjs_require__(39);
+var anInstance = __w_pdfjs_require__(150);
+var inheritIfRequired = __w_pdfjs_require__(75);
+var normalizeStringArgument = __w_pdfjs_require__(76);
+var DOMExceptionConstants = __w_pdfjs_require__(151);
+var clearErrorStack = __w_pdfjs_require__(82);
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var IS_PURE = __w_pdfjs_require__(36);
+var DOM_EXCEPTION = 'DOMException';
+var Error = getBuiltIn('Error');
+var NativeDOMException = getBuiltIn(DOM_EXCEPTION);
+var $DOMException = function DOMException() {
+ anInstance(this, DOMExceptionPrototype);
+ var argumentsLength = arguments.length;
+ var message = normalizeStringArgument(argumentsLength < 1 ? undefined : arguments[0]);
+ var name = normalizeStringArgument(argumentsLength < 2 ? undefined : arguments[1], 'Error');
+ var that = new NativeDOMException(message, name);
+ var error = Error(message);
+ error.name = DOM_EXCEPTION;
+ defineProperty(that, 'stack', createPropertyDescriptor(1, clearErrorStack(error.stack, 1)));
+ inheritIfRequired(that, this, $DOMException);
+ return that;
+};
+var DOMExceptionPrototype = $DOMException.prototype = NativeDOMException.prototype;
+var ERROR_HAS_STACK = 'stack' in Error(DOM_EXCEPTION);
+var DOM_EXCEPTION_HAS_STACK = 'stack' in new NativeDOMException(1, 2);
+var descriptor = NativeDOMException && DESCRIPTORS && Object.getOwnPropertyDescriptor(global, DOM_EXCEPTION);
+var BUGGY_DESCRIPTOR = !!descriptor && !(descriptor.writable && descriptor.configurable);
+var FORCED_CONSTRUCTOR = ERROR_HAS_STACK && !BUGGY_DESCRIPTOR && !DOM_EXCEPTION_HAS_STACK;
+$({
+ global: true,
+ constructor: true,
+ forced: IS_PURE || FORCED_CONSTRUCTOR
+}, { DOMException: FORCED_CONSTRUCTOR ? $DOMException : NativeDOMException });
+var PolyfilledDOMException = getBuiltIn(DOM_EXCEPTION);
+var PolyfilledDOMExceptionPrototype = PolyfilledDOMException.prototype;
+if (PolyfilledDOMExceptionPrototype.constructor !== PolyfilledDOMException) {
+ if (!IS_PURE) {
+  defineProperty(PolyfilledDOMExceptionPrototype, 'constructor', createPropertyDescriptor(1, PolyfilledDOMException));
+ }
+ for (var key in DOMExceptionConstants)
+  if (hasOwn(DOMExceptionConstants, key)) {
+   var constant = DOMExceptionConstants[key];
+   var constantName = constant.s;
+   if (!hasOwn(PolyfilledDOMException, constantName)) {
+    defineProperty(PolyfilledDOMException, constantName, createPropertyDescriptor(6, constant.c));
+   }
+  }
+}
+
+/***/ }),
+/* 150 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var isPrototypeOf = __w_pdfjs_require__(25);
+var $TypeError = TypeError;
+module.exports = function (it, Prototype) {
+ if (isPrototypeOf(Prototype, it))
+  return it;
+ throw $TypeError('Incorrect invocation');
+};
+
+/***/ }),
+/* 151 */
+/***/ ((module) => {
+
+
+module.exports = {
+ IndexSizeError: {
+  s: 'INDEX_SIZE_ERR',
+  c: 1,
+  m: 1
+ },
+ DOMStringSizeError: {
+  s: 'DOMSTRING_SIZE_ERR',
+  c: 2,
+  m: 0
+ },
+ HierarchyRequestError: {
+  s: 'HIERARCHY_REQUEST_ERR',
+  c: 3,
+  m: 1
+ },
+ WrongDocumentError: {
+  s: 'WRONG_DOCUMENT_ERR',
+  c: 4,
+  m: 1
+ },
+ InvalidCharacterError: {
+  s: 'INVALID_CHARACTER_ERR',
+  c: 5,
+  m: 1
+ },
+ NoDataAllowedError: {
+  s: 'NO_DATA_ALLOWED_ERR',
+  c: 6,
+  m: 0
+ },
+ NoModificationAllowedError: {
+  s: 'NO_MODIFICATION_ALLOWED_ERR',
+  c: 7,
+  m: 1
+ },
+ NotFoundError: {
+  s: 'NOT_FOUND_ERR',
+  c: 8,
+  m: 1
+ },
+ NotSupportedError: {
+  s: 'NOT_SUPPORTED_ERR',
+  c: 9,
+  m: 1
+ },
+ InUseAttributeError: {
+  s: 'INUSE_ATTRIBUTE_ERR',
+  c: 10,
+  m: 1
+ },
+ InvalidStateError: {
+  s: 'INVALID_STATE_ERR',
+  c: 11,
+  m: 1
+ },
+ SyntaxError: {
+  s: 'SYNTAX_ERR',
+  c: 12,
+  m: 1
+ },
+ InvalidModificationError: {
+  s: 'INVALID_MODIFICATION_ERR',
+  c: 13,
+  m: 1
+ },
+ NamespaceError: {
+  s: 'NAMESPACE_ERR',
+  c: 14,
+  m: 1
+ },
+ InvalidAccessError: {
+  s: 'INVALID_ACCESS_ERR',
+  c: 15,
+  m: 1
+ },
+ ValidationError: {
+  s: 'VALIDATION_ERR',
+  c: 16,
+  m: 0
+ },
+ TypeMismatchError: {
+  s: 'TYPE_MISMATCH_ERR',
+  c: 17,
+  m: 1
+ },
+ SecurityError: {
+  s: 'SECURITY_ERR',
+  c: 18,
+  m: 1
+ },
+ NetworkError: {
+  s: 'NETWORK_ERR',
+  c: 19,
+  m: 1
+ },
+ AbortError: {
+  s: 'ABORT_ERR',
+  c: 20,
+  m: 1
+ },
+ URLMismatchError: {
+  s: 'URL_MISMATCH_ERR',
+  c: 21,
+  m: 1
+ },
+ QuotaExceededError: {
+  s: 'QUOTA_EXCEEDED_ERR',
+  c: 22,
+  m: 1
+ },
+ TimeoutError: {
+  s: 'TIMEOUT_ERR',
+  c: 23,
+  m: 1
+ },
+ InvalidNodeTypeError: {
+  s: 'INVALID_NODE_TYPE_ERR',
+  c: 24,
+  m: 1
+ },
+ DataCloneError: {
+  s: 'DATA_CLONE_ERR',
+  c: 25,
+  m: 1
+ }
+};
+
+/***/ }),
+/* 152 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var IS_PURE = __w_pdfjs_require__(36);
+var $ = __w_pdfjs_require__(3);
+var global = __w_pdfjs_require__(4);
+var getBuiltin = __w_pdfjs_require__(24);
+var uncurryThis = __w_pdfjs_require__(14);
+var fails = __w_pdfjs_require__(7);
+var uid = __w_pdfjs_require__(41);
+var isCallable = __w_pdfjs_require__(21);
+var isConstructor = __w_pdfjs_require__(153);
+var isNullOrUndefined = __w_pdfjs_require__(17);
+var isObject = __w_pdfjs_require__(20);
+var isSymbol = __w_pdfjs_require__(23);
+var iterate = __w_pdfjs_require__(154);
+var anObject = __w_pdfjs_require__(47);
+var classof = __w_pdfjs_require__(78);
+var hasOwn = __w_pdfjs_require__(39);
+var createProperty = __w_pdfjs_require__(159);
+var createNonEnumerableProperty = __w_pdfjs_require__(44);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var validateArgumentsLength = __w_pdfjs_require__(85);
+var getRegExpFlags = __w_pdfjs_require__(160);
+var MapHelpers = __w_pdfjs_require__(162);
+var SetHelpers = __w_pdfjs_require__(128);
+var ERROR_STACK_INSTALLABLE = __w_pdfjs_require__(83);
+var PROPER_TRANSFER = __w_pdfjs_require__(119);
+var Object = global.Object;
+var Array = global.Array;
+var Date = global.Date;
+var Error = global.Error;
+var EvalError = global.EvalError;
+var RangeError = global.RangeError;
+var ReferenceError = global.ReferenceError;
+var SyntaxError = global.SyntaxError;
+var TypeError = global.TypeError;
+var URIError = global.URIError;
+var PerformanceMark = global.PerformanceMark;
+var WebAssembly = global.WebAssembly;
+var CompileError = WebAssembly && WebAssembly.CompileError || Error;
+var LinkError = WebAssembly && WebAssembly.LinkError || Error;
+var RuntimeError = WebAssembly && WebAssembly.RuntimeError || Error;
+var DOMException = getBuiltin('DOMException');
+var Map = MapHelpers.Map;
+var mapHas = MapHelpers.has;
+var mapGet = MapHelpers.get;
+var mapSet = MapHelpers.set;
+var Set = SetHelpers.Set;
+var setAdd = SetHelpers.add;
+var objectKeys = getBuiltin('Object', 'keys');
+var push = uncurryThis([].push);
+var thisBooleanValue = uncurryThis(true.valueOf);
+var thisNumberValue = uncurryThis(1.0.valueOf);
+var thisStringValue = uncurryThis(''.valueOf);
+var thisTimeValue = uncurryThis(Date.prototype.getTime);
+var PERFORMANCE_MARK = uid('structuredClone');
+var DATA_CLONE_ERROR = 'DataCloneError';
+var TRANSFERRING = 'Transferring';
+var checkBasicSemantic = function (structuredCloneImplementation) {
+ return !fails(function () {
+  var set1 = new global.Set([7]);
+  var set2 = structuredCloneImplementation(set1);
+  var number = structuredCloneImplementation(Object(7));
+  return set2 === set1 || !set2.has(7) || typeof number != 'object' || +number !== 7;
+ }) && structuredCloneImplementation;
+};
+var checkErrorsCloning = function (structuredCloneImplementation, $Error) {
+ return !fails(function () {
+  var error = new $Error();
+  var test = structuredCloneImplementation({
+   a: error,
+   b: error
+  });
+  return !(test && test.a === test.b && test.a instanceof $Error && test.a.stack === error.stack);
+ });
+};
+var checkNewErrorsCloningSemantic = function (structuredCloneImplementation) {
+ return !fails(function () {
+  var test = structuredCloneImplementation(new global.AggregateError([1], PERFORMANCE_MARK, { cause: 3 }));
+  return test.name !== 'AggregateError' || test.errors[0] !== 1 || test.message !== PERFORMANCE_MARK || test.cause !== 3;
+ });
+};
+var nativeStructuredClone = global.structuredClone;
+var FORCED_REPLACEMENT = IS_PURE || !checkErrorsCloning(nativeStructuredClone, Error) || !checkErrorsCloning(nativeStructuredClone, DOMException) || !checkNewErrorsCloningSemantic(nativeStructuredClone);
+var structuredCloneFromMark = !nativeStructuredClone && checkBasicSemantic(function (value) {
+ return new PerformanceMark(PERFORMANCE_MARK, { detail: value }).detail;
+});
+var nativeRestrictedStructuredClone = checkBasicSemantic(nativeStructuredClone) || structuredCloneFromMark;
+var throwUncloneable = function (type) {
+ throw new DOMException('Uncloneable type: ' + type, DATA_CLONE_ERROR);
+};
+var throwUnpolyfillable = function (type, action) {
+ throw new DOMException((action || 'Cloning') + ' of ' + type + ' cannot be properly polyfilled in this engine', DATA_CLONE_ERROR);
+};
+var tryNativeRestrictedStructuredClone = function (value, type) {
+ if (!nativeRestrictedStructuredClone)
+  throwUnpolyfillable(type);
+ return nativeRestrictedStructuredClone(value);
+};
+var createDataTransfer = function () {
+ var dataTransfer;
+ try {
+  dataTransfer = new global.DataTransfer();
+ } catch (error) {
+  try {
+   dataTransfer = new global.ClipboardEvent('').clipboardData;
+  } catch (error2) {
+  }
+ }
+ return dataTransfer && dataTransfer.items && dataTransfer.files ? dataTransfer : null;
+};
+var cloneBuffer = function (value, map, $type) {
+ if (mapHas(map, value))
+  return mapGet(map, value);
+ var type = $type || classof(value);
+ var clone, length, options, source, target, i;
+ if (type === 'SharedArrayBuffer') {
+  if (nativeRestrictedStructuredClone)
+   clone = nativeRestrictedStructuredClone(value);
+  else
+   clone = value;
+ } else {
+  var DataView = global.DataView;
+  if (!DataView && typeof value.slice != 'function')
+   throwUnpolyfillable('ArrayBuffer');
+  try {
+   if (typeof value.slice == 'function' && !value.resizable) {
+    clone = value.slice(0);
+   } else {
+    length = value.byteLength;
+    options = 'maxByteLength' in value ? { maxByteLength: value.maxByteLength } : undefined;
+    clone = new ArrayBuffer(length, options);
+    source = new DataView(value);
+    target = new DataView(clone);
+    for (i = 0; i < length; i++) {
+     target.setUint8(i, source.getUint8(i));
+    }
+   }
+  } catch (error) {
+   throw new DOMException('ArrayBuffer is detached', DATA_CLONE_ERROR);
+  }
+ }
+ mapSet(map, value, clone);
+ return clone;
+};
+var cloneView = function (value, type, offset, length, map) {
+ var C = global[type];
+ if (!isObject(C))
+  throwUnpolyfillable(type);
+ return new C(cloneBuffer(value.buffer, map), offset, length);
+};
+var Placeholder = function (object, type, metadata) {
+ this.object = object;
+ this.type = type;
+ this.metadata = metadata;
+};
+var structuredCloneInternal = function (value, map, transferredBuffers) {
+ if (isSymbol(value))
+  throwUncloneable('Symbol');
+ if (!isObject(value))
+  return value;
+ if (map) {
+  if (mapHas(map, value))
+   return mapGet(map, value);
+ } else
+  map = new Map();
+ var type = classof(value);
+ var C, name, cloned, dataTransfer, i, length, keys, key;
+ switch (type) {
+ case 'Array':
+  cloned = Array(lengthOfArrayLike(value));
+  break;
+ case 'Object':
+  cloned = {};
+  break;
+ case 'Map':
+  cloned = new Map();
+  break;
+ case 'Set':
+  cloned = new Set();
+  break;
+ case 'RegExp':
+  cloned = new RegExp(value.source, getRegExpFlags(value));
+  break;
+ case 'Error':
+  name = value.name;
+  switch (name) {
+  case 'AggregateError':
+   cloned = getBuiltin('AggregateError')([]);
+   break;
+  case 'EvalError':
+   cloned = EvalError();
+   break;
+  case 'RangeError':
+   cloned = RangeError();
+   break;
+  case 'ReferenceError':
+   cloned = ReferenceError();
+   break;
+  case 'SyntaxError':
+   cloned = SyntaxError();
+   break;
+  case 'TypeError':
+   cloned = TypeError();
+   break;
+  case 'URIError':
+   cloned = URIError();
+   break;
+  case 'CompileError':
+   cloned = CompileError();
+   break;
+  case 'LinkError':
+   cloned = LinkError();
+   break;
+  case 'RuntimeError':
+   cloned = RuntimeError();
+   break;
+  default:
+   cloned = Error();
+  }
+  break;
+ case 'DOMException':
+  cloned = new DOMException(value.message, value.name);
+  break;
+ case 'ArrayBuffer':
+ case 'SharedArrayBuffer':
+  cloned = transferredBuffers ? new Placeholder(value, type) : cloneBuffer(value, map, type);
+  break;
+ case 'DataView':
+ case 'Int8Array':
+ case 'Uint8Array':
+ case 'Uint8ClampedArray':
+ case 'Int16Array':
+ case 'Uint16Array':
+ case 'Int32Array':
+ case 'Uint32Array':
+ case 'Float16Array':
+ case 'Float32Array':
+ case 'Float64Array':
+ case 'BigInt64Array':
+ case 'BigUint64Array':
+  length = type === 'DataView' ? value.byteLength : value.length;
+  cloned = transferredBuffers ? new Placeholder(value, type, {
+   offset: value.byteOffset,
+   length: length
+  }) : cloneView(value, type, value.byteOffset, length, map);
+  break;
+ case 'DOMQuad':
+  try {
+   cloned = new DOMQuad(structuredCloneInternal(value.p1, map, transferredBuffers), structuredCloneInternal(value.p2, map, transferredBuffers), structuredCloneInternal(value.p3, map, transferredBuffers), structuredCloneInternal(value.p4, map, transferredBuffers));
+  } catch (error) {
+   cloned = tryNativeRestrictedStructuredClone(value, type);
+  }
+  break;
+ case 'File':
+  if (nativeRestrictedStructuredClone)
+   try {
+    cloned = nativeRestrictedStructuredClone(value);
+    if (classof(cloned) !== type)
+     cloned = undefined;
+   } catch (error) {
+   }
+  if (!cloned)
+   try {
+    cloned = new File([value], value.name, value);
+   } catch (error) {
+   }
+  if (!cloned)
+   throwUnpolyfillable(type);
+  break;
+ case 'FileList':
+  dataTransfer = createDataTransfer();
+  if (dataTransfer) {
+   for (i = 0, length = lengthOfArrayLike(value); i < length; i++) {
+    dataTransfer.items.add(structuredCloneInternal(value[i], map, transferredBuffers));
+   }
+   cloned = dataTransfer.files;
+  } else
+   cloned = tryNativeRestrictedStructuredClone(value, type);
+  break;
+ case 'ImageData':
+  try {
+   cloned = new ImageData(structuredCloneInternal(value.data, map, transferredBuffers), value.width, value.height, { colorSpace: value.colorSpace });
+  } catch (error) {
+   cloned = tryNativeRestrictedStructuredClone(value, type);
+  }
+  break;
+ default:
+  if (nativeRestrictedStructuredClone) {
+   cloned = nativeRestrictedStructuredClone(value);
+  } else
+   switch (type) {
+   case 'BigInt':
+    cloned = Object(value.valueOf());
+    break;
+   case 'Boolean':
+    cloned = Object(thisBooleanValue(value));
+    break;
+   case 'Number':
+    cloned = Object(thisNumberValue(value));
+    break;
+   case 'String':
+    cloned = Object(thisStringValue(value));
+    break;
+   case 'Date':
+    cloned = new Date(thisTimeValue(value));
+    break;
+   case 'Blob':
+    try {
+     cloned = value.slice(0, value.size, value.type);
+    } catch (error) {
+     throwUnpolyfillable(type);
+    }
+    break;
+   case 'DOMPoint':
+   case 'DOMPointReadOnly':
+    C = global[type];
+    try {
+     cloned = C.fromPoint ? C.fromPoint(value) : new C(value.x, value.y, value.z, value.w);
+    } catch (error) {
+     throwUnpolyfillable(type);
+    }
+    break;
+   case 'DOMRect':
+   case 'DOMRectReadOnly':
+    C = global[type];
+    try {
+     cloned = C.fromRect ? C.fromRect(value) : new C(value.x, value.y, value.width, value.height);
+    } catch (error) {
+     throwUnpolyfillable(type);
+    }
+    break;
+   case 'DOMMatrix':
+   case 'DOMMatrixReadOnly':
+    C = global[type];
+    try {
+     cloned = C.fromMatrix ? C.fromMatrix(value) : new C(value);
+    } catch (error) {
+     throwUnpolyfillable(type);
+    }
+    break;
+   case 'AudioData':
+   case 'VideoFrame':
+    if (!isCallable(value.clone))
+     throwUnpolyfillable(type);
+    try {
+     cloned = value.clone();
+    } catch (error) {
+     throwUncloneable(type);
+    }
+    break;
+   case 'CropTarget':
+   case 'CryptoKey':
+   case 'FileSystemDirectoryHandle':
+   case 'FileSystemFileHandle':
+   case 'FileSystemHandle':
+   case 'GPUCompilationInfo':
+   case 'GPUCompilationMessage':
+   case 'ImageBitmap':
+   case 'RTCCertificate':
+   case 'WebAssembly.Module':
+    throwUnpolyfillable(type);
+   default:
+    throwUncloneable(type);
+   }
+ }
+ mapSet(map, value, cloned);
+ switch (type) {
+ case 'Array':
+ case 'Object':
+  keys = objectKeys(value);
+  for (i = 0, length = lengthOfArrayLike(keys); i < length; i++) {
+   key = keys[i];
+   createProperty(cloned, key, structuredCloneInternal(value[key], map, transferredBuffers));
+  }
+  break;
+ case 'Map':
+  value.forEach(function (v, k) {
+   mapSet(cloned, structuredCloneInternal(k, map, transferredBuffers), structuredCloneInternal(v, map, transferredBuffers));
+  });
+  break;
+ case 'Set':
+  value.forEach(function (v) {
+   setAdd(cloned, structuredCloneInternal(v, map, transferredBuffers));
+  });
+  break;
+ case 'Error':
+  createNonEnumerableProperty(cloned, 'message', structuredCloneInternal(value.message, map, transferredBuffers));
+  if (hasOwn(value, 'cause')) {
+   createNonEnumerableProperty(cloned, 'cause', structuredCloneInternal(value.cause, map, transferredBuffers));
+  }
+  if (name === 'AggregateError') {
+   cloned.errors = structuredCloneInternal(value.errors, map, transferredBuffers);
+  }
+ case 'DOMException':
+  if (ERROR_STACK_INSTALLABLE) {
+   createNonEnumerableProperty(cloned, 'stack', structuredCloneInternal(value.stack, map, transferredBuffers));
+  }
+ }
+ return cloned;
+};
+var replacePlaceholders = function (value, map) {
+ if (!isObject(value))
+  return value;
+ if (mapHas(map, value))
+  return mapGet(map, value);
+ var type, object, metadata, i, length, keys, key, replacement;
+ if (value instanceof Placeholder) {
+  type = value.type;
+  object = value.object;
+  switch (type) {
+  case 'ArrayBuffer':
+  case 'SharedArrayBuffer':
+   replacement = cloneBuffer(object, map, type);
+   break;
+  case 'DataView':
+  case 'Int8Array':
+  case 'Uint8Array':
+  case 'Uint8ClampedArray':
+  case 'Int16Array':
+  case 'Uint16Array':
+  case 'Int32Array':
+  case 'Uint32Array':
+  case 'Float16Array':
+  case 'Float32Array':
+  case 'Float64Array':
+  case 'BigInt64Array':
+  case 'BigUint64Array':
+   metadata = value.metadata;
+   replacement = cloneView(object, type, metadata.offset, metadata.length, map);
+  }
+ } else
+  switch (classof(value)) {
+  case 'Array':
+  case 'Object':
+   keys = objectKeys(value);
+   for (i = 0, length = lengthOfArrayLike(keys); i < length; i++) {
+    key = keys[i];
+    value[key] = replacePlaceholders(value[key], map);
+   }
+   break;
+  case 'Map':
+   replacement = new Map();
+   value.forEach(function (v, k) {
+    mapSet(replacement, replacePlaceholders(k, map), replacePlaceholders(v, map));
+   });
+   break;
+  case 'Set':
+   replacement = new Set();
+   value.forEach(function (v) {
+    setAdd(replacement, replacePlaceholders(v, map));
+   });
+   break;
+  case 'Error':
+   value.message = replacePlaceholders(value.message, map);
+   if (hasOwn(value, 'cause')) {
+    value.cause = replacePlaceholders(value.cause, map);
+   }
+   if (value.name === 'AggregateError') {
+    value.errors = replacePlaceholders(value.errors, map);
+   }
+  case 'DOMException':
+   if (ERROR_STACK_INSTALLABLE) {
+    value.stack = replacePlaceholders(value.stack, map);
+   }
+  }
+ mapSet(map, value, replacement || value);
+ return replacement || value;
+};
+var tryToTransfer = function (rawTransfer, map) {
+ if (!isObject(rawTransfer))
+  throw TypeError('Transfer option cannot be converted to a sequence');
+ var transfer = [];
+ iterate(rawTransfer, function (value) {
+  push(transfer, anObject(value));
+ });
+ var i = 0;
+ var length = lengthOfArrayLike(transfer);
+ var buffers = [];
+ var value, type, C, transferred, canvas, context;
+ while (i < length) {
+  value = transfer[i++];
+  type = classof(value);
+  if (type === 'ArrayBuffer') {
+   push(buffers, value);
+   continue;
+  }
+  if (mapHas(map, value))
+   throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
+  if (PROPER_TRANSFER) {
+   transferred = nativeStructuredClone(value, { transfer: [value] });
+  } else
+   switch (type) {
+   case 'ImageBitmap':
+    C = global.OffscreenCanvas;
+    if (!isConstructor(C))
+     throwUnpolyfillable(type, TRANSFERRING);
+    try {
+     canvas = new C(value.width, value.height);
+     context = canvas.getContext('bitmaprenderer');
+     context.transferFromImageBitmap(value);
+     transferred = canvas.transferToImageBitmap();
+    } catch (error) {
+    }
+    break;
+   case 'AudioData':
+   case 'VideoFrame':
+    if (!isCallable(value.clone) || !isCallable(value.close))
+     throwUnpolyfillable(type, TRANSFERRING);
+    try {
+     transferred = value.clone();
+     value.close();
+    } catch (error) {
+    }
+    break;
+   case 'MediaSourceHandle':
+   case 'MessagePort':
+   case 'OffscreenCanvas':
+   case 'ReadableStream':
+   case 'TransformStream':
+   case 'WritableStream':
+    throwUnpolyfillable(type, TRANSFERRING);
+   }
+  if (transferred === undefined)
+   throw new DOMException('This object cannot be transferred: ' + type, DATA_CLONE_ERROR);
+  mapSet(map, value, transferred);
+ }
+ return buffers;
+};
+var tryToTransferBuffers = function (transfer, map) {
+ var i = 0;
+ var length = lengthOfArrayLike(transfer);
+ var value, transferred;
+ while (i < length) {
+  value = transfer[i++];
+  if (mapHas(map, value))
+   throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
+  if (PROPER_TRANSFER) {
+   transferred = nativeStructuredClone(value, { transfer: [value] });
+  } else {
+   if (!isCallable(value.transfer))
+    throwUnpolyfillable('ArrayBuffer', TRANSFERRING);
+   transferred = value.transfer();
+  }
+  mapSet(map, value, transferred);
+ }
+};
+$({
+ global: true,
+ enumerable: true,
+ sham: !PROPER_TRANSFER,
+ forced: FORCED_REPLACEMENT
+}, {
+ structuredClone: function structuredClone(value) {
+  var options = validateArgumentsLength(arguments.length, 1) > 1 && !isNullOrUndefined(arguments[1]) ? anObject(arguments[1]) : undefined;
+  var transfer = options ? options.transfer : undefined;
+  var transferredBuffers = false;
+  var map, buffers;
+  if (transfer !== undefined) {
+   map = new Map();
+   buffers = tryToTransfer(transfer, map);
+   transferredBuffers = !!lengthOfArrayLike(buffers);
+  }
+  var clone = structuredCloneInternal(value, map, transferredBuffers);
+  if (transferredBuffers) {
+   map = new Map();
+   tryToTransferBuffers(transfer, map);
+   clone = replacePlaceholders(clone, map);
+  }
+  return clone;
+ }
+});
+
+/***/ }),
+/* 153 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var fails = __w_pdfjs_require__(7);
+var isCallable = __w_pdfjs_require__(21);
+var classof = __w_pdfjs_require__(78);
+var getBuiltIn = __w_pdfjs_require__(24);
+var inspectSource = __w_pdfjs_require__(51);
+var noop = function () {
+};
+var empty = [];
+var construct = getBuiltIn('Reflect', 'construct');
+var constructorRegExp = /^\s*(?:class|function)\b/;
+var exec = uncurryThis(constructorRegExp.exec);
+var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
+var isConstructorModern = function isConstructor(argument) {
+ if (!isCallable(argument))
+  return false;
+ try {
+  construct(noop, empty, argument);
+  return true;
+ } catch (error) {
+  return false;
+ }
+};
+var isConstructorLegacy = function isConstructor(argument) {
+ if (!isCallable(argument))
+  return false;
+ switch (classof(argument)) {
+ case 'AsyncFunction':
+ case 'GeneratorFunction':
+ case 'AsyncGeneratorFunction':
+  return false;
+ }
+ try {
+  return INCORRECT_TO_STRING || !!exec(constructorRegExp, inspectSource(argument));
+ } catch (error) {
+  return true;
+ }
+};
+isConstructorLegacy.sham = true;
+module.exports = !construct || fails(function () {
+ var called;
+ return isConstructorModern(isConstructorModern.call) || !isConstructorModern(Object) || !isConstructorModern(function () {
+  called = true;
+ }) || called;
+}) ? isConstructorLegacy : isConstructorModern;
+
+/***/ }),
+/* 154 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var bind = __w_pdfjs_require__(99);
+var call = __w_pdfjs_require__(8);
+var anObject = __w_pdfjs_require__(47);
+var tryToString = __w_pdfjs_require__(32);
+var isArrayIteratorMethod = __w_pdfjs_require__(155);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var isPrototypeOf = __w_pdfjs_require__(25);
+var getIterator = __w_pdfjs_require__(157);
+var getIteratorMethod = __w_pdfjs_require__(158);
+var iteratorClose = __w_pdfjs_require__(140);
+var $TypeError = TypeError;
+var Result = function (stopped, result) {
+ this.stopped = stopped;
+ this.result = result;
+};
+var ResultPrototype = Result.prototype;
+module.exports = function (iterable, unboundFunction, options) {
+ var that = options && options.that;
+ var AS_ENTRIES = !!(options && options.AS_ENTRIES);
+ var IS_RECORD = !!(options && options.IS_RECORD);
+ var IS_ITERATOR = !!(options && options.IS_ITERATOR);
+ var INTERRUPTED = !!(options && options.INTERRUPTED);
+ var fn = bind(unboundFunction, that);
+ var iterator, iterFn, index, length, result, next, step;
+ var stop = function (condition) {
+  if (iterator)
+   iteratorClose(iterator, 'normal', condition);
+  return new Result(true, condition);
+ };
+ var callFn = function (value) {
+  if (AS_ENTRIES) {
+   anObject(value);
+   return INTERRUPTED ? fn(value[0], value[1], stop) : fn(value[0], value[1]);
+  }
+  return INTERRUPTED ? fn(value, stop) : fn(value);
+ };
+ if (IS_RECORD) {
+  iterator = iterable.iterator;
+ } else if (IS_ITERATOR) {
+  iterator = iterable;
+ } else {
+  iterFn = getIteratorMethod(iterable);
+  if (!iterFn)
+   throw $TypeError(tryToString(iterable) + ' is not iterable');
+  if (isArrayIteratorMethod(iterFn)) {
+   for (index = 0, length = lengthOfArrayLike(iterable); length > index; index++) {
+    result = callFn(iterable[index]);
+    if (result && isPrototypeOf(ResultPrototype, result))
+     return result;
+   }
+   return new Result(false);
+  }
+  iterator = getIterator(iterable, iterFn);
+ }
+ next = IS_RECORD ? iterable.next : iterator.next;
+ while (!(step = call(next, iterator)).done) {
+  try {
+   result = callFn(step.value);
+  } catch (error) {
+   iteratorClose(iterator, 'throw', error);
+  }
+  if (typeof result == 'object' && result && isPrototypeOf(ResultPrototype, result))
+   return result;
+ }
+ return new Result(false);
+};
+
+/***/ }),
+/* 155 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var Iterators = __w_pdfjs_require__(156);
+var ITERATOR = wellKnownSymbol('iterator');
+var ArrayPrototype = Array.prototype;
+module.exports = function (it) {
+ return it !== undefined && (Iterators.Array === it || ArrayPrototype[ITERATOR] === it);
+};
+
+/***/ }),
+/* 156 */
+/***/ ((module) => {
+
+
+module.exports = {};
+
+/***/ }),
+/* 157 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+var aCallable = __w_pdfjs_require__(31);
+var anObject = __w_pdfjs_require__(47);
+var tryToString = __w_pdfjs_require__(32);
+var getIteratorMethod = __w_pdfjs_require__(158);
+var $TypeError = TypeError;
+module.exports = function (argument, usingIterator) {
+ var iteratorMethod = arguments.length < 2 ? getIteratorMethod(argument) : usingIterator;
+ if (aCallable(iteratorMethod))
+  return anObject(call(iteratorMethod, argument));
+ throw $TypeError(tryToString(argument) + ' is not iterable');
+};
+
+/***/ }),
+/* 158 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var classof = __w_pdfjs_require__(78);
+var getMethod = __w_pdfjs_require__(30);
+var isNullOrUndefined = __w_pdfjs_require__(17);
+var Iterators = __w_pdfjs_require__(156);
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var ITERATOR = wellKnownSymbol('iterator');
+module.exports = function (it) {
+ if (!isNullOrUndefined(it))
+  return getMethod(it, ITERATOR) || getMethod(it, '@@iterator') || Iterators[classof(it)];
+};
+
+/***/ }),
+/* 159 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var toPropertyKey = __w_pdfjs_require__(18);
+var definePropertyModule = __w_pdfjs_require__(45);
+var createPropertyDescriptor = __w_pdfjs_require__(11);
+module.exports = function (object, key, value) {
+ var propertyKey = toPropertyKey(key);
+ if (propertyKey in object)
+  definePropertyModule.f(object, propertyKey, createPropertyDescriptor(0, value));
+ else
+  object[propertyKey] = value;
+};
+
+/***/ }),
+/* 160 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var call = __w_pdfjs_require__(8);
+var hasOwn = __w_pdfjs_require__(39);
+var isPrototypeOf = __w_pdfjs_require__(25);
+var regExpFlags = __w_pdfjs_require__(161);
+var RegExpPrototype = RegExp.prototype;
+module.exports = function (R) {
+ var flags = R.flags;
+ return flags === undefined && !('flags' in RegExpPrototype) && !hasOwn(R, 'flags') && isPrototypeOf(RegExpPrototype, R) ? call(regExpFlags, R) : flags;
+};
+
+/***/ }),
+/* 161 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var anObject = __w_pdfjs_require__(47);
+module.exports = function () {
+ var that = anObject(this);
+ var result = '';
+ if (that.hasIndices)
+  result += 'd';
+ if (that.global)
+  result += 'g';
+ if (that.ignoreCase)
+  result += 'i';
+ if (that.multiline)
+  result += 'm';
+ if (that.dotAll)
+  result += 's';
+ if (that.unicode)
+  result += 'u';
+ if (that.unicodeSets)
+  result += 'v';
+ if (that.sticky)
+  result += 'y';
+ return result;
+};
+
+/***/ }),
+/* 162 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var MapPrototype = Map.prototype;
+module.exports = {
+ Map: Map,
+ set: uncurryThis(MapPrototype.set),
+ get: uncurryThis(MapPrototype.get),
+ has: uncurryThis(MapPrototype.has),
+ remove: uncurryThis(MapPrototype['delete']),
+ proto: MapPrototype
+};
+
+/***/ }),
+/* 163 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -2748,9 +6871,12 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.SerializableEmpty = exports.PrintAnnotationStorage = exports.AnnotationStorage = void 0;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(149);
+__w_pdfjs_require__(152);
 var _util = __w_pdfjs_require__(1);
-var _editor = __w_pdfjs_require__(4);
-var _murmurhash = __w_pdfjs_require__(8);
+var _editor = __w_pdfjs_require__(164);
+var _murmurhash = __w_pdfjs_require__(170);
 const SerializableEmpty = Object.freeze({
   map: null,
   hash: "",
@@ -2884,9 +7010,7 @@ class PrintAnnotationStorage extends AnnotationStorage {
       hash,
       transfers
     } = parent.serializable;
-    const clone = structuredClone(map, transfers ? {
-      transfer: transfers
-    } : null);
+    const clone = structuredClone(map, null);
     this.#serializable = {
       map: clone,
       hash,
@@ -2903,7 +7027,7 @@ class PrintAnnotationStorage extends AnnotationStorage {
 exports.PrintAnnotationStorage = PrintAnnotationStorage;
 
 /***/ }),
-/* 4 */
+/* 164 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -2912,9 +7036,11 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.AnnotationEditor = void 0;
-var _tools = __w_pdfjs_require__(5);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(2);
+var _tools = __w_pdfjs_require__(165);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
+var _display_utils = __w_pdfjs_require__(168);
 class AnnotationEditor {
   #altText = "";
   #altTextDecorative = false;
@@ -2988,7 +7114,8 @@ class AnnotationEditor {
     fakeEditor.deleted = true;
     fakeEditor._uiManager.addToAnnotationStorage(fakeEditor);
   }
-  static initialize(l10n, options = null) {
+  static initialize(l10n) {
+    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     AnnotationEditor._l10nPromise ||= new Map(["editor_alt_text_button_label", "editor_alt_text_edit_button_label", "editor_alt_text_decorative_tooltip"].map(str => [str, l10n.get(str)]));
     if (options?.strings) {
       for (const str of options.strings) {
@@ -3108,7 +7235,8 @@ class AnnotationEditor {
     this.y = (y + ty) / height;
     this.fixAndSetPosition();
   }
-  #translate([width, height], x, y) {
+  #translate(_ref, x, y) {
+    let [width, height] = _ref;
     [x, y] = this.screenToPageTranslation(x, y);
     this.x += x / width;
     this.y += y / height;
@@ -3549,10 +7677,11 @@ class AnnotationEditor {
       decorative: this.#altTextDecorative
     };
   }
-  set altTextData({
-    altText,
-    decorative
-  }) {
+  set altTextData(_ref2) {
+    let {
+      altText,
+      decorative
+    } = _ref2;
     if (this.#altText === altText && this.#altTextDecorative === decorative) {
       return;
     }
@@ -3701,7 +7830,9 @@ class AnnotationEditor {
     this.div?.addEventListener("focusin", this.#boundFocusin);
     this.div?.addEventListener("focusout", this.#boundFocusout);
   }
-  serialize(isForCopying = false, context = null) {
+  serialize() {
+    let isForCopying = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    let context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     (0, _util.unreachable)("An editor must be serializable");
   }
   static deserialize(data, parent, uiManager) {
@@ -3814,7 +7945,7 @@ class FakeEditor extends AnnotationEditor {
 }
 
 /***/ }),
-/* 5 */
+/* 165 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -3825,8 +7956,27 @@ Object.defineProperty(exports, "__esModule", ({
 exports.KeyboardManager = exports.CommandManager = exports.ColorManager = exports.AnnotationEditorUIManager = void 0;
 exports.bindEvents = bindEvents;
 exports.opacityToHex = opacityToHex;
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(125);
+__w_pdfjs_require__(136);
+__w_pdfjs_require__(138);
+__w_pdfjs_require__(141);
+__w_pdfjs_require__(143);
+__w_pdfjs_require__(145);
+__w_pdfjs_require__(147);
+__w_pdfjs_require__(166);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
+var _display_utils = __w_pdfjs_require__(168);
 function bindEvents(obj, element, names) {
   for (const name of names) {
     element.addEventListener(name, obj[name].bind(obj));
@@ -3972,17 +8122,19 @@ class CommandManager {
   #locked = false;
   #maxSize;
   #position = -1;
-  constructor(maxSize = 128) {
+  constructor() {
+    let maxSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 128;
     this.#maxSize = maxSize;
   }
-  add({
-    cmd,
-    undo,
-    mustExec,
-    type = NaN,
-    overwriteIfSameType = false,
-    keepUndo = false
-  }) {
+  add(_ref) {
+    let {
+      cmd,
+      undo,
+      mustExec,
+      type = NaN,
+      overwriteIfSameType = false,
+      keepUndo = false
+    } = _ref;
     if (mustExec) {
       cmd();
     }
@@ -4271,9 +8423,10 @@ class AnnotationEditorUIManager {
   editAltText(editor) {
     this.#altTextManager?.editAltText(this, editor);
   }
-  onPageChanging({
-    pageNumber
-  }) {
+  onPageChanging(_ref2) {
+    let {
+      pageNumber
+    } = _ref2;
     this.#currentPageIndex = pageNumber - 1;
   }
   focusMainContainer() {
@@ -4293,7 +8446,8 @@ class AnnotationEditorUIManager {
     }
     return null;
   }
-  disableUserSelect(value = false) {
+  disableUserSelect() {
+    let value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     this.#viewer.classList.toggle("noUserSelect", value);
   }
   addShouldRescale(editor) {
@@ -4302,18 +8456,20 @@ class AnnotationEditorUIManager {
   removeShouldRescale(editor) {
     this.#editorsToRescale.delete(editor);
   }
-  onScaleChanging({
-    scale
-  }) {
+  onScaleChanging(_ref3) {
+    let {
+      scale
+    } = _ref3;
     this.commitOrRemove();
     this.viewParameters.realScale = scale * _display_utils.PixelsPerInch.PDF_TO_CSS_UNITS;
     for (const editor of this.#editorsToRescale) {
       editor.onScaleChanging();
     }
   }
-  onRotationChanging({
-    pagesRotation
-  }) {
+  onRotationChanging(_ref4) {
+    let {
+      pagesRotation
+    } = _ref4;
     this.commitOrRemove();
     this.viewParameters.rotation = pagesRotation;
   }
@@ -4476,7 +8632,10 @@ class AnnotationEditorUIManager {
     }
   }
   #dispatchUpdateStates(details) {
-    const hasChanged = Object.entries(details).some(([key, value]) => this.#previousStates[key] !== value);
+    const hasChanged = Object.entries(details).some(_ref5 => {
+      let [key, value] = _ref5;
+      return this.#previousStates[key] !== value;
+    });
     if (hasChanged) {
       this._eventBus.dispatch("annotationeditorstateschanged", {
         source: this,
@@ -4544,7 +8703,8 @@ class AnnotationEditorUIManager {
   removeLayer(layer) {
     this.#allLayers.delete(layer.pageIndex);
   }
-  updateMode(mode, editId = null) {
+  updateMode(mode) {
+    let editId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     if (this.#mode === mode) {
       return;
     }
@@ -4595,7 +8755,8 @@ class AnnotationEditorUIManager {
       editorType.updateDefaultParams(type, value);
     }
   }
-  enableWaiting(mustWait = false) {
+  enableWaiting() {
+    let mustWait = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (this.#isWaiting === mustWait) {
       return;
     }
@@ -4817,7 +8978,8 @@ class AnnotationEditorUIManager {
       hasSelectedEditor: false
     });
   }
-  translateSelectedEditors(x, y, noCommit = false) {
+  translateSelectedEditors(x, y) {
+    let noCommit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     if (!noCommit) {
       this.commitOrRemove();
     }
@@ -4969,7 +9131,336 @@ class AnnotationEditorUIManager {
 exports.AnnotationEditorUIManager = AnnotationEditorUIManager;
 
 /***/ }),
-/* 6 */
+/* 166 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var global = __w_pdfjs_require__(4);
+var getBuiltIn = __w_pdfjs_require__(24);
+var uncurryThis = __w_pdfjs_require__(14);
+var call = __w_pdfjs_require__(8);
+var isCallable = __w_pdfjs_require__(21);
+var isObject = __w_pdfjs_require__(20);
+var isArray = __w_pdfjs_require__(91);
+var hasOwn = __w_pdfjs_require__(39);
+var toString = __w_pdfjs_require__(77);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var createProperty = __w_pdfjs_require__(159);
+var fails = __w_pdfjs_require__(7);
+var parseJSONString = __w_pdfjs_require__(167);
+var NATIVE_SYMBOL = __w_pdfjs_require__(27);
+var JSON = global.JSON;
+var Number = global.Number;
+var SyntaxError = global.SyntaxError;
+var nativeParse = JSON && JSON.parse;
+var enumerableOwnProperties = getBuiltIn('Object', 'keys');
+var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var at = uncurryThis(''.charAt);
+var slice = uncurryThis(''.slice);
+var exec = uncurryThis(/./.exec);
+var push = uncurryThis([].push);
+var IS_DIGIT = /^\d$/;
+var IS_NON_ZERO_DIGIT = /^[1-9]$/;
+var IS_NUMBER_START = /^(?:-|\d)$/;
+var IS_WHITESPACE = /^[\t\n\r ]$/;
+var PRIMITIVE = 0;
+var OBJECT = 1;
+var $parse = function (source, reviver) {
+ source = toString(source);
+ var context = new Context(source, 0, '');
+ var root = context.parse();
+ var value = root.value;
+ var endIndex = context.skip(IS_WHITESPACE, root.end);
+ if (endIndex < source.length) {
+  throw SyntaxError('Unexpected extra character: "' + at(source, endIndex) + '" after the parsed data at: ' + endIndex);
+ }
+ return isCallable(reviver) ? internalize({ '': value }, '', reviver, root) : value;
+};
+var internalize = function (holder, name, reviver, node) {
+ var val = holder[name];
+ var unmodified = node && val === node.value;
+ var context = unmodified && typeof node.source == 'string' ? { source: node.source } : {};
+ var elementRecordsLen, keys, len, i, P;
+ if (isObject(val)) {
+  var nodeIsArray = isArray(val);
+  var nodes = unmodified ? node.nodes : nodeIsArray ? [] : {};
+  if (nodeIsArray) {
+   elementRecordsLen = nodes.length;
+   len = lengthOfArrayLike(val);
+   for (i = 0; i < len; i++) {
+    internalizeProperty(val, i, internalize(val, '' + i, reviver, i < elementRecordsLen ? nodes[i] : undefined));
+   }
+  } else {
+   keys = enumerableOwnProperties(val);
+   len = lengthOfArrayLike(keys);
+   for (i = 0; i < len; i++) {
+    P = keys[i];
+    internalizeProperty(val, P, internalize(val, P, reviver, hasOwn(nodes, P) ? nodes[P] : undefined));
+   }
+  }
+ }
+ return call(reviver, holder, name, val, context);
+};
+var internalizeProperty = function (object, key, value) {
+ if (DESCRIPTORS) {
+  var descriptor = getOwnPropertyDescriptor(object, key);
+  if (descriptor && !descriptor.configurable)
+   return;
+ }
+ if (value === undefined)
+  delete object[key];
+ else
+  createProperty(object, key, value);
+};
+var Node = function (value, end, source, nodes) {
+ this.value = value;
+ this.end = end;
+ this.source = source;
+ this.nodes = nodes;
+};
+var Context = function (source, index) {
+ this.source = source;
+ this.index = index;
+};
+Context.prototype = {
+ fork: function (nextIndex) {
+  return new Context(this.source, nextIndex);
+ },
+ parse: function () {
+  var source = this.source;
+  var i = this.skip(IS_WHITESPACE, this.index);
+  var fork = this.fork(i);
+  var chr = at(source, i);
+  if (exec(IS_NUMBER_START, chr))
+   return fork.number();
+  switch (chr) {
+  case '{':
+   return fork.object();
+  case '[':
+   return fork.array();
+  case '"':
+   return fork.string();
+  case 't':
+   return fork.keyword(true);
+  case 'f':
+   return fork.keyword(false);
+  case 'n':
+   return fork.keyword(null);
+  }
+  throw SyntaxError('Unexpected character: "' + chr + '" at: ' + i);
+ },
+ node: function (type, value, start, end, nodes) {
+  return new Node(value, end, type ? null : slice(this.source, start, end), nodes);
+ },
+ object: function () {
+  var source = this.source;
+  var i = this.index + 1;
+  var expectKeypair = false;
+  var object = {};
+  var nodes = {};
+  while (i < source.length) {
+   i = this.until([
+    '"',
+    '}'
+   ], i);
+   if (at(source, i) === '}' && !expectKeypair) {
+    i++;
+    break;
+   }
+   var result = this.fork(i).string();
+   var key = result.value;
+   i = result.end;
+   i = this.until([':'], i) + 1;
+   i = this.skip(IS_WHITESPACE, i);
+   result = this.fork(i).parse();
+   createProperty(nodes, key, result);
+   createProperty(object, key, result.value);
+   i = this.until([
+    ',',
+    '}'
+   ], result.end);
+   var chr = at(source, i);
+   if (chr === ',') {
+    expectKeypair = true;
+    i++;
+   } else if (chr === '}') {
+    i++;
+    break;
+   }
+  }
+  return this.node(OBJECT, object, this.index, i, nodes);
+ },
+ array: function () {
+  var source = this.source;
+  var i = this.index + 1;
+  var expectElement = false;
+  var array = [];
+  var nodes = [];
+  while (i < source.length) {
+   i = this.skip(IS_WHITESPACE, i);
+   if (at(source, i) === ']' && !expectElement) {
+    i++;
+    break;
+   }
+   var result = this.fork(i).parse();
+   push(nodes, result);
+   push(array, result.value);
+   i = this.until([
+    ',',
+    ']'
+   ], result.end);
+   if (at(source, i) === ',') {
+    expectElement = true;
+    i++;
+   } else if (at(source, i) === ']') {
+    i++;
+    break;
+   }
+  }
+  return this.node(OBJECT, array, this.index, i, nodes);
+ },
+ string: function () {
+  var index = this.index;
+  var parsed = parseJSONString(this.source, this.index + 1);
+  return this.node(PRIMITIVE, parsed.value, index, parsed.end);
+ },
+ number: function () {
+  var source = this.source;
+  var startIndex = this.index;
+  var i = startIndex;
+  if (at(source, i) === '-')
+   i++;
+  if (at(source, i) === '0')
+   i++;
+  else if (exec(IS_NON_ZERO_DIGIT, at(source, i)))
+   i = this.skip(IS_DIGIT, ++i);
+  else
+   throw SyntaxError('Failed to parse number at: ' + i);
+  if (at(source, i) === '.')
+   i = this.skip(IS_DIGIT, ++i);
+  if (at(source, i) === 'e' || at(source, i) === 'E') {
+   i++;
+   if (at(source, i) === '+' || at(source, i) === '-')
+    i++;
+   var exponentStartIndex = i;
+   i = this.skip(IS_DIGIT, i);
+   if (exponentStartIndex === i)
+    throw SyntaxError("Failed to parse number's exponent value at: " + i);
+  }
+  return this.node(PRIMITIVE, Number(slice(source, startIndex, i)), startIndex, i);
+ },
+ keyword: function (value) {
+  var keyword = '' + value;
+  var index = this.index;
+  var endIndex = index + keyword.length;
+  if (slice(this.source, index, endIndex) !== keyword)
+   throw SyntaxError('Failed to parse value at: ' + index);
+  return this.node(PRIMITIVE, value, index, endIndex);
+ },
+ skip: function (regex, i) {
+  var source = this.source;
+  for (; i < source.length; i++)
+   if (!exec(regex, at(source, i)))
+    break;
+  return i;
+ },
+ until: function (array, i) {
+  i = this.skip(IS_WHITESPACE, i);
+  var chr = at(this.source, i);
+  for (var j = 0; j < array.length; j++)
+   if (array[j] === chr)
+    return i;
+  throw SyntaxError('Unexpected character: "' + chr + '" at: ' + i);
+ }
+};
+var NO_SOURCE_SUPPORT = fails(function () {
+ var unsafeInt = '9007199254740993';
+ var source;
+ nativeParse(unsafeInt, function (key, value, context) {
+  source = context.source;
+ });
+ return source !== unsafeInt;
+});
+var PROPER_BASE_PARSE = NATIVE_SYMBOL && !fails(function () {
+ return 1 / nativeParse('-0 \t') !== -Infinity;
+});
+$({
+ target: 'JSON',
+ stat: true,
+ forced: NO_SOURCE_SUPPORT
+}, {
+ parse: function parse(text, reviver) {
+  return PROPER_BASE_PARSE && !isCallable(reviver) ? nativeParse(text) : $parse(text, reviver);
+ }
+});
+
+/***/ }),
+/* 167 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var uncurryThis = __w_pdfjs_require__(14);
+var hasOwn = __w_pdfjs_require__(39);
+var $SyntaxError = SyntaxError;
+var $parseInt = parseInt;
+var fromCharCode = String.fromCharCode;
+var at = uncurryThis(''.charAt);
+var slice = uncurryThis(''.slice);
+var exec = uncurryThis(/./.exec);
+var codePoints = {
+ '\\"': '"',
+ '\\\\': '\\',
+ '\\/': '/',
+ '\\b': '\b',
+ '\\f': '\f',
+ '\\n': '\n',
+ '\\r': '\r',
+ '\\t': '\t'
+};
+var IS_4_HEX_DIGITS = /^[\da-f]{4}$/i;
+var IS_C0_CONTROL_CODE = /^[\u0000-\u001F]$/;
+module.exports = function (source, i) {
+ var unterminated = true;
+ var value = '';
+ while (i < source.length) {
+  var chr = at(source, i);
+  if (chr === '\\') {
+   var twoChars = slice(source, i, i + 2);
+   if (hasOwn(codePoints, twoChars)) {
+    value += codePoints[twoChars];
+    i += 2;
+   } else if (twoChars === '\\u') {
+    i += 2;
+    var fourHexDigits = slice(source, i, i + 4);
+    if (!exec(IS_4_HEX_DIGITS, fourHexDigits))
+     throw $SyntaxError('Bad Unicode escape at: ' + i);
+    value += fromCharCode($parseInt(fourHexDigits, 16));
+    i += 4;
+   } else
+    throw $SyntaxError('Unknown escape sequence: "' + twoChars + '"');
+  } else if (chr === '"') {
+   unterminated = false;
+   i++;
+   break;
+  } else {
+   if (exec(IS_C0_CONTROL_CODE, chr))
+    throw $SyntaxError('Bad control character in string literal at: ' + i);
+   value += chr;
+   i++;
+  }
+ }
+ if (unterminated)
+  throw $SyntaxError('Unterminated string at: ' + i);
+ return {
+  value: value,
+  end: i
+ };
+};
+
+/***/ }),
+/* 168 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -4992,7 +9483,21 @@ exports.isValidFetchUrl = isValidFetchUrl;
 exports.loadScript = loadScript;
 exports.noContextMenu = noContextMenu;
 exports.setLayerDimensions = setLayerDimensions;
-var _base_factory = __w_pdfjs_require__(7);
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(84);
+__w_pdfjs_require__(86);
+__w_pdfjs_require__(87);
+var _base_factory = __w_pdfjs_require__(169);
 var _util = __w_pdfjs_require__(1);
 const SVG_NS = "http://www.w3.org/2000/svg";
 class PixelsPerInch {
@@ -5013,10 +9518,11 @@ class DOMFilterFactory extends _base_factory.BaseFilterFactory {
   #hcmHighlightKey;
   #hcmHighlightUrl;
   #id = 0;
-  constructor({
-    docId,
-    ownerDocument = globalThis.document
-  } = {}) {
+  constructor() {
+    let {
+      docId,
+      ownerDocument = globalThis.document
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     super();
     this.#docId = docId;
     this.#document = ownerDocument;
@@ -5177,7 +9683,8 @@ class DOMFilterFactory extends _base_factory.BaseFilterFactory {
     this.#hcmHighlightUrl = `url(#${id})`;
     return this.#hcmHighlightUrl;
   }
-  destroy(keepHCM = false) {
+  destroy() {
+    let keepHCM = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (keepHCM && (this.#hcmUrl || this.#hcmHighlightUrl)) {
       return;
     }
@@ -5224,9 +9731,10 @@ class DOMFilterFactory extends _base_factory.BaseFilterFactory {
 }
 exports.DOMFilterFactory = DOMFilterFactory;
 class DOMCanvasFactory extends _base_factory.BaseCanvasFactory {
-  constructor({
-    ownerDocument = globalThis.document
-  } = {}) {
+  constructor() {
+    let {
+      ownerDocument = globalThis.document
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     super();
     this._document = ownerDocument;
   }
@@ -5238,7 +9746,8 @@ class DOMCanvasFactory extends _base_factory.BaseCanvasFactory {
   }
 }
 exports.DOMCanvasFactory = DOMCanvasFactory;
-async function fetchData(url, asTypedArray = false) {
+async function fetchData(url) {
+  let asTypedArray = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   if (isValidFetchUrl(url, document.baseURI)) {
     const response = await fetch(url);
     if (!response.ok) {
@@ -5297,14 +9806,15 @@ class DOMSVGFactory extends _base_factory.BaseSVGFactory {
 }
 exports.DOMSVGFactory = DOMSVGFactory;
 class PageViewport {
-  constructor({
-    viewBox,
-    scale,
-    rotation,
-    offsetX = 0,
-    offsetY = 0,
-    dontFlip = false
-  }) {
+  constructor(_ref) {
+    let {
+      viewBox,
+      scale,
+      rotation,
+      offsetX = 0,
+      offsetY = 0,
+      dontFlip = false
+    } = _ref;
     this.viewBox = viewBox;
     this.scale = scale;
     this.rotation = rotation;
@@ -5377,13 +9887,14 @@ class PageViewport {
       pageY: viewBox[1]
     });
   }
-  clone({
-    scale = this.scale,
-    rotation = this.rotation,
-    offsetX = this.offsetX,
-    offsetY = this.offsetY,
-    dontFlip = false
-  } = {}) {
+  clone() {
+    let {
+      scale = this.scale,
+      rotation = this.rotation,
+      offsetX = this.offsetX,
+      offsetY = this.offsetY,
+      dontFlip = false
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return new PageViewport({
       viewBox: this.viewBox.slice(),
       scale,
@@ -5407,7 +9918,8 @@ class PageViewport {
 }
 exports.PageViewport = PageViewport;
 class RenderingCancelledException extends _util.BaseException {
-  constructor(msg, extraDelay = 0) {
+  constructor(msg) {
+    let extraDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     super(msg, "RenderingCancelledException");
     this.extraDelay = extraDelay;
   }
@@ -5424,13 +9936,15 @@ function isDataScheme(url) {
 function isPdfFile(filename) {
   return typeof filename === "string" && /\.pdf$/i.test(filename);
 }
-function getFilenameFromUrl(url, onlyStripPath = false) {
+function getFilenameFromUrl(url) {
+  let onlyStripPath = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   if (!onlyStripPath) {
     [url] = url.split(/[#?]/, 1);
   }
   return url.substring(url.lastIndexOf("/") + 1);
 }
-function getPdfFilenameFromUrl(url, defaultFilename = "document.pdf") {
+function getPdfFilenameFromUrl(url) {
+  let defaultFilename = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "document.pdf";
   if (typeof url !== "string") {
     return defaultFilename;
   }
@@ -5504,7 +10018,8 @@ function isValidFetchUrl(url, baseUrl) {
 function noContextMenu(e) {
   e.preventDefault();
 }
-function loadScript(src, removeScriptElement = false) {
+function loadScript(src) {
+  let removeScriptElement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = src;
@@ -5561,10 +10076,11 @@ class PDFDateString {
   }
 }
 exports.PDFDateString = PDFDateString;
-function getXfaPageViewport(xfaPage, {
-  scale = 1,
-  rotation = 0
-}) {
+function getXfaPageViewport(xfaPage, _ref2) {
+  let {
+    scale = 1,
+    rotation = 0
+  } = _ref2;
   const {
     width,
     height
@@ -5623,7 +10139,9 @@ function getCurrentTransformInverse(ctx) {
   } = ctx.getTransform().invertSelf();
   return [a, b, c, d, e, f];
 }
-function setLayerDimensions(div, viewport, mustFlip = false, mustRotate = true) {
+function setLayerDimensions(div, viewport) {
+  let mustFlip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let mustRotate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
   if (viewport instanceof PageViewport) {
     const {
       pageWidth,
@@ -5651,7 +10169,7 @@ function setLayerDimensions(div, viewport, mustFlip = false, mustRotate = true) 
 }
 
 /***/ }),
-/* 7 */
+/* 169 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -5660,6 +10178,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.BaseStandardFontDataFactory = exports.BaseSVGFactory = exports.BaseFilterFactory = exports.BaseCanvasFactory = exports.BaseCMapReaderFactory = void 0;
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
 class BaseFilterFactory {
   constructor() {
@@ -5676,7 +10195,9 @@ class BaseFilterFactory {
   addHighlightHCMFilter(fgColor, bgColor, newFgColor, newBgColor) {
     return "none";
   }
-  destroy(keepHCM = false) {}
+  destroy() {
+    let keepHCM = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  }
 }
 exports.BaseFilterFactory = BaseFilterFactory;
 class BaseCanvasFactory {
@@ -5720,19 +10241,21 @@ class BaseCanvasFactory {
 }
 exports.BaseCanvasFactory = BaseCanvasFactory;
 class BaseCMapReaderFactory {
-  constructor({
-    baseUrl = null,
-    isCompressed = true
-  }) {
+  constructor(_ref) {
+    let {
+      baseUrl = null,
+      isCompressed = true
+    } = _ref;
     if (this.constructor === BaseCMapReaderFactory) {
       (0, _util.unreachable)("Cannot initialize BaseCMapReaderFactory.");
     }
     this.baseUrl = baseUrl;
     this.isCompressed = isCompressed;
   }
-  async fetch({
-    name
-  }) {
+  async fetch(_ref2) {
+    let {
+      name
+    } = _ref2;
     if (!this.baseUrl) {
       throw new Error('The CMap "baseUrl" parameter must be specified, ensure that ' + 'the "cMapUrl" and "cMapPacked" API parameters are provided.');
     }
@@ -5751,17 +10274,19 @@ class BaseCMapReaderFactory {
 }
 exports.BaseCMapReaderFactory = BaseCMapReaderFactory;
 class BaseStandardFontDataFactory {
-  constructor({
-    baseUrl = null
-  }) {
+  constructor(_ref3) {
+    let {
+      baseUrl = null
+    } = _ref3;
     if (this.constructor === BaseStandardFontDataFactory) {
       (0, _util.unreachable)("Cannot initialize BaseStandardFontDataFactory.");
     }
     this.baseUrl = baseUrl;
   }
-  async fetch({
-    filename
-  }) {
+  async fetch(_ref4) {
+    let {
+      filename
+    } = _ref4;
     if (!this.baseUrl) {
       throw new Error('The standard font "baseUrl" parameter must be specified, ensure that ' + 'the "standardFontDataUrl" API parameter is provided.');
     }
@@ -5784,7 +10309,8 @@ class BaseSVGFactory {
       (0, _util.unreachable)("Cannot initialize BaseSVGFactory.");
     }
   }
-  create(width, height, skipDimensions = false) {
+  create(width, height) {
+    let skipDimensions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     if (width <= 0 || height <= 0) {
       throw new Error("Invalid SVG dimensions");
     }
@@ -5811,7 +10337,7 @@ class BaseSVGFactory {
 exports.BaseSVGFactory = BaseSVGFactory;
 
 /***/ }),
-/* 8 */
+/* 170 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -5820,6 +10346,16 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.MurmurHash3_64 = void 0;
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
 const SEED = 0xc3d2e1f0;
 const MASK_HIGH = 0xffff0000;
@@ -5915,7 +10451,7 @@ class MurmurHash3_64 {
 exports.MurmurHash3_64 = MurmurHash3_64;
 
 /***/ }),
-/* 9 */
+/* 171 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -5924,13 +10460,23 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.FontLoader = exports.FontFaceObject = void 0;
+__w_pdfjs_require__(125);
+__w_pdfjs_require__(136);
+__w_pdfjs_require__(138);
+__w_pdfjs_require__(141);
+__w_pdfjs_require__(143);
+__w_pdfjs_require__(145);
+__w_pdfjs_require__(147);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(149);
 var _util = __w_pdfjs_require__(1);
 class FontLoader {
   #systemFonts = new Set();
-  constructor({
-    ownerDocument = globalThis.document,
-    styleElement = null
-  }) {
+  constructor(_ref) {
+    let {
+      ownerDocument = globalThis.document,
+      styleElement = null
+    } = _ref;
     this._document = ownerDocument;
     this.nativeFontFaces = new Set();
     this.styleElement = null;
@@ -6127,12 +10673,13 @@ class FontLoader {
 }
 exports.FontLoader = FontLoader;
 class FontFaceObject {
-  constructor(translatedData, {
-    isEvalSupported = true,
-    disableFontFace = false,
-    ignoreErrors = false,
-    inspectFont = null
-  }) {
+  constructor(translatedData, _ref2) {
+    let {
+      isEvalSupported = true,
+      disableFontFace = false,
+      ignoreErrors = false,
+      inspectFont = null
+    } = _ref2;
     this.compiledGlyphs = Object.create(null);
     for (const i in translatedData) {
       this[i] = translatedData[i];
@@ -6215,7 +10762,7 @@ class FontFaceObject {
 exports.FontFaceObject = FontFaceObject;
 
 /***/ }),
-/* 10 */
+/* 172 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -6224,10 +10771,48 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.NodeStandardFontDataFactory = exports.NodeFilterFactory = exports.NodeCanvasFactory = exports.NodeCMapReaderFactory = void 0;
-var _base_factory = __w_pdfjs_require__(7);
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+var _base_factory = __w_pdfjs_require__(169);
 var _util = __w_pdfjs_require__(1);
 ;
-;
+{
+  (function checkDOMMatrix() {
+    if (globalThis.DOMMatrix || !_util.isNodeJS) {
+      return;
+    }
+    try {
+      globalThis.DOMMatrix = require("canvas").DOMMatrix;
+    } catch (ex) {
+      (0, _util.warn)(`Cannot polyfill \`DOMMatrix\`, rendering may be broken: "${ex}".`);
+    }
+  })();
+  (function checkPath2D() {
+    if (globalThis.Path2D || !_util.isNodeJS) {
+      return;
+    }
+    try {
+      const {
+        CanvasRenderingContext2D
+      } = require("canvas");
+      const {
+        polyfillPath2D
+      } = require("path2d-polyfill");
+      globalThis.CanvasRenderingContext2D = CanvasRenderingContext2D;
+      polyfillPath2D(globalThis);
+    } catch (ex) {
+      (0, _util.warn)(`Cannot polyfill \`Path2D\`, rendering may be broken: "${ex}".`);
+    }
+  })();
+}
 const fetchData = function (url) {
   return new Promise((resolve, reject) => {
     const fs = require("fs");
@@ -6268,7 +10853,7 @@ class NodeStandardFontDataFactory extends _base_factory.BaseStandardFontDataFact
 exports.NodeStandardFontDataFactory = NodeStandardFontDataFactory;
 
 /***/ }),
-/* 11 */
+/* 173 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -6277,10 +10862,21 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.CanvasGraphics = void 0;
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(89);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
-var _pattern_helper = __w_pdfjs_require__(12);
-var _image_utils = __w_pdfjs_require__(13);
+var _display_utils = __w_pdfjs_require__(168);
+var _pattern_helper = __w_pdfjs_require__(174);
+var _image_utils = __w_pdfjs_require__(175);
 const MIN_FONT_SIZE = 16;
 const MAX_FONT_SIZE = 100;
 const MAX_GROUP_SIZE = 4096;
@@ -6648,7 +11244,9 @@ class CanvasExtraState {
     }
     this.updateRectMinMax(transform, box);
   }
-  getPathBoundingBox(pathType = _pattern_helper.PathType.FILL, transform = null) {
+  getPathBoundingBox() {
+    let pathType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _pattern_helper.PathType.FILL;
+    let transform = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     const box = [this.minX, this.minY, this.maxX, this.maxY];
     if (pathType === _pattern_helper.PathType.STROKE) {
       if (!transform) {
@@ -6678,7 +11276,9 @@ class CanvasExtraState {
     this.maxX = 0;
     this.maxY = 0;
   }
-  getClippedPathBoundingBox(pathType = _pattern_helper.PathType.FILL, transform = null) {
+  getClippedPathBoundingBox() {
+    let pathType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _pattern_helper.PathType.FILL;
+    let transform = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     return _util.Util.intersect(this.clipBox, this.getPathBoundingBox(pathType, transform));
   }
 }
@@ -6922,10 +11522,11 @@ const LINE_JOIN_STYLES = ["miter", "round", "bevel"];
 const NORMAL_CLIP = {};
 const EO_CLIP = {};
 class CanvasGraphics {
-  constructor(canvasCtx, commonObjs, objs, canvasFactory, filterFactory, {
-    optionalContentConfig,
-    markedContentStack = null
-  }, annotationCanvasMap, pageColors) {
+  constructor(canvasCtx, commonObjs, objs, canvasFactory, filterFactory, _ref, annotationCanvasMap, pageColors) {
+    let {
+      optionalContentConfig,
+      markedContentStack = null
+    } = _ref;
     this.ctx = canvasCtx;
     this.current = new CanvasExtraState(this.ctx.canvas.width, this.ctx.canvas.height);
     this.stateStack = [];
@@ -6960,18 +11561,20 @@ class CanvasGraphics {
     this._cachedGetSinglePixelWidth = null;
     this._cachedBitmapsMap = new Map();
   }
-  getObject(data, fallback = null) {
+  getObject(data) {
+    let fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     if (typeof data === "string") {
       return data.startsWith("g_") ? this.commonObjs.get(data) : this.objs.get(data);
     }
     return fallback;
   }
-  beginDrawing({
-    transform,
-    viewport,
-    transparency = false,
-    background = null
-  }) {
+  beginDrawing(_ref2) {
+    let {
+      transform,
+      viewport,
+      transparency = false,
+      background = null
+    } = _ref2;
     const width = this.ctx.canvas.width;
     const height = this.ctx.canvas.height;
     const savedFillStyle = this.ctx.fillStyle;
@@ -7436,7 +12039,8 @@ class CanvasGraphics {
   closePath() {
     this.ctx.closePath();
   }
-  stroke(consumePath = true) {
+  stroke() {
+    let consumePath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
     const ctx = this.ctx;
     const strokeColor = this.current.strokeColor;
     ctx.globalAlpha = this.current.strokeAlpha;
@@ -7459,7 +12063,8 @@ class CanvasGraphics {
     this.closePath();
     this.stroke();
   }
-  fill(consumePath = true) {
+  fill() {
+    let consumePath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
     const ctx = this.ctx;
     const fillColor = this.current.fillColor;
     const isPatternFill = this.current.patternFill;
@@ -7904,7 +12509,8 @@ class CanvasGraphics {
     this.current.fillColor = color;
     this.current.patternFill = false;
   }
-  _getPattern(objId, matrix = null) {
+  _getPattern(objId) {
+    let matrix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     let pattern;
     if (this.cachedPatterns.has(objId)) {
       pattern = this.cachedPatterns.get(objId);
@@ -8152,7 +12758,11 @@ class CanvasGraphics {
     ctx.restore();
     this.compose();
   }
-  paintImageMaskXObjectRepeat(img, scaleX, skewX = 0, skewY = 0, scaleY, positions) {
+  paintImageMaskXObjectRepeat(img, scaleX) {
+    let skewX = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    let skewY = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+    let scaleY = arguments.length > 4 ? arguments[4] : undefined;
+    let positions = arguments.length > 5 ? arguments[5] : undefined;
     if (!this.contentVisible) {
       return;
     }
@@ -8481,7 +13091,7 @@ for (const op in _util.OPS) {
 }
 
 /***/ }),
-/* 12 */
+/* 174 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -8491,8 +13101,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.TilingPattern = exports.PathType = void 0;
 exports.getShadingPattern = getShadingPattern;
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
+var _display_utils = __w_pdfjs_require__(168);
 const PathType = {
   FILL: "Fill",
   STROKE: "Stroke",
@@ -8933,7 +13544,7 @@ class TilingPattern {
 exports.TilingPattern = TilingPattern;
 
 /***/ }),
-/* 13 */
+/* 175 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -8944,6 +13555,15 @@ Object.defineProperty(exports, "__esModule", ({
 exports.convertBlackAndWhiteToRGBA = convertBlackAndWhiteToRGBA;
 exports.convertToRGBA = convertToRGBA;
 exports.grayToRGBA = grayToRGBA;
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
 var _util = __w_pdfjs_require__(1);
 function convertToRGBA(params) {
   switch (params.kind) {
@@ -8954,15 +13574,16 @@ function convertToRGBA(params) {
   }
   return null;
 }
-function convertBlackAndWhiteToRGBA({
-  src,
-  srcPos = 0,
-  dest,
-  width,
-  height,
-  nonBlackColor = 0xffffffff,
-  inverseDecode = false
-}) {
+function convertBlackAndWhiteToRGBA(_ref) {
+  let {
+    src,
+    srcPos = 0,
+    dest,
+    width,
+    height,
+    nonBlackColor = 0xffffffff,
+    inverseDecode = false
+  } = _ref;
   const black = _util.FeatureTest.isLittleEndian ? 0xff000000 : 0x000000ff;
   const [zeroMapping, oneMapping] = inverseDecode ? [nonBlackColor, black] : [black, nonBlackColor];
   const widthInSource = width >> 3;
@@ -8995,14 +13616,15 @@ function convertBlackAndWhiteToRGBA({
     destPos
   };
 }
-function convertRGBToRGBA({
-  src,
-  srcPos = 0,
-  dest,
-  destPos = 0,
-  width,
-  height
-}) {
+function convertRGBToRGBA(_ref2) {
+  let {
+    src,
+    srcPos = 0,
+    dest,
+    destPos = 0,
+    width,
+    height
+  } = _ref2;
   let i = 0;
   const len32 = src.length >> 2;
   const src32 = new Uint32Array(src.buffer, srcPos, len32);
@@ -9051,7 +13673,7 @@ function grayToRGBA(src, dest) {
 }
 
 /***/ }),
-/* 14 */
+/* 176 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -9066,7 +13688,7 @@ GlobalWorkerOptions.workerPort = null;
 GlobalWorkerOptions.workerSrc = "";
 
 /***/ }),
-/* 15 */
+/* 177 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -9075,6 +13697,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.MessageHandler = void 0;
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
 const CallbackKind = {
   UNKNOWN: 0,
@@ -9276,7 +13899,9 @@ class MessageHandler {
     const self = this,
       action = this.actionHandler[data.action];
     const streamSink = {
-      enqueue(chunk, size = 1, transfers) {
+      enqueue(chunk) {
+        let size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+        let transfers = arguments.length > 2 ? arguments[2] : undefined;
         if (this.isCancelled) {
           return;
         }
@@ -9479,7 +14104,7 @@ class MessageHandler {
 exports.MessageHandler = MessageHandler;
 
 /***/ }),
-/* 16 */
+/* 178 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -9492,10 +14117,11 @@ var _util = __w_pdfjs_require__(1);
 class Metadata {
   #metadataMap;
   #data;
-  constructor({
-    parsedData,
-    rawData
-  }) {
+  constructor(_ref) {
+    let {
+      parsedData,
+      rawData
+    } = _ref;
     this.#metadataMap = parsedData;
     this.#data = rawData;
   }
@@ -9515,7 +14141,7 @@ class Metadata {
 exports.Metadata = Metadata;
 
 /***/ }),
-/* 17 */
+/* 179 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -9525,7 +14151,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.OptionalContentConfig = void 0;
 var _util = __w_pdfjs_require__(1);
-var _murmurhash = __w_pdfjs_require__(8);
+var _murmurhash = __w_pdfjs_require__(170);
 const INTERNAL = Symbol("INTERNAL");
 class OptionalContentGroup {
   #visible = true;
@@ -9678,7 +14304,8 @@ class OptionalContentConfig {
     (0, _util.warn)(`Unknown group type ${group.type}.`);
     return true;
   }
-  setVisibility(id, visible = true) {
+  setVisibility(id) {
+    let visible = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
     if (!this.#groups.has(id)) {
       (0, _util.warn)(`Optional content group not found: ${id}`);
       return;
@@ -9718,7 +14345,7 @@ class OptionalContentConfig {
 exports.OptionalContentConfig = OptionalContentConfig;
 
 /***/ }),
-/* 18 */
+/* 180 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -9727,17 +14354,28 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.PDFDataTransportStream = void 0;
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(89);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
+var _display_utils = __w_pdfjs_require__(168);
 class PDFDataTransportStream {
-  constructor({
-    length,
-    initialData,
-    progressiveDone = false,
-    contentDispositionFilename = null,
-    disableRange = false,
-    disableStream = false
-  }, pdfDataRangeTransport) {
+  constructor(_ref, pdfDataRangeTransport) {
+    let {
+      length,
+      initialData,
+      progressiveDone = false,
+      contentDispositionFilename = null,
+      disableRange = false,
+      disableStream = false
+    } = _ref;
     (0, _util.assert)(pdfDataRangeTransport, 'PDFDataTransportStream - missing required "pdfDataRangeTransport" argument.');
     this._queuedChunks = [];
     this._progressiveDone = progressiveDone;
@@ -9774,10 +14412,11 @@ class PDFDataTransportStream {
     });
     this._pdfDataRangeTransport.transportReady();
   }
-  _onReceiveData({
-    begin,
-    chunk
-  }) {
+  _onReceiveData(_ref2) {
+    let {
+      begin,
+      chunk
+    } = _ref2;
     const buffer = chunk instanceof Uint8Array && chunk.byteLength === chunk.buffer.byteLength ? chunk.buffer : new Uint8Array(chunk).buffer;
     if (begin === undefined) {
       if (this._fullRequestReader) {
@@ -9846,7 +14485,9 @@ class PDFDataTransportStream {
 }
 exports.PDFDataTransportStream = PDFDataTransportStream;
 class PDFDataTransportStreamReader {
-  constructor(stream, queuedChunks, progressiveDone = false, contentDispositionFilename = null) {
+  constructor(stream, queuedChunks) {
+    let progressiveDone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    let contentDispositionFilename = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
     this._stream = stream;
     this._done = progressiveDone || false;
     this._filename = (0, _display_utils.isPdfFile)(contentDispositionFilename) ? contentDispositionFilename : null;
@@ -9994,7 +14635,7 @@ class PDFDataTransportStreamRangeReader {
 }
 
 /***/ }),
-/* 19 */
+/* 181 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -10003,8 +14644,18 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.PDFFetchStream = void 0;
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(89);
 var _util = __w_pdfjs_require__(1);
-var _network_utils = __w_pdfjs_require__(20);
+var _network_utils = __w_pdfjs_require__(182);
 ;
 function createFetchOptions(headers, withCredentials, abortController) {
   return {
@@ -10211,7 +14862,7 @@ class PDFFetchStreamRangeReader {
 }
 
 /***/ }),
-/* 20 */
+/* 182 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -10224,14 +14875,15 @@ exports.extractFilenameFromHeader = extractFilenameFromHeader;
 exports.validateRangeRequestCapabilities = validateRangeRequestCapabilities;
 exports.validateResponseStatus = validateResponseStatus;
 var _util = __w_pdfjs_require__(1);
-var _content_disposition = __w_pdfjs_require__(21);
-var _display_utils = __w_pdfjs_require__(6);
-function validateRangeRequestCapabilities({
-  getResponseHeader,
-  isHttp,
-  rangeChunkSize,
-  disableRange
-}) {
+var _content_disposition = __w_pdfjs_require__(183);
+var _display_utils = __w_pdfjs_require__(168);
+function validateRangeRequestCapabilities(_ref) {
+  let {
+    getResponseHeader,
+    isHttp,
+    rangeChunkSize,
+    disableRange
+  } = _ref;
   const returnValues = {
     allowRangeRequests: false,
     suggestedLength: undefined
@@ -10283,7 +14935,7 @@ function validateResponseStatus(status) {
 }
 
 /***/ }),
-/* 21 */
+/* 183 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -10292,6 +14944,8 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.getFilenameFromContentDispositionHeader = getFilenameFromContentDispositionHeader;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(149);
 var _util = __w_pdfjs_require__(1);
 function getFilenameFromContentDispositionHeader(contentDisposition) {
   let needsEncodingFixup = true;
@@ -10423,7 +15077,7 @@ function getFilenameFromContentDispositionHeader(contentDisposition) {
 }
 
 /***/ }),
-/* 22 */
+/* 184 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -10432,8 +15086,9 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.PDFNetworkStream = void 0;
+__w_pdfjs_require__(89);
 var _util = __w_pdfjs_require__(1);
-var _network_utils = __w_pdfjs_require__(20);
+var _network_utils = __w_pdfjs_require__(182);
 ;
 const OK_RESPONSE = 200;
 const PARTIAL_CONTENT_RESPONSE = 206;
@@ -10445,7 +15100,8 @@ function getArrayBuffer(xhr) {
   return (0, _util.stringToBytes)(data).buffer;
 }
 class NetworkManager {
-  constructor(url, args = {}) {
+  constructor(url) {
+    let args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     this.url = url;
     this.isHttp = /^https?:/i.test(url);
     this.httpHeaders = this.isHttp && args.httpHeaders || Object.create(null);
@@ -10842,7 +15498,7 @@ class PDFNetworkStreamRangeRequestReader {
 }
 
 /***/ }),
-/* 23 */
+/* 185 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -10851,8 +15507,18 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.PDFNodeStream = void 0;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
 var _util = __w_pdfjs_require__(1);
-var _network_utils = __w_pdfjs_require__(20);
+var _network_utils = __w_pdfjs_require__(182);
 ;
 const fileUriRegex = /^file:\/\/\/[a-zA-Z]:\//;
 function parseUrl(sourceUrl) {
@@ -11195,7 +15861,7 @@ class PDFNodeStreamFsRangeReader extends BaseRangeReader {
 }
 
 /***/ }),
-/* 24 */
+/* 186 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -11204,7 +15870,22 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.SVGGraphics = void 0;
-var _display_utils = __w_pdfjs_require__(6);
+__w_pdfjs_require__(84);
+__w_pdfjs_require__(86);
+__w_pdfjs_require__(87);
+__w_pdfjs_require__(93);
+__w_pdfjs_require__(101);
+__w_pdfjs_require__(102);
+__w_pdfjs_require__(105);
+__w_pdfjs_require__(107);
+__w_pdfjs_require__(109);
+__w_pdfjs_require__(113);
+__w_pdfjs_require__(116);
+__w_pdfjs_require__(123);
+__w_pdfjs_require__(2);
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(187);
+var _display_utils = __w_pdfjs_require__(168);
 var _util = __w_pdfjs_require__(1);
 ;
 const SVG_DEFAULTS = {
@@ -11216,7 +15897,9 @@ const XML_NS = "http://www.w3.org/XML/1998/namespace";
 const XLINK_NS = "http://www.w3.org/1999/xlink";
 const LINE_CAP_STYLES = ["butt", "round", "square"];
 const LINE_JOIN_STYLES = ["miter", "round", "bevel"];
-const createObjectURL = function (data, contentType = "", forceDataSchema = false) {
+const createObjectURL = function (data) {
+  let contentType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+  let forceDataSchema = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   if (URL.createObjectURL && typeof Blob !== "undefined" && !forceDataSchema) {
     return URL.createObjectURL(new Blob([data], {
       type: contentType
@@ -11494,7 +16177,8 @@ let clipCount = 0;
 let maskCount = 0;
 let shadingCount = 0;
 class SVGGraphics {
-  constructor(commonObjs, objs, forceDataSchema = false) {
+  constructor(commonObjs, objs) {
+    let forceDataSchema = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     (0, _display_utils.deprecated)("The SVG back-end is no longer maintained and *may* be removed in the future.");
     this.svgFactory = new _display_utils.DOMSVGFactory();
     this.current = new SVGExtraState();
@@ -11514,7 +16198,8 @@ class SVGGraphics {
       this._operatorIdMapping[_util.OPS[op]] = op;
     }
   }
-  getObject(data, fallback = null) {
+  getObject(data) {
+    let fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     if (typeof data === "string") {
       return data.startsWith("g_") ? this.commonObjs.get(data) : this.objs.get(data);
     }
@@ -12281,7 +16966,8 @@ class SVGGraphics {
       this.endPath();
     }
   }
-  _setStrokeAttributes(element, lineWidthScale = 1) {
+  _setStrokeAttributes(element) {
+    let lineWidthScale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     const current = this.current;
     let dashArray = current.dashArray;
     if (lineWidthScale !== 1 && dashArray.length > 0) {
@@ -12441,8 +17127,197 @@ class SVGGraphics {
 exports.SVGGraphics = SVGGraphics;
 
 /***/ }),
-/* 25 */
-/***/ ((__unused_webpack_module, exports) => {
+/* 187 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var $ = __w_pdfjs_require__(3);
+var $group = __w_pdfjs_require__(188);
+var addToUnscopables = __w_pdfjs_require__(193);
+$({
+ target: 'Array',
+ proto: true
+}, {
+ group: function group(callbackfn) {
+  var thisArg = arguments.length > 1 ? arguments[1] : undefined;
+  return $group(this, callbackfn, thisArg);
+ }
+});
+addToUnscopables('group');
+
+/***/ }),
+/* 188 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var bind = __w_pdfjs_require__(99);
+var uncurryThis = __w_pdfjs_require__(14);
+var IndexedObject = __w_pdfjs_require__(13);
+var toObject = __w_pdfjs_require__(40);
+var toPropertyKey = __w_pdfjs_require__(18);
+var lengthOfArrayLike = __w_pdfjs_require__(64);
+var objectCreate = __w_pdfjs_require__(189);
+var arrayFromConstructorAndList = __w_pdfjs_require__(108);
+var $Array = Array;
+var push = uncurryThis([].push);
+module.exports = function ($this, callbackfn, that, specificConstructor) {
+ var O = toObject($this);
+ var self = IndexedObject(O);
+ var boundFunction = bind(callbackfn, that);
+ var target = objectCreate(null);
+ var length = lengthOfArrayLike(self);
+ var index = 0;
+ var Constructor, key, value;
+ for (; length > index; index++) {
+  value = self[index];
+  key = toPropertyKey(boundFunction(value, index, O));
+  if (key in target)
+   push(target[key], value);
+  else
+   target[key] = [value];
+ }
+ if (specificConstructor) {
+  Constructor = specificConstructor(O);
+  if (Constructor !== $Array) {
+   for (key in target)
+    target[key] = arrayFromConstructorAndList(Constructor, target[key]);
+  }
+ }
+ return target;
+};
+
+/***/ }),
+/* 189 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var anObject = __w_pdfjs_require__(47);
+var definePropertiesModule = __w_pdfjs_require__(190);
+var enumBugKeys = __w_pdfjs_require__(66);
+var hiddenKeys = __w_pdfjs_require__(55);
+var html = __w_pdfjs_require__(192);
+var documentCreateElement = __w_pdfjs_require__(43);
+var sharedKey = __w_pdfjs_require__(54);
+var GT = '>';
+var LT = '<';
+var PROTOTYPE = 'prototype';
+var SCRIPT = 'script';
+var IE_PROTO = sharedKey('IE_PROTO');
+var EmptyConstructor = function () {
+};
+var scriptTag = function (content) {
+ return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT;
+};
+var NullProtoObjectViaActiveX = function (activeXDocument) {
+ activeXDocument.write(scriptTag(''));
+ activeXDocument.close();
+ var temp = activeXDocument.parentWindow.Object;
+ activeXDocument = null;
+ return temp;
+};
+var NullProtoObjectViaIFrame = function () {
+ var iframe = documentCreateElement('iframe');
+ var JS = 'java' + SCRIPT + ':';
+ var iframeDocument;
+ iframe.style.display = 'none';
+ html.appendChild(iframe);
+ iframe.src = String(JS);
+ iframeDocument = iframe.contentWindow.document;
+ iframeDocument.open();
+ iframeDocument.write(scriptTag('document.F=Object'));
+ iframeDocument.close();
+ return iframeDocument.F;
+};
+var activeXDocument;
+var NullProtoObject = function () {
+ try {
+  activeXDocument = new ActiveXObject('htmlfile');
+ } catch (error) {
+ }
+ NullProtoObject = typeof document != 'undefined' ? document.domain && activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame() : NullProtoObjectViaActiveX(activeXDocument);
+ var length = enumBugKeys.length;
+ while (length--)
+  delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
+ return NullProtoObject();
+};
+hiddenKeys[IE_PROTO] = true;
+module.exports = Object.create || function create(O, Properties) {
+ var result;
+ if (O !== null) {
+  EmptyConstructor[PROTOTYPE] = anObject(O);
+  result = new EmptyConstructor();
+  EmptyConstructor[PROTOTYPE] = null;
+  result[IE_PROTO] = O;
+ } else
+  result = NullProtoObject();
+ return Properties === undefined ? result : definePropertiesModule.f(result, Properties);
+};
+
+/***/ }),
+/* 190 */
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
+
+
+var DESCRIPTORS = __w_pdfjs_require__(6);
+var V8_PROTOTYPE_DEFINE_BUG = __w_pdfjs_require__(46);
+var definePropertyModule = __w_pdfjs_require__(45);
+var anObject = __w_pdfjs_require__(47);
+var toIndexedObject = __w_pdfjs_require__(12);
+var objectKeys = __w_pdfjs_require__(191);
+exports.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
+ anObject(O);
+ var props = toIndexedObject(Properties);
+ var keys = objectKeys(Properties);
+ var length = keys.length;
+ var index = 0;
+ var key;
+ while (length > index)
+  definePropertyModule.f(O, key = keys[index++], props[key]);
+ return O;
+};
+
+/***/ }),
+/* 191 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var internalObjectKeys = __w_pdfjs_require__(59);
+var enumBugKeys = __w_pdfjs_require__(66);
+module.exports = Object.keys || function keys(O) {
+ return internalObjectKeys(O, enumBugKeys);
+};
+
+/***/ }),
+/* 192 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var getBuiltIn = __w_pdfjs_require__(24);
+module.exports = getBuiltIn('document', 'documentElement');
+
+/***/ }),
+/* 193 */
+/***/ ((module, __unused_webpack_exports, __w_pdfjs_require__) => {
+
+
+var wellKnownSymbol = __w_pdfjs_require__(34);
+var create = __w_pdfjs_require__(189);
+var defineProperty = (__w_pdfjs_require__(45).f);
+var UNSCOPABLES = wellKnownSymbol('unscopables');
+var ArrayPrototype = Array.prototype;
+if (ArrayPrototype[UNSCOPABLES] === undefined) {
+ defineProperty(ArrayPrototype, UNSCOPABLES, {
+  configurable: true,
+  value: create(null)
+ });
+}
+module.exports = function (key) {
+ ArrayPrototype[UNSCOPABLES][key] = true;
+};
+
+/***/ }),
+/* 194 */
+/***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
 
@@ -12450,6 +17325,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.XfaText = void 0;
+__w_pdfjs_require__(89);
 class XfaText {
   static textContent(xfa) {
     const items = [];
@@ -12494,7 +17370,7 @@ class XfaText {
 exports.XfaText = XfaText;
 
 /***/ }),
-/* 26 */
+/* 195 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -12505,8 +17381,10 @@ Object.defineProperty(exports, "__esModule", ({
 exports.TextLayerRenderTask = void 0;
 exports.renderTextLayer = renderTextLayer;
 exports.updateTextLayer = updateTextLayer;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
+var _display_utils = __w_pdfjs_require__(168);
 const MAX_TEXT_DIVS_TO_RENDER = 100000;
 const DEFAULT_FONT_SIZE = 30;
 const DEFAULT_FONT_ASCENT = 0.8;
@@ -12696,15 +17574,16 @@ function render(task) {
   capability.resolve();
 }
 class TextLayerRenderTask {
-  constructor({
-    textContentSource,
-    container,
-    viewport,
-    textDivs,
-    textDivProperties,
-    textContentItemsStr,
-    isOffscreenCanvasSupported
-  }) {
+  constructor(_ref) {
+    let {
+      textContentSource,
+      container,
+      viewport,
+      textDivs,
+      textDivProperties,
+      textContentItemsStr,
+      isOffscreenCanvasSupported
+    } = _ref;
     this._textContentSource = textContentSource;
     this._isReadableStream = textContentSource instanceof ReadableStream;
     this._container = this._rootContainer = container;
@@ -12787,10 +17666,11 @@ class TextLayerRenderTask {
     let styleCache = Object.create(null);
     if (this._isReadableStream) {
       const pump = () => {
-        this._reader.read().then(({
-          value,
-          done
-        }) => {
+        this._reader.read().then(_ref2 => {
+          let {
+            value,
+            done
+          } = _ref2;
           if (done) {
             capability.resolve();
             return;
@@ -12838,15 +17718,16 @@ function renderTextLayer(params) {
   task._render();
   return task;
 }
-function updateTextLayer({
-  container,
-  viewport,
-  textDivs,
-  textDivProperties,
-  isOffscreenCanvasSupported,
-  mustRotate = true,
-  mustRescale = true
-}) {
+function updateTextLayer(_ref3) {
+  let {
+    container,
+    viewport,
+    textDivs,
+    textDivProperties,
+    isOffscreenCanvasSupported,
+    mustRotate = true,
+    mustRescale = true
+  } = _ref3;
   if (mustRotate) {
     (0, _display_utils.setLayerDimensions)(container, {
       rotation: viewport.rotation
@@ -12872,7 +17753,7 @@ function updateTextLayer({
 }
 
 /***/ }),
-/* 27 */
+/* 196 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -12881,12 +17762,19 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.AnnotationEditorLayer = void 0;
+__w_pdfjs_require__(125);
+__w_pdfjs_require__(136);
+__w_pdfjs_require__(138);
+__w_pdfjs_require__(141);
+__w_pdfjs_require__(143);
+__w_pdfjs_require__(145);
+__w_pdfjs_require__(147);
 var _util = __w_pdfjs_require__(1);
-var _editor = __w_pdfjs_require__(4);
-var _freetext = __w_pdfjs_require__(28);
-var _ink = __w_pdfjs_require__(33);
-var _display_utils = __w_pdfjs_require__(6);
-var _stamp = __w_pdfjs_require__(34);
+var _editor = __w_pdfjs_require__(164);
+var _freetext = __w_pdfjs_require__(197);
+var _ink = __w_pdfjs_require__(202);
+var _display_utils = __w_pdfjs_require__(168);
+var _stamp = __w_pdfjs_require__(203);
 class AnnotationEditorLayer {
   #accessibilityManager;
   #allowClick = false;
@@ -12899,15 +17787,16 @@ class AnnotationEditorLayer {
   #isDisabling = false;
   #uiManager;
   static _initialized = false;
-  constructor({
-    uiManager,
-    pageIndex,
-    div,
-    accessibilityManager,
-    annotationLayer,
-    viewport,
-    l10n
-  }) {
+  constructor(_ref) {
+    let {
+      uiManager,
+      pageIndex,
+      div,
+      accessibilityManager,
+      annotationLayer,
+      viewport,
+      l10n
+    } = _ref;
     const editorTypes = [_freetext.FreeTextEditor, _ink.InkEditor, _stamp.StampEditor];
     if (!AnnotationEditorLayer._initialized) {
       AnnotationEditorLayer._initialized = true;
@@ -12930,7 +17819,8 @@ class AnnotationEditorLayer {
   updateToolbar(mode) {
     this.#uiManager.updateToolbar(mode);
   }
-  updateMode(mode = this.#uiManager.getMode()) {
+  updateMode() {
+    let mode = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.#uiManager.getMode();
     this.#cleanup();
     if (mode === _util.AnnotationEditorType.INK) {
       this.addInkEditorIfNeeded(false);
@@ -13318,9 +18208,10 @@ class AnnotationEditorLayer {
     }
     this.#isCleaningUp = false;
   }
-  render({
-    viewport
-  }) {
+  render(_ref2) {
+    let {
+      viewport
+    } = _ref2;
     this.viewport = viewport;
     (0, _display_utils.setLayerDimensions)(this.div, viewport);
     for (const editor of this.#uiManager.getEditors(this.pageIndex)) {
@@ -13328,9 +18219,10 @@ class AnnotationEditorLayer {
     }
     this.updateMode();
   }
-  update({
-    viewport
-  }) {
+  update(_ref3) {
+    let {
+      viewport
+    } = _ref3;
     this.#uiManager.commitOrRemove();
     this.viewport = viewport;
     (0, _display_utils.setLayerDimensions)(this.div, {
@@ -13349,7 +18241,7 @@ class AnnotationEditorLayer {
 exports.AnnotationEditorLayer = AnnotationEditorLayer;
 
 /***/ }),
-/* 28 */
+/* 197 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -13358,10 +18250,11 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.FreeTextEditor = void 0;
+__w_pdfjs_require__(89);
 var _util = __w_pdfjs_require__(1);
-var _tools = __w_pdfjs_require__(5);
-var _editor = __w_pdfjs_require__(4);
-var _annotation_layer = __w_pdfjs_require__(29);
+var _tools = __w_pdfjs_require__(165);
+var _editor = __w_pdfjs_require__(164);
+var _annotation_layer = __w_pdfjs_require__(198);
 class FreeTextEditor extends _editor.AnnotationEditor {
   #boundEditorDivBlur = this.editorDivBlur.bind(this);
   #boundEditorDivFocus = this.editorDivFocus.bind(this);
@@ -13810,7 +18703,8 @@ class FreeTextEditor extends _editor.AnnotationEditor {
     editor.#initialData = initialData;
     return editor;
   }
-  serialize(isForCopying = false) {
+  serialize() {
+    let isForCopying = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (this.isEmpty()) {
       return null;
     }
@@ -13853,7 +18747,8 @@ class FreeTextEditor extends _editor.AnnotationEditor {
     } = this.#initialData;
     return serialized.value !== value || serialized.fontSize !== fontSize || serialized.rect.some((x, i) => Math.abs(x - rect[i]) >= 1) || serialized.color.some((c, i) => c !== color[i]) || serialized.pageIndex !== pageIndex;
   }
-  #cheatInitialRect(delayed = false) {
+  #cheatInitialRect() {
+    let delayed = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (!this.annotationElementId) {
       return;
     }
@@ -13869,7 +18764,7 @@ class FreeTextEditor extends _editor.AnnotationEditor {
 exports.FreeTextEditor = FreeTextEditor;
 
 /***/ }),
-/* 29 */
+/* 198 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -13878,12 +18773,20 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.StampAnnotationElement = exports.InkAnnotationElement = exports.FreeTextAnnotationElement = exports.AnnotationLayer = void 0;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(125);
+__w_pdfjs_require__(136);
+__w_pdfjs_require__(138);
+__w_pdfjs_require__(141);
+__w_pdfjs_require__(143);
+__w_pdfjs_require__(145);
+__w_pdfjs_require__(147);
 var _util = __w_pdfjs_require__(1);
-var _display_utils = __w_pdfjs_require__(6);
-var _annotation_storage = __w_pdfjs_require__(3);
-var _scripting_utils = __w_pdfjs_require__(30);
-var _displayL10n_utils = __w_pdfjs_require__(31);
-var _xfa_layer = __w_pdfjs_require__(32);
+var _display_utils = __w_pdfjs_require__(168);
+var _annotation_storage = __w_pdfjs_require__(163);
+var _scripting_utils = __w_pdfjs_require__(199);
+var _displayL10n_utils = __w_pdfjs_require__(200);
+var _xfa_layer = __w_pdfjs_require__(201);
 const DEFAULT_TAB_INDEX = 1000;
 const DEFAULT_FONT_SIZE = 9;
 const GetElementsByNameSet = new WeakSet();
@@ -13956,11 +18859,12 @@ class AnnotationElementFactory {
 }
 class AnnotationElement {
   #hasBorder = false;
-  constructor(parameters, {
-    isRenderable = false,
-    ignoreBorder = false,
-    createQuadrilaterals = false
-  } = {}) {
+  constructor(parameters) {
+    let {
+      isRenderable = false,
+      ignoreBorder = false,
+      createQuadrilaterals = false
+    } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     this.isRenderable = isRenderable;
     this.data = parameters.data;
     this.layer = parameters.layer;
@@ -13981,11 +18885,12 @@ class AnnotationElement {
       this._createQuadrilaterals();
     }
   }
-  static _hasPopupData({
-    titleObj,
-    contentsObj,
-    richText
-  }) {
+  static _hasPopupData(_ref) {
+    let {
+      titleObj,
+      contentsObj,
+      richText
+    } = _ref;
     return !!(titleObj?.str || contentsObj?.str || richText?.str);
   }
   get hasPopupData() {
@@ -14082,7 +18987,8 @@ class AnnotationElement {
     }
     return container;
   }
-  setRotation(angle, container = this.container) {
+  setRotation(angle) {
+    let container = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.container;
     if (!this.data.rect) {
       return;
     }
@@ -14318,7 +19224,8 @@ class AnnotationElement {
   render() {
     (0, _util.unreachable)("Abstract method `AnnotationElement.render` called");
   }
-  _getElementsByName(name, skipId = null) {
+  _getElementsByName(name) {
+    let skipId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     const fields = [];
     if (this._fieldObjects) {
       const fieldObj = this._fieldObjects[name];
@@ -14410,7 +19317,8 @@ class AnnotationElement {
   }
 }
 class LinkAnnotationElement extends AnnotationElement {
-  constructor(parameters, options = null) {
+  constructor(parameters) {
+    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     super(parameters, {
       isRenderable: true,
       ignoreBorder: !!options?.ignoreBorder,
@@ -15532,19 +20440,20 @@ class PopupElement {
   #richText = null;
   #titleObj = null;
   #wasVisible = false;
-  constructor({
-    container,
-    color,
-    elements,
-    titleObj,
-    modificationDate,
-    contentsObj,
-    richText,
-    parent,
-    rect,
-    parentRect,
-    open
-  }) {
+  constructor(_ref2) {
+    let {
+      container,
+      color,
+      elements,
+      titleObj,
+      modificationDate,
+      contentsObj,
+      richText,
+      parent,
+      rect,
+      parentRect,
+      open
+    } = _ref2;
     this.#container = container;
     this.#titleObj = titleObj;
     this.#contentsObj = contentsObj;
@@ -15655,10 +20564,11 @@ class PopupElement {
     style.top = `${100 * (popupTop - pageY) / pageHeight}%`;
     this.#container.append(popup);
   }
-  _formatContents({
-    str,
-    dir
-  }) {
+  _formatContents(_ref3) {
+    let {
+      str,
+      dir
+    } = _ref3;
     const p = document.createElement("p");
     p.classList.add("popupContent");
     p.dir = dir;
@@ -16137,14 +21047,15 @@ class AnnotationLayer {
   #accessibilityManager = null;
   #annotationCanvasMap = null;
   #editableAnnotations = new Map();
-  constructor({
-    div,
-    accessibilityManager,
-    annotationCanvasMap,
-    l10n,
-    page,
-    viewport
-  }) {
+  constructor(_ref4) {
+    let {
+      div,
+      accessibilityManager,
+      annotationCanvasMap,
+      l10n,
+      page,
+      viewport
+    } = _ref4;
     this.div = div;
     this.#accessibilityManager = accessibilityManager;
     this.#annotationCanvasMap = annotationCanvasMap;
@@ -16227,9 +21138,10 @@ class AnnotationLayer {
     this.#setAnnotationCanvasMap();
     await this.l10n.translate(layer);
   }
-  update({
-    viewport
-  }) {
+  update(_ref5) {
+    let {
+      viewport
+    } = _ref5;
     const layer = this.div;
     this.viewport = viewport;
     (0, _display_utils.setLayerDimensions)(layer, {
@@ -16271,7 +21183,7 @@ class AnnotationLayer {
 exports.AnnotationLayer = AnnotationLayer;
 
 /***/ }),
-/* 30 */
+/* 199 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -16287,24 +21199,30 @@ function scaleAndClamp(x) {
   return Math.max(0, Math.min(255, 255 * x));
 }
 class ColorConverters {
-  static CMYK_G([c, y, m, k]) {
+  static CMYK_G(_ref) {
+    let [c, y, m, k] = _ref;
     return ["G", 1 - Math.min(1, 0.3 * c + 0.59 * m + 0.11 * y + k)];
   }
-  static G_CMYK([g]) {
+  static G_CMYK(_ref2) {
+    let [g] = _ref2;
     return ["CMYK", 0, 0, 0, 1 - g];
   }
-  static G_RGB([g]) {
+  static G_RGB(_ref3) {
+    let [g] = _ref3;
     return ["RGB", g, g, g];
   }
-  static G_rgb([g]) {
+  static G_rgb(_ref4) {
+    let [g] = _ref4;
     g = scaleAndClamp(g);
     return [g, g, g];
   }
-  static G_HTML([g]) {
+  static G_HTML(_ref5) {
+    let [g] = _ref5;
     const G = makeColorComp(g);
     return `#${G}${G}${G}`;
   }
-  static RGB_G([r, g, b]) {
+  static RGB_G(_ref6) {
+    let [r, g, b] = _ref6;
     return ["G", 0.3 * r + 0.59 * g + 0.11 * b];
   }
   static RGB_rgb(color) {
@@ -16319,17 +21237,20 @@ class ColorConverters {
   static T_rgb() {
     return [null];
   }
-  static CMYK_RGB([c, y, m, k]) {
+  static CMYK_RGB(_ref7) {
+    let [c, y, m, k] = _ref7;
     return ["RGB", 1 - Math.min(1, c + k), 1 - Math.min(1, m + k), 1 - Math.min(1, y + k)];
   }
-  static CMYK_rgb([c, y, m, k]) {
+  static CMYK_rgb(_ref8) {
+    let [c, y, m, k] = _ref8;
     return [scaleAndClamp(1 - Math.min(1, c + k)), scaleAndClamp(1 - Math.min(1, m + k)), scaleAndClamp(1 - Math.min(1, y + k))];
   }
   static CMYK_HTML(components) {
     const rgb = this.CMYK_RGB(components).slice(1);
     return this.RGB_HTML(rgb);
   }
-  static RGB_CMYK([r, g, b]) {
+  static RGB_CMYK(_ref9) {
+    let [r, g, b] = _ref9;
     const c = 1 - r;
     const m = 1 - g;
     const y = 1 - b;
@@ -16340,7 +21261,7 @@ class ColorConverters {
 exports.ColorConverters = ColorConverters;
 
 /***/ }),
-/* 31 */
+/* 200 */
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -16430,7 +21351,9 @@ const NullL10n = {
   async getDirection() {
     return "ltr";
   },
-  async get(key, args = null, fallback = getL10nFallback(key, args)) {
+  async get(key) {
+    let args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    let fallback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : getL10nFallback(key, args);
     return formatL10nValue(fallback, args);
   },
   async translate(element) {}
@@ -16438,7 +21361,7 @@ const NullL10n = {
 exports.NullL10n = NullL10n;
 
 /***/ }),
-/* 32 */
+/* 201 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -16447,7 +21370,8 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.XfaLayer = void 0;
-var _xfa_text = __w_pdfjs_require__(25);
+__w_pdfjs_require__(89);
+var _xfa_text = __w_pdfjs_require__(194);
 class XfaLayer {
   static setupStorage(html, id, element, storage, intent) {
     const storedData = storage.getValue(id, {
@@ -16517,13 +21441,14 @@ class XfaLayer {
         break;
     }
   }
-  static setAttributes({
-    html,
-    element,
-    storage = null,
-    intent,
-    linkService
-  }) {
+  static setAttributes(_ref) {
+    let {
+      html,
+      element,
+      storage = null,
+      intent,
+      linkService
+    } = _ref;
     const {
       attributes
     } = element;
@@ -16646,7 +21571,7 @@ class XfaLayer {
 exports.XfaLayer = XfaLayer;
 
 /***/ }),
-/* 33 */
+/* 202 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -16655,11 +21580,13 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.InkEditor = void 0;
+__w_pdfjs_require__(89);
+__w_pdfjs_require__(2);
 var _util = __w_pdfjs_require__(1);
-var _editor = __w_pdfjs_require__(4);
-var _annotation_layer = __w_pdfjs_require__(29);
-var _display_utils = __w_pdfjs_require__(6);
-var _tools = __w_pdfjs_require__(5);
+var _editor = __w_pdfjs_require__(164);
+var _annotation_layer = __w_pdfjs_require__(198);
+var _display_utils = __w_pdfjs_require__(168);
+var _tools = __w_pdfjs_require__(165);
 class InkEditor extends _editor.AnnotationEditor {
   #baseHeight = 0;
   #baseWidth = 0;
@@ -17337,7 +22264,8 @@ class InkEditor extends _editor.AnnotationEditor {
   #getPadding() {
     return this.#disableEditing ? Math.ceil(this.thickness * this.parentScale) : 0;
   }
-  #fitToContent(firstTime = false) {
+  #fitToContent() {
+    let firstTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     if (this.isEmpty()) {
       return;
     }
@@ -17438,7 +22366,7 @@ class InkEditor extends _editor.AnnotationEditor {
 exports.InkEditor = InkEditor;
 
 /***/ }),
-/* 34 */
+/* 203 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
 
 
@@ -17447,10 +22375,12 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports.StampEditor = void 0;
+__w_pdfjs_require__(149);
+__w_pdfjs_require__(152);
 var _util = __w_pdfjs_require__(1);
-var _editor = __w_pdfjs_require__(4);
-var _display_utils = __w_pdfjs_require__(6);
-var _annotation_layer = __w_pdfjs_require__(29);
+var _editor = __w_pdfjs_require__(164);
+var _display_utils = __w_pdfjs_require__(168);
+var _annotation_layer = __w_pdfjs_require__(198);
 class StampEditor extends _editor.AnnotationEditor {
   #bitmap = null;
   #bitmapId = null;
@@ -17489,7 +22419,8 @@ class StampEditor extends _editor.AnnotationEditor {
       bitmapFile: item.getAsFile()
     });
   }
-  #getBitmapFetched(data, fromId = false) {
+  #getBitmapFetched(data) {
+    let fromId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     if (!data) {
       this.remove();
       return;
@@ -17773,7 +22704,9 @@ class StampEditor extends _editor.AnnotationEditor {
     }
     return editor;
   }
-  serialize(isForCopying = false, context = null) {
+  serialize() {
+    let isForCopying = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    let context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     if (this.isEmpty()) {
       return null;
     }
@@ -17846,7 +22779,7 @@ exports.StampEditor = StampEditor;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __w_pdfjs_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __w_pdfjs_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -18127,14 +23060,14 @@ Object.defineProperty(exports, "version", ({
   }
 }));
 var _util = __w_pdfjs_require__(1);
-var _api = __w_pdfjs_require__(2);
-var _display_utils = __w_pdfjs_require__(6);
-var _text_layer = __w_pdfjs_require__(26);
-var _annotation_editor_layer = __w_pdfjs_require__(27);
-var _tools = __w_pdfjs_require__(5);
-var _annotation_layer = __w_pdfjs_require__(29);
-var _worker_options = __w_pdfjs_require__(14);
-var _xfa_layer = __w_pdfjs_require__(32);
+var _api = __w_pdfjs_require__(124);
+var _display_utils = __w_pdfjs_require__(168);
+var _text_layer = __w_pdfjs_require__(195);
+var _annotation_editor_layer = __w_pdfjs_require__(196);
+var _tools = __w_pdfjs_require__(165);
+var _annotation_layer = __w_pdfjs_require__(198);
+var _worker_options = __w_pdfjs_require__(176);
+var _xfa_layer = __w_pdfjs_require__(201);
 const pdfjsVersion = '3.11.174';
 const pdfjsBuild = 'ce8716743';
 })();
