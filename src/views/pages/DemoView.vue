@@ -815,7 +815,7 @@ const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // The workerSrc property shall be specified.
 
 // Refernce URL - "https://mozilla.github.io/pdf.js/build/pdf.worker.js";
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
 
 const fileReader = new FileReader();
 
