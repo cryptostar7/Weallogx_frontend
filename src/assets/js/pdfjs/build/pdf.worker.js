@@ -19,7 +19,7 @@
  * @licend The above is the entire license notice for the
  * JavaScript code in this page
  */
-/* eslint-disable */
+
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = root.pdfjsWorker = factory();
