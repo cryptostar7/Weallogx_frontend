@@ -1403,21 +1403,20 @@ table.index-strategy-table tr th {
 .tax-details-each-bars.barClr6{
     background: #BAB42C;
 }
-
-
-
 .common-modal .modal-dialog.tax-score-preview-modal {
     max-width: 975px !important;
     margin: 1.5rem auto !important;
     height: auto !important;
 }
-
 .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
     background-color: transparent;
 }
 .common-modal .index-strategy-inputs-div{
     padding-bottom: 60px;
-    }
+}
 .common-modal .run-reset-btn-div{
-padding-bottom: 40px!important;
+    padding-bottom: 40px!important;
+}
+.index-strategy-table tbody tr td:nth-child(3){
+    word-break: break-word;
 }
