@@ -232,7 +232,14 @@
                             </div>
 
                           <div class="run-reset-btn-div">
+
+                            <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`"
+                               @click="generateTaxScorecard">Run</a>
+
+<!--
                               <router-link to="/tax-risk-analysis" class="run-button /*disabled*/">Run</router-link>
+ -->
+
                               <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#resetModal"
                                   class="reset-button">Reset</a>
                           </div>
@@ -246,16 +253,65 @@
     </section>
   </div>
 </template>
+
 <script>
+
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
+import { post } from "../../network/requests";
+import { getUrl } from "../../network/url";
+import { authHeader } from "../../services/helper";
+
 export default {
+
   components: {
     NavbarComponent,
     LeftSidebarComponent,
   },
-  mounted(){
-    
+
+  mounted() {    
   },
+
+  data() {
+    return {
+        runButtonEnabled: true
+    }
+  },
+
+  methods: {
+
+    validateForm: function () {
+      let valid = true
+      return valid
+    },
+
+    generateTaxScorecard: function() {
+
+      console.debug("submitting tax scorecard form")
+
+      if (!this.validateForm()) {
+        console.error("form invalid")
+        return false;
+      }
+
+      this.$store.dispatch("loader", true);
+
+      post(getUrl("tax_scorecard"), {}, authHeader())
+        .then((response) => {
+          this.$store.dispatch("loader", false)
+        })
+        .catch((error) => {
+          console.error(error)
+          this.$store.dispatch("loader", false)
+        })
+
+
+
+
+    }
+
+  }
+
 };
+
 </script>

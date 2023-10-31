@@ -123,6 +123,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/historical/`
     case 'isc_calculate':
       return `${baseUrl}/isc/calculate/`
+    case 'tax_scorecard':
+      return `${baseUrl}/scorecard/`
     default:
       return baseUrl;
   }
