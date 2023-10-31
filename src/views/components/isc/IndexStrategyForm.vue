@@ -346,7 +346,7 @@
             class="onlyPositiveNum"
             @keyup="(e) => (PerformanceMultiplier = e.target.value)"
             min="1"
-            max="100"
+            max="10"
           />
         </div>
       </div>

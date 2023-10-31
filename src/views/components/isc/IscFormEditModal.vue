@@ -6,7 +6,12 @@
     aria-labelledby="saveRunModalLabel"
     aria-hidden="true"
   >
-    <a type="button" data-bs-dismiss="modal" class="preview-modal-close" ref="modalCloseRef">
+    <a
+      type="button"
+      data-bs-dismiss="modal"
+      class="preview-modal-close"
+      ref="modalCloseRef"
+    >
       <svg
         width="40"
         height="45"
@@ -574,9 +579,7 @@
                   :activeTab="activeTab"
                   @clearError="(index, tab) => clearError(index, 1)"
                 />
-                <a
-                  @click="submitHandler"
-                  class="calc-preview-save-run-button"
+                <a @click="submitHandler" class="calc-preview-save-run-button"
                   >Save & Run</a
                 >
               </div>
@@ -855,17 +858,17 @@ export default {
         allocation: strategy[index].allocation,
         index: strategy[index].index,
         segment_duration: strategy[index].segment_duration,
-        cap_rate: strategy[index].cap_rate,
-        margin: strategy[index].margin,
-        par_rate: strategy[index].par_rate,
-        floor: strategy[index].floor,
-        performance_multiplier: strategy[index].performance_multiplier,
+        cap_rate: (strategy[index].cap_rate || 1000) / 100,
+        margin: (strategy[index].margin || 0) / 100,
+        par_rate: (strategy[index].par_rate || 1) / 100,
+        floor: (strategy[index].floor || 0) / 100,
+        performance_multiplier: strategy[index].performance_multiplier || 1,
         performance_multiplier_start_year:
           strategy[index].performance_multiplier_start_year,
-        flat_credit_bonus: strategy[index].flat_credit_bonus,
+        flat_credit_bonus: (strategy[index].flat_credit_bonus || 0) / 100,
         flat_credit_bonus_start_year:
           strategy[index].flat_credit_bonus_start_year,
-        fee: strategy[index].fee,
+        fee: (strategy[index].fee || 0) / 100,
       };
     },
     clearError: function (key, tab = false) {
@@ -882,7 +885,7 @@ export default {
       let end_year = document.getElementById(`index_1_endYear`).value;
       let maxYear = Number(end_year) - Number(start_year);
 
-      if (strategy.cap_rate !== "" && strategy.cap_rate < 1) {
+      if (strategy.cap_rate !== "" && strategy.cap_rate * 100 < 1) {
         this.errors[tab].cap_rate = "At least 1% value is required.";
         valid = false;
       }
@@ -892,7 +895,7 @@ export default {
         valid = false;
       }
 
-      if (strategy.par_rate !== "" && strategy.par_rate < 1) {
+      if (strategy.par_rate !== "" && strategy.par_rate * 100 < 1) {
         this.errors[tab].par_rate = "At least 1% value is required.";
         valid = false;
       }
@@ -902,12 +905,15 @@ export default {
         valid = false;
       }
 
-      if (strategy.flat_credit_bonus !== "" && strategy.flat_credit_bonus < 0) {
+      if (
+        strategy.flat_credit_bonus !== "" &&
+        strategy.flat_credit_bonus * 100 < 0
+      ) {
         this.errors[tab].flat_credit_bonus = "At least 0 value is required.";
         valid = false;
       }
 
-      if (strategy.fee !== "" && strategy.fee < 0) {
+      if (strategy.fee !== "" && strategy.fee * 100 < 0) {
         this.errors[tab].fee = "At least 0 value is required.";
         valid = false;
       }
@@ -971,8 +977,8 @@ export default {
         end_year: strategy[0].end_year,
         index_vehicle: {
           type: vehicle.vehicle_type,
-          tax_rate: vehicle.tax_rate,
-          fee: vehicle.vehicle_fee,
+          tax_rate: vehicle.tax_rate / 100,
+          fee: vehicle.vehicle_fee / 100,
         },
         strategies: [this.getStrategyObject(0)],
       };
