@@ -1069,8 +1069,9 @@ export default {
   mounted() {
     let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
     this.beginningBalance = Number(oldData.beginning_balance).toLocaleString();
-    this.taxRate = oldData.index_vehicle.tax_rate;
-    this.vehicleFee = oldData.index_vehicle.fee;
+    console.log(oldData);
+    this.taxRate =  this.$numFormat(oldData.index_vehicle.tax_rate * 100);
+    this.vehicleFee = this.$numFormat(oldData.index_vehicle.fee * 100);
     let v_type = "Taxable";
     if (oldData.index_vehicle.type === "pre-tax") {
       v_type = "Pre-Tax";
@@ -1081,8 +1082,8 @@ export default {
     this.$refs.beginningBalanceRef.value = Number(
       oldData.beginning_balance
     ).toLocaleString();
-    this.$refs.taxRateRef.value = oldData.index_vehicle.tax_rate;
-    this.$refs.vehicleFeeRef.value = oldData.index_vehicle.fee;
+    this.$refs.taxRateRef.value = this.taxRate;
+    this.$refs.vehicleFeeRef.value = this.vehicleFee;
 
     if (oldData.strategies[0]) {
       this.tabs.tab1 = true;

@@ -907,9 +907,14 @@ export default {
 
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
-          let data = JSON.parse(
-            response.data.replaceAll("NaN", "0").replaceAll("Infinity", "0")
-          );
+          console.log("response.......");
+          console.log(response);
+          console.log(response.data);
+          let data = response.data;
+
+          // let data = JSON.parse(
+          //   response.data.replaceAll("NaN", "0").replaceAll("Infinity", "0")
+          // );
           this.$store.dispatch("loader", false);
           localStorage.setItem(
             "isc_calculate",
