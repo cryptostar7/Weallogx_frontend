@@ -679,12 +679,6 @@ export default {
       StrategyFee: "",
     };
   },
-  methods: {
-    testFunction: function () {
-      console.log(this.segment);
-      console.log(document.getElementById("segmentDuration11").checked);
-    },
-  },
   computed: {
     years() {
       let array = [];

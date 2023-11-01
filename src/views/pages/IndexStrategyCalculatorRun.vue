@@ -483,8 +483,8 @@
                                 <p>
                                   ${{
                                     index_summary.ending_balance
-                                      ? index_summary.ending_balance.toFixed(2)
-                                      : ""
+                                      ? $numFormat(index_summary.ending_balance)
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -497,8 +497,8 @@
                                 <p>
                                   ${{
                                     index_summary.total_taxes
-                                      ? index_summary.total_taxes.toFixed(2)
-                                      : ""
+                                      ? $numFormat(index_summary.total_taxes)
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -750,10 +750,8 @@
                                 <p>
                                   ${{
                                     strategy_summary.ending_balance
-                                      ? strategy_summary.ending_balance.toFixed(
-                                          2
-                                        )
-                                      : ""
+                                      ? $numFormat(strategy_summary.ending_balance)
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -766,8 +764,8 @@
                                 <p>
                                   ${{
                                     strategy_summary.total_taxes
-                                      ? strategy_summary.total_taxes.toFixed(2)
-                                      : ""
+                                      ? $numFormat(strategy_summary.total_taxes)
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -1039,7 +1037,7 @@
                                 <p>
                                   ${{
                                     index_summary.ending_balance
-                                      ? index_summary.ending_balance.toFixed(2)
+                                      ? $numFormat(index_summary.ending_balance)
                                       : ""
                                   }}
                                 </p>
@@ -1053,7 +1051,7 @@
                                 <p>
                                   ${{
                                     index_summary.total_taxes
-                                      ? index_summary.total_taxes.toFixed(2)
+                                      ? $numFormat(index_summary.total_taxes)
                                       : ""
                                   }}
                                 </p>

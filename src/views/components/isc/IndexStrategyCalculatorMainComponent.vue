@@ -540,12 +540,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function () {
-      console.log(document.getElementById("weighting_index1").value);
-      console.log(document.getElementById("weighting_index2").value);
-      console.log(document.getElementById("weighting_index3").value);
-      console.log(this.weighting);
-    },
     setActiveTab: function (tab) {
       if (tab === 1) {
         this.tabs.tab1 = true;
@@ -907,14 +901,13 @@ export default {
 
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
-          console.log("response.......");
           console.log(response);
-          console.log(response.data);
           let data = response.data;
 
           // let data = JSON.parse(
           //   response.data.replaceAll("NaN", "0").replaceAll("Infinity", "0")
           // );
+          
           this.$store.dispatch("loader", false);
           localStorage.setItem(
             "isc_calculate",
@@ -923,7 +916,6 @@ export default {
           this.$router.push(`/index-strategy-calculator-run`);
         })
         .catch((error) => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
