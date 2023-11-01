@@ -232,15 +232,14 @@ export default {
 
   data() {
     return {
-      ira_backend: {
-        rmd_taxes: 0
-      }
+      ira_backend: {},
+      roth_backend: {}
     }
   },
 
   beforeMount() {
 
-    let data = JSON.parse(localStorage.getItem("tax_scorecard"))
+    let data = this.$store.state.data.tax_scorecard.results
 
     if (data) {
 

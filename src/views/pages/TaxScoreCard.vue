@@ -63,7 +63,7 @@
                                                 <label for="beginningBalance">IRA or 401K Balance</label>
                                                 <div class="index-strategy-each-inputs dollar">
                                                     <span>$</span>
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.ira_or_401k_balance" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -236,12 +236,9 @@
                             <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`"
                                @click="generateTaxScorecard">Run</a>
 
-<!--
-                              <router-link to="/tax-risk-analysis" class="run-button /*disabled*/">Run</router-link>
- -->
+                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#resetModal"
+                                class="reset-button">Reset</a>
 
-                              <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#resetModal"
-                                  class="reset-button">Reset</a>
                           </div>
                       </div>
                   </section>
@@ -256,11 +253,12 @@
 
 <script>
 
-import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
-import { post } from "../../network/requests";
-import { getUrl } from "../../network/url";
-import { authHeader } from "../../services/helper";
+import { mapState } from "vuex"
+import NavbarComponent from "./../components/common/NavbarComponent.vue"
+import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
+import { post } from "../../network/requests"
+import { getUrl } from "../../network/url"
+import { authHeader } from "../../services/helper"
 
 export default {
 
@@ -269,36 +267,26 @@ export default {
     LeftSidebarComponent,
   },
 
-  mounted() {    
+  computed: {
+    ...mapState({
+        inputs: state => state.data.tax_scorecard.inputs,
+    })
   },
 
   data() {
     return {
-
-      runButtonEnabled: true,
-
-      inputs: {
-        "age": 62,
-        "rmd_age": 73,
-        "ira_or_401k_balance": 500000,
-        "rate_of_return": 0.05,
-        "initial_tax_rate": 0.2,
-        "plan_through_age": 95,
-        "roth_conversion_years": 5,
-        "second_tax_rate": 0.24,
-        "tax_change_year": 3,
-        "social_security_amount": 33000,
-        "social_security_age": 67,
-        "social_security_cola": 0.015
-      }
-  
+      runButtonEnabled: true,  
     }
   },
 
   methods: {
 
-    validateForm: function () {
+    validateForm: function() {
+
       let valid = true
+
+    //   console.log("*************", this.inputs)
+
       return valid
     },
 
@@ -314,7 +302,7 @@ export default {
       post(getUrl("tax_scorecard"), this.inputs, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false)
-          localStorage.setItem("tax_scorecard", JSON.stringify(response.data))
+          this.$store.dispatch("updateTaxScorecardResults", response.data)
           this.$router.push("/tax-risk-analysis")
         })
         .catch((error) => {
@@ -322,7 +310,6 @@ export default {
           this.$store.dispatch("loader", false)
         })
     }
-
   }
 
 };

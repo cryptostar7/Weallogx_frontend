@@ -175,6 +175,26 @@ const store = createStore({
             current_plan: false,
             active_scenario: false,
             templates: [],
+
+            tax_scorecard: {
+
+                inputs: {
+                    age: 62,
+                    rmd_age: 73,
+                    ira_or_401k_balance: 500000,
+                    rate_of_return: 0.05,
+                    initial_tax_rate: 0.2,
+                    plan_through_age: 95,
+                    roth_conversion_years: 5,
+                    second_tax_rate: 0.24,
+                    tax_change_year: 3,
+                    social_security_amount: 33000,
+                    social_security_age: 67,
+                    social_security_cola: 0.015                
+                },
+
+                results: JSON.parse(localStorage.getItem("tax_scorecard")) || {}
+            },
         },
         app: {
             themes: [
@@ -356,6 +376,9 @@ const store = createStore({
         setShareReportData(state, payload) {
             state.data.share_report[payload.name] = payload.data;
         },
+        setTaxScorecardResults(state, payload) {
+            state.data.tax_scorecard.results = payload;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -464,6 +487,12 @@ const store = createStore({
         },
         shareReportData(context, payload) {
             context.commit('setShareReportData', payload);
+        },
+
+        // TODO - Should this go in helper.js (or somewhere else)?
+        updateTaxScorecardResults(context, payload) {
+            localStorage.setItem("tax_scorecard", JSON.stringify(payload))
+            context.commit('setTaxScorecardResults', payload);
         },
     }
 })
