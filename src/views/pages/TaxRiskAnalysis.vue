@@ -132,32 +132,32 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">{{iraBackend.rmd_taxes}}</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">{{ira_backend.rmd_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_2">73,500</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_2">{{ira_backend.reinvestment_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_3">244,000</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_3">{{ira_backend.inheritance_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_4">90,000</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_4">{{ira_backend.social_security_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_5">534,500</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_5">{{ira_backend.total_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -165,37 +165,37 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">0</span></label></div>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">{{roth_backend.rmd_taxes}}</span></label></div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">0</span></label>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">{{roth_backend.reinvestment_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">0</span></label>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">{{roth_backend.inheritance_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">0</span></label>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{roth_backend.social_security_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">Roth Conversion Taxes</p>
                                                                     <div class="tax-details-each-bars barClr6 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_5">116,900</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_5">{{roth_backend.roth_conversion_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_6">116,900</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_6">{{roth_backend.total_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -232,7 +232,7 @@ export default {
 
   data() {
     return {
-      iraBackend: {
+      ira_backend: {
         rmd_taxes: 0
       }
     }
@@ -246,10 +246,8 @@ export default {
 
       console.debug("tax_scorecard", data)
 
-      this.iraBackend = data.ira_backend
-      this.rothBackend = data.roth_backend
-
-      this.updateBarWidths()
+      this.ira_backend = data.ira_backend
+      this.roth_backend = data.roth_backend
 
     } else {
       this.$router.push(`/tax-score-card`)
