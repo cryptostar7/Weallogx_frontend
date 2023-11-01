@@ -187,7 +187,7 @@ const store = createStore({
                     plan_through_age: 95,
                     roth_conversion_years: 5,
                     second_tax_rate: 0.24,
-                    tax_change_year: 3,
+                    switch_year: 3,
                     social_security_amount: 33000,
                     social_security_age: 67,
                     social_security_cola: 0.015                
