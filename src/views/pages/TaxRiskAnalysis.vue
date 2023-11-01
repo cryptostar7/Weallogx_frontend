@@ -71,7 +71,10 @@
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
-                                                                <p class="right-text">20% | 24%</p>
+                                                                <p class="right-text">
+                                                                    {{$toPercent(inputs.initial_tax_rate)}}% |
+                                                                    {{$toPercent(inputs.second_tax_rate)}}%
+                                                                </p>
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text total">Total Taxes</p>
@@ -220,8 +223,9 @@
 
 <script>
 
-import NavbarComponent from "./../components/common/NavbarComponent.vue";
-import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
+import { mapState } from "vuex"
+import NavbarComponent from "./../components/common/NavbarComponent.vue"
+import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
 
 export default {
 
@@ -230,24 +234,19 @@ export default {
     LeftSidebarComponent,
   },
 
-  data() {
-    return {
-      ira_backend: {},
-      roth_backend: {}
-    }
+  computed: {
+    ...mapState({
+        inputs: state => state.data.tax_scorecard.inputs,
+        ira_backend: state => state.data.tax_scorecard.results.ira_backend,
+        roth_backend: state => state.data.tax_scorecard.results.roth_backend,
+    })
   },
 
   beforeMount() {
-
-    let data = this.$store.state.data.tax_scorecard.results
-
-    if (data) {
-
-      console.debug("tax_scorecard", data)
-
-      this.ira_backend = data.ira_backend
-      this.roth_backend = data.roth_backend
-
+    if (this.ira_backend && this.roth_backend) {
+      console.debug("inputs", this.inputs)
+      console.debug("ira_backend", this.ira_backend)
+      console.debug("roth_backend", this.roth_backend)
     } else {
       this.$router.push(`/tax-score-card`)
     }

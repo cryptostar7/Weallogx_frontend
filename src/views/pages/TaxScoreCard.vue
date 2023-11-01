@@ -69,7 +69,7 @@
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
                                                 <label for="beginningBalance">Age</label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.age" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -89,7 +89,7 @@
                                                         <span>What year will RMDs start?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" value="0" required>
+                                                    <input type="text" v-model="inputs.rmd_age" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -109,7 +109,7 @@
                                                         <span>Through what age should the analysis run?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.plan_through_age" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -130,14 +130,14 @@
                                                             capital</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.rate_of_return" required>
                                                     <span>%</span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
                                                 <label for="beginningBalance">Initial Tax Rate</label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.initial_tax_rate" required>
                                                     <span>%</span>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                                         class="optional-label">(optional)
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.second_tax_rate" required>
                                                     <span>%</span>
                                                 </div>
                                             </div>
@@ -168,20 +168,20 @@
                                                             effect?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.switch_year" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
                                                 <label for="beginningBalance">Social Security Amount (Annual)</label>
                                                 <div class="index-strategy-each-inputs dollar">
                                                     <span>$</span>
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.social_security_amount" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
                                                 <label for="beginningBalance">Social Security Age</label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.social_security_age" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -202,7 +202,7 @@
                                                             effect?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.social_security_cola" required>
                                                     <span>%</span>
                                                 </div>
                                             </div>
@@ -223,7 +223,7 @@
                                                         <span>Convert to a Roth IRA over How many years?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
-                                                    <input type="text" required>
+                                                    <input type="text" v-model="inputs.roth_conversion_years" required>
                                                 </div>
                                             </div>
                                         </div>
