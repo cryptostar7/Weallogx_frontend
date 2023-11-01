@@ -132,7 +132,7 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">127,000</span></label>
+                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">{{iraBackend.rmd_taxes}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
@@ -217,17 +217,50 @@
     </section>
   </div>
 </template>
+
 <script>
+
 import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
+
 export default {
+
   components: {
     NavbarComponent,
     LeftSidebarComponent,
   },
-  mounted(){
 
-    /* -------------------------------------------
+  data() {
+    return {
+      iraBackend: {
+        rmd_taxes: 0
+      }
+    }
+  },
+
+  mounted() {
+
+    let data = JSON.parse(localStorage.getItem("tax_scorecard"))
+
+    if (data) {
+
+      console.debug("tax_scorecard", data)
+
+      this.iraBackend = data.ira_backend
+      this.rothBackend = data.roth_backend
+
+      this.updateBarWidths()
+
+    } else {
+      this.$router.push(`/tax-score-card`)
+    }
+  },
+
+  methods: {
+
+    updateBarWidths() {
+
+        /* -------------------------------------------
          Bar Width change according to value Start
         ----------------------------- ---------------*/
         let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');
@@ -269,9 +302,10 @@ export default {
             }
         }
         /* -------------------------------------------
-          Bar Width change according to value End
-          ----------------------------- ---------------*/  
-    
-  },
-};
+        Bar Width change according to value End
+        ----------------------------- ---------------*/  
+    }
+  }
+}
+
 </script>
