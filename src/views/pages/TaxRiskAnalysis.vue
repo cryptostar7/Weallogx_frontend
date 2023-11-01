@@ -238,7 +238,7 @@ export default {
     }
   },
 
-  mounted() {
+  beforeMount() {
 
     let data = JSON.parse(localStorage.getItem("tax_scorecard"))
 
@@ -256,8 +256,13 @@ export default {
     }
   },
 
+  mounted() {
+      this.updateBarWidths()
+  },
+
   methods: {
 
+    // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     updateBarWidths() {
 
         /* -------------------------------------------
