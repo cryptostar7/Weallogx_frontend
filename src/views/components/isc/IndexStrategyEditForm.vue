@@ -700,7 +700,7 @@ export default {
         inputs.strategies[0].performance_multiplier_start_year;
       this.fcStartYear = inputs.strategies[0].flat_credit_bonus_start_year;
       this.indexStrategy = inputs.strategies[0].index;
-      let cap_rate = inputs.strategies[0].cap_rate * 100;
+      let cap_rate = this.$numFormat(inputs.strategies[0].cap_rate * 100);
       this.capRate = cap_rate >= 1000 ? "" : cap_rate;
       this.margin = inputs.strategies[0].margin * 100;
       this.parRate = inputs.strategies[0].par_rate * 100;
