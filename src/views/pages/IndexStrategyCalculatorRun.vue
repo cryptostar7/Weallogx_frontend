@@ -195,7 +195,7 @@
                                           </td>
                                           <td>
                                             ${{
-                                              Number(item.net_balance || 0).toFixed(0)
+                                              $numFormat(item.net_balance)
                                             }}
                                           </td>
                                         </tr>
@@ -285,7 +285,7 @@
                                           </td>
                                           <td>
                                             ${{
-                                              Number(item.net_balance || 0).toFixed(0)
+                                              $numFormat(item.net_balance)
                                             }}
                                           </td>
                                         </tr>
