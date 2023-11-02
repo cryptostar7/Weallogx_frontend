@@ -67,7 +67,7 @@
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Age Range</p>
-                                                                <p class="right-text">65 - 95</p>
+                                                                <p class="right-text">{{inputs.age}} - {{inputs.plan_through_age}}</p>
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
@@ -91,15 +91,18 @@
                                                         <div class="card-inner-div">
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Roth Conversion Period</p>
-                                                                <p class="right-text">5 Years</p>
+                                                                <p class="right-text">{{inputs.roth_conversion_years}}</p>
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Age Range</p>
-                                                                <p class="right-text">65 - 95</p>
+                                                                <p class="right-text">{{inputs.age}} - {{inputs.plan_through_age}}</p>
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
-                                                                <p class="right-text">20% | 24%</p>
+                                                                <p class="right-text">
+                                                                    {{$toPercent(inputs.initial_tax_rate)}}% |
+                                                                    {{$toPercent(inputs.second_tax_rate)}}%
+                                                                </p>
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text total">Total Taxes</p>
