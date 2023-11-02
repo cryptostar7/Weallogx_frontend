@@ -370,8 +370,6 @@ export default {
       let strategy_net_balance = result.strategy_results.map(
         (i) => i.net_balance
       );
-<<<<<<< HEAD
-
 
       let pointRadiusArr = new Array(years.length).fill(0);
       pointRadiusArr[years.length-1] = 14;
@@ -381,15 +379,6 @@ export default {
 
        let pointStyleArr1 = new Array(years.length).fill("circle");
       pointStyleArr1[years.length-1] = pointImageArr[1];
-
-=======
- 
-      let pointRadius = [];
-
-      for (let i = 1; i <= years.length; i++) {
-        pointRadius.push(i < years.length ? 0 : 14); 
-      } 
->>>>>>> 190d4b8e0f7976173623183be1f11f8bd51d2955
 
       var config = {
         type: "line",
@@ -402,26 +391,12 @@ export default {
               backgroundColor: lineColors[0],
               borderColor: lineColors[0],
               data: index_net_balance,
-<<<<<<< HEAD
               pointStyle: pointStyleArr0,
               pointRadius: pointRadiusArr, // Last dot
-=======
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[0],
-              ],
-              pointRadius: pointRadius, // Last dot
->>>>>>> 190d4b8e0f7976173623183be1f11f8bd51d2955
               borderWidth: 3,
               pointBackgroundColor: "transparent",
               pointHoverBackgroundColor: lineColors[1],
               pointBorderColor: "transparent",
-              // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
             {
               label: false,
@@ -429,26 +404,12 @@ export default {
               backgroundColor: lineColors[1],
               borderColor: lineColors[1],
               data: strategy_net_balance,
-<<<<<<< HEAD
               pointStyle: pointStyleArr1,
               pointRadius: pointRadiusArr, // Last dot
-=======
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[1],
-              ],
-              pointRadius: pointRadius, // Last dot
->>>>>>> 190d4b8e0f7976173623183be1f11f8bd51d2955
               borderWidth: 3,
               pointBackgroundColor: "transparent",
               pointHoverBackgroundColor: lineColors[0],
               pointBorderColor: "transparent",
-              // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
           ],
         },
