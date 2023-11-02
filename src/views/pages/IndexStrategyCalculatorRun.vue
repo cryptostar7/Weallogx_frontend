@@ -21,7 +21,7 @@
                       >
                     </div>
                     <div class="index-strategy-table-content-div more-padding">
-                      <div class="index-strategy-content-inner-div shadow-none">
+                      <div class="index-strategy-content-inner-div shadow-none" id="iscContentDiv">
                         <div class="d-flex justify-content-center">
                           <div
                             class="nav calc-tab-graph-tab nav-pills"

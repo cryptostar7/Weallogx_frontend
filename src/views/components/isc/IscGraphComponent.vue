@@ -370,6 +370,18 @@ export default {
       let strategy_net_balance = result.strategy_results.map(
         (i) => i.net_balance
       );
+
+
+      let pointRadiusArr = new Array(years.length).fill(0);
+      pointRadiusArr[years.length-1] = 14;
+
+      let pointStyleArr0 = new Array(years.length).fill("circle");
+      pointStyleArr0[years.length-1] = pointImageArr[0];
+
+       let pointStyleArr1 = new Array(years.length).fill("circle");
+      pointStyleArr1[years.length-1] = pointImageArr[1];
+
+
       var config = {
         type: "line",
         data: {
@@ -381,19 +393,11 @@ export default {
               backgroundColor: lineColors[0],
               borderColor: lineColors[0],
               data: index_net_balance,
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[0],
-              ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointStyle: pointStyleArr0,
+              pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: lineColors[0],
+              pointHoverBackgroundColor: lineColors[1],
               pointBorderColor: "transparent",
               // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
@@ -403,19 +407,11 @@ export default {
               backgroundColor: lineColors[1],
               borderColor: lineColors[1],
               data: strategy_net_balance,
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[1],
-              ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointStyle: pointStyleArr1,
+              pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: lineColors[1],
+              pointHoverBackgroundColor: lineColors[0],
               pointBorderColor: "transparent",
               // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
@@ -426,10 +422,6 @@ export default {
             mode: "nearest",
             intersect: false,
           },
-          // hover: {
-          //   mode: 'nearest',
-          //   intersect: true
-          // },
           responsive: true,
           tooltips: {
             enabled: true,
@@ -476,7 +468,7 @@ export default {
           layout: {
             padding: {
               top: 35,
-              right: 10,
+              right: 100,
             },
           },
           plugins: {
@@ -501,8 +493,9 @@ export default {
       };
 
       const chartBox = document.querySelector(
-        ".index-strategy-content-inner-div"
+        "#iscContentDiv"
       );
+      console.log(chartBox);
       let chartBoxX = chartBox.getBoundingClientRect().x;
       let chartBoxY = chartBox.getBoundingClientRect().y;
       let n = config.data.datasets[0].data.length - 1;
@@ -566,6 +559,7 @@ export default {
         dropdownBox
           .querySelector(".tooltipbtn")
           .addEventListener("click", function () {
+            console.log("hello");
             let id = dropdownBox.getAttribute("id");
             let idx = +id[id.length - 1];
             let n = config.data.datasets[0].data.length - 1;
@@ -608,16 +602,20 @@ export default {
           { intersect: true },
           true
         );
+        
         if (points[0]) {
+
+          console.log("hello", points);
           points.forEach((point) => {
             let currentIndex = point.datasetIndex;
-            if (point.index === config.data.labels.length - 2) {
+            if (point.index === config.data.labels.length - 1) {
               const dropdownBox = document.getElementById(
                 `chartDropdown${currentIndex}`
               );
               dropdownBox.classList.toggle("d-none");
               dropdownBox.classList.toggle("d-block");
               dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
+              console.log(chartBoxX, layerX);
               dropdownStatus.isOpen = true;
               if (currentIndex == 0) {
                 dropdownStatus.idx0 = 0;
@@ -630,7 +628,7 @@ export default {
               dropdownBox.style.top =
                 pageY -
                 Math.floor(dropdownBox.getBoundingClientRect().height) -
-                16 +
+                12 +
                 "px";
               window.iscChart.update();
               setTimeout(() => {
