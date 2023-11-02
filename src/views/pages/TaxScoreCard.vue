@@ -14,7 +14,14 @@
                                 <h1>Tax Scorecard</h1>
                             </div>
 
-                            <tax-score-card-component />
+                            <tax-score-card-component ref="taxScorecard" />
+
+                            <div class="run-reset-btn-div">
+                                <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`"
+                                    @click="generateTaxScorecard">Run</a>
+                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#taxScorecardModal"
+                                    class="reset-button">Reset</a>
+                            </div>
 
                         </div>
                     </section>
@@ -34,9 +41,6 @@ import { mapState } from "vuex"
 import NavbarComponent from "./../components/common/NavbarComponent.vue"
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
 import TaxScoreCardComponent from "../components/tax_scorecard/TaxScoreCardComponent.vue"
-import { post } from "../../network/requests"
-import { getUrl } from "../../network/url"
-import { authHeader } from "../../services/helper"
 
 export default {
 
@@ -59,35 +63,8 @@ export default {
   },
 
   methods: {
-
-    validateForm: function() {
-
-      let valid = true
-
-    //   console.log("*************", this.inputs)
-
-      return valid
-    },
-
-    generateTaxScorecard: function() {
-
-      if (!this.validateForm()) {
-        console.warn("form invalid")
-        return false;
-      }
-
-      this.$store.dispatch("loader", true);
-
-      post(getUrl("tax_scorecard"), this.inputs, authHeader())
-        .then((response) => {
-          this.$store.dispatch("loader", false)
-          this.$store.dispatch("updateTaxScorecardResults", response.data)
-          this.$router.push("/tax-risk-analysis")
-        })
-        .catch((error) => {
-          console.error(error)
-          this.$store.dispatch("loader", false)
-        })
+    generateTaxScorecard: function () {
+      this.$refs.taxScorecard.generateTaxScorecard()
     }
   }
 

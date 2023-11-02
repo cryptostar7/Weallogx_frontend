@@ -178,6 +178,8 @@ const store = createStore({
 
             tax_scorecard: {
 
+                runButtonEnabled: true,
+                
                 inputs: {
                     age: 62,
                     rmd_age: 73,

@@ -20,7 +20,7 @@
                                     <div class="d-flex justify-content-between px-3 py-2 bb-grey tax-risk-border-bottom">
                                         <p class="inner-heading">Tax Risk Analysis</p>
                                         <svg class="tax-risk-setting-btn" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            viewBox="0 0 32 32" fill="none" data-bs-toggle="modal" data-bs-target="#resetModal">
+                                            viewBox="0 0 32 32" fill="none" data-bs-toggle="modal" data-bs-target="#taxScorecardModal">
                                             <g filter="url(#filter0_d_13_2428)">
                                                 <mask id="mask0_13_2428" style="mask-type:luminance"
                                                     maskUnits="userSpaceOnUse" x="4" y="2" width="24" height="24">
@@ -221,7 +221,16 @@
         </main>
       </div>
     </section>
+
+
   </div>
+
+  <div class="index-strategy-content-div">
+    <div class="index-strategy-content-inner-div withBoxShadow">
+      <tax-score-card-modal/>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -229,12 +238,14 @@
 import { mapState } from "vuex"
 import NavbarComponent from "./../components/common/NavbarComponent.vue"
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
+import TaxScoreCardModal from "../components/tax_scorecard/TaxScoreCardModal.vue"
 
 export default {
 
   components: {
     NavbarComponent,
     LeftSidebarComponent,
+    TaxScoreCardModal
   },
 
   computed: {
