@@ -99,6 +99,7 @@
                     "
                     max="10000000"
                     min="1"
+                    ref="beginningBalanceRef"
                   />
                 </div>
                 <p class="error" v-if="errors.global.beginning_balance">
@@ -186,6 +187,7 @@
                       }
                     "
                     max="99"
+                    ref="taxRateRef"
                   />
                   <span>%</span>
                 </div>
@@ -249,6 +251,7 @@
                       }
                     "
                     max="99"
+                    ref="vehicleFeeRef"
                   />
                   <span>%</span>
                 </div>
@@ -485,14 +488,11 @@
         @click="submitHandler"
         >Run</a
       >
-      <a
-        href="javascript:void(0)"
-        data-bs-toggle="modal"
-        data-bs-target="#resetModal"
-        class="reset-button"
-        >Reset</a
-      >
+      <a href="javascript:void(0)" class="reset-button">Reset</a>
     </div>
+    <input type="hidden" :id="`weighting_index1`" v-model="weighting.tab1" />
+    <input type="hidden" :id="`weighting_index2`" v-model="weighting.tab2" />
+    <input type="hidden" :id="`weighting_index3`" v-model="weighting.tab3" />
   </div>
 </template>
 <script>
@@ -679,15 +679,27 @@ export default {
     getIndexWeighting: function () {
       let w1 =
         Number(
-          (Number(this.weighting.tab1.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document.getElementById("weighting_index1").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       let w2 =
         Number(
-          (Number(this.weighting.tab2.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document.getElementById("weighting_index2").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       let w3 =
         Number(
-          (Number(this.weighting.tab3.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document.getElementById("weighting_index3").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       if (w1 + w2 + w3 === 0.99) {
         w1 = w1 + 0.01;
@@ -896,7 +908,6 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      localStorage.removeItem("isc_calculate");
       localStorage.setItem("isc_calculate_inputs", JSON.stringify(formData));
 
       post(getUrl("isc_calculate"), formData, authHeader())
@@ -907,7 +918,7 @@ export default {
           // let data = JSON.parse(
           //   response.data.replaceAll("NaN", "0").replaceAll("Infinity", "0")
           // );
-          
+
           this.$store.dispatch("loader", false);
           localStorage.setItem(
             "isc_calculate",
@@ -946,14 +957,14 @@ export default {
       years.forEach((element, index) => {
         index_results.push({
           year: element,
-          ror: index_rate_of_returns[index],
-          net_balance: index_net_balances[index],
+          ror: Number((index_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(index_net_balances[index].toFixed(0)),
         });
 
         strategy_results.push({
           year: element,
-          ror: strategy_rate_of_returns[index],
-          net_balance: strategy_net_balances[index],
+          ror: Number((strategy_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
 
@@ -963,6 +974,55 @@ export default {
         index_summary: data.index_summary,
         strategy_summary: data.strategy_summary,
       };
+    },
+    setPreviousData: function () {
+      let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+      if (oldData) {
+        this.beginningBalance = Number(
+          oldData.beginning_balance
+        ).toLocaleString();
+        this.taxRate = this.$numFormat(oldData.index_vehicle.tax_rate * 100);
+        this.vehicleFee = this.$numFormat(oldData.index_vehicle.fee * 100);
+        let v_type = "Taxable";
+        if (oldData.index_vehicle.type === "pre-tax") {
+          v_type = "Pre-Tax";
+        }
+
+        this.vehicleType = v_type;
+
+        this.$refs.beginningBalanceRef.value = Number(
+          oldData.beginning_balance
+        ).toLocaleString();
+        this.$refs.taxRateRef.value = this.taxRate;
+        this.$refs.vehicleFeeRef.value = this.vehicleFee;
+
+        if (oldData.strategies[0]) {
+          this.tabs.tab1 = true;
+          this.weighting.tab1 = oldData.strategies[0].allocation * 100 + "%";
+          this.$refs.weighting_index1.value =
+            oldData.strategies[0].allocation * 100 + "%";
+        }
+
+        if (oldData.strategies[1]) {
+          this.tabs.tab2 = true;
+          this.weighting.tab2 = oldData.strategies[1].allocation * 100 + "%";
+          this.$refs.weighting_index2.value =
+            oldData.strategies[1].allocation * 100 + "%";
+        }
+
+        if (oldData.strategies[2]) {
+          this.tabs.tab3 = true;
+          this.weighting.tab3 = oldData.strategies[2].allocation * 100 + "%";
+          this.$refs.weighting_index3.value =
+            oldData.strategies[2].allocation * 100 + "%";
+        }
+
+        if (this.beginningBalance && this.taxRate !== "") {
+          this.submitBtn = true;
+        } else {
+          this.submitBtn = false;
+        }
+      }
     },
   },
   computed: {
@@ -974,6 +1034,7 @@ export default {
     },
   },
   mounted() {
+    this.setPreviousData(); // populate previous inputs
     // Select Dropdown Start
     let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {

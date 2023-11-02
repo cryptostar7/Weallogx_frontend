@@ -538,7 +538,7 @@
                       max="100"
                       value="100%"
                       ref="weighting_index1"
-                      :modelInputId="`weighting_index1`"
+                      :modelInputId="`weighting2_index1`"
                       :disabled="!this.tabs.tab2 && !this.tabs.tab3"
                     />
                   </div>
@@ -552,7 +552,7 @@
                       class="form-control allocation-input"
                       ref="weighting_index2"
                       max="100"
-                      :modelInputId="`weighting_index2`"
+                      :modelInputId="`weighting2_index2`"
                       :disabled="!tabs.tab2"
                     />
                   </div>
@@ -566,7 +566,7 @@
                       class="form-control allocation-input"
                       max="100"
                       ref="weighting_index3"
-                      :modelInputId="`weighting_index3`"
+                      :modelInputId="`weighting2_index3`"
                       :disabled="!tabs.tab3"
                     />
                   </div>
@@ -588,6 +588,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -774,15 +775,15 @@ export default {
     getIndexWeighting: function () {
       let w1 =
         Number(
-          (Number(this.weighting.tab1.replace("%", "")) / 100).toFixed(2)
+          (Number(this.$refs.weighting_index1.value.replace("%", "")) / 100).toFixed(2)
         ) || 0;
       let w2 =
         Number(
-          (Number(this.weighting.tab2.replace("%", "")) / 100).toFixed(2)
+          (Number(this.$refs.weighting_index2.value.replace("%", "")) / 100).toFixed(2)
         ) || 0;
       let w3 =
         Number(
-          (Number(this.weighting.tab3.replace("%", "")) / 100).toFixed(2)
+          (Number(this.$refs.weighting_index3.value.replace("%", "")) / 100).toFixed(2)
         ) || 0;
       if (w1 + w2 + w3 === 0.99) {
         w1 = w1 + 0.01;
@@ -1030,16 +1031,17 @@ export default {
       years.forEach((element, index) => {
         index_results.push({
           year: element,
-          ror: index_rate_of_returns[index],
-          net_balance: index_net_balances[index],
+          ror: Number((index_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(index_net_balances[index].toFixed(0)),
         });
 
         strategy_results.push({
           year: element,
-          ror: strategy_rate_of_returns[index],
-          net_balance: strategy_net_balances[index],
+          ror: Number((strategy_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
+
 
       return {
         index_results: index_results,
@@ -1060,7 +1062,7 @@ export default {
   mounted() {
     let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
     this.beginningBalance = Number(oldData.beginning_balance).toLocaleString();
-    this.taxRate =  this.$numFormat(oldData.index_vehicle.tax_rate * 100);
+    this.taxRate = this.$numFormat(oldData.index_vehicle.tax_rate * 100);
     this.vehicleFee = this.$numFormat(oldData.index_vehicle.fee * 100);
     let v_type = "Taxable";
     if (oldData.index_vehicle.type === "pre-tax") {
@@ -1188,70 +1190,21 @@ export default {
     function getTotalWeighting() {
       let w1 =
         Number(
-          document.getElementById("weighting_index1").value.replace("%", "")
+          this.$refs.weighting_index1.value.replace("%", "")
         ) || 0;
       let w2 =
         Number(
-          document.getElementById("weighting_index2").value.replace("%", "")
+          this.$refs.weighting_index2.value.replace("%", "")
         ) || 0;
       let w3 =
         Number(
-          document.getElementById("weighting_index3").value.replace("%", "")
+          this.$refs.weighting_index3.value.replace("%", "")
         ) || 0;
       // return Number((w1 + w2 + w3).toFixed(0));
       return w1 + w2 + w3;
     }
 
-    // input validation for min and max value with putting comma
-    const inputs3 = document.querySelectorAll(".allocation-input");
-    inputs3.forEach((element) =>
-      element.addEventListener("input", function (e) {
-        e.target.value = e.target.value.replace("%", "");
-        let len = e.target.value.length;
-        let current = e.target.value;
-        let min = Number(e.target.getAttribute("min"));
-        let max = Number(e.target.getAttribute("max"));
-        let modelInputId = e.target.getAttribute("modelInputId");
-        if (
-          Number(current) < min ||
-          Number(current) > max ||
-          isNaN(Number(current))
-        ) {
-          let actualValue = current.slice(0, len - 1);
-          e.target.value = actualValue;
-        }
-
-        document.getElementById(modelInputId).value = e.target.value;
-
-        if (getTotalWeighting() === 100) {
-          document
-            .getElementById("allocation-all-div")
-            .classList.remove("error");
-        } else {
-          document.getElementById("allocation-all-div").classList.add("error");
-        }
-
-        return false;
-      })
-    );
-
-    inputs3.forEach((element) =>
-      element.addEventListener("focus", function (e) {
-        e.target.value = e.target.value.replace("%", "");
-      })
-    );
-
-    inputs3.forEach((element) =>
-      element.addEventListener("blur", function (e) {
-        e.target.value = e.target.value.replaceAll("%", "") + "%";
-      })
-    );
-
-    inputs3.forEach((element) =>
-      element.addEventListener("focusout", function (e) {
-        e.target.value = e.target.value.replaceAll("%", "") + "%";
-      })
-    );
+     //////////
   },
 };
 </script>

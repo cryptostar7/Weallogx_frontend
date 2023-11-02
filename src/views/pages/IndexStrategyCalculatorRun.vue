@@ -11,7 +11,7 @@
                 <section class="strategy-calc-main-section mt-3 pt-4">
                   <div class="strategy-calc-main-div">
                     <div class="index-strategy-head-div">
-                      <h1 @click="testFunction">Index Strategy Calculator</h1>
+                      <h1>Index Strategy Calculator</h1>
                       <router-link to="/index-strategy-calculator" class="back"
                         ><img
                           src="@/assets/images/icons/back-small.svg"
@@ -195,7 +195,7 @@
                                           </td>
                                           <td>
                                             ${{
-                                              $numFormat(item.net_balance || 0)
+                                              $numFormat(item.net_balance)
                                             }}
                                           </td>
                                         </tr>
@@ -285,7 +285,7 @@
                                           </td>
                                           <td>
                                             ${{
-                                              $numFormat(item.net_balance || 0)
+                                              $numFormat(item.net_balance)
                                             }}
                                           </td>
                                         </tr>
@@ -1520,9 +1520,6 @@ export default {
       }else{
         this.$router.push(`/index-strategy-calculator`);
       }
-    },
-    testFunction: function () {
-      this.reGenerateGraph = true;
     },
   },
 };
