@@ -1031,16 +1031,17 @@ export default {
       years.forEach((element, index) => {
         index_results.push({
           year: element,
-          ror: index_rate_of_returns[index],
-          net_balance: index_net_balances[index],
+          ror: Number((index_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(index_net_balances[index].toFixed(0)),
         });
 
         strategy_results.push({
           year: element,
-          ror: strategy_rate_of_returns[index],
-          net_balance: strategy_net_balances[index],
+          ror: Number((strategy_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
+
 
       return {
         index_results: index_results,
