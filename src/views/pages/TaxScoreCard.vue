@@ -15,13 +15,7 @@
                             </div>
 
                             <tax-score-card-component ref="taxScorecard" />
-
-                            <div class="run-reset-btn-div">
-                                <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`"
-                                    @click="generateTaxScorecard">Run</a>
-                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#taxScorecardModal"
-                                    class="reset-button">Reset</a>
-                            </div>
+                            <tax-score-card-form-buttons @run="generateTaxScorecard" />
 
                         </div>
                     </section>
@@ -41,6 +35,7 @@ import { mapState } from "vuex"
 import NavbarComponent from "./../components/common/NavbarComponent.vue"
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
 import TaxScoreCardComponent from "../components/tax_scorecard/TaxScoreCardComponent.vue"
+import TaxScoreCardFormButtons from "../components/tax_scorecard/TaxScoreCardFormButtons.vue"
 
 export default {
 
@@ -48,6 +43,7 @@ export default {
     NavbarComponent,
     LeftSidebarComponent,
     TaxScoreCardComponent,
+    TaxScoreCardFormButtons
   },
 
   computed: {
