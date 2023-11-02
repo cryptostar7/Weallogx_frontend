@@ -1510,6 +1510,8 @@ export default {
   methods: {
     setIscData: function () {
       let data = JSON.parse(localStorage.getItem("isc_calculate"));
+      console.log('...........');
+      console.log(data);
       if (data) {
         this.index_results = data.index_results;
         this.strategy_results = data.strategy_results;

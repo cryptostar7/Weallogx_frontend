@@ -370,6 +370,13 @@ export default {
       let strategy_net_balance = result.strategy_results.map(
         (i) => i.net_balance
       );
+ 
+      let pointRadius = [];
+
+      for (let i = 1; i <= years.length; i++) {
+        pointRadius.push(i < years.length ? 0 : 14); 
+      } 
+
       var config = {
         type: "line",
         data: {
@@ -390,7 +397,7 @@ export default {
                 "circle",
                 pointImageArr[0],
               ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointRadius: pointRadius, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
               pointHoverBackgroundColor: lineColors[0],
@@ -412,7 +419,7 @@ export default {
                 "circle",
                 pointImageArr[1],
               ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointRadius: pointRadius, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
               pointHoverBackgroundColor: lineColors[1],
@@ -458,7 +465,7 @@ export default {
               },
               ticks: {
                 display: true,
-                stepSize: 1000000,
+                // stepSize: 1000000,
                 callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
