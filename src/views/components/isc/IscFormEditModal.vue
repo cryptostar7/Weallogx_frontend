@@ -577,7 +577,29 @@
                 <index-strategy-edit-form
                   :currentTab="1"
                   :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
                   @clearError="(index, tab) => clearError(index, 1)"
+                />
+                <index-strategy-edit-form
+                  :currentTab="2"
+                  :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
+                  @clearError="(index, tab) => clearError(index, 2)"
+                />
+                <index-strategy-edit-form
+                  :currentTab="3"
+                  :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
+                  @clearError="(index, tab) => clearError(index, 3)"
                 />
                 <a @click="submitHandler" class="calc-preview-save-run-button"
                   >Save & Run</a
@@ -588,7 +610,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -623,6 +644,8 @@ export default {
         global: [],
       },
       beginningBalance: "",
+      startYear: 1960,
+      endYear: 2022,
       taxRate: "",
       vehicleFee: "1",
       vehicleType: "Taxable",
@@ -775,15 +798,21 @@ export default {
     getIndexWeighting: function () {
       let w1 =
         Number(
-          (Number(this.$refs.weighting_index1.value.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(this.$refs.weighting_index1.value.replace("%", "")) / 100
+          ).toFixed(2)
         ) || 0;
       let w2 =
         Number(
-          (Number(this.$refs.weighting_index2.value.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(this.$refs.weighting_index2.value.replace("%", "")) / 100
+          ).toFixed(2)
         ) || 0;
       let w3 =
         Number(
-          (Number(this.$refs.weighting_index3.value.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(this.$refs.weighting_index3.value.replace("%", "")) / 100
+          ).toFixed(2)
         ) || 0;
       if (w1 + w2 + w3 === 0.99) {
         w1 = w1 + 0.01;
@@ -798,7 +827,7 @@ export default {
       let obj = {
         beginning_balance: getNumber(this.beginningBalance),
         vehicle_type: v_type,
-        tax_rate: Number(this.taxRate),
+        tax_rate: Number(this.taxRate || 0),
         vehicle_fee: Number(this.vehicleFee),
       };
 
@@ -876,8 +905,8 @@ export default {
     validateStrategyForm: function (tab) {
       let valid = true;
       let strategy = this.getStrategyObject(tab - 1);
-      let start_year = document.getElementById(`index_1_startYear`).value;
-      let end_year = document.getElementById(`index_1_endYear`).value;
+      let start_year = Number(this.startYear);
+      let end_year = Number(this.endYear);
       let maxYear = Number(end_year) - Number(start_year);
 
       if (strategy.cap_rate !== "" && strategy.cap_rate * 100 < 1) {
@@ -938,11 +967,6 @@ export default {
       if (this.beginningBalance && Number(this.beginningBalance) < 1) {
         valid = false;
         this.errors.global["beginning_balance"] = "At least $1 required.";
-      }
-
-      if (!this.taxRate) {
-        valid = false;
-        this.errors.global["tax_rate"] = "This field is required.";
       }
 
       if (this.vehicleFee && Number(this.vehicleFee) < 0) {
@@ -1041,7 +1065,6 @@ export default {
           net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
-
 
       return {
         index_results: index_results,
@@ -1188,23 +1211,14 @@ export default {
     );
 
     function getTotalWeighting() {
-      let w1 =
-        Number(
-          this.$refs.weighting_index1.value.replace("%", "")
-        ) || 0;
-      let w2 =
-        Number(
-          this.$refs.weighting_index2.value.replace("%", "")
-        ) || 0;
-      let w3 =
-        Number(
-          this.$refs.weighting_index3.value.replace("%", "")
-        ) || 0;
+      let w1 = Number(this.$refs.weighting_index1.value.replace("%", "")) || 0;
+      let w2 = Number(this.$refs.weighting_index2.value.replace("%", "")) || 0;
+      let w3 = Number(this.$refs.weighting_index3.value.replace("%", "")) || 0;
       // return Number((w1 + w2 + w3).toFixed(0));
       return w1 + w2 + w3;
     }
 
-     //////////
+    //////////
   },
 };
 </script>

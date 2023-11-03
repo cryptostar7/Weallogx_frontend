@@ -14,7 +14,7 @@ const config = {
     ],
     ISC_INDEX_STRATEGIES: [
         { id: 1, max_year: 1960, template_name: "S&P 500" },
-        { id: 2, max_year: 2005, template_name: "Blended Index" },
+        { id: 2, max_year: 1987, template_name: "Blended Index" },
         { id: 3, max_year: 2005, template_name: "Bloomberg US Dynamic Balance II ER" },
         { id: 4, max_year: 2005, template_name: "PIMCO Tactical Balanced ER" },
         { id: 5, max_year: 2005, template_name: "Fidelity Multifactor Yield 5% ER" },

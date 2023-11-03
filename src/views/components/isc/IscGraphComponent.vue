@@ -491,7 +491,7 @@ export default {
       const chartBox = document.querySelector(
         "#iscContentDiv"
       );
-      console.log(chartBox);
+
       let chartBoxX = chartBox.getBoundingClientRect().x;
       let chartBoxY = chartBox.getBoundingClientRect().y;
       let n = config.data.datasets[0].data.length - 1;
@@ -555,7 +555,6 @@ export default {
         dropdownBox
           .querySelector(".tooltipbtn")
           .addEventListener("click", function () {
-            console.log("hello");
             let id = dropdownBox.getAttribute("id");
             let idx = +id[id.length - 1];
             let n = config.data.datasets[0].data.length - 1;
@@ -600,8 +599,6 @@ export default {
         );
         
         if (points[0]) {
-
-          console.log("hello", points);
           points.forEach((point) => {
             let currentIndex = point.datasetIndex;
             if (point.index === config.data.labels.length - 1) {
@@ -611,7 +608,6 @@ export default {
               dropdownBox.classList.toggle("d-none");
               dropdownBox.classList.toggle("d-block");
               dropdownBox.style.left = chartBoxX + layerX - 45 + "px";
-              console.log(chartBoxX, layerX);
               dropdownStatus.isOpen = true;
               if (currentIndex == 0) {
                 dropdownStatus.idx0 = 0;
@@ -640,6 +636,7 @@ export default {
             }
           });
         }
+        
         click.stopPropagation();
       };
 

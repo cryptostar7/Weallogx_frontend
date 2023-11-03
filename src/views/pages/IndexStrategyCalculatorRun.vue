@@ -21,7 +21,10 @@
                       >
                     </div>
                     <div class="index-strategy-table-content-div more-padding">
-                      <div class="index-strategy-content-inner-div shadow-none" id="iscContentDiv">
+                      <div
+                        class="index-strategy-content-inner-div shadow-none"
+                        id="iscContentDiv"
+                      >
                         <div class="d-flex justify-content-center">
                           <div
                             class="nav calc-tab-graph-tab nav-pills"
@@ -194,9 +197,7 @@
                                             {{ item.ror.toFixed(2) }}%
                                           </td>
                                           <td>
-                                            ${{
-                                              $numFormat(item.net_balance)
-                                            }}
+                                            ${{ $numFormat(item.net_balance) }}
                                           </td>
                                         </tr>
                                       </tbody>
@@ -284,9 +285,7 @@
                                             {{ item.ror.toFixed(2) }}%
                                           </td>
                                           <td>
-                                            ${{
-                                              $numFormat(item.net_balance)
-                                            }}
+                                            ${{ $numFormat(item.net_balance) }}
                                           </td>
                                         </tr>
                                       </tbody>
@@ -537,7 +536,9 @@
                                 <p>
                                   {{
                                     index_summary.average_return
-                                      ? index_summary.average_return.toFixed(2)
+                                      ? (
+                                          index_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -553,9 +554,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_average_return
-                                      ? index_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -620,7 +621,9 @@
                                 <p>
                                   {{
                                     index_summary.actual_return
-                                      ? index_summary.actual_return.toFixed(2)
+                                      ? (
+                                          index_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -636,9 +639,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_actual_return
-                                      ? index_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_actual_return * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -750,7 +753,9 @@
                                 <p>
                                   ${{
                                     strategy_summary.ending_balance
-                                      ? $numFormat(strategy_summary.ending_balance)
+                                      ? $numFormat(
+                                          strategy_summary.ending_balance
+                                        )
                                       : "0"
                                   }}
                                 </p>
@@ -804,9 +809,9 @@
                                 <p>
                                   {{
                                     strategy_summary.average_return
-                                      ? strategy_summary.average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -822,9 +827,10 @@
                                 <p class="table-green-clr">
                                   {{
                                     strategy_summary.net_average_return
-                                      ? strategy_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.net_average_return *
+                                          100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -889,9 +895,9 @@
                                 <p>
                                   {{
                                     strategy_summary.actual_return
-                                      ? strategy_summary.actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -907,9 +913,10 @@
                                 <p class="table-green-clr">
                                   {{
                                     strategy_summary.net_actual_return
-                                      ? strategy_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.net_actual_return *
+                                          100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -1092,7 +1099,9 @@
                                 <p>
                                   {{
                                     index_summary.average_return
-                                      ? index_summary.average_return.toFixed(2)
+                                      ? (
+                                          index_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -1108,9 +1117,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_average_return
-                                      ? index_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -1176,7 +1185,9 @@
                                 <p>
                                   {{
                                     index_summary.actual_return
-                                      ? index_summary.actual_return.toFixed(2)
+                                      ? (
+                                          index_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -1192,9 +1203,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_actual_return
-                                      ? index_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_actual_return * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -1517,7 +1528,7 @@ export default {
         this.strategy_summary = data.strategy_summary;
         this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
         this.reGenerateGraph = true;
-      }else{
+      } else {
         this.$router.push(`/index-strategy-calculator`);
       }
     },
