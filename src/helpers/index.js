@@ -60,10 +60,6 @@ const myPlugin = {
             },
             app.config.globalProperties.$clientName = (first, last, middle = '') => {
                 return `${last || ''}, ${first || ''} ${middle || ''}`;
-            },
-            app.config.globalProperties.$toPercent = (key) => {
-                let percentValue = Number(key) * 100
-                return Number(percentValue.toFixed(2)).toLocaleString();
             }
     }
 }

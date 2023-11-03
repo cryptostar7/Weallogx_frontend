@@ -72,8 +72,8 @@
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
                                                                 <p class="right-text">
-                                                                    {{$toPercent(inputs.initial_tax_rate)}}% |
-                                                                    {{$toPercent(inputs.second_tax_rate)}}%
+                                                                    {{inputs.initial_tax_rate}}% |
+                                                                    {{inputs.second_tax_rate}}%
                                                                 </p>
                                                             </div>
                                                             <div class="each-card-row">
@@ -100,8 +100,8 @@
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
                                                                 <p class="right-text">
-                                                                    {{$toPercent(inputs.initial_tax_rate)}}% |
-                                                                    {{$toPercent(inputs.second_tax_rate)}}%
+                                                                    {{inputs.initial_tax_rate}}% |
+                                                                    {{inputs.second_tax_rate}}%
                                                                 </p>
                                                             </div>
                                                             <div class="each-card-row">

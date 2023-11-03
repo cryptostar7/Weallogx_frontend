@@ -248,7 +248,13 @@ export default {
 
       this.$store.dispatch("loader", true);
 
-      post(getUrl("tax_scorecard"), this.inputs, authHeader())
+      let inputs = JSON.parse(JSON.stringify(this.inputs))      
+      inputs.rate_of_return /= 100
+      inputs.initial_tax_rate /= 100
+      inputs.second_tax_rate /= 100
+      inputs.social_security_cola /= 100
+
+      post(getUrl("tax_scorecard"), inputs, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false)
           this.$store.dispatch("updateTaxScorecardResults", response.data)

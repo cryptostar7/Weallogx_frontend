@@ -180,22 +180,22 @@ const store = createStore({
 
                 runButtonEnabled: true,
                 
-                inputs: {
+                inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {
                     age: 62,
                     rmd_age: 73,
                     ira_or_401k_balance: 500000,
-                    rate_of_return: 0.05,
-                    initial_tax_rate: 0.2,
+                    rate_of_return: 5,
+                    initial_tax_rate: 20,
                     plan_through_age: 95,
                     roth_conversion_years: 5,
-                    second_tax_rate: 0.24,
+                    second_tax_rate: 24,
                     switch_year: 3,
                     social_security_amount: 33000,
                     social_security_age: 67,
-                    social_security_cola: 0.015                
+                    social_security_cola: 1.5
                 },
 
-                results: JSON.parse(localStorage.getItem("tax_scorecard")) || {}
+                results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {}
             },
         },
         app: {
@@ -378,9 +378,16 @@ const store = createStore({
         setShareReportData(state, payload) {
             state.data.share_report[payload.name] = payload.data;
         },
-        setTaxScorecardResults(state, payload) {
-            state.data.tax_scorecard.results = payload;
+
+
+        setTaxScorecardInputs(state, payload) {
+            state.data.tax_scorecard.inputs = payload;
         },
+
+        setTaxScorecardResults(state, payload) {
+          state.data.tax_scorecard.results = payload;
+        },
+
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -491,9 +498,13 @@ const store = createStore({
             context.commit('setShareReportData', payload);
         },
 
-        // TODO - Should this go in helper.js (or somewhere else)?
+        updateTaxScorecardInputs(context, payload) {
+          localStorage.setItem("tax_scorecard_inputs", JSON.stringify(payload))
+          context.commit('setTaxScorecardInputs', payload);
+        },
+
         updateTaxScorecardResults(context, payload) {
-            localStorage.setItem("tax_scorecard", JSON.stringify(payload))
+            localStorage.setItem("tax_scorecard_results", JSON.stringify(payload))
             context.commit('setTaxScorecardResults', payload);
         },
     }
