@@ -927,13 +927,13 @@ export default {
         formData.strategies[2] = this.getStrategyObject(2);
       }
       this.$store.dispatch("loader", true);
-      localStorage.setItem("isc_calculate_inputs", JSON.stringify(formData));
 
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
           console.log(response);
           let data = response.data;
           this.$store.dispatch("loader", false);
+          localStorage.setItem("isc_calculate_inputs", JSON.stringify(formData));
           localStorage.setItem(
             "isc_calculate",
             JSON.stringify(this.mapData(data))

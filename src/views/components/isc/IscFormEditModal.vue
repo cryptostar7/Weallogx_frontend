@@ -84,7 +84,7 @@
               <div
                 class="index-strategy-each-tabs-head border-0 rounded-0 rounded-bottom"
               >
-                <p>
+                <p @click="testFunction">
                   Index Vehicle Parameters
                   <span
                     >Compare a taxable or pre-tax vehicle using an index to a
@@ -610,6 +610,9 @@
         </div>
       </div>
     </div>
+    <input type="hidden" :id="`weighting2_index1`" v-model="weighting.tab1" />
+    <input type="hidden" :id="`weighting2_index2`" v-model="weighting.tab2" />
+    <input type="hidden" :id="`weighting2_index3`" v-model="weighting.tab3" />
   </div>
 </template>
 <script>
@@ -659,6 +662,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function () {
+      console.log(this.getIndexWeighting());
+    },
     setActiveTab: function (tab) {
       if (tab === 1) {
         this.tabs.tab1 = true;
@@ -686,6 +692,8 @@ export default {
 
           this.weighting.tab2 = "50%";
           this.$refs.weighting_index2.value = "50%";
+
+          console.log("event.target.checked");
         }
 
         if (!this.tabs.tab3) {
@@ -799,19 +807,31 @@ export default {
       let w1 =
         Number(
           (
-            Number(this.$refs.weighting_index1.value.replace("%", "")) / 100
+            Number(
+              document
+                .getElementById("weighting2_index1")
+                .value.replace("%", "")
+            ) / 100
           ).toFixed(2)
         ) || 0;
       let w2 =
         Number(
           (
-            Number(this.$refs.weighting_index2.value.replace("%", "")) / 100
+            Number(
+              document
+                .getElementById("weighting2_index2")
+                .value.replace("%", "")
+            ) / 100
           ).toFixed(2)
         ) || 0;
       let w3 =
         Number(
           (
-            Number(this.$refs.weighting_index3.value.replace("%", "")) / 100
+            Number(
+              document
+                .getElementById("weighting2_index3")
+                .value.replace("%", "")
+            ) / 100
           ).toFixed(2)
         ) || 0;
       if (w1 + w2 + w3 === 0.99) {
@@ -841,28 +861,26 @@ export default {
       let weightings = this.getIndexWeighting();
 
       for (var i = 1; i < 4; i++) {
-        let start_year = document.getElementById(`index_1_startYear`).value;
-        let end_year = document.getElementById(`index_1_endYear`).value;
-        let segment = document.getElementById(`index_1_segment`).value;
-        let pmsy = document.getElementById(`index_1_pmfStartYear`).value;
-        let fcbsy = document.getElementById(`index_1_fcStartYear`).value;
-        let cap_rate = document.getElementById(`index_1_capRate`).value;
-        let margin = document.getElementById(`index_1_margin`).value;
-        let par_rate = document.getElementById(`index_1_parRate`).value;
-        let floor = document.getElementById(`index_1_floor`).value;
-        let fcb = document.getElementById(`index_1_flatCreditBonus`).value;
-        let pm = document.getElementById(`index_1_PerformanceMultiplier`).value;
-        let fees = document.getElementById(`index_1_StrategyFee`).value;
+        let segment = document.getElementById(`index_${i}_segment`).value;
+        let pmsy = document.getElementById(`index_${i}_pmfStartYear`).value;
+        let fcbsy = document.getElementById(`index_${i}_fcStartYear`).value;
+        let cap_rate = document.getElementById(`index_${i}_capRate`).value;
+        let margin = document.getElementById(`index_${i}_margin`).value;
+        let par_rate = document.getElementById(`index_${i}_parRate`).value;
+        let floor = document.getElementById(`index_${i}_floor`).value;
+        let fcb = document.getElementById(`index_${i}_flatCreditBonus`).value;
+        let pm = document.getElementById(
+          `index_${i}_PerformanceMultiplier`
+        ).value;
+        let fees = document.getElementById(`index_${i}_StrategyFee`).value;
 
         if (activeTabs[i - 1]) {
           let obj = {
             allocation: weightings[i - 1],
-            start_year: start_year ? Number(start_year) : "",
-            end_year: end_year ? Number(end_year) : "",
             segment_duration: segment ? Number(segment) : "",
             performance_multiplier_start_year: pmsy ? Number(pmsy) : "",
             flat_credit_bonus_start_year: fcbsy ? Number(fcbsy) : "",
-            index: document.getElementById(`index_1_indexStrategy`).value,
+            index: document.getElementById(`index_${i}_indexStrategy`).value,
             cap_rate: cap_rate ? Number(cap_rate) : "",
             margin: margin ? Number(margin) : "",
             par_rate: par_rate ? Number(par_rate) : "",
@@ -992,8 +1010,8 @@ export default {
 
       let formData = {
         beginning_balance: vehicle.beginning_balance,
-        start_year: strategy[0].start_year,
-        end_year: strategy[0].end_year,
+        start_year: this.startYear,
+        end_year: this.endYear,
         index_vehicle: {
           type: vehicle.vehicle_type,
           tax_rate: vehicle.tax_rate / 100,
@@ -1211,14 +1229,74 @@ export default {
     );
 
     function getTotalWeighting() {
-      let w1 = Number(this.$refs.weighting_index1.value.replace("%", "")) || 0;
-      let w2 = Number(this.$refs.weighting_index2.value.replace("%", "")) || 0;
-      let w3 = Number(this.$refs.weighting_index3.value.replace("%", "")) || 0;
+      let w1 =
+        Number(
+          document.getElementById("weighting2_index1").value.replace("%", "")
+        ) || 0;
+      let w2 =
+        Number(
+          document.getElementById("weighting2_index2").value.replace("%", "")
+        ) || 0;
+      let w3 =
+        Number(
+          document.getElementById("weighting2_index3").value.replace("%", "")
+        ) || 0;
       // return Number((w1 + w2 + w3).toFixed(0));
       return w1 + w2 + w3;
     }
 
     //////////
+
+    // input validation for min and max value with putting comma
+    const inputs3 = document.querySelectorAll(".allocation-input");
+    inputs3.forEach((element) =>
+      element.addEventListener("input", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        let modelInputId = e.target.getAttribute("modelInputId");
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+        }
+
+        document.getElementById(modelInputId).value = e.target.value;
+
+        if (getTotalWeighting() === 100) {
+          document
+            .getElementById("allocation-all-div")
+            .classList.remove("error");
+        } else {
+          document.getElementById("allocation-all-div").classList.add("error");
+        }
+
+        return false;
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focus", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("blur", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focusout", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
+      })
+    );
   },
 };
 </script>
