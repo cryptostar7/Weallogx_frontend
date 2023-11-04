@@ -175,11 +175,22 @@ const store = createStore({
             current_plan: false,
             active_scenario: false,
             templates: [],
-
             tax_scorecard: {
-
-                runButtonEnabled: true,
-                
+                run_button_enabled: true,
+                default_inputs: {
+                    age: 62,
+                    rmd_age: 73,
+                    ira_or_401k_balance: 500000,
+                    rate_of_return: 5,
+                    initial_tax_rate: 20,
+                    plan_through_age: 95,
+                    roth_conversion_years: 5,
+                    second_tax_rate: 24,
+                    switch_year: 3,
+                    social_security_amount: 33000,
+                    social_security_age: 67,
+                    social_security_cola: 1.5
+                },
                 inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {
                     age: 62,
                     rmd_age: 73,
@@ -194,7 +205,6 @@ const store = createStore({
                     social_security_age: 67,
                     social_security_cola: 1.5
                 },
-
                 results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {}
             },
         },
@@ -378,16 +388,12 @@ const store = createStore({
         setShareReportData(state, payload) {
             state.data.share_report[payload.name] = payload.data;
         },
-
-
         setTaxScorecardInputs(state, payload) {
             state.data.tax_scorecard.inputs = payload;
         },
-
         setTaxScorecardResults(state, payload) {
           state.data.tax_scorecard.results = payload;
         },
-
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -497,12 +503,15 @@ const store = createStore({
         shareReportData(context, payload) {
             context.commit('setShareReportData', payload);
         },
-
         updateTaxScorecardInputs(context, payload) {
           localStorage.setItem("tax_scorecard_inputs", JSON.stringify(payload))
           context.commit('setTaxScorecardInputs', payload);
         },
-
+        resetTaxScorecardInputs(context) {
+            let payload = {...context.state.data.tax_scorecard.default_inputs}
+            localStorage.setItem("tax_scorecard_inputs", JSON.stringify(payload))
+            context.commit('setTaxScorecardInputs', payload);
+        },
         updateTaxScorecardResults(context, payload) {
             localStorage.setItem("tax_scorecard_results", JSON.stringify(payload))
             context.commit('setTaxScorecardResults', payload);

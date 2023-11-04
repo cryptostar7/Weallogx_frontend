@@ -15,7 +15,7 @@
                             </div>
 
                             <tax-score-card-component ref="taxScorecard" />
-                            <tax-score-card-form-buttons @run="generateTaxScorecard" />
+                            <tax-score-card-form-buttons @run="generateTaxScorecard" @reset="resetForm"/>
 
                         </div>
                     </section>
@@ -52,15 +52,13 @@ export default {
     })
   },
 
-  data() {
-    return {
-      runButtonEnabled: true,  
-    }
-  },
-
   methods: {
     generateTaxScorecard: function () {
       this.$refs.taxScorecard.generateTaxScorecard()
+    },
+
+    resetForm: function () {
+      this.$refs.taxScorecard.resetForm()
     }
   }
 

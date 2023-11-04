@@ -1,10 +1,8 @@
 <template lang="">
 
   <div class="run-reset-btn-div">
-    <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`"
-      @click="run">Run</a>
-    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#taxScorecardModal"
-      class="reset-button">Reset</a>
+    <a :class="`run-button ${runButtonEnabled ? '' : 'disabled'}`" @click="run">Run</a>
+    <a class="reset-button" @click="reset">Reset</a>
   </div>
 
 </template>
@@ -17,13 +15,16 @@ export default {
 
   computed: {
     ...mapState({
-      runButtonEnabled: state => state.data.tax_scorecard.runButtonEnabled
+      runButtonEnabled: state => state.data.tax_scorecard.run_button_enabled
     })
   },
 
   methods: {
     run: function () {
       this.$emit("run")
+    },
+    reset: function () {
+      this.$emit("reset")
     }
   }
 }

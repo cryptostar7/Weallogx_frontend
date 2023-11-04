@@ -227,8 +227,7 @@ export default {
 
   computed: {
     ...mapState({
-      inputs: state => state.data.tax_scorecard.inputs,
-      runButtonEnabled: state => state.data.tax_scorecard.runButtonEnabled
+      inputs: state => state.data.tax_scorecard.inputs
     })
   },
 
@@ -248,7 +247,9 @@ export default {
 
       this.$store.dispatch("loader", true);
 
-      let inputs = JSON.parse(JSON.stringify(this.inputs))      
+      // We don't want to update the inputs in the store so make a copy.
+      let inputs = {...this.inputs}
+
       inputs.rate_of_return /= 100
       inputs.initial_tax_rate /= 100
       inputs.second_tax_rate /= 100
@@ -264,6 +265,10 @@ export default {
           console.error(error)
           this.$store.dispatch("loader", false)
         })
+    },
+
+    resetForm: function() {
+        this.$store.dispatch("resetTaxScorecardInputs")
     }
   }
 
