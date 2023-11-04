@@ -278,12 +278,14 @@
                                         >
                                           <td>{{ item.year }}</td>
                                           <td
+                                            v-if="item.ror || item.ror == 0"
                                             :class="
                                               item.ror < 0 ? 'highlighted' : ''
                                             "
                                           >
                                             {{ item.ror.toFixed(2) }}%
                                           </td>
+                                          <td v-else>&mdash;</td>
                                           <td>
                                             ${{ $numFormat(item.net_balance) }}
                                           </td>
