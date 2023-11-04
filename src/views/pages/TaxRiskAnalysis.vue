@@ -257,14 +257,7 @@ export default {
   },
 
   beforeMount() {
-
-    console.log("beforeMount()")
-
-    if (this.ira_backend && this.roth_backend) {
-      console.debug("inputs", this.inputs)
-      console.debug("ira_backend", this.ira_backend)
-      console.debug("roth_backend", this.roth_backend)
-    } else {
+    if (Object.keys(this.ira_backend).length == 0) {
       this.$router.push(`/tax-score-card`)
     }
   },

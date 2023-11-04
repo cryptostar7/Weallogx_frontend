@@ -205,7 +205,10 @@ const store = createStore({
                     social_security_age: 67,
                     social_security_cola: 1.5
                 },
-                results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {}
+                results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {
+                    ira_backend: {},
+                    roth_backend: {}
+                }
             },
         },
         app: {
