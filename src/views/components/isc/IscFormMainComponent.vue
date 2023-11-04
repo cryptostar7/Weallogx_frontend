@@ -622,9 +622,6 @@ export default {
 
       let totalActiveTab = activeTabs.filter((i) => i).length;
       let weightings = this.getIndexWeighting();
-
-      console.log(weightings);
-
       for (var i = 1; i < 4; i++) {
         if (activeTabs[i - 1]) {
           let obj = {
@@ -716,7 +713,6 @@ export default {
           this.$router.push(`/index-strategy-calculator-run`);
         })
         .catch((error) => {
-          console.log(error);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"

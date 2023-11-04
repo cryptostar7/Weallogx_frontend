@@ -692,7 +692,7 @@ export default {
   methods: {
     populateData: function () {
       let inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
-
+      console.log(inputs);
       this.startYear = inputs.start_year;
       this.endYear = inputs.end_year;
       this.segment = inputs.strategies[0].segment_duration;
@@ -700,23 +700,24 @@ export default {
         inputs.strategies[0].performance_multiplier_start_year;
       this.fcStartYear = inputs.strategies[0].flat_credit_bonus_start_year;
       this.indexStrategy = inputs.strategies[0].index;
-      this.capRate = inputs.strategies[0].cap_rate;
-      this.margin = inputs.strategies[0].margin;
-      this.parRate = inputs.strategies[0].par_rate;
-      this.floor = inputs.strategies[0].floor;
-      this.flatCreditBonus = inputs.strategies[0].flat_credit_bonus;
+      let cap_rate = inputs.strategies[0].cap_rate * 100;
+      this.capRate = cap_rate >= 1000 ? "" : cap_rate;
+      this.margin = inputs.strategies[0].margin * 100;
+      this.parRate = inputs.strategies[0].par_rate * 100;
+      this.floor = inputs.strategies[0].floor * 100;
+      this.flatCreditBonus = inputs.strategies[0].flat_credit_bonus * 100;
       this.PerformanceMultiplier = inputs.strategies[0].performance_multiplier;
-      this.StrategyFee = inputs.strategies[0].fee;
+      this.StrategyFee = inputs.strategies[0].fee * 100;
 
-      this.$refs.capRateRef.value = inputs.strategies[0].cap_rate;
-      this.$refs.marginRef.value = inputs.strategies[0].margin;
-      this.$refs.parRateRef.value = inputs.strategies[0].par_rate;
-      this.$refs.floorRef.value = inputs.strategies[0].floor;
+      this.$refs.capRateRef.value = cap_rate >= 1000 ? "" : cap_rate;
+      this.$refs.marginRef.value = inputs.strategies[0].margin * 100;
+      this.$refs.parRateRef.value = inputs.strategies[0].par_rate * 100;
+      this.$refs.floorRef.value = inputs.strategies[0].floor * 100;
       this.$refs.flatCreditBonusRef.value =
-        inputs.strategies[0].flat_credit_bonus;
+        inputs.strategies[0].flat_credit_bonus * 100;
       this.$refs.PerformanceMultiplierRef.value =
         inputs.strategies[0].performance_multiplier;
-      this.$refs.StrategyFeeRef.value = inputs.strategies[0].fee;
+      this.$refs.StrategyFeeRef.value = inputs.strategies[0].fee * 100;
     },
   },
   computed: {

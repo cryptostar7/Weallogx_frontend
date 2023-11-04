@@ -883,10 +883,8 @@ export default {
   },
   watch: {
     "$props.reGenerateGraph"(e) {
-      console.log(e);
       if (e) {
         this.generateGraph();
-        console.log("setReGenerateGraph");
         this.$emit("setReGenerateGraph", false);
       }
     },
