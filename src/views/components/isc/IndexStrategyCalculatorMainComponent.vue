@@ -975,9 +975,16 @@ export default {
           net_balance: Number(index_net_balances[index].toFixed(0)),
         });
 
+        let rate_of_return = strategy_rate_of_returns[index];
+
+        // Rate of return can be null when we have segment durations.
+        if (rate_of_return) {
+          rate_of_return = Number((strategy_rate_of_returns[index] * 100).toFixed(2));
+        }
+
         strategy_results.push({
           year: element,
-          ror: Number((strategy_rate_of_returns[index] * 100).toFixed(2)),
+          ror: rate_of_return,
           net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
