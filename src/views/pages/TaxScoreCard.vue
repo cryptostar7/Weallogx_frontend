@@ -198,8 +198,7 @@
                                                                     width="1.5" height="5" rx="0.75" fill="white" />
                                                             </g>
                                                         </svg>
-                                                        <span>What year should the second tax rate take
-                                                            effect?</span>
+                                                        <span>What is the annual Cost of Living Adjustment rate?</span>
                                                     </span></label>
                                                 <div class="index-strategy-each-inputs">
                                                     <input type="text" required>

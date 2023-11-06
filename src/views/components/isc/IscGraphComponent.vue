@@ -475,6 +475,10 @@ export default {
               display: false,
             },
             tooltip: {
+              animation: {
+                delay: 100,
+                duration: 100,
+              },
               callbacks: {
                 labelColor: function (context) {
                   return {
@@ -641,6 +645,18 @@ export default {
       };
 
       window.iscChart.canvas.addEventListener("click", clickHandler);
+
+      var lastIndex = window.iscChart.data.labels.length - 1;
+
+      // get the x-value of the last point
+      var x = window.iscChart.data.labels[lastIndex];
+
+      // get the y-value of the last point
+      var y = window.iscChart.data.datasets[0].data[lastIndex];
+
+      // display the x and y values of the last point
+      console.log("The last point is at (" + x + ", " + y + ")");
+
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function (e) {
         let screenMode = localStorage.getItem("mode");
