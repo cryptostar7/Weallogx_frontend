@@ -84,7 +84,7 @@
               <div
                 class="index-strategy-each-tabs-head border-0 rounded-0 rounded-bottom"
               >
-                <p>
+                <p @click="testFunction">
                   Index Vehicle Parameters
                   <span
                     >Compare a taxable or pre-tax vehicle using an index to a
@@ -538,7 +538,7 @@
                       max="100"
                       value="100%"
                       ref="weighting_index1"
-                      :modelInputId="`weighting_index1`"
+                      :modelInputId="`weighting2_index1`"
                       :disabled="!this.tabs.tab2 && !this.tabs.tab3"
                     />
                   </div>
@@ -552,7 +552,7 @@
                       class="form-control allocation-input"
                       ref="weighting_index2"
                       max="100"
-                      :modelInputId="`weighting_index2`"
+                      :modelInputId="`weighting2_index2`"
                       :disabled="!tabs.tab2"
                     />
                   </div>
@@ -566,7 +566,7 @@
                       class="form-control allocation-input"
                       max="100"
                       ref="weighting_index3"
-                      :modelInputId="`weighting_index3`"
+                      :modelInputId="`weighting2_index3`"
                       :disabled="!tabs.tab3"
                     />
                   </div>
@@ -577,7 +577,29 @@
                 <index-strategy-edit-form
                   :currentTab="1"
                   :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
                   @clearError="(index, tab) => clearError(index, 1)"
+                />
+                <index-strategy-edit-form
+                  :currentTab="2"
+                  :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
+                  @clearError="(index, tab) => clearError(index, 2)"
+                />
+                <index-strategy-edit-form
+                  :currentTab="3"
+                  :activeTab="activeTab"
+                  :startYear="startYear"
+                  :endYear="endYear"
+                  @setStartYear="(value) => (startYear = value)"
+                  @setEndYear="(value) => (endYear = value)"
+                  @clearError="(index, tab) => clearError(index, 3)"
                 />
                 <a @click="submitHandler" class="calc-preview-save-run-button"
                   >Save & Run</a
@@ -588,6 +610,9 @@
         </div>
       </div>
     </div>
+    <input type="hidden" :id="`weighting2_index1`" v-model="weighting.tab1" />
+    <input type="hidden" :id="`weighting2_index2`" v-model="weighting.tab2" />
+    <input type="hidden" :id="`weighting2_index3`" v-model="weighting.tab3" />
   </div>
 </template>
 <script>
@@ -622,6 +647,8 @@ export default {
         global: [],
       },
       beginningBalance: "",
+      startYear: 1960,
+      endYear: 2022,
       taxRate: "",
       vehicleFee: "1",
       vehicleType: "Taxable",
@@ -635,6 +662,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function () {
+      console.log(this.getIndexWeighting());
+    },
     setActiveTab: function (tab) {
       if (tab === 1) {
         this.tabs.tab1 = true;
@@ -662,6 +692,8 @@ export default {
 
           this.weighting.tab2 = "50%";
           this.$refs.weighting_index2.value = "50%";
+
+          console.log("event.target.checked");
         }
 
         if (!this.tabs.tab3) {
@@ -774,15 +806,33 @@ export default {
     getIndexWeighting: function () {
       let w1 =
         Number(
-          (Number(this.weighting.tab1.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document
+                .getElementById("weighting2_index1")
+                .value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       let w2 =
         Number(
-          (Number(this.weighting.tab2.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document
+                .getElementById("weighting2_index2")
+                .value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       let w3 =
         Number(
-          (Number(this.weighting.tab3.replace("%", "")) / 100).toFixed(2)
+          (
+            Number(
+              document
+                .getElementById("weighting2_index3")
+                .value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
         ) || 0;
       if (w1 + w2 + w3 === 0.99) {
         w1 = w1 + 0.01;
@@ -797,7 +847,7 @@ export default {
       let obj = {
         beginning_balance: getNumber(this.beginningBalance),
         vehicle_type: v_type,
-        tax_rate: Number(this.taxRate),
+        tax_rate: Number(this.taxRate || 0),
         vehicle_fee: Number(this.vehicleFee),
       };
 
@@ -811,28 +861,26 @@ export default {
       let weightings = this.getIndexWeighting();
 
       for (var i = 1; i < 4; i++) {
-        let start_year = document.getElementById(`index_1_startYear`).value;
-        let end_year = document.getElementById(`index_1_endYear`).value;
-        let segment = document.getElementById(`index_1_segment`).value;
-        let pmsy = document.getElementById(`index_1_pmfStartYear`).value;
-        let fcbsy = document.getElementById(`index_1_fcStartYear`).value;
-        let cap_rate = document.getElementById(`index_1_capRate`).value;
-        let margin = document.getElementById(`index_1_margin`).value;
-        let par_rate = document.getElementById(`index_1_parRate`).value;
-        let floor = document.getElementById(`index_1_floor`).value;
-        let fcb = document.getElementById(`index_1_flatCreditBonus`).value;
-        let pm = document.getElementById(`index_1_PerformanceMultiplier`).value;
-        let fees = document.getElementById(`index_1_StrategyFee`).value;
+        let segment = document.getElementById(`index_${i}_segment`).value;
+        let pmsy = document.getElementById(`index_${i}_pmfStartYear`).value;
+        let fcbsy = document.getElementById(`index_${i}_fcStartYear`).value;
+        let cap_rate = document.getElementById(`index_${i}_capRate`).value;
+        let margin = document.getElementById(`index_${i}_margin`).value;
+        let par_rate = document.getElementById(`index_${i}_parRate`).value;
+        let floor = document.getElementById(`index_${i}_floor`).value;
+        let fcb = document.getElementById(`index_${i}_flatCreditBonus`).value;
+        let pm = document.getElementById(
+          `index_${i}_PerformanceMultiplier`
+        ).value;
+        let fees = document.getElementById(`index_${i}_StrategyFee`).value;
 
         if (activeTabs[i - 1]) {
           let obj = {
             allocation: weightings[i - 1],
-            start_year: start_year ? Number(start_year) : "",
-            end_year: end_year ? Number(end_year) : "",
             segment_duration: segment ? Number(segment) : "",
             performance_multiplier_start_year: pmsy ? Number(pmsy) : "",
             flat_credit_bonus_start_year: fcbsy ? Number(fcbsy) : "",
-            index: document.getElementById(`index_1_indexStrategy`).value,
+            index: document.getElementById(`index_${i}_indexStrategy`).value,
             cap_rate: cap_rate ? Number(cap_rate) : "",
             margin: margin ? Number(margin) : "",
             par_rate: par_rate ? Number(par_rate) : "",
@@ -875,8 +923,8 @@ export default {
     validateStrategyForm: function (tab) {
       let valid = true;
       let strategy = this.getStrategyObject(tab - 1);
-      let start_year = document.getElementById(`index_1_startYear`).value;
-      let end_year = document.getElementById(`index_1_endYear`).value;
+      let start_year = Number(this.startYear);
+      let end_year = Number(this.endYear);
       let maxYear = Number(end_year) - Number(start_year);
 
       if (strategy.cap_rate !== "" && strategy.cap_rate * 100 < 1) {
@@ -939,11 +987,6 @@ export default {
         this.errors.global["beginning_balance"] = "At least $1 required.";
       }
 
-      if (!this.taxRate) {
-        valid = false;
-        this.errors.global["tax_rate"] = "This field is required.";
-      }
-
       if (this.vehicleFee && Number(this.vehicleFee) < 0) {
         valid = false;
         this.errors.global["vehicle_fee"] = "Minimum value should be 0";
@@ -967,8 +1010,8 @@ export default {
 
       let formData = {
         beginning_balance: vehicle.beginning_balance,
-        start_year: strategy[0].start_year,
-        end_year: strategy[0].end_year,
+        start_year: this.startYear,
+        end_year: this.endYear,
         index_vehicle: {
           type: vehicle.vehicle_type,
           tax_rate: vehicle.tax_rate / 100,
@@ -1030,14 +1073,21 @@ export default {
       years.forEach((element, index) => {
         index_results.push({
           year: element,
-          ror: index_rate_of_returns[index],
-          net_balance: index_net_balances[index],
+          ror: Number((index_rate_of_returns[index] * 100).toFixed(2)),
+          net_balance: Number(index_net_balances[index].toFixed(0)),
         });
+
+        let rate_of_return = strategy_rate_of_returns[index];
+
+        // Rate of return can be null when we have segment durations.
+        if (rate_of_return) {
+          rate_of_return = Number((strategy_rate_of_returns[index] * 100).toFixed(2));
+        }
 
         strategy_results.push({
           year: element,
-          ror: strategy_rate_of_returns[index],
-          net_balance: strategy_net_balances[index],
+          ror: rate_of_return,
+          net_balance: Number(strategy_net_balances[index].toFixed(0)),
         });
       });
 
@@ -1060,7 +1110,7 @@ export default {
   mounted() {
     let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
     this.beginningBalance = Number(oldData.beginning_balance).toLocaleString();
-    this.taxRate =  this.$numFormat(oldData.index_vehicle.tax_rate * 100);
+    this.taxRate = this.$numFormat(oldData.index_vehicle.tax_rate * 100);
     this.vehicleFee = this.$numFormat(oldData.index_vehicle.fee * 100);
     let v_type = "Taxable";
     if (oldData.index_vehicle.type === "pre-tax") {
@@ -1188,19 +1238,21 @@ export default {
     function getTotalWeighting() {
       let w1 =
         Number(
-          document.getElementById("weighting_index1").value.replace("%", "")
+          document.getElementById("weighting2_index1").value.replace("%", "")
         ) || 0;
       let w2 =
         Number(
-          document.getElementById("weighting_index2").value.replace("%", "")
+          document.getElementById("weighting2_index2").value.replace("%", "")
         ) || 0;
       let w3 =
         Number(
-          document.getElementById("weighting_index3").value.replace("%", "")
+          document.getElementById("weighting2_index3").value.replace("%", "")
         ) || 0;
       // return Number((w1 + w2 + w3).toFixed(0));
       return w1 + w2 + w3;
     }
+
+    //////////
 
     // input validation for min and max value with putting comma
     const inputs3 = document.querySelectorAll(".allocation-input");

@@ -1,11 +1,15 @@
 <template lang="">
-  <div class="container-fluid index-strategy-inputs-div pb-0 mt-3">
+  <div
+    :class="`container-fluid index-strategy-inputs-div pb-0 mt-3 ${
+      $props.currentTab === $props.activeTab ? '' : 'd-none'
+    }`"
+  >
     <div class="row">
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance">Start Year</label>
         <div class="select-menu">
           <div class="select-btn">
-            <span class="sBtn-text">{{ startYear }}</span>
+            <span class="sBtn-text">{{ $props.startYear }}</span>
             <i
               ><img
                 src="@/assets/images/icons/select-chevron.svg"
@@ -16,8 +20,8 @@
             <li
               v-for="(item, index) in years"
               :key="index"
-              @click="startYear = item"
-              :class="`option ${startYear === item ? 'active' : ''}`"
+              @click="$emit('setStartYear', item)"
+              :class="`option ${$props.startYear === item ? 'active' : ''}`"
             >
               <span class="option-text">{{ item }}</span>
             </li>
@@ -28,7 +32,7 @@
         <label for="beginningBalance">End Year</label>
         <div class="select-menu">
           <div class="select-btn">
-            <span class="sBtn-text">{{ endYear }}</span>
+            <span class="sBtn-text">{{ $props.endYear }}</span>
             <i
               ><img
                 src="@/assets/images/icons/select-chevron.svg"
@@ -39,9 +43,9 @@
             <li
               v-for="(item, index) in years"
               :key="index"
-              @click="endYear = item"
-              :class="`option ${endYear === item ? 'active' : ''} ${
-                startYear > item ? 'd-none' : ''
+              @click="$emit('setEndYear', item)"
+              :class="`option ${$props.endYear === item ? 'active' : ''} ${
+                $props.startYear > item ? 'd-none' : ''
               }`"
             >
               <span class="option-text">{{ item }}</span>
@@ -66,7 +70,7 @@
               :key="index"
               :class="`option ${
                 indexStrategy === item.template_name ? 'active' : ''
-              } ${item.max_year > startYear ? 'disabled' : ''}`"
+              } ${item.max_year > $props.startYear ? 'disabled' : ''}`"
               @click="indexStrategy = item.template_name"
             >
               <span class="option-text">{{ item.template_name }}</span>
@@ -400,7 +404,9 @@
           </div>
           <ul class="options">
             <li
-              v-for="(item, index) in endYear - startYear"
+              v-for="(item, index) in $props.endYear - $props.startYear > 0
+                ? $props.endYear - $props.startYear
+                : 0"
               :key="index"
               :class="`option ${pmfStartYear === item ? 'active' : ''}`"
               @click="
@@ -518,9 +524,12 @@
                 alt="Chevron"
             /></i>
           </div>
+
           <ul class="options">
             <li
-              v-for="(item, index) in endYear - startYear"
+              v-for="(item, index) in $props.endYear - $props.startYear > 0
+                ? $props.endYear - $props.startYear
+                : 0"
               :key="index"
               :class="`option ${fcStartYear === item ? 'active' : ''}`"
               @click="
@@ -598,16 +607,6 @@
 
     <input
       type="hidden"
-      :value="startYear"
-      :id="`index_${$props.currentTab}_startYear`"
-    />
-    <input
-      type="hidden"
-      :value="endYear"
-      :id="`index_${$props.currentTab}_endYear`"
-    />
-    <input
-      type="hidden"
       :value="segment"
       :id="`index_${$props.currentTab}_segment`"
     />
@@ -666,13 +665,11 @@
 <script>
 import config from "../../../services/config.js";
 export default {
-  props: ["activeTab", "currentTab"],
-  emits: ["clearError"],
+  props: ["activeTab", "currentTab", "startYear", "endYear"],
+  emits: ["clearError", "setStartYear", "setEndYear"],
   inject: ["errors"],
   data() {
     return {
-      startYear: 1960,
-      endYear: 2022,
       segment: 1,
       pmfStartYear: 1,
       fcStartYear: 1,
@@ -692,32 +689,39 @@ export default {
   methods: {
     populateData: function () {
       let inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
-      console.log(inputs);
-      this.startYear = inputs.start_year;
-      this.endYear = inputs.end_year;
-      this.segment = inputs.strategies[0].segment_duration;
-      this.pmfStartYear =
-        inputs.strategies[0].performance_multiplier_start_year;
-      this.fcStartYear = inputs.strategies[0].flat_credit_bonus_start_year;
-      this.indexStrategy = inputs.strategies[0].index;
-      let cap_rate = inputs.strategies[0].cap_rate * 100;
-      this.capRate = cap_rate >= 1000 ? "" : cap_rate;
-      this.margin = inputs.strategies[0].margin * 100;
-      this.parRate = inputs.strategies[0].par_rate * 100;
-      this.floor = inputs.strategies[0].floor * 100;
-      this.flatCreditBonus = inputs.strategies[0].flat_credit_bonus * 100;
-      this.PerformanceMultiplier = inputs.strategies[0].performance_multiplier;
-      this.StrategyFee = inputs.strategies[0].fee * 100;
 
-      this.$refs.capRateRef.value = cap_rate >= 1000 ? "" : cap_rate;
-      this.$refs.marginRef.value = inputs.strategies[0].margin * 100;
-      this.$refs.parRateRef.value = inputs.strategies[0].par_rate * 100;
-      this.$refs.floorRef.value = inputs.strategies[0].floor * 100;
-      this.$refs.flatCreditBonusRef.value =
-        inputs.strategies[0].flat_credit_bonus * 100;
-      this.$refs.PerformanceMultiplierRef.value =
-        inputs.strategies[0].performance_multiplier;
-      this.$refs.StrategyFeeRef.value = inputs.strategies[0].fee * 100;
+      let index = Number(this.$props.currentTab) - 1;
+      if (inputs && inputs.strategies[index]) {
+        this.segment = inputs.strategies[index].segment_duration;
+        this.pmfStartYear =
+          inputs.strategies[index].performance_multiplier_start_year;
+        this.fcStartYear =
+          inputs.strategies[index].flat_credit_bonus_start_year;
+        this.indexStrategy = inputs.strategies[index].index;
+        let cap_rate = inputs.strategies[index].cap_rate * 100;
+        this.capRate = cap_rate >= 1000 ? "" : this.$numFormat(cap_rate);
+
+        this.margin = this.$numFormat(inputs.strategies[index].margin * 100);
+        this.parRate = this.$numFormat(inputs.strategies[index].par_rate * 100);
+        this.floor = this.$numFormat(inputs.strategies[index].floor * 100);
+
+        this.flatCreditBonus = this.$numFormat(
+          inputs.strategies[index].flat_credit_bonus * 100
+        );
+
+        this.PerformanceMultiplier =
+          inputs.strategies[index].performance_multiplier;
+        this.StrategyFee = this.$numFormat(inputs.strategies[index].fee * 100);
+
+        this.$refs.capRateRef.value = this.$numFormat(cap_rate);
+        this.$refs.marginRef.value = this.margin;
+        this.$refs.parRateRef.value = this.parRate;
+        this.$refs.floorRef.value = this.floor;
+        this.$refs.flatCreditBonusRef.value = this.flatCreditBonus;
+        this.$refs.PerformanceMultiplierRef.value =
+          inputs.strategies[0].performance_multiplier;
+        this.$refs.StrategyFeeRef.value = this.StrategyFee;
+      }
     },
   },
   computed: {
@@ -732,9 +736,6 @@ export default {
     },
     indexStrategies() {
       return config.ISC_INDEX_STRATEGIES;
-    },
-    maxStartYear() {
-      return endYear - startYear;
     },
   },
 };

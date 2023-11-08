@@ -1009,7 +1009,8 @@ table.index-strategy-table tr th {
 .canvas-graph-div {
     position: relative;
     display: block;
-    padding-inline: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .canvas-graph-div canvas {
     width: 100% !important;
@@ -1071,7 +1072,7 @@ table.index-strategy-table tr th {
 }
 .tooltip-inner-div p {
     color: #000;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1;
     margin-bottom: 8px;

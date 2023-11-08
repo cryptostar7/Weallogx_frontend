@@ -370,6 +370,16 @@ export default {
       let strategy_net_balance = result.strategy_results.map(
         (i) => i.net_balance
       );
+
+      let pointRadiusArr = new Array(years.length).fill(0);
+      pointRadiusArr[years.length-1] = 14;
+
+      let pointStyleArr0 = new Array(years.length).fill("circle");
+      pointStyleArr0[years.length-1] = pointImageArr[0];
+
+       let pointStyleArr1 = new Array(years.length).fill("circle");
+      pointStyleArr1[years.length-1] = pointImageArr[1];
+
       var config = {
         type: "line",
         data: {
@@ -381,21 +391,12 @@ export default {
               backgroundColor: lineColors[0],
               borderColor: lineColors[0],
               data: index_net_balance,
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[0],
-              ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointStyle: pointStyleArr0,
+              pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: lineColors[0],
+              pointHoverBackgroundColor: lineColors[1],
               pointBorderColor: "transparent",
-              // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
             {
               label: false,
@@ -403,21 +404,12 @@ export default {
               backgroundColor: lineColors[1],
               borderColor: lineColors[1],
               data: strategy_net_balance,
-              pointStyle: [
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                "circle",
-                pointImageArr[1],
-              ],
-              pointRadius: [0, 0, 0, 0, 0, 0, 14], // Last dot
+              pointStyle: pointStyleArr1,
+              pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,
               pointBackgroundColor: "transparent",
-              pointHoverBackgroundColor: lineColors[1],
+              pointHoverBackgroundColor: lineColors[0],
               pointBorderColor: "transparent",
-              // pointHoverRadius: [8, 8, 8, 8, 8, 8, 14],
             },
           ],
         },
@@ -426,10 +418,6 @@ export default {
             mode: "nearest",
             intersect: false,
           },
-          // hover: {
-          //   mode: 'nearest',
-          //   intersect: true
-          // },
           responsive: true,
           tooltips: {
             enabled: true,
@@ -458,7 +446,7 @@ export default {
               },
               ticks: {
                 display: true,
-                stepSize: 1000000,
+                // stepSize: 1000000,
                 callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -476,7 +464,7 @@ export default {
           layout: {
             padding: {
               top: 35,
-              right: 10,
+              right: 100,
             },
           },
           plugins: {
@@ -487,6 +475,10 @@ export default {
               display: false,
             },
             tooltip: {
+              animation: {
+                delay: 100,
+                duration: 100,
+              },
               callbacks: {
                 labelColor: function (context) {
                   return {
@@ -501,8 +493,9 @@ export default {
       };
 
       const chartBox = document.querySelector(
-        ".index-strategy-content-inner-div"
+        "#iscContentDiv"
       );
+
       let chartBoxX = chartBox.getBoundingClientRect().x;
       let chartBoxY = chartBox.getBoundingClientRect().y;
       let n = config.data.datasets[0].data.length - 1;
@@ -608,10 +601,11 @@ export default {
           { intersect: true },
           true
         );
+        
         if (points[0]) {
           points.forEach((point) => {
             let currentIndex = point.datasetIndex;
-            if (point.index === config.data.labels.length - 2) {
+            if (point.index === config.data.labels.length - 1) {
               const dropdownBox = document.getElementById(
                 `chartDropdown${currentIndex}`
               );
@@ -630,7 +624,7 @@ export default {
               dropdownBox.style.top =
                 pageY -
                 Math.floor(dropdownBox.getBoundingClientRect().height) -
-                16 +
+                12 +
                 "px";
               window.iscChart.update();
               setTimeout(() => {
@@ -646,175 +640,22 @@ export default {
             }
           });
         }
+        
         click.stopPropagation();
       };
 
       window.iscChart.canvas.addEventListener("click", clickHandler);
 
-      // Three Switch Buttons and Three Allocation Inputs
-      const threeCheckboxContainers =
-        document.querySelectorAll(".each-radio-switch");
-      const threeCheckInputs = document.querySelectorAll(".form-check-input");
-      const strategyAllocatedDivs = document.querySelectorAll(
-        ".strategy-allocated-div"
-      );
-      const allocationInputs = document.querySelectorAll(
-        ".strategy-allocated-div input"
-      );
+      var lastIndex = window.iscChart.data.labels.length - 1;
 
-      threeCheckInputs.forEach((item, idx) => {
-        item.addEventListener("click", function (e) {
-          e.stopPropagation();
-          let index = +e.target.dataset.number;
-          if (e.target.checked) {
-            if (idx == 2) {
-              threeCheckInputs[idx - 1].checked = true;
-              strategyAllocatedDivs[idx].classList.add("active");
-              strategyAllocatedDivs[idx - 1].classList.add("active");
-              allocationInputs[2].value = "33.34%";
-              allocationInputs[1].value = "33.33%";
-              allocationInputs[0].value = "33.33%";
-              allocationInputs[2].disabled = false;
-              allocationInputs[1].disabled = false;
-              allocationInputs[0].disabled = false;
-            } else if (idx == 1) {
-              strategyAllocatedDivs[idx].classList.add("active");
-              strategyAllocatedDivs[idx + 1].classList.remove("active");
-              allocationInputs[1].value = "50%";
-              allocationInputs[0].value = "50%";
-              allocationInputs[1].disabled = false;
-              allocationInputs[0].disabled = false;
-            }
-          } else {
-            if (idx == 2) {
-              threeCheckboxContainers[idx].classList.remove("active");
-              strategyAllocatedDivs[idx].classList.remove("active");
-              allocationInputs[2].value = "";
-              allocationInputs[1].value = "50%";
-              allocationInputs[0].value = "50%";
-              allocationInputs[2].disabled = true;
-            } else if (idx == 1) {
-              threeCheckInputs[idx + 1].checked = false;
-              threeCheckboxContainers[idx].classList.remove("active");
-              threeCheckboxContainers[idx + 1].classList.remove("active");
-              strategyAllocatedDivs[idx].classList.remove("active");
-              strategyAllocatedDivs[idx + 1].classList.remove("active");
-              allocationInputs[1].value = "";
-              allocationInputs[2].value = "";
-              allocationInputs[0].value = "100%";
-              allocationInputs[1].disabled = true;
-              allocationInputs[2].disabled = true;
-            }
-          }
-        });
-      });
+      // get the x-value of the last point
+      var x = window.iscChart.data.labels[lastIndex];
 
-      allocationInputs.forEach((input) => {
-        input.addEventListener("focus", (e) => {
-          let val = e.target.value;
-          e.target.type = "number";
-          val = val.substr(0, val.length - 1);
-          e.target.value = +val;
-        });
-        input.addEventListener("input", (e) => {
-          e.target.type = "number";
-        });
-      });
+      // get the y-value of the last point
+      var y = window.iscChart.data.datasets[0].data[lastIndex];
 
-      function isFloat(n) {
-        return Number(n) === n && n % 1 !== 0;
-      }
-
-      allocationInputs.forEach((input) => {
-        input.addEventListener("focusout", (e) => {
-          let val = e.target.value;
-          e.target.type = "text";
-          if (val == 0 || val == "" || val == null) {
-            e.target.value = "0%";
-            return;
-          }
-          if (isFloat(Number(val))) {
-            val = Number(val).toFixed(2);
-          } else {
-            val = Number(val);
-          }
-          val = String(val);
-          val += "%";
-          e.target.value = val;
-
-          let val1 = Number(
-            allocationInputs[0].value.substr(
-              0,
-              allocationInputs[0].value.length - 1
-            )
-          );
-          let val2 = Number(
-            allocationInputs[1].value.substr(
-              0,
-              allocationInputs[1].value.length - 1
-            )
-          );
-          let val3 = Number(
-            allocationInputs[2].value.substr(
-              0,
-              allocationInputs[2].value.length - 1
-            )
-          );
-
-          let total = val1 + val2 + val3;
-          if (total > 100) {
-            document
-              .querySelector(".strategy-allocation-all-div")
-              .classList.add("error");
-          } else {
-            document
-              .querySelector(".strategy-allocation-all-div")
-              .classList.remove("error");
-          }
-        });
-      });
-
-      threeCheckboxContainers.forEach((item, index) => {
-        item.addEventListener("click", function (e) {
-          e.stopPropagation();
-          threeCheckboxContainers.forEach((elem) => {
-            elem.classList.remove("active");
-          });
-          item.classList.add("active");
-          threeCheckInputs[index].checked = true;
-          if (index == 1) {
-            if (allocationInputs[2].checked == true) {
-              threeCheckInputs[1].checked = true;
-              strategyAllocatedDivs[index].classList.add("active");
-              strategyAllocatedDivs[index - 1].classList.add("active");
-              allocationInputs[0].value = "33.33%";
-              allocationInputs[1].value = "33.33%";
-              allocationInputs[2].value = "33.34%";
-              allocationInputs[1].disabled = false;
-              allocationInputs[2].disabled = false;
-            } else {
-              threeCheckInputs[1].checked = true;
-              strategyAllocatedDivs[index].classList.add("active");
-              strategyAllocatedDivs[index - 1].classList.add("active");
-              allocationInputs[0].value = "50%";
-              allocationInputs[1].value = "50%";
-              allocationInputs[1].disabled = false;
-              allocationInputs[1].checked = true;
-            }
-          }
-          if (index == 2) {
-            threeCheckInputs[1].checked = true;
-            strategyAllocatedDivs[index].classList.add("active");
-            strategyAllocatedDivs[index - 1].classList.add("active");
-            allocationInputs[0].value = "33.33%";
-            allocationInputs[1].value = "33.33%";
-            allocationInputs[2].value = "33.34%";
-            allocationInputs[1].disabled = false;
-            allocationInputs[2].disabled = false;
-            allocationInputs[2].checked = true;
-          }
-        });
-      });
+      // display the x and y values of the last point
+      console.log("The last point is at (" + x + ", " + y + ")");
 
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function (e) {

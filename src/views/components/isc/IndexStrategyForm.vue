@@ -1,11 +1,15 @@
 <template lang="">
-  <div class="container-fluid index-strategy-inputs-div pb-0 mt-3">
+  <div
+    :class="`container-fluid index-strategy-inputs-div pb-0 mt-3 ${
+      $props.currentTab === $props.activeTab ? '' : 'd-none'
+    }`"
+  >
     <div class="row">
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance">Start Year</label>
         <div class="select-menu">
           <div class="select-btn">
-            <span class="sBtn-text">{{ startYear }}</span>
+            <span class="sBtn-text">{{ $props.startYear }}</span>
             <i
               ><img
                 src="@/assets/images/icons/select-chevron.svg"
@@ -16,8 +20,8 @@
             <li
               v-for="(item, index) in years"
               :key="index"
-              @click="startYear = item"
-              :class="`option ${startYear === item ? 'active' : ''}`"
+              @click="$emit('setStartYear', item)"
+              :class="`option ${$props.startYear === item ? 'active' : ''}`"
             >
               <span class="option-text">{{ item }}</span>
             </li>
@@ -39,9 +43,9 @@
             <li
               v-for="(item, index) in years"
               :key="index"
-              @click="endYear = item"
-              :class="`option ${endYear === item ? 'active' : ''} ${
-                startYear > item ? 'd-none' : ''
+              @click="$emit('setEndYear', item)"
+              :class="`option ${$props.endYear === item ? 'active' : ''} ${
+                $props.startYear > item ? 'd-none' : ''
               }`"
             >
               <span class="option-text">{{ item }}</span>
@@ -66,7 +70,7 @@
               :key="index"
               :class="`option ${
                 indexStrategy === item.template_name ? 'active' : ''
-              } ${item.max_year > startYear ? 'disabled' : ''}`"
+              } ${item.max_year > $props.startYear ? 'disabled' : ''}`"
               @click="indexStrategy = item.template_name"
             >
               <span class="option-text">{{ item.template_name }}</span>
@@ -201,6 +205,7 @@
             "
             max="100"
             min="1"
+            ref="capRateRef"
           />
           <span>%</span>
         </div>
@@ -254,6 +259,7 @@
             class="onlyPositiveNum"
             @keyup="(e) => (margin = e.target.value)"
             max="100"
+            ref="marginRef"
           />
           <span>%</span>
         </div>
@@ -273,6 +279,7 @@
             "
             max="1000"
             min="1"
+            ref="parRateRef"
           />
           <span>%</span>
         </div>
@@ -293,6 +300,7 @@
                 this.$emit('clearError', 'floor');
               }
             "
+            ref="floorRef"
             max="10"
           />
           <span>%</span>
@@ -347,6 +355,7 @@
             @keyup="(e) => (PerformanceMultiplier = e.target.value)"
             min="1"
             max="10"
+            ref="PerformanceMultiplierRef"
           />
         </div>
       </div>
@@ -395,7 +404,9 @@
           </div>
           <ul class="options">
             <li
-              v-for="(item, index) in endYear - startYear"
+              v-for="(item, index) in $props.endYear - $props.startYear > 0
+                ? $props.endYear - $props.startYear
+                : 0"
               :key="index"
               :class="`option ${pmfStartYear === item ? 'active' : ''}`"
               @click="
@@ -462,6 +473,7 @@
               }
             "
             max="5"
+            ref="flatCreditBonusRef"
           />
           <span>%</span>
         </div>
@@ -514,7 +526,9 @@
           </div>
           <ul class="options">
             <li
-              v-for="(item, index) in endYear - startYear"
+              v-for="(item, index) in $props.endYear - $props.startYear > 0
+                ? $props.endYear - $props.startYear
+                : 0"
               :key="index"
               :class="`option ${fcStartYear === item ? 'active' : ''}`"
               @click="
@@ -580,6 +594,7 @@
               }
             "
             max="100"
+            ref="StrategyFeeRef"
           />
           <span>%</span>
         </div>
@@ -589,16 +604,6 @@
       </div>
     </div>
 
-    <input
-      type="hidden"
-      :value="startYear"
-      :id="`index_${$props.currentTab}_startYear`"
-    />
-    <input
-      type="hidden"
-      :value="endYear"
-      :id="`index_${$props.currentTab}_endYear`"
-    />
     <input
       type="hidden"
       :value="segment"
@@ -659,13 +664,11 @@
 <script>
 import config from "../../../services/config.js";
 export default {
-  props: ["activeTab", "currentTab"],
-  emits: ["clearError"],
+  props: ["activeTab", "currentTab", "startYear", "endYear"],
+  emits: ["clearError", "setStartYear", "setEndYear"],
   inject: ["errors"],
   data() {
     return {
-      startYear: 1960,
-      endYear: 2022,
       segment: 1,
       pmfStartYear: 1,
       fcStartYear: 1,
@@ -678,6 +681,43 @@ export default {
       PerformanceMultiplier: "1",
       StrategyFee: "",
     };
+  },
+  mounted() {
+    this.populateData();
+  },
+  methods: {
+    populateData: function () {
+      let inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+      let index = Number(this.$props.currentTab) - 1;
+      if (inputs && inputs.strategies[index]) {
+        this.segment = inputs.strategies[index].segment_duration;
+        this.pmfStartYear =
+          inputs.strategies[index].performance_multiplier_start_year;
+        this.fcStartYear =
+          inputs.strategies[index].flat_credit_bonus_start_year;
+        this.indexStrategy = inputs.strategies[index].index;
+        let cap_rate = inputs.strategies[index].cap_rate * 100;
+        this.capRate = cap_rate >= 1000 ? "" : this.$numFormat(cap_rate);
+        this.margin = this.$numFormat(inputs.strategies[index].margin * 100);
+        this.parRate = this.$numFormat(inputs.strategies[index].par_rate * 100);
+        this.floor = this.$numFormat(inputs.strategies[index].floor * 100);
+        this.flatCreditBonus = this.$numFormat(
+          inputs.strategies[index].flat_credit_bonus * 100
+        );
+        this.PerformanceMultiplier =
+          inputs.strategies[index].performance_multiplier;
+        this.StrategyFee = this.$numFormat(inputs.strategies[index].fee * 100);
+
+        this.$refs.capRateRef.value = cap_rate >= 1000 ? "" : cap_rate;
+        this.$refs.marginRef.value = this.margin;
+        this.$refs.parRateRef.value = this.parRate;
+        this.$refs.floorRef.value = this.floor;
+        this.$refs.flatCreditBonusRef.value = this.flatCreditBonus;
+        this.$refs.PerformanceMultiplierRef.value =
+          inputs.strategies[index].performance_multiplier;
+        this.$refs.StrategyFeeRef.value = this.StrategyFee;
+      }
+    },
   },
   computed: {
     years() {

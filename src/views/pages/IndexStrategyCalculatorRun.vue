@@ -11,7 +11,7 @@
                 <section class="strategy-calc-main-section mt-3 pt-4">
                   <div class="strategy-calc-main-div">
                     <div class="index-strategy-head-div">
-                      <h1 @click="testFunction">Index Strategy Calculator</h1>
+                      <h1>Index Strategy Calculator</h1>
                       <router-link to="/index-strategy-calculator" class="back"
                         ><img
                           src="@/assets/images/icons/back-small.svg"
@@ -21,7 +21,10 @@
                       >
                     </div>
                     <div class="index-strategy-table-content-div more-padding">
-                      <div class="index-strategy-content-inner-div shadow-none">
+                      <div
+                        class="index-strategy-content-inner-div shadow-none"
+                        id="iscContentDiv"
+                      >
                         <div class="d-flex justify-content-center">
                           <div
                             class="nav calc-tab-graph-tab nav-pills"
@@ -194,9 +197,7 @@
                                             {{ item.ror.toFixed(2) }}%
                                           </td>
                                           <td>
-                                            ${{
-                                              $numFormat(item.net_balance || 0)
-                                            }}
+                                            ${{ $numFormat(item.net_balance) }}
                                           </td>
                                         </tr>
                                       </tbody>
@@ -277,16 +278,16 @@
                                         >
                                           <td>{{ item.year }}</td>
                                           <td
+                                            v-if="item.ror || item.ror == 0"
                                             :class="
                                               item.ror < 0 ? 'highlighted' : ''
                                             "
                                           >
                                             {{ item.ror.toFixed(2) }}%
                                           </td>
+                                          <td v-else>&mdash;</td>
                                           <td>
-                                            ${{
-                                              $numFormat(item.net_balance || 0)
-                                            }}
+                                            ${{ $numFormat(item.net_balance) }}
                                           </td>
                                         </tr>
                                       </tbody>
@@ -480,7 +481,7 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p>
+                                <p class="highlighted">
                                   ${{
                                     index_summary.ending_balance
                                       ? $numFormat(index_summary.ending_balance)
@@ -494,7 +495,7 @@
                                 <p>Total Taxes</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>
+                                <p class="highlighted">
                                   ${{
                                     index_summary.total_taxes
                                       ? $numFormat(index_summary.total_taxes)
@@ -537,7 +538,9 @@
                                 <p>
                                   {{
                                     index_summary.average_return
-                                      ? index_summary.average_return.toFixed(2)
+                                      ? (
+                                          index_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -553,9 +556,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_average_return
-                                      ? index_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -620,7 +623,9 @@
                                 <p>
                                   {{
                                     index_summary.actual_return
-                                      ? index_summary.actual_return.toFixed(2)
+                                      ? (
+                                          index_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -636,9 +641,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_actual_return
-                                      ? index_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_actual_return * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -652,7 +657,9 @@
                                 <p>
                                   {{
                                     index_summary.standard_deviation
-                                      ? index_summary.standard_deviation.toFixed()
+                                      ? (
+                                          index_summary.standard_deviation * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -666,7 +673,7 @@
                                 <p>
                                   {{
                                     index_summary.sharpe_ratio
-                                      ? index_summary.sharpe_ratio.toFixed()
+                                      ? index_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
@@ -750,7 +757,9 @@
                                 <p>
                                   ${{
                                     strategy_summary.ending_balance
-                                      ? $numFormat(strategy_summary.ending_balance)
+                                      ? $numFormat(
+                                          strategy_summary.ending_balance
+                                        )
                                       : "0"
                                   }}
                                 </p>
@@ -804,9 +813,9 @@
                                 <p>
                                   {{
                                     strategy_summary.average_return
-                                      ? strategy_summary.average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -822,9 +831,10 @@
                                 <p class="table-green-clr">
                                   {{
                                     strategy_summary.net_average_return
-                                      ? strategy_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.net_average_return *
+                                          100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -889,9 +899,9 @@
                                 <p>
                                   {{
                                     strategy_summary.actual_return
-                                      ? strategy_summary.actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -907,9 +917,10 @@
                                 <p class="table-green-clr">
                                   {{
                                     strategy_summary.net_actual_return
-                                      ? strategy_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          strategy_summary.net_actual_return *
+                                          100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -923,7 +934,10 @@
                                 <p>
                                   {{
                                     strategy_summary.standard_deviation
-                                      ? strategy_summary.standard_deviation.toFixed()
+                                      ? (
+                                          strategy_summary.standard_deviation *
+                                          100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -937,7 +951,7 @@
                                 <p>
                                   {{
                                     strategy_summary.sharpe_ratio
-                                      ? strategy_summary.sharpe_ratio.toFixed()
+                                      ? strategy_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
@@ -1034,11 +1048,11 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p>
+                                <p class="highlighted">
                                   ${{
                                     index_summary.ending_balance
                                       ? $numFormat(index_summary.ending_balance)
-                                      : ""
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -1048,11 +1062,11 @@
                                 <p>Total Taxes</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>
+                                <p class="highlighted">
                                   ${{
                                     index_summary.total_taxes
                                       ? $numFormat(index_summary.total_taxes)
-                                      : ""
+                                      : "0"
                                   }}
                                 </p>
                               </div>
@@ -1092,7 +1106,9 @@
                                 <p>
                                   {{
                                     index_summary.average_return
-                                      ? index_summary.average_return.toFixed(2)
+                                      ? (
+                                          index_summary.average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -1108,9 +1124,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_average_return
-                                      ? index_summary.net_average_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_average_return * 100
+                                        ).toFixed(2)
                                       : ""
                                   }}%
                                 </p>
@@ -1176,7 +1192,9 @@
                                 <p>
                                   {{
                                     index_summary.actual_return
-                                      ? index_summary.actual_return.toFixed(2)
+                                      ? (
+                                          index_summary.actual_return * 100
+                                        ).toFixed(2)
                                       : "0"
                                   }}%
                                 </p>
@@ -1192,9 +1210,9 @@
                                 <p class="table-blue-clr">
                                   {{
                                     index_summary.net_actual_return
-                                      ? index_summary.net_actual_return.toFixed(
-                                          2
-                                        )
+                                      ? (
+                                          index_summary.net_actual_return * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -1208,7 +1226,9 @@
                                 <p>
                                   {{
                                     index_summary.standard_deviation
-                                      ? index_summary.standard_deviation.toFixed()
+                                      ? (
+                                          index_summary.standard_deviation * 100
+                                        ).toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -1222,7 +1242,7 @@
                                 <p>
                                   {{
                                     index_summary.sharpe_ratio
-                                      ? index_summary.sharpe_ratio.toFixed()
+                                      ? index_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
@@ -1245,14 +1265,23 @@
                           </div>
                           Summary
                         </div>
-                        <div class="table-graph-bottom-content-div">
+                        <div
+                          class="table-graph-bottom-content-div"
+                          v-if="strategy_summary"
+                        >
                           <div class="container-fluid px-0">
                             <div class="row">
                               <div class="col-sm-8">
                                 <p>Beginning Balance</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>$100,000</p>
+                                <p>
+                                  ${{
+                                    inputs.beginning_balance
+                                      ? $numFormat(inputs.beginning_balance)
+                                      : 0
+                                  }}
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1302,7 +1331,15 @@
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p>7,442,551</p>
+                                <p>
+                                  ${{
+                                    strategy_summary.ending_balance
+                                      ? $numFormat(
+                                          strategy_summary.ending_balance
+                                        )
+                                      : "0"
+                                  }}
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1310,7 +1347,13 @@
                                 <p>Total Taxes</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>$0</p>
+                                <p>
+                                  ${{
+                                    strategy_summary.total_taxes
+                                      ? $numFormat(strategy_summary.total_taxes)
+                                      : "0"
+                                  }}
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1318,7 +1361,15 @@
                                 <p>Years with Market Losses</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>0</p>
+                                <p
+                                  :class="
+                                    strategy_summary.total_negative_years < 0
+                                      ? 'highlighted'
+                                      : ''
+                                  "
+                                >
+                                  {{ strategy_summary.total_negative_years }}
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1328,25 +1379,42 @@
                                   <button
                                     class="btn table-plus-btn green collapsed"
                                     data-bs-toggle="collapse"
-                                    href="#aror7"
+                                    href="#aror3"
                                     role="button"
                                     aria-expanded="false"
-                                    aria-controls="aror7"
+                                    aria-controls="aror3"
                                   ></button>
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p>8.1%</p>
+                                <p>
+                                  {{
+                                    strategy_summary.average_return
+                                      ? (
+                                          strategy_summary.average_return * 100
+                                        ).toFixed(2)
+                                      : ""
+                                  }}%
+                                </p>
                               </div>
                             </div>
-                            <div class="row collapse" id="aror7">
+                            <div class="row collapse" id="aror3">
                               <div class="col-sm-8">
                                 <p class="table-green-clr ms-2">
-                                  Net average Rate of Return
+                                  Net Average Rate of Return
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="table-green-clr">7.3%</p>
+                                <p class="table-green-clr">
+                                  {{
+                                    strategy_summary.net_average_return
+                                      ? (
+                                          strategy_summary.net_average_return *
+                                          100
+                                        ).toFixed(2)
+                                      : ""
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1397,25 +1465,42 @@
                                   <button
                                     class="btn table-plus-btn green collapsed"
                                     data-bs-toggle="collapse"
-                                    href="#aror8"
+                                    href="#aror4"
                                     role="button"
                                     aria-expanded="false"
-                                    aria-controls="aror8"
+                                    aria-controls="aror4"
                                   ></button>
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p>7.7%</p>
+                                <p>
+                                  {{
+                                    strategy_summary.actual_return
+                                      ? (
+                                          strategy_summary.actual_return * 100
+                                        ).toFixed(2)
+                                      : "0"
+                                  }}%
+                                </p>
                               </div>
                             </div>
-                            <div class="row collapse" id="aror8">
+                            <div class="row collapse" id="aror4">
                               <div class="col-sm-8">
                                 <p class="table-green-clr ms-2">
-                                  Net actual Rate of Return
+                                  Net Actual Rate of Return
                                 </p>
                               </div>
                               <div class="col-sm-4">
-                                <p class="table-green-clr">5.5%</p>
+                                <p class="table-green-clr">
+                                  {{
+                                    strategy_summary.net_actual_return
+                                      ? (
+                                          strategy_summary.net_actual_return *
+                                          100
+                                        ).toFixed(2)
+                                      : 0
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1423,7 +1508,16 @@
                                 <p>Standard Deviation</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>5.23</p>
+                                <p>
+                                  {{
+                                    strategy_summary.standard_deviation
+                                      ? (
+                                          strategy_summary.standard_deviation *
+                                          100
+                                        ).toFixed(2)
+                                      : 0
+                                  }}%
+                                </p>
                               </div>
                             </div>
                             <div class="row">
@@ -1431,7 +1525,13 @@
                                 <p>Sharpe Ratio</p>
                               </div>
                               <div class="col-sm-4">
-                                <p>1.46</p>
+                                <p>
+                                  {{
+                                    strategy_summary.sharpe_ratio
+                                      ? strategy_summary.sharpe_ratio.toFixed(2)
+                                      : 0
+                                  }}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -1517,12 +1617,9 @@ export default {
         this.strategy_summary = data.strategy_summary;
         this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
         this.reGenerateGraph = true;
-      }else{
+      } else {
         this.$router.push(`/index-strategy-calculator`);
       }
-    },
-    testFunction: function () {
-      this.reGenerateGraph = true;
     },
   },
 };
