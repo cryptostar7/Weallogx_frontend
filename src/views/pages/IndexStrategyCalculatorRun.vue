@@ -657,7 +657,7 @@
                                 <p>
                                   {{
                                     index_summary.standard_deviation
-                                      ? index_summary.standard_deviation.toFixed()
+                                      ? index_summary.standard_deviation.toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -671,7 +671,7 @@
                                 <p>
                                   {{
                                     index_summary.sharpe_ratio
-                                      ? index_summary.sharpe_ratio.toFixed()
+                                      ? index_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
@@ -932,7 +932,7 @@
                                 <p>
                                   {{
                                     strategy_summary.standard_deviation
-                                      ? strategy_summary.standard_deviation.toFixed()
+                                      ? strategy_summary.standard_deviation.toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -946,7 +946,7 @@
                                 <p>
                                   {{
                                     strategy_summary.sharpe_ratio
-                                      ? strategy_summary.sharpe_ratio.toFixed()
+                                      ? strategy_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
@@ -1221,7 +1221,7 @@
                                 <p>
                                   {{
                                     index_summary.standard_deviation
-                                      ? index_summary.standard_deviation.toFixed()
+                                      ? index_summary.standard_deviation.toFixed(2)
                                       : 0
                                   }}%
                                 </p>
@@ -1235,7 +1235,7 @@
                                 <p>
                                   {{
                                     index_summary.sharpe_ratio
-                                      ? index_summary.sharpe_ratio.toFixed()
+                                      ? index_summary.sharpe_ratio.toFixed(2)
                                       : 0
                                   }}
                                 </p>
