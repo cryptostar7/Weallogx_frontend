@@ -574,7 +574,7 @@
                 <p class="error-para">
                   The allocation weighting must equal 100%
                 </p>
-                <index-strategy-edit-form
+                <index-strategy-form
                   :currentTab="1"
                   :activeTab="activeTab"
                   :startYear="startYear"
@@ -583,7 +583,7 @@
                   @setEndYear="(value) => (endYear = value)"
                   @clearError="(index, tab) => clearError(index, 1)"
                 />
-                <index-strategy-edit-form
+                <index-strategy-form
                   :currentTab="2"
                   :activeTab="activeTab"
                   :startYear="startYear"
@@ -592,7 +592,7 @@
                   @setEndYear="(value) => (endYear = value)"
                   @clearError="(index, tab) => clearError(index, 2)"
                 />
-                <index-strategy-edit-form
+                <index-strategy-form
                   :currentTab="3"
                   :activeTab="activeTab"
                   :startYear="startYear"
@@ -616,7 +616,7 @@
   </div>
 </template>
 <script>
-import IndexStrategyEditForm from "./IndexStrategyEditForm.vue";
+import IndexStrategyForm from "./IndexStrategyForm.vue";
 import { post } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
@@ -624,7 +624,7 @@ import { computed } from "vue";
 
 export default {
   components: {
-    IndexStrategyEditForm,
+    IndexStrategyForm,
   },
   emits: ["setIscData"],
   data() {
@@ -1006,8 +1006,6 @@ export default {
       this.$refs.modalCloseRef.click();
 
       let vehicle = this.getVehicleData();
-      let strategy = this.getIndexStrategiesData();
-
       let formData = {
         beginning_balance: vehicle.beginning_balance,
         start_year: this.startYear,
@@ -1081,7 +1079,9 @@ export default {
 
         // Rate of return can be null when we have segment durations.
         if (rate_of_return) {
-          rate_of_return = Number((strategy_rate_of_returns[index] * 100).toFixed(2));
+          rate_of_return = Number(
+            (strategy_rate_of_returns[index] * 100).toFixed(2)
+          );
         }
 
         strategy_results.push({
@@ -1127,6 +1127,8 @@ export default {
 
     if (oldData.strategies[0]) {
       this.tabs.tab1 = true;
+      this.startYear = oldData.start_year;
+      this.endYear = oldData.end_year;
       this.weighting.tab1 = oldData.strategies[0].allocation * 100 + "%";
       this.$refs.weighting_index1.value =
         oldData.strategies[0].allocation * 100 + "%";

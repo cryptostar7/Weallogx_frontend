@@ -366,7 +366,7 @@ export default {
 
       let result = JSON.parse(localStorage.getItem("isc_calculate"));
       let years = result.index_results.map((i) => i.year);
-      let index_net_balance = result.index_results.map((i) => i.net_balance);
+      let index_net_balance  = result.index_results.map((i) => i.net_balance);
       let strategy_net_balance = result.strategy_results.map(
         (i) => i.net_balance
       );
@@ -390,7 +390,7 @@ export default {
               fill: false,
               backgroundColor: lineColors[0],
               borderColor: lineColors[0],
-              data: index_net_balance,
+              data: strategy_net_balance,
               pointStyle: pointStyleArr0,
               pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,
@@ -403,7 +403,7 @@ export default {
               fill: false,
               backgroundColor: lineColors[1],
               borderColor: lineColors[1],
-              data: strategy_net_balance,
+              data: index_net_balance,
               pointStyle: pointStyleArr1,
               pointRadius: pointRadiusArr, // Last dot
               borderWidth: 3,

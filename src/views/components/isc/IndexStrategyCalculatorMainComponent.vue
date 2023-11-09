@@ -905,7 +905,6 @@ export default {
       }
 
       let vehicle = this.getVehicleData();
-      let strategy = this.getIndexStrategiesData();
 
       let formData = {
         beginning_balance: vehicle.beginning_balance,
@@ -998,6 +997,7 @@ export default {
     },
     setPreviousData: function () {
       let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+
       if (oldData) {
         this.beginningBalance = Number(
           oldData.beginning_balance
@@ -1020,8 +1020,8 @@ export default {
 
         if (oldData.strategies[0]) {
           this.tabs.tab1 = true;
-          this.startYear = oldData.strategies[0].start_year;
-          this.endYear = oldData.strategies[0].end_year;
+          this.startYear = oldData.start_year;
+          this.endYear = oldData.end_year;
           this.weighting.tab1 = oldData.strategies[0].allocation * 100 + "%";
           this.$refs.weighting_index1.value =
             oldData.strategies[0].allocation * 100 + "%";
