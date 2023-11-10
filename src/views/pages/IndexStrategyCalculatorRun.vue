@@ -574,6 +574,7 @@ export default {
       } else {
         this.$router.push(`/index-strategy-calculator`);
       }
+      window.scrollTo(0, 0);
     },
   },
 };
