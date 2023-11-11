@@ -664,8 +664,8 @@
 <script>
 import config from "../../../services/config.js";
 export default {
-  props: ["activeTab", "currentTab", "startYear", "endYear"],
-  emits: ["clearError", "setStartYear", "setEndYear"],
+  props: ["activeTab", "currentTab", "startYear", "endYear", "resetForm"],
+  emits: ["clearError", "setStartYear", "setEndYear", "setResetForm"],
   inject: ["errors"],
   data() {
     return {
@@ -718,6 +718,26 @@ export default {
         this.$refs.StrategyFeeRef.value = this.StrategyFee;
       }
     },
+    resetFormData: function () {
+      this.segment = 1;
+      this.pmfStartYear = 1;
+      this.fcStartYear = 1;
+      this.indexStrategy = "S&P 500";
+      this.capRate = "";
+      this.margin = "";
+      this.parRate = 100;
+      this.floor = 0;
+      this.flatCreditBonus = "";
+      this.PerformanceMultiplier = "1";
+      this.StrategyFee = "";
+      this.$refs.capRateRef.value = this.capRate;
+      this.$refs.marginRef.value = this.margin;
+      this.$refs.parRateRef.value = this.parRate;
+      this.$refs.floorRef.value = this.floor;
+      this.$refs.flatCreditBonusRef.value = this.flatCreditBonus;
+      this.$refs.PerformanceMultiplierRef.value = this.PerformanceMultiplier;
+      this.$refs.StrategyFeeRef.value = this.StrategyFee;
+    },
   },
   computed: {
     years() {
@@ -734,6 +754,11 @@ export default {
     },
     maxStartYear() {
       return endYear - startYear;
+    },
+  },
+  watch: {
+    "$props.resetForm"(e) {
+      this.resetFormData();
     },
   },
 };

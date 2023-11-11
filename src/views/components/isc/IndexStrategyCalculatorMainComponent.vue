@@ -478,27 +478,33 @@
               :activeTab="activeTab"
               :startYear="startYear"
               :endYear="endYear"
+              :resetForm="resetIndexFormData"
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
-              @clearError="(index, tab) => clearError(index, 1)"
+              @clearError="(index) => clearError(index, 1)"
+              @setResetForm="() => resetIndexFormData = false"
             />
             <index-strategy-form
               :currentTab="2"
               :activeTab="activeTab"
               :startYear="startYear"
               :endYear="endYear"
+              :resetForm="resetIndexFormData"
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
-              @clearError="(index, tab) => clearError(index, 1)"
+              @clearError="(index) => clearError(index, 2)"
+              @setResetForm="() => resetIndexFormData = false"
             />
             <index-strategy-form
               :currentTab="3"
               :activeTab="activeTab"
               :startYear="startYear"
               :endYear="endYear"
+              :resetForm="resetIndexFormData"
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
-              @clearError="(index, tab) => clearError(index, 1)"
+              @clearError="(index) => clearError(index, 3)"
+              @setResetForm="() => resetIndexFormData = false"
             />
           </div>
         </div>
@@ -552,12 +558,12 @@ export default {
       beginningBalance: "",
       startYear: 1960,
       endYear: 2022,
-      beginningBalance: "",
       taxRate: "0",
       vehicleFee: "1",
       vehicleType: "Taxable",
       totalWeighting: 100,
       submitBtn: false,
+      resetIndexFormData: false,
     };
   },
   provide() {
@@ -887,7 +893,7 @@ export default {
         valid = false;
         this.errors.global["beginning_balance"] = "At least $1 required.";
       }
-      
+
       if (this.vehicleFee && Number(this.vehicleFee) < 0) {
         valid = false;
         this.errors.global["vehicle_fee"] = "Minimum value should be 0";
@@ -905,7 +911,6 @@ export default {
       }
 
       let vehicle = this.getVehicleData();
-      let strategy = this.getIndexStrategiesData();
 
       let formData = {
         beginning_balance: vehicle.beginning_balance,
@@ -933,7 +938,10 @@ export default {
           console.log(response);
           let data = response.data;
           this.$store.dispatch("loader", false);
-          localStorage.setItem("isc_calculate_inputs", JSON.stringify(formData));
+          localStorage.setItem(
+            "isc_calculate_inputs",
+            JSON.stringify(formData)
+          );
           localStorage.setItem(
             "isc_calculate",
             JSON.stringify(this.mapData(data))
@@ -979,7 +987,9 @@ export default {
 
         // Rate of return can be null when we have segment durations.
         if (rate_of_return) {
-          rate_of_return = Number((strategy_rate_of_returns[index] * 100).toFixed(2));
+          rate_of_return = Number(
+            (strategy_rate_of_returns[index] * 100).toFixed(2)
+          );
         }
 
         strategy_results.push({
@@ -998,6 +1008,7 @@ export default {
     },
     setPreviousData: function () {
       let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+
       if (oldData) {
         this.beginningBalance = Number(
           oldData.beginning_balance
@@ -1020,8 +1031,8 @@ export default {
 
         if (oldData.strategies[0]) {
           this.tabs.tab1 = true;
-          this.startYear = oldData.strategies[0].start_year;
-          this.endYear = oldData.strategies[0].end_year;
+          this.startYear = oldData.start_year;
+          this.endYear = oldData.end_year;
           this.weighting.tab1 = oldData.strategies[0].allocation * 100 + "%";
           this.$refs.weighting_index1.value =
             oldData.strategies[0].allocation * 100 + "%";
@@ -1048,10 +1059,35 @@ export default {
         }
       }
     },
+    resetFormData: function () {
+      this.beginningBalance = "";
+      this.taxRate = "0";
+      this.vehicleFee = "1";
+      this.vehicleType = "Taxable";
+      this.$refs.beginningBalanceRef.value = this.beginningBalance;
+      this.$refs.taxRateRef.value = this.taxRate;
+      this.$refs.vehicleFeeRef.value = this.vehicleFee;
+      this.$refs.vehicleFeeRef.value = this.vehicleFee;
+      this.activeTab = 1;
+      this.tabs.tab1 = true;
+      this.tabs.tab2 = false;
+      this.tabs.tab3 = false;
+      this.startYear = 1960;
+      this.endYear = 2022;
+      this.weighting.tab1 = "100%";
+      this.$refs.weighting_index1.value = "100%";
+      this.weighting.tab2 = "";
+      this.$refs.weighting_index2.value = "";
+      this.weighting.tab3 = "";
+      this.$refs.weighting_index3.value = "";
+      this.submitBtn = false;
+    },
     resetForm: function () {
       localStorage.removeItem("isc_calculate_inputs");
       localStorage.removeItem("isc_calculate");
-      window.location.reload();
+      this.resetFormData();
+      this.resetIndexFormData = true;
+      window.scrollTo(0, 0);
     },
   },
   computed: {

@@ -17,10 +17,10 @@ const config = {
         { id: 2, max_year: 1987, template_name: "Blended Index" },
         { id: 3, max_year: 2005, template_name: "Bloomberg US Dynamic Balance II ER" },
         { id: 4, max_year: 2005, template_name: "PIMCO Tactical Balanced ER" },
-        { id: 5, max_year: 2005, template_name: "Fidelity Multifactor Yield 5% ER" },
-        { id: 6, max_year: 2005, template_name: "Barclays Trailblazer Sectors 5" },
-        { id: 7, max_year: 2005, template_name: "S&P Prism" },
-        { id: 8, max_year: 2005, template_name: "Putnam Dynamic Low Volatility Excess Return Index" },
+        { id: 5, max_year: 1999, template_name: "Fidelity Multifactor Yield 5% ER" },
+        { id: 6, max_year: 2004, template_name: "Barclays Trailblazer Sectors 5" },
+        { id: 7, max_year: 1991, template_name: "S&P Prism" },
+        { id: 8, max_year: 1990, template_name: "Putnam Dynamic Low Volatility Excess Return Index" },
     ]
 };
 
