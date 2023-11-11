@@ -242,7 +242,7 @@
 </template>
 <script>
 export default {
-  props: ["beginningValance", "summary"],
+  props: ["beginningBalance", "summary"],
 };
 </script>
 <style lang=""></style>

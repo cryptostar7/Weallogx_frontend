@@ -415,7 +415,7 @@
                         <index-summary-data-component
                           v-if="index_summary"
                           :summary="index_summary"
-                          :beginningValance="inputs.beginning_balance"
+                          :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
                     </div>
@@ -428,7 +428,7 @@
                         <strategy-summary-data-component
                           v-if="strategy_summary"
                           :summary="strategy_summary"
-                          :beginningValance="inputs.beginning_balance"
+                          :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
                     </div>
@@ -457,7 +457,7 @@
                         <index-summary-data-component
                           v-if="index_summary"
                           :summary="index_summary"
-                          :beginningValance="inputs.beginning_balance"
+                          :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
                     </div>
@@ -478,7 +478,7 @@
                         <strategy-summary-data-component
                           v-if="strategy_summary"
                           :summary="strategy_summary"
-                          :beginningValance="inputs.beginning_balance"
+                          :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
                     </div>

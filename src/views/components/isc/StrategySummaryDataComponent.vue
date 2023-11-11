@@ -8,8 +8,8 @@
         <div class="col-sm-4">
           <p>
             ${{
-              $props.beginningValance
-                ? $numFormat($props.beginningValance)
+              $props.beginningBalance
+                ? $numFormat($props.beginningBalance)
                 : 0
             }}
           </p>
@@ -247,7 +247,7 @@
 </template>
 <script>
 export default {
-    props: ["beginningValance", "summary"]
+    props: ["beginningBalance", "summary"]
 };
 </script>
 <style lang=""></style>
