@@ -266,6 +266,10 @@ export default {
       this.updateBarWidths()
   },
 
+  updated() {
+      this.updateBarWidths()
+  },
+
   methods: {
 
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
