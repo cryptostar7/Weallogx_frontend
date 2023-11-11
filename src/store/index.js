@@ -185,10 +185,10 @@ const store = createStore({
                     initial_tax_rate: 20,
                     plan_through_age: 95,
                     roth_conversion_years: 5,
-                    second_tax_rate: 24,
-                    switch_year: 3,
-                    social_security_amount: 33000,
-                    social_security_age: 67,
+                    second_tax_rate: "",
+                    switch_year: "",
+                    social_security_amount: "",
+                    social_security_age: "",
                     social_security_cola: 1.5
                 },
                 inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {
@@ -199,10 +199,10 @@ const store = createStore({
                     initial_tax_rate: 20,
                     plan_through_age: 95,
                     roth_conversion_years: 5,
-                    second_tax_rate: 24,
-                    switch_year: 3,
-                    social_security_amount: 33000,
-                    social_security_age: 67,
+                    second_tax_rate: "",
+                    switch_year: "",
+                    social_security_amount: "",
+                    social_security_age: "",
                     social_security_cola: 1.5
                 },
                 results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {

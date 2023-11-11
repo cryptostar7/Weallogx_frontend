@@ -71,9 +71,12 @@
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
-                                                                <p class="right-text">
+                                                                <p v-if="inputs.second_tax_rate" class="right-text">
                                                                     {{inputs.initial_tax_rate}}% |
                                                                     {{inputs.second_tax_rate}}%
+                                                                </p>
+                                                                <p v-else class="right-text">
+                                                                    {{inputs.initial_tax_rate}}%
                                                                 </p>
                                                             </div>
                                                             <div class="each-card-row">
@@ -99,9 +102,12 @@
                                                             </div>
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Tax Rate</p>
-                                                                <p class="right-text">
+                                                                <p v-if="inputs.second_tax_rate" class="right-text">
                                                                     {{inputs.initial_tax_rate}}% |
                                                                     {{inputs.second_tax_rate}}%
+                                                                </p>
+                                                                <p v-else class="right-text">
+                                                                    {{inputs.initial_tax_rate}}%
                                                                 </p>
                                                             </div>
                                                             <div class="each-card-row">

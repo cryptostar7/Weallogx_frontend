@@ -249,9 +249,26 @@ export default {
       // We don't want to update the inputs in the store so make a copy.
       let inputs = {...this.inputs}
 
+      if (inputs.second_tax_rate) {
+        inputs.second_tax_rate /= 100
+      } else {
+        delete inputs.second_tax_rate
+      }
+
+      if (!inputs.switch_year) {
+        delete inputs.switch_year
+      }
+
+      if (!inputs.social_security_amount) {
+        delete inputs.social_security_amount
+      }
+
+      if (!inputs.social_security_age) {
+        delete inputs.social_security_age
+      }
+
       inputs.rate_of_return /= 100
       inputs.initial_tax_rate /= 100
-      inputs.second_tax_rate /= 100
       inputs.social_security_cola /= 100
 
       post(getUrl("tax_scorecard"), inputs, authHeader())
@@ -261,8 +278,12 @@ export default {
           this.$router.push("/tax-risk-analysis")
         })
         .catch((error) => {
-          console.error(error)
           this.$store.dispatch("loader", false)
+          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(error.response.data.error[0]);
+          }
         })
     },
 
