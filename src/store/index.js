@@ -507,17 +507,18 @@ const store = createStore({
             context.commit('setShareReportData', payload);
         },
         updateTaxScorecardInputs(context, payload) {
-          localStorage.setItem("tax_scorecard_inputs", JSON.stringify(payload))
-          context.commit('setTaxScorecardInputs', payload);
+          let inputs = {...payload}
+          localStorage.setItem("tax_scorecard_inputs", JSON.stringify(inputs))
+          context.commit("setTaxScorecardInputs", inputs);
         },
         resetTaxScorecardInputs(context) {
-            let payload = {...context.state.data.tax_scorecard.default_inputs}
-            localStorage.setItem("tax_scorecard_inputs", JSON.stringify(payload))
-            context.commit('setTaxScorecardInputs', payload);
+            let inputs = {...context.state.data.tax_scorecard.default_inputs}
+            localStorage.setItem("tax_scorecard_inputs", JSON.stringify(inputs))
+            context.commit("setTaxScorecardInputs", inputs);
         },
         updateTaxScorecardResults(context, payload) {
             localStorage.setItem("tax_scorecard_results", JSON.stringify(payload))
-            context.commit('setTaxScorecardResults', payload);
+            context.commit("setTaxScorecardResults", payload);
         },
     }
 })

@@ -246,8 +246,9 @@ export default {
 
       this.$store.dispatch("loader", true);
 
-      // We don't want to update the inputs in the store so make a copy.
+      // Make a copy since the this.inputs is a vuex proxy object.
       let inputs = {...this.inputs}
+      this.$store.dispatch("updateTaxScorecardInputs", inputs);
 
       if (inputs.second_tax_rate) {
         inputs.second_tax_rate /= 100
@@ -277,12 +278,22 @@ export default {
           this.$store.dispatch("updateTaxScorecardResults", response.data)
           this.$router.push("/tax-risk-analysis")
         })
+
+        // TODO - Is there a generic way to handle all this?
         .catch((error) => {
           this.$store.dispatch("loader", false)
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
-            this.$toast.error(error.message);
+            this.$toast.error(error.message)
+          } if (error.code === "ERR_BAD_REQUEST") {
+            if (error.response.data.error) {
+                this.$toast.error(error.response.data.error[0])
+            } else {
+                let field = Object.entries(error.response.data)[0][0]
+                let message = Object.entries(error.response.data)[0][1][0]
+                this.$toast.error(field + ": " + message)
+            }
           } else {
-            this.$toast.error(error.response.data.error[0]);
+            this.$toast.error(error.message)
           }
         })
     },
