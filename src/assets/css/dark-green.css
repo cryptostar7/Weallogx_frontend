@@ -4356,3 +4356,6 @@ fill: #f5f5f5;
 .dark-blue .table-graph-bottom-content-div p.table-green-clr{
   color: #1660A4;
 }
+.dark-green .tax-score-disclosure, .dark-green .tax-score-disclosure p{
+  color: #fff;
+}
