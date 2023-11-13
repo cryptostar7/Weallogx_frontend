@@ -194,8 +194,8 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
-                                                                    <div class="tax-details-each-bars barClr4">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr4 text-white">
+                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
@@ -306,7 +306,9 @@ export default {
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult === 0) {
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 2 + 'px';
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+            }else{
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";
             }
         }
 
@@ -326,7 +328,9 @@ export default {
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult === 0) {
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = 2 + 'px';
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+            }else{
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";
             }
         }
         /* -------------------------------------------
