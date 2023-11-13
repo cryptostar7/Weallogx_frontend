@@ -4359,3 +4359,6 @@ fill: #f5f5f5;
 .dark-green .tax-score-disclosure, .dark-green .tax-score-disclosure p{
   color: #fff;
 }
+.dark-green .tax-score-disclosure{
+  border-color:   #26AB8B
+}

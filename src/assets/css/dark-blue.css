@@ -4803,8 +4803,6 @@ background: #0C4A83;
 .dark-blue .tax-details-each-bars.barClr6{
   background: #BAB42C;
 }
-
-
 .dark-blue .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
 }
@@ -4816,4 +4814,7 @@ fill: #f5f5f5;
 }
 .dark-blue .tax-score-disclosure, .dark-blue .tax-score-disclosure p{
   color: #fff;
+}
+.dark-blue .tax-score-disclosure{
+  border-color: var(--blue-clr-2);
 }
