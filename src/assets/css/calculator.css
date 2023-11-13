@@ -680,12 +680,15 @@ display: none;
     top: -100%;
     left: 50%;
     transform: translate(-50%, calc(-100% + 11px));
-/*    min-height: 55px;*/
     padding: 10px;
     color: #000;
     font-size: 11px;
     font-weight: 500;
     text-align: left;
+}
+.index-strategy-table-heading .icon-span.extras span {
+    width: auto;
+    white-space: nowrap;
 }
 .index-strategy-table-heading .icon-span:hover span {
     display: block;

@@ -126,8 +126,8 @@
                                         checked
                                       />
                                     </div>
-                                    {{ indexType }}
-                                    <span class="icon-span"
+                                    Index Allocation
+                                    <span class="icon-span extras"
                                       ><sup>
                                         <svg
                                           class="table-common-tooltip-svg2"
@@ -164,10 +164,12 @@
                                             />
                                           </g>
                                         </svg> </sup
-                                      ><span
-                                        >The index or blend of indexes
-                                        chosen.</span
-                                      >
+                                      ><span>
+                                        Index Allocation: <br>
+                                        <label>{{ indexType }}: 100%</label><br>
+                                        <label>S&P Prism: 24%</label> <br>
+
+                                      </span>
                                     </span>
                                   </div>
                                   <div class="table-responsive w-100 mt-2">
@@ -451,7 +453,7 @@
                               checked
                             />
                           </div>
-                          Summary
+                          Index Allocation
                         </div>
                         <!-- index summary data -->
                         <index-summary-data-component
@@ -472,7 +474,7 @@
                               checked
                             />
                           </div>
-                          Summary
+                          Index Strategy
                         </div>
                         <!-- strategy summary data -->
                         <strategy-summary-data-component
