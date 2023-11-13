@@ -218,7 +218,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tax-score-disclosure">
+                                    <p><i>This tool is designed to provide insight and opportunities for discussion regarding certain tax-efficient strategies that may prove beneficial amid a myriad of potential outcomes but that are not guaranteed to to prove so. While every reasonable effort is made to ensure proper calculations and their portrayal, it is impossible for any software or advisor to accurately predict your future. Unpredictable variables can and likely will cause material changes in the outcomes projected. Any conversion strategy should only be undertaken after discussion with appropriate financial, legal, and tax advisors. The data presented in no way predicts what your future tax rates or tax liability will be in reality. No implication is asserted that undertaking a conversion strategy, including the one contemplated here, is superior to a non-conversion strategy. This does not constitute financial, legal, or tax advice to you. past performance is never guarantee or indicative of future results. </i></p>
+                                </div>
                             </div>
+
+
                         </div>
                     </section>
                     <!-- Inner Content Area End -->
