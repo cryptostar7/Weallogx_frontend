@@ -48,12 +48,10 @@
                 <label for="beginningBalance">IRA or 401K Balance</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
-
                     <dollar-amount-input
-                      @amountUpdated="balanceUpdated"
+                      @amountUpdated="a => updateInput('ira_or_401k_balance', a)"
                       :default="inputs.ira_or_401k_balance"
                     />
-
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -166,7 +164,7 @@
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
                     <dollar-amount-input
-                      @amountUpdated="socialSecurityAmountUpdated"
+                      @amountUpdated="a => updateInput('social_security_amount', a)"
                       :default="inputs.social_security_amount"
                     />
                 </div>
@@ -174,7 +172,10 @@
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Social Security Age</label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.social_security_age" required>
+                  <integer-input
+                      @valueUpdated="v => updateInput('social_security_age', v)"
+                      :default="inputs.social_security_age"
+                    />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -230,11 +231,12 @@ import { post } from "../../../network/requests"
 import { getUrl } from "../../../network/url"
 import { authHeader } from "../../../services/helper"
 import DollarAmountInput from "./DollarAmountInput.vue"
+import IntegerInput from "./IntegerInput.vue"
 
 export default {
 
   components: {
-    DollarAmountInput
+    DollarAmountInput, IntegerInput
   },
 
   computed: {
@@ -255,19 +257,13 @@ export default {
 
       if (!inputs.ira_or_401k_balance) {
         valid = false
-      } else if (!inputs.social_security_amount) {
+      }
+      
+      if (inputs.social_security_amount && !inputs.social_security_age) {
         valid = false
       }
 
       this.$store.dispatch("updateTaxScorecardFormValid", valid)
-    },
-
-    balanceUpdated: function(balance) {
-        this.updateInputsAndValidateForm("ira_or_401k_balance",  balance)
-    },
-
-    socialSecurityAmountUpdated(socialSecurityAmount) {
-        this.updateInputsAndValidateForm("social_security_amount", socialSecurityAmount)
     },
 
     generateTaxScorecard: function() {
@@ -327,7 +323,7 @@ export default {
         })
     },
 
-    updateInputsAndValidateForm(field, value) {
+    updateInput(field, value) {
 
       let inputs = {...this.inputs, [field]: value}
 
