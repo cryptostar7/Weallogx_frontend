@@ -57,7 +57,10 @@
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Age</label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('age', v)"
+                    :default="inputs.age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -77,7 +80,10 @@
                         <span>What year will RMDs start?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.rmd_age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('rmd_age', v)"
+                    :default="inputs.rmd_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -97,7 +103,10 @@
                         <span>Through what age should the analysis run?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.plan_through_age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('plan_through_age', v)"
+                    :default="inputs.plan_through_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -118,8 +127,11 @@
                             capital</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.rate_of_return" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('rate_of_return', v)"
+                    :default="inputs.rate_of_return"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -137,8 +149,11 @@
                         class="optional-label">(optional)
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.second_tax_rate" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('second_tax_rate', v)"
+                    :default="inputs.second_tax_rate"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -159,7 +174,10 @@
                             effect?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.switch_year" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('switch_year', v)"
+                    :default="inputs.switch_year"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -176,9 +194,9 @@
                 <label for="beginningBalance">Social Security Age</label>
                 <div class="index-strategy-each-inputs">
                   <integer-input
-                      @valueUpdated="v => updateInput('social_security_age', v)"
-                      :default="inputs.social_security_age"
-                    />
+                    @valueUpdated="v => updateInput('social_security_age', v)"
+                    :default="inputs.social_security_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -198,8 +216,11 @@
                         <span>What is the annual Cost of Living Adjustment rate?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.social_security_cola" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('social_security_cola', v)"
+                    :default="inputs.social_security_cola"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -219,7 +240,10 @@
                         <span>Convert to a Roth IRA over How many years?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.roth_conversion_years" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('roth_conversion_years', v)"
+                    :default="inputs.roth_conversion_years"
+                  />
                 </div>
             </div>
         </div>
