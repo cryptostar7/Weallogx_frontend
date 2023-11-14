@@ -242,14 +242,39 @@ export default {
 
   methods: {
 
-    validateForm: function() {
+    validateForm: function(inputs) {
       let valid = true
+
+
       return valid
     },
 
     balanceUpdated: function(balance) {
+
         let inputs = {...this.inputs, "ira_or_401k_balance": balance}
-        this.$store.dispatch("updateTaxScorecardInputs", inputs);
+        this.validateForm(inputs)
+
+        if (balance == 11111111) {
+
+            console.log("Resetting to nice values for testing.")
+
+            inputs = {
+                "age": 62,
+                "rmd_age": 73,
+                "ira_or_401k_balance": 500000,
+                "rate_of_return": 5,
+                "initial_tax_rate": 20,
+                "plan_through_age": 95,
+                "roth_conversion_years": 5,
+                "second_tax_rate": "",
+                "switch_year": "",
+                "social_security_amount": "",
+                "social_security_age": "",
+                "social_security_cola": 1.5
+            }
+          }
+        
+          this.$store.dispatch("updateTaxScorecardInputs", inputs)
     },
 
     generateTaxScorecard: function() {
