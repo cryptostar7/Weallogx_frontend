@@ -165,7 +165,10 @@
                 <label for="beginningBalance">Social Security Amount (Annual)</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
-                    <input type="text" v-model="inputs.social_security_amount" required>
+                    <dollar-amount-input
+                      @amountUpdated="socialSecurityAmountUpdated"
+                      :default="inputs.social_security_amount"
+                    />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -252,37 +255,19 @@ export default {
 
       if (!inputs.ira_or_401k_balance) {
         valid = false
+      } else if (!inputs.social_security_amount) {
+        valid = false
       }
 
       this.$store.dispatch("updateTaxScorecardFormValid", valid)
     },
 
     balanceUpdated: function(balance) {
+        this.updateInputsAndValidateForm("ira_or_401k_balance",  balance)
+    },
 
-        let inputs = {...this.inputs, "ira_or_401k_balance": balance}
-        this.validateForm(inputs)
-
-        if (balance == 11111111) {
-
-            console.log("Resetting to nice values for testing.")
-
-            inputs = {
-                "age": 62,
-                "rmd_age": 73,
-                "ira_or_401k_balance": 500000,
-                "rate_of_return": 5,
-                "initial_tax_rate": 20,
-                "plan_through_age": 95,
-                "roth_conversion_years": 5,
-                "second_tax_rate": "",
-                "switch_year": "",
-                "social_security_amount": "",
-                "social_security_age": "",
-                "social_security_cola": 1.5
-            }
-          }
-        
-          this.$store.dispatch("updateTaxScorecardInputs", inputs)
+    socialSecurityAmountUpdated(socialSecurityAmount) {
+        this.updateInputsAndValidateForm("social_security_amount", socialSecurityAmount)
     },
 
     generateTaxScorecard: function() {
@@ -291,6 +276,7 @@ export default {
 
       // Make a copy since the this.inputs is a vuex proxy object.
       let inputs = {...this.inputs}
+
       this.$store.dispatch("updateTaxScorecardInputs", inputs);
 
       if (inputs.second_tax_rate) {
@@ -339,6 +325,24 @@ export default {
             this.$toast.error(error.message)
           }
         })
+    },
+
+    updateInputsAndValidateForm(field, value) {
+
+      let inputs = {...this.inputs, [field]: value}
+
+        if (inputs.ira_or_401k_balance == 11111111) {
+          console.log("Resetting to nice values for testing.")
+            inputs = {
+              "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
+              "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
+              "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
+              "social_security_age": "", "social_security_cola": 1.5
+            }
+        }
+
+        this.$store.dispatch("updateTaxScorecardInputs", inputs)
+        this.validateForm(inputs)
     },
 
     resetForm: function() {
