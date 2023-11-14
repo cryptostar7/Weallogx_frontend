@@ -125,8 +125,11 @@
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Initial Tax Rate</label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.initial_tax_rate" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('initial_tax_rate', v)"
+                    :default="inputs.initial_tax_rate"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -232,11 +235,12 @@ import { getUrl } from "../../../network/url"
 import { authHeader } from "../../../services/helper"
 import DollarAmountInput from "./DollarAmountInput.vue"
 import IntegerInput from "./IntegerInput.vue"
+import DecimalInput from "./DecimalInput.vue"
 
 export default {
 
   components: {
-    DollarAmountInput, IntegerInput
+    DollarAmountInput, IntegerInput, DecimalInput
   },
 
   computed: {
@@ -276,7 +280,7 @@ export default {
       this.$store.dispatch("updateTaxScorecardInputs", inputs);
 
       if (inputs.second_tax_rate) {
-        inputs.second_tax_rate /= 100
+        inputs.second_tax_rate = this.percentToDecimal(inputs.second_tax_rate)
       } else {
         delete inputs.second_tax_rate
       }
@@ -293,9 +297,9 @@ export default {
         delete inputs.social_security_age
       }
 
-      inputs.rate_of_return /= 100
-      inputs.initial_tax_rate /= 100
-      inputs.social_security_cola /= 100
+      inputs.rate_of_return = this.percentToDecimal(inputs.rate_of_return)
+      inputs.initial_tax_rate = this.percentToDecimal(inputs.initial_tax_rate)
+      inputs.social_security_cola = this.percentToDecimal(inputs.social_security_cola)
 
       post(getUrl("tax_scorecard"), inputs, authHeader())
         .then((response) => {
@@ -343,6 +347,11 @@ export default {
 
     resetForm: function() {
         this.$store.dispatch("resetTaxScorecardInputs")
+    },
+
+    percentToDecimal(value) {
+      value = parseFloat(value)
+      return Math.round(value / 100 * 1000) / 1000
     }
   }
 };

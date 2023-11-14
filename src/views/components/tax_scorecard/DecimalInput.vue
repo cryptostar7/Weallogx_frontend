@@ -4,8 +4,6 @@
 
 <script>
 
-import { getNumber } from "../../../services/helper"
-
 export default {
 
   props: ["default"],
@@ -26,20 +24,32 @@ export default {
   },
 
   mounted() {
-    this.value = this.$props.default
+    this.value = this.$props.default ? parseFloat(this.$props.default) : ""
     this.valueFormatted = this.formatValue(this.value)
   },
   
   methods: {
 
     updateValue: function() {
-      this.value = getNumber(this.valueFormatted)
-      this.valueFormatted = this.formatValue(this.value)
-      this.$emit("valueUpdated", this.value)
+      this.value = this.formatValue(this.valueFormatted)
+      this.valueFormatted = this.value
+      this.$emit("valueUpdated", parseFloat(this.value))
     },
 
     formatValue: function(value) {
-      return value ? value : ""
+
+      if (!value) {
+        return ""
+      } else if (!isNaN(value)) {
+        return value
+      }
+
+      value = parseFloat(value)
+      if (isNaN(value)) {
+        return ""
+      } else {
+        return value
+      }
     }
   }
 }
