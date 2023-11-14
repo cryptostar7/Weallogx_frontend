@@ -9,15 +9,9 @@
 
 <script>
 
-import { mapState } from "vuex"
-
 export default {
 
-  computed: {
-    ...mapState({
-      runButtonEnabled: state => state.data.tax_scorecard.run_button_enabled
-    })
-  },
+  props: ["runButtonEnabled"],
 
   methods: {
     run: function () {

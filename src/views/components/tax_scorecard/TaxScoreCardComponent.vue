@@ -48,13 +48,19 @@
                 <label for="beginningBalance">IRA or 401K Balance</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
-                    <input type="text" v-model="inputs.ira_or_401k_balance" required>
+                    <dollar-amount-input
+                      @amountUpdated="a => updateInput('ira_or_401k_balance', a)"
+                      :default="inputs.ira_or_401k_balance"
+                    />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Age</label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('age', v)"
+                    :default="inputs.age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -74,7 +80,10 @@
                         <span>What year will RMDs start?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.rmd_age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('rmd_age', v)"
+                    :default="inputs.rmd_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -94,7 +103,10 @@
                         <span>Through what age should the analysis run?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.plan_through_age" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('plan_through_age', v)"
+                    :default="inputs.plan_through_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -115,15 +127,21 @@
                             capital</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.rate_of_return" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('rate_of_return', v)"
+                    :default="inputs.rate_of_return"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Initial Tax Rate</label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.initial_tax_rate" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('initial_tax_rate', v)"
+                    :default="inputs.initial_tax_rate"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -131,8 +149,11 @@
                         class="optional-label">(optional)
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.second_tax_rate" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('second_tax_rate', v)"
+                    :default="inputs.second_tax_rate"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -152,21 +173,30 @@
                         <span>What year should the second tax rate take
                             effect?</span>
                     </span></label>
-                <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.switch_year" required>
+                <div :class="`index-strategy-each-inputs ${switch_year_valid ? '' : 'error'}`">
+                  <integer-input
+                    @valueUpdated="v => updateInput('switch_year', v)"
+                    :default="inputs.switch_year"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Social Security Amount (Annual)</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
-                    <input type="text" v-model="inputs.social_security_amount" required>
+                    <dollar-amount-input
+                      @amountUpdated="a => updateInput('social_security_amount', a)"
+                      :default="inputs.social_security_amount"
+                    />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Social Security Age</label>
-                <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.social_security_age" required>
+                <div :class="`index-strategy-each-inputs ${social_security_age_valid ? '' : 'error'}`">
+                  <integer-input
+                    @valueUpdated="v => updateInput('social_security_age', v)"
+                    :default="inputs.social_security_age"
+                  />
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -186,8 +216,11 @@
                         <span>What is the annual Cost of Living Adjustment rate?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.social_security_cola" required>
-                    <span>%</span>
+                  <decimal-input
+                    @valueUpdated="v => updateInput('social_security_cola', v)"
+                    :default="inputs.social_security_cola"
+                  />
+                  <span>%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -207,7 +240,10 @@
                         <span>Convert to a Roth IRA over How many years?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                    <input type="text" v-model="inputs.roth_conversion_years" required>
+                  <integer-input
+                    @valueUpdated="v => updateInput('roth_conversion_years', v)"
+                    :default="inputs.roth_conversion_years"
+                  />
                 </div>
             </div>
         </div>
@@ -221,37 +257,69 @@ import { mapState } from "vuex"
 import { post } from "../../../network/requests"
 import { getUrl } from "../../../network/url"
 import { authHeader } from "../../../services/helper"
+import DollarAmountInput from "./DollarAmountInput.vue"
+import IntegerInput from "./IntegerInput.vue"
+import DecimalInput from "./DecimalInput.vue"
 
 export default {
 
+  components: {
+    DollarAmountInput, IntegerInput, DecimalInput
+  },
+
   computed: {
     ...mapState({
-      inputs: state => state.data.tax_scorecard.inputs
+      inputs: state => state.data.tax_scorecard.inputs,
+      social_security_age_valid:
+          state => state.data.tax_scorecard.validation.social_security_age_valid,
+      switch_year_valid: state => state.data.tax_scorecard.validation.switch_year_valid
     })
+  },
+
+  mounted() {
+    this.validateForm(this.inputs)
   },
 
   methods: {
 
-    validateForm: function() {
+    validateForm: function(inputs) {
+
       let valid = true
-      return valid
+      let social_security_age_valid = true
+      let switch_year_valid = true
+
+      if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
+          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.social_security_cola) {
+        valid = false
+      }
+      
+      if (inputs.social_security_amount && !inputs.social_security_age) {
+        valid = false
+        social_security_age_valid = false
+      }
+
+      if (inputs.second_tax_rate && !inputs.switch_year) {
+        valid = false
+        switch_year_valid = false
+      }
+
+      this.$store.dispatch("updateTaxScorecardFormValidation", {
+        "form_valid": valid, "social_security_age_valid": social_security_age_valid,
+        "switch_year_valid": switch_year_valid
+      })
     },
 
     generateTaxScorecard: function() {
-
-      if (!this.validateForm()) {
-        console.warn("form invalid")
-        return false;
-      }
 
       this.$store.dispatch("loader", true);
 
       // Make a copy since the this.inputs is a vuex proxy object.
       let inputs = {...this.inputs}
+
       this.$store.dispatch("updateTaxScorecardInputs", inputs);
 
       if (inputs.second_tax_rate) {
-        inputs.second_tax_rate /= 100
+        inputs.second_tax_rate = this.percentToDecimal(inputs.second_tax_rate)
       } else {
         delete inputs.second_tax_rate
       }
@@ -268,9 +336,9 @@ export default {
         delete inputs.social_security_age
       }
 
-      inputs.rate_of_return /= 100
-      inputs.initial_tax_rate /= 100
-      inputs.social_security_cola /= 100
+      inputs.rate_of_return = this.percentToDecimal(inputs.rate_of_return)
+      inputs.initial_tax_rate = this.percentToDecimal(inputs.initial_tax_rate)
+      inputs.social_security_cola = this.percentToDecimal(inputs.social_security_cola)
 
       post(getUrl("tax_scorecard"), inputs, authHeader())
         .then((response) => {
@@ -298,11 +366,36 @@ export default {
         })
     },
 
+    updateInput(field, value) {
+
+      let inputs = {...this.inputs, [field]: value}
+
+        if (inputs.ira_or_401k_balance == 11111111) {
+          console.warn("Resetting to nice values for testing.")
+          inputs = {
+            "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
+            "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
+            "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
+            "social_security_age": "", "social_security_cola": 1.5
+          }
+        }
+
+        this.$store.dispatch("updateTaxScorecardInputs", inputs)
+        this.validateForm(inputs)
+    },
+
     resetForm: function() {
         this.$store.dispatch("resetTaxScorecardInputs")
+    },
+
+    percentToDecimal(value) {
+      let parts = String(value).split(".")
+      let decimalCount = parts.length > 1 ? parts[1].length : 0
+      let rounding = Math.pow(10, decimalCount + 2)
+      value = parseFloat(value)
+      return Math.round(value / 100 * rounding) / rounding
     }
   }
-
 };
 
 </script>
