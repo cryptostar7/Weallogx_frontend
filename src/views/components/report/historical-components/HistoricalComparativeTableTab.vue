@@ -180,7 +180,7 @@
                             <div class="row">
                               <div class="col-12">
                                 <div class="lifeProBtmDiv lirpBtmDiv8 commonBottomTxt">
-                                  <p><input type="text" value="Allianz - LIRP" class="tableHeadInputs" readonly/></p>
+                                  <p><input type="text" :value="cv_name[0]" class="tableHeadInputs" readonly /></p>
                                 </div>
                               </div>
                             </div>
@@ -706,6 +706,9 @@ export default {
   computed: {
     table() {
       return this.$store.state.data.report.historical;
+    },
+    cv_name() {
+      return this.$store.state.data.report.cv_names;
     },
     scenario_id() {
       return this.$store.state.data.report.comparative.scenerio_id;
