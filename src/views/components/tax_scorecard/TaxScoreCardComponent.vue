@@ -339,6 +339,7 @@ export default {
       inputs.rate_of_return = this.percentToDecimal(inputs.rate_of_return)
       inputs.initial_tax_rate = this.percentToDecimal(inputs.initial_tax_rate)
       inputs.social_security_cola = this.percentToDecimal(inputs.social_security_cola)
+      inputs.roth_conversion_years = inputs.roth_conversion_years ? inputs.roth_conversion_years : 0
 
       post(getUrl("tax_scorecard"), inputs, authHeader())
         .then((response) => {
