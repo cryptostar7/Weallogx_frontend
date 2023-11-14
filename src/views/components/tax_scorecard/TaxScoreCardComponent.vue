@@ -282,16 +282,28 @@ export default {
     validateForm: function(inputs) {
 
       let valid = true
+      let social_security_age_valid = true
+      let switch_year_valid = true
 
-      if (!inputs.ira_or_401k_balance) {
+      if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
+          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.social_security_cola) {
         valid = false
       }
       
       if (inputs.social_security_amount && !inputs.social_security_age) {
         valid = false
+        social_security_age_valid = false
       }
 
-      this.$store.dispatch("updateTaxScorecardFormValid", valid)
+      if (inputs.second_tax_rate && !inputs.switch_year) {
+        valid = false
+        switch_year_valid = false
+      }
+
+      this.$store.dispatch("updateTaxScorecardFormValidation", {
+        "form_valid": valid, "social_security_age_valid": social_security_age_valid,
+        "switch_year_valid": switch_year_valid
+      })
     },
 
     generateTaxScorecard: function() {
