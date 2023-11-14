@@ -173,7 +173,7 @@
                         <span>What year should the second tax rate take
                             effect?</span>
                     </span></label>
-                <div class="index-strategy-each-inputs">
+                <div :class="`index-strategy-each-inputs ${switch_year_valid ? '' : 'error'}`">
                   <integer-input
                     @valueUpdated="v => updateInput('switch_year', v)"
                     :default="inputs.switch_year"
@@ -192,7 +192,7 @@
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Social Security Age</label>
-                <div class="index-strategy-each-inputs">
+                <div :class="`index-strategy-each-inputs ${social_security_age_valid ? '' : 'error'}`">
                   <integer-input
                     @valueUpdated="v => updateInput('social_security_age', v)"
                     :default="inputs.social_security_age"
@@ -269,7 +269,10 @@ export default {
 
   computed: {
     ...mapState({
-      inputs: state => state.data.tax_scorecard.inputs
+      inputs: state => state.data.tax_scorecard.inputs,
+      social_security_age_valid:
+          state => state.data.tax_scorecard.validation.social_security_age_valid,
+      switch_year_valid: state => state.data.tax_scorecard.validation.switch_year_valid
     })
   },
 
