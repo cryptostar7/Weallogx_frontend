@@ -164,11 +164,9 @@
                                             />
                                           </g>
                                         </svg> </sup
-                                      ><span>
+                                      ><span v-if="inputs.strategies">
                                         Index Allocation: <br>
-                                        <label>{{ indexType }}: 100%</label><br>
-                                        <label>S&P Prism: 24%</label> <br>
-
+                                        <label v-for="(item, index) in inputs.strategies" :key="index" class="d-block">{{ item.index }}: {{(item.allocation*100)}}%</label>
                                       </span>
                                     </span>
                                   </div>
