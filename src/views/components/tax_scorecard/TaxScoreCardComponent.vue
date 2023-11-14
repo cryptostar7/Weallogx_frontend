@@ -48,7 +48,12 @@
                 <label for="beginningBalance">IRA or 401K Balance</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
-                    <input type="text" v-model="inputs.ira_or_401k_balance" required>
+
+                    <dollar-amount-input
+                      @amountUpdated="balanceUpdated"
+                      :default="inputs.ira_or_401k_balance"
+                    />
+
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -221,8 +226,13 @@ import { mapState } from "vuex"
 import { post } from "../../../network/requests"
 import { getUrl } from "../../../network/url"
 import { authHeader } from "../../../services/helper"
+import DollarAmountInput from "./DollarAmountInput.vue"
 
 export default {
+
+  components: {
+    DollarAmountInput
+  },
 
   computed: {
     ...mapState({
@@ -235,6 +245,11 @@ export default {
     validateForm: function() {
       let valid = true
       return valid
+    },
+
+    balanceUpdated: function(balance) {
+        let inputs = {...this.inputs, "ira_or_401k_balance": balance}
+        this.$store.dispatch("updateTaxScorecardInputs", inputs);
     },
 
     generateTaxScorecard: function() {
@@ -302,7 +317,6 @@ export default {
         this.$store.dispatch("resetTaxScorecardInputs")
     }
   }
-
 };
 
 </script>
