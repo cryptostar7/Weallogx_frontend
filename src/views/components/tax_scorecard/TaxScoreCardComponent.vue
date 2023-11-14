@@ -240,13 +240,21 @@ export default {
     })
   },
 
+  mounted() {
+    this.validateForm(this.inputs)
+  },
+
   methods: {
 
     validateForm: function(inputs) {
+
       let valid = true
 
+      if (!inputs.ira_or_401k_balance) {
+        valid = false
+      }
 
-      return valid
+      this.$store.dispatch("updateTaxScorecardFormValid", valid)
     },
 
     balanceUpdated: function(balance) {
@@ -278,11 +286,6 @@ export default {
     },
 
     generateTaxScorecard: function() {
-
-      if (!this.validateForm()) {
-        console.warn("form invalid")
-        return false;
-      }
 
       this.$store.dispatch("loader", true);
 

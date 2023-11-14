@@ -38,7 +38,12 @@
             <div class="index-strategy-content-inner-div withBoxShadow">
 
               <tax-score-card-component ref="taxScorecard"/>
-              <tax-score-card-form-buttons @run="generateTaxScorecard" @reset="resetForm" />
+
+              <tax-score-card-form-buttons
+                :runButtonEnabled="formValid"
+                @run="generateTaxScorecard"
+                @reset="resetForm"
+              />
               
             </div>
           </div>
@@ -53,6 +58,7 @@
 
 <script>
 
+import { mapState } from "vuex"
 import TaxScoreCardComponent from "./TaxScoreCardComponent.vue"
 import TaxScoreCardFormButtons from "./TaxScoreCardFormButtons.vue"
 
@@ -61,6 +67,12 @@ export default {
   components: {
     TaxScoreCardComponent,
     TaxScoreCardFormButtons
+  },
+
+  computed: {
+    ...mapState({
+        formValid: state => state.data.tax_scorecard.form_valid
+    })
   },
 
   methods: {

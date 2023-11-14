@@ -176,7 +176,7 @@ const store = createStore({
             active_scenario: false,
             templates: [],
             tax_scorecard: {
-                run_button_enabled: true,
+                form_valid: false,
                 inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {},
                 results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {
                     ira_backend: {},
@@ -370,7 +370,10 @@ const store = createStore({
         setTaxScorecardResults(state, payload) {
           state.data.tax_scorecard.results = payload;
         },
-    },
+        setTaxScorecardFormValid(state, payload) {
+          state.data.tax_scorecard.form_valid = payload;
+        },
+      },
     actions: {
         toggleReportTabByID(context, payload) {
             context.commit("setActiveReportTab", payload);
@@ -487,10 +490,14 @@ const store = createStore({
         resetTaxScorecardInputs(context) {
             localStorage.setItem("tax_scorecard_inputs", JSON.stringify({}))
             context.commit("setTaxScorecardInputs", {});
+            context.commit("setTaxScorecardFormValid", false);
         },
         updateTaxScorecardResults(context, payload) {
             localStorage.setItem("tax_scorecard_results", JSON.stringify(payload))
             context.commit("setTaxScorecardResults", payload);
+        },
+        updateTaxScorecardFormValid(context, payload) {
+          context.commit("setTaxScorecardFormValid", payload);
         },
     }
 })

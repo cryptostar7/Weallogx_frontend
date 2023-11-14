@@ -15,7 +15,12 @@
                             </div>
 
                             <tax-score-card-component ref="taxScorecard" />
-                            <tax-score-card-form-buttons @run="generateTaxScorecard" @reset="resetForm"/>
+
+                            <tax-score-card-form-buttons
+                              :runButtonEnabled="formValid"
+                              @run="generateTaxScorecard"
+                              @reset="resetForm"
+                            />
 
                         </div>
                     </section>
@@ -48,7 +53,7 @@ export default {
 
   computed: {
     ...mapState({
-        inputs: state => state.data.tax_scorecard.inputs,
+        formValid: state => state.data.tax_scorecard.form_valid
     })
   },
 
