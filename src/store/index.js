@@ -490,7 +490,9 @@ const store = createStore({
         resetTaxScorecardInputs(context) {
             localStorage.setItem("tax_scorecard_inputs", JSON.stringify({}))
             context.commit("setTaxScorecardInputs", {});
-            context.commit("setTaxScorecardFormValid", false);
+            context.commit("setTaxScorecardFormValidation", {
+              "form_valid": false, "social_security_age_valid": true, "switch_year_valid": true
+            });
         },
         updateTaxScorecardResults(context, payload) {
             localStorage.setItem("tax_scorecard_results", JSON.stringify(payload))
