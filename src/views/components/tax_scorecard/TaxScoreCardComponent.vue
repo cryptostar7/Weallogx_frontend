@@ -332,13 +332,13 @@ export default {
       let inputs = {...this.inputs, [field]: value}
 
         if (inputs.ira_or_401k_balance == 11111111) {
-          console.log("Resetting to nice values for testing.")
-            inputs = {
-              "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
-              "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
-              "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
-              "social_security_age": "", "social_security_cola": 1.5
-            }
+          console.warn("Resetting to nice values for testing.")
+          inputs = {
+            "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
+            "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
+            "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
+            "social_security_age": "", "social_security_cola": 1.5
+          }
         }
 
         this.$store.dispatch("updateTaxScorecardInputs", inputs)
@@ -350,8 +350,11 @@ export default {
     },
 
     percentToDecimal(value) {
+      let parts = String(value).split(".")
+      let decimalCount = parts.length > 1 ? parts[1].length : 0
+      let rounding = Math.pow(10, decimalCount + 2)
       value = parseFloat(value)
-      return Math.round(value / 100 * 1000) / 1000
+      return Math.round(value / 100 * rounding) / rounding
     }
   }
 };
