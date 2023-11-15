@@ -144,32 +144,32 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -194,8 +194,8 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
-                                                                    <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr4">
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
@@ -305,7 +305,7 @@ export default {
             let finalnalResult = (barValueGet / barActualValue) * 100;
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
-            if (finalnalResult === 0) {
+            if (finalnalResult < 1) {
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
             }else{
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";
@@ -327,7 +327,7 @@ export default {
             let finalnalResult = (barValueGet / barActualValue) * 100;
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
-            if (finalnalResult === 0) {
+            if (finalnalResult < 1) {
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
             }else{
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";

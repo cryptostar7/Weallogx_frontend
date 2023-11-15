@@ -10,19 +10,20 @@
                     <!-- Inner Content Area Start -->
                     <section class="strategy-calc-main-section pb-4">
                         <div class="strategy-calc-main-div shadow-none">
-                            <div class="index-strategy-head-div tax-scorcard">
-                                <h1>Tax Scorecard</h1>
+                          <div class="index-strategy-head-div tax-scorcard">
+                              <h1>Tax Scorecard</h1>
+                          </div>
+                          <div class="index-strategy-content-div">
+                            <div class="index-strategy-content-inner-div withBoxShadow">
+                              <tax-score-card-component ref="taxScorecard" />
                             </div>
-
-                            <tax-score-card-component ref="taxScorecard" />
-
-                            <tax-score-card-form-buttons
-                              :runButtonEnabled="validation.form_valid"
-                              @run="generateTaxScorecard"
-                              @reset="resetForm"
-                            />
-
-                        </div>
+                          </div>
+                          <tax-score-card-form-buttons
+                             :runButtonEnabled="validation.form_valid"
+                             @run="generateTaxScorecard"
+                             @reset="resetForm"
+                          />
+                      </div>
                     </section>
 
                   <!-- Inner Content Area End -->
