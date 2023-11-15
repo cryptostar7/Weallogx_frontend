@@ -51,6 +51,7 @@
                     <dollar-amount-input
                       @amountUpdated="a => updateInput('ira_or_401k_balance', a)"
                       :default="inputs.ira_or_401k_balance"
+                      max="100000000"
                     />
                 </div>
             </div>
@@ -60,6 +61,7 @@
                   <integer-input
                     @valueUpdated="v => updateInput('age', v)"
                     :default="inputs.age"
+                    max="100"
                   />
                 </div>
             </div>
@@ -83,6 +85,7 @@
                   <integer-input
                     @valueUpdated="v => updateInput('rmd_age', v)"
                     :default="inputs.rmd_age"
+                    max="99"
                   />
                 </div>
             </div>
@@ -106,6 +109,7 @@
                   <integer-input
                     @valueUpdated="v => updateInput('plan_through_age', v)"
                     :default="inputs.plan_through_age"
+                    max="120"
                   />
                 </div>
             </div>
@@ -187,6 +191,7 @@
                     <dollar-amount-input
                       @amountUpdated="a => updateInput('social_security_amount', a)"
                       :default="inputs.social_security_amount"
+                      max="150000"
                     />
                 </div>
             </div>
@@ -196,6 +201,7 @@
                   <integer-input
                     @valueUpdated="v => updateInput('social_security_age', v)"
                     :default="inputs.social_security_age"
+                    max="99"
                   />
                 </div>
             </div>
@@ -243,6 +249,7 @@
                   <integer-input
                     @valueUpdated="v => updateInput('roth_conversion_years', v)"
                     :default="inputs.roth_conversion_years"
+                    max="20"
                   />
                 </div>
             </div>

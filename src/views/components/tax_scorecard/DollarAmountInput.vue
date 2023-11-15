@@ -8,7 +8,7 @@ import { getNumber } from "../../../services/helper"
 
 export default {
 
-  props: ["default"],
+  props: ["default", "max"],
   emits: ["amountUpdated"],
 
   watch: {
@@ -21,19 +21,29 @@ export default {
   data() {
     return {
       amount: "",
+      previousAmount: "",
       amountFormatted: ""
     }
   },
 
   mounted() {
     this.amount = this.$props.default
+    this.previousAmount = this.amount
     this.amountFormatted = this.formatAmount(this.amount)
   },
   
   methods: {
 
     updateAmount: function() {
+
       this.amount = getNumber(this.amountFormatted)
+
+      if (this.$props.max && this.amount > this.$props.max) {
+        this.amount = this.previousAmount
+      } else {
+        this.previousAmount = this.amount
+      }
+
       this.amountFormatted = this.formatAmount(this.amount)
       this.$emit("amountUpdated", this.amount)
     },

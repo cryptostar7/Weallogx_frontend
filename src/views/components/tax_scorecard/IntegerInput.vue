@@ -1,5 +1,5 @@
 <template>
-  <input v-model="valueFormatted" @input="updateValue" />
+  <input v-model="value" @input="updateValue" />
 </template>
 
 <script>
@@ -8,38 +8,46 @@ import { getNumber } from "../../../services/helper"
 
 export default {
 
-  props: ["default"],
+  props: ["default", "max"],
   emits: ["valueUpdated"],
 
   watch: {
     default: function(defaultvalue) {
       this.value = defaultvalue
-      this.valueFormatted = this.formatValue(this.value)
+      this.previousValue = defaultvalue
     },
   },
 
   data() {
     return {
       value: "",
-      valueFormatted: ""
+      previousValue: ""
     }
   },
 
   mounted() {
     this.value = this.$props.default
-    this.valueFormatted = this.formatValue(this.value)
+    this.previousValue = this.$props.default
   },
   
   methods: {
 
     updateValue: function() {
-      this.value = getNumber(this.valueFormatted)
-      this.valueFormatted = this.formatValue(this.value)
-      this.$emit("valueUpdated", this.value)
-    },
 
-    formatValue: function(value) {
-      return value ? value : ""
+      if (!this.value) {
+        this.$emit("valueUpdated", null)
+        return
+      }
+
+      this.value = getNumber(this.value)
+
+      if (this.$props.max && this.value > this.$props.max) {
+        this.value = this.previousValue
+        return
+      }
+
+      this.previousValue = this.value
+      this.$emit("valueUpdated", this.value)
     }
   }
 }
