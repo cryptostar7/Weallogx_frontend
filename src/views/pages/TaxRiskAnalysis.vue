@@ -176,38 +176,38 @@
                                                             <div class="tab-pane fade" id="rothTaxDetails">
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr1">
+                                                                    <div class="tax-details-each-bars barClr1 text-white">
                                                                         <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr2">
+                                                                    <div class="tax-details-each-bars barClr2 text-white">
                                                                         <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr3">
+                                                                    <div class="tax-details-each-bars barClr3 text-white">
                                                                         <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
-                                                                    <div class="tax-details-each-bars barClr4">
+                                                                    <div class="tax-details-each-bars barClr4 text-white">
                                                                         <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">Roth Conversion Taxes</p>
                                                                     <div class="tax-details-each-bars barClr6 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -303,12 +303,14 @@ export default {
             var barValueGet = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
             var barActualValue = largestSec;
             let finalnalResult = (barValueGet / barActualValue) * 100;
+            console.log("1", barValueGet, barActualValue, finalnalResult);
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult < 1) {
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
             }
         }
 
@@ -325,12 +327,14 @@ export default {
             var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
             var barActualValue = largestSec;
             let finalnalResult = (barValueGet / barActualValue) * 100;
+            console.log("2", barValueGet, barActualValue, finalnalResult);
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
 
             if (finalnalResult < 1) {
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px";
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
             }
         }
         /* -------------------------------------------
