@@ -6,7 +6,7 @@
 
 export default {
 
-  props: ["default"],
+  props: ["default", "max"],
   emits: ["valueUpdated"],
 
   watch: {
@@ -44,6 +44,11 @@ export default {
       }
 
       if (isNaN(this.value)) {
+        this.value = this.previousValue
+        return
+      }
+
+      if (this.$props.max && this.value > parseFloat(this.$props.max)) {
         this.value = this.previousValue
         return
       }

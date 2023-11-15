@@ -134,6 +134,7 @@
                   <decimal-input
                     @valueUpdated="v => updateInput('rate_of_return', v)"
                     :default="inputs.rate_of_return"
+                    max="12"
                   />
                   <span>%</span>
                 </div>
@@ -144,6 +145,7 @@
                   <decimal-input
                     @valueUpdated="v => updateInput('initial_tax_rate', v)"
                     :default="inputs.initial_tax_rate"
+                    max="99"
                   />
                   <span>%</span>
                 </div>
@@ -156,6 +158,7 @@
                   <decimal-input
                     @valueUpdated="v => updateInput('second_tax_rate', v)"
                     :default="inputs.second_tax_rate"
+                    max="99"
                   />
                   <span>%</span>
                 </div>
@@ -225,6 +228,7 @@
                   <decimal-input
                     @valueUpdated="v => updateInput('social_security_cola', v)"
                     :default="inputs.social_security_cola"
+                    max="10"
                   />
                   <span>%</span>
                 </div>
