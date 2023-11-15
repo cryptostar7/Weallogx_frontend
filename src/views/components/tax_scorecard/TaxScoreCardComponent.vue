@@ -289,7 +289,7 @@ export default {
       let switch_year_valid = true
 
       if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
-          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.social_security_cola) {
+          !inputs.rate_of_return || !inputs.initial_tax_rate) {
         valid = false
       }
       
@@ -321,19 +321,19 @@ export default {
       if (inputs.second_tax_rate) {
         inputs.second_tax_rate = this.percentToDecimal(inputs.second_tax_rate)
       } else {
-        delete inputs.second_tax_rate
+        inputs.second_tax_rate = null
       }
 
       if (!inputs.switch_year) {
-        delete inputs.switch_year
+        inputs.switch_year = null
       }
 
       if (!inputs.social_security_amount) {
-        delete inputs.social_security_amount
+        inputs.social_security_amount = null
       }
 
       if (!inputs.social_security_age) {
-        delete inputs.social_security_age
+        inputs.social_security_age = null
       }
 
       inputs.rate_of_return = this.percentToDecimal(inputs.rate_of_return)
@@ -347,13 +347,11 @@ export default {
           this.$store.dispatch("updateTaxScorecardResults", response.data)
           this.$router.push("/tax-risk-analysis")
         })
-
-        // TODO - Is there a generic way to handle all this?
         .catch((error) => {
           this.$store.dispatch("loader", false)
           if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
             this.$toast.error(error.message)
-          } if (error.code === "ERR_BAD_REQUEST") {
+          } else if (error.code === "ERR_BAD_REQUEST") {
             if (error.response.data.error) {
                 this.$toast.error(error.response.data.error[0])
             } else {
@@ -371,18 +369,18 @@ export default {
 
       let inputs = {...this.inputs, [field]: value}
 
-        if (inputs.ira_or_401k_balance == 11111111) {
-          console.warn("Resetting to nice values for testing.")
-          inputs = {
-            "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
-            "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
-            "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
-            "social_security_age": "", "social_security_cola": 1.5
-          }
-        }
-
-        this.$store.dispatch("updateTaxScorecardInputs", inputs)
-        this.validateForm(inputs)
+      // if (inputs.ira_or_401k_balance == 11111111) {
+      //   console.warn("Resetting to nice values for testing.")
+      //   inputs = {
+      //     "age": 62, "rmd_age": 73, "ira_or_401k_balance": 500000, "rate_of_return": 5,
+      //     "initial_tax_rate": 20, "plan_through_age": 95, "roth_conversion_years": 5,
+      //     "second_tax_rate": "", "switch_year": "", "social_security_amount": "",
+      //     "social_security_age": "", "social_security_cola": 1.5
+      //   }
+      // }
+        
+      this.$store.dispatch("updateTaxScorecardInputs", inputs)
+      this.validateForm(inputs)
     },
 
     resetForm: function() {
