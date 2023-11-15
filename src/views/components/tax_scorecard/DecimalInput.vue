@@ -41,6 +41,8 @@ export default {
 
       if (this.value == ".") {
         this.value = "0."
+      } else if (String(this.value).match(/^0[0-9]/)) {
+        this.value = this.value.slice(1)
       }
 
       if (isNaN(this.value)) {
