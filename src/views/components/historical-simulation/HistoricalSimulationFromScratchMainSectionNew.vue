@@ -145,7 +145,7 @@ import GlobalParameters from "./GlobalParameters.vue";
 import IndexStrategyParameters from "./IndexStrategyParameters.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { post, get, put } from "../../../network/requests";
-import { authHeader, getFirstError } from "../../../services/helper";
+import { authHeader, getFirstError, getNumber } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
 import { computed } from "vue";
 export default {
@@ -365,15 +365,16 @@ export default {
             if (credit_obj.type === "schedule") {
               let tempData = [];
               for (var y = 1; y < this.illustrateYear + 1; y++) {
+                let sValue = this.getInputWithId(
+                  `${
+                    credit_obj.schedule_type === "rate"
+                      ? "crd_schedule_rate"
+                      : "crd_schedule_amt"
+                  }${i}${y}`
+                );
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(
-                    `${
-                      credit_obj.schedule_type === "rate"
-                        ? "crd_schedule_rate"
-                        : "crd_schedule_amt"
-                    }${i}${y}`
-                  ),
+                  value: getNumber(sValue),
                 });
               }
               credit_obj.schedule = tempData;
@@ -653,10 +654,13 @@ export default {
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
-          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc1'),
-          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm1'),
-          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf1'),
-          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf1'),
+          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc1"),
+          performance_multiplier_apply_for_all_indexes:
+            this.isChecked("applyAllPm1"),
+          performance_multiplier_fees_apply_for_all_indexes:
+            this.isChecked("applyAllPmf1"),
+          flat_credit_bonus_fees_apply_for_all_indexes:
+            this.isChecked("applyAllFcf1"),
         },
         index_strategy_2: null,
         index_strategy_3: null,
@@ -762,10 +766,13 @@ export default {
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
-          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc2'),
-          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm2'),
-          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf2'),
-          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf2'),
+          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc2"),
+          performance_multiplier_apply_for_all_indexes:
+            this.isChecked("applyAllPm2"),
+          performance_multiplier_fees_apply_for_all_indexes:
+            this.isChecked("applyAllPmf2"),
+          flat_credit_bonus_fees_apply_for_all_indexes:
+            this.isChecked("applyAllFcf2"),
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
@@ -866,10 +873,13 @@ export default {
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
-          flat_credit_apply_for_all_indexes : this.isChecked('applyAllFc3'),
-          performance_multiplier_apply_for_all_indexes : this.isChecked('applyAllPm3'),
-          performance_multiplier_fees_apply_for_all_indexes : this.isChecked('applyAllPmf3'),
-          flat_credit_bonus_fees_apply_for_all_indexes : this.isChecked('applyAllFcf3'),
+          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc3"),
+          performance_multiplier_apply_for_all_indexes:
+            this.isChecked("applyAllPm3"),
+          performance_multiplier_fees_apply_for_all_indexes:
+            this.isChecked("applyAllPmf3"),
+          flat_credit_bonus_fees_apply_for_all_indexes:
+            this.isChecked("applyAllFcf3"),
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
