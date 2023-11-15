@@ -1,5 +1,5 @@
 <template>
-  <input v-model="valueFormatted" @input="updateValue" />
+  <input v-model="value" @input="updateValue" />
 </template>
 
 <script>
@@ -11,45 +11,45 @@ export default {
 
   watch: {
     default: function(defaultvalue) {
-      this.value = defaultvalue
-      this.valueFormatted = this.formatValue(this.value)
+      if (this.value != defaultvalue) {
+        this.value = defaultvalue
+        this.previousValue = defaultvalue
+      }
     },
   },
 
   data() {
     return {
       value: "",
-      valueFormatted: ""
+      previousValue: ""
     }
   },
 
   mounted() {
     this.value = this.$props.default ? parseFloat(this.$props.default) : ""
-    this.valueFormatted = this.formatValue(this.value)
+    this.previousValue = this.value
   },
   
   methods: {
 
     updateValue: function() {
-      this.value = this.formatValue(this.valueFormatted)
-      this.valueFormatted = this.value
+
+      if (!this.value) {
+        this.$emit("valueUpdated", null)
+        return
+      }
+
+      if (this.value == ".") {
+        this.value = "0."
+      }
+
+      if (isNaN(this.value)) {
+        this.value = this.previousValue
+        return
+      }
+
+      this.previousValue = this.value
       this.$emit("valueUpdated", parseFloat(this.value))
-    },
-
-    formatValue: function(value) {
-
-      if (!value) {
-        return ""
-      } else if (!isNaN(value)) {
-        return value
-      }
-
-      value = parseFloat(value)
-      if (isNaN(value)) {
-        return ""
-      } else {
-        return value
-      }
     }
   }
 }
