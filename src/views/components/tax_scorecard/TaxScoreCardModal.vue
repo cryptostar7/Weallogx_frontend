@@ -77,8 +77,10 @@ export default {
 
   methods: {
     generateTaxScorecard: function () {
-      this.$refs.taxScorecard.generateTaxScorecard()
-      this.$refs.modalCloseRef.click()
+      success = this.$refs.taxScorecard.generateTaxScorecard()
+      if (success) {
+        this.$refs.modalCloseRef.click()
+      }
     },
     resetForm: function () {
       this.$refs.taxScorecard.resetForm()

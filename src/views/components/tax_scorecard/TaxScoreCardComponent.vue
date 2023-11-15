@@ -357,6 +357,7 @@ export default {
           this.$store.dispatch("loader", false)
           this.$store.dispatch("updateTaxScorecardResults", response.data)
           this.$router.push("/tax-risk-analysis")
+          return true
         })
         .catch((error) => {
           this.$store.dispatch("loader", false)
@@ -373,6 +374,7 @@ export default {
           } else {
             this.$toast.error(error.message)
           }
+          return false
         })
     },
 
