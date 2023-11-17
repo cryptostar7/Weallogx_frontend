@@ -351,7 +351,6 @@ export default {
       }
 
       for (let error of errors) {
-        console.log(error)
         this.$toast.error(error)
       }
 
