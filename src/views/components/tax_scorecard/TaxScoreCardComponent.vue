@@ -300,7 +300,7 @@ export default {
       let switch_year_valid = true
 
       if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
-          !inputs.rate_of_return || !inputs.initial_tax_rate) {
+          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.roth_conversion_years) {
         valid = false
       }
       
@@ -320,14 +320,40 @@ export default {
       })
     },
 
+    validate_before_request: function(inputs) {
+
+      let errors = []
+
+      if (inputs.second_tax_rate) {
+        if (inputs.switch_year < 1 || inputs.switch_year > inputs.plan_through_age) {
+          errors.push(`Switch year must be between 1 and Plan Through Age (${inputs.plan_through_age}).`)
+        }
+      }
+
+      if (inputs.plan_through_age <= inputs.age) {
+        errors.push(`Plan Through Age must be greater than Age (${inputs.age}).`)
+      }
+
+      for (let error of errors) {
+        console.log(error)
+        this.$toast.error(error)
+      }
+
+      return errors.length == 0
+    },
+
     generateTaxScorecard: function() {
 
-      this.$store.dispatch("loader", true);
+      if (!this.validate_before_request(this.inputs)) {
+        return
+      }
+
+      this.$store.dispatch("loader", true)
 
       // Make a copy since the this.inputs is a vuex proxy object.
       let inputs = {...this.inputs}
 
-      this.$store.dispatch("updateTaxScorecardInputs", inputs);
+      this.$store.dispatch("updateTaxScorecardInputs", inputs)
 
       if (inputs.second_tax_rate) {
         inputs.second_tax_rate = this.percentToDecimal(inputs.second_tax_rate)
