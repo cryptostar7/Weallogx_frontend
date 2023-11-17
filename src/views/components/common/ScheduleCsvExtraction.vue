@@ -11,7 +11,9 @@
     ></textarea>
     <div class="my-1">
       <div v-if="csvText">
-        <button type="button" class="btn add-data-btn" @click="handleCSV">Submit</button>
+        <button type="button" class="btn add-data-btn" @click="handleCSV">
+          Submit
+        </button>
       </div>
       <button
         type="button"
@@ -33,6 +35,7 @@ export default {
     };
   },
   props: ["prefixId", "maxInputs"],
+  emits: ["clearError"],
   methods: {
     // clear schedule inputs
     resetSchedule: function () {
@@ -123,6 +126,7 @@ export default {
     handleCSV: function () {
       let txt = this.$refs.csvRef.value;
       if (txt) {
+        this.$emit('clearError');
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
           this.csvPreview = this.filterObject(obj);
@@ -176,6 +180,4 @@ export default {
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>

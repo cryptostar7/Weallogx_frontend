@@ -155,6 +155,7 @@
           <schedule-csv-extraction
             :prefixId="`pmf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
+            @clearError="$emit('clearError', currentTab, 'fee_pmf_schedule')"
           />
           <table class="table">
             <thead>
@@ -275,6 +276,7 @@
           <schedule-csv-extraction
             :prefixId="`fcf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
+            @clearError="$emit('clearError', currentTab, 'fee_fcf_schedule')"
           />
           <table class="table">
             <thead>

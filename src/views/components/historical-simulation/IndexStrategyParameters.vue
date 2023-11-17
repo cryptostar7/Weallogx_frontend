@@ -348,7 +348,6 @@
   </div>
 </template>
 <script>
-import { putPercentage } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";
@@ -358,9 +357,6 @@ import FeesComponent from "./FeesComponentNew.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StretagyWeightFirstComponent from "./StretagyWeightFirstComponent.vue";
 import StretagyWeightSecondComponent from "./StretagyWeightSecondComponent.vue";
-import { post, get, put } from "../../../network/requests";
-import { authHeader, getFirstError } from "../../../services/helper";
-import { getUrl } from "../../../network/url";
 export default {
   components: {
     SelectDropdown,

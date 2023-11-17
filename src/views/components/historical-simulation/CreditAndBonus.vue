@@ -155,6 +155,9 @@
                 <schedule-csv-extraction
                   :prefixId="`crd_schedule_rate${currentTab}`"
                   :maxInputs="illustrateYear"
+                  @clearError="
+                    $emit('clearError', 'enhancements_credit_schedule_rate')
+                  "
                 />
                 <table class="table">
                   <thead>
@@ -212,6 +215,9 @@
                 <schedule-csv-extraction
                   :prefixId="`crd_schedule_amt${currentTab}`"
                   :maxInputs="illustrateYear"
+                  @clearError="
+                    $emit('clearError', 'enhancements_credit_schedule_amount')
+                  "
                 />
                 <table class="table">
                   <thead>

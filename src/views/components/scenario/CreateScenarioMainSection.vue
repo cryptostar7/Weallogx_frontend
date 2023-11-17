@@ -385,6 +385,7 @@
                       <schedule-csv-extraction
                         prefixId="schedule_tax_rate_"
                         :maxInputs="Number(illustrateYear)"
+                        @clearError="checkTaxRate()"
                       />
                       <table
                         class="table tax-rate-table text-center"

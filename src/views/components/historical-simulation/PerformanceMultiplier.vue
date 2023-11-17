@@ -106,6 +106,9 @@
             <schedule-csv-extraction
               :prefixId="`multiplier_schedule${currentTab}`"
               :maxInputs="illustrateYear"
+              @clearError="
+                $emit('clearError', 'enhancements_performance_schedule')
+              "
             />
             <table class="table">
               <thead>

@@ -70,6 +70,7 @@
       <schedule-csv-extraction
         prefixId="pcf_schedule"
         :maxInputs="illustrateYear"
+        @clearError="$emit('clearError', 'analysis_pc_schedule')"
       />
       <table class="table">
         <thead>
@@ -170,6 +171,7 @@
       <schedule-csv-extraction
         prefixId="lif_schedule"
         :maxInputs="illustrateYear"
+        @clearError="$emit('clearError', 'analysis_lif_schedule')"
       />
       <table class="table">
         <thead>
