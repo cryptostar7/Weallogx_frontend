@@ -312,7 +312,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age">Shortfall
+                      <td colspan="2" class="table1Td shortFallTd" style="text-align: left;" data-label="Age"><span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span>
                       </td>
                     </tr>
                   </tbody>
@@ -366,7 +366,7 @@
                                               <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.total_value) }}</td>
                                             </tr>
                                             <tr>
-                                              <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].distribution.shortfall) }}</td>
+                                              <td width="50%" data-label="acount" :class="summary_data.data[header.id].categories[tsa_type].distribution.shortfall > 0 ? 'text-success':'text-danger'">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].distribution.shortfall) }}</td>
                                               <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.shortfall) }}</td>
                                             </tr>
                                         </tbody>

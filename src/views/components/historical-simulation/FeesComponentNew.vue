@@ -1,169 +1,388 @@
 <template lang="">
-     <div class="indexStrategyallDivs active accordion-button collapsed mt-3" data-bs-toggle="collapse" :data-bs-target="`#fees-parameters${currentTab}`" aria-expanded="false" :aria-controls="`fees-parameters${currentTab}`">
-        <div class="d-flex justify-content-between align-items-center" :id="`feesTab${currentTab}`">
-        <div class="indexStrategyheadBrdr">
-            <p>Fees
-            <svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21"  fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10.5" cy="10.5" r="9.75" fill="#0E6651" stroke="#14EAB7"
-                stroke-width="1.5" />
-                <rect x="16.6006" y="7.91222" width="9.99563" height="1.5" rx="0.75"
-                transform="rotate(135 16.6006 7.91222)" fill="#14EAB7" />
-                <rect x="9.5693" y="14.9806" width="5.50074" height="1.5" rx="0.75"
-                transform="rotate(-135 9.5693 14.9806)" fill="#14EAB7" />
-            </svg>
-            </p>
-            <div></div>
-        </div>                                                                                                
-        </div>
+  <div
+    class="indexStrategyallDivs active accordion-button collapsed mt-3"
+    data-bs-toggle="collapse"
+    :data-bs-target="`#fees-parameters${currentTab}`"
+    aria-expanded="false"
+    :aria-controls="`fees-parameters${currentTab}`"
+  >
+    <div
+      class="d-flex justify-content-between align-items-center"
+      :id="`feesTab${currentTab}`"
+    >
+      <div class="indexStrategyheadBrdr">
+        <p>
+          Fees
+          <svg
+            class="ms-2 boxTickImage"
+            width="21"
+            height="21"
+            viewBox="0 0 21 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="10.5"
+              cy="10.5"
+              r="9.75"
+              fill="#0E6651"
+              stroke="#14EAB7"
+              stroke-width="1.5"
+            />
+            <rect
+              x="16.6006"
+              y="7.91222"
+              width="9.99563"
+              height="1.5"
+              rx="0.75"
+              transform="rotate(135 16.6006 7.91222)"
+              fill="#14EAB7"
+            />
+            <rect
+              x="9.5693"
+              y="14.9806"
+              width="5.50074"
+              height="1.5"
+              rx="0.75"
+              transform="rotate(-135 9.5693 14.9806)"
+              fill="#14EAB7"
+            />
+          </svg>
+        </p>
+        <div></div>
+      </div>
     </div>
-    <form :id="`fees-parameters${currentTab}`" class="accordion-collapse collapse analysisParametersContent" :data-bs-parent="`#fees-parameters${currentTab}`" autocomplete="off">
-      <div :class="$props.performance ? '':'d-none'">
-          <div class="formParabrdrLavelDiv mt-2">
-              <p>Performance Multiplier Fee</p>
-              <p></p>
-              </div>
-              <div class="d-flex justify-content-between align-items-center parent-radio-div">
-              <div
-                  class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
-                  <label  v-for="(item, index) in MaxPerformanceMultiplierFee" :key="index" class="flex-1">
-                  <input type="radio" :name="`perfMultiplier${currentTab}`" :checked="!customPerformanceFeeAmount && item === performanceFeeAmount ? true : false" class="d-none" />
-                  <span class="fixedStartYear" @click="handlePMCheckbox(item)" >{{item}}%</span>
-                  </label>
-              </div>
-              <div class="d-flex align-items-center">
-                  <div class="or-div">
-                  or
-                  </div>
-                  <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
-                  <label for="customAmount">Custom Amount</label>
-                  <input type="text" class="handleLimit" @keyup="(e) => customPerformanceFeeAmount = e.target.value" min="0" max="10" ref="customPMRef">
-                  </div>
-              </div>
-          </div>
-          <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
-              <div class="d-flex align-items-center">
-                  <div class="form-check form-switch custom-switch ms-2">
-                      <input class="form-check-input" type="checkbox" role="switch" :id="`multiplierFee${currentTab}`" v-model="sameInAllYears.multiplier_fee">
-                  </div>
-                  <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
-              </div>
-              <div class="d-flex align-items-center">
-                  <div class="form-check form-switch custom-switch">
-                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPmf${currentTab}`" @change="applyPmfToAllIndex">
-                  </div>
-                  <label :for="`applyAllPmf${currentTab}`" :id="`applyAllPmfLabel${currentTab}`"  class="buttonSaveRadioPara">Apply To All Index Strategies</label>
-              </div>
-          </div>
-
-          <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.multiplier_fee ? 'd-none':''}`">
-              <div class="schduleTableDiv mt-5 ">
-                  <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule">{{errors[currentTab].fee_pmf_schedule}}</label>
-                  <table class="table">
-                  <thead>
-                      <th>Year</th>
-                      <th>Rate</th>
-                  </thead>
-                  <tbody>
-                      <tr v-for="(item, index) in illustrateYear" :key="index">
-                          <td data-label="Year">{{item}}</td>
-                          <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                              <input type="text" class="form-control handleLimit" min="0" max="10" :id="`pmf_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_pmf_schedule')">
-                              <label for="amount">%</label>
-                          </td>
-                      </tr>
-                  </tbody>
-                  </table>
-              </div>
-          </div>
+  </div>
+  <form
+    :id="`fees-parameters${currentTab}`"
+    class="accordion-collapse collapse analysisParametersContent"
+    :data-bs-parent="`#fees-parameters${currentTab}`"
+    autocomplete="off"
+  >
+    <div :class="$props.performance ? '' : 'd-none'">
+      <div class="formParabrdrLavelDiv mt-2">
+        <p>Performance Multiplier Fee</p>
+        <p></p>
       </div>
-      <div :class="$props.flatCreditBonus ? '':'d-none'">
-          <div class="formParabrdrLavelDiv mt-4">
-              <p>Flat Credit/Bonus Fee</p>
-              <p></p>
-          </div>
-          <div class="d-flex justify-content-between align-items-center parent-radio-div">
-              <div
-                  class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
-                  <label v-for="(item, index) in 3" :key="index" class="flex-1">
-                  <input type="radio" :name="`flatCredit${currentTab}`" class="d-none" :checked="!customFlatAmount && item === flatAmount ? true : false">
-                  <span class="fixedStartYear" @click="handleFCCheckbox(item)" >{{item}}%</span>
-                  </label>
-              </div>
-              <div class="d-flex align-items-center">
-                  <div class="or-div">
-                  or
-                  </div>
-                  <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
-                      <label for="customAmount">Custom Amount</label>
-                      <input type="text" class="handleLimit"  @keyup="(e) => customFlatAmount = e.target.value" min="0" max="10" ref="customFCRef">
-                  </div>
-              </div>
-          </div>
-          <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
-              <div class="d-flex align-items-center">
-                  <div class="form-check form-switch custom-switch ms-2">
-                      <input class="form-check-input" type="checkbox" role="switch" :id="`flat-credit-fee-radio${currentTab}`" v-model="sameInAllYears.credit_bonus_fee">
-                  </div>
-                  <label :for="`flat-credit-fee-radio${currentTab}`" class="buttonSaveRadioPara">Same in All Years</label>
-              </div>
-              <div class="d-flex align-items-center">
-                  <div class="form-check form-switch custom-switch">
-                      <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllFcf${currentTab}`" @change="applyFcfToAllIndex">
-                  </div>
-                  <label :for="`applyAllFcf${currentTab}`" :id="`applyAllFcfLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
-              </div>
-          </div>
-          <div :class="`d-flex justify-content-center w-100 ${sameInAllYears.credit_bonus_fee ? 'd-none' : ''}`">
-              <div class="schduleTableDiv mt-5 ">
-                  <label class="error text-center" v-if="errors[currentTab] && errors[currentTab].fee_fcf_schedule">{{errors[currentTab].fee_fcf_schedule}}</label>
-                  <table class="table">
-                  <thead>
-                      <th>Year</th>
-                      <th>Rate</th>
-                  </thead>
-                  <tbody>
-                      <tr v-for="(item, index) in illustrateYear" :key="index">
-                          <td data-label="Year">{{item}}</td>
-                          <td data-label="Rate" class="amountInnerTableInputTd feeTdInputWithPercent">
-                              <input type="text" class="form-control handleLimit" min="0" max="10" :id="`fcf_schedule${currentTab}${item}`" @keypress="$emit('clearError',currentTab , 'fee_fcf_schedule')">
-                              <label for="amount">%</label>
-                          </td>
-                      </tr>
-                  </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-      <!--  -->
-      <div class="formParabrdrLavelDiv mt-4">
-      <p>High Cap Fee <span class="optionalCommonTxt">&nbsp;&nbsp;OPTIONAL</span></p>
-      <p></p>
-      </div>
-      <div class="d-flex justify-content-between align-items-center parent-radio-div">
       <div
-          class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px">
-          <label v-for="(item, index) in 3" :key="index" class="flex-1">
-          <input type="radio" :name="`highCapFee${currentTab}`" class="d-none" :checked="!customHipCapAmount && hipCapAmount === item ? true : false">
-          <span class="fixedStartYear w-100"  @click="handleHCCheckbox(item)">{{item}}%</span>
+        class="d-flex justify-content-between align-items-center parent-radio-div"
+      >
+        <div
+          class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px"
+        >
+          <label
+            v-for="(item, index) in MaxPerformanceMultiplierFee"
+            :key="index"
+            class="flex-1"
+          >
+            <input
+              type="radio"
+              :name="`perfMultiplier${currentTab}`"
+              :checked="
+                !customPerformanceFeeAmount && item === performanceFeeAmount
+                  ? true
+                  : false
+              "
+              class="d-none"
+            />
+            <span class="fixedStartYear" @click="handlePMCheckbox(item)"
+              >{{ item }}%</span
+            >
           </label>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="or-div">or</div>
+          <div
+            class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3"
+          >
+            <label for="customAmount">Custom Amount</label>
+            <input
+              type="text"
+              class="handleLimit"
+              @keyup="(e) => (customPerformanceFeeAmount = e.target.value)"
+              min="0"
+              max="10"
+              ref="customPMRef"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
+        <div class="d-flex align-items-center">
+          <div class="form-check form-switch custom-switch ms-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              :id="`multiplierFee${currentTab}`"
+              v-model="sameInAllYears.multiplier_fee"
+            />
+          </div>
+          <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara"
+            >Same in All Years</label
+          >
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="form-check form-switch custom-switch">
+            <input
+              class="form-check-input enhanceInputCheckBox"
+              type="checkbox"
+              role=":switch"
+              :id="`applyAllPmf${currentTab}`"
+              @change="applyPmfToAllIndex"
+            />
+          </div>
+          <label
+            :for="`applyAllPmf${currentTab}`"
+            :id="`applyAllPmfLabel${currentTab}`"
+            class="buttonSaveRadioPara"
+            >Apply To All Index Strategies</label
+          >
+        </div>
+      </div>
+
+      <div
+        :class="`d-flex justify-content-center w-100 ${
+          sameInAllYears.multiplier_fee ? 'd-none' : ''
+        }`"
+      >
+        <div class="schduleTableDiv mt-5">
+          <label
+            class="error text-center"
+            v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule"
+            >{{ errors[currentTab].fee_pmf_schedule }}</label
+          >
+          <schedule-csv-extraction
+            :prefixId="`pmf_schedule${currentTab}`"
+            :maxInputs="illustrateYear"
+            @clearError="$emit('clearError', currentTab, 'fee_pmf_schedule')"
+          />
+          <table class="table">
+            <thead>
+              <th>Year</th>
+              <th>Rate</th>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in illustrateYear" :key="index">
+                <td data-label="Year">{{ item }}</td>
+                <td
+                  data-label="Rate"
+                  class="amountInnerTableInputTd feeTdInputWithPercent"
+                >
+                  <input
+                    type="text"
+                    class="form-control handleLimit"
+                    min="0"
+                    max="10"
+                    :id="`pmf_schedule${currentTab}${item}`"
+                    @keypress="
+                      $emit('clearError', currentTab, 'fee_pmf_schedule')
+                    "
+                  />
+                  <label for="amount">%</label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div :class="$props.flatCreditBonus ? '' : 'd-none'">
+      <div class="formParabrdrLavelDiv mt-4">
+        <p>Flat Credit/Bonus Fee</p>
+        <p></p>
+      </div>
+      <div
+        class="d-flex justify-content-between align-items-center parent-radio-div"
+      >
+        <div
+          class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px"
+        >
+          <label v-for="(item, index) in 3" :key="index" class="flex-1">
+            <input
+              type="radio"
+              :name="`flatCredit${currentTab}`"
+              class="d-none"
+              :checked="!customFlatAmount && item === flatAmount ? true : false"
+            />
+            <span class="fixedStartYear" @click="handleFCCheckbox(item)"
+              >{{ item }}%</span
+            >
+          </label>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="or-div">or</div>
+          <div
+            class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3"
+          >
+            <label for="customAmount">Custom Amount</label>
+            <input
+              type="text"
+              class="handleLimit"
+              @keyup="(e) => (customFlatAmount = e.target.value)"
+              min="0"
+              max="10"
+              ref="customFCRef"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between mt-1 mw-78">
+        <div class="d-flex align-items-center">
+          <div class="form-check form-switch custom-switch ms-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              :id="`flat-credit-fee-radio${currentTab}`"
+              v-model="sameInAllYears.credit_bonus_fee"
+            />
+          </div>
+          <label
+            :for="`flat-credit-fee-radio${currentTab}`"
+            class="buttonSaveRadioPara"
+            >Same in All Years</label
+          >
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="form-check form-switch custom-switch">
+            <input
+              class="form-check-input enhanceInputCheckBox"
+              type="checkbox"
+              role=":switch"
+              :id="`applyAllFcf${currentTab}`"
+              @change="applyFcfToAllIndex"
+            />
+          </div>
+          <label
+            :for="`applyAllFcf${currentTab}`"
+            :id="`applyAllFcfLabel${currentTab}`"
+            class="buttonSaveRadioPara"
+            >Apply To All Index Strategies</label
+          >
+        </div>
+      </div>
+      <div
+        :class="`d-flex justify-content-center w-100 ${
+          sameInAllYears.credit_bonus_fee ? 'd-none' : ''
+        }`"
+      >
+        <div class="schduleTableDiv mt-5">
+          <label
+            class="error text-center"
+            v-if="errors[currentTab] && errors[currentTab].fee_fcf_schedule"
+            >{{ errors[currentTab].fee_fcf_schedule }}</label
+          >
+          <schedule-csv-extraction
+            :prefixId="`fcf_schedule${currentTab}`"
+            :maxInputs="illustrateYear"
+            @clearError="$emit('clearError', currentTab, 'fee_fcf_schedule')"
+          />
+          <table class="table">
+            <thead>
+              <th>Year</th>
+              <th>Rate</th>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in illustrateYear" :key="index">
+                <td data-label="Year">{{ item }}</td>
+                <td
+                  data-label="Rate"
+                  class="amountInnerTableInputTd feeTdInputWithPercent"
+                >
+                  <input
+                    type="text"
+                    class="form-control handleLimit"
+                    min="0"
+                    max="10"
+                    :id="`fcf_schedule${currentTab}${item}`"
+                    @keypress="
+                      $emit('clearError', currentTab, 'fee_fcf_schedule')
+                    "
+                  />
+                  <label for="amount">%</label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="formParabrdrLavelDiv mt-4">
+      <p>
+        High Cap Fee <span class="optionalCommonTxt">&nbsp;&nbsp;OPTIONAL</span>
+      </p>
+      <p></p>
+    </div>
+    <div
+      class="d-flex justify-content-between align-items-center parent-radio-div"
+    >
+      <div
+        class="feesRadioDiv d-flex justify-content-between feeDivWidth align-items-center px-1 gap-4px"
+      >
+        <label v-for="(item, index) in 3" :key="index" class="flex-1">
+          <input
+            type="radio"
+            :name="`highCapFee${currentTab}`"
+            class="d-none"
+            :checked="
+              !customHipCapAmount && hipCapAmount === item ? true : false
+            "
+          />
+          <span class="fixedStartYear w-100" @click="handleHCCheckbox(item)"
+            >{{ item }}%</span
+          >
+        </label>
       </div>
       <div class="d-flex align-items-center">
-          <div class="or-div"> or </div>
-          <div class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3">
+        <div class="or-div">or</div>
+        <div
+          class="customAmountInputDiv creditBonusInputDiv customInputWidth ms-3"
+        >
           <label for="customAmount">Custom Amount</label>
-          <input type="text" class="handleLimit" @keyup="(e) => customHipCapAmount = e.target.value" min="0" max="5" ref="hcCustomRef">
-          </div>
+          <input
+            type="text"
+            class="handleLimit"
+            @keyup="(e) => (customHipCapAmount = e.target.value)"
+            min="0"
+            max="5"
+            ref="hcCustomRef"
+          />
+        </div>
       </div>
-      </div>
-      
-      <input type="hidden" :value="customPerformanceFeeAmount || performanceFeeAmount" :id="`performance_multiplier_fees${currentTab}`" />
-      <input type="hidden" :value="sameInAllYears.multiplier_fee ? 1 : 0" :id="`pmf_all_year${currentTab}`" />
-      <input type="hidden" :value="customFlatAmount || flatAmount" :id="`flat_credit_fees${currentTab}`" />
-      <input type="hidden" :value="sameInAllYears.credit_bonus_fee ? 1 : 0" :id="`fcf_all_year${currentTab}`" />
-      <input type="hidden" :value="customHipCapAmount || hipCapAmount" :id="`high_cap_fees${currentTab}`" />
-    </form>
+    </div>
+
+    <input
+      type="hidden"
+      :value="customPerformanceFeeAmount || performanceFeeAmount"
+      :id="`performance_multiplier_fees${currentTab}`"
+    />
+    <input
+      type="hidden"
+      :value="sameInAllYears.multiplier_fee ? 1 : 0"
+      :id="`pmf_all_year${currentTab}`"
+    />
+    <input
+      type="hidden"
+      :value="customFlatAmount || flatAmount"
+      :id="`flat_credit_fees${currentTab}`"
+    />
+    <input
+      type="hidden"
+      :value="sameInAllYears.credit_bonus_fee ? 1 : 0"
+      :id="`fcf_all_year${currentTab}`"
+    />
+    <input
+      type="hidden"
+      :value="customHipCapAmount || hipCapAmount"
+      :id="`high_cap_fees${currentTab}`"
+    />
+  </form>
 </template>
 <script>
+import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
+
 export default {
   props: [
     "currentTab",
@@ -173,6 +392,7 @@ export default {
     "applyPmfAllIndex",
     "applyFcfAllIndex",
   ],
+  components: { ScheduleCsvExtraction },
   inject: ["errors"],
   emits: [
     "clearError",
@@ -197,39 +417,39 @@ export default {
     };
   },
   methods: {
-    handlePcCheckbox: function(item) {
+    handlePcCheckbox: function (item) {
       this.$refs.customPCRef.value = "";
     },
-    handleLICheckbox: function(item) {
+    handleLICheckbox: function (item) {
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
     },
-    handlePMCheckbox: function(item) {
+    handlePMCheckbox: function (item) {
       this.performanceFeeAmount = item;
       this.customPerformanceFeeAmount = "";
       this.$refs.customPMRef.value = "";
     },
-    handleFCCheckbox: function(item) {
+    handleFCCheckbox: function (item) {
       this.flatAmount = item;
       this.customFlatAmount = "";
       this.$refs.customFCRef.value = "";
     },
-    handleHCCheckbox: function(item) {
+    handleHCCheckbox: function (item) {
       this.hipCapAmount = item;
       this.customHipCapAmount = "";
       this.$refs.hcCustomRef.value = "";
     },
-    isChecked: function(id) {
+    isChecked: function (id) {
       return document.getElementById(id).checked;
     },
     // Performance multiplier apply to all tabs
-    removePmfApllyAllIndex: function() {
+    removePmfApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`applyAllPmf${currentTab}`)) {
         document.getElementById(`applyAllPmf${currentTab}`).checked = false;
 
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           document.getElementById(`applyAllPmf${tab}`).disabled = false; // enable the toggle input
           document
             .getElementById(`applyAllPmfLabel${tab}`)
@@ -238,12 +458,12 @@ export default {
       }
     },
     // check any applied toggle for performance multiplier fee
-    isAnyPmfAppliedToggle: function() {
+    isAnyPmfAppliedToggle: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let toggle = false;
 
-      tabs.forEach(tab => {
+      tabs.forEach((tab) => {
         if (this.isChecked(`applyAllPmf${tab}`) && currentTab !== tab) {
           toggle = true;
         }
@@ -252,7 +472,7 @@ export default {
       return toggle;
     },
     // check data is valid or not for performance multiplier fee
-    validatePmfValues: function() {
+    validatePmfValues: function () {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
       let pmf_all_year = Number(this.sameInAllYears.multiplier_fee);
@@ -276,7 +496,7 @@ export default {
       return valid;
     },
     // handle apply to all index strategies for performance multiplier fee
-    applyPmfToAllIndex: function(e) {
+    applyPmfToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let pmf_all_year = Number(
@@ -298,12 +518,12 @@ export default {
       ).value; // get current tab multiplier input value
 
       if (!this.isAnyPmfAppliedToggle() && e.target.checked) {
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPmf${tab}`).checked = !e.target
-              .checked; // unchecked the toggle input
-            document.getElementById(`applyAllPmf${tab}`).disabled = !e.target
-              .checked; // disabled the toggle input
+            document.getElementById(`applyAllPmf${tab}`).checked =
+              !e.target.checked; // unchecked the toggle input
+            document.getElementById(`applyAllPmf${tab}`).disabled =
+              !e.target.checked; // disabled the toggle input
             document
               .getElementById(`applyAllPmfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
@@ -323,16 +543,15 @@ export default {
             let value = document.getElementById(
               `pmf_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
-            tabs.forEach(tab => {
+            tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(
-                  `pmf_schedule${tab}${i + 1}`
-                ).value = value; // set schedule value in all tabs
+                document.getElementById(`pmf_schedule${tab}${i + 1}`).value =
+                  value; // set schedule value in all tabs
               }
             });
           }
         } else {
-          tabs.forEach(tab => {
+          tabs.forEach((tab) => {
             if (currentTab !== tab) {
               document.getElementById(
                 `performance_multiplier_fees${tab}`
@@ -342,7 +561,7 @@ export default {
         }
       } else {
         e.target.checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmfAppliedToggle()) {
             document
               .getElementById(`applyAllPmfLabel${tab}`)
@@ -353,13 +572,13 @@ export default {
     },
 
     // Flat credit bonus fee apply to all tabs
-    removeFcfApllyAllIndex: function() {
+    removeFcfApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`applyAllFcf${currentTab}`)) {
         document.getElementById(`applyAllFcf${currentTab}`).checked = false;
 
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           document.getElementById(`applyAllFcf${tab}`).disabled = false; // enable the toggle input
           document
             .getElementById(`applyAllFcfLabel${tab}`)
@@ -368,12 +587,12 @@ export default {
       }
     },
     // check any applied toggle for Flat credit bonus fee fee
-    isAnyFcfAppliedToggle: function() {
+    isAnyFcfAppliedToggle: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let toggle = false;
 
-      tabs.forEach(tab => {
+      tabs.forEach((tab) => {
         if (this.isChecked(`applyAllFcf${tab}`) && currentTab !== tab) {
           toggle = true;
         }
@@ -382,7 +601,7 @@ export default {
       return toggle;
     },
     // check data is valid or not for Flat credit bonus fee fee
-    validateFcfValues: function() {
+    validateFcfValues: function () {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
       let fcf_all_year = Number(this.sameInAllYears.credit_bonus_fee);
@@ -406,7 +625,7 @@ export default {
       return valid;
     },
     // handle apply to all index strategies for Flat credit bonus fee fee
-    applyFcfToAllIndex: function(e) {
+    applyFcfToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let fcf_all_year = Number(
@@ -423,24 +642,29 @@ export default {
         return false;
       }
 
-      let pmf_fee = document.getElementById(`flat_credit_fees${currentTab}`)
-        .value; // get current tab multiplier input value
+      let pmf_fee = document.getElementById(
+        `flat_credit_fees${currentTab}`
+      ).value; // get current tab multiplier input value
 
       if (!this.isAnyFcfAppliedToggle() && e.target.checked) {
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllFcf${tab}`).checked = !e.target
-              .checked; // unchecked the toggle input
-            document.getElementById(`applyAllFcf${tab}`).disabled = !e.target
-              .checked; // disabled the toggle input
+            document.getElementById(`applyAllFcf${tab}`).checked =
+              !e.target.checked; // unchecked the toggle input
+            document.getElementById(`applyAllFcf${tab}`).disabled =
+              !e.target.checked; // disabled the toggle input
             document
               .getElementById(`applyAllFcfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
 
             if (!fcf_all_year) {
-              document.getElementById(`flat-credit-fee-radio${tab}`).checked = false; // open the schedule inputs in all tabs
+              document.getElementById(
+                `flat-credit-fee-radio${tab}`
+              ).checked = false; // open the schedule inputs in all tabs
             } else {
-              document.getElementById(`flat-credit-fee-radio${tab}`).checked = true; // close the schedule inputs in all tabs
+              document.getElementById(
+                `flat-credit-fee-radio${tab}`
+              ).checked = true; // close the schedule inputs in all tabs
             }
 
             this.$emit("setApplyFcfAllIndex", true);
@@ -452,16 +676,15 @@ export default {
             let value = document.getElementById(
               `fcf_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
-            tabs.forEach(tab => {
+            tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(
-                  `fcf_schedule${tab}${i + 1}`
-                ).value = value; // set schedule value in all tabs
+                document.getElementById(`fcf_schedule${tab}${i + 1}`).value =
+                  value; // set schedule value in all tabs
               }
             });
           }
         } else {
-          tabs.forEach(tab => {
+          tabs.forEach((tab) => {
             if (currentTab !== tab) {
               document.getElementById(`flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
             }
@@ -469,7 +692,7 @@ export default {
         }
       } else {
         e.target.checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcfAppliedToggle()) {
             document
               .getElementById(`applyAllFcfLabel${tab}`)
@@ -479,7 +702,7 @@ export default {
       }
     },
     // populate latest data in input fields
-    updateLatestData: function() {
+    updateLatestData: function () {
       let charges = [1, 2, 3, 4, 5, 6, 7, 8];
       // Performance multiplier rate
       this.sameInAllYears.multiplier_fee = document.getElementById(
@@ -571,5 +794,4 @@ export default {
   },
 };
 </script>
-<style lang="">
-</style>
+<style lang=""></style>

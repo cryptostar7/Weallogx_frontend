@@ -345,7 +345,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`multiplier_schedule${i}${y}`),
+                  value: this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -374,7 +374,7 @@ export default {
                 );
                 tempData.push({
                   year: y,
-                  value: getNumber(sValue),
+                  value: getNumber(sValue) || 0,
                 });
               }
               credit_obj.schedule = tempData;
@@ -414,7 +414,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`pmf_schedule${i}${y}`),
+                  value: this.getInputWithId(`pmf_schedule${i}${y}`) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -506,26 +506,13 @@ export default {
           if (!form) {
             if (!focus) {
               this.activeTab = i + 1;
-              if (this.error[i + 1].enhancements) {
-                var area = document.getElementById(`enhancementTab${i + 1}`);
-                focus = true;
-                if (area.classList.contains("collapsed")) {
-                  area.classList.toggle("collapsed");
-                  document
-                    .getElementById(`enhanceTab${i + 1}`)
-                    .classList.add("show");
+              focus = true;
+              var area = document.getElementById(`fees-parameters${i + 1}`);
+              if (this.error[i + 1].fees) {
+                if (!area.classList.contains("show")) {
+                  area.classList.add("show");
                 }
-                area.scrollIntoView();
-              }
-              if (!focus) {
-                focus = true;
-                var area = document.getElementById(`fees-parameters${i + 1}`);
-                if (this.error[i + 1].fees) {
-                  if (!area.classList.contains("show")) {
-                    area.classList.add("show");
-                  }
-                  area.scrollIntoView();
-                }
+                // area.scrollIntoView();
               }
             }
             valid = false;
@@ -1221,8 +1208,6 @@ export default {
     validatateForm: function (tab = 0) {
       var valid = true;
       let analysis = this.analysis;
-      let growth = this.growth[tab];
-      let enhancements = this.enhancements[tab];
       let fees = this.fees[tab];
       this.error[tab + 1].fees = false;
       this.error[tab + 1].enhancements = false;
@@ -1238,87 +1223,6 @@ export default {
         this.error.portfolio_name = "This field is required.";
       } else {
         this.error.portfolio_name = "";
-      }
-
-      // validate enhancement performace section
-      if (enhancements && enhancements.performance.checkbox) {
-        if (enhancements.performance.type === "schedule") {
-          let obj = enhancements.performance.schedule;
-          let obj_valid = true;
-          if (obj) {
-            obj.forEach((item) => {
-              if (!item.value) {
-                obj_valid = false;
-              }
-            });
-          } else {
-            obj_valid = false;
-          }
-          if (!obj_valid) {
-            valid = false;
-            this.error[tab + 1].enhancements = true;
-            this.error[tab + 1].enhancements_performance_schedule =
-              "Please fill multiplier rate for all years.";
-          } else {
-            this.error[tab + 1].enhancements_performance_schedule = "";
-          }
-        }
-      }
-
-      // validate enhancement flat/credit section
-      if (enhancements && enhancements.credit.checkbox) {
-        if (enhancements.credit.type === "schedule") {
-          let obj = enhancements.credit.schedule;
-          let obj_valid = true;
-          if (obj) {
-            obj.forEach((item) => {
-              if (!item.value) {
-                obj_valid = false;
-              }
-            });
-          } else {
-            obj_valid = false;
-          }
-          if (!obj_valid) {
-            valid = false;
-            this.error[tab + 1].enhancements = true;
-            if (enhancements.credit.schedule_type === "rate") {
-              this.error[
-                tab + 1
-              ].enhancements_credit_schedule_rate = `Please fill rate value for all years.`;
-            } else {
-              this.error[
-                tab + 1
-              ].enhancements_credit_schedule_amount = `Please fill amount value for all years.`;
-            }
-          } else {
-            this.error[tab + 1].enhancements_credit_schedule_rate = "";
-            this.error[tab + 1].enhancements_credit_schedule_amount = "";
-          }
-        }
-      }
-
-      // performance multiplier fees validation
-      if (fees && fees.pmf && !fees.pmf.same_all_year) {
-        let obj = fees.pmf.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error[tab + 1].fees = true;
-          this.error[tab + 1].fee_pmf_schedule =
-            "Please fill performance multiplier fee rate for all years.";
-        } else {
-          this.error[tab + 1].fee_pmf_schedule = "";
-        }
       }
 
       // premium charge fees validation

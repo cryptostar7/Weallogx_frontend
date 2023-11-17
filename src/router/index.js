@@ -155,11 +155,6 @@ const router = createRouter({
       component: () => import("../views/pages/EditProfilePage.vue"),
     },
     {
-      path: "/:slug/:slug2?/:slug3?",
-      name: "not found page",
-      component: () => import("../views/pages/NotFoundPageView.vue"),
-    },
-    {
       path: "/index-strategy-calculator",
       name: "index-strategy-calculator",
       component: () => import("../views/pages/IndexStrategyCalculatorPage.vue"),
@@ -183,6 +178,16 @@ const router = createRouter({
       path: "/tech-error",
       name: "tech-error",
       component: () => import("../views/pages/TechnicalError.vue"),
+    },
+    {
+      path: "/csv-example",
+      name: "csv-example",
+      component: () => import("../views/pages/CsvExample.vue"),
+    },
+    {
+      path: "/:slug/:slug2?/:slug3?",
+      name: "not found page",
+      component: () => import("../views/pages/NotFoundPageView.vue"),
     },
   ],
 });
