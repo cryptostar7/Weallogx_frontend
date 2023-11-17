@@ -15,7 +15,7 @@
       </div>
       <button
         type="button"
-        class="btn add-data-btn"
+        class="btn add-data-btn d-none"
         v-if="!csvText && csvPreview.data.length"
         @click="resetSchedule"
       >
