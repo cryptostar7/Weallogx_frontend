@@ -1,28 +1,43 @@
 <template lang="">
-  <div class="border bg-secondary p-1 col-sm-6">
+  <div class="border p-1">
     <textarea
       name=""
-      id="pasteData"
       cols="15"
-      rows="5"
-      class="form-control"
-      @paste="handleCSV"
+      rows="2"
+      ref="csvRef"
+      v-model="csvText"
+      class="form-control w-100"
+      placeholder="Copy/Paste from CSV"
     ></textarea>
-    <button @click="resetSchedule">Reset Schedule Inputs</button>
+    <div class="my-1">
+      <div v-if="csvText">
+        <button type="button" class="btn add-data-btn" @click="handleCSV">Submit</button>
+      </div>
+      <button
+        type="button"
+        class="btn add-data-btn"
+        v-if="!csvText && csvPreview.data.length"
+        @click="resetSchedule"
+      >
+        Clear Schedule Inputs
+      </button>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      csvText: "",
       csvPreview: { data: [], headers: [] },
     };
   },
   props: ["prefixId", "maxInputs"],
   methods: {
+    // clear schedule inputs
     resetSchedule: function () {
       this.csvPreview = { data: [], headers: [] };
-      this.setInputWithId("pasteData", ""); // reset textarea input
+      this.$refs.csvRef.value = ""; // reset textarea input
       this.populateScheduleInputs(); // update data in schedule inputs
     },
     // set the input value using the input id attribute
@@ -86,6 +101,7 @@ export default {
           if (!e) {
             e = 0; // set default value 0 for blank value
           }
+          e = e.replaceAll("$", ""); // remove $
           return e;
         })
       );
@@ -97,15 +113,15 @@ export default {
 
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
-        if(data && data[index]){
+        if (data && data[index]) {
           value = data[index];
         }
         this.setInputWithId(`${this.$props.prefixId}${index + 1}`, value);
       }
     },
     // exract the csv data
-    handleCSV: function (e) {
-      let txt = e.clipboardData.getData("text/plain");
+    handleCSV: function () {
+      let txt = this.$refs.csvRef.value;
       if (txt) {
         let obj = this.exractCsvText(txt);
         if (obj && obj.headers) {
@@ -114,6 +130,7 @@ export default {
           this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV.");
         }
+        this.csvText = "";
       } else {
         this.csvPreview = { data: [], headers: [] };
       }
@@ -149,7 +166,7 @@ export default {
           };
         } catch (err) {
           setTimeout(() => {
-            this.setInputWithId("pasteData", "");
+            this.$refs.csvRef.value = ""; // reset textarea input
           }, 100);
           return false;
         }
@@ -159,4 +176,6 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+
+</style>

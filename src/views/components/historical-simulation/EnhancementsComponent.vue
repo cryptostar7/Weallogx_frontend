@@ -1,59 +1,167 @@
 <template lang="">
-   <div class="indexStrategyallDivs active mt-3 accordion-button collapsed" :id="`enhancementTab${currentTab}`" data-bs-toggle="collapse" :data-bs-target="`#enhanceTab${currentTab}`" aria-expanded="false" :aria-controls="`enhanceTab${currentTab}`">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="indexStrategyheadBrdr">
-                <p>Enhancements
-                    <svg class="ms-2 boxTickImage" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="10.5" cy="10.5" r="9.75" fill="#0E6651" stroke="#14EAB7" stroke-width="1.5" />
-                        <rect x="16.6006" y="7.91222" width="9.99563" height="1.5" rx="0.75" transform="rotate(135 16.6006 7.91222)" fill="#14EAB7" />
-                        <rect x="9.5693" y="14.9806" width="5.50074" height="1.5" rx="0.75" transform="rotate(-135 9.5693 14.9806)" fill="#14EAB7" />
-                    </svg>
-                </p>
-                <div></div>
-            </div>
-        </div>
+  <div
+    class="indexStrategyallDivs active mt-3 accordion-button collapsed"
+    :id="`enhancementTab${currentTab}`"
+    data-bs-toggle="collapse"
+    :data-bs-target="`#enhanceTab${currentTab}`"
+    aria-expanded="false"
+    :aria-controls="`enhanceTab${currentTab}`"
+  >
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="indexStrategyheadBrdr">
+        <p>
+          Enhancements
+          <svg
+            class="ms-2 boxTickImage"
+            width="21"
+            height="21"
+            viewBox="0 0 21 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="10.5"
+              cy="10.5"
+              r="9.75"
+              fill="#0E6651"
+              stroke="#14EAB7"
+              stroke-width="1.5"
+            />
+            <rect
+              x="16.6006"
+              y="7.91222"
+              width="9.99563"
+              height="1.5"
+              rx="0.75"
+              transform="rotate(135 16.6006 7.91222)"
+              fill="#14EAB7"
+            />
+            <rect
+              x="9.5693"
+              y="14.9806"
+              width="5.50074"
+              height="1.5"
+              rx="0.75"
+              transform="rotate(-135 9.5693 14.9806)"
+              fill="#14EAB7"
+            />
+          </svg>
+        </p>
+        <div></div>
+      </div>
     </div>
-    <form :id="`enhanceTab${currentTab}`" class="accordion-collapse collapse analysisParametersContent " :data-bs-parent="`#enhancements${currentTab}`" autocomplete="off">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center mb-2">
-                <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`enhancements1${currentTab}`" v-model="tab1" @change="$emit('performanceChange', tab1)">
-                </div>
-                <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara">Performance Multiplier</label>
-            </div>
-            <div :class="`d-flex align-items-center mb-2 ${tab1 ? '' : 'd-none'}`">
-                <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllPm${currentTab}`" @change="applyPmToAllIndex">
-                </div>
-                <label :for="`applyAllPm${currentTab}`" :id="`applyAllPmLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
-            </div>
+  </div>
+  <form
+    :id="`enhanceTab${currentTab}`"
+    class="accordion-collapse collapse analysisParametersContent"
+    :data-bs-parent="`#enhancements${currentTab}`"
+    autocomplete="off"
+  >
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center mb-2">
+        <div class="form-check form-switch custom-switch">
+          <input
+            class="form-check-input enhanceInputCheckBox"
+            type="checkbox"
+            role=":switch"
+            :id="`enhancements1${currentTab}`"
+            v-model="tab1"
+            @change="$emit('performanceChange', tab1)"
+          />
         </div>
-        <PerformanceMultiplier :visible="tab1" :currentTab="currentTab" @clearError="clearError" :update="$props.update" :applyPmAllIndex="applyPmAllIndex" @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)" @validatePmValues="validatePmValues"/>
-        <div class="middle-divider">
-            <div class="divider-line"></div>
+        <label :for="`enhancements1${currentTab}`" class="buttonSaveRadioPara"
+          >Performance Multiplier</label
+        >
+      </div>
+      <div :class="`d-flex align-items-center mb-2 ${tab1 ? '' : 'd-none'}`">
+        <div class="form-check form-switch custom-switch">
+          <input
+            class="form-check-input enhanceInputCheckBox"
+            type="checkbox"
+            role=":switch"
+            :id="`applyAllPm${currentTab}`"
+            @change="applyPmToAllIndex"
+          />
         </div>
-        <div class="d-flex align-items-center justify-content-between pt-2 pb-1">
-            <div class="d-flex align-items-center" id="addBorderAbove">
-                <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" :id="`enhancements${currentTab}`" v-model="tab2" @change="$emit('creditBonusChange', tab2)">
-                </div>
-                <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara">Flat Credit/Bonus</label>
-            </div>
-            <div :class="`d-flex align-items-center ${tab2 ? '' : 'd-none'}`">
-                <div class="form-check form-switch custom-switch">
-                    <input class="form-check-input enhanceInputCheckBox" type="checkbox" role=":switch" :id="`applyAllFc${currentTab}`" @change="applyFcToAllIndex">
-                </div>
-                <label :for="`applyAllFc${currentTab}`" :id="`applyAllFcLabel${currentTab}`" class="buttonSaveRadioPara">Apply To All Index Strategies</label>
-            </div>
+        <label
+          :for="`applyAllPm${currentTab}`"
+          :id="`applyAllPmLabel${currentTab}`"
+          class="buttonSaveRadioPara"
+          >Apply To All Index Strategies</label
+        >
+      </div>
+    </div>
+    <PerformanceMultiplier
+      :visible="tab1"
+      :currentTab="currentTab"
+      @clearError="clearError"
+      :update="$props.update"
+      :applyPmAllIndex="applyPmAllIndex"
+      @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)"
+      @validatePmValues="validatePmValues"
+    />
+    <div class="middle-divider">
+      <div class="divider-line"></div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between pt-2 pb-1">
+      <div class="d-flex align-items-center" id="addBorderAbove">
+        <div class="form-check form-switch custom-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            :id="`enhancements${currentTab}`"
+            v-model="tab2"
+            @change="$emit('creditBonusChange', tab2)"
+          />
         </div>
-        <CreditAndBonus :visible="tab2" :currentTab="currentTab" @clearError="clearError" :update="$props.update"  :applyFcAllIndex="applyFcAllIndex" @setApplyFcAllIndex="(val) => $emit('setApplyFcAllIndex', val)" @validateFcValues="validateFcValues"/>
-        <input type="hidden" :value="tab1 ? 1 : 0" :id="`performance_checkbox${currentTab}`" />
-        <input type="hidden" :value="tab2 ? 1 : 0" :id="`credit_checkbox${currentTab}`" />
-    </form>
+        <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara"
+          >Flat Credit/Bonus</label
+        >
+      </div>
+      <div :class="`d-flex align-items-center ${tab2 ? '' : 'd-none'}`">
+        <div class="form-check form-switch custom-switch">
+          <input
+            class="form-check-input enhanceInputCheckBox"
+            type="checkbox"
+            role=":switch"
+            :id="`applyAllFc${currentTab}`"
+            @change="applyFcToAllIndex"
+          />
+        </div>
+        <label
+          :for="`applyAllFc${currentTab}`"
+          :id="`applyAllFcLabel${currentTab}`"
+          class="buttonSaveRadioPara"
+          >Apply To All Index Strategies</label
+        >
+      </div>
+    </div>
+    <CreditAndBonus
+      :visible="tab2"
+      :currentTab="currentTab"
+      @clearError="clearError"
+      :update="$props.update"
+      :applyFcAllIndex="applyFcAllIndex"
+      @setApplyFcAllIndex="(val) => $emit('setApplyFcAllIndex', val)"
+      @validateFcValues="validateFcValues"
+    />
+    <input
+      type="hidden"
+      :value="tab1 ? 1 : 0"
+      :id="`performance_checkbox${currentTab}`"
+    />
+    <input
+      type="hidden"
+      :value="tab2 ? 1 : 0"
+      :id="`credit_checkbox${currentTab}`"
+    />
+  </form>
 </template>
 <script>
 import PerformanceMultiplier from "./PerformanceMultiplier.vue";
 import CreditAndBonus from "./CreditAndBonus.vue";
+import { getNumber } from "../../../services/helper";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
   props: ["currentTab", "update", "applyPmAllIndex", "applyFcAllIndex"],
@@ -72,20 +180,62 @@ export default {
     };
   },
   methods: {
-    clearError: function(name) {
+    renderInputValidationJs: function () {
+      setTimeout(() => {
+        // input validation for min and max value
+        const inputs = document.querySelectorAll(".handleLimit");
+        inputs.forEach((element) =>
+          element.addEventListener("input", function (e) {
+            let len = e.target.value.length;
+            let current = e.target.value;
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (
+              Number(current) < min ||
+              Number(current) > max ||
+              isNaN(Number(current))
+            ) {
+              let actualValue = current.slice(0, len - 1);
+              e.target.value = actualValue;
+              return false;
+            }
+          })
+        );
+        // input validation for min and max value with putting comma
+        const input2 = document.querySelectorAll(".handleLimitWithComma");
+        input2.forEach((element) =>
+          element.addEventListener("input", function (e) {
+            let current = getNumber(e.target.value).toString();
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (Number(current) < min || Number(current) > max) {
+              let actualValue = current.slice(0, current.length - 1);
+              e.target.value =
+                Number(current) < min
+                  ? ""
+                  : Number(actualValue).toLocaleString();
+              return false;
+            } else {
+              e.target.value = Number(current).toLocaleString();
+            }
+          })
+        );
+      }, 500);
+    },
+    clearError: function (name) {
       this.$emit("clearError", this.$props.currentTab, name);
     },
-    isChecked: function(id) {
+    isChecked: function (id) {
       return document.getElementById(id).checked;
     },
     // Performance multiplier apply to all tabs
-    removePmApllyAllIndex: function() {
+    removePmApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`applyAllPm${currentTab}`)) {
         document.getElementById(`applyAllPm${currentTab}`).checked = false;
 
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           document.getElementById(`applyAllPm${tab}`).disabled = false; // enable the toggle input
           document
             .getElementById(`applyAllPmLabel${tab}`)
@@ -94,12 +244,12 @@ export default {
       }
     },
     // check any applied toggle for performance multiplier
-    isAnyPmAppliedToggle: function() {
+    isAnyPmAppliedToggle: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let toggle = false;
 
-      tabs.forEach(tab => {
+      tabs.forEach((tab) => {
         if (this.isChecked(`applyAllPm${tab}`) && currentTab !== tab) {
           toggle = true;
         }
@@ -108,7 +258,7 @@ export default {
       return toggle;
     },
     // check data is valid or not for performance multiplier
-    validatePmValues: function(tab) {
+    validatePmValues: function (tab) {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
@@ -138,7 +288,7 @@ export default {
       return valid;
     },
     // handle apply to all index strategies for performance multiplier
-    applyPmToAllIndex: function(e) {
+    applyPmToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
@@ -159,16 +309,17 @@ export default {
         `multiplier_input${currentTab}`
       ).value; // get current tab multiplier input value
 
-      let start_year = document.getElementById(`prf_start_year${currentTab}`)
-        .value; // get current tab multiplier input value
+      let start_year = document.getElementById(
+        `prf_start_year${currentTab}`
+      ).value; // get current tab multiplier input value
 
       if (!this.isAnyPmAppliedToggle() && e.target.checked) {
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPm${tab}`).checked = !e.target
-              .checked; // unchecked the toggle input
-            document.getElementById(`applyAllPm${tab}`).disabled = !e.target
-              .checked; // disabled the toggle input
+            document.getElementById(`applyAllPm${tab}`).checked =
+              !e.target.checked; // unchecked the toggle input
+            document.getElementById(`applyAllPm${tab}`).disabled =
+              !e.target.checked; // disabled the toggle input
             document
               .getElementById(`applyAllPmLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
@@ -176,7 +327,8 @@ export default {
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`performance_type${tab}`).value = "schedule";
+              document.getElementById(`performance_type${tab}`).value =
+                "schedule";
             } else {
               document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
               document.getElementById(`performance_type${tab}`).value = "fixed";
@@ -190,7 +342,7 @@ export default {
             let value = document.getElementById(
               `multiplier_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
-            tabs.forEach(tab => {
+            tabs.forEach((tab) => {
               if (currentTab !== tab) {
                 document.getElementById(
                   `multiplier_schedule${tab}${i + 1}`
@@ -199,23 +351,21 @@ export default {
             });
           }
         } else {
-          tabs.forEach(tab => {
+          tabs.forEach((tab) => {
             if (currentTab !== tab) {
               performance_type;
 
-              document.getElementById(
-                `multiplier_input${tab}`
-              ).value = performance_multiplier; // set multiplier value in all tabs
+              document.getElementById(`multiplier_input${tab}`).value =
+                performance_multiplier; // set multiplier value in all tabs
 
-              document.getElementById(
-                `prf_start_year${tab}`
-              ).value = start_year; // set start year value in all tabs
+              document.getElementById(`prf_start_year${tab}`).value =
+                start_year; // set start year value in all tabs
             }
           });
         }
       } else {
         e.target.checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
               .getElementById(`applyAllPmLabel${tab}`)
@@ -225,13 +375,13 @@ export default {
       }
     },
     // Flat credit/bonus apply to all tabs
-    removeFcApllyAllIndex: function() {
+    removeFcApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`applyAllFc${currentTab}`)) {
         document.getElementById(`applyAllFc${currentTab}`).checked = false;
 
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           document.getElementById(`applyAllFc${tab}`).disabled = false; // enable the toggle input
           document
             .getElementById(`applyAllFcLabel${tab}`)
@@ -240,12 +390,12 @@ export default {
       }
     },
     // check any applied toggle for flat credit bonus
-    isAnyFcAppliedToggle: function() {
+    isAnyFcAppliedToggle: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let toggle = false;
 
-      tabs.forEach(tab => {
+      tabs.forEach((tab) => {
         if (this.isChecked(`applyAllFc${tab}`) && currentTab !== tab) {
           toggle = true;
         }
@@ -254,11 +404,12 @@ export default {
       return toggle;
     },
     // check data is valid or not for flat credit bonus
-    validateFcValues: function(tab, subTab) {
+    validateFcValues: function (tab, subTab) {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
-      let credit_type = document.getElementById(`credit_type${currentTab}`)
-        .value;
+      let credit_type = document.getElementById(
+        `credit_type${currentTab}`
+      ).value;
 
       if (tab) {
         credit_type = tab;
@@ -296,12 +447,13 @@ export default {
 
       return valid;
     },
-    // handle apply to all index strategies for flat credit bonus 
-    applyFcToAllIndex: function(e) {
+    // handle apply to all index strategies for flat credit bonus
+    applyFcToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
-      let credit_type = document.getElementById(`credit_type${currentTab}`)
-        .value;
+      let credit_type = document.getElementById(
+        `credit_type${currentTab}`
+      ).value;
 
       // Show warning message if shedule data is not filled in all inputs
       if (
@@ -317,16 +469,17 @@ export default {
         `credit_bonus_input${currentTab}`
       ).value; // get current tab credit bonus input value
 
-      let start_year = document.getElementById(`crd_start_year${currentTab}`)
-        .value; // get current tab start year input value
+      let start_year = document.getElementById(
+        `crd_start_year${currentTab}`
+      ).value; // get current tab start year input value
 
       if (!this.isAnyFcAppliedToggle() && e.target.checked) {
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllFc${tab}`).checked = !e.target
-              .checked; // unchecked the toggle input
-            document.getElementById(`applyAllFc${tab}`).disabled = !e.target
-              .checked; // disabled the toggle input
+            document.getElementById(`applyAllFc${tab}`).checked =
+              !e.target.checked; // unchecked the toggle input
+            document.getElementById(`applyAllFc${tab}`).disabled =
+              !e.target.checked; // disabled the toggle input
             document
               .getElementById(`applyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
@@ -356,11 +509,10 @@ export default {
           }
 
           // set schedule type value in all tabs
-          tabs.forEach(tab => {
+          tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(
-                `credit_schedule_type${tab}`
-              ).value = credit_schedule_type;
+              document.getElementById(`credit_schedule_type${tab}`).value =
+                credit_schedule_type;
             }
           });
 
@@ -368,7 +520,7 @@ export default {
             let value = document.getElementById(
               `${schedule_input_id}${currentTab}${i + 1}`
             ).value; // get current schedule input value
-            tabs.forEach(tab => {
+            tabs.forEach((tab) => {
               if (currentTab !== tab) {
                 document.getElementById(
                   `${schedule_input_id}${tab}${i + 1}`
@@ -377,21 +529,19 @@ export default {
             });
           }
         } else {
-          tabs.forEach(tab => {
+          tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(
-                `credit_bonus_input${tab}`
-              ).value = credit_bonus; // set credit bonus value in all tabs
+              document.getElementById(`credit_bonus_input${tab}`).value =
+                credit_bonus; // set credit bonus value in all tabs
 
-              document.getElementById(
-                `crd_start_year${tab}`
-              ).value = start_year; // set start year value in all tabs
+              document.getElementById(`crd_start_year${tab}`).value =
+                start_year; // set start year value in all tabs
             }
           });
         }
       } else {
         e.target.checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
             document
               .getElementById(`applyAllFcLabel${tab}`)
@@ -411,6 +561,9 @@ export default {
     },
   },
   watch: {
+    illustrateYear() {
+      this.renderInputValidationJs();
+    },
     "$props.update"(e) {
       if (e) {
         this.tab1 = Number(
@@ -435,7 +588,7 @@ export default {
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`applyAllPm${currentTab}`)) {
         document.getElementById(`applyAllPm${currentTab}`).checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
               .getElementById(`applyAllPmLabel${tab}`)
@@ -450,7 +603,7 @@ export default {
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`applyAllFc${currentTab}`)) {
         document.getElementById(`applyAllFc${currentTab}`).checked = false;
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
             document
               .getElementById(`applyAllFcLabel${tab}`)

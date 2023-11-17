@@ -710,7 +710,7 @@ export default {
     getYear: function(array, age) {
       let year = array.filter(i => i);
       year = year.length;
-      return age[year];
+      return age[year] || age[year-1];
     },
     // map API data for the CV cards
     mapData: function() {
