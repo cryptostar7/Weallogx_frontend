@@ -37,7 +37,10 @@
 
             <div class="index-strategy-content-inner-div withBoxShadow">
 
-              <tax-score-card-component ref="taxScorecard"/>
+              <tax-score-card-component
+                ref="taxScorecard"
+                @success="$refs.modalCloseRef.click()"
+              />
 
               <tax-score-card-form-buttons
                 :runButtonEnabled="validation.form_valid"
@@ -77,10 +80,7 @@ export default {
 
   methods: {
     generateTaxScorecard: function () {
-      success = this.$refs.taxScorecard.generateTaxScorecard()
-      if (success) {
-        this.$refs.modalCloseRef.click()
-      }
+      this.$refs.taxScorecard.generateTaxScorecard()
     },
     resetForm: function () {
       this.$refs.taxScorecard.resetForm()
