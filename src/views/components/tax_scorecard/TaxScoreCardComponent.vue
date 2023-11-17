@@ -334,6 +334,18 @@ export default {
         errors.push(`Plan Through Age must be greater than Age (${inputs.age}).`)
       }
 
+      if (inputs.social_security_amount) {
+        if (inputs.social_security_age < 62) {
+          errors.push(`Social Security Age must at least 62.`)
+        }
+      } else if (inputs.social_security_age) {
+        errors.push(`Social Security Age also requires Social Security Amount.`)
+      }
+
+      if (inputs.rmd_age < 72) {
+        errors.push(`RMD Age must be at least 72.`)
+      }
+
       for (let error of errors) {
         console.log(error)
         this.$toast.error(error)

@@ -8,7 +8,7 @@ import { getNumber } from "../../../services/helper"
 
 export default {
 
-  props: ["default", "max"],
+  props: ["default", "max", "allowZero"],
   emits: ["valueUpdated"],
 
   watch: {
@@ -42,6 +42,11 @@ export default {
       this.value = getNumber(this.value)
 
       if (this.$props.max && this.value > this.$props.max) {
+        this.value = this.previousValue
+        return
+      }
+
+      if (this.value == 0 && (this.$props.allowZero == undefined || !this.$props.allowZero)) {
         this.value = this.previousValue
         return
       }
