@@ -346,6 +346,10 @@ export default {
         errors.push(`RMD Age must be at least 72.`)
       }
 
+      if (inputs.switch_year && !inputs.second_tax_rate) {
+        errors.push(`Switch Year also requires Second Tax Rate.`)
+      }
+
       for (let error of errors) {
         console.log(error)
         this.$toast.error(error)
