@@ -339,7 +339,7 @@
                                     <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.shortfall) }}</td>
+                                    <td width="50%" data-label="acount" :class="summary_data.data[0].categories[tsa_type].distribution.shortfall > 0 ? 'text-success':'text-danger'">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.shortfall) }}</td>
                                     <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.shortfall) }}</td>
                                   </tr>
                               </tbody>
@@ -839,8 +839,8 @@ export default {
             most_recent: {
               distribution: {
                 total: this.historical.most_recent.result.sum_of_all_total_value,
-                total_value: "",
-                shortfall: "",
+                total_value: this.historical.most_recent.result.cummulative_income_total_value,
+                shortfall: this.historical.most_recent.result.Surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -848,8 +848,8 @@ export default {
             worst: {
               distribution: {
                 total: this.historical.min.result.sum_of_all_total_value,
-                total_value: "",
-                shortfall: "",
+                total_value: this.historical.min.result.cummulative_income_total_value,
+                shortfall: this.historical.min.result.Surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -857,8 +857,8 @@ export default {
             median: {
               distribution: {
                 total: this.historical.median.result.sum_of_all_total_value,
-                total_value: "",
-                shortfall: "",
+                total_value: this.historical.median.result.cummulative_income_total_value,
+                shortfall: this.historical.median.result.Surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -866,8 +866,8 @@ export default {
             best: {
               distribution: {
                 total: this.historical.max.result.sum_of_all_total_value,
-                total_value: "",
-                shortfall: "",
+                total_value: this.historical.max.result.cummulative_income_total_value,
+                shortfall: this.historical.max.result.Surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -1082,6 +1082,7 @@ export default {
       this.summary_data.data[1] = this.mapColumn2Data().summary;
       this.summary_data.data[2] = this.mapColumn3Data().summary;
       this.summary_data.data[3] = this.mapColumn4Data().summary;
+      this.summary_data.deposits.totals = this.historical.lirp_data.total_deposit;
     },
   },
   mounted() {
