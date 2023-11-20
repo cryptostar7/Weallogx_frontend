@@ -58,7 +58,7 @@
                                             <div class="row tax-risk-each-card-row">
                                                 <div class="col-md-6 p-1">
                                                     <div class="tax-risk-each-card">
-                                                        <p class="heading-para-tax-risk card1">IRA Tax Score Card
+                                                        <p class="heading-para-tax-risk card1">IRA Tax Scorecard
                                                         </p>
                                                         <div class="card-inner-div">
                                                             <div class="each-card-row">
@@ -88,9 +88,7 @@
                                                 </div>
                                                 <div class="col-md-6 p-1">
                                                     <div class="tax-risk-each-card">
-                                                        <p class="heading-para-tax-risk card2">Roth Conversion Tax
-                                                            Score
-                                                            Card</p>
+                                                        <p class="heading-para-tax-risk card2">Roth Conversion Tax Scorecard</p>
                                                         <div class="card-inner-div">
                                                             <div class="each-card-row">
                                                                 <p class="left-text">Roth Conversion Period</p>
@@ -311,6 +309,7 @@ export default {
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
             }
         }
 
@@ -334,6 +333,7 @@ export default {
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
             }
         }
