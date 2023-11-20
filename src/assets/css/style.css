@@ -5561,6 +5561,18 @@ input[type=number] {
 .mw-78{
   max-width: 78%;
 }
+.nowrap{
+  white-space: nowrap;
+}
+.center-small-line{
+  position: relative;
+  width: 15px;
+  height: 3px;
+  left: 0;
+  top: 3px;
+  margin-inline: auto;
+  background-color: var(--green-clr);
+}
 .middle-divider{
   position: relative;
   padding-block: 1rem;

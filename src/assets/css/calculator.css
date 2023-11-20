@@ -1115,9 +1115,6 @@ table.index-strategy-table tr th {
 .w-250{
     width: 250px !important;
 }
-/*.chart-dropdown.gray{
-
-}*/
 .chart-dropdown.gray .tool-tip-second-main-div{
     border: 3px solid #ddd;
 }
@@ -1149,38 +1146,44 @@ table.index-strategy-table tr th {
     position: absolute;
     width: 100%;
     height: 2.25px;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
     border-radius: 20px;
+    left: 50%;
+    top: 6px;
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
 }
 .table-plus-btn::after{
     content: '';
     position: absolute;
     width: 100%;
     height: 2.25px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     border-radius: 20px;
-    left: 50%;
-    top: 6px;
-    transform: translateX(-50%) translateY(-50%) rotate(90deg);
 }
-.table-plus-btn.blue.collapsed::before, .table-plus-btn.blue.collapsed::after{
+.table-plus-btn.blue.collapsed::before{
+    background-color: transparent;
+}
+.table-plus-btn.blue.collapsed::after{
     background-color: #1660A4;
 }
 .table-plus-btn.blue::before{
     background-color: #1660A4;
 }
 .table-plus-btn.blue::after{
+    background-color: #1660A4;
+}
+.table-plus-btn.green.collapsed::before{    
     background-color: transparent;
 }
-.table-plus-btn.green.collapsed::before, .table-plus-btn.green.collapsed::after{
+.table-plus-btn.green.collapsed::after{
     background-color: #147D64;
 }
 .table-plus-btn.green::before{
     background-color: #147D64;
 }
 .table-plus-btn.green::after{
-    background-color: transparent;
+    background-color: #147D64;
 }
 
 /* Tax Score Card */

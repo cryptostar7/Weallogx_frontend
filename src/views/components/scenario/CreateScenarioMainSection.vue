@@ -89,7 +89,7 @@
                 </div>
                 <div class="form-group-wrapper">
                   <div class="form-group">
-                    <label for="clientAge" class="fs-12 medium-fw"
+                    <label for="clientAge" class="fs-12 medium-fw nowrap"
                       >Client Age
                       <span class="regular-fw"
                         >(Year 1 age on illustration)</span
@@ -378,15 +378,16 @@
                       @onSelectItem="setExistingScenarioScheduleId"
                       @inputText="setExistingScenarioScheduleName"
                     />
-                    <div class="form-group max-width-320">
+                    <div class="form-group">
                       <small class="text-danger" v-if="errors.tax_rate">{{
                         errors.tax_rate[0]
                       }}</small>
-                      <schedule-csv-extraction
-                        prefixId="schedule_tax_rate_"
-                        :maxInputs="Number(illustrateYear)"
-                        @clearError="checkTaxRate()"
-                      />
+                        
+
+                      <div class="form-group mb-0">
+                        <schedule-csv-extraction prefixId="schedule_tax_rate_" :maxInputs="Number(illustrateYear)" @clearError="checkTaxRate()" />
+                      </div>
+
                       <table
                         class="table tax-rate-table text-center"
                         id="scheduleTaxRateTable"
