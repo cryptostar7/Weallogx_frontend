@@ -1162,25 +1162,25 @@ table.index-strategy-table tr th {
     border-radius: 20px;
 }
 .table-plus-btn.blue.collapsed::before{
-    background-color: transparent;
+    background-color: #1660A4;
 }
 .table-plus-btn.blue.collapsed::after{
     background-color: #1660A4;
 }
 .table-plus-btn.blue::before{
-    background-color: #1660A4;
+    background-color: transparent;
 }
 .table-plus-btn.blue::after{
     background-color: #1660A4;
 }
 .table-plus-btn.green.collapsed::before{    
-    background-color: transparent;
+    background-color: #147D64;
 }
 .table-plus-btn.green.collapsed::after{
     background-color: #147D64;
 }
 .table-plus-btn.green::before{
-    background-color: #147D64;
+    background-color: transparent;
 }
 .table-plus-btn.green::after{
     background-color: #147D64;
