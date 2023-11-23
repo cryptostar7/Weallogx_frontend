@@ -164,15 +164,15 @@
                   >
                   <span v-if="disclosure.cv1_capital_gains_tax_rate"
                     >Capital gains tax rate:
-                    <b>{{ disclosure.cv1_capital_gains_tax_rate }}%</b>;</span
+                    <b>{{ disclosure.cv1_capital_gains_tax_rate }}%</b></span
                   >
                   <span v-if="disclosure.cv2_capital_gains_tax_rate"
-                    >Capital gains tax rate:
+                    >; Capital gains tax rate:
                     <b>{{ disclosure.cv2_capital_gains_tax_rate }}%</b>;</span
                   >
                   <span v-if="disclosure.cv3_capital_gains_tax_rate"
-                    >Capital gains tax rate:
-                    <b>{{ disclosure.cv3_capital_gains_tax_rate }}%</b>;</span
+                    >; Capital gains tax rate:
+                    <b>{{ disclosure.cv3_capital_gains_tax_rate }}%</b></span
                   >
                   <!-- If taxes are scheduled, then the last line is simply: -->
                 </p>
