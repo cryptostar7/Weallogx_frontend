@@ -909,7 +909,7 @@ export default {
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
       this.setInputWithId(
         "secondTaxRate",
-        detail.second_tax_rate ? detail.second_tax_rate : ""
+        detail.second_tax_rate ? Number(detail.second_tax_rate) || "" : ""
       );
       this.secondTaxRateYear = detail.second_tax_rate_year
         ? detail.second_tax_rate_year
