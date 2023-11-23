@@ -312,7 +312,8 @@
                               </tr>
                               <tr>
                                 <td colspan="2" class="table1Td surplusTdMain" data-label="Age">
-                                  Surplus/Shortfall</td>
+                                  <span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
