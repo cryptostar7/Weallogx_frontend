@@ -92,8 +92,8 @@
                   <span
                     ><b>{{ tax_rate }}</b>
                     <span v-if="year"
-                      >years <b>1-{{ year }}</b></span
-                    >;
+                      >; years <b>1-{{ year }}</b></span
+                    >
                   </span>
                   <span v-if="second_tax_rate"
                     ><b>{{ second_tax_rate }}</b> years <b>{{ year + 1 }}+</b

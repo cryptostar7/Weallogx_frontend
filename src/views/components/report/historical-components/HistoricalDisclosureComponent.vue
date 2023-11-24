@@ -105,11 +105,11 @@
               <p>
                 <b>{{ disclosure.tax_rate }}%</b>
                 <span v-if="disclosure.second_tax_rate">
-                  years <b>1-{{ disclosure.second_tax_rate_year }}</b
-                  >;
+                 ; years <b>1-{{ disclosure.second_tax_rate_year }}</b
+                  >
                 </span>
                 <span v-if="disclosure.second_tax_rate">
-                  <b>{{ disclosure.second_tax_rate }}%</b>
+                  <b>; {{ disclosure.second_tax_rate }}%</b>
                   years <b>{{ disclosure.second_tax_rate_year }}+</b>;
                 </span>
               </p>

@@ -339,7 +339,7 @@
                                     <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount" :class="summary_data.data[0].categories[tsa_type].distribution.shortfall > 0 ? 'text-success':'text-danger'">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].distribution.shortfall).replace("-", "") }}</td>
+                                    <td width="50%" data-label="acount" :class="summary_data.data[0].categories[tsa_type].distribution.shortfall > 0 ? 'text-success':'text-danger'"></td>
                                     <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.shortfall).replace("-", "") }}</td>
                                   </tr>
                               </tbody>
