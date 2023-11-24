@@ -5,7 +5,7 @@
         <div
           class="disclosure-header-div d-flex align-items-center justify-content-between"
         >
-          <h4 class="disclosure-heading">Disclosure</h4>
+          <h4 class="disclosure-heading" @click="testFunction">Disclosure</h4>
           <div class="disclosure-right-actions">
             <button
               class="btn round-btn disclosure-edit"
@@ -103,12 +103,12 @@
             >
               <h6 class="bold-one">Taxes assumed:</h6>
               <p>
-                <span>
-                  <b>{{ disclosure.tax_rate }}%</b>
+                <b>{{ disclosure.tax_rate }}%</b>
+                <span v-if="disclosure.second_tax_rate">
                   years <b>1-{{ disclosure.second_tax_rate_year }}</b
                   >;
                 </span>
-                <span>
+                <span v-if="disclosure.second_tax_rate">
                   <b>{{ disclosure.second_tax_rate }}%</b>
                   years <b>{{ disclosure.second_tax_rate_year }}+</b>;
                 </span>
@@ -272,6 +272,9 @@ export default {
     this.$refs.editableDiv.innerHTML = this.disclosure_msg;
   },
   methods: {
+    testFunction: function () {
+      console.log(this.disclosure);
+    },
     handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         new bootstrap.Modal(this.$refs.disclosureModal).show();

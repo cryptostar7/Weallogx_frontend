@@ -338,8 +338,8 @@
                                   <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td>
                                 </tr>
                                 <tr>
-                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].distribution.surplus) }}</td>
-                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].net_balance.surplus) }}</td>
+                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].distribution.surplus).replace("-", "") }}</td>
+                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].net_balance.surplus).replace("-", "") }}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -366,8 +366,8 @@
                                     <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus) }}</td>
-                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus) }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus).replace("-", "") }}</td>
+                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus).replace("-", "") }}</td>
                                   </tr>
                                 </tbody>
                               </table>

@@ -374,8 +374,8 @@
                                     <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall) }}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall) }}</td>
+                                    <td width="50%" class="shortFallValueTd" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall).replace("-", "") }}</td>
+                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall).replace("-", "") }}</td>
                                   </tr>
                                 </tbody>
                               </table>
