@@ -1259,6 +1259,12 @@
 .dark-blue .sidebar-nav .nav-link svg rect {
   fill: #ABD5F9;
 }
+.dark-blue .sidebar-nav .nav-link.soon {
+  color: #619ACA;
+}
+.dark-blue .sidebar-nav .nav-link.soon svg path {
+  fill: #619ACA;
+}
 
 .dark-blue .section-heading-div {
   background: #242629;

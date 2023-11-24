@@ -69,7 +69,12 @@
   background-color: var(--blue-clr);
   color: #fff;
 }
-
+.light-blue .sidebar-nav .nav-link.soon {
+  color: #619ACA;
+}
+.light-blue .sidebar-nav .nav-link.soon svg path {
+  fill: #619ACA;
+}
 .light-blue .sort-dropdown-div .dropdown-menu .dropdown-item.active {
   color: currentColor;
   background: #ABD5F9;
