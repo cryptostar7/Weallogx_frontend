@@ -5631,14 +5631,11 @@ border: none;
   background: #FEFAFF;
 }
 .reportTablesDiv6 .table tbody tr td{
-  background: #FFFAF7;
+  background: #FFFAF6;
 }
 .reportTablesDiv7 .table tbody tr td{
-  background: #FFFAF7;
+  background: #FFFBF6;
 }
-/*.sectionCommonJs1.active .reportTablesDiv tr td input , .sectionCommonJs1.active .reportTablesDiv tr td{
-font-size:16px!important;
-}*/
 .menu-icon-report-btn{
   min-height: 45px;
 }
