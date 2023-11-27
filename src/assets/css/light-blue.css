@@ -983,10 +983,10 @@
 .light-blue .cumulativeProgLifePro4 {
   background: #9D2B2B;
 }
-.light-blue .BottomcumulativeLifePro1 {
+.light-blue .BottomcumulativeLifePro1, .light-blue .topSurplusDiv1 {
   background: #287BC7;
 }
-.light-blue .BottomcumulativeLifePro2 {
+.light-blue .BottomcumulativeLifePro2, .light-blue .topSurplusDiv2 {
   background: #10B78E;
 }
 .light-blue .BottomcumulativeLifePro3 {
@@ -1022,6 +1022,9 @@
 }
 .light-blue .reportTablesDiv7 .table th {
   border-left-color: #DE835C !important;
+}
+.light-blue .commonRedRadioSwtchpara.surplus {  
+  color: #004885;
 }
 .light-blue .viewBtnLirp svg path,
 .light-blue .viewBtnLirp svg circle,

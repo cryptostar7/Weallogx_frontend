@@ -153,7 +153,7 @@
                     </clipPath>
                     </defs>
                   </svg>
-                  <span>Retirement Buuffer</span>
+                  <span>Retirement Buffer</span>
                 </label>
               </a>
             </li>

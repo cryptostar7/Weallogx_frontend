@@ -66,16 +66,18 @@
                     </div>
                     <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                       <div class="d-flex justify-content-between align-items-end w-100 legacy-vertical-bar">
-                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
+                          <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
+                                  <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.ending_value) > 95 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                               <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{ Number(Number(item.ending_value).toFixed(0)).toLocaleString() }}</span></p>
                             </div>
-                            <div class="shortFallCount" v-if="index">
-                              <p>SHORTFALL</p>
+                            <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
+                              <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                               <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString().replace('-', '') }}</p>
-                            </div>
-                          </div>
+                            </div>                            
+                        </div>
                         </div>
                       </div>
                     </div>

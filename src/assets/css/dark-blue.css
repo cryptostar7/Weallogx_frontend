@@ -2628,11 +2628,11 @@
   background: #DA4343 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro1 {
+.dark-blue .BottomcumulativeLifePro1, .dark-blue .topSurplusDiv1 {
   background: #208DE8 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro2 {
+.dark-blue .BottomcumulativeLifePro2, .dark-blue .topSurplusDiv2 {
   background: #20A584 !important;
 }
 
@@ -2643,8 +2643,6 @@
 .dark-blue .BottomcumulativeLifePro4 {
   background: #F04F4F !important;
 }
-
-
 
 .dark-blue .cumulativeProgIra {
   background: #8137BB;
@@ -4823,4 +4821,7 @@ fill: #f5f5f5;
 }
 .dark-blue .tax-score-disclosure{
   border-color: var(--blue-clr-2);
+}
+.dark-blue .commonRedRadioSwtchpara.surplus {  
+  color: var(--blue-clr-3);
 }
