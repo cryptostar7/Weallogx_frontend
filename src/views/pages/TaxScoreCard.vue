@@ -6,9 +6,9 @@
         <LeftSidebarComponent />
         <main class="right-area">
             <div class="right-area-inner p-relative rightInnerDarkbg">
-                <div class="right-area-wrapper">
+                <div class="right-area-wrapper pt-0 pb-5">
                     <!-- Inner Content Area Start -->
-                    <section class="strategy-calc-main-section pb-4">
+                    <section class="strategy-calc-main-section mt-3 pt-4">
                         <div class="strategy-calc-main-div shadow-none">
                           <div class="index-strategy-head-div tax-scorcard">
                               <h1>Tax Scorecard</h1>
