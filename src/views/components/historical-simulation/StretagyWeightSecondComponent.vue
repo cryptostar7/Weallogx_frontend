@@ -47,7 +47,7 @@
     </div>
   </div>
 </div>
-<p class="strategyErrorPara">
+<p class="strategyErrorPara d-none">
   Sum of all weights must equal 100%.
 </p>
 </template>

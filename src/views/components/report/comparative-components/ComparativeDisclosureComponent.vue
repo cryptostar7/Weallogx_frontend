@@ -96,7 +96,7 @@
                     >
                   </span>
                   <span v-if="second_tax_rate"
-                    ><b>{{ second_tax_rate }}</b> years <b>{{ year + 1 }}+</b
+                    ><b>; {{ second_tax_rate }}</b> years <b>{{ year + 1 }}+</b
                     >{{ capital_gains.length ? ";" : "" }}</span
                   >
                   <!-- [If capital gains are included for a taxable investment, then we include]: -->

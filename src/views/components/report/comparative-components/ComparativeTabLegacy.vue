@@ -73,7 +73,7 @@
                             </div>
                             <div class="shortFallCount" v-if="index">
                               <p>SHORTFALL</p>
-                              <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString() }}</p>
+                              <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString().replace('-', '') }}</p>
                             </div>
                           </div>
                         </div>
@@ -99,12 +99,6 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      // cards: [
-      //   { id: 1, active: true },
-      //   { id: 2, active: true },
-      //   { id: 3, active: true },
-      //   { id: 4, active: true },
-      // ],
       data: [
         {
           type: "",

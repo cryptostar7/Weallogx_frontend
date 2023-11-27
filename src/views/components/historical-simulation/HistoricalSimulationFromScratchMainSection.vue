@@ -155,7 +155,6 @@
 </template>
 <script>
 import { RouterLink } from "vue-router";
-import { putPercentage } from "../../../services/put-percentage";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";

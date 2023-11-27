@@ -69,7 +69,7 @@
                             </p> 
                             <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
                               <span>Shortfall</span>
-                              {{$numFormatWithDollar(item.shortfall)}}
+                              {{$numFormatWithDollar(item.shortfall).replace("-", "")}}
                             </p>
                           </div>
                           <add-note-input-component reportType="comperative" noteType="comperative_cumulative_income" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null" />
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="shortFallCount" v-if="index">
                                   <p :class="`${$numFormat(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
-                                  <p>{{$numFormatWithDollar(item.shortfall)}}</p>
+                                  <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p>
                                 </div>
                               </div>
                             </div>
@@ -143,7 +143,7 @@
                             </p> 
                             <p class="ms-4 CardProgressnym commonRedRadioSwtchpara position-up2" v-if="index">
                               <span>Shortfall</span>
-                              {{$numFormatWithDollar(item.shortfall)}}
+                              {{ $numFormatWithDollar(item.shortfall).replace("-", "") }}
                             </p>
                           </div>
                           <add-note-input-component reportType="comperative" noteType="comperative_total_value" :cvType="1+index" :noteId="notes2[index] ?  notes2[index].id : null" :noteText="notes2[index] ?  notes2[index].text : null" />
@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="shortFallCount" v-if="index">
                                   <p class="">SHORTFALL</p>
-                                  <p>{{$numFormatWithDollar(item.shortfall)}}</p>
+                                  <p>{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
                                 </div>
                               </div>
                             </div>
@@ -197,20 +197,6 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      // cards: {
-      //   cumulative_income: [
-      //     { id: 1, active: true },
-      //     { id: 2, active: true },
-      //     { id: 3, active: true },
-      //     { id: 4, active: true },
-      //   ],
-      //   total_value: [
-      //     { id: 1, active: true },
-      //     { id: 2, active: true },
-      //     { id: 3, active: true },
-      //     { id: 4, active: true },
-      //   ],
-      // },
       data: {
         cumulative_income: [
           {
