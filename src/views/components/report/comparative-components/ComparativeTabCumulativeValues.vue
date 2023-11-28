@@ -90,7 +90,7 @@
                             <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
                               <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(data.cumulative_income[0].cumulative_income, item.cumulative_income) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(data.cumulative_income[0].cumulative_income, item.cumulative_income)}%`}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.cumulative_income) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.cumulative_income)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
                                 </div>
@@ -166,7 +166,7 @@
                             <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
                               <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(data.total_value[0].total_value, item.total_value) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValue(data.total_value[0].total_value, item.total_value)}%`}">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForTV(data.total_value[0].total_value, item.total_value) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForTV(data.total_value[0].total_value, item.total_value)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.total_value)}}</span></p>
                                 </div>
@@ -256,10 +256,17 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    getPercentValue: function(value1, value2) {
+    getPercentValueForTV: function(value1, value2) {
       value1 = Number(value1.toString().replaceAll("-", ""));
       value2 = Number(value2.toString().replace("-", ""));
       let unit = Number(value2.toString().replace("-")) / Number(value1.toString().replace("-"));
+      return unit*100;
+    },
+    getPercentValueForCI: function(value1, value2) {
+      if(value2 < value1){
+        return 100;
+      }
+      let unit = value1 / value2;
       return unit*100;
     },
     mapData: function() {
