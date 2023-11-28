@@ -1,19 +1,15 @@
 <template lang="">
-  <div class="pb-4">
-    <div class="form-check d-flex justify-content-center align-items-center form-switch custom-switch pt-2">
-      <input class="form-check-input" type="checkbox" role="switch" id="showCopyPasteArea" @click="showCopyPasteAreaHandler">
-      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="showCopyPasteArea"> Copy/Paste data from CSV</label>
-    </div>
-    <div class="center-small-line"></div>
-    <div class="my-3 d-none" id="copyPasteTextAreaDiv">
+  <div class="pb-3">
+    <div class="my-3">
+      <label class="fs-14 bold-fw" for="copyPasteTextArea">Copy/Paste the CSV or Excel data here for the table below</label>
       <textarea 
-        name=""
+        id="copyPasteTextArea"
         cols="15"
         rows="4"
         ref="csvRef"
         v-model="csvText"
         class="form-control w-100"
-        placeholder="Paste data here"
+        placeholder="Paste your data here"
       ></textarea>
       <div class="my-1">
         <div v-if="csvText" class="text-center pt-2">
@@ -185,14 +181,6 @@ export default {
       }
       return false;
     },
-    showCopyPasteAreaHandler: (e) => {
-      let copyPasteDiv = document.getElementById("copyPasteTextAreaDiv");
-      if(e.target.checked){
-        copyPasteDiv.classList.remove("d-none");
-      }else{
-        copyPasteDiv.classList.add("d-none");
-      }      
-    }
   },
 };
 </script>
