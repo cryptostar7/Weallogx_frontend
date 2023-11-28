@@ -157,13 +157,19 @@ export default {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
     getPercentValue: function(value1, value2) {
-      value1 = Number(value1.toString().replaceAll("-", ""));
-      value2 = Number(value2.toString().replace("-", ""));
-      let unit =
-        (Number(value1.toString().replace("-")) +
-          Number(value2.toString().replace("-"))) /
-        100;
-      return value2 / unit;
+      // value1 = Number(value1.toString().replaceAll("-", ""));
+      // value2 = Number(value2.toString().replace("-", ""));
+      // let unit =
+      //   (Number(value1.toString().replace("-")) +
+      //     Number(value2.toString().replace("-"))) /
+      //   100;
+      // return value2 / unit;
+
+      if(value1 >= 0){
+        return 100;
+      }
+      let unit = Math.abs(value1) / value2;
+      return unit * 100;
     },
     mapData: function() {
       if (this.comparative.cv_1) {
