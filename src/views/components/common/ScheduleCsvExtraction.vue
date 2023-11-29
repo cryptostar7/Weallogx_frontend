@@ -104,7 +104,7 @@ export default {
       array.data = array.data.map((i) =>
         i.map((e) => {
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
-          e = e.split(".")[0]; // remove decimal points
+          // e = e.split(".")[0]; // remove decimal points
           if (!e) {
             e = 0; // set default value 0 for blank value
           }
