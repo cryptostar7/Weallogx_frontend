@@ -58,11 +58,11 @@
                                                 </div>
                                                 <div class="col-md-4 summaryInputsDiv">
                                                     <label for="client name">Second Tax Rate %</label>
-                                                    <input type="text" class="form-control ps-2"  :value="`${data.second_tax_rate}%`" readonly>
+                                                    <input type="text" class="form-control ps-2"  :value="Number(data.second_tax_rate) ? `${data.second_tax_rate}%` : ''" readonly>
                                                 </div>
                                                 <div class="col-md-4 summaryInputsDiv">
                                                     <label for="client name">Second Tax Rate Year</label>
-                                                    <input type="text" class="form-control ps-2" :value="data.second_tax_rate_year" readonly>
+                                                    <input type="text" class="form-control ps-2" :value="data.second_tax_rate_year || ''" readonly>
                                                 </div>
                                             </div>
                                         </div>

@@ -622,14 +622,18 @@ export default {
           data.illustration_data = data;
         }
         this.uploadFromFile = data.illustration_data.upload_file_checkbox;
-        let filteredCsv = { data: [], headers: [] };
         if (this.uploadFromFile) {
           let filteredCsv = {
             data: data.illustration_data.upload_from_file.data,
             headers: [],
           };
           filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
-            i => this.illustrationFieldsIndex[i]
+            i => {
+                if (i.includes("total_loan_charge")) {
+                  i = "total_loan_charge";
+                }
+                return this.illustrationFieldsIndex[i];
+              }
           );
 
           this.csvPreview = this.filterObject(filteredCsv);
