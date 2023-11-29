@@ -60,14 +60,9 @@ const router = createRouter({
       component: () => import("../views/pages/HistoricalSimulationsPageAfterYes.vue"),
     },
     {
-      path: "/historical-simulations-old/:scenario?",
-      name: "historical-simulations-old",
-      component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
-    },
-    {
       path: "/historical-simulations/:scenario?",
       name: "historical-simulations",
-      component: () => import("../views/pages/HistoricalSimulationsFromScratchPageNew.vue"),
+      component: () => import("../views/pages/HistoricalSimulationsFromScratchPage.vue"),
     },
     {
       path: "/review-summary/:scenario?",
