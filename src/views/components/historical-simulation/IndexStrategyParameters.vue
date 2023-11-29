@@ -120,7 +120,12 @@
           </div>
         </div>
       </div>
+
+      <stretagy-weight-first-component  :visible="tabs.tab2 && !tabs.tab3" :ratio="$props.strategWeight1" />
+      <stretagy-weight-second-component :visible="tabs.tab3" :ratio="$props.strategWeight2" />
+
       <div :class="`commonAllDivs ${activeTab !== 1 ? 'd-none' : ''}`">
+
         <div class="historicalYesDivCommon mt-4">
           <p class="indexStrategyPara">Index Strategy #1</p>
           <div class="indexStrategyBorder">
@@ -183,8 +188,7 @@
         </div>
       </div>
       <div :class="`commonAllDivs ${activeTab !== 2 ? 'd-none' : ''}`">
-        <stretagy-weight-first-component :ratio="$props.strategWeight1" />
-        <div class="historicalYesDivCommon margin-top-3">
+        <div class="historicalYesDivCommon mt-4">
           <p class="indexStrategyPara">Index Strategy #2</p>
           <div class="indexStrategyBorder">
             <p></p>
@@ -246,8 +250,7 @@
         </div>
       </div>
       <div :class="`commonAllDivs ${activeTab !== 3 ? 'd-none' : ''}`">
-        <stretagy-weight-second-component :ratio="$props.strategWeight2" />
-        <div class="historicalYesDivCommon margin-top-3">
+        <div class="historicalYesDivCommon mt-4">
           <p class="indexStrategyPara">Index Strategy #3</p>
           <div class="indexStrategyBorder">
             <p></p>

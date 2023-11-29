@@ -69,6 +69,7 @@
                       @setRollingTime="setRollingTime"
                     />
                     <index-strategy-parameters
+                      ref="indexParametersRef"
                       :update="update"
                       @clearError="clearError"
                       :rollingTime="rollingTime"
@@ -345,7 +346,8 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
+                  value:
+                    this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -505,7 +507,6 @@ export default {
           var form = this.validatateForm(i);
           if (!form) {
             if (!focus) {
-              this.activeTab = i + 1;
               focus = true;
               var area = document.getElementById(`fees-parameters${i + 1}`);
               if (this.error[i + 1].fees) {
@@ -539,20 +540,28 @@ export default {
       }
 
       var strategy_weight1 = { weight_1: 100, weight_2: 0, weight_3: 0 };
-      var strategy_weight2 = {
-        weight_1: Number(
-          this.getInputWithId("strateg_weight_mid_1").replace("%", "")
-        ),
-        weight_2: Number(
-          this.getInputWithId("strateg_weight_mid_2").replace("%", "")
-        ),
-        weight_3: 0,
-      };
-      var strategy_weight3 = {
-        weight_1: Number(this.getInputWithId("swInput1").replace("%", "")),
-        weight_2: Number(this.getInputWithId("swInput2").replace("%", "")),
-        weight_3: Number(this.getInputWithId("swInput3").replace("%", "")),
-      };
+      var strategy_weight2 = { weight_1: 50, weight_2: 50, weight_3: 0 };
+      var strategy_weight3 = { weight_1: 33.33, weight_2: 33.33, weight_3: 0 };
+
+      if (activeTabs[1] && !activeTabs[2]) {
+        strategy_weight2 = {
+          weight_1: Number(
+            this.getInputWithId("strateg_weight_mid_1").replace("%", "")
+          ),
+          weight_2: Number(
+            this.getInputWithId("strateg_weight_mid_2").replace("%", "")
+          ),
+          weight_3: 0,
+        };
+      }
+
+      if (activeTabs[2]) {
+        strategy_weight3 = {
+          weight_1: Number(this.getInputWithId("swInput1").replace("%", "")),
+          weight_2: Number(this.getInputWithId("swInput2").replace("%", "")),
+          weight_3: Number(this.getInputWithId("swInput3").replace("%", "")),
+        };
+      }
 
       var formData = {
         rolling_time_period_years: analysis.rolling_time,
@@ -1131,10 +1140,12 @@ export default {
 
       if (tab === 2) {
         this.strategWeight1 = data.strategy_weight;
+        this.$refs.indexParametersRef.setActiveTab(2);
       }
 
       if (tab === 3) {
         this.strategWeight2 = data.strategy_weight;
+        this.$refs.indexParametersRef.setActiveTab(3);
       }
 
       this.setEnhancementData(tab, data);
@@ -1180,7 +1191,7 @@ export default {
             this.populateIndex(3, data.index_strategy_3);
           }
 
-          let indexTab = Number(this.$route.query.tab);
+          let indexTab = Number(this.$route.query.tab) || 1;
           if (indexTab) {
             if (indexTab === 1) {
               this.activeTab = 1;
@@ -1193,6 +1204,7 @@ export default {
             }
           }
 
+          this.$refs.indexParametersRef.setActiveTab(indexTab);
           this.$store.dispatch("loader", false);
         })
         .catch((error) => {
