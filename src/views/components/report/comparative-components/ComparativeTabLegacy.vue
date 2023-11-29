@@ -66,14 +66,14 @@
                     </div>
                     <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                       <div class="d-flex justify-content-between align-items-end w-100 legacy-vertical-bar">
-                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
-                          <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
+                        <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees p-relative progBarSecEachDiv9 bigBarsLagecyJsCls${1+index} ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) < 0 ? 'surplus' : ''}`">
+                          <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) < 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
-                          <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(index ? item.shortfall : 0, item.ending_value) > 95 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(item.shortfall, item.ending_value)}%`}">
+                          <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(data[0].ending_value, item.ending_value) > 95 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(data[0].ending_value, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                               <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{ Number(Number(item.ending_value).toFixed(0)).toLocaleString() }}</span></p>
                             </div>
-                            <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
+                            <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
                               <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                               <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString().replace('-', '') }}</p>
                             </div>                            
@@ -156,19 +156,11 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    getPercentValue: function(value1, value2) {
-      // value1 = Number(value1.toString().replaceAll("-", ""));
-      // value2 = Number(value2.toString().replace("-", ""));
-      // let unit =
-      //   (Number(value1.toString().replace("-")) +
-      //     Number(value2.toString().replace("-"))) /
-      //   100;
-      // return value2 / unit;
-
-      if(value1 >= 0){
+    getPercentValue: function(lirpValue, endingValue) {
+      if(endingValue >= lirpValue){
         return 100;
       }
-      let unit = Math.abs(value1) / value2;
+      let unit = endingValue / lirpValue;
       return unit * 100;
     },
     mapData: function() {

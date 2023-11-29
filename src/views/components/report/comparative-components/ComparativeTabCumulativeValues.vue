@@ -67,8 +67,8 @@
                               <span>Cumulative Income</span>
                               {{$numFormatWithDollar(item.cumulative_income)}}
                             </p> 
-                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) > 0 ? 'surplus' : ''} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
-                              <span>Shortfall/Surplus</span>
+                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
+                              <span>Shortfall</span>
                               {{$numFormatWithDollar(item.shortfall).replace("-", "")}}
                             </p>
                           </div>
@@ -87,14 +87,12 @@
                       </div>
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
-                            <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
-                              <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
-                                  <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.cumulative_income) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.cumulative_income)}%`}">
+                            <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.shortfall) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.shortfall)}%`}">
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
                                 </div>
-                                <div :class="`shortFallCount ${Number(item.shortfall)} ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
+                                <div :class="`shortFallCount ${Number(item.shortfall)} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
                                   <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p>
                                 </div>
@@ -256,18 +254,18 @@ export default {
     setActionId: function(id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
-    getPercentValueForTV: function(value1, value2) {
-      value1 = Number(value1.toString().replaceAll("-", ""));
-      value2 = Number(value2.toString().replace("-", ""));
-      let unit = Number(value2.toString().replace("-")) / Number(value1.toString().replace("-"));
-      return unit*100;
-    },
-    getPercentValueForCI: function(value1, value2) {
-      if(value2 < value1){
+    getPercentValueForCI: function(lirpValue, shortfall) {
+      if(shortfall >= lirpValue){
         return 100;
       }
-      let unit = value1 / value2;
-      return unit*100;
+      let unit = (lirpValue - shortfall) / lirpValue;
+      return unit * 100;
+    },
+    getPercentValueForTV: function(lirpValue, shortfall) {
+      lirpValue = Number(lirpValue.toString().replaceAll("-", ""));
+      shortfall = Number(shortfall.toString().replace("-", ""));
+      let unit = Number(shortfall.toString().replace("-")) / Number(lirpValue.toString().replace("-"));
+      return unit * 100;
     },
     mapData: function() {
       if (this.comparative.cv_1) {
