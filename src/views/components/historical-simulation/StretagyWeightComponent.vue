@@ -8,7 +8,7 @@
         <div
           id="strategyMidWeight1"
           :style="{
-            width: '100%',
+            width: '100%', borderRadius: '100px'
           }"
           class="mainResizeDiv position-relative"
         >

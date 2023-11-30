@@ -1568,15 +1568,16 @@ body::-webkit-scrollbar {
   margin: 0;
 }
 .lifeProBtmDiv input{
-width: 100%;
-height: 100%;
-border: none;
-box-shadow: none;
-outline: none;
-padding: 0.5rem; 
-border-radius: 4px;
-cursor: pointer;
-background: transparent;
+  width: 100%;
+  height: 100%;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 0.5rem; 
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background: transparent;
 }
 .lifeProBtmDiv input:focus{
   background: #F5F5F5;
