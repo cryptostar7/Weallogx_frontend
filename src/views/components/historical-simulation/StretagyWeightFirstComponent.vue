@@ -1,78 +1,78 @@
 <template lang="">
-  <p class="strategyWeightPara">Strategy Weight</p>
-  <div
-    :class="`d-flex align-items-center flex-column justify-content-center ${
-      $props.visible ? '' : 'd-none'
-    }`"
-  >
-    <div class="strategyWeight mid d-flex">
+  <div :class="`${$props.visible ? '' : 'd-none'}`">
+    <p class="strategyWeightPara">Strategy Weight</p>
+    <div
+      :class="`d-flex align-items-center flex-column justify-content-center`"
+    >
+      <div class="strategyWeight mid d-flex">
+        <div
+          id="strategyMidWeight1"
+          :style="{
+            width: range1.midRange1.replace('%', '') + '%',
+          }"
+          class="mainResizeDiv position-relative"
+        >
+          #1
+          <div class="resizing-right-div resizing-right-div-1">
+            <img
+              src="@/assets/images/icons/tinny-arrow-left.svg"
+              alt=""
+            />&nbsp;&nbsp;<img
+              src="@/assets/images/icons/tinny-arrow-right.svg"
+              alt="Chevron"
+            />
+          </div>
+        </div>
+        <div
+          id="strategyMidWeight2"
+          :style="{
+            width: range1.midRange2.replace('%', '') + '%',
+          }"
+          class="position-relative mainResizeDiv"
+        >
+          #2
+        </div>
+        <input
+          ref="midRangeInput"
+          v-model="range1.midRange"
+          type="range"
+          min="0"
+          max="100"
+          id="midRange"
+          class="strategy-range-input"
+        />
+      </div>
       <div
-        id="strategyMidWeight1"
-        :style="{
-          width: range1.midRange1.replace('%', '') + '%',
-        }"
-        class="mainResizeDiv position-relative"
+        class="mid-sw-inputs d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
       >
-        #1
-        <div class="resizing-right-div resizing-right-div-1">
-          <img
-            src="@/assets/images/icons/tinny-arrow-left.svg"
-            alt=""
-          />&nbsp;&nbsp;<img
-            src="@/assets/images/icons/tinny-arrow-right.svg"
-            alt="Chevron"
+        <div
+          id="swInputDivMid1"
+          class="sw-input-div d-flex justify-content-center"
+        >
+          <input
+            ref="swInputMid1"
+            v-model="range1.midRange1"
+            type="text"
+            class="form-control range-input"
+            id="strateg_weight_mid_1"
+          />
+        </div>
+        <div
+          id="swInputDivMid2"
+          class="sw-input-div d-flex justify-content-center"
+        >
+          <input
+            ref="swInputMid2"
+            v-model="range1.midRange2"
+            type="text"
+            class="form-control range-input"
+            id="strateg_weight_mid_2"
           />
         </div>
       </div>
-      <div
-        id="strategyMidWeight2"
-        :style="{
-          width: range1.midRange2.replace('%', '') + '%',
-        }"
-        class="position-relative mainResizeDiv"
-      >
-        #2
-      </div>
-      <input
-        ref="midRangeInput"
-        v-model="range1.midRange"
-        type="range"
-        min="0"
-        max="100"
-        id="midRange"
-        class="strategy-range-input"
-      />
     </div>
-    <div
-      class="mid-sw-inputs d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
-    >
-      <div
-        id="swInputDivMid1"
-        class="sw-input-div d-flex justify-content-center"
-      >
-        <input
-          ref="swInputMid1"
-          v-model="range1.midRange1"
-          type="text"
-          class="form-control range-input"
-          id="strateg_weight_mid_1"
-        />
-      </div>
-      <div
-        id="swInputDivMid2"
-        class="sw-input-div d-flex justify-content-center"
-      >
-        <input
-          ref="swInputMid2"
-          v-model="range1.midRange2"
-          type="text"
-          class="form-control range-input"
-          id="strateg_weight_mid_2"
-        />
-      </div>
-    </div>
+    <p class="strategyErrorPara d-none">Sum of all weights must equal 100%.</p>
   </div>
-  <p class="strategyErrorPara d-none">Sum of all weights must equal 100%.</p>
 </template>
 <script>
 export default {
