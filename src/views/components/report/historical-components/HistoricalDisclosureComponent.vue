@@ -105,8 +105,7 @@
               <p>
                 <b>{{ disclosure.tax_rate }}%</b>
                 <span v-if="disclosure.second_tax_rate">
-                 ; years <b>1-{{ disclosure.second_tax_rate_year }}</b
-                  >
+                  ; years <b>1-{{ disclosure.second_tax_rate_year }}</b>
                 </span>
                 <span v-if="disclosure.second_tax_rate">
                   <b>; {{ disclosure.second_tax_rate }}%</b>
@@ -125,7 +124,7 @@
               <div>
                 <h6 class="bold-one">Taxes assumed:</h6>
                 <p>
-                  <b>{{ disclosure.tax_rate }}% </b> 
+                  <b>{{ disclosure.tax_rate }}% </b>
                   <span v-if="disclosure.second_tax_rate">
                     years <b>1-{{ disclosure.second_tax_rate_year }}</b
                     >;</span
@@ -269,7 +268,7 @@ export default {
   },
   mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
-    this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+    this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
   },
   methods: {
     testFunction: function () {
@@ -280,25 +279,38 @@ export default {
         new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
     },
+
     getDefaultDisclosure: function () {
-      let index = this.disclosure.index;
+      let indexes = [
+        this.disclosure.index_1,
+        this.disclosure.index_2 || null,
+        this.disclosure.index_3 || null,
+      ];
+
+      let weightages = this.disclosure.weightages;
+
       let period = this.disclosure.period;
-      return `This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
-      It is not a real world insurance policy. It is  not an official illustration. 
+      let instance = this.disclosure.instance;
+      let borrowing_rate = this.disclosure.borrowing_rate;
+
+      return `Index(es) Simulated: ${indexes[0]} ${
+        weightages.weight_1
+      }% <br /> ${
+        indexes[1] ? `${indexes[1]} ${weightages.weight_2}% <br />` : ""
+      } ${indexes[2] ? `${indexes[2]} ${weightages.weight_3}% <br />` : ""}
+      This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
+      It is not a real world insurance policy. It is not an official illustration. 
       You may not assume the data presented here relating to the TSA infers or expresses any guarantee of how a real world insurance policy would perform. 
-      Comparisons made to the official <b>Pacific Life</b> illustration(s), which use hypothetical assumptions that are not guaranteed, 
-      are designed to be educational and instructive as to how the insurance policies compared <b>may have</b> performed through different historical periods. 
-      The data uses the raw returns of the <b>${index}</b>, and simulates the potential returns that the insurance policy <b>may have</b> 
-      achieved if the current cap rates, participation rates, floors, fees, and borrowing costs were in place during the historical periods tested. 
-      Cap rates, participation rates, and policy fees can and do change. We analyzed <b>${period}</b>-year periods of the index. 
-      In the case where a time period portrayed is greater than <b>${period}</b> years, the data was looped for purposes of the simulation. 
-      This simulation of a TSA took the actual current monthly fees of the <b>Pacific Life</b> insurance policy and increased them by 15%. 
-      All distributions assume the use of an index/participating loan. We assumed a <b>5.4%</b> borrowing rate in the simulation of the TSA. 
-      Presented here are the most recent, worst, median, and best <b>${period}</b>-year periods with respect to the insurance policy’s intended 
-      allocation in the <b>${index}</b> index strategy. However, these results are not the results of an actual insurance policy, 
-      but those of the TSA, which does not exist in the real world. It is entirely possible that 
-      the real world experience of the actual policy could be even worse than the worst <b>${period}</b>-year period analyzed, just as it is entirely possible that 
-      the real world policy could perform better than the best <b>${period}</b>-year period analyzed.`;
+      Comparisons made to the official carrier illustration(s), which use hypothetical assumptions that are not guaranteed, are designed to be educational and instructive as to how the TSA as a proxy for the insurance policy(ies) compared <b>may have</b> performed through different historical periods. 
+      The data uses the raw returns of the index(es) identified above, and simulates the potential returns that the TSA as a proxy for the insurance policy(ies) <b>may have</b> achieved if the current cap rates, participation rates, floors, fees, and borrowing costs were in place during the historical periods tested. 
+      Cap rates, participation rates, and policy fees can and do change. 
+      We analyzed <b>${instance} ${period}</b>-year periods of the index. In the case where a time period portrayed is greater than ${period} years, the data was looped for purposes of the simulation. 
+      This simulation of the TSA took the actual current monthly fees of the insurance policy(ies) and increased them by 15% to add stress. 
+      All distributions assume the use of an index/participating loan. We assumed a ${borrowing_rate}% borrowing rate in the simulation of the TSA. 
+      Presented here are the most recent, worst, median, and best ${period}-year periods with respect to the insurance policy’s intended allocation in the index strategy(ies). 
+      However, these results are not the results of an actual insurance policy, but those of the TSA, which does not exist in the real world. 
+      It is entirely possible that the real world experience of the actual policy could be even worse than the worst ${period}-year period analyzed, 
+      just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.`;
     },
     setDefaultMessage: function () {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
