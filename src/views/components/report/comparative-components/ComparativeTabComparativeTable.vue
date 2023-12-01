@@ -308,20 +308,21 @@
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
                               <!-- :width="`${$props.sidebar ? 125 : 105}`" -->
-                              <th style="background: none !important; border: none !important;"></th>
-                              <th style="background: none !important; border: none !important;"></th>
-                              <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">Deposits</th>
+                              <th style="background: none !important; border: 0 !important;"></th>
                             </thead>
                             <tbody>
                               <tr>
-                                <td colspan="2" class="table1Td tableotalTd text-start" data-label="Year">Totals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                                <td style="border-right: 0 !important;" class="table1Td tableotalTd text-start" data-label="Year">Deposits</td>
+                                <!-- <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td> -->
                               </tr>
                               <tr>
-                                <td colspan="3" class="table1Td totalValueTd" data-label="Age">Total Value</td>
+                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Distributions</td>
+                              </tr> 
+                              <tr>
+                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Total Value</td>
                               </tr>
                               <tr>
-                                <td colspan="3" class="table1Td shortFallTd" style="text-align: left;" data-label="Age"><span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span></td>
+                                <td style="border-right: 0 !important;" class="table1Td shortFallTd" data-label="Age"><span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span></td>
                               </tr>
                             </tbody>
                           </table>
@@ -332,50 +333,61 @@
                           <table class="table table3 mt-1 secondTable summaryTableFont">
                             <thead class="heading-tr">
                               <tr>
-                                <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                                <th style="border-radius:6px;vertical-align: middle;">{{ cv_name[0] }}</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
+                                <td data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                              </tr>
+                              <tr>
                                 <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
-                                <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td>
+                                <!-- <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td> -->
                               </tr>
                               <tr>
                                 <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
-                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td>
-                              </tr>
-                              <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.shortfall) }}</td>
-                                <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.shortfall) }}</td>
+                                <!-- <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td> -->
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                       <div :class="`col-12 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'}`">
-                        <div class="row summary-row">
+                        <div class="row summary-row pb-2">
                           <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-1 pe-0 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                  <tr>
-                                  <th colspan="2" style="border-radius:6px;vertical-align: middle;">
-                                    Distributions
+                                  <th style="border-radius:6px;vertical-align: middle;">
+                                    {{cv_name[header.id]}}
                                   </th>
                                  </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
+                                    <td data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                                  </tr>
+                                  <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td>
+                                    <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
+                                    <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td> -->
                                   </tr>
                                   <tr>
-                                    <td width="50%" :class="`${summary_data.data[header.id].distribution.shortfall > 0 ? 'text-success':'text-danger'}`" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall).replace("-", "") }}</td>
-                                    <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall).replace("-", "") }}</td>
+                                    <td class="extra-td-styles">
+                                      <table width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td class="inner-td"></td>
+                                            <td width="50%" :class="`${summary_data.data[header.id].distribution.shortfall > 0 ? 'text-success':'text-danger'}`" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall).replace("-", "") }}</td>
+                                      <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall).replace("-", "") }}</td> -->
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>                               
                                   </tr>
                                 </tbody>
                               </table>
@@ -387,8 +399,8 @@
                   </div>
                 </div>
               </div>
-              <div class="pt-5">
-                <div class="px-3 pb-3 pt-3 seeAllBtnMainDiv">
+              <div class="pt-4">
+                <div class="px-3 pb-3 seeAllBtnMainDiv">
                   <div class="comparativeSeeAllBtn mt-2" id="comparativeSeeAllBtn">
                     <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
                   </div>

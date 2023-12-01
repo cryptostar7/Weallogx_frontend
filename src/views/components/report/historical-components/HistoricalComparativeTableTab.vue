@@ -292,26 +292,27 @@
                     </div>
                   </div>
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
-                  <div class="mt-2">
+                  <div class="mt-2 summary-analysis">
                     <div class="row">
                       <div class="col-3 col-md-2 ps-0 pe-1">
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <th width="80" style="background: none!important;border: none;"></th>
-                              <th class="heading-tr shiftBorder" style="border-radius:6px;vertical-align: middle;">
-                                Deposits</th>
+                              <th style="background: none !important; border: 0 !important;"></th>
                             </thead>
                             <tbody>
                               <tr>
-                                <td class="table1Td" data-label="Year" style="border:none">Totals</td>
-                                <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td>
+                                <td style="border-right: 0 !important;" class="table1Td tableotalTd text-start" data-label="Year">Deposits</td>
+                                <!-- <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td> -->
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td totalValueTd" data-label="Age">Total Value</td>
+                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Distributions</td>
+                              </tr> 
+                              <tr>
+                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Total Value</td>
                               </tr>
                               <tr>
-                                <td colspan="2" class="table1Td surplusTdMain" data-label="Age">
+                                <td class="table1Td surplusTdMain" data-label="Age">
                                   <span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span>
                                 </td>
                               </tr>
@@ -325,21 +326,20 @@
                             <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                               <thead class="heading-tr">
                                 <tr>
-                                <th colspan="2" style="border-radius:6px;vertical-align: middle;">Distributions</th>
+                                  <th style="border-radius:6px;vertical-align: middle;">{{ cv_name[0] }}</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
+                                  <td class="" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td>
+                                </tr>
+                                <tr>
                                   <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
-                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td>
+                                  <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td> -->
                                 </tr>
                                 <tr>
                                   <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
-                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td>
-                                </tr>
-                                <tr>
-                                  <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].distribution.surplus).replace("-", "") }}</td>
-                                  <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].net_balance.surplus).replace("-", "") }}</td>
+                                  <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td> -->
                                 </tr>
                               </tbody>
                             </table>
@@ -353,21 +353,33 @@
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
                                   <tr>
-                                    <th colspan="2" style="border-radius:6px; vertical-align: middle;">Distributions</th>
+                                    <th style="border-radius:6px; vertical-align: middle;">{{ data[header.id].type }}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
+                                    <td class="" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td>
+                                  </tr>
+                                  <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total) }}</td>
-                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td>
+                                    <!-- <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
-                                    <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td>
+                                    <!-- <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td> -->
                                   </tr>
                                   <tr>
-                                    <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus).replace("-", "") }}</td>
-                                    <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus).replace("-", "") }}</td>
+                                    <td class="extra-td-styles">
+                                      <table width="100%">
+                                        <tbody>
+                                          <tr>
+                                            <td class="inner-td"></td>
+                                            <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus).replace("-", "") }}</td>
+                                    <!-- <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus).replace("-", "") }}</td> -->
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>                                 
                                   </tr>
                                 </tbody>
                               </table>

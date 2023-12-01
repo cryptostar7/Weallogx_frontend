@@ -1582,3 +1582,6 @@ background: #1660A4;
 .light-blue .table-graph-bottom-content-div p.table-green-clr{
   color: #1660A4;
 }
+.light-blue .summary-analysis .table td .text-success, .light-blue .summary-analysis .table td.text-success{
+  color: #004885 !important;
+}

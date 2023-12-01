@@ -290,6 +290,47 @@
   color: white;
 }
 
+.dark-green .summary-analysis .reportTablesDiv .table tr:nth-child(1) td{
+  border-top: 4px solid #242629 !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table tr td{
+  border-bottom: 3px solid #242629 !important;
+  border-left: 1px solid #242629 !important;
+  border-right: 1px solid #242629 !important;
+}
+.dark-green .summary-analysis .reportTablesDiv1 .table tbody tr td {
+  background: #242629;
+}
+.dark-green .summary-analysis .secondTable tr td{
+  border: 0 !important;
+}
+.dark-green .summary-analysis .secondTable.td-first tr:first-child td:first-child{
+  border: 0 !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table tbody tr td:last-child{
+  border-right: 1px solid #242629 !important;
+}
+.dark-green .summary-analysis .table tbody tr td .text-success, .dark-green .summary-analysis .table tbody tr td.text-success{
+  color: #0F8266 !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table td{
+  height: 40px;
+}
+.dark-green .summary-analysis .reportTablesDiv .table td.extra-td-styles{
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table td.extra-td-styles table td.inner-td{
+  background: transparent !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table td.extra-td-styles table td{
+  border: 0 !important;
+}
+.dark-green .summary-analysis .reportTablesDiv .table td{
+  border: 0 !important;
+}
+
 .dark-green .commonBgColor {
   background: #202124;
 }
@@ -3351,7 +3392,7 @@
 }
 
 .dark-green .reportTablesDiv8 .table tbody tr td {
-  background: #262B29;
+  background: #262B29 !important;
 }
 
 .dark-green .reportTablesDiv7 .table tbody tr td {

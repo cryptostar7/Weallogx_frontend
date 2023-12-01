@@ -1261,7 +1261,8 @@ body::-webkit-scrollbar {
   color: #999;
 }
 .comparativeSeeAllBtn button:focus{
-  border-color: #e5e5e5;
+  border-color: #F0F0F0;
+  background-color: #F0F0F0;
 }
 
 #comparativeSeeLessBtn {
@@ -4058,6 +4059,10 @@ Blank div css end here
   color: white !important;
 }
 
+.reportTablesDiv8 table tbody td {
+  background: #FAFFFE !important;
+}
+
 .reportTablesDiv8 table thead th:first-child {
   border-radius: 6px 0px 0 6px;
 }
@@ -4960,13 +4965,47 @@ border: none;
   pointer-events: none;
   cursor: default;
 }
-
-
-
 .summaryTableFont * {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
 }
-
+.summary-analysis .table th{
+  text-align: center;
+  font-weight: 700 !important;
+}
+.summary-analysis .table tr td{
+  border: 0 !important;
+  font-weight: 700 !important;
+  
+}
+.summary-analysis .reportTablesDiv .table tr:nth-child(1) td{
+  border-top: 4px solid #fff !important;
+}
+.summary-analysis .reportTablesDiv .table tr td{
+  border-bottom: 3px solid #fff !important;
+}
+.summary-analysis .secondTable.td-first tr:first-child td:first-child{
+  border: 0 !important;
+}
+.summary-analysis .reportTablesDiv .table tbody tr td:last-child{
+  border-right: 1px solid transparent !important;
+}
+.summary-analysis .table tbody tr td .text-success, .summary-analysis .table tbody tr td.text-success{
+  color: #0E6651 !important;
+}
+.summary-analysis .reportTablesDiv .table td{
+  height: 40px;
+}
+.summary-analysis .reportTablesDiv .table td.extra-td-styles{
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.summary-analysis .reportTablesDiv .table td.extra-td-styles table td.inner-td{
+  background: transparent !important;
+}
+.summary-analysis .reportTablesDiv .table td.extra-td-styles table td{
+  border: 0 !important;
+}
 .surplusTdMain {
   color: #0E6651 !important;
   text-align: left !important;
