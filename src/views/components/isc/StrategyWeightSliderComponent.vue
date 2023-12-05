@@ -15,8 +15,8 @@
 </template>
 <script>
 import StrategyWeightComponent from "../historical-simulation/StrategyWeightComponent.vue";
-import StrategyWeightFirstComponent from "../historical-simulation/StrategyWeightFirstcomponent.vue";
-// import StrategyWeightSecondComponent from "../historical-simulation/StrategyWeightSecondcomponent.vue";
+import StrategyWeightFirstComponent from "../historical-simulation/StrategyWeightFirstComponent.vue";
+// import StrategyWeightSecondComponent from "../historical-simulation/StrategyWeightSecondComponent.vue";
 export default {
   props: ["tabs"],
   components: {
