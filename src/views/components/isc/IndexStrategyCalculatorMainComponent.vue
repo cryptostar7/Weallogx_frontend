@@ -457,12 +457,12 @@ import { post } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
 import { computed } from "vue";
-import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
+// import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
 
 export default {
   components: {
     IndexStrategyForm,
-    StrategyWeightSliderComponent,
+    // StrategyWeightSliderComponent,
   },
   data() {
     return {
