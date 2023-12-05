@@ -397,6 +397,7 @@
               </div>
             </div>
 
+            <!-- Strategy weight range slider -->
             <strategy-weight-slider-component :tabs="tabs" ref="swRef" />
 
             <!-- Use class 'error' for showing error -->
