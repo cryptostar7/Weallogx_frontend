@@ -17,6 +17,9 @@
 .sidebar-nav .nav-link svg.no-bg rect{
     fill: none;
 }
+.pt-20{
+    padding-top: 20px;
+}
 .strategy-calc-main-section {
     margin-top: 20px;
     padding-inline: 3rem;
@@ -1434,4 +1437,8 @@ table.index-strategy-table tr th {
     border-radius: 12px;
     font-size: 12px;
     box-shadow: 0px 0.25px 3px 0px rgba(0, 0, 0, 0.25);
+}
+.form-heading{
+    color: #147D64;
+    font-weight: 600;
 }

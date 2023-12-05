@@ -58,11 +58,11 @@
                                             <div class="row tax-risk-each-card-row">
                                                 <div class="col-md-6 p-1">
                                                     <div class="tax-risk-each-card">
-                                                        <p class="heading-para-tax-risk card1">IRA Tax Scorecard
+                                                        <p class="heading-para-tax-risk card1">Pre-tax Account Scorecard
                                                         </p>
                                                         <div class="card-inner-div">
                                                             <div class="each-card-row">
-                                                                <p class="left-text">Current IRA Balance</p>
+                                                                <p class="left-text">Current Pre-tax Balance</p>
                                                                 <p class="right-text">{{$numFormatWithDollar(inputs.ira_or_401k_balance)}}</p>
                                                             </div>
                                                             <div class="each-card-row">
@@ -88,10 +88,10 @@
                                                 </div>
                                                 <div class="col-md-6 p-1">
                                                     <div class="tax-risk-each-card">
-                                                        <p class="heading-para-tax-risk card2">Roth Conversion Tax Scorecard</p>
+                                                        <p class="heading-para-tax-risk card2">Conversion Tax Scorecard</p>
                                                         <div class="card-inner-div">
                                                             <div class="each-card-row">
-                                                                <p class="left-text">Roth Conversion Period</p>
+                                                                <p class="left-text">Conversion Period</p>
                                                                 <p class="right-text">{{inputs.roth_conversion_years}}</p>
                                                             </div>
                                                             <div class="each-card-row">
@@ -126,13 +126,13 @@
                                                             <li class="nav-item" role="presentation">
                                                                 <button class="active" id="iraTaxDetails-tab"
                                                                     data-bs-toggle="tab"
-                                                                    data-bs-target="#iraTaxDetailsTab">IRA Tax
+                                                                    data-bs-target="#iraTaxDetailsTab">Pre-tax
                                                                     Details</button>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
                                                                 <button class="rothTaxTav" id="rothTaxDetailstab"
                                                                     data-bs-toggle="tab"
-                                                                    data-bs-target="#rothTaxDetails">Roth IRA Tax
+                                                                    data-bs-target="#rothTaxDetails">Conversion Tax
                                                                     Details</button>
                                                             </li>
                                                         </ul>
@@ -217,7 +217,7 @@
                                     </div>
                                 </div>
                                 <div class="tax-score-disclosure">
-                                    <p><i>This tool is designed to provide insight and opportunities for discussion regarding certain tax-efficient strategies that may prove beneficial amid a myriad of potential outcomes but that are not guaranteed to to prove so. While every reasonable effort is made to ensure proper calculations and their portrayal, it is impossible for any software or advisor to accurately predict your future. Unpredictable variables can and likely will cause material changes in the outcomes projected. Any conversion strategy should only be undertaken after discussion with appropriate financial, legal, and tax advisors. The data presented in no way predicts what your future tax rates or tax liability will be in reality. No implication is asserted that undertaking a conversion strategy, including the one contemplated here, is superior to a non-conversion strategy. This does not constitute financial, legal, or tax advice to you. past performance is never guarantee or indicative of future results. </i></p>
+                                    <p><i><b>Disclosure:</b> This tool is designed to provide insight and opportunities for discussion regarding certain tax-efficient strategies that may prove beneficial amid a myriad of potential outcomes but that are not guaranteed to to prove so. While every reasonable effort is made to ensure proper calculations and their portrayal, it is impossible for any software or advisor to accurately predict your future. Unpredictable variables can and likely will cause material changes in the outcomes projected. Any conversion strategy should only be undertaken after discussion with appropriate financial, legal, and tax advisors. The data presented in no way predicts what your future tax rates or tax liability will be in reality. No implication is asserted that undertaking a conversion strategy, including the one contemplated here, is superior to a non-conversion strategy. This does not constitute financial, legal, or tax advice to you. Past performance is never guarantee or indicative of future results. </i></p>
                                 </div>
                             </div>
 
