@@ -14,15 +14,15 @@
   </div>
 </template>
 <script>
-// import StrategyWeightComponent from "./../historical-simulation/StrategyWeightComponent.vue";
-// import StrategyWeightFirstComponent from "./../historical-simulation/StrategyWeightFirstcomponent.vue";
-// import StrategyWeightSecondComponent from "./../historical-simulation/StrategyWeightSecondcomponent.vue";
+import StrategyWeightComponent from "../historical-simulation/StrategyWeightComponent.vue";
+import StrategyWeightFirstComponent from "../historical-simulation/StrategyWeightFirstcomponent.vue";
+import StrategyWeightSecondComponent from "../historical-simulation/StrategyWeightSecondcomponent.vue";
 export default {
   props: ["tabs"],
   components: {
-    // StrategyWeightComponent,
-    // StrategyWeightFirstComponent,
-    // StrategyWeightSecondComponent,
+    StrategyWeightComponent,
+    StrategyWeightFirstComponent,
+    StrategyWeightSecondComponent,
   },
   methods: {
     getRange: function () {
