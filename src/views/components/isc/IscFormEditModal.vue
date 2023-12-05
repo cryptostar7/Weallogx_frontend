@@ -530,13 +530,13 @@ import IndexStrategyForm from "./IndexStrategyForm.vue";
 import { post } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
-// import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
+import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
 import { computed } from "vue";
 
 export default {
   components: {
     IndexStrategyForm,
-    // StrategyWeightSliderComponent,
+    StrategyWeightSliderComponent,
   },
   emits: ["setIscData"],
   data() {
