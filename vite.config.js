@@ -13,3 +13,6 @@ export default defineConfig({
     },
   },
 });
+
+
+console.log("Resolved path:", path.resolve(__dirname, "../historical-simulation/StrategyWeightFirstcomponent.vue"));
