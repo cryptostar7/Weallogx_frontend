@@ -3,11 +3,11 @@
     <strategy-weight-component
       :visible="!$props.tabs.tab2 && !$props.tabs.tab3"
     />
-    <stretagy-weight-first-component
+    <strategy-weight-first-component
       :visible="$props.tabs.tab2 && !$props.tabs.tab3"
       ref="swRef1"
     />
-    <stretagy-weight-second-component
+    <strategy-weight-second-component
       :visible="$props.tabs.tab3"
       ref="swRef2"
     />
@@ -15,14 +15,14 @@
 </template>
 <script>
 import StrategyWeightComponent from "./../historical-simulation/StrategyWeightComponent.vue";
-import StretagyWeightFirstComponent from "./../historical-simulation/StretagyWeightfirstcomponent.vue";
-import StretagyWeightSecondComponent from "./../historical-simulation/StretagyWeightSecondcomponent.vue";
+import StrategyWeightFirstComponent from "./../historical-simulation/StrategyWeightfirstcomponent.vue";
+import StrategyWeightSecondComponent from "./../historical-simulation/StrategyWeightSecondcomponent.vue";
 export default {
   props: ["tabs"],
   components: {
     StrategyWeightComponent,
-    StretagyWeightFirstComponent,
-    StretagyWeightSecondComponent,
+    StrategyWeightFirstComponent,
+    StrategyWeightSecondComponent,
   },
   methods: {
     getRange: function () {

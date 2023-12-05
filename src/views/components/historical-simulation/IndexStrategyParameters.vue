@@ -121,9 +121,9 @@
         </div>
       </div>
 
-      <stretagy-weight-component  :visible="!tabs.tab2 && !tabs.tab3" />
-      <stretagy-weight-first-component  :visible="tabs.tab2 && !tabs.tab3" :ratio="$props.strategWeight1" />
-      <stretagy-weight-second-component :visible="tabs.tab3" :ratio="$props.strategWeight2" />
+      <strategy-weight-component  :visible="!tabs.tab2 && !tabs.tab3" />
+      <strategy-weight-first-component  :visible="tabs.tab2 && !tabs.tab3" :ratio="$props.strategWeight1" />
+      <strategy-weight-second-component :visible="tabs.tab3" :ratio="$props.strategWeight2" />
 
       <div :class="`commonAllDivs ${activeTab !== 1 ? 'd-none' : ''}`">
 
@@ -359,9 +359,9 @@ import GrowthParameters from "./GrowthParameters.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import FeesComponent from "./FeesComponentNew.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
-import StretagyWeightComponent from "./StretagyWeightComponent.vue";
-import StretagyWeightFirstComponent from "./StretagyWeightFirstComponent.vue";
-import StretagyWeightSecondComponent from "./StretagyWeightSecondComponent.vue";
+import StrategyWeightComponent from "./StrategyWeightComponent.vue";
+import StrategyWeightFirstComponent from "./StrategyWeightFirstComponent.vue";
+import StrategyWeightSecondComponent from "./StrategyWeightSecondComponent.vue";
 export default {
   components: {
     SelectDropdown,
@@ -371,9 +371,9 @@ export default {
     ScenarioLabelComponent,
     FeesComponent,
     SaveStrategyTemplate,
-    StretagyWeightComponent,
-    StretagyWeightFirstComponent,
-    StretagyWeightSecondComponent,
+    StrategyWeightComponent,
+    StrategyWeightFirstComponent,
+    StrategyWeightSecondComponent,
   },
   props: ["update", "rollingTime", "strategWeight1", "strategWeight2"],
   emits: ["clearError", "setUpdated", "populateIndexTemplate"],
