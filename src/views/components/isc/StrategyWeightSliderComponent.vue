@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <stretagy-weight-component
+    <strategy-weight-component
       :visible="!$props.tabs.tab2 && !$props.tabs.tab3"
     />
     <stretagy-weight-first-component
@@ -14,13 +14,13 @@
   </div>
 </template>
 <script>
-import StretagyWeightComponent from "./../historical-simulation/StretagyWeightcomponent.vue";
+import StrategyWeightComponent from "./../historical-simulation/StrategyWeightComponent.vue";
 import StretagyWeightFirstComponent from "./../historical-simulation/StretagyWeightfirstcomponent.vue";
 import StretagyWeightSecondComponent from "./../historical-simulation/StretagyWeightSecondcomponent.vue";
 export default {
   props: ["tabs"],
   components: {
-    StretagyWeightComponent,
+    StrategyWeightComponent,
     StretagyWeightFirstComponent,
     StretagyWeightSecondComponent,
   },
