@@ -16,13 +16,13 @@
 <script>
 import StrategyWeightComponent from "../historical-simulation/StrategyWeightComponent.vue";
 import StrategyWeightFirstComponent from "../historical-simulation/StrategyWeightFirstComponent.vue";
-// import StrategyWeightSecondComponent from "../historical-simulation/StrategyWeightSecondComponent.vue";
+import StrategyWeightSecondComponent from "../historical-simulation/StrategyWeightSecondComponent.vue";
 export default {
   props: ["tabs"],
   components: {
     StrategyWeightComponent,
     StrategyWeightFirstComponent,
-    // StrategyWeightSecondComponent,
+    StrategyWeightSecondComponent,
   },
   methods: {
     getRange: function () {
