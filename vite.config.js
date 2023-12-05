@@ -13,3 +13,12 @@ export default defineConfig({
     },
   },
 });
+
+
+module.exports = {
+  resolve: {
+    alias: {
+      '@/historical-simulation': '/home/runner/work/wlx-front-vue/wlx-front-vue/historical-simulation',
+    },
+  },
+};
