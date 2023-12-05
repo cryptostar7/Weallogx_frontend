@@ -336,9 +336,7 @@
             </svg>
           </div>
           <div class="strategy-parameter-main-div">
-            <h3 class="strategy-parameter-heading">
-              Number of Strategies
-            </h3>
+            <h3 class="strategy-parameter-heading">Number of Strategies</h3>
             <div class="d-flex justify-content-center">
               <div class="multi-radio-main-div">
                 <div
@@ -396,11 +394,85 @@
                 </div>
               </div>
             </div>
-
-            <strategy-weight-slider-component :tabs="tabs" ref="swRef" />
-
+            <p class="strategy-allocation-head-para">
+              Strategy Allocation
+              <span>
+                <svg
+                  class="label-common-tooltip-svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="Group 1968">
+                    <circle
+                      id="Ellipse 190"
+                      cx="6.5"
+                      cy="6.5"
+                      r="6.5"
+                      fill="#D0D0D0"
+                    />
+                    <circle
+                      id="Ellipse 191"
+                      cx="6.5"
+                      cy="3.5"
+                      r="1"
+                      fill="white"
+                    />
+                    <rect
+                      id="Rectangle 753"
+                      x="5.75"
+                      y="5.5"
+                      width="1.5"
+                      height="5"
+                      rx="0.75"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+                <span>Total allocation of all strategies must be 100%.</span>
+              </span>
+            </p>
             <!-- Use class 'error' for showing error -->
-
+            <div class="strategy-allocation-all-div" id="allocation-all-div">
+              <div class="strategy-allocated-div active">
+                <input
+                  type="text"
+                  class="form-control allocation-input"
+                  max="100"
+                  value="100%"
+                  ref="weighting_index1"
+                  :modelInputId="`weighting_index1`"
+                  :disabled="!this.tabs.tab2 && !this.tabs.tab3"
+                />
+              </div>
+              <div
+                :class="`strategy-allocated-div ${tabs.tab2 ? 'active' : ''}`"
+              >
+                <input
+                  type="text"
+                  class="form-control allocation-input"
+                  ref="weighting_index2"
+                  max="100"
+                  :modelInputId="`weighting_index2`"
+                  :disabled="!tabs.tab2"
+                />
+              </div>
+              <div
+                :class="`strategy-allocated-div ${tabs.tab3 ? 'active' : ''}`"
+              >
+                <input
+                  type="text"
+                  class="form-control allocation-input"
+                  max="100"
+                  ref="weighting_index3"
+                  :modelInputId="`weighting_index3`"
+                  :disabled="!tabs.tab3"
+                />
+              </div>
+            </div>
+            <p class="error-para">The allocation weighting must equal 100%</p>
             <index-strategy-form
               :currentTab="1"
               :activeTab="activeTab"
@@ -410,7 +482,7 @@
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
               @clearError="(index) => clearError(index, 1)"
-              @setResetForm="() => (resetIndexFormData = false)"
+              @setResetForm="() => resetIndexFormData = false"
             />
             <index-strategy-form
               :currentTab="2"
@@ -421,7 +493,7 @@
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
               @clearError="(index) => clearError(index, 2)"
-              @setResetForm="() => (resetIndexFormData = false)"
+              @setResetForm="() => resetIndexFormData = false"
             />
             <index-strategy-form
               :currentTab="3"
@@ -432,7 +504,7 @@
               @setStartYear="(value) => (startYear = value)"
               @setEndYear="(value) => (endYear = value)"
               @clearError="(index) => clearError(index, 3)"
-              @setResetForm="() => (resetIndexFormData = false)"
+              @setResetForm="() => resetIndexFormData = false"
             />
           </div>
         </div>
@@ -448,6 +520,9 @@
         >Reset</a
       >
     </div>
+    <input type="hidden" :id="`weighting_index1`" v-model="weighting.tab1" />
+    <input type="hidden" :id="`weighting_index2`" v-model="weighting.tab2" />
+    <input type="hidden" :id="`weighting_index3`" v-model="weighting.tab3" />
   </div>
 </template>
 <script>
@@ -456,12 +531,10 @@ import { post } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
 import { computed } from "vue";
-import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
 
 export default {
   components: {
     IndexStrategyForm,
-    StrategyWeightSliderComponent,
   },
   data() {
     return {
@@ -470,6 +543,11 @@ export default {
         tab1: true,
         tab2: false,
         tab3: false,
+      },
+      weighting: {
+        tab1: "100%",
+        tab2: "",
+        tab3: "",
       },
       errors: {
         1: [],
@@ -499,17 +577,51 @@ export default {
       if (tab === 1) {
         this.tabs.tab1 = true;
         this.activeTab = tab;
+        if (!this.tabs.tab2 && !this.tabs.tab3) {
+          this.weighting.tab1 = "100%";
+          this.$refs.weighting_index1.value = "100%";
+        }
+        if (!this.tabs.tab2) {
+          this.weighting.tab2 = "";
+          this.$refs.weighting_index2.value = "";
+        }
+        if (!this.tabs.tab3) {
+          this.weighting.tab3 = "";
+          this.$refs.weighting_index3.value = "";
+        }
       }
 
       if (tab === 2) {
         this.tabs.tab2 = true;
         this.activeTab = tab;
+        if (!this.weighting.tab2) {
+          this.weighting.tab1 = "50%";
+          this.$refs.weighting_index1.value = "50%";
+
+          this.weighting.tab2 = "50%";
+          this.$refs.weighting_index2.value = "50%";
+        }
+
+        if (!this.tabs.tab3) {
+          this.weighting.tab3 = "";
+          this.$refs.weighting_index3.value = "";
+        }
       }
 
       if (tab === 3) {
         this.tabs.tab3 = true;
         this.tabs.tab2 = true;
         this.activeTab = tab;
+
+        if (!this.weighting.tab3) {
+          this.weighting.tab1 = "33.34%";
+          this.weighting.tab2 = "33.33%";
+          this.weighting.tab3 = "33.33%";
+
+          this.$refs.weighting_index1.value = "33.34%";
+          this.$refs.weighting_index2.value = "33.33%";
+          this.$refs.weighting_index3.value = "33.33%";
+        }
       }
     },
     handleCheckBox1: function (event) {
@@ -522,12 +634,38 @@ export default {
         this.tabs.tab3 = false;
         this.tabs.tab2 = false;
         this.activeTab = 1;
+        this.weighting.tab1 = "100%";
+        this.weighting.tab2 = "";
+        this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "100%";
+        this.$refs.weighting_index2.value = "";
+        this.$refs.weighting_index3.value = "";
+
         return false;
       }
 
       if (this.tabs.tab2 && this.tabs.tab3) {
         this.tabs.tab2 = false;
         this.tabs.tab3 = false;
+      }
+
+      if (event.target.checked) {
+        this.weighting.tab1 = "50%";
+        this.weighting.tab2 = "50%";
+        this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "50%";
+        this.$refs.weighting_index2.value = "50%";
+        this.$refs.weighting_index3.value = "";
+      } else {
+        this.weighting.tab1 = "100%";
+        this.weighting.tab2 = "";
+        this.weighting.tab3 = "";
+
+        this.$refs.weighting_index1.value = "100%";
+        this.$refs.weighting_index2.value = "";
+        this.$refs.weighting_index3.value = "";
       }
     },
     handleCheckBox3: function (event) {
@@ -540,18 +678,62 @@ export default {
       if (!this.tabs.tab2 || this.activeTab === 3) {
         event.preventDefault();
       }
+
+      if (this.tabs.tab2 && event.target.checked) {
+        this.weighting.tab1 = "33.34%";
+        this.weighting.tab2 = "33.33%";
+        this.weighting.tab3 = "33.33%";
+
+        this.$refs.weighting_index1.value = "33.34%";
+        this.$refs.weighting_index2.value = "33.33%";
+        this.$refs.weighting_index3.value = "33.33%";
+      } else {
+        if (this.tabs.tab2) {
+          this.weighting.tab1 = "50%";
+          this.weighting.tab2 = "50%";
+
+          this.$refs.weighting_index1.value = "50%";
+          this.$refs.weighting_index2.value = "50%";
+        } else {
+          this.weighting.tab1 = "100%";
+          this.weighting.tab2 = "";
+
+          this.$refs.weighting_index1.value = "100%";
+          this.$refs.weighting_index2.value = "";
+        }
+
+        this.weighting.tab3 = "";
+        this.$refs.weighting_index3.value = "";
+      }
     },
     getActiveTabs: function () {
       return [this.tabs.tab1, this.tabs.tab2, this.tabs.tab3];
     },
     getIndexWeighting: function () {
-      let weighting = this.$refs.swRef.getRange();
       let w1 =
-        Number((Number(weighting[0].replace("%", "")) / 100).toFixed(2)) || 0;
+        Number(
+          (
+            Number(
+              document.getElementById("weighting_index1").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
+        ) || 0;
       let w2 =
-        Number((Number(weighting[1].replace("%", "")) / 100).toFixed(2)) || 0;
+        Number(
+          (
+            Number(
+              document.getElementById("weighting_index2").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
+        ) || 0;
       let w3 =
-        Number((Number(weighting[2].replace("%", "")) / 100).toFixed(2)) || 0;
+        Number(
+          (
+            Number(
+              document.getElementById("weighting_index3").value.replace("%", "")
+            ) / 100
+          ).toFixed(2)
+        ) || 0;
       if (w1 + w2 + w3 === 0.99) {
         w1 = w1 + 0.01;
       }
@@ -575,6 +757,8 @@ export default {
     getIndexStrategiesData: function () {
       let arr = [];
       let activeTabs = this.getActiveTabs();
+
+      let totalActiveTab = activeTabs.filter((i) => i).length;
       let weightings = this.getIndexWeighting();
 
       for (var i = 1; i < 4; i++) {
@@ -751,6 +935,7 @@ export default {
 
       post(getUrl("isc_calculate"), formData, authHeader())
         .then((response) => {
+          console.log(response);
           let data = response.data;
           this.$store.dispatch("loader", false);
           localStorage.setItem(
@@ -823,7 +1008,6 @@ export default {
     },
     setPreviousData: function () {
       let oldData = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
-      let weightings = [1, 0, 0];
 
       if (oldData) {
         this.beginningBalance = Number(
@@ -849,20 +1033,24 @@ export default {
           this.tabs.tab1 = true;
           this.startYear = oldData.start_year;
           this.endYear = oldData.end_year;
-          weightings[0] = oldData.strategies[0].allocation * 100;
+          this.weighting.tab1 = oldData.strategies[0].allocation * 100 + "%";
+          this.$refs.weighting_index1.value =
+            oldData.strategies[0].allocation * 100 + "%";
         }
 
         if (oldData.strategies[1]) {
           this.tabs.tab2 = true;
-          weightings[1] = oldData.strategies[1].allocation * 100;
+          this.weighting.tab2 = oldData.strategies[1].allocation * 100 + "%";
+          this.$refs.weighting_index2.value =
+            oldData.strategies[1].allocation * 100 + "%";
         }
 
         if (oldData.strategies[2]) {
           this.tabs.tab3 = true;
-          weightings[2] = oldData.strategies[2].allocation * 100;
+          this.weighting.tab3 = oldData.strategies[2].allocation * 100 + "%";
+          this.$refs.weighting_index3.value =
+            oldData.strategies[2].allocation * 100 + "%";
         }
-
-        this.$refs.swRef.setRange(weightings[0], weightings[1], weightings[2]);
 
         if (this.beginningBalance) {
           this.submitBtn = true;
@@ -886,6 +1074,12 @@ export default {
       this.tabs.tab3 = false;
       this.startYear = 1960;
       this.endYear = 2022;
+      this.weighting.tab1 = "100%";
+      this.$refs.weighting_index1.value = "100%";
+      this.weighting.tab2 = "";
+      this.$refs.weighting_index2.value = "";
+      this.weighting.tab3 = "";
+      this.$refs.weighting_index3.value = "";
       this.submitBtn = false;
     },
     resetForm: function () {
@@ -992,6 +1186,74 @@ export default {
         } else {
           e.target.value = Number(current).toLocaleString();
         }
+      })
+    );
+
+    function getTotalWeighting() {
+      let w1 =
+        Number(
+          document.getElementById("weighting_index1").value.replace("%", "")
+        ) || 0;
+      let w2 =
+        Number(
+          document.getElementById("weighting_index2").value.replace("%", "")
+        ) || 0;
+      let w3 =
+        Number(
+          document.getElementById("weighting_index3").value.replace("%", "")
+        ) || 0;
+      // return Number((w1 + w2 + w3).toFixed(0));
+      return w1 + w2 + w3;
+    }
+
+    // input validation for min and max value with putting comma
+    const inputs3 = document.querySelectorAll(".allocation-input");
+    inputs3.forEach((element) =>
+      element.addEventListener("input", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        let modelInputId = e.target.getAttribute("modelInputId");
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+        }
+
+        document.getElementById(modelInputId).value = e.target.value;
+
+        if (getTotalWeighting() === 100) {
+          document
+            .getElementById("allocation-all-div")
+            .classList.remove("error");
+        } else {
+          document.getElementById("allocation-all-div").classList.add("error");
+        }
+
+        return false;
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focus", function (e) {
+        e.target.value = e.target.value.replace("%", "");
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("blur", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
+      })
+    );
+
+    inputs3.forEach((element) =>
+      element.addEventListener("focusout", function (e) {
+        e.target.value = e.target.value.replaceAll("%", "") + "%";
       })
     );
   },

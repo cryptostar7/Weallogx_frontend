@@ -5,10 +5,10 @@
       :class="`d-flex align-items-center flex-column justify-content-center`"
     >
       <div class="strategyWeight d-flex">
-        <div id="strategyWeight1" class="mainResizeDiv position-relative">
+        <div ref="strategyWeight1" class="mainResizeDiv position-relative">
           #1
         </div>
-        <div id="strategyWeight2" class="position-relative mainResizeDiv">
+        <div ref="strategyWeight2" class="position-relative mainResizeDiv">
           #2
           <div class="resizing-right-div resizing-right-div-1">
             <img
@@ -29,7 +29,7 @@
             />
           </div>
         </div>
-        <div id="strategyWeight3" class="mainResizeDiv position-relative">
+        <div ref="strategyWeight3" class="mainResizeDiv position-relative">
           #3
         </div>
         <input
@@ -37,7 +37,7 @@
           min="1"
           max="100"
           value="50"
-          id="exampleRange1"
+          ref="swCustomRange1"
           class="strategy-range-input strategy-range-input-1"
         />
         <input
@@ -45,7 +45,7 @@
           min="1"
           max="100"
           value="50"
-          id="exampleRange2"
+          ref="swCustomRange2"
           class="strategy-range-input strategy-range-input-2"
         />
       </div>
@@ -53,33 +53,33 @@
         class="d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
       >
         <div
-          id="swInputDiv1"
+          ref="swInputDiv1"
           class="sw-input-div d-flex justify-content-center"
         >
           <input
-            id="swInput1"
+            ref="swInput1"
             type="text"
             class="form-control range-input"
             value="33.00%"
           />
         </div>
         <div
-          id="swInputDiv2"
+          ref="swInputDiv2"
           class="sw-input-div d-flex justify-content-center"
         >
           <input
-            id="swInput2"
+            ref="swInput2"
             type="text"
             class="form-control range-input"
             value="34.00%"
           />
         </div>
         <div
-          id="swInputDiv3"
+          ref="swInputDiv3"
           class="sw-input-div d-flex justify-content-center"
         >
           <input
-            id="swInput3"
+            ref="swInput3"
             type="text"
             class="form-control range-input"
             value="33.00%"
@@ -87,64 +87,62 @@
         </div>
       </div>
     </div>
-    <p class="strategyErrorPara d-none">Sum of all weights must equal 100%.</p>
+    <p class="strategyErrorPara d-none">
+      Sum of all weights must equal 100%.
+    </p>
   </div>
 </template>
 <script>
 export default {
   props: ["ratio", "visible"],
-  data() {
-    return {
-      range2: {
-        sw_range1: 50,
-        sw_range2: 50,
-        midRange1: "33.33",
-        midRange2: "33.33",
-        midRange3: "33.33",
-      },
-    };
+  methods: {
+    getRange: function () {
+      return [
+        this.$refs.swInput1.value,
+        this.$refs.swInput2.value,
+        this.$refs.swInput3.value,
+      ];
+    },
+    setRange: function (weight_1, weight_2, weight_3) {
+      // set custom range input value
+      this.$refs.swInput1.value = `${weight_1}%`;
+      this.$refs.swInput2.value = `${weight_2}%`;
+      this.$refs.swInput3.value = `${weight_3}%`;
+
+      // set range width
+      this.$refs.strategyWeight1.style.width = `${weight_1}%`;
+      this.$refs.strategyWeight2.style.width = `${weight_2}%`;
+      this.$refs.strategyWeight3.style.width = `${weight_3}%`;
+
+      // set range input max limit
+      this.$refs.swCustomRange1.max = weight_1;
+      this.$refs.swCustomRange2.max = weight_2 + weight_3;
+    },
   },
   watch: {
     "$props.ratio"(e) {
       if (e) {
-        this.range2.midRange1 = `${e.weight_1}%`;
-        this.range2.midRange2 = `${e.weight_2}%`;
-        this.range2.midRange3 = `${e.weight_3}%`;
-
-        // set custom range input value
-        document.getElementById("swInput1").value = `${e.weight_1}%`;
-        document.getElementById("swInput2").value = `${e.weight_2}%`;
-        document.getElementById("swInput3").value = `${e.weight_3}%`;
-
-        // set range width
-        document.getElementById(
-          "strategyWeight1"
-        ).style.width = `${e.weight_1}%`;
-        document.getElementById(
-          "strategyWeight2"
-        ).style.width = `${e.weight_2}%`;
-        document.getElementById(
-          "strategyWeight3"
-        ).style.width = `${e.weight_3}%`;
-
-        // set range input max limit
-        document.getElementById("exampleRange1").max = e.weight_1;
-        document.getElementById("exampleRange2").max = e.weight_2 + e.weight_3;
+        this.setRange(e.weight_1, e.weight_2, e.weight_3); // set range inputs value
       }
     },
   },
   mounted() {
     // Strategy Range for tab 3
-    const swInput1 = document.getElementById("swInput1");
-    const swInput2 = document.getElementById("swInput2");
-    const swInput3 = document.getElementById("swInput3");
+    const swInput1 = this.$refs.swInput1;
+    const swInput2 = this.$refs.swInput2;
+    const swInput3 = this.$refs.swInput3;
+    const swInputDiv1 = this.$refs.swInputDiv1;
+    const swInputDiv2 = this.$refs.swInputDiv2;
+    const swInputDiv3 = this.$refs.swInputDiv3;
+    const swCustomRange1 = this.$refs.swCustomRange1;
+    const swCustomRange2 = this.$refs.swCustomRange2;
+    const strategyWeight1 = this.$refs.strategyWeight1;
+    const strategyWeight2 = this.$refs.strategyWeight2;
+    const strategyWeight3 = this.$refs.strategyWeight3;
 
-    const exampleRange1 = document.getElementById("exampleRange1");
-    const exampleRange2 = document.getElementById("exampleRange2");
-
-    exampleRange1.addEventListener("input", (e) => {
+    swCustomRange1.addEventListener("input", (e) => {
       let total2 = 100 - (+swInput3.value.split("%")[0]).toFixed(2);
-      exampleRange1.max = total2;
+      swCustomRange1.max = total2;
 
       swInput1.value = (+e.target.value).toFixed(2) + "%";
       swInput2.value =
@@ -167,9 +165,9 @@ export default {
       }% - 20px)`;
     });
 
-    exampleRange2.addEventListener("input", (e) => {
+    swCustomRange2.addEventListener("input", (e) => {
       let total2 = 100 - (+swInput1.value.split("%")[0]).toFixed(2);
-      exampleRange2.max = total2;
+      swCustomRange2.max = total2;
 
       swInput2.value = (+e.target.value).toFixed(2) + "%";
       swInput3.value =
@@ -221,14 +219,14 @@ export default {
         numVal = 0;
       }
 
-      exampleRange1.max = total;
+      swCustomRange1.max = total;
       e.target.value = val;
 
       let tempInp2 = total - numVal;
       if (tempInp2 < 0) {
         swInput3.value = (inp3 + tempInp2).toFixed(2) + "%";
         inp3 = Number(swInput3.value.split("%")[0]);
-        exampleRange2.max = 100 - numVal;
+        swCustomRange2.max = 100 - numVal;
         tempInp2 = 0;
       }
 
@@ -242,8 +240,8 @@ export default {
       swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
       swInputDiv3.style.width = inp3.toFixed(2) + "%";
 
-      exampleRange1.max = 100 - inp3;
-      exampleRange1.style.width = `calc(${100 - inp3.toFixed(2)}% - 20px)`;
+      swCustomRange1.max = 100 - inp3;
+      swCustomRange1.style.width = `calc(${100 - inp3.toFixed(2)}% - 20px)`;
     });
 
     // remove % from first input value
@@ -283,8 +281,8 @@ export default {
       swInput3.value = inp3.toFixed(2) + "%";
 
       e.target.value = val;
-      exampleRange2.max = 100 - inp1;
-      exampleRange1.max = 100 - inp3;
+      swCustomRange2.max = 100 - inp1;
+      swCustomRange1.max = 100 - inp3;
 
       strategyWeight1.style.width = inp1.toFixed(2) + "%";
       strategyWeight2.style.width = numVal.toFixed(2) + "%";
@@ -294,8 +292,8 @@ export default {
       swInputDiv2.style.width = numVal.toFixed(2) + "%";
       swInputDiv3.style.width = inp3.toFixed(2) + "%";
 
-      exampleRange1.style.width = `calc(${(100 - inp3).toFixed(2)}% - 20px)`;
-      exampleRange2.style.width = `calc(${(100 - inp1).toFixed(2)}% - 20px)`;
+      swCustomRange1.style.width = `calc(${(100 - inp3).toFixed(2)}% - 20px)`;
+      swCustomRange2.style.width = `calc(${(100 - inp1).toFixed(2)}% - 20px)`;
     });
 
     // remove % from first input value
@@ -332,7 +330,7 @@ export default {
       if (tempInp2 < 0) {
         swInput1.value = (inp1 + tempInp2).toFixed(2) + "%";
         inp1 = Number(swInput1.value.split("%")[0]);
-        exampleRange1.max = 100 - numVal;
+        swCustomRange1.max = 100 - numVal;
         tempInp2 = 0;
       }
 
@@ -345,8 +343,8 @@ export default {
       swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
       swInputDiv3.style.width = numVal.toFixed(2) + "%";
 
-      exampleRange2.max = 100 - inp1;
-      exampleRange2.style.width = `calc(${100 - inp1.toFixed(2)}% - 20px)`;
+      swCustomRange2.max = 100 - inp1;
+      swCustomRange2.style.width = `calc(${100 - inp1.toFixed(2)}% - 20px)`;
     });
   },
 };
