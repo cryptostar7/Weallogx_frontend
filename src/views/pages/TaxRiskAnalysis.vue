@@ -121,91 +121,95 @@
                                             <div class="row">
                                                 <div class="col-12 p-1">
                                                     <div class="tax-details-graph-main-div">
-                                                        <ul class="nav tax-details-tab-ul" id="myTab"
-                                                            role="tablist">
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="active" id="iraTaxDetails-tab"
-                                                                    data-bs-toggle="tab"
-                                                                    data-bs-target="#iraTaxDetailsTab">Pre-tax
-                                                                    Details</button>
-                                                            </li>
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="rothTaxTav" id="rothTaxDetailstab"
-                                                                    data-bs-toggle="tab"
-                                                                    data-bs-target="#rothTaxDetails">Conversion Tax
-                                                                    Details</button>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="tab-content" id="myTabContent">
-                                                            <div class="tab-pane fade show active"
-                                                                id="iraTaxDetailsTab">
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr1">RMD Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-xl-10 offset-xl-1">
+                                                                <ul class="nav tax-details-tab-ul" id="myTab"
+                                                                    role="tablist">
+                                                                    <li class="nav-item" role="presentation">
+                                                                        <button class="active" id="iraTaxDetails-tab"
+                                                                            data-bs-toggle="tab"
+                                                                            data-bs-target="#iraTaxDetailsTab">Pre-tax
+                                                                            Details</button>
+                                                                    </li>
+                                                                    <li class="nav-item" role="presentation">
+                                                                        <button class="rothTaxTav" id="rothTaxDetailstab"
+                                                                            data-bs-toggle="tab"
+                                                                            data-bs-target="#rothTaxDetails">Conversion Tax
+                                                                            Details</button>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="tab-content" id="myTabContent">
+                                                                    <div class="tab-pane fade show active"
+                                                                        id="iraTaxDetailsTab">
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr1">RMD Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr1 text-white">
+                                                                                <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr2">Reinvestment Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr2 text-white">
+                                                                                <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr3">Inheritance Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr3 text-white">
+                                                                                <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr4">Social Security Taxes
+                                                                            </p>
+                                                                            <div class="tax-details-each-bars barClr4 text-white">
+                                                                                <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr5">Total Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr5 text-white">
+                                                                                <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr2">Reinvestment Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr2 text-white">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr3">Inheritance Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr3 text-white">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr4">Social Security Taxes
-                                                                    </p>
-                                                                    <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr5">Total Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="tab-pane fade" id="rothTaxDetails">
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr1">RMD Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr2">Reinvestment Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr2 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr3">Inheritance Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr3 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr4">Social Security Taxes
-                                                                    </p>
-                                                                    <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr6">Roth Conversion Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr6 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="each-tax-details-bar">
-                                                                    <p class="heading clr5">Total Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
+                                                                    <div class="tab-pane fade" id="rothTaxDetails">
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr1">RMD Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr1 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr2">Reinvestment Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr2 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr3">Inheritance Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr3 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr4">Social Security Taxes
+                                                                            </p>
+                                                                            <div class="tax-details-each-bars barClr4 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr6">Conversion Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr6 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="each-tax-details-bar">
+                                                                            <p class="heading clr5">Total Taxes</p>
+                                                                            <div class="tax-details-each-bars barClr5 text-white">
+                                                                                <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

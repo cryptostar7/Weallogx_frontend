@@ -194,7 +194,9 @@
                 <h6 class="form-heading mb-0">Social Security Details</h6>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Social Security Amount (Annual)</label>
+                <label for="beginningBalance">Social Security Amount <span
+                        class="optional-label">(optional)
+                    </span></label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
                     <dollar-amount-input
@@ -215,7 +217,9 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Social Security COLA<span><svg
+                <label for="beginningBalance">Social Security COLA <span
+                        class="optional-label">(optional)
+                    </span><span><svg
                             class="label-common-tooltip-svg" width="13" height="13"
                             viewBox="0 0 13 13" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -284,11 +288,7 @@
                         <span class="w-250">Additional percentage points of taxation during the conversion period. For example, if you are assuming a 20% tax rate but wish to assume a 22% tax rate during the conversion period, you would enter “2” here.</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                  <integer-input
-                    @valueUpdated="v => updateInput('roth_conversion_years', v)"
-                    :default="inputs.roth_conversion_years"
-                    max="20"
-                  />
+                  <integer-input />
                 </div>
             </div>
         </div>
