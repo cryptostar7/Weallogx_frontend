@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { authCheck, isPlanActive } from "../services/helper";
+import { authCheck, isPlanActive, isTscUser } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -165,6 +165,11 @@ const router = createRouter({
       component: () => import("../views/pages/TaxScoreCard.vue"),
     },
     {
+      path: "/tsc-login",
+      name: "tsc-login",
+      component: () => import("../views/pages/TscLogin.vue"),
+    },
+    {
       path: "/tax-risk-analysis",
       name: "tax-risk-analysis",
       component: () => import("../views/pages/TaxRiskAnalysis.vue"),
@@ -224,16 +229,26 @@ const secureRoutes = [
   // 'report-builder',
 ];
 
+// Tax score card routes
+const tscRoutes = [
+  'tax-score-card',
+];
+
 router.beforeEach((to, from, next) => {
   if (authRoutes.includes(to.name) || secureRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
     }
-    if(secureRoutes.includes(to.name) && authCheck() && !isPlanActive()){
+
+    if (isTscUser() && !tscRoutes.includes(to.fullPath)) {
+      next('/tax-score-card'); // redirect to tax score card if user type TSC
+    }
+
+    if (secureRoutes.includes(to.name) && authCheck() && !isPlanActive()) {
       next('/current-plan');
       // this.$toast.warning('Your plan has been expired, please upgrade your plan to continue the service.');
-    }    
+    }
   }
   if (to.name === 'sign-in') {
     if (authCheck()) {

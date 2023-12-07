@@ -90,6 +90,18 @@ export const setCurrentUser = (name) => {
   return localStorage.setItem('currentUser', JSON.stringify(name));
 }
 
+export const getCurrentUser = () => {
+  return localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
+}
+
+export const isTscUser = () => {
+  let user = getCurrentUser();
+  
+  if(user){
+    return user.role_type === 'tsc';
+  }
+}
+
 export const setComapanyLogo = (green = '', blue = '', dark = '') => {
   return localStorage.setItem('logo', JSON.stringify({ green: green, blue: blue, dark: dark }));
 }
@@ -139,7 +151,6 @@ export const getSearchParams = (name) => {
   }
   return false;
 }
-
 
 export const getNumber = (_str) => {
   var arr = String(_str).split("");

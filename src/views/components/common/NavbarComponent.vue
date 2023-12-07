@@ -11,7 +11,7 @@
               <span><img src="@/assets/images/icons/user.svg" class="img-fluid" alt="User"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
+              <li v-if="!$isTscUser()"><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
               <li><a class="dropdown-item cursor-pointer" @click="logout()">Logout</a></li>
             </ul>
           </li>
@@ -40,7 +40,6 @@ import {
   getComapanyLogo,
   setComapanyLogo,
   setCurrentUser,
-  getFirstError,
   authCheck,
 } from "../../../services/helper";
 export default {
@@ -100,6 +99,7 @@ export default {
           setCurrentUser({
             first_name: user.first_name,
             last_name: user.last_name,
+            role_type: user.role_type,
           });
         })
         .catch(error => {
