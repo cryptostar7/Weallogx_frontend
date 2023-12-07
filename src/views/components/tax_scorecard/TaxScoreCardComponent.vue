@@ -39,13 +39,13 @@
                 </filter>
             </defs>
         </svg>
-
     </div>
 
     <div class="container-fluid index-strategy-inputs-div">
+        <h6 class="form-heading mb-0 pt-2">Account Details</h6>
         <div class="row">
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">IRA or 401K Balance</label>
+                <label for="beginningBalance">Pre-tax Plan Balance (401K/IRA)</label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
                     <dollar-amount-input
@@ -112,6 +112,9 @@
                     max="120"
                   />
                 </div>
+            </div>
+            <div class="col-md-12 pt-20">
+                <h6 class="form-heading mb-0">Growth & Tax Details</h6>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Rate of Return<span><svg
@@ -187,8 +190,13 @@
                   />
                 </div>
             </div>
+            <div class="col-md-12 pt-20">
+                <h6 class="form-heading mb-0">Social Security Details</h6>
+            </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Social Security Amount (Annual)</label>
+                <label for="beginningBalance">Social Security Amount <span
+                        class="optional-label">(optional)
+                    </span></label>
                 <div class="index-strategy-each-inputs dollar">
                     <span>$</span>
                     <dollar-amount-input
@@ -209,7 +217,9 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Social Security COLA<span><svg
+                <label for="beginningBalance">Social Security COLA <span
+                        class="optional-label">(optional)
+                    </span><span><svg
                             class="label-common-tooltip-svg" width="13" height="13"
                             viewBox="0 0 13 13" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -233,8 +243,11 @@
                   <span>%</span>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Roth Conversion Years<span><svg
+            <div class="col-md-12 pt-20">
+                <h6 class="form-heading mb-0">Conversion Details</h6>
+            </div>            
+            <div class="col-md-6 col-lg-3 inp-mar-top pb-2">
+                <label for="beginningBalance">Conversion Period (Years)<span><svg
                             class="label-common-tooltip-svg" width="13" height="13"
                             viewBox="0 0 13 13" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -247,7 +260,7 @@
                                     width="1.5" height="5" rx="0.75" fill="white" />
                             </g>
                         </svg>
-                        <span>Convert to a Roth IRA over How many years?</span>
+                        <span>Convert to a tax-free plan over how many years?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
                   <integer-input
@@ -257,9 +270,29 @@
                   />
                 </div>
             </div>
+            <div class="col-md-6 col-lg-3 inp-mar-top pb-2">
+                <label for="beginningBalance">Add’l Conversion Tax <span
+                        class="optional-label">(optional)</span> <span><svg
+                            class="label-common-tooltip-svg" width="13" height="13"
+                            viewBox="0 0 13 13" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group 1968">
+                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
+                                    fill="#D0D0D0" />
+                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
+                                    fill="white" />
+                                <rect id="Rectangle 753" x="5.75" y="5.5"
+                                    width="1.5" height="5" rx="0.75" fill="white" />
+                            </g>
+                        </svg>
+                        <span class="w-250">Additional percentage points of taxation during the conversion period. For example, if you are assuming a 20% tax rate but wish to assume a 22% tax rate during the conversion period, you would enter “2” here.</span>
+                    </span></label>
+                <div class="index-strategy-each-inputs">
+                  <integer-input />
+                </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script>

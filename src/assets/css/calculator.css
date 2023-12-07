@@ -17,6 +17,9 @@
 .sidebar-nav .nav-link svg.no-bg rect{
     fill: none;
 }
+.pt-20{
+    padding-top: 20px;
+}
 .strategy-calc-main-section {
     margin-top: 20px;
     padding-inline: 3rem;
@@ -172,13 +175,13 @@
     align-items: center;
     gap: 4px;
 }
-.index-strategy-inputs-div label span {
+.index-strategy-inputs-div label span, .each-card-row label span {
     position: relative;
 }
-.index-strategy-inputs-div label span svg {
+.index-strategy-inputs-div label span svg, .each-card-row label span svg  {
     cursor: pointer;
 }
-.index-strategy-inputs-div label span span {
+.index-strategy-inputs-div label span span, .each-card-row label span span {
     display: none;
     position: absolute;
     border-radius: 8px;
@@ -194,8 +197,11 @@
     font-size: 11px;
     font-weight: 500;
 }
-.index-strategy-inputs-div label span:hover span {
+.index-strategy-inputs-div label span:hover span, .each-card-row label span:hover span {
     display: block;
+}
+.top-minus-1{
+    top: -1px;
 }
 .index-strategy-inputs-div label::before {
     position: absolute;
@@ -1434,4 +1440,8 @@ table.index-strategy-table tr th {
     border-radius: 12px;
     font-size: 12px;
     box-shadow: 0px 0.25px 3px 0px rgba(0, 0, 0, 0.25);
+}
+.form-heading{
+    color: #147D64;
+    font-weight: 600;
 }

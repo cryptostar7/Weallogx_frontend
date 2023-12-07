@@ -3557,7 +3557,7 @@
 }
 
 .dark-green .commonTableCls .reportTablesDiv .tableCommonHide th,
-.dark-green .commonTableCls .reportTablesDiv .tableCommonHide td {
+.dark-green .commonTableCls .reportTablesDiv .tableCommonHide td, .commonTableCls .tableCommonHide tr td span.text-danger {
   color: #3a3d41 !important;
 }
 
@@ -3927,7 +3927,9 @@
 .dark-green .index-strategy-head-div {
   border-bottom-color: #26AB8B;
 }
-
+.dark-green .task-risk-analysis-main-div{
+  border-top-color: #26AB8B;
+}
 .dark-green .index-strategy-table-content-div {
   border-top-color: #26AB8B;
 }
@@ -4409,5 +4411,8 @@ fill: #f5f5f5;
   border-color:   #26AB8B
 }
 .dark-green .commonRedRadioSwtchpara.surplus {  
+  color: #26AB8B;
+}
+.dark-green .form-heading{
   color: #26AB8B;
 }
