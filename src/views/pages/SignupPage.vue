@@ -75,7 +75,6 @@ import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import {
-  getFirstError,
   getServerErrors,
   setRefreshToken,
   setAccessToken,
