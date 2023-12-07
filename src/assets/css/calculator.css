@@ -175,13 +175,13 @@
     align-items: center;
     gap: 4px;
 }
-.index-strategy-inputs-div label span {
+.index-strategy-inputs-div label span, .each-card-row label span {
     position: relative;
 }
-.index-strategy-inputs-div label span svg {
+.index-strategy-inputs-div label span svg, .each-card-row label span svg  {
     cursor: pointer;
 }
-.index-strategy-inputs-div label span span {
+.index-strategy-inputs-div label span span, .each-card-row label span span {
     display: none;
     position: absolute;
     border-radius: 8px;
@@ -197,8 +197,11 @@
     font-size: 11px;
     font-weight: 500;
 }
-.index-strategy-inputs-div label span:hover span {
+.index-strategy-inputs-div label span:hover span, .each-card-row label span:hover span {
     display: block;
+}
+.top-minus-1{
+    top: -1px;
 }
 .index-strategy-inputs-div label::before {
     position: absolute;
