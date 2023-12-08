@@ -4510,6 +4510,26 @@ background: #0C4A83;
 .dark-blue .label-common-tooltip-svg g rect {
   fill: #fff;
 }
+
+.dark-blue .chart-dropdown.gray .tool-tip-second-main-div{
+    border: 3px solid #ddd;
+}
+.dark-blue .chart-dropdown.gray .tool-tip-second-main-div{
+    background-color: #ddd;
+}
+.dark-blue .chart-dropdown.gray .tooltip-head{
+    background: #ddd;
+}
+.dark-blue .chart-dropdown.gray .tooltipbtn svg circle{
+    stroke: #ddd;
+}
+.dark-blue .chart-dropdown.gray .tooltipbtn svg path{
+    stroke: #ddd;
+}
+.dark-blue .chart-dropdown.gray .tooltip-inner-div p{
+    color: #ddd;
+}
+
 .dark-blue .index-strategy-each-inputs {
   background: #34383D;
   border: 1px solid #515151;

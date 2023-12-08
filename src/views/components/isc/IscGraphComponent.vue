@@ -509,8 +509,12 @@ export default {
         chart.config.data.datasets[0].borderColor = lineColors[0];
         chart.config.data.datasets[1].borderColor = lineColors[1];
         chart.config.data.datasets[0].pointStyle[n] = pointImageArr[0];
-        chart.config.data.datasets[1].pointStyle[n] = pointImageArr[1];
-        chart.update();
+        chart.config.data.datasets[1].pointStyle[n] = pointImageArr[1];  
+        if(dropdownStatus.isOpen){
+          document.getElementById('chartDropdown0').classList.remove("gray");
+          document.getElementById('chartDropdown1').classList.remove("gray");  
+        }
+        chart.update();       
       }
 
       window.iscChart.canvas.addEventListener("mouseleave", (e) => {
@@ -519,41 +523,46 @@ export default {
         //      animationTimeout = false;
         //    }, totalDuration);
         //  }else{
-        resetColors(window.iscChart);
+        setTimeout(() => {
+          resetColors(window.iscChart);
+        }, 500)
+        
+        // console.log(document.getElementById('chartDropdown0'), document.getElementById('chartDropdown1'))
+        
         // }
       });
 
-      document.addEventListener("mouseup", (e) => {
-        e.stopPropagation();
-        if (
-          e.target.classList.contains("tab-content") ||
-          e.target.closest(".tab-content") ||
-          e.target.classList.contains("chart-dropdown") ||
-          e.target.closest(".chart-dropdown") ||
-          e.target.tagName == "circle"
-        ) {
-          return;
-        }
-        let chartDropdowns = document.querySelectorAll(".chart-dropdown");
-        chartDropdowns.forEach((dropdownBox) => {
-          if (
-            dropdownBox.classList.contains("d-block") &&
-            !e.target.classList.contains("tooltipbtn") &&
-            !e.target.closest(".tooltipbtn")
-          ) {
-            let id = dropdownBox.getAttribute("id");
-            let idx = +id[id.length - 1];
-            config.data.datasets[0].pointStyle[n] = pointImageArr[0];
-            config.data.datasets[0].borderColor = lineColors[0];
-            config.data.datasets[1].pointStyle[n] = pointImageArr[1];
-            config.data.datasets[1].borderColor = lineColors[1];
-            dropdownBox.classList.toggle("d-none");
-            dropdownBox.classList.toggle("d-block");
-            dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
-            window.iscChart.update();
-          }
-        });
-      });
+      // document.addEventListener("mouseup", (e) => {
+      //   e.stopPropagation();
+      //   if (
+      //     e.target.classList.contains("tab-content") ||
+      //     e.target.closest(".tab-content") ||
+      //     e.target.classList.contains("chart-dropdown") ||
+      //     e.target.closest(".chart-dropdown") ||
+      //     e.target.tagName == "circle"
+      //   ) {
+      //     return;
+      //   }
+      //   let chartDropdowns = document.querySelectorAll(".chart-dropdown");
+      //   chartDropdowns.forEach((dropdownBox) => {
+      //     if (
+      //       dropdownBox.classList.contains("d-block") &&
+      //       !e.target.classList.contains("tooltipbtn") &&
+      //       !e.target.closest(".tooltipbtn")
+      //     ) {
+      //       let id = dropdownBox.getAttribute("id");
+      //       let idx = +id[id.length - 1];
+      //       config.data.datasets[0].pointStyle[n] = pointImageArr[0];
+      //       config.data.datasets[0].borderColor = lineColors[0];
+      //       config.data.datasets[1].pointStyle[n] = pointImageArr[1];
+      //       config.data.datasets[1].borderColor = lineColors[1];
+      //       dropdownBox.classList.toggle("d-none");
+      //       dropdownBox.classList.toggle("d-block");
+      //       dropdownStatus = { isOpen: false, idx0: -1, idx1: -1 };
+      //       window.iscChart.update();
+      //     }
+      //   });
+      // });
 
       chartDropdowns.forEach((dropdownBox) => {
         dropdownBox

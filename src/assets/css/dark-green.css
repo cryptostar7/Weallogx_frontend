@@ -4233,7 +4233,24 @@ background: #262B29;
 .dark-green .table-graph-bottom-each-main-div {
   border-color: #353B46;
 }
-
+.dark-green .chart-dropdown.gray .tool-tip-second-main-div{
+    border: 3px solid #ddd;
+}
+.dark-green .chart-dropdown.gray .tool-tip-second-main-div{
+    background-color: #ddd;
+}
+.dark-green .chart-dropdown.gray .tooltip-head{
+    background: #ddd;
+}
+.dark-green .chart-dropdown.gray .tooltipbtn svg circle{
+    stroke: #ddd;
+}
+.dark-green .chart-dropdown.gray .tooltipbtn svg path{
+    stroke: #ddd;
+}
+.dark-green .chart-dropdown.gray .tooltip-inner-div p{
+    color: #ddd;
+}
 .dark-green .half-col.inactive .index-strategy-table-heading{
   background: #2E3135!important;
     color: rgb(160, 160, 160);
