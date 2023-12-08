@@ -288,7 +288,11 @@
                         <span class="w-250">Additional percentage points of taxation during the conversion period. For example, if you are assuming a 20% tax rate but wish to assume a 22% tax rate during the conversion period, you would enter “2” here.</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
-                  <integer-input />
+                  <decimal-input
+                    @valueUpdated="v => updateInput('additional_conversion_tax', v)"
+                    :default="inputs.additional_conversion_tax"
+                    max="12"
+                  />
                 </div>
             </div>
         </div>
@@ -425,6 +429,10 @@ export default {
       inputs.initial_tax_rate = this.percentToDecimal(inputs.initial_tax_rate)
       inputs.social_security_cola = this.percentToDecimal(inputs.social_security_cola)
       inputs.roth_conversion_years = inputs.roth_conversion_years ? inputs.roth_conversion_years : 0
+
+      if (inputs.additional_conversion_tax) {
+        inputs.additional_conversion_tax = this.percentToDecimal(inputs.additional_conversion_tax)
+      }
 
       post(getUrl("tax_scorecard"), inputs, authHeader())
         .then((response) => {
