@@ -16,9 +16,8 @@
                             </div>
 
                             <div class="report-client-list-div task-risk-analysis-main-div">
-                                <div class="ComparativeTableMainDiv active">
-                                    <div class="d-flex justify-content-between px-3 py-2 bb-grey tax-risk-border-bottom">
-                                        <p class="inner-heading">Tax Risk Analysis</p>
+                                <!-- <div class="ComparativeTableMainDiv active"> -->
+                                    <div class="d-flex justify-content-end pb-3 mb-1">
                                         <svg class="tax-risk-setting-btn" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                             viewBox="0 0 32 32" fill="none" data-bs-toggle="modal" data-bs-target="#taxScorecardModal">
                                             <g filter="url(#filter0_d_13_2428)">
@@ -56,7 +55,7 @@
                                     <div class="tax-risk-analysis-outer-div">
                                         <div class="container-fluid">
                                             <div class="row tax-risk-each-card-row">
-                                                <div class="col-md-6 p-1">
+                                                <div class="col-md-6 px-1">
                                                     <div class="tax-risk-each-card">
                                                         <p class="heading-para-tax-risk card1">Pre-tax Tax Scorecard
                                                         </p>
@@ -106,7 +105,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6 p-1">
+                                                <div class="col-md-6 px-1">
                                                     <div class="tax-risk-each-card">
                                                         <p class="heading-para-tax-risk card2">Conversion Tax Scorecard</p>
                                                         <div class="card-inner-div">
@@ -153,7 +152,7 @@
                                         </div>
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-12 p-1">
+                                                <div class="col-12 px-1">
                                                     <div class="tax-details-graph-main-div">
                                                         <ul class="nav tax-details-tab-ul" id="myTab"
                                                             role="tablist">
@@ -248,7 +247,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                                 <div class="tax-score-disclosure">
                                     <p><i><b>Disclosure:</b> This tool is designed to provide insight and opportunities for discussion regarding certain tax-efficient strategies that may prove beneficial amid a myriad of potential outcomes but that are not guaranteed to to prove so. While every reasonable effort is made to ensure proper calculations and their portrayal, it is impossible for any software or advisor to accurately predict your future. Unpredictable variables can and likely will cause material changes in the outcomes projected. Any conversion strategy should only be undertaken after discussion with appropriate financial, legal, and tax advisors. The data presented in no way predicts what your future tax rates or tax liability will be in reality. No implication is asserted that undertaking a conversion strategy, including the one contemplated here, is superior to a non-conversion strategy. This does not constitute financial, legal, or tax advice to you. Past performance is never guarantee or indicative of future results. </i></p>
                                 </div>
