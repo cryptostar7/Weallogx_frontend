@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="2">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="2">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="3">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop9 ${activeTabs[keyId] ? 'active':''}`">
@@ -68,18 +68,16 @@
                 </div>
               </div>
               <div class="container-fluid ">
-                <div class="irrMainProgrssBarDiv">
-                  <div class="irrAbsltCls p-relative">
-                  
+                <div class="irrMainProgrssBarDiv graph-area">
+                  <div class="irrAbsltCls irrGraphBarWrapper p-relative">                  
                     <div class="lines-div d-flex flex-column justify-content-between">
-                        <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
-                          <p class="comulativeProgBrdr"></p>
-                        </div>
-                    </div>
-                    
+                      <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
+                        <p class="comulativeProgBrdr"></p>
+                      </div>
+                    </div>                    
                       <div class="progressAllBarsDivMain">
                         <div v-for="(item, index) in data" :key="index" :class="`progressBarEachDivMain ${deletedItems.includes(index) ? 'd-none':''}`">
-                          <div :class="`d-flex irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
+                          <div :class="`d-flex groupedFourBars1 irrGroupedBars${1+index} ${cards[index].active ? '': 'feebarGroupDisplayNone'}`">
                             <div class="progressBarEachDiv noHover eachBarMainBgNone">
                               <div class="CardProgressBig irrBarHeight1" :style="{height: `${Number(data[index].internal_rate_of_return)*100/maxIRR}%`}">
                               </div>
@@ -98,7 +96,6 @@
                         </div>
                       </div>
                     </div>
-
                 </div>
               </div>
             </div>

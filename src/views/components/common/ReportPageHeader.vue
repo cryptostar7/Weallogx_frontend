@@ -296,7 +296,9 @@ export default {
         setTimeout(() => {
           this.pLoader = false;
           topTable = document.getElementById("comparativeTableTabView");
-          topTable.scrollIntoView();
+          if(topTable){
+            topTable.scrollIntoView();  
+          }          
         }, 4000);
       }
     },

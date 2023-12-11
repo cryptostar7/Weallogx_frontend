@@ -1,5 +1,5 @@
 <template lang="">
-  <div  :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="3">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="3">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="4">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop10 ${activeTabs[keyId] ? 'active':''}`">
@@ -57,8 +57,10 @@
                 </div>
               </div>
               <div class="container-fluid">
-                <div class="graph-container-div">
-                  <canvas id="totalValueChart" width="500" height="130"></canvas>
+                <div class="graph-container-div graph-area">
+                  <div class="total-value-graph-container w-100 pt-md-3">
+                    <canvas id="totalValueChart" width="500" height="130"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
@@ -306,6 +308,7 @@ export default {
         type: "line",
         data: graphData,
         options: {
+          maintainAspectRatio: false,
           interaction: {
             intersect: false,
             mode: "index",

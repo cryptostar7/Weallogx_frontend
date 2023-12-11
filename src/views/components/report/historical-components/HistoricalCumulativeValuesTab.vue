@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="empty" data-class="empty-wrapper" data-empty="4">
+  <div class="empty report-card-wrapper" data-class="empty-wrapper" data-empty="4">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="5">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop11 ${activeTabs[keyId] ? 'active':''}`">
@@ -88,7 +88,7 @@
                   </div>
                   <div class="container-fluid">
                     <div class="CompMainProgrssBarDiv graph-area">
-                      <div class="CompProgressAbsltCls cumulative p-relative">
+                      <div class="CompProgressAbsltCls legacy p-relative">
                         <div class="lines-div d-flex flex-column justify-content-between">
                           <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
                             <p class="comulativeProgBrdr"></p>
@@ -161,7 +161,7 @@
                   </div>
                   <div class="container-fluid">
                     <div class="CompMainProgrssBarDiv graph-area">
-                      <div class="CompProgressAbsltCls cumulative p-relative">
+                      <div class="CompProgressAbsltCls legacy p-relative">
                         <div class="lines-div d-flex flex-column justify-content-between">
                          <div v-for="item in 9" :key="item" :class="`d-flex comulativeProgBrdrDivs ${item > 8 ? 'm-0 p-0': ''}`">
                             <p class="comulativeProgBrdr"></p>

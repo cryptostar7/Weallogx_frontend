@@ -2784,7 +2784,7 @@ p.allCardHeadPara1{
 .graph-container-inner{
   height: 100%;
 }
-body.fullScreen .CompProgressAbsltCls, body.fullScreen .comparative-graph-container{
+body.fullScreen .CompProgressAbsltCls, body.fullScreen .comparative-graph-container, body.fullScreen .total-value-graph-container{
   height: 86%;
 }
 body.fullScreen .feeProgressAbsltCls{
@@ -2792,6 +2792,9 @@ body.fullScreen .feeProgressAbsltCls{
 }
 body.fullScreen .makeThinkEqualDiv{
   height: 65%;
+}
+body.fullScreen .irrGraphBarWrapper{
+  height: 75%;
 }
 body.fullScreen .graph-container-inner{
   height: 75%;
@@ -4640,16 +4643,12 @@ background: #1D856C;
 
 .irrAbsltCls {
   width: 100%;
-  /*position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);*/
   display: flex;
   justify-content: space-between;
 }
 
 .irrAbsltCls .progressBarEachDiv {
-  height: 225px;
+  min-height: 225px;
 }
 
 .irrvaluebarbg1 {
