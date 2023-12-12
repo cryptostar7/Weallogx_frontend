@@ -82,13 +82,11 @@
                                                                                 width="1.5" height="5" rx="0.75" fill="white" />
                                                                         </g>
                                                                     </svg>
-
                                                                     <tax-rate-popover
                                                                       :initialTaxRate="inputs.initial_tax_rate"
                                                                       :switchYear="inputs.switch_year"
                                                                       :secondTaxRate="inputs.second_tax_rate"
                                                                     />
-
                                                                 </span>
                                                                 </label>
                                                                 <p v-if="inputs.second_tax_rate" class="right-text">
