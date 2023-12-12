@@ -82,12 +82,13 @@
                                                                                 width="1.5" height="5" rx="0.75" fill="white" />
                                                                         </g>
                                                                     </svg>
-                                                                    <span>
-                                                                        Tax Rate: <br>
-                                                                        <label class="d-block">20% years 1 - 4</label>
-                                                                        <label class="d-block">25% years 5+</label>
 
-                                                                    </span>
+                                                                    <tax-rate-popover
+                                                                      :initialTaxRate="inputs.initial_tax_rate"
+                                                                      :switchYear="inputs.switch_year"
+                                                                      :secondTaxRate="inputs.second_tax_rate"
+                                                                    />
+
                                                                 </span>
                                                                 </label>
                                                                 <p v-if="inputs.second_tax_rate" class="right-text">
@@ -131,7 +132,12 @@
                                                                                 width="1.5" height="5" rx="0.75" fill="white" />
                                                                         </g>
                                                                     </svg>
-                                                                    <span>Tax rate is 10% in all years</span>
+                                                                    <tax-rate-popover
+                                                                      :initialTaxRate="inputs.initial_tax_rate"
+                                                                      :switchYear="inputs.switch_year"
+                                                                      :secondTaxRate="inputs.second_tax_rate"
+                                                                      :additionalConversionTax="inputs.additional_conversion_tax"
+                                                                    />
                                                                 </span></label>
                                                                 <p v-if="inputs.second_tax_rate" class="right-text">
                                                                     {{inputs.initial_tax_rate}}% |
@@ -280,13 +286,15 @@ import { mapState } from "vuex"
 import NavbarComponent from "./../components/common/NavbarComponent.vue"
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
 import TaxScoreCardModal from "../components/tax_scorecard/TaxScoreCardModal.vue"
+import TaxRatePopover from "../components/tax_scorecard/TaxRatePopover.vue"
 
 export default {
 
   components: {
     NavbarComponent,
     LeftSidebarComponent,
-    TaxScoreCardModal
+    TaxScoreCardModal,
+    TaxRatePopover
   },
 
   computed: {
