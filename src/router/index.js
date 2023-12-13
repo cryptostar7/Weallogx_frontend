@@ -213,7 +213,6 @@ const authRoutes = [
   'report-builder',
   'index-strategy-calculator',
   'index-strategy-calculator-run',
-  'tax-score-card',
 ];
 
 // these routes are secure with active plans
@@ -237,13 +236,13 @@ const tscRoutes = [
 
 router.beforeEach((to, from, next) => {
   if (authRoutes.includes(to.name) || secureRoutes.includes(to.name)) {
+    if (isTscUser() && !tscRoutes.includes(to.fullPath)) {
+      next('/tax-score-card'); // redirect to tax score card if user type TSC
+    }
+
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
-    }
-
-    if (isTscUser() && !tscRoutes.includes(to.fullPath)) {
-      next('/tax-score-card'); // redirect to tax score card if user type TSC
     }
 
     if (secureRoutes.includes(to.name) && authCheck() && !isPlanActive()) {
