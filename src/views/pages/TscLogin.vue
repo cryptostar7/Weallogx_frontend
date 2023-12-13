@@ -15,14 +15,14 @@ export default {
     setUserSession: function (e) {
       this.$store.dispatch("loader", true);
       let token = this.$route.query.token;
+      let refresh = this.$route.query.refresh;
       let headers = { headers: { Authorization: `Bearer ${token}` } };
       // to save the profile detail in vuex store
       get(getUrl("profile"), headers)
         .then((response) => {
           let user = response.data.data;
           console.log(response.data);
-          // setRefreshToken(token);
-
+          setRefreshToken(refresh);
           setAccessToken(token);
           setCurrentUser({
             first_name: user.first_name,
