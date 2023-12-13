@@ -213,6 +213,7 @@ const authRoutes = [
   'report-builder',
   'index-strategy-calculator',
   'index-strategy-calculator-run',
+  'tax-score-card',
 ];
 
 // these routes are secure with active plans
