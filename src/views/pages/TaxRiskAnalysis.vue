@@ -343,14 +343,30 @@ export default {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     tabChange(txt){
         this.activeTab = txt;
-        if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){
-            let showNextBtn = document.querySelector('.show-next-btn');
+        let showNextBtn = document.querySelector('.show-next-btn');
+        if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){            
+            console.log("hello1")
+            // console.log(showNextBtn);
             showNextBtn.classList.remove("disabled");
+            return;
         }
+
+        // if(this.activeTab == "preTax" && this.currentPreTaxBarIdx >= this.noOfPreBars){
+        //     console.log("hello2")
+        //     showNextBtn.classList.add("disabled");
+        //     return;
+        // }
+        console.log(this.currentPreTaxBarIdx, this.noOfPreBars, this.currentConversionBarIdx, this.noOfConversionBars)
         if(this.activeTab == "conversion" && this.currentConversionBarIdx < this.noOfConversionBars){
-            let showNextBtn = document.querySelector('.show-next-btn');
+            console.log("hello3")
             showNextBtn.classList.remove("disabled");
+            return;
         }
+        // else{
+        //     console.log("hello4")
+        //     showNextBtn.classList.add("disabled");
+        //     return;
+        // }
     },
     showIndividualBar(){
         const regex = /[, \u202f]/g
@@ -378,18 +394,32 @@ export default {
             var barValueGet = +document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).innerText.replace(regex, '');
             var barActualValue = largestSec;
             let finalResult = (barValueGet / barActualValue) * 100;
-            finalResult > 100 ? finalResult = 100 : finalResult = finalResult;
+            finalResult > 100 ? 100 : finalResult;
 
-            document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            let eachBar = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars');
+
+            eachBar.style.width = finalResult + '%';
             document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.display = "block";
-            console.log(barValueGet, preTotalTaxes, finalResult)
+            
             if (finalResult < 1) {
-                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').classList.remove("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.remove("text-white");
             }else{
-                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').classList.add("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.add("text-white");
             }
+
+            setTimeout(() => {
+                let textWidth = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).offsetWidth + 11;
+                let barWidth = eachBar.offsetWidth;
+
+                if(barWidth > 6 && barWidth < textWidth){
+                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                eachBar.classList.remove("text-white");
+                }
+                
+            }, 350);
+
         }else{
             let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
             var sub_array = [];
@@ -419,19 +449,32 @@ export default {
             var barValueGet = +document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).innerText.replace(regex, '');
             // var barActualValue = largestSec2;
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
+            finalResult > 100 ? 100 : finalResult;
 
-            finalResult > 100 ? finalResult = 100 : finalResult = finalResult;
-            document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            let eachBar = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars')
+
+            eachBar.style.width = finalResult + '%';
             document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.display = "block";
 
             if (finalResult < 1) {
-                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').classList.remove("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.remove("text-white");
             }else{
                 console.log(finalResult);
-                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').classList.add("text-white");
-                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
-            }            
+                eachBar.classList.add("text-white");
+                eachBar.style.padding = "8px 2px";
+            }
+
+            setTimeout(() => {
+                let textWidth = document.getElementById('wider_bar_' + this.currentConversionBarIdx).offsetWidth + 11;
+                let barWidth = document.getElementById('wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').offsetWidth;
+
+                if(barWidth > 6 && barWidth < textWidth){
+                    document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                    eachBar.classList.remove("text-white");
+                }
+
+            }, 350);     
         }
     },
     initialBarWidths(){
@@ -465,6 +508,8 @@ export default {
         const regex = /[, \u202f]/g
 
         let showNextBtn = document.querySelector('.show-next-btn');
+        this.currentPreTaxBarIdx = this.noOfPreBars;
+        this.currentConversionBarIdx = this.noOfConversionBars;
 
         // Pre-Tax Analysis
         let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');        
@@ -483,18 +528,32 @@ export default {
             var barValueGet = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
             var barActualValue = largestSec;
             let finalResult = (barValueGet / barActualValue) * 100;
-            finalResult > 100 ? finalResult = 100 : finalResult;
+            finalResult > 100 ? 100 : finalResult;
 
-            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            let eachBar = document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars');
+
+            eachBar.style.width = finalResult + '%';
             document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
 
             if (finalResult < 1) {
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.remove("text-white");
             }else{
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.add("text-white");
             }
+
+            setTimeout(() => {
+                let textWidth = document.getElementById('wider_bar_' + i).offsetWidth + 11;
+                let barWidth = eachBar.offsetWidth;
+
+                console.log(textWidth, barWidth);
+
+                if(barWidth > 6 && barWidth < textWidth){
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                eachBar.classList.remove("text-white");
+                }               
+            }, 350);
         }
 
         // Conversion Analysis
@@ -511,17 +570,29 @@ export default {
             var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
         
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
-            finalResult > 100 ? finalResult = 100 : finalResult;
-            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            finalResult > 100 ? 100 : finalResult;
+
+            let eachBar = document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars');
+            eachBar.style.width = finalResult + '%';
             document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
 
             if (finalResult < 1) {
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
+                eachBar.style.padding = "8px 2px";
+                eachBar.classList.remove("text-white");
             }else{
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
+                eachBar.classList.add("text-white");
+                eachBar.style.padding = "8px 2px";
             }
+            setTimeout(() => {
+                let textWidth = document.getElementById('roth_wider_bar_' + i).offsetWidth + 11;
+                let barWidth = eachBar.offsetWidth;
+
+                if(barWidth > 6 && barWidth < textWidth){
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                    eachBar.classList.remove("text-white");
+                }
+                
+            }, 350);
         }
         showNextBtn.classList.add("disabled");        
     }
