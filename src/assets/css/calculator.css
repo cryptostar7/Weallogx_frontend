@@ -29,7 +29,7 @@
     border-radius: 30px;
     border: 1px solid #DFDFDF;
     background: #FFF;
-    padding-bottom: 45px;
+    padding-bottom: 15px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -187,14 +187,14 @@
     border-radius: 8px;
     background: #FFF;
     box-shadow: 0px 0.5px 3px 0px rgba(0, 0, 0, 0.25);
-    width: 180px;
+    width: 255px;
     z-index: 1;
     top: -100%;
     left: 50%;
     transform: translate(-50%, calc(-100% + 18px));
     padding: 10px;
     color: #000;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
 }
 .index-strategy-inputs-div label span:hover span, .each-card-row label span:hover span {
@@ -1279,7 +1279,7 @@ table.index-strategy-table tr th {
 }
 
 .tax-details-graph-main-div {
-    padding: 30px 48px;
+    padding: 30px 48px 20px;
     margin-top: 35px;
     border-radius: 12px;
     border: 1px solid #DFDFDF;
@@ -1292,13 +1292,13 @@ table.index-strategy-table tr th {
     width: 100%;
     border-radius: 50px;
     background: #FFF;
-    box-shadow: 0px 0.25px 2px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0.25px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 3px;
     flex-wrap: nowrap;
-    margin-bottom: 30px;
+    margin-bottom: 11px;
     margin-inline: auto;
 }
 
@@ -1323,7 +1323,9 @@ table.index-strategy-table tr th {
     font-weight: 600;
     padding: 5px;
 }
-
+.mltplSwtchDiv.taxRisk div{
+    font-size: 12px;
+}
 .tax-details-tab-ul li button.active {
     background: #0E6651;
     color: #fff;
@@ -1382,6 +1384,7 @@ table.index-strategy-table tr th {
     text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     font-size: 16px;
     font-weight: 600;
+    min-height: 42px;
 }
 
 .tax-details-each-bars.barClr1{
@@ -1420,10 +1423,34 @@ table.index-strategy-table tr th {
     word-break: break-word;
 }
 .tax-score-disclosure{
-    margin-top: 60px;
+    margin-top: 15px;
     font-size: 12px;
+    text-align: justify;
 }
 .form-heading{
     color: #147D64;
     font-weight: 600;
+}
+.mw-325{
+    max-width: 325px;
+}
+.show-next-btn{
+    background: var(--green-clr);
+    border: 1px solid var(--green-clr);
+    border-radius: 1000px;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.show-next-btn:hover{
+    color: #fff;
+    background: var(--green-clr-2);
+}
+.show-next-btn.disabled{
+    background: #DFDFDF; 
+    border-color: transparent;
 }

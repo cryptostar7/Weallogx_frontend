@@ -243,6 +243,28 @@
                   <span>%</span>
                 </div>
             </div>
+            <div class="col-md-6 col-lg-3 inp-mar-top">
+                <label for="filingStatus">Filing Status</label>
+                <div class="select-menu">
+                  <div class="select-btn">
+                    <span class="sBtn-text"></span>
+                    <i
+                      ><img
+                        src="@/assets/images/icons/select-chevron.svg"
+                        alt="Chevron"
+                    /></i>
+                  </div>
+                  <ul class="options">
+                    <li class="option">
+                      <span class="option-text">Single</span>
+                    </li>
+                    <li class="option">
+                      <span class="option-text">Married</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
             <div class="col-md-12 pt-20">
                 <h6 class="form-heading mb-0">Conversion Details</h6>
             </div>            
@@ -310,7 +332,6 @@ import IntegerInput from "./IntegerInput.vue"
 import DecimalInput from "./DecimalInput.vue"
 
 export default {
-
   components: {
     DollarAmountInput, IntegerInput, DecimalInput
   },
@@ -325,7 +346,56 @@ export default {
   },
 
   mounted() {
-    this.validateForm(this.inputs)
+    this.validateForm(this.inputs);
+
+    // Select Dropdown Start
+    let selectBtn = document.querySelectorAll(".select-btn");
+    selectBtn.forEach((showHide) => {
+      showHide.addEventListener("click", () =>
+        showHide.closest(".select-menu").classList.toggle("active")
+      );
+      var allOptions = showHide
+        .closest(".select-menu")
+        .querySelector(".options")
+        .querySelectorAll(".option");
+      allOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          let items = e.target.closest('ul').querySelectorAll('li');
+          items.forEach(element => {
+            element.classList.remove('active');
+          });
+          e.target.closest('li').classList.add('active');
+          let selectedOption = option.querySelector(".option-text").innerText;
+          console.log(option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text'));
+          option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
+          option.parentElement.parentElement.classList.remove("active");
+        });
+      });
+    });
+
+
+    // Close when click outside
+    window.onclick = function (event) {
+      if (!event.target.matches(".select-menu")) {
+        var sharedowns = document.getElementsByClassName("select-menu");
+        var i;
+        for (i = 0; i < sharedowns.length; i++) {
+          var openSelectdropdown = sharedowns[i];
+          if (openSelectdropdown.classList.contains("active")) {
+            openSelectdropdown.classList.remove("active");
+          }
+        }
+      }
+    };
+
+    var allSelectMenus = document.querySelectorAll(".select-menu");
+    allSelectMenus.forEach((eachSelectMenus) => {
+      eachSelectMenus.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    });
+        
   },
 
   methods: {

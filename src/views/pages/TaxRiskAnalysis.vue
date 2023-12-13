@@ -161,48 +161,56 @@
                                                         <ul class="nav tax-details-tab-ul" id="myTab"
                                                             role="tablist">
                                                             <li class="nav-item" role="presentation">
-                                                                <button class="active" id="iraTaxDetails-tab"
+                                                                <button @click="tabChange('preTax')" class="active" id="iraTaxDetails-tab"
                                                                     data-bs-toggle="tab"
                                                                     data-bs-target="#iraTaxDetailsTab">Pre-tax
                                                                     Analysis</button>
                                                             </li>
                                                             <li class="nav-item" role="presentation">
-                                                                <button class="rothTaxTav" id="rothTaxDetailstab"
+                                                                <button @click="tabChange('conversion')" class="rothTaxTav" id="rothTaxDetailstab"
                                                                     data-bs-toggle="tab"
                                                                     data-bs-target="#rothTaxDetails">Conversion Analysis</button>
                                                             </li>
                                                         </ul>
+
+                                                        <div class="d-flex justify-content-center">
+                                                            <div class="nav mltplSwtchDiv nav-pills mw-325 taxRisk" role="tablist" aria-orientation="vertical">
+                                                                <div class="active" @click="initialBarWidths" data-bs-toggle="pill" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Individual</div>
+                                                                <div class="" @click="updateBarWidths" data-bs-toggle="pill" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="false">Sea All</div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="tab-content" id="myTabContent">
                                                             <div class="tab-pane fade show active"
                                                                 id="iraTaxDetailsTab">
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr1 text-white">
+                                                                    <div class="tax-details-each-bars barClr1">
                                                                         <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr2 text-white">
+                                                                    <div class="tax-details-each-bars barClr2">
                                                                         <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr3 text-white">
+                                                                    <div class="tax-details-each-bars barClr3">
                                                                         <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
-                                                                    <div class="tax-details-each-bars barClr4 text-white">
+                                                                    <div class="tax-details-each-bars barClr4">
                                                                         <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr5 text-white">
+                                                                    <div class="tax-details-each-bars barClr5">
                                                                         <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
@@ -210,43 +218,48 @@
                                                             <div class="tab-pane fade" id="rothTaxDetails">
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr1 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
+                                                                    <div class="tax-details-each-bars barClr1">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr2 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr2">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr3 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr3">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
-                                                                    <div class="tax-details-each-bars barClr4 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr4">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">Conversion Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr6 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr6">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr5 text-white">
-                                                                        <label class="amount-label-wrapper" style="paddingLeft: 6px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
+                                                                    <div class="tax-details-each-bars barClr5">
+                                                                        <label class="amount-label-wrapper" style="padding-left: 6px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="d-flex justify-content-center pt-3 mt-1">
+                                                            <button @click="showIndividualBar" class="btn show-next-btn /*disabled*/">Show Next <img class="ms-2" src="@/assets/images/icons/dark-chevrolet.svg" width="18" alt="Back"></button>
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -256,8 +269,6 @@
                                     <p><i><b>Disclosure:</b> This tool is designed to provide insight and opportunities for discussion regarding certain tax-efficient strategies that may prove beneficial amid a myriad of potential outcomes but that are not guaranteed to to prove so. While every reasonable effort is made to ensure proper calculations and their portrayal, it is impossible for any software or advisor to accurately predict your future. Unpredictable variables can and likely will cause material changes in the outcomes projected. Any conversion strategy should only be undertaken after discussion with appropriate financial, legal, and tax advisors. The data presented in no way predicts what your future tax rates or tax liability will be in reality. No implication is asserted that undertaking a conversion strategy, including the one contemplated here, is superior to a non-conversion strategy. This does not constitute financial, legal, or tax advice to you. Past performance is never guarantee or indicative of future results. </i></p>
                                 </div>
                             </div>
-
-
                         </div>
                     </section>
                     <!-- Inner Content Area End -->
@@ -287,12 +298,20 @@ import TaxScoreCardModal from "../components/tax_scorecard/TaxScoreCardModal.vue
 import TaxRatePopover from "../components/tax_scorecard/TaxRatePopover.vue"
 
 export default {
-
   components: {
     NavbarComponent,
     LeftSidebarComponent,
     TaxScoreCardModal,
     TaxRatePopover
+  },
+  data() {
+    return {
+        activeTab: "preTax",
+        currentPreTaxBarIdx: 0,
+        currentConversionBarIdx: 0,
+        noOfPreBars: 5,
+        noOfConversionBars: 6,
+    }
   },
 
   computed: {
@@ -310,24 +329,145 @@ export default {
   },
 
   mounted() {
-      this.updateBarWidths()
+      this.initialBarWidths();
+      // this.updateBarWidths();   
   },
 
   updated() {
-      this.updateBarWidths()
+      this.initialBarWidths()
+      // this.updateBarWidths()
   },
 
   methods: {
 
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
-    updateBarWidths() {
+    tabChange(txt){
+        this.activeTab = txt;
+        if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){
+            let showNextBtn = document.querySelector('.show-next-btn');
+            showNextBtn.classList.remove("disabled");
+        }
+        if(this.activeTab == "conversion" && this.currentConversionBarIdx < this.noOfConversionBars){
+            let showNextBtn = document.querySelector('.show-next-btn');
+            showNextBtn.classList.remove("disabled");
+        }
+    },
+    showIndividualBar(){
+        const regex = /[, \u202f]/g
+        var preTotalTaxes = 0;
+        if(this.activeTab == "preTax"){
+            let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');             
+            var sub_array = [];
+            for (let i = 1; i <= allBar.length; i++) {
+                var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
+                sub_array.push(barValueGets);
+                if(i == allBar.length){
+                    preTotalTaxes = barValueGets;
+                }
+            }
+            var largestSec = 0;
+            var largestSec = Math.max.apply(0, sub_array);
+            if(this.currentPreTaxBarIdx < allBar.length){
+                this.currentPreTaxBarIdx += 1;
+            }
 
+            if(this.currentPreTaxBarIdx == allBar.length){
+                let showNextBtn = document.querySelector('.show-next-btn');
+                showNextBtn.classList.add("disabled");
+            }            
+            var barValueGet = +document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).innerText.replace(regex, '');
+            var barActualValue = largestSec;
+            let finalResult = (barValueGet / barActualValue) * 100;
+            finalResult > 100 ? finalResult = 100 : finalResult = finalResult;
+
+            document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.display = "block";
+            console.log(barValueGet, preTotalTaxes, finalResult)
+            if (finalResult < 1) {
+                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
+                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').classList.remove("text-white");
+            }else{
+                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
+                document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars').classList.add("text-white");
+            }
+        }else{
+            let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
+            var sub_array = [];
+            var sub_array2 = [];
+            for (let i = 1; i <= this.noOfPreBars; i++) {
+                var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
+                sub_array.push(barValueGets);
+                if(i == this.noOfPreBars){
+                    preTotalTaxes = barValueGets;
+                }
+            }
+            for (let i = 1; i <= allBar2.length; i++) {
+                var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
+                sub_array2.push(barValueGets);
+            }
+            var largestSec2 = 0;
+            var largestSec2 = Math.max.apply(0, sub_array2);
+            
+            if(this.currentConversionBarIdx < allBar2.length){
+                this.currentConversionBarIdx += 1;
+            }
+            
+            if(this.currentConversionBarIdx == allBar2.length){
+                let showNextBtn = document.querySelector('.show-next-btn');
+                showNextBtn.classList.add("disabled");
+            }
+            var barValueGet = +document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).innerText.replace(regex, '');
+            // var barActualValue = largestSec2;
+            let finalResult = (barValueGet / preTotalTaxes) * 100; 
+
+            finalResult > 100 ? finalResult = 100 : finalResult = finalResult;
+            document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.display = "block";
+
+            if (finalResult < 1) {
+                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
+                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').classList.remove("text-white");
+            }else{
+                console.log(finalResult);
+                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').classList.add("text-white");
+                document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').style.padding = "8px 2px";
+            }            
+        }
+    },
+    initialBarWidths(){
         const regex = /[, \u202f]/g
 
-        /* -------------------------------------------
-         Bar Width change according to value Start
-        ----------------------------- ---------------*/
+        this.currentPreTaxBarIdx = 0;
+        this.currentConversionBarIdx = 0;
+        
+        let showNextBtn = document.querySelector('.show-next-btn');
+
+        // Pre-Tax Analysis
         let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');
+        for (let i = 1; i <= allBar.length; i++) {
+            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';
+            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
+            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.display = "none";
+        }
+
+        // Conversion Analysis
+        let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
+        for (let i = 1; i <= allBar2.length; i++) {
+            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';            
+            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
+            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.display = "none";
+        }
+
+        showNextBtn.classList.remove("disabled");
+
+    },
+    updateBarWidths() {
+        const regex = /[, \u202f]/g
+
+        let showNextBtn = document.querySelector('.show-next-btn');
+
+        // Pre-Tax Analysis
+        let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');        
         var preTotalTaxes = 0;
         var sub_array = [];
         for (let i = 1; i <= allBar.length; i++) {
@@ -342,20 +482,22 @@ export default {
         for (let i = 1; i <= allBar.length; i++) {
             var barValueGet = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
             var barActualValue = largestSec;
-            let finalnalResult = (barValueGet / barActualValue) * 100;
-            // console.log("1", barValueGet, barActualValue, finalnalResult);
-            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
+            let finalResult = (barValueGet / barActualValue) * 100;
+            finalResult > 100 ? finalResult = 100 : finalResult;
 
-            if (finalnalResult < 1) {
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
+
+            if (finalResult < 1) {
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 6px";
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
             }
         }
 
-        // Roth IRA
+        // Conversion Analysis
         let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
         var sub_array2 = [];
         for (let i = 1; i <= allBar2.length; i++) {
@@ -364,25 +506,24 @@ export default {
         }
         var largestSec2 = 0;
         var largestSec2 = Math.max.apply(0, sub_array2);
-        console.log(sub_array, preTotalTaxes);
+        // console.log(sub_array, preTotalTaxes);
         for (let i = 1; i <= allBar2.length; i++) {
             var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
             // var barActualValue = largestSec2;
-            let finalnalResult = (barValueGet / preTotalTaxes) * 100; 
-            // console.log("2", barValueGet, barActualValue, finalnalResult);
-            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalnalResult + '%';
+            let finalResult = (barValueGet / preTotalTaxes) * 100; 
+            finalResult > 100 ? finalResult = 100 : finalResult;
+            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalResult + '%';
+            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
 
-            if (finalnalResult < 1) {
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 2px";
+            if (finalResult < 1) {
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "12px 6px";
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 6px";
             }
         }
-        /* -------------------------------------------
-        Bar Width change according to value End
-        ----------------------------- ---------------*/  
+        showNextBtn.classList.add("disabled");        
     }
   }
 }
