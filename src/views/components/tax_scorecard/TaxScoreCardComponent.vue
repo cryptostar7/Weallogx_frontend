@@ -346,7 +346,13 @@ export default {
   },
 
   mounted() {
+
     this.validateForm(this.inputs);
+
+    if (this.inputs.filing_status) {
+      let text = this.inputs.filing_status.charAt(0).toUpperCase() + this.inputs.filing_status.slice(1)
+      document.getElementsByClassName("sBtn-text")[0].innerText = text
+    }
 
     // Select Dropdown Start
     let selectBtn = document.querySelectorAll(".select-btn");
@@ -367,13 +373,12 @@ export default {
           });
           e.target.closest('li').classList.add('active');
           let selectedOption = option.querySelector(".option-text").innerText;
-          console.log(option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text'));
           option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
           option.parentElement.parentElement.classList.remove("active");
+          this.updateInput("filing_status", selectedOption.toLowerCase());
         });
       });
     });
-
 
     // Close when click outside
     window.onclick = function (event) {
@@ -395,7 +400,6 @@ export default {
         event.stopPropagation();
       });
     });
-        
   },
 
   methods: {
@@ -407,7 +411,8 @@ export default {
       let switch_year_valid = true
 
       if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
-          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.roth_conversion_years) {
+          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.roth_conversion_years ||
+          !inputs.filing_status) {
         valid = false
       }
       
