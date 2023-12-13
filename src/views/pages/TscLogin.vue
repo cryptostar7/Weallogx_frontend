@@ -4,7 +4,7 @@
 <script>
 import { get } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { setAccessToken, setCurrentUser } from "../../services/helper";
+import { setAccessToken, setRefreshToken, setCurrentUser } from "../../services/helper";
 
 export default {
   mounted() {
