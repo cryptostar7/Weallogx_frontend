@@ -4433,3 +4433,7 @@ fill: #f5f5f5;
 .dark-green .form-heading{
   color: #26AB8B;
 }
+.dark-green .show-next-btn.disabled{
+    color: #fff;
+    background: #a4a4a4;;
+}

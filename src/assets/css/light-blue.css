@@ -1602,3 +1602,11 @@ background: #1660A4;
 .light-blue .form-heading{
   color: var(--blue-clr);
 }
+.light-blue .show-next-btn{
+    background: var(--blue-clr);
+    border: 1px solid var(--blue-clr);
+}
+.light-blue .show-next-btn:hover{
+    color: #fff;
+    background: var(--blue-clr-2);
+}

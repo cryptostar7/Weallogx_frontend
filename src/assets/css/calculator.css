@@ -1385,6 +1385,7 @@ table.index-strategy-table tr th {
     font-size: 16px;
     font-weight: 600;
     min-height: 42px;
+    transition: 0.35s width ease-in-out;
 }
 
 .tax-details-each-bars.barClr1{

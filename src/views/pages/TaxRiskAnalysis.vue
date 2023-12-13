@@ -492,7 +492,7 @@ export default {
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 6px";
+                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
             }
         }
@@ -506,10 +506,10 @@ export default {
         }
         var largestSec2 = 0;
         var largestSec2 = Math.max.apply(0, sub_array2);
-        // console.log(sub_array, preTotalTaxes);
+        
         for (let i = 1; i <= allBar2.length; i++) {
             var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
-            // var barActualValue = largestSec2;
+        
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
             finalResult > 100 ? finalResult = 100 : finalResult;
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = finalResult + '%';
@@ -520,7 +520,7 @@ export default {
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.remove("text-white");
             }else{
                 document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').classList.add("text-white");
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 6px";
+                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
             }
         }
         showNextBtn.classList.add("disabled");        
