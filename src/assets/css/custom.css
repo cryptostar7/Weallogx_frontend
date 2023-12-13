@@ -1444,8 +1444,7 @@ body::-webkit-scrollbar {
 }
 
 .mltplSwtchDiv div {
-  background: #FFF;
-  border: 1.25px solid transparent;
+  border: 1.5px solid transparent;
   border-radius: 100px;
   width: 100%;
   padding: 0.325rem 0;
@@ -1456,7 +1455,7 @@ body::-webkit-scrollbar {
 }
 
 .mltplSwtchDiv div.active {
-  border: 1.25px solid var(--green-clr);
+  border: 1.5px solid var(--green-clr);
   color: var(--green-clr);
   text-align: center;
 }
