@@ -541,7 +541,8 @@ export default {
     },
 
     resetForm: function() {
-        this.$store.dispatch("resetTaxScorecardInputs")
+      this.$store.dispatch("resetTaxScorecardInputs")
+      document.getElementsByClassName("sBtn-text")[0].innerText = ""
     },
 
     percentToDecimal(value) {
