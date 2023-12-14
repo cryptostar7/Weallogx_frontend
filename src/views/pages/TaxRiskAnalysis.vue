@@ -176,7 +176,7 @@
                                                         <div class="d-flex justify-content-center">
                                                             <div class="nav mltplSwtchDiv nav-pills mw-325 taxRisk" role="tablist" aria-orientation="vertical">
                                                                 <div class="active" @click="initialBarWidths" data-bs-toggle="pill" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true">Individual</div>
-                                                                <div class="" @click="updateBarWidths" data-bs-toggle="pill" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="false">Sea All</div>
+                                                                <div class="" @click="updateBarWidths" data-bs-toggle="pill" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="false">See All</div>
                                                             </div>
                                                         </div>
 
@@ -344,29 +344,14 @@ export default {
     tabChange(txt){
         this.activeTab = txt;
         let showNextBtn = document.querySelector('.show-next-btn');
-        if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){            
-            console.log("hello1")
-            // console.log(showNextBtn);
+        if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){
             showNextBtn.classList.remove("disabled");
             return;
         }
-
-        // if(this.activeTab == "preTax" && this.currentPreTaxBarIdx >= this.noOfPreBars){
-        //     console.log("hello2")
-        //     showNextBtn.classList.add("disabled");
-        //     return;
-        // }
-        console.log(this.currentPreTaxBarIdx, this.noOfPreBars, this.currentConversionBarIdx, this.noOfConversionBars)
         if(this.activeTab == "conversion" && this.currentConversionBarIdx < this.noOfConversionBars){
-            console.log("hello3")
             showNextBtn.classList.remove("disabled");
             return;
         }
-        // else{
-        //     console.log("hello4")
-        //     showNextBtn.classList.add("disabled");
-        //     return;
-        // }
     },
     showIndividualBar(){
         const regex = /[, \u202f]/g
@@ -408,9 +393,12 @@ export default {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.add("text-white");
             }
-
             setTimeout(() => {
-                let textWidth = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).offsetWidth + 11;
+                let textDiv = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx);
+                let textWidth = 0;
+                if(textDiv){
+                    textWidth = textDiv.offsetWidth + 11;
+                }
                 let barWidth = eachBar.offsetWidth;
 
                 if(barWidth > 6 && barWidth < textWidth){
@@ -419,7 +407,6 @@ export default {
                 }
                 
             }, 350);
-
         }else{
             let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
             var sub_array = [];
@@ -460,13 +447,17 @@ export default {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.remove("text-white");
             }else{
-                console.log(finalResult);
                 eachBar.classList.add("text-white");
                 eachBar.style.padding = "8px 2px";
             }
 
             setTimeout(() => {
-                let textWidth = document.getElementById('wider_bar_' + this.currentConversionBarIdx).offsetWidth + 11;
+                let textDiv = document.getElementById('wider_bar_' + this.currentConversionBarIdx);
+                let textWidth = 0;
+                if(textDiv){
+                    textWidth = textDiv.offsetWidth + 11;    
+                }
+                
                 let barWidth = document.getElementById('wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').offsetWidth;
 
                 if(barWidth > 6 && barWidth < textWidth){
@@ -544,11 +535,12 @@ export default {
             }
 
             setTimeout(() => {
-                let textWidth = document.getElementById('wider_bar_' + i).offsetWidth + 11;
+                let textDiv = document.getElementById('wider_bar_' + i);
+                let textWidth = 0;
+                if(textDiv){
+                    textWidth = textDiv.offsetWidth + 11;
+                }
                 let barWidth = eachBar.offsetWidth;
-
-                console.log(textWidth, barWidth);
-
                 if(barWidth > 6 && barWidth < textWidth){
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                 eachBar.classList.remove("text-white");
@@ -583,15 +575,19 @@ export default {
                 eachBar.classList.add("text-white");
                 eachBar.style.padding = "8px 2px";
             }
+            
             setTimeout(() => {
-                let textWidth = document.getElementById('roth_wider_bar_' + i).offsetWidth + 11;
-                let barWidth = eachBar.offsetWidth;
-
-                if(barWidth > 6 && barWidth < textWidth){
-                document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
-                    eachBar.classList.remove("text-white");
+                let textDiv = document.getElementById('roth_wider_bar_' + i);
+                let textWidth = 0;
+                if(textDiv){
+                    textWidth = textDiv.offsetWidth + 11;    
                 }
                 
+                let barWidth = eachBar.offsetWidth;
+                if(barWidth > 6 && barWidth < textWidth){
+                    document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                    eachBar.classList.remove("text-white");
+                }                
             }, 350);
         }
         showNextBtn.classList.add("disabled");        
