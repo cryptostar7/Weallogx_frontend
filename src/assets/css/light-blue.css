@@ -1610,3 +1610,7 @@ background: #1660A4;
     color: #fff;
     background: var(--blue-clr-2);
 }
+.light-blue .mltplSwtchDiv div.active {
+  border: 1.5px solid #0E6651;
+  color: #0E6651;
+}
