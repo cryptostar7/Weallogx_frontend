@@ -4437,3 +4437,7 @@ fill: #f5f5f5;
     color: #fff;
     background: #a4a4a4;;
 }
+.dark-green .mltplSwtchDiv.blue div.active {
+  border: 1.5px solid #53A9F1;
+  color: #53a9f1;
+}

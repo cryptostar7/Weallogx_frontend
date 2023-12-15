@@ -2,8 +2,7 @@
 
     <div class="index-strategy-each-tabs-head">
         <p>Pre-tax Plan Data</p>
-        <svg width="32" height="33" viewBox="0 0 32 33" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+        <svg width="32" height="33" viewBox="0 0 32 33" fill="none">
             <g id="Clip path group" filter="url(#filter0_d_332_2464)">
                 <mask id="mask0_332_2464" style="mask-type:luminance"
                     maskUnits="userSpaceOnUse" x="4" y="2" width="24" height="25">
@@ -52,6 +51,7 @@
                       @amountUpdated="a => updateInput('ira_or_401k_balance', a)"
                       :default="inputs.ira_or_401k_balance"
                       max="100000000"
+                      placeholder="&nbsp;"
                     />
                 </div>
             </div>
@@ -138,8 +138,9 @@
                     @valueUpdated="v => updateInput('rate_of_return', v)"
                     :default="inputs.rate_of_return"
                     max="12"
+                    placeholder="&nbsp;"
                   />
-                  <span>%</span>
+                  <span class="percent">%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -149,8 +150,9 @@
                     @valueUpdated="v => updateInput('initial_tax_rate', v)"
                     :default="inputs.initial_tax_rate"
                     max="99"
-                  />
-                  <span>%</span>
+                    placeholder="&nbsp;"
+                  />                  
+                  <span class="percent">%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -162,8 +164,9 @@
                     @valueUpdated="v => updateInput('second_tax_rate', v)"
                     :default="inputs.second_tax_rate"
                     max="99"
+                    placeholder="&nbsp;"
                   />
-                  <span>%</span>
+                  <span class="percent">%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
@@ -203,6 +206,7 @@
                       @amountUpdated="a => updateInput('social_security_amount', a)"
                       :default="inputs.social_security_amount"
                       max="150000"
+                      placeholder="&nbsp;"
                     />
                 </div>
             </div>
@@ -213,6 +217,7 @@
                     @valueUpdated="v => updateInput('social_security_age', v)"
                     :default="inputs.social_security_age"
                     max="99"
+                    placeholder="&nbsp;"
                   />
                 </div>
             </div>
@@ -239,13 +244,14 @@
                     @valueUpdated="v => updateInput('social_security_cola', v)"
                     :default="inputs.social_security_cola"
                     max="10"
+                    placeholder="&nbsp;"
                   />
-                  <span>%</span>
+                  <span class="percent">%</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="filingStatus">Filing Status</label>
-                <div class="select-menu">
+                <div :class="`select-menu ${filing_status_valid ? '' : 'error'} `">
                   <div class="select-btn">
                     <span class="sBtn-text"></span>
                     <i
@@ -314,7 +320,9 @@
                     @valueUpdated="v => updateInput('additional_conversion_tax', v)"
                     :default="inputs.additional_conversion_tax"
                     max="12"
+                    placeholder="&nbsp;"
                   />
+                  <span class="percent">%</span>
                 </div>
             </div>
         </div>
@@ -339,14 +347,13 @@ export default {
   computed: {
     ...mapState({
       inputs: state => state.data.tax_scorecard.inputs,
-      social_security_age_valid:
-          state => state.data.tax_scorecard.validation.social_security_age_valid,
-      switch_year_valid: state => state.data.tax_scorecard.validation.switch_year_valid
+      social_security_age_valid: state => state.data.tax_scorecard.validation.social_security_age_valid,
+      switch_year_valid: state => state.data.tax_scorecard.validation.switch_year_valid,
+      filing_status_valid: state => state.data.tax_scorecard.validation.filing_status_valid,
     })
   },
 
   mounted() {
-
     this.validateForm(this.inputs);
 
     if (this.inputs.filing_status) {
@@ -408,6 +415,7 @@ export default {
 
       let valid = true
       let social_security_age_valid = true
+      let filing_status_valid = true
       let switch_year_valid = true
 
       if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
@@ -421,6 +429,11 @@ export default {
         social_security_age_valid = false
       }
 
+      if (inputs.social_security_age && !inputs.filing_status) {
+        valid = false
+        filing_status_valid = false
+      }
+
       if (inputs.second_tax_rate && !inputs.switch_year) {
         valid = false
         switch_year_valid = false
@@ -428,7 +441,7 @@ export default {
 
       this.$store.dispatch("updateTaxScorecardFormValidation", {
         "form_valid": valid, "social_security_age_valid": social_security_age_valid,
-        "switch_year_valid": switch_year_valid
+        "switch_year_valid": switch_year_valid, "filing_status_valid": filing_status_valid
       })
     },
 
@@ -531,7 +544,7 @@ export default {
           } else {
             this.$toast.error(error.message)
           }
-        })
+        });
     },
 
     updateInput(field, value) {
@@ -552,6 +565,8 @@ export default {
       value = parseFloat(value)
       return Math.round(value / 100 * rounding) / rounding
     }
+
+
   }
 };
 

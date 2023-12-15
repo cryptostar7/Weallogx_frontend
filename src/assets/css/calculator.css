@@ -229,6 +229,15 @@
 .select-menu.error .select-btn {
     border: 1.25px solid #DD3611 !important;
 }
+.index-strategy-each-inputs .percent{
+    color: #dfdfdf;
+}
+/*.index-strategy-each-inputs input:placeholder-t-shown .percent{
+    color: #dfdfdf;
+}*/
+/*.index-strategy-each-inputs input:placeholder-shown .percent{
+    color: #000;
+}*/
 p.error-text,
 p.error-text{
 display: none;
@@ -284,7 +293,7 @@ display: none;
 .index-strategy-inputs-div input[type=number] {
     -moz-appearance: textfield;
 }
-.index-strategy-each-inputs:has(> input:valid) span {
+.index-strategy-each-inputs:has(> input:not(:placeholder-shown)) span {
     color: #000;
 }
 .select-menu {
@@ -1326,6 +1335,10 @@ table.index-strategy-table tr th {
 .mltplSwtchDiv.taxRisk div{
     font-size: 12px;
 }
+.mltplSwtchDiv.blue div.active {
+  border: 1.5px solid #1660A4;
+  color: #1660A4;
+}
 .tax-details-tab-ul li button.active {
     background: #0E6651;
     color: #fff;
@@ -1385,7 +1398,7 @@ table.index-strategy-table tr th {
     font-size: 16px;
     font-weight: 600;
     min-height: 42px;
-    transition: 0.35s width ease-in-out;
+    transition: 0.25s width ease-in-out;
 }
 
 .tax-details-each-bars.barClr1{
@@ -1454,4 +1467,10 @@ table.index-strategy-table tr th {
 .show-next-btn.disabled{
     background: #DFDFDF; 
     border-color: transparent;
+}
+#taxScorecardModal{
+    margin-left: 170px;
+}
+body.wider #taxScorecardModal{
+    margin-left: 50px;
 }

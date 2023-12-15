@@ -912,18 +912,22 @@ export default {
     var tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
-    sideArrow.addEventListener("click", () => {
-      indexSidebar.classList.toggle("collapsed");
-      rightArea.classList.toggle("wider");
-      tooltipTriggerList.map(function (tooltipTriggerEl) {
-        if (indexSidebar.classList.contains("collapsed")) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        }
-        if (!indexSidebar.classList.contains("collapsed")) {
-          return new bootstrap.Tooltip(tooltipTriggerEl).disable();
-        }
+
+    if(sideArrow){
+      sideArrow.addEventListener("click", () => {
+        indexSidebar.classList.toggle("collapsed");
+        rightArea.classList.toggle("wider");
+        document.body.classList.toggle("wider");
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+          if (indexSidebar.classList.contains("collapsed")) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+          }
+          if (!indexSidebar.classList.contains("collapsed")) {
+            return new bootstrap.Tooltip(tooltipTriggerEl).disable();
+          }
+        });
       });
-    });
+    }
 
     if (window.innerWidth > 767 && window.innerWidth < 1200) {
       tooltipTriggerList.map(function (tooltipTriggerEl) {

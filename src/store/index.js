@@ -176,7 +176,7 @@ const store = createStore({
             active_scenario: false,
             templates: [],
             tax_scorecard: {
-                validation: {form_valid: false, swith_year_valid: true, social_security_age_valid: true},
+                validation: {form_valid: false, swith_year_valid: true, social_security_age_valid: true, filing_status_valid: true},
                 inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {},
                 results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {
                     ira_backend: {},
@@ -491,7 +491,7 @@ const store = createStore({
             localStorage.setItem("tax_scorecard_inputs", JSON.stringify({}))
             context.commit("setTaxScorecardInputs", {});
             context.commit("setTaxScorecardFormValidation", {
-              "form_valid": false, "social_security_age_valid": true, "switch_year_valid": true
+              "form_valid": false, "social_security_age_valid": true, "switch_year_valid": true, "filing_status_valid": true
             });
         },
         updateTaxScorecardResults(context, payload) {
