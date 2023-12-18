@@ -235,14 +235,14 @@ const tscRoutes = [
 ];
 
 router.beforeEach((to, from, next) => {
-  if (authRoutes.includes(to.name) || secureRoutes.includes(to.name)) {
-    if (isTscUser() && !tscRoutes.includes(to.fullPath)) {
-      next('/tax-score-card'); // redirect to tax score card if user type TSC
-    }
-
+  if (authRoutes.includes(to.name) || secureRoutes.includes(to.name) || tscRoutes.includes(to.name)) {
     if (!authCheck()) {
       next(`${'/sign-in?next='}${to.fullPath}`);
       this.$toast.warning('Authorization required, please login.');
+    }
+
+    if (isTscUser() && !tscRoutes.includes(to.name)) {
+      next('/tax-score-card'); // redirect to tax score card if user type TSC
     }
 
     if (secureRoutes.includes(to.name) && authCheck() && !isPlanActive()) {

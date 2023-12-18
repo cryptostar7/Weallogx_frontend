@@ -100,6 +100,7 @@ export const isTscUser = () => {
   if(user){
     return user.role_type === 'tsc';
   }
+  return false;
 }
 
 export const setComapanyLogo = (green = '', blue = '', dark = '') => {

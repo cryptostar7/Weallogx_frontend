@@ -1,221 +1,824 @@
 <template>
-  <section class="main-section" id="main-section-element" :style="{'scroll-padding-top': '100px'}">
+  <section
+    class="main-section"
+    id="main-section-element"
+    :style="{ 'scroll-padding-top': '100px' }"
+  >
     <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
-          <form class="main-form-div" @submit="submitHandler" autocomplete="off">
+          <form
+            class="main-form-div"
+            @submit="submitHandler"
+            autocomplete="off"
+          >
             <scenario-label-component />
             <div class="form-wrapper side-grey-line">
               <div class="form-wrapper-inner">
-                <SelectDropdown :list="existingInsuranceList" :error="errors.existing_insurance_profile" @clearError="() => errors.existing_insurance_profile = false" @onSelectItem="setExistingInsuranceProfileId" @inputText="setExistingInsuranceProfileName" :clearInput="insuranceTemplateInput" @setClearedInput="() => insuranceTemplateInput = 0" label="Use Existing Insurance Company Profile" id="existingInsuranceProfiles" class="form-group less" />
+                <SelectDropdown
+                  :list="existingInsuranceList"
+                  :error="errors.existing_insurance_profile"
+                  @clearError="
+                    () => (errors.existing_insurance_profile = false)
+                  "
+                  @onSelectItem="setExistingInsuranceProfileId"
+                  @inputText="setExistingInsuranceProfileName"
+                  :clearInput="insuranceTemplateInput"
+                  @setClearedInput="() => (insuranceTemplateInput = 0)"
+                  label="Use Existing Insurance Company Profile"
+                  id="existingInsuranceProfiles"
+                  class="form-group less"
+                />
                 <span class="or-text-span">or</span>
-                <h4 class="form-subheading fs-14 fw-bold"> Create From Scratch </h4>
+                <h4 class="form-subheading fs-14 fw-bold">
+                  Create From Scratch
+                </h4>
                 <div class="form-group pt-2 less">
-                  <label for="insuranceCompany" class="fs-12 medium-fw">Insurance Company</label>
-                  <input type="text" id="insuranceCompany" class="form-control" v-model="insuranceCompany" @keyup="() => clearError('insurance_company')"/>
-                  <small class="text-danger" v-if="errors.insurance_company">{{errors.insurance_company[0]}}</small>
+                  <label for="insuranceCompany" class="fs-12 medium-fw"
+                    >Insurance Company</label
+                  >
+                  <input
+                    type="text"
+                    id="insuranceCompany"
+                    class="form-control"
+                    v-model="insuranceCompany"
+                    @keyup="() => clearError('insurance_company')"
+                  />
+                  <small class="text-danger" v-if="errors.insurance_company">{{
+                    errors.insurance_company[0]
+                  }}</small>
                 </div>
-                <div class="row">                     
+                <div class="row">
                   <div class="col-12 col-md-7">
-                    <div class="form-group less"> 
-                      <label for="insurancePolicyName" class="fs-12 medium-fw">Insurance Policy Name</label> 
-                        <input type="text" id="insurancePolicyName" v-model="insurancePolicyName" class="form-control" @keyup="() => clearError('insurance_policy_name')"/> 
-                        <small class="text-danger" v-if="errors.insurance_policy_name">{{errors.insurance_policy_name[0]}}</small>
-                      </div>
+                    <div class="form-group less">
+                      <label for="insurancePolicyName" class="fs-12 medium-fw"
+                        >Insurance Policy Name</label
+                      >
+                      <input
+                        type="text"
+                        id="insurancePolicyName"
+                        v-model="insurancePolicyName"
+                        class="form-control"
+                        @keyup="() => clearError('insurance_policy_name')"
+                      />
+                      <small
+                        class="text-danger"
+                        v-if="errors.insurance_policy_name"
+                        >{{ errors.insurance_policy_name[0] }}</small
+                      >
+                    </div>
                   </div>
                   <div class="col-12 col-md-5">
-                    <div class="form-group less"> 
-                      <label for="insurancePolicyNickname" class="fs-12 medium-fw">Policy Nickname</label> 
-                        <input type="text" id="insurancePolicyNickname" v-model="PolicyNickname" class="form-control" @keyup="() => clearError('policy_nickname')"/> 
-                        <small class="text-danger" v-if="errors.policy_nickname">{{errors.policy_nickname[0]}}</small>
-                      </div>
+                    <div class="form-group less">
+                      <label
+                        for="insurancePolicyNickname"
+                        class="fs-12 medium-fw"
+                        >Policy Nickname</label
+                      >
+                      <input
+                        type="text"
+                        id="insurancePolicyNickname"
+                        v-model="PolicyNickname"
+                        class="form-control"
+                        @keyup="() => clearError('policy_nickname')"
+                      />
+                      <small
+                        class="text-danger"
+                        v-if="errors.policy_nickname"
+                        >{{ errors.policy_nickname[0] }}</small
+                      >
+                    </div>
                   </div>
                 </div>
                 <div class="pb-3">
-                  <div class="form-check form-switch custom-switch createSenarioRadioBtn "> 
-                    <input class="form-check-input" type="checkbox" role="switch" :disabled="existingInsuranceProfileName ? true: false" v-model="saveInsuranceTemplate"  id="scheduleTemplateCheckbox" /> 
-                      <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scheduleTemplateCheckbox">Save this Insurance Company Profile</label> 
-                    </div>
-                  <div class="form-group mb-2 pt-2" id="templateNameDiv" :style="{'display': saveInsuranceTemplate ? '' : 'none'}"> 
-                    <label for="templateName" class="fs-12 medium-fw">Template Name</label> 
-                    <input type="text" id="templateName" class="form-control" :disabled="existingInsuranceProfileName ? true: false" v-model="insuranceTemplateName" @keyup="() => clearError('insurance_template_name')"/> 
-                    <small class="text-danger" v-if="errors.insurance_template_name">{{errors.insurance_template_name[0]}}</small>
+                  <div
+                    class="form-check form-switch custom-switch createSenarioRadioBtn"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      :disabled="existingInsuranceProfileName ? true : false"
+                      v-model="saveInsuranceTemplate"
+                      id="scheduleTemplateCheckbox"
+                    />
+                    <label
+                      class="form-check-label fs-12 semi-bold-fw mb-0"
+                      for="scheduleTemplateCheckbox"
+                      >Save this Insurance Company Profile</label
+                    >
+                  </div>
+                  <div
+                    class="form-group mb-2 pt-2"
+                    id="templateNameDiv"
+                    :style="{ display: saveInsuranceTemplate ? '' : 'none' }"
+                  >
+                    <label for="templateName" class="fs-12 medium-fw"
+                      >Template Name</label
+                    >
+                    <input
+                      type="text"
+                      id="templateName"
+                      class="form-control"
+                      :disabled="existingInsuranceProfileName ? true : false"
+                      v-model="insuranceTemplateName"
+                      @keyup="() => clearError('insurance_template_name')"
+                    />
+                    <small
+                      class="text-danger"
+                      v-if="errors.insurance_template_name"
+                      >{{ errors.insurance_template_name[0] }}</small
+                    >
                   </div>
                 </div>
                 <hr class="hr-separator mt-2 mb-3" size="1.25" />
                 <div class="row">
                   <div class="col-12">
-                    <div class="form-group"> 
-                      <label for="deathBenefit" class="fs-12 medium-fw">Initial Death Benefit</label> 
-                      <input type="text" id="deathBenefit" class="form-control dollarInputs position-relative handleLimit" min="1" max="999999999" @keyup="() => clearError('initial_death_benifit')"> 
-                      <small class="text-danger" v-if="errors.initial_death_benifit">{{errors.initial_death_benifit[0]}}</small>
+                    <div class="form-group">
+                      <label for="deathBenefit" class="fs-12 medium-fw"
+                        >Initial Death Benefit</label
+                      >
+                      <input
+                        type="text"
+                        id="deathBenefit"
+                        class="form-control dollarInputs position-relative handleLimit"
+                        min="1"
+                        max="999999999"
+                        @keyup="() => clearError('initial_death_benifit')"
+                      />
+                      <small
+                        class="text-danger"
+                        v-if="errors.initial_death_benifit"
+                        >{{ errors.initial_death_benifit[0] }}</small
+                      >
                     </div>
                   </div>
                   <div class="form-group-wrapper">
-                      <div class="form-group"> 
-                        <label for="policyReturn" class="fs-12 medium-fw">Initial Policy Return</label> 
-                        <input type="text" id="policyReturn" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return')">
-                        <small class="text-danger" v-if="errors.policy_return">{{errors.policy_return[0]}}</small>
-                      </div>
-                      <div class="form-group"> 
-                        <label for="policyReturn2" class="fs-12 medium-fw">Second Policy Return</label> 
-                        <input type="text" id="policyReturn2" class="form-control percenteInputs handleLimit2" min="0" max="99" @keyup="() => clearError('policy_return2')">
-                        <small class="text-danger" v-if="errors.policy_return"></small>
-                      </div>
-                      <div class="form-group">
-                        <label for="secondTaxRateYear" class="fs-12 medium-fw">Change Year</label>
-                        <select name="" id="changeTaxYear" class="form-select form-control">
-                          <option value=""></option>
-                          <option v-if="Number(illustrateYear)" v-for="(item, index) in Number(Number(illustrateYear).toFixed(0))" :key="index" :value="item">{{item}}</option>
-                        </select>
-                      </div>
+                    <div class="form-group">
+                      <label for="policyReturn" class="fs-12 medium-fw"
+                        >Initial Policy Return</label
+                      >
+                      <input
+                        type="text"
+                        id="policyReturn"
+                        class="form-control percenteInputs handleLimit2"
+                        min="0"
+                        max="99"
+                        @keyup="() => clearError('policy_return')"
+                      />
+                      <small class="text-danger" v-if="errors.policy_return">{{
+                        errors.policy_return[0]
+                      }}</small>
                     </div>
+                    <div class="form-group">
+                      <label for="policyReturn2" class="fs-12 medium-fw"
+                        >Second Policy Return</label
+                      >
+                      <input
+                        type="text"
+                        id="policyReturn2"
+                        class="form-control percenteInputs handleLimit2"
+                        min="0"
+                        max="99"
+                        @keyup="() => clearError('policy_return2')"
+                      />
+                      <small
+                        class="text-danger"
+                        v-if="errors.policy_return"
+                      ></small>
+                    </div>
+                    <div class="form-group">
+                      <label for="secondTaxRateYear" class="fs-12 medium-fw"
+                        >Change Year</label
+                      >
+                      <select
+                        name=""
+                        id="changeTaxYear"
+                        class="form-select form-control"
+                      >
+                        <option value=""></option>
+                        <option
+                          v-if="Number(illustrateYear)"
+                          v-for="(item, index) in Number(
+                            Number(illustrateYear).toFixed(0)
+                          )"
+                          :key="index"
+                          :value="item"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <SelectDropdown :list="existingIllustrationList" :error="errors.existing_illustration" @clearError="() => errors.existing_illustration = false" @onSelectItem="setExistingIllustrationId" @inputText="setExistingIllustrationName" :clearInput="illustrationTemplateInput" @setClearedInput="() => illustrationTemplateInput = 0" label="Use Existing Illustration" id="existingIllustration" />
+                <SelectDropdown
+                  :list="existingIllustrationList"
+                  :error="errors.existing_illustration"
+                  @clearError="() => (errors.existing_illustration = false)"
+                  @onSelectItem="setExistingIllustrationId"
+                  @inputText="setExistingIllustrationName"
+                  :clearInput="illustrationTemplateInput"
+                  @setClearedInput="() => (illustrationTemplateInput = 0)"
+                  label="Use Existing Illustration"
+                  id="existingIllustration"
+                />
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
-                  <li class="nav-item" role="presentation"> 
-                    <button :class="`nav-link ${uploadFromFile ? 'active' : ''}`" id="uploadFromFile-tab" @click="() => uploadFromFile = true" data-bs-toggle="tab" data-bs-target="#uploadFromFile" type="button" role="tab" aria-controls="uploadFromFile" :aria-selected="uploadFromFile ? true : false"> 
-                      <svg class="uploadFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                        <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
-                        <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                        <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25"  transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                        <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
-                        <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
-                      </svg> &nbsp;Upload From File 
-                    </button> 
+                  <li class="nav-item" role="presentation">
+                    <button
+                      :class="`nav-link ${uploadFromFile ? 'active' : ''}`"
+                      id="uploadFromFile-tab"
+                      @click="() => (uploadFromFile = true)"
+                      data-bs-toggle="tab"
+                      data-bs-target="#uploadFromFile"
+                      type="button"
+                      role="tab"
+                      aria-controls="uploadFromFile"
+                      :aria-selected="uploadFromFile ? true : false"
+                    >
+                      <svg
+                        class="uploadFromFile"
+                        width="9"
+                        height="10"
+                        viewBox="0 0 9 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="0.25"
+                          y="8.74609"
+                          width="8.5"
+                          height="0.5"
+                          rx="0.25"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                        <rect
+                          x="8.75"
+                          y="7.24609"
+                          width="2"
+                          height="0.5"
+                          rx="0.25"
+                          transform="rotate(90 8.75 7.24609)"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                        <rect
+                          x="4.60156"
+                          y="1.15043"
+                          width="2.5"
+                          height="0.5"
+                          rx="0.25"
+                          transform="rotate(45 4.60156 1.15043)"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                        <rect
+                          x="4.74801"
+                          y="1.50586"
+                          width="2.5"
+                          height="0.5"
+                          rx="0.25"
+                          transform="rotate(135 4.74801 1.50586)"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                        <rect
+                          x="0.75"
+                          y="7.24609"
+                          width="2"
+                          height="0.5"
+                          rx="0.25"
+                          transform="rotate(90 0.75 7.24609)"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                        <rect
+                          x="4.75"
+                          y="1.24609"
+                          width="5.5"
+                          height="0.5"
+                          rx="0.25"
+                          transform="rotate(90 4.75 1.24609)"
+                          stroke="black"
+                          stroke-width="0.5"
+                        />
+                      </svg>
+                      &nbsp;Upload From File
+                    </button>
                   </li>
-                  <li class="nav-item" role="presentation" @click="() => uploadFromFile = false"> 
-                    <button :class="`nav-link ${uploadFromFile ? '' : 'active'}`" id="copyPaste-tab" data-bs-toggle="tab" data-bs-target="#copyPaste" type="button" role="tab" aria-controls="copyPaste" :aria-selected="uploadFromFile ? false : true"> 
-                      <svg class="copyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <li
+                    class="nav-item"
+                    role="presentation"
+                    @click="() => (uploadFromFile = false)"
+                  >
+                    <button
+                      :class="`nav-link ${uploadFromFile ? '' : 'active'}`"
+                      id="copyPaste-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#copyPaste"
+                      type="button"
+                      role="tab"
+                      aria-controls="copyPaste"
+                      :aria-selected="uploadFromFile ? false : true"
+                    >
+                      <svg
+                        class="copyPaste"
+                        width="11"
+                        height="11"
+                        viewBox="0 0 11 11"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
                         <rect width="7" height="7" rx="1" fill="black" />
-                        <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
-                      </svg> &nbsp;Copy/Paste 
-                    </button> 
+                        <rect
+                          x="3"
+                          y="3"
+                          width="7"
+                          height="7"
+                          rx="1"
+                          fill="black"
+                          stroke="#EEE"
+                        />
+                      </svg>
+                      &nbsp;Copy/Paste
+                    </button>
                   </li>
                 </ul>
                 <div class="tab-content pt-3 mt-1">
-                  <div :class="`tab-pane fade ${uploadFromFile  ? 'active show' : ''}`" id="uploadFromFile" role="tabpanel" aria-labelledby="uploadFromFile-tab">
-                    <small class="text-danger" v-if="errors.illustration_file">{{errors.illustration_file[0]}}</small>
-                    <div class="pb-4"> 
-                      <label for="uploading" class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden" :style="{'border-color':errors.illustration_file ? 'red':''}" @drop="handleDragFile" @dragover="dragover" @dragleave="dragleave"> 
-                        <input type="file" accept=".pdf" id="uploading" name="uploading" ref="file" hidden @change="handleFile"/> 
+                  <div
+                    :class="`tab-pane fade ${
+                      uploadFromFile ? 'active show' : ''
+                    }`"
+                    id="uploadFromFile"
+                    role="tabpanel"
+                    aria-labelledby="uploadFromFile-tab"
+                  >
+                    <small
+                      class="text-danger"
+                      v-if="errors.illustration_file"
+                      >{{ errors.illustration_file[0] }}</small
+                    >
+                    <div class="pb-4">
+                      <label
+                        for="uploading"
+                        class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden"
+                        :style="{
+                          'border-color': errors.illustration_file ? 'red' : '',
+                        }"
+                        @drop="handleDragFile"
+                        @dragover="dragover"
+                        @dragleave="dragleave"
+                      >
+                        <input
+                          type="file"
+                          accept=".pdf"
+                          id="uploading"
+                          name="uploading"
+                          ref="file"
+                          hidden
+                          @change="handleFile"
+                        />
                         <span>
-                          <img src="@/assets/images/icons/table-drag.svg" class="img-fluid" alt="Drag & Drop" />
+                          <img
+                            src="@/assets/images/icons/table-drag.svg"
+                            class="img-fluid"
+                            alt="Drag & Drop"
+                          />
                         </span>
-                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1"> Drag & Drop </h6>
-                        <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
-                        <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
-                        <button type="button" class="btn choose-file-btn"> Choose File </button> 
-                        <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
-                         <div :class="`pdf-spinner text-center ${fileLoader ? '' : 'd-none'}`">
+                        <h6 class="semi-bold-fw drag-drop-heading mt-1 pt-1">
+                          Drag & Drop
+                        </h6>
+                        <p class="medium-fw fs-12 mb-0 uploadFileTxtPara">
+                          Your files anywhere in this section
+                        </p>
+                        <span class="fs-12 semi-bold-fw grey-clr-3 d-block"
+                          >or</span
+                        >
+                        <button type="button" class="btn choose-file-btn">
+                          Choose File
+                        </button>
+                        <span class="semi-bold-fw no-file-span d-block"
+                          >No file chosen</span
+                        >
+                        <div
+                          :class="`pdf-spinner text-center ${
+                            fileLoader ? '' : 'd-none'
+                          }`"
+                        >
                           <div>
                             <div class="d-flex justify-content-center">
-                              <div class="spinner-border text-secondary" role="status"></div>
+                              <div
+                                class="spinner-border text-secondary"
+                                role="status"
+                              ></div>
                             </div>
-                            <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                            <span class="small mt-3 d-inline-block"
+                              >Please wait while we are extracting your data
+                              from the PDF file</span
+                            >
                           </div>
                         </div>
                       </label>
-                      <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${illustrationFile.type === 'new' ? '':'d-none'}`" id="fileName">{{illustrationFile.name}}</p>
+                      <p
+                        :class="`file-name fs-14 grey-clr-2 medium-fw text-center mt-1 mb-0 ${
+                          illustrationFile.type === 'new' ? '' : 'd-none'
+                        }`"
+                        id="fileName"
+                      >
+                        {{ illustrationFile.name }}
+                      </p>
                     </div>
                   </div>
-                  <div :class="`tab-pane fade ${uploadFromFile  ? '' : 'active show'}`" id="copyPaste" role="tabpanel" aria-labelledby="copyPaste-tab">
-                    <small class="text-danger" v-if="errors.illustration_text">{{errors.illustration_text[0]}}</small>
+                  <div
+                    :class="`tab-pane fade ${
+                      uploadFromFile ? '' : 'active show'
+                    }`"
+                    id="copyPaste"
+                    role="tabpanel"
+                    aria-labelledby="copyPaste-tab"
+                  >
+                    <small
+                      class="text-danger"
+                      v-if="errors.illustration_text"
+                      >{{ errors.illustration_text[0] }}</small
+                    >
                     <div class="copy-paste-area">
-                      <h6 class="semi-bold-fw drag-drop-heading text-center"> Copy/Paste from CSV </h6>
-                      <div class="form-group mb-0"> 
-                        <label for="pasteData" class="fs-12 semi-bold-fw">Paste Data Here</label> 
-                        <textarea name="" id="pasteData" cols="30" rows="5" class="form-control" @paste="handleCSV"></textarea> 
+                      <h6 class="semi-bold-fw drag-drop-heading text-center">
+                        Copy/Paste from CSV
+                      </h6>
+                      <div class="form-group mb-0">
+                        <label for="pasteData" class="fs-12 semi-bold-fw"
+                          >Paste Data Here</label
+                        >
+                        <textarea
+                          name=""
+                          id="pasteData"
+                          cols="30"
+                          rows="5"
+                          class="form-control"
+                          @paste="handleCSV"
+                        ></textarea>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="pb-3">
                   <div class="form-check form-switch custom-switch pt-2">
-                    <input class="form-check-input" type="checkbox" role="switch" :disabled="existingIllustrationName ? true : false" v-model="saveIllustrationTemplate" id="scenarioTemplateCheckbox" />
-                    <label class="form-check-label fs-12 semi-bold-fw mb-0" for="scenarioTemplateCheckbox">Save this Illustration as Template</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      :disabled="existingIllustrationName ? true : false"
+                      v-model="saveIllustrationTemplate"
+                      id="scenarioTemplateCheckbox"
+                    />
+                    <label
+                      class="form-check-label fs-12 semi-bold-fw mb-0"
+                      for="scenarioTemplateCheckbox"
+                      >Save this Illustration as Template</label
+                    >
                   </div>
-                  <div class="form-group pt-2" id="templateNameDiv" :style="{'display': saveIllustrationTemplate ? '' : 'none'}">
-                    <label for="templateName" class="fs-12 medium-fw">Template Name</label>
-                    <input type="text" id="templateName" class="form-control" :disabled="existingIllustrationName ? true : false" v-model="illustrationTemplateName" @keyup="clearError('illustration_template_name')"/>
-                    <small class="text-danger" v-if="errors.illustration_template_name">{{errors.illustration_template_name[0]}}</small>
+                  <div
+                    class="form-group pt-2"
+                    id="templateNameDiv"
+                    :style="{ display: saveIllustrationTemplate ? '' : 'none' }"
+                  >
+                    <label for="templateName" class="fs-12 medium-fw"
+                      >Template Name</label
+                    >
+                    <input
+                      type="text"
+                      id="templateName"
+                      class="form-control"
+                      :disabled="existingIllustrationName ? true : false"
+                      v-model="illustrationTemplateName"
+                      @keyup="clearError('illustration_template_name')"
+                    />
+                    <small
+                      class="text-danger"
+                      v-if="errors.illustration_template_name"
+                      >{{ errors.illustration_template_name[0] }}</small
+                    >
                   </div>
                 </div>
               </div>
-              <div v-if="csvPreview.headers.length" class="illustration-data-table-div w-100">
-                <h4 class="fs-22 bold-fw mb-3 pb-4" >Categorize, Review and Edit Data</h4>
+              <div
+                v-if="csvPreview.headers.length"
+                class="illustration-data-table-div w-100"
+              >
+                <h4 class="fs-22 bold-fw mb-3 pb-4">
+                  Categorize, Review and Edit Data
+                </h4>
                 <div class="illustration-data-wrapper illustrativeTablemainDiv">
-                    <div :class="`floating-btns ${csvPreview.headers.length ? '':'d-none'}`">
-                      <button type="button" class="btn add-table-column-btn">+ Add Column</button>
-                      <button type="button" v-if="removeColId.length" class="btn add-table-column-btn" data-bs-toggle="modal" data-bs-target="#deleteColumnModal">- Delete Column</button>
-                      <button type="button" v-else class="btn add-table-column-btn" @click="$toast.warning('No column selected for deletion.')">- Delete Column</button>
-                      <button type="button" class="btn add-table-column-btn reset-table-btn" @click="resetCsv()">Reset Table</button>
-                    </div>
-                    <div class="d-flex additional-textarea py-3 d-none">
-                      <div class="flex-1">
-                        <div class="tab-content mt-1">
-                        <div :class="`tab-pane fade ${addFromFile  ? 'active show' : ''}`" id="addFromFile" role="tabpanel" aria-labelledby="addFromFile-tab">
-                          <small class="text-danger" v-if="errors.illustration_file2">{{errors.illustration_file2[0]}}</small>
-                          <div class=""> 
-                            <label for="uploading2" class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3" :style="{'border-color':errors.illustration_file2 ? 'red':''}" @drop="addColDragFile" @dragover="dragover" @dragleave="dragleave"> 
-                              <input type="file" accept=".pdf" id="uploading2" name="uploading2" ref="file2" hidden @change="handleFile2"/> 
-                              <h6 class="semi-bold-fw drag-drop-heading"> Drag & Drop </h6>
-                              <p class="medium-fw fs-12 mb-0 uploadFileTxtPara"> Your files anywhere in this section </p>
-                              <span class="fs-12 semi-bold-fw grey-clr-3 d-block">or</span> 
-                              <button type="button" class="btn choose-file-btn"> Choose File </button> 
-                              <span class="semi-bold-fw no-file-span d-block">No file chosen</span>
-                              <div :class="`pdf-spinner text-center ${fileLoader2 ? '' : 'd-none'}`">
+                  <div
+                    :class="`floating-btns ${
+                      csvPreview.headers.length ? '' : 'd-none'
+                    }`"
+                  >
+                    <button type="button" class="btn add-table-column-btn">
+                      + Add Column
+                    </button>
+                    <button
+                      type="button"
+                      v-if="removeColId.length"
+                      class="btn add-table-column-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteColumnModal"
+                    >
+                      - Delete Column
+                    </button>
+                    <button
+                      type="button"
+                      v-else
+                      class="btn add-table-column-btn"
+                      @click="
+                        $toast.warning('No column selected for deletion.')
+                      "
+                    >
+                      - Delete Column
+                    </button>
+                    <button
+                      type="button"
+                      class="btn add-table-column-btn reset-table-btn"
+                      @click="resetCsv()"
+                    >
+                      Reset Table
+                    </button>
+                  </div>
+                  <div class="d-flex additional-textarea py-3 d-none">
+                    <div class="flex-1">
+                      <div class="tab-content mt-1">
+                        <div
+                          :class="`tab-pane fade ${
+                            addFromFile ? 'active show' : ''
+                          }`"
+                          id="addFromFile"
+                          role="tabpanel"
+                          aria-labelledby="addFromFile-tab"
+                        >
+                          <small
+                            class="text-danger"
+                            v-if="errors.illustration_file2"
+                            >{{ errors.illustration_file2[0] }}</small
+                          >
+                          <div class="">
+                            <label
+                              for="uploading2"
+                              class="drag-drop-label d-block text-center p-relative overflow-hidden pb-3"
+                              :style="{
+                                'border-color': errors.illustration_file2
+                                  ? 'red'
+                                  : '',
+                              }"
+                              @drop="addColDragFile"
+                              @dragover="dragover"
+                              @dragleave="dragleave"
+                            >
+                              <input
+                                type="file"
+                                accept=".pdf"
+                                id="uploading2"
+                                name="uploading2"
+                                ref="file2"
+                                hidden
+                                @change="handleFile2"
+                              />
+                              <h6 class="semi-bold-fw drag-drop-heading">
+                                Drag & Drop
+                              </h6>
+                              <p class="medium-fw fs-12 mb-0 uploadFileTxtPara">
+                                Your files anywhere in this section
+                              </p>
+                              <span
+                                class="fs-12 semi-bold-fw grey-clr-3 d-block"
+                                >or</span
+                              >
+                              <button type="button" class="btn choose-file-btn">
+                                Choose File
+                              </button>
+                              <span class="semi-bold-fw no-file-span d-block"
+                                >No file chosen</span
+                              >
+                              <div
+                                :class="`pdf-spinner text-center ${
+                                  fileLoader2 ? '' : 'd-none'
+                                }`"
+                              >
                                 <div>
                                   <div class="d-flex justify-content-center">
-                                    <div class="spinner-border text-secondary" role="status"></div>
+                                    <div
+                                      class="spinner-border text-secondary"
+                                      role="status"
+                                    ></div>
                                   </div>
-                                  <span class="small mt-3 d-inline-block">Please wait while we are extracting your data from the PDF file</span>
+                                  <span class="small mt-3 d-inline-block"
+                                    >Please wait while we are extracting your
+                                    data from the PDF file</span
+                                  >
                                 </div>
                               </div>
                             </label>
-                            <p :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${illustrationFile.type === 'append' ? '':'d-none'}`" id="fileName2">{{illustrationFile.name}}</p>
+                            <p
+                              :class="`file-name fs-14 grey-clr-2 medium-fw text-center m-0 ${
+                                illustrationFile.type === 'append'
+                                  ? ''
+                                  : 'd-none'
+                              }`"
+                              id="fileName2"
+                            >
+                              {{ illustrationFile.name }}
+                            </p>
                           </div>
                         </div>
-                        <div :class="`tab-pane fade ${addFromFile  ? '' : 'active show'}`" id="addCopyPaste" role="tabpanel" aria-labelledby="addCopyPaste-tab">
-                          <div class="copy-paste-area mb-0 p-1"  :style="{'border-color':errors.illustration_csv2 ? 'red':''}">
-                            <div class="form-group mb-0"> 
-                              <textarea style="height: 143.7px;" name="" id="add_new_csv_col" cols="30" rows="5" class="form-control" placeholder="Paste your data here" @keypress="clearError('illustration_csv2')"></textarea>
+                        <div
+                          :class="`tab-pane fade ${
+                            addFromFile ? '' : 'active show'
+                          }`"
+                          id="addCopyPaste"
+                          role="tabpanel"
+                          aria-labelledby="addCopyPaste-tab"
+                        >
+                          <div
+                            class="copy-paste-area mb-0 p-1"
+                            :style="{
+                              'border-color': errors.illustration_csv2
+                                ? 'red'
+                                : '',
+                            }"
+                          >
+                            <div class="form-group mb-0">
+                              <textarea
+                                style="height: 143.7px"
+                                name=""
+                                id="add_new_csv_col"
+                                cols="30"
+                                rows="5"
+                                class="form-control"
+                                placeholder="Paste your data here"
+                                @keypress="clearError('illustration_csv2')"
+                              ></textarea>
                             </div>
                           </div>
                         </div>
                       </div>
-                      </div>
-                      <div class="ps-3 flex-shrink-0">
-                        <ul class="nav nav-tabs flex-nowrap tax-rate-tabs" role="tablist">
-                          <li class="nav-item" role="presentation"> 
-                            <button :class="`nav-link py-12 uploadFromFile ${addFromFile ? 'active' : ''}`" id="addFromFile-tab" @click="() => addFromFile = true" data-bs-toggle="tab" data-bs-target="#addFromFile" type="button" role="tab" aria-controls="addFromFile" :aria-selected="addFromFile ? true : false"> 
-                              <svg class="addFromFile" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.25" y="8.74609" width="8.5" height="0.5" rx="0.25" stroke="black" stroke-width="0.5" />
-                                <rect x="8.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 8.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.60156" y="1.15043" width="2.5" height="0.5" rx="0.25" transform="rotate(45 4.60156 1.15043)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.74801" y="1.50586" width="2.5" height="0.5" rx="0.25" transform="rotate(135 4.74801 1.50586)" stroke="black" stroke-width="0.5" />
-                                <rect x="0.75" y="7.24609" width="2" height="0.5" rx="0.25" transform="rotate(90 0.75 7.24609)" stroke="black" stroke-width="0.5" />
-                                <rect x="4.75" y="1.24609" width="5.5" height="0.5" rx="0.25" transform="rotate(90 4.75 1.24609)" stroke="black" stroke-width="0.5" />
-                              </svg> &nbsp;By Uploading File 
-                            </button> 
-                          </li>
-                          <li class="nav-item" role="presentation" @click="() => addFromFile = false"> 
-                            <button :class="`nav-link py-12 copyPaste ${addFromFile ? '' : 'active'} space-nowrap`" id="addCopyPaste-tab" data-bs-toggle="tab" data-bs-target="#addCopyPaste" type="button" role="tab" aria-controls="addCopyPaste" :aria-selected="addFromFile ? false : true"> 
-                              <svg class="addCopyPaste" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="7" height="7" rx="1" fill="black" />
-                                <rect x="3" y="3" width="7" height="7" rx="1" fill="black" stroke="#EEE" />
-                              </svg> &nbsp;By Pasting Data
-                            </button> 
-                          </li>
-                        </ul>
-                        <div class="d-flex flex-column mt-2">
-                          <button type="button" class="nav-link btn add-data-btn fs-14 active px-3" @click="addMoreCol()">+ Submit</button>
-                          <button type="button" class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4" id="cancelCsvBtn" @click="resetAddDiv"><img src="@/assets/images/icons/small-cross.svg" class="img-fuid" alt="Delete" width="10" height="10" /> Cancel</button>
-                          </div>
+                    </div>
+                    <div class="ps-3 flex-shrink-0">
+                      <ul
+                        class="nav nav-tabs flex-nowrap tax-rate-tabs"
+                        role="tablist"
+                      >
+                        <li class="nav-item" role="presentation">
+                          <button
+                            :class="`nav-link py-12 uploadFromFile ${
+                              addFromFile ? 'active' : ''
+                            }`"
+                            id="addFromFile-tab"
+                            @click="() => (addFromFile = true)"
+                            data-bs-toggle="tab"
+                            data-bs-target="#addFromFile"
+                            type="button"
+                            role="tab"
+                            aria-controls="addFromFile"
+                            :aria-selected="addFromFile ? true : false"
+                          >
+                            <svg
+                              class="addFromFile"
+                              width="9"
+                              height="10"
+                              viewBox="0 0 9 10"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                x="0.25"
+                                y="8.74609"
+                                width="8.5"
+                                height="0.5"
+                                rx="0.25"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                              <rect
+                                x="8.75"
+                                y="7.24609"
+                                width="2"
+                                height="0.5"
+                                rx="0.25"
+                                transform="rotate(90 8.75 7.24609)"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                              <rect
+                                x="4.60156"
+                                y="1.15043"
+                                width="2.5"
+                                height="0.5"
+                                rx="0.25"
+                                transform="rotate(45 4.60156 1.15043)"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                              <rect
+                                x="4.74801"
+                                y="1.50586"
+                                width="2.5"
+                                height="0.5"
+                                rx="0.25"
+                                transform="rotate(135 4.74801 1.50586)"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                              <rect
+                                x="0.75"
+                                y="7.24609"
+                                width="2"
+                                height="0.5"
+                                rx="0.25"
+                                transform="rotate(90 0.75 7.24609)"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                              <rect
+                                x="4.75"
+                                y="1.24609"
+                                width="5.5"
+                                height="0.5"
+                                rx="0.25"
+                                transform="rotate(90 4.75 1.24609)"
+                                stroke="black"
+                                stroke-width="0.5"
+                              />
+                            </svg>
+                            &nbsp;By Uploading File
+                          </button>
+                        </li>
+                        <li
+                          class="nav-item"
+                          role="presentation"
+                          @click="() => (addFromFile = false)"
+                        >
+                          <button
+                            :class="`nav-link py-12 copyPaste ${
+                              addFromFile ? '' : 'active'
+                            } space-nowrap`"
+                            id="addCopyPaste-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#addCopyPaste"
+                            type="button"
+                            role="tab"
+                            aria-controls="addCopyPaste"
+                            :aria-selected="addFromFile ? false : true"
+                          >
+                            <svg
+                              class="addCopyPaste"
+                              width="11"
+                              height="11"
+                              viewBox="0 0 11 11"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect width="7" height="7" rx="1" fill="black" />
+                              <rect
+                                x="3"
+                                y="3"
+                                width="7"
+                                height="7"
+                                rx="1"
+                                fill="black"
+                                stroke="#EEE"
+                              />
+                            </svg>
+                            &nbsp;By Pasting Data
+                          </button>
+                        </li>
+                      </ul>
+                      <div class="d-flex flex-column mt-2">
+                        <button
+                          type="button"
+                          class="nav-link btn add-data-btn fs-14 active px-3"
+                          @click="addMoreCol()"
+                        >
+                          + Submit
+                        </button>
+                        <button
+                          type="button"
+                          class="nav-link btn cancel-add-data-btn fs-14 mt-2 px-4"
+                          id="cancelCsvBtn"
+                          @click="resetAddDiv"
+                        >
+                          <img
+                            src="@/assets/images/icons/small-cross.svg"
+                            class="img-fuid"
+                            alt="Delete"
+                            width="10"
+                            height="10"
+                          />
+                          Cancel
+                        </button>
                       </div>
                     </div>
+                  </div>
                   <div class="div-wrapper px-3">
                     <div class="div-wrapper-inner"></div>
                   </div>
@@ -223,69 +826,206 @@
                     <table class="table illustration-data-table mb-0">
                       <tbody>
                         <tr>
-                          <td v-for="(header, index) in csvPreview.headers" :key="index" >
-                            <div class="d-flex flex-column align-items-center px-2"> 
-                              <select name="" :id="`headerSelectInput${index}`" class="form-select select-option" @change="(e) => setHeader(e, index)">
-                              <option v-for="(item, index2) in illustrationFields" :key="index2" :value="index2" :selected="Number(header) === Number(index2)" :disabled="!illustrationFields[index2].multiple && csvPreview.headers.includes(index2.toString())">{{item.name}}</option> 
-                              </select> 
+                          <td
+                            v-for="(header, index) in csvPreview.headers"
+                            :key="index"
+                          >
+                            <div
+                              class="d-flex flex-column align-items-center px-2"
+                            >
+                              <select
+                                name=""
+                                :id="`headerSelectInput${index}`"
+                                class="form-select select-option"
+                                @change="(e) => setHeader(e, index)"
+                              >
+                                <option
+                                  v-for="(item, index2) in illustrationFields"
+                                  :key="index2"
+                                  :value="index2"
+                                  :selected="Number(header) === Number(index2)"
+                                  :disabled="
+                                    !illustrationFields[index2].multiple &&
+                                    csvPreview.headers.includes(
+                                      index2.toString()
+                                    )
+                                  "
+                                >
+                                  {{ item.name }}
+                                </option>
+                              </select>
                             </div>
                           </td>
                         </tr>
                         <tr>
-                          <th v-for="(item, index) in csvPreview.headers" :key="index" :class="removeColId.includes(index) ? 'checked':''">
-                            <div class="d-flex justify-content-center align-items-center"> 
-                              <input :id="`c${index}`" type="checkbox" class="header-check me-1" :checked="removeColId.includes(index)" @click="deleteCheckbox(index)"> 
-                              <label class="cursor-pointer" :for="`c${index}`">{{item ? `${illustrationFields[item].value !== 'none' ? illustrationFields[item].name : '--'}` : '--'}} </label>
+                          <th
+                            v-for="(item, index) in csvPreview.headers"
+                            :key="index"
+                            :class="
+                              removeColId.includes(index) ? 'checked' : ''
+                            "
+                          >
+                            <div
+                              class="d-flex justify-content-center align-items-center"
+                            >
+                              <input
+                                :id="`c${index}`"
+                                type="checkbox"
+                                class="header-check me-1"
+                                :checked="removeColId.includes(index)"
+                                @click="deleteCheckbox(index)"
+                              />
+                              <label class="cursor-pointer" :for="`c${index}`"
+                                >{{
+                                  item
+                                    ? `${
+                                        illustrationFields[item].value !==
+                                        "none"
+                                          ? illustrationFields[item].name
+                                          : "--"
+                                      }`
+                                    : "--"
+                                }}
+                              </label>
                             </div>
-                            </th>
+                          </th>
                         </tr>
-                        <tr v-for="(item, index) in csvPreview.data.length" :key="index">
-                          <td v-for="(list, cell) in csvPreview.headers" :key="cell"><div class="text-center">{{(csvPreview.data[index] && csvPreview.data[index]) ? csvPreview.data[index][cell] : '' }}</div></td>
+                        <tr
+                          v-for="(item, index) in csvPreview.data.length"
+                          :key="index"
+                        >
+                          <td
+                            v-for="(list, cell) in csvPreview.headers"
+                            :key="cell"
+                          >
+                            <div class="text-center">
+                              {{
+                                csvPreview.data[index] && csvPreview.data[index]
+                                  ? csvPreview.data[index][cell]
+                                  : ""
+                              }}
+                            </div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-              <div class="p-relative mt-30"> 
-                <button class="nav-link btn form-next-btn fs-14 active">Next</button>
+              <div class="p-relative mt-30">
+                <button class="nav-link btn form-next-btn fs-14 active">
+                  Next
+                </button>
                 <div class="return-btn-div">
-                  <a v-if="$route.query.report" href="javascript:void(0)" class="nav-link btn return-to-report-btn fs-14" disabled="true" @click="submitHandler(false, false, true)">Save & Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6" /></a> 
+                  <a
+                    v-if="$route.query.report"
+                    href="javascript:void(0)"
+                    class="nav-link btn return-to-report-btn fs-14"
+                    disabled="true"
+                    @click="submitHandler(false, false, true)"
+                    >Save & Return to Current Report
+                    <img
+                      src="@/assets/images/icons/chevron-right.svg"
+                      class="img-fluid me-1"
+                      style="position: relative; top: 0px"
+                      alt="Chevron"
+                      width="6"
+                  /></a>
                 </div>
               </div>
-                <div class="d-flex justify-content-center gap-3 mt-3">
-                  <router-link :to="`/${$route.query.review === 'true' ? 'review-summary' : 'scenario-details'}/${$route.params.scenario}`" class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0" disabled="true">
-                    <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/>Back
-                  </router-link> 
-                  <button v-if="$route.query.review === 'true'" type="button" @click="submitHandler(false, true)" class="nav-link btn form-next-btn fs-14 active flex-shrink-0 mx-0"><img src="@/assets/images/icons/chevron-left-white.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/> Save & Return to Review</button>
-                </div>
+              <div class="d-flex justify-content-center gap-3 mt-3">
+                <router-link
+                  :to="`/${
+                    $route.query.review === 'true'
+                      ? 'review-summary'
+                      : 'scenario-details'
+                  }/${$route.params.scenario}`"
+                  class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"
+                  disabled="true"
+                >
+                  <img
+                    src="@/assets/images/icons/chevron-left-grey.svg"
+                    class="img-fluid me-1"
+                    style="position: relative; top: 0px"
+                    alt="Chevron"
+                    width="6"
+                  />Back
+                </router-link>
+                <button
+                  v-if="$route.query.review === 'true'"
+                  type="button"
+                  @click="submitHandler(false, true)"
+                  class="nav-link btn form-next-btn fs-14 active flex-shrink-0 mx-0"
+                >
+                  <img
+                    src="@/assets/images/icons/chevron-left-white.svg"
+                    class="img-fluid me-1"
+                    style="position: relative; top: 0px"
+                    alt="Chevron"
+                    width="6"
+                  />
+                  Save & Return to Review
+                </button>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <delete-colomn-modal @removeCol="removeColumn"/> 
-    <div class="modal fade pdf-preview-canvas-modal" id="pdfPreviewCanvasModal" tabindex="-1" aria-labelledby="pdfPreviewCanvasModalLabel" aria-hidden="true">
+    <delete-colomn-modal @removeCol="removeColumn" />
+    <div
+      class="modal fade pdf-preview-canvas-modal"
+      id="pdfPreviewCanvasModal"
+      tabindex="-1"
+      aria-labelledby="pdfPreviewCanvasModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-          <button type="button" class="btn-close prev-modal-close-btn" data-bs-dismiss="modal" aria-label="Close"><img src="@/assets/images/icons/offcanvas-close.svg" class="img-fluid" alt="close" /></button>
+          <button
+            type="button"
+            class="btn-close prev-modal-close-btn"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            <img
+              src="@/assets/images/icons/offcanvas-close.svg"
+              class="img-fluid"
+              alt="close"
+            />
+          </button>
           <div class="modal-body text-center my-4">
-            <p class="preview-modal-heading1">Select the pages from the PDF file to extract the data</p>
-            <p class="preview-modal-heading2 mt-0">Just click the box to select the relevant page</p>
-                <div class="container">
-                  <div id="pdfPreview" class="row"></div>
-              </div>
+            <p class="preview-modal-heading1">
+              Select the pages from the PDF file to extract the data
+            </p>
+            <p class="preview-modal-heading2 mt-0">
+              Just click the box to select the relevant page
+            </p>
+            <div class="container">
+              <div id="pdfPreview" class="row"></div>
+            </div>
           </div>
           <div class="preview-modal-bottom-div py-3">
             <div class="d-flex justify-content-center">
-              <a class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1" data-bs-dismiss="modal" aria-label="Close" @click="extractPdf()">Done</a>
-              <a class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1" data-bs-dismiss="modal" aria-label="Close">Cancel</a>
+              <a
+                class="nav-link btn form-next-btn active fs-14 d-block m-0 mr-1"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                @click="extractPdf()"
+                >Done</a
+              >
+              <a
+                class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                >Cancel</a
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
-    <input type="hidden" id="extractPageNumber"/>
+    <input type="hidden" id="extractPageNumber" />
   </section>
 </template>
 <script>
@@ -323,7 +1063,8 @@ const pdfjsLib = window["pdfjs-dist/build/pdf"];
 // Refernce URL 3 - "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 // Refernce URL 4 - "https://unpkg.com/browse/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 // Refernce URL 5 - "/src/assets/js/pdfjs-3.11.174/build/pdf.worker.js";
-pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 const fileReader = new FileReader();
 
@@ -369,8 +1110,8 @@ export default {
   mounted() {
     // input validation for min and max value with putting comma
     const inputs = document.querySelectorAll(".handleLimit");
-    inputs.forEach(element =>
-      element.addEventListener("input", function(e) {
+    inputs.forEach((element) =>
+      element.addEventListener("input", function (e) {
         let current = getNumber(e.target.value).toString();
         let min = Number(e.target.getAttribute("min"));
         let max = Number(e.target.getAttribute("max"));
@@ -387,8 +1128,8 @@ export default {
 
     // input validation for min and max value
     const inputs2 = document.querySelectorAll(".handleLimit2");
-    inputs2.forEach(element =>
-      element.addEventListener("input", function(e) {
+    inputs2.forEach((element) =>
+      element.addEventListener("input", function (e) {
         let len = e.target.value.length;
         let current = e.target.value;
         let min = Number(e.target.getAttribute("min"));
@@ -427,7 +1168,7 @@ export default {
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
-          .then(response => {
+          .then((response) => {
             let id = response.data.data.illustration;
             this.illustrationId = id;
             this.$store.dispatch("activeScenario", response.data.data);
@@ -437,7 +1178,7 @@ export default {
               this.$store.dispatch("loader", false);
             }
           })
-          .catch(error => {
+          .catch((error) => {
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -463,7 +1204,7 @@ export default {
     // handle pdf file preview modal
     document
       .getElementById("pdfPreviewCanvasModal")
-      .addEventListener("hidden.bs.modal", function(event) {
+      .addEventListener("hidden.bs.modal", function (event) {
         document.getElementById("uploading").value = null;
         if (document.getElementById("uploading2")) {
           document.getElementById("uploading2").value = null;
@@ -489,7 +1230,7 @@ export default {
     existingIllustrationList() {
       let array = this.$store.state.data.templates.illustration || [];
       if (array) {
-        array = array.filter(i => i.client === this.activeScenario.client);
+        array = array.filter((i) => i.client === this.activeScenario.client);
       }
       return array;
     },
@@ -547,7 +1288,7 @@ export default {
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
-    setExistingInsuranceProfileId: function(id) {
+    setExistingInsuranceProfileId: function (id) {
       this.existingInsuranceProfileId = id;
       this.errors = [];
       this.populateInsuranceProfile(id, true);
@@ -555,7 +1296,7 @@ export default {
     },
 
     // set existing illustration id on selecting the input dropdown data
-    setExistingIllustrationId: function(id) {
+    setExistingIllustrationId: function (id) {
       this.existingIllustrationId = id;
       this.populateIllustrationProfile(id);
       this.clearInsuranceTemplate();
@@ -563,29 +1304,29 @@ export default {
     },
 
     // set existing insurance profile name on change the input value
-    setExistingInsuranceProfileName: function(name) {
+    setExistingInsuranceProfileName: function (name) {
       this.existingInsuranceProfileName = name;
     },
 
     // set existing insurance profile name on change the input value
-    setExistingIllustrationName: function(name) {
+    setExistingIllustrationName: function (name) {
       this.existingIllustrationName = name;
     },
 
-    clearInsuranceTemplate: function() {
+    clearInsuranceTemplate: function () {
       if (this.existingInsuranceProfileName) {
         this.insuranceTemplateInput = 1;
       }
     },
 
-    clearIllustrateTemplate: function() {
+    clearIllustrateTemplate: function () {
       if (this.existingIllustrationName) {
         this.illustrationTemplateInput = 1;
       }
     },
 
     // populate the form data
-    setFormInputs: function(data = [], type = "") {
+    setFormInputs: function (data = [], type = "") {
       if (type !== "illustration") {
         this.insuranceCompany = data.insurance_company;
         this.insurancePolicyName = data.insurance_policy_name;
@@ -627,14 +1368,13 @@ export default {
             data: data.illustration_data.upload_from_file.data,
             headers: [],
           };
-          filteredCsv.headers = data.illustration_data.upload_from_file.headers.map(
-            i => {
-                if (i.includes("total_loan_charge")) {
-                  i = "total_loan_charge";
-                }
-                return this.illustrationFieldsIndex[i];
+          filteredCsv.headers =
+            data.illustration_data.upload_from_file.headers.map((i) => {
+              if (i.includes("total_loan_charge")) {
+                i = "total_loan_charge";
               }
-          );
+              return this.illustrationFieldsIndex[i];
+            });
 
           this.csvPreview = this.filterObject(filteredCsv);
           this.setScrollbar();
@@ -648,7 +1388,7 @@ export default {
               headers: [],
             };
             filteredCsv.headers = data.illustration_data.copy_paste.headers.map(
-              i => {
+              (i) => {
                 if (i.includes("total_loan_charge")) {
                   i = "total_loan_charge";
                 }
@@ -664,7 +1404,7 @@ export default {
     },
 
     // populate the insurance data on selectig the existing dropdown template list
-    populateInsuranceProfile: function(id, template = false) {
+    populateInsuranceProfile: function (id, template = false) {
       if (!id) {
         return false;
       }
@@ -681,7 +1421,7 @@ export default {
         )}${id}`,
         authHeader()
       )
-        .then(response => {
+        .then((response) => {
           let data = response.data.data;
           if (!template) {
             setScenarioStep2(data);
@@ -689,7 +1429,7 @@ export default {
           this.setFormInputs(data, template ? "insurance" : "");
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -699,21 +1439,30 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-
+    extractPdfUsingUrl: function (url) {
+      this.illustrationFile.url = url;
+      this.getPreviewUsingUrl(url);
+    },
     // populate the illustration data on selectig the existing dropdown template list
-    populateIllustrationProfile: function(id, template = false) {
+    populateIllustrationProfile: function (id, template = false) {
       if (!id) {
+        return false;
+      }
+
+      let data = this.existingIllustrationList.filter((i) => i.id === id)[0];
+      if (data && data.s3_url) {
+        this.extractPdfUsingUrl(data.s3_url);
         return false;
       }
 
       this.$store.dispatch("loader", true);
       get(`${getUrl("illustration-template")}${id}`, authHeader())
-        .then(response => {
+        .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -725,14 +1474,14 @@ export default {
     },
 
     // show pdf file preview for selecting the extract page
-    getPreview: function(file) {
+    getPreview: function (file) {
       if (file && file.type == "application/pdf") {
-        fileReader.onload = function() {
+        fileReader.onload = function () {
           var pdfData = new Uint8Array(this.result);
           // Using DocumentInitParameters object to load binary data.
           var loadingTask = pdfjsLib.getDocument({ data: pdfData });
           loadingTask.promise.then(
-            function(pdf) {
+            function (pdf) {
               // Fetch the pdf page
               document.getElementById("pdfPreview").innerHTML = null;
               for (var i = 1; i <= pdf.numPages; i++) {
@@ -743,7 +1492,7 @@ export default {
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
             },
-            function(reason) {
+            function (reason) {
               // PDF loading error
               document.getElementById("stopLoaderBtn").click();
               console.error(reason);
@@ -782,7 +1531,7 @@ export default {
         var can = document.createElement("canvas");
 
         var pageNumber = i;
-        pdf.getPage(pageNumber).then(function(page) {
+        pdf.getPage(pageNumber).then(function (page) {
           var scale = 0.4;
           var viewport = page.getViewport({ scale: scale });
 
@@ -796,19 +1545,118 @@ export default {
             viewport: viewport,
           };
 
-          var renderTask = page.render(renderContext);
+          page.render(renderContext);
         });
         divCol.appendChild(can);
         divCol.appendChild(heading);
         divCan.appendChild(divCol);
         document.getElementById("pdfPreview").appendChild(divCan);
-        divCol.addEventListener("click", function(e) {
+        divCol.addEventListener("click", function (e) {
           if (!e.target.hasAttribute("data-page")) {
             let parent = e.target.parentElement;
             let pId = parent.getAttribute("data-page");
             let input = document.getElementById("extractPageNumber");
             if (parent.classList.contains("active")) {
-              let tempVal = input.value.split(",").filter(i => i !== pId);
+              let tempVal = input.value.split(",").filter((i) => i !== pId);
+              input.value = tempVal.sort((a, b) => a - b).join(",");
+            } else {
+              if (input.value) {
+                let tempVal = input.value.split(",");
+                tempVal.push(pId);
+                input.value = tempVal.sort((a, b) => a - b).join(",");
+              } else {
+                input.value = pId;
+              }
+            }
+            parent.classList.toggle("active");
+          }
+        });
+      }
+    },
+
+    // show pdf file preview for selecting the extract page
+    getPreviewUsingUrl: function (url) {
+      if (url) {
+        // Using DocumentInitParameters object to load binary data.
+        this.$store.dispatch("loader", true);
+        var toast = this.$toast;
+        var loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(
+          function (pdf) {
+            // Fetch the pdf page
+            document.getElementById("pdfPreview").innerHTML = null;
+            for (var i = 1; i <= pdf.numPages; i++) {
+              generateCanvas(i, pdf);
+            }
+            document.getElementById("stopLoaderBtn").click();
+            return new bootstrap.Modal(
+              document.getElementById("pdfPreviewCanvasModal")
+            ).show();
+          },
+          function (reason) {
+            // PDF loading error
+            document.getElementById("stopLoaderBtn").click();
+            toast.error(reason.message);
+          }
+        );
+      }
+
+      function generateCanvas(i, pdf) {
+        // Create a class attributes:
+        var classAtt = document.createAttribute("class");
+        classAtt.value =
+          "col-6 col-md-4 col-lg-3 p-2 d-flex justify-content-center";
+
+        var classAtt2 = document.createAttribute("class");
+        classAtt2.value = "previewCard";
+
+        var dataAtt = document.createAttribute("data-page");
+        dataAtt.value = i;
+
+        var classAtt3 = document.createAttribute("class");
+        classAtt3.value = "previewCardHeading text-center";
+
+        var divCol = document.createElement("div");
+        divCol.setAttributeNode(classAtt2);
+        divCol.setAttributeNode(dataAtt);
+
+        var divCan = document.createElement("div");
+        divCan.setAttributeNode(classAtt);
+
+        var heading = document.createElement("h6");
+        heading.setAttributeNode(classAtt3);
+        heading.appendChild(document.createTextNode("Page - " + i));
+
+        var can = document.createElement("canvas");
+
+        var pageNumber = i;
+        pdf.getPage(pageNumber).then(function (page) {
+          var scale = 0.4;
+          var viewport = page.getViewport({ scale: scale });
+
+          var context = can.getContext("2d");
+          can.height = viewport.height;
+          can.width = viewport.width;
+
+          // Render PDF page into canvas context
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport,
+          };
+
+          page.render(renderContext);
+        });
+        divCol.appendChild(can);
+        divCol.appendChild(heading);
+        divCan.appendChild(divCol);
+        document.getElementById("pdfPreview").appendChild(divCan);
+        divCol.addEventListener("click", function (e) {
+          if (!e.target.hasAttribute("data-page")) {
+            let parent = e.target.parentElement;
+            let pId = parent.getAttribute("data-page");
+            let input = document.getElementById("extractPageNumber");
+            if (parent.classList.contains("active")) {
+              let tempVal = input.value.split(",").filter((i) => i !== pId);
               input.value = tempVal.sort((a, b) => a - b).join(",");
             } else {
               if (input.value) {
@@ -826,7 +1674,7 @@ export default {
     },
 
     // validate the form
-    validateForm: function() {
+    validateForm: function () {
       var validate = true;
       if (this.existingInsuranceProfileName) {
         let templateId = this.$getTemplateId(
@@ -932,14 +1780,14 @@ export default {
     },
 
     // get clients detail from API
-    getClient: function() {
+    getClient: function () {
       get(getUrl("clients"), authHeader())
-        .then(response => {
+        .then((response) => {
           this.$store.dispatch("clients", mapClientList(response.data.data));
           this.sortedList = mapClientList(response.data.data);
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -951,18 +1799,18 @@ export default {
     },
 
     // remove error
-    clearError: function(key) {
+    clearError: function (key) {
       this.errors[key] = false;
       // this.clearInsuranceTemplate();
     },
 
     // this function has return the input value
-    getInputWithId: function(id) {
+    getInputWithId: function (id) {
       return document.getElementById(id).value;
     },
 
     // set the input value using the input id attribute
-    setInputWithId: function(id, value) {
+    setInputWithId: function (id, value) {
       if (document.getElementById(id)) {
         document.getElementById(id).value = value;
       }
@@ -970,12 +1818,12 @@ export default {
     },
 
     // get existing insurance profile template
-    getExistingInsurance: function() {
+    getExistingInsurance: function () {
       get(getUrl("template-insurance-profile"), authHeader())
-        .then(response => {
+        .then((response) => {
           let template = [];
           if (response.data.data.length) {
-            response.data.data.forEach(item => {
+            response.data.data.forEach((item) => {
               template.push({
                 id: item.id,
                 template_name: item.insurance_template_name,
@@ -988,7 +1836,7 @@ export default {
           });
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1000,17 +1848,17 @@ export default {
     },
 
     // get existing illustration data template
-    getExistingIllustration: function() {
+    getExistingIllustration: function () {
       this.$store.dispatch("loader", true);
       get(getUrl("illustration-template"), authHeader())
-        .then(response => {
+        .then((response) => {
           this.$store.dispatch("template", {
             type: "illustration",
             data: response.data.data,
           });
           this.$store.dispatch("loader", false);
         })
-        .catch(error => {
+        .catch((error) => {
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1043,19 +1891,19 @@ export default {
       var parent = event.target.closest(".drag-drop-label");
       parent.classList.remove("dragging");
     },
-    handleDragFile: function(e) {
+    handleDragFile: function (e) {
       e.preventDefault();
       this.$refs.file.files = e.dataTransfer.files;
       this.handleFile();
     },
     // column add with dragged file
-    addColDragFile: function(e) {
+    addColDragFile: function (e) {
       e.preventDefault();
       this.$refs.file2.files = e.dataTransfer.files;
       this.addColByFile();
     },
     // handle illustration file uploading
-    handleFile: function() {
+    handleFile: function () {
       let file = this.$refs.file.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "new";
@@ -1076,7 +1924,7 @@ export default {
     },
 
     // handle add more column using illustration file uploading
-    handleFile2: function(e) {
+    handleFile2: function (e) {
       this.clearError("illustration_file2");
       let file = this.$refs.file2.files[0];
       this.illustrationFile.type = "append";
@@ -1097,7 +1945,7 @@ export default {
     },
 
     // handle illustration file uploading
-    addColByFile: function() {
+    addColByFile: function () {
       let file = this.$refs.file2.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "append";
@@ -1119,8 +1967,9 @@ export default {
     },
 
     // extract pdf data
-    extractPdf: function() {
+    extractPdf: function () {
       var file = this.illustrationFile.file;
+      var url = this.illustrationFile.url;
       var page = this.getInputWithId("extractPageNumber");
       if (!page) {
         this.$toast.warning(
@@ -1131,29 +1980,42 @@ export default {
         ).toggle();
       }
 
-      if (!file) {
+      if (!file && !url) {
         return false;
       } else {
         this.illustrationFile.file = null;
+        this.illustrationFile.url = null;
       }
 
-      if (this.illustrationFile.type === "append") {
-        this.fileLoader2 = true;
+      if (file) {
+        if (this.illustrationFile.type === "append") {
+          this.fileLoader2 = true;
+        } else {
+          this.fileLoader = true;
+        }
       } else {
-        this.fileLoader = true;
+        this.$store.dispatch("loader", true);
       }
 
       var data = new FormData();
-      data.append("pdffile", file);
+      if (file) {
+        data.append("pdffile", file);
+      }
+      if (url) {
+        data.append("s3_url", url);
+      }
       data.append("page", page);
-      data.append("business", "Allianz");
+
       post(getUrl("pdf_extract"), data)
-        .then(response => {
+        .then((response) => {
           var res = response.data;
-          if (res.s3_url) {
+          if (!url && res.s3_url) {
             this.saveIllustrationFile(res.s3_url, file.name);
           }
-          let allData = { data: [], headers: [] };
+
+          if (url) {
+            this.$store.dispatch("loader", false);
+          }
 
           if (page && res) {
             var finalObj = this.getSearializedData(res, page);
@@ -1172,7 +2034,6 @@ export default {
                 if (finalObj.headers) {
                   let temp_data = [];
                   let maxRowLen = this.csvPreview.data.length;
-                  let maxColLen = this.csvPreview.data.length;
 
                   if (finalObj.data.length < maxRowLen) {
                     maxRowLen = finalObj.data.length;
@@ -1186,7 +2047,9 @@ export default {
                   }
 
                   this.csvPreview = this.filterObject({
-                    data: temp_data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+                    data: temp_data.map((a) =>
+                      a.map((i) => (i ? i.replace("-", "") : ""))
+                    ),
                     headers: [...this.csvPreview.headers, ...finalObj.headers],
                   });
                   document.getElementById("cancelCsvBtn").click();
@@ -1204,9 +2067,12 @@ export default {
             this.setScrollbar();
           }
         })
-        .catch(error => {
+        .catch((error) => {
           this.fileLoader = false;
           this.fileLoader2 = false;
+          if (url) {
+            this.$store.dispatch("loader", false);
+          }
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
@@ -1219,7 +2085,7 @@ export default {
     },
 
     // map pdf extract data
-    getSearializedData: function(response, page) {
+    getSearializedData: function (response, page) {
       let headers = [];
       let total_rows = 0;
       let total_columns = 0;
@@ -1227,17 +2093,17 @@ export default {
       let allData = [];
       let filterData = [];
 
-      let pages = page.split(",").map(p => Number(p));
+      let pages = page.split(",").map((p) => Number(p));
 
       // get object of searialized page
       let sequence = this.getPageSequenceGroup(pages);
 
       // create a group of sequence data
-      sequence.forEach(p => {
+      sequence.forEach((p) => {
         let pdata = [];
         let maxLength = 0;
-        p.forEach(item => {
-          let tmp = response[item].map(a => Object.values(a));
+        p.forEach((item) => {
+          let tmp = response[item].map((a) => Object.values(a));
           pdata = [...pdata, ...tmp];
           if (total_rows < pdata.length) {
             total_rows = pdata.length;
@@ -1248,7 +2114,7 @@ export default {
       });
 
       // merge sequenced data in single object
-      allData.forEach(data => {
+      allData.forEach((data) => {
         let temp_data = [];
         for (var i = 0; i < total_rows; i++) {
           temp_data.push([...(filterData[i] || ""), ...(data[i] || "")]);
@@ -1260,14 +2126,14 @@ export default {
       filterData = Object.values(filterData);
 
       // get max column length of the object
-      filterData.forEach(items => {
+      filterData.forEach((items) => {
         if (total_columns < items.length) {
           total_columns = items.length;
         }
       });
 
       // to eqalize the data in each object
-      filterData = filterData.map(items => {
+      filterData = filterData.map((items) => {
         let tempItems = [];
         for (let i = 0; i < total_columns; i++) {
           tempItems.push(items[i] || "");
@@ -1281,14 +2147,16 @@ export default {
       }
 
       finalObj = {
-        data: filterData.map(a => a.map(i => i ? i.replace("-", "") : "")),
+        data: filterData.map((a) =>
+          a.map((i) => (i ? i.replace("-", "") : ""))
+        ),
         headers: headers,
       };
       return finalObj;
     },
 
     // get serialized page group
-    getPageSequenceGroup: function(pages) {
+    getPageSequenceGroup: function (pages) {
       let seq = [];
       let currentSeq = [];
       pages.forEach((p, i) => {
@@ -1309,7 +2177,7 @@ export default {
     },
 
     // remove none header data form object
-    filterNoneHeaders: function(obj = {}) {
+    filterNoneHeaders: function (obj = {}) {
       let headers = obj.headers;
       let data = obj.data;
       let noneHeaders = [];
@@ -1324,7 +2192,7 @@ export default {
         }
       });
 
-      filterData = data.map(items =>
+      filterData = data.map((items) =>
         items.filter((i, k) => !noneHeaders.includes(k))
       );
 
@@ -1332,7 +2200,7 @@ export default {
     },
 
     // handle form data
-    submitHandler: function(e, review = false, report = false) {
+    submitHandler: function (e, review = false, report = false) {
       if (e) {
         e.preventDefault();
       }
@@ -1431,7 +2299,7 @@ export default {
 
       let tempHeader = [];
       let currentFeeCol = 0;
-      this.csvPreview.headers.forEach(item => {
+      this.csvPreview.headers.forEach((item) => {
         if (this.illustrationFields[item]) {
           var field = this.illustrationFields[item].value;
           // set custome keys for multiple fees data
@@ -1448,7 +2316,9 @@ export default {
       });
 
       let tableData = this.filterObject({
-        data: this.csvPreview.data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+        data: this.csvPreview.data.map((a) =>
+          a.map((i) => (i ? i.replace("-", "") : ""))
+        ),
         headers: tempHeader,
       });
 
@@ -1486,7 +2356,7 @@ export default {
           formData,
           authHeader()
         )
-          .then(response => {
+          .then((response) => {
             this.$store.dispatch("loader", false);
             setScenarioStep2(response.data.data);
             this.getExistingIllustration();
@@ -1497,9 +2367,7 @@ export default {
             }`;
 
             if (report) {
-              window.location.href = `/report-builder/${
-                this.$route.query.report
-              }`;
+              window.location.href = `/report-builder/${this.$route.query.report}`;
             }
 
             this.$router.push({
@@ -1507,7 +2375,7 @@ export default {
               query: report ? null : this.$route.query,
             });
           })
-          .catch(error => {
+          .catch((error) => {
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1524,7 +2392,7 @@ export default {
           });
       } else {
         post(getUrl("illustration"), formData, authHeader())
-          .then(response => {
+          .then((response) => {
             this.$store.dispatch("loader", false);
             this.$toast.success(
               response.data.message || "Illustration data created successfully!"
@@ -1538,7 +2406,7 @@ export default {
               `/comparative-vehicles/${this.$route.params.scenario}`
             );
           })
-          .catch(error => {
+          .catch((error) => {
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
@@ -1549,30 +2417,30 @@ export default {
               if (
                 error.response.data.error &&
                 error.response.data.error.insurance_template_name
-              ) 
-              this.$toast.error(getFirstError(error));
+              )
+                this.$toast.error(getFirstError(error));
             }
           });
       }
     },
     // add multiple column id for remove from table
-    deleteCheckbox: function(id) {
+    deleteCheckbox: function (id) {
       var colId = this.removeColId;
       if (!colId.includes(id)) {
         colId.push(id);
       } else {
-        colId = colId.filter(i => i !== id);
+        colId = colId.filter((i) => i !== id);
       }
       this.removeColId = colId;
     },
 
-    resetCsv: function() {
+    resetCsv: function () {
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");
       this.setInputWithId("add_new_csv_col", "");
     },
     // clear errors and files info form table
-    resetAddDiv: function() {
+    resetAddDiv: function () {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
       this.$refs.file2.value = null;
@@ -1581,7 +2449,7 @@ export default {
       this.fileLoader2 = false;
     },
     // add new data on illustration data object
-    addMoreCol: function() {
+    addMoreCol: function () {
       this.errors.illustration_file2 = false;
       this.errors.illustration_csv2 = false;
       if (this.addFromFile) {
@@ -1600,7 +2468,7 @@ export default {
       }
     },
     // append new csv data in current illustration data table
-    addCSVColumn: function() {
+    addCSVColumn: function () {
       let txt = this.getInputWithId("add_new_csv_col");
       if (txt) {
         let obj = this.exractCsvText(txt);
@@ -1617,7 +2485,9 @@ export default {
           }
 
           this.csvPreview = this.filterObject({
-            data: temp_data.map(a => a.map(i => (i ? i.replace("-", "") : ""))),
+            data: temp_data.map((a) =>
+              a.map((i) => (i ? i.replace("-", "") : ""))
+            ),
             headers: [...this.csvPreview.headers, ...obj.headers],
           });
           this.setInputWithId("add_new_csv_col", "");
@@ -1632,7 +2502,7 @@ export default {
       }
     },
     // exract the csv data
-    handleCSV: function(e) {
+    handleCSV: function (e) {
       let txt = e.clipboardData.getData("text/plain");
       if (txt) {
         let obj = this.exractCsvText(txt);
@@ -1647,11 +2517,11 @@ export default {
       }
       this.setScrollbar();
     },
-    setHeader: function(e, index) {
+    setHeader: function (e, index) {
       this.csvPreview.headers[index] = e.target.value;
     },
     // set scrollbar on table
-    setScrollbar: function() {
+    setScrollbar: function () {
       setTimeout(() => {
         document.getElementById("pasteData").value = "";
         var wrapperInner = document.querySelector(".div-wrapper-inner");
@@ -1687,7 +2557,7 @@ export default {
       }, 100);
     },
     // remove column from the illustration data table
-    removeColumn: function() {
+    removeColumn: function () {
       let temp_data = [];
       if (this.removeColId.length) {
         this.csvPreview.data.forEach((row, index) => {
@@ -1709,11 +2579,11 @@ export default {
       }
     },
     // parse the csv/excel row
-    parseRow2: function(row) {
+    parseRow2: function (row) {
       var insideQuote = false;
       var entries = [];
       var entry = [];
-      row.split("").forEach(function(character) {
+      row.split("").forEach(function (character) {
         if (character === '"') {
           insideQuote = !insideQuote;
         } else {
@@ -1724,11 +2594,11 @@ export default {
       return entries;
     },
     // parse the csv/excel row
-    parseRow: function(row) {
+    parseRow: function (row) {
       var insideQuote = false;
       var entries = [];
       var entry = [];
-      row.split("").forEach(function(character) {
+      row.split("").forEach(function (character) {
         if (character === '"') {
           insideQuote = !insideQuote;
         } else {
@@ -1744,7 +2614,7 @@ export default {
       return entries;
     },
     // Check heading data in row
-    checkIsHeader: function(arr = []) {
+    checkIsHeader: function (arr = []) {
       var isHeader = false;
       arr.forEach((item, index) => {
         if (isNaN(item.replace("$", "").replaceAll(",", ""))) {
@@ -1754,9 +2624,9 @@ export default {
       return isHeader;
     },
     // filter illustarion object data
-    filterObject: function(array = { data: [], headers: [] }) {
-      array.data = array.data.map(i =>
-        i.map(e => {
+    filterObject: function (array = { data: [], headers: [] }) {
+      array.data = array.data.map((i) =>
+        i.map((e) => {
           e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
           e = e.split(".")[0]; // remove decimal points
           if (!e) {
@@ -1769,31 +2639,31 @@ export default {
       return array;
     },
     // extract csv data
-    exractCsvText: function(values = "") {
+    exractCsvText: function (values = "") {
       let total_columns = 0;
       if (values) {
         try {
           let data = values.split("\n");
           let headers = [];
           if (values.match("\t")) {
-            data = data.map(i => i.split("\t"));
+            data = data.map((i) => i.split("\t"));
           } else {
             if (values.match('"')) {
-              data = data.map(i => this.parseRow(i));
+              data = data.map((i) => this.parseRow(i));
             } else {
-              data = data.map(i => this.parseRow2(i));
+              data = data.map((i) => this.parseRow2(i));
             }
           }
 
-          data = data.map(i => i.map(r => r.replace("\r", "")));
+          data = data.map((i) => i.map((r) => r.replace("\r", "")));
           total_columns = data[0].length;
-          data = data.filter(i => i.length && !this.checkIsHeader(i));
+          data = data.filter((i) => i.length && !this.checkIsHeader(i));
           for (var i = 0; i < total_columns; i++) {
             headers.push("");
           }
 
           return {
-            data: data.map(a => a.map(i => i ? i.replace("-", "") : "")),
+            data: data.map((a) => a.map((i) => (i ? i.replace("-", "") : ""))),
             headers: headers,
           };
         } catch (err) {
@@ -1920,4 +2790,4 @@ export default {
   border: 1px solid #fff;
   color: #fff;
 }
-</style>         
+</style>

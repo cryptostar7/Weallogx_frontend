@@ -534,13 +534,12 @@
             />
           </button>
         </div>
-        <form class="modal-body pt-0 text-center" @submit="saveFileName">
+        <form class="modal-body pt-0 text-center" action="javascript:void(0)" @submit="saveFileName">
           <div class="modalParaBorderDiv">
             <p class="modalParaReportBuilder">Rename the Illustration File</p>
             <p class="modalSmallborder"></p>
           </div>
           <div class="px-5 modalformDiv mb-0">
-            <form action="">
               <div class="form-group">
                 <label for="reportBulder">File Name</label>
                 <input
@@ -549,7 +548,6 @@
                   v-model="fileName"
                 />
               </div>
-            </form>
           </div>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button
@@ -725,11 +723,15 @@ export default {
     // update illustration file name
     saveFileName(e) {
       e.preventDefault();
+
+      let data = new FormData();
+      data.append("name", this.fileName);
+
       if (this.fileActionId) {
         this.$store.dispatch("loader", true);
         patch(
           `${getUrl("illustration-files")}${this.fileActionId}/`,
-          { name: this.fileName },
+          data,
           authHeader()
         )
           .then((response) => {
