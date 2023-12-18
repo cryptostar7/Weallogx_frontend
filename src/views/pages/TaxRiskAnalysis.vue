@@ -347,8 +347,16 @@ export default {
         let switchTab = document.querySelector("#mltplSwtchDiv");
         if(this.activeTab == "conversion"){
             switchTab.classList.add("blue")
+            if(this.isSeeAllActive == true){
+                console.log("con")
+                this.updateBarWidths();
+            }
         }else{
             switchTab.classList.remove("blue")
+            if(this.isSeeAllActive == true){
+                console.log("   pre")
+                this.updateBarWidths();
+            }
         }
         if(this.activeTab == "preTax" && this.currentPreTaxBarIdx < this.noOfPreBars){
             showNextBtn.classList.remove("disabled");
@@ -391,7 +399,7 @@ export default {
             let eachBar = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.tax-details-each-bars');
 
             eachBar.style.width = finalResult + '%';
-            document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.display = "block";
+            document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.opacity = 1;
             
             if (finalResult < 1) {
                 eachBar.style.padding = "8px 2px";
@@ -404,16 +412,15 @@ export default {
                 let textDiv = document.getElementById('wider_bar_' + this.currentPreTaxBarIdx);
                 let textWidth = 0;
                 if(textDiv){
-                    textWidth = textDiv.offsetWidth + 11;
+                    textWidth = textDiv.offsetWidth + 20;
                 }
                 let barWidth = eachBar.offsetWidth;
 
                 if(barWidth > 6 && barWidth < textWidth){
                 document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                 eachBar.classList.remove("text-white");
-                }
-                
-            }, 350);
+                }                
+            }, 400);
         }else{
             let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
             var sub_array = [];
@@ -448,7 +455,7 @@ export default {
             let eachBar = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars')
 
             eachBar.style.width = finalResult + '%';
-            document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.display = "block";
+            document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.opacity = 1;
 
             if (finalResult < 1) {
                 eachBar.style.padding = "8px 2px";
@@ -462,7 +469,7 @@ export default {
                 let textDiv = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx);
                 let textWidth = 0;
                 if(textDiv){
-                    textWidth = textDiv.offsetWidth + 11;    
+                    textWidth = textDiv.offsetWidth + 20;    
                 }
                 
                 let barWidth = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').offsetWidth;
@@ -471,8 +478,7 @@ export default {
                     document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
                 }
-
-            }, 350);     
+            }, 400);     
         }
     },
     initialBarWidths(){
@@ -488,7 +494,7 @@ export default {
         for (let i = 1; i <= allBar.length; i++) {
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';
             document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.display = "none";
+            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 0;
         }
 
         // Conversion Analysis
@@ -496,7 +502,7 @@ export default {
         for (let i = 1; i <= allBar2.length; i++) {
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';            
             document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.display = "none";
+            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 0;
         }
 
         showNextBtn.classList.remove("disabled");
@@ -532,7 +538,7 @@ export default {
             let eachBar = document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars');
 
             eachBar.style.width = finalResult + '%';
-            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
+            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
 
             if (finalResult < 1) {
                 eachBar.style.padding = "8px 2px";
@@ -546,14 +552,14 @@ export default {
                 let textDiv = document.getElementById('wider_bar_' + i);
                 let textWidth = 0;
                 if(textDiv){
-                    textWidth = textDiv.offsetWidth + 11;
+                    textWidth = textDiv.offsetWidth + 20;
                 }
                 let barWidth = eachBar.offsetWidth;
                 if(barWidth > 6 && barWidth < textWidth){
                 document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                 eachBar.classList.remove("text-white");
                 }               
-            }, 350);
+            },400);
         }
 
         // Conversion Analysis
@@ -574,7 +580,7 @@ export default {
 
             let eachBar = document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars');
             eachBar.style.width = finalResult + '%';
-            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.display = "block";
+            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
 
             if (finalResult < 1) {
                 eachBar.style.padding = "8px 2px";
@@ -583,20 +589,22 @@ export default {
                 eachBar.classList.add("text-white");
                 eachBar.style.padding = "8px 2px";
             }
+
             
             setTimeout(() => {
                 let textDiv = document.getElementById('roth_wider_bar_' + i);
                 let textWidth = 0;
                 if(textDiv){
-                    textWidth = textDiv.offsetWidth + 11;    
+                    textWidth = textDiv.offsetWidth + 20;    
                 }
                 
                 let barWidth = eachBar.offsetWidth;
+                console.log(barWidth, textWidth)
                 if(barWidth > 6 && barWidth < textWidth){
                     document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
                 }                
-            }, 350);
+            }, 400);
         }
         showNextBtn.classList.add("disabled");        
     }
