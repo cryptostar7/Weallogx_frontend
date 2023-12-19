@@ -18,8 +18,7 @@
                             <div class="report-client-list-div task-risk-analysis-main-div">
                                 <!-- <div class="ComparativeTableMainDiv active"> -->
                                     <div class="d-flex justify-content-end pb-3 mb-1">
-                                        <svg class="tax-risk-setting-btn" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                            viewBox="0 0 32 32" fill="none" data-bs-toggle="modal" data-bs-target="#taxScorecardModal">
+                                        <svg class="tax-risk-setting-btn" width="28" height="28" viewBox="0 0 28 28" fill="none" data-bs-toggle="modal" data-bs-target="#taxScorecardModal">
                                             <g filter="url(#filter0_d_13_2428)">
                                                 <mask id="mask0_13_2428" style="mask-type:luminance"
                                                     maskUnits="userSpaceOnUse" x="4" y="2" width="24" height="24">

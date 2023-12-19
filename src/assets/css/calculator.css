@@ -1271,31 +1271,26 @@ table.index-strategy-table tr th {
     color: #FFF;
     font-size: 24px;
     font-weight: 600;
-    padding: 35px 5px;
+    padding: 20px 5px;
     width: 100%;
     background-color: #147D64;
     margin: 0;
     text-align: center;
     border-radius: 12px;
 }
-
 .task-risk-analysis-main-div .heading-para-tax-risk.card1 {
     background-color: #147D64;
 }
-
 .task-risk-analysis-main-div .heading-para-tax-risk.card2 {
     background-color: #1660A4;
 }
-
 .tax-details-graph-main-div {
     padding: 30px 48px 20px;
-    margin-top: 35px;
+    margin-top: 30px;
     border-radius: 12px;
     border: 1px solid #DFDFDF;
     box-shadow: 0px 0.25px 3px 0px rgba(0, 0, 0, 0.25);
 }
-
-
 .tax-details-tab-ul {
     max-width: 435px;
     width: 100%;
@@ -1310,11 +1305,9 @@ table.index-strategy-table tr th {
     margin-bottom: 11px;
     margin-inline: auto;
 }
-
 .tax-details-tab-ul li {
     width: 100%;
 }
-
 .tax-details-tab-ul li button {
     display: block;
     box-shadow: none !important;
@@ -1356,7 +1349,6 @@ table.index-strategy-table tr th {
     font-weight: 600;
     margin-bottom: 7px;
 }
-
 .each-tax-details-bar .heading::before {
     position: absolute;
     content: '';
@@ -1365,23 +1357,18 @@ table.index-strategy-table tr th {
     left: 0;
     bottom: 0;
 }
-
 .each-tax-details-bar .heading.clr1::before {
     background: #25967B;
 }
-
 .each-tax-details-bar .heading.clr2::before {
     background: #287BC7;
 }
-
 .each-tax-details-bar .heading.clr3::before {
     background: #9453C8;
 }
-
 .each-tax-details-bar .heading.clr4::before {
     background: #F67F4C;
 }
-
 .each-tax-details-bar .heading.clr5::before {
     background: #C04141;
 }

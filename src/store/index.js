@@ -198,6 +198,7 @@ const store = createStore({
             loader: false,
             loader_count: 0,
             current_theme: localStorage.getItem("mode") || 'light-green',
+            current_sidebar_tab: 'comparative', 
         },
         errors: [],
         forms: [],
@@ -240,23 +241,26 @@ const store = createStore({
         setTheme(state, type) {
             state.app.current_theme = type;
         },
+        setCurrentSidebar(state, type) {
+            state.app.current_sidebar_tab = type;
+        },
         setFullScreen(state) {
             state.app.full_screen = !state.app.full_screen;
             var elem = document.documentElement || document.fullscreenElement;
             if (state.app.full_screen) {
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                } else if (elem.webkitRequestFullscreen) { / Safari /
                     elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { /* IE11 */
+                } else if (elem.msRequestFullscreen) { / IE11 /
                     elem.msRequestFullscreen();
                 }
             } else {
                 if (document || document.fullscreenElement || document.documentElement) {
                     document.exitFullscreen();
-                } else if (document.webkitExitFullscreen || document.fullscreenElement || document.documentElement) { /* Safari */
+                } else if (document.webkitExitFullscreen || document.fullscreenElement || document.documentElement) { / Safari /
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen || document.fullscreenElement || document.documentElement) { /* IE11 */
+                } else if (document.msExitFullscreen || document.fullscreenElement || document.documentElement) { / IE11 /
                     document.msExitFullscreen();
                 }
             }
@@ -401,6 +405,9 @@ const store = createStore({
             document.body.className = "";
             document.body.classList.add(payload);
             context.commit("setTheme", payload);
+        },
+        current_sidebar_tab(context, payload) {
+            context.commit("setCurrentSidebar", payload);
         },
         presentation(context, payload) {
             if (payload) {

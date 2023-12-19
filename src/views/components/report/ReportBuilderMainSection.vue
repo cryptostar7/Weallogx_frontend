@@ -271,6 +271,9 @@ export default {
         this.getHistoricalData();
       }
     },
+    "sidebar.currentTab"(e) {
+      this.$store.dispatch('current_sidebar_tab', e);
+    }
   },
   computed: {
     list() {

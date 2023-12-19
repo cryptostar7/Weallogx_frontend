@@ -567,6 +567,9 @@ export default {
       },
     };
   },
+  updated() {
+    this.init();
+  },
   mounted() {
     let cr = this.comparativeTable;
     this.mapData(cr);
@@ -614,7 +617,6 @@ export default {
         for (var i = 0; i < tables.length; i++) {
           tables[i].refreshHeaderSize();
         }
-        window.addEventListener("scroll", this.windowScrollMinus);
         return;
       }
     },
@@ -633,18 +635,7 @@ export default {
         var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
           tables[i].floatingHeader.style.top =
-            Math.min(windowTop - tables[i].top, tables[i].bottom) + 55 + "px";
-        } else {
-          tables[i].floatingHeader.style.top = "0";
-        }
-      }
-    },
-    windowScrollMinus: function() {
-      for (var i = 0; i < tables.length; i++) {
-        var windowTop = this.getScrollTop();
-        if (windowTop > tables[i].top) {
-          tables[i].floatingHeader.style.top =
-            Math.min(windowTop - tables[i].top, tables[i].bottom) + "px";
+            Math.min(windowTop - tables[i].top, tables[i].bottom) + (isPresentationClicked ? 0 : 55) + "px";
         } else {
           tables[i].floatingHeader.style.top = "0";
         }
@@ -904,6 +895,8 @@ export default {
     "$store.state.app.presentation_mode"(val) {
       if (val) {
         isPresentationClicked = true;
+      }else{
+        isPresentationClicked = false;
       }
       if (
         this.$store.state.app.presentation_mode &&
@@ -918,8 +911,16 @@ export default {
         });
       }
     },
+    // "$store.state.app.current_sidebar_tab"(tab) {
+    //   // this.init();
+    //   this.refreshHeaderSizes();
+    //   window.addEventListener("scroll", this.windowScroll);
+    // },
     "$props.sidebar"(value) {
       this.handleSidebar(value);
+    },
+     "$props.sidebar.currentTab"(tab) {
+      console.log(tab);
     },
     "deletedItems.length"(val) {
       setTimeout(() => {
