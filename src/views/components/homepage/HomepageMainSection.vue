@@ -162,8 +162,8 @@ export default {
     // sort client list
     sortAsc: function() {
       function compare(a, b) {
-        if (a.firstname < b.firstname) return -1;
-        if (a.firstname > b.firstname) return 1;
+        if (a.lastname < b.lastname) return -1;
+        if (a.lastname > b.lastname) return 1;
         return 0;
       }
 
@@ -172,8 +172,8 @@ export default {
     // sort client list
     sortDesc: function() {
       function compare(a, b) {
-        if (a.firstname > b.firstname) return -1;
-        if (a.firstname < b.firstname) return 1;
+        if (a.lastname > b.lastname) return -1;
+        if (a.lastname < b.lastname) return 1;
         return 0;
       }
 
