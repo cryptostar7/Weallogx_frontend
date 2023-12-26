@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="sidebar indexSidebar">
+  <div :class="`sidebar indexSidebar ${sidebar.collapse}`">
     <div class="position-sticky h-100 sidebar-inner extra">
       <div class="mb-20">
         <h3
@@ -909,15 +909,47 @@ export default {
     const sideArrow = document.querySelector(".sidebar-arrow-1");
     const indexSidebar = document.querySelector(".indexSidebar");
     const rightArea = document.querySelector(".right-area");
+
+    let isSidebarCollapsed = localStorage.getItem("isSidebarCollapsed");
+    if(isSidebarCollapsed == "true"){
+      indexSidebar.classList.add("collapsed");
+      rightArea.classList.add("wider");
+    }else{
+      indexSidebar.classList.remove("collapsed");
+      rightArea.classList.remove("wider");
+    }
+
     var tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
+    
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      tooltipTriggerEl.addEventListener("mouseleave", () => {
+        document.querySelectorAll(".tooltip").forEach(el => el.remove());
+      });
+    });
+      
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      if (indexSidebar.classList.contains("collapsed")) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      }
+      if (!indexSidebar.classList.contains("collapsed")) {
+        return new bootstrap.Tooltip(tooltipTriggerEl).disable();
+      }
+    });
 
     if(sideArrow){
       sideArrow.addEventListener("click", () => {
         indexSidebar.classList.toggle("collapsed");
         rightArea.classList.toggle("wider");
+
+        if(indexSidebar.classList.contains("collapsed")){
+          localStorage.setItem("isSidebarCollapsed", true);
+        }else{
+          localStorage.setItem("isSidebarCollapsed", false);
+        }
         document.body.classList.toggle("wider");
+        
         tooltipTriggerList.map(function (tooltipTriggerEl) {
           if (indexSidebar.classList.contains("collapsed")) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -930,6 +962,7 @@ export default {
     }
 
     if (window.innerWidth > 767 && window.innerWidth < 1200) {
+      console.log("yes");
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
