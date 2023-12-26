@@ -73,8 +73,8 @@
                       :update="update"
                       @clearError="clearError"
                       :rollingTime="rollingTime"
-                      :strategWeight1="strategWeight1"
-                      :strategWeight2="strategWeight2"
+                      :strategyWeight1="strategyWeight1"
+                      :strategyWeight2="strategyWeight2"
                       @populateIndexTemplate="populateIndexTemplate"
                       @setUpdated="(index) => setUpdated(index)"
                     />
@@ -165,8 +165,8 @@ export default {
         fees: false,
       },
       rollingTime: 30,
-      strategWeight1: false,
-      strategWeight2: false,
+      strategyWeight1: false,
+      strategyWeight2: false,
       error: {
         1: [],
         2: [],
@@ -539,29 +539,9 @@ export default {
         return false;
       }
 
-      var strategy_weight1 = { weight_1: 100, weight_2: 0, weight_3: 0 };
-      var strategy_weight2 = { weight_1: 50, weight_2: 50, weight_3: 0 };
-      var strategy_weight3 = { weight_1: 33.33, weight_2: 33.33, weight_3: 0 };
-
-      if (activeTabs[1] && !activeTabs[2]) {
-        strategy_weight2 = {
-          weight_1: Number(
-            this.getInputWithId("strateg_weight_mid_1").replace("%", "")
-          ),
-          weight_2: Number(
-            this.getInputWithId("strateg_weight_mid_2").replace("%", "")
-          ),
-          weight_3: 0,
-        };
-      }
-
-      if (activeTabs[2]) {
-        strategy_weight3 = {
-          weight_1: Number(this.getInputWithId("swInput1").replace("%", "")),
-          weight_2: Number(this.getInputWithId("swInput2").replace("%", "")),
-          weight_3: Number(this.getInputWithId("swInput3").replace("%", "")),
-        };
-      }
+      var strategy_weight1 = this.$refs.indexParametersRef.getStrategyWeight().sw1;
+      var strategy_weight2 = this.$refs.indexParametersRef.getStrategyWeight().sw2;
+      var strategy_weight3 = this.$refs.indexParametersRef.getStrategyWeight().sw3;
 
       var formData = {
         rolling_time_period_years: analysis.rolling_time,
@@ -1139,12 +1119,12 @@ export default {
       this.setGrowthData(tab, data);
 
       if (tab === 2) {
-        this.strategWeight1 = data.strategy_weight;
+        this.strategyWeight1 = data.strategy_weight;
         this.$refs.indexParametersRef.setActiveTab(2);
       }
 
       if (tab === 3) {
-        this.strategWeight2 = data.strategy_weight;
+        this.strategyWeight2 = data.strategy_weight;
         this.$refs.indexParametersRef.setActiveTab(3);
       }
 
