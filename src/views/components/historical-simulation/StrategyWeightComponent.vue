@@ -8,7 +8,8 @@
         <div
           id="strategyMidWeight1"
           :style="{
-            width: '100%', borderRadius: '100px'
+            width: '100%',
+            borderRadius: '100px',
           }"
           class="mainResizeDiv position-relative"
         >
@@ -20,7 +21,12 @@
 </template>
 <script>
 export default {
-  props: ["visible"]  
-}
+  props: ["visible"],
+  methods: {
+    getRange: function () {
+      return ["100%", "0%", "0%"];
+    },
+  },
+};
 </script>
 <style lang=""></style>

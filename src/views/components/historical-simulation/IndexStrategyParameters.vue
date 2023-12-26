@@ -121,12 +121,22 @@
         </div>
       </div>
 
-      <strategy-weight-component  :visible="!tabs.tab2 && !tabs.tab3" />
-      <strategy-weight-first-component  :visible="tabs.tab2 && !tabs.tab3" :ratio="$props.strategWeight1" />
-      <strategy-weight-second-component :visible="tabs.tab3" :ratio="$props.strategWeight2" />
+      <strategy-weight-component
+        ref="strategyWeightRef"
+        :visible="!tabs.tab2 && !tabs.tab3"
+      />
+      <strategy-weight-first-component
+        ref="strategyWeight1Ref"
+        :visible="tabs.tab2 && !tabs.tab3"
+        :ratio="$props.strategyWeight1"
+      />
+      <strategy-weight-second-component
+        ref="strategyWeight2Ref"
+        :visible="tabs.tab3"
+        :ratio="$props.strategyWeight2"
+      />
 
       <div :class="`commonAllDivs ${activeTab !== 1 ? 'd-none' : ''}`">
-
         <div class="historicalYesDivCommon mt-4">
           <p class="indexStrategyPara">Index Strategy #1</p>
           <div class="indexStrategyBorder">
@@ -375,7 +385,7 @@ export default {
     StrategyWeightFirstComponent,
     StrategyWeightSecondComponent,
   },
-  props: ["update", "rollingTime", "strategWeight1", "strategWeight2"],
+  props: ["update", "rollingTime", "strategyWeight1", "strategyWeight2"],
   emits: ["clearError", "setUpdated", "populateIndexTemplate"],
   data() {
     return {
@@ -500,6 +510,32 @@ export default {
     setExistingIndexName: function (iType, name) {
       this.error[`existing_${iType}`] = [];
       this.existing_templates[`index${iType}`].name = name;
+    },
+    getStrategyWeight: function () {
+      let sw1 = this.$refs.strategyWeightRef.getRange();
+      let sw2 = this.$refs.strategyWeight1Ref.getRange();
+      let sw3 = this.$refs.strategyWeight2Ref.getRange();
+      let obj = { sw1: null, sw2: null, sw3: null };
+      
+      obj.sw1 = {
+        weight_1: Number(sw1[0].replace("%", "")),
+        weight_2: Number(sw1[1].replace("%", "")),
+        weight_3: Number(sw1[2].replace("%", "")),
+      };
+
+      obj.sw2 = {
+        weight_1: Number(sw2[0].replace("%", "")),
+        weight_2: Number(sw2[1].replace("%", "")),
+        weight_3: Number(sw2[2].replace("%", "")),
+      };
+
+      obj.sw3 = {
+        weight_1: Number(sw3[0].replace("%", "")),
+        weight_2: Number(sw3[1].replace("%", "")),
+        weight_3: Number(sw3[2].replace("%", "")),
+      };
+
+      return obj;
     },
   },
   computed: {
