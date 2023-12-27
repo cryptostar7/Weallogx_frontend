@@ -303,7 +303,6 @@ export default {
           Math.max(...graphData.datasets[4].data),
         ]
       );
-
       const totalValueConfig = {
         type: "line",
         data: graphData,

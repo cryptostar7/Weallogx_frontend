@@ -282,13 +282,19 @@ body::-webkit-scrollbar {
   padding: 0;
 }
 .top-user-dropdown span {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background-color: #ececec;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.top-user-dropdown span img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .top-user-dropdown .dropdown-menu {
   position: absolute;

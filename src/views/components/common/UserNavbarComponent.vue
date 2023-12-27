@@ -266,7 +266,7 @@
                                     <img
                                       :src="avatar"
                                       alt="User Icon"
-                                      width="50"
+                                      class="top-profile-img"
                                     />
                                     <div class="navDropMenuItems">
                                       <h5 class="navDropDownHeader">
