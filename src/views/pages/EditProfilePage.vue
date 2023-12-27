@@ -200,7 +200,7 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
-import { get, put, patch } from "../../network/requests";
+import { get, patch } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import {
   authHeader,
@@ -278,6 +278,8 @@ export default {
           setCurrentUser({
             first_name: this.user.first_name,
             last_name: this.user.last_name,
+            role_type: this.user.role_type,
+            avatar: this.user.avatar,
           });
           setComapanyLogo(
             this.businessLogoGreen,

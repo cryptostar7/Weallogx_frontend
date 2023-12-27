@@ -162,6 +162,8 @@ export default {
           setCurrentUser({
             first_name: this.user.first_name,
             last_name: this.user.last_name,
+            role_type: this.user.role_type,
+            avatar: this.user.avatar,
           });
           this.$store.dispatch("loader", false);
         })

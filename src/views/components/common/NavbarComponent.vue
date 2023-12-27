@@ -8,7 +8,7 @@
           <li class="nav-item dropdown top-user-dropdown ms-4">
             <a class="nav-link dropdown-toggle no-after" href="#" id="navbarDropdown" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-              <span><img src="@/assets/images/icons/user.svg" class="img-fluid" alt="User"></span>
+              <span><img :src="avatar" class="img-fluid" alt="User"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li v-if="!$isTscUser()"><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
@@ -33,6 +33,7 @@
 import ThemeDropdown from "./ThemeDropdown.vue";
 import { getUrl } from "../../../network/url";
 import { get, post } from "../../../network/requests";
+import UserIcon from "../../../assets/images/icons/user.svg"
 import {
   authHeader,
   getAccessToken,
@@ -41,12 +42,24 @@ import {
   setComapanyLogo,
   setCurrentUser,
   authCheck,
+getCurrentUser,
 } from "../../../services/helper";
 export default {
   components: { ThemeDropdown },
+  data() {
+    return {
+      profileImage: "",
+    }
+  },
   mounted() {
-    if (!this.$store.state.data.user) {
+    if (this.$store.state.data.user) {
+      this.profileImage = this.$store.state.data.user.avatar;
+    }else{
       this.getProfile();
+    }
+
+    if(!this.profileImage){
+      this.profileImage = UserIcon;
     }
 
     var menuBtn = document.getElementById("menuBtn");
@@ -90,6 +103,9 @@ export default {
       get(getUrl("profile"), authHeader())
         .then(response => {
           let user = response.data.data;
+          if(user.avatar){
+            this.profileImage = user.avatar;
+          }
           setComapanyLogo(
             user.business_logo_green,
             user.business_logo_blue,
@@ -100,6 +116,7 @@ export default {
             first_name: user.first_name,
             last_name: user.last_name,
             role_type: user.role_type,
+            avatar: user.avatar,
           });
         })
         .catch(error => {
@@ -157,6 +174,15 @@ export default {
         logo = logos.blue;
       }
       return logo;
+    },
+    avatar() {
+      if (this.$store.state.data.user) {
+        return this.$store.state.data.user.avatar;
+      } else if (getCurrentUser()) {
+        return getCurrentUser().avatar;
+      } else {
+        return UserIcon;
+      }
     },
   },
 };

@@ -154,6 +154,8 @@ export default {
                   setCurrentUser({
                     first_name: response.data.data.first_name,
                     last_name: response.data.data.last_name,
+                    role_type: response.data.data.role_type,
+                    avatar: response.data.data.avatar,
                   });
                   this.$store.dispatch("user", response.data.data);
                   this.$store.dispatch("loader", false);

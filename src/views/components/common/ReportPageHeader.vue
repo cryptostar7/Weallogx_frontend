@@ -221,6 +221,8 @@ export default {
           setCurrentUser({
             first_name: user.first_name,
             last_name: user.last_name,
+            role_type: user.role_type,
+            avatar: user.avatar,
           });
         })
         .catch(error => {

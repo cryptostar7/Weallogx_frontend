@@ -4,7 +4,6 @@
       <div class="mb-20">
         <h3
           class="fs-26 bold-fw text-white hi-username"
-          @click="testFunction()"
         >
           Hi, {{ $currentUser() ? $currentUser().first_name : "" }}
         </h3>
@@ -898,12 +897,6 @@ export default {
         currentTab: "comparative",
       },
     };
-  },
-  methods: {
-    testFunction: function () {
-      console.log("this.$store.state.data.user");
-      console.log(getCurrentUser());
-    },
   },
   mounted() {
     const sideArrow = document.querySelector(".sidebar-arrow-1");
