@@ -79,8 +79,11 @@
                   </div>
                 </div>
               </div>  
+              
  
               <div v-if="data[card.id] && data[card.id].categories">
+                <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].categories[tsa_type].type}}</p>
+
                 <div class="d-flex justify-content-between mt-1">
                   <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
                     <p>Longevity</p>
