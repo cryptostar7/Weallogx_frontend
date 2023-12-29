@@ -1708,7 +1708,7 @@ body::-webkit-scrollbar {
 
 /*  */
 .switch3 .checkbox2:checked~.layer2 {
-  background-color: #9D2B2B !important;
+  background-color: #DA4343 !important;
 }
 
 .switch4.extra .checkbox2:checked~.layer2 {
