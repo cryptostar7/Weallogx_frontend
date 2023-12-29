@@ -12,7 +12,7 @@
                   <div class="layer2"></div>
                 </div>
               </div>                    
-              <label for="rightCheckBox12" class="rghtTopHeadcommon">Comparative Values</label>
+              <label for="rightCheckBox12" class="rghtTopHeadcommon">Comparative Values <span class="ms-3 equalThingTabTxt" id="hs_cmp_value_description_text"></span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,19 +24,19 @@
           <div class="comparativeLessDiv collapseDiv12" :style="{display:activeTabs[keyId] ? 'block':'none'}">
             <div class="d-flex justify-content-center mt-2">
               <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-compTable" type="button" role="tab"
+                <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-compTable" type="button" role="tab" @click="currentTab = 'table'"
                   aria-controls="v-pills-compTable" aria-selected="true">
                   Table
                 </div>
-                <div data-bs-toggle="pill" data-bs-target="#v-pills-compGraph" type="button" role="tab"
+                <div data-bs-toggle="pill" data-bs-target="#v-pills-compGraph" type="button" role="tab" @click="currentTab = 'graph'"
                   aria-controls="v-pills-compGraph" aria-selected="false">Graph</div>
               </div>
             </div>
             <div :class="`commonCollapse comparativeLessDiv3  position-relative`">
               <!-- <hr class="collapseDivHr"> -->
               <div class="tab-content">
-              <comparative-values-table-component />
-              <comparative-values-graph-component />
+              <comparative-values-table-component :currentTab="currentTab" />
+              <comparative-values-graph-component :currentTab="currentTab" />
               </div>
             </div>
             <historical-disclosure-component />
@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
+      currentTab: 'table',
     }
   },
 };

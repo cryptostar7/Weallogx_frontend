@@ -1,163 +1,304 @@
 <template lang="">
-  <div class="tab-pane fade" id="v-pills-compGraph" role="tabpanel" aria-labelledby="pills-home-tab">
+  <div
+    class="tab-pane fade"
+    id="v-pills-compGraph"
+    role="tabpanel"
+    aria-labelledby="pills-home-tab"
+  >
     <div class="d-flex justify-content-center mt-2">
-      <div class="nav mltplSwtchDiv nav-pills cv-pills" role="tablist" aria-orientation="vertical">
-        <div class="pill-btn active" id="card-mostRecent-tab" data-bs-toggle="pill" type="button" role="tab" aria-controls="card-mostRecent" aria-selected="true" @click="() => tsa_type = 'most_recent'">Most Recent</div>
-        <div class="pill-btn" id="card-worst-tab" data-bs-toggle="pill" data-bs-target="#card-worst" type="button"
-          role="tab" aria-controls="card-worst" aria-selected="true"  @click="() => tsa_type = 'worst'">Worst</div>
-        <div class="pill-btn" id="card-median-tab" data-bs-toggle="pill" data-bs-target="#card-median" type="button"
-          role="tab" aria-controls="card-median" aria-selected="true"  @click="() => tsa_type = 'median'">Median</div>
-        <div class="pill-btn" id="card-best-tab" data-bs-toggle="pill" data-bs-target="#card-best" type="button"
-          role="tab" aria-controls="card-best" aria-selected="true"  @click="() => tsa_type = 'best'">Best</div>
+      <div
+        class="nav mltplSwtchDiv nav-pills cv-pills"
+        role="tablist"
+        aria-orientation="vertical"
+      >
+        <div
+          class="pill-btn active"
+          id="card-mostRecent-tab"
+          data-bs-toggle="pill"
+          type="button"
+          role="tab"
+          aria-controls="card-mostRecent"
+          aria-selected="true"
+          @click="() => (tsa_type = 'most_recent')"
+        >
+          Most Recent
+        </div>
+        <div
+          class="pill-btn"
+          id="card-worst-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#card-worst"
+          type="button"
+          role="tab"
+          aria-controls="card-worst"
+          aria-selected="true"
+          @click="() => (tsa_type = 'worst')"
+        >
+          Worst
+        </div>
+        <div
+          class="pill-btn"
+          id="card-median-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#card-median"
+          type="button"
+          role="tab"
+          aria-controls="card-median"
+          aria-selected="true"
+          @click="() => (tsa_type = 'median')"
+        >
+          Median
+        </div>
+        <div
+          class="pill-btn"
+          id="card-best-tab"
+          data-bs-toggle="pill"
+          data-bs-target="#card-best"
+          type="button"
+          role="tab"
+          aria-controls="card-best"
+          aria-selected="true"
+          @click="() => (tsa_type = 'best')"
+        >
+          Best
+        </div>
       </div>
     </div>
     <div class="px-3 py-3" id="comparativeValuesFluid2">
       <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
-          <div  v-for="(item, index) in data[0].categories"  :class="`flex-1 ${index === tsa_type ? '':'d-none'}`" :key="item.id">
+          <div
+            v-for="(item, index) in data[0].categories"
+            :class="`flex-1 ${index === tsa_type ? '' : 'd-none'}`"
+            :key="item.id"
+          >
             <div class="tab-content h-100">
-              <div class="tab-pane fade h-100 show active" id="card-mostRecent" role="tabpanel"
-                aria-labelledby="card-mostRecent-tab">
-                <div :class="`distributionCard1 equalDistCard1 position-relative w-100 ${longevity_first_check ? '' : 'inactive'}`">
-                  <div class="d-flex justify-content-between align-items-center">
+              <div
+                class="tab-pane fade h-100 show active"
+                id="card-mostRecent"
+                role="tabpanel"
+                aria-labelledby="card-mostRecent-tab"
+              >
+                <div
+                  :class="`distributionCard1 equalDistCard1 position-relative w-100 ${
+                    longevity_first_check ? '' : 'inactive'
+                  }`"
+                >
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
                       <p class="allCardHeadPara">Longevity</p>
                     </div>
                     <div class="d-flex">
                       <div class="button-cover2">
-                        <div class="radioBtnDiv greenRadioSwtch r2" id="button-2">
-                          <input type="checkbox" class="checkbox2 commonRadioBtn2" v-model="longevity_first_check"/>
+                        <div
+                          class="radioBtnDiv greenRadioSwtch r2"
+                          id="button-2"
+                        >
+                          <input
+                            type="checkbox"
+                            class="checkbox2 commonRadioBtn2"
+                            v-model="longevity_first_check"
+                          />
                           <div class="knobs2"></div>
                           <div class="layer2"></div>
                         </div>
                       </div>
                     </div>
-                  </div>                  
-                  <p class="cardRadioSwtchpara1">{{item.type}}</p>
+                  </div>
+                  <p class="cardRadioSwtchpara1">{{ item.type }}</p>
                   <div class="d-flex justify-content-between mt-1">
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p>Longevity</p>
-                      <p class="cardRadioSwtchpara1">{{item.longevity_years}}</p>
+                      <p class="cardRadioSwtchpara1">
+                        {{ item.longevity_years }}
+                      </p>
                     </div>
                     <div class="compGraphtopPara bgChangerComGraph1">
                       <p class="text-end">Cumulative Income</p>
-                      <p class="text-end">{{$numFormatWithDollar(item.cummulative_income)}}</p>
+                      <p class="text-end">
+                        {{ $numFormatWithDollar(item.cummulative_income) }}
+                      </p>
                     </div>
                   </div>
-                  <div class="compGraphSmallBdr compGraphSmallBdrClr1 pt-1 mb-two">
+                  <div
+                    class="compGraphSmallBdr compGraphSmallBdrClr1 pt-1 mb-two"
+                  >
                     <p></p>
                   </div>
                   <div class="d-flex">
                     <div class="compGraphtopParaTwo">
                       <p>Rate of Return</p>
-                      <p>{{ Number(item.ror).toFixed(2)}}%</p>
+                      <p>{{ Number(item.ror).toFixed(2) }}%</p>
                     </div>
                     <div class="compGraphtopParaTwo cardParLeftMar">
                       <p>IRR</p>
-                      <p>{{ Number(item.irr).toFixed(2)}}%</p>
+                      <p>{{ Number(item.irr).toFixed(2) }}%</p>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
 
-          <div class="flex-1" v-for="(card, index) in cards" >
-            <div :class="`distributionCard1 equalDistCard${2+index} position-relative w-100 ${card.active ? '':'inactive'}`" :key="card.id">
+          <div class="flex-1" v-for="(card, index) in cards">
+            <div
+              :class="`distributionCard1 equalDistCard${
+                2 + index
+              } position-relative w-100 ${card.active ? '' : 'inactive'}`"
+              :key="card.id"
+            >
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <p class="allCardHeadPara">Longevity</p>
                 </div>
                 <div class="d-flex">
                   <div class="button-cover2">
-                    <div :class="`radioBtnDiv r2 switch${1+index} extra`" id="button-2">
-                      <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="card.active" @change="() => card.active = !card.active" />
+                    <div
+                      :class="`radioBtnDiv r2 switch${1 + index} extra`"
+                      id="button-2"
+                    >
+                      <input
+                        type="checkbox"
+                        class="checkbox2 commonRadioBtn2"
+                        :checked="card.active"
+                        @change="() => (card.active = !card.active)"
+                      />
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
                   </div>
                 </div>
-              </div>  
-              
- 
+              </div>
+
               <div v-if="data[card.id] && data[card.id].categories">
-                <p :class="`cardRadioSwtchpara${2+index}`">{{data[card.id].categories[tsa_type].type}}</p>
+                <p :class="`cardRadioSwtchpara${2 + index}`">
+                  {{ data[card.id].categories[tsa_type].type }}
+                </p>
 
                 <div class="d-flex justify-content-between mt-1">
-                  <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
+                  <div
+                    :class="`compGraphtopPara bgChangerComGraph${2 + index}`"
+                  >
                     <p>Longevity</p>
-                    <p>{{data[card.id].categories[tsa_type].longevity_years}}</p>
+                    <p>
+                      {{ data[card.id].categories[tsa_type].longevity_years }}
+                    </p>
                   </div>
-                  <div :class="`compGraphtopPara bgChangerComGraph${2+index}`">
+                  <div
+                    :class="`compGraphtopPara bgChangerComGraph${2 + index}`"
+                  >
                     <p class="text-end">Cumulative Income</p>
-                    <p class="text-end">{{$numFormatWithDollar(data[card.id].categories[tsa_type].cummulative_income)}}</p>
+                    <p class="text-end">
+                      {{
+                        $numFormatWithDollar(
+                          data[card.id].categories[tsa_type].cummulative_income
+                        )
+                      }}
+                    </p>
                   </div>
                 </div>
-                <div :class="`compGraphSmallBdr compGraphSmallBdrClr${2+index} pt-1 mb-two`">
+                <div
+                  :class="`compGraphSmallBdr compGraphSmallBdrClr${
+                    2 + index
+                  } pt-1 mb-two`"
+                >
                   <p></p>
                 </div>
                 <div class="d-flex">
                   <div class="compGraphtopParaTwo">
                     <p>Rate of Return</p>
-                    <p>{{ Number(data[card.id].categories[tsa_type].ror).toFixed(2) }}%</p>
+                    <p>
+                      {{
+                        Number(data[card.id].categories[tsa_type].ror).toFixed(
+                          2
+                        )
+                      }}%
+                    </p>
                   </div>
                   <div class="compGraphtopParaTwo cardParLeftMar">
                     <p>IRR</p>
-                    <p>{{ Number(data[card.id].categories[tsa_type].irr).toFixed(2) }}%</p>
+                    <p>
+                      {{
+                        Number(data[card.id].categories[tsa_type].irr).toFixed(
+                          2
+                        )
+                      }}%
+                    </p>
                   </div>
                 </div>
-              </div>     
-          
+              </div>
             </div>
           </div>
-
         </div>
       </div>
 
-        <div class="container-fluid pb-2">
-          <div class="graph-container-div graph-area" id="comparativeGraphArea2">
-            <div class="comparative-graph-container w-100 pt-md-3">
-              <canvas id="comparativeValuesChart2" width="400" height="300"></canvas>
-            </div>
-            <div class="progressBarEachBtm comparative">
-              <div class="bar-container contribution-radio d-flex justify-content-between align-items-center">
-                <div class="progressBarBtnDiv">
-                  <p>Annual Contribution</p>
-                </div>
-                <div class="d-flex">
-                  <div class="button-cover2" id="button-2">
-                    <div class="radioBtnDiv  r2">
-                      <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="graphs.annual_contribution" @change="graphs.annual_contribution = !graphs.annual_contribution">
-                      <div class="knobs2"></div>
-                      <div class="layer2"></div>
-                    </div>
+      <div class="container-fluid pb-2">
+        <div class="graph-container-div graph-area" id="comparativeGraphArea2">
+          <div class="comparative-graph-container w-100 pt-md-3">
+            <canvas
+              id="comparativeValuesChart2"
+              width="400"
+              height="300"
+            ></canvas>
+          </div>
+          <div class="progressBarEachBtm comparative">
+            <div
+              class="bar-container contribution-radio d-flex justify-content-between align-items-center"
+            >
+              <div class="progressBarBtnDiv">
+                <p>Annual Contribution</p>
+              </div>
+              <div class="d-flex">
+                <div class="button-cover2" id="button-2">
+                  <div class="radioBtnDiv r2">
+                    <input
+                      type="checkbox"
+                      class="checkbox2 commonRadioBtn2"
+                      :checked="graphs.annual_contribution"
+                      @change="
+                        graphs.annual_contribution = !graphs.annual_contribution
+                      "
+                    />
+                    <div class="knobs2"></div>
+                    <div class="layer2"></div>
                   </div>
                 </div>
               </div>
-              <div class="bar-container distribution-radio d-flex justify-content-between align-items-center">
-                <div class="progressBarBtnDiv">
-                  <p>Annual Distribution</p>
-                </div>
-                <div class="d-flex">
-                  <div class="button-cover2" id="button-2">
-                    <div class="radioBtnDiv  r2">
-                      <input type="checkbox" class="checkbox2 commonRadioBtn2" :checked="graphs.annual_distribution" @change="graphs.annual_distribution = !graphs.annual_distribution">
-                      <div class="knobs2"></div>
-                      <div class="layer2"></div>
-                    </div>
+            </div>
+            <div
+              class="bar-container distribution-radio d-flex justify-content-between align-items-center"
+            >
+              <div class="progressBarBtnDiv">
+                <p>Annual Distribution</p>
+              </div>
+              <div class="d-flex">
+                <div class="button-cover2" id="button-2">
+                  <div class="radioBtnDiv r2">
+                    <input
+                      type="checkbox"
+                      class="checkbox2 commonRadioBtn2"
+                      :checked="graphs.annual_distribution"
+                      @change="
+                        graphs.annual_distribution = !graphs.annual_distribution
+                      "
+                    />
+                    <div class="knobs2"></div>
+                    <div class="layer2"></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+      </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: ["currentTab"],
   data() {
     return {
       cards: [
@@ -307,10 +448,13 @@ export default {
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
       this.setGraph(); // generate graph
+      if (this.$props.currentTab === "graph") {
+        this.setTabDescription();
+      }
     }
   },
   methods: {
-    filterData: function(data, type) {
+    filterData: function (data, type) {
       let finalData = {};
 
       if (data.chart_output) {
@@ -328,14 +472,14 @@ export default {
             type: type,
             ror: data.index_average,
             irr: data.irr_percent,
-            longevity_years: this.getYear(account_value, duration) + ' Years',
+            longevity_years: this.getYear(account_value, duration) + " Years",
           };
           finalData.account_value = account_value;
         }
       }
       return finalData;
     },
-    mapColumn1Data: function() {
+    mapColumn1Data: function () {
       return {
         data: {
           id: 0,
@@ -354,7 +498,7 @@ export default {
         },
       };
     },
-    mapColumn2Data: function() {
+    mapColumn2Data: function () {
       return {
         data: {
           id: 1,
@@ -379,7 +523,7 @@ export default {
         },
       };
     },
-    mapColumn3Data: function() {
+    mapColumn3Data: function () {
       return {
         data: {
           id: 2,
@@ -404,7 +548,7 @@ export default {
         },
       };
     },
-    mapColumn4Data: function() {
+    mapColumn4Data: function () {
       return {
         data: {
           id: 3,
@@ -430,7 +574,7 @@ export default {
       };
     },
     // returns dataset variable data for the graph
-    getDataSet: function() {
+    getDataSet: function () {
       let cv = [];
       let cv1 = [];
       let cv2 = [];
@@ -482,8 +626,8 @@ export default {
         labels: [
           1,
           ...years
-            .filter(i => i > 1)
-            .map(i => (years.includes(i / 5) ? i : "")),
+            .filter((i) => i > 1)
+            .map((i) => (years.includes(i / 5) ? i : "")),
         ],
         // labels: years,
         datasets: [
@@ -492,17 +636,21 @@ export default {
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
                 ? "#1660A4"
-                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
+                : this.$appTheme() == "dark-green"
+                ? "#26AB8B"
+                : "#0E6651",
             pointBackgroundColor:
               this.$appTheme() == "light-blue" ||
               this.$appTheme() == "dark-blue"
                 ? "#1660A4"
-                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
+                : this.$appTheme() == "dark-green"
+                ? "#26AB8B"
+                : "#0E6651",
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
             // data: !this.cards[0].active ? [] : cv.map(i => i.toFixed(0)),
-            data: cv.map(i => i.y),
+            data: cv.map((i) => i.y),
             TooltipLabelStyle: {
               backgroundColor: "white",
               borderColor: "white",
@@ -526,7 +674,7 @@ export default {
               this.deletedItems.includes(1) || !this.cards[0].active
                 ? []
                 : // : cv1.map(i => i.toFixed(0)) || [],
-                  cv1.map(i => i.y) || [],
+                  cv1.map((i) => i.y) || [],
           },
           {
             borderColor: "#763CA3",
@@ -538,7 +686,7 @@ export default {
               this.deletedItems.includes(2) || !this.cards[1].active
                 ? []
                 : // : cv2.map(i => i.toFixed(0)) || [],
-                  cv2.map(i => i.y) || [],
+                  cv2.map((i) => i.y) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -550,7 +698,7 @@ export default {
               this.deletedItems.includes(3) || !this.cards[2].active
                 ? []
                 : // : cv3.map(i => i.toFixed(0)) || [],
-                  cv3.map(i => i.y) || [],
+                  cv3.map((i) => i.y) || [],
           },
           {
             barPercentage: 0,
@@ -585,7 +733,7 @@ export default {
       return dataset;
     },
     // Render graph
-    setGraph: function() {
+    setGraph: function () {
       if (window.comparativeGraphChart2) {
         // clear the old initialized graph
         window.comparativeGraphChart2.destroy();
@@ -602,32 +750,31 @@ export default {
         id: "comparativeValues2",
         afterUpdate(chart, args, options) {
           const ul = getOrCreateLegendList(chart, options.containerID);
-          const items = chart.options.plugins.legend.labels.generateLabels(
-            chart
-          );
+          const items =
+            chart.options.plugins.legend.labels.generateLabels(chart);
           let checkboxes = document
             .getElementById(options.containerID)
             .querySelectorAll("input[type=checkbox]");
 
-            let tsa_indexes = {
-              most_recent:0,
-              worst:1,
-              median:2,
-              best:3,
-            };
+          let tsa_indexes = {
+            most_recent: 0,
+            worst: 1,
+            median: 2,
+            best: 3,
+          };
 
-            let tsa_index = tsa_indexes[current_tsa];
-            let newCheckboxes = []
-            checkboxes.forEach((element, index) => {
-              if(index === tsa_index || index > 3){
-                newCheckboxes.push(element);
-              }
-            });
+          let tsa_index = tsa_indexes[current_tsa];
+          let newCheckboxes = [];
+          checkboxes.forEach((element, index) => {
+            if (index === tsa_index || index > 3) {
+              newCheckboxes.push(element);
+            }
+          });
 
-            checkboxes = newCheckboxes;
+          checkboxes = newCheckboxes;
           items.forEach((item, index) => {
             if (checkboxes[index]) {
-              checkboxes[index].onclick = e => {
+              checkboxes[index].onclick = (e) => {
                 const { type } = chart.config;
                 if (type === "pie" || type === "doughnut") {
                   // Pie and doughnut charts only have a single dataset and visibility is per item
@@ -644,9 +791,8 @@ export default {
           });
         },
         hideAll(chart, options) {
-          const items = chart.options.plugins.legend.labels.generateLabels(
-            chart
-          );
+          const items =
+            chart.options.plugins.legend.labels.generateLabels(chart);
           items.forEach((item, index) => {
             const { type } = chart.config;
             if (type === "pie" || type === "doughnut") {
@@ -659,9 +805,8 @@ export default {
           });
         },
         showAll(chart, options) {
-          const items = chart.options.plugins.legend.labels.generateLabels(
-            chart
-          );
+          const items =
+            chart.options.plugins.legend.labels.generateLabels(chart);
           items.forEach((item, index) => {
             const { type } = chart.config;
             if (type === "pie" || type === "doughnut") {
@@ -703,7 +848,7 @@ export default {
       const totalDuration = 4500;
       const delayBetweenPoints =
         totalDuration / graphData.datasets[0].data.length;
-      const previousY = ctx =>
+      const previousY = (ctx) =>
         ctx.index === 0
           ? ctx.chart.scales.y.getPixelForValue(
               graphData.datasets[0].data.length
@@ -716,7 +861,7 @@ export default {
 
       // Function to handle the intersection changes
       function handleIntersection(entries, observer) {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
             // If the graph is visible, animate it
             animateChart(window.comparativeGraphChart2);
@@ -798,7 +943,7 @@ export default {
               const index = dataMetaSet.index;
               if (
                 index <= 3 &&
-                dataMetaSet.data.some(dataPoint => dataPoint.active)
+                dataMetaSet.data.some((dataPoint) => dataPoint.active)
               ) {
                 data.datasets[index].borderColor = bordercolors[index];
                 // data.datasets[index].borderWidth = 6;
@@ -870,7 +1015,7 @@ export default {
             },
             tooltip: {
               callbacks: {
-                labelPointStyle: function(context) {
+                labelPointStyle: function (context) {
                   return {
                     pointStyle: "triangle",
                     rotation: 0,
@@ -907,7 +1052,7 @@ export default {
               ticks: {
                 padding: 8,
                 // stepSize: 125000,
-                callback: function(value, index, ticks) {
+                callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
                   value = value.join(",");
@@ -937,7 +1082,7 @@ export default {
               ticks: {
                 align: "start",
                 padding: 8,
-                callback: function(value, index, ticks) {
+                callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
                   value = value.join(",");
@@ -972,7 +1117,7 @@ export default {
         ".comparative-graph-container"
       );
 
-      graphContainer.addEventListener("mouseout", e => {
+      graphContainer.addEventListener("mouseout", (e) => {
         if (animationTimeout) {
           setTimeout(() => {
             animationTimeout = false;
@@ -983,7 +1128,7 @@ export default {
       });
 
       var redioInp = document.querySelector(".dropdown-menu");
-      redioInp.addEventListener("click", function(e) {
+      redioInp.addEventListener("click", function (e) {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
@@ -1018,13 +1163,13 @@ export default {
 
       var assestShowHide = document.querySelector(".showAssetsCheckBox");
       if (assestShowHide) {
-        assestShowHide.addEventListener("click", e => {
+        assestShowHide.addEventListener("click", (e) => {
           e.target.classList.toggle("on");
         });
 
         document
           .querySelector(".presentationModeBtn")
-          .addEventListener("click", function() {
+          .addEventListener("click", function () {
             if (assestShowHide.classList.contains("on")) {
               htmlLegendPlugin1.hideAll(
                 window.comparativeGraphChart2,
@@ -1035,7 +1180,7 @@ export default {
 
         document
           .querySelector(".fullScreenCloseBtn")
-          .addEventListener("click", function() {
+          .addEventListener("click", function () {
             htmlLegendPlugin1.showAll(
               window.comparativeGraphChart2,
               comparativeValuesConfig.options
@@ -1046,21 +1191,46 @@ export default {
       }
     },
     // to get the longevity year
-    getYear: function(array, age) {
-      let year = array.filter(i => i);
+    getYear: function (array, age) {
+      let year = array.filter((i) => i);
       year = year.length;
-      return age[year-1];
+      return age[year - 1];
     },
     // map API data for the CV cards
-    mapData: function() {
+    mapData: function () {
       this.data[0] = this.mapColumn1Data().data;
       this.data[1] = this.mapColumn2Data().data;
       this.data[2] = this.mapColumn3Data().data;
       this.data[3] = this.mapColumn4Data().data;
     },
     // set deleted cv id in hidden input
-    setActionId: function(id) {
+    setActionId: function (id) {
       document.getElementById("comparative_cv_delete_id").value = id;
+    },
+    // set table description text
+    setTabDescription: function () {
+      let description = "";
+      if (this.tsa_type === "most_recent") {
+        description =
+          `For the Most Recent ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+      }
+
+      if (this.tsa_type === "worst") {
+        description =
+          `For the Worst ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+      }
+
+      if (this.tsa_type === "median") {
+        description =
+          `For the Median ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+      }
+
+      if (this.tsa_type === "best") {
+        description =
+          `For the Best ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+      }
+      document.getElementById("hs_cmp_value_description_text").innerText =
+        description;
     },
   },
   computed: {
@@ -1085,6 +1255,9 @@ export default {
     historicalLirp() {
       return this.$store.state.data.report.historical.lirp_data;
     },
+    rollingTime() {
+      return this.$store.state.data.report.historical.discloser ? this.$store.state.data.report.historical.discloser.period : "0";
+    },
   },
   watch: {
     toggleActions() {
@@ -1095,13 +1268,13 @@ export default {
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets1
       ) {
-        this.cards.forEach(element => {
+        this.cards.forEach((element) => {
           element.active = false;
         });
         this.graphs.annual_contribution = false;
         this.graphs.annual_distribution = false;
       } else {
-        this.cards.forEach(element => {
+        this.cards.forEach((element) => {
           element.active = true;
         });
         this.graphs.annual_contribution = true;
@@ -1114,11 +1287,16 @@ export default {
     "deletedItems.length"(val) {
       this.setGraph();
     },
-    tsa_type(val) {
+    tsa_type() {
       this.setGraph();
+      this.setTabDescription();
+    },
+    "$props.currentTab"(val) {
+      if (val === "graph") {
+        this.setTabDescription();
+      }
     },
   },
 };
 </script>
-<style lang="">
-</style>
+<style lang=""></style>

@@ -23,7 +23,7 @@
       </div>
     <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateRollingPeriod" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
     <div class="formParabrdrLavelDiv mt-3 mb-2">
-        <p @click="checkFunction">Rolling Time Period (Years)</p>
+        <p>Rolling Time Period (Years)</p>
         <p></p>
     </div>
     <div class="ChooseTimePeriodInputs d-flex justify-content-between align-items-center" id="rollingTimePeriod1">

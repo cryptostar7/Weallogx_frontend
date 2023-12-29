@@ -12,7 +12,7 @@
                   <div class="layer2"></div>
                 </div>
               </div>                                   
-              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table</label>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table<span class="ms-3 equalThingTabTxt">{{tabDescription}}</span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -911,11 +911,6 @@ export default {
         });
       }
     },
-    // "$store.state.app.current_sidebar_tab"(tab) {
-    //   // this.init();
-    //   this.refreshHeaderSizes();
-    //   window.addEventListener("scroll", this.windowScroll);
-    // },
     "$props.sidebar"(value) {
       this.handleSidebar(value);
     },
@@ -932,9 +927,46 @@ export default {
     },
   },
   computed: {
-    // draggableColumns() {
-    //    return this.$store.state.data.reportTabs.active_cards.cmp_comparative_table;
-    // },
+    tabDescription() {
+      let description = "";
+      if(this.currentTab === "target_analysis"){
+        if(this.currentFilter === "default"){
+          description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "longevity"){
+          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the longevity of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "endingvalue"){
+          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending value of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "deathBenefit"){
+          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
+        }
+      }
+
+      if(this.currentTab === "rate_of_return"){
+        if(this.currentFilter === "default"){
+          description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "longevity"){
+          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the longevity of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "endingvalue"){
+          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending value of the ${this.cv_name[0]}?`;
+        }
+
+        if(this.currentFilter === "deathBenefit"){
+          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
+        }
+      }
+
+      return description;
+    },
     comparativeTable() {
       return this.$store.state.data.report.comparative;
     },
