@@ -55,7 +55,7 @@
                   <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
               </div>
               <div class="authButtonDiv">
-                <p class="text-align-center mb-3 fs-14 pt-3">You are signing up for: <span class="bold">14-Day Free Trial</span></p>
+                <p class="text-align-center mb-3 fs-14 pt-3">You are signing up for: <span class="bold">{{currentSignupPlan}}</span></p>
                 <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
               </div>
               <p class="authButtomPara">Already have an account? &nbsp;
@@ -271,6 +271,20 @@ export default {
       });
     });
   },
+  computed: {
+    currentSignupPlan(){
+      let name = "14-Day Free Trial";
+      if(this.user.plan_type === "MONTHLY_PLAN"){
+        name = "Monthly Plan";  
+      }
+
+      if(this.user.plan_type === "YEARLY_PLAN"){
+        name = "Yearly Plan";  
+      }
+
+      return name;
+    }
+  }
 };
 </script>
 <style>
