@@ -1443,6 +1443,12 @@
 .dark-green .reportBuilderLftInner.active .lftRadioBtnDiv label {
   color: #fff;
 }
+.dark-green .lightProgress4, .dark-green .lightProgress4.irr div {
+  background: #DA4343;
+}
+.dark-green .lightProgress4 div, .dark-green .lightProgress4.irr {
+  background: #F04F4F;
+}
 
 .dark-green .sidebar-arrow {
   background: transparent;
@@ -2163,9 +2169,9 @@
   background-color: #8137BB !important;
 }
 
-.dark-green .switch3 .checkbox2:checked~.layer2 {
+/*.dark-green .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
-}
+}*/
 
 .dark-green .switch4 .checkbox2:checked~.layer2 {
   background-color: #E8662F !important;

@@ -2530,10 +2530,10 @@
   background-color: #8137BB !important;
 }
 
-.dark-blue .switch3 .checkbox2:checked~.layer2 {
+/*.dark-blue .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
-
+*/
 
 .dark-blue .AddNoteBtn {
   background: #2E3135;
@@ -4021,7 +4021,7 @@
 }
 
 .dark-blue .lightProgress3, .dark-blue .lightProgress3.irr div {
-  background: #8137BB;
+  background: #763CA3;
 }
 
 .dark-blue .lightProgress3 div, .dark-blue .lightProgress3.irr {
@@ -4033,10 +4033,10 @@
 }
 
 .dark-blue .lightProgress4 div, .dark-blue .lightProgress4.irr {
-  background: #E8662F;
+  background: #F04F4F;
 }
 .dark-blue .lightProgress5, .dark-blue .lightProgress5.irr div {
-  background: #F04F4F;
+  background: #E8662F;
 }
 
 .dark-blue .lightProgress5 div, .dark-blue .lightProgress5.irr {
