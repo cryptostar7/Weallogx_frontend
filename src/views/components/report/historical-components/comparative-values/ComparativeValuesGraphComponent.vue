@@ -1117,7 +1117,7 @@ export default {
         ".comparative-graph-container"
       );
 
-      graphContainer.addEventListener("mouseout", (e) => {
+      comparativeGraphArea2.addEventListener("mouseleave", (e) => {
         if (animationTimeout) {
           setTimeout(() => {
             animationTimeout = false;

@@ -1451,10 +1451,9 @@
 }
 
 .dark-green .sidebar-arrow {
-  background: transparent;
+  background: #fff;
   border: 1.5px solid #26AB8B;
 }
-
 .dark-green .sidebar-arrow svg {
   fill: transparent;
   stroke: #26AB8B;

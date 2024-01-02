@@ -1823,20 +1823,12 @@
 
 .dark-blue .sidebar-arrow {
   border-color: var(--blue-clr-2) !important;
+  background-color: #fff;
 }
 
 .dark-blue .sidebar-arrow svg rect {
-  fill: transparent;
+  fill: var(--blue-clr-2);
   stroke: var(--blue-clr-2) !important;
-}
-
-.dark-blue .sidebar-arrow:hover {
-  background-color: var(--blue-clr-2) !important;
-}
-
-.dark-blue .sidebar-arrow:hover svg rect {
-  fill: #fff;
-  stroke: #fff !important;
 }
 
 .dark-blue.presentationModeCommon .sidebar-arrow {
@@ -1874,11 +1866,6 @@
 
 .dark-blue #button-1 .checkbox:checked~.layer {
   background-color: var(--blue-clr-2);
-}
-
-.dark-blue .sidebar-arrow {
-  background: transparent;
-  border: 1.5px solid #20866E;
 }
 
 .dark-blue .deactiveColor rect {

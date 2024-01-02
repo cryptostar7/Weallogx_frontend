@@ -907,6 +907,10 @@ body::-webkit-scrollbar {
   transform: translateY(-50%);
   z-index: 3;
 }
+.sidebar-arrow svg rect {
+  fill: #147d64;
+  stroke: #147d64;
+}
 
 .rightSectionHeading {
   padding-inline: 1rem;
@@ -3084,13 +3088,9 @@ body.fullScreen .progressAllBarsDivMain{
   }
 
   .main-section .sidebar-arrow svg {
-    transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important;;
   } 
 
-/*  .main-section .sidebar-inner {
-    display: none !important;
-  }
-*/
   .main-section.active .sidebar-arrow {
     right: -185px;
     transform: rotate(0deg) !important;

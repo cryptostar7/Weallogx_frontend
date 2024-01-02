@@ -57,9 +57,9 @@
                 </div>
               </div>
               <div class="container-fluid">
-                <div class="graph-container-div graph-area">
+                <div class="graph-container-div graph-area" id="totalValueGraphArea">
                   <div class="total-value-graph-container w-100 pt-md-3">
-                    <canvas id="totalValueChart" width="500" height="130"></canvas>
+                    <canvas id="totalValueChart" width="500" height="200"></canvas>
                   </div>
                 </div>
               </div>
@@ -152,24 +152,24 @@ export default {
       let years = [];
 
       if (card1) {
-        value1 = card1.chart_output.total_values;
+        value1 = card1.chart_output.total_values.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];
         years = card1.chart_output.Age;
       }
 
       if (!this.deletedItems.includes(1) && card2) {
-        value2 = card2.chart_output.total_value;
+        value2 = card2.chart_output.total_value.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
       if (!this.deletedItems.includes(2) && card3) {
-        value3 = card3.chart_output.total_value;
+        value3 = card3.chart_output.total_value.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
       if (!this.deletedItems.includes(3) && card4) {
-        value4 = card4.chart_output.total_value;
+        value4 = card4.chart_output.total_value.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
       if (!this.deletedItems.includes(4) && card5) {
-        value5 = card5.chart_output.total_value;
+        value5 = card5.chart_output.total_value.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
       var dataset = {
@@ -177,10 +177,11 @@ export default {
         datasets: [
           {
             borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
-                : "#0E6651",
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
+                : this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4" : 
+              this.$appTheme() == "dark-green" ? "#26AB8B" : "#0E6651",
             borderWidth: 4,
             borderDash: [10, 10],
             radius: 0,
@@ -188,9 +189,10 @@ export default {
           },
           {
             borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#0E6651"
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
+                : "#1660A4",
+            pointBackgroundColor:
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#089875"
                 : "#1660A4",
             borderWidth: 4,
             radius: 0,
@@ -216,7 +218,6 @@ export default {
           },
         ],
       };
-
       return dataset;
     },
     setGraph: function() {
@@ -296,13 +297,129 @@ export default {
 
       let maxAxis = Math.max(
         ...[
-          Math.max(...graphData.datasets[0].data),
-          Math.max(...graphData.datasets[1].data),
-          Math.max(...graphData.datasets[2].data),
-          Math.max(...graphData.datasets[3].data),
-          Math.max(...graphData.datasets[4].data),
+          Math.max(...graphData.datasets[0].data.map(i => i.y)),
+          Math.max(...graphData.datasets[1].data.map(i => i.y)),
+          Math.max(...graphData.datasets[2].data.map(i => i.y)),
+          Math.max(...graphData.datasets[3].data.map(i => i.y)),
+          Math.max(...graphData.datasets[4].data.map(i => i.y)),
         ]
       );
+
+      const totalValueChart = document.getElementById("totalValueChart");
+      const totalValueGraphArea = document.querySelector("#totalValueGraphArea");
+
+      const totalDuration = 4500;
+      const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
+      const previousY = (totalValueChart) => totalValueChart.index === 0 ? totalValueChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : totalValueChart.chart.getDatasetMeta(totalValueChart.datasetIndex).data[totalValueChart.index - 1].getProps(['y'], true).y;
+
+      let animationTimeout = false;
+
+      // Function to handle the intersection changes
+      function handleIntersection(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            // If the graph is visible, animate it
+            animateChart(window.totalValueGraphChart);
+            observer.unobserve(entry.target);
+            window.totalValueGraphChart.config.options.animation = {};  
+            animationTimeout = true;    
+          } else {
+            // If the graph is not visible, stop the animation
+            window.totalValueGraphChart.stop();
+          }
+        });
+      }
+
+      // Create a new Intersection Observer instance
+      const observer = new IntersectionObserver(handleIntersection, {
+        threshold: 0.25 
+      });
+
+      // Start observing the chart container
+      observer.observe(annualFeeGraphArea);
+
+      function animateChart(chart) {
+        chart.options.animation = {
+           x: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: NaN, // the point is initially skipped
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.xStarted) {
+                return 0;
+              }
+              ctx.xStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          },
+          y: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: 0,
+            delay(ctx) {
+              if (ctx.type !== 'data' || ctx.yStarted) {
+                return 0;
+              }
+              ctx.yStarted = true;
+              return ctx.index * delayBetweenPoints;
+            }
+          }
+        };
+        chart.update();
+      }
+
+      let bordercolors;
+
+      let screenMode = localStorage.getItem("mode");
+      if (screenMode == "light-blue") {
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#FF4C00", "#eee"];
+      } else if (screenMode == "dark-blue"){
+        bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#FF4C00", "#333"];
+      } else if (screenMode == "dark-green") {
+        bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#FF4C00", "#333"];
+      } else {
+        bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#FF4C00", "#eee"];
+      }
+
+      const highlightLine = {
+        id: "highlightLine",
+        beforeDatasetsDraw(chart, args, plugins){
+          let { data } = chart;
+          const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
+          if(animationTimeout){
+            setTimeout(() => {
+              animationTimeout = false;
+            }, totalDuration);
+          }else{
+            for(let i = 0; i < datasetMetaArray.length; i++){
+              const dataMetaSet = datasetMetaArray[i];
+              const index = dataMetaSet.index;
+              if(dataMetaSet.data.some(dataPoint => dataPoint.active)){
+                data.datasets[index].borderColor = bordercolors[index];
+                chart.update();
+                break;            
+              }
+            }
+          } 
+        },
+        afterEvent(chart, args){
+          let { data } = chart;
+          if(args.inChartArea){
+            function setBorderColor(active, index, borderColor){
+              return active ? borderColor : bordercolors[5];
+            }
+            chart.getDatasetMeta(0).data[0] ? data.datasets[0].borderColor = setBorderColor(chart.getDatasetMeta(0).data[0].active, 0, bordercolors[0]) : bordercolors[5];
+            chart.getDatasetMeta(1).data[0] ? data.datasets[1].borderColor = setBorderColor(chart.getDatasetMeta(1).data[0].active, 1, bordercolors[1]) : bordercolors[5];
+            chart.getDatasetMeta(2).data[0] ? data.datasets[2].borderColor = setBorderColor(chart.getDatasetMeta(2).data[0].active, 2, bordercolors[2]) : bordercolors[5];
+            chart.getDatasetMeta(3).data[0] ? data.datasets[3].borderColor = setBorderColor(chart.getDatasetMeta(3).data[0].active, 3, bordercolors[3]) : bordercolors[5];
+            chart.getDatasetMeta(4).data[0] ? data.datasets[4].borderColor = setBorderColor(chart.getDatasetMeta(4).data[0].active, 4, bordercolors[4]) : bordercolors[5];
+          }
+          args.changed = true;
+        }
+      }
+
       const totalValueConfig = {
         type: "line",
         data: graphData,
@@ -310,7 +427,7 @@ export default {
           maintainAspectRatio: false,
           interaction: {
             intersect: false,
-            mode: "index",
+            mode: "nearest",
           },
           font: {
             size: 16,
@@ -318,6 +435,7 @@ export default {
           },
           responsive: true,
           plugins: {
+            legend: false,
             htmlLegend: {
               containerID: "totalValueFluid",
             },
@@ -364,7 +482,7 @@ export default {
             },
           },
         },
-        plugins: [htmlLegendPlugin3],
+        plugins: [htmlLegendPlugin3, highlightLine],
       };
 
       window.totalValueGraphChart = new Chart(
@@ -372,18 +490,59 @@ export default {
         totalValueConfig
       );
 
+      function resetColors(chart){
+        chart.config.data.datasets[0].borderColor = bordercolors[0];
+        chart.config.data.datasets[1].borderColor = bordercolors[1];
+        chart.config.data.datasets[2].borderColor = bordercolors[2];
+        chart.config.data.datasets[3].borderColor = bordercolors[3];
+        chart.config.data.datasets[4].borderColor = bordercolors[4];
+        chart.update();
+      }
+
+
+      totalValueGraphArea.addEventListener("mouseleave", (e) => {
+         if(animationTimeout){
+            setTimeout(() => {
+              animationTimeout = false;
+            }, totalDuration);
+          }else{
+          resetColors(window.totalValueGraphChart);
+        }
+      });
+
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        if (screenMode == "light-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
-          graphData.datasets[1].borderColor = "#0E6651";
-          window.totalValueGraphChart.update();
+          graphData.datasets[0].pointBackgroundColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#089875";
+          graphData.datasets[1].pointBackgroundColor = "#089875";
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#FF4C00", "#eee"];
+          resetColors(window.totalValueGraphChart)
+        } else if (screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[0].pointBackgroundColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#089875";
+          graphData.datasets[1].pointBackgroundColor = "#089875";
+          bordercolors = ["#1660A4", "#089875", '#763CA3', "#9D2B2B", "#FF4C00", "#333"];
+          resetColors(window.totalValueGraphChart)
+        } else if (screenMode == "dark-green") {
+          graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[0].pointBackgroundColor = "#26AB8B";
+          graphData.datasets[1].borderColor = "#23669E";
+          graphData.datasets[1].pointBackgroundColor = "#23669E";
+          bordercolors = ["#26AB8B", "#23669E", '#763CA3', "#9D2B2B", "#FF4C00", "#333"];
+          resetColors(window.totalValueGraphChart)
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[0].pointBackgroundColor = "#0E6651";
           graphData.datasets[1].borderColor = "#1660A4";
-          window.totalValueGraphChart.update();
+          graphData.datasets[1].pointBackgroundColor = "#1660A4";
+          bordercolors = ["#0E6651", "#1660A4", '#763CA3', "#9D2B2B", "#FF4C00", "#eee"];
+          resetColors(window.totalValueGraphChart)
         }
+        window.totalValueGraphChart.update();
       });
 
       var assestShowHide2 = document.querySelector(".showAssetsCheckBox");
