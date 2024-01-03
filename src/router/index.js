@@ -180,9 +180,9 @@ const router = createRouter({
       component: () => import("../views/pages/TechnicalError.vue"),
     },
     {
-      path: "/csv-example",
-      name: "csv-example",
-      component: () => import("../views/pages/CsvExample.vue"),
+      path: "/histotical/simulations",
+      name: "histotical-simulations-list",
+      component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
     },
     {
       path: "/:slug/:slug2?/:slug3?",

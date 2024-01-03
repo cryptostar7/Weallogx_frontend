@@ -90,9 +90,9 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a
+          <router-link
             :class="`nav-link ${$isTscUser() ? ' soon' : ''}`"
-            href="#"
+            to="/histotical/simulations"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             title="Historical Simulations"
@@ -123,7 +123,7 @@
               </svg>
               <span>Historical Simulations</span>
             </label>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <router-link
@@ -883,7 +883,6 @@
   <!-- Reset  Modal End -->
 </template>
 <script>
-import { getCurrentUser } from "../../../services/helper";
 
 export default {
   props: ["client"],
@@ -955,7 +954,6 @@ export default {
     }
 
     if (window.innerWidth > 767 && window.innerWidth < 1200) {
-      console.log("yes");
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });

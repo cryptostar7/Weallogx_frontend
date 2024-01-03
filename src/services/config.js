@@ -1,6 +1,8 @@
 const config = {
     SCENARIO_LIST_LIMIT: 3,
     SCENARIO_REPORT_LIST_LIMIT: 2,
+    SIMULATION_LIST_LIMIT: 3,
+    SIMULATION_REPORT_LIST_LIMIT: 2,
     REPORT_LIST_LIMIT: 3,
     INDEX_STRATEGIES: [
         { id: 1, max_limit: 55, template_name: "S&P 500" },

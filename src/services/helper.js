@@ -244,4 +244,11 @@ export const clearScenarioCacheData = () => {
   localStorage.setItem('scenarioStep4', null);
 }
 
+export const clearSimulationCacheData = () => {
+  localStorage.setItem('currentSimulation', null);
+  localStorage.setItem('simulationStep1', null);
+  localStorage.setItem('simulationStep2', null);
+  localStorage.setItem('simulationStep3', null);
+}
+
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
