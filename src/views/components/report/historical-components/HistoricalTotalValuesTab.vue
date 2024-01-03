@@ -153,7 +153,7 @@ export default {
 
       if (card1) {
         value1 = card1.chart_output.total_values.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];
-        years = card1.chart_output.Age;
+        years = card1.chart_output.year;
       }
 
       if (!this.deletedItems.includes(1) && card2) {
@@ -336,7 +336,7 @@ export default {
       });
 
       // Start observing the chart container
-      observer.observe(annualFeeGraphArea);
+      observer.observe(totalValueGraphArea);
 
       function animateChart(chart) {
         chart.options.animation = {
