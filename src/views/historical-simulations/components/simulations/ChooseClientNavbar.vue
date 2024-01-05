@@ -11,7 +11,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="newDropdownBtn">
             <li>
-                <a class="dropdown-item semi-bold-fw" href="javascript:void(0)" data-bs-toggle="offcanvas"  data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">
+                <a class="dropdown-item semi-bold-fw" href="javascript:void(0)" data-bs-toggle="offcanvas"  data-bs-target="#addClientSimulationCanvas" aria-controls="addClientSimulationCanvas">
                     <img src="@/assets/images/icons/dropdown-icon-1.svg" class="img-fluid me-3" alt="New Client">
                     <span>Client</span>
                 </a>

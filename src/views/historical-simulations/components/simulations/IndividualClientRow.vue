@@ -76,9 +76,9 @@
               </svg>
             </button>
             <router-link
-              :to="`/scenario-details?client=${item.id}`"
+              :to="`/historical/simulation-details?client=${item.id}`"
               class="nav-link p-0 plus-sign"
-              @click="goToScenario(`/scenario-details?client=${item.id}`)"
+              @click="goToSimulation(`/historical/simulation-details?client=${item.id}`)"
               >+</router-link
             >
           </div>
@@ -135,7 +135,7 @@
                   class="dropdown-item semi-bold-fw"
                   to=""
                   data-bs-toggle="offcanvas"
-                  data-bs-target="#editClientCanvas"
+                  data-bs-target="#editClientSimulationCanvas"
                   @click="$emit('setActionId', item.id)"
                 >
                   <img
@@ -205,12 +205,12 @@
           v-if="item.scenarios && item.scenarios.length > 0"
           class="list-div"
         >
-          <simulation-row
+          <!-- <simulation-row
             :client="item"
             :clientId="item.id"
             :scenarios="item.scenarios"
             @setActionId="(e) => $emit('setActionId', e, item.id)"
-          />
+          /> -->
         </div>
       </div>
 
@@ -249,11 +249,11 @@
           </svg>
         </h4>
         <div class="list-div">
-          <ReportRow
+          <!-- <report-row
             :reports="item.reports"
             :client="item"
             @setReportActionId="(id) => $emit('setReportId', id)"
-          />
+          /> -->
         </div>
       </div>
     </li>
@@ -315,7 +315,7 @@ export default {
       this.$router.push(url);
     },
     // redirect to the scenario (step 1) page
-    goToScenario: function (url) {
+    goToSimulation: function (url) {
       event.stopPropagation();
       event.preventDefault();
       this.$router.push(url);

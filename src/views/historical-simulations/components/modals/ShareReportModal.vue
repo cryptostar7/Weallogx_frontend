@@ -72,9 +72,9 @@
   </div>
 </template>
 <script>
-import { post, patch } from "../../../network/requests";
-import { getUrl } from "../../../network/url";
-import { authHeader } from "../../../services/helper";
+import { post, patch } from "../../../../network/requests";
+import { getUrl } from "../../../../network/url";
+import { authHeader } from "../../../../services/helper";
 
 export default {
   data() {

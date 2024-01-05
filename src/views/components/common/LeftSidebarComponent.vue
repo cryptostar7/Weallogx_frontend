@@ -2,9 +2,7 @@
   <div :class="`sidebar indexSidebar ${sidebar.collapse}`">
     <div class="position-sticky h-100 sidebar-inner extra">
       <div class="mb-20">
-        <h3
-          class="fs-26 bold-fw text-white hi-username"
-        >
+        <h3 class="fs-26 bold-fw text-white hi-username">
           Hi, {{ $currentUser() ? $currentUser().first_name : "" }}
         </h3>
         <label
@@ -91,7 +89,9 @@
         </li>
         <li class="nav-item">
           <router-link
-            :class="`nav-link ${$isTscUser() ? ' soon' : ''}`"
+            :class="`nav-link ${
+              $route.path == '/histotical/simulations' ? 'active' : ''
+            } ${$isTscUser() ? ' soon' : ''}`"
             to="/histotical/simulations"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
@@ -883,7 +883,6 @@
   <!-- Reset  Modal End -->
 </template>
 <script>
-
 export default {
   props: ["client"],
   data() {
@@ -903,10 +902,10 @@ export default {
     const rightArea = document.querySelector(".right-area");
 
     let isSidebarCollapsed = localStorage.getItem("isSidebarCollapsed");
-    if(isSidebarCollapsed == "true"){
+    if (isSidebarCollapsed == "true") {
       indexSidebar.classList.add("collapsed");
       rightArea.classList.add("wider");
-    }else{
+    } else {
       indexSidebar.classList.remove("collapsed");
       rightArea.classList.remove("wider");
     }
@@ -914,13 +913,13 @@ export default {
     var tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
-    
+
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       tooltipTriggerEl.addEventListener("mouseleave", () => {
-        document.querySelectorAll(".tooltip").forEach(el => el.remove());
+        document.querySelectorAll(".tooltip").forEach((el) => el.remove());
       });
     });
-      
+
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       if (indexSidebar.classList.contains("collapsed")) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -930,18 +929,18 @@ export default {
       }
     });
 
-    if(sideArrow){
+    if (sideArrow) {
       sideArrow.addEventListener("click", () => {
         indexSidebar.classList.toggle("collapsed");
         rightArea.classList.toggle("wider");
 
-        if(indexSidebar.classList.contains("collapsed")){
+        if (indexSidebar.classList.contains("collapsed")) {
           localStorage.setItem("isSidebarCollapsed", true);
-        }else{
+        } else {
           localStorage.setItem("isSidebarCollapsed", false);
         }
         document.body.classList.toggle("wider");
-        
+
         tooltipTriggerList.map(function (tooltipTriggerEl) {
           if (indexSidebar.classList.contains("collapsed")) {
             return new bootstrap.Tooltip(tooltipTriggerEl);

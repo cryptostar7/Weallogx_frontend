@@ -40,7 +40,7 @@
   import ChooseClientNavbar from "../../components/simulations/ChooseClientNavbar.vue";
   import IndividualClientRow from "../../components/simulations/IndividualClientRow.vue";
   import DeleteClientModal from "../../../components/modal/DeleteClientModal.vue";
-  import EditClientCanvasModal from "../../../components/modal/EditClientCanvasModal.vue";
+  import EditClientCanvasModal from "../modals/EditClientCanvasModal.vue";
   import DeleteHistoricalSimulationModal from "../../components/modals/DeleteHistoricalSimulationModal.vue";
   import DeleteReportModal from "../../components/modals/DeleteReportModal.vue";
   import CloneHistoricalSimulationModal from "../../components/modals/CloneHistoricalSimulationModal.vue";

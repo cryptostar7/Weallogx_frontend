@@ -185,6 +185,11 @@ const router = createRouter({
       component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
     },
     {
+      path: "/histotical/simulations-details",
+      name: "histotical-simulations-list",
+      component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
+    },
+    {
       path: "/:slug/:slug2?/:slug3?",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),

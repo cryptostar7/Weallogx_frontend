@@ -14,8 +14,8 @@
   
   <script>
   import NavbarComponent from "../../components/common/NavbarComponent.vue";
-  import AddClientModal from "../../components/modal/AddClientModal.vue";
-  import ShareReportModal from "../../components/modal/ShareReportModal.vue";
+  import AddClientModal from "../components/modals/AddClientModal.vue";
+  import ShareReportModal from "../components/modals/ShareReportModal.vue";
   import ReportBuilderNameChangeModal from "../components/modals/ReportBuilderNameChangeModal.vue";
   import SimulationListMainSection from "../components/simulations/SimulationListMainSection.vue";
   
