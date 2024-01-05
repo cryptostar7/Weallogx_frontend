@@ -186,7 +186,7 @@ const router = createRouter({
     },
     {
       path: "/histotical/simulations-details",
-      name: "histotical-simulations-list",
+      name: "histotical-simulations-details",
       component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
     },
     {
