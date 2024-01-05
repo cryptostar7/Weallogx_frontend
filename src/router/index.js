@@ -180,14 +180,14 @@ const router = createRouter({
       component: () => import("../views/pages/TechnicalError.vue"),
     },
     {
-      path: "/histotical/simulations",
-      name: "histotical-simulations-list",
+      path: "/historical/simulations",
+      name: "historical-simulations-list",
       component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
     },
     {
-      path: "/histotical/simulations-details",
-      name: "histotical-simulations-details",
-      component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
+      path: "/historical/simulation-details/:simulation?",
+      name: "historical-simulation-details",
+      component: () => import("../views/historical-simulations/pages/SimulationDetailsPage.vue"),
     },
     {
       path: "/:slug/:slug2?/:slug3?",

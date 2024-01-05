@@ -196,6 +196,38 @@ export const mapClientList = (array = []) => {
   });
 }
 
+export const setCurrentSimulation = (obj) => {
+  return localStorage.setItem('currentSimulation', JSON.stringify(obj));
+}
+
+export const getCurrentSimulation = () => {
+  return JSON.parse(localStorage.getItem('currentSimulation'));
+}
+
+export const setSimulationStep1 = (obj) => {
+  return localStorage.setItem('simulationStep1', JSON.stringify(obj));
+}
+
+export const getSimulationStep1 = () => {
+  return JSON.parse(localStorage.getItem('simulationStep1'));
+}
+
+export const setSimulationStep2 = (obj) => {
+  return localStorage.setItem('simulationStep2', JSON.stringify(obj));
+}
+
+export const getSimulationStep2 = () => {
+  return JSON.parse(localStorage.getItem('simulationStep2'));
+}
+
+export const setSimulationStep3 = (obj) => {
+  return localStorage.setItem('simulationStep3', JSON.stringify(obj));
+}
+
+export const getSimulationStep3 = () => {
+  return JSON.parse(localStorage.getItem('simulationStep3'));
+}
+
 export const setCurrentScenario = (obj) => {
   return localStorage.setItem('currentScenario', JSON.stringify(obj));
 }

@@ -44,7 +44,7 @@
             <p class="inputError" v-if="serverErrors.age">{{serverErrors.age[0]}}</p>
           </div>
           <div class="offcanBtnDiv">
-            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Simulations" @click="() => createSimulation = 1">
+            <input type="submit" class="btn form-control SaveAddBtn" value="Save & Add New Simulation" @click="() => createSimulation = 1">
             <input type="submit" class="btn form-control mt-3 SaveclsBtn" value="Save & Close" @click="() => createSimulation = 0">
           </div>
         </div>

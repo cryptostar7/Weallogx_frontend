@@ -90,9 +90,9 @@
         <li class="nav-item">
           <router-link
             :class="`nav-link ${
-              $route.path == '/histotical/simulations' ? 'active' : ''
+              $route.path == '/historical/simulations' ? 'active' : ''
             } ${$isTscUser() ? ' soon' : ''}`"
-            to="/histotical/simulations"
+            to="/historical/simulations"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             title="Historical Simulations"

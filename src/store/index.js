@@ -167,6 +167,7 @@ const store = createStore({
                     lastname: '',
                 },
                 scenario: { name: '' },
+                simulation: { name: '' },
                 report_id: '',
                 report_link: ''
             },
@@ -174,6 +175,7 @@ const store = createStore({
             illustration_files: [],
             current_plan: false,
             active_scenario: false,
+            active_simulation: false,
             templates: [],
             tax_scorecard: {
                 validation: {form_valid: false, swith_year_valid: true, social_security_age_valid: true, filing_status_valid: true},
@@ -323,6 +325,9 @@ const store = createStore({
         setActiveScenario(state, payload) {
             state.data.active_scenario = payload;
         },
+        setActiveSimulation(state, payload) {
+            state.data.active_simulation = payload;
+        },
         setTemplate(state, payload) {
             state.data.templates[payload.type] = payload.data;
         },
@@ -443,6 +448,9 @@ const store = createStore({
         },
         activeScenario(context, payload) {
             context.commit('setActiveScenario', payload);
+        },
+        activeSimulation(context, payload) {
+            context.commit('setActiveSimulation', payload);
         },
         template(context, payload) {
             context.commit('setTemplate', payload);

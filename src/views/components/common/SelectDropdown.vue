@@ -15,7 +15,7 @@
         </span>
         <small class="text-danger" v-if="$props.error">{{$props.error[0]}}</small>
         <div v-if="dropdown" class="autocomplete-items" @click="e => e.stopPropagation()">
-            <div v-if="$props.addNewClient && (!selectList.length || !templateText)"  data-bs-toggle="offcanvas" data-bs-target="#addClientCanvas" aria-controls="addClientCanvas">Create New Client</div>
+            <div v-if="$props.addNewClient && (!selectList.length || !templateText)"  data-bs-toggle="offcanvas" :data-bs-target="`#${$props.createItemModalId || 'addClientCanvas'}`" :aria-controls="`${$props.createItemModalId || 'addClientCanvas'}`">Create New Client</div>
             <div v-for="(item, index) in selectList" :key="index" @click="(e) => setInputValue(item.template_name, item.id)">{{item.template_name}}</div>
         </div>
       </div>
@@ -34,6 +34,7 @@ export default {
     "clearInput",
     "error",
     "showAll",
+    "createItemModalId",
   ],
   data() {
     return {

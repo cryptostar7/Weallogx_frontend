@@ -39,6 +39,18 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/template-sceneriodetails/`;
     case 'scenario-schedule-templates':
       return `${baseUrl}/auth/template-schedule/`;
+
+    case 'simulations':
+      return `${baseUrl}/historical/simulation/`;
+    case 'simulation-details':
+      return `${baseUrl}/historical/simulation-details/`;
+    case 'simulation-detail-templates':
+      return `${baseUrl}/historical/template-simulation-details/`;
+    // case 'scenario-detail-templates':
+    //   return `${baseUrl}/auth/template-sceneriodetails/`;
+    // case 'scenario-schedule-templates':
+    //   return `${baseUrl}/auth/template-schedule/`;
+
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':
