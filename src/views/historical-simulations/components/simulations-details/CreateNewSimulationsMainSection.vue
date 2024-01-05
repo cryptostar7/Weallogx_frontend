@@ -596,8 +596,8 @@ export default {
           .then((response) => {
             console.log(response.data);
             this.$store.dispatch("loader", false);
-            this.setFormInputs(response.data, template);
-            setSimulationStep1(response.data);
+            this.setFormInputs(response.data.data, template);
+            setSimulationStep1(response.data.data);
           })
           .catch((error) => {
             if (

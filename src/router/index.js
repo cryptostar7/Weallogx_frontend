@@ -218,6 +218,8 @@ const authRoutes = [
   'report-builder',
   'index-strategy-calculator',
   'index-strategy-calculator-run',
+  'historical-simulations-list',
+  'historical-simulation-details'
 ];
 
 // these routes are secure with active plans
