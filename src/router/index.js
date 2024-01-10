@@ -190,6 +190,16 @@ const router = createRouter({
       component: () => import("../views/historical-simulations/pages/SimulationDetailsPage.vue"),
     },
     {
+      path: "/historical/illustration-data/:simulation",
+      name: "historical-illustration-data",
+      component: () => import("../views/historical-simulations/pages/IllustrationDataPage.vue"),
+    },
+    {
+      path: "/historical/parameters/:simulation",
+      name: "historical-parameters",
+      component: () => import("../views/historical-simulations/pages/SimulationParametersPage.vue"),
+    },
+    {
       path: "/:slug/:slug2?/:slug3?",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),

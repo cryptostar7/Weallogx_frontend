@@ -4928,3 +4928,22 @@ fill: #f5f5f5;
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
 }
+
+/* Extra New CSS for Historical Simulations Stand Alone */
+.dark-blue .outer-div-all-div {
+  background: #2E3135;
+  box-shadow: none
+}
+.history-simulation-para {
+  color: #25967b;
+}
+
+.dark-blue .navbar-brand.green{
+  display: none;
+}
+.dark-blue .navbar-brand.blue{
+  display: none;
+}
+.dark-blue .navbar-brand.dark{
+  display: block;
+}

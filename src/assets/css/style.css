@@ -5610,3 +5610,30 @@ input[type=number] {
   height: 1px;
   background-color: #DFDFDF;
 }
+
+
+/* New CSS Added for Historical Simulations Stand alone*/
+
+.outer-div-all-div {
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0px 0.25px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 20px 16px;
+}
+
+.history-simulation-para {
+  color: #25967b;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+
+/* Extra CSS for Historical Simulations */
+.navbar-brand.blue{
+  display: none;
+}
+.navbar-brand.dark{
+  display: none;
+}
+

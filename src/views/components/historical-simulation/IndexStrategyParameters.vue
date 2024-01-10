@@ -367,7 +367,7 @@ import AnalysisParameters from "./AnalysisParameters.vue";
 import EnhancementsComponent from "./EnhancementsComponent.vue";
 import GrowthParameters from "./GrowthParameters.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
-import FeesComponent from "./FeesComponentNew.vue";
+import FeesComponent from "./FeesComponent.vue";
 import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StrategyWeightComponent from "./StrategyWeightComponent.vue";
 import StrategyWeightFirstComponent from "./StrategyWeightFirstComponent.vue";

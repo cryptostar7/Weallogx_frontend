@@ -381,7 +381,7 @@
   </form>
 </template>
 <script>
-import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
+import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
   props: [

@@ -804,7 +804,7 @@ export default {
           setSimulationStep1(response.data.data);
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          let url = `/historical/illustration/${this.activeSimulation.id}`;
+          let url = `/historical/illustration-data/${this.activeSimulation.id}`;
           if (review) {
             return this.$router.push(
               `/review-summary/${this.activeSimulation.id}`
@@ -859,7 +859,7 @@ export default {
           this.$store.dispatch("loader", false);
           if (response.data.id) {
             this.$router.push({
-              path: `/historical/illustration/${response.data.id}`,
+              path: `/historical/illustration-data/${response.data.id}`,
               query: this.$route.query,
             });
           } else {

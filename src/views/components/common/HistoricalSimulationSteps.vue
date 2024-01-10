@@ -80,7 +80,7 @@ export default {
       }
 
       if (response.class) {
-        response.url = `/historical/illustration/${
+        response.url = `/historical/illustration-data/${
           this.$route.params.simulation || ""
         }`;
       }

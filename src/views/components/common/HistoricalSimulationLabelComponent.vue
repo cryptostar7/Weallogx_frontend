@@ -1,7 +1,7 @@
 <template lang="">
     <div class="main-form-heading"> 
         <div class="heading-container">
-            <h2 class="fs-34 bold-fw main-tab-heading me-2"  id="stopLoaderBtn" @click="$store.dispatch('loader', false)">
+            <h2 class="fs-34 bold-fw main-tab-heading me-2"  id="stopLoaderBtn2" @click="$store.dispatch('loader', false)">
                 Historical Simulations
             </h2>
         </div>

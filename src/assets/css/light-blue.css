@@ -1614,3 +1614,28 @@ background: #1660A4;
   border: 1.5px solid #0E6651;
   color: #0E6651;
 }
+
+/* Extra New CSS for Historical Simulations Stand Alone */
+.outer-div-all-div {
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0px 0.25px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 20px 16px;
+}
+
+.light-blue .history-simulation-para {
+  color: #1A89EE;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.light-blue .navbar-brand.green{
+  display: none;
+}
+.light-blue .navbar-brand.blue{
+  display: block;
+}
+.light-blue .navbar-brand.dark{
+  display: none;
+}
