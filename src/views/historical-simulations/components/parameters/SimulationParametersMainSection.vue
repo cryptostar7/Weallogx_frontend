@@ -11,7 +11,8 @@
                 <div class="row justify-content-center">
                   <div class="col-sm-12 col-lg-11 col-xl-9">
                     <div class="d-flex align-items-center">
-                      <label @click="testFunction"
+                      <label
+                        @click="testFunction"
                         for="scheduleTemplateCheckbox"
                         class="historical-paraCheckBox"
                         >Parameters</label
@@ -31,46 +32,14 @@
                       <div class="row mb-4">
                         <div class="col-md-6 offset-md-3">
                           <form action="javascript:void(0)">
-                            <div
+                            <SelectDropdown
+                              :list="existingPortfolio"
+                              :optional="true"
+                              @onSelectItem="handlePortfolio"
+                              label="Use Existing Index Strategy Allocation"
+                              id="indexStrategySimulationAllocation"
                               class="form-group less"
-                              id="selectDropdownMainComponent"
-                            >
-                              <!--v-if-->
-                              <div
-                                class="d-flex justify-content-between align-items-center mb-1"
-                              >
-                                <label
-                                  for="indexStrategyAllocation"
-                                  class="fs-14 bold-fw"
-                                  >Use Existing Index Strategy Allocation</label
-                                ><label class="labelOptional">OPTIONAL</label>
-                              </div>
-                              <div class="p-relative">
-                                <input
-                                  type="text"
-                                  id="indexStrategyAllocation"
-                                  placeholder="Select or Start Typing"
-                                  class="form-control pe-5 autocomplete customSelectDropdown"
-                                  autocomplete="off"
-                                /><span class="chevron-span py-2"
-                                  ><svg
-                                    width="12"
-                                    height="8"
-                                    viewBox="0 0 12 8"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z"
-                                      fill="black"
-                                    ></path>
-                                    <path
-                                      d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z"
-                                      fill="black"
-                                    ></path></svg></span
-                                ><!--v-if--><!--v-if-->
-                              </div>
-                            </div>
+                            />
                           </form>
                         </div>
                       </div>
@@ -89,48 +58,49 @@
                         @populateIndexTemplate="populateIndexTemplate"
                         @setUpdated="(index) => setUpdated(index)"
                       />
-         
                     </div>
                     <div class="text-center mt-30">
+                      <router-link
+                        to=""
+                        class="nav-link btn d-inline-block form-next-btn active fs-14"
+                        id="nextBtnVsblOnSlct"
+                        @click="submitHandler()"
+                        >{{
+                          $route.query.review === "true"
+                            ? "Save & Review"
+                            : "Review"
+                        }}</router-link
+                      >
+                      <span class="d-block mb-3"></span>
+                      <div
+                        class="d-flex justify-content-center position-relative mb-5"
+                      >
                         <router-link
-                          to=""
-                          class="nav-link btn d-inline-block form-next-btn active fs-14"
-                          id="nextBtnVsblOnSlct"
-                          @click="submitHandler()"
-                          >{{
-                            $route.query.review === "true"
-                              ? "Save & Review"
-                              : "Review"
-                          }}</router-link
+                          :to="`/${
+                            $route.query.review === 'true'
+                              ? 'historical/simulation-review'
+                              : 'historical-index-strategy-allocation'
+                          }/${$route.params.simulation}`"
+                          class="nav-link btn form-back-btn mt-3 px-4 fs-14 backHistoricalBtn start-50 translate-middle"
                         >
-                        <span class="d-block mb-3"></span>
-                        <div class="d-flex justify-content-center position-relative mb-5">
-                          <router-link
-                            :to="`/${
-                              $route.query.review === 'true'
-                                ? 'review-summary'
-                                : 'historical-index-strategy-allocation'
-                            }/${$route.params.simulation}`"
-                            class="nav-link btn form-back-btn mt-3 px-4 fs-14 backHistoricalBtn start-50 translate-middle"
-                          >
-                            <img
-                              src="@/assets/images/icons/chevron-left-grey.svg"
-                              class="img-fluid me-1"
-                              style="position: relative; top: 0px"
-                              alt="Chevron"
-                              width="6"
-                            />Back
-                          </router-link>
-              
-                          <a
-                            href="javascript:void(0)"
-                            class="nav-link btn form-back-btn fs-14 skipScenarioBtn"
-                            v-if="!$route.query.report"
-                            @click="submitHandler(false, true)"
-                            >Save & Return to Current Report</a
-                          >
-                        </div>
+                          <img
+                            src="@/assets/images/icons/chevron-left-grey.svg"
+                            class="img-fluid me-1"
+                            style="position: relative; top: 0px"
+                            alt="Chevron"
+                            width="6"
+                          />Back
+                        </router-link>
+
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link btn form-back-btn fs-14 skipScenarioBtn"
+                          v-if="!$route.query.report"
+                          @click="submitHandler(false, true)"
+                          >Save & Return to Current Report</a
+                        >
                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,6 +117,7 @@ import GlobalParameters from "../parameters/global/GlobalParameters.vue";
 import IndexStrategyParameters from "../parameters/index/IndexStrategyParameters.vue";
 import HistoricalSimulationLabelComponent from "../../../components/common/HistoricalSimulationLabelComponent.vue";
 import HistoricalSimulationSteps from "../../../components/common/HistoricalSimulationSteps.vue";
+import SelectDropdown from "../../../components/common/SelectDropdown.vue";
 import { post, get, put } from "../../../../network/requests";
 import {
   authHeader,
@@ -162,6 +133,7 @@ export default {
     IndexStrategyParameters,
     HistoricalSimulationLabelComponent,
     HistoricalSimulationSteps,
+    SelectDropdown,
   },
   data() {
     return {
@@ -191,6 +163,12 @@ export default {
   methods: {
     testFunction: function () {
       console.log(this.illustrateYear);
+    },
+    handlePortfolio: function (id) {
+      this.$router.push(
+        `/historical/parameters/${this.$route.params.simulation}?pid=${id}`
+      );
+      // populateHistoricalSimulationData
     },
     setUpdated: function (index) {
       this.update[index] = false;
@@ -243,9 +221,15 @@ export default {
       }
     },
     getActiveTabs: function () {
-      let tab1 = document.getElementById("simulation_index_stategy_tab1").checked;
-      let tab2 = document.getElementById("simulation_index_stategy_tab2").checked;
-      let tab3 = document.getElementById("simulation_index_stategy_tab3").checked;
+      let tab1 = document.getElementById(
+        "simulation_index_stategy_tab1"
+      ).checked;
+      let tab2 = document.getElementById(
+        "simulation_index_stategy_tab2"
+      ).checked;
+      let tab3 = document.getElementById(
+        "simulation_index_stategy_tab3"
+      ).checked;
       return [tab1, tab2, tab3];
     },
     getGlobalParameterData: function () {
@@ -304,13 +288,21 @@ export default {
         if (activeTabs[i - 1]) {
           let obj = {
             index: this.getInputWithId("simulation_analysis_index" + i),
-            cap_rate_range: this.isChecked("simulation_is_active_cap_rate_range" + i)
+            cap_rate_range: this.isChecked(
+              "simulation_is_active_cap_rate_range" + i
+            )
               ? this.getInputWithId("simulation_cap_rate_range" + i)
               : 1000,
-            participation_range: this.getInputWithId("simulation_participation_range" + i),
-            margin_spread_range: this.getInputWithId("simulation_margin_spread_range" + i),
+            participation_range: this.getInputWithId(
+              "simulation_participation_range" + i
+            ),
+            margin_spread_range: this.getInputWithId(
+              "simulation_margin_spread_range" + i
+            ),
             floor_range: this.getInputWithId("simulation_floor_range" + i),
-            segment_year_range: this.getInputWithId("simulation_segment_year_range" + i),
+            segment_year_range: this.getInputWithId(
+              "simulation_segment_year_range" + i
+            ),
           };
           arr.push(obj);
         }
@@ -335,7 +327,9 @@ export default {
             let performance_obj = {
               checkbox: performance_checkbox,
               type: this.getInputWithId("simulation_performance_type" + i),
-              multiplier: this.getInputWithId("simulation_multiplier_input" + i),
+              multiplier: this.getInputWithId(
+                "simulation_multiplier_input" + i
+              ),
               start_year: this.getInputWithId("simulation_prf_start_year" + i),
             };
 
@@ -345,7 +339,9 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`simulation_multiplier_schedule${i}${y}`) || 0,
+                    this.getInputWithId(
+                      `simulation_multiplier_schedule${i}${y}`
+                    ) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -357,7 +353,9 @@ export default {
             let credit_obj = {
               checkbox: credit_checkbox,
               type: this.getInputWithId("simulation_credit_type" + i),
-              schedule_type: this.getInputWithId("simulation_credit_schedule_type" + i),
+              schedule_type: this.getInputWithId(
+                "simulation_credit_schedule_type" + i
+              ),
               credit: this.getInputWithId("simulation_credit_bonus_input" + i),
               start_year: this.getInputWithId("simulation_crd_start_year" + i),
             };
@@ -403,9 +401,13 @@ export default {
           //performance multiplier fees
           var pmfobj = false;
           if (performance_checkbox) {
-            let pmf_all_year = Number(this.getInputWithId("simulation_pmf_all_year" + i));
+            let pmf_all_year = Number(
+              this.getInputWithId("simulation_pmf_all_year" + i)
+            );
             pmfobj = {
-              fees: this.getInputWithId("simulation_performance_multiplier_fees" + i),
+              fees: this.getInputWithId(
+                "simulation_performance_multiplier_fees" + i
+              ),
               same_all_year: pmf_all_year,
             };
 
@@ -414,7 +416,8 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`simulation_pmf_schedule${i}${y}`) || 0,
+                  value:
+                    this.getInputWithId(`simulation_pmf_schedule${i}${y}`) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -425,7 +428,9 @@ export default {
           var fcfobj = false;
 
           if (flat_checkbox) {
-            let fcf_all_year = Number(this.getInputWithId("simulation_fcf_all_year" + i));
+            let fcf_all_year = Number(
+              this.getInputWithId("simulation_fcf_all_year" + i)
+            );
             fcfobj = {
               fees: this.getInputWithId("simulation_flat_credit_fees" + i),
               same_all_year: fcf_all_year,
@@ -476,7 +481,9 @@ export default {
         ? document.getElementById("saveSimulationPortfolioCheckbox").checked
         : false;
 
-      let portFolioName = document.getElementById("portFolioSimulationNameInput")
+      let portFolioName = document.getElementById(
+        "portFolioSimulationNameInput"
+      )
         ? document.getElementById("portFolioSimulationNameInput").value
         : false;
 
@@ -485,7 +492,9 @@ export default {
         if (t) {
           var checkbox = this.isChecked(`saveSimulationIndexTemp${i + 1}`);
           if (checkbox) {
-            let tempName = this.getInputWithId(`templateSimulationNameInput${i + 1}`);
+            let tempName = this.getInputWithId(
+              `templateSimulationNameInput${i + 1}`
+            );
             templates[i + 1] = tempName;
             if (!tempName) {
               valid = false;
@@ -506,7 +515,9 @@ export default {
           if (!form) {
             if (!focus) {
               focus = true;
-              var area = document.getElementById(`simulation-fees-parameters${i + 1}`);
+              var area = document.getElementById(
+                `simulation-fees-parameters${i + 1}`
+              );
               if (this.error[i + 1].fees) {
                 if (!area.classList.contains("show")) {
                   area.classList.add("show");
@@ -631,13 +642,18 @@ export default {
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
-          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc1"),
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPm1"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPmf1"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllFcf1"),
+          flat_credit_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFc1"
+          ),
+          performance_multiplier_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPm1"
+          ),
+          performance_multiplier_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPmf1"
+          ),
+          flat_credit_bonus_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFcf1"
+          ),
         },
         index_strategy_2: null,
         index_strategy_3: null,
@@ -743,13 +759,18 @@ export default {
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
-          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc2"),
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPm2"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPmf2"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllFcf2"),
+          flat_credit_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFc2"
+          ),
+          performance_multiplier_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPm2"
+          ),
+          performance_multiplier_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPmf2"
+          ),
+          flat_credit_bonus_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFcf2"
+          ),
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
@@ -850,13 +871,18 @@ export default {
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
-          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc3"),
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPm3"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllPmf3"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("simulationApplyAllFcf3"),
+          flat_credit_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFc3"
+          ),
+          performance_multiplier_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPm3"
+          ),
+          performance_multiplier_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllPmf3"
+          ),
+          flat_credit_bonus_fees_apply_for_all_indexes: this.isChecked(
+            "simulationApplyAllFcf3"
+          ),
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
@@ -896,11 +922,12 @@ export default {
         }
       }
 
+      console.log(formData);
       this.$store.dispatch("loader", true);
 
       if (this.historicalId) {
         put(
-          `${getUrl("historical")}${this.historicalId}/`,
+          `${getUrl("historical-parameters")}${this.historicalId}/`,
           formData,
           authHeader()
         )
@@ -908,10 +935,10 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             if (report) {
-              this.$router.push(`/report-builder/${this.$route.query.report}`);
+              this.$router.push(`/historical/report-builder/${this.$route.query.report}`);
             } else {
               this.$router.push(
-                `/review-summary/${this.$route.params.simulation}`
+                `/historical/simulation-review/${this.$route.params.simulation}`
               );
             }
           })
@@ -927,12 +954,14 @@ export default {
             this.$store.dispatch("loader", false);
           });
       } else {
-        post(getUrl("historical"), formData, authHeader())
+        post(getUrl("historical-parameters"), formData, authHeader())
           .then((response) => {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.historicalId = response.data.data.id;
-            this.$router.push(`/review-summary/${this.$route.params.simulation}`);
+            this.$router.push(
+              `/historical/simulation-review/${this.$route.params.simulation}`
+            );
           })
           .catch((error) => {
             if (
@@ -953,10 +982,19 @@ export default {
         this.setUnChecked(`simulation_is_active_cap_rate_range${tab}`);
       } else {
         this.setChecked(`simulation_is_active_cap_rate_range${tab}`);
-        this.setInputWithId(`simulation_cap_rate_range${tab}`, Number(obj.cap_rate));
+        this.setInputWithId(
+          `simulation_cap_rate_range${tab}`,
+          Number(obj.cap_rate)
+        );
       }
-      this.setInputWithId(`simulation_participation_range${tab}`, obj.participation_rate);
-      this.setInputWithId(`simulation_margin_spread_range${tab}`, obj.margin_spread);
+      this.setInputWithId(
+        `simulation_participation_range${tab}`,
+        obj.participation_rate
+      );
+      this.setInputWithId(
+        `simulation_margin_spread_range${tab}`,
+        obj.margin_spread
+      );
       this.setInputWithId(`simulation_floor_range${tab}`, obj.floor);
       this.setInputWithId(
         `simulation_segment_year_range${tab}`,
@@ -982,7 +1020,10 @@ export default {
           obj.performance_multiplier_schedule
         ) {
           obj.performance_multiplier_schedule.forEach((i) => {
-            this.setInputWithId(`simulation_multiplier_schedule${tab}${i.year}`, i.value);
+            this.setInputWithId(
+              `simulation_multiplier_schedule${tab}${i.year}`,
+              i.value
+            );
           });
         } else {
           this.setInputWithId(
@@ -1047,10 +1088,16 @@ export default {
       if (obj.performance_multiplier) {
         if (obj.performance_multiplier_fees_same_in_all_years_schedule) {
           this.setUnChecked(`simulationMultiplierFee${tab}`);
-          this.setInputWithId(`simulation_performance_multiplier_fees${tab}`, "");
+          this.setInputWithId(
+            `simulation_performance_multiplier_fees${tab}`,
+            ""
+          );
           obj.performance_multiplier_fees_same_in_all_years_schedule.forEach(
             (i) => {
-              this.setInputWithId(`simulation_pmf_schedule${tab}${i.year}`, i.value);
+              this.setInputWithId(
+                `simulation_pmf_schedule${tab}${i.year}`,
+                i.value
+              );
             }
           );
         } else {
@@ -1068,7 +1115,10 @@ export default {
           this.setUnChecked(`simulation-flat-credit-fee-radio${tab}`);
           this.setInputWithId(`simulation_flat_credit_fees${tab}`, "");
           obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach((i) => {
-            this.setInputWithId(`simulation_fcf_schedule${tab}${i.year}`, i.value);
+            this.setInputWithId(
+              `simulation_fcf_schedule${tab}${i.year}`,
+              i.value
+            );
           });
         } else {
           this.setChecked(`simulation-flat-credit-fee-radio${tab}`);
@@ -1099,7 +1149,10 @@ export default {
         });
       } else {
         this.setChecked("simulationPremiumCharge");
-        this.setInputWithId("simulation_premium_charge_fees", obj.premium_charge);
+        this.setInputWithId(
+          "simulation_premium_charge_fees",
+          obj.premium_charge
+        );
       }
 
       // Loan interest rate
@@ -1111,7 +1164,10 @@ export default {
         });
       } else {
         this.setChecked("simulationLoanIntrest");
-        this.setInputWithId("simulation_loan_interest_fees", obj.loan_intrest_rate);
+        this.setInputWithId(
+          "simulation_loan_interest_fees",
+          obj.loan_intrest_rate
+        );
       }
 
       this.update.global_parameters = true;
@@ -1154,7 +1210,11 @@ export default {
     // get previous data
     populateHistoricalSimulationData: function (id, portfolio = false) {
       get(
-        `${getUrl(portfolio ? "historical-parameters-portfolio" : "historical-parameters")}${id}`,
+        `${getUrl(
+          portfolio
+            ? "historical-parameters-portfolio"
+            : "historical-parameters"
+        )}${id}/`,
         authHeader()
       )
         .then((response) => {
@@ -1163,12 +1223,12 @@ export default {
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {
             // this.tabs.tab2 = true;
-            this.setChecked("index_stategy_tab2");
+            this.setChecked("simulation_index_stategy_tab2");
             this.populateIndex(2, data.index_strategy_2);
           }
           if (data.index_strategy_3) {
             // this.tabs.tab3 = true;
-            this.setChecked("index_stategy_tab3");
+            this.setChecked("simulation_index_stategy_tab3");
             this.populateIndex(3, data.index_strategy_3);
           }
 
@@ -1207,7 +1267,9 @@ export default {
       let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
         ? document.getElementById("saveSimulationPortfolioCheckbox").checked
         : false;
-      let portFolioName = document.getElementById("portFolioSimulationNameInput")
+      let portFolioName = document.getElementById(
+        "portFolioSimulationNameInput"
+      )
         ? document.getElementById("portFolioSimulationNameInput").value
         : false;
 
@@ -1298,7 +1360,7 @@ export default {
     //  all template data from API
     getExistingIndex: function () {
       this.$store.dispatch("loader", true);
-      get(getUrl("historical-template"), authHeader())
+      get(getUrl("historical-parameters-index-template"), authHeader())
         .then((response) => {
           var data = response.data.data;
           var temp = [];
@@ -1348,6 +1410,36 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    //  portfolio template data from API
+    getExistingPortfolio: function () {
+      this.$store.dispatch("loader", true);
+      console.log("historical-parameters-portfolio");
+      get(getUrl("historical-parameters-portfolio"), authHeader())
+        .then((response) => {
+          var data = response.data.data;
+          var array = data.map((item) => {
+            return { id: item.id, template_name: item.portfolio_name };
+          });
+
+          console.log("array");
+          console.log(array);
+
+          this.$store.dispatch("template", {
+            type: "historical_portfolio",
+            data: array,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
   },
   mounted() {
     // input validation for min and max value
@@ -1372,12 +1464,13 @@ export default {
 
     // populate historical data if historical data id exist in simulation
     this.$store.dispatch("loader", true);
-    console.log('response');
-
-    get(`${getUrl("simulations")}${this.$route.params.simulation}`, authHeader())
+    get(
+      `${getUrl("simulations")}${this.$route.params.simulation}`,
+      authHeader()
+    )
       .then((response) => {
         console.log(response);
-        let id = response.data.data.historical;
+        let id = response.data.data.standalone_historical;
         this.historicalId = id;
         this.$store.dispatch("activeSimulation", response.data.data);
         if (
@@ -1404,6 +1497,11 @@ export default {
     if (!this.existingIndex.length) {
       this.getExistingIndex();
     }
+
+    // get portfolio list
+    if (!this.existingPortfolio.length) {
+      this.getExistingPortfolio();
+    }
   },
   computed: {
     illustrateYear() {
@@ -1414,7 +1512,19 @@ export default {
       return 0;
     },
     existingIndex() {
-      return this.$store.state.data.templates.historical || [];
+      return this.$store.state.data.templates.simulation_parameter_index || [];
+    },
+    existingPortfolio() {
+      return this.$store.state.data.templates.historical_portfolio || [];
+    },
+  },
+  watch: {
+    "$route.query.pid"(id) {
+      if(id && id !== "null"){
+      console.log('======================');
+      this.$store.dispatch("loader", true);
+        this.populateHistoricalSimulationData(id, true);
+      }
     },
   },
 };

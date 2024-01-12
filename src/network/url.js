@@ -39,7 +39,6 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/template-sceneriodetails/`;
     case 'scenario-schedule-templates':
       return `${baseUrl}/auth/template-schedule/`;
-
     case 'simulations':
       return `${baseUrl}/historical/simulation/`;
     case 'simulation-details':
@@ -48,10 +47,18 @@ export const getUrl = (type) => {
       return `${baseUrl}/historical/template-simulation-details/`;
     case 'historical-illustrations':
       return `${baseUrl}/historical/illustrations/`;
+    case 'historical-illustration-template':
+      return `${baseUrl}/historical/template-existing-illustration/`;
     case 'historical-parameters':
       return `${baseUrl}/historical/parameters/`;
-      case 'historical-parameters-portfolio':
-        return `${baseUrl}/historical/standalone-parameters-portfolio/`;
+    case 'historical-parameters-portfolio':
+      return `${baseUrl}/historical/standalone-parameters-portfolio/`;
+    case 'historical-template-insurance-profile':
+      return `${baseUrl}/historical/standalone-template-insurance-profile/`;
+    case 'historical-parameters-index-template':
+      return `${baseUrl}/historical/parameters-template-index/`;
+    case 'historical-parameters-portfolio':
+      return `${baseUrl}/historical/standalone-parameters-portfolio/`;
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':

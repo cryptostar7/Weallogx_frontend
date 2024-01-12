@@ -1150,8 +1150,6 @@ export default {
     let simulationData = getCurrentSimulation();
     if (this.$route.params.simulation) {
       let getSimulationAPI = true;
-      console.log('++++++');
-      console.log(getSimulationAPI);
       if (
         simulationData &&
         simulationData.id === Number(this.$route.params.simulation)
@@ -1167,13 +1165,11 @@ export default {
         }
       }
 
-
       if (getSimulationAPI) {
-
         this.$store.dispatch("loader", true);
         get(`${getUrl("simulations")}${this.$route.params.simulation}`, authHeader())
           .then((response) => {
-            let id = response.data.data.illustration;
+            let id = response.data.data.historical_illustration;
             this.illustrationId = id;
             this.$store.dispatch("activeSimulation", response.data.data);
             if (id) {
@@ -1199,7 +1195,6 @@ export default {
     }
 
     if (!this.existingIllustrationList.length) {
-      console.log('..........');
       this.getExistingIllustration();
     }
 
@@ -1427,7 +1422,7 @@ export default {
       this.$store.dispatch("loader", true);
       get(
         `${getUrl(
-          template ? "template-insurance-profile" : "illustration"
+          template ? "historical-template-insurance-profile" : "historical-illustrations"
         )}${id}`,
         authHeader()
       )
@@ -1466,7 +1461,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("illustration-template")}${id}`, authHeader())
+      get(`${getUrl("historical-illustration-template")}${id}`, authHeader())
         .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");
@@ -1829,7 +1824,7 @@ export default {
 
     // get existing insurance profile template
     getExistingInsurance: function () {
-      get(getUrl("template-insurance-profile"), authHeader())
+      get(getUrl("historical-template-insurance-profile"), authHeader())
         .then((response) => {
           let template = [];
           if (response.data.data.length) {
@@ -1860,7 +1855,7 @@ export default {
     // get existing illustration data template
     getExistingIllustration: function () {
       this.$store.dispatch("loader", true);
-      get(getUrl("illustration-template"), authHeader())
+      get(getUrl("historical-illustration-template"), authHeader())
         .then((response) => {
           this.$store.dispatch("template", {
             type: "illustration",

@@ -200,6 +200,11 @@ const router = createRouter({
       component: () => import("../views/historical-simulations/pages/SimulationParametersPage.vue"),
     },
     {
+      path: "/historical/simulation-review/:simulation?",
+      name: "historical-simulation-review",
+      component: () => import("../views/historical-simulations/pages/ReviewSummaryPage.vue"),
+    },
+    {
       path: "/:slug/:slug2?/:slug3?",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
