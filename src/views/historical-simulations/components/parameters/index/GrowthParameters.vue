@@ -18,18 +18,18 @@
             <p>index</p>
             <p></p>
         </div>
-        <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
+        <SelectDropdown :list="indexStrategies" :id="`simulation_analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p class="position-relative d-flex align-items-center">Cap Rate
           <img src="@/assets/images/icons/info-icon.svg" alt="info" class="ms-2 info-icon-img">
             <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-2 dark-info-icon-img">
             <span class="info-message-participationRate" :style="`top: -3.2rem; left: -1rem;`">If your strategy does not use a cap, turn it off here.</span>
 
-            <div class="form-check form-switch custom-switch ms-2 mb-0"><input class="form-check-input enhanceInputCheckBox less-height" type="checkbox" checked role=":switch" :id="`is_active_cap_rate_range${currentTab}`" @click="handleCapRate"></div>
+            <div class="form-check form-switch custom-switch ms-2 mb-0"><input class="form-check-input enhanceInputCheckBox less-height" type="checkbox" checked role=":switch" :id="`simulation_is_active_cap_rate_range${currentTab}`" @click="handleCapRate"></div>
         </p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`cap_rate_range${currentTab}`" :isCapActive="isCapActive" :update="$props.update" :currentTab="$props.currentTab" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input :hiddenInputId="`simulation_cap_rate_range${currentTab}`" :isCapActive="isCapActive" :update="$props.update" :currentTab="$props.currentTab" @setUpdated="() => $emit('setUpdated')"/>
 
         <div class="formParabrdrLavelDiv mt-3 mb-2">
         <p class="position-relative">Participation Rate
@@ -41,18 +41,18 @@
         </p>
         <p></p>
         </div>                     
-        <custom-range-input-2 :hiddenInputId="`participation_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-2 :hiddenInputId="`simulation_participation_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input-3 :hiddenInputId="`margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 :hiddenInputId="`simulation_margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>
         </div>
-        <custom-range-input-3 :hiddenInputId="`floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
-        <segment-duration-year :hiddenInputId="`segment_year_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 :hiddenInputId="`simulation_floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <segment-duration-year :hiddenInputId="`simulation_segment_year_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
     </form>
 </template>
 <script>
@@ -83,7 +83,7 @@ export default {
       let index = this.indexStrategies.filter(
         i =>
           i.template_name ===
-          document.getElementById(`analysis_index${this.currentTab}`).value
+          document.getElementById(`simulation_analysis_index${this.currentTab}`).value
       )[0];
     },
 
@@ -107,7 +107,7 @@ export default {
     "$props.update"(e) {
       if (e) {
         this.isCapActive = document.getElementById(
-          `is_active_cap_rate_range${this.$props.currentTab}`
+          `simulation_is_active_cap_rate_range${this.$props.currentTab}`
         ).checked;
       }
     },

@@ -79,13 +79,13 @@
             class="form-check-input enhanceInputCheckBox"
             type="checkbox"
             role=":switch"
-            :id="`applyAllPm${currentTab}`"
+            :id="`simulationApplyAllPm${currentTab}`"
             @change="applyPmToAllIndex"
           />
         </div>
         <label
-          :for="`applyAllPm${currentTab}`"
-          :id="`applyAllPmLabel${currentTab}`"
+          :for="`simulationApplyAllPm${currentTab}`"
+          :id="`simulationApplyAllPmLabel${currentTab}`"
           class="buttonSaveRadioPara"
           >Apply To All Index Strategies</label
         >
@@ -125,13 +125,13 @@
             class="form-check-input enhanceInputCheckBox"
             type="checkbox"
             role=":switch"
-            :id="`applyAllFc${currentTab}`"
+            :id="`simulationApplyAllFc${currentTab}`"
             @change="applyFcToAllIndex"
           />
         </div>
         <label
-          :for="`applyAllFc${currentTab}`"
-          :id="`applyAllFcLabel${currentTab}`"
+          :for="`simulationApplyAllFc${currentTab}`"
+          :id="`simulationApplyAllFcLabel${currentTab}`"
           class="buttonSaveRadioPara"
           >Apply To All Index Strategies</label
         >
@@ -149,12 +149,12 @@
     <input
       type="hidden"
       :value="tab1 ? 1 : 0"
-      :id="`performance_checkbox${currentTab}`"
+      :id="`simulation_performance_checkbox${currentTab}`"
     />
     <input
       type="hidden"
       :value="tab2 ? 1 : 0"
-      :id="`credit_checkbox${currentTab}`"
+      :id="`simulation_credit_checkbox${currentTab}`"
     />
   </form>
 </template>
@@ -232,13 +232,13 @@ export default {
     removePmApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
-      if (this.isChecked(`applyAllPm${currentTab}`)) {
-        document.getElementById(`applyAllPm${currentTab}`).checked = false;
+      if (this.isChecked(`simulationApplyAllPm${currentTab}`)) {
+        document.getElementById(`simulationApplyAllPm${currentTab}`).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`applyAllPm${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(`simulationApplyAllPm${tab}`).disabled = false; // enable the toggle input
           document
-            .getElementById(`applyAllPmLabel${tab}`)
+            .getElementById(`simulationApplyAllPmLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
         });
       }
@@ -250,7 +250,7 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`applyAllPm${tab}`) && currentTab !== tab) {
+        if (this.isChecked(`simulationApplyAllPm${tab}`) && currentTab !== tab) {
           toggle = true;
         }
       });
@@ -262,7 +262,7 @@ export default {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
-        `performance_type${currentTab}`
+        `simulation_performance_type${currentTab}`
       ).value;
 
       if (tab) {
@@ -272,7 +272,7 @@ export default {
       if (performance_type === "schedule") {
         for (let i = 0; i < this.illustrateYear; i++) {
           let value = document.getElementById(
-            `multiplier_schedule${this.$props.currentTab}${i + 1}`
+            `simulation_multiplier_schedule${this.$props.currentTab}${i + 1}`
           ).value; // get current schedule input value
 
           if (!value) {
@@ -292,7 +292,7 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let performance_type = document.getElementById(
-        `performance_type${currentTab}`
+        `simulation_performance_type${currentTab}`
       ).value;
 
       // Show warning message if shedule data is not filled in all inputs
@@ -306,32 +306,32 @@ export default {
       }
 
       let performance_multiplier = document.getElementById(
-        `multiplier_input${currentTab}`
+        `simulation_multiplier_input${currentTab}`
       ).value; // get current tab multiplier input value
 
       let start_year = document.getElementById(
-        `prf_start_year${currentTab}`
+        `simulation_prf_start_year${currentTab}`
       ).value; // get current tab multiplier input value
 
       if (!this.isAnyPmAppliedToggle() && e.target.checked) {
         tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPm${tab}`).checked =
+            document.getElementById(`simulationApplyAllPm${tab}`).checked =
               !e.target.checked; // unchecked the toggle input
-            document.getElementById(`applyAllPm${tab}`).disabled =
+            document.getElementById(`simulationApplyAllPm${tab}`).disabled =
               !e.target.checked; // disabled the toggle input
             document
-              .getElementById(`applyAllPmLabel${tab}`)
+              .getElementById(`simulationApplyAllPmLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
             document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`performance_type${tab}`).value =
+              document.getElementById(`simulation_performance_type${tab}`).value =
                 "schedule";
             } else {
               document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
-              document.getElementById(`performance_type${tab}`).value = "fixed";
+              document.getElementById(`simulation_performance_type${tab}`).value = "fixed";
             }
             this.$emit("setApplyPmAllIndex", true);
           }
@@ -340,12 +340,12 @@ export default {
         if (performance_type === "schedule") {
           for (let i = 0; i < this.illustrateYear; i++) {
             let value = document.getElementById(
-              `multiplier_schedule${currentTab}${i + 1}`
+              `simulation_multiplier_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
             tabs.forEach((tab) => {
               if (currentTab !== tab) {
                 document.getElementById(
-                  `multiplier_schedule${tab}${i + 1}`
+                  `simulation_multiplier_schedule${tab}${i + 1}`
                 ).value = value; // set schedule value in all tabs
               }
             });
@@ -355,10 +355,10 @@ export default {
             if (currentTab !== tab) {
               performance_type;
 
-              document.getElementById(`multiplier_input${tab}`).value =
+              document.getElementById(`simulation_multiplier_input${tab}`).value =
                 performance_multiplier; // set multiplier value in all tabs
 
-              document.getElementById(`prf_start_year${tab}`).value =
+              document.getElementById(`simulation_prf_start_year${tab}`).value =
                 start_year; // set start year value in all tabs
             }
           });
@@ -368,7 +368,7 @@ export default {
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
-              .getElementById(`applyAllPmLabel${tab}`)
+              .getElementById(`simulationApplyAllPmLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
@@ -378,13 +378,13 @@ export default {
     removeFcApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
-      if (this.isChecked(`applyAllFc${currentTab}`)) {
-        document.getElementById(`applyAllFc${currentTab}`).checked = false;
+      if (this.isChecked(`simulationApplyAllFc${currentTab}`)) {
+        document.getElementById(`simulationApplyAllFc${currentTab}`).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`applyAllFc${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(`simulationApplyAllFc${tab}`).disabled = false; // enable the toggle input
           document
-            .getElementById(`applyAllFcLabel${tab}`)
+            .getElementById(`simulationApplyAllFcLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
         });
       }
@@ -396,7 +396,7 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`applyAllFc${tab}`) && currentTab !== tab) {
+        if (this.isChecked(`simulationApplyAllFc${tab}`) && currentTab !== tab) {
           toggle = true;
         }
       });
@@ -408,7 +408,7 @@ export default {
       let valid = true;
       let currentTab = Number(this.$props.currentTab);
       let credit_type = document.getElementById(
-        `credit_type${currentTab}`
+        `simulation_credit_type${currentTab}`
       ).value;
 
       if (tab) {
@@ -417,7 +417,7 @@ export default {
 
       if (credit_type === "schedule") {
         let credit_schedule_type = document.getElementById(
-          `credit_schedule_type${currentTab}`
+          `simulation_credit_schedule_type${currentTab}`
         ).value;
 
         if (subTab) {
@@ -428,11 +428,11 @@ export default {
           let value = "";
           if (credit_schedule_type === "amount") {
             value = document.getElementById(
-              `crd_schedule_amt${currentTab}${i + 1}`
+              `simulation_crd_schedule_amt${currentTab}${i + 1}`
             ).value; // get current schedule input value
           } else {
             value = document.getElementById(
-              `crd_schedule_rate${currentTab}${i + 1}`
+              `simulation_crd_schedule_rate${currentTab}${i + 1}`
             ).value; // get current schedule input value
           }
           if (!value) {
@@ -452,7 +452,7 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let credit_type = document.getElementById(
-        `credit_type${currentTab}`
+        `simulation_credit_type${currentTab}`
       ).value;
 
       // Show warning message if shedule data is not filled in all inputs
@@ -466,33 +466,33 @@ export default {
       }
 
       let credit_bonus = document.getElementById(
-        `credit_bonus_input${currentTab}`
+        `simulation_credit_bonus_input${currentTab}`
       ).value; // get current tab credit bonus input value
 
       let start_year = document.getElementById(
-        `crd_start_year${currentTab}`
+        `simulation_crd_start_year${currentTab}`
       ).value; // get current tab start year input value
 
       if (!this.isAnyFcAppliedToggle() && e.target.checked) {
         tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllFc${tab}`).checked =
+            document.getElementById(`simulationApplyAllFc${tab}`).checked =
               !e.target.checked; // unchecked the toggle input
-            document.getElementById(`applyAllFc${tab}`).disabled =
+            document.getElementById(`simulationApplyAllFc${tab}`).disabled =
               !e.target.checked; // disabled the toggle input
             document
-              .getElementById(`applyAllFcLabel${tab}`)
+              .getElementById(`simulationApplyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
             document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
 
             if (credit_type === "schedule") {
               document.getElementById(`nav-flatSchedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`credit_type${tab}`).value = "schedule";
+              document.getElementById(`simulation_credit_type${tab}`).value = "schedule";
             } else {
               document
                 .getElementById(`navCreadit-flatfixedValue-tab${tab}`)
                 .click(); // open the fixed value tab in all tabs
-              document.getElementById(`credit_type${tab}`).value = "fixed";
+              document.getElementById(`simulation_credit_type${tab}`).value = "fixed";
             }
             this.$emit("setApplyFcAllIndex", true);
           }
@@ -500,18 +500,18 @@ export default {
 
         if (credit_type === "schedule") {
           let credit_schedule_type = document.getElementById(
-            `credit_schedule_type${currentTab}`
+            `simulation_credit_schedule_type${currentTab}`
           ).value;
-          let schedule_input_id = `crd_schedule_rate`;
+          let schedule_input_id = `simulation_crd_schedule_rate`;
 
           if (credit_schedule_type === "amount") {
-            schedule_input_id = `crd_schedule_amt`;
+            schedule_input_id = `simulation_crd_schedule_amt`;
           }
 
           // set schedule type value in all tabs
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`credit_schedule_type${tab}`).value =
+              document.getElementById(`simulation_credit_schedule_type${tab}`).value =
                 credit_schedule_type;
             }
           });
@@ -531,10 +531,10 @@ export default {
         } else {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`credit_bonus_input${tab}`).value =
+              document.getElementById(`simulation_credit_bonus_input${tab}`).value =
                 credit_bonus; // set credit bonus value in all tabs
 
-              document.getElementById(`crd_start_year${tab}`).value =
+              document.getElementById(`simulation_crd_start_year${tab}`).value =
                 start_year; // set start year value in all tabs
             }
           });
@@ -544,7 +544,7 @@ export default {
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
             document
-              .getElementById(`applyAllFcLabel${tab}`)
+              .getElementById(`simulationApplyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
@@ -567,14 +567,14 @@ export default {
     "$props.update"(e) {
       if (e) {
         this.tab1 = Number(
-          document.getElementById(`performance_checkbox${this.currentTab}`)
+          document.getElementById(`simulation_performance_checkbox${this.currentTab}`)
             .value
         )
           ? true
           : false;
         this.$emit("performanceChange", this.tab1);
         this.tab2 = Number(
-          document.getElementById(`credit_checkbox${this.currentTab}`).value
+          document.getElementById(`simulation_credit_checkbox${this.currentTab}`).value
         )
           ? true
           : false;
@@ -586,12 +586,12 @@ export default {
       // performace multiplier section
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
-      if (!e && this.isChecked(`applyAllPm${currentTab}`)) {
-        document.getElementById(`applyAllPm${currentTab}`).checked = false;
+      if (!e && this.isChecked(`simulationApplyAllPm${currentTab}`)) {
+        document.getElementById(`simulationApplyAllPm${currentTab}`).checked = false;
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
-              .getElementById(`applyAllPmLabel${tab}`)
+              .getElementById(`simulationApplyAllPmLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
@@ -601,12 +601,12 @@ export default {
       // for flat credit bonus section
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
-      if (!e && this.isChecked(`applyAllFc${currentTab}`)) {
-        document.getElementById(`applyAllFc${currentTab}`).checked = false;
+      if (!e && this.isChecked(`simulationApplyAllFc${currentTab}`)) {
+        document.getElementById(`simulationApplyAllFc${currentTab}`).checked = false;
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
             document
-              .getElementById(`applyAllFcLabel${tab}`)
+              .getElementById(`simulationApplyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });

@@ -70,7 +70,7 @@
               >
                 <input
                   class="form-check-input"
-                  id="index_stategy_tab1"
+                  id="simulation_index_stategy_tab1"
                   type="checkbox"
                   role="switch"
                   checked
@@ -89,7 +89,7 @@
               >
                 <input
                   class="form-check-input"
-                  id="index_stategy_tab2"
+                  id="simulation_index_stategy_tab2"
                   type="checkbox"
                   role="switch"
                   v-model="tabs.tab2"
@@ -108,7 +108,7 @@
               >
                 <input
                   class="form-check-input"
-                  id="index_stategy_tab3"
+                  id="simulation_index_stategy_tab3"
                   type="checkbox"
                   role="switch"
                   v-model="tabs.tab3"
@@ -330,11 +330,11 @@
                   class="form-check-input"
                   type="checkbox"
                   role="switch"
-                  id="savePortfolioCheckbox"
+                  id="saveSimulationPortfolioCheckbox"
                   v-model="portFolioCheckbox"
                 />
               </div>
-              <label for="savePortfolioCheckbox" class="buttonSaveRadioPara"
+              <label for="saveSimulationPortfolioCheckbox" class="buttonSaveRadioPara"
                 >Save as Index Strategy Allocation</label
               >
             </div>
@@ -351,7 +351,7 @@
                   type="text"
                   class="form-control"
                   v-model="portFolioName"
-                  id="portFolioNameInput"
+                  id="portFolioSimulationNameInput"
                   @click="error.portfolio_name = false"
                 />
               </form>

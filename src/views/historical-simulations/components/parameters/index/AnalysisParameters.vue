@@ -21,7 +21,7 @@
         <p>index</p>
         <p></p>
       </div>
-    <SelectDropdown :list="indexStrategies" :id="`analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateRollingPeriod" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
+    <SelectDropdown :list="indexStrategies" :id="`simulation_analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateRollingPeriod" :defaultSelected="indexStrategies[0].template_name" :showAll="true"/> 
     <div class="formParabrdrLavelDiv mt-3 mb-2">
         <p>Rolling Time Period (Years)</p>
         <p></p>
@@ -35,12 +35,12 @@
         or
         </div>
         <div class="customAmountInputDiv customAmountNoPercent creditBonusInputDiv customInputWidth">
-        <label :for="`rollingCustomAmount${currentTab}`" class="position-relative rolling-time-label">Custom Amount
+        <label :for="`simulationRollingCustomAmount${currentTab}`" class="position-relative rolling-time-label">Custom Amount
           <img src="@/assets/images/icons/info-icon.svg" alt="info" class="info-icon-img">
           <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="dark-info-icon-img">
           <span class="info-message-analyze" id="rollingTimeInfoContent">Choose a rolling period between 15 and 55 years.</span>
         </label>
-        <input :id="`rollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+        <input :id="`simulationRollingCustomAmount${currentTab}`" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
         </div>
     </div>
 
@@ -156,7 +156,7 @@ export default {
         Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
       ) {
         document.getElementById(
-          `rollingCustomAmount${this.currentTab}`
+          `simulationRollingCustomAmount${this.currentTab}`
         ).value = this.rollingPeriod.max_val;
         this.rollingPeriod.custom = this.rollingPeriod.max_val;
         this.customRollingPeriod = this.rollingPeriod.max_val;
@@ -179,7 +179,7 @@ export default {
         let index = this.indexStrategies.filter(
           i =>
             i.template_name ===
-            document.getElementById(`analysis_index${this.currentTab}`).value
+            document.getElementById(`simulation_analysis_index${this.currentTab}`).value
         )[0];
         this.updateRollingPeriod(index ? index.id : 1);
         if (this.rollingTimePeriod.includes(rolling)) {
@@ -187,7 +187,7 @@ export default {
         } else {
           this.rollingPeriod.custom = rolling;
           document.getElementById(
-            `rollingCustomAmount${this.currentTab}`
+            `simulationRollingCustomAmount${this.currentTab}`
           ).value = rolling;
         }
         this.analyze = this.$refs.analyzeRef.value;

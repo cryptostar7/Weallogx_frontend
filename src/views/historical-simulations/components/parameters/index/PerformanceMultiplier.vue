@@ -41,14 +41,14 @@
       >
         <form action="javascript:void(0)" autocomplete="off">
           <div class="multiplierInputDiv form-group mt-3">
-            <label :for="`multiplier_input${currentTab}`">Multiplier</label>
+            <label :for="`simulation_multiplier_input${currentTab}`">Multiplier</label>
             <input
               type="text"
               class="form-control handleLimit"
               min="1"
               max="10"
               value="1"
-              :id="`multiplier_input${currentTab}`"
+              :id="`simulation_multiplier_input${currentTab}`"
             />
           </div>
           <div class="multiplierInputDiv mt-3">
@@ -104,7 +104,7 @@
               >{{ errors[currentTab].enhancements_performance_schedule }}</label
             >
             <schedule-csv-extraction
-              :prefixId="`multiplier_schedule${currentTab}`"
+              :prefixId="`simulation_multiplier_schedule${currentTab}`"
               :maxInputs="illustrateYear"
               @clearError="
                 $emit('clearError', 'enhancements_performance_schedule')
@@ -125,7 +125,7 @@
                         class="form-control handleLimit"
                         min="1"
                         max="10"
-                        :id="`multiplier_schedule${currentTab}${item}`"
+                        :id="`simulation_multiplier_schedule${currentTab}${item}`"
                         @keypress="
                           () =>
                             $emit(
@@ -145,11 +145,11 @@
         </div>
       </div>
     </div>
-    <input type="hidden" :value="tab" :id="`performance_type${currentTab}`" />
+    <input type="hidden" :value="tab" :id="`simulation_performance_type${currentTab}`" />
     <input
       type="hidden"
       :value="customAmount || startYear"
-      :id="`prf_start_year${currentTab}`"
+      :id="`simulation_prf_start_year${currentTab}`"
     />
   </div>
 </template>
@@ -177,11 +177,11 @@ export default {
     },
     updateLatestData: function () {
       this.tab = document.getElementById(
-        `performance_type${this.currentTab}`
+        `simulation_performance_type${this.currentTab}`
       ).value;
       let years = [1, 2, 3, 4, 5];
       let year = Number(
-        document.getElementById(`prf_start_year${this.currentTab}`).value
+        document.getElementById(`simulation_prf_start_year${this.currentTab}`).value
       );
       if (years.includes(year)) {
         this.startYear = year;

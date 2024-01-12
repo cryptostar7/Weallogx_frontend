@@ -30,12 +30,12 @@
               or
               </div>
               <div class="customAmountInputDiv customAmountNoPercent creditBonusInputDiv customInputWidth">
-              <label for="rollingCustomAmount" class="position-relative rolling-time-label">Custom Amount
+              <label for="simulationRollingCustomAmount" class="position-relative rolling-time-label">Custom Amount
                 <img src="@/assets/images/icons/info-icon.svg" alt="info" class="info-icon-img">
                 <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="dark-info-icon-img">
                 <span class="info-message-analyze" id="rollingTimeInfoContent">Choose a rolling period between 15 and 55 years.</span>
               </label>
-              <input id="rollingCustomAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
+              <input id="simulationRollingCustomAmount" type="text" min="1" :max="rollingPeriod.max_val" class="bonus-input handleLimit" @input="(e) => rollingPeriod.custom = e.target.value">
               </div>
           </div>
     
@@ -105,10 +105,10 @@
           <!-- Fees Global Section Start -->
             <global-fees-component :update="$props.update.global_parameters" @clearError="clearError" />
           <!-- Fees Global Section End -->
-          <input type="hidden" id="rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
-          <input type="hidden" id="analyze_type" :value="analyze" ref="analyzeRef"/>
-          <input type="hidden" id="credit_base_method" :value="credMethod" ref="credRef" />
-          <input type="hidden" id="distribution_method" :value="distributions" ref="distributionsRef" />
+          <input type="hidden" id="simulation_rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
+          <input type="hidden" id="simulation_analyze_type" :value="analyze" ref="analyzeRef"/>
+          <input type="hidden" id="simulation_credit_base_method" :value="credMethod" ref="credRef" />
+          <input type="hidden" id="simulation_distribution_method" :value="distributions" ref="distributionsRef" />
         </form>
     </div>
     </template>
@@ -146,7 +146,7 @@
             Number(this.rollingPeriod.custom) > this.rollingPeriod.max_val
           ) {
             document.getElementById(
-              "rollingCustomAmount"
+              "simulationRollingCustomAmount"
             ).value = this.rollingPeriod.max_val;
             this.rollingPeriod.custom = this.rollingPeriod.max_val;
             this.customRollingPeriod = this.rollingPeriod.max_val;
@@ -178,7 +178,7 @@
               this.rollingPeriod.value = rolling;
             } else {
               this.rollingPeriod.custom = rolling;
-              document.getElementById("rollingCustomAmount").value = rolling;
+              document.getElementById("simulationRollingCustomAmount").value = rolling;
             }
             this.analyze = this.$refs.analyzeRef.value;
             this.credMethod = this.$refs.credRef.value;

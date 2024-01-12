@@ -11,7 +11,7 @@
                 <div class="row justify-content-center">
                   <div class="col-sm-12 col-lg-11 col-xl-9">
                     <div class="d-flex align-items-center">
-                      <label
+                      <label @click="testFunction"
                         for="scheduleTemplateCheckbox"
                         class="historical-paraCheckBox"
                         >Parameters</label
@@ -110,7 +110,7 @@
                               $route.query.review === 'true'
                                 ? 'review-summary'
                                 : 'historical-index-strategy-allocation'
-                            }/${$route.params.scenario}`"
+                            }/${$route.params.simulation}`"
                             class="nav-link btn form-back-btn mt-3 px-4 fs-14 backHistoricalBtn start-50 translate-middle"
                           >
                             <img
@@ -189,6 +189,11 @@ export default {
     };
   },
   methods: {
+    testFunction: function () {
+      let simulation = this.$store.state.data.active_simulation;
+      console.log('simulation');
+      console.log(simulation);
+    },
     setUpdated: function (index) {
       this.update[index] = false;
     },
@@ -240,23 +245,23 @@ export default {
       }
     },
     getActiveTabs: function () {
-      let tab1 = document.getElementById("index_stategy_tab1").checked;
-      let tab2 = document.getElementById("index_stategy_tab2").checked;
-      let tab3 = document.getElementById("index_stategy_tab3").checked;
+      let tab1 = document.getElementById("simulation_index_stategy_tab1").checked;
+      let tab2 = document.getElementById("simulation_index_stategy_tab2").checked;
+      let tab3 = document.getElementById("simulation_index_stategy_tab3").checked;
       return [tab1, tab2, tab3];
     },
     getGlobalParameterData: function () {
       let obj = {
-        rolling_time: this.getInputWithId("rolling_time"),
-        analyze: this.getInputWithId("analyze_type"),
-        credit_method: this.getInputWithId("credit_base_method"),
-        distributions: this.getInputWithId("distribution_method"),
+        rolling_time: this.getInputWithId("simulation_rolling_time"),
+        analyze: this.getInputWithId("simulation_analyze_type"),
+        credit_method: this.getInputWithId("simulation_credit_base_method"),
+        distributions: this.getInputWithId("simulation_distribution_method"),
       };
 
       //premium charge fees
-      let pcf_all_year = Number(this.getInputWithId("pcf_all_year"));
+      let pcf_all_year = Number(this.getInputWithId("simulation_pcf_all_year"));
       let pcfobj = {
-        fees: this.getInputWithId("premium_charge_fees"),
+        fees: this.getInputWithId("simulation_premium_charge_fees"),
         same_all_year: pcf_all_year,
       };
 
@@ -265,7 +270,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`pcf_schedule${y}`),
+            value: this.getInputWithId(`simulation_pcf_schedule${y}`),
           });
         }
         pcfobj.schedule = tempData;
@@ -274,9 +279,9 @@ export default {
       obj.pcf = pcfobj;
 
       //loan interest rate fees
-      let lif_all_year = Number(this.getInputWithId("lif_all_year"));
+      let lif_all_year = Number(this.getInputWithId("simulation_lif_all_year"));
       let lifobj = {
-        fees: this.getInputWithId("loan_interest_fees"),
+        fees: this.getInputWithId("simulation_loan_interest_fees"),
         same_all_year: lif_all_year,
       };
 
@@ -285,7 +290,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`lif_schedule${y}`),
+            value: this.getInputWithId(`simulation_lif_schedule${y}`),
           });
         }
         lifobj.schedule = tempData;
@@ -300,14 +305,14 @@ export default {
       for (var i = 1; i < 4; i++) {
         if (activeTabs[i - 1]) {
           let obj = {
-            index: this.getInputWithId("analysis_index" + i),
-            cap_rate_range: this.isChecked("is_active_cap_rate_range" + i)
-              ? this.getInputWithId("cap_rate_range" + i)
+            index: this.getInputWithId("simulation_analysis_index" + i),
+            cap_rate_range: this.isChecked("simulation_is_active_cap_rate_range" + i)
+              ? this.getInputWithId("simulation_cap_rate_range" + i)
               : 1000,
-            participation_range: this.getInputWithId("participation_range" + i),
-            margin_spread_range: this.getInputWithId("margin_spread_range" + i),
-            floor_range: this.getInputWithId("floor_range" + i),
-            segment_year_range: this.getInputWithId("segment_year_range" + i),
+            participation_range: this.getInputWithId("simulation_participation_range" + i),
+            margin_spread_range: this.getInputWithId("simulation_margin_spread_range" + i),
+            floor_range: this.getInputWithId("simulation_floor_range" + i),
+            segment_year_range: this.getInputWithId("simulation_segment_year_range" + i),
           };
           arr.push(obj);
         }
@@ -321,19 +326,19 @@ export default {
         if (activeTabs[i - 1]) {
           var temp = { performance: [], credit: [] };
           let performance_checkbox = Number(
-            this.getInputWithId("performance_checkbox" + i)
+            this.getInputWithId("simulation_performance_checkbox" + i)
           );
 
           let credit_checkbox = Number(
-            this.getInputWithId("credit_checkbox" + i)
+            this.getInputWithId("simulation_credit_checkbox" + i)
           );
 
           if (performance_checkbox) {
             let performance_obj = {
               checkbox: performance_checkbox,
-              type: this.getInputWithId("performance_type" + i),
-              multiplier: this.getInputWithId("multiplier_input" + i),
-              start_year: this.getInputWithId("prf_start_year" + i),
+              type: this.getInputWithId("simulation_performance_type" + i),
+              multiplier: this.getInputWithId("simulation_multiplier_input" + i),
+              start_year: this.getInputWithId("simulation_prf_start_year" + i),
             };
 
             if (performance_obj.type === "schedule") {
@@ -342,7 +347,7 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
+                    this.getInputWithId(`simulation_multiplier_schedule${i}${y}`) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -353,10 +358,10 @@ export default {
           if (credit_checkbox) {
             let credit_obj = {
               checkbox: credit_checkbox,
-              type: this.getInputWithId("credit_type" + i),
-              schedule_type: this.getInputWithId("credit_schedule_type" + i),
-              credit: this.getInputWithId("credit_bonus_input" + i),
-              start_year: this.getInputWithId("crd_start_year" + i),
+              type: this.getInputWithId("simulation_credit_type" + i),
+              schedule_type: this.getInputWithId("simulation_credit_schedule_type" + i),
+              credit: this.getInputWithId("simulation_credit_bonus_input" + i),
+              start_year: this.getInputWithId("simulation_crd_start_year" + i),
             };
 
             if (credit_obj.type === "schedule") {
@@ -365,8 +370,8 @@ export default {
                 let sValue = this.getInputWithId(
                   `${
                     credit_obj.schedule_type === "rate"
-                      ? "crd_schedule_rate"
-                      : "crd_schedule_amt"
+                      ? "simulation_crd_schedule_rate"
+                      : "simulation_crd_schedule_amt"
                   }${i}${y}`
                 );
                 tempData.push({
@@ -390,19 +395,19 @@ export default {
       for (var i = 1; i < 4; i++) {
         if (activeTabs[i - 1]) {
           let performance_checkbox = Number(
-            this.getInputWithId("performance_checkbox" + i)
+            this.getInputWithId("simulation_performance_checkbox" + i)
           );
 
           let flat_checkbox = Number(
-            this.getInputWithId("credit_checkbox" + i)
+            this.getInputWithId("simulation_credit_checkbox" + i)
           );
 
           //performance multiplier fees
           var pmfobj = false;
           if (performance_checkbox) {
-            let pmf_all_year = Number(this.getInputWithId("pmf_all_year" + i));
+            let pmf_all_year = Number(this.getInputWithId("simulation_pmf_all_year" + i));
             pmfobj = {
-              fees: this.getInputWithId("performance_multiplier_fees" + i),
+              fees: this.getInputWithId("simulation_performance_multiplier_fees" + i),
               same_all_year: pmf_all_year,
             };
 
@@ -411,7 +416,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`pmf_schedule${i}${y}`) || 0,
+                  value: this.getInputWithId(`simulation_pmf_schedule${i}${y}`) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -422,9 +427,9 @@ export default {
           var fcfobj = false;
 
           if (flat_checkbox) {
-            let fcf_all_year = Number(this.getInputWithId("fcf_all_year" + i));
+            let fcf_all_year = Number(this.getInputWithId("simulation_fcf_all_year" + i));
             fcfobj = {
-              fees: this.getInputWithId("flat_credit_fees" + i),
+              fees: this.getInputWithId("simulation_flat_credit_fees" + i),
               same_all_year: fcf_all_year,
             };
 
@@ -433,7 +438,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`fcf_schedule${i}${y}`),
+                  value: this.getInputWithId(`simulation_fcf_schedule${i}${y}`),
                 });
               }
               fcfobj.schedule = tempData;
@@ -442,7 +447,7 @@ export default {
 
           //High cap fees
           let hcfobj = {
-            fees: this.getInputWithId("high_cap_fees" + i),
+            fees: this.getInputWithId("simulation_high_cap_fees" + i),
           };
 
           arr.push({
@@ -469,20 +474,20 @@ export default {
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
 
-      let portFolio = document.getElementById("savePortfolioCheckbox")
-        ? document.getElementById("savePortfolioCheckbox").checked
+      let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
+        ? document.getElementById("saveSimulationPortfolioCheckbox").checked
         : false;
 
-      let portFolioName = document.getElementById("portFolioNameInput")
-        ? document.getElementById("portFolioNameInput").value
+      let portFolioName = document.getElementById("portFolioSimulationNameInput")
+        ? document.getElementById("portFolioSimulationNameInput").value
         : false;
 
       // get template detail
       activeTabs.forEach((t, i) => {
         if (t) {
-          var checkbox = this.isChecked(`saveZIndexTemp${i + 1}`);
+          var checkbox = this.isChecked(`saveSimulationIndexTemp${i + 1}`);
           if (checkbox) {
-            let tempName = this.getInputWithId(`templateNameInput${i + 1}`);
+            let tempName = this.getInputWithId(`templateSimulationNameInput${i + 1}`);
             templates[i + 1] = tempName;
             if (!tempName) {
               valid = false;
@@ -503,7 +508,7 @@ export default {
           if (!form) {
             if (!focus) {
               focus = true;
-              var area = document.getElementById(`fees-parameters${i + 1}`);
+              var area = document.getElementById(`simulation-fees-parameters${i + 1}`);
               if (this.error[i + 1].fees) {
                 if (!area.classList.contains("show")) {
                   area.classList.add("show");
@@ -518,14 +523,14 @@ export default {
 
       // error focus on global premium charge tab
       if (this.error.analysis_pc_schedule) {
-        var area = document.getElementById("globalPcTab");
+        var area = document.getElementById("simulationGlobalPcTab");
         focus = true;
         area.scrollIntoView();
       }
 
       // error focus on global premium charge tab
       if (this.error.analysis_lif_schedule) {
-        var area = document.getElementById("globaLifTab");
+        var area = document.getElementById("simulationGlobaLifTab");
         focus = true;
         area.scrollIntoView();
       }
@@ -560,12 +565,12 @@ export default {
           : null,
 
         loan_intrest_charged_in_advanced: Number(
-          this.getInputWithId("in_arrears")
+          this.getInputWithId("simulation_in_arrears")
         )
           ? false
           : true,
         loan_intrest_charged_in_arrears: Number(
-          this.getInputWithId("in_arrears")
+          this.getInputWithId("simulation_in_arrears")
         )
           ? true
           : false,
@@ -628,18 +633,18 @@ export default {
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc1"),
+          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc1"),
           performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm1"),
+            this.isChecked("simulationApplyAllPm1"),
           performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf1"),
+            this.isChecked("simulationApplyAllPmf1"),
           flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf1"),
+            this.isChecked("simulationApplyAllFcf1"),
         },
         index_strategy_2: null,
         index_strategy_3: null,
-        save_scenario_as_draft: draft,
-        scenario_id: this.$route.params.scenario,
+        save_simulation_as_draft: draft,
+        simulation_id: this.$route.params.simulation,
         save_portfolio: portFolio,
         portfolio_name: portFolio ? portFolioName : "",
       };
@@ -740,13 +745,13 @@ export default {
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc2"),
+          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc2"),
           performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm2"),
+            this.isChecked("simulationApplyAllPm2"),
           performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf2"),
+            this.isChecked("simulationApplyAllPmf2"),
           flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf2"),
+            this.isChecked("simulationApplyAllFcf2"),
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
@@ -847,13 +852,13 @@ export default {
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc3"),
+          flat_credit_apply_for_all_indexes: this.isChecked("simulationApplyAllFc3"),
           performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm3"),
+            this.isChecked("simulationApplyAllPm3"),
           performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf3"),
+            this.isChecked("simulationApplyAllPmf3"),
           flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf3"),
+            this.isChecked("simulationApplyAllFcf3"),
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
@@ -908,7 +913,7 @@ export default {
               this.$router.push(`/report-builder/${this.$route.query.report}`);
             } else {
               this.$router.push(
-                `/review-summary/${this.$route.params.scenario}`
+                `/review-summary/${this.$route.params.simulation}`
               );
             }
           })
@@ -929,7 +934,7 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             this.historicalId = response.data.data.id;
-            this.$router.push(`/review-summary/${this.$route.params.scenario}`);
+            this.$router.push(`/review-summary/${this.$route.params.simulation}`);
           })
           .catch((error) => {
             if (
@@ -945,18 +950,18 @@ export default {
       }
     },
     setGrowthData: function (tab, obj = []) {
-      this.setInputWithId(`analysis_index${tab}`, obj.index);
+      this.setInputWithId(`simulation_analysis_index${tab}`, obj.index);
       if (Number(obj.cap_rate) === 1000) {
-        this.setUnChecked(`is_active_cap_rate_range${tab}`);
+        this.setUnChecked(`simulation_is_active_cap_rate_range${tab}`);
       } else {
-        this.setChecked(`is_active_cap_rate_range${tab}`);
-        this.setInputWithId(`cap_rate_range${tab}`, Number(obj.cap_rate));
+        this.setChecked(`simulation_is_active_cap_rate_range${tab}`);
+        this.setInputWithId(`simulation_cap_rate_range${tab}`, Number(obj.cap_rate));
       }
-      this.setInputWithId(`participation_range${tab}`, obj.participation_rate);
-      this.setInputWithId(`margin_spread_range${tab}`, obj.margin_spread);
-      this.setInputWithId(`floor_range${tab}`, obj.floor);
+      this.setInputWithId(`simulation_participation_range${tab}`, obj.participation_rate);
+      this.setInputWithId(`simulation_margin_spread_range${tab}`, obj.margin_spread);
+      this.setInputWithId(`simulation_floor_range${tab}`, obj.floor);
       this.setInputWithId(
-        `segment_year_range${tab}`,
+        `simulation_segment_year_range${tab}`,
         obj.segment_duration_years
       );
       this.update.growth_parameters = true;
@@ -964,13 +969,13 @@ export default {
     setEnhancementData: function (tab, obj = []) {
       // permformance multiplier
       this.setInputWithId(
-        `performance_checkbox${tab}`,
+        `simulation_performance_checkbox${tab}`,
         obj.performance_multiplier ? 1 : 0
       );
 
       if (obj.performance_multiplier) {
         this.setInputWithId(
-          `performance_type${tab}`,
+          `simulation_performance_type${tab}`,
           obj.performance_multiplier_fixed_value ? "fixed" : "schedule"
         );
 
@@ -979,15 +984,15 @@ export default {
           obj.performance_multiplier_schedule
         ) {
           obj.performance_multiplier_schedule.forEach((i) => {
-            this.setInputWithId(`multiplier_schedule${tab}${i.year}`, i.value);
+            this.setInputWithId(`simulation_multiplier_schedule${tab}${i.year}`, i.value);
           });
         } else {
           this.setInputWithId(
-            `multiplier_input${tab}`,
+            `simulation_multiplier_input${tab}`,
             obj.performance_multiplier_fixed_value_multiplier
           );
           this.setInputWithId(
-            `prf_start_year${tab}`,
+            `simulation_prf_start_year${tab}`,
             obj.performance_multiplier_fixed_value_start_year
           );
         }
@@ -995,17 +1000,17 @@ export default {
 
       // flat credit/bonus
       this.setInputWithId(
-        `credit_checkbox${tab}`,
+        `simulation_credit_checkbox${tab}`,
         obj.flat_credit_bonus ? 1 : 0
       );
 
       if (obj.flat_credit_bonus) {
         this.setInputWithId(
-          `credit_type${tab}`,
+          `simulation_credit_type${tab}`,
           obj.flat_fixed_value ? "fixed" : "schedule"
         );
         this.setInputWithId(
-          `credit_schedule_type${tab}`,
+          `simulation_credit_schedule_type${tab}`,
           obj.flat_credit_schedule_rate ? "rate" : "amount"
         );
         if (
@@ -1018,20 +1023,20 @@ export default {
             this.setInputWithId(
               `${
                 obj.flat_credit_schedule_rate
-                  ? "crd_schedule_rate"
-                  : "crd_schedule_amt"
+                  ? "simulation_crd_schedule_rate"
+                  : "simulation_crd_schedule_amt"
               }${tab}${i.year}`,
               i.value
             );
           });
         } else {
           this.setInputWithId(
-            `credit_bonus_input${tab}`,
+            `simulation_credit_bonus_input${tab}`,
             obj.flat_fixed_credit_bonus
           );
 
           this.setInputWithId(
-            `crd_start_year${tab}`,
+            `simulation_crd_start_year${tab}`,
             obj.flat_fixed_start_year
           );
         }
@@ -1043,17 +1048,17 @@ export default {
       // performance multiplier fee
       if (obj.performance_multiplier) {
         if (obj.performance_multiplier_fees_same_in_all_years_schedule) {
-          this.setUnChecked(`multiplierFee${tab}`);
-          this.setInputWithId(`performance_multiplier_fees${tab}`, "");
+          this.setUnChecked(`simulationMultiplierFee${tab}`);
+          this.setInputWithId(`simulation_performance_multiplier_fees${tab}`, "");
           obj.performance_multiplier_fees_same_in_all_years_schedule.forEach(
             (i) => {
-              this.setInputWithId(`pmf_schedule${tab}${i.year}`, i.value);
+              this.setInputWithId(`simulation_pmf_schedule${tab}${i.year}`, i.value);
             }
           );
         } else {
-          this.setChecked(`multiplierFee${tab}`);
+          this.setChecked(`simulationMultiplierFee${tab}`);
           this.setInputWithId(
-            `performance_multiplier_fees${tab}`,
+            `simulation_performance_multiplier_fees${tab}`,
             obj.performance_multiplier_fees
           );
         }
@@ -1062,15 +1067,15 @@ export default {
       // flat flat/credit fee
       if (obj.flat_credit_bonus) {
         if (!obj.flat_credit_bonus_fees_same_in_all_years) {
-          this.setUnChecked(`flat-credit-fee-radio${tab}`);
-          this.setInputWithId(`flat_credit_fees${tab}`, "");
+          this.setUnChecked(`simulation-flat-credit-fee-radio${tab}`);
+          this.setInputWithId(`simulation_flat_credit_fees${tab}`, "");
           obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach((i) => {
-            this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
+            this.setInputWithId(`simulation_fcf_schedule${tab}${i.year}`, i.value);
           });
         } else {
-          this.setChecked(`flat-credit-fee-radio${tab}`);
+          this.setChecked(`simulation-flat-credit-fee-radio${tab}`);
           this.setInputWithId(
-            `flat_credit_fees${tab}`,
+            `simulation_flat_credit_fees${tab}`,
             obj.flat_credit_bonus_fees
           );
         }
@@ -1078,7 +1083,7 @@ export default {
 
       //High Cap Fee
       this.high_cap_fees = obj.high_cap_fee;
-      this.setInputWithId(`high_cap_fees${tab}`, obj.high_cap_fee);
+      this.setInputWithId(`simulation_high_cap_fees${tab}`, obj.high_cap_fee);
       this.update.fees = true;
     },
     populateGlobalParameters: function (obj) {
@@ -1089,26 +1094,26 @@ export default {
 
       // Premium charge
       if (obj.premium_charges_same_in_all_years) {
-        this.setUnChecked("premiumcharge");
-        this.setInputWithId("premium_charge_fees", "");
+        this.setUnChecked("simulationPremiumCharge");
+        this.setInputWithId("simulation_premium_charge_fees", "");
         obj.premium_charges_same_in_all_years.forEach((i) => {
-          this.setInputWithId(`pcf_schedule${i.year}`, i.value);
+          this.setInputWithId(`simulation_pcf_schedule${i.year}`, i.value);
         });
       } else {
-        this.setChecked("premiumcharge");
-        this.setInputWithId("premium_charge_fees", obj.premium_charge);
+        this.setChecked("simulationPremiumCharge");
+        this.setInputWithId("simulation_premium_charge_fees", obj.premium_charge);
       }
 
       // Loan interest rate
       if (obj.loan_intrest_rate_same_in_all_years) {
-        this.setUnChecked("loanIntrest");
-        this.setInputWithId("loan_interest_fees", "");
+        this.setUnChecked("simulationLoanIntrest");
+        this.setInputWithId("simulation_loan_interest_fees", "");
         obj.loan_intrest_rate_same_in_all_years.forEach((i) => {
-          this.setInputWithId(`lif_schedule${i.year}`, i.value);
+          this.setInputWithId(`simulation_lif_schedule${i.year}`, i.value);
         });
       } else {
-        this.setChecked("loanIntrest");
-        this.setInputWithId("loan_interest_fees", obj.loan_intrest_rate);
+        this.setChecked("simulationLoanIntrest");
+        this.setInputWithId("simulation_loan_interest_fees", obj.loan_intrest_rate);
       }
 
       this.update.global_parameters = true;
@@ -1151,7 +1156,7 @@ export default {
     // get previous data
     populateHistoricalSimulationData: function (id, portfolio = false) {
       get(
-        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`,
+        `${getUrl(portfolio ? "historical-parameters-portfolio" : "historical-parameters")}${id}`,
         authHeader()
       )
         .then((response) => {
@@ -1201,11 +1206,11 @@ export default {
       let fees = this.fees[tab];
       this.error[tab + 1].fees = false;
       this.error[tab + 1].enhancements = false;
-      let portFolio = document.getElementById("savePortfolioCheckbox")
-        ? document.getElementById("savePortfolioCheckbox").checked
+      let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
+        ? document.getElementById("saveSimulationPortfolioCheckbox").checked
         : false;
-      let portFolioName = document.getElementById("portFolioNameInput")
-        ? document.getElementById("portFolioNameInput").value
+      let portFolioName = document.getElementById("portFolioSimulationNameInput")
+        ? document.getElementById("portFolioSimulationNameInput").value
         : false;
 
       if (portFolio && !portFolioName) {
@@ -1367,13 +1372,16 @@ export default {
       })
     );
 
-    // populate historical data if historical data id exist in scenario
+    // populate historical data if historical data id exist in simulation
     this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+    console.log('response');
+
+    get(`${getUrl("simulations")}${this.$route.params.simulation}`, authHeader())
       .then((response) => {
+        console.log(response);
         let id = response.data.data.historical;
         this.historicalId = id;
-        this.$store.dispatch("activeScenario", response.data.data);
+        this.$store.dispatch("activeSimulation", response.data.data);
         if (
           (!this.$route.query.pid || this.$route.query.pid === "null") &&
           id
@@ -1401,9 +1409,11 @@ export default {
   },
   computed: {
     illustrateYear() {
-      let scenario = this.$store.state.data.active_scenario;
-      if (scenario) {
-        return scenario.scenerio_details.years_to_illustrate;
+      let simulation = this.$store.state.data.active_simulation;
+      console.log('simulation');
+      console.log(simulation);
+      if (simulation) {
+        return simulation.scenerio_details.years_to_illustrate;
       }
       return 0;
     },

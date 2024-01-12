@@ -54,7 +54,7 @@
               value="1"
               min="0"
               max="10"
-              :id="`credit_bonus_input${currentTab}`"
+              :id="`simulation_credit_bonus_input${currentTab}`"
             />
           </div>
           <div class="multiplierInputDiv mt-3">
@@ -153,7 +153,7 @@
                   }}</label
                 >
                 <schedule-csv-extraction
-                  :prefixId="`crd_schedule_rate${currentTab}`"
+                  :prefixId="`simulation_crd_schedule_rate${currentTab}`"
                   :maxInputs="illustrateYear"
                   @clearError="
                     $emit('clearError', 'enhancements_credit_schedule_rate')
@@ -174,7 +174,7 @@
                             class="form-control handleLimit"
                             min="0"
                             max="10"
-                            :id="`crd_schedule_rate${currentTab}${item}`"
+                            :id="`simulation_crd_schedule_rate${currentTab}${item}`"
                             @keypress="
                               $emit(
                                 'clearError',
@@ -213,7 +213,7 @@
                   }}</label
                 >
                 <schedule-csv-extraction
-                  :prefixId="`crd_schedule_amt${currentTab}`"
+                  :prefixId="`simulation_crd_schedule_amt${currentTab}`"
                   :maxInputs="illustrateYear"
                   @clearError="
                     $emit('clearError', 'enhancements_credit_schedule_amount')
@@ -233,7 +233,7 @@
                           class="form-control handleLimitWithComma"
                           min="1"
                           max="999999"
-                          :id="`crd_schedule_amt${currentTab}${item}`"
+                          :id="`simulation_crd_schedule_amt${currentTab}${item}`"
                           @keypress="
                             $emit(
                               'clearError',
@@ -253,16 +253,16 @@
         </div>
       </div>
     </div>
-    <input type="hidden" :value="tab" :id="`credit_type${currentTab}`" />
+    <input type="hidden" :value="tab" :id="`simulation_credit_type${currentTab}`" />
     <input
       type="hidden"
       :value="schedule_type"
-      :id="`credit_schedule_type${currentTab}`"
+      :id="`simulation_credit_schedule_type${currentTab}`"
     />
     <input
       type="hidden"
       :value="customAmount || startYear"
-      :id="`crd_start_year${currentTab}`"
+      :id="`simulation_crd_start_year${currentTab}`"
     />
   </div>
 </template>
@@ -290,13 +290,13 @@ export default {
       this.$refs.customInputRef.value = "";
     },
     updateLatestData: function () {
-      this.tab = document.getElementById(`credit_type${this.currentTab}`).value;
+      this.tab = document.getElementById(`simulation_credit_type${this.currentTab}`).value;
       let years = [1, 2, 3, 4, 5];
       let year = Number(
-        document.getElementById(`crd_start_year${this.currentTab}`).value
+        document.getElementById(`simulation_crd_start_year${this.currentTab}`).value
       );
       this.schedule_type = document.getElementById(
-        `credit_schedule_type${this.currentTab}`
+        `simulation_credit_schedule_type${this.currentTab}`
       ).value;
       if (years.includes(year)) {
         this.startYear = year;

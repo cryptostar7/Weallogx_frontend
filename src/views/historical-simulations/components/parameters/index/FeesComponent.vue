@@ -2,13 +2,13 @@
   <div
     class="indexStrategyallDivs active accordion-button collapsed mt-3"
     data-bs-toggle="collapse"
-    :data-bs-target="`#fees-parameters${currentTab}`"
+    :data-bs-target="`#simulation-fees-parameters${currentTab}`"
     aria-expanded="false"
-    :aria-controls="`fees-parameters${currentTab}`"
+    :aria-controls="`simulation-fees-parameters${currentTab}`"
   >
     <div
       class="d-flex justify-content-between align-items-center"
-      :id="`feesTab${currentTab}`"
+      :id="`fees-parameters${currentTab}`"
     >
       <div class="indexStrategyheadBrdr">
         <p>
@@ -54,9 +54,9 @@
     </div>
   </div>
   <form
-    :id="`fees-parameters${currentTab}`"
+    :id="`simulation-fees-parameters${currentTab}`"
     class="accordion-collapse collapse analysisParametersContent"
-    :data-bs-parent="`#fees-parameters${currentTab}`"
+    :data-bs-parent="`#simulation-fees-parameters${currentTab}`"
     autocomplete="off"
   >
     <div :class="$props.performance ? '' : 'd-none'">
@@ -114,11 +114,11 @@
               class="form-check-input"
               type="checkbox"
               role="switch"
-              :id="`multiplierFee${currentTab}`"
+              :id="`simulationMultiplierFee${currentTab}`"
               v-model="sameInAllYears.multiplier_fee"
             />
           </div>
-          <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara"
+          <label :for="`simulationMultiplierFee${currentTab}`" class="buttonSaveRadioPara"
             >Same in All Years</label
           >
         </div>
@@ -128,13 +128,13 @@
               class="form-check-input enhanceInputCheckBox"
               type="checkbox"
               role=":switch"
-              :id="`applyAllPmf${currentTab}`"
+              :id="`simulationApplyAllPmf${currentTab}`"
               @change="applyPmfToAllIndex"
             />
           </div>
           <label
-            :for="`applyAllPmf${currentTab}`"
-            :id="`applyAllPmfLabel${currentTab}`"
+            :for="`simulationApplyAllPmf${currentTab}`"
+            :id="`simulationApplyAllPmfLabel${currentTab}`"
             class="buttonSaveRadioPara"
             >Apply To All Index Strategies</label
           >
@@ -153,7 +153,7 @@
             >{{ errors[currentTab].fee_pmf_schedule }}</label
           >
           <schedule-csv-extraction
-            :prefixId="`pmf_schedule${currentTab}`"
+            :prefixId="`simulation_pmf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
             @clearError="$emit('clearError', currentTab, 'fee_pmf_schedule')"
           />
@@ -174,7 +174,7 @@
                     class="form-control handleLimit"
                     min="0"
                     max="10"
-                    :id="`pmf_schedule${currentTab}${item}`"
+                    :id="`simulation_pmf_schedule${currentTab}${item}`"
                     @keypress="
                       $emit('clearError', currentTab, 'fee_pmf_schedule')
                     "
@@ -234,12 +234,12 @@
               class="form-check-input"
               type="checkbox"
               role="switch"
-              :id="`flat-credit-fee-radio${currentTab}`"
+              :id="`simulation-flat-credit-fee-radio${currentTab}`"
               v-model="sameInAllYears.credit_bonus_fee"
             />
           </div>
           <label
-            :for="`flat-credit-fee-radio${currentTab}`"
+            :for="`simulation-flat-credit-fee-radio${currentTab}`"
             class="buttonSaveRadioPara"
             >Same in All Years</label
           >
@@ -250,13 +250,13 @@
               class="form-check-input enhanceInputCheckBox"
               type="checkbox"
               role=":switch"
-              :id="`applyAllFcf${currentTab}`"
+              :id="`simulationApplyAllFcf${currentTab}`"
               @change="applyFcfToAllIndex"
             />
           </div>
           <label
-            :for="`applyAllFcf${currentTab}`"
-            :id="`applyAllFcfLabel${currentTab}`"
+            :for="`simulationApplyAllFcf${currentTab}`"
+            :id="`simulationApplyAllFcfLabel${currentTab}`"
             class="buttonSaveRadioPara"
             >Apply To All Index Strategies</label
           >
@@ -274,7 +274,7 @@
             >{{ errors[currentTab].fee_fcf_schedule }}</label
           >
           <schedule-csv-extraction
-            :prefixId="`fcf_schedule${currentTab}`"
+            :prefixId="`simulation_fcf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
             @clearError="$emit('clearError', currentTab, 'fee_fcf_schedule')"
           />
@@ -295,7 +295,7 @@
                     class="form-control handleLimit"
                     min="0"
                     max="10"
-                    :id="`fcf_schedule${currentTab}${item}`"
+                    :id="`simulation_fcf_schedule${currentTab}${item}`"
                     @keypress="
                       $emit('clearError', currentTab, 'fee_fcf_schedule')
                     "
@@ -356,27 +356,27 @@
     <input
       type="hidden"
       :value="customPerformanceFeeAmount || performanceFeeAmount"
-      :id="`performance_multiplier_fees${currentTab}`"
+      :id="`simulation_performance_multiplier_fees${currentTab}`"
     />
     <input
       type="hidden"
       :value="sameInAllYears.multiplier_fee ? 1 : 0"
-      :id="`pmf_all_year${currentTab}`"
+      :id="`simulation_pmf_all_year${currentTab}`"
     />
     <input
       type="hidden"
       :value="customFlatAmount || flatAmount"
-      :id="`flat_credit_fees${currentTab}`"
+      :id="`simulation_flat_credit_fees${currentTab}`"
     />
     <input
       type="hidden"
       :value="sameInAllYears.credit_bonus_fee ? 1 : 0"
-      :id="`fcf_all_year${currentTab}`"
+      :id="`simulation_fcf_all_year${currentTab}`"
     />
     <input
       type="hidden"
       :value="customHipCapAmount || hipCapAmount"
-      :id="`high_cap_fees${currentTab}`"
+      :id="`simulation_high_cap_fees${currentTab}`"
     />
   </form>
 </template>
@@ -446,13 +446,13 @@ export default {
     removePmfApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
-      if (this.isChecked(`applyAllPmf${currentTab}`)) {
-        document.getElementById(`applyAllPmf${currentTab}`).checked = false;
+      if (this.isChecked(`simulationApplyAllPmf${currentTab}`)) {
+        document.getElementById(`simulationApplyAllPmf${currentTab}`).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`applyAllPmf${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(`simulationApplyAllPmf${tab}`).disabled = false; // enable the toggle input
           document
-            .getElementById(`applyAllPmfLabel${tab}`)
+            .getElementById(`simulationApplyAllPmfLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
         });
       }
@@ -464,7 +464,7 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`applyAllPmf${tab}`) && currentTab !== tab) {
+        if (this.isChecked(`simulationApplyAllPmf${tab}`) && currentTab !== tab) {
           toggle = true;
         }
       });
@@ -480,7 +480,7 @@ export default {
       if (!pmf_all_year) {
         for (let i = 0; i < this.illustrateYear; i++) {
           let value = document.getElementById(
-            `pmf_schedule${this.$props.currentTab}${i + 1}`
+            `simulation_pmf_schedule${this.$props.currentTab}${i + 1}`
           ).value; // get current schedule input value
 
           if (!value) {
@@ -500,7 +500,7 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let pmf_all_year = Number(
-        document.getElementById(`pmf_all_year${currentTab}`).value
+        document.getElementById(`simulation_pmf_all_year${currentTab}`).value
       );
 
       // Show warning message if shedule data is not filled in all inputs
@@ -514,24 +514,24 @@ export default {
       }
 
       let pmf_fee = document.getElementById(
-        `performance_multiplier_fees${currentTab}`
+        `simulation_performance_multiplier_fees${currentTab}`
       ).value; // get current tab multiplier input value
 
       if (!this.isAnyPmfAppliedToggle() && e.target.checked) {
         tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllPmf${tab}`).checked =
+            document.getElementById(`simulationApplyAllPmf${tab}`).checked =
               !e.target.checked; // unchecked the toggle input
-            document.getElementById(`applyAllPmf${tab}`).disabled =
+            document.getElementById(`simulationApplyAllPmf${tab}`).disabled =
               !e.target.checked; // disabled the toggle input
             document
-              .getElementById(`applyAllPmfLabel${tab}`)
+              .getElementById(`simulationApplyAllPmfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
 
             if (!pmf_all_year) {
-              document.getElementById(`multiplierFee${tab}`).checked = false; // open the schedule inputs in all tabs
+              document.getElementById(`simulationMultiplierFee${tab}`).checked = false; // open the schedule inputs in all tabs
             } else {
-              document.getElementById(`multiplierFee${tab}`).checked = true; // close the schedule inputs in all tabs
+              document.getElementById(`simulationMultiplierFee${tab}`).checked = true; // close the schedule inputs in all tabs
             }
 
             this.$emit("setApplyPmfAllIndex", true);
@@ -541,11 +541,11 @@ export default {
         if (!pmf_all_year) {
           for (let i = 0; i < this.illustrateYear; i++) {
             let value = document.getElementById(
-              `pmf_schedule${currentTab}${i + 1}`
+              `simulation_pmf_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
             tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(`pmf_schedule${tab}${i + 1}`).value =
+                document.getElementById(`simulation_pmf_schedule${tab}${i + 1}`).value =
                   value; // set schedule value in all tabs
               }
             });
@@ -554,7 +554,7 @@ export default {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
               document.getElementById(
-                `performance_multiplier_fees${tab}`
+                `simulation_performance_multiplier_fees${tab}`
               ).value = pmf_fee; // set multiplier value in all tabs
             }
           });
@@ -564,7 +564,7 @@ export default {
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmfAppliedToggle()) {
             document
-              .getElementById(`applyAllPmfLabel${tab}`)
+              .getElementById(`simulationApplyAllPmfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
@@ -575,13 +575,13 @@ export default {
     removeFcfApllyAllIndex: function () {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
-      if (this.isChecked(`applyAllFcf${currentTab}`)) {
-        document.getElementById(`applyAllFcf${currentTab}`).checked = false;
+      if (this.isChecked(`simulationApplyAllFcf${currentTab}`)) {
+        document.getElementById(`simulationApplyAllFcf${currentTab}`).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`applyAllFcf${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(`simulationApplyAllFcf${tab}`).disabled = false; // enable the toggle input
           document
-            .getElementById(`applyAllFcfLabel${tab}`)
+            .getElementById(`simulationApplyAllFcfLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
         });
       }
@@ -593,7 +593,7 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`applyAllFcf${tab}`) && currentTab !== tab) {
+        if (this.isChecked(`simulationApplyAllFcf${tab}`) && currentTab !== tab) {
           toggle = true;
         }
       });
@@ -609,7 +609,7 @@ export default {
       if (!fcf_all_year) {
         for (let i = 0; i < this.illustrateYear; i++) {
           let value = document.getElementById(
-            `fcf_schedule${this.$props.currentTab}${i + 1}`
+            `simulation_fcf_schedule${this.$props.currentTab}${i + 1}`
           ).value; // get current schedule input value
 
           if (!value) {
@@ -629,7 +629,7 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let fcf_all_year = Number(
-        document.getElementById(`flat-credit-fee-radio${currentTab}`).checked
+        document.getElementById(`simulation-flat-credit-fee-radio${currentTab}`).checked
       );
 
       // Show warning message if shedule data is not filled in all inputs
@@ -643,27 +643,27 @@ export default {
       }
 
       let pmf_fee = document.getElementById(
-        `flat_credit_fees${currentTab}`
+        `simulation_flat_credit_fees${currentTab}`
       ).value; // get current tab multiplier input value
 
       if (!this.isAnyFcfAppliedToggle() && e.target.checked) {
         tabs.forEach((tab) => {
           if (currentTab !== tab) {
-            document.getElementById(`applyAllFcf${tab}`).checked =
+            document.getElementById(`simulationApplyAllFcf${tab}`).checked =
               !e.target.checked; // unchecked the toggle input
-            document.getElementById(`applyAllFcf${tab}`).disabled =
+            document.getElementById(`simulationApplyAllFcf${tab}`).disabled =
               !e.target.checked; // disabled the toggle input
             document
-              .getElementById(`applyAllFcfLabel${tab}`)
+              .getElementById(`simulationApplyAllFcfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
 
             if (!fcf_all_year) {
               document.getElementById(
-                `flat-credit-fee-radio${tab}`
+                `simulation-flat-credit-fee-radio${tab}`
               ).checked = false; // open the schedule inputs in all tabs
             } else {
               document.getElementById(
-                `flat-credit-fee-radio${tab}`
+                `simulation-flat-credit-fee-radio${tab}`
               ).checked = true; // close the schedule inputs in all tabs
             }
 
@@ -674,11 +674,11 @@ export default {
         if (!fcf_all_year) {
           for (let i = 0; i < this.illustrateYear; i++) {
             let value = document.getElementById(
-              `fcf_schedule${currentTab}${i + 1}`
+              `simulation_fcf_schedule${currentTab}${i + 1}`
             ).value; // get current schedule input value
             tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(`fcf_schedule${tab}${i + 1}`).value =
+                document.getElementById(`simulation_fcf_schedule${tab}${i + 1}`).value =
                   value; // set schedule value in all tabs
               }
             });
@@ -686,7 +686,7 @@ export default {
         } else {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
+              document.getElementById(`simulation_flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
             }
           });
         }
@@ -695,7 +695,7 @@ export default {
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcfAppliedToggle()) {
             document
-              .getElementById(`applyAllFcfLabel${tab}`)
+              .getElementById(`simulationApplyAllFcfLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
           }
         });
@@ -706,13 +706,13 @@ export default {
       let charges = [1, 2, 3, 4, 5, 6, 7, 8];
       // Performance multiplier rate
       this.sameInAllYears.multiplier_fee = document.getElementById(
-        `multiplierFee${this.currentTab}`
+        `simulationMultiplierFee${this.currentTab}`
       ).checked;
 
       if (this.sameInAllYears.multiplier_fee) {
         let ml = Number(
           document.getElementById(
-            `performance_multiplier_fees${this.currentTab}`
+            `simulation_performance_multiplier_fees${this.currentTab}`
           ).value
         );
 
@@ -728,14 +728,14 @@ export default {
 
       // Flat Credit/Bonus rate
       this.sameInAllYears.credit_bonus_fee = document.getElementById(
-        `flat-credit-fee-radio${this.currentTab}`
+        `simulation-flat-credit-fee-radio${this.currentTab}`
       ).checked;
 
       // (this.sameInAllYears.credit_bonus_fee)
 
       if (this.sameInAllYears.credit_bonus_fee) {
         let ff = Number(
-          document.getElementById(`flat_credit_fees${this.currentTab}`).value
+          document.getElementById(`simulation_flat_credit_fees${this.currentTab}`).value
         );
 
         if ([1, 2, 3].includes(ff)) {
@@ -750,7 +750,7 @@ export default {
 
       // high cap fee
       let hc = Number(
-        document.getElementById(`high_cap_fees${this.currentTab}`).value
+        document.getElementById(`simulation_high_cap_fees${this.currentTab}`).value
       );
       if ([1, 2, 3].includes(hc)) {
         this.hipCapAmount = hc;

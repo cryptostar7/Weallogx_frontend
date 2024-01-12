@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="formParabrdrLavelDiv mt-4" id="globalPcTab">
+  <div class="formParabrdrLavelDiv mt-4" id="simulationGlobalPcTab">
     <p>Premium Charge</p>
     <p></p>
   </div>
@@ -48,11 +48,11 @@
         class="form-check-input"
         type="checkbox"
         role="switch"
-        id="premiumcharge"
+        id="simulationPremiumCharge"
         v-model="sameInAllYears.premium_charge"
       />
     </div>
-    <label for="premiumcharge" class="buttonSaveRadioPara"
+    <label for="simulationPremiumCharge" class="buttonSaveRadioPara"
       >Same in All Years</label
     >
   </div>
@@ -89,7 +89,7 @@
                 class="form-control handleLimit"
                 min="0"
                 max="15"
-                :id="`pcf_schedule${item}`"
+                :id="`simulation_pcf_schedule${item}`"
                 @keypress="$emit('clearError', 'analysis_pc_schedule')"
               />
               <label for="amount">%</label>
@@ -99,7 +99,7 @@
       </table>
     </div>
   </div>
-  <div class="formParabrdrLavelDiv mt-4" id="globaLifTab">
+  <div class="formParabrdrLavelDiv mt-4" id="simulationGlobaLifTab">
     <p>Loan Interest Rate</p>
     <p></p>
   </div>
@@ -148,11 +148,11 @@
         class="form-check-input"
         type="checkbox"
         role="switch"
-        id="loanIntrest"
+        id="simulationLoanIntrest"
         v-model="sameInAllYears.loan_interest"
       />
     </div>
-    <label for="loanIntrest" class="buttonSaveRadioPara"
+    <label for="simulationLoanIntrest" class="buttonSaveRadioPara"
       >Same in All Years</label
     >
   </div>
@@ -190,7 +190,7 @@
                 class="form-control handleLimit"
                 min="0"
                 max="12"
-                :id="`lif_schedule${item}`"
+                :id="`simulation_lif_schedule${item}`"
                 @keypress="$emit('clearError', 'analysis_lif_schedule')"
               />
               <label for="amount">%</label>
@@ -237,24 +237,24 @@
   <input
     type="hidden"
     :value="customPremiumCharge || premiumCharge"
-    id="premium_charge_fees"
+    id="simulation_premium_charge_fees"
   />
   <input
     type="hidden"
     :value="sameInAllYears.premium_charge ? 1 : 0"
-    id="pcf_all_year"
+    id="simulation_pcf_all_year"
   />
   <input
     type="hidden"
     :value="customInterestAmount || loanInterest"
-    id="loan_interest_fees"
+    id="simulation_loan_interest_fees"
   />
   <input
     type="hidden"
     :value="sameInAllYears.loan_interest ? 1 : 0"
-    id="lif_all_year"
+    id="simulation_lif_all_year"
   />
-  <input type="hidden" :value="Arrears ? 1 : 0" id="in_arrears" />
+  <input type="hidden" :value="Arrears ? 1 : 0" id="simulation_in_arrears" />
 </template>
 <script>
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
@@ -305,15 +305,15 @@ export default {
       if (e) {
         let charges = [1, 2, 3, 4, 5, 6, 7, 8];
 
-        this.Arrears = Number(document.getElementById("in_arrears").value)
+        this.Arrears = Number(document.getElementById("simulation_in_arrears").value)
           ? true
           : false;
 
         // premium charge
         this.sameInAllYears.premium_charge =
-          document.getElementById(`premiumcharge`).checked;
+          document.getElementById(`simulationPremiumCharge`).checked;
         if (this.sameInAllYears.premium_charge) {
-          let pc = Number(document.getElementById(`premium_charge_fees`).value);
+          let pc = Number(document.getElementById(`simulation_premium_charge_fees`).value);
           if (charges.includes(pc)) {
             this.premiumCharge = pc;
           } else {
@@ -326,10 +326,10 @@ export default {
 
         // Loan interest rate
         this.sameInAllYears.loan_interest =
-          document.getElementById(`loanIntrest`).checked;
+          document.getElementById(`simulationLoanIntrest`).checked;
 
         if (this.sameInAllYears.loan_interest) {
-          let li = Number(document.getElementById(`loan_interest_fees`).value);
+          let li = Number(document.getElementById(`simulation_loan_interest_fees`).value);
           if (charges.includes(li)) {
             this.loanInterest = li;
           } else {
