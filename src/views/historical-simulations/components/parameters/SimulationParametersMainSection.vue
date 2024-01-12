@@ -190,9 +190,7 @@ export default {
   },
   methods: {
     testFunction: function () {
-      let simulation = this.$store.state.data.active_simulation;
-      console.log('simulation');
-      console.log(simulation);
+      console.log(this.illustrateYear);
     },
     setUpdated: function (index) {
       this.update[index] = false;
@@ -1410,10 +1408,8 @@ export default {
   computed: {
     illustrateYear() {
       let simulation = this.$store.state.data.active_simulation;
-      console.log('simulation');
-      console.log(simulation);
       if (simulation) {
-        return simulation.scenerio_details.years_to_illustrate;
+        return simulation.simulation_details.years_to_illustrate;
       }
       return 0;
     },

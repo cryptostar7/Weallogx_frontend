@@ -538,17 +538,12 @@
     },
     computed: {
       illustrateYear() {
-        let scenario = this.$store.state.data.active_scenario;
-        if (scenario) {
-          return scenario.scenerio_details.years_to_illustrate;
+        let simulation = this.$store.state.data.active_simulation;
+        if (simulation) {
+          return simulation.simulation_details.years_to_illustrate;
         }
         return 0;
-      },
-      // active scenario data
-      activeScenario() {
-        return this.$store.state.data.active_scenario;
-      },
-  
+      }, 
       existingIndex() {
         return this.$store.state.data.templates.historical || [];
       },
