@@ -95,7 +95,7 @@
                         <a
                           href="javascript:void(0)"
                           class="nav-link btn form-back-btn fs-14 skipScenarioBtn"
-                          v-if="!$route.query.report"
+                          v-if="$route.query.report"
                           @click="submitHandler(false, true)"
                           >Save & Return to Current Report</a
                         >

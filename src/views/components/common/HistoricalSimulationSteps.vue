@@ -43,6 +43,7 @@
 </template>
 <script>
 export default {
+  props: ["active_all_tab"],
   computed: {
     simulation() {
       return this.$store.state.data.active_simulation || [];
@@ -55,9 +56,10 @@ export default {
           this.$route.params.simulation || ""
         }`,
       };
-      if (
-        this.simulation.simulation_details &&
-        route !== "historical-simulation-details"
+
+      if (this.$props.active_all_tab ||
+        (this.simulation.simulation_details &&
+        route !== "historical-simulation-details")
       ) {
         response.class = "done";
       }
@@ -71,7 +73,7 @@ export default {
         response.class = "active";
       }
 
-      if (this.simulation.illustration) {
+      if (this.simulation.illustration || this.$props.active_all_tab) {
         response.class = "done";
       }
 
@@ -90,7 +92,7 @@ export default {
     historicalDetail() {
       let route = this.$route.name;
       let response = { class: "", url: "" };
-      if (this.simulation.historical) {
+      if (this.simulation.historical || this.$props.active_all_tab) {
         response.class = "done";
       }
 

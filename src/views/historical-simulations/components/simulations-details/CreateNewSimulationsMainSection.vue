@@ -747,9 +747,6 @@ export default {
         template_name: data.template_name,
       };
 
-      console.log(this.detailId);
-      console.log(formData);
-      
       this.$store.dispatch("loader", true);
 
       if (this.detailId) {
@@ -807,7 +804,7 @@ export default {
           let url = `/historical/illustration-data/${this.activeSimulation.id}`;
           if (review) {
             return this.$router.push(
-              `/review-summary/${this.activeSimulation.id}`
+              `/historical/simulation-review/${this.activeSimulation.id}`
             );
           }
 
