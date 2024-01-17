@@ -163,14 +163,12 @@
             </div>
             <growth-parameters
               :currentTab="1"
-              :update="$props.update.growth_parameters"
-              @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
+              ref="growthParametersRef1"
               :rollingTime="$props.rollingTime"
             />
             <enhancements-component
               :currentTab="1"
-              :update="$props.update.enhancement"
-              @setUpdated="() => $emit('setUpdated', 'enhancement')"
+              ref="enhancementsParametersRef1"
               :applyPmAllIndex="applyPmAllIndex"
               @setApplyPmAllIndex="setApplyPmAllIndex"
               :applyFcAllIndex="applyFcAllIndex"
@@ -185,8 +183,7 @@
             />
             <fees-component
               :currentTab="1"
-              :update="$props.update.fees"
-              @setUpdated="() => $emit('setUpdated', 'fees')"
+              ref="feesParametersRef1"
               :performance="strategies[0].enhancements.performance_multiplier"
               :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee"
               :applyPmfAllIndex="applyPmfAllIndex"
@@ -225,18 +222,16 @@
             </div>
             <growth-parameters
               :currentTab="2"
-              :update="$props.update.growth_parameters"
-              @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
+              ref="growthParametersRef2"
               :rollingTime="$props.rollingTime"
             />
             <enhancements-component
               :currentTab="2"
-              :update="$props.update.enhancement"
+              ref="enhancementsParametersRef2"
               :applyPmAllIndex="applyPmAllIndex"
               @setApplyPmAllIndex="setApplyPmAllIndex"
               :applyFcAllIndex="applyFcAllIndex"
               @setApplyFcAllIndex="setApplyFcAllIndex"
-              @setUpdated="() => $emit('setUpdated', 'enhancement')"
               @clearError="clearError"
               @performanceChange="
                 (val) => (strategies[1].enhancements.performance_multiplier = val)
@@ -247,8 +242,7 @@
             />
             <fees-component
               :currentTab="2"
-              :update="$props.update.fees"
-              @setUpdated="() => $emit('setUpdated', 'fees')"
+              ref="feesParametersRef2"
               :performance="strategies[1].enhancements.performance_multiplier"
               :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee"
               :applyPmfAllIndex="applyPmfAllIndex"
@@ -287,14 +281,12 @@
             </div>
             <growth-parameters
               :currentTab="3"
-              :update="$props.update.growth_parameters"
-              @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
+              ref="growthParametersRef3"
               :rollingTime="$props.rollingTime"
             />
             <enhancements-component
               :currentTab="3"
-              :update="$props.update.enhancement"
-              @setUpdated="() => $emit('setUpdated', 'enhancement')"
+              ref="enhancementsParametersRef3"
               :applyPmAllIndex="applyPmAllIndex"
               @setApplyPmAllIndex="setApplyPmAllIndex"
               :applyFcAllIndex="applyFcAllIndex"
@@ -309,8 +301,7 @@
             />
             <fees-component
               :currentTab="3"
-              :update="$props.update.fees"
-              @setUpdated="() => $emit('setUpdated', 'fees')"
+              ref="feesParametersRef3"
               :performance="strategies[2].enhancements.performance_multiplier"
               :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee"
               :applyPmfAllIndex="applyPmfAllIndex"
@@ -363,7 +354,6 @@
   </template>
   <script>
   import SelectDropdown from "../../../../components/common/SelectDropdown.vue";
-  import AnalysisParameters from "../index/AnalysisParameters.vue";
   import EnhancementsComponent from "../index/EnhancementsComponent.vue";
   import GrowthParameters from "../index/GrowthParameters.vue";
   import FeesComponent from "../index/FeesComponent.vue";
@@ -375,7 +365,6 @@
     components: {
       SelectDropdown,
       GrowthParameters,
-      AnalysisParameters,
       EnhancementsComponent,
       FeesComponent,
       SaveStrategyTemplate,
@@ -383,8 +372,8 @@
       StrategyWeightFirstComponent,
       StrategyWeightSecondComponent,
     },
-    props: ["update", "rollingTime", "strategyWeight1", "strategyWeight2"],
-    emits: ["clearError", "setUpdated", "populateIndexTemplate"],
+    props: ["rollingTime", "strategyWeight1", "strategyWeight2"],
+    emits: ["clearError", "populateIndexTemplate"],
     data() {
       return {
         activeTab: 1,
@@ -535,6 +524,22 @@
   
         return obj;
       },
+      updateData: function(){
+        // update growth parameters form inputs
+        this.$refs.growthParametersRef1.updateData();
+        this.$refs.growthParametersRef2.updateData();
+        this.$refs.growthParametersRef3.updateData();
+
+        // update enhancements parameters form inputs
+        this.$refs.enhancementsParametersRef1.updateData();
+        this.$refs.enhancementsParametersRef2.updateData();
+        this.$refs.enhancementsParametersRef3.updateData();
+        
+        // update fees parameters form inputs
+        this.$refs.feesParametersRef1.updateData();
+        this.$refs.feesParametersRef2.updateData();
+        this.$refs.feesParametersRef3.updateData();
+      }
     },
     computed: {
       illustrateYear() {

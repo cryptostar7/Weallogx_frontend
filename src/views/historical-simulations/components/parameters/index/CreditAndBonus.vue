@@ -270,7 +270,7 @@
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
-  props: ["currentTab", "visible", "update", "applyFcAllIndex"],
+  props: ["currentTab", "visible", "applyFcAllIndex"],
   inject: ["errors"],
   emits: ["clearError", "setApplyFcAllIndex", "validateFcValues"],
   components: { ScheduleCsvExtraction },
@@ -289,7 +289,7 @@ export default {
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
     },
-    updateLatestData: function () {
+    updateData: function () {
       this.tab = document.getElementById(`simulation_credit_type${this.currentTab}`).value;
       let years = [1, 2, 3, 4, 5];
       let year = Number(
@@ -322,12 +322,9 @@ export default {
     schedule_type() {
       this.$emit("validateFcValues", this.tab, this.schedule_type);
     },
-    "$props.update"() {
-      this.updateLatestData();
-    },
     "$props.applyFcAllIndex"() {
       this.$emit("setApplyFcAllIndex", false);
-      this.updateLatestData();
+      this.updateData();
     },
   },
 };

@@ -117,7 +117,7 @@
                 v-if="$props.data.performance_multiplier_schedule_check"
                 class="Schedule-para"
                 data-bs-toggle="modal"
-                data-bs-target="#showHistoricalScheduleModal"
+                data-bs-target="#showScheduleSimulationModal"
                 @click="
                   setSchedule(
                     $props.data.performance_multiplier_schedule,
@@ -225,7 +225,7 @@
                 v-if="$props.data.flat_credit_schedule"
                 class="Schedule-para"
                 data-bs-toggle="modal"
-                data-bs-target="#showHistoricalScheduleModal"
+                data-bs-target="#showScheduleSimulationModal"
                 @click="
                   setSchedule(
                     $props.data.flat_credit_schedule_rate ||
@@ -341,7 +341,7 @@
                 v-if="!$props.data.performance_multiplier_fees_same_in_all_years"
                 class="Schedule-para"
                 data-bs-toggle="modal"
-                data-bs-target="#showHistoricalScheduleModal"
+                data-bs-target="#showScheduleSimulationModal"
                 @click="
                   setSchedule(
                     $props.data
@@ -454,7 +454,7 @@
                 v-if="!$props.data.flat_credit_bonus_fees_same_in_all_years"
                 class="Schedule-para"
                 data-bs-toggle="modal"
-                data-bs-target="#showHistoricalScheduleModal"
+                data-bs-target="#showScheduleSimulationModal"
                 @click="
                   setSchedule(
                     $props.data.flat_credit_bonus_fees_same_in_all_years_schedule,

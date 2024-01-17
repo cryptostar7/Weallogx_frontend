@@ -260,10 +260,10 @@
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
-  props: ["performance", "flatCreditBonus", "update"],
+  props: ["performance", "flatCreditBonus"],
   components: { ScheduleCsvExtraction },
   inject: ["errors"],
-  emits: ["clearError", "setUpdated"],
+  emits: ["clearError"],
   data() {
     return {
       MaxPremiumCharge: 8,
@@ -290,6 +290,52 @@ export default {
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
     },
+    updateData: function () {
+      let charges = [1, 2, 3, 4, 5, 6, 7, 8];
+
+      this.Arrears = Number(
+        document.getElementById("simulation_in_arrears").value
+      )
+        ? true
+        : false;
+
+      // premium charge
+      this.sameInAllYears.premium_charge = document.getElementById(
+        `simulationPremiumCharge`
+      ).checked;
+      if (this.sameInAllYears.premium_charge) {
+        let pc = Number(
+          document.getElementById(`simulation_premium_charge_fees`).value
+        );
+        if (charges.includes(pc)) {
+          this.premiumCharge = pc;
+        } else {
+          this.customPremiumCharge = pc;
+          this.$refs.customPCRef.value = pc;
+        }
+      } else {
+        this.premiumCharge = "";
+      }
+
+      // Loan interest rate
+      this.sameInAllYears.loan_interest = document.getElementById(
+        `simulationLoanIntrest`
+      ).checked;
+
+      if (this.sameInAllYears.loan_interest) {
+        let li = Number(
+          document.getElementById(`simulation_loan_interest_fees`).value
+        );
+        if (charges.includes(li)) {
+          this.loanInterest = li;
+        } else {
+          this.customInterestAmount = li;
+          this.$refs.customLIRef.value = li;
+        }
+      } else {
+        this.loanInterest = "";
+      }
+    },
   },
   computed: {
     illustrateYear() {
@@ -298,49 +344,6 @@ export default {
         return simulation.simulation_details.years_to_illustrate;
       }
       return 0;
-    },
-  },
-  watch: {
-    "$props.update"(e) {
-      if (e) {
-        let charges = [1, 2, 3, 4, 5, 6, 7, 8];
-
-        this.Arrears = Number(document.getElementById("simulation_in_arrears").value)
-          ? true
-          : false;
-
-        // premium charge
-        this.sameInAllYears.premium_charge =
-          document.getElementById(`simulationPremiumCharge`).checked;
-        if (this.sameInAllYears.premium_charge) {
-          let pc = Number(document.getElementById(`simulation_premium_charge_fees`).value);
-          if (charges.includes(pc)) {
-            this.premiumCharge = pc;
-          } else {
-            this.customPremiumCharge = pc;
-            this.$refs.customPCRef.value = pc;
-          }
-        } else {
-          this.premiumCharge = "";
-        }
-
-        // Loan interest rate
-        this.sameInAllYears.loan_interest =
-          document.getElementById(`simulationLoanIntrest`).checked;
-
-        if (this.sameInAllYears.loan_interest) {
-          let li = Number(document.getElementById(`simulation_loan_interest_fees`).value);
-          if (charges.includes(li)) {
-            this.loanInterest = li;
-          } else {
-            this.customInterestAmount = li;
-            this.$refs.customLIRef.value = li;
-          }
-        } else {
-          this.loanInterest = "";
-        }
-        this.$emit("setUpdated");
-      }
     },
   },
 };

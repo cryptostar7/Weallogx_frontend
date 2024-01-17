@@ -157,7 +157,7 @@
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
-  props: ["currentTab", "visible", "update", "applyPmAllIndex"],
+  props: ["currentTab", "visible", "applyPmAllIndex"],
   inject: ["errors"],
   emits: ["clearError", "setApplyPmAllIndex", "validatePmValues"],
   components: { ScheduleCsvExtraction },
@@ -175,7 +175,7 @@ export default {
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
     },
-    updateLatestData: function () {
+    updateData: function () {
       this.tab = document.getElementById(
         `simulation_performance_type${this.currentTab}`
       ).value;
@@ -204,12 +204,9 @@ export default {
     tab() {
       this.$emit("validatePmValues", this.tab);
     },
-    "$props.update"() {
-      this.updateLatestData();
-    },
     "$props.applyPmAllIndex"() {
       this.$emit("setApplyPmAllIndex", false);
-      this.updateLatestData();
+      this.updateData();
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <section class="main-section">
-    <historical-simulation-steps />
+    <historical-simulation-steps :currentStep="1"/>
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
@@ -362,8 +362,6 @@ export default {
             }
           }
         }
-      console.log('populate details.........', id);
-
         return this.populateSimulationDetail(id);
       }
 
@@ -394,13 +392,11 @@ export default {
   methods: {
     // get previous scebario detail information
     getSimulationnDetails: function () {
-        console.log('394');
       get(
         `${getUrl("simulations")}${this.$route.params.simulation}`,
         authHeader()
       )
         .then((response) => {
-            console.log(response.data);
           let id = false;
           if (response.data.data.simulation_details) {
             id = response.data.data.simulation_details.id;
@@ -579,14 +575,12 @@ export default {
       if (!id) {
         return false;
       }
-      console.log('test++');
       let step1 = getSimulationStep1();
       if (step1 && step1.id === Number(id)) {
         this.detailId = step1.id;
         return this.setFormInputs(step1, template);
       } else {
         this.$store.dispatch("loader", true);
-        console.log(template ? "simulation-detail-templates" : "simulation-details");
         get(
           `${getUrl(
             template ? "simulation-detail-templates" : "simulation-details"
@@ -594,7 +588,6 @@ export default {
           authHeader()
         )
           .then((response) => {
-            console.log(response.data);
             this.$store.dispatch("loader", false);
             this.setFormInputs(response.data.data, template);
             setSimulationStep1(response.data.data);
@@ -712,11 +705,6 @@ export default {
       if (e) {
         e.preventDefault();
       }
-
-      console.log(
-        this.illustrateYear,
-        this.getInputUsingId("illustratedSimulationAge")
-      );
 
       if (!this.validateForm()) {
         return false;

@@ -40,6 +40,9 @@ export default {
     reActive: function() {
       this.customAmount = "";
     },
+    updateData: function(){
+      this.range = this.$refs.rangeHiddenRef.value;
+    }
   },
   updated() {
     var inp = this.$refs.input;
@@ -47,12 +50,13 @@ export default {
     var newPosition = 16 - position * 0.32;
     this.rangePercentage = `calc(${position}% + (${newPosition}px))`;
   },
+  
   watch: {
-    "$props.update"(e) {
-      if (e) {
-        this.range = this.$refs.rangeHiddenRef.value;
-      }
-    },
+    // "$props.update"(e) {
+    //   if (e) {
+    //     this.range = this.$refs.rangeHiddenRef.value;
+    //   }
+    // },
   },
 };
 </script>

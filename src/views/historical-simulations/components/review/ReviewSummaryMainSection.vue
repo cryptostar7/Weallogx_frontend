@@ -95,10 +95,6 @@ methods: {
         });
     }
   },
-  testFunction: function(){
-    console.log('this.simulation');
-    console.log(this.simulation);
-  }
 },
 mounted() {
   this.getLatestReportId();

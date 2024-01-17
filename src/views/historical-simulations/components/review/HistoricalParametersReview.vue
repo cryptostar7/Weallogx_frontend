@@ -126,7 +126,7 @@
                       v-else
                       class="Schedule-para"
                       data-bs-toggle="modal"
-                      data-bs-target="#ScheduleSimulationModal"
+                      data-bs-target="#showScheduleSimulationModal"
                       @click="
                         setSchedule(
                           data.premium_charges_same_in_all_years,
@@ -217,7 +217,7 @@
                       v-else
                       class="Schedule-para"
                       data-bs-toggle="modal"
-                      data-bs-target="#showHistoricalScheduleModal"
+                      data-bs-target="#showScheduleSimulationModal"
                       @click="
                         setSchedule(
                           data.loan_intrest_rate_same_in_all_years,
@@ -362,9 +362,6 @@
       };
     },
     methods: {
-      testFunction: function () {
-        console.log(this.data);
-      },
       setSchedule: function (data = [], type, title) {
         this.scheduleType = type;
         this.schedules = data;

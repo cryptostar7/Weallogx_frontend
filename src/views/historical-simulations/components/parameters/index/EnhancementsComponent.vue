@@ -3,9 +3,9 @@
     class="indexStrategyallDivs active mt-3 accordion-button collapsed"
     :id="`enhancementTab${currentTab}`"
     data-bs-toggle="collapse"
-    :data-bs-target="`#enhanceTab${currentTab}`"
+    :data-bs-target="`#enhancementSimsTab${currentTab}`"
     aria-expanded="false"
-    :aria-controls="`enhanceTab${currentTab}`"
+    :aria-controls="`enhancementSimsTab${currentTab}`"
   >
     <div class="d-flex justify-content-between align-items-center">
       <div class="indexStrategyheadBrdr">
@@ -52,7 +52,7 @@
     </div>
   </div>
   <form
-    :id="`enhanceTab${currentTab}`"
+    :id="`enhancementSimsTab${currentTab}`"
     class="accordion-collapse collapse analysisParametersContent"
     :data-bs-parent="`#enhancements${currentTab}`"
     autocomplete="off"
@@ -92,10 +92,10 @@
       </div>
     </div>
     <PerformanceMultiplier
+      ref="performanceMultiplierRef"
       :visible="tab1"
       :currentTab="currentTab"
       @clearError="clearError"
-      :update="$props.update"
       :applyPmAllIndex="applyPmAllIndex"
       @setApplyPmAllIndex="(val) => $emit('setApplyPmAllIndex', val)"
       @validatePmValues="validatePmValues"
@@ -110,12 +110,12 @@
             class="form-check-input"
             type="checkbox"
             role="switch"
-            :id="`enhancements${currentTab}`"
+            :id="`simulation_enhancement${currentTab}`"
             v-model="tab2"
             @change="$emit('creditBonusChange', tab2)"
           />
         </div>
-        <label :for="`enhancements${currentTab}`" class="buttonSaveRadioPara"
+        <label :for="`simulation_enhancement${currentTab}`" class="buttonSaveRadioPara"
           >Flat Credit/Bonus</label
         >
       </div>
@@ -138,10 +138,10 @@
       </div>
     </div>
     <CreditAndBonus
+       ref="creditAndBonusRef"
       :visible="tab2"
       :currentTab="currentTab"
       @clearError="clearError"
-      :update="$props.update"
       :applyFcAllIndex="applyFcAllIndex"
       @setApplyFcAllIndex="(val) => $emit('setApplyFcAllIndex', val)"
       @validateFcValues="validateFcValues"
@@ -164,12 +164,11 @@ import CreditAndBonus from "./CreditAndBonus.vue";
 import { getNumber } from "../../../../../services/helper";
 export default {
   components: { PerformanceMultiplier, CreditAndBonus },
-  props: ["currentTab", "update", "applyPmAllIndex", "applyFcAllIndex"],
+  props: ["currentTab", "applyPmAllIndex", "applyFcAllIndex"],
   emits: [
     "performanceChange",
     "creditBonusChange",
     "clearError",
-    "setUpdated",
     "setApplyPmAllIndex",
     "setApplyFcAllIndex",
   ],
@@ -233,10 +232,14 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`simulationApplyAllPm${currentTab}`)) {
-        document.getElementById(`simulationApplyAllPm${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllPm${currentTab}`
+        ).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`simulationApplyAllPm${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(
+            `simulationApplyAllPm${tab}`
+          ).disabled = false; // enable the toggle input
           document
             .getElementById(`simulationApplyAllPmLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
@@ -250,7 +253,10 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`simulationApplyAllPm${tab}`) && currentTab !== tab) {
+        if (
+          this.isChecked(`simulationApplyAllPm${tab}`) &&
+          currentTab !== tab
+        ) {
           toggle = true;
         }
       });
@@ -327,11 +333,14 @@ export default {
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`simulation_performance_type${tab}`).value =
-                "schedule";
+              document.getElementById(
+                `simulation_performance_type${tab}`
+              ).value = "schedule";
             } else {
               document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
-              document.getElementById(`simulation_performance_type${tab}`).value = "fixed";
+              document.getElementById(
+                `simulation_performance_type${tab}`
+              ).value = "fixed";
             }
             this.$emit("setApplyPmAllIndex", true);
           }
@@ -355,8 +364,9 @@ export default {
             if (currentTab !== tab) {
               performance_type;
 
-              document.getElementById(`simulation_multiplier_input${tab}`).value =
-                performance_multiplier; // set multiplier value in all tabs
+              document.getElementById(
+                `simulation_multiplier_input${tab}`
+              ).value = performance_multiplier; // set multiplier value in all tabs
 
               document.getElementById(`simulation_prf_start_year${tab}`).value =
                 start_year; // set start year value in all tabs
@@ -379,10 +389,14 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`simulationApplyAllFc${currentTab}`)) {
-        document.getElementById(`simulationApplyAllFc${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllFc${currentTab}`
+        ).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`simulationApplyAllFc${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(
+            `simulationApplyAllFc${tab}`
+          ).disabled = false; // enable the toggle input
           document
             .getElementById(`simulationApplyAllFcLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
@@ -396,7 +410,10 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`simulationApplyAllFc${tab}`) && currentTab !== tab) {
+        if (
+          this.isChecked(`simulationApplyAllFc${tab}`) &&
+          currentTab !== tab
+        ) {
           toggle = true;
         }
       });
@@ -483,16 +500,18 @@ export default {
             document
               .getElementById(`simulationApplyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
-            document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
+            document.getElementById(`simulation_enhancement${tab}`).click(); // open the flat credit bonus tab in all tabs
 
             if (credit_type === "schedule") {
               document.getElementById(`nav-flatSchedule-tab${tab}`).click(); // open the schedule value tab in all tabs
-              document.getElementById(`simulation_credit_type${tab}`).value = "schedule";
+              document.getElementById(`simulation_credit_type${tab}`).value =
+                "schedule";
             } else {
               document
                 .getElementById(`navCreadit-flatfixedValue-tab${tab}`)
                 .click(); // open the fixed value tab in all tabs
-              document.getElementById(`simulation_credit_type${tab}`).value = "fixed";
+              document.getElementById(`simulation_credit_type${tab}`).value =
+                "fixed";
             }
             this.$emit("setApplyFcAllIndex", true);
           }
@@ -511,8 +530,9 @@ export default {
           // set schedule type value in all tabs
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`simulation_credit_schedule_type${tab}`).value =
-                credit_schedule_type;
+              document.getElementById(
+                `simulation_credit_schedule_type${tab}`
+              ).value = credit_schedule_type;
             }
           });
 
@@ -531,8 +551,9 @@ export default {
         } else {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`simulation_credit_bonus_input${tab}`).value =
-                credit_bonus; // set credit bonus value in all tabs
+              document.getElementById(
+                `simulation_credit_bonus_input${tab}`
+              ).value = credit_bonus; // set credit bonus value in all tabs
 
               document.getElementById(`simulation_crd_start_year${tab}`).value =
                 start_year; // set start year value in all tabs
@@ -550,6 +571,26 @@ export default {
         });
       }
     },
+    // update the form inputs
+    updateData: function () {
+      this.tab1 = Number(
+        document.getElementById(
+          `simulation_performance_checkbox${this.currentTab}`
+        ).value
+      )
+        ? true
+        : false;
+      this.$emit("performanceChange", this.tab1);
+      this.tab2 = Number(
+        document.getElementById(`simulation_credit_checkbox${this.currentTab}`)
+          .value
+      )
+        ? true
+        : false;
+      this.$emit("creditBonusChange", this.tab2);
+      this.$refs.performanceMultiplierRef.updateData();
+      this.$refs.creditAndBonusRef.updateData();
+    },
   },
   computed: {
     illustrateYear() {
@@ -564,30 +605,14 @@ export default {
     illustrateYear() {
       this.renderInputValidationJs();
     },
-    "$props.update"(e) {
-      if (e) {
-        this.tab1 = Number(
-          document.getElementById(`simulation_performance_checkbox${this.currentTab}`)
-            .value
-        )
-          ? true
-          : false;
-        this.$emit("performanceChange", this.tab1);
-        this.tab2 = Number(
-          document.getElementById(`simulation_credit_checkbox${this.currentTab}`).value
-        )
-          ? true
-          : false;
-        this.$emit("creditBonusChange", this.tab2);
-        this.$emit("setUpdated");
-      }
-    },
     tab1(e) {
       // performace multiplier section
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`simulationApplyAllPm${currentTab}`)) {
-        document.getElementById(`simulationApplyAllPm${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllPm${currentTab}`
+        ).checked = false;
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
             document
@@ -602,7 +627,9 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = this.$props.currentTab;
       if (!e && this.isChecked(`simulationApplyAllFc${currentTab}`)) {
-        document.getElementById(`simulationApplyAllFc${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllFc${currentTab}`
+        ).checked = false;
         tabs.forEach((tab) => {
           if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
             document

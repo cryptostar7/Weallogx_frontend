@@ -29,7 +29,7 @@
         </p>
         <p></p>
         </div>
-        <custom-range-input :hiddenInputId="`simulation_cap_rate_range${currentTab}`" :isCapActive="isCapActive" :update="$props.update" :currentTab="$props.currentTab" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input ref="customInputRef1" :hiddenInputId="`simulation_cap_rate_range${currentTab}`" :isCapActive="isCapActive" :currentTab="$props.currentTab"/>
 
         <div class="formParabrdrLavelDiv mt-3 mb-2">
         <p class="position-relative">Participation Rate
@@ -41,18 +41,18 @@
         </p>
         <p></p>
         </div>                     
-        <custom-range-input-2 :hiddenInputId="`simulation_participation_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-2 ref="customInputRef2" :hiddenInputId="`simulation_participation_range${currentTab}`"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input-3 :hiddenInputId="`simulation_margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 ref="customInputRef3" :hiddenInputId="`simulation_margin_spread_range${currentTab}`"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>
         </div>
-        <custom-range-input-3 :hiddenInputId="`simulation_floor_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
-        <segment-duration-year :hiddenInputId="`simulation_segment_year_range${currentTab}`" :currentTab="currentTab" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 ref="customInputRef4" :hiddenInputId="`simulation_floor_range${currentTab}`" :currentTab="currentTab"/>
+        <segment-duration-year ref="customInputRef5" :hiddenInputId="`simulation_segment_year_range${currentTab}`" :currentTab="currentTab"/>
     </form>
 </template>
 <script>
@@ -71,8 +71,7 @@ export default {
     SegmentDurationYear,
     SelectDropdown,
   },
-  props: ["currentTab", "update", "rollingTime"],
-  emits: ["setUpdated"],
+  props: ["currentTab", "rollingTime"],
   data() {
     return {
       isCapActive: true,
@@ -94,6 +93,18 @@ export default {
         this.isCapActive = false;
       }
     },
+    updateData: function() {
+      this.isCapActive = document.getElementById(
+          `simulation_is_active_cap_rate_range${this.$props.currentTab}`
+        ).checked;
+
+      // update inputs value using ref  
+      this.$refs.customInputRef1.updateData();
+      this.$refs.customInputRef2.updateData();
+      this.$refs.customInputRef3.updateData();
+      this.$refs.customInputRef4.updateData();
+      this.$refs.customInputRef5.updateData();
+    }
   },
   computed: {
     indexStrategies() {
@@ -101,15 +112,6 @@ export default {
       return (
         config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
       );
-    },
-  },
-  watch: {
-    "$props.update"(e) {
-      if (e) {
-        this.isCapActive = document.getElementById(
-          `simulation_is_active_cap_rate_range${this.$props.currentTab}`
-        ).checked;
-      }
     },
   },
 };

@@ -310,7 +310,7 @@
     </div>
     <!--  -->
     <div class="formParabrdrLavelDiv mt-4">
-      <p>
+      <p @click="testFunction">
         High Cap Fee <span class="optionalCommonTxt">&nbsp;&nbsp;OPTIONAL</span>
       </p>
       <p></p>
@@ -324,10 +324,10 @@
         <label v-for="(item, index) in 3" :key="index" class="flex-1">
           <input
             type="radio"
-            :name="`highCapFee${currentTab}`"
+            :name="`simulationHighCapFee${currentTab}`"
             class="d-none"
             :checked="
-              !customHipCapAmount && hipCapAmount === item ? true : false
+              !customHighCapAmount && highCapAmount === item ? true : false
             "
           />
           <span class="fixedStartYear w-100" @click="handleHCCheckbox(item)"
@@ -344,7 +344,7 @@
           <input
             type="text"
             class="handleLimit"
-            @keyup="(e) => (customHipCapAmount = e.target.value)"
+            @keyup="(e) => (customHighCapAmount = e.target.value)"
             min="0"
             max="5"
             ref="hcCustomRef"
@@ -375,7 +375,7 @@
     />
     <input
       type="hidden"
-      :value="customHipCapAmount || hipCapAmount"
+      :value="customHighCapAmount || highCapAmount"
       :id="`simulation_high_cap_fees${currentTab}`"
     />
   </form>
@@ -388,7 +388,6 @@ export default {
     "currentTab",
     "performance",
     "flatCreditBonus",
-    "update",
     "applyPmfAllIndex",
     "applyFcfAllIndex",
   ],
@@ -396,7 +395,6 @@ export default {
   inject: ["errors"],
   emits: [
     "clearError",
-    "setUpdated",
     "setApplyPmfAllIndex",
     "setApplyFcfAllIndex",
   ],
@@ -412,8 +410,8 @@ export default {
       performanceFeeAmount: 0,
       customFlatAmount: "",
       flatAmount: 0,
-      customHipCapAmount: "",
-      hipCapAmount: 0,
+      customHighCapAmount: "",
+      highCapAmount: 0,
     };
   },
   methods: {
@@ -435,8 +433,8 @@ export default {
       this.$refs.customFCRef.value = "";
     },
     handleHCCheckbox: function (item) {
-      this.hipCapAmount = item;
-      this.customHipCapAmount = "";
+      this.highCapAmount = item;
+      this.customHighCapAmount = "";
       this.$refs.hcCustomRef.value = "";
     },
     isChecked: function (id) {
@@ -603,7 +601,6 @@ export default {
     // check data is valid or not for Flat credit bonus fee fee
     validateFcfValues: function () {
       let valid = true;
-      let currentTab = Number(this.$props.currentTab);
       let fcf_all_year = Number(this.sameInAllYears.credit_bonus_fee);
 
       if (!fcf_all_year) {
@@ -702,7 +699,7 @@ export default {
       }
     },
     // populate latest data in input fields
-    updateLatestData: function () {
+    updateData: function () {
       let charges = [1, 2, 3, 4, 5, 6, 7, 8];
       // Performance multiplier rate
       this.sameInAllYears.multiplier_fee = document.getElementById(
@@ -753,13 +750,11 @@ export default {
         document.getElementById(`simulation_high_cap_fees${this.currentTab}`).value
       );
       if ([1, 2, 3].includes(hc)) {
-        this.hipCapAmount = hc;
+        this.highCapAmount = hc;
       } else {
-        this.customHipCapAmount = hc;
+        this.customHighCapAmount = hc;
         this.$refs.hcCustomRef.value = hc;
       }
-
-      this.$emit("setUpdated");
     },
   },
   computed: {
@@ -772,11 +767,6 @@ export default {
     },
   },
   watch: {
-    "$props.update"(e) {
-      if (e) {
-        this.updateLatestData();
-      }
-    },
     "sameInAllYears.multiplier_fee"() {
       this.validatePmfValues();
     },
@@ -785,11 +775,11 @@ export default {
     },
     "$props.applyPmfAllIndex"() {
       this.$emit("setApplyPmfAllIndex", false);
-      this.updateLatestData();
+      this.updateData();
     },
     "$props.applyFcfAllIndex"() {
       this.$emit("setApplyFcfAllIndex", false);
-      this.updateLatestData();
+      this.updateData();
     },
   },
 };

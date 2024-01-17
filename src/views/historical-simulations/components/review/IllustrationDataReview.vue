@@ -242,7 +242,6 @@
             .then((response) => {
               this.$store.dispatch("loader", false);
               let detail = response.data.data;
-              console.log(detail);
               this.data = detail;
               if (detail.historical_data.copy_paste_checkbox) {
                 this.setIllustrationData(detail.historical_data.copy_paste);

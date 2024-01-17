@@ -41,6 +41,16 @@ export default {
     reActive: function() {
       this.customAmount = "";
     },
+    updateData: function(){
+      if (this.$props.isCapActive) {
+          this.range = this.$refs.rangeHiddenRef.value;
+          if (Number(this.$refs.rangeHiddenRef.value) > 20) {
+            this.customAmount = this.$refs.rangeHiddenRef.value;
+          } else {
+            this.range = this.$refs.rangeHiddenRef.value;
+          }
+        }
+    }
   },
   updated() {
     var inp = this.$refs.input;
@@ -49,19 +59,19 @@ export default {
     this.rangePercentage = `calc(${position}% + (${newPosition}px))`;
   },
   watch: {
-    "$props.update"(e) {
-      if (e) {
-        if (this.$props.isCapActive) {
-          this.range = this.$refs.rangeHiddenRef.value;
-          if (Number(this.$refs.rangeHiddenRef.value) > 20) {
-            this.customAmount = this.$refs.rangeHiddenRef.value;
-          } else {
-            this.range = this.$refs.rangeHiddenRef.value;
-          }
-        }
-        this.$emit('setUpdated');
-      }
-    },
+    // "$props.update"(e) {
+    //   if (e) {
+    //     if (this.$props.isCapActive) {
+    //       this.range = this.$refs.rangeHiddenRef.value;
+    //       if (Number(this.$refs.rangeHiddenRef.value) > 20) {
+    //         this.customAmount = this.$refs.rangeHiddenRef.value;
+    //       } else {
+    //         this.range = this.$refs.rangeHiddenRef.value;
+    //       }
+    //     }
+    //     this.$emit('setUpdated');
+    //   }
+    // },
     "$props.isCapActive"(e) {
       if (e) {
         this.range = 10;

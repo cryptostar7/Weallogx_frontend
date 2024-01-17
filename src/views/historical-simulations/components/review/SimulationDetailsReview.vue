@@ -88,19 +88,12 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-        console.log('this.data');
-        console.log(this.data);
-    },
     getScenarioData: function() {
-        console.log('this.$props.id',this.$props.id);
-
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
         get(`${getUrl("simulation-details")}${this.$props.id}`, authHeader())
           .then(response => {
               this.$store.dispatch("loader", false);
-            console.log(response.data.data);
             let detail = response.data.data;
             this.data = detail;
           })

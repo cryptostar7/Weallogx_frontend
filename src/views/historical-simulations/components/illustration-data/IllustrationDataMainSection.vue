@@ -4,7 +4,7 @@
     id="main-section-element"
     :style="{ 'scroll-padding-top': '100px' }"
   >
-    <historical-simulation-steps />
+    <historical-simulation-steps :currentStep="2"/>
 
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
@@ -938,8 +938,8 @@
                 <router-link
                   :to="`/${
                     $route.query.review === 'true'
-                      ? 'review-summary'
-                      : 'simulation-details'
+                      ? 'historical/simulation-review'
+                      : 'historical/simulation-details'
                   }/${$route.params.simulation}`"
                   class="nav-link btn form-back-btn mx-0 fs-14 flex-shrink-0"
                   disabled="true"
@@ -1287,11 +1287,6 @@ export default {
     },
   },
   methods: {
-    testFunction: function() {
-      console.log(this.$store.state.data.active_simulation);
-      console.log(this.illustrateYear);
-      
-    },
     // set existing insurance profile id on selecting the input dropdown data
     setExistingInsuranceProfileId: function (id) {
       this.existingInsuranceProfileId = id;

@@ -1,6 +1,6 @@
 <template>
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
-    <historical-simulation-steps />
+    <historical-simulation-steps :currentStep="3" />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-sm-12 col-xxl-10">
@@ -44,19 +44,17 @@
                         </div>
                       </div>
                       <global-parameters
-                        :update="update"
+                        ref="globalParametersRef"
                         @clearError="clearGlobalErrors"
                         @setRollingTime="setRollingTime"
                       />
                       <index-strategy-parameters
                         ref="indexParametersRef"
-                        :update="update"
                         @clearError="clearError"
                         :rollingTime="rollingTime"
                         :strategyWeight1="strategyWeight1"
                         :strategyWeight2="strategyWeight2"
                         @populateIndexTemplate="populateIndexTemplate"
-                        @setUpdated="(index) => setUpdated(index)"
                       />
                     </div>
                     <div class="text-center mt-30">
@@ -79,7 +77,7 @@
                           :to="`/${
                             $route.query.review === 'true'
                               ? 'historical/simulation-review'
-                              : 'historical-index-strategy-allocation'
+                              : 'historical/illustration-data'
                           }/${$route.params.simulation}`"
                           class="nav-link btn form-back-btn mt-3 px-4 fs-14 backHistoricalBtn start-50 translate-middle"
                         >
@@ -112,7 +110,6 @@
   </section>
 </template>
 <script>
-import { RouterLink } from "vue-router";
 import GlobalParameters from "../parameters/global/GlobalParameters.vue";
 import IndexStrategyParameters from "../parameters/index/IndexStrategyParameters.vue";
 import HistoricalSimulationLabelComponent from "../../../components/common/HistoricalSimulationLabelComponent.vue";
@@ -128,7 +125,6 @@ import { getUrl } from "../../../../network/url";
 import { computed } from "vue";
 export default {
   components: {
-    RouterLink,
     GlobalParameters,
     IndexStrategyParameters,
     HistoricalSimulationLabelComponent,
@@ -137,12 +133,6 @@ export default {
   },
   data() {
     return {
-      update: {
-        global_parameters: false,
-        growth_parameters: false,
-        enhancement: false,
-        fees: false,
-      },
       rollingTime: 30,
       strategyWeight1: false,
       strategyWeight2: false,
@@ -161,17 +151,9 @@ export default {
     };
   },
   methods: {
-    testFunction: function () {
-      console.log(this.illustrateYear);
-    },
     handlePortfolio: function (id) {
-      this.$router.push(
-        `/historical/parameters/${this.$route.params.simulation}?pid=${id}`
-      );
-      // populateHistoricalSimulationData
-    },
-    setUpdated: function (index) {
-      this.update[index] = false;
+      this.$store.dispatch("loader", true);
+      this.populateHistoricalSimulationData(id, true);
     },
     // this function has return the input value
     getInputWithId: function (id) {
@@ -922,7 +904,6 @@ export default {
         }
       }
 
-      console.log(formData);
       this.$store.dispatch("loader", true);
 
       if (this.historicalId) {
@@ -935,7 +916,9 @@ export default {
             this.$store.dispatch("loader", false);
             this.$toast.success(response.data.message);
             if (report) {
-              this.$router.push(`/historical/report-builder/${this.$route.query.report}`);
+              this.$router.push(
+                `/historical/report-builder/${this.$route.query.report}`
+              );
             } else {
               this.$router.push(
                 `/historical/simulation-review/${this.$route.params.simulation}`
@@ -1000,7 +983,6 @@ export default {
         `simulation_segment_year_range${tab}`,
         obj.segment_duration_years
       );
-      this.update.growth_parameters = true;
     },
     setEnhancementData: function (tab, obj = []) {
       // permformance multiplier
@@ -1080,8 +1062,6 @@ export default {
           );
         }
       }
-
-      this.update.enhancement = true;
     },
     setFeesData: function (tab, obj = []) {
       // performance multiplier fee
@@ -1130,15 +1110,19 @@ export default {
       }
 
       //High Cap Fee
-      this.high_cap_fees = obj.high_cap_fee;
       this.setInputWithId(`simulation_high_cap_fees${tab}`, obj.high_cap_fee);
-      this.update.fees = true;
     },
     populateGlobalParameters: function (obj) {
-      this.setInputWithId("rolling_time", obj.rolling_time_period_years);
-      this.setInputWithId("analyze_type", obj.analyze);
-      this.setInputWithId("credit_base_method", obj.credit_base_method);
-      this.setInputWithId("distribution_method", obj.distributions);
+      this.setInputWithId(
+        "simulation_rolling_time",
+        obj.rolling_time_period_years
+      );
+      this.setInputWithId("simulation_analyze_type", obj.analyze);
+      this.setInputWithId(
+        "simulation_credit_base_method",
+        obj.credit_base_method
+      );
+      this.setInputWithId("simulation_distribution_method", obj.distributions);
 
       // Premium charge
       if (obj.premium_charges_same_in_all_years) {
@@ -1170,23 +1154,21 @@ export default {
         );
       }
 
-      this.update.global_parameters = true;
+      this.$refs.globalParametersRef.updateData();
     },
     populateIndex: function (tab = 1, data) {
       this.setGrowthData(tab, data);
-
       if (tab === 2) {
         this.strategyWeight1 = data.strategy_weight;
         this.$refs.indexParametersRef.setActiveTab(2);
       }
-
       if (tab === 3) {
         this.strategyWeight2 = data.strategy_weight;
         this.$refs.indexParametersRef.setActiveTab(3);
       }
-
       this.setEnhancementData(tab, data);
       this.setFeesData(tab, data);
+        this.$refs.indexParametersRef.updateData(); // update form inputs of index parameters
     },
     // populate existing index details
     populateIndexTemplate: function (iType = 1, id = null, type = 1) {
@@ -1413,17 +1395,12 @@ export default {
     //  portfolio template data from API
     getExistingPortfolio: function () {
       this.$store.dispatch("loader", true);
-      console.log("historical-parameters-portfolio");
       get(getUrl("historical-parameters-portfolio"), authHeader())
         .then((response) => {
           var data = response.data.data;
           var array = data.map((item) => {
             return { id: item.id, template_name: item.portfolio_name };
           });
-
-          console.log("array");
-          console.log(array);
-
           this.$store.dispatch("template", {
             type: "historical_portfolio",
             data: array,
@@ -1469,14 +1446,10 @@ export default {
       authHeader()
     )
       .then((response) => {
-        console.log(response);
         let id = response.data.data.standalone_historical;
         this.historicalId = id;
         this.$store.dispatch("activeSimulation", response.data.data);
-        if (
-          (!this.$route.query.pid || this.$route.query.pid === "null") &&
-          id
-        ) {
+        if (id) {
           this.populateHistoricalSimulationData(id);
         } else {
           this.$store.dispatch("loader", false);
@@ -1488,10 +1461,6 @@ export default {
         }
         this.$store.dispatch("loader", false);
       });
-
-    if (this.$route.query.pid && this.$route.query.pid !== "null") {
-      this.populateHistoricalSimulationData(this.$route.query.pid, true);
-    }
 
     // get template list
     if (!this.existingIndex.length) {
@@ -1516,15 +1485,6 @@ export default {
     },
     existingPortfolio() {
       return this.$store.state.data.templates.historical_portfolio || [];
-    },
-  },
-  watch: {
-    "$route.query.pid"(id) {
-      if(id && id !== "null"){
-      console.log('======================');
-      this.$store.dispatch("loader", true);
-        this.populateHistoricalSimulationData(id, true);
-      }
     },
   },
 };

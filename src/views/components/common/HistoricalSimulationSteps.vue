@@ -43,41 +43,36 @@
 </template>
 <script>
 export default {
-  props: ["active_all_tab"],
+  props: ["active_all_tab", "currentStep"],
   computed: {
     simulation() {
       return this.$store.state.data.active_simulation || [];
     },
     simulationDetail() {
-      let route = this.$route.name;
       let response = {
-        class: "active",
+        class: "done",
         url: `/historical/simulation-details/${
           this.$route.params.simulation || ""
         }`,
       };
 
-      if (this.$props.active_all_tab ||
-        (this.simulation.simulation_details &&
-        route !== "historical-simulation-details")
-      ) {
+      if (this.$props.currentStep === 1) {
+        response.class = "active";
+      }
+
+      if (this.$props.active_all_tab) {
         response.class = "done";
       }
       return response;
     },
     illustrationDetail() {
-      let route = this.$route.name;
       let response = { class: "", url: "" };
 
-      if (route !== "historical-simulation-details") {
-        response.class = "active";
-      }
-
-      if (this.simulation.illustration || this.$props.active_all_tab) {
+      if (this.simulation.historical_illustration) {
         response.class = "done";
       }
 
-      if (route === "illustration") {
+      if (this.$props.currentStep === 2) {
         response.class = "active";
       }
 
@@ -87,23 +82,31 @@ export default {
         }`;
       }
 
-      return response;
-    },
-    historicalDetail() {
-      let route = this.$route.name;
-      let response = { class: "", url: "" };
-      if (this.simulation.historical || this.$props.active_all_tab) {
+      if (this.$props.active_all_tab) {
         response.class = "done";
       }
 
-      if (route === "historical-parameters") {
+      return response;
+    },
+    historicalDetail() {
+      let response = { class: "", url: "" };
+
+      if (this.simulation.standalone_historical) {
+        response.class = "done";
+      }
+
+      if (this.$props.currentStep === 3) {
         response.class = "active";
       }
 
-      if (response.class === "done") {
+      if (response.class) {
         response.url = `/historical/parameters/${
           this.$route.params.simulation || ""
         }`;
+      }
+
+      if (this.$props.active_all_tab) {
+        response.class = "done";
       }
 
       return response;
