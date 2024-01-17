@@ -14,7 +14,7 @@
         >
           #1
         </div>
-        <div id="resizingDiv" style="left: calc(50% - 21px); top: 10px;" class="resizing-right-div resizing-right-div-1 mid-white-line cursor-pointer">
+        <div id="resizingDiv" style="left: calc(50% - 21px); top: 10px;" class="resizing-right-div resizing-right-div-1 mid-white-line">
             <img
               src="@/assets/images/icons/tinny-arrow-left.svg"
               alt=""

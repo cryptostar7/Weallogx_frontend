@@ -208,8 +208,17 @@
 
 .dark-green .drag-drop-label {
   background: #2E3135;
+  border-color: #555;
 }
-
+.dark-green .cur-ol-label::before{
+  background-color: #666;
+}
+.dark-green .cur-ol-label label{
+  color: #f5f5f5;
+}
+.dark-green .after-yes-middle-div .form-wrapper-inner{
+  background: transparent;
+}
 .dark-green .drag-drop-heading {
   color: #fff;
 }
@@ -228,6 +237,7 @@
 
 .dark-green .copy-paste-area {
   background: transparent;
+  border-color: #515151;
 }
 
 .dark-green .illustration-data-table-div {
@@ -3860,6 +3870,20 @@
 }
 .dark-green .csv-textarea{
   background-color: #34383D;  
+}
+.dark-green textarea.form-control {
+  background: #34383D;
+  border-color: #515151;
+  color: #f5f5f5;
+}
+.dark-green .schduleTableDiv label{
+  color: #f5f5f5;
+}
+.dark-green .middle-divider .divider-line{
+  background-color: #666;
+}
+.dark-green textarea.form-control:focus {
+  border-color: var(--blue-clr-2);
 }
 .dark-green .pdf-spinner{
   background-color: #202124

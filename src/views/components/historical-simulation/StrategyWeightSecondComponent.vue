@@ -411,7 +411,7 @@ export default {
       strategyWeight3.style.width = inp3.toFixed(2) + "%";
       elmnt1.style.left = (actualWidth * inp1.toFixed(2) / 100) + "px";
       elmnt2.style.left = (actualWidth * (100 - inp3) / 100) + "px";
-      console.log(inp3, (actualWidth * (100 - inp3) / 100));
+      
       // swInputDiv1.style.width = inp1.toFixed(2) + "%";
       // swInputDiv2.style.width = numVal.toFixed(2) + "%";
       // swInputDiv3.style.width = inp3.toFixed(2) + "%";
