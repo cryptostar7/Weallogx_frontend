@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     activeTabs() {
-        return this.$store.state.data.reportTabs.active;
+        return this.$store.state.data.simulationReportTabs.active;
     }
   }
 };

@@ -80,7 +80,7 @@ export default {
   components: { HistoricalDisclosureComponent, AddNoteInputComponent },
   data() {
     return {
-      activeTabs: this.$store.state.data.reportTabs.active,
+      activeTabs: this.$store.state.data.simulationReportTabs.active,
       cards: [
         { id: 1, active: true },
         { id: 2, active: true },
@@ -545,7 +545,7 @@ export default {
         window.totalValueGraphChart.update();
       });
 
-      var assestShowHide2 = document.querySelector(".showAssetsCheckBox");
+      var assestShowHide2 = document.querySelector(".showAssetsCheckBox2");
 
       assestShowHide2.addEventListener("click", e => {
         e.target.classList.toggle("on");

@@ -4,7 +4,7 @@
       sidebar.collapse ? 'active' : ''
     }`"
   >
-    <div class="inner-section reportbuilderRightInner" id="fsdfasdf">
+    <div class="inner-section reportbuilderRightInner">
       <div
         class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg"
       >
@@ -54,7 +54,7 @@
             <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
             <div class="reportBuilderLftSwtch">
               <button
-                :class="`btn reportSwtchLeft ${
+                :class="`btn reportSwtchLeft w-100 ${
                   sidebar.currentTab === 'historical' ? 'active' : ''
                 }`"
               >
@@ -134,8 +134,11 @@ export default {
   methods: {
     // get historical report data
     getHistoricalData: function () {
+      console.log('getUrl("standalone-report")');
+      this.$store.dispatch("loader", true);
+
       get(
-        `${getUrl("simulation-report")}${this.$route.params.report}`,
+        `${getUrl("standalone-report")}${this.$route.params.report}`,
         authHeader()
       )
         .then((response) => {
@@ -153,7 +156,9 @@ export default {
     },
 
     getCurrentReportInfo: function () {
-      let api_url = `${getUrl("simulation-report")}${this.$route.params.report}`;
+      let api_url = `${getUrl("simulation-report")}${
+        this.$route.params.report
+      }`;
       if (this.$route.params.view_token) {
         api_url += `?view_token=${this.$route.params.view_token}`;
       }
@@ -243,7 +248,7 @@ export default {
   },
   computed: {
     list() {
-      return this.$store.state.data.reportTabs;
+      return this.$store.state.data.simulationReportTabs;
     },
   },
 };

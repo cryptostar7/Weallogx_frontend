@@ -1,34 +1,33 @@
 <template>
-<div>
-  <!-- <navbar-component /> -->
-  <report-page-header />
-  <report-builder-main-section />
-  <!-- Delete Account Modal start -->
-  <delete-account-modal />
+  <div>
+    <!-- <navbar-component /> -->
+    <report-page-header />
+    <report-builder-main-section />
+    <!-- Delete Account Modal start -->
+    <delete-account-modal />
     <!-- Delete Comparative CV Modal start -->
-  <delete-comparative-cv-modal />
+    <delete-comparative-cv-modal />
 
     <!-- Delete historical CV Modal start -->
-  <delete-historical-cv-modal />
+    <delete-historical-cv-modal />
 
-  <!-- Delete Ira Modal start -->
-  <delete-era-modal />
-  <!-- Delete Annuity Modal start -->
-  <delete-annuity-modal />
-  <!-- Report Buider Name Change Modal start -->
-  <report-builder-name-create-modal />
+    <!-- Delete Ira Modal start -->
+    <delete-era-modal />
+    <!-- Delete Annuity Modal start -->
+    <delete-annuity-modal />
+    <!-- Report Buider Name Change Modal start -->
+    <report-builder-name-create-modal />
 
-  <!-- Share report Modal start -->
-  <create-report-modal />
+    <!-- Share report Modal start -->
+    <create-report-modal />
 
-  <create-new-client-report-modal />
-  
-  <share-modal />
-  
-  <!-- delete comparative vechile id hidden input -->
-  <input type="hidden" id="comparative_cv_delete_id"/>
-  <input type="hidden" id="historical_cv_delete_id"/>
-  
+    <create-new-client-report-modal />
+
+    <share-modal />
+
+    <!-- delete comparative vechile id hidden input -->
+    <input type="hidden" id="comparative_cv_delete_id" />
+    <input type="hidden" id="historical_cv_delete_id" />
   </div>
 </template>
 <script>
@@ -41,7 +40,7 @@ import ReportBuilderNameCreateModal from "../components/modals/ReportBuilderName
 import ShareModal from "../components/modals/ShareModal.vue";
 import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
 import NavbarComponent from "./../../components/common/NavbarComponent.vue";
-import ReportPageHeader from "../../components/common/ReportPageHeader.vue";
+import ReportPageHeader from "../../components/common/SimulationReportPageHeader.vue";
 import CreateReportModal from "./../components/modals/CreateReportModal.vue";
 import CreateNewClientReportModal from "./../components/modals/CreateNewClientReportModal.vue";
 import "../../../assets/js/chart.min";
@@ -61,4 +60,4 @@ export default {
     CreateNewClientReportModal,
   },
 };
-</script> 
+</script>

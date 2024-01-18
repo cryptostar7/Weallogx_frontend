@@ -96,7 +96,7 @@ export default {
   components: { HistoricalDisclosureComponent, AddNoteInputComponent },
   data() {
     return {
-      activeTabs: this.$store.state.data.reportTabs.active,
+      activeTabs: this.$store.state.data.simulationReportTabs.active,
       cards: [
         { id: 1, active: true },
         { id: 2, active: true },

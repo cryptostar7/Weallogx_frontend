@@ -479,7 +479,7 @@ export default {
   components: { HistoricalDisclosureComponent, draggable: VueDraggableNext },
   data() {
     return {
-      activeTabs: this.$store.state.data.reportTabs.active,
+      activeTabs: this.$store.state.data.simulationReportTabs.active,
       showAll: false,
       draggableColumns: [
         { id: 1, active: true },

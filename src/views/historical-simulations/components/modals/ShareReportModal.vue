@@ -142,8 +142,8 @@ export default {
       }
       let data = {
         saved_action: {
-          active_tabs: this.$store.state.data.reportTabs.active,
-          active_cards: this.$store.state.data.reportTabs.active_cards,
+          active_tabs: this.$store.state.data.simulationReportTabs.active,
+          active_cards: this.$store.state.data.simulationReportTabs.active_cards,
         },
       };
       patch(
