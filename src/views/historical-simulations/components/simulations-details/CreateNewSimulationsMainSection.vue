@@ -277,7 +277,7 @@ import SelectDropdown from "../../../components/common/SelectDropdown.vue";
 import {
   authHeader,
   getServerErrors,
-  mapClientList,
+  mapHistoricalClientList,
   setSimulationStep1,
   getSimulationStep1,
   getCurrentSimulation,
@@ -314,14 +314,14 @@ export default {
     this.reportId = this.$route.query.report || false;
 
     // get existing client
-    if (!this.$store.state.data.clients) {
+    if (!this.$store.state.data.historical_clients) {
       this.getClient();
     } else {
       // set default client age
       let df_client = this.$route.query.client;
       this.existingClientId = df_client;
       if (df_client) {
-        this.$store.state.data.clients.forEach((element) => {
+        this.$store.state.data.historical_clients.forEach((element) => {
           if (Number(df_client) === Number(element.id)) {
             this.setInputWithId("simulationClientAge", element.age);
             this.clientAgeYearToIllustrate = element.age;
@@ -462,7 +462,7 @@ export default {
         }`
       );
 
-      let age = this.$store.state.data.clients.filter((item) => {
+      let age = this.$store.state.data.historical_clients.filter((item) => {
         return Number(item.id) === Number(id);
       })[0].age;
       this.setInputWithId("simulationClientAge", age);
@@ -522,9 +522,9 @@ export default {
     // get all clients list
     getClient: function () {
       this.$store.dispatch("loader", true);
-      get(getUrl("clients"), authHeader())
+      get(getUrl("historical-clients"), authHeader())
         .then((response) => {
-          this.$store.dispatch("clients", mapClientList(response.data.data));
+          this.$store.dispatch("historicalClients", mapHistoricalClientList(response.data.data));
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
             this.$router.push(
@@ -873,7 +873,7 @@ export default {
     // existing client dropdown list data
     clients() {
       let initClient = [];
-      let array = this.$store.state.data.clients;
+      let array = this.$store.state.data.historical_clients;
       if (array && array.length > 0) {
         array.forEach((element) => {
           var name = this.$clientName(

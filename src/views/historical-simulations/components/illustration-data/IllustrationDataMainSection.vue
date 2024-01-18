@@ -1044,7 +1044,7 @@ import {
   getCurrentSimulation,
   getSimulationStep2,
   setSimulationStep2,
-  mapClientList,
+  mapHistoricalClientList,
 } from "../../../../services/helper";
 
 // Refernce URL 1 - "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -1781,10 +1781,10 @@ export default {
 
     // get clients detail from API
     getClient: function () {
-      get(getUrl("clients"), authHeader())
+      get(getUrl("historical-clients"), authHeader())
         .then((response) => {
-          this.$store.dispatch("clients", mapClientList(response.data.data));
-          this.sortedList = mapClientList(response.data.data);
+          this.$store.dispatch("historicalClients", mapHistoricalClientList(response.data.data));
+          this.sortedList = mapHistoricalClientList(response.data.data);
           this.$store.dispatch("loader", false);
         })
         .catch((error) => {

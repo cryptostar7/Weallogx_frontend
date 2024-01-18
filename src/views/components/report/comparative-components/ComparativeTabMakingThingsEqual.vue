@@ -359,7 +359,7 @@
 </template>
 <script>
 import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue";
-import AddNoteInputComponent from "../comman/AddNoteInputComponent.vue";
+import AddNoteInputComponent from "../common/AddNoteInputComponent.vue";
 
 export default {
   props: ["keyId"],

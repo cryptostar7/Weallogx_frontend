@@ -23,6 +23,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/client/`;
     case 'clients':
       return `${baseUrl}/auth/clients/`;
+    case 'historical-clients':
+      return `${baseUrl}/historical/clients/`;
     case 'change-password':
       return `${baseUrl}/auth/change_password/`;
     case 'forgot-password':
@@ -59,6 +61,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/historical/parameters-template-index/`;
     case 'historical-parameters-portfolio':
       return `${baseUrl}/historical/standalone-parameters-portfolio/`;
+    case 'simulation-report':
+      return `${baseUrl}/report/historical-report/`
+      case 'add-historical-report':
+        return `${baseUrl}/report/historical-report/`
+      case 'latest-report':
+        return `${baseUrl}/report/latest-report/`
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':

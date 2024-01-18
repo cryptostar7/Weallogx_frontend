@@ -751,7 +751,10 @@ export default {
       );
       if ([1, 2, 3].includes(hc)) {
         this.highCapAmount = hc;
+        this.customHighCapAmount = "";
+        this.$refs.hcCustomRef.value = "";
       } else {
+        this.highCapAmount = 0;
         this.customHighCapAmount = hc;
         this.$refs.hcCustomRef.value = hc;
       }

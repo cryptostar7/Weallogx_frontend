@@ -196,6 +196,38 @@ export const mapClientList = (array = []) => {
   });
 }
 
+export const mapHistoricalClientList = (array = []) => {
+  return array.map(item => {
+    var client = item.client;
+    client.simulations = item.simulations;
+    client.reports = item.reports ? item.reports.reports_data : [];
+    let report = item.simulations.length
+      ? item.simulations.map(s => {
+        let simulation_name = s.simulation_details.name;
+        let simulation_id = s.simulation_details.id;
+        s.reports.reports_data;
+        if (s.reports.reports_data.length) {
+          s.reports.reports_data = s.reports.reports_data.map(r => {
+            r.simulation_name = simulation_name;
+            r.simulation_id = simulation_id;
+            return r;
+          });
+        }
+        return s.reports.reports_data;
+      }) || []
+      : [];
+    report = report.filter(r => r.length)[0] || [];
+    report = client.simulations.filter(i => i.reports.reports_data.length);
+    let all_reports = [];
+    report.forEach(e => {
+      all_reports = [...all_reports, ...e.reports.reports_data];
+    });
+
+    client.reports = all_reports;
+    return client;
+  });
+}
+
 export const setCurrentSimulation = (obj) => {
   return localStorage.setItem('currentSimulation', JSON.stringify(obj));
 }

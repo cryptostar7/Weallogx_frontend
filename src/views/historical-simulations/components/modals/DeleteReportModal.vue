@@ -36,7 +36,7 @@ export default {
       remove(`${getUrl("report")}delete/${id}/`, authHeader())
         .then(response => {
           id = Number(id);
-          let list = [...this.$store.state.data.clients];
+          let list = [...this.$store.state.data.historical_clients];
           list = list.map(i => {
             i.reports = i.reports.filter(r => r.id !== id);
             if (i.scenarios) {
@@ -49,7 +49,7 @@ export default {
             }
             return i;
           });
-          this.$store.dispatch("clients", list);
+          this.$store.dispatch("historicalClients", list);
           setTimeout(() => {
             this.$emit("removeClientReport", id);
           }, 1000);

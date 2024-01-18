@@ -33,14 +33,14 @@ export default {
       this.$store.dispatch("loader", true);
       remove(`${getUrl("scenario")}${id}/`, authHeader())
         .then(response => {
-          let sortedList = this.$store.state.data.clients.map(i => {
+          let sortedList = this.$store.state.data.historical_clients.map(i => {
             if (i.scenarios) {
               i.scenarios = i.scenarios.filter(s => Number(s.id) !== Number(id));
             }
             return i;
           });
 
-          this.$store.dispatch("clients", sortedList);
+          this.$store.dispatch("historicalClients", sortedList);
           setTimeout(() => {
             this.$emit("removeClientScenario", id);
           }, 1000);

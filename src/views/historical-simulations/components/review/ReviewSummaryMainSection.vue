@@ -27,7 +27,7 @@
             <div class="row">
               <div class="col-sm-12 p-relative">
                 <div class="SaveCloseButton">
-                    <router-link :to="`/report-builder?simulation=${$route.params.simulation}&client=${client.id}`" class="btn">Save & Build Report</router-link>
+                    <router-link :to="`/historical/report-builder?simulation=${$route.params.simulation}&client=${client.id}`" class="btn">Save & Build Report</router-link>
                 </div>
                 <div class="return-btn-div" v-if="reportId">
                     <a :href="`/historical/report-summary/${reportId}`" class="nav-link btn return-to-report-btn fs-14 flex-shrink-0">Return to Current Report <img src="@/assets/images/icons/chevron-right.svg" class="img-fluid me-1" style="position: relative; top: 0px;" alt="Chevron" width="6"/></a>
@@ -105,8 +105,8 @@ mounted() {
     .then(response => {
       var detail = response.data.data;
       this.$store.dispatch("activeSimulation", detail);
-      if (this.$store.state.data.clients) {
-        this.client = this.$store.getters.getClientUsingId(detail.client);
+      if (this.$store.state.data.historical_clients) {
+        this.client = this.$store.getters.getHistoricalClientUsingId(detail.client);
       } else {
         this.getClient(detail.client);
       }

@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     clientDetail() {
-      let clients = this.$store.state.data.clients || [];
+      let clients = this.$store.state.data.historical_clients || [];
       return clients.filter(item => item.id === this.$props.client)[0];
     },
     scenarioDetails() {

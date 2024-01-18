@@ -167,11 +167,21 @@ const store = createStore({
                     lastname: '',
                 },
                 scenario: { name: '' },
+                report_id: '',
+                report_link: ''
+            },
+            share_historical_report: {
+                client: {
+                    firstname: '',
+                    middlename: '',
+                    lastname: '',
+                },
                 simulation: { name: '' },
                 report_id: '',
                 report_link: ''
             },
             clients: null,
+            historical_clients: null,
             illustration_files: [],
             current_plan: false,
             active_scenario: false,
@@ -221,6 +231,16 @@ const store = createStore({
         },
         getClientUsingId: (state) => (id) => {
             let array = state.data.clients;
+            var client = [];
+            if (array && array.length > 0) {
+                client = array.filter(element => {
+                    return Number(element.id) === Number(id);
+                });
+            }
+            return client.length ? client[0] : false;
+        },
+        getHistoricalClientUsingId: (state) => (id) => {
+            let array = state.data.historical_clients;
             var client = [];
             if (array && array.length > 0) {
                 client = array.filter(element => {
@@ -319,8 +339,14 @@ const store = createStore({
         setClients(state, payload) {
             state.data.clients = [...payload];
         },
+        setHistoricalClients(state, payload) {
+            state.data.historical_clients = [...payload];
+        },
         addNewClient(state, payload) {
             state.data.clients = [...state.data.clients, payload];
+        },
+        addNewHistoricalClient(state, payload) {
+            state.data.historical_clients = [...state.data.historical_clients, payload];
         },
         setActiveScenario(state, payload) {
             state.data.active_scenario = payload;
@@ -443,8 +469,14 @@ const store = createStore({
         clients(context, payload) {
             context.commit('setClients', payload);
         },
+        historicalClients(context, payload) {
+            context.commit('setHistoricalClients', payload);
+        },
         addClient(context, payload) {
             context.commit('addNewClient', payload);
+        },
+        addHistoricalClient(context, payload) {
+            context.commit('addNewHistoricalClient', payload);
         },
         activeScenario(context, payload) {
             context.commit('setActiveScenario', payload);

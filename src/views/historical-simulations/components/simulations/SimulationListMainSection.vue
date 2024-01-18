@@ -50,7 +50,7 @@
   import {
     authHeader,
     getFirstError,
-    mapClientList,
+    mapHistoricalClientList,
     clearSimulationCacheData,
   } from "../../../../services/helper.js";
   export default {
@@ -106,10 +106,10 @@
       // get clients detail from API
       getClient: function(clone = false) {
         this.$store.dispatch("loader", true);
-        get(getUrl("clients"), authHeader())
+        get(getUrl("historical-clients"), authHeader())
           .then(response => {
-            this.$store.dispatch("clients", mapClientList(response.data.data));
-            this.sortedList = mapClientList(response.data.data);
+            this.$store.dispatch("historicalClients", mapHistoricalClientList(response.data.data));
+            this.sortedList = mapHistoricalClientList(response.data.data);
             this.oldModified();
             if (clone) {
               this.$toast.success("Simulation clone created successfully!");
@@ -137,7 +137,7 @@
         this.sortedList = this.clients.filter(item => {
           return item.id !== deleteId;
         });
-        return this.$store.dispatch("clients", this.sortedList);
+        return this.$store.dispatch("historicalClients", this.sortedList);
       },
       // remove report form list
       removeClientReport: function(deleteId) {
@@ -193,8 +193,8 @@
       if (this.$store.state.data.active_simulation) {
         this.$store.dispatch("activeSimulation", false);
       }
-      if (this.$store.state.data.clients) {
-        this.sortedList = this.$store.state.data.clients;
+      if (this.$store.state.data.historical_clients) {
+        this.sortedList = this.$store.state.data.historical_clients;
         this.oldModified();
       } else {
         this.getClient();
@@ -203,11 +203,11 @@
     computed: {
       clients() {
         // returns all clients data form vuex store
-        return this.$store.state.data.clients;
+        return this.$store.state.data.historical_clients;
       },
       client() {
         // returns single client data 
-        return this.$store.getters.getClientUsingId(this.actionId);
+        return this.$store.getters.getHistoricalClientUsingId(this.actionId);
       },
     },
   };

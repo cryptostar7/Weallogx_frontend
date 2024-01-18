@@ -205,6 +205,16 @@ const router = createRouter({
       component: () => import("../views/historical-simulations/pages/ReviewSummaryPage.vue"),
     },
     {
+      path: "/historical/report-builder/:report?",
+      name: "historical-report-builder",
+      component: () => import("../views/historical-simulations/pages/ReportBuilderPage.vue"),
+    },
+    {
+      path: "/historical/report/:report/:view_token",
+      name: "historical-report",
+      component: () => import("../views/historical-simulations/pages/ReportBuilderPage.vue"),
+    },
+    {
       path: "/:slug/:slug2?/:slug3?",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
@@ -236,7 +246,9 @@ const authRoutes = [
   'historical-simulations-list',
   'historical-simulation-details',
   'historical-illustration-data',
-  'historical-parameters'
+  'historical-parameters',
+  'historical-report-builder',
+  'historical-report',
 ];
 
 // these routes are secure with active plans

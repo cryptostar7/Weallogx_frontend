@@ -1201,6 +1201,7 @@ export default {
       )
         .then((response) => {
           let data = response.data.data;
+          console.log(data);
           this.populateGlobalParameters(data);
           this.populateIndex(1, data.index_strategy_1);
           if (data.index_strategy_2) {

@@ -32,7 +32,7 @@
         >
       </li>
     </ul>
-    <router-link to="/">
+    <router-link to="/historical/simulations">
       <img
         src="@/assets/images/icons/cross.svg"
         alt="cross"
