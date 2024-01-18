@@ -419,8 +419,7 @@ export default {
       let switch_year_valid = true
 
       if (!inputs.ira_or_401k_balance || !inputs.age || !inputs.plan_through_age ||
-          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.roth_conversion_years ||
-          !inputs.filing_status) {
+          !inputs.rate_of_return || !inputs.initial_tax_rate || !inputs.roth_conversion_years) {
         valid = false
       }
       
