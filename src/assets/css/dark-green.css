@@ -4477,9 +4477,11 @@ fill: #f5f5f5;
   background: #2E3135;
   box-shadow: none
 }
+
 .dark-green .history-simulation-para {
-  color: #1A89EE;
+  color: #25967b;
 }
+
 .dark-green .navbar-brand.green{
   display: none;
 }

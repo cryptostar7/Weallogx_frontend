@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" ref="updateReportModal"  id="ReportBuilderNameEditModal" tabindex="-1" aria-labelledby="ReportBuilderNameEditModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
+  <div class="modal fade common-modal" ref="updateReportModal"  id="simulationReportBuilderNameEditModal" tabindex="-1" aria-labelledby="simulationReportBuilderNameEditModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

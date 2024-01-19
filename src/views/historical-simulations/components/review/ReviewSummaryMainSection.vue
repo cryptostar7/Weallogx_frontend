@@ -36,7 +36,7 @@
             </div>
           </div>
            <div class="BuildSaveCloseButton">
-            <router-link  to="/"  class="btn">Save & Close</router-link>
+            <router-link  to="/historical/simulations"  class="btn">Save & Close</router-link>
           </div>
           <!-- Historical Vehicles end -->
       </div>

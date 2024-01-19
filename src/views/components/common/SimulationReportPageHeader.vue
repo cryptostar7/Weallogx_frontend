@@ -9,7 +9,7 @@
   </div>
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
-      <router-link class="navbar-brand backToscenario" :to="historical ? `/historical/scenario-details/${historical.scenerio_id}?report=${$route.params.report}` : ''" >
+      <router-link class="navbar-brand backToscenario" :to="historical ? `/historical/simulation-details/${historical.simulation_id}?report=${$route.params.report}` : ''" >
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect y="4.9502" width="7" height="2" rx="1" transform="rotate(-45 0 4.9502)" fill="black" />
           <rect x="1.41406" y="3.84473" width="7" height="2" rx="1" transform="rotate(45 1.41406 3.84473)"
@@ -53,7 +53,7 @@
           </li>
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
-              data-bs-target="#reportShareModal" data-bs-toggle="modal" title="Share Report">
+              data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" title="Share Report">
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 14.5V11C1.5 5 8.5 5 8.5 5L14 5.00007" stroke="black" stroke-width="2"
                   stroke-linecap="round" />

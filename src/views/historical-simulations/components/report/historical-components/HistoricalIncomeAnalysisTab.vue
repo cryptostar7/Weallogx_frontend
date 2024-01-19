@@ -7,7 +7,7 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"  class="checkbox2 rightCheckBox8"   @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"  class="checkbox2 rightCheckBox8"   @change="() => $store.dispatch('toggleSimulationReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -50,7 +50,7 @@
                         <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(data[index].annual_income)}}</p>
                       </div>
 
-                       <add-note-input-component :historical="true" reportType="historical" noteType="historical_income_analysis" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null"/>
+                       <add-note-input-component :historical="true" reportType="historical" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null"/>
                     </div>
                   </div>
                 </div>

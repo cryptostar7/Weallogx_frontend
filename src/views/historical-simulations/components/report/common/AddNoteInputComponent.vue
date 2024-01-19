@@ -32,16 +32,18 @@ export default {
     saveNote: function() {
       let data = {
         report_id: this.$route.params.report,
-        report_type: this.$props.reportType,
+        report_type: "historical",
         note_type: this.$props.noteType,
         text: this.note,
         vehicle_type: this.$props.cvType,
       };
 
+      console.log(data);
+
       if (this.note_id) {
-        patch(`${getUrl("notes")}${this.note_id}/`, data, authHeader());
+        patch(`${getUrl("historical-notes")}${this.note_id}/`, data, authHeader());
       } else {
-        post(getUrl("notes"), data, authHeader())
+        post(getUrl("historical-notes"), data, authHeader())
           .then(response => {
             this.note_id = response.data.id;
           })

@@ -70,7 +70,7 @@
             @input="handleDisclosure()"
           ></div>
         </div>
-        <div :class="`disclosure-footer ${$props.hideFee ? 'd-none' : ''}`">
+        <div :class="`disclosure-footer d-none ${$props.hideFee ? 'd-none' : ''}`">
           <div class="row">
             <div class="col-md-6">
               <h6 class="bold-one">Fees assumed:</h6>
@@ -292,13 +292,13 @@ export default {
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
       let borrowing_rate = this.disclosure.borrowing_rate;
+      // `Index(es) Simulated: ${indexes[0]} ${
+      //   weightages.weight_1
+      // }% <br /> ${
+      //   indexes[1] ? `${indexes[1]} ${weightages.weight_2}% <br />` : ""
+      // } ${indexes[2] ? `${indexes[2]} ${weightages.weight_3}% <br />` : ""}
 
-      return `Index(es) Simulated: ${indexes[0]} ${
-        weightages.weight_1
-      }% <br /> ${
-        indexes[1] ? `${indexes[1]} ${weightages.weight_2}% <br />` : ""
-      } ${indexes[2] ? `${indexes[2]} ${weightages.weight_3}% <br />` : ""}
-      This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
+      return `This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
       It is not a real world insurance policy. It is not an official illustration. 
       You may not assume the data presented here relating to the TSA infers or expresses any guarantee of how a real world insurance policy would perform. 
       Comparisons made to the official carrier illustration(s), which use hypothetical assumptions that are not guaranteed, are designed to be educational and instructive as to how the TSA as a proxy for the insurance policy(ies) compared <b>may have</b> performed through different historical periods. 
@@ -320,6 +320,8 @@ export default {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
       this.saveDisclosure = false;
+
+      console.log(this.$refs.editableDiv.innerHTML);
     },
   },
   computed: {

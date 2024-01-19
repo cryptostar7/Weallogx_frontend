@@ -253,7 +253,6 @@ const authRoutes = [
   'historical-illustration-data',
   'historical-parameters',
   'historical-report-builder',
-  'historical-report',
 ];
 
 // these routes are secure with active plans

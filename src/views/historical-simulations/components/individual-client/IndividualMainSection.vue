@@ -805,7 +805,7 @@ export default {
     },
   },
   mounted() {
-    if (!this.$store.state.data.clients) {
+    if (!this.$store.state.data.historical_clients) {
       this.getClient();
     }
 

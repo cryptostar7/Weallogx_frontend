@@ -8,7 +8,7 @@
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
                   <input id="rightCheckBox9" type="checkbox" class="checkbox2 rightCheckBox9" rightCheckAttr="9"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" :checked="activeTabs[keyId]" />
+                    @change="() => $store.dispatch('toggleSimulationReportTabByID', keyId)" :checked="activeTabs[keyId]" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>

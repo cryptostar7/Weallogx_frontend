@@ -123,7 +123,7 @@ export default {
 
       this.$store.dispatch("loader", true);
 
-      post(`${getUrl("simulation-report")}share/`, data, authHeader())
+      post(`${getUrl("share-historical-report")}`, data, authHeader())
         .then(response => {
           this.emails = "";
           this.message = "";

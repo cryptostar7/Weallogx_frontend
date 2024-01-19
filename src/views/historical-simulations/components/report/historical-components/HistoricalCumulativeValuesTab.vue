@@ -9,7 +9,7 @@
                 <div class="radioBtnDiv r2" id="button-2">
                   <input id="rightCheckBox11" type="checkbox" :checked="activeTabs[keyId]"
                     class="checkbox2 rightCheckBox11" rightCheckAttr="11"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                    @change="() => $store.dispatch('toggleSimulationReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -80,7 +80,7 @@
                               <p :class="`ms-2 CardProgressnym  cardRadioSwtchpara${1+index} position-up`">{{$numFormatWithDollar(item.income)}}</p>
                             </div>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component :historical="true" reportType="historical" noteType="historical_simulation_value"/>
                         </div>
                       </div>
 
@@ -153,7 +153,7 @@
                               <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(item.income)}} </p>
                             </div>
                           </div>
-                          <add-note-input-component />
+                          <add-note-input-component :historical="true" reportType="historical" />
                         </div>
                       </div>
 

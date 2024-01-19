@@ -55,43 +55,6 @@
           });
         });
     
-        // When clicked on VIEW MORE or VIEW LESS button
-        var viewBtns = document.querySelectorAll(".view-btn");
-    
-        viewBtns.forEach(function(btn) {
-          btn.addEventListener("click", function() {
-            btn.classList.toggle("viewing");
-            let parentDiv =
-              btn.closest(".inner-report-div") || btn.closest(".list-div");
-            let listItems = parentDiv.querySelectorAll(".list-item");
-            if (parentDiv.classList.contains("list-div")) {
-              listItems = [...listItems];
-              let newItems = [];
-              listItems.map(item => {
-                if (item.parentElement.classList.contains("list-div")) {
-                  newItems.push(item);
-                }
-              });
-              listItems = [...newItems];
-            }
-            if (btn.classList.contains("viewing")) {
-              btn.innerText = "- View Less";
-              listItems.forEach(function(listItem) {
-                if (listItem.classList.contains("d-none")) {
-                  listItem.classList.remove("d-none");
-                }
-              });
-            } else {
-              btn.innerText = "+ View More";
-              listItems.forEach(function(listItem, index) {
-                if (index > 2) {
-                  listItem.classList.add("d-none");
-                }
-              });
-            }
-          });
-        });
-    
         // When Scrolling
         var scrollingDiv = document.querySelector(".right-area-inner");
         scrollingDiv.addEventListener("scroll", function(e) {

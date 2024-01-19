@@ -2367,7 +2367,7 @@ export default {
             }`;
 
             if (report) {
-              window.location.href = `/report-builder/${this.$route.query.report}`;
+              window.location.href = `/historical/report-builder/${this.$route.query.report}`;
             }
 
             this.$router.push({

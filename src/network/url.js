@@ -67,12 +67,14 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/historical-delete/`
     case 'add-historical-report':
       return `${baseUrl}/report/historical-report/`
+    case 'share-historical-report':
+      return `${baseUrl}/report/historical-share/`
     case 'standalone-report':
       return `${baseUrl}/historical/standalone-report/`
     case 'latest-report':
       return `${baseUrl}/report/latest-report/`
-      case 'historical-latest-report':
-        return `${baseUrl}/report/historical-latest-report/`
+    case 'historical-latest-report':
+      return `${baseUrl}/report/historical-latest-report/`
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':
@@ -151,6 +153,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/death-ror/`
     case 'notes':
       return `${baseUrl}/report/add-note/`
+    case 'historical-notes':
+      return `${baseUrl}/report/historical-add-note/`
     case 'disclosures':
       return `${baseUrl}/report/add-disclosure/`
     case 'historical_report':

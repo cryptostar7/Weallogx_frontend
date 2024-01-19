@@ -9,7 +9,7 @@
                 <div class="radioBtnDiv r2" id="button-2">
                   <input id="rightCheckBox10" type="checkbox" :checked="activeTabs[keyId]"
                     class="checkbox2 rightCheckBox10" rightCheckAttr="10"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                    @change="() => $store.dispatch('toggleSimulationReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
@@ -51,7 +51,7 @@
                         </div>
                         <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(item.total_value)}}</p>
                       </div>
-                      <add-note-input-component :historical="true"/>
+                      <add-note-input-component :historical="true" reportType="historical"/>
                     </div>
                   </div>
                 </div>

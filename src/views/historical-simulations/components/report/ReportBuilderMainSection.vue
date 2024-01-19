@@ -52,15 +52,7 @@
         >
           <div class="reportBuilderLft1 px-10 py-4">
             <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
-            <div class="reportBuilderLftSwtch">
-              <button
-                :class="`btn reportSwtchLeft w-100 ${
-                  sidebar.currentTab === 'historical' ? 'active' : ''
-                }`"
-              >
-                Historical Simulations
-              </button>
-            </div>
+            <p class="history-simulation-para">Historical Simulations</p>
           </div>
           <sidebar-tabs-list
             :list="list.historical"
@@ -73,7 +65,7 @@
       >
         <div class="right-area-inner p-relative">
           <div class="right-area-wrapper">
-            <client-detail-component />
+            <client-detail-component v-if="HistoricalDataLoaded && Object.keys($store.state.data.report.historical).length"/>
             <div
               :class="`tab-wrapper-2 ${
                 sidebar.currentTab === 'historical' ? '' : 'd-none'
@@ -134,9 +126,7 @@ export default {
   methods: {
     // get historical report data
     getHistoricalData: function () {
-      console.log('getUrl("standalone-report")');
       this.$store.dispatch("loader", true);
-
       get(
         `${getUrl("standalone-report")}${this.$route.params.report}`,
         authHeader()
@@ -197,7 +187,7 @@ export default {
     // get all notes of current report
     getNotes: function () {
       get(
-        `${getUrl("notes")}?report=${this.$route.params.report}`,
+        `${getUrl("historical-notes")}?report=${this.$route.params.report}`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("notes", response.data);
@@ -234,6 +224,7 @@ export default {
     if (this.$route.params.report) {
       this.getHistoricalData();
       this.getCurrentReportInfo();
+      this.getNotes();
     }
   },
   watch: {

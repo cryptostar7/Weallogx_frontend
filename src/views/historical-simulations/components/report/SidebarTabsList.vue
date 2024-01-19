@@ -19,7 +19,7 @@
                         <div class="button-cover">
                             <div class="button r" id="button-1">
                                 <input type="checkbox" class="checkbox leftCheckBox7" :checked="activeTabs[element.key]" checkAttr="7"
-                                    @change="() => $store.dispatch('toggleReportTabByID', element.key)" />
+                                    @change="() => $store.dispatch('toggleSimulationReportTabByID', element.key)" />
                                 <div class="knobs"></div>
                                 <div class="layer"></div>
                             </div>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     collapseSection: function (key) {
-      this.$store.dispatch("toggleReportTabByID", key);
+      this.$store.dispatch("toggleSimulationReportTabByID", key);
     },
     handleTabs: function (id) {
       const element = document.querySelector("." + id);

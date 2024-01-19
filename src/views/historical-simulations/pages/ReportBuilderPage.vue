@@ -5,14 +5,10 @@
     <report-builder-main-section />
     <!-- Delete Account Modal start -->
     <delete-account-modal />
-    <!-- Delete Comparative CV Modal start -->
-    <delete-comparative-cv-modal />
 
     <!-- Delete historical CV Modal start -->
     <delete-historical-cv-modal />
 
-    <!-- Delete Ira Modal start -->
-    <delete-era-modal />
     <!-- Delete Annuity Modal start -->
     <delete-annuity-modal />
     <!-- Report Buider Name Change Modal start -->
@@ -26,16 +22,13 @@
     <share-modal />
 
     <!-- delete comparative vechile id hidden input -->
-    <input type="hidden" id="comparative_cv_delete_id" />
     <input type="hidden" id="historical_cv_delete_id" />
   </div>
 </template>
 <script>
 import DeleteAccountModal from "../components/modals/DeleteAccountModal.vue";
-import DeleteComparativeCvModal from "../components/modals/DeleteComparativeCvModal.vue";
 import DeleteHistoricalCvModal from "../components/modals/DeleteHistoricalCvModal.vue";
 import DeleteAnnuityModal from "../components/modals/DeleteAnnuityModal.vue";
-import DeleteEraModal from "../components/modals/DeleteEraModal.vue";
 import ReportBuilderNameCreateModal from "../components/modals/ReportBuilderNameCreateModal.vue";
 import ShareModal from "../components/modals/ShareModal.vue";
 import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
@@ -47,10 +40,8 @@ import "../../../assets/js/chart.min";
 export default {
   components: {
     DeleteAccountModal,
-    DeleteComparativeCvModal,
     DeleteHistoricalCvModal,
     DeleteAnnuityModal,
-    DeleteEraModal,
     ReportBuilderNameCreateModal,
     ShareModal,
     ReportBuilderMainSection,

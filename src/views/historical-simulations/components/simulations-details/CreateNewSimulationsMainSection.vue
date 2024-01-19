@@ -797,7 +797,7 @@ export default {
           }
 
           if (report) {
-            window.location.href = `/report-builder/${this.reportId}`;
+            window.location.href = `/historical/report-builder/${this.reportId}`;
           }
 
           if (this.activeSimulation.id) {
