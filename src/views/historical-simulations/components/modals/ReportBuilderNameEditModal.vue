@@ -64,7 +64,7 @@ export default {
       this.$refs.closeModalRef.click();
 
       this.$store.dispatch("loader", true);
-      patch(`${getUrl("report")}${this.$props.id}/`, data, authHeader())
+      patch(`${getUrl("simulation-report")}${this.$props.id}/`, data, authHeader())
         .then(response => {
           this.$toast.success(response.data.message);
           // this.getClient(true);

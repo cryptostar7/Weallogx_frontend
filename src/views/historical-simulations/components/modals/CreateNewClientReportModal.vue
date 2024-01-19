@@ -21,7 +21,7 @@
           <div class="px-5">
             <form action="">
               <SelectDropdown :list="clients" label="Client" id="clientSelectedReport" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="id => clientId = id" @inputText="seClientName"/>
-              <SelectDropdown :list="scenarioList" label="Scenario" id="existingScenarioReport" :error="errors.scenario" @clearError="() => errors.scenario = false" :clearInput="clearScenario" @setClearedInput="(val) => clearScenario = val" @onSelectItem="id => scenarioId = id" @inputText="name => scenarioName = name"/>
+              <SelectDropdown :list="simulationList" label="Simulation" id="existingSimulationReport" :error="errors.simulation" @clearError="() => errors.simulation = false" :clearInput="clearSimulation" @setClearedInput="(val) => clearSimulation = val" @onSelectItem="id => simulationId = id" @inputText="name => simulationName = name"/>
               <div class="form-group">
                 <label for="reportBulder" class="fs-14 bold-fw">Name Report</label>
                 <input type="text" class="form-control custom-control" autocomplete="off" v-model="reportName" @keyup="errors.report_name = ''">
@@ -56,11 +56,11 @@ export default {
       clientId: "",
       response: false,
       clientName: "",
-      scenarioId: "",
-      scenarioName: "",
+      simulationId: "",
+      simulationName: "",
       reportName: "",
       description: "",
-      clearScenario: 0,
+      clearSimulation: 0,
     };
   },
   mounted() {
@@ -87,7 +87,7 @@ export default {
       } else {
         this.clientId = "";
       }
-      this.clearScenario = 1;
+      this.clearSimulation = 1;
     },
     validateForm: function() {
       var validate = true;
@@ -109,23 +109,23 @@ export default {
         }
       }
 
-      if (!this.scenarioName) {
-        this.errors.scenario = ["This field is required."];
+      if (!this.simulationName) {
+        this.errors.simulation = ["This field is required."];
         validate = false;
       } else {
-        if (!this.scenarioName) {
-          this.errors.scenario = "";
+        if (!this.simulationName) {
+          this.errors.simulation = "";
         } else {
           let templateId = this.$getTemplateId(
-            this.scenarioName,
-            this.scenarioList
+            this.simulationName,
+            this.simulationList
           );
           if (!templateId) {
             validate = false;
-            this.errors.scenario = ["Please choose a valid scenario."];
+            this.errors.simulation = ["Please choose a valid simulation."];
           } else {
-            this.scenarioId = templateId;
-            this.errors.scenario = "";
+            this.simulationId = templateId;
+            this.errors.simulation = "";
           }
         }
       }
@@ -148,13 +148,13 @@ export default {
 
       let data = {
         client: this.clientId,
-        scenario: this.scenarioId,
+        simulation: this.simulationId,
         name: this.reportName,
         description: this.description,
       };
 
       this.$store.dispatch("loader", true);
-      post(`${getUrl("add-report")}`, data, authHeader())
+      post(`${getUrl("add-historical-report")}`, data, authHeader())
         .then(response => {
           this.response = true;
           this.$toast.success(response.data.message);
@@ -215,19 +215,19 @@ export default {
       }
       return initClient;
     },
-    // scenario dropdown list data
-    scenarioList() {
+    // simulation dropdown list data
+    simulationList() {
       let data = this.$store.state.data.historical_clients || [];
       let allDetails = [];
       if (this.clientId) {
         data = data.filter(i => i.id === this.clientId);
         data.forEach(element => {
-          allDetails = [...allDetails, ...element.scenarios];
+          allDetails = [...allDetails, ...element.simulations];
         });
         return allDetails.map(i => {
           return {
             id: i.id || null,
-            template_name: i.scenario_details.name || null,
+            template_name: i.simulation_details.name || null,
           };
         });
       } else {

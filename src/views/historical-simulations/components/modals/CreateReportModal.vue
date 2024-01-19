@@ -125,7 +125,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      post(`${getUrl("add-report")}`, data, authHeader())
+      post(`${getUrl("add-historical-report")}`, data, authHeader())
         .then(response => {
           this.response = true;
           this.$toast.success(response.data.message);

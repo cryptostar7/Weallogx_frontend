@@ -1,6 +1,6 @@
 <template lang="">
-  <div class="modal fade common-modal common-modal-responsive" id="reportShareModal" tabindex="-1"
-    aria-labelledby="reportShareModalLabel" aria-hidden="true">
+  <div class="modal fade common-modal common-modal-responsive" id="simulationReportShareModal" tabindex="-1"
+    aria-labelledby="simulationReportShareModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -12,7 +12,7 @@
           <div class="d-flex align-items-center justify-content-center w-100">
             <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
               <button class="modalReportBuilderBr">{{$sortName(report.client.firstname, report.client.lastname, report.client.middlename)}}</button>
-              <h2 class="modalReportBuilderBrTxt">{{$clientName(report.client.firstname, report.client.lastname, report.client.middlename)}} <span>{{report.scenario.name}}</span></h2>
+              <h2 class="modalReportBuilderBrTxt">{{$clientName(report.client.firstname, report.client.lastname, report.client.middlename)}} <span>{{report.simulation.name}}</span></h2>
             </div>
           </div>
           <div class="container">
@@ -51,7 +51,7 @@
                         <button type="submit" class="btn yes-delete-btn">Send Presentation</button>
                       </div>
                     </div>
-                    <p class="modalShareLinksPara m-0 mt-4">Copy Link</p>
+                    <p class="modalShareLinksPara m-0 mt-4" @click="testFunction">Copy Link</p>
                     <p class="modalSmallborder m-0"></p>
                     <div class="d-flex justify-content-between">
                       <button class="mt-2 modalAnyOneViewBtn">
@@ -86,6 +86,9 @@ export default {
     };
   },
   methods: {
+    testFunction: function(){
+      console.log(this.report);
+    },
     copyLink() {
       navigator.clipboard.writeText(this.report.report_link);
       this.$refs.copyButtonRef.innerText = "Copied!";
@@ -120,7 +123,7 @@ export default {
 
       this.$store.dispatch("loader", true);
 
-      post(`${getUrl("report")}share/`, data, authHeader())
+      post(`${getUrl("simulation-report")}share/`, data, authHeader())
         .then(response => {
           this.emails = "";
           this.message = "";
@@ -147,7 +150,7 @@ export default {
         },
       };
       patch(
-        `${getUrl("report")}${this.$route.params.report}/`,
+        `${getUrl("simulation-report")}${this.$route.params.report}/`,
         data,
         authHeader()
       )
@@ -163,7 +166,7 @@ export default {
   },
   computed: {
     report() {
-      return this.$store.state.data.share_report;
+      return this.$store.state.data.share_simulation_report;
     },
   },
 };

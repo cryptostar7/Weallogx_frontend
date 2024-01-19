@@ -1,10 +1,10 @@
 <template lang="">
-    <div v-for="(item, index) in scenariosList" :key="index">
+    <div v-for="(item, index) in simulationsList" :key="index">
         <div v-if="Number(index) < listLimit" class="list-item">
-            <div class="list-item-inner" @click="$router.push(`/scenario-details/${item.id}`)">
+            <div class="list-item-inner" @click="$router.push(`/historical/simulation-details/${item.id}`)">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/scenario-details/${item.id}`">{{ item.scenario_details.name }} {{ item.is_draft ? '(Draft)':''}}</router-link></p>
-                    <label class="medium-fw">{{item.scenario_details.description}}</label>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/historical/simulation-details/${item.id}`">{{ item.simulation_details.name }} {{ item.is_draft ? '(Draft)':''}}</router-link></p>
+                    <label class="medium-fw">{{item.simulation_details.description}}</label>
                 </div>
                 <div class="list-item-actions" @click="e => e.stopPropagation()">
                     <label class="date-label grey-clr fs-14 semi-bold-fw">
@@ -16,7 +16,7 @@
                         {{$dateFormat(item.updated_at)}} 
                     </label>
                     <div class="round-btns">
-                        <router-link :to="`/scenario-details/${item.id}`" class="btn round-btn">
+                        <router-link :to="`/historical/simulation-details/${item.id}`" class="btn round-btn">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
@@ -24,7 +24,7 @@
                                 <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                             </svg>
                         </router-link>
-                        <button class="btn round-btn" data-bs-target="#cloneScenarioModal" @click="$emit('setActionId', item.id)" data-bs-toggle="modal">
+                        <button class="btn round-btn" data-bs-target="#cloneSimulationModal" @click="$emit('setActionId', item.id)" data-bs-toggle="modal">
                             <span>Clone</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <mask id="path-1-inside-1_904_53" fill="white">
@@ -40,7 +40,7 @@
                             </svg>
                         </button>
                         <button class="btn round-btn">
-                            <router-link class="td-none" :to="`/illustration-data/${item.id}`">
+                            <router-link class="td-none" :to="`/historical/illustration-data/${item.id}`">
                             <span>Illustration</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <mask id="mask0_904_147" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1" y="0" width="13" height="15">
@@ -60,7 +60,7 @@
                             </svg>
                             </router-link>
                         </button>
-                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteScenarioModal" @click="addDeleteId(item.id)">
+                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteSimulationModal" @click="addDeleteId(item.id)">
                             <span>Delete</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D" />
@@ -80,51 +80,51 @@
                             </svg>
                         </button>
                     </div>
-                    <router-link :to="`/report-builder?scenario=${item.id}&client=${$props.clientId}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
+                    <router-link :to="`/historical/report-builder?simulation=${item.id}&client=${$props.clientId}`" class="btn scenario-add-report-btn">+ Add Report</router-link>
                 </div>
             </div>
-            <SenarioReports :senarioReports="item.reports.reports_data" :client="$props.client" :collapseCustomId="`innerReportCollapse${index}`"/>
+            <SimulationReports :simulationReports="item.reports.reports_data" :client="$props.client" :collapseCustomId="`innerReportCollapse${index}`"/>
         </div>
     </div>
-    <div class="text-center" v-if="scenariosList.length >= listLimit">
-        <button v-if="!showAllList && scenariosList.length > listLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
+    <div class="text-center" v-if="simulationsList.length >= listLimit">
+        <button v-if="!showAllList && simulationsList.length > listLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
         <button v-if="showAllList" role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
     </div>
-    <input type="hidden" id="deleteScenarioId"/>
+    <input type="hidden" id="deleteSimulationId"/>
 </template>
 <script>
-import SenarioReports from "../simulations/SimulationReports.vue";
+import SimulationReports from "../simulations/SimulationReports.vue";
 import config from "../../../../services/config.js";
 export default {
-  components: { SenarioReports },
-  props: ["scenarios", "clientId", "client"],
+  components: { SimulationReports },
+  props: ["simulations", "clientId", "client"],
   emits: ["setActionId"],
   data() {
     return {
-      listLimit: config.SCENARIO_LIST_LIMIT,
+      listLimit: config.SIMULATION_LIST_LIMIT,
       showAllList: false,
     };
   },
   methods: {
-    // expand the more scenarios data in list
+    // expand the more simulations data in list
     viewMore: function() {
-      this.listLimit = this.scenariosList.length;
+      this.listLimit = this.simulationsList.length;
       this.showAllList = true;
     },
-    // Show the less scenario data in list
+    // Show the less simulation data in list
     viewLess: function() {
-      this.listLimit = config.SCENARIO_LIST_LIMIT;
+      this.listLimit = config.SIMULATION_LIST_LIMIT;
       this.showAllList = false;
     },
     // save delete action id in hidden input
     addDeleteId: function(id) {
-      document.getElementById("deleteScenarioId").value = id;
+      document.getElementById("deleteSimulationId").value = id;
     },
   },
   computed: {
-    scenariosList() {
-      // returns the scenario list with latest first order
-      return this.$props.scenarios.sort(
+    simulationsList() {
+      // returns the simulation list with latest first order
+      return this.$props.simulations.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
       );
     },

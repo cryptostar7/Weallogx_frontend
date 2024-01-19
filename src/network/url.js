@@ -63,12 +63,16 @@ export const getUrl = (type) => {
       return `${baseUrl}/historical/standalone-parameters-portfolio/`;
     case 'simulation-report':
       return `${baseUrl}/report/historical-report/`
+    case 'simulation-report-delete':
+      return `${baseUrl}/report/historical-delete/`
     case 'add-historical-report':
       return `${baseUrl}/report/historical-report/`
     case 'standalone-report':
       return `${baseUrl}/historical/standalone-report/`
     case 'latest-report':
       return `${baseUrl}/report/latest-report/`
+      case 'historical-latest-report':
+        return `${baseUrl}/report/historical-latest-report/`
     case 'schedule':
       return `${baseUrl}/auth/schedule/`;
     case 'illustration':

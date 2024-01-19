@@ -23,13 +23,13 @@
     <edit-client-canvas-modal :client="client"/>
 
     <!-- Delete Scenario Modal -->
-    <delete-scenario-modal @removeClientScenario="removeClientScenario"/>
+    <delete-scenario-modal @removeClientSimulation="removeClientSimulation"/>
 
     <!-- Delete report Modal -->
     <delete-report-modal @removeClientReport="removeClientReport"/>
 
     <!-- Clone Scenario Modal start -->
-    <clone-scenario-modal @cloneScenario="cloneScenario" :id="actionId" :client="clinetId"/>
+    <clone-scenario-modal @cloneSimulation="cloneSimulation" :id="actionId" :client="clinetId"/>
       
     <!-- Report Buider Name Change Modal  -->
     <report-builder-name-change-modal :reportId="reportId" />  
@@ -128,7 +128,7 @@ export default {
     },
 
     // this function will trigger when any new scenario clone request made   
-    cloneScenario: function() {
+    cloneSimulation: function() {
       this.getClient(true);
     },
 
@@ -144,7 +144,7 @@ export default {
       this.sortedList = this.clients;
     },
     // remove scenario form list
-    removeClientScenario: function(deleteId) {
+    removeClientSimulation: function(deleteId) {
       this.sortedList = this.clients;
     },
     // sort client list

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" ref="updateReportModal"  id="ReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="ReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
+  <div class="modal fade common-modal" ref="updateReportModal"  id="SimulationReportBuilderNameChangeModal" tabindex="-1" aria-labelledby="SimulationReportBuilderNameChangeModalLabel"  aria-hidden="true"  data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -104,7 +104,7 @@ export default {
       this.$refs.closeModalRef.click();
 
       this.$store.dispatch("loader", true);
-      patch(`${getUrl("report")}${this.$props.reportId}/`, data, authHeader())
+      patch(`${getUrl("simulation-report")}${this.$props.reportId}/`, data, authHeader())
         .then(response => {
           this.$toast.success(response.data.message);
           this.$store.dispatch("historicalClients", this.mapReportData());

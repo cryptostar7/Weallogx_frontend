@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div class="modal fade common-modal" id="deleteReportModal" tabindex="-1" aria-labelledby="deleteReportModalLabel"
+  <div class="modal fade common-modal" id="deleteSimulationReportModal" tabindex="-1" aria-labelledby="deleteSimulationReportModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -9,7 +9,7 @@
             <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
         </div>
         <div class="modal-body text-center">
-          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteReportModalLabel" >Delete Report?</h5>
+          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteSimulationReportModalLabel" >Delete Report?</h5>
           <p class="fs-14">This action cannot be undone. To re-add a report you will have <br> to go back to Report creation.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn"  data-bs-dismiss="modal" @click="deleteReport()">Yes, Delete</button>
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <input type="hidden" id="deleteReportId"/>
+  <input type="hidden" id="deleteSimulationReportId"/>
   </div>
 </template>
 <script>
@@ -31,16 +31,16 @@ export default {
   emits: ["removeClientReport"],
   methods: {
     deleteReport: function() {
-      var id = Number(document.getElementById("deleteReportId").value);
+      var id = Number(document.getElementById("deleteSimulationReportId").value);
       this.$store.dispatch("loader", true);
-      remove(`${getUrl("report")}delete/${id}/`, authHeader())
+      remove(`${getUrl("simulation-report-delete")}${id}/`, authHeader())
         .then(response => {
           id = Number(id);
           let list = [...this.$store.state.data.historical_clients];
           list = list.map(i => {
             i.reports = i.reports.filter(r => r.id !== id);
-            if (i.scenarios) {
-              i.scenarios = i.scenarios.map(s => {
+            if (i.simulations) {
+              i.simulations = i.simulations.map(s => {
                 s.reports = {
                   reports_data: s.reports.reports_data.filter(r => r.id !== id),
                 };

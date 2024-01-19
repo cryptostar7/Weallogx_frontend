@@ -185,6 +185,11 @@ const router = createRouter({
       component: () => import("../views/historical-simulations/pages/SimulationsListPage.vue"),
     },
     {
+      path: "/historical/client/:id",
+      name: "historical-client",
+      component: () => import("../views/historical-simulations/pages/IndividualClientPage.vue"),
+    },
+    {
       path: "/historical/simulation-details/:simulation?",
       name: "historical-simulation-details",
       component: () => import("../views/historical-simulations/pages/SimulationDetailsPage.vue"),

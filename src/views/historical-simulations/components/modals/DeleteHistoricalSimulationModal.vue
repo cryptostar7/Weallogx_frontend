@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" id="deleteScenarioModal" tabindex="-1" aria-labelledby="deleteScenarioModalLabel"
+  <div class="modal fade common-modal" id="deleteSimulationModal" tabindex="-1" aria-labelledby="deleteSimulationModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -9,10 +9,10 @@
           </button>
         </div>
         <div class="modal-body text-center">
-          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteScenarioModalLabel">Delete Scenario?</h5>
-          <p class="fs-14">This action cannot be undone. To re-add a scenario you will have <br> to go back to Scenario creation.</p>
+          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteSimulationModalLabel">Delete Simulation?</h5>
+          <p class="fs-14">This action cannot be undone. To re-add a simulation you will have <br> to go back to Simulation creation.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-            <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" @click="deleteScenario()">Yes, Delete</button>
+            <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" @click="deleteSimulation()">Yes, Delete</button>
             <button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal">Cancel</button>
           </div>
         </div>
@@ -26,26 +26,26 @@ import { getUrl } from "../../../../network/url";
 import { authHeader, getFirstError } from "../../../../services/helper";
 
 export default {
-  emits: ["removeClientScenario"],
+  emits: ["removeClientSimulation"],
   methods: {
-    deleteScenario: function() {
-      var id = document.getElementById("deleteScenarioId").value;
+    deleteSimulation: function() {
+      var id = document.getElementById("deleteSimulationId").value;
       this.$store.dispatch("loader", true);
-      remove(`${getUrl("scenario")}${id}/`, authHeader())
+      remove(`${getUrl("simulations")}${id}/`, authHeader())
         .then(response => {
           let sortedList = this.$store.state.data.historical_clients.map(i => {
-            if (i.scenarios) {
-              i.scenarios = i.scenarios.filter(s => Number(s.id) !== Number(id));
+            if (i.simulations) {
+              i.simulations = i.simulations.filter(s => Number(s.id) !== Number(id));
             }
             return i;
           });
 
           this.$store.dispatch("historicalClients", sortedList);
           setTimeout(() => {
-            this.$emit("removeClientScenario", id);
+            this.$emit("removeClientSimulation", id);
           }, 1000);
           this.$store.dispatch("loader", false);
-          this.$toast.success("Scenario deleted successfully!");
+          this.$toast.success("Simulation deleted successfully!");
         })
         .catch(error => {
           if (

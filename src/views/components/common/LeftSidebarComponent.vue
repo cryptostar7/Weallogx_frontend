@@ -66,7 +66,7 @@
               <span>Comparative Analysis</span>
             </label>
             <label
-              v-if="$props.client"
+              v-if="$props.client && $props.clientType !== 'historical'"
               class="side-client-label d-flex align-items-center indivisualLftArrow semi-bold-fw fs-14"
             >
               <svg width="5" height="9" viewBox="0 0 5 9" fill="#fff">
@@ -122,6 +122,26 @@
                 </defs>
               </svg>
               <span>Historical Simulations</span>
+            </label>
+            <label
+              v-if="$props.client && $props.clientType == 'historical'"
+              class="side-client-label d-flex align-items-center indivisualLftArrow semi-bold-fw fs-14"
+            >
+              <svg width="5" height="9" viewBox="0 0 5 9" fill="#fff">
+                <path
+                  d="M0 7.5903V0.866386C0 0.696202 0.0693989 0.533377 0.192168 0.415519C0.434019 0.183342 0.815982 0.183342 1.05783 0.41552L4.78358 3.99224C4.92184 4.12497 5 4.30834 5 4.5C5 4.69166 4.92184 4.87503 4.78358 5.00776L1.44977 8.20822C1.03756 8.60394 0.36082 8.49277 0.0968658 7.98598C0.0332282 7.8638 0 7.72807 0 7.5903Z"
+                  fill="#fff"
+                />
+              </svg>
+              <span class="me-1">{{ $props.client.firstname }}</span>
+              <router-link to="/historical/simulations"
+                ><button class="btn">
+                  <img
+                    src="@/assets/images/icons/cross-small.svg"
+                    class="img-fluid"
+                    alt="Chevron"
+                  /></button
+              ></router-link>
             </label>
           </router-link>
         </li>
@@ -884,7 +904,7 @@
 </template>
 <script>
 export default {
-  props: ["client"],
+  props: ["client", "clientType"],
   data() {
     return {
       enabled: true,

@@ -5,7 +5,7 @@
 
           <div class="summaryMainDiv py-4">
               <div>
-                  <h5 @click="testFunction()">NEW SIMULATION</h5>
+                  <h5>NEW SIMULATION</h5>
                   <p>Summary</p>
                   <div class="d-flex justify-content-center">
                       <p class="summarySmallBorder"></p>
@@ -67,7 +67,7 @@ data() {
 methods: {
   getLatestReportId: function() {
     get(
-      `${getUrl("latest-report")}${this.$route.params.simulation}/`,
+      `${getUrl("historical-latest-report")}${this.$route.params.simulation}/`,
       authHeader()
     ).then(response => {
       this.reportId = response.data.latest_report_id;

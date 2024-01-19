@@ -202,7 +202,7 @@ const store = createStore({
                 report_id: '',
                 report_link: ''
             },
-            share_historical_report: {
+            share_simulation_report: {
                 client: {
                     firstname: '',
                     middlename: '',
@@ -431,6 +431,9 @@ const store = createStore({
         setShareReportData(state, payload) {
             state.data.share_report[payload.name] = payload.data;
         },
+        setShareSimulationReportData(state, payload) {
+            state.data.share_simulation_report[payload.name] = payload.data;
+        },
         setTaxScorecardInputs(state, payload) {
             state.data.tax_scorecard.inputs = payload;
         },
@@ -560,6 +563,9 @@ const store = createStore({
         },
         shareReportData(context, payload) {
             context.commit('setShareReportData', payload);
+        },
+        shareSimulationReportData(context, payload) {
+            context.commit('setShareSimulationReportData', payload);
         },
         updateTaxScorecardInputs(context, payload) {
           let inputs = {...payload}

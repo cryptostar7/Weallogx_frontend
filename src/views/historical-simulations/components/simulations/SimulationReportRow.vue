@@ -1,9 +1,9 @@
 <template lang="">
-    <div v-for="(item, index) in senarioReportList" :key="index">
+    <div v-for="(item, index) in simulationReportList" :key="index">
         <div class="list-item" v-if="Number(index) < reportListLimit">
-            <div class="list-item-inner" @click="goToReport(`/report-builder/${item.id}`)">
+            <div class="list-item-inner" @click="goToReport(`/historical/report-builder/${item.id}`)">
                 <div class="list-item-detail">
-                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
+                    <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/historical/report-builder/${item.id}`">{{item.name}}</router-link></p>
                     <label class="medium-fw">{{item.description}}</label>
                 </div>
                 <div class="list-item-actions" @click="e => e.stopPropagation()">
@@ -15,7 +15,7 @@
                         </svg> {{$dateFormat(item.updated_at)}}
                     </label>
                     <div class="round-btns">
-                        <button class="btn round-btn" @click="goToReport(`/report-builder/${item.id}`)">
+                        <button class="btn round-btn" @click="goToReport(`/historical/report-builder/${item.id}`)">
                             <span>Edit</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
@@ -23,7 +23,7 @@
                                 <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                             </svg>
                         </button>
-                        <button class="btn round-btn" data-bs-target="#reportShareModal" data-bs-toggle="modal" @click="shareReport(item)">
+                        <button class="btn round-btn" data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" @click="shareReport(item)">
                             <span>Share</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path d="M13.2957 5.28354C13.5982 4.98107 13.5982 4.49066 13.2957 4.18818C12.9933 3.88571 12.5028 3.88571 12.2004 4.18818L8.91401 7.47454C8.61153 7.77702 8.61153 8.26743 8.91401 8.5699C9.21648 8.87238 9.70689 8.87238 10.0094 8.5699L13.2957 5.28354Z" fill="#9D9D9D" />
@@ -55,7 +55,7 @@
                                 <path d="M12.9829 12.2159H1.01704C0.593416 12.2159 0.25 12.5594 0.25 12.983C0.25 13.4066 0.593416 13.75 1.01704 13.75H12.9829C13.4065 13.75 13.7499 13.4066 13.7499 12.983C13.7499 12.5594 13.4065 12.2159 12.9829 12.2159Z" fill="#9D9D9D" />
                             </svg>
                         </button>
-                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteReportModal" @click="setActionId(item.id)">
+                        <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteSimulationReportModal" @click="setActionId(item.id)">
                             <span>Delete</span>
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D" />
@@ -67,35 +67,35 @@
             </div>
         </div>
     </div>
-     <div class="text-center" v-if="senarioReportList.length >= reportListLimit">
-        <button v-if="!showAllList && senarioReportList.length > reportListLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
+     <div class="text-center" v-if="simulationReportList.length >= reportListLimit">
+        <button v-if="!showAllList && simulationReportList.length > reportListLimit" role="button" class="btn d-inline-block view-btn" @click="viewMore()">+ View More</button>
         <button v-if="showAllList" role="button" class="btn d-inline-block view-btn" @click="viewLess()">- View Less</button>
     </div>
 </template>
 <script>
 import config from "../../../../services/config.js";
 export default {
-  props: ["senarioReports", "listLimit", "client"],
+  props: ["simulationReports", "listLimit", "client"],
   data() {
     return {
       showAllList: false,
-      reportListLimit: config.SCENARIO_REPORT_LIST_LIMIT,
+      reportListLimit: config.SIMULATION_REPORT_LIST_LIMIT,
     };
   },
   methods: {
     // expand the more reports data in list
     viewMore: function() {
-      this.reportListLimit = this.senarioReportList.length;
+      this.reportListLimit = this.simulationReportList.length;
       this.showAllList = true;
     },
     // Show the less report data in list
     viewLess: function() {
-      this.reportListLimit = config.SCENARIO_REPORT_LIST_LIMIT;
+      this.reportListLimit = config.SIMULATION_REPORT_LIST_LIMIT;
       this.showAllList = false;
     },
     // save delete action id in hidden input
     setActionId: function(id) {
-      document.getElementById("deleteReportId").value = id;
+      document.getElementById("deleteSimulationReportId").value = id;
     },
     // redirect to report page
     goToReport: function(url) {
@@ -103,18 +103,19 @@ export default {
     },
      // share report 
     shareReport: function(item){
+      console.log(item);
       let client = this.$props.client;
       client = {firstname: client.firstname, lastname: client.lastname, middlename: client.middlename};
-      this.$store.dispatch('shareReportData', {name: 'client', data: client});
-      this.$store.dispatch('shareReportData', {name: 'report_id', data: item.id});
-      this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${item.id}/${item.view_token}`});
-      this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: item.scenario_name}});
+      this.$store.dispatch('shareSimulationReportData', {name: 'client', data: client});
+      this.$store.dispatch('shareSimulationReportData', {name: 'report_id', data: item.id});
+      this.$store.dispatch('shareSimulationReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/historical/report/${item.id}/${item.view_token}`});
+      this.$store.dispatch('shareSimulationReportData', {name: 'simulation', data: {name: item.simulation_name}});
     }
   },
   computed: {
-    senarioReportList() {
+    simulationReportList() {
       // return the report list with latest first order
-      return this.$props.senarioReports.sort(
+      return this.$props.simulationReports.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
       );
     },

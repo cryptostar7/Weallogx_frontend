@@ -1,12 +1,12 @@
 <template lang="">
     <div v-for="(item, index) in reportList" :key="index">
         <div v-if="Number(index) < reportListLimit"  class="list-item">
-            <div class="list-item-inner" @click="goToReport(`/report-builder/${item.id}`)">
+            <div class="list-item-inner" @click="goToReport(`/historical/report-builder/${item.id}`)">
                 <div class="list-item-detail">
-                <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/report-builder/${item.id}`">{{item.name}}</router-link></p>
+                <p class="semi-bold-fw fs-18 mb-0 clientNamePara"><router-link :to="`/historical/report-builder/${item.id}`">{{item.name}}</router-link></p>
                 <label class="medium-fw">{{item.description}}</label>
                 <br>
-                <span class="report-scenario-span mt-1" >{{item.scenario_name}}</span>
+                <span class="report-scenario-span mt-1" >{{item.simulation_name}}</span>
                 </div>
                 <div class="list-item-actions" @click="e => e.stopPropagation()">
                 <label class="date-label grey-clr fs-14 semi-bold-fw">
@@ -18,7 +18,7 @@
                     {{$dateFormat(item.updated_at)}}
                 </label>
                 <div class="round-btns">
-                    <button class="btn round-btn"  data-bs-toggle="modal" data-bs-target="#ReportBuilderNameChangeModal" @click="$emit('setReportActionId', item.id)" >
+                    <button class="btn round-btn"  data-bs-toggle="modal" data-bs-target="#SimulationReportBuilderNameChangeModal" @click="$emit('setReportActionId', item.id)" >
                     <span>Edit</span>
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"  d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z"  fill="#9D9D9D" />
@@ -26,7 +26,7 @@
                         <path  d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D" />
                     </svg>
                     </button>
-                    <button class="btn round-btn" data-bs-target="#reportShareModal" data-bs-toggle="modal" @click="shareReport(item)">
+                    <button class="btn round-btn" data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" @click="shareReport(item)">
                     <span>Share</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path  d="M13.2957 5.28354C13.5982 4.98107 13.5982 4.49066 13.2957 4.18818C12.9933 3.88571 12.5028 3.88571 12.2004 4.18818L8.91401 7.47454C8.61153 7.77702 8.61153 8.26743 8.91401 8.5699C9.21648 8.87238 9.70689 8.87238 10.0094 8.5699L13.2957 5.28354Z"  fill="#9D9D9D" />
@@ -34,7 +34,7 @@
                         <path fill-rule="evenodd" clip-rule="evenodd"  d="M7.20551 3.97937H11.4655C11.8932 3.97937 12.24 4.32614 12.24 4.75391C12.24 5.18167 11.8932 5.52844 11.4655 5.52844H7.20652L7.20551 4.75391C7.2056 5.52844 7.20628 5.52844 7.20652 5.52844L7.19716 5.52853L7.15489 5.52937C7.11593 5.53037 7.05607 5.53243 6.9783 5.53669C6.82253 5.54522 6.59626 5.56249 6.32331 5.59734C5.77338 5.66754 5.05393 5.80661 4.34549 6.07775C3.63432 6.34994 2.97401 6.73998 2.49606 7.28866C2.03145 7.82202 1.7063 8.54126 1.7063 9.55555V13.0569C1.7063 13.4847 1.35953 13.8314 0.931763 13.8314C0.503998 13.8314 0.157227 13.4847 0.157227 13.0569V9.55555C0.157227 8.16939 0.616292 7.0882 1.32801 6.27117C2.02639 5.46945 2.93451 4.95913 3.79178 4.63103C4.65178 4.30187 5.50076 4.1407 6.12715 4.06074C6.44237 4.0205 6.70624 4.0002 6.89357 3.98994C6.98734 3.9848 7.06226 3.98216 7.11521 3.9808C7.14169 3.98013 7.1627 3.97977 7.17786 3.97958L7.19616 3.9794L7.20194 3.97938L7.20397 3.97937L7.20551 3.97937C7.20584 3.97937 7.20541 3.97937 7.20551 4.75391V3.97937Z"  fill="#9D9D9D" />
                     </svg>
                     </button>
-                    <button class="btn round-btn" @click="goToReport(`/report-builder/${item.id}?present=true`)">
+                    <button class="btn round-btn" @click="goToReport(`/historical/report-builder/${item.id}?present=true`)">
                     <span>Present</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"  d="M2.75 4.02161V8.76314H11.25V4.02161H2.75ZM2.5 2.77161C1.94772 2.77161 1.5 3.21932 1.5 3.77161V9.01314C1.5 9.56542 1.94771 10.0131 2.5 10.0131H11.5C12.0523 10.0131 12.5 9.56542 12.5 9.01314V3.77161C12.5 3.21932 12.0523 2.77161 11.5 2.77161H2.5Z"  fill="#9D9D9D" />
@@ -58,7 +58,7 @@
                         <path  d="M12.9829 12.2159H1.01704C0.593416 12.2159 0.25 12.5594 0.25 12.983C0.25 13.4066 0.593416 13.75 1.01704 13.75H12.9829C13.4065 13.75 13.7499 13.4066 13.7499 12.983C13.7499 12.5594 13.4065 12.2159 12.9829 12.2159Z" fill="#9D9D9D" />
                     </svg>
                     </button>
-                    <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteReportModal" @click="setActionId(item.id)">
+                    <button class="btn round-btn" data-bs-toggle="modal" data-bs-target="#deleteSimulationReportModal" @click="setActionId(item.id)">
                     <span>Delete</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd"  d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#9D9D9D" />
@@ -99,7 +99,7 @@ export default {
       this.showAllList = false;
     },
     setActionId: function(id) {
-      document.getElementById("deleteReportId").value = id;
+      document.getElementById("deleteSimulationReportId").value = id;
     },
     // redirect to the report page
     goToReport: function(url) {
@@ -109,10 +109,10 @@ export default {
     shareReport: function(item){
       let client = this.$props.client;
       client = {firstname: client.firstname, lastname: client.lastname, middlename: client.middlename};
-      this.$store.dispatch('shareReportData', {name: 'client', data: client});
-      this.$store.dispatch('shareReportData', {name: 'report_id', data: item.id});
-      this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${item.id}/${item.view_token}`});
-      this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: item.scenario_name}});
+      this.$store.dispatch('shareSimulationReportData', {name: 'client', data: client});
+      this.$store.dispatch('shareSimulationReportData', {name: 'report_id', data: item.id});
+      this.$store.dispatch('shareSimulationReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/historical/report/${item.id}/${item.view_token}`});
+      this.$store.dispatch('shareSimulationReportData', {name: 'simulation', data: {name: item.simulation_name}});
     }
   },
   computed: {

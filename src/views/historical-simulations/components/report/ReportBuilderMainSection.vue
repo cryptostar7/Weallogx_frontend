@@ -164,13 +164,13 @@ export default {
       }
       get(api_url, authHeader())
         .then((response) => {
-          this.$store.dispatch("shareReportData", {
+          this.$store.dispatch("shareSimulationReportData", {
             name: "report_id",
             data: response.data.data.id,
           });
-          this.$store.dispatch("shareReportData", {
+          this.$store.dispatch("shareSimulationReportData", {
             name: "report_link",
-            data: `http://wlxvue.bizbybot.com/report/${response.data.data.id}/${response.data.data.view_token}`,
+            data: `http://wlxvue.bizbybot.com/historical/report/${response.data.data.id}/${response.data.data.view_token}`,
           });
 
           if (response.data.data.saved_action) {

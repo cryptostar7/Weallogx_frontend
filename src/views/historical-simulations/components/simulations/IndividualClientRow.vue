@@ -1,7 +1,7 @@
 <template lang="">
     <li
       v-for="(item, index) in filteredList"
-      @click="goToClient(`/individual-client/${item.id}`)"
+      @click="goToClient(`/historical/client/${item.id}`)"
       :key="index"
       class="nav-item p-0 p-0"
       :id="`parentCollapse${item.id}${index}`"
@@ -12,7 +12,7 @@
             $sortName(item.firstname, item.lastname, item.middlename)
           }}</span>
           <router-link
-            :to="`/individual-client/${item.id}`"
+            :to="`/historical/client/${item.id}`"
             class="nav-link px-0"
           >
             <span class="name-span">{{
@@ -51,11 +51,11 @@
             <button
               type="button"
               data-bs-toggle="collapse"
-              :data-bs-target="`#scenarioCollapse${item.id}${index}`"
+              :data-bs-target="`#simulationCollapse${item.id}${index}`"
               class="btn right-action-btn collapsed"
-              :id="`scenarioCollapseBtn${item.id}${index}`"
+              :id="`simulationCollapseBtn${item.id}${index}`"
               aria-expanded="false"
-              @click="handleRef(`${item.id}${index}`, 'scenario')"
+              @click="handleRef(`${item.id}${index}`, 'simulation')"
             >
             Simulations
               <svg
@@ -111,9 +111,9 @@
               </svg>
             </button>
             <router-link
-              :to="`/report-builder?client=${item.id}`"
+              :to="`/historical/report-builder?client=${item.id}`"
               class="nav-link p-0 plus-sign"
-              @click="goToReport(`/report-builder?client=${item.id}`)"
+              @click="goToReport(`/historical/report-builder?client=${item.id}`)"
               >+</router-link
             >
           </div>
@@ -150,7 +150,7 @@
                 <router-link
                   class="dropdown-item semi-bold-fw"
                   to=""
-                  data-bs-target="#deleteClientModal"
+                  data-bs-target="#deleteSimulationClientModal"
                   data-bs-toggle="modal"
                   @click="$emit('setActionId', item.id)"
                 >
@@ -169,7 +169,7 @@
 
       <div
         class="list-groups collapse indexSenarioBg"
-        :id="`scenarioCollapse${item.id}${index}`"
+        :id="`simulationCollapse${item.id}${index}`"
         :data-bs-parent="`#parentCollapse${index}`"
         @click="(e) => e.stopPropagation()"
       >
@@ -202,15 +202,15 @@
           </svg>
         </h4>
         <div
-          v-if="item.scenarios && item.scenarios.length > 0"
+          v-if="item.simulations && item.simulations.length > 0"
           class="list-div"
         >
-          <!-- <simulation-row
+          <simulation-row
             :client="item"
             :clientId="item.id"
-            :scenarios="item.scenarios"
+            :simulations="item.simulations"
             @setActionId="(e) => $emit('setActionId', e, item.id)"
-          /> -->
+          />
         </div>
       </div>
 
@@ -249,11 +249,11 @@
           </svg>
         </h4>
         <div class="list-div">
-          <!-- <report-row
+          <report-row
             :reports="item.reports"
             :client="item"
             @setReportActionId="(id) => $emit('setReportId', id)"
-          /> -->
+          />
         </div>
       </div>
     </li>
@@ -283,10 +283,10 @@ export default {
     };
   },
   methods: {
-    // this function is using for handling the dropdown button of scenario and report
-    handleRef: function (id, button = "scenario", e) {
+    // this function is using for handling the dropdown button of simulation and report
+    handleRef: function (id, button = "simulation", e) {
       let btn1 = document
-        .getElementById(`scenarioCollapseBtn${id}`)
+        .getElementById(`simulationCollapseBtn${id}`)
         .classList.contains("collapsed");
       let btn2 = document
         .getElementById(`reportCollapseBtn${id}`)
@@ -294,7 +294,7 @@ export default {
 
       if (!btn1 && !btn2) {
         if (button === "report") {
-          document.getElementById(`scenarioCollapseBtn${id}`).click();
+          document.getElementById(`simulationCollapseBtn${id}`).click();
         } else {
           document.getElementById(`reportCollapseBtn${id}`).click();
         }
@@ -314,7 +314,7 @@ export default {
     goToClient: function (url) {
       this.$router.push(url);
     },
-    // redirect to the scenario (step 1) page
+    // redirect to the simulation (step 1) page
     goToSimulation: function (url) {
       event.stopPropagation();
       event.preventDefault();

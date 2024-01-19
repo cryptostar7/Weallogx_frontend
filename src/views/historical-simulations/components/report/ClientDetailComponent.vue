@@ -47,8 +47,8 @@ export default {
     this.reportName = this.comparative.report_name;
     this.reportDescription = this.comparative.report_description;
     let client = {firstname: this.comparative.client_firstname, lastname: this.comparative.client_lastname, middlename: this.comparative.client_middlename};
-    this.$store.dispatch('shareReportData', {name: 'client', data: client});
-    this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: this.comparative.sceneriodetails_name}});
+    this.$store.dispatch('shareSimulationReportData', {name: 'client', data: client});
+    this.$store.dispatch('shareSimulationReportData', {name: 'scenario', data: {name: this.comparative.sceneriodetails_name}});
   },
   computed: {
     comparative() {
