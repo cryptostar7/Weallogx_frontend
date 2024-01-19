@@ -155,6 +155,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/add-note/`
     case 'historical-notes':
       return `${baseUrl}/report/historical-add-note/`
+    case 'historical-disclosures':
+      return `${baseUrl}/report/historical-add-disclosure/`
     case 'disclosures':
       return `${baseUrl}/report/add-disclosure/`
     case 'historical_report':

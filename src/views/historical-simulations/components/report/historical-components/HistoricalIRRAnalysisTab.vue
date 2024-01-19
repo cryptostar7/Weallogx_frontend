@@ -99,7 +99,7 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component :hideFee="true" />
+            <historical-disclosure-component :hideFee="true"  tabType="irr_analysis"/>
           </div>
         </div>
       </div>

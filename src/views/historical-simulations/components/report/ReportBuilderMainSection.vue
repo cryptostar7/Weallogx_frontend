@@ -197,7 +197,7 @@ export default {
     // get all disclosures of current report
     getDesclosures: function () {
       get(
-        `${getUrl("disclosures")}?report=${this.$route.params.report}`,
+        `${getUrl("historical-disclosures")}?report=${this.$route.params.report}`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("disclosures", response.data);
@@ -225,6 +225,7 @@ export default {
       this.getHistoricalData();
       this.getCurrentReportInfo();
       this.getNotes();
+      this.getDesclosures();
     }
   },
   watch: {

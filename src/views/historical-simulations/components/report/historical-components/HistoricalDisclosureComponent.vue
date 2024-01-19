@@ -5,7 +5,7 @@
         <div
           class="disclosure-header-div d-flex align-items-center justify-content-between"
         >
-          <h4 class="disclosure-heading" @click="testFunction">Disclosure</h4>
+          <h4 class="disclosure-heading">Disclosure</h4>
           <div class="disclosure-right-actions">
             <button
               class="btn round-btn disclosure-edit"
@@ -70,7 +70,9 @@
             @input="handleDisclosure()"
           ></div>
         </div>
-        <div :class="`disclosure-footer d-none ${$props.hideFee ? 'd-none' : ''}`">
+        <div
+          :class="`disclosure-footer d-none ${$props.hideFee ? 'd-none' : ''}`"
+        >
           <div class="row">
             <div class="col-md-6">
               <h6 class="bold-one">Fees assumed:</h6>
@@ -257,23 +259,36 @@
   <!-- Disclosure Required Ends -->
 </template>
 <script>
+import { patch, post } from "../../../../../network/requests";
+import { getUrl } from "../../../../../network/url";
+import { authHeader } from "../../../../../services/helper";
+
 export default {
-  props: ["hideFee", "containerFluid"],
+  props: ["hideFee", "containerFluid", "tabType"],
 
   data() {
     return {
       saveDisclosure: false,
       disclosure_msg: "",
+      disclosure_id: "",
     };
   },
   mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
     this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
+    if (this.disclosures) {
+      let items =
+        this.$store.state.data.report.disclosures.filter(
+          (i) => i.tab_type === this.$props.tabType
+        ) || [];
+      let item = items[0] ? items[0] : [];
+      if (item.text) {
+        this.disclosure_id = item.id;
+        this.$refs.editableDiv.innerHTML = item.text;
+      }
+    }
   },
   methods: {
-    testFunction: function () {
-      console.log(this.disclosure);
-    },
     handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         new bootstrap.Modal(this.$refs.disclosureModal).show();
@@ -320,13 +335,43 @@ export default {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
       this.saveDisclosure = false;
-
       console.log(this.$refs.editableDiv.innerHTML);
+
+      let data = {
+        report_id: this.$route.params.report,
+        report_type: "historical",
+        tab_type: this.$props.tabType,
+        text: this.$refs.editableDiv.innerHTML,
+      };
+
+      if (this.$props.disclosureId) {
+        this.disclosure_id = this.$props.disclosureId;
+      }
+
+      console.log(data);
+      console.log(this.disclosure_id);
+
+      if (this.disclosure_id) {
+        patch(
+          `${getUrl("historical-disclosures")}${this.disclosure_id}/`,
+          data,
+          authHeader()
+        );
+      } else {
+        post(getUrl("historical-disclosures"), data, authHeader()).then(
+          (response) => {
+            this.disclosure_id = response.data.id;
+          }
+        );
+      }
     },
   },
   computed: {
     disclosure() {
       return this.$store.state.data.report.historical.discloser || [];
+    },
+    disclosures() {
+      return this.$store.state.data.report.disclosures || [];
     },
   },
 };

@@ -18,7 +18,7 @@ import { post, patch } from "../../../../../network/requests";
 import { authHeader } from "../../../../../services/helper";
 
 export default {
-  props: ["historical", "noteType", "reportType", "cvType", "noteId", "noteText"],
+  props: ["historical", "noteType", "reportType", "noteId", "noteText"],
   data() {
     return { active: false, note: "", note_id: null };
   },
@@ -35,7 +35,6 @@ export default {
         report_type: "historical",
         note_type: this.$props.noteType,
         text: this.note,
-        vehicle_type: this.$props.cvType,
       };
 
       console.log(data);
