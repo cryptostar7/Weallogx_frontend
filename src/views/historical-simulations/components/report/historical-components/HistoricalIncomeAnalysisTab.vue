@@ -165,6 +165,7 @@
                         :historical="true"
                         reportType="historical"
                         noteType="income_analysis"
+                        :sectionType="index"
                         :noteId="notes[index] ? notes[index].id : null"
                         :noteText="notes[index] ? notes[index].text : null"
                       />
@@ -240,7 +241,10 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component :hideFee="true" tabType="income_analysis" />
+            <historical-disclosure-component
+              :hideFee="true"
+              tabType="income_analysis"
+            />
           </div>
         </div>
       </div>
@@ -326,7 +330,6 @@ export default {
     setActionId: function (id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },
-
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
@@ -361,7 +364,18 @@ export default {
     notes() {
       let note = this.$store.state.data.report.notes || [];
       if (note) {
-        note = note.filter((i) => i.note_type === "income_analysis" && i.report_type === "historical");
+        note = note.filter(
+          (i) =>
+            i.note_type === "income_analysis" && i.report_type === "historical"
+        );
+
+        let c1 = note.filter((i) => i.section_type === "lirp")[0] || null;
+        let c2 =
+          note.filter((i) => i.section_type === "most_recent")[0] || null;
+        let c3 = note.filter((i) => i.section_type === "worst")[0] || null;
+        let c4 = note.filter((i) => i.section_type === "median")[0] || null;
+        let c5 = note.filter((i) => i.section_type === "best")[0] || null;
+        note = [c1, c2, c3, c4, c5];
       }
       return note;
     },

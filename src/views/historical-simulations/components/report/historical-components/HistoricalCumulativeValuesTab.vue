@@ -240,8 +240,11 @@
                             :historical="true"
                             reportType="historical"
                             noteType="cumulative_income_value"
+                            :sectionType="index"
                             :noteId="notes1[index] ? notes1[index].id : null"
-                            :noteText="notes1[index] ? notes1[index].text : null"
+                            :noteText="
+                              notes1[index] ? notes1[index].text : null
+                            "
                           />
                         </div>
                       </div>
@@ -447,8 +450,11 @@
                             :historical="true"
                             reportType="historical"
                             noteType="cumulative_total_value"
+                            :sectionType="index"
                             :noteId="notes2[index] ? notes2[index].id : null"
-                            :noteText="notes2[index] ? notes2[index].text : null"
+                            :noteText="
+                              notes2[index] ? notes2[index].text : null
+                            "
                           />
                         </div>
                       </div>
@@ -518,7 +524,10 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component :hideFee="true" tabType="cumulative_total_value"/>
+            <historical-disclosure-component
+              :hideFee="true"
+              tabType="cumulative_total_value"
+            />
           </div>
         </div>
       </div>
@@ -727,8 +736,17 @@ export default {
       let note = this.$store.state.data.report.notes || [];
       if (note) {
         note = note.filter(
-          (i) => i.note_type === "cumulative_income_value" && i.report_type === "historical"
+          (i) =>
+            i.note_type === "cumulative_income_value" &&
+            i.report_type === "historical"
         );
+        let c1 = note.filter((i) => i.section_type === "lirp")[0] || null;
+        let c2 =
+          note.filter((i) => i.section_type === "most_recent")[0] || null;
+        let c3 = note.filter((i) => i.section_type === "worst")[0] || null;
+        let c4 = note.filter((i) => i.section_type === "median")[0] || null;
+        let c5 = note.filter((i) => i.section_type === "best")[0] || null;
+        note = [c1, c2, c3, c4, c5];
       }
       return note;
     },
@@ -736,8 +754,17 @@ export default {
       let note = this.$store.state.data.report.notes || [];
       if (note) {
         note = note.filter(
-          (i) => i.note_type === "cumulative_total_value" && i.report_type === "historical"
+          (i) =>
+            i.note_type === "cumulative_total_value" &&
+            i.report_type === "historical"
         );
+        let c1 = note.filter((i) => i.section_type === "lirp")[0] || null;
+        let c2 =
+          note.filter((i) => i.section_type === "most_recent")[0] || null;
+        let c3 = note.filter((i) => i.section_type === "worst")[0] || null;
+        let c4 = note.filter((i) => i.section_type === "median")[0] || null;
+        let c5 = note.filter((i) => i.section_type === "best")[0] || null;
+        note = [c1, c2, c3, c4, c5];
       }
       return note;
     },

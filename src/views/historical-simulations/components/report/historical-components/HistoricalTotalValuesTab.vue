@@ -157,6 +157,7 @@
                         :historical="true"
                         reportType="historical"
                         noteType="total_value"
+                        :sectionType="index"
                         :noteId="notes[index] ? notes[index].id : null"
                         :noteText="notes[index] ? notes[index].text : null"
                       />
@@ -179,7 +180,10 @@
                 </div>
               </div>
             </div>
-            <historical-disclosure-component :hideFee="true" tabType="total_values"/>
+            <historical-disclosure-component
+              :hideFee="true"
+              tabType="total_values"
+            />
           </div>
         </div>
       </div>
@@ -828,6 +832,14 @@ export default {
         note = note.filter(
           (i) => i.note_type === "total_value" && i.report_type === "historical"
         );
+
+        let c1 = note.filter((i) => i.section_type === "lirp")[0] || null;
+        let c2 =
+          note.filter((i) => i.section_type === "most_recent")[0] || null;
+        let c3 = note.filter((i) => i.section_type === "worst")[0] || null;
+        let c4 = note.filter((i) => i.section_type === "median")[0] || null;
+        let c5 = note.filter((i) => i.section_type === "best")[0] || null;
+        note = [c1, c2, c3, c4, c5];
       }
       return note;
     },
