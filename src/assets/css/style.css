@@ -3515,6 +3515,7 @@ input[type=number] {
   left: 5rem;
   top: -3.2rem;
   display: none;
+  z-index: 100;
 }
 .info-message-participationRate {
   position: absolute;

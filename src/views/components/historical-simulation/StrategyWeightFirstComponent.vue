@@ -32,15 +32,6 @@
         >
           #2
         </div>
-        <!-- <input
-          ref="midRangeInput"
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          id="midRange"
-          class="strategy-range-input"
-        /> -->
       </div>
       <div
         class="mid-sw-inputs d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
@@ -95,6 +86,19 @@ export default {
     setRange: function (weight_1 = "50%", weight_2 = "50%") {
       this.range.midRange1 = `${weight_1}%`;
       this.range.midRange2 = `${weight_2}%`;
+
+      this.updateSliderOnMount(weight_1);
+    },
+    updateSliderOnMount: function(weight_1){
+      console.log(weight_1)
+      setTimeout(() => {
+        let elmnt = document.getElementById(`resizingDiv`);
+        let elmntContainer = document.getElementById("strategyWeightMid");
+        let totalWidth = elmntContainer.offsetWidth;
+        let actualWidth = totalWidth - elmnt.offsetWidth;
+
+        elmnt.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
+      }, 500);
     },
     dragMouseDown: function (e) {
       e = e || window.event;
@@ -151,12 +155,6 @@ export default {
     },
   },
   mounted() {
-    // straight weight range for tab 1
-    // this.$refs.midRangeInput.addEventListener("input", (e) => {
-    //   this.range.midRange1 = Number(e.target.value).toFixed(2) + "%";
-    //   this.range.midRange2 = (100 - Number(e.target.value)).toFixed(2) + "%";
-    // });
-
     const resizingDiv = document.getElementById("resizingDiv");
     resizingDiv.addEventListener("mousedown", this.dragMouseDown);
     this.wid = resizingDiv.offsetWidth;

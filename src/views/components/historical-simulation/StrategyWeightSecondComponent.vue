@@ -32,22 +32,6 @@
             alt="Chevron"
           />
         </div>
-      <!--   <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          ref="swCustomRange1"
-          class="strategy-range-input strategy-range-input-1"
-        />
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          ref="swCustomRange2"
-          class="strategy-range-input strategy-range-input-2"
-        /> -->
       </div>
       <div
         class="d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
@@ -114,18 +98,28 @@ export default {
     },
     setRange: function (weight_1, weight_2, weight_3) {
       // set custom range input value
-      this.$refs.swInput1.value = `${weight_1}%`;
-      this.$refs.swInput2.value = `${weight_2}%`;
-      this.$refs.swInput3.value = `${weight_3}%`;
+      this.$refs.swInput1.value = `${weight_1.toFixed(2)}%`;
+      this.$refs.swInput2.value = `${weight_2.toFixed(2)}%`;
+      this.$refs.swInput3.value = `${weight_3.toFixed(2)}%`;
 
       // set range width
       this.$refs.strategyWeight1.style.width = `${weight_1}%`;
       this.$refs.strategyWeight2.style.width = `${weight_2}%`;
-      this.$refs.strategyWeight3.style.width = `${weight_3}%`;
+      this.$refs.strategyWeight3.style.width = `${weight_3}%`;      
 
-      // set range input max limit
-      // this.$refs.swCustomRange1.max = weight_1;
-      // this.$refs.swCustomRange2.max = weight_2 + weight_3;
+      this.updateSliderOnMount(weight_1, weight_2);
+    },
+    updateSliderOnMount: function(weight_1, weight_2){
+      setTimeout(() => {
+        let elmnt1 = document.getElementById(`resizingDiv1`);
+        let elmnt2 = document.getElementById(`resizingDiv2`);
+        let elmntContainer = document.getElementById("strategyWeight");
+        let totalWidth = elmntContainer.offsetWidth;
+        let actualWidth = totalWidth - elmnt1.offsetWidth;
+
+        elmnt1.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
+        elmnt2.style.left = (actualWidth * (weight_1 + weight_2) / 100).toFixed(0)  + "px";
+      }, 500);
     },
     dragMouseDown: function (e) {
       e = e || window.event;
@@ -231,8 +225,7 @@ export default {
     const swInputDiv1 = this.$refs.swInputDiv1;
     const swInputDiv2 = this.$refs.swInputDiv2;
     const swInputDiv3 = this.$refs.swInputDiv3;
-    // const swCustomRange1 = this.$refs.swCustomRange1;
-    // const swCustomRange2 = this.$refs.swCustomRange2;
+
     const strategyWeight1 = this.$refs.strategyWeight1;
     const strategyWeight2 = this.$refs.strategyWeight2;
     const strategyWeight3 = this.$refs.strategyWeight3;
@@ -245,60 +238,10 @@ export default {
     let widHalf = wid / 2;
 
     window.onresize = () => {
-      let totalWidth = document.getElementById("strategyWeightMid").offsetWidth;
+      let totalWidth = document.getElementById("strategyWeight").offsetWidth;
       resizingDiv1.style.left = (totalWidth / 3 - widHalf) + "px";
       resizingDiv2.style.left = (totalWidth *  2 / 3 - widHalf) + "px";
     }
-
-    // swCustomRange1.addEventListener("input", (e) => {
-    //   let total2 = 100 - (+swInput3.value.split("%")[0]).toFixed(2);
-    //   swCustomRange1.max = total2;
-
-    //   swInput1.value = (+e.target.value).toFixed(2) + "%";
-    //   swInput2.value =
-    //     (total2 - +swInput1.value.split("%")[0]).toFixed(2) + "%";
-
-    //   strategyWeight1.style.width = (+e.target.value).toFixed(2) + "%";
-    //   strategyWeight2.style.width =
-    //     (total2 - +swInput1.value.split("%")[0]).toFixed(2) + "%";
-    //   strategyWeight3.style.width =
-    //     (+swInput3.value.split("%")[0]).toFixed(2) + "%";
-
-    //   swInputDiv1.style.width = (+e.target.value).toFixed(2) + "%";
-    //   swInputDiv2.style.width =
-    //     (total2 - +swInput1.value.split("%")[0]).toFixed(2) + "%";
-    //   swInputDiv3.style.width =
-    //     (+swInput3.value.split("%")[0]).toFixed(2) + "%";
-
-    //   e.target.style.width = `calc(${
-    //     100 - (+swInput3.value.split("%")[0]).toFixed(2)
-    //   }% - 20px)`;
-    // });
-
-    // swCustomRange2.addEventListener("input", (e) => {
-    //   let total2 = 100 - (+swInput1.value.split("%")[0]).toFixed(2);
-    //   swCustomRange2.max = total2;
-
-    //   swInput2.value = (+e.target.value).toFixed(2) + "%";
-    //   swInput3.value =
-    //     (total2 - +swInput2.value.split("%")[0]).toFixed(2) + "%";
-
-    //   strategyWeight1.style.width =
-    //     (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-    //   strategyWeight2.style.width = (+e.target.value).toFixed(2) + "%";
-    //   strategyWeight3.style.width =
-    //     (total2 - +swInput2.value.split("%")[0]).toFixed(2) + "%";
-
-    //   swInputDiv1.style.width =
-    //     (+swInput1.value.split("%")[0]).toFixed(2) + "%";
-    //   swInputDiv2.style.width = (+e.target.value).toFixed(2) + "%";
-    //   swInputDiv3.style.width =
-    //     (total2 - +swInput2.value.split("%")[0]).toFixed(2) + "%";
-
-    //   e.target.style.width = `calc(${
-    //     100 - (+swInput1.value.split("%")[0]).toFixed(2)
-    //   }% - 20px`;
-    // });
 
     // remove % from first input value
     swInput1.addEventListener("focus", (e) => {
@@ -334,7 +277,6 @@ export default {
         numVal = 0;
       }
 
-      // swCustomRange1.max = total;
       e.target.value = val;
 
       let tempInp2 = total - numVal;
@@ -352,13 +294,6 @@ export default {
       strategyWeight3.style.width = inp3.toFixed(2) + "%";
       elmnt1.style.left = (actualWidth * val / 100) + "px";
       elmnt2.style.left = (actualWidth * (100 - inp3) / 100) + "px";
-
-      // swInputDiv1.style.width = numVal.toFixed(2) + "%";
-      // swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
-      // swInputDiv3.style.width = inp3.toFixed(2) + "%";
-
-      // swCustomRange1.max = 100 - inp3;
-      // swCustomRange1.style.width = `calc(${100 - inp3.toFixed(2)}% - 20px)`;
     });
 
     // remove % from first input value
@@ -403,21 +338,12 @@ export default {
       swInput3.value = inp3.toFixed(2) + "%";
 
       e.target.value = val;
-      // swCustomRange2.max = 100 - inp1;
-      // swCustomRange1.max = 100 - inp3;
 
       strategyWeight1.style.width = inp1.toFixed(2) + "%";
       strategyWeight2.style.width = numVal.toFixed(2) + "%";
       strategyWeight3.style.width = inp3.toFixed(2) + "%";
       elmnt1.style.left = (actualWidth * inp1.toFixed(2) / 100) + "px";
       elmnt2.style.left = (actualWidth * (100 - inp3) / 100) + "px";
-      
-      // swInputDiv1.style.width = inp1.toFixed(2) + "%";
-      // swInputDiv2.style.width = numVal.toFixed(2) + "%";
-      // swInputDiv3.style.width = inp3.toFixed(2) + "%";
-
-      // swCustomRange1.style.width = `calc(${(100 - inp3).toFixed(2)}% - 20px)`;
-      // swCustomRange2.style.width = `calc(${(100 - inp1).toFixed(2)}% - 20px)`;
     });
 
     // remove % from first input value
@@ -459,7 +385,6 @@ export default {
       if (tempInp2 < 0) {
         swInput1.value = (inp1 + tempInp2).toFixed(2) + "%";
         inp1 = Number(swInput1.value.split("%")[0]);
-        // swCustomRange1.max = 100 - numVal;
         tempInp2 = 0;
       }
 
@@ -469,12 +394,6 @@ export default {
       strategyWeight3.style.width = numVal.toFixed(2) + "%";
       elmnt1.style.left = (actualWidth * inp1 / 100) + "px";
       elmnt2.style.left = (actualWidth * (100 - val) / 100) + "px";
-      // swInputDiv1.style.width = inp1.toFixed(2) + "%";
-      // swInputDiv2.style.width = tempInp2.toFixed(2) + "%";
-      // swInputDiv3.style.width = numVal.toFixed(2) + "%";
-
-      // swCustomRange2.max = 100 - inp1;
-      // swCustomRange2.style.width = `calc(${100 - inp1.toFixed(2)}% - 20px)`;
     });
   },
 };
