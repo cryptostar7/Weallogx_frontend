@@ -114,8 +114,8 @@ export default {
         let elmnt1 = document.getElementById(`resizingDiv1`);
         let elmnt2 = document.getElementById(`resizingDiv2`);
         let elmntContainer = document.getElementById("strategyWeight");
-        let totalWidth = elmntContainer.offsetWidth;
-        let actualWidth = totalWidth - elmnt1.offsetWidth;
+        let totalWidth = elmntContainer.offsetWidth || 427;
+        let actualWidth = totalWidth - elmnt1.offsetWidth || 385;
 
         elmnt1.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
         elmnt2.style.left = (actualWidth * (weight_1 + weight_2) / 100).toFixed(0)  + "px";

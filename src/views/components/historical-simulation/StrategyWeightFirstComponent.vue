@@ -4,7 +4,7 @@
     <div
       :class="`d-flex align-items-center flex-column justify-content-center`"
     >
-      <div id="strategyWeightMid" class="strategyWeight mid d-flex">
+      <div id="strategyWeightMid" class="strategyWeight mid d-flex 123">
         <div
           id="strategyMidWeight1"
           :style="{
@@ -89,16 +89,15 @@ export default {
 
       this.updateSliderOnMount(weight_1);
     },
-    updateSliderOnMount: function(weight_1){
-      console.log(weight_1)
+    updateSliderOnMount: function(weight_1){      
       setTimeout(() => {
         let elmnt = document.getElementById(`resizingDiv`);
         let elmntContainer = document.getElementById("strategyWeightMid");
-        let totalWidth = elmntContainer.offsetWidth;
-        let actualWidth = totalWidth - elmnt.offsetWidth;
+        let totalWidth = elmntContainer.offsetWidth || 427;
+        let actualWidth = totalWidth - elmnt.offsetWidth || 385;
 
         elmnt.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
-      }, 500);
+      }, 1000);
     },
     dragMouseDown: function (e) {
       e = e || window.event;

@@ -4,7 +4,7 @@
     <div
       :class="`d-flex align-items-center flex-column justify-content-center`"
     >
-      <div id="strategyWeightMid" class="strategyWeight mid d-flex">
+      <div id="strategyWeightMid" class="strategyWeight mid d-flex 123">
         <div
           id="strategyMidWeight1"
           :style="{
@@ -33,15 +33,6 @@
         >
           #2
         </div>
-      <!--   <input
-          ref="midRangeInput"
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          id="midRange"
-          class="strategy-range-input"
-        /> -->
       </div>
       <div
         class="mid-sw-inputs d-flex align-items-center justify-content-between w-100 w-max-427 mt-3"
@@ -96,6 +87,18 @@ export default {
     setRange: function (weight_1 = "50%", weight_2 = "50%") {
       this.range.midRange1 = `${weight_1}%`;
       this.range.midRange2 = `${weight_2}%`;
+
+      this.updateSliderOnMount(weight_1);
+    },
+    updateSliderOnMount: function(weight_1){      
+      setTimeout(() => {
+        let elmnt = document.getElementById(`resizingDiv`);
+        let elmntContainer = document.getElementById("strategyWeightMid");
+        let totalWidth = elmntContainer.offsetWidth || 427;
+        let actualWidth = totalWidth - elmnt.offsetWidth || 385;
+
+        elmnt.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
+      }, 1000);
     },
     dragMouseDown: function (e) {
       e = e || window.event;
@@ -152,12 +155,6 @@ export default {
     },
   },
   mounted() {
-    // straight weight range for tab 1
-    // this.$refs.midRangeInput.addEventListener("input", (e) => {
-    //   this.range.midRange1 = Number(e.target.value).toFixed(2) + "%";
-    //   this.range.midRange2 = (100 - Number(e.target.value)).toFixed(2) + "%";
-    // });
-
     const resizingDiv = document.getElementById("resizingDiv");
     resizingDiv.addEventListener("mousedown", this.dragMouseDown);
     this.wid = resizingDiv.offsetWidth;
