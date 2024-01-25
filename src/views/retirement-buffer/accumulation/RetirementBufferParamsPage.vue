@@ -11,7 +11,7 @@
     </div>
   </template>
   <script>
-  import NavbarComponent from "../../components/common/Navbarcomponent.vue";
+  import NavbarComponent from "../../components/common/NavbarComponent.vue";
   import LeftSidebarComponent from "../../components/common/LeftSidebarComponent.vue";
   import RetirementBufferParamsMainComponent from "../accumulation/components/RetirementBufferParamsMainComponent.vue";
   

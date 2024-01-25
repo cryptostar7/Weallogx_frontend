@@ -17,7 +17,7 @@
   import "../../../assets/js/retirement-buffer/circularProgressBar.min.js";
   import "../../../assets/js/chart.min.js";
 
-  import NavbarComponent from "../../components/common/Navbarcomponent.vue";
+  import NavbarComponent from "../../components/common/NavbarComponent.vue";
   import LeftSidebarComponent from "../../components/common/LeftSidebarComponent.vue";
   import RetirementBufferResultMainComponent from "../accumulation/components/RetirementBufferResultMainComponent.vue";
   
