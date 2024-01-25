@@ -11,6 +11,7 @@ import { BrowserTracing } from "@sentry/tracing";
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
 import './assets/css/user/style.css';
+import './assets/css/retirement-buffer/style.css';
 import "./assets/css/custom.css";
 import "./assets/css/dark-green.css";
 import "./assets/css/light-blue.css";
@@ -21,6 +22,7 @@ import "./assets/js/bootstrap.min.js";
 import "./assets/css/user/style.css";
 import "./assets/css/user/external.css";
 import "./assets/css/calculator.css";
+
 const app = createApp(App);
 
 app.use(router);

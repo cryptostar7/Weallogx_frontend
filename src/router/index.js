@@ -179,6 +179,7 @@ const router = createRouter({
       name: "tech-error",
       component: () => import("../views/pages/TechnicalError.vue"),
     },
+    // Standalone Historical Simulatation Routes
     {
       path: "/historical/simulations",
       name: "historical-simulations-list",
@@ -218,6 +219,22 @@ const router = createRouter({
       path: "/historical/report/:report/:view_token",
       name: "historical-report",
       component: () => import("../views/historical-simulations/pages/ReportBuilderPage.vue"),
+    },
+    // Retirement Buffer Section Routes
+    {
+      path: "/retirement-buffer",
+      name: "retirement-buffer",
+      component: () => import("../views/retirement-buffer/RetirementBufferChooseCategoryPage.vue"),
+    },
+    {
+      path: "/retirement-buffer/accumulation/params",
+      name: "retirement-buffer-accumulation-params",
+      component: () => import("../views/retirement-buffer/accumulation/RetirementBufferParamsPage.vue"),
+    },
+    {
+      path: "/retirement-buffer/accumulation/result",
+      name: "retirement-buffer-accumulation-result",
+      component: () => import("../views/retirement-buffer/accumulation/RetirementBufferResultPage.vue"),
     },
     {
       path: "/:slug/:slug2?/:slug3?",

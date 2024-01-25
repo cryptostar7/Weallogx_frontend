@@ -369,20 +369,16 @@
           </a>
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link p-relative soon"
-            href="#"
+          <!-- retirement-buffer -->
+          <router-link
+            :class="`nav-link ${
+              $route.path.includes('/retirement-buffer') ? 'active' : ''
+            } ${$isTscUser() ? ' soon' : ''}`"
+            to="/retirement-buffer"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             title="Retirement Buffer"
           >
-            <div class="coming-soon-icon-div">
-              <img
-                src="@/assets/images/icons/coming-soon.svg"
-                class="img-fluid"
-                alt="Coming Soon"
-              />
-            </div>
             <label class="cursor-pointer otherModecls">
               <svg width="21" height="27" viewBox="0 0 21 27" fill="none">
                 <g clip-path="url(#clip0_1335_3)">
@@ -424,7 +420,7 @@
               </svg>
               <span>Retirement Buffer</span>
             </label>
-          </a>
+          </router-link>
         </li>
         <!--        <li class="nav-item">
               <a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="Phase 3 Title">
