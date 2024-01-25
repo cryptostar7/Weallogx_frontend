@@ -10,7 +10,6 @@
       </section>
     </div>
   </template>
-  
   <script>
   import NavbarComponent from "../../components/common/Navbarcomponent.vue";
   import LeftSidebarComponent from "../../components/common/LeftSidebarComponent.vue";
