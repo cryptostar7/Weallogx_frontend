@@ -19,7 +19,7 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg ? profileImg : '/nav-user-icon2.svg'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg || '/nav-user-icon2.svg'" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
                     <input type="file" accept="image/*" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
