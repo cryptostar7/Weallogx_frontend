@@ -146,7 +146,7 @@ export default {
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
             this.$toast.success(response.data.message);
-            this.$router.push("/sign-in");
+            window.location.href = "/sign-in";
           })
           .catch(error => {
             this.$store.dispatch("loader", false);

@@ -51,7 +51,6 @@
                     class="form-control"
                     @keyup="
                       () => {
-                        clearDetailTemplate();
                         errors.scenario_name = false;
                       }
                     "
@@ -78,7 +77,6 @@
                     class="form-control"
                     @keypress="
                       () => {
-                        clearDetailTemplate();
                         errors.description = false;
                       }
                     "
@@ -104,7 +102,6 @@
                       @keyup="
                         () => {
                           updateClientAge();
-                          clearDetailTemplate();
                           errors.client_age_year = false;
                         }
                       "
@@ -126,7 +123,6 @@
                         @keyup="
                           () => {
                             updateScheduleRate();
-                            clearDetailTemplate();
                             errors.illustrate_year = false;
                           }
                         "
@@ -146,7 +142,6 @@
                       id="simpleTaxRate-tab"
                       @click="
                         () => {
-                          clearDetailTemplate();
                           simpleTaxRate = true;
                         }
                       "
@@ -201,7 +196,6 @@
                       id="scheduleTaxRate-tab"
                       @click="
                         () => {
-                          clearDetailTemplate();
                           simpleTaxRate = false;
                         }
                       "
@@ -287,7 +281,6 @@
                             @keyup="
                               () => {
                                 updateFirstTaxRate();
-                                clearDetailTemplate();
                                 errors.first_tax = false;
                               }
                             "
@@ -313,7 +306,6 @@
                             }`"
                             @keyup="
                               () => {
-                                clearDetailTemplate();
                                 errors.second_tax = false;
                               }
                             "
@@ -337,7 +329,6 @@
                           }`"
                           @keyup="
                             () => {
-                              clearDetailTemplate();
                               errors.second_tax_year = false;
                             }
                           "
@@ -823,7 +814,6 @@ export default {
     updateScheduleRate: function () {
       this.illustrateYear = this.getInputUsingId("illustratedAge");
       this.checkTaxRate();
-      this.clearDetailTemplate();
     },
 
     // set the input value using the input id attribute
@@ -972,7 +962,6 @@ export default {
     },
 
     getExistingScenarioDetails: function () {
-      // this.$store.dispatch("loader", true);
       get(getUrl("scenario-detail-templates"), authHeader())
         .then((response) => {
           this.$store.dispatch("template", {
@@ -1343,14 +1332,6 @@ export default {
           this.$toast.error(error.message);
         });
     },
-
-    clearDetailTemplate: function () {
-      return false;
-      if (this.existingScenarioDetailName) {
-        this.detailTemplateInput = 1;
-      }
-    },
-
     clearScheduleTemplate: function () {
       if (this.existingScenarioScheduleName) {
         this.scheduleTemplateInput = 1;
