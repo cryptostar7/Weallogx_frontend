@@ -7,7 +7,9 @@
           <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
           <form class="authformRightPart" @submit="submitForm">
             <div class="authInnerDiv">
-              <h1 class="headingArea">Sign up for <span>Account</span></h1>
+              <h1 class="headingArea2 fs-32">Create an Account</h1>
+              <p class="subheading">And let the epic journey begin...</p>
+              <span class="heading-underline"></span>
               <div class="d-flex flex-gap-10">
                 <div>
                   <div class="auth-form">
@@ -55,7 +57,7 @@
                   <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
               </div>
               <div class="authButtonDiv">
-                <p class="text-align-center mb-3 fs-14 pt-3">You are signing up for: <span class="bold">{{currentSignupPlan}}</span></p>
+                <p class="text-align-center mb-3 fs-14 pt-3">On signing up, you will get the <span class="bold">{{currentSignupPlan}}</span></p>
                 <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
               </div>
               <p class="authButtomPara">Already have an account? &nbsp;
@@ -273,7 +275,7 @@ export default {
   },
   computed: {
     currentSignupPlan(){
-      let name = "14-Day Free Trial";
+      let name = "7-Day Free Trial!";
       if(this.user.plan_type === "MONTHLY_PLAN"){
         name = "Monthly Plan";  
       }

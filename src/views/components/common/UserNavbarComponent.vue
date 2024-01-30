@@ -148,7 +148,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://keithcooper439.lpages.co/"
+                                      href="https://wealthlogix.com/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="a4181dc8-4262-0783-7ebe-d19332c18b26"
@@ -158,12 +158,12 @@
                                       >HOME</a
                                     >
                                   </div>
-                                  <div
+                               <!--    <div
                                     class="lp-nav__link-container css-1oevijs"
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://keithcooper439.lpages.co/solutions/"
+                                      href="https://wealthlogix.com/solutions/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="cbb728fd-ffa2-0e7c-094e-443b38251b0b"
@@ -172,13 +172,13 @@
                                       contenteditable="false"
                                       >SOLUTIONS</a
                                     >
-                                  </div>
+                                  </div> -->
                                   <div
                                     class="lp-nav__link-container css-1oevijs"
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://keithcooper439.lpages.co/plans/"
+                                      href="https://wealthlogix.com/plans/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="691566cd-5e76-30f6-d6dc-4a81e4453d9c"
@@ -188,12 +188,12 @@
                                       >PLANS</a
                                     >
                                   </div>
-                                  <div
+                              <!--     <div
                                     class="lp-nav__link-container css-1oevijs"
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://keithcooper439.lpages.co/samples/"
+                                      href="https://wealthlogix.com/samples/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="5671e6e8-d27a-14d3-a5f1-522fe5e97143"
@@ -202,13 +202,13 @@
                                       contenteditable="false"
                                       >SAMPLES</a
                                     >
-                                  </div>
+                                  </div> -->
                                   <div
                                     class="lp-nav__link-container css-1oevijs"
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://keithcooper439.lpages.co/contact/"
+                                      href="https://wealthlogix.com/contact/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="ee3ba1b3-d54f-2ee9-f369-7f73c2d26388"
@@ -322,7 +322,7 @@
                                         <p>You are using FREE plan.</p>
                                         <div>
                                           <router-link
-                                            to="https://keithcooper439.lpages.co/plans/"
+                                            to="https://wealthlogix.com/plans/"
                                             >Upgrade Now</router-link
                                           >
                                         </div>
@@ -423,7 +423,7 @@
                         <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
-                            href="https://keithcooper439.lpages.co/plans/"
+                            href="https://wealthlogix.com/plans/"
                             target="_top"
                             data-link-type="site-route"
                             data-route-guid="691566cd-5e76-30f6-d6dc-4a81e4453d9c"
@@ -531,7 +531,7 @@
                 <h6>Free Plan</h6>
                 <p>You are using FREE plan.</p>
                 <div>
-                  <a href="https://keithcooper439.lpages.co/plans/"
+                  <a href="https://wealthlogix.com/plans/"
                     >Upgrade Now</a
                   >
                 </div>
