@@ -37,7 +37,7 @@
               <div class="authButtonDiv">
                 <button class="btn">Sign In</button>
               </div>
-              <p class="authButtomPara">Don’t have an account? &nbsp;<router-link to="/sign-up">Sign Up</router-link>
+              <p class="authButtomPara">Don’t have an account? &nbsp;<a href="https://wealthlogix.com/plans">Sign Up</a>
               </p>
             </div>
           </div>
