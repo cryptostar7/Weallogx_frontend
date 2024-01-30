@@ -595,13 +595,15 @@ export default {
   },
   computed: {
     avatar() {
-      if (this.$store.state.data.user) {
+      if (this.$store.state.data.user && this.$store.state.data.user.avatar) {
         return this.$store.state.data.user.avatar;
-      } else if (getCurrentUser()) {
+      } 
+      
+      if (getCurrentUser() && getCurrentUser().avatar) {
         return getCurrentUser().avatar;
-      } else {
-        return UserIcon;
       }
+
+      return UserIcon;
     },
   },
 };

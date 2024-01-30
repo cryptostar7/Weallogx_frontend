@@ -19,7 +19,7 @@
               <div class="editProfileDpMainDiv" >
                 <div class="editProfileDp" >
                   <div class="profile-imgDiv" >
-                    <img :src="profileImg || '/nav-user-icon2.svg'" alt="Profile Image" class="preview-pro-image" >
+                    <img :src="profileImg || UserDefaultImage" alt="Profile Image" class="preview-pro-image" >
                   </div>
                   <label for="pro-image-upload" class="editProfileIcon" >
                     <input type="file" accept="image/*" class="pro-image-upload-cls" id="pro-image-upload"  @change="addProfileImage" hidden>
@@ -200,6 +200,8 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import UserIcon from "../../assets/images/icons/user.svg"
+
 import { get, patch } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import {
@@ -522,6 +524,11 @@ export default {
       this.businessLogoDark = this.user.business_logo_dark;
     }
   },
+  computed: {
+    UserDefaultImage(){
+      return UserIcon
+    }
+  }
 };
 </script>
 <style>

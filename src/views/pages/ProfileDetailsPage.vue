@@ -11,7 +11,7 @@
               <div class="profile-edit-btn-main-div">
                 <div>
                   <div class="profile-detail-pp">
-                    <img :src="user.avatar ? user.avatar : '/nav-user-icon.svg'" alt="Profile Picture">
+                    <img :src="user.avatar ? user.avatar : UserDefaultImage" alt="Profile Picture">
                   </div>
                   <p class="pro-details-name">{{`${user.first_name ? user.first_name : ''} ${user.last_name ?
                     user.last_name :
@@ -120,6 +120,7 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import HeaderComponent from "./../components/user-dashboard/HeaderComponent.vue";
 import SidebarComponent from "./../components/user-dashboard/SidebarComponent.vue";
+import UserIcon from "../../assets/images/icons/user.svg"
 import { get } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import { authHeader, setCurrentUser } from "../../services/helper";
@@ -189,5 +190,10 @@ export default {
       localStorage.setItem("plan_active", plan.active ? 1 : 0);
     }
   },
+  computed: {
+    UserDefaultImage(){
+      return UserIcon
+    }
+  }
 };
 </script>

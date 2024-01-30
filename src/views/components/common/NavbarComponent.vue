@@ -8,7 +8,7 @@
           <li class="nav-item dropdown top-user-dropdown ms-4">
             <a class="nav-link dropdown-toggle no-after" href="#" id="navbarDropdown" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-              <span><img :src="avatar" class="img-fluid" alt="User"></span>
+              <span @click="testFunction"><img :src="avatar" class="img-fluid" alt="User"></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li v-if="!$isTscUser()"><router-link to="/profile-details" class="dropdown-item">Profile</router-link></li>
@@ -161,6 +161,10 @@ export default {
           });
       }
     },
+    testFunction: function(){
+      console.log(this.$store.state.data.user);
+      console.log(getCurrentUser());
+    }
   },
   computed: {
     companyLogo() {
@@ -176,13 +180,15 @@ export default {
       return logo;
     },
     avatar() {
-      if (this.$store.state.data.user) {
+      if (this.$store.state.data.user && this.$store.state.data.user.avatar) {
         return this.$store.state.data.user.avatar;
-      } else if (getCurrentUser()) {
+      } 
+      
+      if (getCurrentUser() && getCurrentUser().avatar) {
         return getCurrentUser().avatar;
-      } else {
-        return UserIcon;
       }
+
+      return UserIcon;
     },
   },
 };

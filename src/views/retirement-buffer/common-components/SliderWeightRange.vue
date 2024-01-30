@@ -1,9 +1,13 @@
 <template lang="">
-  <div ref="sliderMainRef" class="slider_main split p-relative">
+  <div
+    ref="sliderMainRef"
+    :class="`slider_main split p-relative ${
+      $props.disabled ? 'disabled' : ''
+    } `"
+  >
     <div ref="splitLeftRef" class="split_left">
       <span ref="leftSpanRef" class="left_span">50</span>%
     </div>
-    <!-- <div class="split_bar"> -->
     <div ref="splitBarRef" class="split_bar">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -59,9 +63,8 @@
   </div>
 </template>
 <script>
-import { getNumber } from "../../../services/helper";
-
 export default {
+  props: ["disabled"],
   mounted() {
     let sliderMain = this.$refs.sliderMainRef;
     let totalWidth = sliderMain.offsetWidth;
@@ -79,7 +82,6 @@ export default {
       splitBar.style.left =
         (totalWidth * +leftSpan.textContent) / 100 - widHalf + "px";
     };
-    // console.log(totalWidth);
 
     let pos1, pos2, pos3, pos4;
     function dragElement(elmnt) {
@@ -88,10 +90,9 @@ export default {
     }
 
     function dragMouseDown(e) {
-      // if (getNumber(totalBalanceInput.value) <= 0) {
-      //   totalBalanceInput.style.borderColor = "#e81111";
-      //   return;
-      // }
+      if (sliderMain.classList.contains("disabled")) {
+        return false;
+      }
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
@@ -132,9 +133,9 @@ export default {
       }
       leftSpan.textContent = percentVal;
       rightSpan.textContent = 100 - percentVal;
-     
-      emit("changeMarketValue", percentVal);
-      emit("changeBufferValue", (100 - percentVal));
+
+      emit("changeMarketValue", percentVal); // market value input update
+      emit("changeBufferValue", 100 - percentVal); // buffer account value update
 
       if (splitBar.offsetLeft > totalWidth - 42) {
         splitBar.style.left = totalWidth - 42 + "px";
@@ -150,6 +151,30 @@ export default {
     }
 
     dragElement(this.$refs.splitBarRef);
+  },
+  methods: {
+    resetSlider: function() {
+      this.setMarketAccountAllocation(50);
+      this.setBufferAccountAllocation(50);
+    },
+    getBufferAccountAllocation: function () {
+      return Number(this.$refs.rightSpanRef.textContent);
+    },
+    getMarketAccountAllocation: function () {
+      return Number(this.$refs.leftSpanRef.textContent);
+    },
+    setBufferAccountAllocation: function (value) {
+      this.$refs.rightSpanRef.textContent = value;
+      this.$refs.splitRightRef.style.width = value + "%";
+    },
+    setMarketAccountAllocation: function (value) {
+      this.$refs.leftSpanRef.textContent = value;
+      this.$refs.splitLeftRef.style.width = value + "%";
+      this.$refs.splitBarRef.style.left =
+        (this.$refs.sliderMainRef.offsetWidth * value) / 100 -
+        this.$refs.splitBarRef.offsetWidth / 2 +
+        "px";
+    },
   },
 };
 </script>

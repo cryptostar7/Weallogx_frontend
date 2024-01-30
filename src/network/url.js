@@ -165,6 +165,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/isc/calculate/`
     case 'tax_scorecard':
       return `${baseUrl}/scorecard/`
+    case 'retirement-buffer':
+      return `${baseUrl}/retirement_buffer/`
     default:
       return baseUrl;
   }

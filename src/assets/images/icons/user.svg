@@ -1,4 +1,8 @@
-<svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M10.0004 12.6316C13.4885 12.6316 16.3161 9.80391 16.3161 6.31579C16.3161 2.82767 13.4885 0 10.0004 0C6.51224 0 3.68457 2.82767 3.68457 6.31579C3.68457 9.80391 6.51224 12.6316 10.0004 12.6316Z" fill="#8D8D8D"/>
-<path d="M10 26.3267C15.5228 26.3267 20 23.9703 20 21.0636C20 18.1568 15.5228 15.8004 10 15.8004C4.47715 15.8004 0 18.1568 0 21.0636C0 23.9703 4.47715 26.3267 10 26.3267Z" fill="#8D8D8D"/>
+<svg width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="47" cy="47" r="47" fill="#C5FFBD"/>
+<circle cx="47" cy="32.8988" r="14.1" fill="#3AAE2A"/>
+<ellipse cx="45.825" cy="65.7988" rx="22.325" ry="11.75" fill="#3AAE2A"/>
+<circle cx="47" cy="47" r="47" fill="#0E6651"/>
+<circle opacity="0.75" cx="47" cy="32.8988" r="14.1" fill="white" fill-opacity="0.9"/>
+<ellipse opacity="0.75" cx="45.825" cy="65.7988" rx="22.325" ry="11.75" fill="white" fill-opacity="0.9"/>
 </svg>
