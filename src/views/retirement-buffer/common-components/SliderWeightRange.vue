@@ -136,8 +136,6 @@ export default {
       emit("changeMarketValue", percentVal);
       emit("changeBufferValue", (100 - percentVal));
 
-
-
       if (splitBar.offsetLeft > totalWidth - 42) {
         splitBar.style.left = totalWidth - 42 + "px";
       } else if (splitBar.offsetLeft < 0) {
