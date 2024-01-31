@@ -4,7 +4,7 @@
       <div class="right-area-wrapper">
         <section class="retirement_buffer_section">
           <div class="retirement_buffer_section_head_div">
-            <h1>Retirement Buffer</h1>
+            <h1 @click="testFunction">Retirement Buffer</h1>
             <router-link
               to="/retirement-buffer/accumulation/params"
               class="head_back_btn"
@@ -133,18 +133,21 @@
               aria-labelledby="pills-home-tab"
             >
               <div
-                class="nav market_buffer_account_tab table_top_tab nav-pills pe-none"
+                :class="`nav market_buffer_account_tab table_top_tab nav-pills ${
+                  tableIndexType === 'Historical Returns' ? '' : 'pe-none'
+                }`"
                 role="tablist"
                 aria-orientation="vertical"
               >
                 <div
-                  class="active"
                   data-bs-toggle="pill"
                   data-bs-target="#v-pills-market"
                   type="button"
                   role="tab"
                   aria-controls="v-pills-market"
                   aria-selected="true"
+                  :class="aloneAccountTable ? 'active' : ''"
+                  @click="aloneAccountTable = true"
                 >
                   Market Account Alone
                 </div>
@@ -155,19 +158,25 @@
                   role="tab"
                   aria-controls="v-pills-buffer"
                   aria-selected="false"
-                  class=""
+                  :class="aloneAccountTable ? '' : 'active'"
+                  @click="aloneAccountTable = false"
                 >
                   Market + Buffer Account
                 </div>
               </div>
-              <div class="table_graph_tab_main table_tab_main disable">
-                <div
+              <div
+                :class="`table_graph_tab_main table_tab_main ${
+                  aloneAccountTable ? 'disable' : ''
+                }`"
+              >
+                <slider-weight-range sliderType="result" />
+
+                <!-- <div
                   class="slider_main split retirement_slider table_slider visible-hidden p-relative"
                 >
                   <div id="split_left" class="split_left">
                     <span class="left_span" id="left_span">50</span>%
                   </div>
-                  <!-- <div class="split_bar"> -->
                   <div
                     id="split_bar"
                     class="split_bar"
@@ -219,16 +228,21 @@
                       />
                     </svg>
                   </div>
-                  <!-- </div> -->
                   <div id="split_right" class="split_right">
                     <span class="right_span" id="right_span">50</span>%
                   </div>
-                </div>
+                </div> -->
 
                 <div class="container-fluid mt-5">
                   <div class="row">
                     <div class="w-21 px-1 h-100">
-                      <div class="filter_buttons table_filter_btns disable">
+                      <div
+                        :class="`filter_buttons table_filter_btns ${
+                          tableIndexType === 'Historical Returns'
+                            ? ''
+                            : 'disable'
+                        }`"
+                      >
                         <button title="Reverse Order">
                           <svg
                             width="20"
@@ -520,42 +534,46 @@
                       <div class="table-wrapper-with-boarder">
                         <table class="retirement_table_area">
                           <thead>
-                            <th width="25%">
-                              <p class="visible-hidden mb-1">Year</p>
-                              <p class="fs-15">Year</p>
-                            </th>
-                            <th class="dropdown-table-head">
-                              <p class="fs-15 mb-1">S&P 500</p>
+                            <tr>
+                              <th width="25%">
+                                <p class="visible-hidden mb-1">Year</p>
+                                <p class="fs-15">Year</p>
+                              </th>
+                              <th class="dropdown-table-head">
+                                <p class="fs-15 mb-1">S&P 500</p>
 
-                              <div class="select-menu table_select_menu">
-                                <div class="select-btn">
-                                  <input
-                                    type="text"
-                                    class="sBtn-text"
-                                    value="Historical Average"
-                                    readonly="true"
-                                    id="account-type"
-                                  />
-                                  <i
-                                    ><img
-                                      src="@/assets/images/icons/table-select-chevron.svg"
-                                      alt="Chevron"
-                                  /></i>
+                                <div class="select-menu table_select_menu">
+                                  <div class="select-btn">
+                                    <input
+                                      type="text"
+                                      class="sBtn-text"
+                                      :value="tableIndexType"
+                                      readonly="true"
+                                      id="account-type"
+                                    />
+                                    <i
+                                      ><img
+                                        src="@/assets/images/icons/table-select-chevron.svg"
+                                        alt="Chevron"
+                                    /></i>
+                                  </div>
+                                  <ul class="options">
+                                    <li
+                                      v-for="(item, index) in indexTypes"
+                                      :key="index"
+                                      :class="`option ${
+                                        tableIndexType === item ? 'active' : ''
+                                      }`"
+                                      @click="tableIndexType = item"
+                                    >
+                                      <span class="option-text">{{
+                                        item
+                                      }}</span>
+                                    </li>
+                                  </ul>
                                 </div>
-                                <ul class="options">
-                                  <li class="option active" tableBoxAttr="1">
-                                    <span class="option-text" tableBoxAttr="1"
-                                      >Historical Average</span
-                                    >
-                                  </li>
-                                  <li class="option" tableBoxAttr="2">
-                                    <span class="option-text" tableBoxAttr="2"
-                                      >Historical Returns</span
-                                    >
-                                  </li>
-                                </ul>
-                              </div>
-                            </th>
+                              </th>
+                            </tr>
                           </thead>
 
                           <tbody>
@@ -616,26 +634,35 @@
                     >
                       <p class="each_table_heading">Market Account $500,000</p>
                       <div class="table-wrapper-with-boarder">
-                        <table class="retirement_table_area">
+                        <table
+                          :class="`retirement_table_area ${
+                            showDistribution ? '' : 'table_checkbox_off'
+                          }`"
+                        >
                           <thead>
-                            <th>
-                              <div class="button_cover mt-2px mb-1">
-                                <div class="table_button button_r">
-                                  <input
-                                    type="checkbox"
-                                    class="button_checkbox table_Checkbox_btn"
-                                    id="table_Check_1"
-                                    checked
-                                  />
-                                  <div class="button_knobs"></div>
-                                  <div class="button_layer"></div>
+                            <tr>
+                              <th>
+                                <div class="button_cover mt-2px mb-1">
+                                  <div class="table_button button_r">
+                                    <input
+                                      type="checkbox"
+                                      class="button_checkbox table_Checkbox_btn"
+                                      id="table_Check_1"
+                                      :checked="showDistribution"
+                                      @click="
+                                        showDistribution = !showDistribution
+                                      "
+                                    />
+                                    <div class="button_knobs"></div>
+                                    <div class="button_layer"></div>
+                                  </div>
                                 </div>
-                              </div>
-                              <p class="fs-15">Net Distribution</p>
-                            </th>
-                            <th class="dropdown-table-head align-bottom">
-                              <p class="fs-15">Ending Balance</p>
-                            </th>
+                                <p class="fs-15">Net Distribution</p>
+                              </th>
+                              <th class="dropdown-table-head align-bottom">
+                                <p class="fs-15">Ending Balance</p>
+                              </th>
+                            </tr>
                           </thead>
 
                           <tbody>
@@ -711,29 +738,38 @@
                         <span class="buffer_value">$500,000</span>
                       </p>
                       <div class="table-wrapper-with-boarder">
-                        <table class="retirement_table_area">
+                        <table
+                          :class="`retirement_table_area ${
+                            showDistribution ? '' : 'table_checkbox_off'
+                          }`"
+                        >
                           <thead>
-                            <th class="align-bottom">
-                              <p class="fs-15">Buffered Returns</p>
-                            </th>
-                            <th>
-                              <div class="button_cover mt-2px mb-1">
-                                <div class="table_button button_r">
-                                  <input
-                                    type="checkbox"
-                                    class="button_checkbox table_Checkbox_btn"
-                                    id="table_Check_2"
-                                    checked
-                                  />
-                                  <div class="button_knobs"></div>
-                                  <div class="button_layer"></div>
+                            <tr>
+                              <th class="align-bottom">
+                                <p class="fs-15">Buffered Returns</p>
+                              </th>
+                              <th>
+                                <div class="button_cover mt-2px mb-1">
+                                  <div class="table_button button_r">
+                                    <input
+                                      type="checkbox"
+                                      class="button_checkbox table_Checkbox_btn"
+                                      id="table_Check_2"
+                                      :checked="showDistribution"
+                                      @click="
+                                        showDistribution = !showDistribution
+                                      "
+                                    />
+                                    <div class="button_knobs"></div>
+                                    <div class="button_layer"></div>
+                                  </div>
                                 </div>
-                              </div>
-                              <p class="fs-15">Net Distribution</p>
-                            </th>
-                            <th class="dropdown-table-head align-bottom">
-                              <p class="fs-15">Ending Balance</p>
-                            </th>
+                                <p class="fs-15">Net Distribution</p>
+                              </th>
+                              <th class="dropdown-table-head align-bottom">
+                                <p class="fs-15">Ending Balance</p>
+                              </th>
+                            </tr>
                           </thead>
                           <tbody>
                             <tr>
@@ -819,12 +855,14 @@
                       <div class="table-wrapper-with-boarder">
                         <table class="retirement_table_area">
                           <thead>
-                            <th>
-                              <p class="fs-15 combined-th">
-                                Combined Ending <br />
-                                Balance
-                              </p>
-                            </th>
+                            <tr>
+                              <th>
+                                <p class="fs-15 combined-th">
+                                  Combined Ending <br />
+                                  Balance
+                                </p>
+                              </th>
+                            </tr>
                           </thead>
 
                           <tbody>
@@ -952,7 +990,7 @@
                             </p>
                             <div
                               class="pie progress_pie px-2"
-                              data-pie='{ "speed": 30, "percent": 47, "colorSlice": "#0E6651", "colorCircle": "#6DAC9D", "round": true }'
+                              data-pie='{ "speed": 30, "percent": 50, "colorSlice": "#0E6651", "colorCircle": "#6DAC9D", "round": true }'
                             ></div>
                           </div>
                         </div>
@@ -1077,18 +1115,21 @@
               aria-labelledby="pills-home-tab"
             >
               <div
-                class="nav market_buffer_account_tab graph_top_tab nav-pills pe-none"
+                :class="`nav market_buffer_account_tab graph_top_tab nav-pills ${
+                  graphIndexType === 'Historical Returns' ? '' : 'pe-none'
+                }`"
                 role="tablist"
                 aria-orientation="vertical"
               >
                 <div
-                  class="active"
+                  :class="aloneAccountGraph ? 'active' : ''"
                   data-bs-toggle="pill"
                   data-bs-target="#v-pills-market"
                   type="button"
                   role="tab"
                   aria-controls="v-pills-market"
                   aria-selected="true"
+                  @click="aloneAccountGraph = true"
                 >
                   Market Account Alone
                 </div>
@@ -1099,16 +1140,21 @@
                   role="tab"
                   aria-controls="v-pills-buffer"
                   aria-selected="false"
-                  class=""
+                  :class="aloneAccountGraph ? '' : 'active'"
+                  @click="aloneAccountGraph = false"
                 >
                   Market + Buffer Account
                 </div>
               </div>
               <div
-                class="table_graph_tab_main graph_tab_main disable"
+                :class="`table_graph_tab_main graph_tab_main ${
+                  aloneAccountGraph ? 'disable' : ''
+                }`"
                 id="retirementBufferGraphFluid"
               >
-                <div
+                <slider-weight-range sliderType="result" />
+
+                <!-- <div
                   class="slider_main split retirement_slider graph_sider p-relative"
                 >
                   <div id="split_left" class="split_left">
@@ -1168,8 +1214,13 @@
                   <div id="split_right" class="split_right">
                     <span class="right_span" id="right_span">50</span>%
                   </div>
-                </div>
-                <div class="filter_buttons graph_filter_btns disable">
+                </div> -->
+
+                <div
+                  :class="`filter_buttons graph_filter_btns ${
+                    graphIndexType !== 'Historical Returns' ? 'disable' : ''
+                  }`"
+                >
                   <button title="Reverse Order">
                     <svg
                       width="20"
@@ -1466,7 +1517,7 @@
                         <input
                           type="text"
                           class="sBtn-text"
-                          value="Historical Average"
+                          :value="graphIndexType"
                           readonly="true"
                           id="account-type"
                         />
@@ -1477,15 +1528,15 @@
                         /></i>
                       </div>
                       <ul class="options">
-                        <li class="option active" graphBoxAttr="1">
-                          <span class="option-text" graphBoxAttr="1"
-                            >Historical Average</span
-                          >
-                        </li>
-                        <li class="option" graphBoxAttr="2">
-                          <span class="option-text" graphBoxAttr="2"
-                            >Historical Returns</span
-                          >
+                        <li
+                          v-for="(item, index) in indexTypes"
+                          :key="index"
+                          :class="`option ${
+                            graphIndexType === item ? 'active' : ''
+                          }`"
+                          @click="graphIndexType = item"
+                        >
+                          <span class="option-text">{{ item }}</span>
                         </li>
                       </ul>
                     </div>
@@ -1512,7 +1563,11 @@
                   "
                 ></canvas>
 
-                <div class="graph_net_distribution disable pe-none">
+                <div
+                  :class="`graph_net_distribution disable ${
+                    tableIndexType === 'Historical Returns' ? '' : 'pe-none'
+                  }`"
+                >
                   <label for="net_distribution">Net Distributions</label>
                   <div class="table_button button_r">
                     <input
@@ -1806,324 +1861,18 @@
     </a>
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="accumulation_strategy_box">
-          <div class="accumulation_strategy_box_head">
-            <h2>Accumulation Strategy</h2>
-            <img src="@/assets/images/icons/analytics.svg" alt="Analytics" />
-          </div>
-          <div class="accumulation_strategy_inner_box">
-            <p class="form_section_para">Account Details</p>
-            <div class="form_section_input_row">
-              <div class="form_section_each_inputs width25">
-                <div class="form_section_label_div">
-                  <label for="total-balance" class="main_label"
-                    >Total Balance</label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Total Balance"
-                    class="dollar_inp"
-                    id="total-balance"
-                  />
-                  <span class="dollar">$</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width25">
-                <div class="form_section_label_div">
-                  <label for="account-type" class="main_label"
-                    >Account Type</label
-                  >
-                </div>
-                <div class="select-menu accumulation_select_menu">
-                  <div class="select-btn">
-                    <input
-                      type="text"
-                      class="sBtn-text"
-                      value="Taxable"
-                      readonly="true"
-                      id="account-type"
-                    />
-                    <i
-                      ><img
-                        src="@/assets/images/icons/select-chevron.svg"
-                        alt="Chevron"
-                    /></i>
-                  </div>
-                  <ul class="options">
-                    <li class="option active">
-                      <span class="option-text">Taxable</span>
-                    </li>
-                    <li class="option">
-                      <span class="option-text">Pre-tax</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width25">
-                <div class="form_section_label_div">
-                  <label for="annual-ditribution" class="main_label"
-                    >Annual Distribution</label
-                  >
-                  <div class="label-right-div">
-                    <label for="selectDollar" class="label_checkbox">
-                      <input
-                        type="radio"
-                        name="annual-ditribution"
-                        checkBoxAttr="1"
-                        id="selectDollar"
-                        hidden
-                        checked
-                      />
-                      <label for="selectDollar"></label>
-                      <span>$</span>
-                    </label>
-                    <label for="selectPercent" class="label_checkbox">
-                      <input
-                        type="radio"
-                        name="annual-ditribution"
-                        checkBoxAttr="2"
-                        id="selectPercent"
-                        hidden
-                      />
-                      <label for="selectPercent"></label>
-                      <span>%</span>
-                    </label>
-                  </div>
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Total Balance"
-                    class="dollar_inp multiTypeInp_1"
-                    id="annual-ditribution"
-                  />
-                  <span class="dollar">$</span>
-                </div>
-                <div class="form_section_input_div d-none">
-                  <input
-                    type="number"
-                    placeholder="Total Balance"
-                    class="percent_inp multiTypeInp_2"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width25">
-                <div class="form_section_label_div">
-                  <label for="tax-rate" class="main_label"
-                    >Tax Rate <span class="optional">(optional)</span></label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="number"
-                    placeholder="Total Balance"
-                    class="percent_inp"
-                    id="tax-rate"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-            </div>
-            <p class="form_section_para mt-3">Allocation</p>
-            <div class="form_section_input_row">
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="market-account-value" class="main_label"
-                    >Market Account Value</label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Total Balance"
-                    class="dollar_inp"
-                    id="market-account-value"
-                    value="500,000"
-                  />
-                  <span class="dollar">$</span>
-                </div>
-              </div>
-              <div id="slider_main3" class="slider_main split p-relative">
-                <div id="split_left3" class="split_left">
-                  <span class="left_span" id="left_span3">50</span>%
-                </div>
-                <div
-                  id="split_bar3"
-                  class="split_bar"
-                  style="left: calc(50% - 21px)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="6"
-                    height="10"
-                    viewBox="0 0 6 10"
-                    fill="none"
-                  >
-                    <rect
-                      width="6.58344"
-                      height="1.88288"
-                      rx="0.941442"
-                      transform="matrix(-0.707042 -0.707171 0.707043 -0.70717 4.67578 9.70801)"
-                      fill="white"
-                    />
-                    <rect
-                      width="6.58479"
-                      height="1.88055"
-                      rx="0.940273"
-                      transform="matrix(0.706849 -0.707364 0.706848 0.707365 0.0117188 4.948)"
-                      fill="white"
-                    />
-                  </svg>
-
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="6"
-                    height="10"
-                    viewBox="0 0 6 10"
-                    fill="none"
-                  >
-                    <rect
-                      width="6.58344"
-                      height="1.88288"
-                      rx="0.941442"
-                      transform="matrix(0.706848 0.707365 -0.706849 0.707365 1.32617 0)"
-                      fill="white"
-                    />
-                    <rect
-                      width="6.58479"
-                      height="1.88055"
-                      rx="0.940273"
-                      transform="matrix(-0.706849 0.707365 -0.706848 -0.707365 5.99023 4.76001)"
-                      fill="white"
-                    />
-                  </svg>
-                </div>
-                <div id="split_right3" class="split_right">
-                  <span class="right_span" id="right_span3">50</span>%
-                </div>
-              </div>
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="buffer-account-value" class="main_label"
-                    >Buffer Account Value</label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Total Balance"
-                    class="dollar_inp"
-                    id="buffer-account-value"
-                    value="500,000"
-                  />
-                  <span class="dollar">$</span>
-                </div>
-              </div>
-            </div>
-            <p class="form_section_para mt-3">Buffer Account</p>
-            <div class="form_section_input_row">
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="cap-rate" class="main_label"
-                    >Cap Rate
-                    <span
-                      ><common-tooltip-svg /><span
-                        >What is the buffer account’s cap rate? If none, leave
-                        blank.</span
-                      ></span
-                    ></label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Cap Rate"
-                    class="percent_inp"
-                    id="cap-rate"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="margin" class="main_label"
-                    >Margin
-                    <span
-                      ><common-tooltip-svg /><span
-                        >If your buffer account uses a margin or spread, enter
-                        it here. If none, leave blank.</span
-                      ></span
-                    ></label
-                  >
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Cap Rate"
-                    class="percent_inp"
-                    id="margin"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="per-rate" class="main_label">Par Rate</label>
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Cap Rate"
-                    class="percent_inp"
-                    id="per-rate"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="floor" class="main_label">Floor</label>
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="text"
-                    placeholder="Cap Rate"
-                    class="percent_inp"
-                    id="floor"
-                    value="0"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-              <div class="form_section_each_inputs width20">
-                <div class="form_section_label_div">
-                  <label for="premium-bonus" class="main_label"
-                    >Premium Bonus <span class="optional">optional</span
-                    ><span
-                      ><common-tooltip-svg /><span
-                        >If your buffer account offers a an upfront premium
-                        bonus, enter that amount here.</span
-                      ></span
-                    >
-                  </label>
-                </div>
-                <div class="form_section_input_div">
-                  <input
-                    type="number"
-                    placeholder="Total Balance"
-                    class="percent_inp"
-                    id="premium-bonus"
-                  />
-                  <span class="percent">%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="mb-5 mt-4 run_btn /*disable*/">Save & Run</button>
-        </div>
+        <!-- Form -->
+        <retirement-buffer-params-form
+          ref="formRef"
+          @setAllowSubmit="(e) => (allowSubmit = e)"
+        />
+        <button
+          data-bs-dismiss="modal"
+          :class="`mb-5 mt-4 run_btn ${allowSubmit ? '' : 'disable'}`"
+          @click="submitHandler()"
+        >
+          Save & Run
+        </button>
       </div>
     </div>
   </div>
@@ -2158,9 +1907,476 @@
   </button>
 </template>
 <script>
+import { getNumber } from "../../../../services/helper";
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
+import RetirementBufferParamsForm from "./RetirementBufferParamsForm.vue";
+import CircularProgressBar from "../../../../assets/js/retirement-buffer/circularProgressBar.min.js";
+import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
+
 export default {
-  components: { CommonTooltipSvg },
+  components: {
+    CommonTooltipSvg,
+    RetirementBufferParamsForm,
+    SliderWeightRange,
+  },
+  data() {
+    return {
+      allowSubmit: false,
+      aloneAccountTable: true,
+      aloneAccountGraph: true,
+      showDistribution: true,
+      pieValue: "45",
+      tableIndexType: "Historical Average",
+      graphIndexType: "Historical Average",
+    };
+  },
+  mounted() {
+    this.generatePieChart();
+    this.generateGraph();
+    // Add Comma after 3 digit
+    function updateTextView(_obj) {
+      var num = getNumber(_obj.value);
+      if (num == 0) {
+        _obj.value = "";
+      } else {
+        _obj.value = num.toLocaleString();
+      }
+    }
+
+    // Comma separated input script
+    document.querySelectorAll(".dollar_inp").forEach(function (eachDollarInp) {
+      eachDollarInp.addEventListener("input", function () {
+        updateTextView(event.target);
+        var key = event.keyCode;
+        // Only allow numbers to be entered
+        if (key < 48 || key > 57) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    const scrollBtn = document.querySelector(".scroll_top_btn");
+    window.onscroll = function () {
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        scrollBtn.classList.remove("d-none");
+      } else {
+        scrollBtn.classList.add("d-none");
+      }
+    };
+
+    scrollBtn.addEventListener("click", function () {
+      document.body.scrollIntoView();
+    });
+
+    // Select dropdown close when click inside
+    let selectBtn = document.querySelectorAll(".select-btn");
+    selectBtn.forEach((showHide) => {
+      showHide.addEventListener("click", () =>
+        showHide.closest(".select-menu").classList.toggle("active")
+      );
+      var allOptions = showHide
+        .closest(".select-menu")
+        .querySelector(".options")
+        .querySelectorAll(".option");
+      allOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          e.stopPropagation();
+          let selectedOption = option.querySelector(".option-text").innerText;
+          if (option.parentElement) {
+            option.parentElement.parentElement
+              .querySelector(".select-btn")
+              .querySelector(".sBtn-text").value = selectedOption;
+            option.parentElement.parentElement.classList.remove("active");
+          }
+        });
+      });
+    });
+
+    // Close when click outside
+    window.onclick = function (event) {
+      if (!event.target.matches(".select-menu")) {
+        var sharedowns = document.getElementsByClassName("select-menu");
+        var i;
+        for (i = 0; i < sharedowns.length; i++) {
+          var openSelectdropdown = sharedowns[i];
+          if (openSelectdropdown.classList.contains("active")) {
+            openSelectdropdown.classList.remove("active");
+          }
+        }
+      }
+    };
+
+    // Select dropdown menu open
+    var allSelectMenus = document.querySelectorAll(".select-menu");
+    allSelectMenus.forEach((eachSelectMenus) => {
+      eachSelectMenus.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    // If percent field value greter than 100%
+    var percentInput = document.querySelectorAll(
+      ".form_section_each_inputs input.percent_inp"
+    );
+    percentInput.forEach(function (eachPercentInput) {
+      eachPercentInput.addEventListener("input", function () {
+        if (event.target.value > 100) {
+          event.target.value = 100;
+          event.preventDefault();
+        }
+      });
+    });
+  },
+  methods: {
+    testFunction: function () {
+      this.pieValue = "60";
+      // this.generatePieChart();
+    },
+    submitHandler: function () {
+      this.$refs.formRef.submitForm();
+    },
+    generatePieChart: function () {
+      // Summary card pie start
+      // update circle when range change
+      const pie = document.querySelectorAll(".pie");
+      // start the animation when the element is in the page view
+      const elements = [].slice.call(document.querySelectorAll(".pie"));
+      const circle = new CircularProgressBar("pie");
+      // circle.initial();
+      if ("IntersectionObserver" in window) {
+        const config = {
+          root: null,
+          rootMargin: "0px",
+          threshold: 0.75,
+        };
+        const ovserver = new IntersectionObserver((entries, observer) => {
+          entries.map((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
+              circle.initial(entry.target);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, config);
+
+        elements.map((item) => {
+          ovserver.observe(item);
+        });
+      } else {
+        elements.map((element) => {
+          circle.initial(element);
+        });
+      }
+    },
+    generateGraph: function () {
+      // On change graph selectbox value
+      var graphSelectBox = document
+        .querySelector(".graph_select_menu")
+        .querySelectorAll(".option");
+      graphSelectBox.forEach(function (eachGraphSelectBox) {
+        eachGraphSelectBox.addEventListener("click", function () {
+          var graphAttrGeted = event.target.getAttribute("graphBoxAttr");
+          if (graphAttrGeted == 2) {
+            const { type } = retirementBufferGraph.config;
+            // document
+            //   .querySelector(".graph_filter_btns")
+            //   .classList.remove("disable");
+            // document
+            //   .querySelector(".graph_top_tab")
+            //   .classList.remove("pe-none");
+            // document
+            //   .querySelector(".graph_net_distribution")
+            //   .classList.remove("pe-none");
+            yearDataValue = [
+              500000, 619164, 781522, 891928, 996507, 1038305, 1189165, 1242807,
+              1213081, 1143405, 1128868, 107391, 120777, 140010, 164920,
+              1944949, 1157020, 1174612, 1237733, 1305387, 2341946, 2566027,
+              2900000,
+            ];
+            retirementBufferGraph.data.datasets[0].data = yearDataValue;
+            yearValueLabels = [
+              2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+              2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,
+              2022,
+            ];
+            retirementBufferGraph.data.labels = yearValueLabels;
+          } else {
+            for (var i = 1; i <= 3; i++) {
+              retirementBufferGraph.setDatasetVisibility(i, false);
+            }
+            // document
+            //   .querySelector(".graph_filter_btns")
+            //   .classList.add("disable");
+            // document.querySelector(".graph_top_tab").classList.add("pe-none");
+            // document
+            //   .querySelector(".graph_top_tab")
+            //   .lastElementChild.classList.remove("active");
+            // document
+            //   .querySelector(".graph_top_tab")
+            //   .firstElementChild.classList.add("active");
+            // document
+            //   .querySelector(".graph_net_distribution")
+            //   .classList.add("pe-none");
+            // document.querySelector(
+            //   ".graph_net_distribution input"
+            // ).checked = false;
+            // document
+            //   .querySelector(".graph_net_distribution")
+            //   .classList.add("disable");
+            // document.querySelector(".graph_tab_main").classList.add("disable");
+            let numberDataValue = [
+              130434, 260868, 391302, 521736, 652170, 782604, 913038, 1043472,
+              1173906, 1304340, 1434774, 1565208, 1695642, 1826076, 1956510,
+              2086944, 2217378, 2347812, 2478246, 2608680, 2739114, 2869548,
+              2999982,
+            ];
+            retirementBufferGraph.data.datasets[0].data = numberDataValue;
+            let numericValueLabes = [
+              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+              20, 21, 22, 23,
+            ];
+            retirementBufferGraph.data.labels = numericValueLabes;
+          }
+          retirementBufferGraph.update();
+        });
+      });
+
+      // On click top market and buffer tab
+      var marketBufferTab = document.querySelectorAll(".graph_top_tab div");
+      marketBufferTab.forEach(function (eachMarketBufferTab) {
+        eachMarketBufferTab.addEventListener("click", function () {
+          var marketBufferAttr = event.target.getAttribute("aria-controls");
+          if (marketBufferAttr == "v-pills-buffer") {
+            document
+              .querySelector(".graph_tab_main")
+              .classList.remove("disable");
+            for (var i = 1; i <= 2; i++) {
+              retirementBufferGraph.setDatasetVisibility(i, true);
+            }
+            document
+              .querySelector(".graph_tab_main")
+              .classList.remove("disable");
+          } else {
+            document.querySelector(".graph_tab_main").classList.add("disable");
+            for (var i = 1; i <= 2; i++) {
+              retirementBufferGraph.setDatasetVisibility(i, false);
+            }
+            document.querySelector(".graph_tab_main").classList.add("disable");
+          }
+          retirementBufferGraph.update();
+        });
+      });
+
+      // On change net distribution checkbox
+      var netDistribution = document.querySelector(
+        ".graph_net_distribution .button_checkbox"
+      );
+      netDistribution.addEventListener("change", function () {
+        if (this.checked == true) {
+          this.closest(".graph_net_distribution").classList.remove("disable");
+          retirementBufferGraph.setDatasetVisibility(3, true);
+        } else {
+          this.closest(".graph_net_distribution").classList.add("disable");
+          retirementBufferGraph.setDatasetVisibility(3, false);
+        }
+        retirementBufferGraph.update();
+      });
+
+      const getOrCreateLegendList = (chart, id) => {
+        const legendContainer = document.getElementById(id);
+        return legendContainer;
+      };
+
+      // Comparative Values starts
+      window.addEventListener("DOMContentLoaded", () => {
+        const { type } = retirementBufferGraph.config;
+        if (type === "pie" || type === "doughnut") {
+          // Pie and doughnut charts only have a single dataset and visibility is per item
+          retirementBufferGraph.toggleDataVisibility(0);
+        } else {
+          for (var i = 1; i <= 3; i++) {
+            retirementBufferGraph.setDatasetVisibility(i, false);
+          }
+        }
+        retirementBufferGraph.update();
+      });
+
+      var retirementLabels = [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23,
+      ];
+
+      const comparativeValuesData = {
+        labels: retirementLabels,
+        datasets: [
+          {
+            borderColor: "#0E6651",
+            borderWidth: 4,
+            radius: 0,
+            data: [
+              130434, 260868, 391302, 521736, 652170, 782604, 913038, 1043472,
+              1173906, 1304340, 1434774, 1565208, 1695642, 1826076, 1956510,
+              2086944, 2217378, 2347812, 2478246, 2608680, 2739114, 2869548,
+              2999982,
+            ],
+          },
+          {
+            borderColor: "#1660A4",
+            borderWidth: 4,
+            radius: 0,
+            data: [
+              370254, 601202, 870922, 937490, 991710, 984926, 984460, 986588,
+              1005214, 770046, 953536, 961792, 930595, 764897, 718008, 811000,
+              763326, 729038, 743428, 753705, 899774, 767634, 988049,
+            ],
+          },
+          {
+            borderColor: "#9D2B2B",
+            borderWidth: 4,
+            radius: 0,
+            data: [
+              368245, 439356, 532819, 572334, 597896, 586399, 578972, 573108,
+              577308, 470345, 537312, 530656, 509740, 421888, 388216, 429268,
+              395922, 370050, 368806, 365291, 421188, 355873, 444464,
+            ],
+          },
+          {
+            // borderColor: '#0E6651',
+            yAxisID: "B",
+            backgroundColor: "rgba(20, 125, 100, 0.60)",
+            // borderWidth: 4,
+            borderColor: "rgba(14, 102, 81, 0.60)",
+            radius: 0,
+            data: [1000000, 1000000, 1000000, 1000000, 1000000, 1000000],
+            type: "bar",
+            borderRadius: 2,
+            barThickness: 13,
+            // borderSkipped: false,
+          },
+        ],
+      };
+      // console.log(comparativeValuesData);
+
+      const comparativeValuesConfig = {
+        type: "line",
+        data: comparativeValuesData,
+        options: {
+          interaction: {
+            intersect: false,
+            mode: "nearest",
+          },
+          font: {
+            size: 16,
+            color: "#000",
+          },
+          responsive: true,
+          plugins: {
+            comparativeValues1: {
+              containerID: "retirementBufferGraphFluid",
+            },
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false,
+                color: "transparent",
+              },
+              ticks: {
+                font: {
+                  size: 11,
+                  family: "Inter",
+                  weight: "500",
+                },
+              },
+            },
+            y: {
+              grid: {
+                borderColor: "#E9E9E9",
+                drawBorder: false,
+              },
+              min: 0,
+              max: 3000000,
+              // stacked: true,
+              ticks: {
+                maxTicksLimit: 7,
+                padding: 8,
+                // stepSize: 1250000,
+                callback: function (value, index, ticks) {
+                  value = value.toString();
+                  value = value.split(/(?=(?:...)*$)/);
+                  value = value.join(",");
+                  return "$" + value;
+                },
+                font: {
+                  size: 11,
+                  family: "Inter",
+                  weight: "500",
+                },
+              },
+            },
+            B: {
+              type: "linear",
+              display: "auto",
+              position: "right",
+
+              // grid line settings
+              grid: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                borderColor: "#E9E9E9",
+                drawBorder: false,
+                // tickLength: 5
+              },
+              min: 0,
+              max: 3000000,
+              ticks: {
+                maxTicksLimit: 7,
+                padding: 8,
+                // stepSize: 250000,
+                callback: function (value, index, ticks) {
+                  value = value.toString();
+                  value = value.split(/(?=(?:...)*$)/);
+                  value = value.join(",");
+                  return "$" + value;
+                },
+                font: {
+                  size: 11,
+                  family: "Inter",
+                  weight: "500",
+                },
+              },
+            },
+          },
+        },
+      };
+      const retirementBufferGraph = new Chart(
+        document.getElementById("retirementBufferGraph"),
+        comparativeValuesConfig
+      );
+    },
+  },
+  computed: {
+    indexTypes() {
+      return ["Historical Average", "Historical Returns"];
+    },
+  },
+  watch: {
+    tableIndexType(e) {
+      if (e !== "Historical Returns") {
+        this.aloneAccountTable = true;
+      }
+    },
+    graphIndexType(e) {
+      if (e !== "Historical Returns") {
+        this.aloneAccountGraph = true;
+      }
+    },
+  },
 };
 </script>
 <style lang=""></style>

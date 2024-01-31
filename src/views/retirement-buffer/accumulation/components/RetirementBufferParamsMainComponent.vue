@@ -8,7 +8,20 @@
               <h1>Retirement Buffer</h1>
             </div>
             <!-- Form -->
-            <retirement-buffer-params-form />
+            <div class="after_heading_div">
+              <div class="accumulation_strategy_div">
+                <div class="accumulation_strategy_box">
+                  <retirement-buffer-params-form ref="formRef" @setAllowSubmit="(e) => allowSubmit = e"/>
+                </div>
+                <button
+                  :class="`run_btn ${allowSubmit ? '' : 'disable'}`"
+                  @click="submitHandler()"
+                >
+                  Run
+                </button>
+                <button class="reset_btn" @click="resetForm()">Reset</button>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -20,6 +33,11 @@ import { getNumber } from "../../../../services/helper";
 import RetirementBufferParamsForm from "./RetirementBufferParamsForm.vue";
 export default {
   components: { RetirementBufferParamsForm },
+  data() {
+    return {
+      allowSubmit : false
+    }
+  },
   mounted() {
     // Add Comma after 3 digit
     function updateTextView(_obj) {
@@ -43,7 +61,7 @@ export default {
       });
     });
 
-    // Select dropdown
+    // Select dropdown close when click inside
     let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
       showHide.addEventListener("click", () =>
@@ -56,11 +74,6 @@ export default {
       allOptions.forEach((option) => {
         option.addEventListener("click", (e) => {
           e.stopPropagation();
-          let items = e.target.closest("ul").querySelectorAll("li");
-          items.forEach((element) => {
-            element.classList.remove("active");
-          });
-          e.target.closest("li").classList.add("active");
           let selectedOption = option.querySelector(".option-text").innerText;
           if (option.parentElement) {
             option.parentElement.parentElement
@@ -69,19 +82,6 @@ export default {
             option.parentElement.parentElement.classList.remove("active");
           }
         });
-      });
-    });
-
-    // Select dropdown menu
-    let dropdowns = document.querySelectorAll(".select-menu");
-    dropdowns.forEach((element) => {
-      element.addEventListener("click", (e) => {
-        dropdowns.forEach((item) => {
-          if (item.className.includes("active")) {
-            item.classList.remove("active");
-          }
-        });
-        e.target.closest(".select-menu").classList.add("active");
       });
     });
 
@@ -98,6 +98,8 @@ export default {
         }
       }
     };
+
+    // Select dropdown menu open 
     var allSelectMenus = document.querySelectorAll(".select-menu");
     allSelectMenus.forEach((eachSelectMenus) => {
       eachSelectMenus.addEventListener("click", function (event) {
@@ -117,6 +119,14 @@ export default {
         }
       });
     });
+  },
+  methods: {
+    resetForm: function () {
+      this.$refs.formRef.resetForm();
+    },
+    submitHandler: function () {
+      this.$refs.formRef.submitForm();
+    }
   },
 };
 </script>

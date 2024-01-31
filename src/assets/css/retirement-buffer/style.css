@@ -258,6 +258,7 @@
 }
 
 .accumulation_select_menu .select-btn {
+    height: auto;
     display: flex;
     border-radius: 5px;
     border: 1.25px solid #dfdfdf;
@@ -321,12 +322,14 @@
 }
 
 .select-btn i {
+    line-height: 0;
     font-size: 25px;
     font-weight: 400;
     transition: 0.3s;
 }
 
 .accumulation_select_menu.active .select-btn {
+    height: auto;
     border: 1.25px solid #dfdfdf;
     border-bottom: none;
     border-radius: 5px 5px 0 0;
@@ -898,12 +901,13 @@ table.retirement_table_area tr td.zero_text {
     color: transparent;
     user-select: none;
 }
-.table_select_menu {
+.retirement_table_area .table_select_menu {
     position: relative;
     width: 100%;
 }
 
-.table_select_menu .select-btn {
+.retirement_table_area .table_select_menu .select-btn {
+    height: auto;
     display: flex;
     border: 1.25px solid transparent;
     background: transparent;
@@ -915,7 +919,7 @@ table.retirement_table_area tr td.zero_text {
     cursor: pointer;
     justify-content: space-between;
 }
-.table_select_menu .select-btn input {
+.retirement_table_area .table_select_menu .select-btn input {
     padding: 0 6px;
     color: #fff;
     font-size: 12px;
@@ -929,7 +933,7 @@ table.retirement_table_area tr td.zero_text {
     background-color: transparent;
 }
 
-.table_select_menu .options {
+.retirement_table_area .table_select_menu .options {
     display: none;
     position: absolute;
     left: 0;
@@ -946,7 +950,7 @@ table.retirement_table_area tr td.zero_text {
     overflow-x: hidden;
 }
 
-.table_select_menu .options .option {
+.retirement_table_area .table_select_menu .options .option {
     display: flex;
     cursor: pointer;
     padding: 8px 6px;
@@ -955,31 +959,31 @@ table.retirement_table_area tr td.zero_text {
     border-radius: 0;
 }
 
-.table_select_menu .options .option:hover {
+.retirement_table_area .table_select_menu .options .option:hover {
     background: #15222b;
 }
 
-.table_select_menu .options .option .option-text {
+.retirement_table_area .table_select_menu .options .option .option-text {
     position: relative;
     color: #fff;
     font-size: 15px;
     font-weight: 500;
 }
 
-.select-btn i {
+.retirement_table_area .select-btn i {
     margin-right: 6px;
     transition: 0.3s;
 }
-.table_select_menu.active .select-btn i {
+.retirement_table_area .table_select_menu.active .select-btn i {
     transform: rotate(-180deg);
 }
 
-.table_select_menu.active .options {
+.retirement_table_area .table_select_menu.active .options {
     display: block;
     z-index: 10;
 }
 
-.table_select_menu .options .option.active .option-text::before {
+.retirement_table_area .table_select_menu .options .option.active .option-text::before {
     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none"><rect x="14.25" y="1.91479" width="12.9987" height="2.00096" rx="1.00048" transform="rotate(135 14.25 1.91479)" fill="white"/><rect x="4.94727" y="11.1094" width="6.99564" height="2.00318" rx="1.00159" transform="rotate(-135 4.94727 11.1094)" fill="white"/></svg>');
     position: absolute;
     right: -1.5rem;
@@ -1351,12 +1355,13 @@ body.wider .setting_modal{
     pointer-events: none;
     user-select: none;
 }
-.graph_select_menu {
+.graph_all_buttons .graph_select_menu {
     position: relative;
     width: 100%;
 }
 
-.graph_select_menu .select-btn {
+.graph_all_buttons .graph_select_menu .select-btn {
+    height: auto;
     display: flex;
     align-items: center;
     border-radius: 0;
@@ -1368,7 +1373,7 @@ body.wider .setting_modal{
     cursor: pointer;
     justify-content: space-between;
 }
-.graph_select_menu .select-btn input {
+.graph_all_buttons .graph_select_menu .select-btn input {
     color: #fff;
     font-size: 15px;
     font-weight: 700;
@@ -1383,7 +1388,7 @@ body.wider .setting_modal{
     padding-right: 6px;
 }
 
-.graph_select_menu .options {
+.graph_all_buttons .graph_select_menu .options {
     display: none;
     position: absolute;
     left: 1px;
@@ -1404,7 +1409,7 @@ body.wider .setting_modal{
     border-bottom: 1px solid #bbb;
 }
 
-.graph_select_menu .options .option {
+.graph_all_buttons .graph_select_menu .options .option {
     display: flex;
     cursor: pointer;
     padding: 8px 6px;
@@ -1413,18 +1418,18 @@ body.wider .setting_modal{
     border-radius: 0;
 }
 
-.graph_select_menu .options .option:hover {
+.graph_all_buttons .graph_select_menu .options .option:hover {
     background: #15222b;
 }
 
-.graph_select_menu .options .option .option-text {
+.graph_all_buttons .graph_select_menu .options .option .option-text {
     position: relative;
     color: #fff;
     font-size: 15px;
     font-weight: 400;
 }
 
-.select-btn i {
+.graph_all_buttons .select-btn i {
     margin-right: 6px;
     transition: 0.3s;
 }
@@ -1437,7 +1442,7 @@ body.wider .setting_modal{
     z-index: 10;
 }
 
-.graph_select_menu .options .option.active .option-text::before {
+.graph_all_buttons .graph_select_menu .options .option.active .option-text::before {
     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none"><rect x="14.25" y="1.91479" width="12.9987" height="2.00096" rx="1.00048" transform="rotate(135 14.25 1.91479)" fill="white"/><rect x="4.94727" y="11.1094" width="6.99564" height="2.00318" rx="1.00159" transform="rotate(-135 4.94727 11.1094)" fill="white"/></svg>');
     position: absolute;
     right: -1.5rem;

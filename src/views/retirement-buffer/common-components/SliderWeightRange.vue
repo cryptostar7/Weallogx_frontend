@@ -1,7 +1,7 @@
 <template lang="">
   <div
     ref="sliderMainRef"
-    :class="`slider_main split p-relative ${
+    :class="`slider_main split p-relative ${$props.sliderType === 'result' ? 'retirement_slider' : ''} ${
       $props.disabled ? 'disabled' : ''
     } `"
   >
@@ -64,7 +64,7 @@
 </template>
 <script>
 export default {
-  props: ["disabled"],
+  props: ["disabled", "sliderType"],
   mounted() {
     let sliderMain = this.$refs.sliderMainRef;
     let totalWidth = sliderMain.offsetWidth;
