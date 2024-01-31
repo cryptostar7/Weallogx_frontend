@@ -207,40 +207,7 @@
                 <label for="cap-rate" class="main_label"
                   >Cap Rate
                   <span
-                    ><svg
-                      class="label-common-tooltip-svg"
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="Group 1968">
-                        <circle
-                          id="Ellipse 190"
-                          cx="6.5"
-                          cy="6.5"
-                          r="6.5"
-                          fill="#D0D0D0"
-                        ></circle>
-                        <circle
-                          id="Ellipse 191"
-                          cx="6.5"
-                          cy="3.5"
-                          r="1"
-                          fill="white"
-                        ></circle>
-                        <rect
-                          id="Rectangle 753"
-                          x="5.75"
-                          y="5.5"
-                          width="1.5"
-                          height="5"
-                          rx="0.75"
-                          fill="white"
-                        ></rect>
-                      </g>
-                    </svg>
+                    ><common-tooltip-svg />
                     <span
                       >What is the buffer account’s cap rate? If none, leave
                       blank.</span
@@ -264,40 +231,7 @@
                 <label for="margin" class="main_label"
                   >Margin
                   <span>
-                    <svg
-                      class="label-common-tooltip-svg"
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="Group 1968">
-                        <circle
-                          id="Ellipse 190"
-                          cx="6.5"
-                          cy="6.5"
-                          r="6.5"
-                          fill="#D0D0D0"
-                        ></circle>
-                        <circle
-                          id="Ellipse 191"
-                          cx="6.5"
-                          cy="3.5"
-                          r="1"
-                          fill="white"
-                        ></circle>
-                        <rect
-                          id="Rectangle 753"
-                          x="5.75"
-                          y="5.5"
-                          width="1.5"
-                          height="5"
-                          rx="0.75"
-                          fill="white"
-                        ></rect>
-                      </g>
-                    </svg>
+                    <common-tooltip-svg />
                     <span
                       >If your buffer account uses a margin or spread, enter it
                       here. If none, leave blank.</span
@@ -353,40 +287,7 @@
                 <label for="premium-bonus" class="main_label"
                   >Premium Bonus <span class="optional">optional</span
                   ><span
-                    ><svg
-                      class="label-common-tooltip-svg"
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g id="Group 1968">
-                        <circle
-                          id="Ellipse 190"
-                          cx="6.5"
-                          cy="6.5"
-                          r="6.5"
-                          fill="#D0D0D0"
-                        ></circle>
-                        <circle
-                          id="Ellipse 191"
-                          cx="6.5"
-                          cy="3.5"
-                          r="1"
-                          fill="white"
-                        ></circle>
-                        <rect
-                          id="Rectangle 753"
-                          x="5.75"
-                          y="5.5"
-                          width="1.5"
-                          height="5"
-                          rx="0.75"
-                          fill="white"
-                        ></rect>
-                      </g>
-                    </svg>
+                    ><common-tooltip-svg />
                     <span
                       >If your buffer account offers a an upfront premium bonus,
                       enter that amount here.</span
@@ -421,10 +322,12 @@
 <script>
 import { getNumber, authHeader } from "../../../../services/helper";
 import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
+import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
+
 import { post } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 export default {
-  components: { SliderWeightRange },
+  components: { SliderWeightRange, CommonTooltipSvg },
   data() {
     return {
       accountType: "taxable",
@@ -449,8 +352,8 @@ export default {
       this.updateTextView(maInput);
     });
 
-    let rb_results = localStorage.getItem('rb_result');
-    if(rb_results){
+    let rb_results = localStorage.getItem("rb_result");
+    if (rb_results) {
       rb_results = JSON.parse(rb_results);
       this.setFormInputs(rb_results.inputs);
     }
@@ -572,9 +475,10 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$store.dispatch("loader", false);
-          localStorage.setItem('rb_account_type', this.accountType);
-          localStorage.setItem('rb_result', JSON.stringify(response.data));
-          this.$router.push("/retirement-buffer/accumulation/result");
+          localStorage.setItem("rb_account_type", this.accountType); // Save account type field value in local storage
+          localStorage.setItem("rb_distribution_type", this.accountType); // Save account distribution type value in local storage
+          localStorage.setItem("rb_result", JSON.stringify(response.data)); // Save API result in local storage to display the data on results page
+          this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
           if (
