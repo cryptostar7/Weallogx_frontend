@@ -502,9 +502,6 @@ export default {
         authHeader()
       )
         .then((response) => {
-          console.log(response.data);
-          console.log(this.accountType);
-          console.log(this.annualDistributionType);
           this.$store.dispatch("loader", false);
           localStorage.setItem("rb_account_type", this.accountType); // Save account type field value in local storage
           localStorage.setItem(
@@ -515,15 +512,20 @@ export default {
           this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
-          if (
-            error.code === "ERR_BAD_RESPONSE" ||
-            error.code === "ERR_NETWORK"
-          ) {
-            this.$toast.error(error.message);
+          this.$store.dispatch("loader", false)
+          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+            this.$toast.error(error.message)
+          } else if (error.code === "ERR_BAD_REQUEST") {
+            if (error.response.data.error) {
+                this.$toast.error(error.response.data.error[0])
+            } else {
+                let field = Object.entries(error.response.data)[0][0]
+                let message = Object.entries(error.response.data)[0][1][0]
+                this.$toast.error(field + ": " + message)
+            }
           } else {
-            this.$toast.error("Something went wrong!");
+            this.$toast.error(error.message)
           }
-          this.$store.dispatch("loader", false);
         });
     },
   },

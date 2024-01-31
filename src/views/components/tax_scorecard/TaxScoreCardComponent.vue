@@ -1,5 +1,5 @@
 <template>
-
+<div>
     <div class="index-strategy-each-tabs-head">
         <p>Pre-tax Plan Data</p>
         <svg width="32" height="33" viewBox="0 0 32 33" fill="none">
@@ -69,16 +69,9 @@
                 <label for="beginningBalance">RMD Age <span><common-tooltip-svg />
                         <span>What year will RMDs start?</span>
                     </span></label>
-                <!-- <div class="index-strategy-each-inputs">
-                  <integer-input
-                    @valueUpdated="v => updateInput('rmd_age', v)"
-                    :default="inputs.rmd_age"
-                    max="99"
-                  />
-                </div> -->
                 <div class="select-menu">
                   <div class="select-btn">
-                    <span class="sBtn-text"></span>
+                    <span class="sBtn-text">{{inputs.rmd_age}}</span>
                     <i
                       ><img
                         src="@/assets/images/icons/select-chevron.svg"
@@ -86,13 +79,13 @@
                     /></i>
                   </div>
                   <ul class="options">
-                    <li class="option">
+                    <li :class="`option ${inputs.rmd_age === 72 ? 'active' : ''}`" @click="updateInput('rmd_age', 72)">
                       <span class="option-text">72</span>
                     </li>
-                    <li class="option">
+                    <li :class="`option ${inputs.rmd_age === 73 ? 'active' : ''}`" @click="updateInput('rmd_age', 73)">
                       <span class="option-text">73</span>
                     </li>
-                    <li class="option">
+                    <li :class="`option ${inputs.rmd_age === 75 ? 'active' : ''}`" @click="updateInput('rmd_age', 75)">
                       <span class="option-text">75</span>
                     </li>
                   </ul>
@@ -264,6 +257,7 @@
             </div>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -406,9 +400,14 @@ export default {
         errors.push(`Social Security Age also requires Social Security Amount.`)
       }
 
-      if (inputs.rmd_age < 72) {
-        errors.push(`RMD Age must be at least 72.`)
+      if(inputs.rmd_age){
+        if (inputs.rmd_age < 72) {
+          errors.push(`RMD Age must be at least 72.`)
+        }
+      }else{
+        errors.push(`RMD Age required.`)
       }
+
 
       if (inputs.switch_year && !inputs.second_tax_rate) {
         errors.push(`Switch Year also requires Second Tax Rate.`)
