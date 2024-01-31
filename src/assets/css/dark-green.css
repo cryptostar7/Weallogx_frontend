@@ -4491,3 +4491,485 @@ fill: #f5f5f5;
 .dark-green .navbar-brand.dark{
   display: block;
 }
+
+/* Retirement Buffer CSS */
+.dark-green .retirement_buffer_section_head_div button.head_back_btn,
+.retirement_buffer_section_head_div a.head_back_btn {
+  color: #a0a0b1;
+}
+.dark-green .retirement_buffer_section_head_div h1 {
+  color: #fff;
+}
+.dark-green .retirement_buffer_section_head_div h1::before {
+  background-color: #abf9c9;
+}
+.dark-green .table_graph_setting_tab {
+  background: #2e3135;
+}
+.dark-green .table_graph_setting_tab div {
+  background: #2e3135;
+}
+.dark-green .market_buffer_account_tab {
+  background-color: #2e3135;
+}
+.dark-green .market_buffer_account_tab div {
+  background-color: transparent;
+  color: #fff;
+}
+.dark-green .market_buffer_account_tab div.active {
+  background-color: #26ab8b;
+}
+.dark-green .market_buffer_account_tab div:last-child.active {
+  background-color: #1660a4;
+}
+.dark-green .table_graph_setting_tab div svg path {
+  fill: #26ab8b;
+}
+.dark-green .table_graph_setting_tab div svg rect {
+  stroke: #26ab8b;
+}
+.dark-green .table_graph_setting_tab div.active {
+  background-color: #26ab8b;
+}
+.dark-green .table_graph_setting_tab div.active svg path {
+  fill: white;
+}
+.dark-green .table_graph_setting_tab div.active svg rect {
+  stroke: white;
+}
+
+.dark-green .filter_buttons {
+  background-color: #292b2f;
+  border: 1px solid #353b46;
+  overflow: hidden;
+}
+.dark-green .filter_buttons button {
+  background-color: #292b2f;
+  border-right-color: #353b46;
+}
+.dark-green .filter_buttons button:hover {
+  background-color: #000;
+}
+.dark-green .filter_buttons button svg path,
+.dark-green .filter_buttons button svg rect {
+  fill: #fff;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_left,
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_right {
+  background: #6d6d6d14;
+  border-color: #353b4657;
+  color: #6d6d6d14;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_left::before,
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_right::before {
+  color: #6d6d6d14;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_bar {
+  background-color: #6d6d6d14;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_bar svg rect {
+  fill: #6d6d6d14;
+}
+
+.dark-green .table_graph_tab_main .retirement_slider .split_left,
+.dark-green .table_graph_tab_main .retirement_slider .split_right {
+  background-color: #2e3135;
+  border-color: #0f8266;
+  color: #26ab8b;
+}
+.dark-green .table_graph_tab_main .retirement_slider .split_left::before,
+.dark-green .table_graph_tab_main .retirement_slider .split_right::before {
+  color: #fff;
+}
+.dark-green .table_graph_tab_main .retirement_slider .split_bar {
+  background-color: #0f8266;
+}
+.dark-green .table_graph_tab_main .retirement_slider .split_bar svg rect {
+  fill: #fff;
+}
+
+.dark-green table.retirement_table_area thead tr th {
+  background-color: #313438;
+  border-color: #414141;
+}
+.dark-green table.retirement_table_area tr {
+  border-color: #414141;
+}
+.dark-green table.retirement_table_area tr td {
+  background-color: #292b2f;
+  border-color: #414141;
+  color: #fff;
+}
+.dark-green .table_select_menu .select-btn {
+  border: none !important;
+  background: none !important;
+}
+
+.dark-green .table_select_menu .options {
+  border-top: none;
+  background: #313438;
+}
+.dark-green .table_select_menu .options option {
+  background: #313438;
+}
+
+.dark-green .table_clr_1 .each_table_heading {
+  background-color: #292b2f;
+  border-color: #353b46;
+  color: #26ab8b;
+}
+.dark-green .table_clr_1 table.retirement_table_area thead tr th {
+  background-color: #0e6651;
+  color: #fff;
+  border-right-color: #0f8266;
+}
+.dark-green .table_clr_2 .each_table_heading {
+  background-color: #292b2f;
+  border-color: #353b46;
+  color: #53a9f1;
+}
+.dark-green .table_clr_2 table.retirement_table_area thead tr th {
+  background-color: #1660a4;
+  color: #fff;
+  border-right-color: #2977bf;
+}
+.dark-green .table_clr_3 .each_table_heading {
+  background-color: #292b2f;
+  border-color: #353b46;
+  color: #f04f4f;
+}
+.dark-green .table_clr_3 table.retirement_table_area thead tr th {
+  background-color: #da4343;
+  color: #fff;
+  border-right-color: #f64e4e;
+}
+.dark-green .table_clr_1 table.retirement_table_area tr td {
+  background-color: #262b29;
+}
+.dark-green .table_clr_2 table.retirement_table_area tr td {
+  background-color: #24292d;
+}
+.dark-green .table_clr_3 table.retirement_table_area tr td {
+  background-color: #2a2727;
+}
+
+.dark-green table.retirement_table_area tr td.green_text {
+  color: #26ab8b;
+}
+.dark-green table.retirement_table_area tr td.red_text {
+  color: #dc3545;
+}
+.dark-green .table_graph_tab_main.disable .common_each_table_div.disable .each_table_heading {
+  background: #292b2f;
+  border: 1px solid #353b46;
+  color: #3a3d41;
+}
+.dark-green .table_graph_tab_main.disable .common_each_table_div.disable table.retirement_table_area thead tr th {
+  background-color: #2e3135;
+  border-color: #353b46;
+  color: #3a3d41;
+}
+.dark-green
+  .table_graph_tab_main.disable
+  .common_each_table_div.disable
+  .table_button
+  .button_checkbox:checked
+  + .button_knobs:before {
+  background-color: #2a2d36;
+}
+.dark-green
+  .table_graph_tab_main.disable
+  .common_each_table_div.disable
+  .table_button
+  .button_checkbox:checked
+  ~ .button_layer {
+  background-color: #515151;
+}
+.dark-green .table_graph_tab_main.disable .common_each_table_div.disable .table_button.button_r .button_layer {
+  background-color: #515151;
+}
+.dark-green .table_graph_tab_main.disable .common_each_table_div.disable .table_button .button_knobs:before {
+  background-color: #2a2d36;
+}
+.dark-green .table_graph_tab_main.disable .common_each_table_div.disable table.retirement_table_area tr td {
+  background-color: #3031315e;
+}
+
+.dark-green .summary_heading {
+  background: #2e3135;
+  border: 1px solid #353b46;
+}
+.dark-green .summary_each_card {
+  background: #2e3135;
+  border: 1px solid #353b46;
+}
+.dark-green .summary_each_card.summary_card_clr_1 .summary_each_card_heading {
+  background: #26ab8b;
+}
+.dark-green .each_card_left_part .each_card_left_label,
+.dark-green .each_card_left_part .each_card_left_value {
+  color: #fff;
+}
+.dark-green .each_card_right_part {
+  border-color: #575b61;
+}
+.dark-green .each_card_right_part .success_prob_para {
+  color: #fff;
+}
+.dark-green .summary_card_clr_1 .pie.progress_pie svg circle[r]:nth-child(1) {
+  stroke: #575b61;
+}
+.dark-green .summary_card_clr_1 .pie.progress_pie svg circle[r]:nth-child(2) {
+  stroke: #26ab8b;
+}
+.dark-green .summary_card_clr_1 .pie.progress_pie svg text {
+  fill: #fff;
+}
+
+.dark-green .summary_each_card.summary_card_clr_2 .summary_each_card_heading {
+  background: #23669e;
+}
+
+.dark-green .summary_card_clr_2 .pie.progress_pie svg circle[r]:nth-child(1) {
+  stroke: #575b61;
+}
+.dark-green .summary_card_clr_2 .pie.progress_pie svg circle[r]:nth-child(2) {
+  stroke: #53a9f1;
+}
+.dark-green .summary_card_clr_2 .pie.progress_pie svg text {
+  fill: #fff;
+}
+
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .summary_each_card_heading {
+  background-color: #292b2f;
+  color: #3a3d41;
+}
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .summary_each_card_heading {
+  background-color: #292b2f;
+  color: #3a3d41;
+}
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .each_card_left_part .each_card_left_label {
+  color: #3a3d41;
+}
+.dark-green
+  .table_graph_tab_main.disable
+  .summary_each_card.disable
+  .each_card_left_part
+  .each_card_left_label
+  span
+  svg
+  rect,
+.dark-green
+  .table_graph_tab_main.disable
+  .summary_each_card.disable
+  .each_card_left_part
+  .each_card_left_label
+  span
+  svg
+  circle {
+  fill: #3a3d41;
+}
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .each_card_right_part {
+  border-color: #3b3c3e;
+}
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg circle[r] {
+  stroke: #303236;
+}
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg text {
+  fill: transparent;
+  user-select: none;
+}
+.dark-green .graph_select_div {
+  background-color: #313438;
+  border-color: #414141;
+}
+.dark-green .graph_select_menu .select-btn {
+  border: none !important;
+  background: none !important;
+}
+.dark-green .graph_select_menu .options {
+  border-top: none;
+}
+
+.dark-green .graph_all_buttons .common_each_graph_div.graph_clr_1 {
+  background-color: #26ab8b;
+  border-color: #414141;
+}
+.dark-green .graph_all_buttons .common_each_graph_div.graph_clr_2 {
+  background-color: #53a9f1;
+  border-color: #414141;
+}
+.dark-green .graph_all_buttons .common_each_graph_div.graph_clr_3 {
+  background-color: #f04f4f;
+  border-color: #414141;
+}
+.dark-green .table_graph_tab_main.disable .common_each_graph_div.disable {
+  background: #292b2f !important;
+  border: 1px solid #353b46 !important;
+  color: #3a3d41 !important;
+}
+.dark-green .graph_net_distribution {
+  background-color: #313438;
+  border-color: #414141;
+}
+.dark-green .graph_net_distribution.disable {
+  background: #292b2f !important;
+  border: 1px solid #353b46 !important;
+  color: #3a3d41 !important;
+}
+
+.dark-green .graph_net_distribution.disable .button_checkbox:checked + .button_knobs:before {
+  background-color: #2a2d36;
+}
+.dark-green .graph_net_distribution.disable .button_checkbox:checked ~ .button_layer {
+  background-color: #515151;
+}
+.dark-green .graph_net_distribution.disable .button_r .button_layer {
+  background-color: #515151;
+}
+.dark-green .graph_net_distribution.disable .button_knobs:before {
+  background-color: #2a2d36;
+}
+.dark-green .scroll_top_btn {
+  background-color: transparent;
+  border-color: #26ab8b;
+}
+.dark-green .scroll_top_btn svg rect {
+  fill: #26ab8b;
+}
+.dark-green .disclosure_bottom_para {
+  color: #fff;
+}
+
+.dark-green .accumulation_strategy_box {
+  background-color: #353b46;
+}
+.dark-green .accumulation_strategy_box_head {
+  background-color: #26ab8b;
+  border: none;
+}
+.dark-green .accumulation_strategy_inner_box .form_section_para {
+  color: #26ab8b;
+}
+.dark-green .form_section_label_div label.main_label {
+  color: #fff;
+}
+.dark-green .form_section_label_div label::before {
+  background-color: #abf9c9;
+}
+.dark-green .form_section_label_div .label-right-div .label_checkbox input:checked ~ label {
+  background-color: #26ab8b;
+}
+.dark-green .form_section_label_div label span span {
+  background-color: #202124;
+  color: #fff;
+}
+.dark-green .each_card_left_label span span , .dark-green .each_card_right_part .success_prob_para span span{
+  background-color: #202124;
+  color: #fff;
+}
+.dark-green .form_section_label_div .label-right-div .label_checkbox span {
+  color: #fff;
+}
+.dark-green .form_section_input_div input {
+  background: #34383d;
+  border: 1px solid #515151;
+  color: #fff;
+}
+
+.dark-green .form_section_input_div input:not(:placeholder-shown) ~ span {
+  color: #fff;
+}
+.dark-green .form_section_input_div input:focus ~ span {
+  color: #fff;
+}
+.dark-green .accumulation_select_menu .select-btn input {
+  color: #fff;
+}
+.dark-green .accumulation_select_menu.active .select-btn {
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+.dark-green .accumulation_select_menu.active .options {
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+}
+.dark-green .split_left,
+.dark-green .split_right {
+  background-color: #2e3135;
+  border-color: #26ab8b;
+  color: #26ab8b;
+}
+.dark-green .split_left::before,
+.dark-green .split_right::before {
+  color: #fff;
+}
+.dark-green .split_bar {
+  background-color: #26ab8b;
+}
+.dark-green .split_bar svg rect {
+  fill: #fff;
+}
+.dark-green .run_btn {
+  border-color: #26ab8b;
+  background-color: #26ab8b;
+}
+.dark-green .run_btn:hover {
+  background-color: transparent;
+  color: #26ab8b;
+}
+.dark-green .reset_btn:hover {
+  background: #2e3135;
+  color: #a5a5a5;
+  border: 1px solid #eee;
+}
+.dark-green .common_box_div {
+  background: transparent;
+  border-color: #353b46;
+}
+.dark-green .common_heading_div {
+  border-color: #353b46;
+}
+.dark-green .common_heading_div h1 {
+  color: #fff;
+}
+.dark-green .common_heading_div h1::before {
+  background-color: #abf9c9;
+}
+.dark-green .after_heading_div {
+  border-color: #353b46;
+}
+.dark-green .accumulation_strategy_box_head h2:before {
+  background-color: #abf9c9;
+}
+.dark-green .accumulation_each_card {
+  background-color: #2e3135;
+}
+.dark-green .accumulation_each_card div {
+  background-color: #242629;
+  border: 1.5px solid #494848;
+}
+.dark-green .accumulation_each_card div svg path {
+  fill: #23d2a8;
+}
+.dark-green .accumulation_each_card p {
+  color: #fff;
+}
+.dark-green .accumulation_each_card p svg rect {
+  fill: #fff;
+}
+.dark-green .accumulation_each_card.disabled {
+  opacity: 0.5;
+}
+.dark-green .accumulation_each_card.disabled div svg {
+  filter: grayscale(100%);
+  opacity: 0.1;
+}
+.dark-green .accumulation_each_card.disabled p {
+  filter: grayscale(100%);
+  opacity: 0.1;
+}
+.dark-green .table-wrapper-with-boarder{
+  border-color: #414141;
+}
+/* Retirement Buffer CSS Ends */

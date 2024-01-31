@@ -246,6 +246,9 @@
 .form_section_input_div input.dollar_inp {
     padding-left: 21px;
 }
+.form_section_input_div input.gray{
+    background-color: #f4f4f4;
+}
 .form_section_input_div input.percent_inp {
     padding-right: 25px;
 }
@@ -486,30 +489,30 @@
     margin-inline: auto;
     margin-top: 50px;
 }
-.table_graph_tab_main.disable .retirement_slider{
+.table_graph_tab_main.disable .retirement_sliderm, .slider_main.disabled{
     pointer-events: none;
 }
-.table_graph_tab_main.disable .retirement_slider .split_left {
+.table_graph_tab_main.disable .retirement_slider .split_left, .slider_main.disabled .split_left {
     border: 2px solid #dfdfdf;
     background: #fafafa;
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
     color: transparent;
     user-select: none;
 }
-.table_graph_tab_main.disable .retirement_slider .split_left::before {
+.table_graph_tab_main.disable .retirement_slider .split_left::before, .slider_main.disabled .split_left::before {
     color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_right {
+.table_graph_tab_main.disable .retirement_slider .split_right, .slider_main.disabled .split_right {
     border: 2px solid #dfdfdf;
     background: #fafafa;
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
     color: transparent;
     user-select: none;
 }
-.table_graph_tab_main.disable .retirement_slider .split_right::before {
+.table_graph_tab_main.disable .retirement_slider .split_right::before, .slider_main.disabled .split_right::before {
     color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar {
+.table_graph_tab_main.disable .retirement_slider .split_bar, .slider_main.disabled .split_bar {
     background-color: #dfdfdf;
 }
 .run_btn {

@@ -278,7 +278,7 @@
     </section>
   </div>
 
-  <div class="index-strategy-content-div">
+  <div class="index-strategy-content-div border-0">
     <div class="index-strategy-content-inner-div withBoxShadow">
       <tax-score-card-modal/>
     </div>

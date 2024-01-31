@@ -66,43 +66,40 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">RMD Age <span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                <label for="beginningBalance">RMD Age <span><common-tooltip-svg />
                         <span>What year will RMDs start?</span>
                     </span></label>
-                <div class="index-strategy-each-inputs">
+                <!-- <div class="index-strategy-each-inputs">
                   <integer-input
                     @valueUpdated="v => updateInput('rmd_age', v)"
                     :default="inputs.rmd_age"
                     max="99"
                   />
+                </div> -->
+                <div class="select-menu">
+                  <div class="select-btn">
+                    <span class="sBtn-text"></span>
+                    <i
+                      ><img
+                        src="@/assets/images/icons/select-chevron.svg"
+                        alt="Chevron"
+                    /></i>
+                  </div>
+                  <ul class="options">
+                    <li class="option">
+                      <span class="option-text">72</span>
+                    </li>
+                    <li class="option">
+                      <span class="option-text">73</span>
+                    </li>
+                    <li class="option">
+                      <span class="option-text">75</span>
+                    </li>
+                  </ul>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Plan Through Age <span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                <label for="beginningBalance">Plan Through Age <span><common-tooltip-svg />
                         <span>Through what age should the analysis run?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
@@ -117,19 +114,7 @@
                 <h6 class="form-heading mb-0">Growth & Tax Details</h6>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Rate of Return<span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                <label for="beginningBalance">Rate of Return<span><common-tooltip-svg />
                         <span>This will apply to the IRA or 401K and the reinvested
                             capital</span>
                     </span></label>
@@ -170,19 +155,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="beginningBalance">Switch Year<span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                <label for="beginningBalance">Switch Year<span><common-tooltip-svg />
                         <span>What year should the second tax rate take
                             effect?</span>
                     </span></label>
@@ -224,19 +197,7 @@
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="beginningBalance">Social Security COLA <span
                         class="optional-label">(optional)
-                    </span><span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                    </span><span><common-tooltip-svg />
                         <span>What is the annual Cost of Living Adjustment rate?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
@@ -251,7 +212,7 @@
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
                 <label for="filingStatus">Filing Status</label>
-                <div :class="`select-menu ${filing_status_valid ? '' : 'error'} `">
+                <div id="filingStatus" :class="`select-menu ${filing_status_valid ? '' : 'error'} `">
                   <div class="select-btn">
                     <span class="sBtn-text"></span>
                     <i
@@ -275,19 +236,7 @@
                 <h6 class="form-heading mb-0">Conversion Details</h6>
             </div>            
             <div class="col-md-6 col-lg-3 inp-mar-top pb-2">
-                <label for="beginningBalance">Conversion Period (Years)<span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                <label for="beginningBalance">Conversion Period (Years)<span><common-tooltip-svg />
                         <span>Convert to a tax-free plan over how many years?</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
@@ -300,19 +249,7 @@
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top pb-2">
                 <label for="beginningBalance">Add’l Conversion Tax <span
-                        class="optional-label">(optional)</span> <span><svg
-                            class="label-common-tooltip-svg" width="13" height="13"
-                            viewBox="0 0 13 13" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <g id="Group 1968">
-                                <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5"
-                                    fill="#D0D0D0" />
-                                <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1"
-                                    fill="white" />
-                                <rect id="Rectangle 753" x="5.75" y="5.5"
-                                    width="1.5" height="5" rx="0.75" fill="white" />
-                            </g>
-                        </svg>
+                        class="optional-label">(optional)</span> <span><common-tooltip-svg />
                         <span class="w-250">Additional percentage points of taxation during the conversion period. For example, if you are assuming a 20% tax rate but wish to assume a 22% tax rate during the conversion period, you would enter “2” here.</span>
                     </span></label>
                 <div class="index-strategy-each-inputs">
@@ -338,10 +275,11 @@ import { authHeader } from "../../../services/helper"
 import DollarAmountInput from "./DollarAmountInput.vue"
 import IntegerInput from "./IntegerInput.vue"
 import DecimalInput from "./DecimalInput.vue"
+import CommonTooltipSvg from "../../components/common/CommonTooltipSvg.vue";
 
 export default {
   components: {
-    DollarAmountInput, IntegerInput, DecimalInput
+    DollarAmountInput, IntegerInput, DecimalInput, CommonTooltipSvg
   },
 
   computed: {
@@ -358,7 +296,7 @@ export default {
 
     if (this.inputs.filing_status) {
       let text = this.inputs.filing_status.charAt(0).toUpperCase() + this.inputs.filing_status.slice(1)
-      document.getElementsByClassName("sBtn-text")[0].innerText = text
+      document.getElementById("filingStatus").querySelector(".sBtn-text").innerText = text
     }
 
     // Select Dropdown Start
@@ -382,7 +320,9 @@ export default {
           let selectedOption = option.querySelector(".option-text").innerText;
           option.parentElement.parentElement.querySelector('.select-btn').querySelector('.sBtn-text').innerText = selectedOption;
           option.parentElement.parentElement.classList.remove("active");
-          this.updateInput("filing_status", selectedOption.toLowerCase());
+          if(e.currentTarget.closest(".select-menu").getAttribute("id") == "filingStatus"){
+            this.updateInput("filing_status", selectedOption.toLowerCase());
+          }
         });
       });
     });
@@ -555,6 +495,7 @@ export default {
     resetForm: function() {
       this.$store.dispatch("resetTaxScorecardInputs")
       document.getElementsByClassName("sBtn-text")[0].innerText = ""
+      document.getElementById("filingStatus").querySelector(".sBtn-text").innerText = ""
     },
 
     percentToDecimal(value) {
