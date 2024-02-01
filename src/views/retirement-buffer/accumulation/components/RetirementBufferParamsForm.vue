@@ -43,11 +43,13 @@
               /></i>
             </div>
             <ul class="options">
-              <li v-for="(item, index) in accountTypes" :key="index"
+              <li
+                v-for="(item, index) in accountTypes"
+                :key="index"
                 :class="`option ${accountType === item.name ? 'active' : ''}`"
                 @click="accountType = item.name"
               >
-                <span class="option-text">{{item.name}}</span>
+                <span class="option-text">{{ item.name }}</span>
               </li>
             </ul>
           </div>
@@ -305,7 +307,7 @@ export default {
   components: { SliderWeightRange, CommonTooltipSvg },
   data() {
     return {
-      accountType: "taxable",
+      accountType: "Taxable",
       totalBalance: "",
       annualDistribution: "",
       parRate: "100",
@@ -327,12 +329,9 @@ export default {
       this.updateTextView(maInput);
     });
 
-    let rb_results = localStorage.getItem("rb_result");
-    if (rb_results) {
-      rb_results = JSON.parse(rb_results);
-      this.setFormInputs(rb_results.inputs);
+    if (this.rbaResults && this.rbaResults.inputs) {
+      this.setFormInputs(this.rbaResults.inputs);
     }
-    console.log(rb_results);
   },
   methods: {
     testFunction: function () {
@@ -405,27 +404,23 @@ export default {
     },
     // Set form inputs data
     setFormInputs: function (data) {
-      if (localStorage.getItem("rb_account_type")) {
-        this.accountType = localStorage.getItem("rb_account_type"); // Update account type field value
+      if (localStorage.getItem("rba_account_type")) {
+        this.accountType = localStorage.getItem("rba_account_type"); // Update account type field value
       }
 
-      if (localStorage.getItem("rb_distribution_type")) {
+      if (localStorage.getItem("rba_distribution_type")) {
         this.annualDistributionType = localStorage.getItem(
-          "rb_distribution_type"
+          "rba_distribution_type"
         ); // Update account distribution type value
       }
 
       this.totalBalance = data.account_value.toLocaleString();
       this.$refs.totalBalanceRef.value = this.totalBalance;
 
-      console.log("this.accountType");
-      console.log(this.accountType);
-
       if (
         this.accountType === "Pre-tax" ||
         this.accountType === "pre_tax_simulation"
       ) {
-        console.log(data.annual_after_tax_distribution);
         this.annualDistribution =
           data.annual_after_tax_distribution.toLocaleString();
       } else {
@@ -439,7 +434,6 @@ export default {
           (getNumber(this.annualDistribution) / data.account_value) * 100;
         this.$refs.annualDistributionPercentRef.value = this.annualDistribution;
       }
-      console.log(this.annualDistribution);
 
       this.$refs.taxRateRef.value =
         Number((data.tax_rate * 100).toFixed(2)) || "";
@@ -493,38 +487,72 @@ export default {
       this.$refs.sliderRangeRef.resetSlider();
     },
     submitForm: function () {
-      console.log(this.getFormInputs());
       this.$store.dispatch("loader", true);
-      let endpoint = this.accountTypes.filter((i) => i.name === this.accountType)[0].value;
-      post(
-        `${getUrl("retirement-buffer")}${endpoint}`,
-        this.getFormInputs(),
-        authHeader()
-      )
+      let endpoint = this.accountTypes.filter(
+        (i) => i.name === this.accountType
+      )[0].value;
+      let payload = this.getFormInputs();
+      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
         .then((response) => {
-          this.$store.dispatch("loader", false);
-          localStorage.setItem("rb_account_type", this.accountType); // Save account type field value in local storage
+          localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage
           localStorage.setItem(
-            "rb_distribution_type",
+            "rba_distribution_type",
             this.annualDistributionType
           ); // Save account distribution type value in local storage
-          localStorage.setItem("rb_result", JSON.stringify(response.data)); // Save API result in local storage to display the data on results page
+          this.$store.dispatch(
+            "retirementBufferAccumulationResults",
+            response.data
+          ); // Update results in vuexy store
+          this.getSimulationData(`${endpoint}_simulation`, payload);
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else if (error.code === "ERR_BAD_REQUEST") {
+            if (error.response.data.error) {
+              this.$toast.error(error.response.data.error[0]);
+            } else {
+              let field = Object.entries(error.response.data)[0][0];
+              let message = Object.entries(error.response.data)[0][1][0];
+              this.$toast.error(field + ": " + message);
+            }
+          } else {
+            this.$toast.error(error.message);
+          }
+        });
+    },
+    getSimulationData: function (endpoint, payload) {
+      console.log(payload);
+      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+        .then((response) => {
+          this.$store.dispatch("loader", false);
+          this.$store.dispatch(
+            "retirementBufferAccumulationSimulations",
+            response.data
+          ); // Update results in vuexy store
           this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
-          this.$store.dispatch("loader", false)
-          if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
-            this.$toast.error(error.message)
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
           } else if (error.code === "ERR_BAD_REQUEST") {
             if (error.response.data.error) {
-                this.$toast.error(error.response.data.error[0])
+              this.$toast.error(error.response.data.error[0]);
             } else {
-                let field = Object.entries(error.response.data)[0][0]
-                let message = Object.entries(error.response.data)[0][1][0]
-                this.$toast.error(field + ": " + message)
+              let field = Object.entries(error.response.data)[0][0];
+              let message = Object.entries(error.response.data)[0][1][0];
+              this.$toast.error(field + ": " + message);
             }
           } else {
-            this.$toast.error(error.message)
+            this.$toast.error(error.message);
           }
         });
     },
@@ -546,6 +574,9 @@ export default {
         return true;
       }
       return false;
+    },
+    rbaResults() {
+      return this.$store.state.data.retirement_buffer.auccumulation_results;
     },
   },
   watch: {

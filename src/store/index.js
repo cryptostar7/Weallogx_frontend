@@ -218,6 +218,11 @@ const store = createStore({
                     roth_backend: {}
                 }
             },
+            retirement_buffer: {
+                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || null,
+                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || null,
+                income_rider: null,
+            }
         },
         app: {
             themes: [
@@ -443,6 +448,12 @@ const store = createStore({
         setTaxScorecardFormValidation(state, payload) {
           state.data.tax_scorecard.validation = payload;
         },
+        setRetirementBufferAccumulationResults(state, payload){
+            state.data.retirement_buffer.auccumulation_results = payload;
+        },
+        setRetirementBufferAccumulationSimulations(state, payload){
+            state.data.retirement_buffer.auccumulation_simulations = payload;
+        },
       },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -595,6 +606,14 @@ const store = createStore({
         updateTaxScorecardFormValidation(context, payload) {
           context.commit("setTaxScorecardFormValidation", payload);
         },
+        retirementBufferAccumulationResults(context, payload) {
+            localStorage.setItem("rba_results", JSON.stringify(payload)); 
+            context.commit("setRetirementBufferAccumulationResults", payload);
+        },
+        retirementBufferAccumulationSimulations(context, payload) {
+            localStorage.setItem("rba_simulations", JSON.stringify(payload)); 
+            context.commit("setRetirementBufferAccumulationSimulations", payload);
+        }
     }
 })
 export default store;
