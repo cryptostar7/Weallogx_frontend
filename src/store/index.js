@@ -464,7 +464,7 @@ const store = createStore({
             state.data.tax_scorecard.validation = payload;
         },
         setRetirementBufferDistributionType(state, payload) {
-            state.data.state.data.retirement_buffer.distribution_in = payload;
+            state.data.retirement_buffer.distribution_in = payload;
         },
         setRetirementBufferAccumulationResults(state, payload) {
             let obj = {

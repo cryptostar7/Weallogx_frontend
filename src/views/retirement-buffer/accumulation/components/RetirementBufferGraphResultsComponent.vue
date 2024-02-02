@@ -375,7 +375,7 @@
           Market Account ${{ accountAllocation.market || 0 }}
         </div>
         <div class="common_each_graph_div graph_clr_2 disable">
-          Buffer Account ${{ accountAllocation.buffer || 0}}
+          Buffer Account ${{ accountAllocation.buffer || 0 }}
         </div>
         <div class="common_each_graph_div graph_clr_3 disable">Combined</div>
       </div>
@@ -396,7 +396,7 @@
           graphIndexType === 'Historical Returns' ? '' : 'pe-none'
         }`"
       >
-        <label for="net_distribution">Net Distributions</label>
+        <label for="net_distribution" @click="showDistribution = !showDistribution">Net Distributions</label>
         <div class="table_button button_r">
           <input
             type="checkbox"
@@ -409,6 +409,7 @@
       </div>
     </div>
     <button @click="testFunction">testFunction</button>
+    <button @click="testFunction2">testFunction2</button>
   </div>
 </template>
 <script>
@@ -419,7 +420,7 @@ export default {
   components: { SliderWeightRange, CommonTooltipSvg },
   data() {
     return {
-      showDistribution: true,
+      showDistribution: false,
       graphIndexType: "Historical Average",
       buffeAccountAllocation: 0,
     };
@@ -550,7 +551,7 @@ export default {
         ]
       );
 
-      console.log('graphData');
+      console.log("graphData");
       console.log(graphData);
 
       const comparativeValuesConfig = {
@@ -663,9 +664,9 @@ export default {
         comparativeValuesConfig
       );
     },
-    getDataSet: function() {
+    getDataSet: function () {
       let results = this.results;
-      
+
       let obj = {
         labels: this.years,
         datasets: [
@@ -736,9 +737,12 @@ export default {
         this.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in slider range
       }
     },
-    testFunction: function() {
+    testFunction: function () {
       this.setGraph();
-    }
+    },
+    testFunction2: function () {
+      console.log("line hidden");
+    },
   },
   watch: {
     graphIndexType(e) {
@@ -747,8 +751,31 @@ export default {
       }
     },
     results(e) {
+      this.setGraph();
       this.updateSliderRange();
     },
+    marketAlone(e) {
+      if (e) {
+        window.rbaGraphChart.setDatasetVisibility(0, true);
+        window.rbaGraphChart.setDatasetVisibility(1, false);
+        window.rbaGraphChart.setDatasetVisibility(2, false);
+      } else {
+        window.rbaGraphChart.setDatasetVisibility(0, true);
+        window.rbaGraphChart.setDatasetVisibility(1, true);
+        window.rbaGraphChart.setDatasetVisibility(2, true);
+      }
+      window.rbaGraphChart.update();
+    },
+    showDistribution(){
+      if (e) {
+        window.rbaGraphChart.setDatasetVisibility(3, true);
+        window.rbaGraphChart.setDatasetVisibility(4, true);
+      } else {
+        window.rbaGraphChart.setDatasetVisibility(3, false);
+        window.rbaGraphChart.setDatasetVisibility(4, false);
+      }
+      window.rbaGraphChart.update();
+    }
   },
   computed: {
     indexTypes() {

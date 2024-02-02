@@ -512,6 +512,7 @@ export default {
           this.getSimulationData(`${endpoint}_simulation`, payload, type);
         })
         .catch((error) => {
+          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -545,6 +546,7 @@ export default {
           this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
+          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
