@@ -65,9 +65,15 @@
 <script>
 export default {
   props: ["disabled", "sliderType"],
+  data() {
+    return{
+      totalWidth: 0
+    }
+  },
   mounted() {
     let sliderMain = this.$refs.sliderMainRef;
-    let totalWidth = sliderMain.offsetWidth;
+    this.totalWidth = sliderMain.offsetWidth;
+    let totalWidth = this.totalWidth;    
     let splitBar = this.$refs.splitBarRef;
     let splitLeft = this.$refs.splitLeftRef;
     let splitRight = this.$refs.splitRightRef;
@@ -76,6 +82,7 @@ export default {
     let wid = splitBar.offsetWidth;
     let widHalf = wid / 2;
     splitBar.style.left = totalWidth / 2 - widHalf + "px";
+
 
     window.onresize = () => {
       totalWidth = sliderMain.offsetWidth;
@@ -104,10 +111,14 @@ export default {
     }
 
     let emit = this.$emit;
-
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
+
+      if(totalWidth == 0){
+        totalWidth = sliderMain.offsetWidth;
+        wid = splitBar.offsetWidth;
+      }
 
       // calculate the new cursor position:
       pos1 = pos3 - e.clientX;
@@ -115,6 +126,7 @@ export default {
       pos3 = e.clientX;
       pos4 = e.clientY;
       let actualWidth = totalWidth - wid;
+
 
       // Drag the element only left and right
       splitBar.style.top = "11px"; // fixed value for vertical position
@@ -147,11 +159,21 @@ export default {
 
     function closeDragElement() {
       // stop moving when mouse button is released:
+      console.log("mouse dragged out!")
       document.onmouseup = null;
       document.onmousemove = null;
     }
 
     dragElement(this.$refs.splitBarRef);
+
+
+    var myModalEl = document.getElementById('settings')
+    myModalEl.addEventListener('shown.bs.modal', function (event) {
+      splitBar.style.left =
+          (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 -
+          splitBar.offsetWidth / 2 + "px";
+    });
+
   },
   methods: {
     resetSlider: function () {
@@ -179,9 +201,15 @@ export default {
   },
   watch: {
     "$store.state.data.retirement_buffer.slider_width_update"(e) {
-      if (e) {
-        console.log("slider width change event");
-        console.log(e);
+      if (e) {                
+        setTimeout(() => {
+          if(e != "modal"){
+            this.$refs.splitBarRef.style.left =
+            (this.$refs.sliderMainRef.offsetWidth * Number(this.$refs.leftSpanRef.textContent)) / 100 -
+            this.$refs.splitBarRef.offsetWidth / 2 + "px";
+          }
+        }, 250);       
+        
       }
     },
   },
