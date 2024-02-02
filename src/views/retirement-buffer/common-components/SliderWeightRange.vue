@@ -1,9 +1,9 @@
 <template lang="">
   <div
     ref="sliderMainRef"
-    :class="`slider_main split p-relative ${$props.sliderType === 'result' ? 'retirement_slider' : ''} ${
-      $props.disabled ? 'disabled' : ''
-    } `"
+    :class="`slider_main split p-relative ${
+      $props.sliderType === 'result' ? 'retirement_slider' : ''
+    } ${$props.disabled ? 'disabled' : ''} `"
   >
     <div ref="splitLeftRef" class="split_left">
       <span ref="leftSpanRef" class="left_span">50</span>%
@@ -136,6 +136,7 @@ export default {
 
       emit("changeMarketValue", percentVal); // market value input update
       emit("changeBufferValue", 100 - percentVal); // buffer account value update
+      emit("setBuffer", (100 - percentVal) / 100); // buffer account value update
 
       if (splitBar.offsetLeft > totalWidth - 42) {
         splitBar.style.left = totalWidth - 42 + "px";
@@ -153,7 +154,7 @@ export default {
     dragElement(this.$refs.splitBarRef);
   },
   methods: {
-    resetSlider: function() {
+    resetSlider: function () {
       this.setMarketAccountAllocation(50);
       this.setBufferAccountAllocation(50);
     },

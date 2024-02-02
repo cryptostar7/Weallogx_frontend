@@ -19,8 +19,8 @@
         role="tab"
         aria-controls="v-pills-market"
         aria-selected="true"
-        :class="aloneAccountTable ? 'active' : ''"
-        @click="aloneAccountTable = true"
+        :class="marketAlone ? 'active' : ''"
+        @click="$store.dispatch('retirementBufferMarketAlone', true)"
       >
         Market Account Alone
       </div>
@@ -31,18 +31,18 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="aloneAccountTable ? '' : 'active'"
-        @click="aloneAccountTable = false"
+        :class="marketAlone ? '' : 'active'"
+        @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
       </div>
     </div>
     <div
       :class="`table_graph_tab_main table_tab_main ${
-        aloneAccountTable ? 'disable' : ''
+        marketAlone ? 'disable' : ''
       }`"
     >
-      <slider-weight-range sliderType="result" />
+      <slider-weight-range ref="sliderRangeRef" sliderType="result" @setBuffer="e => buffeAccountAllocation = e" />
       <div class="container-fluid mt-5">
         <div class="row">
           <div class="w-21 px-1 h-100">
@@ -386,7 +386,7 @@
                   <tr v-for="(item, index) in years" :key="index">
                     <td>{{ item }}</td>
                     <td :class="results.returns[index] < 0 ? 'red_text' : ''">
-                      {{ Number((results.returns[index]*100).toFixed(2)) }}%
+                      {{ Number((results.returns[index] * 100).toFixed(2)) }}%
                     </td>
                   </tr>
                 </tbody>
@@ -394,7 +394,9 @@
             </div>
           </div>
           <div class="w-25 px-1 common_each_table_div table_clr_1 h-100">
-            <p class="each_table_heading">Market Account $500,000</p>
+            <p class="each_table_heading">
+              Market Account ${{ accountAllocation.market }}
+            </p>
             <div class="table-wrapper-with-boarder">
               <table
                 :class="`retirement_table_area ${
@@ -426,12 +428,21 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="(item, index) in results.market.net_distribution" :key="index">
-                    <td  :class="item > 0 ? 'green_text' : ''"> 
-                        <p v-if="item">{{$numFormatWithDollar(item)}}</p> 
-                        <p v-else class="visible-hidden m-0">null</p>
+                  <tr
+                    v-for="(item, index) in results.market.net_distribution"
+                    :key="index"
+                  >
+                    <td :class="item > 0 ? 'green_text' : ''">
+                      <p v-if="item">{{ $numFormatWithDollar(item) }}</p>
+                      <p v-else class="visible-hidden m-0">null</p>
                     </td>
-                    <td>{{$numFormatWithDollar(results.market.ending_balance[index])}}</td>
+                    <td>
+                      {{
+                        $numFormatWithDollar(
+                          results.market.ending_balance[index]
+                        )
+                      }}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -442,7 +453,7 @@
           >
             <p class="each_table_heading">
               Buffer Account
-              <span class="buffer_value">$500,000</span>
+              <span class="buffer_value">${{ accountAllocation.buffer }}</span>
             </p>
             <div class="table-wrapper-with-boarder">
               <table
@@ -477,10 +488,33 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr  v-for="(item, index) in results.buffer.buffer_returns" :key="index">
-                    <td :class="!item ? 'zero_text' : ''">{{Number((item*100).toFixed(2))}}%</td>
-                    <td :class="results.buffer.net_distribution[index] ? 'green_text': 'red_text'">{{$numFormatWithDollar(results.buffer.net_distribution[index])}}</td>
-                    <td>{{$numFormatWithDollar(results.buffer.ending_balance[index])}}</td>
+                  <tr
+                    v-for="(item, index) in results.buffer.buffer_returns"
+                    :key="index"
+                  >
+                    <td :class="!item ? 'zero_text' : ''">
+                      {{ Number((item * 100).toFixed(2)) }}%
+                    </td>
+                    <td
+                      :class="
+                        results.buffer.net_distribution[index]
+                          ? 'green_text'
+                          : 'red_text'
+                      "
+                    >
+                      {{
+                        $numFormatWithDollar(
+                          results.buffer.net_distribution[index]
+                        )
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        $numFormatWithDollar(
+                          results.buffer.ending_balance[index]
+                        )
+                      }}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -504,8 +538,11 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="(item, index) in results.combined_ending_balance" :key="index">
-                    <td>{{$numFormatWithDollar(item)}}</td>
+                  <tr
+                    v-for="(item, index) in results.combined_ending_balance"
+                    :key="index"
+                  >
+                    <td>{{ $numFormatWithDollar(item) }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -513,210 +550,76 @@
           </div>
         </div>
       </div>
-      <h2 class="summary_heading">Summary</h2>
-      <div class="container-fluid p-0">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="summary_each_card summary_card_clr_1">
-              <h3 class="summary_each_card_heading">Market Account Alone</h3>
-              <div class="summary_card_inner-div">
-                <div class="each_card_left_part">
-                  <div class="container-fluid p-0">
-                    <div class="row">
-                      <div class="col-md-7 each_card_left_label">
-                        Beginning Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,000,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Ending Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">$0</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Distributions
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Value
-                        <span>
-                          <common-tooltip-svg />
-                          <span class="text-start full-width"
-                            >Ending Balance + Total Distributions = Total
-                            Value</span
-                          ></span
-                        >
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Negative Years
-                      </div>
-                      <div class="col-md-5 each_card_left_value">6</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Average Rate of Return
-                      </div>
-                      <div class="col-md-5 each_card_left_value">5.90%</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="each_card_right_part">
-                  <p class="success_prob_para">
-                    Success Probability
-                    <span>
-                      <common-tooltip-svg />
-                      <span class="text-start"
-                        >This shows the probability of success of the market
-                        account alone after 10,000 simulations of randomized
-                        returns</span
-                      ></span
-                    >
-                  </p>
-                  <div
-                    class="pie progress_pie px-2"
-                    data-pie='{ "speed": 30, "percent": 50, "colorSlice": "#0E6651", "colorCircle": "#6DAC9D", "round": true }'
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 px-2 mt-4 mt-md-0">
-            <div class="summary_each_card summary_card_clr_2 disable">
-              <h3 class="summary_each_card_heading summary_card_clr_2">
-                Market + Buffer Account
-              </h3>
-              <div class="summary_card_inner-div">
-                <div class="each_card_left_part">
-                  <div class="container-fluid p-0">
-                    <div class="row">
-                      <div class="col-md-7 each_card_left_label">
-                        Beginning Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,000,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Ending Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">$0</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Distributions
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Value
-                        <span>
-                          <common-tooltip-svg />
-                          <span class="text-start full-width"
-                            >Ending Balance + Total Distributions = Total
-                            Value</span
-                          ></span
-                        >
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Negative Years
-                      </div>
-                      <div class="col-md-5 each_card_left_value">6</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Average Rate of Return
-                      </div>
-                      <div class="col-md-5 each_card_left_value">5.90%</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="each_card_right_part">
-                  <p class="success_prob_para">
-                    Success Probability
-                    <span
-                      ><common-tooltip-svg /><span class="right-0 text-start"
-                        >This shows the probability of success of the market and
-                        buffer accounts together after 10,000 simulations of
-                        randomized returns</span
-                      ></span
-                    >
-                  </p>
-                  <div
-                    class="pie progress_pie px-2"
-                    data-pie='{ "speed": 30, "percent": 100, "colorSlice": "#1660A4", "colorCircle": "#609BD2", "round": true }'
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <retirement-buffer-disclosure />
     </div>
   </div>
 </template>
 <script>
 import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
-import RetirementBufferDisclosure from "./RetirementBufferDisclosure.vue";
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 
 export default {
   components: {
     SliderWeightRange,
     CommonTooltipSvg,
-    RetirementBufferDisclosure,
   },
   data() {
     return {
-      aloneAccountTable: true,
       showDistribution: true,
       tableIndexType: "Historical Average",
+      buffeAccountAllocation: 0,
     };
+  },
+  mounted() {
+    this.updateSliderRange();
   },
   methods: {
     testFunction: function () {
       console.log(this.results);
       console.log(this.simulations);
     },
+    updateSliderRange: function() {
+      let obj = this.results;
+      if (obj && obj.inputs) {
+        let marketValue = 50;
+        let bufferValue = 50;
+
+        if (!this.marketAlone) {
+          marketValue =
+            100 - Number((obj.inputs.buffer_account_allocation * 100).toFixed(0));
+
+          bufferValue = Number(
+            (obj.inputs.buffer_account_allocation * 100).toFixed(0)
+          );
+        }
+
+        if (obj && obj.inputs) {
+          this.buffeAccountAllocation = obj.inputs.buffer_account_allocation;
+        }
+
+        this.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in slider range
+        this.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in slider range
+      }
+    }
   },
   watch: {
     tableIndexType(e) {
       if (e !== "Historical Returns") {
-        this.aloneAccountTable = true;
+        this.$store.dispatch("retirementBufferMarketAlone", true);
       }
+    },
+    results() {
+      this.updateSliderRange();
     },
   },
   computed: {
+    marketAlone() {
+      return this.$store.state.data.retirement_buffer.market_alone;
+    },
     indexTypes() {
       return ["Historical Average", "Historical Returns"];
     },
     results() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results || null;
-    },
-    simulations() {
-      return this.$store.state.data.retirement_buffer.auccumulation_simulations || null;
+      return this.$store.getters.getRetirementBufferResults();
     },
     years() {
       let array = [];
@@ -730,6 +633,31 @@ export default {
         }
       }
       return array;
+    },
+    accountAllocation() {
+      let account_value = this.results.inputs
+        ? this.results.inputs.account_value
+        : 0;
+      let buffer_account_allocation = this.buffeAccountAllocation;
+
+      let marketValue =
+        100 - Number((buffer_account_allocation * 100).toFixed(0));
+
+      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
+
+      // Market Account Value
+      let mav =
+        Number(
+          ((account_value / 100) * marketValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      // Buffer Account Value
+      let bav =
+        Number(
+          ((account_value / 100) * bufferValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      return { market: mav, buffer: bav };
     },
   },
 };

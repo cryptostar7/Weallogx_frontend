@@ -211,7 +211,7 @@ const store = createStore({
             active_simulation: false,
             templates: [],
             tax_scorecard: {
-                validation: {form_valid: false, swith_year_valid: true, social_security_age_valid: true, filing_status_valid: true},
+                validation: { form_valid: false, swith_year_valid: true, social_security_age_valid: true, filing_status_valid: true },
                 inputs: JSON.parse(localStorage.getItem("tax_scorecard_inputs")) || {},
                 results: JSON.parse(localStorage.getItem("tax_scorecard_results")) || {
                     ira_backend: {},
@@ -219,8 +219,10 @@ const store = createStore({
                 }
             },
             retirement_buffer: {
-                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || null,
-                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || null,
+                market_alone: true,
+                distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
+                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { market_alone: null, market_buffer: null },
+                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null },
                 income_rider: null,
             }
         },
@@ -238,7 +240,7 @@ const store = createStore({
             loader: false,
             loader_count: 0,
             current_theme: localStorage.getItem("mode") || 'light-green',
-            current_sidebar_tab: 'comparative', 
+            current_sidebar_tab: 'comparative',
         },
         errors: [],
         forms: [],
@@ -276,7 +278,13 @@ const store = createStore({
                 });
             }
             return client.length ? client[0] : false;
-        }
+        },
+        getRetirementBufferResults: (state) => () => {
+            return state.data.retirement_buffer.market_alone ? state.data.retirement_buffer.auccumulation_results.market_alone : state.data.retirement_buffer.auccumulation_results.market_buffer;
+        },
+        getRetirementBufferSimulations: (state) => () => {
+            return state.data.retirement_buffer.market_alone ? state.data.retirement_buffer.auccumulation_simulations.market_alone : state.data.retirement_buffer.auccumulation_simulations.market_buffer;
+        },
     },
     mutations: {
         setActiveReportTab(state, payload) {
@@ -309,17 +317,21 @@ const store = createStore({
             if (state.app.full_screen) {
                 if (elem.requestFullscreen) {
                     elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) { / Safari /
+                } else if (elem.webkitRequestFullscreen) {
+                    / Safari /
                     elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { / IE11 /
+                } else if (elem.msRequestFullscreen) {
+                    / IE11 /
                     elem.msRequestFullscreen();
                 }
             } else {
                 if (document || document.fullscreenElement || document.documentElement) {
                     document.exitFullscreen();
-                } else if (document.webkitExitFullscreen || document.fullscreenElement || document.documentElement) { / Safari /
+                } else if (document.webkitExitFullscreen || document.fullscreenElement || document.documentElement) {
+                    / Safari /
                     document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen || document.fullscreenElement || document.documentElement) { / IE11 /
+                } else if (document.msExitFullscreen || document.fullscreenElement || document.documentElement) {
+                    / IE11 /
                     document.msExitFullscreen();
                 }
             }
@@ -340,7 +352,8 @@ const store = createStore({
             state.data.user = profile;
         },
         setLoader(state, payload) {
-            if (!window.location.pathname.includes('/report')) {
+            let path = window.location.pathname;
+            if (!path.includes('/report') && !path.includes('/retirement-buffer')) {
                 state.app.loader = payload;
             } else {
                 let count = state.app.loader_count;
@@ -359,6 +372,8 @@ const store = createStore({
                 } else {
                     state.app.loader = true;
                 }
+
+                console.log(state.app.loader, count)
             }
         },
         setUserTempForm(state, payload) {
@@ -443,18 +458,41 @@ const store = createStore({
             state.data.tax_scorecard.inputs = payload;
         },
         setTaxScorecardResults(state, payload) {
-          state.data.tax_scorecard.results = payload;
+            state.data.tax_scorecard.results = payload;
         },
         setTaxScorecardFormValidation(state, payload) {
-          state.data.tax_scorecard.validation = payload;
+            state.data.tax_scorecard.validation = payload;
         },
-        setRetirementBufferAccumulationResults(state, payload){
-            state.data.retirement_buffer.auccumulation_results = payload;
+        setRetirementBufferDistributionType(state, payload) {
+            state.data.state.data.retirement_buffer.distribution_in = payload;
         },
-        setRetirementBufferAccumulationSimulations(state, payload){
-            state.data.retirement_buffer.auccumulation_simulations = payload;
+        setRetirementBufferAccumulationResults(state, payload) {
+            let obj = {
+                market_alone: state.data.retirement_buffer.auccumulation_results.market_alone,
+                market_buffer: state.data.retirement_buffer.auccumulation_results.market_buffer,
+            };
+
+            obj[payload.type] = payload.data;
+
+            localStorage.setItem("rba_results", JSON.stringify(obj));
+            state.data.retirement_buffer.auccumulation_results = obj;
         },
-      },
+        setRetirementBufferAccumulationSimulations(state, payload) {
+            let obj = {
+                market_alone: state.data.retirement_buffer.auccumulation_simulations.market_alone,
+                market_buffer: state.data.retirement_buffer.auccumulation_simulations.market_buffer,
+            };
+
+            obj[payload.type] = payload.data;
+
+            localStorage.setItem("rba_simulations", JSON.stringify(obj));
+            state.data.retirement_buffer.auccumulation_simulations = obj;
+        },
+        setRetirementBufferMarketAlone(state, payload) {
+            state.data.retirement_buffer.market_alone = payload;
+        },
+
+    },
     actions: {
         toggleReportTabByID(context, payload) {
             context.commit("setActiveReportTab", payload);
@@ -588,15 +626,15 @@ const store = createStore({
             context.commit('setShareSimulationReportData', payload);
         },
         updateTaxScorecardInputs(context, payload) {
-          let inputs = {...payload}
-          localStorage.setItem("tax_scorecard_inputs", JSON.stringify(inputs))
-          context.commit("setTaxScorecardInputs", inputs);
+            let inputs = { ...payload }
+            localStorage.setItem("tax_scorecard_inputs", JSON.stringify(inputs))
+            context.commit("setTaxScorecardInputs", inputs);
         },
         resetTaxScorecardInputs(context) {
             localStorage.setItem("tax_scorecard_inputs", JSON.stringify({}))
             context.commit("setTaxScorecardInputs", {});
             context.commit("setTaxScorecardFormValidation", {
-              "form_valid": false, "social_security_age_valid": true, "switch_year_valid": true, "filing_status_valid": true
+                "form_valid": false, "social_security_age_valid": true, "switch_year_valid": true, "filing_status_valid": true
             });
         },
         updateTaxScorecardResults(context, payload) {
@@ -604,15 +642,20 @@ const store = createStore({
             context.commit("setTaxScorecardResults", payload);
         },
         updateTaxScorecardFormValidation(context, payload) {
-          context.commit("setTaxScorecardFormValidation", payload);
+            context.commit("setTaxScorecardFormValidation", payload);
+        },
+        retirementBufferDistributionType(context, payload) {
+            localStorage.setItem("rba_distribution_type", payload);
+            context.commit("setRetirementBufferDistributionType", payload);
         },
         retirementBufferAccumulationResults(context, payload) {
-            localStorage.setItem("rba_results", JSON.stringify(payload)); 
             context.commit("setRetirementBufferAccumulationResults", payload);
         },
         retirementBufferAccumulationSimulations(context, payload) {
-            localStorage.setItem("rba_simulations", JSON.stringify(payload)); 
             context.commit("setRetirementBufferAccumulationSimulations", payload);
+        },
+        retirementBufferMarketAlone(context, payload) {
+            context.commit("setRetirementBufferMarketAlone", payload);
         }
     }
 })

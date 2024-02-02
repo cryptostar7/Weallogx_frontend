@@ -5,7 +5,7 @@
       <img src="@/assets/images/icons/analytics.svg" alt="Analytics" />
     </div>
     <div class="accumulation_strategy_inner_box">
-      <p class="form_section_para" @click="testFunction()">Account Details</p>
+      <p class="form_section_para" @click="testFunction">Account Details</p>
       <div class="form_section_input_row">
         <div class="form_section_each_inputs width25">
           <div class="form_section_label_div">
@@ -335,10 +335,7 @@ export default {
   },
   methods: {
     testFunction: function () {
-      console.log(this.annualDistributionType);
-      console.log(this.accountType);
-      console.log(this.$refs.annualDistributionDollarRef.value);
-      console.log(this.$refs.annualDistributionPercentRef.value);
+      console.log(this.rbaResults);
     },
     // Update the market account input value
     changeMarketValue: function (e) {
@@ -487,23 +484,32 @@ export default {
       this.$refs.sliderRangeRef.resetSlider();
     },
     submitForm: function () {
+      this.getAccumulationResults("market_alone"); // Get market alone results from API
+      this.getAccumulationResults("market_buffer"); // Get market+buffer results from API
+    },
+    getAccumulationResults: function (type) {
       this.$store.dispatch("loader", true);
+
       let endpoint = this.accountTypes.filter(
         (i) => i.name === this.accountType
       )[0].value;
+
       let payload = this.getFormInputs();
+
+      if (type === "market_alone") {
+        payload.buffer_account_allocation = 0;
+      }
+
       post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
         .then((response) => {
-          localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage
-          localStorage.setItem(
-            "rba_distribution_type",
-            this.annualDistributionType
-          ); // Save account distribution type value in local storage
-          this.$store.dispatch(
-            "retirementBufferAccumulationResults",
-            response.data
-          ); // Update results in vuexy store
-          this.getSimulationData(`${endpoint}_simulation`, payload);
+         this.$store.dispatch("loader", false);
+          localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage         
+          this.$store.dispatch("retirementBufferDistributionType", this.annualDistributionType);
+          this.$store.dispatch("retirementBufferAccumulationResults", {
+            type: type,
+            data: response.data,
+          }); // Update results in vuexy store
+          this.getSimulationData(`${endpoint}_simulation`, payload, type);
         })
         .catch((error) => {
           this.$store.dispatch("loader", false);
@@ -525,15 +531,17 @@ export default {
           }
         });
     },
-    getSimulationData: function (endpoint, payload) {
-      console.log(payload);
+    getSimulationData: function (endpoint, payload, type) {
+      this.$store.dispatch("loader", true);
       post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false);
-          this.$store.dispatch(
-            "retirementBufferAccumulationSimulations",
-            response.data
-          ); // Update results in vuexy store
+
+          this.$store.dispatch("retirementBufferAccumulationSimulations", {
+            type: type,
+            data: response.data,
+          }); // Update results in vuexy store
+
           this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
@@ -576,7 +584,7 @@ export default {
       return false;
     },
     rbaResults() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results;
+      return this.$store.state.data.retirement_buffer.auccumulation_results.market_buffer;
     },
   },
   watch: {

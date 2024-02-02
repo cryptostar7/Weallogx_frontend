@@ -4,7 +4,7 @@
       <div class="right-area-wrapper">
         <section class="retirement_buffer_section">
           <div class="retirement_buffer_section_head_div">
-            <h1 @click="testFunction">Retirement Buffer</h1>
+            <h1>Retirement Buffer</h1>
             <router-link
               to="/retirement-buffer/accumulation/params"
               class="head_back_btn"
@@ -130,6 +130,10 @@
             <retirement-buffer-table-results-component />
             <!-- Graph Results -->
             <retirement-buffer-graph-results-component />
+            <!-- Summary Results -->
+            <retirement-buffer-summary-result />
+            <!-- Disclosure Section -->
+            <retirement-buffer-disclosure />
           </div>
         </section>
       </div>
@@ -174,27 +178,17 @@ import RetirementBufferDisclosure from "./RetirementBufferDisclosure.vue";
 import RetirementBufferAccumulationFormModal from "./RetirementBufferAccumulationFormModal.vue";
 import RetirementBufferTableResultsComponent from "./RetirementBufferTableResultsComponent.vue";
 import RetirementBufferGraphResultsComponent from "./RetirementBufferGraphResultsComponent.vue";
-import CircularProgressBar from "../../../../assets/js/retirement-buffer/circularProgressBar.min.js";
+import RetirementBufferSummaryResult from "./RetirementBufferSummaryResult.vue";
 
 export default {
   components: {
     RetirementBufferAccumulationFormModal,
     RetirementBufferTableResultsComponent,
     RetirementBufferGraphResultsComponent,
+    RetirementBufferSummaryResult,
     RetirementBufferDisclosure,
   },
-  data() {
-    return {
-      aloneAccountTable: true,
-      showDistribution: true,
-      aloneAccountGraph: true,
-      pieValue: "45",
-      tableIndexType: "Historical Average",
-      graphIndexType: "Historical Average",
-    };
-  },
   mounted() {
-    this.generatePieChart();
     // Add Comma after 3 digit
     function updateTextView(_obj) {
       var num = getNumber(_obj.value);
@@ -291,66 +285,7 @@ export default {
         }
       });
     });
-  },
-  methods: {
-    testFunction: function () {
-      this.pieValue = "60";
-      // this.generatePieChart();
-    },
-    generatePieChart: function () {
-      // Summary card pie start
-      // update circle when range change
-      const pie = document.querySelectorAll(".pie");
-      // start the animation when the element is in the page view
-      const elements = [].slice.call(document.querySelectorAll(".pie"));
-      const circle = new CircularProgressBar("pie");
-      // circle.initial();
-      if ("IntersectionObserver" in window) {
-        const config = {
-          root: null,
-          rootMargin: "0px",
-          threshold: 0.75,
-        };
-        const ovserver = new IntersectionObserver((entries, observer) => {
-          entries.map((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.75) {
-              circle.initial(entry.target);
-              observer.unobserve(entry.target);
-            }
-          });
-        }, config);
-
-        elements.map((item) => {
-          ovserver.observe(item);
-        });
-      } else {
-        elements.map((element) => {
-          circle.initial(element);
-        });
-      }
-    },
-
-  },
-  computed: {
-    indexTypes() {
-      return ["Historical Average", "Historical Returns"];
-    },
-    rbaResults() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results;
-    },
-  },
-  watch: {
-    tableIndexType(e) {
-      if (e !== "Historical Returns") {
-        this.aloneAccountTable = true;
-      }
-    },
-    graphIndexType(e) {
-      if (e !== "Historical Returns") {
-        this.aloneAccountGraph = true;
-      }
-    },
-  },
+  }
 };
 </script>
 <style lang=""></style>

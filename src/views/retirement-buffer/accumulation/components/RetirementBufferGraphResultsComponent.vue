@@ -13,14 +13,14 @@
       aria-orientation="vertical"
     >
       <div
-        :class="aloneAccountGraph ? 'active' : ''"
+        :class="marketAlone ? 'active' : ''"
         data-bs-toggle="pill"
         data-bs-target="#v-pills-market"
         type="button"
         role="tab"
         aria-controls="v-pills-market"
         aria-selected="true"
-        @click="aloneAccountGraph = true"
+        @click="$store.dispatch('retirementBufferMarketAlone', true)"
       >
         Market Account Alone
       </div>
@@ -31,19 +31,23 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="aloneAccountGraph ? '' : 'active'"
-        @click="aloneAccountGraph = false"
+        :class="marketAlone ? '' : 'active'"
+        @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
       </div>
     </div>
     <div
       :class="`table_graph_tab_main graph_tab_main ${
-        aloneAccountGraph ? 'disable' : ''
+        marketAlone ? 'disable' : ''
       }`"
       id="retirementBufferGraphFluid"
     >
-      <slider-weight-range sliderType="result" />
+      <slider-weight-range
+        ref="sliderRangeRef"
+        sliderType="result"
+        @setBuffer="(e) => (buffeAccountAllocation = e)"
+      />
       <div
         :class="`filter_buttons graph_filter_btns ${
           graphIndexType !== 'Historical Returns' ? 'disable' : ''
@@ -368,10 +372,10 @@
           </div>
         </div>
         <div class="common_each_graph_div graph_clr_1">
-          Market Account $1,000,000
+          Market Account ${{ accountAllocation.market || 0 }}
         </div>
         <div class="common_each_graph_div graph_clr_2 disable">
-          Buffer Account $600,000
+          Buffer Account ${{ accountAllocation.buffer || 0}}
         </div>
         <div class="common_each_graph_div graph_clr_3 disable">Combined</div>
       </div>
@@ -403,380 +407,155 @@
           <div class="button_layer"></div>
         </div>
       </div>
-      <h2 class="summary_heading">Summary</h2>
-      <div class="container-fluid p-0">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="summary_each_card summary_card_clr_1">
-              <h3 class="summary_each_card_heading">Market Account Alone</h3>
-              <div class="summary_card_inner-div">
-                <div class="each_card_left_part">
-                  <div class="container-fluid p-0">
-                    <div class="row">
-                      <div class="col-md-7 each_card_left_label">
-                        Beginning Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,000,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Ending Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">$0</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Distributions
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Value
-                        <span>
-                          <common-tooltip-svg />
-                          <span class="text-start full-width"
-                            >Ending Balance + Total Distributions = Total
-                            Value</span
-                          ></span
-                        >
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Negative Years
-                      </div>
-                      <div class="col-md-5 each_card_left_value">6</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Average Rate of Return
-                      </div>
-                      <div class="col-md-5 each_card_left_value">5.90%</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="each_card_right_part">
-                  <p class="success_prob_para">
-                    Success Probability
-                    <span>
-                      <common-tooltip-svg />
-                      <span class="text-start"
-                        >This shows the probability of success of the market
-                        account alone after 10,000 simulations of randomized
-                        returns</span
-                      ></span
-                    >
-                  </p>
-                  <div
-                    class="pie progress_pie px-2"
-                    data-pie='{ "speed": 30, "percent": 47, "colorSlice": "#0E6651", "colorCircle": "#6DAC9D", "round": true }'
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 px-2 mt-4 mt-md-0">
-            <div class="summary_each_card summary_card_clr_2 disable">
-              <h3 class="summary_each_card_heading summary_card_clr_2">
-                Market + Buffer Account
-              </h3>
-              <div class="summary_card_inner-div">
-                <div class="each_card_left_part">
-                  <div class="container-fluid p-0">
-                    <div class="row">
-                      <div class="col-md-7 each_card_left_label">
-                        Beginning Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,000,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Ending Balance
-                      </div>
-                      <div class="col-md-5 each_card_left_value">$0</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Distributions
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Total Value
-                        <span>
-                          <common-tooltip-svg />
-                          <span class="text-start full-width"
-                            >Ending Balance + Total Distributions = Total
-                            Value</span
-                          ></span
-                        >
-                      </div>
-                      <div class="col-md-5 each_card_left_value">
-                        $1,850,000
-                      </div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Negative Years
-                      </div>
-                      <div class="col-md-5 each_card_left_value">6</div>
-                    </div>
-                    <div class="row mt-3">
-                      <div class="col-md-7 each_card_left_label">
-                        Average Rate of Return
-                      </div>
-                      <div class="col-md-5 each_card_left_value">5.90%</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="each_card_right_part">
-                  <p class="success_prob_para">
-                    Success Probability
-                    <span>
-                      <common-tooltip-svg />
-                      <span class="right-0 text-start"
-                        >This shows the probability of success of the market and
-                        buffer accounts together after 10,000 simulations of
-                        randomized returns</span
-                      ></span
-                    >
-                  </p>
-                  <div
-                    class="pie progress_pie px-2"
-                    data-pie='{ "speed": 30, "percent": 100, "colorSlice": "#1660A4", "colorCircle": "#609BD2", "round": true }'
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <retirement-buffer-disclosure />
     </div>
+    <button @click="testFunction">testFunction</button>
   </div>
 </template>
 <script>
 import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
-import RetirementBufferDisclosure from "./RetirementBufferDisclosure.vue";
 
 export default {
-  components: { SliderWeightRange, CommonTooltipSvg, RetirementBufferDisclosure },
+  components: { SliderWeightRange, CommonTooltipSvg },
   data() {
     return {
-      aloneAccountGraph: true,
+      showDistribution: true,
       graphIndexType: "Historical Average",
+      buffeAccountAllocation: 0,
     };
   },
   mounted() {
-    this.generateGraph();
+    this.setGraph();
+    this.updateSliderRange();
   },
   methods: {
-    generateGraph: function () {
+    setGraph: function () {
       // On change graph selectbox value
-      var graphSelectBox = document
-        .querySelector(".graph_select_menu")
-        .querySelectorAll(".option");
-      graphSelectBox.forEach(function (eachGraphSelectBox) {
-        eachGraphSelectBox.addEventListener("click", function () {
-          var graphAttrGeted = event.target.getAttribute("graphBoxAttr");
-          if (graphAttrGeted == 2) {
-            const { type } = retirementBufferGraph.config;
-            // document
-            //   .querySelector(".graph_filter_btns")
-            //   .classList.remove("disable");
-            // document
-            //   .querySelector(".graph_top_tab")
-            //   .classList.remove("pe-none");
-            // document
-            //   .querySelector(".graph_net_distribution")
-            //   .classList.remove("pe-none");
-            yearDataValue = [
-              500000, 619164, 781522, 891928, 996507, 1038305, 1189165, 1242807,
-              1213081, 1143405, 1128868, 107391, 120777, 140010, 164920,
-              1944949, 1157020, 1174612, 1237733, 1305387, 2341946, 2566027,
-              2900000,
-            ];
-            retirementBufferGraph.data.datasets[0].data = yearDataValue;
-            yearValueLabels = [
-              2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-              2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,
-              2022,
-            ];
-            retirementBufferGraph.data.labels = yearValueLabels;
-          } else {
-            for (var i = 1; i <= 3; i++) {
-              retirementBufferGraph.setDatasetVisibility(i, false);
-            }
-            // document
-            //   .querySelector(".graph_filter_btns")
-            //   .classList.add("disable");
-            // document.querySelector(".graph_top_tab").classList.add("pe-none");
-            // document
-            //   .querySelector(".graph_top_tab")
-            //   .lastElementChild.classList.remove("active");
-            // document
-            //   .querySelector(".graph_top_tab")
-            //   .firstElementChild.classList.add("active");
-            // document
-            //   .querySelector(".graph_net_distribution")
-            //   .classList.add("pe-none");
-            // document.querySelector(
-            //   ".graph_net_distribution input"
-            // ).checked = false;
-            // document
-            //   .querySelector(".graph_net_distribution")
-            //   .classList.add("disable");
-            // document.querySelector(".graph_tab_main").classList.add("disable");
-            let numberDataValue = [
-              130434, 260868, 391302, 521736, 652170, 782604, 913038, 1043472,
-              1173906, 1304340, 1434774, 1565208, 1695642, 1826076, 1956510,
-              2086944, 2217378, 2347812, 2478246, 2608680, 2739114, 2869548,
-              2999982,
-            ];
-            retirementBufferGraph.data.datasets[0].data = numberDataValue;
-            let numericValueLabes = [
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20, 21, 22, 23,
-            ];
-            retirementBufferGraph.data.labels = numericValueLabes;
-          }
-          retirementBufferGraph.update();
-        });
-      });
+      // var graphSelectBox = document
+      //   .querySelector(".graph_select_menu")
+      //   .querySelectorAll(".option");
+      // graphSelectBox.forEach(function (eachGraphSelectBox) {
+      //   eachGraphSelectBox.addEventListener("click", function () {
+      //     var graphAttrGeted = event.target.getAttribute("graphBoxAttr");
+      //     if (graphAttrGeted == 2) {
+      //       const { type } = retirementBufferGraph.config;
+      //       yearDataValue = [
+      //         500000, 619164, 781522, 891928, 996507, 1038305, 1189165, 1242807,
+      //         1213081, 1143405, 1128868, 107391, 120777, 140010, 164920,
+      //         1944949, 1157020, 1174612, 1237733, 1305387, 2341946, 2566027,
+      //         2900000,
+      //       ];
+      //       retirementBufferGraph.data.datasets[0].data = yearDataValue;
+      //       yearValueLabels = [
+      //         2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+      //         2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,
+      //         2022,
+      //       ];
+      //       retirementBufferGraph.data.labels = yearValueLabels;
+      //     } else {
+      //       for (var i = 1; i <= 3; i++) {
+      //         retirementBufferGraph.setDatasetVisibility(i, false);
+      //       }
 
-      // On click top market and buffer tab
-      var marketBufferTab = document.querySelectorAll(".graph_top_tab div");
-      marketBufferTab.forEach(function (eachMarketBufferTab) {
-        eachMarketBufferTab.addEventListener("click", function () {
-          var marketBufferAttr = event.target.getAttribute("aria-controls");
-          if (marketBufferAttr == "v-pills-buffer") {
-            document
-              .querySelector(".graph_tab_main")
-              .classList.remove("disable");
-            for (var i = 1; i <= 2; i++) {
-              retirementBufferGraph.setDatasetVisibility(i, true);
-            }
-            document
-              .querySelector(".graph_tab_main")
-              .classList.remove("disable");
-          } else {
-            document.querySelector(".graph_tab_main").classList.add("disable");
-            for (var i = 1; i <= 2; i++) {
-              retirementBufferGraph.setDatasetVisibility(i, false);
-            }
-            document.querySelector(".graph_tab_main").classList.add("disable");
-          }
-          retirementBufferGraph.update();
-        });
-      });
+      //       let numberDataValue = [
+      //         130434, 260868, 391302, 521736, 652170, 782604, 913038, 1043472,
+      //         1173906, 1304340, 1434774, 1565208, 1695642, 1826076, 1956510,
+      //         2086944, 2217378, 2347812, 2478246, 2608680, 2739114, 2869548,
+      //         2999982,
+      //       ];
+      //       retirementBufferGraph.data.datasets[0].data = numberDataValue;
+      //       let numericValueLabes = [
+      //         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+      //         20, 21, 22, 23,
+      //       ];
+      //       retirementBufferGraph.data.labels = numericValueLabes;
+      //     }
+      //     retirementBufferGraph.update();
+      //   });
+      // });
 
-      // On change net distribution checkbox
-      var netDistribution = document.querySelector(
-        ".graph_net_distribution .button_checkbox"
+      // // On click top market and buffer tab
+      // var marketBufferTab = document.querySelectorAll(".graph_top_tab div");
+      // marketBufferTab.forEach(function (eachMarketBufferTab) {
+      //   eachMarketBufferTab.addEventListener("click", function () {
+      //     var marketBufferAttr = event.target.getAttribute("aria-controls");
+      //     if (marketBufferAttr == "v-pills-buffer") {
+      //       document
+      //         .querySelector(".graph_tab_main")
+      //         .classList.remove("disable");
+      //       for (var i = 1; i <= 2; i++) {
+      //         retirementBufferGraph.setDatasetVisibility(i, true);
+      //       }
+      //       document
+      //         .querySelector(".graph_tab_main")
+      //         .classList.remove("disable");
+      //     } else {
+      //       document.querySelector(".graph_tab_main").classList.add("disable");
+      //       for (var i = 1; i <= 2; i++) {
+      //         retirementBufferGraph.setDatasetVisibility(i, false);
+      //       }
+      //       document.querySelector(".graph_tab_main").classList.add("disable");
+      //     }
+      //     retirementBufferGraph.update();
+      //   });
+      // });
+
+      // // On change net distribution checkbox
+      // var netDistribution = document.querySelector(
+      //   ".graph_net_distribution .button_checkbox"
+      // );
+      // netDistribution.addEventListener("change", function () {
+      //   if (this.checked == true) {
+      //     this.closest(".graph_net_distribution").classList.remove("disable");
+      //     retirementBufferGraph.setDatasetVisibility(3, true);
+      //   } else {
+      //     this.closest(".graph_net_distribution").classList.add("disable");
+      //     retirementBufferGraph.setDatasetVisibility(3, false);
+      //   }
+      //   retirementBufferGraph.update();
+      // });
+
+      // const getOrCreateLegendList = (chart, id) => {
+      //   const legendContainer = document.getElementById(id);
+      //   return legendContainer;
+      // };
+
+      // // Comparative Values starts
+      // window.addEventListener("DOMContentLoaded", () => {
+      //   const { type } = retirementBufferGraph.config;
+      //   if (type === "pie" || type === "doughnut") {
+      //     // Pie and doughnut charts only have a single dataset and visibility is per item
+      //     retirementBufferGraph.toggleDataVisibility(0);
+      //   } else {
+      //     for (var i = 1; i <= 3; i++) {
+      //       retirementBufferGraph.setDatasetVisibility(i, false);
+      //     }
+      //   }
+      //   retirementBufferGraph.update();
+      // });
+
+      let graphData = this.getDataSet();
+      let maxAcc1 = Math.max(
+        ...[
+          Math.max(...(graphData.datasets[0].data || [])),
+          Math.max(...(graphData.datasets[1].data || [])),
+          Math.max(...(graphData.datasets[2].data || [])),
+        ]
       );
-      netDistribution.addEventListener("change", function () {
-        if (this.checked == true) {
-          this.closest(".graph_net_distribution").classList.remove("disable");
-          retirementBufferGraph.setDatasetVisibility(3, true);
-        } else {
-          this.closest(".graph_net_distribution").classList.add("disable");
-          retirementBufferGraph.setDatasetVisibility(3, false);
-        }
-        retirementBufferGraph.update();
-      });
 
-      const getOrCreateLegendList = (chart, id) => {
-        const legendContainer = document.getElementById(id);
-        return legendContainer;
-      };
+      let maxAcc2 = Math.max(
+        ...[
+          Math.max(...(graphData.datasets[3].data || [])),
+          Math.max(...(graphData.datasets[4].data || [])),
+        ]
+      );
 
-      // Comparative Values starts
-      window.addEventListener("DOMContentLoaded", () => {
-        const { type } = retirementBufferGraph.config;
-        if (type === "pie" || type === "doughnut") {
-          // Pie and doughnut charts only have a single dataset and visibility is per item
-          retirementBufferGraph.toggleDataVisibility(0);
-        } else {
-          for (var i = 1; i <= 3; i++) {
-            retirementBufferGraph.setDatasetVisibility(i, false);
-          }
-        }
-        retirementBufferGraph.update();
-      });
-
-      var retirementLabels = [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23,
-      ];
-
-      const comparativeValuesData = {
-        labels: retirementLabels,
-        datasets: [
-          {
-            borderColor: "#0E6651",
-            borderWidth: 4,
-            radius: 0,
-            data: [
-              130434, 260868, 391302, 521736, 652170, 782604, 913038, 1043472,
-              1173906, 1304340, 1434774, 1565208, 1695642, 1826076, 1956510,
-              2086944, 2217378, 2347812, 2478246, 2608680, 2739114, 2869548,
-              2999982,
-            ],
-          },
-          {
-            borderColor: "#1660A4",
-            borderWidth: 4,
-            radius: 0,
-            data: [
-              370254, 601202, 870922, 937490, 991710, 984926, 984460, 986588,
-              1005214, 770046, 953536, 961792, 930595, 764897, 718008, 811000,
-              763326, 729038, 743428, 753705, 899774, 767634, 988049,
-            ],
-          },
-          {
-            borderColor: "#9D2B2B",
-            borderWidth: 4,
-            radius: 0,
-            data: [
-              368245, 439356, 532819, 572334, 597896, 586399, 578972, 573108,
-              577308, 470345, 537312, 530656, 509740, 421888, 388216, 429268,
-              395922, 370050, 368806, 365291, 421188, 355873, 444464,
-            ],
-          },
-          {
-            // borderColor: '#0E6651',
-            yAxisID: "B",
-            backgroundColor: "rgba(20, 125, 100, 0.60)",
-            // borderWidth: 4,
-            borderColor: "rgba(14, 102, 81, 0.60)",
-            radius: 0,
-            data: [1000000, 1000000, 1000000, 1000000, 1000000, 1000000],
-            type: "bar",
-            borderRadius: 2,
-            barThickness: 13,
-            // borderSkipped: false,
-          },
-        ],
-      };
-      // console.log(comparativeValuesData);
+      console.log('graphData');
+      console.log(graphData);
 
       const comparativeValuesConfig = {
         type: "line",
-        data: comparativeValuesData,
+        data: graphData,
         options: {
           interaction: {
             intersect: false,
@@ -816,7 +595,9 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: 3000000,
+              // max: 3000000,
+              max: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
+
               // stacked: true,
               ticks: {
                 maxTicksLimit: 7,
@@ -848,7 +629,9 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: 3000000,
+              // max: 3000000,
+              max: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
+
               ticks: {
                 maxTicksLimit: 7,
                 padding: 8,
@@ -869,25 +652,151 @@ export default {
           },
         },
       };
-      const retirementBufferGraph = new Chart(
+
+      if (window.rbaGraphChart) {
+        // clear the old initialized graph
+        window.rbaGraphChart.destroy();
+      }
+
+      window.rbaGraphChart = new Chart(
         document.getElementById("retirementBufferGraph"),
         comparativeValuesConfig
       );
     },
+    getDataSet: function() {
+      let results = this.results;
+      
+      let obj = {
+        labels: this.years,
+        datasets: [
+          {
+            borderColor: "#0E6651",
+            borderWidth: 4,
+            radius: 0,
+            data: results.market.ending_balance,
+          },
+          {
+            borderColor: "#1660A4",
+            borderWidth: 4,
+            radius: 0,
+            data: results.buffer.ending_balance,
+          },
+          {
+            borderColor: "#9D2B2B",
+            borderWidth: 4,
+            radius: 0,
+            data: results.combined_ending_balance,
+          },
+          {
+            yAxisID: "B",
+            backgroundColor: "rgba(20, 125, 100, 0.60)",
+            borderColor: "rgba(14, 102, 81, 0.60)",
+            radius: 2,
+            data: results.market.net_distribution,
+            type: "bar",
+            borderRadius: 2,
+            barThickness: 13,
+          },
+          {
+            yAxisID: "B",
+            backgroundColor: "#1660A4",
+            borderColor: "#142F62",
+            radius: 2,
+            data: results.buffer.net_distribution,
+            type: "bar",
+            borderRadius: 2,
+            barThickness: 13,
+          },
+        ],
+      };
+
+      return obj;
+    },
+    updateSliderRange: function () {
+      let obj = this.results;
+      if (obj && obj.inputs) {
+        let marketValue = 50;
+        let bufferValue = 50;
+
+        if (!this.marketAlone) {
+          marketValue =
+            100 -
+            Number((obj.inputs.buffer_account_allocation * 100).toFixed(0));
+
+          bufferValue = Number(
+            (obj.inputs.buffer_account_allocation * 100).toFixed(0)
+          );
+        }
+
+        if (obj && obj.inputs) {
+          this.buffeAccountAllocation = obj.inputs.buffer_account_allocation;
+        }
+
+        this.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in slider range
+        this.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in slider range
+      }
+    },
+    testFunction: function() {
+      this.setGraph();
+    }
   },
   watch: {
     graphIndexType(e) {
       if (e !== "Historical Returns") {
-        this.aloneAccountTable = true;
+        this.$store.dispatch("retirementBufferMarketAlone", true);
       }
+    },
+    results(e) {
+      this.updateSliderRange();
     },
   },
   computed: {
     indexTypes() {
       return ["Historical Average", "Historical Returns"];
     },
-    rbaResults() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results;
+    results() {
+      return this.$store.getters.getRetirementBufferResults();
+    },
+    marketAlone() {
+      return this.$store.state.data.retirement_buffer.market_alone;
+    },
+    years() {
+      let array = [];
+      if (this.results && this.results.inputs) {
+        for (
+          let index = this.results.inputs.start_year;
+          index <= this.results.inputs.end_year;
+          index++
+        ) {
+          array.push(index);
+        }
+      }
+      return array;
+    },
+    accountAllocation() {
+      let account_value = this.results.inputs
+        ? this.results.inputs.account_value
+        : 0;
+      let buffer_account_allocation = this.buffeAccountAllocation;
+
+      let marketValue =
+        100 - Number((buffer_account_allocation * 100).toFixed(0));
+
+      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
+
+      // Market Account Value
+      let mav =
+        Number(
+          ((account_value / 100) * marketValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      // Buffer Account Value
+      let bav =
+        Number(
+          ((account_value / 100) * bufferValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      return { market: mav, buffer: bav };
     },
   },
 };
