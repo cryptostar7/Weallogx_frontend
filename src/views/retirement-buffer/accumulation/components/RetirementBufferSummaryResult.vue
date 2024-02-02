@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h2 class="summary_heading" @click="testFunction">Summary</h2>
+    <h2 class="summary_heading">Summary</h2>
     <div class="container-fluid p-0">
       <div class="row">
         <div class="col-md-6">
@@ -101,7 +101,7 @@
                 </p>
                 <div
                   class="pie progress_pie px-2"
-                  data-pie='{ "speed": 30, "percent": 0, "colorSlice": "#0E6651", "colorCircle": "#6DAC9D", "round": true }'
+                  :data-pie="JSON.stringify(pieData1)"
                 ></div>
               </div>
             </div>
@@ -214,7 +214,7 @@
                 </p>
                 <div
                   class="pie progress_pie px-2"
-                  data-pie='{ "speed": 30, "percent": 0, "colorSlice": "#1660A4", "colorCircle": "#609BD2", "round": true }'
+                  :data-pie="JSON.stringify(pieData2)"
                 ></div>
               </div>
             </div>
@@ -231,17 +231,34 @@ import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 export default {
   components: { CommonTooltipSvg },
   data() {
-    return {};
+    return {
+      pieData1: {
+        speed: 30,
+        percent: 0,
+        colorSlice: "#0E6651",
+        colorCircle: "#6DAC9D",
+        round: true,
+      },
+      pieData2: {
+        speed: 30,
+        percent: 0,
+        colorSlice: "#1660A4",
+        colorCircle: "#609BD2",
+        round: true,
+      },
+    };
   },
   mounted() {
+    if (this.simulations) {
+      this.pieData1.percent = this.simulations.market_only_success_percentage;
+      this.pieData2.percent = this.simulations.with_buffer_success_percentage;
+    }
+
     this.generatePieChart();
+
     console.log("results");
   },
   methods: {
-    testFunction: function () {
-      console.log(this.inputs);
-      console.log(this.marketBufferResult);
-    },
     updatePieChart: function () {
       if (this.simulations) {
         window.circleProgress.animationTo({
@@ -324,6 +341,9 @@ export default {
     },
   },
   watch: {
+    marketAlone() {
+      this.updatePieChart();
+    },
     simulations(e) {
       this.updatePieChart();
     },

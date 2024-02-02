@@ -467,14 +467,17 @@ const store = createStore({
             state.data.retirement_buffer.distribution_in = payload;
         },
         setRetirementBufferAccumulationResults(state, payload) {
+ 
             let obj = {
                 market_alone: state.data.retirement_buffer.auccumulation_results.market_alone,
                 market_buffer: state.data.retirement_buffer.auccumulation_results.market_buffer,
             };
 
             obj[payload.type] = payload.data;
+            if(!payload.sort){
+                localStorage.setItem("rba_results", JSON.stringify(obj));
+            }
 
-            localStorage.setItem("rba_results", JSON.stringify(obj));
             state.data.retirement_buffer.auccumulation_results = obj;
         },
         setRetirementBufferAccumulationSimulations(state, payload) {
