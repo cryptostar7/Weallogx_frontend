@@ -46,6 +46,7 @@
       <slider-weight-range
         ref="sliderRangeRef"
         sliderType="result"
+        :disabled="marketAlone"
         @setBuffer="(e) => (buffeAccountAllocation = e)"
       />
       <!-- Filter Buttons -->
@@ -286,14 +287,14 @@ export default {
             data: results.market.ending_balance,
           },
           {
-            hidden: true,
+            hidden: this.graphIndexType === "Historical Returns" ? false : true,
             borderColor: "#1660A4",
             borderWidth: 4,
             radius: 0,
             data: results.buffer.ending_balance,
           },
           {
-            hidden: true,
+            hidden: this.graphIndexType === "Historical Returns" ? false : true,
             borderColor: "#9D2B2B",
             borderWidth: 4,
             radius: 0,
@@ -301,7 +302,7 @@ export default {
           },
           {
             yAxisID: "B",
-            hidden: true,
+            hidden: this.showDistribution ? false : true,
             backgroundColor: "rgba(20, 125, 100, 0.60)",
             borderColor: "rgba(14, 102, 81, 0.60)",
             radius: 2,
@@ -312,7 +313,7 @@ export default {
           },
           {
             yAxisID: "B",
-            hidden: true,
+            hidden: this.showDistribution ? false : true,
             backgroundColor: "#1660A4",
             borderColor: "#142F62",
             radius: 2,
@@ -362,6 +363,10 @@ export default {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
         this.showDistribution = false;
+      }else{
+        window.rbaGraphChart.setDatasetVisibility(0, true);
+        window.rbaGraphChart.setDatasetVisibility(1, true);
+        window.rbaGraphChart.setDatasetVisibility(2, true);
       }
     },
     results(e) {

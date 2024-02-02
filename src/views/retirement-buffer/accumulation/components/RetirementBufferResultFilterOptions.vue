@@ -55,7 +55,7 @@
     </button>
     <button
       title="Sort Largest value to smallest value (based on SP 500 column)"
-      @click="sortResultsBy('revers')"
+      @click="sortResultsBy('ascending')"
     >
       <svg
         width="21"
@@ -107,7 +107,7 @@
     </button>
     <button
       title="Sort smallest value to largest value (based on SP 500 column)"
-      @click="sortResultsBy('ascending')"
+      @click="sortResultsBy('descending')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -318,7 +318,6 @@ export default {
 
       this.sortType = sort;
 
-      this.getAccumulationResults("market_alone", sort); // Get market alone results from API
       this.getAccumulationResults("market_buffer", sort); // Get market+buffer results from API
     },
     getAccumulationResults: function (type, sort) {
@@ -329,10 +328,6 @@ export default {
         .value;
 
       let payload = this.inputs;
-
-      if (type === "market_alone") {
-        payload.buffer_account_allocation = 0;
-      }
 
       payload.sort_type = sort;
 

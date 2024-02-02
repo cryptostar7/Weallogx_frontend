@@ -45,6 +45,7 @@
       <slider-weight-range
         ref="sliderRangeRef"
         sliderType="result"
+        :disabled="marketAlone"
         @setBuffer="(e) => (buffeAccountAllocation = e)"
       />
       <div class="container-fluid mt-5">

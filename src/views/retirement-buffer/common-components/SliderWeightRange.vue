@@ -63,17 +63,21 @@
   </div>
 </template>
 <script>
+import { post } from '../../../network/requests';
+import { getUrl } from '../../../network/url';
+import { authHeader } from '../../../services/helper';
+
 export default {
   props: ["disabled", "sliderType"],
   data() {
-    return{
-      totalWidth: 0
-    }
+    return {
+      totalWidth: 0,
+    };
   },
   mounted() {
     let sliderMain = this.$refs.sliderMainRef;
     this.totalWidth = sliderMain.offsetWidth;
-    let totalWidth = this.totalWidth;    
+    let totalWidth = this.totalWidth;
     let splitBar = this.$refs.splitBarRef;
     let splitLeft = this.$refs.splitLeftRef;
     let splitRight = this.$refs.splitRightRef;
@@ -82,7 +86,6 @@ export default {
     let wid = splitBar.offsetWidth;
     let widHalf = wid / 2;
     splitBar.style.left = totalWidth / 2 - widHalf + "px";
-
 
     window.onresize = () => {
       totalWidth = sliderMain.offsetWidth;
@@ -115,7 +118,7 @@ export default {
       e = e || window.event;
       e.preventDefault();
 
-      if(totalWidth == 0){
+      if (totalWidth == 0) {
         totalWidth = sliderMain.offsetWidth;
         wid = splitBar.offsetWidth;
       }
@@ -126,7 +129,6 @@ export default {
       pos3 = e.clientX;
       pos4 = e.clientY;
       let actualWidth = totalWidth - wid;
-
 
       // Drag the element only left and right
       splitBar.style.top = "11px"; // fixed value for vertical position
@@ -156,24 +158,26 @@ export default {
         splitBar.style.left = 0 + "px";
       }
     }
-
+    let updateResult = this.updateResult;
     function closeDragElement() {
       // stop moving when mouse button is released:
-      console.log("mouse dragged out!")
+      console.log("mouse dragged out!");
+      updateResult();
       document.onmouseup = null;
       document.onmousemove = null;
     }
 
     dragElement(this.$refs.splitBarRef);
 
-
-    var myModalEl = document.getElementById('settings')
-    myModalEl.addEventListener('shown.bs.modal', function (event) {
-      splitBar.style.left =
+    var myModalEl = document.getElementById("settings");
+    if (myModalEl) {
+      myModalEl.addEventListener("shown.bs.modal", function (event) {
+        splitBar.style.left =
           (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 -
-          splitBar.offsetWidth / 2 + "px";
-    });
-
+          splitBar.offsetWidth / 2 +
+          "px";
+      });
+    }
   },
   methods: {
     resetSlider: function () {
@@ -198,18 +202,79 @@ export default {
         this.$refs.splitBarRef.offsetWidth / 2 +
         "px";
     },
+    updateResult: function () {
+      if (this.$props.sliderType === "result" && !this.$props.disabled) {
+        this.getAccumulationResults("market_alone"); // Get market alone results from API
+        this.getAccumulationResults("market_buffer"); // Get market+buffer results from API
+      }
+    },
+    getAccumulationResults: function (type) {
+      this.$store.dispatch("loader", true);
+      let accountType = localStorage.getItem("rba_account_type");
+
+      let endpoint = this.accountTypes.filter((i) => i.name === accountType)[0]
+        .value;
+
+      let payload = this.inputs;
+      payload.buffer_account_allocation = this.getBufferAccountAllocation() / 100;
+      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+        .then((response) => {
+          this.$store.dispatch("loader", false);
+          this.$store.dispatch("retirementBufferAccumulationResults", {
+            type: type,
+            sort: true,
+            data: response.data,
+          }); // Update results in vuexy store
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else if (error.code === "ERR_BAD_REQUEST") {
+            if (error.response.data.error) {
+              this.$toast.error(error.response.data.error[0]);
+            } else {
+              let field = Object.entries(error.response.data)[0][0];
+              let message = Object.entries(error.response.data)[0][1][0];
+              this.$toast.error(field + ": " + message);
+            }
+          } else {
+            this.$toast.error(error.message);
+          }
+        });
+    },
+  },
+  computed: {
+    accountTypes() {
+      return [
+        { value: "taxable", name: "Taxable" },
+        { value: "pre_tax", name: "Pre-tax" },
+      ];
+    },
+    inputs() {
+      let results =
+        this.$store.state.data.retirement_buffer.auccumulation_results
+          .market_buffer;
+      return results.inputs || null;
+    },
   },
   watch: {
     "$store.state.data.retirement_buffer.slider_width_update"(e) {
-      if (e) {                
+      if (e) {
         setTimeout(() => {
-          if(e != "modal"){
+          if (e != "modal") {
             this.$refs.splitBarRef.style.left =
-            (this.$refs.sliderMainRef.offsetWidth * Number(this.$refs.leftSpanRef.textContent)) / 100 -
-            this.$refs.splitBarRef.offsetWidth / 2 + "px";
+              (this.$refs.sliderMainRef.offsetWidth *
+                Number(this.$refs.leftSpanRef.textContent)) /
+                100 -
+              this.$refs.splitBarRef.offsetWidth / 2 +
+              "px";
           }
-        }, 250);       
-        
+        }, 250);
       }
     },
   },
