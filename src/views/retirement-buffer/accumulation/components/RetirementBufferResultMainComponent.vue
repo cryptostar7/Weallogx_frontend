@@ -26,6 +26,7 @@
                 role="tab"
                 aria-controls="v-pills-tabe"
                 aria-selected="true"
+                @click="$store.dispatch('updateRbaSliderWidth', 'table')"
               >
                 <svg
                   width="24"
@@ -94,6 +95,7 @@
                 aria-controls="v-pills-graph"
                 aria-selected="false"
                 class=""
+                @click="$store.dispatch('updateRbaSliderWidth', 'graph')"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +110,7 @@
                   />
                 </svg>
               </div>
-              <div data-bs-toggle="modal" data-bs-target="#settings">
+              <div data-bs-toggle="modal" data-bs-target="#settings" @click="$store.dispatch('updateRbaSliderWidth', 'modal')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"

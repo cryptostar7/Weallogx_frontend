@@ -177,6 +177,14 @@ export default {
         "px";
     },
   },
+  watch: {
+    "$store.state.data.retirement_buffer.slider_width_update"(e) {
+      if (e) {
+        console.log("slider width change event");
+        console.log(e);
+      }
+    },
+  },
 };
 </script>
 <style lang=""></style>

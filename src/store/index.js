@@ -220,6 +220,7 @@ const store = createStore({
             },
             retirement_buffer: {
                 market_alone: true,
+                slider_width_update: false,
                 distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
                 auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { market_alone: null, market_buffer: null },
                 auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null },
@@ -494,7 +495,9 @@ const store = createStore({
         setRetirementBufferMarketAlone(state, payload) {
             state.data.retirement_buffer.market_alone = payload;
         },
-
+        setUpdateRbaSliderWidth(state, payload) {
+            state.data.retirement_buffer.slider_width_update = payload;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -659,7 +662,10 @@ const store = createStore({
         },
         retirementBufferMarketAlone(context, payload) {
             context.commit("setRetirementBufferMarketAlone", payload);
-        }
+        },
+        updateRbaSliderWidth(context, payload) {
+            context.commit("setUpdateRbaSliderWidth", payload);
+        },
     }
 })
 export default store;
