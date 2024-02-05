@@ -76,7 +76,7 @@
                               ).toFixed(2)
                             )
                           : 0
-                      }}%
+                      }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -199,7 +199,7 @@
                               ).toFixed(2)
                             )
                           : 0
-                      }}%</div>
+                      }}</div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-7 each_card_left_label">

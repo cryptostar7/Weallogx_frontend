@@ -1,6 +1,16 @@
 <template>
   <section class="main-section mt-0 historical-mainSection marginTopNavbar">
-    <historical-simulation-steps :currentStep="3" />
+    <div class="reviewProgressMainDiv py-5 HistoricalPositionStatic">
+      <ul class="mt-1 review-progress" id="reviewProgress">
+        <li class="done"><router-link :to="`/scenario-details/${this.$route.params.scenario}`" class="nav-link p-0">Scenario Details</router-link></li>
+        <li class="done"><router-link :to="`/illustration-data/${this.$route.params.scenario}`" class="nav-link p-0">Illustration Data</router-link></li>
+        <li class="done"><router-link :to="`/comparative-vehicles/${this.$route.params.scenario}`" class="nav-link p-0">Comparative Vehicles</router-link></li>
+        <li class="active"><router-link to="" class="nav-link p-0">Historical Simulations</router-link></li>
+      </ul>
+      <router-link to="/">
+        <img src="@/assets/images/icons/cross.svg" alt="cross" class="ReviewCrossBtn">
+      </router-link>
+    </div>
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-sm-12 col-lg-10 col-xxl-9">
