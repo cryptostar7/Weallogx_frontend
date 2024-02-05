@@ -67,7 +67,17 @@
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
-                    <div class="col-md-5 each_card_left_value">6</div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{
+                        marketResult
+                          ? Number(
+                              (
+                                marketResult.rate_of_return_negative_years * 100
+                              ).toFixed(2)
+                            )
+                          : 0
+                      }}%
+                    </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-7 each_card_left_label">
@@ -181,7 +191,15 @@
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
-                    <div class="col-md-5 each_card_left_value">6</div>
+                    <div class="col-md-5 each_card_left_value">  {{
+                        marketBufferResult
+                          ? Number(
+                              (
+                                marketBufferResult.rate_of_return_negative_years * 100
+                              ).toFixed(2)
+                            )
+                          : 0
+                      }}%</div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-7 each_card_left_label">

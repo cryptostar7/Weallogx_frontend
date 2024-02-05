@@ -495,6 +495,7 @@ export default {
       )[0].value;
 
       let payload = this.getFormInputs();
+      payload.sort_type = 'average';
 
       if (type === "market_alone") {
         payload.buffer_account_allocation = 0;

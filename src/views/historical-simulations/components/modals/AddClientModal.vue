@@ -88,7 +88,9 @@ export default {
       post(getUrl("client"), data, authHeader())
         .then(response => {
           resetForm();
-          this.$store.dispatch("addClient", response.data.data);
+          console.log('this.$store.data.clients');
+          console.log(this.$store.state.data.clients);
+          this.$store.dispatch("addHistoricalClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();
           this.$toast.success(response.data.message);

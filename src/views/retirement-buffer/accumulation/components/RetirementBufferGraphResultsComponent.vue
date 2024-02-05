@@ -123,6 +123,8 @@
         </div>
       </div>
     </div>
+    <!-- <button @click="testFunction">testFunction</button>
+    <button @click="testFunction2">testFunction2</button> -->
   </div>
 </template>
 <script>
@@ -313,7 +315,7 @@ export default {
           },
           {
             yAxisID: "B",
-            hidden: this.showDistribution ? false : true,
+            hidden: !this.marketAlone && this.showDistribution ? false : true,
             backgroundColor: "#1660A4",
             borderColor: "#142F62",
             radius: 2,
@@ -355,19 +357,14 @@ export default {
       this.setGraph();
     },
     testFunction2: function () {
-      console.log("line hidden");
+      console.log("bar hidden");
+      window.rbaGraphChart.setDatasetVisibility(4, false);
+      window.rbaGraphChart.update();
     },
   },
   watch: {
     graphIndexType(e) {
-      if (e !== "Historical Returns") {
-        this.$store.dispatch("retirementBufferMarketAlone", true);
-        this.showDistribution = false;
-      }else{
-        window.rbaGraphChart.setDatasetVisibility(0, true);
-        window.rbaGraphChart.setDatasetVisibility(1, true);
-        window.rbaGraphChart.setDatasetVisibility(2, true);
-      }
+      this.setGraph();
     },
     results(e) {
       this.setGraph();
@@ -386,22 +383,41 @@ export default {
 
       if (this.showDistribution) {
         window.rbaGraphChart.setDatasetVisibility(3, true);
-        window.rbaGraphChart.setDatasetVisibility(4, true);
+        if(!e){
+          window.rbaGraphChart.setDatasetVisibility(4, true);
+        }else{
+          console.log('bar chart hidden 396');
+          window.rbaGraphChart.setDatasetVisibility(4, false);
+        }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
-        window.rbaGraphChart.setDatasetVisibility(4, false);
+        if(e){
+          console.log('bar chart hidden 402');
+          window.rbaGraphChart.setDatasetVisibility(4, false);
+        }
       }
-
+      console.log('chart updated 407');
       window.rbaGraphChart.update();
     },
     showDistribution(e) {
       if (e) {
         window.rbaGraphChart.setDatasetVisibility(3, true);
-        window.rbaGraphChart.setDatasetVisibility(4, true);
+        console.log(this.marketAlone);
+        if(!this.marketAlone){
+          window.rbaGraphChart.setDatasetVisibility(4, true);
+        }else{
+          console.log('bar chart hidden 416');
+          window.rbaGraphChart.setDatasetVisibility(4, false);
+
+        }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
-        window.rbaGraphChart.setDatasetVisibility(4, false);
+        if(this.marketAlone){
+          console.log('bar chart hidden 422');
+          window.rbaGraphChart.setDatasetVisibility(4, false);
+        }
       }
+      console.log('chart updated 427');
       window.rbaGraphChart.update();
     },
   },
@@ -418,12 +434,23 @@ export default {
     years() {
       let array = [];
       if (this.results && this.results.inputs) {
-        for (
-          let index = this.results.inputs.start_year;
-          index <= this.results.inputs.end_year;
-          index++
-        ) {
-          array.push(index);
+        if (this.graphIndexType === 'Historical Average') {
+          if (this.results.market.net_distribution.length)
+            for (
+              let index = 1;
+              index <= this.results.market.net_distribution.length;
+              index++
+            ) {
+              array.push(index);
+            }
+        } else {
+          for (
+            let index = this.results.inputs.start_year;
+            index <= this.results.inputs.end_year;
+            index++
+          ) {
+            array.push(index);
+          }
         }
       }
       return array;

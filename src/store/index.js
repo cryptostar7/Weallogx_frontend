@@ -221,6 +221,7 @@ const store = createStore({
             retirement_buffer: {
                 market_alone: true,
                 slider_width_update: false,
+                sort_type: "average",
                 distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
                 auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { market_alone: null, market_buffer: null },
                 auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null },
@@ -373,8 +374,6 @@ const store = createStore({
                 } else {
                     state.app.loader = true;
                 }
-
-                console.log(state.app.loader, count)
             }
         },
         setUserTempForm(state, payload) {
@@ -399,7 +398,7 @@ const store = createStore({
             state.data.clients = [...state.data.clients, payload];
         },
         addNewHistoricalClient(state, payload) {
-            state.data.historical_clients = [...state.data.historical_clients, payload];
+            state.data.historical_clients = [payload, ...state.data.historical_clients];
         },
         setActiveScenario(state, payload) {
             state.data.active_scenario = payload;
@@ -498,6 +497,10 @@ const store = createStore({
         setUpdateRbaSliderWidth(state, payload) {
             state.data.retirement_buffer.slider_width_update = payload;
         },
+        setUpdateRbaSortType(state, payload) {
+            state.data.retirement_buffer.sort_type = payload;
+        },
+        
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -665,6 +668,9 @@ const store = createStore({
         },
         updateRbaSliderWidth(context, payload) {
             context.commit("setUpdateRbaSliderWidth", payload);
+        },
+        updateRbaSortType(context, payload) {
+            context.commit("setUpdateRbaSortType", payload);
         },
     }
 })

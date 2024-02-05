@@ -345,12 +345,23 @@ export default {
     years() {
       let array = [];
       if (this.results && this.results.inputs) {
-        for (
-          let index = this.results.inputs.start_year;
-          index <= this.results.inputs.end_year;
-          index++
-        ) {
-          array.push(index);
+        if (this.tableIndexType === 'Historical Average') {
+          if (this.results.market.net_distribution.length)
+            for (
+              let index = 1;
+              index <= this.results.market.net_distribution.length;
+              index++
+            ) {
+              array.push(index);
+            }
+        } else {
+          for (
+            let index = this.results.inputs.start_year;
+            index <= this.results.inputs.end_year;
+            index++
+          ) {
+            array.push(index);
+          }
         }
       }
       return array;
