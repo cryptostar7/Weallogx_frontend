@@ -47,11 +47,11 @@ export default {
     this.rangePercentage = `calc(${position}% + (${newPosition}px))`;
   },
   watch: {
-    // "$props.update"(e) {
-    //   if (e) {
-    //     this.range = this.$refs.rangeHiddenRef.value;
-    //   }
-    // },
+    "$props.update"(e) {
+      if (e) {
+        this.range = this.$refs.rangeHiddenRef.value;
+      }
+    },
   },
 };
 </script>

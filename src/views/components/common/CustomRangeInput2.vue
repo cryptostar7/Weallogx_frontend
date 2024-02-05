@@ -52,11 +52,11 @@ export default {
   },
   
   watch: {
-    // "$props.update"(e) {
-    //   if (e) {
-    //     this.range = this.$refs.rangeHiddenRef.value;
-    //   }
-    // },
+    "$props.update"(e) {
+      if (e) {
+        this.range = this.$refs.rangeHiddenRef.value;
+      }
+    },
   },
 };
 </script>
