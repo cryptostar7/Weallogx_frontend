@@ -156,7 +156,7 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-12 px-1">
-                                                    <div class="tax-details-graph-main-div">
+                                                    <div class="tax-details-graph-main-div p-relative">
                                                         <ul class="nav tax-details-tab-ul" id="myTab"
                                                             role="tablist">
                                                             <li class="nav-item" role="presentation">
@@ -170,6 +170,12 @@
                                                                     data-bs-toggle="tab"
                                                                     data-bs-target="#rothTaxDetails">Conversion Analysis</button>
                                                             </li>
+
+                                                            <!-- If user choses the option of Bonus on Conversion, display this switch button -->
+                                                            <!-- <div class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
+                                                                <label for="showBonusCheck">Show Bonus</label>
+                                                                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck">
+                                                            </div> -->
                                                         </ul>
 
                                                         <div class="d-flex justify-content-center" >
@@ -240,14 +246,18 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
-                                                                    <p class="heading clr6">Conversion Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr6">
+                                                                    <p class="heading clr6">Conversion Taxes 
+                                                                    <!-- When user turns on the Show Bonus switch button, then remove the "d-none" class from the label tag below -->
+                                                                    <label class="d-none"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
+                                                                    <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
+                                                                    <div class="tax-details-each-bars barClr6 /*advance*/">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
-                                                                    <div class="tax-details-each-bars barClr5">
+                                                                    <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
+                                                                    <div class="tax-details-each-bars barClr5 /*advance*/">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
@@ -293,13 +303,15 @@ import NavbarComponent from "./../components/common/NavbarComponent.vue"
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue"
 import TaxScoreCardModal from "../components/tax_scorecard/TaxScoreCardModal.vue"
 import TaxRatePopover from "../components/tax_scorecard/TaxRatePopover.vue"
+import CommonTooltipSvg from "../components/common/CommonTooltipSvg.vue";
 
 export default {
   components: {
     NavbarComponent,
     LeftSidebarComponent,
     TaxScoreCardModal,
-    TaxRatePopover
+    TaxRatePopover,
+    CommonTooltipSvg
   },
   data() {
     return {

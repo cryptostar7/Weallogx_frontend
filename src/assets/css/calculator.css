@@ -175,13 +175,13 @@
     align-items: center;
     gap: 4px;
 }
-.index-strategy-inputs-div label span, .each-card-row label span {
+.index-strategy-inputs-div label span, .each-card-row label span, .each-tax-details-bar label {
     position: relative;
 }
-.index-strategy-inputs-div label span svg, .each-card-row label span svg  {
+.index-strategy-inputs-div label span svg, .each-card-row label span svg, .each-tax-details-bar label svg {
     cursor: pointer;
 }
-.index-strategy-inputs-div label span span, .each-card-row label span span {
+.index-strategy-inputs-div label span span, .each-card-row label span span, .each-tax-details-bar label small {
     display: none;
     position: absolute;
     border-radius: 8px;
@@ -197,7 +197,7 @@
     font-size: 13px;
     font-weight: 500;
 }
-.index-strategy-inputs-div label span:hover span, .each-card-row label span:hover span {
+.index-strategy-inputs-div label span:hover span, .each-card-row label span:hover span, .each-tax-details-bar label:hover small {
     display: block;
 }
 .top-minus-1{
@@ -1405,8 +1405,36 @@ table.index-strategy-table tr th {
 .tax-details-each-bars.barClr5{
     background: #9D2B2B;
 }
+.barClr5.advance{
+    position: relative;
+    background-color: rgba(157, 43, 43, .57);
+}
+.barClr5.advance::after{
+    content: '';
+    position: absolute;
+    left: 0%;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-color: #9D2B2B;
+    border-radius: 5px 0 0 5px;
+}
 .tax-details-each-bars.barClr6{
     background: #BAB42C;
+}
+.barClr6.advance{
+    position: relative;
+    background-color: rgba(186, 180, 44, .57);
+}
+.barClr6.advance::after{
+    content: '';
+    position: absolute;
+    left: 0%;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-color: #BAB42C;
+    border-radius: 5px 0 0 5px;
 }
 .common-modal .modal-dialog.tax-score-preview-modal {
     max-width: 975px !important;
@@ -1462,4 +1490,19 @@ table.index-strategy-table tr th {
 }
 body.wider #taxScorecardModal{
     margin-left: 50px;
+}
+.show-bonus-switch{
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+.show-bonus-switch .form-check-input{
+  margin-left: 0.5rem;
+  height: 18px;
+}
+.show-bonus-switch .form-check-input:checked, .custom-switch .form-check-input:checked:focus{
+  border: 0;
+  background-color: #1660A4;
 }
