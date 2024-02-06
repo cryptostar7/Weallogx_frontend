@@ -256,7 +256,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 inp-mar-top">
-                <label for="bonusOnConversion">Bonus on Conversion <span><common-tooltip-svg />
+                <label for="bonusOnConversion">Bonus on Conversions <span><common-tooltip-svg />
                         <span>Does the vehicle you are converting to offer a bonus?</span>
                     </span></label>
                 <div id="bonusOnConversion" class="select-menu">
@@ -278,9 +278,6 @@
                 <label for="bonusAmount">Bonus Amount</label>
                 <div class="index-strategy-each-inputs">
                   <decimal-input
-                    @valueUpdated="v => updateInput('second_tax_rate', v)"
-                    :default="inputs.second_tax_rate"
-                    max="99"
                     placeholder="&nbsp;"
                   />
                   <span class="percent">%</span>
