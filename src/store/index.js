@@ -220,11 +220,12 @@ const store = createStore({
             },
             retirement_buffer: {
                 market_alone: true,
+                show_distribution: false,
                 slider_width_update: false,
                 sort_type: "average",
                 distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
-                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { market_alone: null, market_buffer: null },
-                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null },
+                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { inputs: null, market_alone: null, market_buffer: null, zero_distribution: null },
+                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null, zero_distribution: null },
                 income_rider: null,
             }
         },
@@ -282,10 +283,17 @@ const store = createStore({
             return client.length ? client[0] : false;
         },
         getRetirementBufferResults: (state) => () => {
-            return state.data.retirement_buffer.market_alone ? state.data.retirement_buffer.auccumulation_results.market_alone : state.data.retirement_buffer.auccumulation_results.market_buffer;
+            if(!state.data.retirement_buffer.show_distribution){
+                return state.data.retirement_buffer.auccumulation_results.zero_distribution; 
+            }
+            
+            if(!state.data.retirement_buffer.market_alone){
+                return state.data.retirement_buffer.auccumulation_results.market_with_buffer;
+            }
+            return state.data.retirement_buffer.auccumulation_results.market_only;
         },
         getRetirementBufferSimulations: (state) => () => {
-            return state.data.retirement_buffer.market_alone ? state.data.retirement_buffer.auccumulation_simulations.market_alone : state.data.retirement_buffer.auccumulation_simulations.market_buffer;
+            return state.data.retirement_buffer.auccumulation_simulations;
         },
     },
     mutations: {
@@ -467,29 +475,17 @@ const store = createStore({
             state.data.retirement_buffer.distribution_in = payload;
         },
         setRetirementBufferAccumulationResults(state, payload) {
- 
-            let obj = {
-                market_alone: state.data.retirement_buffer.auccumulation_results.market_alone,
-                market_buffer: state.data.retirement_buffer.auccumulation_results.market_buffer,
-            };
-
-            obj[payload.type] = payload.data;
             if(!payload.sort){
-                localStorage.setItem("rba_results", JSON.stringify(obj));
+                localStorage.setItem("rba_results", JSON.stringify(payload.data));
             }
 
-            state.data.retirement_buffer.auccumulation_results = obj;
+            state.data.retirement_buffer.auccumulation_results = payload.data;
         },
         setRetirementBufferAccumulationSimulations(state, payload) {
-            let obj = {
-                market_alone: state.data.retirement_buffer.auccumulation_simulations.market_alone,
-                market_buffer: state.data.retirement_buffer.auccumulation_simulations.market_buffer,
-            };
-
-            obj[payload.type] = payload.data;
-
-            localStorage.setItem("rba_simulations", JSON.stringify(obj));
-            state.data.retirement_buffer.auccumulation_simulations = obj;
+            if(!payload.sort){
+                localStorage.setItem("rba_simulations", JSON.stringify(payload.data));
+            }
+            state.data.retirement_buffer.auccumulation_simulations = payload.data;
         },
         setRetirementBufferMarketAlone(state, payload) {
             state.data.retirement_buffer.market_alone = payload;
@@ -500,7 +496,9 @@ const store = createStore({
         setUpdateRbaSortType(state, payload) {
             state.data.retirement_buffer.sort_type = payload;
         },
-        
+        setupdateRbaNetDistributionDisplay(state, payload) {
+            state.data.retirement_buffer.show_distribution = payload;
+        },
     },
     actions: {
         toggleReportTabByID(context, payload) {
@@ -671,6 +669,9 @@ const store = createStore({
         },
         updateRbaSortType(context, payload) {
             context.commit("setUpdateRbaSortType", payload);
+        },
+        updateRbaNetDistributionDisplay(context, payload) {
+            context.commit("setupdateRbaNetDistributionDisplay", payload);
         },
     }
 })

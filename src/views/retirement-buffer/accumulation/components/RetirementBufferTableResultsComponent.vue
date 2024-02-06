@@ -7,7 +7,7 @@
   >
     <div
       :class="`nav market_buffer_account_tab table_top_tab nav-pills ${
-        tableIndexType === 'Historical Returns' ? '' : 'pe-none'
+        indexType === 'Historical Returns' ? '' : 'pe-none'
       }`"
       role="tablist"
       aria-orientation="vertical"
@@ -54,7 +54,8 @@
             <!-- Filter Buttons -->
             <retirement-buffer-result-filter-options
               class="table_filter_btns"
-              :disable="tableIndexType !== 'Historical Returns'"
+              ref="filterResultRef"
+              :disable="indexType !== 'Historical Returns'"
             />
             <div class="table-wrapper-with-boarder">
               <table class="retirement_table_area">
@@ -72,7 +73,7 @@
                           <input
                             type="text"
                             class="sBtn-text"
-                            :value="tableIndexType"
+                            :value="indexType"
                             readonly="true"
                             id="account-type"
                           />
@@ -87,9 +88,9 @@
                             v-for="(item, index) in indexTypes"
                             :key="index"
                             :class="`option ${
-                              tableIndexType === item ? 'active' : ''
+                              indexType === item ? 'active' : ''
                             }`"
-                            @click="tableIndexType = item"
+                            @click="$emit('setIndexType', item)"
                           >
                             <span class="option-text">{{ item }}</span>
                           </li>
@@ -130,7 +131,12 @@
                             class="button_checkbox table_Checkbox_btn"
                             id="table_Check_1"
                             :checked="showDistribution"
-                            @click="showDistribution = !showDistribution"
+                            @click="
+                              $store.dispatch(
+                                'updateRbaNetDistributionDisplay',
+                                !showDistribution
+                              )
+                            "
                           />
                           <div class="button_knobs"></div>
                           <div class="button_layer"></div>
@@ -145,21 +151,33 @@
                 </thead>
 
                 <tbody>
-                  <tr
-                    v-for="(item, index) in results.market.net_distribution"
-                    :key="index"
-                  >
-                    <td :class="item > 0 ? 'green_text' : ''">
-                      <p v-if="item">{{ $numFormatWithDollar(item) }}</p>
+                  <tr v-for="(item, index) in years" :key="index">
+                    <td
+                      v-if="results.market"
+                      :class="
+                        results.market.net_distribution[index] > 0
+                          ? 'green_text'
+                          : ''
+                      "
+                    >
+                      <p v-if="results.market.net_distribution[index]">
+                        {{
+                          $numFormatWithDollar(
+                            results.market.net_distribution[index]
+                          )
+                        }}
+                      </p>
                       <p v-else class="visible-hidden m-0">null</p>
                     </td>
-                    <td>
+                    <td v-else>&nbsp;</td>
+                    <td v-if="results.market">
                       {{
                         $numFormatWithDollar(
                           results.market.ending_balance[index]
                         )
                       }}
                     </td>
+                    <td v-else>&nbsp;</td>
                   </tr>
                 </tbody>
               </table>
@@ -191,7 +209,12 @@
                             class="button_checkbox table_Checkbox_btn"
                             id="table_Check_2"
                             :checked="showDistribution"
-                            @click="showDistribution = !showDistribution"
+                            @click="
+                              $store.dispatch(
+                                'updateRbaNetDistributionDisplay',
+                                !showDistribution
+                              )
+                            "
                           />
                           <div class="button_knobs"></div>
                           <div class="button_layer"></div>
@@ -205,14 +228,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(item, index) in results.buffer.buffer_returns"
-                    :key="index"
-                  >
-                    <td :class="!item ? 'zero_text' : ''">
-                      {{ Number((item * 100).toFixed(2)) }}%
-                    </td>
+                  <tr v-for="(item, index) in years" :key="index">
                     <td
+                      v-if="results.buffer"
+                      :class="
+                        !results.buffer.buffer_returns[index] ? 'zero_text' : ''
+                      "
+                    >
+                      {{
+                        Number(
+                          (results.buffer.buffer_returns[index] * 100).toFixed(
+                            2
+                          )
+                        )
+                      }}%
+                    </td>
+                    <td v-else class="zero_text"></td>
+                    <td
+                      v-if="results.buffer"
                       :class="
                         results.buffer.net_distribution[index]
                           ? 'green_text'
@@ -225,13 +258,15 @@
                         )
                       }}
                     </td>
-                    <td>
+                    <td v-else>&nbsp;</td>
+                    <td v-if="results.buffer">
                       {{
                         $numFormatWithDollar(
                           results.buffer.ending_balance[index]
                         )
                       }}
                     </td>
+                    <td v-else>&nbsp;</td>
                   </tr>
                 </tbody>
               </table>
@@ -281,20 +316,22 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
+  props: ["indexType"],
+  emits: ["setIndexType"],
   data() {
     return {
-      showDistribution: true,
-      tableIndexType: "Historical Average",
       buffeAccountAllocation: 0,
     };
   },
   mounted() {
+    console.log("this.results");
+    console.log(this.results);
     this.updateSliderRange();
   },
   methods: {
     testFunction: function () {
       console.log(this.results);
-      console.log(this.simulations);
+      console.log(this.$store.state.data.retirement_buffer);
     },
     updateSliderRange: function () {
       let obj = this.results;
@@ -322,10 +359,10 @@ export default {
     },
   },
   watch: {
-    tableIndexType(e) {
+    "$props.indexType"(e) {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
-        this.showDistribution = false;
+        // this.showDistribution = false;
       }
     },
     results() {
@@ -333,6 +370,9 @@ export default {
     },
   },
   computed: {
+    showDistribution() {
+      return this.$store.state.data.retirement_buffer.show_distribution;
+    },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
@@ -342,10 +382,14 @@ export default {
     results() {
       return this.$store.getters.getRetirementBufferResults();
     },
+    inputs() {
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
+    },
     years() {
       let array = [];
-      if (this.results && this.results.inputs) {
-        if (this.tableIndexType === 'Historical Average') {
+      if (this.inputs) {
+        if (this.$props.indexType === "Historical Average") {
           if (this.results.market.net_distribution.length)
             for (
               let index = 1;
@@ -356,8 +400,8 @@ export default {
             }
         } else {
           for (
-            let index = this.results.inputs.start_year;
-            index <= this.results.inputs.end_year;
+            let index = this.inputs.start_year;
+            index <= this.inputs.end_year;
             index++
           ) {
             array.push(index);
@@ -367,9 +411,7 @@ export default {
       return array;
     },
     accountAllocation() {
-      let account_value = this.results.inputs
-        ? this.results.inputs.account_value
-        : 0;
+      let account_value = this.inputs ? this.inputs.account_value : 0;
       let buffer_account_allocation = this.buffeAccountAllocation;
 
       let marketValue =

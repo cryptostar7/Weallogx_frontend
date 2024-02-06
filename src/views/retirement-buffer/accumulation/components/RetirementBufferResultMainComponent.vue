@@ -110,7 +110,11 @@
                   />
                 </svg>
               </div>
-              <div data-bs-toggle="modal" data-bs-target="#settings" @click="$store.dispatch('updateRbaSliderWidth', 'modal')">
+              <div
+                data-bs-toggle="modal"
+                data-bs-target="#settings"
+                @click="$store.dispatch('updateRbaSliderWidth', 'modal')"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -129,9 +133,16 @@
 
           <div class="tab-content">
             <!-- Table Results -->
-            <retirement-buffer-table-results-component />
+            <retirement-buffer-table-results-component
+              ref="tableRef"
+              :indexType="indexType"
+              @setIndexType="(e) => (indexType = e)"
+            />
             <!-- Graph Results -->
-            <retirement-buffer-graph-results-component />
+            <retirement-buffer-graph-results-component
+              :indexType="indexType"
+              @setIndexType="(e) => (indexType = e)"
+            />
             <!-- Summary Results -->
             <retirement-buffer-summary-result />
             <!-- Disclosure Section -->
@@ -189,6 +200,11 @@ export default {
     RetirementBufferGraphResultsComponent,
     RetirementBufferSummaryResult,
     RetirementBufferDisclosure,
+  },
+  data() {
+    return {
+      indexType: "Historical Average",
+    };
   },
   mounted() {
     // Add Comma after 3 digit
@@ -287,7 +303,27 @@ export default {
         }
       });
     });
-  }
+  },
+  watch: {
+    indexType(e) {
+      console.log(e);
+      if (e !== "Historical Returns") {
+        this.$store.dispatch("updateRbaSortType", "average");
+        this.$store.dispatch("retirementBufferMarketAlone", true);
+        // this.$store.dispatch("updateRbaNetDistributionDisplay", false);
+        this.$refs.tableRef.$refs.filterResultRef.getAccumulationResults(
+          "average"
+        );
+      } else {
+        if (this.$store.state.data.retirement_buffer.sort_type === "average") {
+          this.$refs.tableRef.$refs.filterResultRef.getAccumulationResults(
+            "none"
+          );
+        }
+        this.$store.dispatch("updateRbaSortType", "none");
+      }
+    },
+  },
 };
 </script>
 <style lang=""></style>

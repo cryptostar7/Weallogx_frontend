@@ -305,7 +305,6 @@ export default {
   methods: {
     testFunction: function () {
       console.log(this.inputs);
-      this.sortResultsBy("revers");
     },
     sortResultsBy: function (sort = "none") {
       if (sort === "ascending") {
@@ -318,9 +317,10 @@ export default {
 
       this.sortType = sort;
 
-      this.getAccumulationResults("market_buffer", sort); // Get market+buffer results from API
+      this.$store.dispatch('updateRbaSortType', sort);
+      this.getAccumulationResults(sort); // Get market+buffer results from API
     },
-    getAccumulationResults: function (type, sort) {
+    getAccumulationResults: function (sort) {
       this.$store.dispatch("loader", true);
       let accountType = localStorage.getItem("rba_account_type");
 
@@ -331,11 +331,10 @@ export default {
 
       payload.sort_type = sort;
 
-      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+      post(`${getUrl("retirement-buffer")}${endpoint}_combined`, payload, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false);
           this.$store.dispatch("retirementBufferAccumulationResults", {
-            type: type,
             sort: true,
             data: response.data,
           }); // Update results in vuexy store
@@ -371,8 +370,7 @@ export default {
     },
     inputs() {
       let results =
-        this.$store.state.data.retirement_buffer.auccumulation_results
-          .market_buffer;
+        this.$store.state.data.retirement_buffer.auccumulation_results;
       return results.inputs || null;
     },
   },

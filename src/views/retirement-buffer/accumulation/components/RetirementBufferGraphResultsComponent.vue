@@ -7,7 +7,7 @@
   >
     <div
       :class="`nav market_buffer_account_tab graph_top_tab nav-pills ${
-        graphIndexType === 'Historical Returns' ? '' : 'pe-none'
+        indexType === 'Historical Returns' ? '' : 'pe-none'
       }`"
       role="tablist"
       aria-orientation="vertical"
@@ -52,7 +52,7 @@
       <!-- Filter Buttons -->
       <retirement-buffer-result-filter-options
         class="graph_filter_btns"
-        :disable="graphIndexType !== 'Historical Returns'"
+        :disable="indexType !== 'Historical Returns'"
       />
 
       <div class="graph_all_buttons">
@@ -63,7 +63,7 @@
               <input
                 type="text"
                 class="sBtn-text"
-                :value="graphIndexType"
+                :value="indexType"
                 readonly="true"
                 id="account-type"
               />
@@ -77,8 +77,8 @@
               <li
                 v-for="(item, index) in indexTypes"
                 :key="index"
-                :class="`option ${graphIndexType === item ? 'active' : ''}`"
-                @click="graphIndexType = item"
+                :class="`option ${indexType === item ? 'active' : ''}`"
+                @click="$emit('setIndexType', item)"
               >
                 <span class="option-text">{{ item }}</span>
               </li>
@@ -107,22 +107,33 @@
 
       <div
         :class="`graph_net_distribution  ${
-          graphIndexType === 'Historical Returns' ? '' : 'disable pe-none'
+          indexType === 'Historical Returns' ? '' : 'disable pe-none'
         }`"
       >
-        <label for="net_distribution">Net Distributionsss</label>
+        <label
+          for="net_distribution"
+
+          >Net Distributions</label
+        >
         <div class="table_button button_r">
           <input
             type="checkbox"
             class="button_checkbox"
             id="net_distribution"
-            v-model="showDistribution"
+            :checked="showDistribution"
+            @change="
+            $store.dispatch(
+              'updateRbaNetDistributionDisplay',
+              !showDistribution
+            )
+          "
           />
           <div class="button_knobs"></div>
           <div class="button_layer"></div>
         </div>
       </div>
     </div>
+    <!-- <button @click="testFunction">testFunction</button> -->
     <!-- <button @click="testFunction">testFunction</button>
     <button @click="testFunction2">testFunction2</button> -->
   </div>
@@ -133,11 +144,15 @@ import RetirementBufferResultFilterOptions from "./RetirementBufferResultFilterO
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 
 export default {
-  components: { SliderWeightRange, CommonTooltipSvg, RetirementBufferResultFilterOptions },
+  components: {
+    SliderWeightRange,
+    CommonTooltipSvg,
+    RetirementBufferResultFilterOptions,
+  },
+  props: ["indexType"],
+  emits: ["setIndexType"],
   data() {
     return {
-      showDistribution: 0,
-      graphIndexType: "Historical Average",
       buffeAccountAllocation: 0,
     };
   },
@@ -147,6 +162,7 @@ export default {
   },
   methods: {
     setGraph: function () {
+      console.log("...........");
       let graphData = this.getDataSet();
       let maxAcc1 = Math.max(
         ...[
@@ -286,21 +302,21 @@ export default {
             borderColor: "#0E6651",
             borderWidth: 4,
             radius: 0,
-            data: results.market.ending_balance,
+            data: results.market ? results.market.ending_balance : [],
           },
           {
-            hidden: this.graphIndexType === "Historical Returns" ? false : true,
+            hidden: this.marketAlone ? true : false,
             borderColor: "#1660A4",
             borderWidth: 4,
             radius: 0,
-            data: results.buffer.ending_balance,
+            data: results.buffer ? results.buffer.ending_balance : [],
           },
           {
-            hidden: this.graphIndexType === "Historical Returns" ? false : true,
+            hidden: this.marketAlone ? true : false,
             borderColor: "#9D2B2B",
             borderWidth: 4,
             radius: 0,
-            data: results.combined_ending_balance,
+            data: results.combined_ending_balance || [],
           },
           {
             yAxisID: "B",
@@ -308,7 +324,7 @@ export default {
             backgroundColor: "rgba(20, 125, 100, 0.60)",
             borderColor: "rgba(14, 102, 81, 0.60)",
             radius: 2,
-            data: results.market.net_distribution,
+            data: results.market ? results.market.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
@@ -319,7 +335,7 @@ export default {
             backgroundColor: "#1660A4",
             borderColor: "#142F62",
             radius: 2,
-            data: results.buffer.net_distribution,
+            data: results.buffer ? results.buffer.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
@@ -354,7 +370,7 @@ export default {
       }
     },
     testFunction: function () {
-      this.setGraph();
+      console.log(this.results);
     },
     testFunction2: function () {
       console.log("bar hidden");
@@ -363,14 +379,19 @@ export default {
     },
   },
   watch: {
-    graphIndexType(e) {
-      this.setGraph();
+    "$props.indexType"(e) {
+      if (e !== "Historical Returns") {
+        this.$store.dispatch("retirementBufferMarketAlone", true);
+        // this.showDistribution = false;
+      }
     },
     results(e) {
+      console.log("result changed");
       this.setGraph();
       this.updateSliderRange();
     },
     marketAlone(e) {
+      console.log("market type changed", e);
       if (e) {
         window.rbaGraphChart.setDatasetVisibility(0, true);
         window.rbaGraphChart.setDatasetVisibility(1, false);
@@ -383,41 +404,41 @@ export default {
 
       if (this.showDistribution) {
         window.rbaGraphChart.setDatasetVisibility(3, true);
-        if(!e){
+        if (!e) {
           window.rbaGraphChart.setDatasetVisibility(4, true);
-        }else{
-          console.log('bar chart hidden 396');
+        } else {
+          console.log("bar chart hidden 396");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
-        if(e){
-          console.log('bar chart hidden 402');
+        if (e) {
+          console.log("bar chart hidden 402");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       }
-      console.log('chart updated 407');
+      console.log("chart updated 407");
       window.rbaGraphChart.update();
+      // this.setGraph();
     },
     showDistribution(e) {
       if (e) {
         window.rbaGraphChart.setDatasetVisibility(3, true);
         console.log(this.marketAlone);
-        if(!this.marketAlone){
+        if (!this.marketAlone) {
           window.rbaGraphChart.setDatasetVisibility(4, true);
-        }else{
-          console.log('bar chart hidden 416');
+        } else {
+          console.log("bar chart hidden 416");
           window.rbaGraphChart.setDatasetVisibility(4, false);
-
         }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
-        if(this.marketAlone){
-          console.log('bar chart hidden 422');
+        if (this.marketAlone) {
+          console.log("bar chart hidden 422");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       }
-      console.log('chart updated 427');
+      console.log("chart updated 427");
       window.rbaGraphChart.update();
     },
   },
@@ -425,16 +446,23 @@ export default {
     indexTypes() {
       return ["Historical Average", "Historical Returns"];
     },
+    showDistribution() {
+      return this.$store.state.data.retirement_buffer.show_distribution;
+    },
     results() {
-      return this.$store.getters.getRetirementBufferResults();
+      return this.$store.getters.getRetirementBufferResults() || [];
+    },
+    inputs() {
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
     },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
     years() {
       let array = [];
-      if (this.results && this.results.inputs) {
-        if (this.graphIndexType === 'Historical Average') {
+      if (this.inputs) {
+        if (this.$props.indexType === "Historical Average") {
           if (this.results.market.net_distribution.length)
             for (
               let index = 1;
@@ -445,8 +473,8 @@ export default {
             }
         } else {
           for (
-            let index = this.results.inputs.start_year;
-            index <= this.results.inputs.end_year;
+            let index = this.inputs.start_year;
+            index <= this.inputs.end_year;
             index++
           ) {
             array.push(index);
@@ -456,9 +484,7 @@ export default {
       return array;
     },
     accountAllocation() {
-      let account_value = this.results.inputs
-        ? this.results.inputs.account_value
-        : 0;
+      let account_value = this.inputs ? this.inputs.account_value : 0;
       let buffer_account_allocation = this.buffeAccountAllocation;
 
       let marketValue =

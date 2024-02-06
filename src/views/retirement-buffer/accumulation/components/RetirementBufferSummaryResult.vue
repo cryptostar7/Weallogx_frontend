@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-    <h2 class="summary_heading">Summary</h2>
+    <h2 class="summary_heading" @click="testFunction">Summary</h2>
     <div class="container-fluid p-0">
       <div class="row">
         <div class="col-md-6">
@@ -68,15 +68,7 @@
                       Negative Years
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{
-                        marketResult
-                          ? Number(
-                              (
-                                marketResult.rate_of_return_negative_years * 100
-                              ).toFixed(2)
-                            )
-                          : 0
-                      }}
+                      {{ marketResult.rate_of_return_negative_years || 0 }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -191,15 +183,9 @@
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
-                    <div class="col-md-5 each_card_left_value">  {{
-                        marketBufferResult
-                          ? Number(
-                              (
-                                marketBufferResult.rate_of_return_negative_years * 100
-                              ).toFixed(2)
-                            )
-                          : 0
-                      }}</div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{  marketBufferResult.rate_of_return_negative_years || 0 }}
+                    </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-7 each_card_left_label">
@@ -277,6 +263,9 @@ export default {
     console.log("results");
   },
   methods: {
+    testFunction: function () {
+      console.log(this.results);
+    },
     updatePieChart: function () {
       if (this.simulations) {
         window.circleProgress.animationTo({
@@ -339,23 +328,20 @@ export default {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
     results() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results;
-    },
-    marketResult() {
-      return this.results.market_alone ? this.results.market_alone.summary : {};
-    },
-    marketBufferResult() {
-      return this.results.market_buffer
-        ? this.results.market_buffer.summary
-        : {};
+      return this.$store.getters.getRetirementBufferResults();
     },
     inputs() {
-      return this.results.market_buffer
-        ? this.results.market_buffer.inputs
-        : {};
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
+    },
+    marketResult() {
+      return this.results.summary ? this.results.summary : {};
+    },
+    marketBufferResult() {
+      return this.results.summary ? this.results.summary : {};
     },
     simulations() {
-      return this.$store.getters.getRetirementBufferSimulations();
+      return this.$store.getters.getRetirementBufferSimulations() || [];
     },
   },
   watch: {

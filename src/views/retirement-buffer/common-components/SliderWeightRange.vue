@@ -63,9 +63,9 @@
   </div>
 </template>
 <script>
-import { post } from '../../../network/requests';
-import { getUrl } from '../../../network/url';
-import { authHeader } from '../../../services/helper';
+import { post } from "../../../network/requests";
+import { getUrl } from "../../../network/url";
+import { authHeader } from "../../../services/helper";
 
 export default {
   props: ["disabled", "sliderType"],
@@ -204,11 +204,10 @@ export default {
     },
     updateResult: function () {
       if (this.$props.sliderType === "result" && !this.$props.disabled) {
-        this.getAccumulationResults("market_alone"); // Get market alone results from API
-        this.getAccumulationResults("market_buffer"); // Get market+buffer results from API
+        this.getAccumulationResults(); // Get results from API
       }
     },
-    getAccumulationResults: function (type) {
+    getAccumulationResults: function () {
       this.$store.dispatch("loader", true);
       let accountType = localStorage.getItem("rba_account_type");
 
@@ -216,15 +215,54 @@ export default {
         .value;
 
       let payload = this.inputs;
-      payload.buffer_account_allocation = this.getBufferAccountAllocation() / 100;
-      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+      payload.buffer_account_allocation =
+        this.getBufferAccountAllocation() / 100;
+      post(
+        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        payload,
+        authHeader()
+      )
         .then((response) => {
           this.$store.dispatch("loader", false);
           this.$store.dispatch("retirementBufferAccumulationResults", {
-            type: type,
             sort: true,
             data: response.data,
           }); // Update results in vuexy store
+          this.getSimulationData(`${endpoint}_simulation`, payload);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else if (error.code === "ERR_BAD_REQUEST") {
+            if (error.response.data.error) {
+              this.$toast.error(error.response.data.error[0]);
+            } else {
+              let field = Object.entries(error.response.data)[0][0];
+              let message = Object.entries(error.response.data)[0][1][0];
+              this.$toast.error(field + ": " + message);
+            }
+          } else {
+            this.$toast.error(error.message);
+          }
+        });
+    },
+    getSimulationData: function (endpoint, payload) {
+      this.$store.dispatch("loader", true);
+      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+        .then((response) => {
+          this.$store.dispatch("loader", false);
+
+          this.$store.dispatch("retirementBufferAccumulationSimulations", {
+            sort: true,
+            data: response.data,
+          }); // Update results in vuexy store
+
+          this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
           console.log(error);
@@ -256,11 +294,9 @@ export default {
       ];
     },
     inputs() {
-      let results =
-        this.$store.state.data.retirement_buffer.auccumulation_results
-          .market_buffer;
-      return results.inputs || null;
-    },
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
+    }
   },
   watch: {
     "$store.state.data.retirement_buffer.slider_width_update"(e) {
