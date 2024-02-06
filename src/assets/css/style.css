@@ -5641,7 +5641,6 @@ input[type=number] {
   margin: 0;
 }
 
-
 /* Extra CSS for Historical Simulations */
 .navbar-brand.blue{
   display: none;
@@ -5649,4 +5648,3 @@ input[type=number] {
 .navbar-brand.dark{
   display: none;
 }
-

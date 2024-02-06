@@ -223,7 +223,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+            </div>
 
             <div class="col-md-12 pt-20">
                 <h6 class="form-heading mb-0">Conversion Details</h6>
@@ -250,6 +250,37 @@
                     @valueUpdated="v => updateInput('additional_conversion_tax', v)"
                     :default="inputs.additional_conversion_tax"
                     max="12"
+                    placeholder="&nbsp;"
+                  />
+                  <span class="percent">%</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 inp-mar-top">
+                <label for="bonusOnConversion">Bonus on Conversion <span><common-tooltip-svg />
+                        <span>Does the vehicle you are converting to offer a bonus?</span>
+                    </span></label>
+                <div id="bonusOnConversion" class="select-menu">
+                  <div class="select-btn">
+                    <span class="sBtn-text"></span>
+                    <i><img src="@/assets/images/icons/select-chevron.svg" alt="Chevron"/></i>
+                  </div>
+                  <ul class="options">
+                    <li class="option">
+                      <span class="option-text">No</span>
+                    </li>
+                    <li class="option">
+                      <span class="option-text">Yes</span>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 inp-mar-top">
+                <label for="bonusAmount">Bonus Amount</label>
+                <div class="index-strategy-each-inputs">
+                  <decimal-input
+                    @valueUpdated="v => updateInput('second_tax_rate', v)"
+                    :default="inputs.second_tax_rate"
+                    max="99"
                     placeholder="&nbsp;"
                   />
                   <span class="percent">%</span>
@@ -299,6 +330,7 @@ export default {
       showHide.addEventListener("click", () =>
         showHide.closest(".select-menu").classList.toggle("active")
       );
+      console.log(showHide);
       var allOptions = showHide
         .closest(".select-menu")
         .querySelector(".options")
