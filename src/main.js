@@ -8,20 +8,20 @@ import VueCryptojs from 'vue-cryptojs'
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
-// import "./assets/css/bootstrap.min.css";
-// import "./assets/css/style.css";
-// import './assets/css/user/style.css';
-// import "./assets/css/custom.css";
-// import './assets/css/retirement-buffer/style.css';
-// import "./assets/css/dark-green.css";
-// import "./assets/css/light-blue.css";
-// import "./assets/css/dark-blue.css";
-// import "./assets/css/responsive.css";
-// import "./assets/js/popper.min.js";
-// import "./assets/js/bootstrap.min.js";
-// import "./assets/css/user/style.css";
-// import "./assets/css/user/external.css";
-// import "./assets/css/calculator.css";
+import "./assets/css/bootstrap.min.css";
+import "./assets/css/style.css";
+import './assets/css/user/style.css';
+import "./assets/css/custom.css";
+import './assets/css/retirement-buffer/style.css';
+import "./assets/css/dark-green.css";
+import "./assets/css/light-blue.css";
+import "./assets/css/dark-blue.css";
+import "./assets/css/responsive.css";
+import "./assets/js/popper.min.js";
+import "./assets/js/bootstrap.min.js";
+import "./assets/css/user/style.css";
+import "./assets/css/user/external.css";
+import "./assets/css/calculator.css";
 
 const app = createApp(App);
 
