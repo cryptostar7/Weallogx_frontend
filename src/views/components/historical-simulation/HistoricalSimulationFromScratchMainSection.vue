@@ -539,9 +539,12 @@ export default {
         return false;
       }
 
-      var strategy_weight1 = this.$refs.indexParametersRef.getStrategyWeight().sw1;
-      var strategy_weight2 = this.$refs.indexParametersRef.getStrategyWeight().sw2;
-      var strategy_weight3 = this.$refs.indexParametersRef.getStrategyWeight().sw3;
+      var strategy_weight1 =
+        this.$refs.indexParametersRef.getStrategyWeight().sw1;
+      var strategy_weight2 =
+        this.$refs.indexParametersRef.getStrategyWeight().sw2;
+      var strategy_weight3 =
+        this.$refs.indexParametersRef.getStrategyWeight().sw3;
 
       var formData = {
         rolling_time_period_years: analysis.rolling_time,
@@ -1112,6 +1115,11 @@ export default {
         this.setChecked("loanIntrest");
         this.setInputWithId("loan_interest_fees", obj.loan_intrest_rate);
       }
+
+      this.setInputWithId(
+        "in_arrears",
+        obj.loan_intrest_charged_in_arrears ? 1 : 0
+      );
 
       this.update.global_parameters = true;
     },
