@@ -270,6 +270,9 @@ const authRoutes = [
   'historical-illustration-data',
   'historical-parameters',
   'historical-report-builder',
+  'retirement-buffer',
+  'retirement-buffer-accumulation-params',
+  'retirement-buffer-accumulation-result',
 ];
 
 // these routes are secure with active plans

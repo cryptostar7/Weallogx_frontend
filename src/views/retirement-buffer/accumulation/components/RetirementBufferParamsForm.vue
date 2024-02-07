@@ -335,8 +335,7 @@ export default {
   },
   methods: {
     testFunction: function () {
-      console.log(this.inputs);
-      console.log(this.$store.state.data.retirement_buffer);
+      console.log(this.getFormInputs());
     },
     // Update the market account input value
     changeMarketValue: function (e) {
@@ -396,7 +395,12 @@ export default {
       data.floor = getNumber(this.$refs.floorRef.value) / 100;
       data.par_rate = getNumber(this.$refs.parRateRef.value) / 100;
       data.margin = getNumber(this.$refs.marginRef.value) / 100;
+      console.log("this.$refs.capRateRef.value");
+
       data.cap = getNumber(this.$refs.capRateRef.value) / 100;
+      if (this.$refs.capRateRef.value == "") {
+        data.cap = 1000;
+      }
       data.bonus = getNumber(this.$refs.premiumBonusRef.value) / 100;
       return data;
     },
@@ -440,7 +444,13 @@ export default {
       this.parRate = Number((data.par_rate * 100).toFixed(2) || "");
       this.$refs.parRateRef.value = this.parRate;
       this.$refs.marginRef.value = Number((data.margin * 100).toFixed(2)) || "";
-      this.$refs.capRateRef.value = Number((data.cap * 100).toFixed(2)) || "";
+
+      let cap = "";
+      if(data.cap != 1000){
+        cap = Number((data.cap * 100).toFixed(2)) || "0"
+      }
+
+      this.$refs.capRateRef.value = cap;
       this.$refs.premiumBonusRef.value =
         Number((data.bonus * 100).toFixed(2)) || "";
 
@@ -499,13 +509,20 @@ export default {
 
       console.log(payload);
 
-      post(`${getUrl("retirement-buffer")}${endpoint}_combined`, payload, authHeader())
+      post(
+        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        payload,
+        authHeader()
+      )
         .then((response) => {
-         this.$store.dispatch("loader", false);
-          localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage         
-          this.$store.dispatch("retirementBufferDistributionType", this.annualDistributionType);
+          this.$store.dispatch("loader", false);
+          localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage
+          this.$store.dispatch(
+            "retirementBufferDistributionType",
+            this.annualDistributionType
+          );
           this.$store.dispatch("retirementBufferAccumulationResults", {
-            sort: payload.sort_type !== 'average',
+            sort: payload.sort_type !== "average",
             data: response.data,
           }); // Update results in vuexy store
           this.getSimulationData(`${endpoint}_simulation`, payload);
@@ -584,7 +601,8 @@ export default {
       return false;
     },
     inputs() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results.inputs;
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
     },
   },
   watch: {
