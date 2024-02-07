@@ -161,7 +161,7 @@ const store = createStore({
             report: {
                 notes: [],
                 disclosures: [],
-                cv_names: ['CV', 'CV1', 'CV2', 'CV3'],
+                cv_names: ['', '', '', ''],
                 comparative: [],
                 historical: [],
                 deleted_cv_ids: [],

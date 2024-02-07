@@ -599,7 +599,6 @@ export default {
         let chart1 = this.mapColumn2Data().data.categories[this.tsa_type];
         let chart2 = this.mapColumn3Data().data.categories[this.tsa_type];
         let chart3 = this.mapColumn4Data().data.categories[this.tsa_type];
-
         cv = chart
           ? chart.account_value.map((i, idx) => {
               return { x: idx, y: i.toFixed(0) };
@@ -610,12 +609,12 @@ export default {
               return { x: idx, y: i.toFixed(0) };
             })
           : [];
-        cv2 = chart2
+        cv2 = chart2 && chart2.account_value
           ? chart2.account_value.map((i, idx) => {
               return { x: idx, y: i.toFixed(0) };
             })
           : [];
-        cv3 = chart3
+        cv3 = chart3 && chart3.account_value
           ? chart3.account_value.map((i, idx) => {
               return { x: idx, y: i.toFixed(0) };
             })

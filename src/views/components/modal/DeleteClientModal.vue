@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fade common-modal" id="deleteClientModal" tabindex="-1" aria-labelledby="deleteClientModalLabel"
+  <div class="modal fade common-modal" id="deleteSimulationClientModal" tabindex="-1" aria-labelledby="deleteSimulationClientModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -8,7 +8,7 @@
               src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal"></button>
         </div>
         <div class="modal-body text-center">
-          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteClientModalLabel">Delete Client?</h5>
+          <h5 class="modal-title fs-24 semi-bold-fw" id="deleteSimulationClientModalLabel">Delete Client?</h5>
           <p class="fs-14">Delete this client as well as all scenarios and reports related to <br> this client? This
             action cannot be undone.</p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
