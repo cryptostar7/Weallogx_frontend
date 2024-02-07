@@ -205,6 +205,7 @@ export default {
     updateResult: function () {
       if (this.$props.sliderType === "result" && !this.$props.disabled) {
         this.getAccumulationResults(); // Get results from API
+        this.getSimulationData(); // Get simulation data
       }
     },
     getAccumulationResults: function () {
@@ -228,7 +229,6 @@ export default {
             sort: true,
             data: response.data,
           }); // Update results in vuexy store
-          this.getSimulationData(`${endpoint}_simulation`, payload);
         })
         .catch((error) => {
           console.log(error);
@@ -251,9 +251,22 @@ export default {
           }
         });
     },
-    getSimulationData: function (endpoint, payload) {
+    getSimulationData: function () {
       this.$store.dispatch("loader", true);
-      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+      let accountType = localStorage.getItem("rba_account_type");
+
+      let endpoint = this.accountTypes.filter((i) => i.name === accountType)[0]
+        .value;
+
+      let payload = this.inputs;
+      payload.buffer_account_allocation =
+        this.getBufferAccountAllocation() / 100;
+
+      post(
+        `${getUrl("retirement-buffer")}${endpoint}_simulation`,
+        payload,
+        authHeader()
+      )
         .then((response) => {
           this.$store.dispatch("loader", false);
 
@@ -261,8 +274,6 @@ export default {
             sort: true,
             data: response.data,
           }); // Update results in vuexy store
-
-          this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
           console.log(error);
@@ -296,7 +307,7 @@ export default {
     inputs() {
       return this.$store.state.data.retirement_buffer.auccumulation_results
         .inputs;
-    }
+    },
   },
   watch: {
     "$store.state.data.retirement_buffer.slider_width_update"(e) {

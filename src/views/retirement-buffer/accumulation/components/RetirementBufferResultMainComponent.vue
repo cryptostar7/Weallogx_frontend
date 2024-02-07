@@ -318,18 +318,25 @@ export default {
 
         if (!this.marketAlone) {
           marketValue =
-            100 -
-            Number((obj.buffer_account_allocation * 100).toFixed(0));
+            100 - Number((obj.buffer_account_allocation * 100).toFixed(0));
 
           bufferValue = Number(
             (obj.buffer_account_allocation * 100).toFixed(0)
           );
         }
 
-        this.$refs.tableRef.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in table slider range
-        this.$refs.graphRef.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in graph slider range
-        this.$refs.tableRef.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in table slider range
-        this.$refs.graphRef.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in graph slider range
+        this.$refs.tableRef.$refs.sliderRangeRef.setMarketAccountAllocation(
+          marketValue
+        ); // set market account allocation value in table slider range
+        this.$refs.graphRef.$refs.sliderRangeRef.setMarketAccountAllocation(
+          marketValue
+        ); // set market account allocation value in graph slider range
+        this.$refs.tableRef.$refs.sliderRangeRef.setBufferAccountAllocation(
+          bufferValue
+        ); // set buffer account allocation value in table slider range
+        this.$refs.graphRef.$refs.sliderRangeRef.setBufferAccountAllocation(
+          bufferValue
+        ); // set buffer account allocation value in graph slider range
       }
     },
   },
@@ -376,6 +383,7 @@ export default {
           this.inputs.buffer_account_allocation
         );
       }
+      this.updateSliderRange();
     },
     indexType(e) {
       console.log(e);
@@ -396,11 +404,15 @@ export default {
       }
     },
     accountAllocation(e) {
-      this.updateSliderRange();
-      this.updateSliderRange();
+      // this.updateSliderRange();
     },
     results() {
       this.updateSliderRange();
+    },
+    "$store.state.data.retirement_buffer.slider_width_update"(e) {
+      if (e != "modal") {
+        this.updateSliderRange();
+      }
     },
   },
 };
