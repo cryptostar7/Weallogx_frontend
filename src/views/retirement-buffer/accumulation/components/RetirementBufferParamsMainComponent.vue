@@ -11,7 +11,7 @@
             <div class="after_heading_div">
               <div class="accumulation_strategy_div">
                 <div class="accumulation_strategy_box">
-                  <retirement-buffer-params-form ref="formRef" @setAllowSubmit="(e) => allowSubmit = e"/>
+                  <!-- <retirement-buffer-params-form ref="formRef" @setAllowSubmit="(e) => allowSubmit = e"/> -->
                 </div>
                 <button
                   :class="`run_btn ${allowSubmit ? '' : 'disable'}`"
