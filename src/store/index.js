@@ -223,6 +223,7 @@ const store = createStore({
                 show_distribution: false,
                 slider_width_update: false,
                 sort_type: "average",
+                buffer_allocation_weight: 0,
                 distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
                 auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { inputs: null, market_alone: null, market_buffer: null, zero_distribution: null },
                 auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null, zero_distribution: null },
@@ -283,11 +284,11 @@ const store = createStore({
             return client.length ? client[0] : false;
         },
         getRetirementBufferResults: (state) => () => {
-            if(!state.data.retirement_buffer.show_distribution){
-                return state.data.retirement_buffer.auccumulation_results.zero_distribution; 
+            if (!state.data.retirement_buffer.show_distribution) {
+                return state.data.retirement_buffer.auccumulation_results.zero_distribution;
             }
-            
-            if(!state.data.retirement_buffer.market_alone){
+
+            if (!state.data.retirement_buffer.market_alone) {
                 return state.data.retirement_buffer.auccumulation_results.market_with_buffer;
             }
             return state.data.retirement_buffer.auccumulation_results.market_only;
@@ -475,14 +476,14 @@ const store = createStore({
             state.data.retirement_buffer.distribution_in = payload;
         },
         setRetirementBufferAccumulationResults(state, payload) {
-            if(!payload.sort){
+            if (!payload.sort) {
                 localStorage.setItem("rba_results", JSON.stringify(payload.data));
             }
 
             state.data.retirement_buffer.auccumulation_results = payload.data;
         },
         setRetirementBufferAccumulationSimulations(state, payload) {
-            if(!payload.sort){
+            if (!payload.sort) {
                 localStorage.setItem("rba_simulations", JSON.stringify(payload.data));
             }
             state.data.retirement_buffer.auccumulation_simulations = payload.data;
@@ -498,6 +499,9 @@ const store = createStore({
         },
         setupdateRbaNetDistributionDisplay(state, payload) {
             state.data.retirement_buffer.show_distribution = payload;
+        },
+        setUpdateBuffeAccountAllocation(state, payload) {
+            state.data.retirement_buffer.buffer_allocation_weight = payload;
         },
     },
     actions: {
@@ -672,6 +676,9 @@ const store = createStore({
         },
         updateRbaNetDistributionDisplay(context, payload) {
             context.commit("setupdateRbaNetDistributionDisplay", payload);
+        },
+        updateBuffeAccountAllocation(context, payload) {
+            context.commit("setUpdateBuffeAccountAllocation", payload);
         },
     }
 })

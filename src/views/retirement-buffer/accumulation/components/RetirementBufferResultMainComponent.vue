@@ -136,11 +136,14 @@
             <retirement-buffer-table-results-component
               ref="tableRef"
               :indexType="indexType"
+              :accountAllocation="accountAllocation"
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Graph Results -->
             <retirement-buffer-graph-results-component
               :indexType="indexType"
+              ref="graphRef"
+              :accountAllocation="accountAllocation"
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Summary Results -->
@@ -303,8 +306,77 @@ export default {
         }
       });
     });
+
+    this.updateSliderRange(); // update weighting slider range
+  },
+  methods: {
+    updateSliderRange: function () {
+      let obj = this.inputs;
+      if (obj) {
+        let marketValue = 100;
+        let bufferValue = 0;
+
+        if (!this.marketAlone) {
+          marketValue =
+            100 -
+            Number((obj.buffer_account_allocation * 100).toFixed(0));
+
+          bufferValue = Number(
+            (obj.buffer_account_allocation * 100).toFixed(0)
+          );
+        }
+
+        this.$refs.tableRef.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in table slider range
+        this.$refs.graphRef.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in graph slider range
+        this.$refs.tableRef.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in table slider range
+        this.$refs.graphRef.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in graph slider range
+      }
+    },
+  },
+  computed: {
+    inputs() {
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
+    },
+    marketAlone() {
+      return this.$store.state.data.retirement_buffer.market_alone;
+    },
+    accountAllocation() {
+      let account_value = this.inputs ? this.inputs.account_value : 0;
+      let buffer_account_allocation =
+        this.$store.state.data.retirement_buffer.buffer_allocation_weight;
+
+      let marketValue =
+        100 - Number((buffer_account_allocation * 100).toFixed(0));
+
+      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
+
+      // Market Account Value
+      let mav =
+        Number(
+          ((account_value / 100) * marketValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      // Buffer Account Value
+      let bav =
+        Number(
+          ((account_value / 100) * bufferValue).toFixed(0)
+        ).toLocaleString() || 0;
+
+      return { market: mav, buffer: bav };
+    },
   },
   watch: {
+    marketAlone(e) {
+      if (e) {
+        this.$store.dispatch("updateBuffeAccountAllocation", 0);
+      } else {
+        this.$store.dispatch(
+          "updateBuffeAccountAllocation",
+          this.inputs.buffer_account_allocation
+        );
+      }
+    },
     indexType(e) {
       console.log(e);
       if (e !== "Historical Returns") {
@@ -322,6 +394,13 @@ export default {
         }
         this.$store.dispatch("updateRbaSortType", "none");
       }
+    },
+    accountAllocation(e) {
+      this.updateSliderRange();
+      this.updateSliderRange();
+    },
+    results() {
+      this.updateSliderRange();
     },
   },
 };

@@ -31,7 +31,7 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="marketAlone ? '' : 'active'"
+        :class="`${marketAlone ? '' : 'active'} ${indexType === 'Historical Average' ? 'disable' : ''}`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
@@ -46,7 +46,7 @@
         ref="sliderRangeRef"
         sliderType="result"
         :disabled="marketAlone"
-        @setBuffer="(e) => (buffeAccountAllocation = e)"
+        @setBuffer="(e) => $store.dispatch('updateBuffeAccountAllocation', e)"
       />
       <div class="container-fluid mt-5">
         <div class="row">
@@ -316,46 +316,12 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType"],
+  props: ["indexType", "accountAllocation"],
   emits: ["setIndexType"],
-  data() {
-    return {
-      buffeAccountAllocation: 0,
-    };
-  },
-  mounted() {
-    console.log("this.results");
-    console.log(this.results);
-    this.updateSliderRange();
-  },
   methods: {
     testFunction: function () {
       console.log(this.results);
       console.log(this.$store.state.data.retirement_buffer);
-    },
-    updateSliderRange: function () {
-      let obj = this.results;
-      if (obj && obj.inputs) {
-        let marketValue = 50;
-        let bufferValue = 50;
-
-        if (!this.marketAlone) {
-          marketValue =
-            100 -
-            Number((obj.inputs.buffer_account_allocation * 100).toFixed(0));
-
-          bufferValue = Number(
-            (obj.inputs.buffer_account_allocation * 100).toFixed(0)
-          );
-        }
-
-        if (obj && obj.inputs) {
-          this.buffeAccountAllocation = obj.inputs.buffer_account_allocation;
-        }
-
-        this.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in slider range
-        this.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in slider range
-      }
     },
   },
   watch: {
@@ -364,10 +330,7 @@ export default {
         this.$store.dispatch("retirementBufferMarketAlone", true);
         // this.showDistribution = false;
       }
-    },
-    results() {
-      this.updateSliderRange();
-    },
+    }
   },
   computed: {
     showDistribution() {
@@ -409,29 +372,6 @@ export default {
         }
       }
       return array;
-    },
-    accountAllocation() {
-      let account_value = this.inputs ? this.inputs.account_value : 0;
-      let buffer_account_allocation = this.buffeAccountAllocation;
-
-      let marketValue =
-        100 - Number((buffer_account_allocation * 100).toFixed(0));
-
-      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
-
-      // Market Account Value
-      let mav =
-        Number(
-          ((account_value / 100) * marketValue).toFixed(0)
-        ).toLocaleString() || 0;
-
-      // Buffer Account Value
-      let bav =
-        Number(
-          ((account_value / 100) * bufferValue).toFixed(0)
-        ).toLocaleString() || 0;
-
-      return { market: mav, buffer: bav };
     },
   },
 };

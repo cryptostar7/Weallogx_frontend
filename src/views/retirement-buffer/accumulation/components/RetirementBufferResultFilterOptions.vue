@@ -2,7 +2,7 @@
   <div
     :class="`filter_buttons ${$props.class} ${$props.disable ? 'disable' : ''}`"
   >
-    <button title="Reverse Order" @click="sortResultsBy('revers')">
+    <button title="Reverse Order" @click="sortResultsBy('revers')" :class="sortType == 'revers'? 'active':''">
       <svg
         width="20"
         height="20"
@@ -55,7 +55,8 @@
     </button>
     <button
       title="Sort Largest value to smallest value (based on SP 500 column)"
-      @click="sortResultsBy('ascending')"
+      @click="sortResultsBy('descending')"
+      :class="sortType == 'descending'? 'active':''"
     >
       <svg
         width="21"
@@ -107,7 +108,8 @@
     </button>
     <button
       title="Sort smallest value to largest value (based on SP 500 column)"
-      @click="sortResultsBy('descending')"
+      @click="sortResultsBy('ascending')"
+      :class="sortType == 'ascending'? 'active':''"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +148,7 @@
         />
       </svg>
     </button>
-    <button title="Randomize" @click="sortResultsBy('random')">
+    <button title="Randomize" @click="sortResultsBy('random')" :class="sortType == 'random'? 'active':''">
       <svg
         width="28"
         height="20"
@@ -297,26 +299,11 @@ import { authHeader } from "../../../../services/helper";
 
 export default {
   props: ["disable", "class"],
-  data() {
-    return {
-      ascending: true,
-    };
-  },
   methods: {
     testFunction: function () {
       console.log(this.inputs);
     },
     sortResultsBy: function (sort = "none") {
-      if (sort === "ascending") {
-        this.ascending = false;
-      }
-
-      if (sort === "descending") {
-        this.ascending = true;
-      }
-
-      this.sortType = sort;
-
       this.$store.dispatch('updateRbaSortType', sort);
       this.getAccumulationResults(sort); // Get market+buffer results from API
     },
@@ -367,6 +354,9 @@ export default {
         { value: "taxable", name: "Taxable" },
         { value: "pre_tax", name: "Pre-tax" },
       ];
+    },
+    sortType() {
+      return this.$store.state.data.retirement_buffer.sort_type;
     },
     inputs() {
       let results =

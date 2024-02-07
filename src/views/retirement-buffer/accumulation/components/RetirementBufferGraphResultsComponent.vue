@@ -31,7 +31,7 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="marketAlone ? '' : 'active'"
+        :class="`${marketAlone ? '' : 'active'} ${indexType === 'Historical Average' ? 'disable' : ''}`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
@@ -47,7 +47,7 @@
         ref="sliderRangeRef"
         sliderType="result"
         :disabled="marketAlone"
-        @setBuffer="(e) => (buffeAccountAllocation = e)"
+        @setBuffer="(e) => $store.dispatch('updateBuffeAccountAllocation', e)"
       />
       <!-- Filter Buttons -->
       <retirement-buffer-result-filter-options
@@ -110,11 +110,7 @@
           indexType === 'Historical Returns' ? '' : 'disable pe-none'
         }`"
       >
-        <label
-          for="net_distribution"
-
-          >Net Distributions</label
-        >
+        <label for="net_distribution">Net Distributions</label>
         <div class="table_button button_r">
           <input
             type="checkbox"
@@ -122,11 +118,11 @@
             id="net_distribution"
             :checked="showDistribution"
             @change="
-            $store.dispatch(
-              'updateRbaNetDistributionDisplay',
-              !showDistribution
-            )
-          "
+              $store.dispatch(
+                'updateRbaNetDistributionDisplay',
+                !showDistribution
+              )
+            "
           />
           <div class="button_knobs"></div>
           <div class="button_layer"></div>
@@ -149,20 +145,13 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType"],
+  props: ["indexType", "accountAllocation"],
   emits: ["setIndexType"],
-  data() {
-    return {
-      buffeAccountAllocation: 0,
-    };
-  },
   mounted() {
     this.setGraph();
-    this.updateSliderRange();
   },
   methods: {
     setGraph: function () {
-      console.log("...........");
       let graphData = this.getDataSet();
       let maxAcc1 = Math.max(
         ...[
@@ -179,7 +168,6 @@ export default {
         ]
       );
 
-      console.log("graphData");
       console.log(graphData);
 
       const comparativeValuesConfig = {
@@ -345,35 +333,10 @@ export default {
 
       return obj;
     },
-    updateSliderRange: function () {
-      let obj = this.results;
-      if (obj && obj.inputs) {
-        let marketValue = 50;
-        let bufferValue = 50;
-
-        if (!this.marketAlone) {
-          marketValue =
-            100 -
-            Number((obj.inputs.buffer_account_allocation * 100).toFixed(0));
-
-          bufferValue = Number(
-            (obj.inputs.buffer_account_allocation * 100).toFixed(0)
-          );
-        }
-
-        if (obj && obj.inputs) {
-          this.buffeAccountAllocation = obj.inputs.buffer_account_allocation;
-        }
-
-        this.$refs.sliderRangeRef.setMarketAccountAllocation(marketValue); // set market account allocation value in slider range
-        this.$refs.sliderRangeRef.setBufferAccountAllocation(bufferValue); // set buffer account allocation value in slider range
-      }
-    },
     testFunction: function () {
       console.log(this.results);
     },
     testFunction2: function () {
-      console.log("bar hidden");
       window.rbaGraphChart.setDatasetVisibility(4, false);
       window.rbaGraphChart.update();
     },
@@ -382,16 +345,12 @@ export default {
     "$props.indexType"(e) {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
-        // this.showDistribution = false;
       }
     },
     results(e) {
-      console.log("result changed");
       this.setGraph();
-      this.updateSliderRange();
     },
     marketAlone(e) {
-      console.log("market type changed", e);
       if (e) {
         window.rbaGraphChart.setDatasetVisibility(0, true);
         window.rbaGraphChart.setDatasetVisibility(1, false);
@@ -407,17 +366,14 @@ export default {
         if (!e) {
           window.rbaGraphChart.setDatasetVisibility(4, true);
         } else {
-          console.log("bar chart hidden 396");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
         if (e) {
-          console.log("bar chart hidden 402");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       }
-      console.log("chart updated 407");
       window.rbaGraphChart.update();
       // this.setGraph();
     },
@@ -428,17 +384,14 @@ export default {
         if (!this.marketAlone) {
           window.rbaGraphChart.setDatasetVisibility(4, true);
         } else {
-          console.log("bar chart hidden 416");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       } else {
         window.rbaGraphChart.setDatasetVisibility(3, false);
         if (this.marketAlone) {
-          console.log("bar chart hidden 422");
           window.rbaGraphChart.setDatasetVisibility(4, false);
         }
       }
-      console.log("chart updated 427");
       window.rbaGraphChart.update();
     },
   },
@@ -483,29 +436,7 @@ export default {
       }
       return array;
     },
-    accountAllocation() {
-      let account_value = this.inputs ? this.inputs.account_value : 0;
-      let buffer_account_allocation = this.buffeAccountAllocation;
 
-      let marketValue =
-        100 - Number((buffer_account_allocation * 100).toFixed(0));
-
-      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
-
-      // Market Account Value
-      let mav =
-        Number(
-          ((account_value / 100) * marketValue).toFixed(0)
-        ).toLocaleString() || 0;
-
-      // Buffer Account Value
-      let bav =
-        Number(
-          ((account_value / 100) * bufferValue).toFixed(0)
-        ).toLocaleString() || 0;
-
-      return { market: mav, buffer: bav };
-    },
   },
 };
 </script>
