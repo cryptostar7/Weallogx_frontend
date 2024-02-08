@@ -75,7 +75,7 @@
             </div>
             <ul class="options">
               <li
-                v-for="(item, index) in indexTypes"
+                v-for="(item, index) in $props.indexTypes"
                 :key="index"
                 :class="`option ${indexType === item ? 'active' : ''}`"
                 @click="$emit('setIndexType', item)"
@@ -145,7 +145,7 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType", "accountAllocation"],
+  props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
   mounted() {
     this.setGraph();
@@ -167,8 +167,6 @@ export default {
           Math.max(...(graphData.datasets[4].data || [])),
         ]
       );
-
-      console.log(graphData);
 
       const comparativeValuesConfig = {
         type: "line",
@@ -380,7 +378,6 @@ export default {
     showDistribution(e) {
       if (e) {
         window.rbaGraphChart.setDatasetVisibility(3, true);
-        console.log(this.marketAlone);
         if (!this.marketAlone) {
           window.rbaGraphChart.setDatasetVisibility(4, true);
         } else {
@@ -396,47 +393,15 @@ export default {
     },
   },
   computed: {
-    indexTypes() {
-      return ["Historical Average", "Historical Returns"];
-    },
     showDistribution() {
       return this.$store.state.data.retirement_buffer.show_distribution;
     },
     results() {
       return this.$store.getters.getRetirementBufferResults() || [];
     },
-    inputs() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results
-        .inputs;
-    },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
-    years() {
-      let array = [];
-      if (this.inputs) {
-        if (this.$props.indexType === "Historical Average") {
-          if (this.results.market.net_distribution.length)
-            for (
-              let index = 1;
-              index <= this.results.market.net_distribution.length;
-              index++
-            ) {
-              array.push(index);
-            }
-        } else {
-          for (
-            let index = this.inputs.start_year;
-            index <= this.inputs.end_year;
-            index++
-          ) {
-            array.push(index);
-          }
-        }
-      }
-      return array;
-    },
-
   },
 };
 </script>

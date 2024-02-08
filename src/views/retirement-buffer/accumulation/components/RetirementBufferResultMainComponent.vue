@@ -137,6 +137,8 @@
               ref="tableRef"
               :indexType="indexType"
               :accountAllocation="accountAllocation"
+              :years="years"
+              :indexTypes="indexTypes"
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Graph Results -->
@@ -144,6 +146,8 @@
               :indexType="indexType"
               ref="graphRef"
               :accountAllocation="accountAllocation"
+              :years="years"
+              :indexTypes="indexTypes"
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Summary Results -->
@@ -207,6 +211,7 @@ export default {
   data() {
     return {
       indexType: "Historical Average",
+      indexTypes: ["Historical Average", "Historical Returns"],
     };
   },
   mounted() {
@@ -345,6 +350,9 @@ export default {
       return this.$store.state.data.retirement_buffer.auccumulation_results
         .inputs;
     },
+    results() {
+      return this.$store.getters.getRetirementBufferResults();
+    },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
@@ -372,6 +380,23 @@ export default {
 
       return { market: mav, buffer: bav };
     },
+    years() {
+      let array = [];
+      if (this.indexType === "Historical Average") {
+        if (this.results.market.net_distribution.length)
+          for (
+            let index = 1;
+            index <= this.results.market.net_distribution.length;
+            index++
+          ) {
+            array.push(index);
+          }
+      } else {
+        array =
+          this.$store.state.data.retirement_buffer.auccumulation_results.years;
+      }
+      return array;
+    },
   },
   watch: {
     marketAlone(e) {
@@ -386,7 +411,6 @@ export default {
       this.updateSliderRange();
     },
     indexType(e) {
-      console.log(e);
       if (e !== "Historical Returns") {
         this.$store.dispatch("updateRbaSortType", "average");
         this.$store.dispatch("retirementBufferMarketAlone", true);
@@ -403,15 +427,15 @@ export default {
         this.$store.dispatch("updateRbaSortType", "none");
       }
     },
-    accountAllocation(e) {
-      // this.updateSliderRange();
-    },
     results() {
       this.updateSliderRange();
     },
     "$store.state.data.retirement_buffer.slider_width_update"(e) {
       if (e != "modal") {
         this.updateSliderRange();
+        if (this.marketAlone) {
+          this.$store.dispatch("updateRbaNetDistributionDisplay", false);
+        }
       }
     },
   },

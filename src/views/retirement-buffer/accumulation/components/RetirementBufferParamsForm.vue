@@ -395,8 +395,6 @@ export default {
       data.floor = getNumber(this.$refs.floorRef.value) / 100;
       data.par_rate = getNumber(this.$refs.parRateRef.value) / 100;
       data.margin = getNumber(this.$refs.marginRef.value) / 100;
-      console.log("this.$refs.capRateRef.value");
-
       data.cap = getNumber(this.$refs.capRateRef.value) / 100;
       if (this.$refs.capRateRef.value == "") {
         data.cap = 1000;
@@ -493,6 +491,10 @@ export default {
       this.$refs.marketValueRef.value = "";
       this.$refs.bufferValueRef.value = "";
       this.$refs.sliderRangeRef.resetSlider();
+      localStorage.removeItem('rba_account_type');
+      localStorage.removeItem('rba_distribution_type');
+      localStorage.removeItem('rba_results');
+      localStorage.removeItem('rba_simulations');
     },
     submitForm: function () {
       this.getAccumulationResults(); // Get market alone results from API
@@ -506,8 +508,6 @@ export default {
 
       let payload = this.getFormInputs();
       payload.sort_type = this.$store.state.data.retirement_buffer.sort_type;
-
-      console.log(payload);
 
       post(
         `${getUrl("retirement-buffer")}${endpoint}_combined`,

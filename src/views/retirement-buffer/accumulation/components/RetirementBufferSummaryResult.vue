@@ -38,7 +38,7 @@
                       Total Distributions
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ $numFormatWithDollar(inputs.annual_distribution) }}
+                      {{ $numFormatWithDollar(marketResult.total_distributions) }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -57,7 +57,7 @@
                         marketResult
                           ? $numFormatWithDollar(
                               marketResult.ending_balance +
-                                inputs.annual_distribution
+                              marketResult.total_distributions
                             )
                           : "$0"
                       }}
@@ -154,7 +154,7 @@
                       Total Distributions
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ $numFormatWithDollar(inputs.annual_distribution) }}
+                      {{ $numFormatWithDollar(marketBufferResult.total_distributions) }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -173,7 +173,7 @@
                         marketBufferResult
                           ? $numFormatWithDollar(
                               marketBufferResult.ending_balance +
-                                inputs.annual_distribution
+                              marketBufferResult.total_distributions
                             )
                           : "$0"
                       }}

@@ -31,7 +31,9 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="`${marketAlone ? '' : 'active'} ${indexType === 'Historical Average' ? 'disable' : ''}`"
+        :class="`${marketAlone ? '' : 'active'} ${
+          indexType === 'Historical Average' ? 'disable' : ''
+        }`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
@@ -85,7 +87,7 @@
                         </div>
                         <ul class="options">
                           <li
-                            v-for="(item, index) in indexTypes"
+                            v-for="(item, index) in $props.indexTypes"
                             :key="index"
                             :class="`option ${
                               indexType === item ? 'active' : ''
@@ -101,7 +103,7 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="(item, index) in years" :key="index">
+                  <tr v-for="(item, index) in $props.years" :key="index">
                     <td>{{ item }}</td>
                     <td :class="results.returns[index] < 0 ? 'red_text' : ''">
                       {{ Number((results.returns[index] * 100).toFixed(2)) }}%
@@ -151,7 +153,7 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="(item, index) in years" :key="index">
+                  <tr v-for="(item, index) in $props.years" :key="index">
                     <td
                       v-if="results.market"
                       :class="
@@ -228,7 +230,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in years" :key="index">
+                  <tr v-for="(item, index) in $props.years" :key="index">
                     <td
                       v-if="results.buffer"
                       :class="
@@ -316,7 +318,7 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType", "accountAllocation"],
+  props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
   methods: {
     testFunction: function () {
@@ -330,7 +332,7 @@ export default {
         this.$store.dispatch("retirementBufferMarketAlone", true);
         // this.showDistribution = false;
       }
-    }
+    },
   },
   computed: {
     showDistribution() {
@@ -339,39 +341,8 @@ export default {
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
     },
-    indexTypes() {
-      return ["Historical Average", "Historical Returns"];
-    },
     results() {
       return this.$store.getters.getRetirementBufferResults();
-    },
-    inputs() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results
-        .inputs;
-    },
-    years() {
-      let array = [];
-      if (this.inputs) {
-        if (this.$props.indexType === "Historical Average") {
-          if (this.results.market.net_distribution.length)
-            for (
-              let index = 1;
-              index <= this.results.market.net_distribution.length;
-              index++
-            ) {
-              array.push(index);
-            }
-        } else {
-          for (
-            let index = this.inputs.start_year;
-            index <= this.inputs.end_year;
-            index++
-          ) {
-            array.push(index);
-          }
-        }
-      }
-      return array;
     },
   },
 };
