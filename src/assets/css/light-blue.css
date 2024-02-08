@@ -1666,8 +1666,11 @@ background: #1660A4;
   border-color: #1660A4;
   color: #1660A4;
 }
-.light-blue .split_bar{
+.light-blue .split_bar, .light-blue .split_bar::after{
   background-color: #1660A4;
+}
+.light-blue .split_bar::before{
+  border-color: #1660A4;
 }
 .light-blue .table_clr_1 .each_table_heading {
   color: #1660A4;

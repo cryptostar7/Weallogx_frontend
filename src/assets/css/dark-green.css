@@ -4582,7 +4582,7 @@ fill: #f5f5f5;
   color: #fff;
 }
 .dark-green .table_graph_tab_main .retirement_slider .split_bar {
-  background-color: #0f8266;
+  background-color: #26ab8b;
 }
 .dark-green .table_graph_tab_main .retirement_slider .split_bar svg rect {
   fill: #fff;
@@ -4904,11 +4904,32 @@ fill: #f5f5f5;
 .dark-green .split_right::before {
   color: #fff;
 }
-.dark-green .split_bar {
+.dark-green .split_bar, .dark-green .split_bar::after {
   background-color: #26ab8b;
+}
+.dark-green .split_bar::before {
+  background-color: #2e3135;
+  border-color: #26ab8b;
 }
 .dark-green .split_bar svg rect {
   fill: #fff;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_left, .dark-green .slider_main.disabled .split_left{
+  background-color: #34383d;
+  border-color: #202124;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_right, .dark-green .slider_main.disabled .split_right{
+  background-color: #34383d;
+  border-color: #202124;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_bar, .dark-green .slider_main.disabled .split_bar, .dark-green .slider_main.disabled .split_bar::after {
+  background-color: #595858;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_bar svg, .dark-green .slider_main.disabled .split_bar svg{
+  opacity: 0.25;
+}
+.dark-green .table_graph_tab_main.disable .retirement_slider .split_bar::before, .dark-green .slider_main.disabled .split_bar, .dark-green .slider_main.disabled .split_bar::before {
+  border-color: #202124;
 }
 .dark-green .run_btn {
   border-color: #26ab8b;
