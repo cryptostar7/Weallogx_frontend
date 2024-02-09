@@ -389,7 +389,6 @@
     align-items: center;
     width: 60%;
     margin-top: 1.8rem;
-    gap: 3px;
 }
 
 .split_left {
@@ -397,8 +396,9 @@
     width: 50%;
     border-radius: 100px 4px 4px 100px;
     border: 2px solid #0e6651;
+    border-right: 0;
     background: #f1f1f1;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+/*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -415,8 +415,9 @@
     flex: 1;
     border-radius: 4px 100px 100px 4px;
     border: 2px solid #0e6651;
+    border-left: 0;
     background: #f1f1f1;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+/*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -443,17 +444,29 @@
     cursor: move;
     z-index: 5;
 }
-/*.split_bar::before {
+.split_bar::before {
     position: absolute;
     content: '';
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    width: 3px;
-    height: 40px;
-}*/
-
+    width: 7px;
+    height: 38px;
+    border-left: 2px solid #0e6651;
+    border-right: 2px solid #0e6651;
+    z-index: -1;
+}
+.split_bar::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0e6651;
+    width: 7px;
+    height: 16px;
+}
 .split_left::before {
     position: absolute;
     content: "Market Account";
@@ -497,8 +510,9 @@
 }
 .table_graph_tab_main.disable .retirement_slider .split_left, .slider_main.disabled .split_left {
     border: 2px solid #dfdfdf;
+    border-right: 0;
     background: #fafafa;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0;
     color: transparent;
     user-select: none;
 }
@@ -507,15 +521,23 @@
 }
 .table_graph_tab_main.disable .retirement_slider .split_right, .slider_main.disabled .split_right {
     border: 2px solid #dfdfdf;
+    border-left: 0;
     background: #fafafa;
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0;
     color: transparent;
     user-select: none;
 }
 .table_graph_tab_main.disable .retirement_slider .split_right::before, .slider_main.disabled .split_right::before {
     color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar, .slider_main.disabled .split_bar {
+.table_graph_tab_main.disable .retirement_slider .split_bar, .slider_main.disabled .split_bar, .slider_main.disabled .split_bar::after {
+    background-color: #dfdfdf;
+    
+}
+.table_graph_tab_main.disable .retirement_slider .split_bar::before, .slider_main.disabled .split_bar::before {
+    border-color: #dfdfdf;
+}
+.table_graph_tab_main.disable .retirement_slider .split_bar::after, .slider_main.disabled .split_bar::after {
     background-color: #dfdfdf;
 }
 .run_btn {
@@ -1501,8 +1523,8 @@ canvas#retirementBufferGraph {
     .table_graph_tab_main table.retirement_table_area thead tr th{
     height: 71px;
     vertical-align: bottom;
-}
-.each_table_heading{
-    font-size: 13px;
-}
+    }
+    .each_table_heading{
+        font-size: 13px;
+    }
 }

@@ -95,7 +95,7 @@ export default {
 
     let pos1, pos2, pos3, pos4;
     function dragElement(elmnt) {
-      (pos1 = 0), (pos2 = 0), (pos3 = 0), (pos4 = 0);
+      pos1 = 0; pos2 = 0; pos3 = 0; pos4 = 0;
       elmnt.onmousedown = dragMouseDown;
     }
 
@@ -137,6 +137,10 @@ export default {
       let percentVal = ((splitBar.offsetLeft / actualWidth) * 100).toFixed(0);
       splitLeft.style.width = percentVal + "%";
       splitRight.style.width = 100 - percentVal + "%";
+
+      leftSpan.textContent = percentVal;
+      rightSpan.textContent = 100 - percentVal;
+
       if (percentVal < 15) {
         splitLeft.classList.add("left");
       } else if (percentVal > 85) {
@@ -145,8 +149,6 @@ export default {
         splitLeft.classList.remove("left");
         splitRight.classList.remove("right");
       }
-      leftSpan.textContent = percentVal;
-      rightSpan.textContent = 100 - percentVal;
 
       emit("changeMarketValue", percentVal); // market value input update
       emit("changeBufferValue", 100 - percentVal); // buffer account value update
@@ -172,10 +174,18 @@ export default {
     var myModalEl = document.getElementById("settings");
     if (myModalEl) {
       myModalEl.addEventListener("shown.bs.modal", function (event) {
-        splitBar.style.left =
-          (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 -
-          splitBar.offsetWidth / 2 +
-          "px";
+        let leftOffset = (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 - splitBar.offsetWidth / 2;
+
+        if(leftOffset > this.totalWidth - 42){
+          splitBar.style.left = this.totalWidth - 42 + "px";
+          splitRight.classList.add("right");
+        }else{
+          splitBar.style.left = leftOffset + "px";
+        }
+        if(leftOffset <= 0){
+          splitBar.style.left = 0 + "px";  
+          splitLeft.classList.add("left");
+        }
       });
     }
   },
@@ -197,10 +207,22 @@ export default {
     setMarketAccountAllocation: function (value) {
       this.$refs.leftSpanRef.textContent = value;
       this.$refs.splitLeftRef.style.width = value + "%";
-      this.$refs.splitBarRef.style.left =
-        (this.$refs.sliderMainRef.offsetWidth * value) / 100 -
-        this.$refs.splitBarRef.offsetWidth / 2 +
-        "px";
+
+      let splitLeft = this.$refs.splitLeftRef;
+      let splitRight = this.$refs.splitRightRef;
+
+      let leftOffset = (this.$refs.sliderMainRef.offsetWidth * value) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
+      console.log(this.getMarketAccountAllocation(), this.getBufferAccountAllocation());
+      if(leftOffset > this.totalWidth - 42){
+        this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
+        splitRight.classList.add("right");
+      }else if(leftOffset <= 0){
+        this.$refs.splitBarRef.style.left = 0 + "px";
+        splitLeft.classList.add("left");
+      }else {
+        this.$refs.splitBarRef.style.left = leftOffset + "px";
+      }
+      
     },
     updateResult: function () {
       if (this.$props.sliderType === "result" && !this.$props.disabled) {
@@ -314,12 +336,27 @@ export default {
       if (e) {
         setTimeout(() => {
           if (e != "modal") {
-            this.$refs.splitBarRef.style.left =
-              (this.$refs.sliderMainRef.offsetWidth *
-                Number(this.$refs.leftSpanRef.textContent)) /
-                100 -
-              this.$refs.splitBarRef.offsetWidth / 2 +
-              "px";
+            let splitLeft = this.$refs.splitLeftRef;
+            let splitRight = this.$refs.splitRightRef;
+            let sliderMain = this.$refs.sliderMainRef;
+            this.totalWidth = sliderMain.offsetWidth;
+
+            let leftOffset = (this.$refs.sliderMainRef.offsetWidth * Number(this.$refs.leftSpanRef.textContent)) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
+            console.log(leftOffset, this.totalWidth);
+
+            if(leftOffset > this.totalWidth - 42){
+              this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
+              splitRight.classList.add("right");
+              console.log("1")
+            }else{
+              this.$refs.splitBarRef.style.left = leftOffset + "px";
+              console.log("2")
+            }
+            // if(leftOffset <= 0){
+            //   this.$refs.splitBarRef.style.left = 0 + "px";  
+            //   splitLeft.classList.add("left");
+            //   console.log("3")
+            // }
           }
         }, 250);
       }
