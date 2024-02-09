@@ -39,7 +39,7 @@
   import LeftSidebarComponent from "../../../components/common/LeftSidebarComponent.vue";
   import ChooseClientNavbar from "../../components/simulations/ChooseClientNavbar.vue";
   import IndividualClientRow from "../../components/simulations/IndividualClientRow.vue";
-  import DeleteClientModal from "../modals/DeleteClientmodal.vue";
+  import DeleteClientModal from "../modals/DeleteClientModal.vue";
   import EditClientCanvasModal from "../modals/EditClientCanvasModal.vue";
   import DeleteHistoricalSimulationModal from "../../components/modals/DeleteHistoricalSimulationModal.vue";
   import DeleteReportModal from "../../components/modals/DeleteReportModal.vue";
