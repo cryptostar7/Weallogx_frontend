@@ -2,7 +2,11 @@
   <div
     :class="`filter_buttons ${$props.class} ${$props.disable ? 'disable' : ''}`"
   >
-    <button title="Reverse Order" @click="sortResultsBy('revers')" :class="sortType == 'revers'? 'active':''">
+    <button
+      title="Reverse Order"
+      @click="sortResultsBy('reverse')"
+      :class="sortType == 'reverse' ? 'active' : ''"
+    >
       <svg
         width="20"
         height="20"
@@ -56,7 +60,7 @@
     <button
       title="Sort Largest value to smallest value (based on SP 500 column)"
       @click="sortResultsBy('descending')"
-      :class="sortType == 'descending'? 'active':''"
+      :class="sortType == 'descending' ? 'active' : ''"
     >
       <svg
         width="21"
@@ -109,7 +113,7 @@
     <button
       title="Sort smallest value to largest value (based on SP 500 column)"
       @click="sortResultsBy('ascending')"
-      :class="sortType == 'ascending'? 'active':''"
+      :class="sortType == 'ascending' ? 'active' : ''"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +152,11 @@
         />
       </svg>
     </button>
-    <button title="Randomize" @click="sortResultsBy('random')" :class="sortType == 'random'? 'active':''">
+    <button
+      title="Randomize"
+      @click="sortResultsBy('random')"
+      :class="sortType == 'random' ? 'active' : ''"
+    >
       <svg
         width="28"
         height="20"
@@ -304,7 +312,10 @@ export default {
       console.log(this.inputs);
     },
     sortResultsBy: function (sort = "none") {
-      this.$store.dispatch('updateRbaSortType', sort);
+      if (sort === "reverse" && this.sortType === "reverse") {
+        sort = "none";
+      }
+      this.$store.dispatch("updateRbaSortType", sort);
       this.getAccumulationResults(sort); // Get market+buffer results from API
     },
     getAccumulationResults: function (sort) {
@@ -318,7 +329,11 @@ export default {
 
       payload.sort_type = sort;
 
-      post(`${getUrl("retirement-buffer")}${endpoint}_combined`, payload, authHeader())
+      post(
+        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        payload,
+        authHeader()
+      )
         .then((response) => {
           this.$store.dispatch("loader", false);
           this.$store.dispatch("retirementBufferAccumulationResults", {

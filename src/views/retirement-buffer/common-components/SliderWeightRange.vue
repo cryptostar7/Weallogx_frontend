@@ -163,8 +163,7 @@ export default {
     let updateResult = this.updateResult;
     function closeDragElement() {
       // stop moving when mouse button is released:
-      console.log("mouse dragged out!");
-      updateResult();
+      updateResult(); // update the result on mouse dragged out!
       document.onmouseup = null;
       document.onmousemove = null;
     }
@@ -212,7 +211,6 @@ export default {
       let splitRight = this.$refs.splitRightRef;
 
       let leftOffset = (this.$refs.sliderMainRef.offsetWidth * value) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
-      console.log(this.getMarketAccountAllocation(), this.getBufferAccountAllocation());
       if(leftOffset > this.totalWidth - 42){
         this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
         splitRight.classList.add("right");
@@ -336,27 +334,18 @@ export default {
       if (e) {
         setTimeout(() => {
           if (e != "modal") {
-            let splitLeft = this.$refs.splitLeftRef;
             let splitRight = this.$refs.splitRightRef;
             let sliderMain = this.$refs.sliderMainRef;
             this.totalWidth = sliderMain.offsetWidth;
 
             let leftOffset = (this.$refs.sliderMainRef.offsetWidth * Number(this.$refs.leftSpanRef.textContent)) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
-            console.log(leftOffset, this.totalWidth);
 
             if(leftOffset > this.totalWidth - 42){
               this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
               splitRight.classList.add("right");
-              console.log("1")
             }else{
               this.$refs.splitBarRef.style.left = leftOffset + "px";
-              console.log("2")
             }
-            // if(leftOffset <= 0){
-            //   this.$refs.splitBarRef.style.left = 0 + "px";  
-            //   splitLeft.classList.add("left");
-            //   console.log("3")
-            // }
           }
         }, 250);
       }

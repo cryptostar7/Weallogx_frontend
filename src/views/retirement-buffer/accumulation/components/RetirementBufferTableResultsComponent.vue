@@ -296,7 +296,7 @@
                     v-for="(item, index) in results.combined_ending_balance"
                     :key="index"
                   >
-                    <td>{{ $numFormatWithDollar(item) }}</td>
+                    <td>{{ $numFormatWithDollar(item) || '&nbsp;' }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -330,7 +330,6 @@ export default {
     "$props.indexType"(e) {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
-        // this.showDistribution = false;
       }
     },
   },

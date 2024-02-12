@@ -280,9 +280,12 @@ export default {
     },
     getDataSet: function () {
       let results = this.results;
+      setTimeout(() => {
+        console.log(this.$props.years);
+      }, 1000);
 
       let obj = {
-        labels: this.years,
+        labels: this.$props.years,
         datasets: [
           {
             borderColor: "#0E6651",
@@ -346,7 +349,9 @@ export default {
       }
     },
     results(e) {
-      this.setGraph();
+      setTimeout(() => {
+        this.setGraph();
+      }, 100);
     },
     marketAlone(e) {
       if (e) {

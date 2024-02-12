@@ -1,9 +1,9 @@
 <template lang="">
   <div>
-    <h2 class="summary_heading" @click="testFunction">Summary</h2>
+    <h2 class="summary_heading">Summary</h2>
     <div class="container-fluid p-0">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" v-if="marketResult">
           <div class="summary_each_card summary_card_clr_1">
             <h3 class="summary_each_card_heading">Market Account Alone</h3>
             <div class="summary_card_inner-div">
@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult
+                        marketResult.beginning_balance
                           ? $numFormatWithDollar(marketResult.beginning_balance)
                           : "$0"
                       }}
@@ -27,8 +27,10 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult
-                          ? $numFormatWithDollar(marketResult.ending_balance)
+                        marketResult.market_ending_balance
+                          ? $numFormatWithDollar(
+                              marketResult.market_ending_balance
+                            )
                           : "$0"
                       }}
                     </div>
@@ -38,7 +40,11 @@
                       Total Distributions
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ $numFormatWithDollar(marketResult.total_distributions) || '$0' }}
+                      {{
+                        $numFormatWithDollar(
+                          marketResult.total_distributions
+                        ) || "$0"
+                      }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -54,12 +60,10 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult
-                          ? $numFormatWithDollar(
-                              marketResult.ending_balance +
-                              marketResult.total_distributions
-                            )
-                          : "$0"
+                        $numFormatWithDollar(
+                          marketResult.market_ending_balance +
+                            marketResult.total_distributions
+                        ) || "$0"
                       }}
                     </div>
                   </div>
@@ -77,7 +81,7 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult
+                        marketResult.average_rate_of_return
                           ? Number(
                               (
                                 marketResult.average_rate_of_return * 100
@@ -109,7 +113,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 px-2 mt-4 mt-md-0">
+        <div class="col-md-6 px-2 mt-4 mt-md-0" v-if="marketBufferResult">
           <div
             :class="`summary_each_card summary_card_clr_2 ${
               marketAlone ? 'disable' : ''
@@ -127,7 +131,7 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketBufferResult
+                        marketBufferResult.beginning_balance
                           ? $numFormatWithDollar(
                               marketBufferResult.beginning_balance
                             )
@@ -141,7 +145,7 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketBufferResult
+                        marketBufferResult.ending_balance
                           ? $numFormatWithDollar(
                               marketBufferResult.ending_balance
                             )
@@ -154,7 +158,11 @@
                       Total Distributions
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ $numFormatWithDollar(marketBufferResult.total_distributions) || "$0" }}
+                      {{
+                        $numFormatWithDollar(
+                          marketBufferResult.total_distributions
+                        ) || "$0"
+                      }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -170,12 +178,10 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketBufferResult
-                          ? $numFormatWithDollar(
-                              marketBufferResult.ending_balance +
-                              marketBufferResult.total_distributions
-                            )
-                          : "$0"
+                        $numFormatWithDollar(
+                          marketBufferResult.ending_balance +
+                            marketBufferResult.total_distributions
+                        ) || "$0"
                       }}
                     </div>
                   </div>
@@ -184,7 +190,9 @@
                       Negative Years
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{  marketBufferResult.rate_of_return_negative_years || 0 }}
+                      {{
+                        marketBufferResult.rate_of_return_negative_years || 0
+                      }}
                     </div>
                   </div>
                   <div class="row mt-3">
@@ -193,7 +201,7 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketBufferResult
+                        marketBufferResult.average_rate_of_return
                           ? Number(
                               (
                                 marketBufferResult.average_rate_of_return * 100
