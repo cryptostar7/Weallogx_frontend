@@ -515,6 +515,7 @@
     box-shadow: 0;
     color: transparent;
     user-select: none;
+    width: 50% !important;
 }
 .table_graph_tab_main.disable .retirement_slider .split_left::before, .slider_main.disabled .split_left::before {
     color: #dfdfdf;
@@ -526,19 +527,27 @@
     box-shadow: 0;
     color: transparent;
     user-select: none;
+    width: 50% !important;
+}
+.table_graph_tab_main.disable .split_right.right::before, .slider_main.disabled .split_right.right::before {
+    left: unset;
+    right: unset;
+    transform: unset;
 }
 .table_graph_tab_main.disable .retirement_slider .split_right::before, .slider_main.disabled .split_right::before {
     color: #dfdfdf;
 }
 .table_graph_tab_main.disable .retirement_slider .split_bar, .slider_main.disabled .split_bar, .slider_main.disabled .split_bar::after {
     background-color: #dfdfdf;
-    
 }
 .table_graph_tab_main.disable .retirement_slider .split_bar::before, .slider_main.disabled .split_bar::before {
     border-color: #dfdfdf;
 }
 .table_graph_tab_main.disable .retirement_slider .split_bar::after, .slider_main.disabled .split_bar::after {
     background-color: #dfdfdf;
+}
+.table_graph_tab_main.disable .retirement_slider .split_bar.disable, .slider_main.disabled .split_bar.disable{
+    left: calc(50% - 21px) !important;
 }
 .run_btn {
     border: 1px solid #0e6651;
