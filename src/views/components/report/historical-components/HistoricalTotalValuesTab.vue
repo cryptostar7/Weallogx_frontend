@@ -464,7 +464,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: Number(maxAxis).toFixed(0),
+              max: this.$roundFigureNum(Number(maxAxis)).toFixed(0),
               ticks: {
                 padding: 8,
                 callback: function(value, index, ticks) {
