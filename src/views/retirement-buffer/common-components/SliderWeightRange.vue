@@ -246,7 +246,7 @@ export default {
         .then((response) => {
           this.$store.dispatch("loader", false);
           this.$store.dispatch("retirementBufferAccumulationResults", {
-            sort: true,
+            sort: payload.sort_type,
             data: response.data,
           }); // Update results in vuexy store
         })

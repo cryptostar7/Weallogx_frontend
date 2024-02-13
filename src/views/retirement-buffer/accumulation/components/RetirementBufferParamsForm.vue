@@ -522,7 +522,7 @@ export default {
             this.annualDistributionType
           );
           this.$store.dispatch("retirementBufferAccumulationResults", {
-            sort: payload.sort_type !== "average",
+            sort: payload.sort_type,
             data: response.data,
           }); // Update results in vuexy store
           this.getSimulationData(`${endpoint}_simulation`, payload);

@@ -1,5 +1,5 @@
 <template lang="">
-  <main class="right-area">
+  <main class="right-area" v-if="results">
     <div class="right-area-inner">
       <div class="right-area-wrapper">
         <section class="retirement_buffer_section">
@@ -215,6 +215,11 @@ export default {
     };
   },
   mounted() {
+
+    if(!this.results){
+      this.$router.push('/retirement-buffer/accumulation/params');
+    }
+
     // Add Comma after 3 digit
     function updateTextView(_obj) {
       var num = getNumber(_obj.value);

@@ -280,10 +280,6 @@ export default {
     },
     getDataSet: function () {
       let results = this.results;
-      setTimeout(() => {
-        console.log(this.$props.years);
-      }, 1000);
-
       let obj = {
         labels: this.$props.years,
         datasets: [

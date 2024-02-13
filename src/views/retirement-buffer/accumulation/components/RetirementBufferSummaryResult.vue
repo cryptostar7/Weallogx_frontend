@@ -267,13 +267,8 @@ export default {
     }
 
     this.generatePieChart();
-
-    console.log("results");
   },
   methods: {
-    testFunction: function () {
-      console.log(this.results);
-    },
     updatePieChart: function () {
       if (this.simulations) {
         window.circleProgress.animationTo({
@@ -339,11 +334,14 @@ export default {
       return this.$store.getters.getRetirementBufferResults();
     },
     inputs() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results
-        .inputs;
+      return this.$store.state.data.retirement_buffer.auccumulation_results.inputs;
     },
     marketResult() {
-      return this.results.summary ? this.results.summary : {};
+      let obj = this.results.summary ? this.results.summary : {};
+      if(!this.marketAlone && this.$store.state.data.retirement_buffer.show_distribution){
+        obj = this.$store.state.data.retirement_buffer.auccumulation_results.market_only.summary;
+      }
+      return obj;
     },
     marketBufferResult() {
       return this.results.summary ? this.results.summary : {};

@@ -476,7 +476,7 @@ const store = createStore({
             state.data.retirement_buffer.distribution_in = payload;
         },
         setRetirementBufferAccumulationResults(state, payload) {
-            if (!payload.sort) {
+            if (payload.sort === 'average') {
                 localStorage.setItem("rba_results", JSON.stringify(payload.data));
             }
 
