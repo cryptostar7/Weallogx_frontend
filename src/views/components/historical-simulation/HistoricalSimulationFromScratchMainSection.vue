@@ -474,10 +474,51 @@ export default {
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
 
-      if (Number(this.analysis.lif.fees) < 1) {
+      if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 1) {
         valid = false;
         this.error.analysis = true;
-        this.$toast.warning("Loan interest rate field must be grater than or equals to 1");
+        this.$toast.warning(
+          "Loan interest rate field must be grater than or equals to 1"
+        );
+      }
+
+      
+      // loan interest analysis validation
+      if (analysis && !analysis.lif.same_all_year) {
+        let obj = analysis.lif.schedule;
+        let obj_valid = true;
+        let valid_number = true;
+        if (obj) {
+          obj.forEach((item) => {
+            if (!item.value) {
+              obj_valid = false;
+            } else {
+              if (Number(item.value) < 1) {
+                valid_number = false;
+              }
+            }
+          });
+        } else {
+          obj_valid = false;
+        }
+
+        if (!obj_valid || !valid_number) {
+          if (!obj_valid) {
+            valid = false;
+            this.error.analysis = true;
+            this.error.analysis_lif_schedule =
+              "Please fill loan interest rate for all years.";
+          }
+
+          if (!valid_number) {
+            valid = false;
+            this.error.analysis = true;
+            this.error.analysis_lif_schedule =
+              "Loan interest rate field must be grater than or equals to 1";
+          }
+        } else {
+          this.error.analysis_lif_schedule = "";
+        }
       }
 
       let portFolio = document.getElementById("savePortfolioCheckbox")
@@ -564,7 +605,7 @@ export default {
           ? analysis.pcf.schedule
           : null,
 
-        loan_intrest_rate: analysis.lif.fees || 0,
+        loan_intrest_rate: analysis.lif.fees || 1,
         loan_same_in_all_years: analysis.lif.same_all_year ? true : false,
         loan_intrest_rate_same_in_all_years: !analysis.lif.same_all_year
           ? analysis.lif.schedule
@@ -1251,29 +1292,6 @@ export default {
             "Please fill premium charge rate for all years.";
         } else {
           this.error.analysis_pc_schedule = "";
-        }
-      }
-
-      // loan interest analysis validation
-      if (analysis && !analysis.lif.same_all_year) {
-        let obj = analysis.lif.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error.analysis = true;
-          this.error.analysis_lif_schedule =
-            "Please fill loan interest rate for all years.";
-        } else {
-          this.error.analysis_lif_schedule = "";
         }
       }
 
