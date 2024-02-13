@@ -18,7 +18,7 @@
                                 <tbody>
                                     <tr v-for="(item, index) in $props.list" :key="index">
                                         <td data-label="Year">{{item.year}}</td>
-                                        <td data-label="Rate">{{$props.type === 'rate' ? '':'$'}} {{Number(item.value).toLocaleString()}}{{$props.type === 'rate' ? '%':''}}</td>
+                                        <td data-label="Rate">{{$props.type === 'rate' ? '':'$'}} {{Number(item.value).toLocaleString('en-US')}}{{$props.type === 'rate' ? '%':''}}</td>
                                     </tr>
                                 </tbody>
                             </table>

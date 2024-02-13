@@ -84,7 +84,7 @@
                   class="form-control"
                   :value="`$${Number(
                     data.initial_death_benifit
-                  ).toLocaleString()}`"
+                  ).toLocaleString('en-US')}`"
                   readonly
                 />
               </div>

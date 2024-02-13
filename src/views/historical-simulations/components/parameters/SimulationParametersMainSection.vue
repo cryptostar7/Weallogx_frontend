@@ -12,7 +12,6 @@
                   <div class="col-sm-12 col-lg-11 col-xl-9">
                     <div class="d-flex align-items-center">
                       <label
-                        @click="testFunction"
                         for="scheduleTemplateCheckbox"
                         class="historical-paraCheckBox"
                         >Parameters</label
@@ -458,6 +457,12 @@ export default {
       var focus = false;
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
+
+      if (Number(this.analysis.lif.fees) < 1) {
+        valid = false;
+        this.error.analysis = true;
+        this.$toast.warning("Loan interest rate field must be grater than or equals to 1");
+      }
 
       let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
         ? document.getElementById("saveSimulationPortfolioCheckbox").checked
@@ -1284,12 +1289,6 @@ export default {
         } else {
           this.error.analysis_pc_schedule = "";
         }
-      }
-
-      if (analysis.lif.analysis < 0.1) {
-        valid = false;
-        this.error.analysis = true;
-        this.$toast.warning("Loan interest rate must be grater than 0.1");
       }
 
       // loan interest analysis validation

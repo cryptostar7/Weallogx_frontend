@@ -212,10 +212,10 @@ export default {
               e.target.value =
                 Number(current) < min
                   ? ""
-                  : Number(actualValue).toLocaleString();
+                  : Number(actualValue).toLocaleString('en-US');
               return false;
             } else {
-              e.target.value = Number(current).toLocaleString();
+              e.target.value = Number(current).toLocaleString('en-US');
             }
           })
         );

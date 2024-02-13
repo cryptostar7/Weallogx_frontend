@@ -71,11 +71,11 @@
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
                           <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValue(data[0].ending_value, item.ending_value) > 95 ? 'p-relative' : 'p-static'}`"  :style="{height: `${getPercentValue(data[0].ending_value, item.ending_value)}%`}">
                             <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
-                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{ Number(Number(item.ending_value).toFixed(0)).toLocaleString() }}</span></p>
+                              <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{ Number(Number(item.ending_value).toFixed(0)).toLocaleString('en-US') }}</span></p>
                             </div>
                             <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
                               <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
-                              <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString().replace('-', '') }}</p>
+                              <p>${{ Number(Number(item.shortfall).toFixed(0)).toLocaleString('en-US').replace('-', '') }}</p>
                             </div>                            
                         </div>
                         </div>

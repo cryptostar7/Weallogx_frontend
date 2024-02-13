@@ -226,7 +226,7 @@ export default {
       if (num == 0) {
         _obj.value = "";
       } else {
-        _obj.value = num.toLocaleString();
+        _obj.value = num.toLocaleString('en-US');
       }
     }
 
@@ -375,13 +375,13 @@ export default {
       let mav =
         Number(
           ((account_value / 100) * marketValue).toFixed(0)
-        ).toLocaleString() || 0;
+        ).toLocaleString('en-US') || 0;
 
       // Buffer Account Value
       let bav =
         Number(
           ((account_value / 100) * bufferValue).toFixed(0)
-        ).toLocaleString() || 0;
+        ).toLocaleString('en-US') || 0;
 
       return { market: mav, buffer: bav };
     },

@@ -3,7 +3,7 @@ import moment from "moment/moment";
 const myPlugin = {
     install(app) {
         app.config.globalProperties.$numFormat = (key) => {
-            return Number(Number(key).toFixed(2)).toLocaleString();
+            return Number(Number(key).toFixed(2)).toLocaleString('en-US');
         },
         app.config.globalProperties.$numFormatWithDollar = (key) => {
             key = Number(key || 0);
@@ -11,7 +11,7 @@ const myPlugin = {
                 return '';
             }
             key = key.toFixed(0);
-            return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString()}` : '-';
+            return key ? `${key.toString().includes('-') ? '- $' : '$'}${Number(key.toString().replace('-', '')).toLocaleString('en-US')}` : '-';
         },
         app.config.globalProperties.$dateFormat = (date) => {
             let temp = new Date(date);

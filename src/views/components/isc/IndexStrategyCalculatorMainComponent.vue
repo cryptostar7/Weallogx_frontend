@@ -829,7 +829,7 @@ export default {
       if (oldData) {
         this.beginningBalance = Number(
           oldData.beginning_balance
-        ).toLocaleString();
+        ).toLocaleString('en-US');
         this.taxRate = this.$numFormat(oldData.index_vehicle.tax_rate * 100);
         this.vehicleFee = this.$numFormat(oldData.index_vehicle.fee * 100);
         let v_type = "Taxable";
@@ -841,7 +841,7 @@ export default {
 
         this.$refs.beginningBalanceRef.value = Number(
           oldData.beginning_balance
-        ).toLocaleString();
+        ).toLocaleString('en-US');
         this.$refs.taxRateRef.value = this.taxRate;
         this.$refs.vehicleFeeRef.value = this.vehicleFee;
         this.$refs.vehicleFeeRef.value = this.vehicleFee;
@@ -988,10 +988,10 @@ export default {
         if (Number(current) < min || Number(current) > max) {
           let actualValue = current.slice(0, current.length - 1);
           e.target.value =
-            Number(current) < min ? "" : Number(actualValue).toLocaleString();
+            Number(current) < min ? "" : Number(actualValue).toLocaleString('en-US');
           return false;
         } else {
-          e.target.value = Number(current).toLocaleString();
+          e.target.value = Number(current).toLocaleString('en-US');
         }
       })
     );

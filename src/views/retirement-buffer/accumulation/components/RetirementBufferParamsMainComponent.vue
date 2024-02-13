@@ -45,13 +45,13 @@ export default {
       if (num == 0) {
         _obj.value = "";
       } else {
-        _obj.value = num.toLocaleString();
+        _obj.value = num.toLocaleString('en-US');
       }
     }
 
     // Comma separated input script
     document.querySelectorAll(".dollar_inp").forEach(function (eachDollarInp) {
-      eachDollarInp.addEventListener("input", function () {
+      eachDollarInp.addEventListener("input", function (event) {
         updateTextView(event.target);
         var key = event.keyCode;
         // Only allow numbers to be entered

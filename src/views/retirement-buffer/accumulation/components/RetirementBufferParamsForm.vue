@@ -361,7 +361,7 @@ export default {
       if (num == 0) {
         _obj.value = "";
       } else {
-        _obj.value = num.toLocaleString();
+        _obj.value = num.toLocaleString('en-US');
       }
     },
     // Return form inputs data
@@ -414,7 +414,7 @@ export default {
         ); // Update account distribution type value
       }
 
-      this.totalBalance = data.account_value.toLocaleString();
+      this.totalBalance = data.account_value.toLocaleString('en-US');
       this.$refs.totalBalanceRef.value = this.totalBalance;
 
       if (
@@ -422,9 +422,9 @@ export default {
         this.accountType === "pre_tax_simulation"
       ) {
         this.annualDistribution =
-          data.annual_after_tax_distribution.toLocaleString();
+          data.annual_after_tax_distribution.toLocaleString('en-US');
       } else {
-        this.annualDistribution = data.annual_distribution.toLocaleString();
+        this.annualDistribution = data.annual_distribution.toLocaleString('en-US');
       }
 
       this.$refs.annualDistributionDollarRef.value = this.annualDistribution;
@@ -462,12 +462,12 @@ export default {
       // Market Account Value
       let mav = Number(
         ((data.account_value / 100) * marketValue).toFixed(0)
-      ).toLocaleString();
+      ).toLocaleString('en-US');
 
       // Buffer Account Value
       let bav = Number(
         ((data.account_value / 100) * bufferValue).toFixed(0)
-      ).toLocaleString();
+      ).toLocaleString('en-US');
 
       this.$refs.marketValueRef.value = mav; // set market account value for readonly input
       this.$refs.bufferValueRef.value = bav; // set buffer account value for readonly input

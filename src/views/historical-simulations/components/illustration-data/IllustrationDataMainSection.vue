@@ -1118,10 +1118,10 @@ export default {
         if (Number(current) < min || Number(current) > max) {
           let actualValue = current.slice(0, current.length - 1);
           e.target.value =
-            Number(current) < min ? "" : Number(actualValue).toLocaleString();
+            Number(current) < min ? "" : Number(actualValue).toLocaleString('en-US');
           return false;
         } else {
-          e.target.value = Number(current).toLocaleString();
+          e.target.value = Number(current).toLocaleString('en-US');
         }
       })
     );
@@ -1337,7 +1337,7 @@ export default {
         if (data.initial_death_benifit) {
           this.setInputWithId(
             "simulationDeathBenefit",
-            data.initial_death_benifit.toLocaleString()
+            data.initial_death_benifit.toLocaleString('en-US')
           );
         }
 

@@ -474,6 +474,12 @@ export default {
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
 
+      if (Number(this.analysis.lif.fees) < 1) {
+        valid = false;
+        this.error.analysis = true;
+        this.$toast.warning("Loan interest rate field must be grater than or equals to 1");
+      }
+
       let portFolio = document.getElementById("savePortfolioCheckbox")
         ? document.getElementById("savePortfolioCheckbox").checked
         : false;
@@ -1246,12 +1252,6 @@ export default {
         } else {
           this.error.analysis_pc_schedule = "";
         }
-      }
-
-      if (analysis.lif.analysis < 0.1) {
-        valid = false;
-        this.error.analysis = true;
-        this.$toast.warning("Loan interest rate must be grater than 0.1");
       }
 
       // loan interest analysis validation

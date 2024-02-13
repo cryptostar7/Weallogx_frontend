@@ -49,7 +49,7 @@ export default {
     },
 
     formatAmount: function(amount) {
-      return amount ? this.amount.toLocaleString() : ""
+      return amount ? this.amount.toLocaleString('en-US') : ""
     }
   }
 }
