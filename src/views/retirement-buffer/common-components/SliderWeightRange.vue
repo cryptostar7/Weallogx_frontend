@@ -146,6 +146,7 @@ export default {
       if (percentVal < 15) {
         splitLeft.classList.add("left");
       } else if (percentVal > 85) {
+        console.log("right1")
         splitRight.classList.add("right");
       } else {
         splitLeft.classList.remove("left");
@@ -216,13 +217,20 @@ export default {
 
       let leftOffset = (this.$refs.sliderMainRef.offsetWidth * value) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
       if(leftOffset > this.totalWidth - 42){
-        this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
-        splitRight.classList.add("right");
+        this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";        
       }else if(leftOffset <= 0){
         this.$refs.splitBarRef.style.left = 0 + "px";
-        splitLeft.classList.add("left");
       }else {
         this.$refs.splitBarRef.style.left = leftOffset + "px";
+      }
+
+      if (value < 15) {
+        splitLeft.classList.add("left");
+      } else if (100 - value > 85) {
+        splitRight.classList.add("right");
+      } else {
+        splitLeft.classList.remove("left");
+        splitRight.classList.remove("right");
       }
       
     },
