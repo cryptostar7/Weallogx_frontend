@@ -8,7 +8,9 @@
     <div ref="splitLeftRef" class="split_left">
       <span ref="leftSpanRef" class="left_span">50</span>%
     </div>
-    <div ref="splitBarRef" class="split_bar">
+    <div ref="splitBarRef" :class="`split_bar ${
+              marketAlone ? 'disable' : ''
+            }`">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="6"
@@ -187,6 +189,8 @@ export default {
         }
       });
     }
+    console.log(this.$props.sliderType)
+
   },
   methods: {
     resetSlider: function () {
@@ -327,6 +331,10 @@ export default {
     inputs() {
       return this.$store.state.data.retirement_buffer.auccumulation_results
         .inputs;
+    },
+    marketAlone() {
+      console.log(this.$store.state.data.retirement_buffer.market_alone);
+      return this.$store.state.data.retirement_buffer.market_alone;
     },
   },
   watch: {
