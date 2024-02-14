@@ -1609,7 +1609,7 @@ color: #fff;
   max-width: 320px;
   margin: 0 auto;
 }
-.custom-switch .form-check-input {
+.custom-switch .form-check-input, .light-green .custom-switch .form-check-input {
   cursor: pointer;
   box-shadow: none;
   width: 2.25rem;
@@ -1619,15 +1619,17 @@ color: #fff;
   border: 0;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
-.custom-switch .form-check-input.less-height {
+.custom-switch .form-check-input.less-height, .light-green .custom-switch .form-check-input.less-height {
   height: 1rem;
 }
-.custom-switch .form-check-input:focus {
+.custom-switch .form-check-input:focus, .custom-switch .form-check-input:focus {
   border: 0;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
 .custom-switch .form-check-input:checked,
-.custom-switch .form-check-input:checked:focus {
+.custom-switch .form-check-input:checked:focus,
+.light-green .custom-switch .form-check-input:checked,
+.light-green .custom-switch .form-check-input:checked:focus {
   border: 0;
   background-color: var(--green-clr);
 }
@@ -1640,7 +1642,6 @@ color: #fff;
 .custom-switch .form-check-label.no-event {
   pointer-events: none;
 }
-/*  */
 .autocomplete1 {
   position: relative;
   display: inline-block;
@@ -1685,7 +1686,7 @@ color: #fff;
 .autocomplete1-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete2 {
   position: relative;
   display: inline-block;
@@ -1730,7 +1731,7 @@ color: #fff;
 .autocomplete2-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete3-items {
   position: absolute;
   border-bottom: none;

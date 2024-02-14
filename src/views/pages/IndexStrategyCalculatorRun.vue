@@ -404,7 +404,7 @@
                   </div>
                 </section>
 
-                <section class="strategy-calc-main-section mb-3">
+                <section class="strategy-calc-main-section">
                   <div class="row table-data-row">
                     <div class="col-md-6 half-col-left">
                       <div class="table-graph-bottom-each-main-div">
@@ -483,6 +483,10 @@
                       </div>
                     </div>
                   </div>
+                </section>
+
+                <section class="strategy-calc-main-section mt-0">
+                  <p class="disclosure_bottom_para mt-4"><span>Disclosure:</span> This program illustrates a hypothetical scenario(s) of certain index strategies that may be available and compares to a hypothetical direct investment into those index(es). Importantly, it does not illustrate a cash-value life insurance policy. It is meant to be educational and insightful of how certain strategies (absent policy fees) within certain types of cash-value life insurance may have behaved through a historical lens. Though this is meant to give insight and provide discussion points, the approach is inherently imperfect. You may not infer that the results would have been those of a cash-value life insurance policy that offer similar index strategies. If this program were illustrating an actual insurance illustration, which it is not, costs related to the policy would materially reduce the values shown, as would fees (including taxes) relating to a direct investment in any index(es).</p>
                 </section>
               </div>
             </div>

@@ -1,5 +1,5 @@
 <template lang="">
-  <p class="disclosure_bottom_para">
+  <p class="disclosure_bottom_para mt-5">
     <span>Disclosure:</span> This tool is designed to provide insight and
     opportunities for discussion regarding certain strategies surrounding
     sequence of return risk (among others) that may prove beneficial amid a
