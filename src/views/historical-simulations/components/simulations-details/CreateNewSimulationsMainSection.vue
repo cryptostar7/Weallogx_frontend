@@ -556,16 +556,11 @@ export default {
       );
       this.errors.client_age_year = false;
 
-      if (template) {
-        // this.illustrateYear = "";
-        // document.getElementById("illustratedSimulationAge").value = "";
-      } else {
-        this.illustrateYear = detail.years_to_illustrate;
+      this.illustrateYear = detail.years_to_illustrate;
         this.setInputWithId(
           "illustratedSimulationAge",
           detail.years_to_illustrate
         );
-      }
       this.taxRate = detail.tax_rate ? detail.tax_rate : "";
       this.setInputWithId("taxRate", detail.tax_rate ? detail.tax_rate : "");
       this.taxRate = detail.tax_rate ? detail.tax_rate : "";

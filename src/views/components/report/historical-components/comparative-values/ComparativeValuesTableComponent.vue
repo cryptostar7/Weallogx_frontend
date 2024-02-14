@@ -291,7 +291,7 @@
                             </p>
                           </div>
                           <div class="d-flex justify-content-between">
-                            <p class="lirpPara8 m-0 mb-1">Strateguy CAGR</p>
+                            <p class="lirpPara8 m-0 mb-1">Strategy CAGR</p>
                             <p class="lirpPara2 m-0 mb-1">
                               {{
                                 table.data[0].categories[tsa_type].strategy_cagr

@@ -316,7 +316,7 @@
                           <span class="percent-span">%</span>
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" @click="checkIllustrateYearField()">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw"
                           >Second Tax Rate Year</label
                         >
@@ -373,10 +373,13 @@
                       <small class="text-danger" v-if="errors.tax_rate">{{
                         errors.tax_rate[0]
                       }}</small>
-                        
 
                       <div class="form-group mb-0">
-                        <schedule-csv-extraction prefixId="schedule_tax_rate_" :maxInputs="Number(illustrateYear)" @clearError="checkTaxRate()" />
+                        <schedule-csv-extraction
+                          prefixId="schedule_tax_rate_"
+                          :maxInputs="Number(illustrateYear)"
+                          @clearError="checkTaxRate()"
+                        />
                       </div>
 
                       <table
@@ -815,7 +818,12 @@ export default {
       this.illustrateYear = this.getInputUsingId("illustratedAge");
       this.checkTaxRate();
     },
-
+   // to validate the illustration input field on clicking the second tax year select dropdown
+    checkIllustrateYearField: function () {
+      if(!this.illustrateYear){
+        this.errors.illustrate_year = ["This field is required."];
+      }
+    },
     // set the input value using the input id attribute
     setInputWithId: function (id, value) {
       if (document.getElementById(id)) {
@@ -883,13 +891,14 @@ export default {
       this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
       this.errors.client_age_year = false;
 
-      if (template) {
-        // this.illustrateYear = "";
-        // document.getElementById("illustratedAge").value = "";
-      } else {
-        this.illustrateYear = detail.years_to_illustrate;
-        this.setInputWithId("illustratedAge", detail.years_to_illustrate);
-      }
+      // if (!template) {
+      // this.illustrateYear = detail.years_to_illustrate;
+      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+      // }
+
+      // this.illustrateYear = detail.years_to_illustrate;
+      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
       this.setInputWithId(

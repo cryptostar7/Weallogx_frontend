@@ -4,27 +4,45 @@
       <ul class="mt-1 review-progress" id="reviewProgress">
         <li class="done">
           <router-link
-            :to="`/scenario-details/${$route.params.scenario}`"
+            :to="`/scenario-details/${$route.params.scenario}${
+              this.$route.query.report
+                ? '?report=' + this.$route.query.report
+                : ''
+            }`"
             class="nav-link p-0"
             >Scenario Details</router-link
           >
         </li>
         <li class="done">
           <router-link
-            :to="`/illustration-data/${$route.params.scenario}`"
+            :to="`/illustration-data/${$route.params.scenario}${
+              this.$route.query.report
+                ? '?report=' + this.$route.query.report
+                : ''
+            }`"
             class="nav-link p-0"
             >Illustration Data</router-link
           >
         </li>
         <li class="done">
           <router-link
-            :to="`/comparative-vehicles/${$route.params.scenario}`"
+            :to="`/comparative-vehicles/${$route.params.scenario}${
+              this.$route.query.report
+                ? '?report=' + this.$route.query.report
+                : ''
+            }`"
             class="nav-link p-0"
             >Comparative Vehicles</router-link
           >
         </li>
         <li class="active">
-          <router-link to="" class="nav-link p-0"
+          <router-link
+            :to="`/historical-simulations/${$route.params.scenario}${
+              this.$route.query.report
+                ? '?report=' + this.$route.query.report
+                : ''
+            }`"
+            class="nav-link p-0"
             >Historical Simulations</router-link
           >
         </li>
@@ -482,7 +500,6 @@ export default {
         );
       }
 
-      
       // loan interest analysis validation
       if (analysis && !analysis.lif.same_all_year) {
         let obj = analysis.lif.schedule;
