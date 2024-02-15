@@ -82,7 +82,7 @@ export default {
   methods: {
     isValidEmail: function() {
       if (
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/.test(this.user.email)
       ) {
         return true;
       }
