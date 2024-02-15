@@ -58,7 +58,7 @@
       </svg>
     </button>
     <button
-      title="Sort Largest value to smallest value (based on SP 500 column)"
+      title="Sort highest return to lowest return"
       @click="sortResultsBy('descending')"
       :class="sortType == 'descending' ? 'active' : ''"
     >
@@ -111,7 +111,7 @@
       </svg>
     </button>
     <button
-      title="Sort smallest value to largest value (based on SP 500 column)"
+      title="Sort lowest return to highest return"
       @click="sortResultsBy('ascending')"
       :class="sortType == 'ascending' ? 'active' : ''"
     >

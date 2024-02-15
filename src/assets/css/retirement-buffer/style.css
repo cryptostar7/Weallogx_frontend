@@ -690,6 +690,9 @@
 .market_buffer_account_tab div:last-child.active {
     background-color: #1660a4;
 }
+.market_buffer_account_tab div.disable{
+    color: #dfdfdf;
+}
 
 .table_graph_setting_tab {
     display: flex !important;
