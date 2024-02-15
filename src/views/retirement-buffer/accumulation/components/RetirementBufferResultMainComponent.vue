@@ -215,9 +215,8 @@ export default {
     };
   },
   mounted() {
-
-    if(!this.results){
-      this.$router.push('/retirement-buffer/accumulation/params');
+    if (!this.results) {
+      this.$router.push("/retirement-buffer/accumulation/params");
     }
 
     // Add Comma after 3 digit
@@ -226,7 +225,7 @@ export default {
       if (num == 0) {
         _obj.value = "";
       } else {
-        _obj.value = num.toLocaleString('en-US');
+        _obj.value = num.toLocaleString("en-US");
       }
     }
 
@@ -320,7 +319,7 @@ export default {
     this.updateSliderRange(); // update weighting slider range
   },
   methods: {
-    updateSliderRange: function () {
+    updateSliderRange: function (modal) {
       let obj = this.inputs;
       if (obj) {
         let marketValue = 100;
@@ -349,12 +348,14 @@ export default {
           bufferValue
         ); // set buffer account allocation value in graph slider range
 
-        this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setBufferAccountAllocation(
-          bufferValue
-        ); // set buffer account allocation value in table slider range
-        this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setMarketAccountAllocation(
-          marketValue
-        ); // set market account allocation value in table slider range
+        if (modal && !this.marketAlone) {
+          this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setBufferAccountAllocation(
+            bufferValue
+          ); // set buffer account allocation value in setting moda slider range
+          this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setMarketAccountAllocation(
+            marketValue
+          ); // set market account allocation value in setting moda slider range
+        }
       }
     },
   },
@@ -381,15 +382,15 @@ export default {
 
       // Market Account Value
       let mav =
-        Number(
-          ((account_value / 100) * marketValue).toFixed(0)
-        ).toLocaleString('en-US') || 0;
+        Number(((account_value / 100) * marketValue).toFixed(0)).toLocaleString(
+          "en-US"
+        ) || 0;
 
       // Buffer Account Value
       let bav =
-        Number(
-          ((account_value / 100) * bufferValue).toFixed(0)
-        ).toLocaleString('en-US') || 0;
+        Number(((account_value / 100) * bufferValue).toFixed(0)).toLocaleString(
+          "en-US"
+        ) || 0;
 
       return { market: mav, buffer: bav };
     },
@@ -441,7 +442,7 @@ export default {
       }
     },
     results() {
-      this.updateSliderRange();
+      this.updateSliderRange(true);
     },
     "$store.state.data.retirement_buffer.slider_width_update"(e) {
       if (e != "modal") {

@@ -49,17 +49,17 @@ export default {
       }
     }
 
-    // Comma separated input script
-    document.querySelectorAll(".dollar_inp").forEach(function (eachDollarInp) {
-      eachDollarInp.addEventListener("input", function (event) {
-        updateTextView(event.target);
-        var key = event.keyCode;
-        // Only allow numbers to be entered
-        if (key < 48 || key > 57) {
-          event.preventDefault();
-        }
-      });
-    });
+    // // Comma separated input script
+    // document.querySelectorAll(".dollar_inp").forEach(function (eachDollarInp) {
+    //   eachDollarInp.addEventListener("input", function (event) {
+    //     updateTextView(event.target);
+    //     var key = event.keyCode;
+    //     // Only allow numbers to be entered
+    //     if (key < 48 || key > 57) {
+    //       event.preventDefault();
+    //     }
+    //   });
+    // });
 
     // Select dropdown close when click inside
     let selectBtn = document.querySelectorAll(".select-btn");

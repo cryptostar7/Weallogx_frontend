@@ -12,14 +12,13 @@
             <label for="total-balance" class="main_label">Total Balance</label>
           </div>
           <div class="form_section_input_div">
-            <input
-              type="text"
-              placeholder="Total Balance"
-              class="dollar_inp"
-              id="total-balance"
-              v-model="totalBalance"
-              ref="totalBalanceRef"
-            />
+            <dollar-amount-input
+                @amountUpdated="e => totalBalance = e"
+                :default="totalBalanceDefault"
+                max="100000000"
+                placeholder="Total Balance"
+                class="dollar_inp"
+              />
             <span class="dollar">$</span>
           </div>
         </div>
@@ -93,14 +92,13 @@
               annualDistributionType === 'dollar' ? '' : 'd-none'
             }`"
           >
-            <input
-              type="text"
-              placeholder="Annual Distribution"
-              class="dollar_inp"
-              id="annual-distribution"
-              ref="annualDistributionDollarRef"
-              v-model="annualDistribution"
-            />
+          <dollar-amount-input
+                @amountUpdated="e => annualDistribution = e"
+                :default="annualDistributionDefault"
+                max="100000000"
+                placeholder="Annual Distribution"
+                class="dollar_inp"
+              />
             <span class="dollar">$</span>
           </div>
           <div
@@ -299,49 +297,39 @@
 <script>
 import { getNumber, authHeader } from "../../../../services/helper";
 import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
+import DollarAmountInput from "../../common-components/DollarAmountInput.vue";
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 
 import { post } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 export default {
-  components: { SliderWeightRange, CommonTooltipSvg },
+  components: { SliderWeightRange, DollarAmountInput, CommonTooltipSvg },
   data() {
     return {
       accountType: "Taxable",
       totalBalance: "",
+      totalBalanceDefault: "",
       annualDistribution: "",
+      annualDistributionDefault:"",
       parRate: "100",
       floor: "0",
       annualDistributionType: "dollar",
     };
   },
   mounted() {
-    let maInput = this.$refs.marketValueRef;
-    let bfInput = this.$refs.bufferValueRef;
-
-    this.$refs.totalBalanceRef.addEventListener("input", (e) => {
-      let leftSpanValue =
-        this.$refs.sliderRangeRef.getMarketAccountAllocation();
-      let val = getNumber(e.target.value);
-      bfInput.value = val - ((val * leftSpanValue) / 100).toFixed(0);
-      this.updateTextView(bfInput);
-      maInput.value = ((val * leftSpanValue) / 100).toFixed(0);
-      this.updateTextView(maInput);
-    });
-
     if (this.inputs) {
       this.setFormInputs(this.inputs);
     }
   },
   methods: {
     testFunction: function () {
-      console.log(this.getFormInputs());
+      console.log(totalBalance);
     },
     // Update the market account input value
     changeMarketValue: function (e) {
       let maInput = this.$refs.marketValueRef;
       maInput.value = (
-        (getNumber(this.$refs.totalBalanceRef.value) * e) /
+        (getNumber(this.totalBalance) * e) /
         100
       ).toFixed(0);
       this.updateTextView(maInput);
@@ -350,7 +338,7 @@ export default {
     changeBufferValue: function (e) {
       let bfInput = this.$refs.bufferValueRef;
       bfInput.value = (
-        (getNumber(this.$refs.totalBalanceRef.value) * e) /
+        (getNumber(this.totalBalance) * e) /
         100
       ).toFixed(0);
       this.updateTextView(bfInput);
@@ -367,13 +355,13 @@ export default {
     // Return form inputs data
     getFormInputs: function () {
       let data = {};
-      data.account_value = getNumber(this.$refs.totalBalanceRef.value);
+      data.account_value = getNumber(this.totalBalance);
       data.buffer_account_allocation =
         this.$refs.sliderRangeRef.getBufferAccountAllocation() / 100;
       let annual_distribution = "";
       if (this.annualDistributionType === "dollar") {
         annual_distribution = getNumber(
-          this.$refs.annualDistributionDollarRef.value
+          this.annualDistribution
         );
       } else {
         annual_distribution =
@@ -415,8 +403,7 @@ export default {
       }
 
       this.totalBalance = data.account_value.toLocaleString('en-US');
-      this.$refs.totalBalanceRef.value = this.totalBalance;
-
+      this.totalBalanceDefault = this.totalBalance;
       if (
         this.accountType === "Pre-tax" ||
         this.accountType === "pre_tax_simulation"
@@ -426,9 +413,7 @@ export default {
       } else {
         this.annualDistribution = data.annual_distribution.toLocaleString('en-US');
       }
-
-      this.$refs.annualDistributionDollarRef.value = this.annualDistribution;
-
+      this.annualDistributionDefault = this.annualDistribution;
       if (this.annualDistributionType === "percent") {
         this.annualDistribution =
           (getNumber(this.annualDistribution) / data.account_value) * 100;
@@ -476,9 +461,10 @@ export default {
     },
     resetForm: function () {
       this.totalBalance = "";
-      this.$refs.totalBalanceRef.value = "";
+      this.totalBalanceDefault = "";
       this.annualDistribution = "";
-      this.$refs.annualDistributionDollarRef.value = "";
+      this.annualDistributionDefault = "";
+      this.annualDistribution = "";
       this.$refs.annualDistributionPercentRef.value = "";
       this.$refs.taxRateRef.value = "";
       this.floor = "0";
@@ -609,6 +595,17 @@ export default {
     allowSubmit(e) {
       this.$emit("setAllowSubmit", e);
     },
+    totalBalance(e) {
+      let maInput = this.$refs.marketValueRef;
+      let bfInput = this.$refs.bufferValueRef;
+
+      let leftSpanValue = this.$refs.sliderRangeRef.getMarketAccountAllocation();
+      let val = getNumber(e);
+      bfInput.value = val - ((val * leftSpanValue) / 100).toFixed(0);
+      this.updateTextView(bfInput);
+      maInput.value = ((val * leftSpanValue) / 100).toFixed(0);
+      this.updateTextView(maInput);
+    }
   },
 };
 </script>
