@@ -451,7 +451,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    width: 7px;
+    width: 6px;
     height: 38px;
     border-left: 2px solid #0e6651;
     border-right: 2px solid #0e6651;
@@ -571,6 +571,9 @@
 .run_btn:hover {
     background-color: transparent;
     color: #0e6651;
+}
+.run_btn:focus-visible{
+    outline: none;
 }
 .run_btn.disable {
     background: #a1a1a1;
@@ -736,6 +739,7 @@
     display: flex;
     align-items: center;
     user-select: none;
+    border: 1px solid transparent;
 }
 .graph_filter_btns {
     max-width: 215px;
@@ -769,7 +773,7 @@
     border-radius: 4px;
     border: 0.5px solid #bbb;
     background: #fff;
-    padding: 3.5px 0 4px;
+    padding: 4.75px 0 4.75px;
     margin: 0;
     text-align: center;
     font-size: 15px;
@@ -1538,5 +1542,8 @@ canvas#retirementBufferGraph {
     }
     .each_table_heading{
         font-size: 13px;
+    }
+    .filter_buttons button{
+        height: 30px;
     }
 }
