@@ -146,7 +146,6 @@ export default {
       if (percentVal < 15) {
         splitLeft.classList.add("left");
       } else if (percentVal > 85) {
-        console.log("right1")
         splitRight.classList.add("right");
       } else {
         splitLeft.classList.remove("left");
@@ -176,22 +175,23 @@ export default {
     var myModalEl = document.getElementById("settings");
     if (myModalEl) {
       myModalEl.addEventListener("shown.bs.modal", function (event) {
-        let leftOffset = (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 - splitBar.offsetWidth / 2;
+        this.totalWidth = sliderMain.offsetWidth;
+        let leftOffset = (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 - splitBar.offsetWidth / 2;        
 
-        if(leftOffset > this.totalWidth - 42){
+        console.log( Number(leftSpan.textContent),  Number(rightSpan.textContent))
+
+        if(leftOffset > this.totalWidth - 42 || +leftSpan.textContent > 98){
           splitBar.style.left = this.totalWidth - 42 + "px";
           splitRight.classList.add("right");
         }else{
           splitBar.style.left = leftOffset + "px";
         }
         if(leftOffset <= 0){
-          splitBar.style.left = 0 + "px";  
+          splitBar.style.left = 0 + "px";
           splitLeft.classList.add("left");
         }
       });
     }
-    console.log(this.$props.sliderType)
-
   },
   methods: {
     resetSlider: function () {

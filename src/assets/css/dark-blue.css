@@ -5208,7 +5208,7 @@ fill: #f5f5f5;
   stroke: #575b61;
 }
 .dark-blue .summary_card_clr_1 .pie.progress_pie svg circle[r]:nth-child(2) {
-  stroke: #53a9f1;
+  stroke: #23669e;
 }
 .dark-blue .summary_card_clr_1 .pie.progress_pie svg text {
   fill: #fff;
@@ -5485,5 +5485,8 @@ background-color: #ABD5F9;
 }
 .dark-blue .table-wrapper-with-boarder{
   border-color: #414141;
+}
+.dark-blue table.retirement_table_area tr td.zero_text {
+    background-color: #00231b;
 }
 /* Retirement Buffer CSS Ends*/
