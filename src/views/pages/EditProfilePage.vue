@@ -303,7 +303,7 @@ export default {
     },
     isValidEmail: function() {
       if (
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email)
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/.test(this.user.email)
       ) {
         return true;
       }

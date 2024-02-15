@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     isValidEmail: function() {
-      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/.test(this.email)) {
         return true;
       }
       return false;
