@@ -129,9 +129,6 @@
         </div>
       </div>
     </div>
-    <!-- <button @click="testFunction">testFunction</button> -->
-    <!-- <button @click="testFunction">testFunction</button>
-    <button @click="testFunction2">testFunction2</button> -->
   </div>
 </template>
 <script>
@@ -301,7 +298,7 @@ export default {
             borderColor: "#9D2B2B",
             borderWidth: 4,
             radius: 0,
-            data: results.combined_ending_balance || [],
+            data: results.total_ending_balance || [],
           },
           {
             yAxisID: "B",
@@ -329,13 +326,6 @@ export default {
       };
 
       return obj;
-    },
-    testFunction: function () {
-      console.log(this.results);
-    },
-    testFunction2: function () {
-      window.rbaGraphChart.setDatasetVisibility(4, false);
-      window.rbaGraphChart.update();
     },
   },
   watch: {

@@ -4,7 +4,7 @@
       <div class="right-area-wrapper">
         <section class="retirement_buffer_section">
           <div class="retirement_buffer_section_head_div">
-            <h1>Retirement Buffer</h1>
+            <h1 @click="testFunction">Retirement Buffer</h1>
             <router-link
               to="/retirement-buffer/accumulation/params"
               class="head_back_btn"

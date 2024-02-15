@@ -105,8 +105,8 @@
                 <tbody>
                   <tr v-for="(item, index) in $props.years" :key="index">
                     <td>{{ item }}</td>
-                    <td :class="results.returns[index] < 0 ? 'red_text' : ''">
-                      {{ Number((results.returns[index] * 100).toFixed(2)) }}%
+                    <td :class="returns[index] < 0 ? 'red_text' : ''">
+                      {{ Number((returns[index] * 100).toFixed(2)) }}%
                     </td>
                   </tr>
                 </tbody>
@@ -293,7 +293,7 @@
 
                 <tbody>
                   <tr
-                    v-for="(item, index) in results.combined_ending_balance"
+                    v-for="(item, index) in results.total_ending_balance"
                     :key="index"
                   >
                     <td>{{ $numFormatWithDollar(item) || '&nbsp;' }}</td>
@@ -342,6 +342,9 @@ export default {
     },
     results() {
       return this.$store.getters.getRetirementBufferResults();
+    },
+    returns() {
+      return this.$store.state.data.retirement_buffer.auccumulation_results.returns || [];
     },
   },
 };

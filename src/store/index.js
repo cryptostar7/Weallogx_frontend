@@ -225,8 +225,8 @@ const store = createStore({
                 sort_type: "average",
                 buffer_allocation_weight: 0,
                 distribution_in: localStorage.getItem("rba_distribution_type") || 'dollar',
-                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || { inputs: null, market_alone: null, market_buffer: null, zero_distribution: null },
-                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || { market_alone: null, market_buffer: null, zero_distribution: null },
+                auccumulation_results: JSON.parse(localStorage.getItem("rba_results")) || {},
+                auccumulation_simulations: JSON.parse(localStorage.getItem("rba_simulations")) || {},
                 income_rider: null,
             }
         },
@@ -284,14 +284,20 @@ const store = createStore({
             return client.length ? client[0] : false;
         },
         getRetirementBufferResults: (state) => () => {
-            if (!state.data.retirement_buffer.show_distribution) {
-                return state.data.retirement_buffer.auccumulation_results.zero_distribution;
+            let results = state.data.retirement_buffer;
+            if (results.market_alone) {
+                if(results.show_distribution){
+                    return results.auccumulation_results.market_only_with_distribution;
+                }
+            } else {
+                if (results.show_distribution) {
+                    return results.auccumulation_results.market_plus_buffer_with_distribution;
+                } else {
+                    return results.auccumulation_results.market_plus_buffer_without_distribution;
+                }
             }
 
-            if (!state.data.retirement_buffer.market_alone) {
-                return state.data.retirement_buffer.auccumulation_results.market_with_buffer;
-            }
-            return state.data.retirement_buffer.auccumulation_results.market_only;
+            return results.auccumulation_results.market_only_without_distribution;
         },
         getRetirementBufferSimulations: (state) => () => {
             return state.data.retirement_buffer.auccumulation_simulations;

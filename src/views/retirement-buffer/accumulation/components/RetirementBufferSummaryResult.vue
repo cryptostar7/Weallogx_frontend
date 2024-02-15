@@ -145,9 +145,9 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketBufferResult.ending_balance
+                        marketBufferResult.total_ending_balance
                           ? $numFormatWithDollar(
-                              marketBufferResult.ending_balance
+                              marketBufferResult.total_ending_balance
                             )
                           : "$0"
                       }}
@@ -179,7 +179,7 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         $numFormatWithDollar(
-                          marketBufferResult.ending_balance +
+                          marketBufferResult.total_ending_balance +
                             marketBufferResult.total_distributions
                         ) || "$0"
                       }}
@@ -337,11 +337,12 @@ export default {
       return this.$store.state.data.retirement_buffer.auccumulation_results.inputs;
     },
     marketResult() {
-      let obj = this.results.summary ? this.results.summary : {};
-      if(!this.marketAlone && this.$store.state.data.retirement_buffer.show_distribution){
-        obj = this.$store.state.data.retirement_buffer.auccumulation_results.market_only.summary;
+      let rb = this.$store.state.data.retirement_buffer;
+      if(rb.show_distribution){
+        return rb.auccumulation_results.market_only_with_distribution.summary || {};
+      }else{
+        return rb.auccumulation_results.market_only_without_distribution.summary || {};
       }
-      return obj;
     },
     marketBufferResult() {
       return this.results.summary ? this.results.summary : {};
