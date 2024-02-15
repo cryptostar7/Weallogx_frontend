@@ -125,6 +125,12 @@ export default {
       this.$refs.formRef.resetForm();
     },
     submitHandler: function () {
+      // Reset the default settings of result page view
+      this.$store.dispatch("updateRbaSortType", "average");
+      this.$store.dispatch("retirementBufferMarketAlone", true);
+      this.$store.dispatch("updateRbaNetDistributionDisplay", false);
+
+      // Submite the form
       this.$refs.formRef.submitForm();
     }
   },

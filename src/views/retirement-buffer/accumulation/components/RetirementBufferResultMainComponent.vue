@@ -161,7 +161,7 @@
   </main>
 
   <!-- Params Modal -->
-  <retirement-buffer-accumulation-form-modal />
+  <retirement-buffer-accumulation-form-modal ref="formModalRef" />
 
   <button class="scroll_top_btn d-none">
     <svg
@@ -341,12 +341,20 @@ export default {
         this.$refs.graphRef.$refs.sliderRangeRef.setMarketAccountAllocation(
           marketValue
         ); // set market account allocation value in graph slider range
+
         this.$refs.tableRef.$refs.sliderRangeRef.setBufferAccountAllocation(
           bufferValue
         ); // set buffer account allocation value in table slider range
         this.$refs.graphRef.$refs.sliderRangeRef.setBufferAccountAllocation(
           bufferValue
         ); // set buffer account allocation value in graph slider range
+
+        this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setBufferAccountAllocation(
+          bufferValue
+        ); // set buffer account allocation value in table slider range
+        this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setMarketAccountAllocation(
+          marketValue
+        ); // set market account allocation value in table slider range
       }
     },
   },
