@@ -5411,7 +5411,7 @@ color: #fff;
   border-color: #202124;
 }
 .dark-blue .table_graph_tab_main.disable .retirement_slider .split_bar, .dark-blue .slider_main.disabled .split_bar, .dark-blue .slider_main.disabled .split_bar::after {
-  background-color: #595858;
+  background-color: #454545;
 }
 .dark-blue .table_graph_tab_main.disable .retirement_slider .split_bar svg, .dark-blue .slider_main.disabled .split_bar svg{
   opacity: 0.25;
@@ -5488,5 +5488,8 @@ background-color: #ABD5F9;
 }
 .dark-blue table.retirement_table_area tr td.zero_text {
     background-color: #00231b;
+}
+.dark-blue .retirement_buffer_section_head_div h1::before{
+    background-color: #53A9F1;
 }
 /* Retirement Buffer CSS Ends*/

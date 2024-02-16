@@ -4501,7 +4501,7 @@ fill: #f5f5f5;
   color: #fff;
 }
 .dark-green .retirement_buffer_section_head_div h1::before {
-  background-color: #abf9c9;
+  background-color: #26ab8b;
 }
 .dark-green .table_graph_setting_tab {
   background: #2e3135;
@@ -4923,7 +4923,7 @@ fill: #f5f5f5;
   border-color: #202124;
 }
 .dark-green .table_graph_tab_main.disable .retirement_slider .split_bar, .dark-green .slider_main.disabled .split_bar, .dark-green .slider_main.disabled .split_bar::after {
-  background-color: #595858;
+  background-color: #454545;
 }
 .dark-green .table_graph_tab_main.disable .retirement_slider .split_bar svg, .dark-green .slider_main.disabled .split_bar svg{
   opacity: 0.25;
