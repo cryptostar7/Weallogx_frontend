@@ -843,6 +843,7 @@ table.retirement_table_area thead tr th {
     border-right-color: #435059;
     white-space: normal;
     line-height: 1.267;
+    height: 52px;
 }
 table.retirement_table_area thead tr th.dropdown-table-head {
     padding-inline: 0;
