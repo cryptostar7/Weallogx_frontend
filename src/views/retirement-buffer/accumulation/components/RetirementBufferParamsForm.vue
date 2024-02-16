@@ -364,10 +364,8 @@ export default {
           this.annualDistribution
         );
       } else {
-        annual_distribution =
-          (data.account_value *
-            getNumber(this.$refs.annualDistributionPercentRef.value)) /
-          100;
+        annual_distribution =(data.account_value * getNumber(this.$refs.annualDistributionPercentRef.value)) / 100;
+        annual_distribution = Number(annual_distribution.toFixed(0));
       }
 
       if (
@@ -415,8 +413,8 @@ export default {
       }
       this.annualDistributionDefault = this.annualDistribution;
       if (this.annualDistributionType === "percent") {
-        this.annualDistribution =
-          (getNumber(this.annualDistribution) / data.account_value) * 100;
+        this.annualDistribution = (getNumber(this.annualDistribution) / data.account_value) * 100;
+        this.annualDistribution = Number(this.annualDistribution.toFixed(2));
         this.$refs.annualDistributionPercentRef.value = this.annualDistribution;
       }
 
