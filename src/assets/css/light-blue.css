@@ -1779,4 +1779,7 @@ color: #1660A4;
 {
   fill: #1c77c4;
 }
+.light-blue .retirement_buffer_section_head_div h1::before{
+    background-color: #1660A4;
+}
 /* Retirement Buffer CSS Ends */
