@@ -89,7 +89,9 @@
           Market Account ${{ accountAllocation.market || 0 }}
         </div>
         <div class="common_each_graph_div graph_clr_2 disable">
-          Buffer Account ${{ accountAllocation.buffer || 0 }}
+          Buffer Account 
+          <span v-if="accountAllocation.bonus">(including {{ accountAllocation.bonus }}% bonus) </span>
+          ${{ accountAllocation.buffer || 0 }}
         </div>
         <div class="common_each_graph_div graph_clr_3 disable">Combined</div>
       </div>
