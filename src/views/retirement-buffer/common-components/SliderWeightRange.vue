@@ -341,7 +341,6 @@ export default {
         .inputs;
     },
     marketAlone() {
-      console.log(this.$store.state.data.retirement_buffer.market_alone);
       return this.$store.state.data.retirement_buffer.market_alone;
     },
   },

@@ -293,10 +293,11 @@
 
                 <tbody>
                   <tr
-                    v-for="(item, index) in results.total_ending_balance"
+                    v-for="(item, index) in years"
                     :key="index"
                   >
-                    <td>{{ $numFormatWithDollar(item) || '&nbsp;' }}</td>
+                    <td v-if="results.total_ending_balance">{{ $numFormatWithDollar(results.total_ending_balance[index]) || '&nbsp;' }}</td>
+                    <td v-else>&nbsp;</td>
                   </tr>
                 </tbody>
               </table>
