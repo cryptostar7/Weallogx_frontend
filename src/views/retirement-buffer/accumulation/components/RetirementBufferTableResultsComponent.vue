@@ -190,6 +190,7 @@
           >
             <p class="each_table_heading">
               Buffer Account
+              <span v-if="accountAllocation.bonus">(including {{ accountAllocation.bonus }}% bonus) </span>
               <span class="buffer_value">${{ accountAllocation.buffer }}</span>
             </p>
             <div class="table-wrapper-with-boarder">
@@ -292,11 +293,14 @@
                 </thead>
 
                 <tbody>
-                  <tr
-                    v-for="(item, index) in years"
-                    :key="index"
-                  >
-                    <td v-if="results.total_ending_balance">{{ $numFormatWithDollar(results.total_ending_balance[index]) || '&nbsp;' }}</td>
+                  <tr v-for="(item, index) in years" :key="index">
+                    <td v-if="results.total_ending_balance">
+                      {{
+                        $numFormatWithDollar(
+                          results.total_ending_balance[index]
+                        ) || "&nbsp;"
+                      }}
+                    </td>
                     <td v-else>&nbsp;</td>
                   </tr>
                 </tbody>
@@ -345,7 +349,10 @@ export default {
       return this.$store.getters.getRetirementBufferResults();
     },
     returns() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results.returns || [];
+      return (
+        this.$store.state.data.retirement_buffer.auccumulation_results
+          .returns || []
+      );
     },
   },
 };
