@@ -174,7 +174,7 @@
                                                             <!-- If user choses the option of Bonus on Conversion, display this switch button -->
                                                             <div v-if="this.activeTab === 'conversion'" class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
                                                                 <label for="showBonusCheck">Show Bonus</label>
-                                                                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck" v-model="showBonus">
+                                                                <input @click="showBonusHandler" class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck" v-model="showBonus">
                                                             </div>
                                                         </ul>
 
@@ -321,7 +321,8 @@ export default {
         noOfPreBars: 5,
         noOfConversionBars: 6,
         isSeeAllActive: false,
-        showBonus:false
+        showBonus:false,
+        isIndividual: true,
     }
   },
 
@@ -344,15 +345,16 @@ export default {
   },
 
   updated() {
-      // this.initialBarWidths();
       if(this.isSeeAllActive){
         this.updateBarWidths();
       }
   },
 
   methods: {
-
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
+    showBonusHandler(e){
+        this.updateBarWidths();
+    },
     tabChange(txt){
         this.activeTab = txt;
         let showNextBtn = document.querySelector('.show-next-btn');
@@ -381,6 +383,7 @@ export default {
     },
     showIndividualBar(){
         this.isSeeAllActive = false;
+        this.isIndividual = true;
         const regex = /[, \u202f]/g
         var preTotalTaxes = 0;
         if(this.activeTab == "preTax"){
@@ -413,7 +416,7 @@ export default {
             eachBar.style.width = finalResult + '%';
             document.getElementById('wider_bar_' + this.currentPreTaxBarIdx).closest('.amount-label-wrapper').style.opacity = 1;
             
-            if (finalResult < 1) {
+            if (finalResult < 1 || !finalResult) {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.remove("text-white");
             }else{
@@ -469,7 +472,7 @@ export default {
             eachBar.style.width = finalResult + '%';
             document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.opacity = 1;
 
-            if (finalResult < 1) {
+            if (finalResult < 1 || !finalResult) {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.remove("text-white");
             }else{
@@ -487,6 +490,7 @@ export default {
                 let barWidth = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').offsetWidth;
 
                 if(barWidth > 6 && barWidth < textWidth){
+                    console.log("hello...")
                     document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
                 }
@@ -518,10 +522,10 @@ export default {
         }
 
         showNextBtn.classList.remove("disabled");
-
     },
     updateBarWidths() {
         this.isSeeAllActive = true;
+        this.isIndividual = false;
         const regex = /[, \u202f]/g
 
         let showNextBtn = document.querySelector('.show-next-btn');
@@ -552,7 +556,7 @@ export default {
             eachBar.style.width = finalResult + '%';
             document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
 
-            if (finalResult < 1) {
+            if (finalResult < 1 || !finalResult) {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.remove("text-white");
             }else{
@@ -594,14 +598,13 @@ export default {
             eachBar.style.width = finalResult + '%';
             document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
 
-            if (finalResult < 1) {
+            if (finalResult < 1 || !finalResult) {
                 eachBar.style.padding = "8px 2px";
                 eachBar.classList.remove("text-white");
             }else{
                 eachBar.classList.add("text-white");
                 eachBar.style.padding = "8px 2px";
             }
-
             
             setTimeout(() => {
                 let textDiv = document.getElementById('roth_wider_bar_' + i);
@@ -611,7 +614,7 @@ export default {
                 }
                 
                 let barWidth = eachBar.offsetWidth;
-                console.log(barWidth, textWidth)
+                // console.log(barWidth, textWidth)
                 if(barWidth > 6 && barWidth < textWidth){
                     document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
