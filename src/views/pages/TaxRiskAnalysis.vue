@@ -172,10 +172,10 @@
                                                             </li>
 
                                                             <!-- If user choses the option of Bonus on Conversion, display this switch button -->
-                                                            <!-- <div class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
+                                                            <div v-if="this.activeTab === 'conversion'" class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
                                                                 <label for="showBonusCheck">Show Bonus</label>
-                                                                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck">
-                                                            </div> -->
+                                                                <input class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck" v-model="showBonus">
+                                                            </div>
                                                         </ul>
 
                                                         <div class="d-flex justify-content-center" >
@@ -246,18 +246,18 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
-                                                                    <p class="heading clr6">Conversion Taxes 
+                                                                    <p class="heading clr6">{{ showBonus ? 'Net' : '' }} Conversion Taxes 
                                                                     <!-- When user turns on the Show Bonus switch button, then remove the "d-none" class from the label tag below -->
                                                                     <label class="d-none"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
-                                                                    <div class="tax-details-each-bars barClr6 /*advance*/">
+                                                                    <div :class="`tax-details-each-bars barClr6  ${showBonus ? 'advance' : ''}`">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
-                                                                    <p class="heading clr5">Total Taxes</p>
+                                                                    <p class="heading clr5">{{ showBonus ? 'Net' : '' }} Total Taxes</p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
-                                                                    <div class="tax-details-each-bars barClr5 /*advance*/">
+                                                                    <div :class="`tax-details-each-bars barClr5 ${showBonus ? 'advance' : ''}`">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
@@ -320,7 +320,8 @@ export default {
         currentConversionBarIdx: 0,
         noOfPreBars: 5,
         noOfConversionBars: 6,
-        isSeeAllActive: false
+        isSeeAllActive: false,
+        showBonus:false
     }
   },
 

@@ -1,12 +1,12 @@
 <template>
-  <input v-model="value" @input="updateValue" />
+  <input v-model="value" @input="updateValue" :disabled="$props.disabled"/>
 </template>
 
 <script>
 
 export default {
 
-  props: ["default", "max"],
+  props: ["default", "max", "disabled"],
   emits: ["valueUpdated"],
 
   watch: {
