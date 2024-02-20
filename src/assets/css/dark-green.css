@@ -4470,7 +4470,9 @@ fill: #f5f5f5;
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
 }
-
+.dark-green .show-bonus-switch label{
+  color: #fff;
+}
 
 /* Extra New CSS for Historical Simulations Stand Alone */
 .dark-green .outer-div-all-div {
@@ -5013,3 +5015,6 @@ fill: #f5f5f5;
   color: #747474;
 }
 /* Retirement Buffer CSS Ends */
+.dark-green .barClr6.advance::after {
+  background-color: #928D18;
+}

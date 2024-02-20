@@ -1426,6 +1426,9 @@ table.index-strategy-table tr th {
     position: relative;
     background-color: rgba(186, 180, 44, .57);
 }
+.barClr5.advance label, .barClr6.advance label{
+    z-index: 3;
+}
 .barClr6.advance::after{
     content: '';
     position: absolute;
@@ -1500,9 +1503,9 @@ body.wider #taxScorecardModal{
 }
 .show-bonus-switch .form-check-input{
   margin-left: 0.5rem;
-  height: 18px;
+  height: 18px !important;
 }
 .show-bonus-switch .form-check-input:checked, .custom-switch .form-check-input:checked:focus{
   border: 0;
-  background-color: #1660A4;
+  background-color: #1660A4 !important;
 }

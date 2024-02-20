@@ -15,6 +15,9 @@
 .dark-blue .navbar-brand .logo-dark {
   display: block;
 }
+.dark-blue .show-bonus-switch label{
+  color: #fff;
+}
 
 /* history simulation dark mose css start here */
 .dark-blue #reviewProgress li.active,
@@ -5509,3 +5512,7 @@ background-color: #ABD5F9;
   color: #747474;
 }
 /* Retirement Buffer CSS Ends*/
+
+.dark-blue .barClr6.advance::after {
+  background-color: #928D18;
+}
