@@ -1782,4 +1782,16 @@ color: #1660A4;
 .light-blue .retirement_buffer_section_head_div h1::before{
     background-color: #1660A4;
 }
+.light-blue .summary_each_card.disable .summary_each_card_heading{
+  background-color: #dfdfdf;
+  pointer-events: none;
+  user-select: none;
+}
+.light-blue .summary_each_card.disable .pie.progress_pie svg circle[r] {
+  stroke: #fafafa;
+}
+.light-blue .summary_each_card.disable .pie.progress_pie svg text {
+  fill: transparent;
+  user-select: none;
+}
 /* Retirement Buffer CSS Ends */

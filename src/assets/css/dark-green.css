@@ -4996,4 +4996,20 @@ fill: #f5f5f5;
 .dark-green table.retirement_table_area tr td.zero_text {
     background-color: #001528;
 }
+.dark-green .summary_each_card.disable .summary_each_card_heading{
+  background-color: #575b61;
+  color: #7e7e7e;
+}
+.dark-green .summary_each_card.disable .pie.progress_pie svg circle[r] {
+  stroke: #383a3d;
+}
+.dark-green .summary_each_card.disable .pie.progress_pie svg text {
+  fill: transparent;
+}
+.dark-green .summary_each_card.disable .each_card_left_part .each_card_left_label {
+  color: #7e7e7e;
+}
+.dark-green .market_buffer_account_tab div.disable {
+  color: #747474;
+}
 /* Retirement Buffer CSS Ends */
