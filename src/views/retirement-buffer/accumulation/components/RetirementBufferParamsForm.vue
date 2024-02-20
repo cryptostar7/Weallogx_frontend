@@ -5,7 +5,7 @@
       <img src="@/assets/images/icons/analytics.svg" alt="Analytics" />
     </div>
     <div class="accumulation_strategy_inner_box">
-      <p class="form_section_para" @click="testFunction">Account Details</p>
+      <p class="form_section_para">Account Details</p>
       <div class="form_section_input_row">
         <div class="form_section_each_inputs width25">
           <div class="form_section_label_div">
@@ -13,12 +13,12 @@
           </div>
           <div class="form_section_input_div">
             <dollar-amount-input
-                @amountUpdated="e => totalBalance = e"
-                :default="totalBalanceDefault"
-                max="100000000"
-                placeholder="Total Balance"
-                class="dollar_inp"
-              />
+              @amountUpdated="(e) => (totalBalance = e)"
+              :default="totalBalanceDefault"
+              max="100000000"
+              placeholder="Total Balance"
+              class="dollar_inp"
+            />
             <span class="dollar">$</span>
           </div>
         </div>
@@ -92,13 +92,13 @@
               annualDistributionType === 'dollar' ? '' : 'd-none'
             }`"
           >
-          <dollar-amount-input
-                @amountUpdated="e => annualDistribution = e"
-                :default="annualDistributionDefault"
-                max="100000000"
-                placeholder="Annual Distribution"
-                class="dollar_inp"
-              />
+            <dollar-amount-input
+              @amountUpdated="(e) => (annualDistribution = e)"
+              :default="annualDistributionDefault"
+              max="100000000"
+              placeholder="Annual Distribution"
+              class="dollar_inp"
+            />
             <span class="dollar">$</span>
           </div>
           <div
@@ -310,7 +310,7 @@ export default {
       totalBalance: "",
       totalBalanceDefault: "",
       annualDistribution: "",
-      annualDistributionDefault:"",
+      annualDistributionDefault: "",
       parRate: "100",
       floor: "0",
       annualDistributionType: "dollar",
@@ -322,25 +322,16 @@ export default {
     }
   },
   methods: {
-    testFunction: function () {
-      console.log(totalBalance);
-    },
     // Update the market account input value
     changeMarketValue: function (e) {
       let maInput = this.$refs.marketValueRef;
-      maInput.value = (
-        (getNumber(this.totalBalance) * e) /
-        100
-      ).toFixed(0);
+      maInput.value = ((getNumber(this.totalBalance) * e) / 100).toFixed(0);
       this.updateTextView(maInput);
     },
     // Update the buffer account input value
     changeBufferValue: function (e) {
       let bfInput = this.$refs.bufferValueRef;
-      bfInput.value = (
-        (getNumber(this.totalBalance) * e) /
-        100
-      ).toFixed(0);
+      bfInput.value = ((getNumber(this.totalBalance) * e) / 100).toFixed(0);
       this.updateTextView(bfInput);
     },
     // Add Comma after 3 digit
@@ -349,7 +340,7 @@ export default {
       if (num == 0) {
         _obj.value = "";
       } else {
-        _obj.value = num.toLocaleString('en-US');
+        _obj.value = num.toLocaleString("en-US");
       }
     },
     // Return form inputs data
@@ -360,11 +351,12 @@ export default {
         this.$refs.sliderRangeRef.getBufferAccountAllocation() / 100;
       let annual_distribution = "";
       if (this.annualDistributionType === "dollar") {
-        annual_distribution = getNumber(
-          this.annualDistribution
-        );
+        annual_distribution = getNumber(this.annualDistribution);
       } else {
-        annual_distribution =(data.account_value * getNumber(this.$refs.annualDistributionPercentRef.value)) / 100;
+        annual_distribution =
+          (data.account_value *
+            getNumber(this.$refs.annualDistributionPercentRef.value)) /
+          100;
         annual_distribution = Number(annual_distribution.toFixed(0));
       }
 
@@ -400,20 +392,22 @@ export default {
         ); // Update account distribution type value
       }
 
-      this.totalBalance = data.account_value.toLocaleString('en-US');
+      this.totalBalance = data.account_value.toLocaleString("en-US");
       this.totalBalanceDefault = this.totalBalance;
       if (
         this.accountType === "Pre-tax" ||
         this.accountType === "pre_tax_simulation"
       ) {
         this.annualDistribution =
-          data.annual_after_tax_distribution.toLocaleString('en-US');
+          data.annual_after_tax_distribution.toLocaleString("en-US");
       } else {
-        this.annualDistribution = data.annual_distribution.toLocaleString('en-US');
+        this.annualDistribution =
+          data.annual_distribution.toLocaleString("en-US");
       }
       this.annualDistributionDefault = this.annualDistribution;
       if (this.annualDistributionType === "percent") {
-        this.annualDistribution = (getNumber(this.annualDistribution) / data.account_value) * 100;
+        this.annualDistribution =
+          (getNumber(this.annualDistribution) / data.account_value) * 100;
         this.annualDistribution = Number(this.annualDistribution.toFixed(2));
         this.$refs.annualDistributionPercentRef.value = this.annualDistribution;
       }
@@ -427,8 +421,8 @@ export default {
       this.$refs.marginRef.value = Number((data.margin * 100).toFixed(2)) || "";
 
       let cap = "";
-      if(data.cap != 1000){
-        cap = Number((data.cap * 100).toFixed(2)) || "0"
+      if (data.cap != 1000) {
+        cap = Number((data.cap * 100).toFixed(2)) || "0";
       }
 
       this.$refs.capRateRef.value = cap;
@@ -445,12 +439,12 @@ export default {
       // Market Account Value
       let mav = Number(
         ((data.account_value / 100) * marketValue).toFixed(0)
-      ).toLocaleString('en-US');
+      ).toLocaleString("en-US");
 
       // Buffer Account Value
       let bav = Number(
         ((data.account_value / 100) * bufferValue).toFixed(0)
-      ).toLocaleString('en-US');
+      ).toLocaleString("en-US");
 
       this.$refs.marketValueRef.value = mav; // set market account value for readonly input
       this.$refs.bufferValueRef.value = bav; // set buffer account value for readonly input
@@ -475,10 +469,10 @@ export default {
       this.$refs.marketValueRef.value = "";
       this.$refs.bufferValueRef.value = "";
       this.$refs.sliderRangeRef.resetSlider();
-      localStorage.removeItem('rba_account_type');
-      localStorage.removeItem('rba_distribution_type');
-      localStorage.removeItem('rba_results');
-      localStorage.removeItem('rba_simulations');
+      localStorage.removeItem("rba_account_type");
+      localStorage.removeItem("rba_distribution_type");
+      localStorage.removeItem("rba_results");
+      localStorage.removeItem("rba_simulations");
     },
     submitForm: function () {
       this.getAccumulationResults(); // Get market alone results from API
@@ -501,6 +495,12 @@ export default {
         .then((response) => {
           this.$store.dispatch("loader", false);
           localStorage.setItem("rba_account_type", this.accountType); // Save account type field value in local storage
+
+          this.$store.dispatch(
+            "updateBuffeAccountAllocation",
+            payload.buffer_account_allocation
+          );
+
           this.$store.dispatch(
             "retirementBufferDistributionType",
             this.annualDistributionType
@@ -597,13 +597,14 @@ export default {
       let maInput = this.$refs.marketValueRef;
       let bfInput = this.$refs.bufferValueRef;
 
-      let leftSpanValue = this.$refs.sliderRangeRef.getMarketAccountAllocation();
+      let leftSpanValue =
+        this.$refs.sliderRangeRef.getMarketAccountAllocation();
       let val = getNumber(e);
       bfInput.value = val - ((val * leftSpanValue) / 100).toFixed(0);
       this.updateTextView(bfInput);
       maInput.value = ((val * leftSpanValue) / 100).toFixed(0);
       this.updateTextView(maInput);
-    }
+    },
   },
 };
 </script>

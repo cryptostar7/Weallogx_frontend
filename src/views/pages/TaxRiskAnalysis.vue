@@ -248,7 +248,7 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">{{ showBonus ? 'Net' : '' }} Conversion Taxes 
                                                                     <!-- When user turns on the Show Bonus switch button, then remove the "d-none" class from the label tag below -->
-                                                                    <label class="d-none"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
+                                                                    <label :class="showBonus ? '' : 'd-none'"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
                                                                     <div :class="`tax-details-each-bars barClr6  ${showBonus ? 'advance' : ''}`">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormat(roth_backend.roth_conversion_taxes)}}</span></label>

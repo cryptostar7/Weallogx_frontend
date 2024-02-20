@@ -4,7 +4,7 @@
       <div class="right-area-wrapper">
         <section class="retirement_buffer_section">
           <div class="retirement_buffer_section_head_div">
-            <h1 @click="testFunction">Retirement Buffer</h1>
+            <h1>Retirement Buffer</h1>
             <router-link
               to="/retirement-buffer/accumulation/params"
               class="head_back_btn"
@@ -229,18 +229,6 @@ export default {
       }
     }
 
-    // // Comma separated input script
-    // document.querySelectorAll(".dollar_inp").forEach(function (eachDollarInp) {
-    //   eachDollarInp.addEventListener("input", function () {
-    //     updateTextView(event.target);
-    //     var key = event.keyCode;
-    //     // Only allow numbers to be entered
-    //     if (key < 48 || key > 57) {
-    //       event.preventDefault();
-    //     }
-    //   });
-    // });
-
     const scrollBtn = document.querySelector(".scroll_top_btn");
     window.onscroll = function () {
       if (
@@ -319,22 +307,6 @@ export default {
     this.updateSliderRange(); // update weighting slider range
   },
   methods: {
-    testFunction: function () {
-      let account_value = this.inputs ? this.inputs.account_value : 0;
-      let bonus = this.inputs ? this.inputs.bonus : 0;
-
-      let buffer_account_allocation =
-        this.$store.state.data.retirement_buffer.buffer_allocation_weight;
-
-      let bufferValue = Number((buffer_account_allocation * 100).toFixed(0));
-      let bonusValue = Number((bonus * 100).toFixed(0));
-
-      // Buffer Account Value
-      let bav = Number(((account_value / 100) * bufferValue).toFixed(0)) || 0;
-
-      bav = bav + (bav / 100) * bonusValue;
-      console.log(bav);
-    },
     updateSliderRange: function (modal) {
       let obj = this.inputs;
       if (obj) {
@@ -365,6 +337,9 @@ export default {
         ); // set buffer account allocation value in graph slider range
 
         if (modal && !this.marketAlone) {
+          this.$refs.formModalRef.$refs.formRef.$refs.marketValueRef.value = this.accountAllocation.market; // set market account value for readonly input
+          this.$refs.formModalRef.$refs.formRef.$refs.bufferValueRef.value = this.accountAllocation.buffer; // set buffer account value for readonly input
+          
           this.$refs.formModalRef.$refs.formRef.$refs.sliderRangeRef.setBufferAccountAllocation(
             bufferValue
           ); // set buffer account allocation value in setting moda slider range
