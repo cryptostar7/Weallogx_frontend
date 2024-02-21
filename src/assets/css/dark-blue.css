@@ -4886,10 +4886,10 @@ background: #0C4A83;
   background: #E8662F;
 }
 .dark-blue .tax-details-each-bars.barClr5{
-  background: #DA4343;
+  background: rgba(218, 67, 67, .55);
 }
 .dark-blue .tax-details-each-bars.barClr6{
-  background: #BAB42C;
+  background: rgba(186, 180, 44, .65);
 }
 .dark-blue .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
