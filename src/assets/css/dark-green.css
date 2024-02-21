@@ -4416,10 +4416,10 @@ background: #262B29;
   background: #E8662F;
 }
 .dark-green .tax-details-each-bars.barClr5{
-  background: #DA4343;
+  background: rgba(218, 67, 67, .55);
 }
 .dark-green .tax-details-each-bars.barClr6{
-  background: #BAB42C;
+  background: rgba(186, 180, 44, .65);
 }
 
 
