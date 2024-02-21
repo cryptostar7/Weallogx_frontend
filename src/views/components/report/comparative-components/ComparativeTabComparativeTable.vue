@@ -804,10 +804,6 @@ export default {
         details.list = list;
         tempData.data[1] = details;
 
-        // this.summary_data.deposits.totals = ct.cv_1.comparison.total_value;
-        // this.summary_data.deposits.shortfall =
-        //   ct.cv_1.comparison.diff_from_lirp;
-
         this.summary_data.data[1] = {
           id: 1,
           distribution: {
@@ -875,7 +871,7 @@ export default {
         this.summary_data.data[3] = {
           id: 3,
           distribution: {
-            total: ct.cv_3.comparison.total_value,
+            total: ct.cv_3.comparison.cummulative_income,
             total_value: ct.cv_3.comparison.total_value,
             shortfall: ct.cv_3.comparison.diff_from_lirp,
           },
