@@ -111,7 +111,7 @@ export default {
     },
     elementDrag: function(e){
       let elmnt = document.getElementById("resizingDiv");
-      let elmntContainer = document.getElementById("strategyWeightMid");
+      let elmntContainer = document.getElementById("strategyWeightMid") || {};
       let totalWidth = elmntContainer.offsetWidth;
       e = e || window.event;
       e.preventDefault();

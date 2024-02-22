@@ -464,7 +464,7 @@
                   </div>
                 </div>
                 <div class="pb-3">
-                  <div class="form-check form-switch custom-switch pt-2">
+                  <div v-if="!uploadFromFile" class="form-check form-switch custom-switch pt-2">
                     <input
                       class="form-check-input"
                       type="checkbox"
@@ -2676,6 +2676,13 @@ export default {
       return false;
     },
   },
+  watch: {
+    uploadFromFile(e){
+      if(e){
+        this.saveIllustrationTemplate = false; // Handle "Save this Illustration as Template" toggle
+      }
+    }
+  }
 };
 </script>
 

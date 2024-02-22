@@ -1326,9 +1326,10 @@ export default {
              return window.location.href = `/report-builder/${this.$route.query.report}`
             }
             
+            let scenarioData = getCurrentScenario() || {};
             this.$router.push(
               `/${
-                review ? "review-summary" : "select-historical-simulations"
+                review ? 'review-summary' : scenarioData.historical ? 'historical-simulations' : 'select-historical-simulations'
               }/${this.$route.params.scenario}`
             );
           })

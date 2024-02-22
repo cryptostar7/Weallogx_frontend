@@ -57,7 +57,7 @@ const myPlugin = {
         },
         app.config.globalProperties.$roundFigureNum = (value) => {
             let a = value.toString();
-            let b = "1".padEnd(a.length, "0"); // return minimum round figure number like if value is 99999 the result will be 10000. 
+            let b = "1".padEnd(a.length - 1, "0"); // return minimum round figure number like if value is 99999 the result will be 10000. 
             return Math.ceil(Number(value) / b) * b;
         },
         app.config.globalProperties.$average = (list) => {

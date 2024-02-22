@@ -891,13 +891,8 @@ export default {
       this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
       this.errors.client_age_year = false;
 
-      // if (!template) {
-      // this.illustrateYear = detail.years_to_illustrate;
-      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
-      // }
-
-      // this.illustrateYear = detail.years_to_illustrate;
-      // this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+      this.illustrateYear = detail.years_to_illustrate;
+      this.setInputWithId("illustratedAge", detail.years_to_illustrate);
 
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
@@ -1055,8 +1050,8 @@ export default {
 
       if (!this.existingScenarioDetailName) {
         if (!this.scenarioName) {
-          this.errors.scenario_name = ["This field is required."];
-          validate = false;
+          // this.errors.scenario_name = ["This field is required."];
+          // validate = false;
         } else {
           this.errors.scenario_name = "";
         }
@@ -1267,6 +1262,7 @@ export default {
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
           let url = `/illustration-data/${this.activeScenario.id}`;
+
           if (review) {
             return this.$router.push(
               `/review-summary/${this.activeScenario.id}`
