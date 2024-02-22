@@ -116,7 +116,7 @@
                                                                 <p class="right-text">{{inputs.age}} - {{inputs.plan_through_age}}</p>
                                                             </div>
                                                             <div class="each-card-row">
-                                                                <label class="left-text">Tax Rate <span class="top-minus-1"><svg
+                                                                <label class="left-text">{{showBonus ? 'Effective Conversion' : ''}} Tax Rate <span class="top-minus-1"><svg
                                                                         class="label-common-tooltip-svg" width="13" height="13"
                                                                         viewBox="0 0 13 13" fill="none"
                                                                         xmlns="http://www.w3.org/2000/svg">
@@ -130,11 +130,15 @@
                                                                         </g>
                                                                     </svg>
                                                                     <tax-rate-popover
+                                                                      v-if="!showBonus"
                                                                       :initialTaxRate="inputs.initial_tax_rate"
                                                                       :switchYear="inputs.switch_year"
                                                                       :secondTaxRate="inputs.second_tax_rate"
                                                                       :additionalConversionTax="inputs.additional_conversion_tax"
                                                                     />
+                                                                    <span v-else>
+                                                                        The effective conversion tax rate after bonuses applied
+                                                                    </span>
                                                                 </span></label>
 
                                                                 <p v-if="showBonus" class="right-text">{{ Number((roth_backend.effective_conversion_tax_rate*100).toFixed(2)) }}%</p>
@@ -147,8 +151,8 @@
                                                                 </p>
                                                             </div>
                                                             <div class="each-card-row">
-                                                                <p class="left-text total">Total Taxes</p>
-                                                                <p class="right-text total">{{$numFormatWithDollar(roth_backend.total_taxes)}}</p>
+                                                                <p class="left-text total">{{ showBonus ? 'Net' : 'Total' }} Taxes <span v-if="showBonus && roth_backend.bonus_amount" style="font-weight: 500;">(after bonuses of {{ $numFormatWithDollar(roth_backend.bonus_amount) }})</span></p>
+                                                                <p class="right-text total">{{$numFormatWithDollar(showBonus ? roth_backend.net_total_taxes_after_bonus : roth_backend.total_taxes)}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -193,32 +197,32 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_1">{{$numFormat(ira_backend.rmd_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_1">{{$numFormatNoDecimal(ira_backend.rmd_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_2">{{$numFormat(ira_backend.reinvestment_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_2">{{$numFormatNoDecimal(ira_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_3">{{$numFormat(ira_backend.inheritance_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_3">{{$numFormatNoDecimal(ira_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_4">{{$numFormat(ira_backend.social_security_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_4">{{$numFormatNoDecimal(ira_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">Total Taxes</p>
                                                                     <div class="tax-details-each-bars barClr5">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_5">{{$numFormat(ira_backend.total_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_5">{{$numFormatNoDecimal(ira_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -226,25 +230,25 @@
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr1">RMD Taxes</p>
                                                                     <div class="tax-details-each-bars barClr1">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_1">{{$numFormat(roth_backend.rmd_taxes)}}</span></label></div>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_1">{{$numFormatNoDecimal(roth_backend.rmd_taxes)}}</span></label></div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr2">Reinvestment Taxes</p>
                                                                     <div class="tax-details-each-bars barClr2">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_2">{{$numFormat(roth_backend.reinvestment_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_2">{{$numFormatNoDecimal(roth_backend.reinvestment_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr3">Inheritance Taxes</p>
                                                                     <div class="tax-details-each-bars barClr3">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_3">{{$numFormat(roth_backend.inheritance_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_3">{{$numFormatNoDecimal(roth_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_4">{{$numFormat(roth_backend.social_security_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_4">{{$numFormatNoDecimal(roth_backend.social_security_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
@@ -253,14 +257,14 @@
                                                                     <label :class="showBonus ? '' : 'd-none'"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
                                                                     <div :class="`tax-details-each-bars barClr6  ${showBonus ? 'advance' : ''}`">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormat(showBonus ? roth_backend.net_taxes_after_bonus : roth_backend.roth_conversion_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormatNoDecimal(showBonus ? roth_backend.net_taxes_after_bonus : roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">{{ showBonus ? 'Net' : '' }} Total Taxes</p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
                                                                     <div :class="`tax-details-each-bars barClr5 ${showBonus ? 'advance' : ''}`">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormat(roth_backend.total_taxes)}}</span></label>
+                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormatNoDecimal(showBonus ? roth_backend.net_total_taxes_after_bonus  : roth_backend.total_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>

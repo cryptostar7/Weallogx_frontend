@@ -5,6 +5,9 @@ const myPlugin = {
         app.config.globalProperties.$numFormat = (key) => {
             return Number(Number(key).toFixed(2)).toLocaleString('en-US');
         },
+        app.config.globalProperties.$numFormatNoDecimal = (key) => {
+            return Number(Number(key).toFixed(0)).toLocaleString('en-US');
+        },
         app.config.globalProperties.$numFormatWithDollar = (key) => {
             key = Number(key || 0);
             if (!key) {
