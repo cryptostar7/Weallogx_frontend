@@ -256,15 +256,19 @@
                                                                     <!-- When user turns on the Show Bonus switch button, then remove the "d-none" class from the label tag below -->
                                                                     <label :class="showBonus ? '' : 'd-none'"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
-                                                                    <div :class="`tax-details-each-bars barClr6  ${showBonus ? 'advance' : ''}`">
+                                                                    <div :class="`${showBonus ? 'advance' : ''}`">
+                                                                    <div class="tax-details-each-bars barClr6">
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormatNoDecimal(showBonus ? roth_backend.net_taxes_after_bonus : roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
+                                                                    </div>    
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">{{ showBonus ? 'Net' : '' }} Total Taxes</p>
                                                                     <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
-                                                                    <div :class="`tax-details-each-bars barClr5 ${showBonus ? 'advance' : ''}`">
-                                                                        <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormatNoDecimal(showBonus ? roth_backend.net_total_taxes_after_bonus  : roth_backend.total_taxes)}}</span></label>
+                                                                    <div :class="`${showBonus ? 'advance' : ''}`">
+                                                                        <div class="tax-details-each-bars barClr5">
+                                                                            <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormatNoDecimal(showBonus ? roth_backend.net_total_taxes_after_bonus  : roth_backend.total_taxes)}}</span></label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -359,7 +363,7 @@ export default {
   methods: {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     showBonusHandler(e){
-        this.updateBarWidths();
+        // this.updateBarWidths();
     },
     tabChange(txt){
         this.activeTab = txt;
@@ -368,13 +372,11 @@ export default {
         if(this.activeTab == "conversion"){
             switchTab.classList.add("blue")
             if(this.isSeeAllActive == true){
-                console.log("con")
                 this.updateBarWidths();
             }
         }else{
             switchTab.classList.remove("blue")
             if(this.isSeeAllActive == true){
-                console.log("   pre")
                 this.updateBarWidths();
             }
         }
@@ -446,6 +448,9 @@ export default {
             let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
             var sub_array = [];
             var sub_array2 = [];
+            let roth_conversion_taxes = this.roth_backend.roth_conversion_taxes;
+            let total_taxes = this.roth_backend.total_taxes;
+
             for (let i = 1; i <= this.noOfPreBars; i++) {
                 var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
                 sub_array.push(barValueGets);
@@ -453,6 +458,7 @@ export default {
                     preTotalTaxes = barValueGets;
                 }
             }
+
             for (let i = 1; i <= allBar2.length; i++) {
                 var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
                 sub_array2.push(barValueGets);
@@ -469,6 +475,14 @@ export default {
                 showNextBtn.classList.add("disabled");
             }
             var barValueGet = +document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).innerText.replace(regex, '');
+
+            if(this.currentConversionBarIdx == 5 && this.showBonus){
+                barValueGet = roth_conversion_taxes;
+            }
+
+            if(this.currentConversionBarIdx == 6 && this.showBonus){
+                barValueGet = total_taxes;
+            }
             // var barActualValue = largestSec2;
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
             finalResult > 100 ? finalResult = 100 : finalResult;
@@ -530,6 +544,7 @@ export default {
         showNextBtn.classList.remove("disabled");
     },
     updateBarWidths() {
+        console.log(this.showBonus);
         this.isSeeAllActive = true;
         this.isIndividual = false;
         const regex = /[, \u202f]/g
@@ -537,6 +552,9 @@ export default {
         let showNextBtn = document.querySelector('.show-next-btn');
         this.currentPreTaxBarIdx = this.noOfPreBars;
         this.currentConversionBarIdx = this.noOfConversionBars;
+
+        let roth_conversion_taxes = this.roth_backend.roth_conversion_taxes;
+        let total_taxes = this.roth_backend.total_taxes;
 
         // Pre-Tax Analysis
         let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');        
@@ -596,6 +614,14 @@ export default {
         
         for (let i = 1; i <= allBar2.length; i++) {
             var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
+
+            if(i == 5 && this.showBonus){
+                barValueGet = roth_conversion_taxes;
+            }
+
+            if(i == 6 && this.showBonus){
+                barValueGet = total_taxes;
+            }
         
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
             finalResult > 100 ? finalResult = 100 : finalResult;
@@ -620,7 +646,7 @@ export default {
                 }
                 
                 let barWidth = eachBar.offsetWidth;
-                // console.log(barWidth, textWidth)
+                
                 if(barWidth > 6 && barWidth < textWidth){
                     document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
