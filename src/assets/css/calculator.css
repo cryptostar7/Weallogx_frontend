@@ -1405,11 +1405,11 @@ table.index-strategy-table tr th {
 .tax-details-each-bars.barClr5{
     background: #9D2B2B;
 }
-.barClr5.advance{
+.advance .barClr5{
     position: relative;
     background-color: rgba(157, 43, 43, .57);
 }
-.barClr5.advance::after{
+.advance .barClr5::after{
     content: '';
     position: absolute;
     left: 0%;
@@ -1422,14 +1422,14 @@ table.index-strategy-table tr th {
 .tax-details-each-bars.barClr6{
     background: #BAB42C;
 }
-.barClr6.advance{
+.advance .barClr6{
     position: relative;
     background-color: rgba(186, 180, 44, .57);
 }
-.barClr5.advance label, .barClr6.advance label{
+.advance .barClr5 label, .advance .barClr6 label{
     z-index: 3;
 }
-.barClr6.advance::after{
+.advance .barClr6::after{
     content: '';
     position: absolute;
     left: 0%;
@@ -1496,10 +1496,13 @@ body.wider #taxScorecardModal{
 }
 .show-bonus-switch{
   position: absolute;
-  right: 1rem;
+  right: .75rem;
   display: flex;
   align-items: center;
   font-weight: 600;
+}
+.show-bonus-switch label{
+    font-size: 15px;
 }
 .show-bonus-switch .form-check-input{
   margin-left: 0.5rem;
@@ -1508,4 +1511,9 @@ body.wider #taxScorecardModal{
 .show-bonus-switch .form-check-input:checked, .custom-switch .form-check-input:checked:focus{
   border: 0;
   background-color: #1660A4 !important;
+}
+@media screen and (min-width: 1200px) and (max-width: 1300px){
+    .show-bonus-switch{
+        top: 5.5rem;
+    }
 }
