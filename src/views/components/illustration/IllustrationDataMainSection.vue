@@ -1027,6 +1027,40 @@
     </div>
     <input type="hidden" id="extractPageNumber" />
   </section>
+
+
+<!-- <button class="btn-primary btn" data-bs-target="#pdfNameModal" data-bs-toggle="modal">Click to show modal</button> -->
+  <div class="modal fade common-modal" ref="pdfNameModal" id="pdfNameModal" tabindex="-1" aria-hidden="true" data-bs-backdrop='static'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
+          </button>
+        </div>
+        <form class="modal-body">
+          <div class="modalParaBorderDiv text-center">
+            <p class="modalParaReportBuilder">Illustration PDF File</p>
+            <p class="modalSmallborder"></p>
+            <p class="fs-14 px-4">You are about to begin the PDF extraction process. Please name the Illustration PDF file.</p>
+          </div>
+          <div class="px-5 pt-4">
+            <form action="">
+              <div class="form-group">
+                <label for="pdfFile" class="fs-14 bold-fw">Illustration File Name</label>
+                <input id="pdfFile" type="text" class="form-control custom-control" autocomplete="off">
+                <small class="text-danger d-none">This file name has been already taken.</small>
+              </div>
+            </form>
+          </div>
+          <div class="gap-13 pt-4 mt-2 pb-2 text-center pb-4">
+            <button type="submit" class="btn yes-delete-btn /*disabled*/">Done</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </template>
 <script>
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";

@@ -471,6 +471,7 @@ body::-webkit-scrollbar {
   }
   .sidebar.collapsed .nav-item .nav-link .side-client-label{
     display: none;
+    margin-left: 0;
   }
 .right-area {
   flex: 1;
