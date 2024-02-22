@@ -219,16 +219,6 @@ export default {
       this.$router.push("/retirement-buffer/accumulation/params");
     }
 
-    // Add Comma after 3 digit
-    function updateTextView(_obj) {
-      var num = getNumber(_obj.value);
-      if (num == 0) {
-        _obj.value = "";
-      } else {
-        _obj.value = num.toLocaleString("en-US");
-      }
-    }
-
     const scrollBtn = document.querySelector(".scroll_top_btn");
     window.onscroll = function () {
       if (
@@ -304,6 +294,7 @@ export default {
       });
     });
 
+    this.$store.dispatch("updateBuffeAccountAllocation", 0);
     this.updateSliderRange(); // update weighting slider range
   },
   methods: {
@@ -365,8 +356,11 @@ export default {
       let account_value = this.inputs ? this.inputs.account_value : 0;
       let bonus = this.inputs ? this.inputs.bonus : 0;
 
-      let buffer_account_allocation =
-        this.$store.state.data.retirement_buffer.buffer_allocation_weight;
+      let buffer_account_allocation = this.$store.state.data.retirement_buffer.buffer_allocation_weight;
+      if(this.marketAlone){
+        buffer_account_allocation = 0;
+      }
+
 
       let marketValue =
         100 - Number((buffer_account_allocation * 100).toFixed(0));

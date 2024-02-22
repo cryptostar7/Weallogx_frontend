@@ -1,162 +1,18 @@
 <template lang="">
-  <div class="border bg-secondary p-1 col-sm-6">
-    <textarea
-      name=""
-      id="pasteData"
-      cols="15"
-      rows="5"
-      class="form-control"
-      @paste="handleCSV"
-    ></textarea>
-    <button @click="resetSchedule">Reset Schedule Inputs</button>
+  <div>
+    <button @click="testFuntcion">Test</button>
   </div>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      csvPreview: { data: [], headers: [] },
-    };
-  },
-  props: ["prefixId", "maxInputs"],
   methods: {
-    resetSchedule: function () {
-      this.csvPreview = { data: [], headers: [] };
-      this.setInputWithId("pasteData", ""); // reset textarea input
-      this.populateScheduleInputs(); // update data in schedule inputs
-    },
-    // set the input value using the input id attribute
-    setInputWithId: function (id, value) {
-      if (document.getElementById(id)) {
-        document.getElementById(id).value = value;
-      }
-      return value;
-    },
-    // parse the csv/excel row (Method 1)
-    parseRow2: function (row) {
-      var insideQuote = false;
-      var entries = [];
-      var entry = [];
-      row.split("").forEach(function (character) {
-        if (character === '"') {
-          insideQuote = !insideQuote;
-        } else {
-          entry.push(character.replace("\r", ""));
-        }
-      });
-      entries.push(entry.join(""));
-      return entries;
-    },
-    // parse the csv/excel row (Method 2)
-    parseRow: function (row) {
-      var insideQuote = false;
-      var entries = [];
-      var entry = [];
-      row.split("").forEach(function (character) {
-        if (character === '"') {
-          insideQuote = !insideQuote;
-        } else {
-          if (character == "," && !insideQuote) {
-            entries.push(entry.join(""));
-            entry = [];
-          } else {
-            entry.push(character);
-          }
-        }
-      });
-      entries.push(entry.join(""));
-      return entries;
-    },
-    // Check heading data in row
-    checkIsHeader: function (arr = []) {
-      var isHeader = false;
-      arr.forEach((item, index) => {
-        if (isNaN(item.replace("$", "").replaceAll(",", ""))) {
-          isHeader = true;
-        }
-      });
-      return isHeader;
-    },
-    // filter illustarion object data
-    filterObject: function (array = { data: [], headers: [] }) {
-      array.data = array.data.map((i) =>
-        i.map((e) => {
-          if (!e) {
-            e = "0"; // set default value 0 for blank value
-          }
-          e = e.split("/")[1] || e.split("/")[0]; // map data for "58/59" format values. ----- return "59" value
-          e = e.split(".")[0]; // remove decimal points
-          return e;
-        })
-      );
-      array.data = array.data.filter((i, k) => k < this.$props.maxInputs);
-      return array;
-    },
-    populateScheduleInputs: function () {
-      var data = this.csvPreview.data;
-
-      for (let index = 0; index < this.$props.maxInputs; index++) {
-        var value = "";
-        if(data && data[index]){
-          value = data[index];
-        }
-        this.setInputWithId(`${this.$props.prefixId}${index + 1}`, value);
-      }
-    },
-    // exract the csv data
-    handleCSV: function (e) {
-      let txt = e.clipboardData.getData("text/plain");
-      if (txt) {
-        let obj = this.exractCsvText(txt);
-        if (obj && obj.headers) {
-          this.csvPreview = this.filterObject(obj);
-        } else {
-          this.csvPreview = { data: [], headers: [] };
-          alert("Please paste a valid CSV.");
-        }
-      } else {
-        this.csvPreview = { data: [], headers: [] };
-      }
-      this.populateScheduleInputs();
-    },
-    exractCsvText: function (values = "") {
-      let total_columns = 0;
-      if (values) {
-        try {
-          let data = values.split("\n");
-          let headers = [];
-          if (values.match("\t")) {
-            data = data.map((i) => i.split("\t"));
-          } else {
-            if (values.match('"')) {
-              data = data.map((i) => this.parseRow(i));
-            } else {
-              data = data.map((i) => this.parseRow2(i));
-            }
-          }
-
-          data = data.map((i) => i.map((r) => r.replace("\r", "")));
-
-          total_columns = data[0].length;
-          data = data.filter((i) => i.length && !this.checkIsHeader(i));
-          for (var i = 0; i < total_columns; i++) {
-            headers.push("");
-          }
-
-          return {
-            data: data.map((a) => a.map((i) => (i ? i.replace("-", "") : ""))),
-            headers: headers,
-          };
-        } catch (err) {
-          setTimeout(() => {
-            this.setInputWithId("pasteData", "");
-          }, 100);
-          return false;
-        }
-      }
-      return false;
-    },
-  },
-};
+    testFuntcion: function() {
+      let value = 1140000;
+      console.log(this.$roundFigureNum(value));
+    }
+  }
+}
 </script>
-<style lang=""></style>
+<style lang="">
+  
+</style>

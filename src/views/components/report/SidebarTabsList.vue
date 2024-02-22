@@ -92,6 +92,8 @@ export default {
       }
     },
     testFunction: function (element) {
+      console.log(this.activeTabs);
+      console.log(this.disabledTab);
       console.log(element);
     },
   },
