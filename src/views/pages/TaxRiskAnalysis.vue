@@ -178,7 +178,7 @@
                                                             </li>
 
                                                             <!-- If user choses the option of Bonus on Conversion, display this switch button -->
-                                                            <div v-if="this.activeTab === 'conversion'" class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
+                                                            <div v-if="this.activeTab === 'conversion' && inputs.bonus_amount" class="form-check form-switch custom-switch show-bonus-switch ms-2 mb-0">
                                                                 <label for="showBonusCheck">Show Bonus</label>
                                                                 <input @click="showBonusHandler" class="form-check-input enhanceInputCheckBox" type="checkbox" role="switch" id="showBonusCheck" v-model="showBonus">
                                                             </div>
