@@ -1046,7 +1046,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
               // stacked: true,
               ticks: {
                 padding: 8,
@@ -1077,7 +1077,7 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
               ticks: {
                 align: "start",
                 padding: 8,
