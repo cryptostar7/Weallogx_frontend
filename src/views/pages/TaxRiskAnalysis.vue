@@ -212,7 +212,7 @@
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="wider_bar_3">{{$numFormatNoDecimal(ira_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="each-tax-details-bar">
+                                                                <div :class="`each-tax-details-bar ${inputs.social_security_amount ? '' : 'd-none'}`">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
@@ -244,7 +244,7 @@
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_3">{{$numFormatNoDecimal(roth_backend.inheritance_taxes)}}</span></label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="each-tax-details-bar">
+                                                                <div :class="`each-tax-details-bar ${inputs.social_security_amount ? '' : 'd-none'}`">
                                                                     <p class="heading clr4">Social Security Taxes
                                                                     </p>
                                                                     <div class="tax-details-each-bars barClr4">
@@ -409,6 +409,9 @@ export default {
             var largestSec = Math.max.apply(0, sub_array);
             if(this.currentPreTaxBarIdx < allBar.length){
                 this.currentPreTaxBarIdx += 1;
+                if(!this.inputs.social_security_amount && this.currentPreTaxBarIdx === 4){
+                  this.currentPreTaxBarIdx += 1;
+                }
             }
 
             if(this.currentPreTaxBarIdx == allBar.length){
@@ -473,6 +476,9 @@ export default {
             
             if(this.currentConversionBarIdx < allBar2.length){
                 this.currentConversionBarIdx += 1;
+                if(!this.inputs.social_security_amount && this.currentConversionBarIdx === 4){
+                  this.currentConversionBarIdx += 1;
+                }
             }
             
             if(this.currentConversionBarIdx == allBar2.length){
