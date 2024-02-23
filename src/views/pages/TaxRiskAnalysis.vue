@@ -253,20 +253,19 @@
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr6">{{ showBonus ? 'Net' : '' }} Conversion Taxes 
-                                                                    <!-- When user turns on the Show Bonus switch button, then remove the "d-none" class from the label tag below -->
                                                                     <label :class="showBonus ? '' : 'd-none'"><common-tooltip-svg /><small>The net amount of conversion taxes after the bonus is applied</small></label></p>
-                                                                    <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
                                                                     <div :class="`${showBonus ? 'advance' : ''}`">
                                                                     <div class="tax-details-each-bars barClr6">
+                                                                        <div class="dark-bar dark-bar-1"></div>
                                                                         <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_5">{{$numFormatNoDecimal(showBonus ? roth_backend.net_taxes_after_bonus : roth_backend.roth_conversion_taxes)}}</span></label>
                                                                     </div>
                                                                     </div>    
                                                                 </div>
                                                                 <div class="each-tax-details-bar">
                                                                     <p class="heading clr5">{{ showBonus ? 'Net' : '' }} Total Taxes</p>
-                                                                    <!-- When user turns on the Show Bonus switch button, then add the "advance" class to this bottom div -->
                                                                     <div :class="`${showBonus ? 'advance' : ''}`">
                                                                         <div class="tax-details-each-bars barClr5">
+                                                                            <div class="dark-bar dark-bar-2"></div>
                                                                             <label class="amount-label-wrapper" style="padding-left: 8px;">$<span id="roth_wider_bar_6">{{$numFormatNoDecimal(showBonus ? roth_backend.net_total_taxes_after_bonus  : roth_backend.total_taxes)}}</span></label>
                                                                         </div>
                                                                     </div>
@@ -328,8 +327,8 @@ export default {
         activeTab: "preTax",
         currentPreTaxBarIdx: 0,
         currentConversionBarIdx: 0,
-        noOfPreBars: 5,
-        noOfConversionBars: 6,
+        noOfPreBars: 5, // Need to change if no social security
+        noOfConversionBars: 6, // Need to change if no social security
         isSeeAllActive: false,
         showBonus:false,
         isIndividual: true,
@@ -398,10 +397,12 @@ export default {
             let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');             
             var sub_array = [];
             for (let i = 1; i <= allBar.length; i++) {
-                var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
-                sub_array.push(barValueGets);
-                if(i == allBar.length){
-                    preTotalTaxes = barValueGets;
+                if(document.getElementById('wider_bar_' + i)){
+                    var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
+                    sub_array.push(barValueGets);
+                    if(i == allBar.length){
+                        preTotalTaxes = barValueGets;
+                    }
                 }
             }
             var largestSec = 0;
@@ -452,16 +453,20 @@ export default {
             let total_taxes = this.roth_backend.total_taxes;
 
             for (let i = 1; i <= this.noOfPreBars; i++) {
-                var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
-                sub_array.push(barValueGets);
-                if(i == this.noOfPreBars){
-                    preTotalTaxes = barValueGets;
+                if(document.getElementById('wider_bar_' + i)){
+                    var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
+                    sub_array.push(barValueGets);
+                    if(i == this.noOfPreBars){
+                        preTotalTaxes = barValueGets;
+                    }
                 }
             }
 
             for (let i = 1; i <= allBar2.length; i++) {
-                var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
-                sub_array2.push(barValueGets);
+                if(document.getElementById('roth_wider_bar_' + i)){
+                    var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
+                    sub_array2.push(barValueGets);
+                }
             }
             var largestSec2 = 0;
             var largestSec2 = Math.max.apply(0, sub_array2);
@@ -474,16 +479,27 @@ export default {
                 let showNextBtn = document.querySelector('.show-next-btn');
                 showNextBtn.classList.add("disabled");
             }
+
             var barValueGet = +document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).innerText.replace(regex, '');
 
-            if(this.currentConversionBarIdx == 5 && this.showBonus){
+            if(this.currentConversionBarIdx ==  allBar2.length - 1 && this.showBonus){
+                let tempVal = barValueGet;
                 barValueGet = roth_conversion_taxes;
+                var darkBar = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest(".tax-details-each-bars").querySelector(".dark-bar");
+                if(darkBar){
+                    darkBar.style.width = (tempVal / barValueGet * 100) + "%";
+                }
             }
 
-            if(this.currentConversionBarIdx == 6 && this.showBonus){
+            if(this.currentConversionBarIdx == allBar2.length && this.showBonus){
+                let tempVal = barValueGet;
                 barValueGet = total_taxes;
+                var darkBar = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest(".tax-details-each-bars").querySelector(".dark-bar");
+                if(darkBar){
+                    darkBar.style.width = (tempVal / barValueGet * 100) + "%";
+                }
             }
-            // var barActualValue = largestSec2;
+
             let finalResult = (barValueGet / preTotalTaxes) * 100; 
             finalResult > 100 ? finalResult = 100 : finalResult;
 
@@ -510,7 +526,6 @@ export default {
                 let barWidth = document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.tax-details-each-bars').offsetWidth;
 
                 if(barWidth > 6 && barWidth < textWidth){
-                    console.log("hello...")
                     document.getElementById('roth_wider_bar_' + this.currentConversionBarIdx).closest('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
                     eachBar.classList.remove("text-white");
                 }
@@ -528,23 +543,28 @@ export default {
         // Pre-Tax Analysis
         let allBar = document.querySelectorAll('#iraTaxDetailsTab .each-tax-details-bar span');
         for (let i = 1; i <= allBar.length; i++) {
-            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';
-            document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 0;
+            let currentWideBar = document.getElementById('wider_bar_' + i);
+            if(currentWideBar){
+                currentWideBar.closest('.tax-details-each-bars').style.width = 0 + '%';
+                currentWideBar.closest('.tax-details-each-bars').style.padding = "8px 2px";
+                currentWideBar.closest('.amount-label-wrapper').style.opacity = 0;
+            }
         }
 
         // Conversion Analysis
         let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
         for (let i = 1; i <= allBar2.length; i++) {
-            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.width = 0 + '%';            
-            document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').style.padding = "8px 2px";
-            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 0;
+            let currentRothBar = document.getElementById('roth_wider_bar_' + i);
+            if(currentRothBar){
+                currentRothBar.closest('.tax-details-each-bars').style.width = 0 + '%';            
+                currentRothBar.closest('.tax-details-each-bars').style.padding = "8px 2px";
+                currentRothBar.closest('.amount-label-wrapper').style.opacity = 0;
+            }
         }
 
         showNextBtn.classList.remove("disabled");
     },
     updateBarWidths() {
-        console.log(this.showBonus);
         this.isSeeAllActive = true;
         this.isIndividual = false;
         const regex = /[, \u202f]/g
@@ -561,97 +581,118 @@ export default {
         var preTotalTaxes = 0;
         var sub_array = [];
         for (let i = 1; i <= allBar.length; i++) {
-            var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
-            sub_array.push(barValueGets);
-            if(i == allBar.length){
-                preTotalTaxes = barValueGets;
+            if(document.getElementById('wider_bar_' + i)){
+                var barValueGets = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
+                sub_array.push(barValueGets);
+                if(i == allBar.length){
+                    preTotalTaxes = barValueGets;
+                }
             }
         }
         var largestSec = 0;
         var largestSec = Math.max.apply(0, sub_array);
         for (let i = 1; i <= allBar.length; i++) {
-            var barValueGet = +document.getElementById('wider_bar_' + i).innerText.replace(regex, '');
-            var barActualValue = largestSec;
-            let finalResult = (barValueGet / barActualValue) * 100;
-            finalResult > 100 ? finalResult = 100 : finalResult;
+            let currentWideBar = document.getElementById('wider_bar_' + i);
+                if(currentWideBar){
+                var barValueGet = +currentWideBar.innerText.replace(regex, '');
+                var barActualValue = largestSec;
+                let finalResult = (barValueGet / barActualValue) * 100;
+                finalResult > 100 ? finalResult = 100 : finalResult;
 
-            let eachBar = document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars');
+                let eachBar = currentWideBar.closest('.tax-details-each-bars');
 
-            eachBar.style.width = finalResult + '%';
-            document.getElementById('wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
+                eachBar.style.width = finalResult + '%';
+                currentWideBar.closest('.amount-label-wrapper').style.opacity = 1;
 
-            if (finalResult < 1 || !finalResult) {
-                eachBar.style.padding = "8px 2px";
-                eachBar.classList.remove("text-white");
-            }else{
-                eachBar.style.padding = "8px 2px";
-                eachBar.classList.add("text-white");
-            }
-
-            setTimeout(() => {
-                let textDiv = document.getElementById('wider_bar_' + i);
-                let textWidth = 0;
-                if(textDiv){
-                    textWidth = textDiv.offsetWidth + 20;
+                if (finalResult < 1 || !finalResult) {
+                    eachBar.style.padding = "8px 2px";
+                    eachBar.classList.remove("text-white");
+                }else{
+                    eachBar.style.padding = "8px 2px";
+                    eachBar.classList.add("text-white");
                 }
-                let barWidth = eachBar.offsetWidth;
-                if(barWidth > 6 && barWidth < textWidth){
-                document.getElementById('wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
-                eachBar.classList.remove("text-white");
-                }               
-            },400);
+
+                setTimeout(() => {
+                    let textDiv = currentWideBar;
+                    let textWidth = 0;
+                    if(textDiv){
+                        textWidth = textDiv.offsetWidth + 20;
+                    }
+                    let barWidth = eachBar.offsetWidth;
+                    if(barWidth > 6 && barWidth < textWidth){
+                    currentWideBar.closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                    eachBar.classList.remove("text-white");
+                    }               
+                },400);
+            }
         }
 
         // Conversion Analysis
         let allBar2 = document.querySelectorAll('#rothTaxDetails .each-tax-details-bar span');
         var sub_array2 = [];
         for (let i = 1; i <= allBar2.length; i++) {
-            var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
-            sub_array2.push(barValueGets);
+            if(document.getElementById('roth_wider_bar_' + i)){
+                var barValueGets = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
+                sub_array2.push(barValueGets);
+            }
         }
         var largestSec2 = 0;
         var largestSec2 = Math.max.apply(0, sub_array2);
         
         for (let i = 1; i <= allBar2.length; i++) {
-            var barValueGet = +document.getElementById('roth_wider_bar_' + i).innerText.replace(regex, '');
+            let currentRothBar = document.getElementById('roth_wider_bar_' + i);
+                if(currentRothBar){
+                var barValueGet = +currentRothBar.innerText.replace(regex, '');
 
-            if(i == 5 && this.showBonus){
-                barValueGet = roth_conversion_taxes;
-            }
+                if(i == allBar2.length - 1 && this.showBonus){
+                    let tempVal = barValueGet;
+                    barValueGet = roth_conversion_taxes;
+                    var darkBar = currentRothBar.closest(".tax-details-each-bars").querySelector(".dark-bar");
+                    if(darkBar){
+                        darkBar.style.width = (tempVal / barValueGet * 100) + "%";
+                    }
+                    
+                }
 
-            if(i == 6 && this.showBonus){
-                barValueGet = total_taxes;
-            }
-        
-            let finalResult = (barValueGet / preTotalTaxes) * 100; 
-            finalResult > 100 ? finalResult = 100 : finalResult;
-
-            let eachBar = document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars');
-            eachBar.style.width = finalResult + '%';
-            document.getElementById('roth_wider_bar_' + i).closest('.amount-label-wrapper').style.opacity = 1;
-
-            if (finalResult < 1 || !finalResult) {
-                eachBar.style.padding = "8px 2px";
-                eachBar.classList.remove("text-white");
-            }else{
-                eachBar.classList.add("text-white");
-                eachBar.style.padding = "8px 2px";
-            }
+                if(i == allBar2.length && this.showBonus){
+                    let tempVal = barValueGet;
+                    barValueGet = total_taxes;
+                    var darkBar = currentRothBar.closest(".tax-details-each-bars").querySelector(".dark-bar"); 
+                    if(darkBar){              
+                        darkBar.style.width = (tempVal / barValueGet * 100) + "%";
+                    }
+                }
             
-            setTimeout(() => {
-                let textDiv = document.getElementById('roth_wider_bar_' + i);
-                let textWidth = 0;
-                if(textDiv){
-                    textWidth = textDiv.offsetWidth + 20;    
+                let finalResult = (barValueGet / preTotalTaxes) * 100; 
+                finalResult > 100 ? finalResult = 100 : finalResult;
+
+                let eachBar = currentRothBar.closest('.tax-details-each-bars');
+                eachBar.style.width = finalResult + '%';
+                currentRothBar.closest('.amount-label-wrapper').style.opacity = 1;
+
+                if (finalResult < 1 || !finalResult) {
+                    eachBar.style.padding = "8px 2px";
+                    eachBar.classList.remove("text-white");
+                }else{
+                    eachBar.classList.add("text-white");
+                    eachBar.style.padding = "8px 2px";
                 }
                 
-                let barWidth = eachBar.offsetWidth;
-                
-                if(barWidth > 6 && barWidth < textWidth){
-                    document.getElementById('roth_wider_bar_' + i).closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
-                    eachBar.classList.remove("text-white");
-                }                
-            }, 400);
+                setTimeout(() => {
+                    let textDiv = currentRothBar;
+                    let textWidth = 0;
+                    if(textDiv){
+                        textWidth = textDiv.offsetWidth + 20;    
+                    }
+                    
+                    let barWidth = eachBar.offsetWidth;
+                    
+                    if(barWidth > 6 && barWidth < textWidth){
+                        currentRothBar.closest('.tax-details-each-bars').querySelector('.amount-label-wrapper').style.paddingLeft = `${barWidth + 6}px`;
+                        eachBar.classList.remove("text-white");
+                    }                
+                }, 400);
+            }
         }
         showNextBtn.classList.add("disabled");        
     }
