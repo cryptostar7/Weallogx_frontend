@@ -393,6 +393,9 @@ export default {
           Math.max(...(graphData.datasets[5].data || [])),
         ]
       );
+
+      console.log('Number(maxAcc2 * 2)');
+      console.log(maxAcc2, Number(maxAcc2 * 2));
       
 
       const comparativeValuesChart = document.getElementById("comparativeValuesChart");
@@ -565,7 +568,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
               // stacked: true,
               ticks: {
                 padding: 8,
@@ -596,7 +599,7 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              max: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
               ticks: {
                 align: "start",
                 padding: 8,
