@@ -464,7 +464,10 @@
                   </div>
                 </div>
                 <div class="pb-3">
-                  <div v-if="!uploadFromFile" class="form-check form-switch custom-switch pt-2">
+                  <div
+                    v-if="!uploadFromFile"
+                    class="form-check form-switch custom-switch pt-2"
+                  >
                     <input
                       class="form-check-input"
                       type="checkbox"
@@ -1026,41 +1029,74 @@
       </div>
     </div>
     <input type="hidden" id="extractPageNumber" />
-  </section>
-
-
-<!-- <button class="btn-primary btn" data-bs-target="#pdfNameModal" data-bs-toggle="modal">Click to show modal</button> -->
-  <div class="modal fade common-modal" ref="pdfNameModal" id="pdfNameModal" tabindex="-1" aria-hidden="true" data-bs-backdrop='static'>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
-          </button>
-        </div>
-        <form class="modal-body">
-          <div class="modalParaBorderDiv text-center">
-            <p class="modalParaReportBuilder">Illustration PDF File</p>
-            <p class="modalSmallborder"></p>
-            <p class="fs-14 px-4">You are about to begin the PDF extraction process. Please name the Illustration PDF file.</p>
+    <div
+      class="modal fade common-modal"
+      ref="pdfNameModal"
+      id="pdfNameModal"
+      tabindex="-1"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <img
+                src="@/assets/images/icons/cross-grey.svg"
+                class="img-fluid"
+                alt="Close Modal"
+              />
+            </button>
           </div>
-          <div class="px-5 pt-4">
-            <form action="">
+          <div class="modal-body">
+            <div class="modalParaBorderDiv text-center">
+              <p class="modalParaReportBuilder">Illustration PDF File</p>
+              <p class="modalSmallborder"></p>
+              <p class="fs-14 px-4">
+                You are about to begin the PDF extraction process. Please name
+                the Illustration PDF file.
+              </p>
+            </div>
+            <div class="px-5 pt-4">
               <div class="form-group">
-                <label for="pdfFile" class="fs-14 bold-fw">Illustration File Name</label>
-                <input id="pdfFile" type="text" class="form-control custom-control" autocomplete="off">
-                <small class="text-danger d-none">This file name has been already taken.</small>
+                <label for="pdfFile" class="fs-14 bold-fw"
+                  >Illustration File Name</label
+                >
+                <input
+                  id="pdfFile"
+                  type="text"
+                  class="form-control custom-control"
+                  v-model="illustrationFile.name"
+                  autocomplete="off"
+                />
+                <small v-if="illustrationFileError" class="text-danger">{{
+                  illustrationFileError
+                }}</small>
               </div>
-            </form>
+            </div>
+            <div class="gap-13 pt-4 mt-2 pb-2 text-center pb-4">
+              <button
+                type="submit"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                :class="`btn yes-delete-btn ${
+                  illustrationFileError ? 'disabled' : ''
+                }`"
+                @click="getPreview()"
+              >
+                Done
+              </button>
+            </div>
           </div>
-          <div class="gap-13 pt-4 mt-2 pb-2 text-center pb-4">
-            <button type="submit" class="btn yes-delete-btn /*disabled*/">Done</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-
+  </section>
 </template>
 <script>
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
@@ -1074,7 +1110,6 @@ import {
   getFirstError,
   authHeader,
   getNumber,
-  getBaseUrl,
   getCurrentScenario,
   getScenarioStep2,
   setScenarioStep2,
@@ -1126,6 +1161,7 @@ export default {
         url: "",
         type: "new",
       },
+      illustrationFileError: "",
       existingInsuranceProfileId: "",
       existingInsuranceProfileName: "",
       existingIllustrationId: "",
@@ -1152,10 +1188,12 @@ export default {
         if (Number(current) < min || Number(current) > max) {
           let actualValue = current.slice(0, current.length - 1);
           e.target.value =
-            Number(current) < min ? "" : Number(actualValue).toLocaleString('en-US');
+            Number(current) < min
+              ? ""
+              : Number(actualValue).toLocaleString("en-US");
           return false;
         } else {
-          e.target.value = Number(current).toLocaleString('en-US');
+          e.target.value = Number(current).toLocaleString("en-US");
         }
       })
     );
@@ -1371,7 +1409,7 @@ export default {
         if (data.initial_death_benifit) {
           this.setInputWithId(
             "deathBenefit",
-            data.initial_death_benifit.toLocaleString('en-US')
+            data.initial_death_benifit.toLocaleString("en-US")
           );
         }
 
@@ -1506,9 +1544,16 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-
+    // Set the uploaded illustration pdf file name on name change input modal
+    setFileName: function () {
+      return new bootstrap.Modal(
+        document.getElementById("pdfNameModal")
+      ).show();
+    },
     // show pdf file preview for selecting the extract page
-    getPreview: function (file) {
+    getPreview: function () {
+      let file = this.illustrationFile.file;
+      this.$store.dispatch("loader", true);
       if (file && file.type == "application/pdf") {
         fileReader.onload = function () {
           var pdfData = new Uint8Array(this.result);
@@ -1522,6 +1567,7 @@ export default {
                 generateCanvas(i, pdf);
               }
               document.getElementById("stopLoaderBtn").click();
+
               return new bootstrap.Modal(
                 document.getElementById("pdfPreviewCanvasModal")
               ).show();
@@ -1949,8 +1995,7 @@ export default {
           this.illustrationFile.name = "";
           return false;
         }
-        this.$store.dispatch("loader", true);
-        this.getPreview(file);
+        this.setFileName(file);
       }
       this.illustrationFile.file = file ? file : "";
       this.illustrationFile.name = file ? file.name : "";
@@ -2005,6 +2050,7 @@ export default {
       var file = this.illustrationFile.file;
       var url = this.illustrationFile.url;
       var page = this.getInputWithId("extractPageNumber");
+
       if (!page) {
         this.$toast.warning(
           "Please select at least one page to extract the illustration data."
@@ -2043,9 +2089,6 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then((response) => {
           var res = response.data;
-          if (!url && res.s3_url) {
-            this.saveIllustrationFile(res.s3_url, file.name);
-          }
 
           if (url) {
             this.$store.dispatch("loader", false);
@@ -2092,6 +2135,12 @@ export default {
                 }
                 this.setScrollbar();
               } else {
+                if (!url && res.s3_url) {
+                this.saveIllustrationFile(
+                  res.s3_url,
+                  this.illustrationFile.name
+                );
+              }
                 this.csvPreview = this.filterObject(finalObj);
               }
             }
@@ -2711,12 +2760,31 @@ export default {
     },
   },
   watch: {
-    uploadFromFile(e){
-      if(e){
+    uploadFromFile(e) {
+      if (e) {
         this.saveIllustrationTemplate = false; // Handle "Save this Illustration as Template" toggle
       }
-    }
-  }
+    },
+    "illustrationFile.name"(e) {
+      let obj = this.existingIllustrationList;
+      obj = obj.filter((i) => {
+        if (i.s3_url && i.template_name === e) {
+          return true;
+        }
+        return false;
+      });
+
+      this.illustrationFileError = "";
+
+      if (!e.trim()) {
+        this.illustrationFileError = "File name is required.";
+      }
+
+      if (e && obj.length) {
+        this.illustrationFileError = "This file name has been already taken.";
+      }
+    },
+  },
 };
 </script>
 

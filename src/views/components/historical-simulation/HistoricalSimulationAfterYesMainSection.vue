@@ -738,8 +738,6 @@ export default {
       post(getUrl("pdf_extract"), data)
         .then(response => {
           var res = response.data;
-          let allData = { data: [], headers: [] };
-
           if (page && res) {
             var finalObj = this.getSearializedData(res, page);
             if (!finalObj.headers.length) {
@@ -1381,7 +1379,6 @@ export default {
         response => {
           let data = response.data;
           this.uploadFromFile = data.upload_file_checkbox;
-          let filteredCsv = { data: [], headers: [] };
           if (this.uploadFromFile) {
             let filteredCsv = {
               data: data.upload_from_file.data,

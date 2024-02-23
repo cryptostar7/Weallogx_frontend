@@ -1329,7 +1329,7 @@ export default {
             let scenarioData = getCurrentScenario() || {};
             this.$router.push(
               `/${
-                review ? 'review-summary' : scenarioData.historical ? 'historical-simulations' : 'select-historical-simulations'
+                review ? 'review-summary' : scenarioData.historical ? 'historical-index-strategy-allocation' : 'select-historical-simulations'
               }/${this.$route.params.scenario}`
             );
           })
