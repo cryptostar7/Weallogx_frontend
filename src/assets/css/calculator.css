@@ -1409,11 +1409,9 @@ table.index-strategy-table tr th {
     position: relative;
     background-color: rgba(157, 43, 43, .57);
 }
-.advance .barClr5::after{
-    content: '';
+.advance .dark-bar-2{
     position: absolute;
     left: 0%;
-    width: 50%;
     height: 100%;
     top: 0;
     background-color: #9D2B2B;
@@ -1429,11 +1427,9 @@ table.index-strategy-table tr th {
 .advance .barClr5 label, .advance .barClr6 label{
     z-index: 3;
 }
-.advance .barClr6::after{
-    content: '';
+.advance .dark-bar-1{
     position: absolute;
     left: 0%;
-    width: 50%;
     height: 100%;
     top: 0;
     background-color: #BAB42C;
