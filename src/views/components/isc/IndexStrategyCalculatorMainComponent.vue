@@ -727,11 +727,11 @@ export default {
         valid = false;
       }
 
-      if (!this.validateStrategyForm(2)) {
+      if (this.tabs.tab2 && !this.validateStrategyForm(2)) {
         valid = false;
       }
 
-      if (!this.validateStrategyForm(3)) {
+      if (this.tabs.tab3 && !this.validateStrategyForm(3)) {
         valid = false;
       }
 
