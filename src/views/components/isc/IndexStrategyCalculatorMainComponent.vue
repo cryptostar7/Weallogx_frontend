@@ -456,6 +456,7 @@ import IndexStrategyForm from "./IndexStrategyForm.vue";
 import { post } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
+import config from "../../../services/config.js";
 import { computed } from "vue";
 import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
 
@@ -661,6 +662,12 @@ export default {
         valid = false;
       }
 
+      let item = config.ISC_INDEX_STRATEGIES.filter(i => i.template_name === strategy.index)[0];
+      if((Number(this.startYear) < item.max_year)){
+        valid = false;
+        this.$toast.error(`The earliest year for the selected index is ${strategy.index}. Please change the index selection or update your start year.`);
+      }
+
       if (strategy.par_rate !== "" && strategy.par_rate * 100 < 1) {
         this.errors[tab].par_rate = "At least 1% value is required.";
         valid = false;
@@ -720,6 +727,14 @@ export default {
         valid = false;
       }
 
+      if (!this.validateStrategyForm(2)) {
+        valid = false;
+      }
+
+      if (!this.validateStrategyForm(3)) {
+        valid = false;
+      }
+
       return valid;
     },
     submitHandler: function () {
@@ -748,6 +763,7 @@ export default {
       if (this.tabs.tab3) {
         formData.strategies[2] = this.getStrategyObject(2);
       }
+
       this.$store.dispatch("loader", true);
 
       post(getUrl("isc_calculate"), formData, authHeader())

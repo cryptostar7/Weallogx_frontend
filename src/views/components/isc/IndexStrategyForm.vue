@@ -55,7 +55,7 @@
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
         <label for="beginningBalance">Index</label>
-        <div class="select-menu">
+        <div :class="`select-menu ${isValidIndex ? '' : 'error'}`">
           <div class="select-btn">
             <span class="sBtn-text">{{ indexStrategy }}</span>
             <i
@@ -752,9 +752,10 @@ export default {
     indexStrategies() {
       return config.ISC_INDEX_STRATEGIES;
     },
-    maxStartYear() {
-      return endYear - startYear;
-    },
+    isValidIndex: function() {
+      let item = this.indexStrategies.filter(i => i.template_name === this.indexStrategy)[0];
+      return this.$props.startYear >= item.max_year;
+    }
   },
   watch: {
     "$props.resetForm"(e) {

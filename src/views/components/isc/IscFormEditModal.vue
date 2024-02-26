@@ -532,6 +532,7 @@ import { getUrl } from "../../../network/url";
 import { authHeader, getNumber } from "../../../services/helper";
 import StrategyWeightSliderComponent from "./StrategyWeightSliderComponent.vue";
 import { computed } from "vue";
+import config from "../../../services/config";
 
 export default {
   components: {
@@ -764,6 +765,12 @@ export default {
         valid = false;
       }
 
+      let item = config.ISC_INDEX_STRATEGIES.filter(i => i.template_name === strategy.index)[0];
+      if((Number(this.startYear) < item.max_year)){
+        valid = false;
+        this.$toast.error(`The earliest year for the selected index is ${strategy.index}. Please change the index selection or update your start year.`);
+      }
+
       return valid;
     },
     validateForm: function () {
@@ -784,6 +791,14 @@ export default {
         this.errors.global["vehicle_fee"] = "Minimum value should be 0";
       }
 
+      if (!this.validateStrategyForm(1)) {
+        valid = false;
+      }
+      
+      if (!this.validateStrategyForm(1)) {
+        valid = false;
+      }
+      
       if (!this.validateStrategyForm(1)) {
         valid = false;
       }

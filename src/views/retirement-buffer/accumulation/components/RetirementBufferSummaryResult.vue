@@ -82,10 +82,8 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketResult.average_rate_of_return
-                          ? Number(
-                              (
-                                marketResult.average_rate_of_return * 100
-                              ).toFixed(2)
+                          ? (marketResult.average_rate_of_return * 100).toFixed(
+                              2
                             )
                           : 0
                       }}%
@@ -202,11 +200,9 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketBufferResult.average_rate_of_return
-                          ? Number(
-                              (
-                                marketBufferResult.average_rate_of_return * 100
-                              ).toFixed(2)
-                            )
+                          ? (
+                              marketBufferResult.average_rate_of_return * 100
+                            ).toFixed(2)
                           : 0
                       }}%
                     </div>
@@ -334,14 +330,20 @@ export default {
       return this.$store.getters.getRetirementBufferResults();
     },
     inputs() {
-      return this.$store.state.data.retirement_buffer.auccumulation_results.inputs;
+      return this.$store.state.data.retirement_buffer.auccumulation_results
+        .inputs;
     },
     marketResult() {
       let rb = this.$store.state.data.retirement_buffer;
-      if(rb.show_distribution){
-        return rb.auccumulation_results.market_only_with_distribution.summary || {};
-      }else{
-        return rb.auccumulation_results.market_only_without_distribution.summary || {};
+      if (rb.show_distribution) {
+        return (
+          rb.auccumulation_results.market_only_with_distribution.summary || {}
+        );
+      } else {
+        return (
+          rb.auccumulation_results.market_only_without_distribution.summary ||
+          {}
+        );
       }
     },
     marketBufferResult() {

@@ -415,6 +415,7 @@
                         <index-summary-data-component
                           v-if="index_summary"
                           :summary="index_summary"
+                          :taxRate="taxRate"
                           :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
@@ -428,6 +429,7 @@
                         <strategy-summary-data-component
                           v-if="strategy_summary"
                           :summary="strategy_summary"
+                          :taxRate="taxRate"
                           :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
@@ -457,6 +459,7 @@
                         <index-summary-data-component
                           v-if="index_summary"
                           :summary="index_summary"
+                          :taxRate="taxRate"
                           :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
@@ -478,6 +481,7 @@
                         <strategy-summary-data-component
                           v-if="strategy_summary"
                           :summary="strategy_summary"
+                          :taxRate="taxRate"
                           :beginningBalance="inputs.beginning_balance"
                         />
                       </div>
@@ -554,6 +558,7 @@ export default {
       strategy_summary: null,
       inputs: [],
       indexType: "Combined Indexes",
+      taxRate: 0,
       reGenerateGraph: false,
     };
   },
@@ -569,6 +574,7 @@ export default {
         this.index_summary = data.index_summary;
         this.strategy_summary = data.strategy_summary;
         this.inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
+        this.taxRate = this.inputs.index_vehicle ? this.inputs.index_vehicle.tax_rate : 0;
         if (this.inputs.strategies.length < 2) {
           this.indexType = this.inputs.strategies[0].index;
         }else{

@@ -70,7 +70,7 @@
           </p>
         </div>
       </div>
-      <div class="row">
+      <div v-if="$props.taxRate > 0" class="row">
         <div class="col-sm-8">
           <p>Total Taxes</p>
         </div>
@@ -247,7 +247,7 @@
 </template>
 <script>
 export default {
-    props: ["beginningBalance", "summary"]
+    props: ["beginningBalance", "summary", "taxRate"]
 };
 </script>
 <style lang=""></style>
