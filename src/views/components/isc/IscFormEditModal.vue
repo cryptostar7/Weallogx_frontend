@@ -768,7 +768,7 @@ export default {
       let item = config.ISC_INDEX_STRATEGIES.filter(i => i.template_name === strategy.index)[0];
       if((Number(this.startYear) < item.max_year)){
         valid = false;
-        this.$toast.error(`The earliest year for the selected index is ${item.max_year}. Please change the index selection or update your start year.`);
+        this.$toast.error(`The start year for the selected index is ${item.max_year}. Please change the index selection or update your start year.`);
       }
 
       return valid;
