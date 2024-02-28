@@ -11,6 +11,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/user-exists/`;
     case 'profile':
       return `${baseUrl}/auth/profile`;
+      case 'delete-account':
+        return `${baseUrl}/auth/delete-logged-in-user/`;
     case 'remove-logo':
       return `${baseUrl}/auth/remove-logo`;
     case 'login':
