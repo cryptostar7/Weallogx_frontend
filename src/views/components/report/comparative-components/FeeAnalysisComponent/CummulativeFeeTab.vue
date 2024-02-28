@@ -333,7 +333,7 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              max: maxAxis,
+              suggestedMax: maxAxis,
               ticks: {
                 padding: 8,
                 // stepSize: 15000,
