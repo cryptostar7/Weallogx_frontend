@@ -90,6 +90,11 @@ const router = createRouter({
       component: () => import("../views/pages/SignInPage.vue"),
     },
     {
+      path: "/user-login-with-token",
+      name: "user-login-with-token",
+      component: () => import("../views/pages/UserLoginWithToken.vue"),
+    },    
+    {
       path: "/reset-password",
       name: "reset-password",
       component: () => import("../views/pages/ResetPasswordPage.vue"),
@@ -237,7 +242,7 @@ const router = createRouter({
       component: () => import("../views/retirement-buffer/accumulation/RetirementBufferResultPage.vue"),
     },
     {
-      path: "/:slug/:slug2?/:slug3?",
+      path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
     },

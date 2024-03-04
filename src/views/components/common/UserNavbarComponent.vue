@@ -571,10 +571,18 @@ export default {
             localStorage.removeItem("access_token");
             localStorage.removeItem("plan_active");
             localStorage.removeItem("currentUser");
+
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
-            this.$toast.success(response.data.message);
-            this.$router.push("/sign-in");
+
+            if(localStorage.getItem("login_from_admin")){
+              localStorage.removeItem("login_from_admin");
+              window.location.href = this.$adminUrl();
+            }else{
+              this.$toast.success(response.data.message);
+              this.$router.push("/sign-in");
+            }
+
           })
           .catch((error) => {
             this.$store.dispatch("loader", false);

@@ -66,6 +66,9 @@ const myPlugin = {
         },
         app.config.globalProperties.$clientName = (first, last, middle = '') => {
             return `${last || ''}, ${first || ''} ${middle || ''}`;
+        },
+        app.config.globalProperties.$adminUrl = () => {
+            return import.meta.env.VITE_ADMIN_PANEL_URL;
         }
     }
 }

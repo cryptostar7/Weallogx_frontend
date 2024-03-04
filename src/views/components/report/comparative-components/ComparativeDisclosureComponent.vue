@@ -108,11 +108,11 @@
                       >Capital gains tax rate: <b>{{ item.tax }}%</b>;</span
                     >
                   </span>
-                  <!-- If taxes are scheduled, then the last line is simply: -->
                 </p>
               </div>
             </div>
           </div>
+          <!-- If taxes are scheduled, then the last line is simply: -->
           <p v-if="is_schedule">
             <span>Taxes assumed: <b>Per schedule</b></span>
           </p>
