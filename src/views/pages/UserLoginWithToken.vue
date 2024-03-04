@@ -40,8 +40,10 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.$toast.error("Token expired or invalid.");
-            window.location.href = this.$adminUrl();
           }
+
+          this.$store.dispatch("loader", false);
+          window.location.href = this.$adminUrl();
         });
     },
     getUseData: function () {
