@@ -3,7 +3,7 @@
     <span>Disclosure:</span> This tool is designed to provide insight and
     opportunities for discussion regarding certain strategies surrounding
     sequence of return risk (among others) that may prove beneficial amid a
-    myriad of potential outcomes but that are not guaranteed to to prove so.
+    myriad of potential outcomes but that are not guaranteed to prove so.
     While every reasonable effort is made to ensure proper calculations and
     their portrayal, it is impossible for any software or advisor to accurately
     predict your future. Unpredictable variables can and likely will cause
