@@ -4693,10 +4693,15 @@ fill: #f5f5f5;
 .dark-green .table_graph_tab_main.disable .common_each_table_div.disable .table_button .button_knobs:before {
   background-color: #2a2d36;
 }
-.dark-green .table_graph_tab_main.disable .common_each_table_div.disable table.retirement_table_area tr td {
-  background-color: #3031315e;
+.dark-green .table_graph_tab_main.disable .table_clr_2.disable table.retirement_table_area tr td {
+  background-color: #292b2f;
 }
-
+.dark-green .table_graph_tab_main.disable .table_clr_3.disable table.retirement_table_area tr td {
+  background-color: #292b2f;
+}
+.dark-green .table-wrapper-with-boarder{
+  background-color: transparent;
+}
 .dark-green .summary_heading {
   background: #2e3135;
   border: 1px solid #353b46;

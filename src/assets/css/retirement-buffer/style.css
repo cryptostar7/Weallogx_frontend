@@ -796,7 +796,7 @@
 }
 .table_graph_tab_main.disable .each_table_heading .buffer_value{
     display: none;
-    }
+}
 .w-14 {
     width: 14%;
 }
@@ -806,7 +806,6 @@
 .w-25 {
     width: 25%;
 }
-
 .w-40 {
     width: 40%;
 }
@@ -816,11 +815,12 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     margin-top: 5px;
+    overflow: hidden;
+    background-color: #dfdfdf;
 }
 table.retirement_table_area {
     width: 100%;
     border-spacing: 0;
-    border-radius: 5px 5px 0 0;
     overflow: hidden;
 }
 
@@ -890,6 +890,10 @@ table.retirement_table_area tr td {
     font-weight: 500;
     text-align: right;
     min-height: 39.2px;
+}
+
+.retirement_table_area.first tr td{
+    background-color: #fff;
 }
 
 table.retirement_table_area tr td.red_text {
@@ -1535,7 +1539,9 @@ body.wider .setting_modal{
 canvas#retirementBufferGraph {
     width: 100% !important;
 }
-
+tbody tr td:first-child{
+    border-left: 0 !important;
+}
 @media (max-width: 1419px) {
     .table_graph_tab_main table.retirement_table_area thead tr th{
     height: 71px;

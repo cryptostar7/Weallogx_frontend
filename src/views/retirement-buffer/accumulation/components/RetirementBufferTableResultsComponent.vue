@@ -60,7 +60,7 @@
               :disable="indexType !== 'Historical Returns'"
             />
             <div class="table-wrapper-with-boarder">
-              <table class="retirement_table_area">
+              <table class="retirement_table_area first">
                 <thead>
                   <tr>
                     <th width="25%" @click="testFunction">
