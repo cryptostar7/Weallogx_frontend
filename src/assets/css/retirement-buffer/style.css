@@ -1246,7 +1246,7 @@ table.retirement_table_area tr td.zero_text {
     text-align: center;
     margin-bottom: 12px;
 }
-.summary_each_card.disable .each_card_right_part .success_prob_para {
+.summary_each_card.disable .each_card_right_part .success_prob_para, .each_card_right_part.disabled .success_prob_para {
     opacity: 0;
 }
 
@@ -1312,10 +1312,10 @@ table.retirement_table_area tr td.zero_text {
     fill: #1660a4;
 }
 
-.summary_each_card.disable .pie.progress_pie svg circle[r] {
+.summary_each_card.disable .pie.progress_pie svg circle[r], .each_card_right_part.disabled .pie.progress_pie svg circle[r] {
     stroke: #fafafa;
 }
-.summary_each_card.disable .pie.progress_pie svg text {
+.summary_each_card.disable .pie.progress_pie svg text, .each_card_right_part.disabled .pie.progress_pie svg text {
     fill: transparent;
     user-select: none;
 }
