@@ -91,7 +91,7 @@
                   </div>
                 </div>
               </div>
-              <div class="each_card_right_part">
+              <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
                 <p class="success_prob_para">
                   Success Probability
                   <span>
@@ -209,7 +209,7 @@
                   </div>
                 </div>
               </div>
-              <div class="each_card_right_part">
+              <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
                 <p class="success_prob_para">
                   Success Probability
                   <span
@@ -238,6 +238,7 @@ import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 
 export default {
   components: { CommonTooltipSvg },
+  props: ["indexType"],
   data() {
     return {
       pieData1: {
@@ -351,6 +352,9 @@ export default {
     },
     simulations() {
       return this.$store.getters.getRetirementBufferSimulations() || [];
+    },
+    showDistribution() {
+      return this.$store.state.data.retirement_buffer.show_distribution;
     },
   },
   watch: {

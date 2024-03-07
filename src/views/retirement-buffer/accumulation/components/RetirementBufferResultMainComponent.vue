@@ -151,7 +151,8 @@
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Summary Results -->
-            <retirement-buffer-summary-result />
+              
+            <retirement-buffer-summary-result :indexType="indexType" />
             <!-- Disclosure Section -->
             <retirement-buffer-disclosure />
           </div>

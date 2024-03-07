@@ -335,7 +335,7 @@ export default {
     filteredList() {
       // this is the main function for searching the data
       return this.clientList.filter((item) => {
-        return JSON.stringify(item).toLowerCase().includes(this.$props.search);
+        return JSON.stringify(item).toLowerCase().includes(this.$props.search.toLowerCase());
       });
     },
   },

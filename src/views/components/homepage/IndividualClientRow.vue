@@ -150,7 +150,7 @@ export default {
       return this.clientList.filter(item => {
         return JSON.stringify(item)
           .toLowerCase()
-          .includes(this.$props.search);
+          .includes(this.$props.search.toLowerCase());
       });
     },
   },
