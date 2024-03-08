@@ -5267,10 +5267,12 @@ fill: #f5f5f5;
 .dark-blue .table_graph_tab_main.disable .summary_each_card.disable .each_card_right_part {
   border-color: #3b3c3e;
 }
-.dark-blue .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg circle[r] {
+.dark-blue .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg circle[r],
+.dark-blue .each_card_right_part.disabled .pie.progress_pie svg circle[r] {
   stroke: #303236;
 }
-.dark-blue .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg text {
+.dark-blue .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg text,
+.dark-blue .each_card_right_part.disabled .pie.progress_pie svg text {
   fill: transparent;
   user-select: none;
 }
