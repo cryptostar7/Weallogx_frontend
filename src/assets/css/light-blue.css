@@ -1787,10 +1787,10 @@ color: #1660A4;
   pointer-events: none;
   user-select: none;
 }
-.light-blue .summary_each_card.disable .pie.progress_pie svg circle[r] {
+.light-blue .summary_each_card.disable .pie.progress_pie svg circle[r], .light-blue .each_card_right_part.disabled .pie.progress_pie svg circle[r] {
   stroke: #fafafa;
 }
-.light-blue .summary_each_card.disable .pie.progress_pie svg text {
+.light-blue .summary_each_card.disable .pie.progress_pie svg text, .light-blue .each_card_right_part.disabled .pie.progress_pie svg text {
   fill: transparent;
   user-select: none;
 }

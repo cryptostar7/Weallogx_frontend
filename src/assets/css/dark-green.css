@@ -4779,10 +4779,12 @@ fill: #f5f5f5;
 .dark-green .table_graph_tab_main.disable .summary_each_card.disable .each_card_right_part {
   border-color: #3b3c3e;
 }
-.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg circle[r] {
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg circle[r],
+.dark-green .each_card_right_part.disabled .pie.progress_pie svg circle[r] {
   stroke: #303236;
 }
-.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg text {
+.dark-green .table_graph_tab_main.disable .summary_each_card.disable .pie.progress_pie svg text,
+.dark-green .each_card_right_part.disabled .pie.progress_pie svg text {
   fill: transparent;
   user-select: none;
 }
