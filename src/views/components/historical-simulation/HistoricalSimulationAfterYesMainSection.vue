@@ -1315,7 +1315,6 @@ export default {
                   this.$route.params.scenario
                 }?pid=${this.getPortfolioId()}`;
 
-            console.log(url);
             this.$router.push(url);
           })
           .catch(error => {
@@ -1340,7 +1339,6 @@ export default {
                   this.$route.params.scenario
                 }?pid=${this.getPortfolioId()}`;
            
-           console.log(url);
             this.$router.push(url);
           })
           .catch(error => {

@@ -103,7 +103,6 @@ export default {
     },
      // share report 
     shareReport: function(item){
-      console.log(item);
       let client = this.$props.client;
       client = {firstname: client.firstname, lastname: client.lastname, middlename: client.middlename};
       this.$store.dispatch('shareSimulationReportData', {name: 'client', data: client});

@@ -32,7 +32,7 @@
                   class="form-group less"
                 />
                 <span class="or-text-span">or</span>
-                <h4 class="form-subheading fs-14 fw-bold" @click="testFunction">
+                <h4 class="form-subheading fs-14 fw-bold">
                   Create From Scratch
                 </h4>
                 <div class="form-group pt-2 less">

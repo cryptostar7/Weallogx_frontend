@@ -335,8 +335,6 @@ export default {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
       this.saveDisclosure = false;
-      console.log(this.$refs.editableDiv.innerHTML);
-
       let data = {
         report_id: this.$route.params.report,
         report_type: "historical",
@@ -347,9 +345,6 @@ export default {
       if (this.$props.disclosureId) {
         this.disclosure_id = this.$props.disclosureId;
       }
-
-      console.log(data);
-      console.log(this.disclosure_id);
 
       if (this.disclosure_id) {
         patch(

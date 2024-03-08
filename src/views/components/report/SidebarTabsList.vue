@@ -22,7 +22,7 @@
               @click="handleTabs(element.key, disabledTab == element.key)"
             >
               <div class="lftRadioBtnDiv">
-                <label @click="testFunction(element)">{{ element.name }}</label>
+                <label>{{ element.name }}</label>
               </div>
               <div class="dragBtn">
                 <svg
@@ -90,11 +90,6 @@ export default {
         this.presentation_tab = id;
         element.scrollIntoView({ behavior: "smooth" });
       }
-    },
-    testFunction: function (element) {
-      console.log(this.activeTabs);
-      console.log(this.disabledTab);
-      console.log(element);
     },
   },
   computed: {

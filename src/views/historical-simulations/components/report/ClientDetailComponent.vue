@@ -39,9 +39,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function() {
-      console.log(this.historical);
-    },
     setUpdatedData: function(val){
       this.updateData = val;
     },

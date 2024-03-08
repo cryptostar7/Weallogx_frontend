@@ -38,7 +38,6 @@
               <label
                 for="rightCheckBox8"
                 class="rghtTopHeadcommon"
-                @click="testFunction"
                 >Income Analysis
                 <span class="ms-3 equalThingTabTxt">(Graph)</span></label
               >
@@ -324,9 +323,6 @@ export default {
     }
   },
   methods: {
-    testFunction: function () {
-      console.log(this.notes);
-    },
     setActionId: function (id) {
       document.getElementById("historical_cv_delete_id").value = id;
     },

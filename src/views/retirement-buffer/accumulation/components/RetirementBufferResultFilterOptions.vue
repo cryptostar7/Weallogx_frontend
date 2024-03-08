@@ -308,9 +308,6 @@ import { authHeader } from "../../../../services/helper";
 export default {
   props: ["disable", "class"],
   methods: {
-    testFunction: function () {
-      console.log(this.inputs);
-    },
     sortResultsBy: function (sort = "none") {
       if (sort === "reverse" && this.sortType === "reverse") {
         sort = "none";

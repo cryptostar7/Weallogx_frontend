@@ -178,7 +178,6 @@ export default {
       if (this.$route.query.client) {
         data = data.filter(i => i.id === Number(this.$route.query.client));
         data.forEach(element => {
-          console.log(element.simulations);
           if(element.simulations){
             allDetails = [...allDetails, ...element.simulations];
           }

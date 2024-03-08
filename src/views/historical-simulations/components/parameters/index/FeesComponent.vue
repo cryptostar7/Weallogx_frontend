@@ -310,7 +310,7 @@
     </div>
     <!--  -->
     <div class="formParabrdrLavelDiv mt-4">
-      <p @click="testFunction">
+      <p>
         High Cap Fee <span class="optionalCommonTxt">&nbsp;&nbsp;OPTIONAL</span>
       </p>
       <p></p>

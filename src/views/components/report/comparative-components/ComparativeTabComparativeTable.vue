@@ -910,9 +910,6 @@ export default {
     "$props.sidebar"(value) {
       this.handleSidebar(value);
     },
-     "$props.sidebar.currentTab"(tab) {
-      console.log(tab);
-    },
     "deletedItems.length"(val) {
       setTimeout(() => {
         this.init();

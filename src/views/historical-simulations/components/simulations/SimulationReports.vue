@@ -1,7 +1,7 @@
 <template lang="">
     <div class="collapse" :id="collapseId">
         <div class="inner-report-div border-top">
-            <h4 class="green-clr fs-16 bold-fw darkmodecls" @click="testFunction">
+            <h4 class="green-clr fs-16 bold-fw darkmodecls">
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M9.42757 0.572998H7.95195C7.74819 0.572998 7.58301 0.738167 7.58301 0.941909V9.05802C7.58301 9.26178 7.74819 9.4269 7.95195 9.4269H9.42757C9.63132 9.4269 9.79651 9.26178 9.79651 9.05802V0.941909C9.79651 0.738167 9.63132 0.572998 9.42757 0.572998Z"
@@ -29,11 +29,6 @@ export default {
       simulationReportItems: [],
       collapseId: "",
     };
-  },
-  methods: {
-    testFunction: function() {
-      console.log(this.$props.simulationReports);
-    }
   },
   mounted() {
     // get the props data in current component data variable

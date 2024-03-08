@@ -25,7 +25,6 @@ export default {
         { remember_token: token }
       )
         .then((response) => {
-          console.log(response.data);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
           localStorage.setItem("login_from_admin", 1);

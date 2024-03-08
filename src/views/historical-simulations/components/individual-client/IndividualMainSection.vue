@@ -676,9 +676,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function() {
-      console.log(this.client);
-    },
     // upload a new illustration file in s3
     uploadIllustrationFile(e) {
       if (!e.target.files[0]) {

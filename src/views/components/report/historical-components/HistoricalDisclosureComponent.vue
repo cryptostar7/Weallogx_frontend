@@ -5,7 +5,7 @@
         <div
           class="disclosure-header-div d-flex align-items-center justify-content-between"
         >
-          <h4 class="disclosure-heading" @click="testFunction">Disclosure</h4>
+          <h4 class="disclosure-heading">Disclosure</h4>
           <div class="disclosure-right-actions">
             <button
               class="btn round-btn disclosure-edit"
@@ -271,9 +271,6 @@ export default {
     this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
   },
   methods: {
-    testFunction: function () {
-      console.log(this.disclosure);
-    },
     handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         new bootstrap.Modal(this.$refs.disclosureModal).show();

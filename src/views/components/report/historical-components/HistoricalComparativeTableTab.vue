@@ -335,11 +335,9 @@
                                 </tr>
                                 <tr>
                                   <td width="50%" data-label="acount">{{$numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
-                                  <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td> -->
                                 </tr>
                                 <tr>
                                   <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
-                                  <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td> -->
                                 </tr>
                               </tbody>
                             </table>
@@ -362,11 +360,9 @@
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total) }}</td>
-                                    <!-- <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
-                                    <!-- <td width="50%" class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td class="extra-td-styles">
@@ -375,7 +371,6 @@
                                           <tr>
                                             <td class="inner-td"></td>
                                             <td width="50%" :class="summary_data.data[header.id].distribution.surplus >= 0  ? 'text-success' : 'text-danger'" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.surplus).replace("-", "") }}</td>
-                                    <!-- <td width="50%" :class="summary_data.data[header.id].net_balance.surplus >= 0  ? 'text-success' : 'text-danger'"  data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.surplus).replace("-", "") }}</td> -->
                                           </tr>
                                         </tbody>
                                       </table>
@@ -409,71 +404,6 @@
 <script>
 import HistoricalDisclosureComponent from "./HistoricalDisclosureComponent.vue";
 import { VueDraggableNext } from "vue-draggable-next";
-
-// let tablesH = [];
-// let isPresentationClicked = false;
-// function getOffset(element) {
-//   var x = 0;
-//   var y = 0;
-//   while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
-//     x += element.offsetLeft - element.scrollLeft;
-//     y += element.offsetTop - element.scrollTop;
-//     element = element.offsetParent;
-//   }
-//   return { top: y, left: x };
-// }
-
-// function Table(element) {
-//   this.element = element;
-//   this.element.querySelectorAll("thead").forEach(thead => {
-//     if (thead.classList.contains("cloned")) {
-//       thead.remove();
-//     }
-//   });
-//   this.originalHeader = element.getElementsByTagName("thead")[0];
-//   this.floatingHeader = this.originalHeader.cloneNode(true);
-//   this.top = 0;
-//   this.bottom = 0;
-//   this.originalThs = this.originalHeader.getElementsByTagName("th");
-//   this.floatingThs = this.floatingHeader.getElementsByTagName("th");
-
-//   if (!this.element.style.position) {
-//     this.element.style.position = "relative";
-//   }
-//   this.floatingHeader.setAttribute("aria-hidden", "true");
-//   this.floatingHeader.classList.add("cloned");
-//   this.floatingHeader.style.position = "absolute";
-//   this.floatingHeader.style.top = "0";
-
-//   this.refreshHeaderSize();
-//   this.attachFloatHeader();
-// }
-
-// Table.prototype.refreshHeaderSize = function() {
-//   var offset = getOffset(this.element);
-//   var trs = this.element.getElementsByTagName("tr");
-//   var padding;
-//   this.top = offset.top;
-//   this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
-//   for (var i = 0; i < this.originalThs.length; i++) {
-//     var th = this.originalThs[i];
-//     this.floatingThs[i].style.width = th.offsetWidth + "px";
-//     this.floatingThs[i].style.height = th.offsetHeight + "px";
-//   }
-// };
-
-// Table.prototype.refreshHeaderWidth = function() {
-//   for (var i = 0; i < this.originalThs.length; i++) {
-//     var th = this.originalThs[i];
-//     this.floatingThs[i].style.width = th.offsetWidth + "px";
-//     this.floatingThs[i].style.height = th.offsetHeight + "px";
-//   }
-// };
-
-// Table.prototype.attachFloatHeader = function() {
-//   this.element.insertBefore(this.floatingHeader, this.element.firstChild);
-// };
-
 export default {
   props: ["keyId", "sidebar"],
   components: { HistoricalDisclosureComponent, draggable: VueDraggableNext },
@@ -607,74 +537,10 @@ export default {
       },
     };
   },
-  // updated() {
-  //   this.init();
-  // },
   mounted() {
     this.mapData();
-
-    // setTimeout(() => {
-    //   this.init();
-    // }, 3000);
-
-    // window.addEventListener("scroll", this.windowScrollH);
   },
   methods: {
-    // init: function() {
-    //   tablesH = [];
-    //   var matches = document.querySelectorAll("table.sticky-header-h");
-    //   for (var i = 0; i < matches.length; i++) {
-    //     if (matches[i].tagName === "TABLE") {
-    //       tablesH.push(new Table(matches[i]));
-    //     }
-    //   }
-    // },
-    // refreshHeaderSizes: function() {
-    //   for (var i = 0; i < tablesH.length; i++) {
-    //     tablesH[i].refreshHeaderSize();
-    //   }
-    //   if (this.$store.state.app.presentation_mode) {
-    //     for (var i = 0; i < tablesH.length; i++) {
-    //       tablesH[i].refreshHeaderSize();
-    //     }
-    //     return;
-    //   }
-    // },
-    // getScrollTop: function() {
-    //   if (typeof window.pageYOffset !== "undefined") {
-    //     return window.pageYOffset;
-    //   }
-    //   var docElement = document.documentElement;
-    //   if (!docElement.clientHeight) {
-    //     docElement = document.body;
-    //   }
-    //   return docElement.scrollTop;
-    // },
-    // windowScrollH: function() {
-    //   for (var i = 0; i < tablesH.length; i++) {
-    //     var windowTop = this.getScrollTop();
-    //     if (windowTop > tablesH[i].top) {
-    //       tablesH[i].floatingHeader.style.top =
-    //         Math.min(windowTop - tablesH[i].top, tablesH[i].bottom) + (isPresentationClicked ? 0 : 55) + "px";
-    //     } else {
-    //       tablesH[i].floatingHeader.style.top = "0";
-    //     }
-    //     console.log(tablesH);
-    //   }
-    // },
-    // handleSidebar: function(status) {
-    //   if (
-    //     isPresentationClicked &&
-    //     this.$store.state.app.presentation_mode == false
-    //   ) {
-    //     for (var i = 0; i < tablesH.length; i++) {
-    //       tablesH[i].refreshHeaderWidth();
-    //     }
-    //     return;
-    //   }
-    //   this.refreshHeaderSizes();
-    //   return status;
-    // },
     handleSidebar: function(status) {
       return status;
     },

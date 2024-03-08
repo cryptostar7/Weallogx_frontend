@@ -2,7 +2,7 @@
     <div>
         <div class="container large my-5 darkbgClrDiv">
             <div class="summary-heading">
-                <p @click="testFunction"><span>1 </span>Simulation Details</p>
+                <p><span>1 </span>Simulation Details</p>
                 <router-link :to="`/historical/simulation-details/${$props.simulationId}?review=true`" class="editbtnCommonAncor">
                     <button class="btn editBtnCommon">
                         <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">

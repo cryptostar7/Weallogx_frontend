@@ -8,7 +8,6 @@ import { setAccessToken, setRefreshToken, setCurrentUser } from "../../services/
 
 export default {
   mounted() {
-    console.log(this.$route.query);
     this.setUserSession();
   },
   methods: {
@@ -21,7 +20,6 @@ export default {
       get(getUrl("profile"), headers)
         .then((response) => {
           let user = response.data.data;
-          console.log(response.data);
           setRefreshToken(refresh);
           setAccessToken(token);
           setCurrentUser({

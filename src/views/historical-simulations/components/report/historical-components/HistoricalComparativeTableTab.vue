@@ -1,5 +1,4 @@
 <template lang="">
-  <!-- <button @click="testFunction">Test</button> -->
   <div
     :class="`empty ${
       $store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none' : ''
@@ -1121,9 +1120,6 @@ export default {
     this.mapData();
   },
   methods: {
-    testFunction: function () {
-      console.log(this.table);
-    },
     handleSidebar: function (status) {
       return status;
     },

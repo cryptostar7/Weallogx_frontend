@@ -75,9 +75,6 @@
       };
     },
     methods: {
-      testFunction: function() {
-        console.log(this.clients);
-      },
       // delete client from API
       deleteClient: function() {
         this.$store.dispatch("loader", true);

@@ -394,11 +394,6 @@ export default {
         ]
       );
 
-      console.log('Number(maxAcc2 * 2)');
-      console.log(maxAcc2, Number(maxAcc2 * 2));
-      
-
-      const comparativeValuesChart = document.getElementById("comparativeValuesChart");
       const comparativeGraphArea = document.querySelector("#comparativeGraphArea");
 
       const totalDuration = 4500;

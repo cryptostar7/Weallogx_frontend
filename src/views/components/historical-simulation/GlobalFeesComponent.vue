@@ -308,10 +308,6 @@ export default {
         this.Arrears = Number(document.getElementById("in_arrears").value)
           ? true
           : false;
-
-          console.log('this.Arrears');
-          console.log(this.Arrears);
-
         // premium charge
         this.sameInAllYears.premium_charge =
           document.getElementById(`premiumcharge`).checked;

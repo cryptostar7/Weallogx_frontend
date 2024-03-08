@@ -51,7 +51,7 @@
                         <button type="submit" class="btn yes-delete-btn">Send Presentation</button>
                       </div>
                     </div>
-                    <p class="modalShareLinksPara m-0 mt-4" @click="testFunction">Copy Link</p>
+                    <p class="modalShareLinksPara m-0 mt-4">Copy Link</p>
                     <p class="modalSmallborder m-0"></p>
                     <div class="d-flex justify-content-between">
                       <button class="mt-2 modalAnyOneViewBtn">
@@ -86,9 +86,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function(){
-      console.log(this.report);
-    },
     copyLink() {
       navigator.clipboard.writeText(this.report.report_link);
       this.$refs.copyButtonRef.innerText = "Copied!";

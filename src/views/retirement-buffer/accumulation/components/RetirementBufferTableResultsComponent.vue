@@ -63,7 +63,7 @@
               <table class="retirement_table_area first">
                 <thead>
                   <tr>
-                    <th width="25%" @click="testFunction">
+                    <th width="25%">
                       <p class="visible-hidden mb-1">Year</p>
                       <p class="fs-15">Year</p>
                     </th>
@@ -325,12 +325,6 @@ export default {
   },
   props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
-  methods: {
-    testFunction: function () {
-      console.log(this.results);
-      console.log(this.$store.state.data.retirement_buffer);
-    },
-  },
   watch: {
     "$props.indexType"(e) {
       if (e !== "Historical Returns") {

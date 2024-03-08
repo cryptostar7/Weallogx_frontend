@@ -88,8 +88,6 @@ export default {
       post(getUrl("client"), data, authHeader())
         .then(response => {
           resetForm();
-          console.log('this.$store.data.clients');
-          console.log(this.$store.state.data.clients);
           this.$store.dispatch("addHistoricalClient", response.data.data);
           this.$store.dispatch("loader", false);
           this.$refs.closeModalRef.click();

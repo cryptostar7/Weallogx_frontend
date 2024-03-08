@@ -47,7 +47,7 @@
                   <div
                     class="historyHead2 mb-1 d-flex justify-content-between align-items-center"
                   >
-                    <p class="fs-24" @click="testFunction">Global Parameters</p>
+                    <p class="fs-24">Global Parameters</p>
   
                     <router-link
                       :to="`/historical/parameters/${$route.params.simulation}?review=true`"

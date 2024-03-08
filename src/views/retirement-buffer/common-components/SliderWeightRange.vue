@@ -177,9 +177,6 @@ export default {
       myModalEl.addEventListener("shown.bs.modal", function (event) {
         this.totalWidth = sliderMain.offsetWidth;
         let leftOffset = (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 - splitBar.offsetWidth / 2;        
-
-        console.log( Number(leftSpan.textContent),  Number(rightSpan.textContent))
-
         if(leftOffset > this.totalWidth - 42 || +leftSpan.textContent > 98){
           splitBar.style.left = this.totalWidth - 42 + "px";
           splitRight.classList.add("right");

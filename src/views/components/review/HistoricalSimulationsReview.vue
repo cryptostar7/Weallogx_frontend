@@ -47,7 +47,7 @@
                 <div
                   class="historyHead2 mb-1 d-flex justify-content-between align-items-center"
                 >
-                  <p class="fs-24" @click="testFunction">Global Parameters</p>
+                  <p class="fs-24">Global Parameters</p>
 
                   <a
                     href="/historical-simulations/658?tab=1&amp;review=true"
@@ -362,9 +362,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function () {
-      console.log(this.data);
-    },
     setSchedule: function (data = [], type, title) {
       this.scheduleType = type;
       this.schedules = data;
