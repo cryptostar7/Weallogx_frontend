@@ -58,7 +58,9 @@ body::-webkit-scrollbar {
 .not-scollable {
   overflow: hidden;
 }
-
+.w-0{
+  width: 0;
+}
 .green-clr {
   color: var(--green-clr);
 }

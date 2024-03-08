@@ -213,7 +213,7 @@
                               >
                                 <a
                                   href="javascript:void(0)"
-                                  class="editBtnLirp disableBtnsForAll"
+                                  class="editBtnLirp disableBtnsForAll visible-hidden w-0"
                                   >&nbsp;<svg
                                     width="13"
                                     height="13"
@@ -236,44 +236,6 @@
                                       stroke="#1660A4"
                                       stroke-width="1.25"
                                     />
-                                  </svg>
-                                </a>
-
-                                <a
-                                  href="javascript:void(0)"
-                                  class="d-none editBtnLirp doneBtnLirp disableBtnsForAll"
-                                  >&nbsp;<svg
-                                    width="13"
-                                    height="12"
-                                    viewBox="0 0 13 12"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <g clip-path="url(#clip0_1862_4)">
-                                      <path
-                                        d="M8.17391 1H1V10.4007H11.0435V7.26713"
-                                        stroke="#0E6651"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                      <path
-                                        d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532"
-                                        stroke="#0E6651"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                      />
-                                    </g>
-                                    <defs>
-                                      <clipPath id="clip0_1862_4">
-                                        <rect
-                                          width="12.5"
-                                          height="11.7"
-                                          fill="white"
-                                        />
-                                      </clipPath>
-                                    </defs>
                                   </svg>
                                 </a>
                               </div>
@@ -423,43 +385,7 @@
                                     <div class="d-flex align-items-center">
                                       <a
                                         href="javascript:void(0)"
-                                        class="hideBtnAccount commonShowBtn showBtn10"
-                                      >
-                                        <svg
-                                          width="19"
-                                          height="12"
-                                          viewBox="0 0 19 12"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            d="M9.29743 1C5.44212 1 2.79224 3.65157 1.60785 5.14103C1.1445 5.72373 1.15294 6.52522 1.62562 7.10039C2.83626 8.57358 5.52378 11.2 9.29743 11.2C13.0335 11.2 15.8155 8.62559 17.1066 7.14471C17.625 6.55025 17.6338 5.69829 17.1248 5.09586C15.8597 3.59865 13.1141 1 9.29743 1Z"
-                                            fill="white"
-                                            stroke="#1660A4"
-                                            stroke-width="1.25"
-                                          />
-                                          <circle
-                                            cx="9.40547"
-                                            cy="6.10078"
-                                            r="2.55"
-                                            fill="white"
-                                            stroke="#1660A4"
-                                            stroke-width="1.25"
-                                          />
-                                          <rect
-                                            x="0.625"
-                                            y="0.333984"
-                                            width="21"
-                                            height="1.25"
-                                            rx="0.625"
-                                            transform="rotate(30 0.625 0.333984)"
-                                            fill="#1660A4"
-                                          />
-                                        </svg>
-                                      </a>
-                                      <a
-                                        href="javascript:void(0)"
-                                        class="editBtnAccount editBtn mx-2 disableBtnsForAll"
+                                        class="editBtnAccount editBtn mx-2 disableBtnsForAll visible-hidden w-0"
                                         >&nbsp;<svg
                                           width="13"
                                           height="13"
