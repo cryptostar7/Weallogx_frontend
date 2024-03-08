@@ -1794,4 +1794,7 @@ color: #1660A4;
   fill: transparent;
   user-select: none;
 }
+.light-blue .summary_card_clr_1 .pie.progress_pie svg text{
+  fill: #1660a4;
+}
 /* Retirement Buffer CSS Ends */
