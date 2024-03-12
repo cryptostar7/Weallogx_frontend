@@ -12,7 +12,11 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-
+server: {
+    hmr: {
+        host: 'localhost',
+    },
+}
   build: {
     chunkSizeWarningLimit: 1600,
   },
