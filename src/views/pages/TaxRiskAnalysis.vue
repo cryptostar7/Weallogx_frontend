@@ -456,7 +456,6 @@
                                         }}</span></label
                                       >
                                     </div>
-                                    <!-- <custom-bar-component :class="'tax-details-each-bars barClr1'" :value="ira_backend.rmd_taxes" /> -->
                                   </div>
                                   <div class="each-tax-details-bar">
                                     <p class="heading clr2">
@@ -1055,7 +1054,6 @@ import NavbarComponent from "./../components/common/NavbarComponent.vue";
 import LeftSidebarComponent from "./../components/common/LeftSidebarComponent.vue";
 import TaxScoreCardModal from "../components/tax_scorecard/TaxScoreCardModal.vue";
 import TaxRatePopover from "../components/tax_scorecard/TaxRatePopover.vue";
-import CustomBarComponent from "../components/tax_scorecard/CustomBarComponent.vue";
 import CommonTooltipSvg from "../components/common/CommonTooltipSvg.vue";
 
 export default {
@@ -1065,7 +1063,6 @@ export default {
     TaxScoreCardModal,
     TaxRatePopover,
     CommonTooltipSvg,
-    CustomBarComponent,
   },
   data() {
     return {
@@ -1119,9 +1116,18 @@ export default {
     tabChange(txt) {
       this.activeTab = txt;
       let showNextBtn = document.querySelector(".show-next-btn");
-
-      this.updateBarWidths();
-
+      let switchTab = document.querySelector("#mltplSwtchDiv");
+      if (this.activeTab == "conversion") {
+        switchTab.classList.add("blue");
+        if (this.isSeeAllActive == true) {
+          this.updateBarWidths();
+        }
+      } else {
+        switchTab.classList.remove("blue");
+        if (this.isSeeAllActive == true) {
+          this.updateBarWidths();
+        }
+      }
       if (
         this.activeTab == "preTax" &&
         this.currentPreTaxBarIdx < this.noOfPreBars
