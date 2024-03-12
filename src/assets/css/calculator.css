@@ -1686,7 +1686,7 @@ font-weight: 600;
 }
 
 .compareBottomDivs{
-    display: none;
+    display: flex;
     justify-content: space-between;
     width: 100%;
     gap: 5%;
