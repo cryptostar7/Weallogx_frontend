@@ -11,7 +11,7 @@
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div shadow-none">
                   <div class="index-strategy-head-div tax-scorcard">
-                    <h1>Tax Scorecard</h1>
+                    <h1 @click="testFunction">Tax Scorecard</h1>
                     <router-link to="/tax-score-card" class="back"
                       ><img
                         src="@/assets/images/icons/back-small.svg"
@@ -340,7 +340,7 @@
                                     data-bs-toggle="tab"
                                     data-bs-target="#iraTaxDetailsTab"
                                   >
-                                    Pre-tax Analysis
+                                    Pre-tax {{activeTab === 'compare' ? 'Path' : 'Analysis'}} 
                                   </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -351,7 +351,7 @@
                                     data-bs-toggle="tab"
                                     data-bs-target="#rothTaxDetails"
                                   >
-                                    Conversion Analysis
+                                    Conversion {{activeTab === 'compare' ? 'Path' : 'Analysis'}} 
                                   </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -668,12 +668,15 @@
                                         <div
                                           class="tax-details-each-bars barClr1"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_1"
                                               class="compare_wider_bar_1"
-                                              >127,000</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  ira_backend.rmd_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -685,12 +688,15 @@
                                         <div
                                           class="tax-details-each-bars barClr1"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_2"
                                               class="compare_wider_bar_2"
-                                              >0</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  roth_backend.rmd_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -704,12 +710,15 @@
                                         <div
                                           class="tax-details-each-bars barClr2"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_3"
                                               class="compare_wider_bar_1"
-                                              >73,500</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  ira_backend.reinvestment_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -721,12 +730,15 @@
                                         <div
                                           class="tax-details-each-bars barClr2"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_4"
                                               class="compare_wider_bar_2"
-                                              >0</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  roth_backend.reinvestment_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -740,12 +752,15 @@
                                         <div
                                           class="tax-details-each-bars barClr3"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_5"
                                               class="compare_wider_bar_1"
-                                              >244,000</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  ira_backend.inheritance_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -757,12 +772,15 @@
                                         <div
                                           class="tax-details-each-bars barClr3"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_6"
                                               class="compare_wider_bar_2"
-                                              >0</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  roth_backend.inheritance_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -776,12 +794,15 @@
                                         <div
                                           class="tax-details-each-bars barClr4"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_7"
                                               class="compare_wider_bar_1"
-                                              >90,000</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  ira_backend.social_security_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -793,12 +814,15 @@
                                         <div
                                           class="tax-details-each-bars barClr4"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_8"
                                               class="compare_wider_bar_2"
-                                              >0</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  roth_backend.social_security_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -812,8 +836,7 @@
                                         <div
                                           class="tax-details-each-bars barClr6"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_9"
                                               class="compare_wider_bar_1"
@@ -823,7 +846,7 @@
                                         </div>
                                       </div>
                                       <div class="compareMiddlePart barClr6">
-                                        <span>Net Conversion Taxes</span>
+                                        <span>{{ showBonus ? "Net" : "" }} Conversion Taxes</span>
                                       </div>
                                       <div class="compareRightPart">
                                         <div
@@ -836,12 +859,17 @@
                                               class="nested-progress-bar"
                                             ></div>
                                           </div>
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_10"
                                               class="compare_wider_bar_2"
-                                              >75,000</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  showBonus
+                                                    ? roth_backend.net_taxes_after_bonus
+                                                    : roth_backend.roth_conversion_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -855,18 +883,21 @@
                                         <div
                                           class="tax-details-each-bars barClr5"
                                         >
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_11"
                                               class="compare_wider_bar_1"
-                                              >534,500</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  ira_backend.total_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
                                       </div>
                                       <div class="compareMiddlePart barClr5">
-                                        <span>Net Total Taxes</span>
+                                        <span>{{ showBonus ? "Net" : "" }} Total Taxes</span>
                                       </div>
                                       <div class="compareRightPart">
                                         <div
@@ -880,12 +911,17 @@
                                               style="width: 0"
                                             ></div>
                                           </div>
-                                          <label
-                                            class="amount-label-wrapper"
+                                          <label class="amount-label-wrapper"
                                             >$<span
                                               id="compare_wider_bar_12"
                                               class="compare_wider_bar_2"
-                                              >75,000</span
+                                              >{{
+                                                $numFormatNoDecimal(
+                                                  showBonus
+                                                    ? roth_backend.net_total_taxes_after_bonus
+                                                    : roth_backend.total_taxes
+                                                )
+                                              }}</span
                                             ></label
                                           >
                                         </div>
@@ -910,14 +946,30 @@
                                   />
                                 </button>
                               </div>
-                              <div class="compareBottomDivs">
+                              <div :class="`compareBottomDivs ${currentCompareBarIdx > 5 || isSeeAllActive ? '' : 'd-none'} ${activeTab === 'compare' ? '' : 'd-none'}`">
                                 <div class="compareBottomEachDiv">
                                   <p>Potential Tax Savings</p>
-                                  <div class="priceDiv">$407,500</div>
+                                  <div class="priceDiv">
+                                    ${{
+                                      $numFormatNoDecimal(
+                                        showBonus
+                                          ? summary.tax_reduction_with_bonus
+                                          : summary.tax_reduction_without_bonus
+                                      )
+                                    }}
+                                  </div>
                                 </div>
                                 <div class="compareBottomEachDiv">
                                   <p>Average Annual Tax Savings</p>
-                                  <div class="priceDiv">$18,400</div>
+                                  <div class="priceDiv">
+                                    ${{
+                                      $numFormatNoDecimal(
+                                        showBonus
+                                          ? summary.average_annual_tax_reduction_with_bonus
+                                          : summary.average_annual_tax_reduction_without_bonus
+                                      )
+                                    }}
+                                  </div>
                                 </div>
                                 <div class="compareBottomEachDiv">
                                   <p>Potential Tax Reduction</p>
@@ -925,9 +977,22 @@
                                     <div class="compareBottomProgreesBar">
                                       <div
                                         class="compareBottomInnerProgreesBar"
-                                        style="width: 83%"
+                                        :style="`width: ${
+                                          showBonus
+                                            ? summary.tax_reduction_percentage_with_bonus
+                                            : summary.tax_reduction_percentage_without_bonus
+                                        }%`"
                                       >
-                                        <label> <span>83</span>% </label>
+                                        <label>
+                                          <span>{{
+                                            Number(
+                                              showBonus
+                                                ? summary.tax_reduction_percentage_with_bonus
+                                                : summary.tax_reduction_percentage_without_bonus
+                                            ).toFixed(2)
+                                          }}</span
+                                          >%
+                                        </label>
                                       </div>
                                     </div>
                                   </div>
@@ -1019,6 +1084,7 @@ export default {
       inputs: (state) => state.data.tax_scorecard.inputs,
       ira_backend: (state) => state.data.tax_scorecard.results.ira_backend,
       roth_backend: (state) => state.data.tax_scorecard.results.roth_backend,
+      summary: (state) => state.data.tax_scorecard.results.summary,
     }),
   },
 
@@ -1030,29 +1096,6 @@ export default {
 
   mounted() {
     this.initialBarWidths();
-    //   Tab
-    const compareTab = document.querySelectorAll(".commonTabs");
-    compareTab.forEach(function (eachCompareTab) {
-      eachCompareTab.addEventListener("click", function () {
-        if (
-          document
-            .getElementById("comparePathsTab")
-            .classList.contains("active")
-        ) {
-          document.getElementById("iraTaxDetails-tab").innerText =
-            "Pre-tax Path";
-          document.getElementById("rothTaxDetailstab").innerText =
-            "Conversion Path";
-            document.querySelector('.compareBottomDivs').style.display="flex"
-        } else {
-          document.getElementById("iraTaxDetails-tab").innerText =
-            "Pre-tax Analysis";
-          document.getElementById("rothTaxDetailstab").innerText =
-            "Conversion Analysis";
-            document.querySelector('.compareBottomDivs').style.display="none"
-        }
-      });
-    });
   },
 
   updated() {
@@ -1065,6 +1108,10 @@ export default {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     showBonusHandler(e) {
       // this.updateBarWidths();
+    },
+    testFunction: function () {
+      console.log(this.currentCompareBarIdx);
+      console.log(this.isSeeAllActive);
     },
     tabChange(txt) {
       this.activeTab = txt;
@@ -1182,9 +1229,7 @@ export default {
             eachBar.classList.remove("text-white");
           }
         }, 400);
-      } 
-      
-      else if (this.activeTab == "compare") {
+      } else if (this.activeTab == "compare") {
         let allBar3 = document.querySelectorAll(
           "#comparePaths .tax-details-each-bars span"
         );
@@ -1233,7 +1278,6 @@ export default {
         var eachCompareMaindDiv = document.getElementById(
           "compare_each_progressbar_" + this.currentCompareBarIdx
         );
-        
 
         for (var k = 1; k <= 2; k++) {
           var barValueGet = +eachCompareMaindDiv
@@ -1254,36 +1298,40 @@ export default {
             eachBar.style.padding = "8px 2px";
             eachBar.classList.add("text-white");
           }
-          
+
           setTimeout(() => {
-           for(var j =1; j<=2; j++){
-            let textDiv = document
-              .getElementById(
-                "compare_each_progressbar_" + this.currentCompareBarIdx
-              )
-              .querySelector(".compare_wider_bar_" + j);
-            let textWidth = 0;
-            if (textDiv) {
-              textWidth = textDiv.offsetWidth+20;
-            }
+            for (var j = 1; j <= 2; j++) {
+              let textDiv = document
+                .getElementById(
+                  "compare_each_progressbar_" + this.currentCompareBarIdx
+                )
+                .querySelector(".compare_wider_bar_" + j);
+              let textWidth = 0;
+              if (textDiv) {
+                textWidth = textDiv.offsetWidth + 20;
+              }
 
-            let barWidth =  document.getElementById(
-                "compare_each_progressbar_" + this.currentCompareBarIdx
-              )
-              .querySelector(".compare_wider_bar_" + j).closest(
-              ".tax-details-each-bars").offsetWidth;
+              let barWidth = document
+                .getElementById(
+                  "compare_each_progressbar_" + this.currentCompareBarIdx
+                )
+                .querySelector(".compare_wider_bar_" + j)
+                .closest(".tax-details-each-bars").offsetWidth;
 
-            // alert(barWidth)
-            if (barWidth > 6 && barWidth < textWidth) {
-                document.getElementById("compare_each_progressbar_" + this.currentCompareBarIdx
-              ).querySelector(".compare_wider_bar_" + j).closest(
-              ".tax-details-each-bars").classList.remove("text-white");
+              // alert(barWidth)
+              if (barWidth > 6 && barWidth < textWidth) {
+                document
+                  .getElementById(
+                    "compare_each_progressbar_" + this.currentCompareBarIdx
+                  )
+                  .querySelector(".compare_wider_bar_" + j)
+                  .closest(".tax-details-each-bars")
+                  .classList.remove("text-white");
+              }
             }
-           }
           }, 400);
         }
-      } 
-      else {
+      } else {
         let allBar2 = document.querySelectorAll(
           "#rothTaxDetails .each-tax-details-bar span"
         );
