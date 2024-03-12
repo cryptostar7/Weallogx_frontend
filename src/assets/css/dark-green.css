@@ -4463,8 +4463,8 @@ fill: #f5f5f5;
   color: #26AB8B;
 }
 .dark-green .show-next-btn.disabled{
-    color: #fff;
-    background: #a4a4a4;;
+  color: #fff;
+  background: #4b4b4b;
 }
 .dark-green .mltplSwtchDiv.blue div.active {
   border: 1.5px solid #53A9F1;
@@ -5020,5 +5020,46 @@ fill: #f5f5f5;
 }
 .dark-green .market_buffer_account_tab div.disable {
   color: #747474;
+}
+.dark-green .comparePathTabVsDiv{
+background-color: #2e3135;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart span{
+  color: #fff;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr1 span::before {
+  background-color:  #0F8266;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr2 span::before {
+  background-color:  #23669E;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr3 span::before {
+  background-color:  #8137BB;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr4 span::before {
+  background-color:  #E8662F;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr5 span::before {
+  background-color:  #D8D587;
+}
+.dark-green .eachProgressBarDiv .compareMiddlePart.barClr6 span::before {
+  background-color:  rgba(218, 67, 67, .55);
+}
+.dark-green .compareBottomDivs .compareBottomEachDiv p{
+  background-color: #26AB8B;
+}
+.dark-green .compareBottomDivs .compareBottomEachDiv .priceDiv{
+  color: #fff;
+}
+.dark-green .compareBottomDivs .compareBottomEachDiv {
+  background: #2A2D36;
+  border: none;
+}
+.dark-green .compareBottomProgreesBar {
+  background-color: #242629;
+  border-color: #5b5b5b;
+}
+.dark-green .compareBottomInnerProgreesBar {
+  background-color: #3c3c3c;
 }
 /* Retirement Buffer CSS Ends */

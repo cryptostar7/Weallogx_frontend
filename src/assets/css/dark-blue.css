@@ -4946,8 +4946,8 @@ fill: #f5f5f5;
     background: var(--blue-clr-2);
 }
 .dark-blue .show-next-btn.disabled{
-    color: #fff;
-    background: #a4a4a4;;
+  color: #fff;
+    background: #4b4b4b;
 }
 .dark-blue .tax-details-graph-main-div .mltplSwtchDiv div.active {
   border: 1.5px solid #26AB8B;
@@ -5518,4 +5518,45 @@ background-color: #ABD5F9;
 .dark-blue .market_buffer_account_tab div.disable {
   color: #747474;
 }
+.dark-blue .comparePathTabVsDiv{
+  background-color: #2e3135;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart span{
+    color: #fff;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr1 span::before {
+    background-color:  #0F8266;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr2 span::before {
+    background-color:  #23669E;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr3 span::before {
+    background-color:  #8137BB;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr4 span::before {
+    background-color:  #E8662F;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr5 span::before {
+    background-color:  #D8D587;
+  }
+  .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr6 span::before {
+    background-color:  rgba(218, 67, 67, .55);
+  }
+  .dark-blue .compareBottomDivs .compareBottomEachDiv p{
+    background-color: #23669e;
+  }
+  .dark-blue .compareBottomDivs .compareBottomEachDiv .priceDiv{
+    color: #fff;
+  }
+  .dark-blue .compareBottomDivs .compareBottomEachDiv {
+    background: #2A2D36;
+    border: none;
+  }
+  .dark-blue .compareBottomProgreesBar {
+    background-color: #242629;
+    border-color: #5b5b5b;
+  }
+  .dark-blue .compareBottomInnerProgreesBar {
+    background-color: #3c3c3c;
+  }
 /* Retirement Buffer CSS Ends*/
