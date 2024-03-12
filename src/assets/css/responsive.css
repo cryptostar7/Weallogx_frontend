@@ -2,6 +2,10 @@
     .reportBuilderNav {
         display: none !important;
     }
+    .illustration-file-table tr .list-item-actions{
+        opacity: 1;
+        visibility: visible;
+    }
 
     #mainSection {
         margin-top: 0;
@@ -24,7 +28,7 @@
 
     .prstnBtnResponsive {
         margin: 0 !important;
-        width: 100% !important;
+/*        width: 100% !important;*/
         margin: 0.5rem 0 !important;
     }
 
@@ -48,9 +52,17 @@
     .theme-dropdown-responsive {
         width: 100%;
     }
+    .global-parameter-row .col-20 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
 }
 
 @media (max-width:768px) {
+    .global-parameter-row .col-20 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
 
     .lifeProPlus {
         height: 262px !important;
@@ -179,6 +191,12 @@
     .form-wrapper-inner{
         padding: 0.85rem;
     }
+    .comValCardPara1 {
+        font-size: 9px;
+      }
+      .comValCardPara1 {
+        font-size: 9px;
+      }
 }
 
 @media (max-width:576px) {
@@ -208,3 +226,32 @@
         font-size: 16px;
     }
 }
+@media (max-width:1399px) {
+    .reportTablesDiv .table td input{
+    font-size: 10px;
+    }
+    }
+
+    @media (max-width:1300px) {
+        .DashBoardRightPara2Div .infoMainDiv{
+            right: 0!important;
+                }
+                
+                .DashBoardRightPara2Div .infoMainDiv{
+                    border-bottom-right-radius: 0!important;
+                }
+                .DashBoardRightPara2Div .infoMainDiv .innerInfoDiv .rectangleDesign{
+                    right:4.8px;
+                }
+        }
+
+        @media (max-width:768px) {
+                 
+                    .DashBoardHeadingMain{
+                        display: block;
+                    }
+                    .DashBoardRightPara1Div{
+margin-right: 2rem;
+                    }
+            }
+        

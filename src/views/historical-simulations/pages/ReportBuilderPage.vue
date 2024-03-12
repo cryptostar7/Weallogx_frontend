@@ -1,0 +1,54 @@
+<template>
+  <div>
+    <!-- <navbar-component /> -->
+    <report-page-header />
+    <report-builder-main-section />
+    <!-- Delete Account Modal start -->
+    <delete-account-modal />
+
+    <!-- Delete historical CV Modal start -->
+    <delete-historical-cv-modal />
+
+    <!-- Delete Annuity Modal start -->
+    <delete-annuity-modal />
+    <!-- Report Buider Name Change Modal start -->
+    <report-builder-name-create-modal />
+
+    <!-- Share report Modal start -->
+    <create-report-modal />
+
+    <create-new-client-report-modal />
+
+    <share-modal />
+
+    <!-- delete comparative vechile id hidden input -->
+    <input type="hidden" id="historical_cv_delete_id" />
+  </div>
+</template>
+<script>
+import DeleteAccountModal from "../components/modals/DeleteAccountModal.vue";
+import DeleteHistoricalCvModal from "../components/modals/DeleteHistoricalCvModal.vue";
+import DeleteAnnuityModal from "../components/modals/DeleteAnnuityModal.vue";
+import ReportBuilderNameCreateModal from "../components/modals/ReportBuilderNameCreateModal.vue";
+import ShareModal from "../components/modals/ShareModal.vue";
+import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
+import NavbarComponent from "./../../components/common/NavbarComponent.vue";
+import ReportPageHeader from "../../components/common/SimulationReportPageHeader.vue";
+import CreateReportModal from "./../components/modals/CreateReportModal.vue";
+import CreateNewClientReportModal from "./../components/modals/CreateNewClientReportModal.vue";
+import "../../../assets/js/chart.min";
+export default {
+  components: {
+    DeleteAccountModal,
+    DeleteHistoricalCvModal,
+    DeleteAnnuityModal,
+    ReportBuilderNameCreateModal,
+    ShareModal,
+    ReportBuilderMainSection,
+    NavbarComponent,
+    ReportPageHeader,
+    CreateReportModal,
+    CreateNewClientReportModal,
+  },
+};
+</script>

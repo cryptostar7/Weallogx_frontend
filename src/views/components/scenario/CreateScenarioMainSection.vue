@@ -1,65 +1,41 @@
-<script setup>
-import { RouterLink } from "vue-router";
-import { putPercentage, putYears } from '../../../services/put-percentage';
-import SelectDropdown from "../common/SelectDropdown.vue";
-</script>
 <template>
   <section class="main-section">
-    <div class="reviewProgressMainDiv py-5">
-      <ul class="mt-1 review-progress" id="reviewProgress">
-        <li class="active">
-          <router-link to="/create-new-scenario" class="nav-link p-0"
-            >Scenario Details</router-link
-          >
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Illustration Data</a
-          >
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Comparative Vehicles</a
-          >
-        </li>
-        <li class="">
-          <a href="javascript:void(0)" class="nav-link p-0"
-            >Historical Simulations</a
-          >
-        </li>
-      </ul>
-      <router-link to="/">
-        <img
-          src="@/assets/images/icons/cross.svg"
-          alt="cross"
-          class="ReviewCrossBtn"
-        />
-      </router-link>
-    </div>
+    <scenario-steps />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
           <div class="main-form-div">
-            <div class="main-form-heading">
-              <div class="heading-container">
-                <h2 class="fs-34 bold-fw main-tab-heading me-2">
-                  New Scenario
-                </h2>
-              </div>
-            </div>
-            <div class="form-wrapper side-grey-line">
+            <scenario-label-component />
+            <form
+              class="form-wrapper side-grey-line"
+              novalidate
+              @submit="submitHandler"
+              autocomplete="off"
+            >
               <div class="form-wrapper-inner">
                 <SelectDropdown
                   :list="clients"
                   label="Client"
                   id="clientSelected"
-                 />
+                  :addNewClient="true"
+                  :defaultSelected="defaultClient.template_name"
+                  :error="errors.client"
+                  @clearError="() => (errors.client = false)"
+                  @onSelectItem="setExistingClientId"
+                  @inputText="setExistingClientName"
+                />
                 <hr class="hr-separator" size="1.25" />
                 <SelectDropdown
                   :list="existingScenarioList"
-                  label="Use Existing Scnario"
+                  label="Use Existing Scenario"
                   id="existingScenario"
-                 />
+                  :error="errors.existing_details"
+                  @clearError="() => (errors.existing_details = false)"
+                  :clearInput="detailTemplateInput"
+                  @setClearedInput="() => (detailTemplateInput = 0)"
+                  @onSelectItem="setExistingScenarioDetailId"
+                  @inputText="setExistingScenarioDetailName"
+                />
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold">
                   Create From Scratch
@@ -68,16 +44,24 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                   <label for="scenarioName" class="fs-12 medium-fw"
                     >Scenario Name</label
                   >
-                  <input type="text" id="scenarioName" class="form-control" />
+                  <input
+                    type="text"
+                    id="scenarioName"
+                    v-model="scenarioName"
+                    class="form-control"
+                    @keyup="
+                      () => {
+                        errors.scenario_name = false;
+                      }
+                    "
+                  />
+                  <small class="text-danger" v-if="errors.scenario_name">{{
+                    errors.scenario_name[0]
+                  }}</small>
                 </div>
                 <div class="form-group less">
                   <div
-                    class="
-                      label-group
-                      d-flex
-                      justify-content-between
-                      align-items-center
-                    "
+                    class="label-group d-flex justify-content-between align-items-center"
                   >
                     <label for="scenarioDesc" class="fs-12 medium-fw"
                       >Description</label
@@ -87,26 +71,44 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                   <textarea
                     name=""
                     id="scenarioDesc"
+                    v-model="scenarioDescription"
                     cols="30"
                     rows="2"
                     class="form-control"
+                    @keypress="
+                      () => {
+                        errors.description = false;
+                      }
+                    "
                   ></textarea>
+                  <small class="text-danger" v-if="errors.description">{{
+                    errors.description[0]
+                  }}</small>
                 </div>
-
                 <div class="form-group-wrapper">
                   <div class="form-group">
-                    <label for="clientAge" class="fs-12 medium-fw"
+                    <label for="clientAge" class="fs-12 medium-fw nowrap"
                       >Client Age
                       <span class="regular-fw"
-                        >Year 1 age on illustration</span
+                        >(Year 1 age on illustration)</span
                       ></label
                     >
                     <input
-                      type="text"
+                      type="number"
+                      class="form-control handleLimit"
                       id="clientAge"
-                      value=""
-                      class="form-control"
+                      min="1"
+                      max="100"
+                      @keyup="
+                        () => {
+                          updateClientAge();
+                          errors.client_age_year = false;
+                        }
+                      "
                     />
+                    <small class="text-danger" v-if="errors.client_age_year">{{
+                      errors.client_age_year[0]
+                    }}</small>
                   </div>
                   <div class="form-group">
                     <label for="illustratedAge" class="fs-12 medium-fw"
@@ -114,22 +116,35 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                     >
                     <div class="year-input-div">
                       <input
-                        type="text"
+                        type="number"
                         id="illustratedAge"
-                        v-model="illustrateYear"
-                        class="form-control year-input"
-                        @keyup="setYears"
+                        max="100"
+                        class="form-control handleLimit"
+                        @keyup="
+                          () => {
+                            updateScheduleRate();
+                            errors.illustrate_year = false;
+                          }
+                        "
                       />
                       <span class="year-span">years</span>
                     </div>
+                    <small class="text-danger" v-if="errors.illustrate_year">{{
+                      errors.illustrate_year[0]
+                    }}</small>
                   </div>
                 </div>
 
                 <ul class="nav nav-tabs tax-rate-tabs" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button
-                      class="nav-link active"
+                      :class="`nav-link ${simpleTaxRate ? 'active' : ''}`"
                       id="simpleTaxRate-tab"
+                      @click="
+                        () => {
+                          simpleTaxRate = true;
+                        }
+                      "
                       data-bs-toggle="tab"
                       data-bs-target="#simpleTaxRate"
                       type="button"
@@ -177,8 +192,13 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                   </li>
                   <li class="nav-item" role="presentation">
                     <button
-                      class="nav-link"
+                      :class="`nav-link ${simpleTaxRate ? '' : 'active'}`"
                       id="scheduleTaxRate-tab"
+                      @click="
+                        () => {
+                          simpleTaxRate = false;
+                        }
+                      "
                       data-bs-toggle="tab"
                       data-bs-target="#scheduleTaxRate"
                       type="button"
@@ -242,7 +262,9 @@ import SelectDropdown from "../common/SelectDropdown.vue";
 
                 <div class="tab-content pt-3 mt-1">
                   <div
-                    class="tab-pane fade show active"
+                    :class="`tab-pane fade ${
+                      simpleTaxRate ? 'show active' : ''
+                    }`"
                     id="simpleTaxRate"
                     role="tabpanel"
                     aria-labelledby="simpleTaxRate-tab"
@@ -254,11 +276,19 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         >
                         <div class="percent-input-div">
                           <input
-                            type="text"
+                            type="number"
                             id="firstTaxRate"
-                            class="form-control percent-input"
-                            v-model="firstTaxRate"
-                            required
+                            @keyup="
+                              () => {
+                                updateFirstTaxRate();
+                                errors.first_tax = false;
+                              }
+                            "
+                            :class="`form-control handleLimit ${
+                              errors.first_tax ? 'required' : ''
+                            }`"
+                            min="1"
+                            max="99"
                           />
                           <span class="percent-span">%</span>
                         </div>
@@ -269,41 +299,61 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                         >
                         <div class="percent-input-div">
                           <input
-                            type="text"
+                            type="number"
                             id="secondTaxRate"
-                            :class="`form-control ${firstTaxRate ? '':'percent-input'}`"
+                            :class="`form-control handleLimit ${
+                              errors.second_tax ? 'required' : ''
+                            }`"
+                            @keyup="
+                              () => {
+                                errors.second_tax = false;
+                              }
+                            "
+                            min="1"
+                            max="100"
                             :disabled="firstTaxRate ? false : true"
                           />
                           <span class="percent-span">%</span>
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group" @click="checkIllustrateYearField()">
                         <label for="secondTaxRateYear" class="fs-12 medium-fw"
                           >Second Tax Rate Year</label
                         >
                         <select
                           name=""
                           id="secondTaxRateYear"
-                          class="form-select form-control"
+                          v-model="secondTaxRateYear"
+                          :class="`form-select form-control  ${
+                            errors.second_tax_year ? 'required' : ''
+                          }`"
+                          @keyup="
+                            () => {
+                              errors.second_tax_year = false;
+                            }
+                          "
                           :disabled="firstTaxRate ? false : true"
                         >
                           <option value=""></option>
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
-                          <option value="">6</option>
-                          <option value="">7</option>
-                          <option value="">8</option>
-                          <option value="">9</option>
-                          <option value="">10</option>
+                          <option
+                            v-if="Number(illustrateYear)"
+                            v-for="(item, index) in Number(
+                              Number(illustrateYear).toFixed(0)
+                            )"
+                            :key="index"
+                            :value="item"
+                          >
+                            {{ item }}
+                          </option>
                         </select>
                       </div>
                     </div>
                   </div>
+
                   <div
-                    class="tab-pane fade"
+                    :class="`tab-pane fade ${
+                      simpleTaxRate ? '' : 'show active'
+                    }`"
                     id="scheduleTaxRate"
                     role="tabpanel"
                     aria-labelledby="scheduleTaxRate-tab"
@@ -312,9 +362,26 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                       :list="existingScheduleList"
                       label="Use Existing Schedule"
                       id="existingSchedule"
-                     />
+                      :error="errors.existing_schedule"
+                      @clearError="() => (errors.existing_schedule = false)"
+                      :clearInput="scheduleTemplateInput"
+                      @setClearedInput="() => (scheduleTemplateInput = 0)"
+                      @onSelectItem="setExistingScenarioScheduleId"
+                      @inputText="setExistingScenarioScheduleName"
+                    />
+                    <div class="form-group">
+                      <small class="text-danger" v-if="errors.tax_rate">{{
+                        errors.tax_rate[0]
+                      }}</small>
 
-                    <div class="form-group max-width-320">
+                      <div class="form-group mb-0">
+                        <schedule-csv-extraction
+                          prefixId="schedule_tax_rate_"
+                          :maxInputs="Number(illustrateYear)"
+                          @clearError="checkTaxRate()"
+                        />
+                      </div>
+
                       <table
                         class="table tax-rate-table text-center"
                         id="scheduleTaxRateTable"
@@ -330,9 +397,31 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             <td><br /></td>
                             <td><br /></td>
                           </tr>
-                          <tr v-for="index in Number(illustrateYear)" :key="index">
-                            <td><div class="fs-15">{{index}}</div></td>
-                            <td><div class="p-relative table-input-div percent-input-div"><input type="text" class="form-control percent-input" required><span class="percent-span">%</span></div></td>
+                          <tr
+                            v-for="index in 100"
+                            :key="index"
+                            :class="
+                              Number(illustrateYear) >= index ? '' : 'd-none'
+                            "
+                          >
+                            <td>
+                              <div class="fs-15">{{ index }}</div>
+                            </td>
+                            <td>
+                              <div
+                                class="p-relative table-input-div percent-input-div"
+                              >
+                                <input
+                                  type="number"
+                                  class="form-control handleLimit"
+                                  :id="`schedule_tax_rate_${index}`"
+                                  min="1"
+                                  max="99"
+                                  @keyup="checkTaxRate()"
+                                />
+                                <span class="percent-span">%</span>
+                              </div>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -342,7 +431,10 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             class="form-check-input"
                             type="checkbox"
                             role="switch"
-                            v-model="saveTemplate"
+                            :disabled="
+                              existingScenarioScheduleName ? true : false
+                            "
+                            v-model="saveScheduleTemplate"
                             id="scheduleTemplateCheckbox"
                           />
                           <label
@@ -351,11 +443,12 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             >Save this Schedule as Template</label
                           >
                         </div>
-
                         <div
                           class="form-group pt-2"
                           id="templateNameDiv"
-                          :style="{'display': saveTemplate ? '' : 'none'}"
+                          :style="{
+                            display: saveScheduleTemplate ? '' : 'none',
+                          }"
                         >
                           <label for="templateName" class="fs-12 medium-fw"
                             >Template Name</label
@@ -364,24 +457,103 @@ import SelectDropdown from "../common/SelectDropdown.vue";
                             type="text"
                             id="templateName"
                             class="form-control"
-                            value=""
+                            :disabled="
+                              existingScenarioScheduleName ? true : false
+                            "
+                            v-model="scheduleTemplate"
+                            @keyup="errors.schedule_template = false"
                           />
+                          <small
+                            class="text-danger"
+                            v-if="errors.schedule_template"
+                            >{{ errors.schedule_template[0] }}</small
+                          >
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="pb-3">
+                  <div class="form-check form-switch custom-switch pt-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      :disabled="existingScenarioDetailName ? true : false"
+                      v-model="saveDetailsTemplate"
+                      id="scenarioTemplateCheckbox"
+                    />
+                    <label
+                      class="form-check-label fs-12 semi-bold-fw mb-0"
+                      for="scenarioTemplateCheckbox"
+                      >Save this Scenario Detail as Template</label
+                    >
+                  </div>
+                  <div
+                    class="form-group pt-2"
+                    id="templateNameDiv"
+                    :style="{ display: saveDetailsTemplate ? '' : 'none' }"
+                  >
+                    <label for="templateName" class="fs-12 medium-fw"
+                      >Template Name</label
+                    >
+                    <input
+                      type="text"
+                      id="templateName"
+                      class="form-control"
+                      :disabled="existingScenarioDetailName ? true : false"
+                      v-model="detailsTemplate"
+                      @keyup="errors.details_template = false"
+                    />
+                    <small class="text-danger" v-if="errors.details_template">{{
+                      errors.details_template[0]
+                    }}</small>
+                  </div>
+                </div>
               </div>
-
-              <div class="text-center mt-30">
-                <router-link
-                  to="/illustration-data"
+              <div class="mt-30 text-center p-relative">
+                <button
                   class="nav-link btn form-next-btn active fs-14"
-                  disabled="true"
-                  >Next</router-link
+                  type="submit"
                 >
+                  Next
+                </button>
+                <div class="return-btn-div">
+                  <a
+                    href="javascript:void(0)"
+                    :class="`nav-link btn return-to-report-btn fs-14 ${
+                      reportId ? '' : 'd-none'
+                    }`"
+                    @click="submitHandler(false, false, true)"
+                    disabled="true"
+                    >Save & Return to Current Report
+                    <img
+                      src="@/assets/images/icons/chevron-right.svg"
+                      class="img-fluid me-1"
+                      style="position: relative; top: 0px"
+                      alt="Chevron"
+                      width="6"
+                  /></a>
+                </div>
               </div>
-            </div>
+              <div class="text-center">
+                <button
+                  v-if="$route.query.review === 'true'"
+                  class="nav-link btn form-next-btn active fs-14 mt-2"
+                  type="button"
+                  @click="submitHandler(false, true)"
+                >
+                  <img
+                    src="@/assets/images/icons/chevron-left-white.svg"
+                    class="img-fluid me-1"
+                    style="position: relative; top: 0px"
+                    alt="Chevron"
+                    width="6"
+                  />
+                  Save & Return to Review
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -389,46 +561,859 @@ import SelectDropdown from "../common/SelectDropdown.vue";
   </section>
 </template>
 <script>
+import { get, post, put } from "./../../../network/requests";
+import { getUrl } from "./../../../network/url";
+import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
+import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
+
+import {
+  authHeader,
+  getServerErrors,
+  mapClientList,
+  setScenarioStep1,
+  getScenarioStep1,
+  getCurrentScenario,
+  setCurrentScenario,
+} from "./../../../services/helper";
+import ScenarioSteps from "../common/ScenarioSteps.vue";
+import SelectDropdown from "../common/SelectDropdown.vue";
 export default {
-  components: { RouterLink, SelectDropdown },
+  components: {
+    SelectDropdown,
+    ScenarioSteps,
+    ScenarioLabelComponent,
+    ScheduleCsvExtraction,
+  },
   data() {
     return {
-      clients: [
-        "Alberta, Carter",
-        "Arnold, Krista",
-        "Bryant, Roger",
-        "Campbell, Willie",
-        "Harrison, Maryann",
-        "Peterson, Kristine",
-        "Tucker, Delores ",
-        "Young, Marjorie",
-        "Zebra, Shelly",
-      ],
-      existingScenarioList: [
-        "Scenario 1",
-        "Scenario 2",
-        "Scenario 3",
-        "Scenario 4",
-        "Scenario 5",
-      ],
-      existingScheduleList: [
-        "Schedule 1",
-        "Schedule 2",
-        "Schedule 3",
-        "Schedule 4",
-        "Schedule 5",
-      ],
-      saveTemplate:false,
-      illustrateYear:'',
-      firstTaxRate:'',
+      existingClientId: false,
+      existingScenarioDetailId: false,
+      existingScenarioDetailName: false,
+      existingScenarioScheduleId: false,
+      existingScenarioScheduleName: false,
+      setClientAsDefault: false,
+      detailId: false,
+      clientName: "",
+      scenarioName: "",
+      scenarioDescription: "",
+      clientAgeYearToIllustrate: "",
+      simpleTaxRate: true,
+      saveScheduleTemplate: false,
+      saveDetailsTemplate: false,
+      illustrateYear: "",
+      firstTaxRate: "",
+      secondTaxRate: "",
+      secondTaxRateYear: "",
+      scheduleTemplate: "",
+      detailsTemplate: "",
+      detailTemplateInput: 0,
+      scheduleTemplateInput: 0,
+      scheduleTaxRate: [],
+      errors: [],
+      reportId: "",
     };
   },
-  updated(){
-    putPercentage();
-  },
   mounted() {
-    putPercentage();
-    putYears();
+    this.reportId = this.$route.query.report || false;
+
+    // get existing client
+    if (!this.$store.state.data.clients) {
+      this.getClient();
+    } else {
+      // set default client age
+      let df_client = this.$route.query.client;
+      this.existingClientId = df_client;
+      if (df_client) {
+        this.$store.state.data.clients.forEach((element) => {
+          if (Number(df_client) === Number(element.id)) {
+            this.setInputWithId("clientAge", element.age);
+            this.clientAgeYearToIllustrate = element.age;
+          }
+        });
+      }
+    }
+
+    // get existing scenario details
+    this.getExistingScenarioDetails();
+
+    // get existing scenario schedule template list
+    this.getExistingScenarioSchedule();
+
+    // populate scenario details if scenario detail id exist in url
+    let scenarioData = getCurrentScenario();
+
+    if (this.$route.params.scenario) {
+      if (
+        scenarioData &&
+        scenarioData.id === Number(this.$route.params.scenario)
+      ) {
+        let details = scenarioData.scenerio_details;
+        let id = details;
+        if (typeof details === "object") {
+          id = details.id;
+        }
+
+        let client_id = scenarioData.client;
+        this.$store.dispatch("activeScenario", scenarioData);
+        if (id) {
+          if (client_id) {
+            if (this.clients && this.clients.length) {
+              this.$router.push(
+                `?client=${client_id}${
+                  this.reportId ? `&report=${this.reportId}` : ""
+                }${this.$route.query.review ? "&review=true" : ""}`
+              );
+            } else {
+              this.setClientAsDefault = client_id;
+            }
+          }
+        }
+        return this.populateScenarioDetail(id);
+      }
+
+      this.$store.dispatch("loader", true);
+      this.getScenarionDetails();
+    }
+
+    // input validation for min and max value
+    const inputs = document.querySelectorAll(".handleLimit");
+    inputs.forEach((element) =>
+      element.addEventListener("input", function (e) {
+        let len = e.target.value.length;
+        let current = e.target.value;
+        let min = Number(e.target.getAttribute("min"));
+        let max = Number(e.target.getAttribute("max"));
+        if (
+          Number(current) < min ||
+          Number(current) > max ||
+          isNaN(Number(current))
+        ) {
+          let actualValue = current.slice(0, len - 1);
+          e.target.value = actualValue;
+          return false;
+        }
+      })
+    );
+  },
+  methods: {
+    // get previous scebario detail information
+    getScenarionDetails: function () {
+      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        .then((response) => {
+          let id = false;
+          if (response.data.data.scenerio_details) {
+            id = response.data.data.scenerio_details.id;
+            this.detailId = id;
+          }
+
+          let client_id = response.data.data.client;
+          this.$store.dispatch("activeScenario", response.data.data);
+          setCurrentScenario(response.data.data);
+          this.$store.dispatch("loader", false);
+          if (id) {
+            if (client_id) {
+              if (this.clients && this.clients.length) {
+                this.$router.push(
+                  `?client=${client_id}${
+                    this.reportId ? `&report=${this.reportId}` : ""
+                  }${this.$route.query.review ? "&review=true" : ""}`
+                );
+              } else {
+                this.setClientAsDefault = client_id;
+              }
+            }
+            this.populateScenarioDetail(id);
+          }
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+    // set existing client name on change the input
+    setExistingClientName: function (name) {
+      this.clientName = name;
+      let templateId = this.$getTemplateId(name, this.clients);
+      if (!templateId) {
+        this.$router.push(`${this.$route.query.review ? "&review=true" : ""}`);
+      } else {
+        this.$router.push(
+          `?client=${templateId}${
+            this.reportId ? `&report=${this.reportId}` : ""
+          }${this.$route.query.review ? "&review=true" : ""}`
+        );
+      }
+      // this.existingClientId = false;
+    },
+
+    // set existing scenario detail template name on change the input
+    setExistingScenarioDetailName: function (name) {
+      this.existingScenarioDetailName = name;
+    },
+
+    // set existing scenario detail template name on change the input
+    setExistingScenarioScheduleName: function (name) {
+      this.existingScenarioScheduleName = name;
+    },
+
+    // set existing client id on selecting the input dropdown data
+    setExistingClientId: function (id) {
+      this.existingClientId = id;
+      this.$router.push(
+        `?client=${id}${this.reportId ? `&report=${this.reportId}` : ""}${
+          this.$route.query.review ? "&review=true" : ""
+        }`
+      );
+
+      let age = this.$store.state.data.clients.filter((item) => {
+        return Number(item.id) === Number(id);
+      })[0].age;
+      this.setInputWithId("clientAge", age);
+      this.clientAgeYearToIllustrate = age;
+      this.errors.client_age_year = false;
+    },
+
+    // set the existing scenari o detail id on selecting the input dropdown data
+    setExistingScenarioDetailId: function (id) {
+      this.existingScenarioDetailId = id;
+      let client_id = this.existingScenarioList.filter((i) => i.id === id)[0]
+        .client;
+      this.existingClientId = client_id;
+      this.setClientAsDefault = client_id;
+      this.$router.push(
+        `?client=${client_id}${
+          this.reportId ? `&report=${this.reportId}` : ""
+        }${this.$route.query.review ? "&review=true" : ""}`
+      );
+
+      this.errors = [];
+      this.populateScenarioDetail(id, true);
+    },
+
+    // set the existing scenario schedule id on selecting the input dropdown data
+    setExistingScenarioScheduleId: function (id) {
+      this.existingScenarioScheduleId = id;
+      this.errors.schedule_template = [];
+      this.populateScheduleTax(id, true);
+    },
+
+    // set the client age year value to illustrate the data. Note: v-model not working for this input
+    updateClientAge: function () {
+      this.clientAgeYearToIllustrate = this.getInputUsingId("clientAge");
+      this.errors.client_age_year = false;
+    },
+
+    // set the first tax rate data using the input id. Note: v-model not working for this input
+    updateFirstTaxRate: function () {
+      this.firstTaxRate = this.getInputUsingId("firstTaxRate");
+    },
+
+    // set the illustrate year value using the input id. Note: v-model not working for this input
+    updateScheduleRate: function () {
+      this.illustrateYear = this.getInputUsingId("illustratedAge");
+      this.checkTaxRate();
+    },
+   // to validate the illustration input field on clicking the second tax year select dropdown
+    checkIllustrateYearField: function () {
+      if(!this.illustrateYear){
+        this.errors.illustrate_year = ["This field is required."];
+      }
+    },
+    // set the input value using the input id attribute
+    setInputWithId: function (id, value) {
+      if (document.getElementById(id)) {
+        document.getElementById(id).value = value;
+      }
+      return value;
+    },
+
+    // this function has return the input value
+    getInputUsingId: function (id) {
+      return document.getElementById(id).value;
+    },
+
+    // get all clients list
+    getClient: function () {
+      this.$store.dispatch("loader", true);
+      get(getUrl("clients"), authHeader())
+        .then((response) => {
+          this.$store.dispatch("clients", mapClientList(response.data.data));
+          this.$store.dispatch("loader", false);
+          if (this.setClientAsDefault) {
+            this.$router.push(
+              `?client=${this.setClientAsDefault}${
+                this.reportId ? `&report=${this.reportId}` : ""
+              }${this.$route.query.review ? "&review=true" : ""}`
+            );
+            this.setClientAsDefault = false;
+          }
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    // get schedule templates
+    getExistingScenarioSchedule: function () {
+      get(getUrl("scenario-schedule-templates"), authHeader())
+        .then((response) => {
+          this.$store.dispatch("template", {
+            type: "scenario_schedules",
+            data: response.data.data,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+    setFormInputs: function (detail, template = false) {
+      this.scenarioName = detail.name;
+      this.scenarioDescription = detail.description;
+      this.clientAgeYearToIllustrate = detail.client_age_1_year_illustration;
+      this.setInputWithId("clientAge", detail.client_age_1_year_illustration);
+      this.errors.client_age_year = false;
+
+      this.illustrateYear = detail.years_to_illustrate;
+      this.setInputWithId("illustratedAge", detail.years_to_illustrate);
+
+      this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
+      this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
+      this.setInputWithId(
+        "firstTaxRate",
+        detail.first_tax_rate ? detail.first_tax_rate : ""
+      );
+      this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
+      this.setInputWithId(
+        "secondTaxRate",
+        detail.second_tax_rate ? Number(detail.second_tax_rate) || "" : ""
+      );
+      this.secondTaxRateYear = detail.second_tax_rate_year
+        ? detail.second_tax_rate_year
+        : "";
+
+      if (!this.simpleTaxRate && detail.schedule_tax_rate) {
+        this.setScheduleData(detail.schedule_tax_rate.data);
+      } else {
+        this.clearScheduleData();
+      }
+    },
+
+    populateScenarioDetail: function (id, template = false) {
+      if (!id) {
+        return false;
+      }
+      let step1 = getScenarioStep1();
+      if (step1 && step1.id === Number(id)) {
+        this.detailId = step1.id;
+        return this.setFormInputs(step1, template);
+      } else {
+        this.$store.dispatch("loader", true);
+        get(
+          `${getUrl(
+            template ? "scenario-detail-templates" : "scenario-details"
+          )}${id}`,
+          authHeader()
+        )
+          .then((response) => {
+            this.$store.dispatch("loader", false);
+            this.setFormInputs(response.data.data, template);
+            setScenarioStep1(response.data.data);
+          })
+          .catch((error) => {
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+      }
+    },
+    setScheduleData: function (data = [], template = false) {
+      this.errors.tax_rate = "";
+      this.clearScheduleData();
+      data.forEach((element) => {
+        this.setInputWithId(
+          `schedule_tax_rate_${element.year}`,
+          element.year <= this.illustrateYear ? element.tax_rate : ""
+        );
+      });
+    },
+
+    clearScheduleData: function (data = []) {
+      for (let index = 1; index <= 100; index++) {
+        this.setInputWithId(`schedule_tax_rate_${index}`, "");
+      }
+    },
+
+    getExistingScenarioDetails: function () {
+      get(getUrl("scenario-detail-templates"), authHeader())
+        .then((response) => {
+          this.$store.dispatch("template", {
+            type: "scenario_details",
+            data: response.data.data,
+          });
+          this.$store.dispatch("loader", false);
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    populateScheduleTax: function (id, template = false) {
+      this.$store.dispatch("loader", true);
+      get(
+        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}`,
+        authHeader()
+      )
+        .then((response) => {
+          this.$store.dispatch("loader", false);
+          let detail = response.data.data.data;
+          if (detail) {
+            this.setScheduleData(detail, template);
+          } else {
+            this.clearScheduleData();
+          }
+        })
+        .catch((error) => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    // check all inputs given in the schedule tax rate list, raturn false if any input has blank value otherwise return true.
+    checkTaxRate: function () {
+      this.clearScheduleTemplate();
+      if (this.illustrateYear) {
+        for (let index = 1; index <= this.illustrateYear; index++) {
+          var inp = document.getElementById(`schedule_tax_rate_${index}`);
+          var tax = inp ? inp.value : "";
+          if (!tax) {
+            return false;
+          }
+        }
+      }
+      this.errors.tax_rate = "";
+      return true;
+    },
+
+    // validate the form
+    validateForm: function () {
+      var validate = true;
+      if (!this.clientName) {
+        this.errors.client = ["This field is required."];
+        validate = false;
+      } else {
+        if (!this.clientName) {
+          this.errors.client = "";
+        } else {
+          let templateId = this.$getTemplateId(this.clientName, this.clients);
+          if (!templateId) {
+            validate = false;
+            this.errors.client = ["Please choose a valid client."];
+          } else {
+            this.existingClientId = templateId;
+            this.errors.client = "";
+          }
+        }
+      }
+
+      if (!this.existingScenarioDetailName) {
+        if (!this.scenarioName) {
+          // this.errors.scenario_name = ["This field is required."];
+          // validate = false;
+        } else {
+          this.errors.scenario_name = "";
+        }
+
+        if (!this.clientAgeYearToIllustrate) {
+          this.errors.client_age_year = ["This field is required."];
+          validate = false;
+        } else {
+          this.errors.client_age_year = "";
+        }
+
+        if (!this.illustrateYear || !this.getInputUsingId("illustratedAge")) {
+          this.errors.illustrate_year = ["This field is required."];
+          validate = false;
+        } else {
+          this.errors.illustrate_year = "";
+        }
+
+        if (
+          !this.simpleTaxRate &&
+          !this.existingScenarioScheduleName &&
+          !this.checkTaxRate()
+        ) {
+          this.errors.tax_rate = ["Please enter tax rate for all years."];
+          validate = false;
+        } else {
+          this.errors.tax_rate = "";
+        }
+
+        if (!this.simpleTaxRate && this.existingScenarioScheduleName) {
+          let templateId = this.$getTemplateId(
+            this.existingScenarioScheduleName,
+            this.existingScheduleList
+          );
+          if (!templateId) {
+            validate = false;
+            this.errors.existing_schedule = ["Please choose a valid template."];
+          } else {
+            this.existingScenarioScheduleId = templateId;
+            this.errors.existing_schedule = "";
+          }
+        } else {
+          this.errors.existing_schedule = "";
+        }
+
+        if (this.simpleTaxRate && !this.firstTaxRate) {
+          this.errors.first_tax = true;
+          validate = false;
+        } else {
+          this.errors.first_tax = "";
+        }
+
+        if (
+          !this.simpleTaxRate &&
+          this.saveScheduleTemplate &&
+          !this.scheduleTemplate
+        ) {
+          this.errors.schedule_template = ["This field is required."];
+          validate = false;
+        } else {
+          this.errors.schedule_template = "";
+        }
+      } else {
+        let templateId = this.$getTemplateId(
+          this.existingScenarioDetailName,
+          this.existingScenarioList
+        );
+        if (!templateId) {
+          validate = false;
+          this.errors.existing_details = ["Please choose a valid template."];
+        } else {
+          this.existingScenarioDetailId = templateId;
+          this.errors.existing_details = "";
+        }
+      }
+
+      if (this.saveDetailsTemplate && !this.detailsTemplate) {
+        this.errors.details_template = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.details_template = "";
+      }
+
+      return validate;
+    },
+    // Handle form submission
+    submitHandler: function (e, review = false, report = false) {
+      if (e) {
+        e.preventDefault();
+      }
+      var tempSchedule = [];
+      if (!this.simpleTaxRate && this.illustrateYear) {
+        for (let index = 1; index <= this.illustrateYear; index++) {
+          var inp = document.getElementById(`schedule_tax_rate_${index}`);
+          var tax = inp ? inp.value : "";
+          tempSchedule.push({ year: index, tax_rate: tax });
+        }
+      }
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
+      var data = {
+        existings: {
+          client_id: this.existingClientId,
+          scenario_detail_id: this.existingScenarioDetailId,
+          schedule_tax_id: this.existingScenarioScheduleId,
+        },
+        simple_tax_checkbox: this.simpleTaxRate,
+        name: this.scenarioName,
+        description: this.scenarioDescription,
+        client_age_on_illustration: this.clientAgeYearToIllustrate,
+        years_to_illustrate: this.illustrateYear,
+        simple_tax_rate: {
+          first_tax: this.firstTaxRate || 0,
+          second_tax: this.getInputUsingId(`secondTaxRate`) || 0,
+          second_tax_year: this.secondTaxRateYear || 0,
+        },
+        schedule_tax_rate: {
+          data: tempSchedule,
+          save_this_template_name: this.saveScheduleTemplate,
+          template_name: this.scheduleTemplate,
+        },
+        save_this_template: this.saveDetailsTemplate,
+        template_name: this.detailsTemplate,
+      };
+
+      var formData = {
+        name: data.name,
+        client: data.existings.client_id || "",
+        description: data.description,
+        client_age_1_year_illustration: data.client_age_on_illustration,
+        years_to_illustrate: data.years_to_illustrate,
+        schedule_tax_rate_checkbox: !data.simple_tax_checkbox,
+        first_tax_rate: data.simple_tax_checkbox
+          ? data.simple_tax_rate.first_tax
+          : 0,
+        second_tax_rate: data.simple_tax_checkbox
+          ? data.simple_tax_rate.second_tax
+          : 0,
+        second_tax_rate_year: data.simple_tax_checkbox
+          ? data.simple_tax_rate.second_tax_year
+          : 0,
+        save_this_template_name: data.save_this_template,
+        template_name: data.template_name,
+        schedule_tax_rate: !data.simple_tax_checkbox
+          ? data.schedule_tax_rate
+          : null,
+      };
+
+      this.$store.dispatch("loader", true);
+
+      if (this.detailId) {
+        this.updateScenarioDetail(formData, review, report);
+      } else {
+        this.createScenarioDetail(formData);
+      }
+    },
+    // create new secnario detail data
+    createScenarioDetail: function (data) {
+      post(getUrl("scenario-details"), data, authHeader())
+        .then((response) => {
+          let id = response.data.data.id;
+          setScenarioStep1(response.data.data);
+          this.getExistingScenarioDetails();
+          this.detailId = id;
+          if (id) {
+            this.createScenarioWithDetailId(id);
+          } else {
+            this.$store.dispatch("loader", false);
+          }
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            var serverErrors = getServerErrors(error);
+            this.errors = serverErrors;
+            this.errors.scenario_name = serverErrors.name;
+            this.errors.client_age_year =
+              serverErrors.client_age_1_year_illustration;
+            this.errors.illustrate_year = serverErrors.years_to_illustrate;
+            this.errors.first_tax = serverErrors.first_tax_rate;
+            this.errors.second_tax = serverErrors.second_tax_rate;
+            this.errors.second_tax_year = serverErrors.second_tax_rate_year;
+            this.errors.details_template = serverErrors.template_name;
+            this.errors.description = serverErrors.description;
+            if (
+              this.errors.schedule_tax_rate &&
+              this.errors.schedule_tax_rate.error
+            ) {
+              this.$toast.error(this.errors.schedule_tax_rate.error[0]);
+            }
+          }
+        });
+    },
+
+    // update previous secnario detail data
+    updateScenarioDetail: function (data, review, report) {
+      put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
+        .then((response) => {
+          setScenarioStep1(response.data.data);
+          this.$toast.success(response.data.message);
+          this.$store.dispatch("loader", false);
+          let url = `/illustration-data/${this.activeScenario.id}`;
+
+          if (review) {
+            return this.$router.push(
+              `/review-summary/${this.activeScenario.id}`
+            );
+          }
+
+          if (report) {
+            window.location.href = `/report-builder/${this.reportId}`;
+          }
+
+          if (this.activeScenario.id) {
+            this.$router.push({
+              path: url,
+              query: this.$route.query,
+            });
+          } else {
+            this.$toast.error("Something went wrong. Please try again.");
+          }
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            var serverErrors = getServerErrors(error);
+            this.errors = serverErrors;
+            this.errors.scenario_name = serverErrors.name;
+            this.errors.client_age_year =
+              serverErrors.client_age_1_year_illustration;
+            this.errors.illustrate_year = serverErrors.years_to_illustrate;
+            this.errors.first_tax = serverErrors.first_tax_rate;
+            this.errors.second_tax = serverErrors.second_tax_rate;
+            this.errors.second_tax_year = serverErrors.second_tax_rate_year;
+            this.errors.details_template = serverErrors.template_name;
+            this.errors.description = serverErrors.description;
+            if (
+              this.errors.schedule_tax_rate &&
+              this.errors.schedule_tax_rate.error
+            ) {
+              this.$toast.error(this.errors.schedule_tax_rate.error[0]);
+            }
+          }
+        });
+    },
+    createScenarioWithDetailId: function (id) {
+      this.$store.dispatch("loader", true);
+
+      post(
+        getUrl("scenario"),
+        { scenerio_details: id, client: this.existingClientId },
+        authHeader()
+      )
+        .then((response) => {
+          setCurrentScenario(response.data);
+          this.getClient();
+          this.$toast.success("Scenario details created successfully!");
+          this.$store.dispatch("loader", false);
+          if (response.data.id) {
+            this.$router.push({
+              path: `/illustration-data/${response.data.id}`,
+              query: this.$route.query,
+            });
+          } else {
+            this.$toast.error("Something went wrong.");
+          }
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          this.$toast.error(error.message);
+        });
+    },
+    clearScheduleTemplate: function () {
+      if (this.existingScenarioScheduleName) {
+        this.scheduleTemplateInput = 1;
+      }
+    },
+  },
+  computed: {
+    // active scenario data
+    activeScenario() {
+      return this.$store.state.data.active_scenario;
+    },
+
+    // existing client dropdown list data
+    clients() {
+      let initClient = [];
+      let array = this.$store.state.data.clients;
+      let df_client = this.$route.query.client;
+
+      if (array && array.length > 0) {
+        array.forEach((element) => {
+          var name = this.$clientName(
+            element.firstname,
+            element.lastname,
+            element.middlename
+          );
+          name = name.trim();
+          let df_client = this.$route.query.client;
+          if (Number(df_client) === element.id) {
+            this.setInputWithId("clientAge", element.age);
+            this.clientAgeYearToIllustrate = element.age;
+          }
+          initClient.push({
+            id: Number(element.id),
+            template_name: name,
+          });
+        });
+      }
+      return initClient;
+    },
+
+    defaultClient() {
+      let id = this.$route.query.client;
+      let tempDefaultClient = [];
+      if (id) {
+        tempDefaultClient = this.clients.filter((item) => {
+          return Number(item.id) === Number(id);
+        });
+
+        if (tempDefaultClient[0]) {
+          this.existingClientId = this.$route.query.client;
+        }
+      }
+      return tempDefaultClient[0] ? tempDefaultClient[0] : [];
+    },
+
+    // existing scenario details dropdown list data
+    existingScenarioList() {
+      let array = this.$store.state.data.templates.scenario_details || [];
+
+      if (this.existingClientId) {
+        array = array.filter(
+          (i) => Number(i.client) === Number(this.existingClientId)
+        );
+      }
+      return array;
+    },
+
+    // existing scenario schedules dropdown list data
+    existingScheduleList() {
+      let array = this.$store.state.data.templates.scenario_schedules || [];
+      return array;
+    },
   },
 };
 </script>
+<style>
+.required {
+  border: 1px solid red !important;
+}
+</style>

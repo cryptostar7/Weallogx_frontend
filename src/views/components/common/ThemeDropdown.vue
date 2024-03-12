@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="dropdown theme-btn-dropdown ms-auto">
+    <div class="dropdown theme-btn-dropdown">
         <button class="btn theme-btn dropdown-toggle no-after" role="button" :id="`newDropdownBtn${type}`"
         data-bs-toggle="dropdown" aria-label="false"><span>Theme</span>
         </button>
@@ -19,12 +19,14 @@
 </template>
 <script>
 export default {
-    props:['type'],
-    mounted(){
-        document.body.classList.add(this.$store.state.app.current_theme);
-    },
-}
+  props: ["type"],
+  mounted() {
+    document.body.classList.add(this.$store.state.app.current_theme);
+    if (this.$store.state.app.full_screen) {
+      this.$store.dispatch("fullScreen");
+    }
+  },
+};
 </script>
 <style lang="">
-    
 </style>

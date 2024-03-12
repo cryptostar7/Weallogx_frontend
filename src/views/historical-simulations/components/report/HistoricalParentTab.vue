@@ -1,0 +1,26 @@
+<template lang="">
+    <historical-comparative-table-tab  v-if="tabID === 1" :keyId="keyId" :sidebar="$props.sidebar"/>
+    <historical-income-analysis-tab  v-if="tabID === 2" :keyId="keyId"/>
+    <historical-irr-analysis-tab  v-if="tabID === 3" :keyId="keyId"/>
+    <historical-total-values-tab  v-if="tabID === 4" :keyId="keyId"/>
+    <historical-cumulative-values-tab  v-if="tabID === 5" :keyId="keyId"/>
+</template>
+<script>
+import HistoricalComparativeTableTab from "./historical-components/HistoricalComparativeTableTab.vue";
+import HistoricalIncomeAnalysisTab from "./historical-components/HistoricalIncomeAnalysisTab.vue";
+import HistoricalIrrAnalysisTab from "./historical-components/HistoricalIRRAnalysisTab.vue";
+import HistoricalTotalValuesTab from "./historical-components/HistoricalTotalValuesTab.vue";
+import HistoricalCumulativeValuesTab from "./historical-components/HistoricalCumulativeValuesTab.vue";
+export default {
+  props: ["tabID", "keyId", "sidebar"],
+  components: {
+    HistoricalComparativeTableTab,
+    HistoricalCumulativeValuesTab,
+    HistoricalIncomeAnalysisTab,
+    HistoricalIrrAnalysisTab,
+    HistoricalTotalValuesTab,
+  },
+};
+</script>
+<style lang="">
+</style>

@@ -1,0 +1,239 @@
+<template>
+  <div class="modal fade common-modal" ref="createReportModal2" id="simulationReportCreateModal2" tabindex="-1" aria-labelledby="simulationReportCreateModal2Label" aria-hidden="true" data-bs-backdrop='static'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ref="closeModalRef" @click="handleModal()">
+            <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
+          </button>
+        </div>
+        <form class="modal-body" @submit="createReport">
+          <div class="d-flex align-items-center justify-content-center w-100 d-none">
+            <div class="d-flex align-items-center section-heading-bg modalHeadingDiv">
+              <button class="modalReportBuilderBr">Br</button>
+              <h2 class="modalReportBuilderBrTxt">Bryant, Roger <span>Allianz Parse</span></h2>
+            </div>
+          </div>
+          <div class="modalParaBorderDiv text-center">
+            <p class="modalParaReportBuilder">Report Builder</p>
+            <p class="modalSmallborder"></p>
+          </div>
+          <div class="px-5">
+            <form action="">
+              <SelectDropdown :list="clients" label="Client" id="clientSelectedReport" :error="errors.client" @clearError="() => errors.client = false" @onSelectItem="id => clientId = id" @inputText="seClientName"/>
+              <SelectDropdown :list="simulationList" label="Simulation" id="existingSimulationReport" :error="errors.simulation" @clearError="() => errors.simulation = false" :clearInput="clearSimulation" @setClearedInput="(val) => clearSimulation = val" @onSelectItem="id => simulationId = id" @inputText="name => simulationName = name"/>
+              <div class="form-group">
+                <label for="reportBulder" class="fs-14 bold-fw">Name Report</label>
+                <input type="text" class="form-control custom-control" autocomplete="off" v-model="reportName" @keyup="errors.report_name = ''">
+                  <small class="text-danger" v-if="errors.report_name">{{errors.report_name[0]}}</small>
+              </div>
+              <div class="form-group">
+                <label for="reportBulder" class="fs-14 bold-fw">Descriptions</label>
+                <textarea class="form-control custom-control" v-model="description"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="gap-13 pt-4 mt-2 pb-2 text-center">
+            <button type="submit" class="btn yes-delete-btn">Build Report</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { get, post } from "../../../../network/requests";
+import { getUrl } from "../../../../network/url";
+import { authHeader, mapHistoricalClientList } from "../../../../services/helper";
+import SelectDropdown from "../../../components/common/SelectDropdown.vue";
+
+export default {
+  components: { SelectDropdown },
+  refs: ["closeModalRef"],
+  data() {
+    return {
+      errors: [],
+      clientId: "",
+      response: false,
+      clientName: "",
+      simulationId: "",
+      simulationName: "",
+      reportName: "",
+      description: "",
+      clearSimulation: 0,
+    };
+  },
+  mounted() {
+    if (!this.$route.params.report && !this.$route.query.client) {
+      new bootstrap.Modal(this.$refs.createReportModal2).show();
+      if (!this.$store.state.data.historical_clients) {
+        this.getClient();
+      }
+    }
+  },
+  methods: {
+    handleModal: function() {
+      if (!this.response) {
+        this.$router.go(-1);
+      }
+    },
+    seClientName: function(name) {
+      this.clientName = name;
+      let checkClient = this.clients.filter(
+        item => item.template_name.toLowerCase() === name.trim().toLowerCase()
+      )[0];
+      if (checkClient) {
+        this.clientId = checkClient.id;
+      } else {
+        this.clientId = "";
+      }
+      this.clearSimulation = 1;
+    },
+    validateForm: function() {
+      var validate = true;
+      if (!this.clientName) {
+        this.errors.client = ["This field is required."];
+        validate = false;
+      } else {
+        if (!this.clientName) {
+          this.errors.client = "";
+        } else {
+          let templateId = this.$getTemplateId(this.clientName, this.clients);
+          if (!templateId) {
+            validate = false;
+            this.errors.client = ["Please choose a valid client."];
+          } else {
+            this.clientId = templateId;
+            this.errors.client = "";
+          }
+        }
+      }
+
+      if (!this.simulationName) {
+        this.errors.simulation = ["This field is required."];
+        validate = false;
+      } else {
+        if (!this.simulationName) {
+          this.errors.simulation = "";
+        } else {
+          let templateId = this.$getTemplateId(
+            this.simulationName,
+            this.simulationList
+          );
+          if (!templateId) {
+            validate = false;
+            this.errors.simulation = ["Please choose a valid simulation."];
+          } else {
+            this.simulationId = templateId;
+            this.errors.simulation = "";
+          }
+        }
+      }
+
+      if (!this.reportName) {
+        this.errors.report_name = ["This field is required."];
+        validate = false;
+      } else {
+        this.errors.report_name = "";
+      }
+
+      return validate;
+    },
+    createReport: function(e) {
+      e.preventDefault();
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
+      let data = {
+        client: this.clientId,
+        simulation: this.simulationId,
+        name: this.reportName,
+        description: this.description,
+      };
+
+      this.$store.dispatch("loader", true);
+      post(`${getUrl("add-historical-report")}`, data, authHeader())
+        .then(response => {
+          this.response = true;
+          this.$toast.success(response.data.message);
+          this.$refs.closeModalRef.click();
+          this.getClient(true);
+          this.$store.dispatch("loader", false);
+          window.location.href = "/report-builder/" + response.data.data.id;
+        })
+        .catch(error => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+    // get clients detail from API
+    getClient: function(update=false) {
+      if(!update){
+        this.$store.dispatch("loader", true);
+      }
+      get(getUrl("historical-clients"), authHeader())
+        .then(response => {
+          let list = mapHistoricalClientList(response.data.data);
+          this.$store.dispatch("historicalClients", list);
+          this.$store.dispatch("loader", false);
+        })
+        .catch(error => {
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          }
+          this.$store.dispatch("loader", false);
+        });
+    },
+  },
+  computed: {
+    // existing client dropdown list data
+    clients() {
+      let initClient = [];
+      let array = this.$store.state.data.historical_clients;
+      let df_client = this.$route.query.client;
+
+      if (array && array.length > 0) {
+        array.forEach(element => {
+          var name = `${element.firstname}${
+            element.middlename ? ` ${element.middlename}` : ""
+          }${element.lastname ? ` ${element.lastname}` : ""}`;
+          initClient.push({
+            id: Number(element.id),
+            template_name: name,
+          });
+        });
+      }
+      return initClient;
+    },
+    // simulation dropdown list data
+    simulationList() {
+      let data = this.$store.state.data.historical_clients || [];
+      let allDetails = [];
+      if (this.clientId) {
+        data = data.filter(i => i.id === this.clientId);
+        data.forEach(element => {
+          allDetails = [...allDetails, ...element.simulations];
+        });
+        return allDetails.map(i => {
+          return {
+            id: i.id || null,
+            template_name: i.simulation_details.name || null,
+          };
+        });
+      } else {
+        return [];
+      }
+    },
+  },
+};
+</script>

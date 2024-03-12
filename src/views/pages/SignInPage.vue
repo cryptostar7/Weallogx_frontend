@@ -1,0 +1,289 @@
+<template lang="">
+  <div>
+    <navbar-component :scroll="true" />
+    <section class="authMaindiv-area">
+      <div class="container middleContainer">
+        <form class="authMainDiv" @submit="submitForm">
+          <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
+          <div class="authformRightPart">
+            <div class="authInnerDiv">
+              <h1 class="headingArea">Sign in to <span>Account</span></h1>
+              <div>
+                <div class="auth-form">
+                  <label for="email" :class="user.email ? 'active':''">Email</label>
+                  <input type="text" autocomplete="off" id="email" v-model="user.email" @keyup="errors.email = false" placeholder=" ">
+                </div>
+                <label class="error fs-14 text-center d-block" v-if="user.email === ''">*This field is required.</label>
+                <label class="error fs-14 text-center d-block" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
+              </div>
+              <div>
+                <div class="auth-form">
+                  <label for="password" :class="user.password ? 'active':''">Password</label>
+                  <input type="password" id="password" autocomplete="off" v-model="user.password" @keyup="errors.password = false" placeholder=" " ref="passwordRef">
+                  <button type="button" class="btn p-0 pwd-btn"  @click="handlePassword"><span v-if="passwordVisible"><img src="@/assets/images/icons/eye-slash.svg" alt="Hide Pwd" width="24"></span><span v-else><img src="@/assets/images/icons/eye.svg" alt="Show Pwd"></span></button>
+                </div>
+                
+                <label class="error fs-14 text-center d-block" v-if="user.password === ''">*This field is required.</label>
+                <label class="error fs-14 text-center d-block" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
+              </div>
+              <div class="rememberAndForgetDiv">
+                <div>
+                  <input type="checkbox" id="remember_me" @click="rememberMe = !rememberMe" :checked="rememberMe">&nbsp;<label for="remember_me">Remember Me</label>
+                </div>
+                <div>
+                  <router-link to="/forgot-password"><span>Forgot Password?</span></router-link>
+                </div>
+              </div>
+              <div class="authButtonDiv">
+                <button class="btn">Sign In</button>
+              </div>
+              <p class="authButtomPara">Don’t have an account? &nbsp;<a href="https://wealthlogix.com/plans">Sign Up</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- <fotter-component /> -->
+  </div>
+</template>
+<script>
+import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
+import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import { post, get } from "../../network/requests";
+import { getUrl } from "../../network/url";
+
+import {
+  getServerErrors,
+  setRefreshToken,
+  setAccessToken,
+  getSearchParams,
+  authHeader,
+  getFirstError,
+  setCurrentUser,
+  setRememberMe,
+  rememberMe,
+} from "../../services/helper";
+export default {
+  components: { NavbarComponent, FotterComponent },
+  data() {
+    return {
+      user: {
+        email: null,
+        password: null,
+      },
+      passwordVisible: false,
+      rememberMe: rememberMe() ? true : false,
+      errors: [],
+      serverError: [],
+      server: [],
+    };
+  },
+  methods: {
+    isValidEmail: function() {
+      if (
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/.test(this.user.email)
+      ) {
+        return true;
+      }
+      return false;
+    },
+    handlePassword: function() {
+      this.passwordVisible = !this.passwordVisible;
+      this.$refs.passwordRef.type = this.passwordVisible ? 'text' : 'password';
+    },
+    checkValidation: function() {
+      this.errors = [];
+      let valid = true;
+      if (!this.user.email) {
+        this.user.email = "";
+        valid = false;
+      } else {
+        if (!this.isValidEmail()) {
+          this.errors.email = ["Please enter a valid email address."];
+          valid = false;
+        }
+      }
+
+      if (!this.user.password) {
+        this.user.password = "";
+        valid = false;
+      } else {
+        if (this.user.password.length < 8) {
+          this.errors.password = [
+            "The password must be at least 8 characters.",
+          ];
+          valid = false;
+        }
+      }
+
+      return valid;
+    },
+    submitForm: function(e) {
+      e.preventDefault();
+      if (!this.checkValidation()) {
+        return false;
+      }
+      this.$store.dispatch("loader", true);
+      post(getUrl("login"), this.user)
+        .then(response => {
+          // set token in local storage
+          setRefreshToken(response.data.data.tokens.refresh);
+          setAccessToken(response.data.data.tokens.access);
+          this.server.status = true;
+          this.server.message = response.data.message;
+          if (this.rememberMe) {
+            setRememberMe({
+              email: this.encryptString(this.user.email, "email"),
+              password: this.encryptString(this.user.password, "password"),
+            });
+          } else {
+            localStorage.removeItem("remember");
+          }
+          // get plan status
+          get(getUrl("current_plan"), authHeader())
+            .then(response => {
+              localStorage.setItem(
+                "plan_active",
+                response.data.data.active ? 1 : 0
+              );
+              this.$store.dispatch("currentPlan", response.data.data);
+              // to save the profile detail in vuex store
+              get(getUrl("profile"), authHeader())
+                .then(response => {
+                  setCurrentUser({
+                    first_name: response.data.data.first_name,
+                    last_name: response.data.data.last_name,
+                    role_type: response.data.data.role_type,
+                    avatar: response.data.data.avatar,
+                  });
+                  this.$store.dispatch("user", response.data.data);
+                  this.$store.dispatch("loader", false);
+                  this.$toast.success(this.server.message);
+                  // redrect to next url if next param exist in url
+                  if (getSearchParams("next")) {
+                    this.$router.push(getSearchParams("next"));
+                  } else {
+                    this.$router.push("/profile-details");
+                  }
+                })
+                .catch(error => {
+                  this.$store.dispatch("loader", false);
+                  if (
+                    error.code === "ERR_BAD_RESPONSE" ||
+                    error.code === "ERR_NETWORK"
+                  ) {
+                    this.$toast.error(error.message);
+                  } else {
+                    this.$toast.error(getFirstError(error));
+                  }
+                });
+            })
+            .catch(error => {
+              this.$store.dispatch("loader", false);
+              if (
+                error.code === "ERR_BAD_RESPONSE" ||
+                error.code === "ERR_NETWORK"
+              ) {
+                this.$toast.error(error.message);
+              } else {
+                this.$toast.error(getFirstError(error));
+              }
+            });
+        })
+        .catch(error => {
+          this.errors = getServerErrors(error);
+          this.server.status = false;
+          this.server.message = this.errors.message;
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(this.server.message);
+          }
+        });
+    },
+    encryptString: function(value, type) {
+      // this function is used for encrypting the user login credentail
+      if (value && type) {
+        return this.$CryptoJS.AES.encrypt(value, type).toString();
+      }
+      return 0;
+    },
+    decryptString: function(value, type) {
+      // this function is used for decrypting the user login credentail
+      if (value && type) {
+        return this.$CryptoJS.AES.decrypt(value, type).toString(
+          this.$CryptoJS.enc.Utf8
+        );
+      }
+      return 0;
+    },
+  },
+  mounted() {
+    if (rememberMe()) {
+      // populate the email and password value in input field if remember me found true
+      var remember = JSON.parse(rememberMe());
+      this.user.email = this.decryptString(remember.email, "email");
+      this.user.password = this.decryptString(remember.password, "password");
+    }
+
+    // below script is used for form inputs
+    let eachInput = document.querySelectorAll(".auth-form input");
+    eachInput.forEach(function(eachInputFun) {
+      eachInputFun.addEventListener("keyup", function(e) {
+        let eachLabel = this.closest(".auth-form");
+        if (this.value == "") {
+          eachLabel.firstElementChild.classList.remove("active");
+        } else {
+          eachLabel.firstElementChild.classList.add("active");
+        }
+      });
+      eachInputFun.addEventListener("focus", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.add("active");
+      });
+      eachInputFun.addEventListener("blur", function(e) {
+        let eachLabelSec = this.closest(".auth-form");
+        eachLabelSec.firstElementChild.classList.remove("active");
+        if (this.value == "") {
+          eachLabelSec.firstElementChild.classList.remove("active");
+        } else {
+          eachLabelSec.firstElementChild.classList.add("active");
+        }
+      });
+    });
+
+    setTimeout(() => {
+      const mobNavTrigger = document.querySelector(".mobile-nav-trigger");
+
+      let mobMenu = document.querySelector(".js-side-nav");
+      let overlay = document.querySelector(".js-side-nav-shield");
+      let crossBtn = document.querySelector(".js-side-nav .css-ow1ier");
+
+      mobNavTrigger.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
+
+      overlay.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
+
+      crossBtn.addEventListener("click", () => {
+        mobMenu.classList.toggle("show-side-nav");
+        overlay.classList.toggle("side-nav-shield--show");
+      });
+    }, 2000);
+  },
+};
+</script>
+<style>
+.error {
+  color: red;
+}
+</style>

@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="empty" data-class="empty-wrapper" data-empty="1">
+  <div  :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="1">
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="2">
       <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`">
         <div :class="`ComparativeTableMainDiv rightDivTop8 ${activeTabs[keyId] ? 'active':''}`">
@@ -7,15 +7,12 @@
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"
-                    class="checkbox2 rightCheckBox8" rightCheckAttr="8"
-                    @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input id="rightCheckBox8" type="checkbox" :checked="activeTabs[keyId]"  class="checkbox2 rightCheckBox8"   @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
               </div>
-              <label for="rightCheckBox8" class="rghtTopHeadcommon">Income Analysis <span
-                  class="ms-3 equalThingTabTxt">(Graph)</span></label>
+              <label for="rightCheckBox8" class="rghtTopHeadcommon">Income Analysis <span class="ms-3 equalThingTabTxt">(Graph)</span></label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,422 +26,61 @@
             <div class="px-3 pt-3 pb-2">
               <div class="container-fluid">
                 <div class="d-flex justify-content-between flex-gap-12">
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard1 position-relative">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Annual Income</p>
-                          <p>LIRP</p>
+                  <div v-for="(item, index) in data" :key="index" :class="`flex-1 ${deletedItems.includes(index) ? 'd-none':''}`"> 
+                    <div :class="`distributionCard1 equalDistCard${1+index} position-relative ${cards[index].active ? '': 'inactive'}`">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <p class="allCardHeadPara">Annual Income</p>                               
                         </div>
                         <div class="d-flex">
                           <div class="button-cover2">
-                            <div class="radioBtnDiv greenRadioSwtch r2" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn2 bigBaCard13" checked
-                                bigProgBar="13" onchange="bigProgressbar(this,event)" />
+                            <div :class="`radioBtnDiv r2 switch${index} ${index > 3 ? 'switch4 extra':''}`" id="button-2">
+                              <input type="checkbox" :class="`checkbox2 commonRadioBtn2 bigBaCard${13+index}`" :checked="cards[index].active" v-model="cards[index].active"/>
                               <div class="knobs2"></div>
                               <div class="layer2"></div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <p :class="`cardRadioSwtchpara${1+index} d-flex align-items-center`">{{item.type}} <label :class="`p-relative ${index == 0 ? 'd-none' : 'd-block'}`"><img src="/src/assets/images/icons/info-icon.svg" alt="info" class="ms-1 info-icon-img"><img src="/src/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img"><span :class="`info-message-rollingTime`"> <span>Rolling Time Period: {{data[index].period}} Years</span><br> <span>Starting Date: {{data[index].starting_date}}</span> </span></label></p>
                       <div class="mt-2 d-flex ">
-                        <div class="CardProgressBar lessWidth greenProgress1 boxProgressCommon13">
+                        <div :class="`CardProgressBar lessWidth lightProgress${1+index} boxProgressCommon${13+index} ${cards[index].active ? '' : 'boxProgress'}`">
                           <div class="CardProgress"></div>
-                          <!-- <p class="lineUnderBars"></p> -->
                         </div>
-                        <p class="ms-2 CardProgressnym carValue1">$71,256</p>
+                        <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index}`">{{$numFormatWithDollar(data[index].annual_income)}}</p>
                       </div>
-                      <div class="d-flex justify-content-center addNotesMainDiv" style="bottom: 9px">
-                        <button type="button" class="AddNoteBtn">Add Note</button>
-                        <div class="add-note-input-div d-none">
-                          <p class="d-none flex-1 add-note-para text-center mb-1">This card is awesome.</p>
-                          <div class="add-note-input-inner">
-                            <input type="text" class="add-note-input form-control flex-1">
-                            <button class="btn"><img src="@/assets/images/icons/check-blue.svg" class="img-fluid"
-                                alt="Check"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard2 position-relative">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Annual Income</p>
-                          <p class="blueRadioSwtchpara">Most Recent</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn2 bigBaCard14" checked
-                                bigProgBar="14" onchange="bigProgressbar(this,event)" />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnBlue" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="mt-2 d-flex ">
-                        <div class="CardProgressBar lessWidth blueProgress1 boxProgressCommon14">
-                          <div class="CardProgress blueProgress2"></div>
-                          <!-- <p class="lineUnderBars"></p> -->
-                        </div>
-                        <p class="ms-2 CardProgressnym blueRadioSwtchpara">$85,044
-                        </p>
-                      </div>
-                      <div class="d-flex justify-content-center addNotesMainDiv" style="bottom: 9px">
-                        <button type="button" class="AddNoteBtn">Add Note</button>
-                        <div class="add-note-input-div d-none">
-                          <p class="d-none flex-1 add-note-para text-center mb-1">This card is awesome.</p>
-                          <div class="add-note-input-inner">
-                            <input type="text" class="add-note-input form-control flex-1">
-                            <button class="btn"><img src="@/assets/images/icons/check-blue.svg" class="img-fluid"
-                                alt="Check"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard3 position-relative">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Annual Income</p>
-                          <p class="voiletRadioSwtchpara">Worst</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 voiletRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn2 bigBaCard15" checked
-                                bigProgBar="15" onchange="bigProgressbar(this,event)" />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnVoilet" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="mt-2 d-flex ">
-                        <div class="CardProgressBar lessWidth voiletProgress1 boxProgressCommon15">
-                          <div class="CardProgress voiletProgress2"> </div>
-                          <!-- <p class="lineUnderBars"></p> -->
-                        </div>
-                        <p class="ms-2 CardProgressnym voiletRadioSwtchpara">$465,000
-                        </p>
 
-                      </div>
-                      <div class="d-flex justify-content-center addNotesMainDiv" style="bottom: 9px">
-                        <button type="button" class="AddNoteBtn">Add Note</button>
-                        <div class="add-note-input-div d-none">
-                          <p class="d-none flex-1 add-note-para text-center mb-1">This card is awesome.</p>
-                          <div class="add-note-input-inner">
-                            <input type="text" class="add-note-input form-control flex-1">
-                            <button class="btn"><img src="@/assets/images/icons/check-blue.svg" class="img-fluid"
-                                alt="Check"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard5 position-relative">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Annual Income</p>
-                          <p class="orangeRadioSwtchpara">Median</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 orangeRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn2 bigBaCard16" checked
-                                bigProgBar="16" onchange="bigProgressbar(this,event)" />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D"></path>
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D"></rect>
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="mt-2 d-flex ">
-                        <div class="CardProgressBar lessWidth orangeProgress1 boxProgressCommon16">
-                          <div class="CardProgress orangeProgress2"> </div>
-                          <!-- <p class="lineUnderBars"></p> -->
-                        </div>
-                        <p class="ms-2 CardProgressnym orangeRadioSwtchpara">$465,000
-                        </p>
-                      </div>
-                      <div class="d-flex justify-content-center addNotesMainDiv" style="bottom: 9px">
-                        <button type="button" class="AddNoteBtn">Add Note</button>
-                        <div class="add-note-input-div d-none">
-                          <p class="d-none flex-1 add-note-para text-center mb-1">This card is awesome.</p>
-                          <div class="add-note-input-inner">
-                            <input type="text" class="add-note-input form-control flex-1">
-                            <button class="btn"><img src="@/assets/images/icons/check-blue.svg" class="img-fluid"
-                                alt="Check"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-1">
-                    <div class="distributionCard1 equalDistCard4 position-relative">
-                      <div class="d-flex justify-content-between">
-                        <div class="distrbnCard1paras">
-                          <p>Annual Income</p>
-                          <p class="redRadioSwtchpara">Best</p>
-                        </div>
-                        <div class="d-flex">
-                          <div class="button-cover2">
-                            <div class="radioBtnDiv r2 redRadioSwtch" id="button-2">
-                              <input type="checkbox" class="checkbox2 commonRadioBtn2 bigBaCard17" checked
-                                bigProgBar="17" onchange="bigProgressbar(this,event)" />
-                              <div class="knobs2"></div>
-                              <div class="layer2"></div>
-                            </div>
-                          </div>
-                          <a class="ms-2 deleteButtonAncor deleteBtnRed" data-bs-target="#deleteAccountModal"
-                            data-bs-toggle="modal">
-                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                d="M1.30521 8.04062L0.711442 2.09945C0.65261 1.51078 1.11489 1 1.70649 1H7.00212C7.59175 1 8.05337 1.50753 7.99764 2.09452L7.43356 8.0357C7.38482 8.54906 6.95371 8.94118 6.43804 8.94118H2.30025C1.78648 8.94118 1.3563 8.55185 1.30521 8.04062Z"
-                                stroke="#9D9D9D" />
-                              <rect x="6.11719" y="4.31055" width="1" height="3.52941" rx="0.5"
-                                transform="rotate(90 6.11719 4.31055)" fill="#9D9D9D" />
-                            </svg>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="mt-2 d-flex ">
-                        <div class="CardProgressBar lessWidth redProgress1 boxProgressCommon17">
-                          <div class="CardProgress redProgress2"> </div>
-                          <!-- <p class="lineUnderBars"></p> -->
-                        </div>
-                        <p class="ms-2 CardProgressnym redRadioSwtchpara">$85,044
-                        </p>
-                      </div>
-                      <div class="d-flex justify-content-center addNotesMainDiv" style="bottom: 9px">
-                        <button type="button" class="AddNoteBtn">Add Note</button>
-                        <div class="add-note-input-div d-none">
-                          <p class="d-none flex-1 add-note-para text-center mb-1">This card is awesome.</p>
-                          <div class="add-note-input-inner">
-                            <input type="text" class="add-note-input form-control flex-1">
-                            <button class="btn"><img src="@/assets/images/icons/check-blue.svg" class="img-fluid"
-                                alt="Check"></button>
-                          </div>
-                        </div>
-                      </div>
+                       <add-note-input-component :historical="true" reportType="historical" noteType="historical_income_analysis" :cvType="1+index" :noteId="notes[index] ?  notes[index].id : null" :noteText="notes[index] ?  notes[index].text : null"/>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="container-fluid">
-                <div class="CompMainProgrssBarDiv">
-                  <div class="w-100">
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
+                <div class="CompMainProgrssBarDiv graph-area">
+                  <div class="CompProgressAbsltCls legacy p-relative">
+                    <div class="lines-div d-flex flex-column justify-content-between">
+                      <div v-for="(item, index) in 7" :key="index" :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`">
+                        <p class="comulativeProgBrdr"></p>
+                      </div>
                     </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                    <div class="d-flex comulativeProgBrdrDivs m-0 p-0">
-                      <p class="comulativeProgBrdr"></p>
-                    </div>
-                  </div>
-                  <div class="CompProgressAbsltCls income">
-                    <div class="progressAllBarsDivMain">
-                      <div class="d-flex justify-content-between w-100">
-                        <div
-                          class=" bgImgNoneAndTabRadius cumulativeValuesProgrees progBarSecEachDiv13 bigBarsAreaJsCls13 eachBarMainBgNone">
-                          <div class="cumulativeprogreeDivcommon cumulativeProgLifePro bigBarHeightJs13">
-                            <div class="bottomComulativeIncome BottomcumulativeLifePro">
-                              <p>$<span class="bigBarNumberJsCls13">2,172,830</span></p>
+                    <!-- <div class="CompProgressAbsltCls income"> -->
+                      <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
+                        <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
+                          <div v-for="(item, index) in data" :key="index" :class="`cumulativeValuesProgrees noHover bgImgNoneAndTabRadius progBarSecEachDiv${13+index} cumulativeProgCommon${13+index} bigBarsAreaJsCls${13+index} eachBarMainBgNone ${cards[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
+                            <div :class="`cumulativeprogreeDivcommon cumulativeProgAccount${1+index} bigBarHeightJs${13+index}`" :style="{height:`${Number(data[index].annual_income)*100/maxIncome}%`}">
+                              <div :class="`bottomComulativeIncome BottomcumulativeAccount${1+index}`">
+                                <p>$<span :class="`bigBarNumberJsCls${1+index}`">{{$numFormat(item.annual_income)}}</span></p>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div
-                          class="cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv14 cumulativeProgCommon14 bigBarsAreaJsCls14 eachBarMainBgNone">
-                          <div class="cumulativeprogreeDivcommon cumulativeProgAccount bigBarHeightJs14">
-                            <div class="bottomComulativeIncome BottomcumulativeAccount">
-                              <p>$<span class="bigBarNumberJsCls14">3,172,830</span></p>
-                            </div>
-                          </div>
-                          <div class="d-none">
-                            <p class="secProgressPercentDynamic14">100</p>%
-                          </div>
-                        </div>
-                        <div
-                          class="cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv15 cumulativeProgCommon15 bigBarsAreaJsCls15 eachBarMainBgNone">
-                          <div class="cumulativeprogreeDivcommon cumulativeProgIra bigBarHeightJs15">
-                            <div class="bottomComulativeIncome BottomcumulativeIra">
-                              <p>$<span class="bigBarNumberJsCls15">4,328,300</span></p>
-                            </div>
-                          </div>
-                          <div class="d-none">
-                            <p class="secProgressPercentDynamic15">0</p>%
-                          </div>
-                        </div>
-                        <div
-                          class="cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv16 cumulativeProgCommon16 bigBarsAreaJsCls16 eachBarMainBgNone">
-                          <div class="cumulativeprogreeDivcommon cumulativeProgMedian bigBarHeightJs16">
-                            <div class="bottomComulativeIncome BottomcumulativeMedian">
-                              <p>$<span class="bigBarNumberJsCls16">2,172,830</span></p>
-                            </div>
-                          </div>
-                          <div class="d-none">
-                            <p class="secProgressPercentDynamic16">0</p>%
-                          </div>
-                        </div>
-                        <div
-                          class="cumulativeValuesProgrees bgImgNoneAndTabRadius progBarSecEachDiv17 cumulativeProgCommon17 bigBarsAreaJsCls17 eachBarMainBgNone">
-                          <div class="cumulativeprogreeDivcommon cumulativeProgAnnuity bigBarHeightJs17">
-                            <div class="bottomComulativeIncome BottomcumulativeAnnuity">
-                              <p>$<span class="bigBarNumberJsCls17">3,328,300</span></p>
-                            </div>
-                          </div>
-                          <div class="d-none">
-                            <p class="secProgressPercentDynamic17">0</p>%
                           </div>
                         </div>
                       </div>
-                    </div>
+                    <!-- </div> -->
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="bottom-disclosure px-3" id="disclosure8" data-dc="8">
-              <div class="container-fluid">
-                <div class="disclosure-div">
-                  <div class="disclosure-header-div d-flex align-items-center justify-content-between">
-                    <h4 class="disclosure-heading">Disclosure</h4>
-                    <div class="disclosure-right-actions">
-                      <button class="btn round-btn disclosure-edit">
-                        <span>Edit</span>
-                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z"
-                            fill="#9D9D9D"></path>
-                          <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D">
-                          </path>
-                          <path
-                            d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z"
-                            fill="#9D9D9D"></path>
-                        </svg>
-                      </button>
-                      <button class="btn round-btn disclosure-save d-none">
-                        <span>Save</span>
-                        <svg width="16" height="13" viewBox="0 0 16 13" fill="none">
-                          <rect x="15.6938" y="2.42676" width="14.1407" height="2.12203" rx="1.06101"
-                            transform="rotate(135 15.6938 2.42676)" fill="#9D9D9D"></rect>
-                          <rect x="5.74683" y="12.4258" width="7.78182" height="2.12203" rx="1.06101"
-                            transform="rotate(-135 5.74683 12.4258)" fill="#9D9D9D"></rect>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="disclosure-text-wrapper">
-                    <div class="disclosure-textarea" contenteditable="true">
-                      This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does
-                      not exist and cannot be purchased in the real world. It is not a real world insurance policy. It
-                      is not an official illustration. You may not assume the data presented here relating to the TSA
-                      infers or expresses any guarantee of how a real world insurance policy would perform. Comparisons
-                      made to the official <b>Pacific Life</b> illustration(s), which use hypothetical assumptions that
-                      are not guaranteed, are designed to be educational and instructive as to how the insurance
-                      policies compared <b>may have</b> performed through different historical periods. The data uses
-                      the raw returns of the <b>S&P 500</b>, and simulates the potential returns that the insurance
-                      policy <b>may have</b> achieved if the current cap rates, participation rates, floors, fees, and
-                      borrowing costs were in place during the historical periods tested. Cap rates, participation
-                      rates, and policy fees can and do change. We analyzed <b>546 40</b>-year periods of the index. In
-                      the case where a time period portrayed is greater than <b>40</b> years, the data was looped for
-                      purposes of the simulation. This simulation of a TSA took the actual current monthly fees of the
-                      <b>Pacific Life</b> insurance policy and increased them by 15%. All distributions assume the use
-                      of an index/participating loan. We assumed a <b>5.4%</b> borrowing rate in the simulation of the
-                      TSA. Presented here are the most recent, worst, median, and best <b>40</b>-year periods with
-                      respect to the insurance policy’s intended allocation in the <b>S&P 500</b> index strategy.
-                      However, these results are not the results of an actual insurance policy, but those of the TSA,
-                      which does not exist in the real world. It is entirely possible that the real world experience of
-                      the actual policy could be even worse than the worst <b>40</b>-year period analyzed, just as it is
-                      entirely possible that the real world policy could perform better than the best <b>40</b>-year
-                      period analyzed.
-                    </div>
-                  </div>
-                  <div class="disclosure-footer">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <h6 class="bold-one">Fees assumed:</h6>
-                        <div>
-                          <p><span>Brokerage Account: <b>1.5%</b> per annum;</span>
-                            <span>401K/IRA: <b>1.5%</b> per annum; </span>
-                            <span>Annuity: <b>2.3%</b> per annum; </span>
-                            <span>LIRP: actual current costs of insurance, as per the carrier illustration</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div>
-                          <h6 class="bold-one">Taxes assumed: </h6>
-                          <p><span><b>27%</b> years <b>1-6</b>;</span>
-                            <span><b>35%</b> years <b>7+</b>;</span>
-                            <!-- [If capital gains are included for a taxable investment, then we include]: -->
-                            <span>Capital gains ratio: <b>50%</b>;</span>
-                            <span>Capital gains tax rate: <b>20%</b>;</span>
-                            <!-- If taxes are scheduled, then the last line is simply: -->
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <p><span>Taxes assumed: <b>Per schedule</b></span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <historical-disclosure-component :hideFee="true" />
           </div>
         </div>
       </div>
@@ -452,14 +88,118 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ["keyId"],
-    data() {
-      return {
-        activeTabs: this.$store.state.data.reportTabs.active,
-      };
+import HistoricalDisclosureComponent from "./HistoricalDisclosureComponent.vue";
+import AddNoteInputComponent from "../common/AddNoteInputComponent.vue";
+
+export default {
+  props: ["keyId"],
+  components: { HistoricalDisclosureComponent, AddNoteInputComponent },
+  data() {
+    return {
+      activeTabs: this.$store.state.data.reportTabs.active,
+      cards: [
+        { id: 1, active: true },
+        { id: 2, active: true },
+        { id: 3, active: true },
+        { id: 4, active: true },
+        { id: 5, active: true },
+      ],
+      data: [{}, {}, {}, {}, {}],
+    };
+  },
+  mounted() {
+    let card1 = this.historical.lirp_data;
+    let card2 = this.historical.most_recent.result;
+    let card3 = this.historical.min.result;
+    let card4 = this.historical.median.result;
+    let card5 = this.historical.max.result;
+
+    if (card1) {
+      this.data[0].type = "LIRP";
+      this.data[0].annual_income = card1.annual_income;
+    }
+
+    if (card2) {
+      this.data[1].type = "Most Recent";
+      this.data[1].annual_income = card2.annual_income;
+      this.data[1].starting_date = this.$customDateFormat(card2.starting_date, 'M/D/y');
+      this.data[1].period = this.historical.discloser.period;
+    }
+
+    if (card3) {
+      this.data[2].type = "Worst";
+      this.data[2].annual_income = card3.annual_income;
+      this.data[2].starting_date = this.$customDateFormat(card3.starting_date, 'M/D/y');
+      this.data[2].period = this.historical.discloser.period;
+    }
+
+    if (card4) {
+      this.data[3].type = "Median";
+      this.data[3].annual_income = card4.annual_income;
+      this.data[3].starting_date = this.$customDateFormat(card4.starting_date, 'M/D/y');
+      this.data[3].period = this.historical.discloser.period;
+    }
+
+    if (card5) {
+      this.data[4].type = "Best";
+      this.data[4].annual_income = card5.annual_income;
+      this.data[4].starting_date = this.$customDateFormat(card5.starting_date, 'M/D/y');
+      this.data[4].period = this.historical.discloser.period;
+    }
+  },
+  methods: {
+    setActionId: function(id) {
+      document.getElementById("historical_cv_delete_id").value = id;
     },
-  };
+    notes() {
+      let note = this.$store.state.data.report.notes || [];
+      if (note) {
+        note = note.filter(
+          i => i.note_type === "historical_income_analysis" && i.vehicle_type
+        );
+
+        let v1 = note.filter(i => i.vehicle_type === 1)[0] || null;
+        let v2 = note.filter(i => i.vehicle_type === 2)[0] || null;
+        let v3 = note.filter(i => i.vehicle_type === 3)[0] || null;
+        let v4 = note.filter(i => i.vehicle_type === 4)[0] || null;
+        let v5 = note.filter(i => i.vehicle_type === 5)[0] || null;
+        note = [v1, v2, v3, v4, v5];
+      }
+      return note;
+    },
+  },
+  watch: {
+    "$store.state.app.presentation_mode"(val) {
+      if (
+        this.$store.state.app.presentation_mode &&
+        this.$store.state.app.show_assets2
+      ) {
+        this.cards.forEach(element => {
+          element.active = false;
+        });
+      } else {
+        this.cards.forEach(element => {
+          element.active = true;
+        });
+      }
+    },
+  },
+  computed: {
+    historical() {
+      return this.$store.state.data.report.historical;
+    },
+    deletedItems() {
+      return this.$store.state.data.report.deleted_historical_cv_ids;
+    },
+    activeCards() {
+      return 4 - this.deletedItems.length;
+    },
+    maxIncome() {
+      let dst = this.data;
+      return Math.max(...[...dst.map(i => Number(i.annual_income || 0))]);
+    },
+  },
+};
 </script>
 <style lang="">
 </style>
