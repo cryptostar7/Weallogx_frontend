@@ -16,7 +16,7 @@ server: {
     hmr: {
         host: 'localhost',
     },
-}
+},
   build: {
     chunkSizeWarningLimit: 1600,
   },
