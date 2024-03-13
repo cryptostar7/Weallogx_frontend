@@ -5048,18 +5048,18 @@ background-color: #2e3135;
 .dark-green .compareBottomDivs .compareBottomEachDiv p{
   background-color: #26AB8B;
 }
-.dark-green .compareBottomDivs .compareBottomEachDiv .priceDiv{
+.dark-blue .compareBottomDivs .compareBottomEachDiv .priceDiv{
   color: #fff;
 }
-.dark-green .compareBottomDivs .compareBottomEachDiv {
+.dark-blue .compareBottomDivs .compareBottomEachDiv {
   background: #2A2D36;
   border: none;
 }
-.dark-green .compareBottomProgreesBar {
+.dark-blue .compareBottomProgreesBar {
   background-color: #242629;
-  border-color: #5b5b5b;
+  border-color: #515151;
 }
-.dark-green .compareBottomInnerProgreesBar {
-  background-color: #3c3c3c;
+.dark-blue .compareBottomInnerProgreesBar {
+  background-color: #667078;
 }
 /* Retirement Buffer CSS Ends */

@@ -1081,10 +1081,10 @@ export default {
 
   computed: {
     ...mapState({
-      inputs: (state) => state.data.tax_scorecard.inputs,
-      ira_backend: (state) => state.data.tax_scorecard.results.ira_backend,
-      roth_backend: (state) => state.data.tax_scorecard.results.roth_backend,
-      summary: (state) => state.data.tax_scorecard.results.summary,
+      inputs: state => state.data.tax_scorecard.inputs,
+      ira_backend: state => state.data.tax_scorecard.results.ira_backend,
+      roth_backend: state => state.data.tax_scorecard.results.roth_backend,
+      summary: state => state.data.tax_scorecard.results.summary,
     }),
   },
 
@@ -1109,7 +1109,7 @@ export default {
     showBonusHandler(e) {
       // this.updateBarWidths();
     },
-    testFunction: function () {
+    testFunction: function() {
       console.log(this.currentCompareBarIdx);
       console.log(this.isSeeAllActive);
     },
@@ -1191,7 +1191,7 @@ export default {
           .getElementById("wider_bar_" + this.currentPreTaxBarIdx)
           .innerText.replace(regex, "");
         var barActualValue = largestSec;
-        let finalResult = (barValueGet / barActualValue) * 100;
+        let finalResult = barValueGet / barActualValue * 100;
         finalResult > 100 ? (finalResult = 100) : finalResult;
 
         let eachBar = document
@@ -1223,9 +1223,9 @@ export default {
           if (barWidth > 6 && barWidth < textWidth) {
             document
               .getElementById("wider_bar_" + this.currentPreTaxBarIdx)
-              .closest(".amount-label-wrapper").style.paddingLeft = `${
-              barWidth + 6
-            }px`;
+              .closest(
+                ".amount-label-wrapper"
+              ).style.paddingLeft = `${barWidth + 6}px`;
             eachBar.classList.remove("text-white");
           }
         }, 400);
@@ -1265,7 +1265,7 @@ export default {
           .getElementById("compare_wider_bar_" + this.currentCompareBarIdx)
           .innerText.replace(regex, "");
         var barActualValue = largestSec;
-        let finalResult = (barValueGet / barActualValue) * 100;
+        let finalResult = barValueGet / barActualValue * 100;
         finalResult > 100 ? (finalResult = 100) : finalResult;
         let eachBar = document
           .getElementById("compare_wider_bar_" + this.currentCompareBarIdx)
@@ -1283,7 +1283,7 @@ export default {
           var barValueGet = +eachCompareMaindDiv
             .querySelector(".compare_wider_bar_" + k)
             .innerText.replace(regex, "");
-          let finalResult = (barValueGet / barActualValue) * 100;
+          let finalResult = barValueGet / barActualValue * 100;
           finalResult > 100 ? (finalResult = 100) : finalResult;
           let eachBar = eachCompareMaindDiv
             .querySelector(".compare_wider_bar_" + k)
@@ -1318,8 +1318,7 @@ export default {
                 .querySelector(".compare_wider_bar_" + j)
                 .closest(".tax-details-each-bars").offsetWidth;
 
-              // alert(barWidth)
-              if (barWidth > 6 && barWidth < textWidth) {
+              if (barWidth < textWidth) {
                 document
                   .getElementById(
                     "compare_each_progressbar_" + this.currentCompareBarIdx
@@ -1327,6 +1326,35 @@ export default {
                   .querySelector(".compare_wider_bar_" + j)
                   .closest(".tax-details-each-bars")
                   .classList.remove("text-white");
+
+                if (
+                  document
+                    .getElementById(
+                      "compare_each_progressbar_" + this.currentCompareBarIdx
+                    )
+                    .querySelector(".compare_wider_bar_" + j)
+                    .closest(".compareLeftPart")
+                ) {
+                  document
+                    .getElementById(
+                      "compare_each_progressbar_" + this.currentCompareBarIdx
+                    )
+                    .querySelector(".compare_wider_bar_" + j)
+                    .closest(".tax-details-each-bars")
+                    .querySelector(
+                      ".amount-label-wrapper"
+                    ).style.paddingRight = `${barWidth + 6}px`;
+                } else {
+                  document
+                    .getElementById(
+                      "compare_each_progressbar_" + this.currentCompareBarIdx
+                    )
+                    .querySelector(".compare_wider_bar_" + j)
+                    .closest(".tax-details-each-bars")
+                    .querySelector(
+                      ".amount-label-wrapper"
+                    ).style.paddingLeft = `${barWidth + 6}px`;
+                }
               }
             }
           }, 400);
@@ -1393,7 +1421,7 @@ export default {
             .closest(".tax-details-each-bars")
             .querySelector(".dark-bar");
           if (darkBar) {
-            darkBar.style.width = (tempVal / barValueGet) * 100 + "%";
+            darkBar.style.width = tempVal / barValueGet * 100 + "%";
           }
         }
 
@@ -1405,11 +1433,11 @@ export default {
             .closest(".tax-details-each-bars")
             .querySelector(".dark-bar");
           if (darkBar) {
-            darkBar.style.width = (tempVal / barValueGet) * 100 + "%";
+            darkBar.style.width = tempVal / barValueGet * 100 + "%";
           }
         }
 
-        let finalResult = (barValueGet / preTotalTaxes) * 100;
+        let finalResult = barValueGet / preTotalTaxes * 100;
         finalResult > 100 ? (finalResult = 100) : finalResult;
 
         let eachBar = document
@@ -1445,9 +1473,9 @@ export default {
           if (barWidth > 6 && barWidth < textWidth) {
             document
               .getElementById("roth_wider_bar_" + this.currentConversionBarIdx)
-              .closest(".amount-label-wrapper").style.paddingLeft = `${
-              barWidth + 6
-            }px`;
+              .closest(
+                ".amount-label-wrapper"
+              ).style.paddingLeft = `${barWidth + 6}px`;
             eachBar.classList.remove("text-white");
           }
         }, 400);
@@ -1545,7 +1573,7 @@ export default {
         if (currentWideBar) {
           var barValueGet = +currentWideBar.innerText.replace(regex, "");
           var barActualValue = largestSec;
-          let finalResult = (barValueGet / barActualValue) * 100;
+          let finalResult = barValueGet / barActualValue * 100;
           finalResult > 100 ? (finalResult = 100) : finalResult;
 
           let eachBar = currentWideBar.closest(".tax-details-each-bars");
@@ -1571,9 +1599,9 @@ export default {
             if (barWidth > 6 && barWidth < textWidth) {
               currentWideBar
                 .closest(".tax-details-each-bars")
-                .querySelector(".amount-label-wrapper").style.paddingLeft = `${
-                barWidth + 6
-              }px`;
+                .querySelector(
+                  ".amount-label-wrapper"
+                ).style.paddingLeft = `${barWidth + 6}px`;
               eachBar.classList.remove("text-white");
             }
           }, 400);
@@ -1605,7 +1633,7 @@ export default {
         if (currentCompareBar) {
           var barValueGet = +currentCompareBar.innerText.replace(regex, "");
           var barActualValue = largestSec;
-          let finalResult = (barValueGet / barActualValue) * 100;
+          let finalResult = barValueGet / barActualValue * 100;
           finalResult > 100 ? (finalResult = 100) : finalResult;
 
           let eachBar = currentCompareBar.closest(".tax-details-each-bars");
@@ -1628,13 +1656,31 @@ export default {
               textWidth = textDiv.offsetWidth + 20;
             }
             let barWidth = eachBar.offsetWidth;
-            if (barWidth > 6 && barWidth < textWidth) {
-              //   currentCompareBar
-              //     .closest(".tax-details-each-bars")
-              //     .querySelector(".amount-label-wrapper").style.paddingLeft = `${
-              //     barWidth + 6
-              //   }px`;
-              eachBar.classList.remove("text-white");
+
+            if (barWidth < textWidth) {
+              document
+                .getElementById("compare_wider_bar_" + i)
+                .closest(".tax-details-each-bars")
+                .classList.remove("text-white");
+              if (
+                document
+                  .getElementById("compare_wider_bar_" + i)
+                  .closest(".compareLeftPart")
+              ) {
+                document
+                  .getElementById("compare_wider_bar_" + i)
+                  .closest(".tax-details-each-bars")
+                  .querySelector(
+                    ".amount-label-wrapper"
+                  ).style.paddingRight = `${barWidth + 6}px`;
+              } else {
+                document
+                  .getElementById("compare_wider_bar_" + i)
+                  .closest(".tax-details-each-bars")
+                  .querySelector(
+                    ".amount-label-wrapper"
+                  ).style.paddingLeft = `${barWidth + 6}px`;
+              }
             }
           }, 400);
         }
@@ -1667,7 +1713,7 @@ export default {
               .closest(".tax-details-each-bars")
               .querySelector(".dark-bar");
             if (darkBar) {
-              darkBar.style.width = (tempVal / barValueGet) * 100 + "%";
+              darkBar.style.width = tempVal / barValueGet * 100 + "%";
             }
           }
 
@@ -1678,11 +1724,11 @@ export default {
               .closest(".tax-details-each-bars")
               .querySelector(".dark-bar");
             if (darkBar) {
-              darkBar.style.width = (tempVal / barValueGet) * 100 + "%";
+              darkBar.style.width = tempVal / barValueGet * 100 + "%";
             }
           }
 
-          let finalResult = (barValueGet / preTotalTaxes) * 100;
+          let finalResult = barValueGet / preTotalTaxes * 100;
           finalResult > 100 ? (finalResult = 100) : finalResult;
 
           let eachBar = currentRothBar.closest(".tax-details-each-bars");
@@ -1709,9 +1755,9 @@ export default {
             if (barWidth > 6 && barWidth < textWidth) {
               currentRothBar
                 .closest(".tax-details-each-bars")
-                .querySelector(".amount-label-wrapper").style.paddingLeft = `${
-                barWidth + 6
-              }px`;
+                .querySelector(
+                  ".amount-label-wrapper"
+                ).style.paddingLeft = `${barWidth + 6}px`;
               eachBar.classList.remove("text-white");
             }
           }, 400);
