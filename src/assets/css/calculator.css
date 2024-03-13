@@ -1673,15 +1673,12 @@ font-weight: 600;
 @media (max-width: 1300px) {
     .eachProgressBarDiv .compareLeftPart {
         width: 35%;
-        text-align: center;
     }
     .eachProgressBarDiv .compareRightPart {
         width: 35%;
-        text-align: center;
     }
     .eachProgressBarDiv .compareMiddlePart {
         width: 30%;
-        text-align: center;
     }
 }
 
@@ -1750,13 +1747,12 @@ font-weight: 600;
 }
 .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
     height: 100%;
-    background-color: #C78787;
+    background-color: #c78686;
     margin-left: auto;
 
 }
 .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
     height: 100%;
-    background-color: #D8D587;
+    background-color: #d8d487;
     margin-left: auto;
-
 }

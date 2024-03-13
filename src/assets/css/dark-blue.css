@@ -4976,7 +4976,12 @@ fill: #f5f5f5;
 .dark-blue .navbar-brand.dark{
   display: block;
 }
-
+.dark-blue .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #bab42c;
+}
+.dark-blue .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #9d2b2b;
+}
 /* Retirement Buffer CSS */
 .dark-blue .retirement_buffer_section_head_div button.head_back_btn,
 .retirement_buffer_section_head_div a.head_back_btn {
@@ -5542,6 +5547,9 @@ background-color: #ABD5F9;
   .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr6 span::before {
     background-color:  rgba(218, 67, 67, .55);
   }
+  .dark-blue .tax-details-tab-ul li button.active.comparePathTab{
+    background-color: #656565;
+  }
   .dark-blue .compareBottomDivs .compareBottomEachDiv p{
     background-color: #23669e;
   }
@@ -5553,10 +5561,10 @@ background-color: #ABD5F9;
     border: none;
   }
   .dark-blue .compareBottomProgreesBar {
-    background-color: #242629;
-    border-color: #5b5b5b;
+    background-color: #414141;
+    border-color: #515151;
   }
   .dark-blue .compareBottomInnerProgreesBar {
-    background-color: #3c3c3c;
+    background-color: #000;
   }
 /* Retirement Buffer CSS Ends*/
