@@ -853,10 +853,10 @@
                                           class="tax-details-each-bars barClr6"
                                         >
                                           <div
-                                            class="nested-progress-bar-main-div"
+                                            :class="`nested-progress-bar-main-div ${showBonus ? '' :'d-none'}`"
                                           >
                                             <div
-                                              class="nested-progress-bar"
+                                              class="nested-progress-bar" :style="`width: ${roth_backend.net_taxes_after_bonus / roth_backend.roth_conversion_taxes * 100 + '%'}`"
                                             ></div>
                                           </div>
                                           <label class="amount-label-wrapper"
@@ -904,11 +904,11 @@
                                           class="tax-details-each-bars barClr5"
                                         >
                                           <div
-                                            class="nested-progress-bar-main-div"
+                                            :class="`nested-progress-bar-main-div ${showBonus ? '' :'d-none'}`"
                                           >
                                             <div
                                               class="nested-progress-bar"
-                                              style="width: 0"
+                                              :style="`width: ${roth_backend.net_total_taxes_after_bonus / roth_backend.total_taxes * 100 + '%'}`"
                                             ></div>
                                           </div>
                                           <label class="amount-label-wrapper"
@@ -1607,6 +1607,7 @@ export default {
           }, 400);
         }
       }
+
       // Compare Path
       let allBar3 = document.querySelectorAll(
         "#comparePaths .tax-details-each-bars span"
@@ -1637,8 +1638,31 @@ export default {
           finalResult > 100 ? (finalResult = 100) : finalResult;
 
           let eachBar = currentCompareBar.closest(".tax-details-each-bars");
-
           eachBar.style.width = finalResult + "%";
+
+          if (i == allBar3.length - 2 && this.showBonus) {
+            let tempVal = roth_conversion_taxes;
+            barValueGet = this.ira_backend.total_taxes;
+            var mainBar = currentCompareBar;
+            finalResult = tempVal / barValueGet * 100;
+            finalResult > 100 ? (finalResult = 100) : finalResult;
+            var mainBar = currentCompareBar.closest(".eachProgressBarDiv").querySelector(".compareRightPart").querySelector(".tax-details-each-bars");
+            if (mainBar) {
+              mainBar.style.width = finalResult + "%";
+            }
+          }
+
+          if (i == allBar3.length && this.showBonus) {
+            let tempVal = roth_conversion_taxes;
+            barValueGet = this.ira_backend.total_taxes;
+            finalResult = tempVal / barValueGet * 100;
+            finalResult > 100 ? (finalResult = 100) : finalResult;
+            var mainBar = currentCompareBar.closest(".eachProgressBarDiv").querySelector(".compareRightPart").querySelector(".tax-details-each-bars");
+            if (mainBar) {
+              mainBar.style.width = finalResult + "%";
+            }
+          }
+
           currentCompareBar.closest(".amount-label-wrapper").style.opacity = 1;
 
           if (finalResult < 1 || !finalResult) {
