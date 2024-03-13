@@ -989,7 +989,7 @@
                                               showBonus
                                                 ? summary.tax_reduction_percentage_with_bonus
                                                 : summary.tax_reduction_percentage_without_bonus
-                                            ).toFixed(2)
+                                            ).toFixed(0)
                                           }}</span
                                           >%
                                         </label>
