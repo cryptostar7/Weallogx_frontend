@@ -848,7 +848,7 @@
                                       <div class="compareMiddlePart barClr6">
                                         <span>{{ showBonus ? "Net" : "" }} Conversion Taxes</span>
                                       </div>
-                                      <div class="compareRightPart">
+                                      <div :class="`compareRightPart ${showBonus ? 'advance' : ''}`">
                                         <div
                                           class="tax-details-each-bars barClr6"
                                         >
@@ -899,7 +899,7 @@
                                       <div class="compareMiddlePart barClr5">
                                         <span>{{ showBonus ? "Net" : "" }} Total Taxes</span>
                                       </div>
-                                      <div class="compareRightPart">
+                                      <div :class="`compareRightPart ${showBonus ? 'advance' : ''}`">
                                         <div
                                           class="tax-details-each-bars barClr5"
                                         >
@@ -1247,15 +1247,8 @@ export default {
         }
         var largestSec = 0;
         var largestSec = Math.max.apply(0, sub_array);
-        if (this.currentCompareBarIdx < 6) {
-          this.currentCompareBarIdx += 1;
-          if (
-            !this.inputs.social_security_amount &&
-            this.currentCompareBarIdx === 4
-          ) {
-            this.currentCompareBarIdx += 1;
-          }
-        }
+   
+        this.currentCompareBarIdx += 1;
         let allBarRow = document.querySelectorAll(".compareLeftPart");
         if (this.currentCompareBarIdx == allBarRow.length) {
           let showNextBtn = document.querySelector(".show-next-btn");
@@ -1267,16 +1260,13 @@ export default {
         var barActualValue = largestSec;
         let finalResult = barValueGet / barActualValue * 100;
         finalResult > 100 ? (finalResult = 100) : finalResult;
-        let eachBar = document
-          .getElementById("compare_wider_bar_" + this.currentCompareBarIdx)
-          .closest(".tax-details-each-bars");
+        let eachBar = document.getElementById("compare_wider_bar_" + this.currentCompareBarIdx).closest(".tax-details-each-bars");
 
         eachBar.style.width = finalResult + "%";
-        document
-          .getElementById("compare_wider_bar_" + this.currentCompareBarIdx)
-          .closest(".amount-label-wrapper").style.opacity = 1;
-        var eachCompareMaindDiv = document.getElementById(
-          "compare_each_progressbar_" + this.currentCompareBarIdx
+        let roth_conversion_taxes = this.roth_backend.roth_conversion_taxes;
+
+        document.getElementById("compare_wider_bar_" + this.currentCompareBarIdx).closest(".amount-label-wrapper").style.opacity = 1;
+        var eachCompareMaindDiv = document.getElementById("compare_each_progressbar_" + this.currentCompareBarIdx
         );
 
         for (var k = 1; k <= 2; k++) {
@@ -1357,7 +1347,7 @@ export default {
                 }
               }
             }
-          }, 400);
+          }, 350);
         }
       } else {
         let allBar2 = document.querySelectorAll(

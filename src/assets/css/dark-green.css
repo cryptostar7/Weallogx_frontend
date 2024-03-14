@@ -4415,14 +4415,6 @@ background: #262B29;
 .dark-green .tax-details-each-bars.barClr4{
   background: #E8662F;
 }
-.dark-green .tax-details-each-bars.barClr5{
-  background: rgba(218, 67, 67, .55);
-}
-.dark-green .tax-details-each-bars.barClr6{
-  background: rgba(186, 180, 44, .65);
-}
-
-
 .dark-green .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
 }
@@ -5055,15 +5047,14 @@ background-color: #2e3135;
   color: #fff;
 }
 .dark-green .compareBottomDivs .compareBottomEachDiv {
-  background: #2A2D36;
-  border: none;
+  background: #232721;
 }
 .dark-green .compareBottomProgreesBar {
-  background-color: #414141;
-  border-color: #515151;
+    background-color: #EEE;
+    border-color: #DFDFDF;
 }
 .dark-green .compareBottomInnerProgreesBar {
-  background-color: #000;
+  background-color: #A0A0A0;
 }
 /* Retirement Buffer CSS Ends */
 .dark-green .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
