@@ -760,7 +760,7 @@ table.index-strategy-table tbody td.highlighted {
     color: #dd3611;
 }
 tbody tr td:first-child {
-    border-left: 1px solid #dfdfdf;
+    border-left: 1px solid #dfdfdf !important;
 }
 tbody tr:last-child td:first-child {
     border-bottom-left-radius: 6px;
@@ -1342,6 +1342,10 @@ table.index-strategy-table tr th {
 .mltplSwtchDiv.blue div.active {
     border: 1.5px solid #1660a4;
     color: #1660a4;
+}
+.mltplSwtchDiv.compare div.active {
+    border: 1.5px solid #3c3c3c;
+    color: #3c3c3c;
 }
 .tax-details-tab-ul li button.active {
     background: #0e6651;

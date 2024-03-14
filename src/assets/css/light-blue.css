@@ -1614,6 +1614,14 @@ background: #1660A4;
   border: 1.5px solid #0E6651;
   color: #0E6651;
 }
+.light-blue .mltplSwtchDiv.blue div.active {
+  border: 1.5px solid #1660a4;
+  color: #1660a4;
+}
+.light-blue .mltplSwtchDiv.compare div.active {
+  border: 1.5px solid #3C3C3C;
+  color: #3C3C3C;
+}
 
 /* Extra New CSS for Historical Simulations Stand Alone */
 .outer-div-all-div {
@@ -1796,5 +1804,8 @@ color: #1660A4;
 }
 .light-blue .summary_card_clr_1 .pie.progress_pie svg text{
   fill: #1660a4;
+}
+.light-blue .compareBottomDivs .compareBottomEachDiv p {
+  background: #1660A4;
 }
 /* Retirement Buffer CSS Ends */

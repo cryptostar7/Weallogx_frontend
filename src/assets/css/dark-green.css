@@ -4462,6 +4462,10 @@ fill: #f5f5f5;
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
 }
+.dark-green .tax-details-graph-main-div .mltplSwtchDiv.compare div.active {
+  border: 1.5px solid #656565;
+  color: #fff;
+}
 .dark-green .show-bonus-switch label{
   color: #fff;
 }

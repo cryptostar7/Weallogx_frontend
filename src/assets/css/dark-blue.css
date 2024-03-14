@@ -4957,6 +4957,10 @@ fill: #f5f5f5;
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
 }
+.dark-blue .tax-details-graph-main-div .mltplSwtchDiv.compare div.active {
+  border: 1.5px solid #656565;
+  color: #fff;
+}
 
 /* Extra New CSS for Historical Simulations Stand Alone */
 .dark-blue .outer-div-all-div {

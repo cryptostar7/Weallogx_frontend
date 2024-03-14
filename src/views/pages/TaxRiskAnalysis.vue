@@ -372,7 +372,7 @@
                               >
                                 <div
                                   id="mltplSwtchDiv"
-                                  :class="`nav mltplSwtchDiv nav-pills mw-325 taxRisk ${activeTab === 'conversion' ? 'blue' : ''}`"
+                                  :class="`nav mltplSwtchDiv nav-pills mw-325 taxRisk ${activeTab === 'conversion' ? 'blue' : ''} ${activeTab === 'compare' ? 'compare' : ''}`"
                                   role="tablist"
                                   aria-orientation="vertical"
                                 >
