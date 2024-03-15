@@ -19,7 +19,7 @@
               aria-orientation="vertical"
             >
               <div
-                class="active"
+                class="active rb-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#v-pills-table"
                 type="button"
@@ -94,7 +94,7 @@
                 role="tab"
                 aria-controls="v-pills-graph"
                 aria-selected="false"
-                class=""
+                class="rb-tab"
                 @click="$store.dispatch('updateRbaSliderWidth', 'graph')"
               >
                 <svg

@@ -56,7 +56,7 @@
       />
 
       <div class="graph_all_buttons">
-        <div class="graph_select_div">
+        <div class="graph_select_div mx-wid-fit-content">
           <span class="sp_text">S&P 500</span>
           <div class="select-menu graph_select_menu">
             <div class="select-btn">
@@ -86,14 +86,13 @@
           </div>
         </div>
         <div class="common_each_graph_div graph_clr_1">
-          Market Account ${{ accountAllocation.market || 0 }}
+          Market Account Alone ${{ accountAllocation.market || 0 }}
         </div>
-        <div class="common_each_graph_div graph_clr_2 disable">
-          Buffer Account 
-          <span v-if="accountAllocation.bonus">(including {{ accountAllocation.bonus }}% bonus) </span>
-          ${{ accountAllocation.buffer || 0 }}
+        <div :class="`common_each_graph_div graph_clr_2 disable ${accountAllocation.buffer} ${
+        marketAlone ? 'd-none' : ''}`">
+          Market + Buffer Account {{ 100 - bufferPercent }}/{{ bufferPercent }}
         </div>
-        <div class="common_each_graph_div graph_clr_3 disable">Combined</div>
+        <!-- <div class="common_each_graph_div graph_clr_3 disable">Combined</div> -->
       </div>
       <canvas
         id="retirementBufferGraph"
@@ -144,12 +143,20 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
+  data() {
+    return {
+      bufferPercent: null
+    }
+  },
   props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
   mounted() {
     this.setGraph();
   },
   methods: {
+    updateMAPercentVal(val){
+      console.log(val);
+    },
     setGraph: function () {
       let graphData = this.getDataSet();
       let maxAcc1 = Math.max(
@@ -163,7 +170,7 @@ export default {
       let maxAcc2 = Math.max(
         ...[
           Math.max(...(graphData.datasets[3].data || [])),
-          Math.max(...(graphData.datasets[4].data || [])),
+          // Math.max(...(graphData.datasets[4].data || [])),
         ]
       );
 
@@ -276,6 +283,28 @@ export default {
         document.getElementById("retirementBufferGraph"),
         comparativeValuesConfig
       );
+
+      var redioInp = document.querySelector(".dropdown-menu");
+      redioInp.addEventListener("click", function(e) {
+        let screenMode = localStorage.getItem("mode");
+        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#0E6651";
+          graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, .4)";
+          graphData.datasets[1].backgroundColor = "rgba(8, 152, 117, .35)";
+        } else if (screenMode == "dark-green") {
+          graphData.datasets[0].borderColor = "#26AB8B";
+          graphData.datasets[1].borderColor = "#23669E";
+          graphData.datasets[0].backgroundColor = "rgba(8, 152, 117, .35)";
+          graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .4)";
+        } else {
+          graphData.datasets[0].borderColor = "#0E6651";
+          graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, .4)";
+          graphData.datasets[1].borderColor = "#1660A4";
+          graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .35)";
+        }
+        window.rbaGraphChart.update();
+      });
     },
     getDataSet: function () {
       let results = this.results;
@@ -283,25 +312,38 @@ export default {
         labels: this.$props.years,
         datasets: [
           {
-            borderColor: "#0E6651",
+            fill: true,
+            backgroundColor:
+              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "rgba(22, 96, 164, .4)"
+                : "rgba(14, 102, 81, .20)",
+            borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
+                : "#0E6651",
             borderWidth: 4,
             radius: 0,
             data: results.market ? results.market.ending_balance : [],
           },
           {
+            fill: true,
+            backgroundColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "rgba(8, 152, 117, .2)"
+                : "rgba(22, 96, 164, .2)",
             hidden: this.marketAlone ? true : false,
-            borderColor: "#1660A4",
+            borderColor: this.$appTheme() == "light-green" || this.$appTheme() == "dark-green" ? "#1660A4" : "#0E6651",
             borderWidth: 4,
             radius: 0,
             data: results.buffer ? results.buffer.ending_balance : [],
           },
-          {
-            hidden: this.marketAlone ? true : false,
-            borderColor: "#9D2B2B",
-            borderWidth: 4,
-            radius: 0,
-            data: results.total_ending_balance || [],
-          },
+          // {
+          //   fill: true,
+          //   backgroundColor: "rgba(118, 60, 163, .2)",
+          //   hidden: this.marketAlone ? true : false,
+          //   borderColor: "#9D2B2B",
+          //   borderWidth: 4,
+          //   radius: 0,
+          //   data: results.total_ending_balance || [],
+          // },
           {
             yAxisID: "B",
             hidden: this.showDistribution ? false : true,
@@ -331,6 +373,9 @@ export default {
     },
   },
   watch: {
+    "$store.state.data.retirement_buffer.buffer_allocation_weight"(val) {
+      this.bufferPercent = (Number(val) * 100).toFixed(0);
+    },
     "$props.indexType"(e) {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);

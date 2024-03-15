@@ -21,7 +21,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Ending Balance
                     </div>
@@ -35,7 +35,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Distributions
                     </div>
@@ -47,7 +47,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Value
                       <span>
@@ -67,7 +67,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
@@ -75,7 +75,7 @@
                       {{ marketResult.rate_of_return_negative_years || 0 }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Average Rate of Return
                     </div>
@@ -137,7 +137,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Ending Balance
                     </div>
@@ -151,7 +151,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Distributions
                     </div>
@@ -163,7 +163,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Value
                       <span>
@@ -183,7 +183,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
@@ -193,7 +193,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Average Rate of Return
                     </div>

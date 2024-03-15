@@ -19,7 +19,7 @@
         role="tab"
         aria-controls="v-pills-market"
         aria-selected="true"
-        :class="marketAlone ? 'active' : ''"
+        :class="`rb-tab ${marketAlone ? 'active' : ''}`"
         @click="$store.dispatch('retirementBufferMarketAlone', true)"
       >
         Market Account Alone
@@ -31,7 +31,7 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="`${marketAlone ? '' : 'active'} ${
+        :class="`rb-tab ${marketAlone ? '' : 'active'} ${
           indexType === 'Historical Average' ? 'disable' : ''
         }`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"

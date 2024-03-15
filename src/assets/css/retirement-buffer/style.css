@@ -9,7 +9,9 @@
     display: none;
 }
 /* For delete */
-
+.mt-15{
+    margin-top: 15px;
+}
 .padding_right_section {
     padding: 0 3rem 4.5rem 3rem;
 }
@@ -1184,7 +1186,7 @@ table.retirement_table_area tr td.zero_text {
     max-width: 200px;
     width: 100%;
     border-left: 1px solid #dfdfdf;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 .each_card_left_part .each_card_left_label {
     color: #000;

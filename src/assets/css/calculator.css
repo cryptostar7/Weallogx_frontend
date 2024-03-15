@@ -1761,3 +1761,6 @@ margin-left: auto;
     height: 100%;    
     background-color: #bab42c;
 }
+.mx-wid-fit-content{
+    max-width: fit-content;
+}
