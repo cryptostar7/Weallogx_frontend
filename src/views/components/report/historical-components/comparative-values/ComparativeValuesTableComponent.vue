@@ -197,7 +197,7 @@
           </div>
           <div class="col-md-10 ps-0 pe-3">
             <div class="row">
-              <div class="col-md-3 pe-1">
+              <div :class="`pe-1 col-md-${12 / totalCV}`">
                 <div class="tab-content">
                   <!-- most recent tab -->
                   <div class="tab-pane fade show active">
@@ -317,7 +317,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-9 pe-3">
+              <div :class="`col-md-test-9 pe-3 col-md-${12 - 12 / totalCV}`">
                 <draggable
                   v-model="draggableColumns"
                   :draggable="
@@ -329,8 +329,10 @@
                   <div
                     v-for="(header, index) in draggableColumns"
                     :key="index"
-                    :class="`drag-item px-1 col-md-4 drag-col ${
+                    :class="`drag-item px-1 drag-col ${
                       header.active ? '' : 'order-last'
+                    } ${index + 2 > totalCV ? 'd-none' : ''} col-md-${
+                      12 / (totalCV - 1)
                     }`"
                   >
                     <div class="empty-inner" data-empty="1">
@@ -539,7 +541,13 @@
                                   <th>Account Value</th>
                                 </tr>
                               </thead>
-                              <tbody>
+                              <tbody
+                                v-if="
+                                  table.data[header.id].categories[tsa_type]
+                                    .list.length
+                                "
+                              >
+                                <!-- this.table.data[0].categories[this.tsa_type].list -->
                                 <tr
                                   v-for="(item, index) in table.data[header.id]
                                     .categories[tsa_type].list"
@@ -571,6 +579,19 @@
                                       $numFormatWithDollar(item.account_value)
                                     }}
                                   </td>
+                                </tr>
+                              </tbody>
+                              <tbody v-else>
+                                <!-- this.table.data[0].categories[this.tsa_type].list -->
+                                <tr
+                                  v-for="(item, index) in table.data[0]
+                                    .categories[tsa_type].list.length"
+                                  :key="index"
+                                >
+                                  <td data-label="blank">
+                                    <span class="td - bold"></span>
+                                  </td>
+                                  <td data-label="acount"></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -615,10 +636,7 @@
                       Distributions
                     </td>
                   </tr>
-                  <!-- <tr> -->
-                  <!-- <td class="table1Td" data-label="Year" style="border:none">Totals</td> -->
-                  <!-- <td class="table1Td" data-label="Age"> {{ $numFormatWithDollar(summary_data.deposits.totals) }}</td> -->
-                  <!-- </tr> -->
+
                   <tr>
                     <td class="table1Td totalValueTd" data-label="Age">
                       Total Value
@@ -641,7 +659,7 @@
           </div>
           <div class="col-md-10 ps-0 pe-3">
             <div class="row">
-              <div class="col-md-3 pe-1">
+              <div :class="`col-md-${12 / totalCV} pe-1`">
                 <div class="reportTablesDiv reportTablesDiv8">
                   <table
                     class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont"
@@ -700,12 +718,14 @@
                   </table>
                 </div>
               </div>
-              <div class="col-md-9 pe-3">
+              <div :class="`col-md-${12 - 12 / totalCV} pe-3`">
                 <div class="row">
                   <div
                     v-for="(header, index) in draggableColumns"
                     :key="index"
-                    :class="`col-md-4 px-1 commonBottomTableMainTopDiv${
+                    :class="`col-md-${12 / (totalCV - 1)}
+                    ${index + 2 > totalCV ? 'd-none' : ''}
+                    px-1 commonBottomTableMainTopDiv${
                       8 + header.id
                     } summary-draggable ${header.active ? '' : 'order-last'} ${
                       header.active ? '' : 'commonTableCls'
@@ -836,6 +856,7 @@ export default {
         { id: 3, active: true },
       ],
       showAll: false,
+      totalCV: 4,
       tsa_type: "most_recent",
       table: {
         distributions: [],
@@ -1524,10 +1545,27 @@ export default {
       };
     },
     mapData: function () {
+      let cvCount = 4;
       this.table.data[0] = this.mapColumn1Data().data;
       this.table.data[1] = this.mapColumn2Data().data;
       this.table.data[2] = this.mapColumn3Data().data;
       this.table.data[3] = this.mapColumn4Data().data;
+
+      if (
+        this.table.data[2] &&
+        !this.table.data[2].categories[this.tsa_type].list.length
+      ) {
+        cvCount--;
+      }
+
+      if (
+        this.table.data[3] &&
+        !this.table.data[3].categories[this.tsa_type].list.length
+      ) {
+        cvCount--;
+      }
+
+      this.totalCV = cvCount;
 
       this.summary_data.data[0] = this.mapColumn1Data().summary;
       this.summary_data.data[1] = this.mapColumn2Data().summary;
@@ -1540,43 +1578,39 @@ export default {
     setTabDescription: function () {
       let description = "";
       if (this.tsa_type === "most_recent") {
-        description =
-          `For the Most Recent ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
+        description = `For the Most Recent ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
       }
 
       if (this.tsa_type === "worst") {
-        description =
-          `For the Worst ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
+        description = `For the Worst ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
       }
 
       if (this.tsa_type === "median") {
-        description =
-          `For the Median ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
+        description = `For the Median ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
       }
 
       if (this.tsa_type === "best") {
-        description =
-          `For the Best ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
+        description = `For the Best ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up to the TSA?`;
       }
-      document.getElementById("hs_cmp_value_description_text").innerText = description;
+      document.getElementById("hs_cmp_value_description_text").innerText =
+        description;
     },
   },
   mounted() {
     this.table.distributions = this.filterDeposits();
     this.mapData();
     if (this.currentTab === "table") {
-        this.setTabDescription();
-      }
+      this.setTabDescription();
+    }
   },
   computed: {
     historical() {
       return this.$store.state.data.report.historical;
     },
-    deletedItems() {
-      return this.$store.state.data.report.deleted_historical_cv_ids;
-    },
     rollingTime() {
-      return this.$store.state.data.report.historical.discloser ? this.$store.state.data.report.historical.discloser.period : "0";
+      return this.$store.state.data.report.historical.discloser
+        ? this.$store.state.data.report.historical.discloser.period
+        : "0";
     },
   },
   watch: {
