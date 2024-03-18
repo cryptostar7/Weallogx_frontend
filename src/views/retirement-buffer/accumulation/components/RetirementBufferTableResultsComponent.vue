@@ -60,7 +60,7 @@
               :disable="indexType !== 'Historical Returns'"
             />
             <div class="table-wrapper-with-boarder">
-              <table class="retirement_table_area first">
+              <table class="retirement_table_area sticky-header first">
                 <thead>
                   <tr>
                     <th width="25%">
@@ -119,7 +119,7 @@
             </p>
             <div class="table-wrapper-with-boarder">
               <table
-                :class="`retirement_table_area ${
+                :class="`retirement_table_area sticky-header ${
                   showDistribution ? '' : 'table_checkbox_off'
                 }`"
               >
@@ -195,7 +195,7 @@
             </p>
             <div class="table-wrapper-with-boarder">
               <table
-                :class="`retirement_table_area ${
+                :class="`retirement_table_area sticky-header ${
                   showDistribution ? '' : 'table_checkbox_off'
                 }`"
               >
@@ -280,7 +280,7 @@
           >
             <p class="each_table_heading">Combined</p>
             <div class="table-wrapper-with-boarder">
-              <table class="retirement_table_area">
+              <table class="retirement_table_area sticky-header">
                 <thead>
                   <tr>
                     <th>
@@ -317,6 +317,70 @@ import SliderWeightRange from "../../common-components/SliderWeightRange.vue";
 import RetirementBufferResultFilterOptions from "./RetirementBufferResultFilterOptions.vue";
 import CommonTooltipSvg from "../../../components/common/CommonTooltipSvg.vue";
 
+let tables = [];
+let isPresentationClicked = false;
+function getOffset(element) {
+  var x = 0;
+  var y = 0;
+  while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+    x += element.offsetLeft - element.scrollLeft;
+    y += element.offsetTop - element.scrollTop;
+    element = element.offsetParent;
+  }
+  return { top: y, left: x };
+}
+
+function Table(element) {
+  this.element = element;
+  this.element.querySelectorAll("thead").forEach(thead => {
+    if (thead.classList.contains("cloned")) {
+      thead.remove();
+    }
+  });
+  this.originalHeader = element.getElementsByTagName("thead")[0];
+  this.floatingHeader = this.originalHeader.cloneNode(true);
+  this.top = 0;
+  this.bottom = 0;
+  this.originalThs = this.originalHeader.getElementsByTagName("th");
+  this.floatingThs = this.floatingHeader.getElementsByTagName("th");
+
+  if (!this.element.style.position) {
+    this.element.style.position = "relative";
+  }
+  this.floatingHeader.setAttribute("aria-hidden", "true");
+  this.floatingHeader.classList.add("cloned");
+  this.floatingHeader.style.position = "absolute";
+  this.floatingHeader.style.top = "0";
+
+  this.refreshHeaderSize();
+  this.attachFloatHeader();
+}
+
+Table.prototype.refreshHeaderSize = function() {
+  var offset = getOffset(this.element);
+  var trs = this.element.getElementsByTagName("tr");
+  var padding;
+  this.top = offset.top;
+  this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    this.floatingThs[i].style.width = Math.ceil(th.offsetWidth) + 1 + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+};
+
+Table.prototype.refreshHeaderWidth = function() {
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    this.floatingThs[i].style.width = Math.ceil(th.offsetWidth) + 1 + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+};
+
+Table.prototype.attachFloatHeader = function() {
+  this.element.insertBefore(this.floatingHeader, this.element.firstChild);
+};
+
 export default {
   components: {
     SliderWeightRange,
@@ -325,11 +389,72 @@ export default {
   },
   props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
+  mounted() {
+    setTimeout(() => {
+      this.init();
+    }, 3000);
+
+    window.addEventListener("scroll", this.windowScroll);
+  },
   watch: {
     "$props.indexType"(e) {
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
       }
+    },
+    "$props.sidebar"(value) {
+      console.log("fdsjfksjf");
+      this.handleSidebar(value);
+    },
+  },
+  updated() {
+    this.init();
+  },
+  methods: {
+    init: function() {
+      tables = [];
+      var matches = document.querySelectorAll("table.sticky-header");
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].tagName === "TABLE") {
+          tables.push(new Table(matches[i]));
+        }
+      }
+    },
+    refreshHeaderSizes: function() {
+      for (var i = 0; i < tables.length; i++) {
+        tables[i].refreshHeaderSize();
+      }
+      if (this.$store.state.app.presentation_mode) {
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderSize();
+        }
+        return;
+      }
+    },
+    getScrollTop: function() {
+      if (typeof window.pageYOffset !== "undefined") {
+        return window.pageYOffset;
+      }
+      var docElement = document.documentElement;
+      if (!docElement.clientHeight) {
+        docElement = document.body;
+      }
+      return docElement.scrollTop;
+    },
+    windowScroll: function() {
+      for (var i = 0; i < tables.length; i++) {
+        var windowTop = this.getScrollTop();
+        if (windowTop > tables[i].top) {
+          tables[i].floatingHeader.style.top =
+            Math.min(windowTop - tables[i].top, tables[i].bottom) + (isPresentationClicked ? 0 : 38) + "px";
+        } else {
+          tables[i].floatingHeader.style.top = "0";
+        }
+      }
+    },
+    handleSidebar: function(status) {
+      this.refreshHeaderSizes();
+      return status;
     },
   },
   computed: {

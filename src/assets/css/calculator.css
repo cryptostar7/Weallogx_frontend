@@ -240,13 +240,6 @@
 .index-strategy-each-inputs .percent {
     color: #dfdfdf;
 }
-/*.index-strategy-each-inputs input:placeholder-t-shown .percent{
-    color: #dfdfdf;
-}*/
-/*.index-strategy-each-inputs input:placeholder-shown .percent{
-    color: #000;
-}*/
-p.error-text,
 p.error-text {
     display: none;
 }

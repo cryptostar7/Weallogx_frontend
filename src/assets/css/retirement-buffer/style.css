@@ -334,7 +334,7 @@
 }
 
 .accumulation_select_menu.active .select-btn {
-    height: auto;
+/*    height: auto;*/
     border: 1.25px solid #dfdfdf;
     border-bottom: none;
     border-radius: 5px 5px 0 0;
@@ -742,6 +742,9 @@
     align-items: center;
     user-select: none;
     border: 1px solid transparent;
+    position: sticky;
+    top: 66px;
+    z-index: 1;
 }
 .graph_filter_btns {
     max-width: 215px;
@@ -780,8 +783,10 @@
     text-align: center;
     font-size: 15px;
     font-weight: 700;
+    position: sticky;
+    top: 66px;
+    z-index: 1;
 }
-
 .table_clr_1 .each_table_heading {
     color: #0e6651;
 }
@@ -824,6 +829,7 @@ table.retirement_table_area {
     width: 100%;
     border-spacing: 0;
     overflow: hidden;
+    position: relative;
 }
 
 table.retirement_table_area thead {
@@ -846,6 +852,7 @@ table.retirement_table_area thead tr th {
     white-space: normal;
     line-height: 1.267;
     height: 52px;
+    z-index: 999;
 }
 table.retirement_table_area thead tr th.dropdown-table-head {
     padding-inline: 0;
@@ -1358,6 +1365,8 @@ body.wider .setting_modal{
     gap: 8px;
     margin-left: 80px;
     margin-bottom: 45px;
+    position: sticky;
+    top: 101px;
 }
 .graph_select_div {
     min-width: 245px;

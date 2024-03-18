@@ -292,21 +292,42 @@ export default {
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function (e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        if (screenMode == "light-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
           graphData.datasets[1].borderColor = "#0E6651";
           graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, .4)";
           graphData.datasets[1].backgroundColor = "rgba(8, 152, 117, .35)";
-        } else if (screenMode == "dark-green") {
+          graphData.datasets[2].backgroundColor = "#287BC7";
+          graphData.datasets[2].borderColor = "#1660A4";
+          graphData.datasets[3].backgroundColor = "#147D64";
+          graphData.datasets[3].borderColor = "#0E6651";
+        } else if (screenMode == "dark-blue") {
+          graphData.datasets[0].borderColor = "#1660A4";
+          graphData.datasets[1].borderColor = "#26AB8B";
+          graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, .4)";
+          graphData.datasets[1].backgroundColor = "rgba(8, 152, 117, .35)";
+          graphData.datasets[2].backgroundColor = "#287BC7";
+          graphData.datasets[2].borderColor = "#1660A4";
+          graphData.datasets[3].backgroundColor = "#26AB8B";
+          graphData.datasets[3].borderColor = "#0E6651";
+        }else if (screenMode == "dark-green") {
           graphData.datasets[0].borderColor = "#26AB8B";
           graphData.datasets[1].borderColor = "#23669E";
           graphData.datasets[0].backgroundColor = "rgba(8, 152, 117, .35)";
           graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .4)";
+          graphData.datasets[2].backgroundColor = "#26AB8B";
+          graphData.datasets[2].borderColor = "#0E6651";
+          graphData.datasets[3].backgroundColor = "#287BC7";
+          graphData.datasets[3].borderColor = "#1660A4";
         } else {
           graphData.datasets[0].borderColor = "#0E6651";
           graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, .4)";
           graphData.datasets[1].borderColor = "#1660A4";
           graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, .35)";
+          graphData.datasets[2].backgroundColor = "#147D64";
+          graphData.datasets[2].borderColor = "#0E6651";
+          graphData.datasets[3].backgroundColor = "#287BC7";
+          graphData.datasets[3].borderColor = "#1660A4";
         }
         window.rbaGraphChart.update();
       });
@@ -320,36 +341,23 @@ export default {
         datasets: [
           {
             fill: true,
-            backgroundColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "rgba(22, 96, 164, .4)"
-                : "rgba(14, 102, 81, .20)",
-            borderColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "#1660A4"
-                : "#0E6651",
+            backgroundColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "rgba(22, 96, 164, .4)" : "rgba(14, 102, 81, .20)",
+            borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
+                ? "#1660A4" : this.$appTheme() == "light-green" ? "#0E6651" : "#26AB8B",
             borderWidth: 4,
             radius: 0,
             data: marketResult.market ? marketResult.market.ending_balance : [],
+            order: 2
           },
           {
             fill: true,
-            backgroundColor:
-              this.$appTheme() == "light-blue" ||
-              this.$appTheme() == "dark-blue"
-                ? "rgba(8, 152, 117, .2)"
-                : "rgba(22, 96, 164, .2)",
+            backgroundColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "rgba(8, 152, 117, .2)" : "rgba(22, 96, 164, .20)",
             hidden: this.marketAlone ? true : false,
-            borderColor:
-              this.$appTheme() == "light-green" ||
-              this.$appTheme() == "dark-green"
-                ? "#1660A4"
-                : "#0E6651",
+            borderColor:this.$appTheme() == "light-blue" ? "#0E6651" :  this.$appTheme() == "dark-blue" ? "#26AB8B" : "#1660A4",
             borderWidth: 4,
             radius: 0,
             data: results.buffer ? results.buffer.ending_balance : [],
+            order: 1
           },
           // {
           //   fill: true,
@@ -363,24 +371,30 @@ export default {
           {
             yAxisID: "B",
             hidden: this.showDistribution ? false : true,
-            backgroundColor: "rgba(20, 125, 100, 0.60)",
-            borderColor: "rgba(14, 102, 81, 0.60)",
+            backgroundColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
+                ? "#287BC7" : this.$appTheme() == "light-green" ? "#147D64" : "#26AB8B",
+            borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
+                ? "#1660A4" : this.$appTheme() == "light-green" ? "#0E6651" : "#0E6651",
             radius: 2,
             data: marketResult.market ? marketResult.market.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
+            borderWidth: 2,
+            order: 0
           },
           {
             yAxisID: "B",
             hidden: !this.marketAlone && this.showDistribution ? false : true,
-            backgroundColor: "#1660A4",
-            borderColor: "#142F62",
+            backgroundColor: this.$appTheme() == "light-blue" ? "#147D64" : this.$appTheme() == "dark-blue" ? "#26AB8B" : "#287BC7",
+            borderColor: this.$appTheme() == "light-blue" ? "#0E6651" : this.$appTheme() == "dark-blue" ? "#0E6651" : "#1660A4",
             radius: 2,
             data: results.buffer ? results.buffer.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
+            borderWidth: 2,
+            order: 0
           },
         ],
       };
