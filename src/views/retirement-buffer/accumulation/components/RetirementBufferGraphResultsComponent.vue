@@ -31,7 +31,9 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="`${marketAlone ? '' : 'active'} ${indexType === 'Historical Average' ? 'disable' : ''}`"
+        :class="`${marketAlone ? '' : 'active'} ${
+          indexType === 'Historical Average' ? 'disable' : ''
+        }`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account
@@ -57,7 +59,7 @@
 
       <div class="graph_all_buttons">
         <div class="graph_select_div mx-wid-fit-content">
-          <span class="sp_text">S&P 500</span>
+          <span class="sp_text" @click="testFunction">S&P 500</span>
           <div class="select-menu graph_select_menu">
             <div class="select-btn">
               <input
@@ -86,10 +88,13 @@
           </div>
         </div>
         <div class="common_each_graph_div graph_clr_1">
-          Market Account Alone ${{ accountAllocation.market || 0 }}
+          Market Account Alone ${{ accountAllocation.market_alone || 0 }}
         </div>
-        <div :class="`common_each_graph_div graph_clr_2 disable ${accountAllocation.buffer} ${
-        marketAlone ? 'd-none' : ''}`">
+        <div
+          :class="`common_each_graph_div graph_clr_2 disable ${
+            accountAllocation.buffer
+          } ${marketAlone ? 'd-none' : ''}`"
+        >
           Market + Buffer Account {{ 100 - bufferPercent }}/{{ bufferPercent }}
         </div>
         <!-- <div class="common_each_graph_div graph_clr_3 disable">Combined</div> -->
@@ -145,8 +150,8 @@ export default {
   },
   data() {
     return {
-      bufferPercent: null
-    }
+      bufferPercent: null,
+    };
   },
   props: ["indexType", "accountAllocation", "years", "indexTypes"],
   emits: ["setIndexType"],
@@ -154,8 +159,8 @@ export default {
     this.setGraph();
   },
   methods: {
-    updateMAPercentVal(val){
-      console.log(val);
+    testFunction() {
+      console.log(this.bufferResult);
     },
     setGraph: function () {
       let graphData = this.getDataSet();
@@ -163,14 +168,13 @@ export default {
         ...[
           Math.max(...(graphData.datasets[0].data || [])),
           Math.max(...(graphData.datasets[1].data || [])),
-          Math.max(...(graphData.datasets[2].data || [])),
         ]
       );
 
       let maxAcc2 = Math.max(
         ...[
+          Math.max(...(graphData.datasets[2].data || [])),
           Math.max(...(graphData.datasets[3].data || [])),
-          // Math.max(...(graphData.datasets[4].data || [])),
         ]
       );
 
@@ -217,7 +221,7 @@ export default {
               },
               min: 0,
               // max: 3000000,
-              max: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
 
               // stacked: true,
               ticks: {
@@ -251,8 +255,9 @@ export default {
               },
               min: 0,
               // max: 3000000,
-              max: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
-
+              suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(
+                0
+              ),
               ticks: {
                 maxTicksLimit: 7,
                 padding: 8,
@@ -285,7 +290,7 @@ export default {
       );
 
       var redioInp = document.querySelector(".dropdown-menu");
-      redioInp.addEventListener("click", function(e) {
+      redioInp.addEventListener("click", function (e) {
         let screenMode = localStorage.getItem("mode");
         if (screenMode == "light-blue" || screenMode == "dark-blue") {
           graphData.datasets[0].borderColor = "#1660A4";
@@ -308,19 +313,26 @@ export default {
     },
     getDataSet: function () {
       let results = this.results;
+      let marketResult = this.marketResult;
+      
       let obj = {
         labels: this.$props.years,
         datasets: [
           {
             fill: true,
             backgroundColor:
-              this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "rgba(22, 96, 164, .4)"
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "rgba(22, 96, 164, .4)"
                 : "rgba(14, 102, 81, .20)",
-            borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue" ? "#1660A4"
+            borderColor:
+              this.$appTheme() == "light-blue" ||
+              this.$appTheme() == "dark-blue"
+                ? "#1660A4"
                 : "#0E6651",
             borderWidth: 4,
             radius: 0,
-            data: results.market ? results.market.ending_balance : [],
+            data: marketResult.market ? marketResult.market.ending_balance : [],
           },
           {
             fill: true,
@@ -330,7 +342,11 @@ export default {
                 ? "rgba(8, 152, 117, .2)"
                 : "rgba(22, 96, 164, .2)",
             hidden: this.marketAlone ? true : false,
-            borderColor: this.$appTheme() == "light-green" || this.$appTheme() == "dark-green" ? "#1660A4" : "#0E6651",
+            borderColor:
+              this.$appTheme() == "light-green" ||
+              this.$appTheme() == "dark-green"
+                ? "#1660A4"
+                : "#0E6651",
             borderWidth: 4,
             radius: 0,
             data: results.buffer ? results.buffer.ending_balance : [],
@@ -350,7 +366,7 @@ export default {
             backgroundColor: "rgba(20, 125, 100, 0.60)",
             borderColor: "rgba(14, 102, 81, 0.60)",
             radius: 2,
-            data: results.market ? results.market.net_distribution : [],
+            data: marketResult.market ? marketResult.market.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
@@ -439,6 +455,32 @@ export default {
     },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
+    },
+    marketResult() {
+      let rb = this.$store.state.data.retirement_buffer;
+      if (rb.show_distribution) {
+        return (
+          rb.auccumulation_results.market_only_with_distribution || {}
+        );
+      } else {
+        return (
+          rb.auccumulation_results.market_only_without_distribution ||
+          {}
+        );
+      }
+    },
+    bufferResult() {
+      let rb = this.$store.state.data.retirement_buffer;
+      if (rb.show_distribution) {
+        return (
+          rb.auccumulation_results || {}
+        );
+      } else {
+        return (
+          rb.auccumulation_results ||
+          {}
+        );
+      }
     },
   },
 };

@@ -194,7 +194,6 @@
   </button>
 </template>
 <script>
-import { getNumber } from "../../../../services/helper";
 import RetirementBufferDisclosure from "./RetirementBufferDisclosure.vue";
 import RetirementBufferAccumulationFormModal from "./RetirementBufferAccumulationFormModal.vue";
 import RetirementBufferTableResultsComponent from "./RetirementBufferTableResultsComponent.vue";
@@ -356,6 +355,7 @@ export default {
     accountAllocation() {
       let account_value = this.inputs ? this.inputs.account_value : 0;
       let bonus = this.inputs ? this.inputs.bonus : 0;
+      let market_alone = Number(account_value).toLocaleString("en-US");
 
       let buffer_account_allocation = this.$store.state.data.retirement_buffer.buffer_allocation_weight;
       if(this.marketAlone){
@@ -379,7 +379,7 @@ export default {
       let bav = Number(((account_value / 100) * bufferValue).toFixed(0)) || 0;
       bav = (bav + (bav / 100) * bonusValue).toLocaleString("en-US");
 
-      return { market: mav, buffer: bav, bonus: bonusValue };
+      return { market_alone: market_alone, market: mav, buffer: bav, bonus: bonusValue };
     },
     years() {
       let array = [];
@@ -415,7 +415,6 @@ export default {
       if (e !== "Historical Returns") {
         this.$store.dispatch("updateRbaSortType", "average");
         this.$store.dispatch("retirementBufferMarketAlone", true);
-        // this.$store.dispatch("updateRbaNetDistributionDisplay", false);
         this.$refs.tableRef.$refs.filterResultRef.getAccumulationResults(
           "average"
         );
