@@ -69,8 +69,9 @@
         <div class="d-flex justify-content-between flex-gap-12">
           <div
             v-for="(item, index) in data[0].categories"
-            :class="`flex-1 ${index === tsa_type ? '' : 'd-none'}`"
-            :key="item.id"
+            :class="`flex-1 ${index === tsa_type ? '' : 'd-none'} ${
+                index + 1 < totalCV ? 'd-none' : ''
+              }`"
           >
             <div class="tab-content h-100">
               <div
@@ -141,9 +142,8 @@
               </div>
             </div>
           </div>
-
           <div class="flex-1" v-for="(card, index) in cards" :class="`${
-                index + 1 > totalCV ? 'd-none' : ''
+                index + 2 > totalCV ? 'd-none' : ''
               }`">
             <div
               :class="`distributionCard1 equalDistCard${
@@ -1210,11 +1210,11 @@ export default {
       this.data[3] = this.mapColumn4Data().data;
 
       let cvCount = 4;
-      if (this.data[2] && !this.data[2].categories[this.tsa_type].list) {
+      if (this.data[2] && !this.data[2].categories[this.tsa_type].account_value) {
         cvCount--;
       }
 
-      if (this.data[3] && !this.data[3].categories[this.tsa_type].list) {
+      if (this.data[3] && !this.data[3].categories[this.tsa_type].account_value) {
         cvCount--;
       }
 
