@@ -59,7 +59,7 @@
               >Annual Distribution</label
             >
             <div class="label-right-div">
-              <label for="selectDollar" class="label_checkbox">
+              <label for="selectDollar" class="label_checkbox" @click="annualDistributionType = 'dollar'">
                 <input
                   type="radio"
                   name="annual-distribution"
@@ -67,12 +67,12 @@
                   id="selectDollar"
                   hidden
                   :checked="annualDistributionType === 'dollar'"
-                  @click="annualDistributionType = 'dollar'"
+                  
                 />
                 <label for="selectDollar"></label>
                 <span>$</span>
               </label>
-              <label for="selectPercent" class="label_checkbox">
+              <label for="selectPercent" class="label_checkbox" @click="annualDistributionType = 'percent'">
                 <input
                   type="radio"
                   name="annual-distribution"
@@ -80,7 +80,7 @@
                   id="selectPercent"
                   hidden
                   :checked="annualDistributionType === 'percent'"
-                  @click="annualDistributionType = 'percent'"
+                  
                 />
                 <label for="selectPercent"></label>
                 <span>%</span>
@@ -112,7 +112,7 @@
               class="percent_inp"
               ref="annualDistributionPercentRef"
               v-model="annualDistribution"
-            />
+              />
             <span class="percent">%</span>
           </div>
         </div>
@@ -359,7 +359,6 @@ export default {
           100;
         annual_distribution = Number(annual_distribution.toFixed(0));
       }
-
       if (
         this.accountType === "Pre-tax" ||
         this.accountType === "pre_tax_simulation"
@@ -456,7 +455,6 @@ export default {
       this.totalBalanceDefault = "";
       this.annualDistribution = "";
       this.annualDistributionDefault = "";
-      this.annualDistribution = "";
       this.$refs.annualDistributionPercentRef.value = "";
       this.$refs.taxRateRef.value = "";
       this.floor = "0";
@@ -505,6 +503,7 @@ export default {
             "retirementBufferDistributionType",
             this.annualDistributionType
           );
+
           this.$store.dispatch("retirementBufferAccumulationResults", {
             sort: payload.sort_type,
             data: response.data,
@@ -512,7 +511,6 @@ export default {
           this.getSimulationData(`${endpoint}_simulation`, payload);
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -545,7 +543,6 @@ export default {
           this.$router.push("/retirement-buffer/accumulation/result"); // Redirect on results page
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -592,6 +589,13 @@ export default {
   watch: {
     allowSubmit(e) {
       this.$emit("setAllowSubmit", e);
+    },
+    annualDistributionType(e) {
+      if(e === 'dollar'){
+        this.annualDistribution = this.annualDistributionDefault;
+      }else{
+        this.annualDistribution = "";
+      }
     },
     totalBalance(e) {
       let maInput = this.$refs.marketValueRef;
