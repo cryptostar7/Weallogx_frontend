@@ -376,11 +376,81 @@
 <script>
 import HistoricalDisclosureComponent from "./HistoricalDisclosureComponent.vue";
 import { VueDraggableNext } from "vue-draggable-next";
+
+let tables = [];
+let isPresentationClicked = false;
+function getOffset(element) {
+  var x = 0;
+  var y = 0;
+  while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+    x += element.offsetLeft - element.scrollLeft;
+    y += element.offsetTop - element.scrollTop;
+    element = element.offsetParent;
+  }
+  return { top: y, left: x };
+}
+
+function Table(element) {
+  this.element = element;
+  this.element.querySelectorAll("thead").forEach(thead => {
+    if (thead.classList.contains("cloned")) {
+      thead.remove();
+    }
+  });
+  this.originalHeader = element.getElementsByTagName("thead")[0];
+  this.floatingHeader = this.originalHeader.cloneNode(true);
+  this.top = 0;
+  this.bottom = 0;
+  this.originalThs = this.originalHeader.getElementsByTagName("th");
+  this.floatingThs = this.floatingHeader.getElementsByTagName("th");
+
+  if (!this.element.style.position) {
+    this.element.style.position = "relative";
+  }
+  this.floatingHeader.setAttribute("aria-hidden", "true");
+  this.floatingHeader.classList.add("cloned");
+  this.floatingHeader.style.position = "absolute";
+  this.floatingHeader.style.top = "0";
+
+  this.refreshHeaderSize();
+  this.attachFloatHeader();
+}
+
+Table.prototype.refreshHeaderSize = function() {
+  var offset = getOffset(this.element);
+  var trs = this.element.getElementsByTagName("tr");
+  var padding;
+  this.top = offset.top;
+  this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    // console.log(th, th.offsetWidth, th.offsetHeight);
+    this.floatingThs[i].style.width = th.offsetWidth + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+};
+
+Table.prototype.refreshHeaderWidth = function() {
+  for (var i = 0; i < this.originalThs.length; i++) {
+    var th = this.originalThs[i];
+    this.floatingThs[i].style.width = th.offsetWidth + "px";
+    this.floatingThs[i].style.height = th.offsetHeight + "px";
+  }
+};
+
+Table.prototype.attachFloatHeader = function() {
+  this.element.insertBefore(this.floatingHeader, this.element.firstChild);
+};
+
 export default {
   props: ["keyId", "sidebar"],
   components: { HistoricalDisclosureComponent, draggable: VueDraggableNext },
   data() {
     return {
+      // sidebar: {
+      //   collapse: false,
+      //   currentTab: "comparative",
+      // },
       activeTabs: this.$store.state.data.reportTabs.active,
       showAll: false,
       draggableColumns: [
@@ -509,11 +579,67 @@ export default {
       },
     };
   },
+  updated() {
+    this.init();
+    this.refreshHeaderSizes();
+    window.addEventListener("scroll", this.windowScroll);
+  },
   mounted() {
-    this.mapData();
+    this.mapData();   
   },
   methods: {
+    init: function() {
+      tables = [];
+      var matches = document.querySelectorAll("table.sticky-header-h");
+      for (var i = 0; i < matches.length; i++) {
+        if (matches[i].tagName === "TABLE") {
+          tables.push(new Table(matches[i]));
+        }
+      }
+    },
+    refreshHeaderSizes: function() {
+      for (var i = 0; i < tables.length; i++) {
+        tables[i].refreshHeaderSize();
+      }
+      if (this.$store.state.app.presentation_mode) {
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderSize();
+        }
+        return;
+      }
+    },
+    getScrollTop: function() {
+      if (typeof window.pageYOffset !== "undefined") {
+        return window.pageYOffset;
+      }
+      var docElement = document.documentElement;
+      if (!docElement.clientHeight) {
+        docElement = document.body;
+      }
+      return docElement.scrollTop;
+    },
+    windowScroll: function() {
+      for (var i = 0; i < tables.length; i++) {
+        var windowTop = this.getScrollTop();
+        if (windowTop > tables[i].top) {
+          tables[i].floatingHeader.style.top =
+            Math.min(windowTop - tables[i].top, tables[i].bottom) + (isPresentationClicked ? 0 : 55) + "px";
+        } else {
+          tables[i].floatingHeader.style.top = "0";
+        }
+      }
+    },
     handleSidebar: function(status) {
+      if (
+        isPresentationClicked &&
+        this.$store.state.app.presentation_mode == false
+      ) {
+        for (var i = 0; i < tables.length; i++) {
+          tables[i].refreshHeaderWidth();
+        }
+        return;
+      }
+      this.refreshHeaderSizes();
       return status;
     },
     setActionId: function(id) {
@@ -668,11 +794,11 @@ export default {
   },
   watch: {
     "$store.state.app.presentation_mode"(val) {
-      // if (val) {
-      //   isPresentationClicked = true;
-      // }else{
-      //   isPresentationClicked = false;
-      // }
+      if (val) {
+        isPresentationClicked = true;
+      }else{
+        isPresentationClicked = false;
+      }
       
       if (
         this.$store.state.app.presentation_mode &&
@@ -687,14 +813,16 @@ export default {
         });
       }
     },
-    // "$store.state.app.current_sidebar_tab"(tab) {
-    //   // this.init();
-    //   this.refreshHeaderSizes();
-    //   window.addEventListener("scroll", this.windowScrollH);
-    // },
-    // "$props.sidebar"(value) {
-    //   this.handleSidebar(value);
-    // },
+    "$store.state.app.current_sidebar_tab"(tab) {
+      if(tab == "historical"){
+        setTimeout(() => {
+          this.refreshHeaderSizes();
+        }, 500);
+      }
+    },
+    "$props.sidebar"(value) {
+      this.handleSidebar(value);
+    },
   },
   computed: {
     table() {

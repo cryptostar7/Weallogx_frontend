@@ -31,7 +31,7 @@
             </div>
             <div :class="`tab-wrapper-2 ${sidebar.currentTab === 'historical' ? '':'d-none'}`" v-if="HistoricalDataLoaded && Object.keys($store.state.data.report.historical).length">
               <draggable class="dragArea list-group w-full" :list="list.historical">
-                <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key"/>
+                <historical-parent-tab v-for="component in list.historical" :key="component.id" :tabID="component.id" :keyId="component.key" :sidebar="sidebar.collapse"/>
               </draggable>
             </div>
           </div>
