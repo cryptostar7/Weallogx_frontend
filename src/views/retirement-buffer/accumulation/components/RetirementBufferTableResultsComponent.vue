@@ -403,7 +403,6 @@ export default {
       }
     },
     "$props.sidebar"(value) {
-      console.log("fdsjfksjf");
       this.handleSidebar(value);
     },
   },

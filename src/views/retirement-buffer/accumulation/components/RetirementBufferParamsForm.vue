@@ -1,7 +1,7 @@
 <template lang="">
   <div class="">
     <div class="accumulation_strategy_box_head">
-      <h2>Accumulation Strategy</h2>
+      <h2 @click="testFunction">Accumulation Strategy</h2>
       <img src="@/assets/images/icons/analytics.svg" alt="Analytics" />
     </div>
     <div class="accumulation_strategy_inner_box">
@@ -411,6 +411,7 @@ export default {
         this.$refs.annualDistributionPercentRef.value = this.annualDistribution;
       }
 
+
       this.$refs.taxRateRef.value =
         Number((data.tax_rate * 100).toFixed(2)) || "";
       this.floor = Number((data.floor * 100).toFixed(2)) || "0";
@@ -594,7 +595,9 @@ export default {
       if(e === 'dollar'){
         this.annualDistribution = this.annualDistributionDefault;
       }else{
-        this.annualDistribution = "";
+        if(!this.$refs.annualDistributionPercentRef.value){
+          this.annualDistribution = "";
+        }
       }
     },
     totalBalance(e) {

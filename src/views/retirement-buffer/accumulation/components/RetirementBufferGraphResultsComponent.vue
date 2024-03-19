@@ -161,6 +161,9 @@ export default {
   methods: {
     testFunction() {
       console.log(this.bufferResult);
+      console.log(this.marketResult);
+      console.log(this.results2);
+      console.log(this.results);
     },
     setGraph: function () {
       let graphData = this.getDataSet();
@@ -356,18 +359,9 @@ export default {
             borderColor:this.$appTheme() == "light-blue" ? "#0E6651" :  this.$appTheme() == "dark-blue" ? "#26AB8B" : "#1660A4",
             borderWidth: 4,
             radius: 0,
-            data: results.buffer ? results.buffer.ending_balance : [],
+            data: results.total_ending_balance ? results.total_ending_balance : [],
             order: 1
           },
-          // {
-          //   fill: true,
-          //   backgroundColor: "rgba(118, 60, 163, .2)",
-          //   hidden: this.marketAlone ? true : false,
-          //   borderColor: "#9D2B2B",
-          //   borderWidth: 4,
-          //   radius: 0,
-          //   data: results.total_ending_balance || [],
-          // },
           {
             yAxisID: "B",
             hidden: this.showDistribution ? false : true,
@@ -376,7 +370,7 @@ export default {
             borderColor: this.$appTheme() == "light-blue" || this.$appTheme() == "dark-blue"
                 ? "#1660A4" : this.$appTheme() == "light-green" ? "#0E6651" : "#0E6651",
             radius: 2,
-            data: marketResult.market ? marketResult.market.net_distribution : [],
+            data: results.market ? results.market.net_distribution : [],
             type: "bar",
             borderRadius: 2,
             barThickness: 13,
@@ -466,6 +460,9 @@ export default {
     },
     results() {
       return this.$store.getters.getRetirementBufferResults() || [];
+    },
+    results2() {
+      return this.$store.state.data.retirement_buffer || [];
     },
     marketAlone() {
       return this.$store.state.data.retirement_buffer.market_alone;
