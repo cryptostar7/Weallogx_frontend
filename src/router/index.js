@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomePage,
     },
     {
+      path: "/demo",
+      name: "demo",
+      component: () => import("../views/pages/DemoView.vue"),
+    },
+    {
       path: "/stripe-source",
       name: "stripe-source",
       component: () => import("../views/pages/StripeSourceView.vue"), // Only for testing

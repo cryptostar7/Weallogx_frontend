@@ -69,8 +69,9 @@
         <div class="d-flex justify-content-between flex-gap-12">
           <div
             v-for="(item, index) in data[0].categories"
-            :class="`flex-1 ${index === tsa_type ? '' : 'd-none'}`"
-            :key="item.id"
+            :class="`flex-1 ${index === tsa_type ? '' : 'd-none'} ${
+                index + 1 < totalCV ? 'd-none' : ''
+              }`"
           >
             <div class="tab-content h-100">
               <div
@@ -141,12 +142,13 @@
               </div>
             </div>
           </div>
-
-          <div class="flex-1" v-for="(card, index) in cards">
+          <div class="flex-1" v-for="(card, index) in cards" :class="`${
+                index + 2 > totalCV ? 'd-none' : ''
+              }`">
             <div
               :class="`distributionCard1 equalDistCard${
                 2 + index
-              } position-relative w-100 ${card.active ? '' : 'inactive'}`"
+              } position-relative w-100 ${card.active ? '' : 'inactive'} `"
               :key="card.id"
             >
               <div class="d-flex justify-content-between align-items-center">
@@ -306,6 +308,7 @@ export default {
         { id: 2, active: true },
         { id: 3, active: true },
       ],
+      totalCV: 4,
       longevity_first_check: true,
       tsa_type: "most_recent",
       graphs: {
@@ -609,16 +612,18 @@ export default {
               return { x: idx, y: i.toFixed(0) };
             })
           : [];
-        cv2 = chart2 && chart2.account_value
-          ? chart2.account_value.map((i, idx) => {
-              return { x: idx, y: i.toFixed(0) };
-            })
-          : [];
-        cv3 = chart3 && chart3.account_value
-          ? chart3.account_value.map((i, idx) => {
-              return { x: idx, y: i.toFixed(0) };
-            })
-          : [];
+        cv2 =
+          chart2 && chart2.account_value
+            ? chart2.account_value.map((i, idx) => {
+                return { x: idx, y: i.toFixed(0) };
+              })
+            : [];
+        cv3 =
+          chart3 && chart3.account_value
+            ? chart3.account_value.map((i, idx) => {
+                return { x: idx, y: i.toFixed(0) };
+              })
+            : [];
       }
 
       let dataset = {
@@ -1077,7 +1082,9 @@ export default {
                 // tickLength: 5
               },
               min: 0,
-              suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(0),
+              suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(
+                0
+              ),
               ticks: {
                 align: "start",
                 padding: 8,
@@ -1201,6 +1208,17 @@ export default {
       this.data[1] = this.mapColumn2Data().data;
       this.data[2] = this.mapColumn3Data().data;
       this.data[3] = this.mapColumn4Data().data;
+
+      let cvCount = 4;
+      if (this.data[2] && !this.data[2].categories[this.tsa_type].account_value) {
+        cvCount--;
+      }
+
+      if (this.data[3] && !this.data[3].categories[this.tsa_type].account_value) {
+        cvCount--;
+      }
+
+      this.totalCV = cvCount;
     },
     // set deleted cv id in hidden input
     setActionId: function (id) {
@@ -1210,23 +1228,19 @@ export default {
     setTabDescription: function () {
       let description = "";
       if (this.tsa_type === "most_recent") {
-        description =
-          `For the Most Recent ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+        description = `For the Most Recent ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
       }
 
       if (this.tsa_type === "worst") {
-        description =
-          `For the Worst ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+        description = `For the Worst ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
       }
 
       if (this.tsa_type === "median") {
-        description =
-          `For the Median ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+        description = `For the Median ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
       }
 
       if (this.tsa_type === "best") {
-        description =
-          `For the Best ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
+        description = `For the Best ${this.rollingTime}-year rolling time period, how do the comparative vehicles stack up against the TSA?`;
       }
       document.getElementById("hs_cmp_value_description_text").innerText =
         description;
@@ -1255,7 +1269,9 @@ export default {
       return this.$store.state.data.report.historical.lirp_data;
     },
     rollingTime() {
-      return this.$store.state.data.report.historical.discloser ? this.$store.state.data.report.historical.discloser.period : "0";
+      return this.$store.state.data.report.historical.discloser
+        ? this.$store.state.data.report.historical.discloser.period
+        : "0";
     },
   },
   watch: {

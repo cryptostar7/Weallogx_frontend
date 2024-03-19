@@ -3,8 +3,6 @@
     <!-- <navbar-component /> -->
     <report-page-header />
     <report-builder-main-section />
-    <!-- Delete Account Modal start -->
-    <delete-account-modal />
 
     <!-- Delete historical CV Modal start -->
     <delete-historical-cv-modal />
@@ -26,7 +24,6 @@
   </div>
 </template>
 <script>
-import DeleteAccountModal from "../components/modals/DeleteAccountModal.vue";
 import DeleteHistoricalCvModal from "../components/modals/DeleteHistoricalCvModal.vue";
 import DeleteAnnuityModal from "../components/modals/DeleteAnnuityModal.vue";
 import ReportBuilderNameCreateModal from "../components/modals/ReportBuilderNameCreateModal.vue";
@@ -39,7 +36,6 @@ import CreateNewClientReportModal from "./../components/modals/CreateNewClientRe
 import "../../../assets/js/chart.min";
 export default {
   components: {
-    DeleteAccountModal,
     DeleteHistoricalCvModal,
     DeleteAnnuityModal,
     ReportBuilderNameCreateModal,

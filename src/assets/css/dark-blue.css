@@ -4885,12 +4885,12 @@ background: #0C4A83;
 .dark-blue .tax-details-each-bars.barClr4{
   background: #E8662F;
 }
-.dark-blue .tax-details-each-bars.barClr5{
+/*.dark-blue .tax-details-each-bars.barClr5{
   background: rgba(218, 67, 67, .55);
 }
 .dark-blue .tax-details-each-bars.barClr6{
   background: rgba(186, 180, 44, .65);
-}
+}*/
 .dark-blue .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
 }
@@ -4957,6 +4957,10 @@ fill: #f5f5f5;
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
 }
+.dark-blue .tax-details-graph-main-div .mltplSwtchDiv.compare div.active {
+  border: 1.5px solid #656565;
+  color: #fff;
+}
 
 /* Extra New CSS for Historical Simulations Stand Alone */
 .dark-blue .outer-div-all-div {
@@ -4976,7 +4980,12 @@ fill: #f5f5f5;
 .dark-blue .navbar-brand.dark{
   display: block;
 }
-
+.dark-blue .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #bab42c;
+}
+.dark-blue .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #9d2b2b;
+}
 /* Retirement Buffer CSS */
 .dark-blue .retirement_buffer_section_head_div button.head_back_btn,
 .retirement_buffer_section_head_div a.head_back_btn {
@@ -5542,6 +5551,9 @@ background-color: #ABD5F9;
   .dark-blue .eachProgressBarDiv .compareMiddlePart.barClr6 span::before {
     background-color:  rgba(218, 67, 67, .55);
   }
+  .dark-blue .tax-details-tab-ul li button.active.comparePathTab{
+    background-color: #656565;
+  }
   .dark-blue .compareBottomDivs .compareBottomEachDiv p{
     background-color: #23669e;
   }
@@ -5549,14 +5561,13 @@ background-color: #ABD5F9;
     color: #fff;
   }
   .dark-blue .compareBottomDivs .compareBottomEachDiv {
-    background: #2A2D36;
-    border: none;
+    background: #232721;
   }
   .dark-blue .compareBottomProgreesBar {
-    background-color: #242629;
-    border-color: #5b5b5b;
+    background-color: #EEE;
+    border-color: #DFDFDF;
   }
   .dark-blue .compareBottomInnerProgreesBar {
-    background-color: #3c3c3c;
+    background-color: #A0A0A0;
   }
 /* Retirement Buffer CSS Ends*/

@@ -3,7 +3,7 @@
     <h2 class="summary_heading">Summary</h2>
     <div class="container-fluid p-0">
       <div class="row">
-        <div class="col-md-6" v-if="marketResult">
+        <div class="col-md-6" v-if="marketResultSummary">
           <div class="summary_each_card summary_card_clr_1">
             <h3 class="summary_each_card_heading">Market Account Alone</h3>
             <div class="summary_card_inner-div">
@@ -15,39 +15,39 @@
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult.beginning_balance
-                          ? $numFormatWithDollar(marketResult.beginning_balance)
+                        marketResultSummary.beginning_balance
+                          ? $numFormatWithDollar(marketResultSummary.beginning_balance)
                           : "$0"
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Ending Balance
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult.market_ending_balance
+                        marketResultSummary.market_ending_balance
                           ? $numFormatWithDollar(
-                              marketResult.market_ending_balance
+                              marketResultSummary.market_ending_balance
                             )
                           : "$0"
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Distributions
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
                         $numFormatWithDollar(
-                          marketResult.total_distributions
+                          marketResultSummary.total_distributions
                         ) || "$0"
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Value
                       <span>
@@ -61,34 +61,65 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         $numFormatWithDollar(
-                          marketResult.market_ending_balance +
-                            marketResult.total_distributions
+                          marketResultSummary.market_ending_balance +
+                            marketResultSummary.total_distributions
                         ) || "$0"
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ marketResult.rate_of_return_negative_years || 0 }}
+                      {{ marketResultSummary.rate_of_return_negative_years || 0 }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Average Rate of Return
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
-                        marketResult.average_rate_of_return
-                          ? (marketResult.average_rate_of_return * 100).toFixed(
+                        marketResultSummary.average_rate_of_return
+                          ? (marketResultSummary.average_rate_of_return * 100).toFixed(
                               2
                             )
                           : 0
                       }}%
                     </div>
                   </div>
+
+                  <div class="row mt-15" v-if="showDistribution">
+                    <div class="col-md-7 each_card_left_label">
+                      Standard Deviation
+                    </div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{
+                        marketResult.market.standard_deviation
+                          ? (marketResult.market.standard_deviation * 100).toFixed(
+                              2
+                            )
+                          : 0
+                      }}%
+                    </div>
+                  </div>
+
+                  <div class="row mt-15" v-if="showDistribution">
+                    <div class="col-md-7 each_card_left_label">
+                      Sharpe Ratio
+                    </div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{
+                        marketResult.market.sharpe_ratio
+                          ? (marketResult.market.sharpe_ratio * 100).toFixed(
+                              2
+                            )
+                          : 0
+                      }}%
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
@@ -137,7 +168,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Ending Balance
                     </div>
@@ -151,7 +182,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Distributions
                     </div>
@@ -163,7 +194,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Total Value
                       <span>
@@ -183,7 +214,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Negative Years
                     </div>
@@ -193,7 +224,7 @@
                       }}
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Average Rate of Return
                     </div>
@@ -207,6 +238,37 @@
                       }}%
                     </div>
                   </div>
+
+                  <div class="row mt-15" v-if="showDistribution">
+                    <div class="col-md-7 each_card_left_label">
+                      Standard Deviation
+                    </div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{
+                        marketBufferResult.combined_standard_deviation
+                          ? (marketBufferResult.combined_standard_deviation * 100).toFixed(
+                              2
+                            )
+                          : 0
+                      }}%
+                    </div>
+                  </div>
+
+                  <div class="row mt-15" v-if="showDistribution">
+                    <div class="col-md-7 each_card_left_label">
+                      Sharpe Ratio
+                    </div>
+                    <div class="col-md-5 each_card_left_value">
+                      {{
+                        marketBufferResult.combined_sharpe_ratio
+                          ? (marketBufferResult.combined_sharpe_ratio * 100).toFixed(
+                              2
+                            )
+                          : 0
+                      }}%
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
@@ -335,6 +397,19 @@ export default {
         .inputs;
     },
     marketResult() {
+      let rb = this.$store.state.data.retirement_buffer;
+      if (rb.show_distribution) {
+        return (
+          rb.auccumulation_results.market_only_with_distribution || {}
+        );
+      } else {
+        return (
+          rb.auccumulation_results.market_only_without_distribution ||
+          {}
+        );
+      }
+    },
+    marketResultSummary() {
       let rb = this.$store.state.data.retirement_buffer;
       if (rb.show_distribution) {
         return (

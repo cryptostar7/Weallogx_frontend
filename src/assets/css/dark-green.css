@@ -4415,14 +4415,6 @@ background: #262B29;
 .dark-green .tax-details-each-bars.barClr4{
   background: #E8662F;
 }
-.dark-green .tax-details-each-bars.barClr5{
-  background: rgba(218, 67, 67, .55);
-}
-.dark-green .tax-details-each-bars.barClr6{
-  background: rgba(186, 180, 44, .65);
-}
-
-
 .dark-green .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
 }
@@ -4469,6 +4461,10 @@ fill: #f5f5f5;
 .dark-green .mltplSwtchDiv.blue div.active {
   border: 1.5px solid #53A9F1;
   color: #53a9f1;
+}
+.dark-green .tax-details-graph-main-div .mltplSwtchDiv.compare div.active {
+  border: 1.5px solid #656565;
+  color: #fff;
 }
 .dark-green .show-bonus-switch label{
   color: #fff;
@@ -5045,6 +5041,9 @@ background-color: #2e3135;
 .dark-green .eachProgressBarDiv .compareMiddlePart.barClr6 span::before {
   background-color:  rgba(218, 67, 67, .55);
 }
+.dark-green .tax-details-tab-ul li button.active.comparePathTab{
+  background-color: #656565;
+}
 .dark-green .compareBottomDivs .compareBottomEachDiv p{
   background-color: #26AB8B;
 }
@@ -5052,14 +5051,19 @@ background-color: #2e3135;
   color: #fff;
 }
 .dark-green .compareBottomDivs .compareBottomEachDiv {
-  background: #2A2D36;
-  border: none;
+  background: #232721;
 }
 .dark-green .compareBottomProgreesBar {
-  background-color: #242629;
-  border-color: #5b5b5b;
+    background-color: #EEE;
+    border-color: #DFDFDF;
 }
 .dark-green .compareBottomInnerProgreesBar {
-  background-color: #3c3c3c;
+  background-color: #A0A0A0;
 }
 /* Retirement Buffer CSS Ends */
+.dark-green .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #bab42c;
+}
+.dark-green .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
+  background-color: #9d2b2b;
+}

@@ -23,5 +23,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"frontend","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - aws ecs update-service --cluster epixel-cluster --service epixelsoft --region ap-south-1 --task-definition epixel-frontend-td --force-new-deployment
 artifacts:
     files: imagedefinitions.json

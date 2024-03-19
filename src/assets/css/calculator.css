@@ -240,13 +240,6 @@
 .index-strategy-each-inputs .percent {
     color: #dfdfdf;
 }
-/*.index-strategy-each-inputs input:placeholder-t-shown .percent{
-    color: #dfdfdf;
-}*/
-/*.index-strategy-each-inputs input:placeholder-shown .percent{
-    color: #000;
-}*/
-p.error-text,
 p.error-text {
     display: none;
 }
@@ -760,7 +753,7 @@ table.index-strategy-table tbody td.highlighted {
     color: #dd3611;
 }
 tbody tr td:first-child {
-    border-left: 1px solid #dfdfdf;
+    border-left: 1px solid #dfdfdf !important;
 }
 tbody tr:last-child td:first-child {
     border-bottom-left-radius: 6px;
@@ -1343,6 +1336,10 @@ table.index-strategy-table tr th {
     border: 1.5px solid #1660a4;
     color: #1660a4;
 }
+.mltplSwtchDiv.compare div.active {
+    border: 1.5px solid #3c3c3c;
+    color: #3c3c3c;
+}
 .tax-details-tab-ul li button.active {
     background: #0e6651;
     color: #fff;
@@ -1673,20 +1670,17 @@ font-weight: 600;
 @media (max-width: 1300px) {
     .eachProgressBarDiv .compareLeftPart {
         width: 35%;
-        text-align: center;
     }
     .eachProgressBarDiv .compareRightPart {
         width: 35%;
-        text-align: center;
     }
     .eachProgressBarDiv .compareMiddlePart {
         width: 30%;
-        text-align: center;
     }
 }
 
 .compareBottomDivs{
-    display: none;
+    display: flex;
     justify-content: space-between;
     width: 100%;
     gap: 5%;
@@ -1701,12 +1695,16 @@ text-align: center;
 }
 .compareBottomDivs .compareBottomEachDiv p{
     border-radius: 12px 12px 0px 0px;
-background: #147D64;
-color: #FFF;
-text-align: center;
-font-size: 16px;
-font-weight: 700;
-padding: 5px 15px;
+    background: #147D64;
+    color: #FFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 15px;
+    position: relative;
+    top: -2px;
+    width: calc(100% + 4px);
+    left: -2px;
 }
 .compareBottomDivs .compareBottomEachDiv .priceDiv{
     padding: 20px 15px;
@@ -1733,14 +1731,14 @@ margin-left: auto;
 }
 .compareBottomInnerProgreesBar label{
     color: #FFF;
-text-align: center;
-text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-font-size: 16px;
-font-weight: 600;
+    text-align: center;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-weight: 600;
 }
 .eachProgressBarDiv .tax-details-each-bars .nested-progress-bar-main-div{
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
     width: 100%;
     height: 100%;    
@@ -1750,13 +1748,12 @@ font-weight: 600;
 }
 .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
     height: 100%;
-    background-color: #C78787;
-    margin-left: auto;
-
+    background-color: #9d2b2b;
 }
 .eachProgressBarDiv .tax-details-each-bars.barClr6 .nested-progress-bar-main-div .nested-progress-bar{
-    height: 100%;
-    background-color: #D8D587;
-    margin-left: auto;
-
+    height: 100%;    
+    background-color: #bab42c;
+}
+.mx-wid-fit-content{
+    max-width: fit-content;
 }

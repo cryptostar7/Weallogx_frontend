@@ -33,7 +33,6 @@ export default {
   },
   
   methods: {
-
     updateAmount: function() {
 
       this.amount = getNumber(this.amountFormatted)
