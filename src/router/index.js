@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { authCheck, isPlanActive, isTscUser } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
 const router = createRouter({
-  mode: 'history',
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: "/",
