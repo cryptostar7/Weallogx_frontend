@@ -23,6 +23,6 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"prod-frontend","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      - aws ecs update-service --cluster prod-cluster --service prod-new-front-svc --region us-east-1 --task-definition prod-frontend-td --force-new-deployment
+      - aws ecs update-service --cluster prod-cluster --service prod-new-service-frontend --region us-east-1 --task-definition prod-frontend-td --force-new-deployment
 artifacts:
     files: imagedefinitions.json
