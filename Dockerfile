@@ -1,4 +1,4 @@
-FROM node:14.21.3
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/node-base
 
 # # Set the working directory in the container
 # WORKDIR /app
