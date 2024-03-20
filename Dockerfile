@@ -50,7 +50,7 @@ COPY . .
 # build app for production with minification
 RUN npm run build
 
-EXPOSE 8080
+EXPOSE 8081
 EXPOSE 4173
 #CMD [ "http-server", "dist" ]
 CMD npm run preview
