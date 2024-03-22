@@ -184,13 +184,14 @@ export default {
     saveReport: function() {
       let data = {
         saved_action: {
-          active_tabs: this.$store.state.data.reportTabs.active,
-          active_cards: this.$store.state.data.reportTabs.active_cards,
+          active_tabs: this.$store.state.data.simulationReportTabs,
+          active_cards: this.$store.state.data.simulationReportTabs.active_cards,
         },
       };
+
       this.$store.dispatch("loader", true);
       patch(
-        `${getUrl("report")}${this.$route.params.report}/`,
+        `${getUrl("simulation-report")}${this.$route.params.report}/`,
         data,
         authHeader()
       )

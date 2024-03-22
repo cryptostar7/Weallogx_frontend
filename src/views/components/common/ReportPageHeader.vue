@@ -184,10 +184,11 @@ export default {
     saveReport: function() {
       let data = {
         saved_action: {
-          active_tabs: this.$store.state.data.reportTabs.active,
+          active_tabs: this.$store.state.data.reportTabs,
           active_cards: this.$store.state.data.reportTabs.active_cards,
         },
       };
+
       this.$store.dispatch("loader", true);
       patch(
         `${getUrl("report")}${this.$route.params.report}/`,
