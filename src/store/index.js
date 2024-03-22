@@ -308,7 +308,7 @@ const store = createStore({
             state.data.reportTabs.active[payload] = !state.data.reportTabs.active[payload];
         },
         setActiveReportTabs(state, payload) {
-            state.data.reportTabs.active = payload;
+            state.data.reportTabs = payload;
         },
         setActiveReportCards(state, payload) {
             state.data.reportTabs.active_cards = payload;
@@ -317,7 +317,7 @@ const store = createStore({
             state.data.simulationReportTabs.active[payload] = !state.data.simulationReportTabs.active[payload];
         },
         setActiveSimulationReportTabs(state, payload) {
-            state.data.simulationReportTabs.active = payload;
+            state.data.simulationReportTabs = payload;
         },
         setActiveSimulationReportCards(state, payload) {
             state.data.simulationReportTabs.active_cards = payload;

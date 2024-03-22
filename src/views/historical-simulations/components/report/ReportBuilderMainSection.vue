@@ -167,7 +167,7 @@ export default {
             // update sidebar tab switch toggle actions
             if (response.data.data.saved_action.active_tabs) {
               this.$store.dispatch(
-                "activeReportTabs",
+                "activeSimulationReportTabs",
                 response.data.data.saved_action.active_tabs
               );
             }

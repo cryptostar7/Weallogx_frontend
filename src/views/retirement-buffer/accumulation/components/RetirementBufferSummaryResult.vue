@@ -16,7 +16,9 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketResultSummary.beginning_balance
-                          ? $numFormatWithDollar(marketResultSummary.beginning_balance)
+                          ? $numFormatWithDollar(
+                              marketResultSummary.beginning_balance
+                            )
                           : "$0"
                       }}
                     </div>
@@ -72,7 +74,9 @@
                       Negative Years
                     </div>
                     <div class="col-md-5 each_card_left_value">
-                      {{ marketResultSummary.rate_of_return_negative_years || 0 }}
+                      {{
+                        marketResultSummary.rate_of_return_negative_years || 0
+                      }}
                     </div>
                   </div>
                   <div class="row mt-15">
@@ -82,47 +86,50 @@
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketResultSummary.average_rate_of_return
-                          ? (marketResultSummary.average_rate_of_return * 100).toFixed(
-                              2
-                            )
+                          ? (
+                              marketResultSummary.average_rate_of_return * 100
+                            ).toFixed(2)
                           : 0
                       }}%
                     </div>
                   </div>
 
-                  <div class="row mt-15" v-if="showDistribution">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Standard Deviation
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketResult.market.standard_deviation
-                          ? (marketResult.market.standard_deviation * 100).toFixed(
-                              2
-                            )
+                          ? (
+                              marketResult.market.standard_deviation * 100
+                            ).toFixed(2)
                           : 0
                       }}%
                     </div>
                   </div>
 
-                  <div class="row mt-15" v-if="showDistribution">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Sharpe Ratio
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketResult.market.sharpe_ratio
-                          ? (marketResult.market.sharpe_ratio * 100).toFixed(
-                              2
-                            )
+                          ? marketResult.market.sharpe_ratio.toFixed(2)
                           : 0
-                      }}%
+                      }}
                     </div>
                   </div>
-
                 </div>
               </div>
-              <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
+              <div
+                :class="`each_card_right_part ${
+                  indexType === 'Historical Returns' && showDistribution
+                    ? ''
+                    : 'disabled'
+                }`"
+              >
                 <p class="success_prob_para">
                   Success Probability
                   <span>
@@ -239,39 +246,43 @@
                     </div>
                   </div>
 
-                  <div class="row mt-15" v-if="showDistribution">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Standard Deviation
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketBufferResult.combined_standard_deviation
-                          ? (marketBufferResult.combined_standard_deviation * 100).toFixed(
-                              2
-                            )
+                          ? (
+                              marketBufferResult.combined_standard_deviation *
+                              100
+                            ).toFixed(2)
                           : 0
                       }}%
                     </div>
                   </div>
 
-                  <div class="row mt-15" v-if="showDistribution">
+                  <div class="row mt-15">
                     <div class="col-md-7 each_card_left_label">
                       Sharpe Ratio
                     </div>
                     <div class="col-md-5 each_card_left_value">
                       {{
                         marketBufferResult.combined_sharpe_ratio
-                          ? (marketBufferResult.combined_sharpe_ratio * 100).toFixed(
-                              2
-                            )
+                          ? marketBufferResult.combined_sharpe_ratio.toFixed(2)
                           : 0
-                      }}%
+                      }}
                     </div>
                   </div>
-
                 </div>
               </div>
-              <div :class="`each_card_right_part ${indexType === 'Historical Returns' && showDistribution ? '' : 'disabled'}`" >
+              <div
+                :class="`each_card_right_part ${
+                  indexType === 'Historical Returns' && showDistribution
+                    ? ''
+                    : 'disabled'
+                }`"
+              >
                 <p class="success_prob_para">
                   Success Probability
                   <span
@@ -399,14 +410,9 @@ export default {
     marketResult() {
       let rb = this.$store.state.data.retirement_buffer;
       if (rb.show_distribution) {
-        return (
-          rb.auccumulation_results.market_only_with_distribution || {}
-        );
+        return rb.auccumulation_results.market_only_with_distribution || {};
       } else {
-        return (
-          rb.auccumulation_results.market_only_without_distribution ||
-          {}
-        );
+        return rb.auccumulation_results.market_only_without_distribution || {};
       }
     },
     marketResultSummary() {
