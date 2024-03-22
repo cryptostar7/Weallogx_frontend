@@ -387,12 +387,15 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType", "accountAllocation", "years", "indexTypes"],
+  props: ["indexType", "accountAllocation", "years", "indexTypes", "sidebar"],
   emits: ["setIndexType"],
   mounted() {
     setTimeout(() => {
       this.init();
     }, 3000);
+
+    let collapseBtn = document.querySelector(".sidebar-arrow-1");
+    console.log(collapseBtn);
 
     window.addEventListener("scroll", this.windowScroll);
   },
@@ -403,6 +406,7 @@ export default {
       }
     },
     "$props.sidebar"(value) {
+      console.log("54654646")
       this.handleSidebar(value);
     },
   },
@@ -452,6 +456,7 @@ export default {
       }
     },
     handleSidebar: function(status) {
+      console.log(status);
       this.refreshHeaderSizes();
       return status;
     },
