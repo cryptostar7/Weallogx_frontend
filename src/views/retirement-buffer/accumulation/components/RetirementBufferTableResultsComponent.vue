@@ -387,28 +387,39 @@ export default {
     CommonTooltipSvg,
     RetirementBufferResultFilterOptions,
   },
-  props: ["indexType", "accountAllocation", "years", "indexTypes", "sidebar"],
+  props: ["indexType", "accountAllocation", "years", "indexTypes", "tabType", "sidebar"],
   emits: ["setIndexType"],
   mounted() {
     setTimeout(() => {
       this.init();
     }, 3000);
 
-    let collapseBtn = document.querySelector(".sidebar-arrow-1");
-    console.log(collapseBtn);
-
     window.addEventListener("scroll", this.windowScroll);
+    const sidebar = document.querySelector(".indexSidebar");
+    sidebar.addEventListener("click", (e) => {
+      if(e.target.closest(".sidebar-arrow-1")){
+        this.refreshHeaderSizes();
+      }
+    });
   },
   watch: {
     "$props.indexType"(e) {
+      console.log("indextype")
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
       }
     },
-    "$props.sidebar"(value) {
-      console.log("54654646")
-      this.handleSidebar(value);
-    },
+    // "$props.sidebar"(value) {
+    //   this.handleSidebar(value);
+    // },
+    "$props.tabType"(e) {
+      console.log(e);
+      if(e == "table"){
+        setTimeout(() => {
+          this.refreshHeaderSizes();
+        }, 250);        
+      }
+    }
   },
   updated() {
     this.init();
@@ -427,12 +438,12 @@ export default {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
       }
-      if (this.$store.state.app.presentation_mode) {
-        for (var i = 0; i < tables.length; i++) {
-          tables[i].refreshHeaderSize();
-        }
-        return;
-      }
+      // if (this.$store.state.app.presentation_mode) {
+      //   for (var i = 0; i < tables.length; i++) {
+      //     tables[i].refreshHeaderSize();
+      //   }
+      //   return;
+      // }
     },
     getScrollTop: function() {
       if (typeof window.pageYOffset !== "undefined") {
