@@ -992,8 +992,8 @@ table.retirement_table_area tr td.zero_text {
 .retirement_table_area .table_select_menu .options {
     display: none;
     position: absolute;
-    left: 0;
-    top: 24px;
+    left: 1px;
+    top: 22px;
     width: 100%;
     overflow-y: auto;
     max-height: 200px;
@@ -1037,6 +1037,9 @@ table.retirement_table_area tr td.zero_text {
 .retirement_table_area .table_select_menu.active .options {
     display: block;
     z-index: 10;
+}
+.retirement_table_area .table_select_menu .select-btn{
+    border-bottom: 0;
 }
 
 .retirement_table_area .table_select_menu .options .option.active .option-text::before {

@@ -849,7 +849,7 @@ export default {
         "#comparativeGraphArea2"
       );
 
-      const totalDuration = 4500;
+      const totalDuration = 2000;
       const delayBetweenPoints =
         totalDuration / graphData.datasets[0].data.length;
       const previousY = (ctx) =>
@@ -1192,7 +1192,9 @@ export default {
               comparativeValuesConfig.options
             );
             let topTable = document.getElementById("comparativeTableTabView");
-            topTable.scrollIntoView();
+            if(topTable){
+              topTable.scrollIntoView();
+            }
           });
       }
     },

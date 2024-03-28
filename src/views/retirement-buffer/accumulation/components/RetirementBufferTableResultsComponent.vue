@@ -395,6 +395,7 @@ export default {
     }, 3000);
 
     window.addEventListener("scroll", this.windowScroll);
+    window.addEventListener("resize", this.refreshHeaderSizes);
     const sidebar = document.querySelector(".indexSidebar");
     sidebar.addEventListener("click", (e) => {
       if(e.target.closest(".sidebar-arrow-1")){

@@ -224,7 +224,10 @@
     methods: {
       handleTable: function () {
         this.showAll = !this.showAll;
-        document.getElementById("illustrationScheduleRateTable").scrollIntoView();
+        let illustrationScheduleRateTable = document.getElementById("illustrationScheduleRateTable")
+        if(illustrationScheduleRateTable){
+          illustrationScheduleRateTable.scrollIntoView();
+        }
       },
       setIllustrationData: function (data) {
         data.headers = data.headers.map((i) => {
