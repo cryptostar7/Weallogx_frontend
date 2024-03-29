@@ -6,9 +6,7 @@
     aria-labelledby="pills-home-tab"
   >
     <div
-      :class="`nav market_buffer_account_tab table_top_tab nav-pills ${
-        indexType === 'Historical Returns' ? '' : 'pe-none'
-      }`"
+      :class="`nav market_buffer_account_tab table_top_tab nav-pills`"
       role="tablist"
       aria-orientation="vertical"
     >
@@ -31,9 +29,7 @@
         role="tab"
         aria-controls="v-pills-buffer"
         aria-selected="false"
-        :class="`rb-tab ${marketAlone ? '' : 'active'} ${
-          indexType === 'Historical Average' ? 'disable' : ''
-        }`"
+        :class="`rb-tab ${marketAlone ? '' : 'active'}`"
         @click="$store.dispatch('retirementBufferMarketAlone', false)"
       >
         Market + Buffer Account

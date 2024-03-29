@@ -2,8 +2,6 @@ const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
 
 export const getUrl = (type) => {
   const baseUrl = getBaseUrl();
-  // const baseUrl = 'http://wlxpy.bizbybot.com';
-
   switch (type) {
     case 'signup':
       return `${baseUrl}/auth/register/`;

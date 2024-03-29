@@ -45,7 +45,6 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.$toast.error("Invalid User.");
-            // window.location.href = "https://wlxvue.bizbybot.com/sign-in";
           }
         });
     },

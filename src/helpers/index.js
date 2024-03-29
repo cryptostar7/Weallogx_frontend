@@ -69,6 +69,9 @@ const myPlugin = {
         },
         app.config.globalProperties.$adminUrl = () => {
             return import.meta.env.VITE_ADMIN_PANEL_URL;
+        },
+        app.config.globalProperties.$appUrl = () => {
+            return import.meta.env.VITE_APP_URL;
         }
     }
 }

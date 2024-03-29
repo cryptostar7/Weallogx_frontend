@@ -160,17 +160,17 @@ export default {
           });
           this.$store.dispatch("shareSimulationReportData", {
             name: "report_link",
-            data: `http://wlxvue.bizbybot.com/historical/report/${response.data.data.id}/${response.data.data.view_token}`,
+            data: `${this.$appUrl()}/historical/report/${response.data.data.id}/${response.data.data.view_token}`,
           });
 
-          if (response.data.data.saved_action) {
+          let saved_action = response.data.data.saved_action;
+          if (
+            saved_action &&
+            saved_action.active_tabs &&
+            saved_action.active_tabs.comparative
+          ) {
             // update sidebar tab switch toggle actions
-            if (response.data.data.saved_action.active_tabs) {
-              this.$store.dispatch(
-                "activeSimulationReportTabs",
-                response.data.data.saved_action.active_tabs
-              );
-            }
+            this.$store.dispatch("activeSimulationReportTabs", saved_action.active_tabs);
           }
         })
         .catch((error) => {
