@@ -396,11 +396,11 @@ export default {
 
       const comparativeGraphArea = document.querySelector("#comparativeGraphArea");
 
-      const totalDuration = 2000;
+      const totalDuration = 2500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
       const previousY = ctx => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 
-      let animationTimeoutCG = false;
+      let animationTimeout = false;
 
       // Function to handle the intersection changes
       function handleIntersection(entries, observer) {
@@ -410,7 +410,7 @@ export default {
             animateChart(window.comparativeGraphChart);
             observer.unobserve(entry.target);
             window.comparativeGraphChart.config.options.animation = {};
-            animationTimeoutCG = true;
+            animationTimeout = true;
           } else {
             // If the graph is not visible, stop the animation
             window.comparativeGraphChart.stop();
@@ -430,7 +430,7 @@ export default {
         chart.options.animation = {
            x: {
             type: 'number',
-            easing: 'easeInOutSine',
+            easing: 'linear',
             duration: delayBetweenPoints,
             from: NaN, // the point is initially skipped
             delay(ctx) {
@@ -438,13 +438,12 @@ export default {
                 return 0;
               }
               ctx.xStarted = true;
-              console.log(ctx.index, ctx.index * delayBetweenPoints)
               return ctx.index * delayBetweenPoints;
             }
           },
           y: {
             type: 'number',
-            easing: 'easeInOutSine',
+            easing: 'linear',
             duration: delayBetweenPoints,
             from: 0,
             delay(ctx) {
@@ -477,9 +476,9 @@ export default {
         beforeDatasetsDraw(chart, args, plugins){
           let { data } = chart;
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
-          if(animationTimeoutCG){
+          if(animationTimeout){
             setTimeout(() => {
-              animationTimeoutCG = false;
+              animationTimeout = false;
             }, totalDuration);
           }else{
             for(let i = 0; i < datasetMetaArray.length; i++){
@@ -487,7 +486,6 @@ export default {
               const index = dataMetaSet.index;
               if(index <= 3 && dataMetaSet.data.some(dataPoint => dataPoint.active)){
                 data.datasets[index].borderColor = bordercolors[index];
-                // data.datasets[index].borderWidth = 6;
                 chart.update();
                 break;            
               }
@@ -633,9 +631,9 @@ export default {
       const graphContainer = document.querySelector(".comparative-graph-container");
 
       graphContainer.addEventListener("mouseout", (e) => {
-       if(animationTimeoutCG){
+       if(animationTimeout){
           setTimeout(() => {
-            animationTimeoutCG = false;
+            animationTimeout = false;
           }, totalDuration);
         }else{
           resetColors(window.comparativeGraphChart);
@@ -701,9 +699,7 @@ export default {
               comparativeValuesConfig.options
             );
             let topTable = document.getElementById("comparativeTableTabView");
-            if(topTable){
-              topTable.scrollIntoView();
-            }
+            topTable.scrollIntoView();
           });
       }
     },

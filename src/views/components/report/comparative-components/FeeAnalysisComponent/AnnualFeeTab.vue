@@ -327,7 +327,7 @@ export default {
       const annualFeesChart = document.getElementById("annualFeesChart");
       const annualFeeGraphArea = document.querySelector("#annualFeeGraphArea");
 
-      const totalDuration = 2000;
+      const totalDuration = 2500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
       const previousY = (annualFeesChart) => annualFeesChart.index === 0 ? annualFeesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : annualFeesChart.chart.getDatasetMeta(annualFeesChart.datasetIndex).data[annualFeesChart.index - 1].getProps(['y'], true).y;
 
@@ -361,7 +361,7 @@ export default {
         chart.options.animation = {
            x: {
             type: 'number',
-            easing: 'easeInOutSine',
+            easing: 'linear',
             duration: delayBetweenPoints,
             from: NaN, // the point is initially skipped
             delay(ctx) {
@@ -374,9 +374,9 @@ export default {
           },
           y: {
             type: 'number',
-            easing: 'easeInOutSine',
+            easing: 'linear',
             duration: delayBetweenPoints,
-            from: previousY,
+            from: 0,
             delay(ctx) {
               if (ctx.type !== 'data' || ctx.yStarted) {
                 return 0;
