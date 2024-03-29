@@ -55,7 +55,7 @@
 
       <div class="graph_all_buttons">
         <div class="graph_select_div mx-wid-fit-content">
-          <span class="sp_text" @click="testFunction">S&P 500</span>
+          <span class="sp_text" >S&P 500</span>
           <div class="select-menu graph_select_menu">
             <div class="select-btn">
               <input
@@ -155,12 +155,6 @@ export default {
     this.setGraph();
   },
   methods: {
-    testFunction() {
-      console.log(this.bufferResult);
-      console.log(this.marketResult);
-      console.log(this.results2);
-      console.log(this.results);
-    },
     setGraph: function () {
       let graphData = this.getDataSet();
       let maxAcc1 = Math.max(

@@ -11,7 +11,7 @@
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div shadow-none">
                   <div class="index-strategy-head-div tax-scorcard">
-                    <h1 @click="testFunction">Tax Scorecard</h1>
+                    <h1>Tax Scorecard</h1>
                     <router-link to="/tax-score-card" class="back"
                       ><img
                         src="@/assets/images/icons/back-small.svg"
@@ -1163,10 +1163,6 @@ export default {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     showBonusHandler(e) {
       // this.updateBarWidths();
-    },
-    testFunction: function () {
-      console.log(this.currentCompareBarIdx);
-      console.log(this.isSeeAllActive);
     },
     tabChange(txt) {
       this.activeTab = txt;

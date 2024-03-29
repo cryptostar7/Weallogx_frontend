@@ -1,7 +1,7 @@
 <template lang="">
   <div class="">
     <div class="accumulation_strategy_box_head">
-      <h2 @click="testFunction">Accumulation Strategy</h2>
+      <h2>Accumulation Strategy</h2>
       <img src="@/assets/images/icons/analytics.svg" alt="Analytics" />
     </div>
     <div class="accumulation_strategy_inner_box">
