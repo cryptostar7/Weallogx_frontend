@@ -1581,7 +1581,7 @@ transform: translate(-50% , -50%);
     display: block;
 }
 .eachProgressBarDiv .compareLeftPart .tax-details-each-bars label span{
-padding-right: 8px;
+padding-right: 12px;
 }
 
 .eachProgressBarDiv .compareRightPart .tax-details-each-bars label{
