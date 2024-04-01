@@ -325,6 +325,7 @@ export default {
       let payload = this.inputs;
 
       payload.sort_type = sort;
+      payload.seed = null;
 
       post(
         `${getUrl("retirement-buffer")}${endpoint}_combined`,
