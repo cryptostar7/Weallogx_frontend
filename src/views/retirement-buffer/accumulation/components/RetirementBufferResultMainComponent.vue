@@ -139,6 +139,7 @@
               :accountAllocation="accountAllocation"
               :years="years"
               :indexTypes="indexTypes"
+              :tabType="$store.state.data.retirement_buffer.slider_width_update"
               @setIndexType="(e) => (indexType = e)"
             />
             <!-- Graph Results -->

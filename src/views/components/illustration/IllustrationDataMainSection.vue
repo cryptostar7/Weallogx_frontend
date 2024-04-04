@@ -2326,7 +2326,10 @@ export default {
       }
 
       if (!this.validateForm()) {
-        document.getElementById("main-section-element").scrollIntoView();
+        let mainSectionelement = document.getElementById("main-section-element");
+        if(mainSectionelement){
+          mainSectionelement.scrollIntoView();  
+        }        
         return false;
       }
 

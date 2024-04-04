@@ -465,7 +465,7 @@ export default {
         "#totalValueGraphArea"
       );
 
-      const totalDuration = 4500;
+      const totalDuration = 2000;
       const delayBetweenPoints =
         totalDuration / graphData.datasets[0].data.length;
       const previousY = (totalValueChart) =>
@@ -477,7 +477,7 @@ export default {
               .getDatasetMeta(totalValueChart.datasetIndex)
               .data[totalValueChart.index - 1].getProps(["y"], true).y;
 
-      let animationTimeout = false;
+      let animationTimeoutTV = false;
 
       // Function to handle the intersection changes
       function handleIntersection(entries, observer) {
@@ -487,7 +487,7 @@ export default {
             animateChart(window.totalValueGraphChart);
             observer.unobserve(entry.target);
             window.totalValueGraphChart.config.options.animation = {};
-            animationTimeout = true;
+            animationTimeoutTV = true;
           } else {
             // If the graph is not visible, stop the animation
             window.totalValueGraphChart.stop();
@@ -581,9 +581,9 @@ export default {
         beforeDatasetsDraw(chart, args, plugins) {
           let { data } = chart;
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
-          if (animationTimeout) {
+          if (animationTimeoutTV) {
             setTimeout(() => {
-              animationTimeout = false;
+              animationTimeoutTV = false;
             }, totalDuration);
           } else {
             for (let i = 0; i < datasetMetaArray.length; i++) {
@@ -723,9 +723,9 @@ export default {
       }
 
       totalValueGraphArea.addEventListener("mouseleave", (e) => {
-        if (animationTimeout) {
+        if (animationTimeoutTV) {
           setTimeout(() => {
-            animationTimeout = false;
+            animationTimeoutTV = false;
           }, totalDuration);
         } else {
           resetColors(window.totalValueGraphChart);

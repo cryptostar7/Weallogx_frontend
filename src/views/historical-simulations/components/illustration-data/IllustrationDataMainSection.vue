@@ -2344,7 +2344,10 @@ export default {
       }
 
       if (!this.validateForm()) {
-        document.getElementById("main-section-element").scrollIntoView();
+        let mainSectionElement = document.getElementById("main-section-element");
+        if(mainSectionElement){
+          mainSectionElement.scrollIntoView();
+        }
         return false;
       }
 

@@ -126,7 +126,9 @@ export default {
         }
         this.$store.dispatch("loader", false);
         var body = document.getElementById("app");
-        body.scrollIntoView();
+        if(body){
+          body.scrollIntoView();
+        }
       })
       .catch(error => {
         if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {

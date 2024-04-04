@@ -11,7 +11,7 @@
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div shadow-none">
                   <div class="index-strategy-head-div tax-scorcard">
-                    <h1 @click="testFunction">Tax Scorecard</h1>
+                    <h1>Tax Scorecard</h1>
                     <router-link to="/tax-score-card" class="back"
                       ><img
                         src="@/assets/images/icons/back-small.svg"
@@ -1151,6 +1151,9 @@ export default {
 
   mounted() {
     this.initialBarWidths();
+    let collapseArrow = document.querySelector(".sidebar-arrow-1");
+    collapseArrow.addEventListener("click", this.collapseAction);
+
   },
 
   updated() {
@@ -1161,12 +1164,121 @@ export default {
 
   methods: {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
-    showBonusHandler(e) {
+    // showBonusHandler(e) {
       // this.updateBarWidths();
-    },
-    testFunction: function () {
-      console.log(this.currentCompareBarIdx);
-      console.log(this.isSeeAllActive);
+    // },
+    collapseAction(){
+      // console.log(this.isSeeAllActive);
+      if (this.isSeeAllActive) {
+       this.updateBarWidths();
+      }
+      if(this.isIndividual && this.activeTab == "compare"){
+        let allBar3 = document.querySelectorAll("#comparePaths .tax-details-each-bars span");
+        var compareTotalTaxes = 0;
+        var sub_array = [];
+        const regex = /[, \u202f]/g;
+        for (let i = 1; i <= allBar3.length; i++) {
+          if (document.getElementById("compare_wider_bar_" + i)) {
+            var barValueGets = +document
+              .getElementById("compare_wider_bar_" + i)
+              .innerText.replace(regex, "");
+            sub_array.push(barValueGets);
+            if (i == allBar3.length) {
+              compareTotalTaxes = barValueGets;
+            }
+          }
+        }
+        var largestSec = 0;
+        var largestSec = Math.max.apply(0, sub_array);
+        for (let i = 1; i <= this.currentCompareBarIdx * 2; i++) {
+          let currentCompareBar = document.getElementById(
+            "compare_wider_bar_" + i
+          );
+          if (currentCompareBar) {
+            var barValueGet = +currentCompareBar.innerText.replace(regex, "");
+            var barActualValue = largestSec;
+            let finalResult = (barValueGet / barActualValue) * 100;
+            finalResult > 100 ? (finalResult = 100) : finalResult;
+
+            let eachBar = currentCompareBar.closest(".tax-details-each-bars");
+            eachBar.style.width = finalResult + "%";
+
+            if (i == allBar3.length - 2 && this.showBonus) {
+              let tempVal = roth_conversion_taxes;
+              barValueGet = this.ira_backend.total_taxes;
+              var mainBar = currentCompareBar;
+              finalResult = (tempVal / barValueGet) * 100;
+              finalResult > 100 ? (finalResult = 100) : finalResult;
+              var mainBar = currentCompareBar
+                .closest(".eachProgressBarDiv")
+                .querySelector(".compareRightPart")
+                .querySelector(".tax-details-each-bars");
+              if (mainBar) {
+                mainBar.style.width = finalResult + "%";
+              }
+            }
+
+            if (i == allBar3.length && this.showBonus) {
+              let tempVal = roth_conversion_taxes;
+              barValueGet = this.ira_backend.total_taxes;
+              finalResult = (tempVal / barValueGet) * 100;
+              finalResult > 100 ? (finalResult = 100) : finalResult;
+              var mainBar = currentCompareBar
+                .closest(".eachProgressBarDiv")
+                .querySelector(".compareRightPart")
+                .querySelector(".tax-details-each-bars");
+              if (mainBar) {
+                mainBar.style.width = finalResult + "%";
+              }
+            }
+
+            currentCompareBar.closest(".amount-label-wrapper").style.opacity = 1;
+
+            if (finalResult < 1 || !finalResult) {
+              eachBar.style.padding = "8px 2px";
+              eachBar.classList.remove("text-white");
+            } else {
+              eachBar.style.padding = "8px 2px";
+              eachBar.classList.add("text-white");
+            }
+
+            setTimeout(() => {
+              let textDiv = currentCompareBar;
+              let textWidth = 0;
+              if (textDiv) {
+                textWidth = textDiv.offsetWidth + 20;
+              }
+              let barWidth = eachBar.offsetWidth;
+
+              if (barWidth < textWidth) {
+                document
+                  .getElementById("compare_wider_bar_" + i)
+                  .closest(".tax-details-each-bars")
+                  .classList.remove("text-white");
+                if (
+                  document
+                    .getElementById("compare_wider_bar_" + i)
+                    .closest(".compareLeftPart")
+                ) {
+                  document
+                    .getElementById("compare_wider_bar_" + i)
+                    .closest(".tax-details-each-bars")
+                    .querySelector(
+                      ".amount-label-wrapper"
+                    ).style.paddingRight = `${barWidth + 6}px`;
+                } else {
+                  document
+                    .getElementById("compare_wider_bar_" + i)
+                    .closest(".tax-details-each-bars")
+                    .querySelector(
+                      ".amount-label-wrapper"
+                    ).style.paddingLeft = `${barWidth + 6}px`;
+                }
+              }
+            }, 400);
+          }
+        }
+      }
     },
     tabChange(txt) {
       this.activeTab = txt;

@@ -366,7 +366,7 @@
                 </div>
               </div>
             </div>
-              <historical-disclosure-component :containerFluid="true" :hideFee="true"/>
+              <historical-disclosure-component :containerFluid="true" v-if="activeTabs[keyId]" :hideFee="true"/>
           </div>
         </div>
       </div>

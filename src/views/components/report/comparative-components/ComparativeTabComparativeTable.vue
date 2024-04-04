@@ -187,7 +187,7 @@
                               <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].irr || 0).toFixed(2)}}%</p>
                             </div>
                           </div>
-                          <div class="lifeProBtmDiv lifeProBtmDiv1">
+                          <div class="lifeProBtmDiv lifeProBtmDiv1 mt-2">
                             <p><input type="text" :value="cv_name[0]" :class="`tableHeadInputs ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @blur="e => saveCvName(0, e.target.value)"></p>
                           </div>
                         </div>

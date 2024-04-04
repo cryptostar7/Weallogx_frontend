@@ -107,7 +107,7 @@ export default {
       client = {firstname: client.firstname, lastname: client.lastname, middlename: client.middlename};
       this.$store.dispatch('shareReportData', {name: 'client', data: client});
       this.$store.dispatch('shareReportData', {name: 'report_id', data: item.id});
-      this.$store.dispatch('shareReportData', {name: 'report_link', data: `http://wlxvue.bizbybot.com/report/${item.id}/${item.view_token}`});
+      this.$store.dispatch('shareReportData', {name: 'report_link', data: `${this.$appUrl()}/report/${item.id}/${item.view_token}`});
       this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: item.scenario_name}});
     }
   },

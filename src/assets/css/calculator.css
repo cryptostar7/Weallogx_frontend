@@ -741,7 +741,7 @@ table.index-strategy-table tbody tr {
 table.index-strategy-table tbody td {
     border-right: 1px solid #dfdfdf;
     border-bottom: 1px solid #dfdfdf;
-    padding: 8px 5px;
+    padding: 6px 5px;
     background-color: #f9fcff;
     color: #000;
     text-align: center;
@@ -1581,7 +1581,7 @@ transform: translate(-50% , -50%);
     display: block;
 }
 .eachProgressBarDiv .compareLeftPart .tax-details-each-bars label span{
-padding-right: 8px;
+padding-right: 12px;
 }
 
 .eachProgressBarDiv .compareRightPart .tax-details-each-bars label{

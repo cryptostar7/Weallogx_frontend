@@ -396,7 +396,7 @@ export default {
 
       const comparativeGraphArea = document.querySelector("#comparativeGraphArea");
 
-      const totalDuration = 4500;
+      const totalDuration = 2500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
       const previousY = ctx => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 
@@ -486,7 +486,6 @@ export default {
               const index = dataMetaSet.index;
               if(index <= 3 && dataMetaSet.data.some(dataPoint => dataPoint.active)){
                 data.datasets[index].borderColor = bordercolors[index];
-                // data.datasets[index].borderWidth = 6;
                 chart.update();
                 break;            
               }

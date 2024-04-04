@@ -33,14 +33,16 @@ app.use(Toaster, { position: 'top-right', duration: 5000 });
 app.config.unwrapInjectedRef = true;
 
 var environment = import.meta.env.MODE;
+var appUrl = import.meta.env.VITE_APP_URL;
+var sentryDSN = import.meta.env.VITE_SENTRY_DSN_KEY;
 if (environment !== 'development') {
     Sentry.init({
         app,
-        dsn: "https://8382628070ff48c58e2a77cce957c93f@o4504347597799424.ingest.sentry.io/4504473756631040",
+        dsn: sentryDSN,
         integrations: [
           new BrowserTracing({
             routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-            tracePropagationTargets: [environment, "http://wlxvue.bizbybot.com/", /^\//],
+            tracePropagationTargets: [environment, appUrl, /^\//],
           }),
         ],
         // Set tracesSampleRate to 1.0 to capture 100%

@@ -10,12 +10,7 @@ const api = axios.create({
     'Accept' : 'application/json',
     },
     responseType: 'json',
-  // proxy: {
-  //   host: process.env.REACT_APP_API_BASE_URL,
-  // },
-  // baseURL: import.meta.env.VITE_API_BASE_URL,
-  baseURL: 'http://wlxpy.bizbybot.com',
-  
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export const get = async (url, getHeader=false) => {

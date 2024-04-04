@@ -589,14 +589,18 @@ export default {
       if (this.error.analysis_pc_schedule) {
         var area = document.getElementById("globalPcTab");
         focus = true;
-        area.scrollIntoView();
+        if(area){
+          area.scrollIntoView();  
+        }        
       }
 
       // error focus on global premium charge tab
       if (this.error.analysis_lif_schedule) {
         var area = document.getElementById("globaLifTab");
         focus = true;
-        area.scrollIntoView();
+        if(area){
+          area.scrollIntoView();  
+        }
       }
 
       if (!valid) {

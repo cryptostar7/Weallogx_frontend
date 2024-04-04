@@ -47,7 +47,9 @@ export default {
     handleTabs: function (id) {
       const element = document.querySelector("." + id);
       this.presentation_tab = id;
-      element.scrollIntoView({ behavior: "smooth" });
+      if(element){
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     },
   },
   computed: {
