@@ -72,6 +72,9 @@ const myPlugin = {
         },
         app.config.globalProperties.$appUrl = () => {
             return import.meta.env.VITE_APP_URL;
+        },
+        app.config.globalProperties.$apiUrl = () => {
+            return import.meta.env.VITE_API_BASE_URL;
         }
     }
 }
