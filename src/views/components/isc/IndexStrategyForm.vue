@@ -696,7 +696,7 @@ export default {
         this.fcStartYear =
           inputs.strategies[index].flat_credit_bonus_start_year;
         this.indexStrategy = inputs.strategies[index].index;
-        let cap_rate = inputs.strategies[index].cap_rate * 100;
+        let cap_rate = Number((inputs.strategies[index].cap_rate * 100).toFixed(2));
         this.capRate = cap_rate >= 1000 ? "" : this.$numFormat(cap_rate);
         this.margin = this.$numFormat(inputs.strategies[index].margin * 100);
         this.parRate = this.$numFormat(inputs.strategies[index].par_rate * 100);
@@ -707,7 +707,6 @@ export default {
         this.PerformanceMultiplier =
           inputs.strategies[index].performance_multiplier;
         this.StrategyFee = this.$numFormat(inputs.strategies[index].fee * 100);
-
         this.$refs.capRateRef.value = cap_rate >= 1000 ? "" : cap_rate;
         this.$refs.marginRef.value = this.margin;
         this.$refs.parRateRef.value = this.parRate;

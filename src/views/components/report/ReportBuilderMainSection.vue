@@ -3,7 +3,6 @@
     :class="`main-section widthClass mainsectionjs1 lftComulativeHistoricalTab1 sectionCommonJs1 ${
       sidebar.collapse ? 'active' : ''
     }`"
-    @click="testFunction()"
   >
     <div class="inner-section reportbuilderRightInner" id="fsdfasdf">
       <div
@@ -168,10 +167,6 @@ export default {
     };
   },
   methods: {
-    testFunction: function () {
-      console.log(this.ComparativeDataLoaded);
-      console.log(this.comparativeReport);
-    },
     getComparativeData: function (id) {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");
