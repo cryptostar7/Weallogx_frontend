@@ -104,46 +104,9 @@
                           Use Existing Index Strategy Allocation
                         </div>
                       </div>
-                      <div class="tab-content mt-4" id="v-pills-tabContent">
-                        <div
-                          :class="`tab-pane fade ${
-                            createFormScratch ? 'show active' : ''
-                          }`"
-                          id="v-pills-scratch"
-                          role="tabpanel"
-                          aria-labelledby="v-pills-scratch-tab"
-                        ></div>
-                        <div
-                          :class="`tab-pane fade ${
-                            createFormScratch ? '' : 'show active'
-                          }`"
-                          id="v-pills-indexStrategy"
-                          role="tabpanel"
-                          aria-labelledby="v-pills-indexStrategy-tab"
-                        >
-                          <div class="container">
-                            <div class="row">
-                              <div
-                                class="col-md-8 offset-md-2 strategyAllocation"
-                              >
-                                <form action="javascript:void(0)">
-                                  <SelectDropdown
-                                    :list="portfolio"
-                                    label="Choose Existing Index Strategy Allocation"
-                                    id="historicalIndexPortfolio"
-                                    class="form-group less pt-3"
-                                    @inputText="(e) => (portfolioName = e)"
-                                  />
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div v-if="createFormScratch">
-                        <div
-                          :class="`historical-upload-info d-flex ${
+                      <div
+                          :class="`historical-upload-info d-flex mt-4 ${
                             infoHighlight ? 'infoHighlight' : ''
                           }`"
                         >
@@ -188,8 +151,47 @@
                             fees. Those elements will be added later in the
                             process.
                           </p>
+                      </div>
+
+                      <div class="tab-content mt-4" id="v-pills-tabContent">
+                        <div
+                          :class="`tab-pane fade ${
+                            createFormScratch ? 'show active' : ''
+                          }`"
+                          id="v-pills-scratch"
+                          role="tabpanel"
+                          aria-labelledby="v-pills-scratch-tab"
+                        ></div>
+                        <div
+                          :class="`tab-pane fade ${
+                            createFormScratch ? '' : 'show active'
+                          }`"
+                          id="v-pills-indexStrategy"
+                          role="tabpanel"
+                          aria-labelledby="v-pills-indexStrategy-tab"
+                        >
+                          <div class="container">
+                            <div class="row">
+                              <div
+                                class="col-md-8 offset-md-2 strategyAllocation"
+                              >
+                                <form action="javascript:void(0)">
+                                  <SelectDropdown
+                                    :list="portfolio"
+                                    label="Choose Existing Index Strategy Allocation"
+                                    id="historicalIndexPortfolio"
+                                    class="form-group less pt-3"
+                                    @inputText="(e) => (portfolioName = e)"
+                                  />
+                                </form>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="pt-2">
+                      </div>
+
+                      <div v-if="createFormScratch">
+                        <div>
                           <div class="form-wrapper-inner px-0 shadow-none">
                             <ul
                               class="nav nav-tabs tax-rate-tabs"
@@ -2302,6 +2304,23 @@ export default {
 }
 
 .infoHighlight {
-  border: 1px solid red;
+  animation: highlight 2s linear;
+}
+@keyframes highlight{
+  0%{
+    outline: 2px solid #ffa2a2;
+  }
+  25%{
+    outline: 2px solid transparent;
+  }
+  50%{
+    outline: 2px solid #d94747;
+  }
+  75%{
+    outline: 2px solid transparent;
+  }
+  100%{
+    outline: 2px solid #e30101;
+  }
 }
 </style>
