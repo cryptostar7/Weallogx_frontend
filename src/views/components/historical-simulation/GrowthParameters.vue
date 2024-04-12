@@ -46,7 +46,7 @@
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input-3 :hiddenInputId="`margin_spread_range${currentTab}`" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
+        <custom-range-input-3 :hiddenInputId="`margin_spread_range${currentTab}`" maxLimit="20" :update="$props.update" @setUpdated="() => $emit('setUpdated')"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>

@@ -46,7 +46,7 @@
         <p>Margin/Spread</p>
         <p></p>
         </div>
-        <custom-range-input-3 ref="customInputRef3" :hiddenInputId="`simulation_margin_spread_range${currentTab}`"/>
+        <custom-range-input-3 ref="customInputRef3" maxLimit="20" :hiddenInputId="`simulation_margin_spread_range${currentTab}`"/>
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p>Floor</p>
         <p></p>
