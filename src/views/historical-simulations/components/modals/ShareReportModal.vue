@@ -114,7 +114,8 @@ export default {
         client_email: this.emails.split(","),
         message: this.message,
         id: this.report.report_id,
-        is_include_pdf: this.includePdf,
+        // is_include_pdf: this.includePdf,
+        is_include_pdf: false,
         link: this.report.report_link,
       };
 
@@ -124,7 +125,7 @@ export default {
         .then(response => {
           this.emails = "";
           this.message = "";
-          this.includePdf = true;
+          // this.includePdf = true;
           this.saveReport();
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);

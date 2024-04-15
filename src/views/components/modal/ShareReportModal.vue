@@ -27,7 +27,6 @@
                 </button>
 
                 <div class="modalShareReportForm mt-2 form-group">
-                  <form action="" @submit="handleForm">
                     <label for="email">Email(s)</label>
                     <div>
                       <input type="text" class="form-control" id="email" v-model="emails" @input="errors.email = false"/>
@@ -48,7 +47,7 @@
                     </div>
                     <div class="d-flex justify-content-center">
                       <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-                        <button type="submit" class="btn yes-delete-btn">Send Presentation</button>
+                        <button type="submit" class="btn yes-delete-btn" @click="handleForm()">Send Presentation</button>
                       </div>
                     </div>
                     <p class="modalShareLinksPara m-0 mt-4">Copy Link</p>
@@ -61,7 +60,6 @@
                       </button>
                       <button class="copyBtnModal" type="button"  @click="copyLink" ref="copyButtonRef">Copy</button>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -93,8 +91,7 @@ export default {
         this.$refs.copyButtonRef.innerText = "Copy";
       }, 2000);
     },
-    handleForm: function(e) {
-      e.preventDefault();
+    handleForm: function() {
       let valid = true;
       if (!this.emails.trim()) {
         this.errors.email = "This field is required.";
@@ -111,20 +108,22 @@ export default {
       }
 
       let data = {
-        client_email: this.emails.split(","),
+        // client_email: this.emails.split(","),
+        client_email: this.emails,
         message: this.message,
-        id: this.report.report_id,
-        is_include_pdf: this.includePdf,
+        // id: this.report.report_id,
+        is_include_pdf: false,
+        // is_include_pdf: this.includePdf,
         link: this.report.report_link,
       };
 
       this.$store.dispatch("loader", true);
 
-      post(`${getUrl("report")}share/`, data, authHeader())
+      post(`${getUrl("report")}share-report/${this.report.report_id}/`, data, authHeader())
         .then(response => {
           this.emails = "";
           this.message = "";
-          this.includePdf = true;
+          // this.includePdf = true;
           this.saveReport();
           this.$refs.closeModalRef.click();
           this.$store.dispatch("loader", false);
