@@ -194,10 +194,6 @@ export default {
         link: this.report.report_link,
       };
 
-      if (data.client_email.length < 2) {
-        data.client_email = this.emails;
-      }
-
       this.$store.dispatch("loader", true);
 
       post(`${getUrl("share-historical-report")}`, data, authHeader())
