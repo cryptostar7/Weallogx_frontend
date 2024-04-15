@@ -1,4 +1,4 @@
-FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/node-base
+FROM 801121097255.dkr.ecr.us-east-2.amazonaws.com/staging-frontend
 
 # # Set the working directory in the container
 # WORKDIR /app
