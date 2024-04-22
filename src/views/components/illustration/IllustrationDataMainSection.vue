@@ -1358,12 +1358,13 @@ export default {
       };
     },
   },
-  methods: {
+  methods: {  
     // set existing insurance profile id on selecting the input dropdown data
     setExistingInsuranceProfileId: function (id) {
-      this.existingInsuranceProfileId = id;
+      let data = this.existingInsuranceList.filter(item => item.id === id)[0];
+      this.existingInsuranceProfileId = data.template_id;
       this.errors = [];
-      this.populateInsuranceProfile(id, true);
+      this.populateInsuranceProfile(data.template_id, true, data.type);
       this.clearIllustrateTemplate();
     },
 
@@ -1476,7 +1477,7 @@ export default {
     },
 
     // populate the insurance data on selectig the existing dropdown template list
-    populateInsuranceProfile: function (id, template = false) {
+    populateInsuranceProfile: function (id, template = false, templateType='scenario') {
       if (!id) {
         return false;
       }
@@ -1487,10 +1488,14 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
+      let templateUrl = "template-insurance-profile";
+
+      if(templateType === 'simulation'){
+        templateUrl = "historical-template-insurance-profile";
+      }
+
       get(
-        `${getUrl(
-          template ? "template-insurance-profile" : "illustration"
-        )}${id}`,
+        `${getUrl(template ? templateUrl : "illustration")}${id}`,
         authHeader()
       )
         .then((response) => {
@@ -1899,17 +1904,45 @@ export default {
 
     // get existing insurance profile template
     getExistingInsurance: function () {
-      get(getUrl("template-insurance-profile"), authHeader())
+      get(getUrl("combined-insurance-profile-template"), authHeader())
         .then((response) => {
           let template = [];
-          if (response.data.data.length) {
-            response.data.data.forEach((item) => {
-              template.push({
-                id: item.id,
+          let scenarioTemplates = [];
+          let simulationTemplates = [];
+          let data = response.data.data || [];
+
+          if (data.illustration_profiles) {
+            data.illustration_profiles.forEach((item, index) => {
+              scenarioTemplates.push({
+                id: index + 1,
+                template_id: item.id,
+                type: "scenario",
                 template_name: item.insurance_template_name,
               });
             });
           }
+
+          if (data.historical_profiles) {
+            data.historical_profiles.forEach((item, index) => {
+              simulationTemplates.push({
+                id: scenarioTemplates.length + index + 1,
+                template_id: item.id,
+                type: "simulation",
+                template_name: item.insurance_template_name,
+              });
+            });
+          }
+
+          template = [...scenarioTemplates, ...simulationTemplates];
+
+          function compare(a, b) {
+            if (a.template_name < b.template_name) return -1;
+            if (a.template_name > b.template_name) return 1;
+            return 0;
+          }
+
+          template = template.sort(compare);
+
           this.$store.dispatch("template", {
             type: "insurance",
             data: template,
@@ -2136,11 +2169,11 @@ export default {
                 this.setScrollbar();
               } else {
                 if (!url && res.s3_url) {
-                this.saveIllustrationFile(
-                  res.s3_url,
-                  this.illustrationFile.name
-                );
-              }
+                  this.saveIllustrationFile(
+                    res.s3_url,
+                    this.illustrationFile.name
+                  );
+                }
                 this.csvPreview = this.filterObject(finalObj);
               }
             }
@@ -2326,10 +2359,12 @@ export default {
       }
 
       if (!this.validateForm()) {
-        let mainSectionelement = document.getElementById("main-section-element");
-        if(mainSectionelement){
-          mainSectionelement.scrollIntoView();  
-        }        
+        let mainSectionelement = document.getElementById(
+          "main-section-element"
+        );
+        if (mainSectionelement) {
+          mainSectionelement.scrollIntoView();
+        }
         return false;
       }
 
