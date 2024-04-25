@@ -11,7 +11,15 @@
                         <p class="ModalHeasingPara">{{$props.title}} Schedule</p>
                         <div class="modalTableDiv">
                             <table class="table">
-                                <thead>
+                                <thead v-if="$props.title === 'Premium Charge'">
+                                    <th>Year</th>
+                                    <th>Premium Charge</th>
+                                </thead>
+                                <thead v-else-if="$props.title === 'Flat Credit/Bonus'">
+                                    <th>Year</th>
+                                    <th>Amount</th>
+                                </thead>
+                                <thead v-else>
                                     <th>Year</th>
                                     <th>Multiplier {{$props.type === 'rate' ? 'Rate' : 'Amount'}}</th>
                                 </thead>

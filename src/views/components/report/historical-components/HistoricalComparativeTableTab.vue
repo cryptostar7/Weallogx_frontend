@@ -22,7 +22,6 @@
             </div>
           </div>
           <div>
-            <button class="d-none">test</button>
             <div :class="`commonCollapse  ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv7 position-relative tableDivHeight2`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
               <hr class="collapseDivHr">
               <div class="px-3 py-3">

@@ -22,16 +22,14 @@
         </div>
     </div>
 
-    <Error/>
     <!-- Report Buider Name edit Modal start -->
     <report-builder-name-edit-modal :id="comparative.report_id" :name="reportName" :reportDescription="reportDescription" :updateData="updateData" @setUpdatedData="setUpdatedData" @setReportName="name => reportName = name" @setReportDescription="value => reportDescription = value"/>
 
 </template>
 <script>
 import ReportBuilderNameEditModal from "../modal/ReportBuilderNameEditModal.vue";
-import Error from "../common/Error.vue";
 export default {
-  components: { ReportBuilderNameEditModal, Error },
+  components: { ReportBuilderNameEditModal },
   data() {
     return {
       updateData: false,

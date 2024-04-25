@@ -51,7 +51,9 @@
           :style="{ display: sidebar.collapse ? 'none' : 'block' }"
         >
           <div class="reportBuilderLft1 px-10 py-4">
-            <h3 class="fs-26 bold-fw text-white mb-20">Report Builder</h3>
+            <h3 class="fs-26 bold-fw text-white mb-20" @click="testFunction()">
+              Report Builder
+            </h3>
             <div class="reportBuilderLftSwtch">
               <button
                 :class="`btn reportSwtchLeft ${
@@ -111,6 +113,7 @@
               }`"
               v-if="
                 HistoricalDataLoaded &&
+                !historicalDataErrorMessage &&
                 Object.keys($store.state.data.report.historical).length
               "
             >
@@ -127,6 +130,10 @@
                 />
               </draggable>
             </div>
+            <ReportError
+              v-if="HistoricalDataLoaded && historicalDataErrorMessage"
+              :message="historicalDataErrorMessage"
+            />
           </div>
         </div>
       </main>
@@ -144,6 +151,7 @@ import { VueDraggableNext } from "vue-draggable-next";
 import { get } from "../../../network/requests";
 import { authHeader } from "../../../services/helper";
 import { getUrl } from "../../../network/url";
+import ReportError from "../common/ReportError.vue";
 
 export default {
   components: {
@@ -152,6 +160,7 @@ export default {
     HistoricalParentTab,
     ClientDetailComponent,
     ShareReportModal,
+    ReportError,
     draggable: VueDraggableNext,
   },
   data() {
@@ -164,9 +173,15 @@ export default {
       },
       ComparativeDataLoaded: false,
       HistoricalDataLoaded: false,
+      historicalDataErrorMessage: "",
     };
   },
   methods: {
+    testFunction: function () {
+      console.log(this.ComparativeDataLoaded);
+      console.log(this.historicalDataErrorMessage);
+      console.log(Object.keys(this.$store.state.data.report.historical).length);
+    },
     getComparativeData: function (id) {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");
@@ -243,9 +258,13 @@ export default {
       )
         .then((response) => {
           this.HistoricalDataLoaded = true;
-          if (Object.keys(response.data).length) {
+          if (response.data.message) {
+            this.historicalDataErrorMessage = response.data.message;
+          } else {
             this.$store.dispatch("historicalReport", response.data);
           }
+
+          this.HistoricalDataLoaded = true;
           if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
@@ -253,7 +272,6 @@ export default {
         .catch((error) => {
           this.$toast.error(error.message);
           this.HistoricalDataLoaded = true;
-
           if (this.sidebar.currentTab === "historical") {
             this.$store.dispatch("loader", false);
           }
@@ -273,7 +291,9 @@ export default {
           });
           this.$store.dispatch("shareReportData", {
             name: "report_link",
-            data: `${this.$appUrl()}/report/${response.data.data.id}/${response.data.data.view_token}`,
+            data: `${this.$appUrl()}/report/${response.data.data.id}/${
+              response.data.data.view_token
+            }`,
           });
 
           let saved_action = response.data.data.saved_action;
@@ -331,10 +351,7 @@ export default {
 
     // display historica report section
     showHistoricalReport: function () {
-      if (
-        this.HistoricalDataLoaded &&
-        Object.keys(this.$store.state.data.report.historical).length
-      ) {
+      if (this.HistoricalDataLoaded) {
         this.sidebar.currentTab = "historical";
       }
       if (!this.HistoricalDataLoaded) {

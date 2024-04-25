@@ -238,9 +238,11 @@ export default {
     let widHalf = wid / 2;
 
     window.onresize = () => {
-      let totalWidth = document.getElementById("strategyWeight").offsetWidth;
-      resizingDiv1.style.left = (totalWidth / 3 - widHalf) + "px";
-      resizingDiv2.style.left = (totalWidth *  2 / 3 - widHalf) + "px";
+      if(document.getElementById("strategyWeight")){
+        let totalWidth = document.getElementById("strategyWeight").offsetWidth;
+        resizingDiv1.style.left = (totalWidth / 3 - widHalf) + "px";
+        resizingDiv2.style.left = (totalWidth *  2 / 3 - widHalf) + "px";
+      }
     }
 
     // remove % from first input value

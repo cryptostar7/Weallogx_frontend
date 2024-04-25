@@ -14,16 +14,20 @@
         >
           #1
         </div>
-          <div id="resizingDiv" style="left: calc(50% - 21px); top: 10px;" class="resizing-right-div resizing-right-div-1 mid-white-line">
-            <img
-              src="@/assets/images/icons/tinny-arrow-left.svg"
-              alt=""
-            />&nbsp;&nbsp;<img
-              src="@/assets/images/icons/tinny-arrow-right.svg"
-              alt="Chevron"
-            />
-          </div>
-        
+        <div
+          id="resizingDiv"
+          style="left: calc(50% - 21px); top: 10px"
+          class="resizing-right-div resizing-right-div-1 mid-white-line"
+        >
+          <img
+            src="@/assets/images/icons/tinny-arrow-left.svg"
+            alt=""
+          />&nbsp;&nbsp;<img
+            src="@/assets/images/icons/tinny-arrow-right.svg"
+            alt="Chevron"
+          />
+        </div>
+
         <div
           id="strategyMidWeight2"
           :style="{
@@ -77,7 +81,7 @@ export default {
       },
       pos3: 0,
       pos4: 0,
-      wid: 0
+      wid: 0,
     };
   },
   methods: {
@@ -90,14 +94,14 @@ export default {
 
       this.updateSliderOnMount(weight_1);
     },
-    updateSliderOnMount: function(weight_1){      
+    updateSliderOnMount: function (weight_1) {
       setTimeout(() => {
         let elmnt = document.getElementById(`resizingDiv`);
         let elmntContainer = document.getElementById("strategyWeightMid");
         let totalWidth = elmntContainer.offsetWidth || 427;
         let actualWidth = totalWidth - elmnt.offsetWidth || 385;
 
-        elmnt.style.left = (actualWidth * weight_1 / 100).toFixed(0)  + "px";
+        elmnt.style.left = ((actualWidth * weight_1) / 100).toFixed(0) + "px";
       }, 1000);
     },
     dragMouseDown: function (e) {
@@ -110,14 +114,15 @@ export default {
       // call a function whenever the cursor moves:
       document.onmousemove = this.elementDrag;
     },
-    elementDrag: function(e){
+    elementDrag: function (e) {
       let elmnt = document.getElementById("resizingDiv");
       let elmntContainer = document.getElementById("strategyWeightMid");
       let totalWidth = elmntContainer.offsetWidth;
       e = e || window.event;
       e.preventDefault();
-      let pos1 = 0, pos2 = 0;
-      
+      let pos1 = 0,
+        pos2 = 0;
+
       // calculate the new cursor position:
       pos1 = this.pos3 - e.clientX;
       pos2 = this.pos4 - e.clientY;
@@ -127,30 +132,30 @@ export default {
 
       // Drag the element only left and right
       elmnt.style.top = "10px"; // fixed value for vertical position
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
 
       let percentVal = +((elmnt.offsetLeft / actualWidth) * 100).toFixed(0);
-      if(percentVal > -0.1){
+      if (percentVal > -0.1) {
         this.range.midRange1 = percentVal.toFixed(2) + "%";
       }
       this.range.midRange2 = (100 - percentVal).toFixed(2) + "%";
-      
-      if(elmnt.offsetLeft > actualWidth){
+
+      if (elmnt.offsetLeft > actualWidth) {
         elmnt.style.left = actualWidth + "px";
-      }else if(elmnt.offsetLeft < 0){
+      } else if (elmnt.offsetLeft < 0) {
         elmnt.style.left = 0 + "px";
       }
     },
-    closeDragElement: function(){
+    closeDragElement: function () {
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
-    }
+    },
   },
   watch: {
     "$props.ratio"(e) {
       if (e) {
-        this.setRange(e.weight_1, e.weight_2); // set range inputs value 
+        this.setRange(e.weight_1, e.weight_2); // set range inputs value
       }
     },
   },
@@ -161,9 +166,12 @@ export default {
     let widHalf = this.wid / 2;
 
     window.onresize = () => {
-      let totalWidth = document.getElementById("strategyWeightMid").offsetWidth;
-      resizingDiv.style.left = (totalWidth / 2 - widHalf) + "px";
-    }
+      if (document.getElementById("strategyWeightMid")) {
+        let totalWidth =
+          document.getElementById("strategyWeightMid").offsetWidth;
+        resizingDiv.style.left = totalWidth / 2 - widHalf + "px";
+      }
+    };
 
     this.$refs.swInputMid1.addEventListener("focus", (e) => {
       this.range.midRange1 = e.target.value.replace("%", "");
@@ -197,10 +205,12 @@ export default {
         this.range.midRange1 = "0%";
         this.range.midRange2 = "100%";
       }
-      if(value <= 100){
-        resizingDiv.style.left = (actualWidth * value / 100).toFixed(2) + "px";  
-      }else{
-        resizingDiv.style.left = (actualWidth * value  / 1000).toFixed(2) + "px";  
+      if (value <= 100) {
+        resizingDiv.style.left =
+          ((actualWidth * value) / 100).toFixed(2) + "px";
+      } else {
+        resizingDiv.style.left =
+          ((actualWidth * value) / 1000).toFixed(2) + "px";
       }
     });
     this.$refs.swInputMid2.addEventListener("focus", (e) => {
@@ -235,10 +245,12 @@ export default {
         this.range.midRange1 = "100%";
         this.range.midRange2 = "0%";
       }
-      if(value <= 100){
-        resizingDiv.style.left = (actualWidth * (100 - value) / 100).toFixed(2) + "px";
-      }else{
-        resizingDiv.style.left = (actualWidth * (100 - value / 10) / 100).toFixed(2) + "px";
+      if (value <= 100) {
+        resizingDiv.style.left =
+          ((actualWidth * (100 - value)) / 100).toFixed(2) + "px";
+      } else {
+        resizingDiv.style.left =
+          ((actualWidth * (100 - value / 10)) / 100).toFixed(2) + "px";
       }
     });
   },
