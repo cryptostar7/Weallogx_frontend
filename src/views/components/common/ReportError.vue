@@ -20,7 +20,7 @@
             </p>
             <a
               href="javascript:void(0)"
-              onclick="history.back()"
+              @click="$router.go(-1)"
               class="error-back-btn"
             >
               <svg
