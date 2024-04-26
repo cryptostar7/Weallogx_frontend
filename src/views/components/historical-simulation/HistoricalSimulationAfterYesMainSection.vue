@@ -106,51 +106,51 @@
                       </div>
 
                       <div
-                          :class="`historical-upload-info d-flex mt-4 ${
-                            infoHighlight ? 'infoHighlight' : ''
-                          }`"
-                        >
-                          <div class="me-2 d-flex">
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                            >
-                              <ellipse
-                                class="first-ellipse"
-                                cx="6.57563"
-                                cy="7.14709"
-                                rx="6.57563"
-                                ry="6.5"
-                                fill="#0E6651"
-                              />
-                              <ellipse
-                                cx="6.57609"
-                                cy="4.14709"
-                                rx="1.01163"
-                                ry="1"
-                                fill="white"
-                              />
-                              <rect
-                                x="5.81641"
-                                y="6.14709"
-                                width="1.51745"
-                                height="5"
-                                rx="0.758726"
-                                fill="white"
-                              />
-                            </svg>
-                          </div>
-                          <p class="fs-12 mb-0">
-                            It is highly recommended to upload a bare-bones
-                            version of the illustration that is accumulation
-                            only. Do not include loans, withdrawals, or optional
-                            enhancements (such as multipliers or credits)
-                            regardless of whether or not they cost additional
-                            fees. Those elements will be added later in the
-                            process.
-                          </p>
+                        :class="`historical-upload-info d-flex mt-4 ${
+                          infoHighlight ? 'infoHighlight' : ''
+                        }`"
+                      >
+                        <div class="me-2 d-flex">
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                          >
+                            <ellipse
+                              class="first-ellipse"
+                              cx="6.57563"
+                              cy="7.14709"
+                              rx="6.57563"
+                              ry="6.5"
+                              fill="#0E6651"
+                            />
+                            <ellipse
+                              cx="6.57609"
+                              cy="4.14709"
+                              rx="1.01163"
+                              ry="1"
+                              fill="white"
+                            />
+                            <rect
+                              x="5.81641"
+                              y="6.14709"
+                              width="1.51745"
+                              height="5"
+                              rx="0.758726"
+                              fill="white"
+                            />
+                          </svg>
+                        </div>
+                        <p class="fs-12 mb-0">
+                          It is highly recommended to upload a bare-bones
+                          version of the illustration that is accumulation only.
+                          Do not include loans, withdrawals, or optional
+                          enhancements (such as multipliers or credits)
+                          regardless of whether or not they cost additional
+                          fees. Those elements will be added later in the
+                          process.
+                        </p>
                       </div>
 
                       <div class="tab-content mt-4" id="v-pills-tabContent">
@@ -494,10 +494,9 @@
               </div>
               <!-- table start -->
               <div
-                v-if="csvPreview.headers.length"
                 :class="`illustration-data-table-div w-100 ${
                   createFormScratch ? '' : 'd-none'
-                }`"
+                } ${csvPreview.headers.length ? '' : 'd-none'}`"
               >
                 <h4 class="fs-22 bold-fw mb-3 pb-4">
                   Categorize, Review and Edit Data
@@ -2029,9 +2028,9 @@ export default {
       get(`${getUrl("historical-simulation-object")}${id}`, authHeader()).then(
         (response) => {
           let data = response.data;
-          if(data.use_current_illustration){
+          if (data.use_current_illustration) {
             this.useCurrentIllustration = true;
-          }else{
+          } else {
             this.useCurrentIllustration = false;
           }
           this.uploadFromFile = data.upload_file_checkbox;
@@ -2318,20 +2317,20 @@ export default {
 .infoHighlight {
   animation: highlight 2s linear;
 }
-@keyframes highlight{
-  0%{
+@keyframes highlight {
+  0% {
     outline: 2px solid #ffa2a2;
   }
-  25%{
+  25% {
     outline: 2px solid transparent;
   }
-  50%{
+  50% {
     outline: 2px solid #d94747;
   }
-  75%{
+  75% {
     outline: 2px solid transparent;
   }
-  100%{
+  100% {
     outline: 2px solid #e30101;
   }
 }
