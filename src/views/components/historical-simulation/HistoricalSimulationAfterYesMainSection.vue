@@ -1722,7 +1722,7 @@ export default {
           this.$toast.error("Data not found.");
         }
       } else {
-        this.resetCsv();
+        // this.resetCsv();
       }
     },
 
