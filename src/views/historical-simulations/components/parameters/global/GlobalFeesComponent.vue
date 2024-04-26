@@ -68,7 +68,7 @@
         >{{ errors.analysis_pc_schedule }}</label
       >
       <schedule-csv-extraction
-        prefixId="pcf_schedule"
+        prefixId="simulation_pcf_schedule"
         :maxInputs="illustrateYear"
         @clearError="$emit('clearError', 'analysis_pc_schedule')"
       />
@@ -169,7 +169,7 @@
         >{{ errors.analysis_lif_schedule }}</label
       >
       <schedule-csv-extraction
-        prefixId="lif_schedule"
+        prefixId="simulation_lif_schedule"
         :maxInputs="illustrateYear"
         @clearError="$emit('clearError', 'analysis_lif_schedule')"
       />

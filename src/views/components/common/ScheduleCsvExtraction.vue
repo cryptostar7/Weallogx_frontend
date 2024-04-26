@@ -118,7 +118,7 @@ export default {
     },
     populateScheduleInputs: function () {
       var data = this.csvPreview.data;
-
+      console.log(this.$props.prefixId);
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
         if (data && data[index]) {
@@ -133,6 +133,7 @@ export default {
       if (txt) {
         this.$emit('clearError');
         let obj = this.exractCsvText(txt);
+
         if (obj && obj.headers) {
           this.csvPreview = this.filterObject(obj);
         } else {
@@ -143,6 +144,7 @@ export default {
       } else {
         this.csvPreview = { data: [], headers: [] };
       }
+      
       this.populateScheduleInputs();
     },
     exractCsvText: function (values = "") {

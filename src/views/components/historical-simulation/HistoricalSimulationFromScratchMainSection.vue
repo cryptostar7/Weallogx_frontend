@@ -288,7 +288,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`pcf_schedule${y}`),
+            value: getNumber(this.getInputWithId(`pcf_schedule${y}`)) || 0,
           });
         }
         pcfobj.schedule = tempData;
@@ -308,7 +308,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`lif_schedule${y}`),
+            value: getNumber(this.getInputWithId(`lif_schedule${y}`)) || 0,
           });
         }
         lifobj.schedule = tempData;
@@ -365,7 +365,7 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
+                  getNumber(this.getInputWithId(`multiplier_schedule${i}${y}`)) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -434,7 +434,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`pmf_schedule${i}${y}`) || 0,
+                  value: getNumber(this.getInputWithId(`pmf_schedule${i}${y}`)) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -456,7 +456,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`fcf_schedule${i}${y}`),
+                  value: getNumber(this.getInputWithId(`fcf_schedule${i}${y}`)) || 0,
                 });
               }
               fcfobj.schedule = tempData;

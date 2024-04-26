@@ -233,7 +233,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`simulation_pcf_schedule${y}`),
+            value:  getNumber(this.getInputWithId(`simulation_pcf_schedule${y}`) || 0),
           });
         }
         pcfobj.schedule = tempData;
@@ -253,7 +253,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`simulation_lif_schedule${y}`),
+            value: getNumber(this.getInputWithId(`simulation_lif_schedule${y}`) || 0),
           });
         }
         lifobj.schedule = tempData;
@@ -320,9 +320,9 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(
+                    getNumber(this.getInputWithId(
                       `simulation_multiplier_schedule${i}${y}`
-                    ) || 0,
+                    )) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -398,7 +398,7 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`simulation_pmf_schedule${i}${y}`) || 0,
+                    getNumber(this.getInputWithId(`simulation_pmf_schedule${i}${y}`)) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -422,7 +422,7 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`simulation_fcf_schedule${i}${y}`),
+                  value: getNumber(this.getInputWithId(`simulation_fcf_schedule${i}${y}`)) || 0,
                 });
               }
               fcfobj.schedule = tempData;
@@ -1202,10 +1202,11 @@ export default {
           obj.loan_intrest_rate
         );
       }
-
+      this.setInputWithId("simulation_in_arrears", obj.loan_intrest_charged_in_arrears ? 1 :0)
       this.$refs.globalParametersRef.updateData();
     },
     populateIndex: function (tab = 1, data) {
+      
       this.setGrowthData(tab, data);
       if (tab === 2) {
         this.strategyWeight1 = data.strategy_weight;
