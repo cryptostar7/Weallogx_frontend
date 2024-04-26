@@ -474,6 +474,7 @@
                                   type="checkbox"
                                   role="switch"
                                   id="useCurrentIllustration"
+                                  v-model="useCurrentIllustration"
                                   @change="setIllustratioCsv"
                                 />
                                 <label
@@ -1053,6 +1054,7 @@ export default {
       fileLoader2: false,
       historicalMedia: null,
       infoHighlight: false,
+      useCurrentIllustration: false,
       illustrationFile: {
         name: "",
         file: null,
@@ -1395,7 +1397,7 @@ export default {
                       ...finalObj.data[i],
                     ]);
                   }
-
+                  this.useCurrentIllustration = false;
                   this.csvPreview = this.filterObject({
                     data: temp_data.map((a) =>
                       a.map((i) => (i ? i.replace("-", "") : ""))
@@ -1408,6 +1410,7 @@ export default {
                 }
                 this.setScrollbar();
               } else {
+                this.useCurrentIllustration = false;
                 this.csvPreview = this.filterObject(finalObj);
               }
             }
@@ -1535,6 +1538,7 @@ export default {
 
     // clear all table data
     resetCsv: function () {
+      this.useCurrentIllustration = false;
       this.csvPreview = { data: [], headers: [] };
       this.setInputWithId("pasteData", "");
       this.setInputWithId("add_new_csv_col", "");
@@ -1586,7 +1590,7 @@ export default {
           for (var i = 0; i < maxRowLen; i++) {
             temp_data.push([...this.csvPreview.data[i], ...obj.data[i]]);
           }
-
+          this.useCurrentIllustration = false;
           this.csvPreview = this.filterObject({
             data: temp_data.map((a) =>
               a.map((i) => (i ? i.replace("-", "") : ""))
@@ -1596,6 +1600,7 @@ export default {
           this.setInputWithId("add_new_csv_col", "");
           document.getElementById("cancelCsvBtn").click();
         } else {
+          this.useCurrentIllustration = false;
           this.csvPreview = { data: [], headers: [] };
           alert("Please paste a valid CSV.");
         }
@@ -1607,6 +1612,7 @@ export default {
 
     // exract the csv data
     handleCSV: function (e) {
+      this.useCurrentIllustration = false;
       let txt = e.clipboardData.getData("text/plain");
       if (txt) {
         let obj = this.exractCsvText(txt);
@@ -1729,7 +1735,7 @@ export default {
             row.filter((item, i) => !this.removeColId.includes(i))
           );
         });
-
+        this.useCurrentIllustration = false;
         this.csvPreview = this.filterObject({
           data: temp_data,
           headers: this.csvPreview.headers.filter(
@@ -1941,6 +1947,7 @@ export default {
       }
 
       formData.append("scenerio_id", this.$route.params.scenario);
+      formData.append("use_current_illustration", this.useCurrentIllustration);
       this.$store.dispatch("loader", true);
 
       if (this.historicalMedia) {
@@ -2022,6 +2029,11 @@ export default {
       get(`${getUrl("historical-simulation-object")}${id}`, authHeader()).then(
         (response) => {
           let data = response.data;
+          if(data.use_current_illustration){
+            this.useCurrentIllustration = true;
+          }else{
+            this.useCurrentIllustration = false;
+          }
           this.uploadFromFile = data.upload_file_checkbox;
           if (this.uploadFromFile) {
             let filteredCsv = {
