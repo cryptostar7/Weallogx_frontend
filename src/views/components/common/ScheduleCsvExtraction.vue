@@ -51,6 +51,7 @@ export default {
     setInputWithId: function (id, value) {
       if (document.getElementById(id)) {
         document.getElementById(id).value = value;
+        document.getElementById(id).classList.remove('invalid');
       }
       return value;
     },
@@ -118,7 +119,6 @@ export default {
     },
     populateScheduleInputs: function () {
       var data = this.csvPreview.data;
-      console.log(this.$props.prefixId);
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
         if (data && data[index]) {

@@ -41,7 +41,9 @@
       >
         <form action="javascript:void(0)" autocomplete="off">
           <div class="multiplierInputDiv form-group mt-3">
-            <label :for="`simulation_multiplier_input${currentTab}`">Multiplier</label>
+            <label :for="`simulation_multiplier_input${currentTab}`"
+              >Multiplier</label
+            >
             <input
               type="text"
               class="form-control handleLimit"
@@ -95,21 +97,29 @@
       >
         <div class="d-flex justify-content-center w-100">
           <div class="schduleTableDiv mt-5">
-            <label
-              class="error text-center"
-              v-if="
-                errors[currentTab] &&
-                errors[currentTab].enhancements_performance_schedule
-              "
-              >{{ errors[currentTab].enhancements_performance_schedule }}</label
-            >
             <schedule-csv-extraction
               :prefixId="`simulation_multiplier_schedule${currentTab}`"
               :maxInputs="illustrateYear"
-              @clearError="
-                $emit('clearError', 'enhancements_performance_schedule')
-              "
+              @clearError="muliplierError = ''"
             />
+
+            <div class="text-center mb-1">
+              <label class="error" v-if="muliplierError">{{
+                muliplierError
+              }}</label>
+
+              <label
+                class="error text-center"
+                v-if="
+                  errors[currentTab] &&
+                  errors[currentTab].enhancements_performance_schedule
+                "
+                >{{
+                  errors[currentTab].enhancements_performance_schedule
+                }}</label
+              >
+            </div>
+
             <table class="table">
               <thead>
                 <th>Year</th>
@@ -126,13 +136,7 @@
                         min="1"
                         max="10"
                         :id="`simulation_multiplier_schedule${currentTab}${item}`"
-                        @keypress="
-                          () =>
-                            $emit(
-                              'clearError',
-                              'enhancements_performance_schedule'
-                            )
-                        "
+                        @keypress="(e) => clearScheduleError(e)"
                         autocomplete="off"
                       />
                       <!-- <span class="percent-span">%</span> -->
@@ -145,7 +149,11 @@
         </div>
       </div>
     </div>
-    <input type="hidden" :value="tab" :id="`simulation_performance_type${currentTab}`" />
+    <input
+      type="hidden"
+      :value="tab"
+      :id="`simulation_performance_type${currentTab}`"
+    />
     <input
       type="hidden"
       :value="customAmount || startYear"
@@ -154,6 +162,7 @@
   </div>
 </template>
 <script>
+import { getNumber } from "../../../../../services/helper";
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
@@ -167,6 +176,7 @@ export default {
       startYear: 1,
       maxYear: 5,
       customAmount: "",
+      muliplierError: "",
     };
   },
   methods: {
@@ -181,7 +191,8 @@ export default {
       ).value;
       let years = [1, 2, 3, 4, 5];
       let year = Number(
-        document.getElementById(`simulation_prf_start_year${this.currentTab}`).value
+        document.getElementById(`simulation_prf_start_year${this.currentTab}`)
+          .value
       );
       if (years.includes(year)) {
         this.startYear = year;
@@ -189,6 +200,51 @@ export default {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;
       }
+    },
+    validateScheduleData: function () {
+      var error_message = "";
+      if (this.$props.visible && this.tab === "schedule") {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(
+            `simulation_multiplier_schedule${this.currentTab}${y}`
+          );
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Multiplier rate cannot be grater than 10";
+              }
+            }
+
+            if (getNumber(value) < 1) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Multiplier rate cannot be less than 1";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.muliplierError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+      this.muliplierError = "";
     },
   },
   computed: {
@@ -211,4 +267,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>

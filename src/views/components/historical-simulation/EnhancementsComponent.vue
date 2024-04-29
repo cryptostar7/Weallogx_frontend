@@ -93,6 +93,7 @@
     </div>
     <PerformanceMultiplier
       :visible="tab1"
+      ref="performanceMultiplierRef"
       :currentTab="currentTab"
       @clearError="clearError"
       :update="$props.update"

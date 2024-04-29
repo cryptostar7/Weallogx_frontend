@@ -103,7 +103,7 @@
           </div>
       </div>
       <!-- Fees Global Section Start -->
-        <global-fees-component :update="$props.update.global_parameters" @clearError="clearError" />
+        <global-fees-component :update="$props.update.global_parameters" @clearError="clearError" ref='globalFeesRef'/>
       <!-- Fees Global Section End -->
       <input type="hidden" id="rolling_time" :value="rollingPeriod.custom || rollingPeriod.value" ref="rollingRef" />
       <input type="hidden" id="analyze_type" :value="analyze" ref="analyzeRef"/>

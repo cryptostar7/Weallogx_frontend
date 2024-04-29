@@ -57,7 +57,7 @@
     autocomplete="off"
   >
     <div class="after-yes-middle-div my-2 p-20">
-      <p class="numberIndexStrtegiesPara">Number of Index Strategies</p>
+      <p class="numberIndexStrtegiesPara" @click="validateMultiplierSchedule">Number of Index Strategies</p>
       <div class="d-flex justify-content-center">
         <div class="multiRadioBtnMainDiv">
           <div
@@ -175,6 +175,7 @@
             @setApplyPmAllIndex="setApplyPmAllIndex"
             :applyFcAllIndex="applyFcAllIndex"
             @setApplyFcAllIndex="setApplyFcAllIndex"
+            ref="enhancementComponentRef1"
             @clearError="clearError"
             @performanceChange="
               (val) => (strategies[0].enhancements.performance_multiplier = val)
@@ -236,6 +237,7 @@
             @setApplyPmAllIndex="setApplyPmAllIndex"
             :applyFcAllIndex="applyFcAllIndex"
             @setApplyFcAllIndex="setApplyFcAllIndex"
+            ref="enhancementComponentRef2"
             @setUpdated="() => $emit('setUpdated', 'enhancement')"
             @clearError="clearError"
             @performanceChange="
@@ -299,6 +301,7 @@
             @setApplyPmAllIndex="setApplyPmAllIndex"
             :applyFcAllIndex="applyFcAllIndex"
             @setApplyFcAllIndex="setApplyFcAllIndex"
+            ref="enhancementComponentRef3"
             @clearError="clearError"
             @performanceChange="
               (val) => (strategies[2].enhancements.performance_multiplier = val)
@@ -435,6 +438,23 @@ export default {
     };
   },
   methods: {
+    validateMultiplierSchedule: function() {
+      let valid = true;
+      
+      if(!this.$refs.enhancementComponentRef1.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab2 && !this.$refs.enhancementComponentRef2.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab3 && !this.$refs.enhancementComponentRef3.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      return valid;
+    },
     setApplyPmAllIndex: function (val) {
       this.applyPmAllIndex = val;
     },
