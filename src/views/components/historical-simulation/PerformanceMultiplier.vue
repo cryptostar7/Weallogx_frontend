@@ -191,17 +191,10 @@ export default {
           let input = document.getElementById(`multiplier_schedule${this.currentTab}${y}`);
           let value = input.value;
           if (value) {
-            if (getNumber(value) > 10) {
+            if (getNumber(value) < 1 || getNumber(value) > 10) {
               valid = false;
               if (!error_message) {
-                error_message = "Multiplier rate cannot be grater than 10";
-              }
-            }
-
-            if (getNumber(value) < 1) {
-              valid = false;
-              if (!error_message) {
-                error_message = "Multiplier rate cannot be less than 1";
+                error_message = "Multiplier rate cannot be less than 1 or greater than 10";
               }
             }
           } else {
