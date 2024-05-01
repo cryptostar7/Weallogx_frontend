@@ -2889,7 +2889,7 @@ export default {
 .previewCard.active .previewCardHeading {
   color: #000;
 }
-.modal-dialog {
+.pdf-preview-canvas-modal .modal-dialog {
   max-width: 1200px;
   margin: 2rem auto;
   height: calc(100vh - 70px);
