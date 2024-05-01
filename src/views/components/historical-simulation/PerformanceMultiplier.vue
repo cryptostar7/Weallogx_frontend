@@ -95,21 +95,18 @@
       >
         <div class="d-flex justify-content-center w-100">
           <div class="schduleTableDiv mt-5">
-            <label
-              class="error text-center"
-              v-if="
-                errors[currentTab] &&
-                errors[currentTab].enhancements_performance_schedule
-              "
-              >{{ errors[currentTab].enhancements_performance_schedule }}</label
-            >
             <schedule-csv-extraction
               :prefixId="`multiplier_schedule${currentTab}`"
               :maxInputs="illustrateYear"
               @clearError="
-                $emit('clearError', 'enhancements_performance_schedule')
+                muliplierError = ''
               "
             />
+            <div class="text-center mb-1">
+            <label class="error" v-if="muliplierError">{{
+              muliplierError
+            }}</label>
+            </div>
             <table class="table">
               <thead>
                 <th>Year</th>
@@ -126,13 +123,7 @@
                         min="1"
                         max="10"
                         :id="`multiplier_schedule${currentTab}${item}`"
-                        @keypress="
-                          () =>
-                            $emit(
-                              'clearError',
-                              'enhancements_performance_schedule'
-                            )
-                        "
+                        @keypress="(e) => clearScheduleError(e)"
                         autocomplete="off"
                       />
                       <!-- <span class="percent-span">%</span> -->
@@ -154,6 +145,7 @@
   </div>
 </template>
 <script>
+import { getNumber } from "../../../services/helper";
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
 
 export default {
@@ -167,6 +159,7 @@ export default {
       startYear: 1,
       maxYear: 5,
       customAmount: "",
+      muliplierError: "",
     };
   },
   methods: {
@@ -189,6 +182,42 @@ export default {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;
       }
+    },
+    validateScheduleData: function () {
+      var error_message = "";
+      if (this.$props.visible && this.tab === 'schedule') {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(`multiplier_schedule${this.currentTab}${y}`);
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) < 1 || getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Multiplier rate cannot be less than 1 or greater than 10";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.muliplierError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+      this.muliplierError = "";
     },
   },
   computed: {
@@ -214,4 +243,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>

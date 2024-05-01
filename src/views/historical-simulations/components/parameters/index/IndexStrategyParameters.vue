@@ -422,6 +422,23 @@
       };
     },
     methods: {
+      validateMultiplierSchedule: function() {
+      let valid = true;
+      
+      if(!this.$refs.enhancementsParametersRef1.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab2 && !this.$refs.enhancementsParametersRef2.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab3 && !this.$refs.enhancementsParametersRef3.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      return valid;
+    },
       setApplyPmAllIndex: function (val) {
         this.applyPmAllIndex = val;
       },

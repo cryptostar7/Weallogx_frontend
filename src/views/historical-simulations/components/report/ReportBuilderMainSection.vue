@@ -65,13 +65,19 @@
       >
         <div class="right-area-inner p-relative">
           <div class="right-area-wrapper">
-            <client-detail-component v-if="HistoricalDataLoaded && Object.keys($store.state.data.report.historical).length"/>
+            <client-detail-component
+              v-if="
+                HistoricalDataLoaded &&
+                Object.keys($store.state.data.report.historical).length
+              "
+            />
             <div
               :class="`tab-wrapper-2 ${
                 sidebar.currentTab === 'historical' ? '' : 'd-none'
               }`"
               v-if="
                 HistoricalDataLoaded &&
+                !historicalDataErrorMessage &&
                 Object.keys($store.state.data.report.historical).length
               "
             >
@@ -87,6 +93,10 @@
                 />
               </draggable>
             </div>
+            <ReportError
+              v-if="HistoricalDataLoaded && historicalDataErrorMessage"
+              :message="historicalDataErrorMessage"
+            />
           </div>
         </div>
       </main>
@@ -99,6 +109,7 @@ import SidebarTabsList from "./SidebarTabsList.vue";
 import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
 import ShareReportModal from "./../modals/ShareReportModal.vue";
+import ReportError from "../../../components/common/ReportError.vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import { get } from "../../../../network/requests";
 import { authHeader } from "../../../../services/helper";
@@ -110,6 +121,7 @@ export default {
     HistoricalParentTab,
     ClientDetailComponent,
     ShareReportModal,
+    ReportError,
     draggable: VueDraggableNext,
   },
   data() {
@@ -121,6 +133,7 @@ export default {
         currentTab: "historical",
       },
       HistoricalDataLoaded: false,
+      historicalDataErrorMessage: "",
     };
   },
   methods: {
@@ -133,8 +146,12 @@ export default {
       )
         .then((response) => {
           this.HistoricalDataLoaded = true;
-          if (Object.keys(response.data).length) {
-            this.$store.dispatch("historicalReport", response.data);
+          if (response.data.message) {
+            this.historicalDataErrorMessage = response.data.message;
+          } else {
+            if (Object.keys(response.data).length) {
+              this.$store.dispatch("historicalReport", response.data);
+            }
           }
           this.$store.dispatch("loader", false);
         })
@@ -160,7 +177,9 @@ export default {
           });
           this.$store.dispatch("shareSimulationReportData", {
             name: "report_link",
-            data: `${this.$appUrl()}/historical/report/${response.data.data.id}/${response.data.data.view_token}`,
+            data: `${this.$appUrl()}/historical/report/${
+              response.data.data.id
+            }/${response.data.data.view_token}`,
           });
 
           let saved_action = response.data.data.saved_action;
@@ -170,7 +189,10 @@ export default {
             saved_action.active_tabs.comparative
           ) {
             // update sidebar tab switch toggle actions
-            this.$store.dispatch("activeSimulationReportTabs", saved_action.active_tabs);
+            this.$store.dispatch(
+              "activeSimulationReportTabs",
+              saved_action.active_tabs
+            );
           }
         })
         .catch((error) => {
@@ -197,7 +219,9 @@ export default {
     // get all disclosures of current report
     getDesclosures: function () {
       get(
-        `${getUrl("historical-disclosures")}?report=${this.$route.params.report}`,
+        `${getUrl("historical-disclosures")}?report=${
+          this.$route.params.report
+        }`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("disclosures", response.data);

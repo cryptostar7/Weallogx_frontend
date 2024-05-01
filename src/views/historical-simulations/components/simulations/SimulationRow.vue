@@ -40,7 +40,7 @@
                             </svg>
                         </button>
                         <button class="btn round-btn">
-                            <router-link class="td-none" :to="`/historical/illustration-data/${item.id}`">
+                            <router-link class="td-none" to="" @click="gotIllustration(item)">
                             <span>Illustration</span>
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <mask id="mask0_904_147" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1" y="0" width="13" height="15">
@@ -119,6 +119,12 @@ export default {
     // save delete action id in hidden input
     addDeleteId: function(id) {
       document.getElementById("deleteSimulationId").value = id;
+    },
+    gotIllustration: function (item) {
+        if(item && item.pdf_url && item.pdf_url.s3_url){
+           return window.open(item.pdf_url.s3_url, '_blank');
+        }
+        return this.$router.push(`/historical/illustration-data/${item.id}`);
     },
   },
   computed: {

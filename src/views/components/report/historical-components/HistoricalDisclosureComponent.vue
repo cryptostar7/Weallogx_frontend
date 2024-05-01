@@ -284,7 +284,7 @@ export default {
         this.disclosure.index_3 || null,
       ];
 
-      let weightages = this.disclosure.weightages;
+      let weightages = this.disclosure.weightages || {};
 
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
@@ -321,7 +321,7 @@ export default {
   },
   computed: {
     disclosure() {
-      return this.$store.state.data.report.historical.discloser || [];
+      return this.$store.state.data.report.historical.discloser || {};
     },
   },
 };

@@ -3,7 +3,7 @@
     <div class="w-100" @click="reActive()">
       <div :class="`range-slider range-slider2 position-relative ${customAmount ? 'disabled':''}`" id="rangeSlider2">
         <div id="tooltip2"  :style="`left: ${rangePercentage}`"><span>{{range}}</span></div>
-        <input id="range2" class="position-relative" ref="input" type="range" v-model="range" min="0" max="100" :style="`--range-progress2: ${rangePercentage}`">
+        <input id="range2" class="position-relative" ref="input" type="range" v-model="range" min="0" :max="$props.maxLimit || 100" :style="`--range-progress2: ${rangePercentage}`">
       </div>
     </div>
     <div class="or-div ms-4 position-relative top-minus">
@@ -12,7 +12,7 @@
     <div class="customAmountInputDiv ms-2 top-minus">
       <label for="customAmount">Custom Amount</label>
       <div class="percent-input-div">
-        <input type="text" id="customRangeValue2" class="handleLimit" min="0" max="200" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
+        <input type="text" id="customRangeValue2" class="handleLimit" min="0" :max="$props.maxLimit || 200" :value="customAmount" @keyup="(e) => saveCustomAmount(e)">
       </div>
     </div>
     <input type="hidden" :value="customAmount || range" :id="$props.hiddenInputId" ref="rangeHiddenRef"/>
@@ -20,7 +20,7 @@
 </template>
 <script>
 export default {
-  props: ["hiddenInputId", "update"],
+  props: ["hiddenInputId", "update", "maxLimit"],
   emits: ["setUpdated"],
   data() {
     return {

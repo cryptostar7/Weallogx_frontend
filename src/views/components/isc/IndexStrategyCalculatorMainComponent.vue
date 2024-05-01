@@ -481,7 +481,7 @@ export default {
       },
       beginningBalance: "",
       startYear: 1960,
-      endYear: 2022,
+      endYear: new Date().getFullYear() - 1,
       taxRate: "0",
       vehicleFee: "1",
       vehicleType: "Taxable",

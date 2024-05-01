@@ -214,6 +214,7 @@
   background-color: #666;
 }
 .dark-green .cur-ol-label label{
+  background-color: #292b2f;
   color: #f5f5f5;
 }
 .dark-green .after-yes-middle-div .form-wrapper-inner{
@@ -513,7 +514,7 @@
 
 .dark-green .custom-switch .form-check-input:checked,
 .dark-green .custom-switch .form-check-input:checked:focus {
-  background-color: #26AB8B;
+  background-color: #26AB8B !important;
 }
 
 .dark-green .after-yes-middle-div {

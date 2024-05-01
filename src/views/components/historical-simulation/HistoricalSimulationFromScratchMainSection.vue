@@ -85,6 +85,7 @@
                       :update="update"
                       @clearError="clearGlobalErrors"
                       @setRollingTime="setRollingTime"
+                      ref="globalParametersRef"
                     />
                     <index-strategy-parameters
                       ref="indexParametersRef"
@@ -288,7 +289,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`pcf_schedule${y}`),
+            value: getNumber(this.getInputWithId(`pcf_schedule${y}`)) || 0,
           });
         }
         pcfobj.schedule = tempData;
@@ -308,7 +309,7 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`lif_schedule${y}`),
+            value: getNumber(this.getInputWithId(`lif_schedule${y}`)) || 0,
           });
         }
         lifobj.schedule = tempData;
@@ -365,7 +366,9 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`multiplier_schedule${i}${y}`) || 0,
+                    getNumber(
+                      this.getInputWithId(`multiplier_schedule${i}${y}`)
+                    ) || 0,
                 });
               }
               performance_obj.schedule = tempData;
@@ -434,7 +437,8 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`pmf_schedule${i}${y}`) || 0,
+                  value:
+                    getNumber(this.getInputWithId(`pmf_schedule${i}${y}`)) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -456,7 +460,8 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`fcf_schedule${i}${y}`),
+                  value:
+                    getNumber(this.getInputWithId(`fcf_schedule${i}${y}`)) || 0,
                 });
               }
               fcfobj.schedule = tempData;
@@ -502,40 +507,18 @@ export default {
 
       // loan interest analysis validation
       if (analysis && !analysis.lif.same_all_year) {
-        let obj = analysis.lif.schedule;
-        let obj_valid = true;
-        let valid_number = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            } else {
-              if (Number(item.value) < 1) {
-                valid_number = false;
-              }
-            }
-          });
-        } else {
-          obj_valid = false;
+        if (
+          !this.$refs.globalParametersRef.$refs.globalFeesRef.validateLoanInterestSchedules()
+        ) {
+          valid = false;
+          this.$toast.warning("Please enter valid data for loan interest rate.");
         }
+      }
 
-        if (!obj_valid || !valid_number) {
-          if (!obj_valid) {
-            valid = false;
-            this.error.analysis = true;
-            this.error.analysis_lif_schedule =
-              "Please fill loan interest rate for all years.";
-          }
-
-          if (!valid_number) {
-            valid = false;
-            this.error.analysis = true;
-            this.error.analysis_lif_schedule =
-              "Loan interest rate field must be grater than or equals to 1";
-          }
-        } else {
-          this.error.analysis_lif_schedule = "";
-        }
+      // validate multiplier schedules data
+      if (!this.$refs.indexParametersRef.validateMultiplierSchedule()) {
+        valid = false;
+        this.$toast.warning("Please enter valid data for multiplier rate.");
       }
 
       let portFolio = document.getElementById("savePortfolioCheckbox")
@@ -568,7 +551,7 @@ export default {
       // check form validations
       activeTabs.forEach((t, i) => {
         if (t) {
-          var form = this.validatateForm(i);
+          var form = this.validateForm(i);
           if (!form) {
             if (!focus) {
               focus = true;
@@ -589,17 +572,17 @@ export default {
       if (this.error.analysis_pc_schedule) {
         var area = document.getElementById("globalPcTab");
         focus = true;
-        if(area){
-          area.scrollIntoView();  
-        }        
+        if (area) {
+          area.scrollIntoView();
+        }
       }
 
       // error focus on global premium charge tab
       if (this.error.analysis_lif_schedule) {
         var area = document.getElementById("globaLifTab");
         focus = true;
-        if(area){
-          area.scrollIntoView();  
+        if (area) {
+          area.scrollIntoView();
         }
       }
 
@@ -1273,7 +1256,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    validatateForm: function (tab = 0) {
+    validateForm: function (tab = 0) {
       var valid = true;
       let analysis = this.analysis;
       let fees = this.fees[tab];
@@ -1295,24 +1278,11 @@ export default {
 
       // premium charge fees validation
       if (analysis && !analysis.pcf.same_all_year) {
-        let obj = analysis.pcf.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
+        if (
+          !this.$refs.globalParametersRef.$refs.globalFeesRef.validatePremiumChargeSchedules()
+        ) {
           valid = false;
-          this.error.analysis = true;
-          this.error.analysis_pc_schedule =
-            "Please fill premium charge rate for all years.";
-        } else {
-          this.error.analysis_pc_schedule = "";
+          this.$toast.warning("Please enter valid data for premimum charge.");
         }
       }
 

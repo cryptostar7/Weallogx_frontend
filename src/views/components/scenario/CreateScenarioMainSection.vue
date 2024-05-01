@@ -305,7 +305,8 @@
                               errors.second_tax ? 'required' : ''
                             }`"
                             @keyup="
-                              () => {
+                              (e) => {
+                                secondTaxRate = e.target.value;
                                 errors.second_tax = false;
                               }
                             "
@@ -316,7 +317,10 @@
                           <span class="percent-span">%</span>
                         </div>
                       </div>
-                      <div class="form-group" @click="checkIllustrateYearField()">
+                      <div
+                        class="form-group"
+                        @click="checkIllustrateYearField()"
+                      >
                         <label for="secondTaxRateYear" class="fs-12 medium-fw"
                           >Second Tax Rate Year</label
                         >
@@ -332,7 +336,11 @@
                               errors.second_tax_year = false;
                             }
                           "
-                          :disabled="firstTaxRate ? false : true"
+                          :disabled="
+                            firstTaxRate && secondTaxRate && illustrateYear
+                              ? false
+                              : true
+                          "
                         >
                           <option value=""></option>
                           <option
@@ -515,6 +523,7 @@
                 <button
                   class="nav-link btn form-next-btn active fs-14"
                   type="submit"
+                  :disabled="!isValidForm"
                 >
                   Next
                 </button>
@@ -818,9 +827,9 @@ export default {
       this.illustrateYear = this.getInputUsingId("illustratedAge");
       this.checkTaxRate();
     },
-   // to validate the illustration input field on clicking the second tax year select dropdown
+    // to validate the illustration input field on clicking the second tax year select dropdown
     checkIllustrateYearField: function () {
-      if(!this.illustrateYear){
+      if (!this.illustrateYear) {
         this.errors.illustrate_year = ["This field is required."];
       }
     },
@@ -901,10 +910,11 @@ export default {
         detail.first_tax_rate ? detail.first_tax_rate : ""
       );
       this.firstTaxRate = detail.first_tax_rate ? detail.first_tax_rate : "";
-      this.setInputWithId(
-        "secondTaxRate",
-        detail.second_tax_rate ? Number(detail.second_tax_rate) || "" : ""
-      );
+      this.secondTaxRate = detail.second_tax_rate
+        ? Number(detail.second_tax_rate) || ""
+        : "";
+      this.setInputWithId("secondTaxRate", this.secondTaxRate);
+
       this.secondTaxRateYear = detail.second_tax_rate_year
         ? detail.second_tax_rate_year
         : "";
@@ -1343,7 +1353,35 @@ export default {
       }
     },
   },
+  watch: {
+    secondTaxRate(e) {
+      if (!e) {
+        this.secondTaxRateYear = "";
+      }
+    },
+  },
   computed: {
+    isValidForm() {
+      let valid = true;
+      if (
+        !this.scenarioName ||
+        !this.clientAgeYearToIllustrate ||
+        !this.illustrateYear ||
+        !this.firstTaxRate
+      ) {
+        valid = false;
+      }
+
+      if (this.secondTaxRate && !this.secondTaxRateYear) {
+        valid = false;
+      }
+
+      if (this.secondTaxRate && !this.secondTaxRateYear) {
+        valid = false;
+      }
+
+      return valid;
+    },
     // active scenario data
     activeScenario() {
       return this.$store.state.data.active_scenario;
@@ -1353,7 +1391,6 @@ export default {
     clients() {
       let initClient = [];
       let array = this.$store.state.data.clients;
-      let df_client = this.$route.query.client;
 
       if (array && array.length > 0) {
         array.forEach((element) => {

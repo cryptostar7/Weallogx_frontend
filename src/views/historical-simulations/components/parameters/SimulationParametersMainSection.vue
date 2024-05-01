@@ -233,7 +233,9 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`simulation_pcf_schedule${y}`),
+            value: getNumber(
+              this.getInputWithId(`simulation_pcf_schedule${y}`) || 0
+            ),
           });
         }
         pcfobj.schedule = tempData;
@@ -253,7 +255,9 @@ export default {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           tempData.push({
             year: y,
-            value: this.getInputWithId(`simulation_lif_schedule${y}`),
+            value: getNumber(
+              this.getInputWithId(`simulation_lif_schedule${y}`) || 0
+            ),
           });
         }
         lifobj.schedule = tempData;
@@ -320,8 +324,10 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(
-                      `simulation_multiplier_schedule${i}${y}`
+                    getNumber(
+                      this.getInputWithId(
+                        `simulation_multiplier_schedule${i}${y}`
+                      )
                     ) || 0,
                 });
               }
@@ -398,7 +404,9 @@ export default {
                 tempData.push({
                   year: y,
                   value:
-                    this.getInputWithId(`simulation_pmf_schedule${i}${y}`) || 0,
+                    getNumber(
+                      this.getInputWithId(`simulation_pmf_schedule${i}${y}`)
+                    ) || 0,
                 });
               }
               pmfobj.schedule = tempData;
@@ -422,7 +430,10 @@ export default {
               for (var y = 1; y < this.illustrateYear + 1; y++) {
                 tempData.push({
                   year: y,
-                  value: this.getInputWithId(`simulation_fcf_schedule${i}${y}`),
+                  value:
+                    getNumber(
+                      this.getInputWithId(`simulation_fcf_schedule${i}${y}`)
+                    ) || 0,
                 });
               }
               fcfobj.schedule = tempData;
@@ -458,6 +469,17 @@ export default {
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
 
+      // premium charge fees validation
+      if (analysis && !analysis.pcf.same_all_year) {
+        if (
+          !this.$refs.globalParametersRef.$refs.globalFeesRef.validatePremiumChargeSchedules()
+        ) {
+          valid = false;
+          this.$toast.warning("Please enter valid data for premimum charge.");
+        }
+      }
+      
+      // loan interest analysis validation
       if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 1) {
         valid = false;
         this.error.analysis = true;
@@ -466,41 +488,20 @@ export default {
         );
       }
 
-      // loan interest analysis validation
+      // validate multiplier schedules data
+      if (!this.$refs.indexParametersRef.validateMultiplierSchedule()) {
+        valid = false;
+        this.$toast.warning("Please enter valid data for multiplier rate.");
+      }
+
       if (analysis && !analysis.lif.same_all_year) {
-        let obj = analysis.lif.schedule;
-        let obj_valid = true;
-        let valid_number = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            } else {
-              if (Number(item.value) < 1) {
-                valid_number = false;
-              }
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-
-        if (!obj_valid || !valid_number) {
-          if (!obj_valid) {
-            valid = false;
-            this.error.analysis = true;
-            this.error.analysis_lif_schedule =
-              "Please fill loan interest rate for all years.";
-          }
-
-          if (!valid_number) {
-            valid = false;
-            this.error.analysis = true;
-            this.error.analysis_lif_schedule =
-              "Loan interest rate field must be grater than or equals to 1";
-          }
-        } else {
-          this.error.analysis_lif_schedule = "";
+        if (
+          !this.$refs.globalParametersRef.$refs.globalFeesRef.validateLoanInterestSchedules()
+        ) {
+          valid = false;
+          this.$toast.warning(
+            "Please enter valid data for loan interest rate."
+          );
         }
       }
 
@@ -538,7 +539,7 @@ export default {
       // check form validations
       activeTabs.forEach((t, i) => {
         if (t) {
-          var form = this.validatateForm(i);
+          var form = this.validateForm(i);
           if (!form) {
             if (!focus) {
               focus = true;
@@ -561,7 +562,7 @@ export default {
       if (this.error.analysis_pc_schedule) {
         var area = document.getElementById("simulationGlobalPcTab");
         focus = true;
-        if(area){
+        if (area) {
           area.scrollIntoView();
         }
       }
@@ -570,7 +571,7 @@ export default {
       if (this.error.analysis_lif_schedule) {
         var area = document.getElementById("simulationGlobaLifTab");
         focus = true;
-        if(area){
+        if (area) {
           area.scrollIntoView();
         }
       }
@@ -1202,7 +1203,10 @@ export default {
           obj.loan_intrest_rate
         );
       }
-
+      this.setInputWithId(
+        "simulation_in_arrears",
+        obj.loan_intrest_charged_in_arrears ? 1 : 0
+      );
       this.$refs.globalParametersRef.updateData();
     },
     populateIndex: function (tab = 1, data) {
@@ -1287,7 +1291,7 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
-    validatateForm: function (tab = 0) {
+    validateForm: function (tab = 0) {
       var valid = true;
       let analysis = this.analysis;
       let fees = this.fees[tab];
@@ -1307,29 +1311,6 @@ export default {
         this.error.portfolio_name = "This field is required.";
       } else {
         this.error.portfolio_name = "";
-      }
-
-      // premium charge fees validation
-      if (analysis && !analysis.pcf.same_all_year) {
-        let obj = analysis.pcf.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error.analysis = true;
-          this.error.analysis_pc_schedule =
-            "Please fill premium charge rate for all years.";
-        } else {
-          this.error.analysis_pc_schedule = "";
-        }
       }
 
       // flat credit credit validation

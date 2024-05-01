@@ -1,5 +1,5 @@
 <template lang="">
-    <div v-if="!$store.state.app.presentation_mode" class="section-heading-div extra report section-heading-bg pt-2 d-flex justify-content-between gap-20 flex-wrap flex-md-nowrap align-items-center">
+    <div class="section-heading-div extra report section-heading-bg pt-2 d-flex justify-content-between gap-20 flex-wrap flex-md-nowrap align-items-center">
         <div class="d-flex align-items-center">
             <button class="reportBuilderBr"> {{$sortName(comparative.client_firstname, comparative.client_lastname, comparative.client_middlename)}} </button>
             <div>
@@ -28,7 +28,6 @@
 </template>
 <script>
 import ReportBuilderNameEditModal from "../modal/ReportBuilderNameEditModal.vue";
-
 export default {
   components: { ReportBuilderNameEditModal },
   data() {

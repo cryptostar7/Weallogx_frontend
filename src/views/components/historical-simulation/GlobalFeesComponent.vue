@@ -62,16 +62,22 @@
     }`"
   >
     <div class="schduleTableDiv mt-5">
-      <label
-        class="error text-center"
-        v-if="errors && errors.analysis_pc_schedule"
-        >{{ errors.analysis_pc_schedule }}</label
-      >
       <schedule-csv-extraction
         prefixId="pcf_schedule"
         :maxInputs="illustrateYear"
-        @clearError="$emit('clearError', 'analysis_pc_schedule')"
+        @clearError="premium_charge_error = ''"
       />
+      <div class="text-center mb-1">
+        <label class="error" v-if="premium_charge_error">{{
+          premium_charge_error
+        }}</label>
+        <label
+          class="error text-center"
+          v-if="errors && errors.premium_charge"
+          >{{ errors.premium_charge }}</label
+        >
+      </div>
+
       <table class="table">
         <thead>
           <th>Year</th>
@@ -90,7 +96,7 @@
                 min="0"
                 max="15"
                 :id="`pcf_schedule${item}`"
-                @keypress="$emit('clearError', 'analysis_pc_schedule')"
+                @keypress="(e) => clearScheduleError(e, 'pcf_schedule')"
               />
               <label for="amount">%</label>
             </td>
@@ -163,16 +169,24 @@
     }`"
   >
     <div class="schduleTableDiv mt-5">
-      <label
-        class="error text-center"
-        v-if="errors && errors.analysis_lif_schedule"
-        >{{ errors.analysis_lif_schedule }}</label
-      >
       <schedule-csv-extraction
         prefixId="lif_schedule"
         :maxInputs="illustrateYear"
-        @clearError="$emit('clearError', 'analysis_lif_schedule')"
+        @clearError="loan_interest_error = ''"
       />
+
+
+      <div class="text-center mb-1">
+        <label class="error" v-if="loan_interest_error">{{
+          loan_interest_error
+        }}</label>
+        <label
+          class="error text-center"
+          v-if="errors && errors.analysis_lif_schedule"
+          >{{ errors.analysis_lif_schedule }}</label
+        >
+      </div>
+
       <table class="table">
         <thead>
           <th>Year</th>
@@ -191,7 +205,7 @@
                 min="0"
                 max="12"
                 :id="`lif_schedule${item}`"
-                @keypress="$emit('clearError', 'analysis_lif_schedule')"
+                @keypress="(e) => clearScheduleError(e, 'lif_schedule')"
               />
               <label for="amount">%</label>
             </td>
@@ -258,6 +272,7 @@
 </template>
 <script>
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
+import { getNumber } from "../../../services/helper";
 
 export default {
   props: ["performance", "flatCreditBonus", "update"],
@@ -277,6 +292,8 @@ export default {
       },
       Arrears: false,
       customInterestAmount: "",
+      premium_charge_error: "",
+      loan_interest_error: "",
     };
   },
   methods: {
@@ -289,6 +306,75 @@ export default {
       this.loanInterest = item;
       this.customInterestAmount = "";
       this.$refs.customLIRef.value = "";
+    },
+    validatePremiumChargeSchedules: function () {
+      var error_message = "";
+      if (!this.sameInAllYears.premium_charge) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(`pcf_schedule${y}`);
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) > 15) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Premium charge rate cannot be grater than 15";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid && value) {
+            input.classList.add("invalid");
+          }
+        }
+        this.premium_charge_error = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    validateLoanInterestSchedules: function () {
+      var error_message = "";
+      if (!this.sameInAllYears.loan_interest) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(`lif_schedule${y}`);
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) > 12) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Loan interest cannot be grater than 12";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid && value) {
+            input.classList.add("invalid");
+          }
+        }
+        this.loan_interest_error = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e, type) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+
+      if (type === "pcf_schedule") {
+        this.premium_charge_error = "";
+      }
     },
   },
   computed: {
@@ -344,4 +430,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>

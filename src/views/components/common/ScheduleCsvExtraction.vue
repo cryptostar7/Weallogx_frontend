@@ -51,6 +51,7 @@ export default {
     setInputWithId: function (id, value) {
       if (document.getElementById(id)) {
         document.getElementById(id).value = value;
+        document.getElementById(id).classList.remove('invalid');
       }
       return value;
     },
@@ -118,7 +119,6 @@ export default {
     },
     populateScheduleInputs: function () {
       var data = this.csvPreview.data;
-
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
         if (data && data[index]) {
@@ -133,6 +133,7 @@ export default {
       if (txt) {
         this.$emit('clearError');
         let obj = this.exractCsvText(txt);
+
         if (obj && obj.headers) {
           this.csvPreview = this.filterObject(obj);
         } else {
@@ -143,6 +144,7 @@ export default {
       } else {
         this.csvPreview = { data: [], headers: [] };
       }
+      
       this.populateScheduleInputs();
     },
     exractCsvText: function (values = "") {

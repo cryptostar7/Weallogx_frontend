@@ -8,9 +8,7 @@
     <div ref="splitLeftRef" class="split_left">
       <span ref="leftSpanRef" class="left_span">50</span>%
     </div>
-    <div ref="splitBarRef" :class="`split_bar ${
-              marketAlone ? 'disable' : ''
-            }`">
+    <div ref="splitBarRef" :class="`split_bar ${marketAlone ? 'disable' : ''}`">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="6"
@@ -90,14 +88,19 @@ export default {
     splitBar.style.left = totalWidth / 2 - widHalf + "px";
 
     window.onresize = () => {
-      totalWidth = sliderMain.offsetWidth;
-      splitBar.style.left =
-        (totalWidth * +leftSpan.textContent) / 100 - widHalf + "px";
+      if (sliderMain) {
+        totalWidth = sliderMain.offsetWidth;
+        splitBar.style.left =
+          (totalWidth * +leftSpan.textContent) / 100 - widHalf + "px";
+      }
     };
 
     let pos1, pos2, pos3, pos4;
     function dragElement(elmnt) {
-      pos1 = 0; pos2 = 0; pos3 = 0; pos4 = 0;
+      pos1 = 0;
+      pos2 = 0;
+      pos3 = 0;
+      pos4 = 0;
       elmnt.onmousedown = dragMouseDown;
     }
 
@@ -176,14 +179,16 @@ export default {
     if (myModalEl) {
       myModalEl.addEventListener("shown.bs.modal", function (event) {
         this.totalWidth = sliderMain.offsetWidth;
-        let leftOffset = (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 - splitBar.offsetWidth / 2;        
-        if(leftOffset > this.totalWidth - 42 || +leftSpan.textContent > 98){
+        let leftOffset =
+          (sliderMain.offsetWidth * Number(leftSpan.textContent)) / 100 -
+          splitBar.offsetWidth / 2;
+        if (leftOffset > this.totalWidth - 42 || +leftSpan.textContent > 98) {
           splitBar.style.left = this.totalWidth - 42 + "px";
           splitRight.classList.add("right");
-        }else{
+        } else {
           splitBar.style.left = leftOffset + "px";
         }
-        if(leftOffset <= 0){
+        if (leftOffset <= 0) {
           splitBar.style.left = 0 + "px";
           splitLeft.classList.add("left");
         }
@@ -212,12 +217,14 @@ export default {
       let splitLeft = this.$refs.splitLeftRef;
       let splitRight = this.$refs.splitRightRef;
 
-      let leftOffset = (this.$refs.sliderMainRef.offsetWidth * value) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
-      if(leftOffset > this.totalWidth - 42){
-        this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";        
-      }else if(leftOffset <= 0){
+      let leftOffset =
+        (this.$refs.sliderMainRef.offsetWidth * value) / 100 -
+        this.$refs.splitBarRef.offsetWidth / 2;
+      if (leftOffset > this.totalWidth - 42) {
+        this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";
+      } else if (leftOffset <= 0) {
         this.$refs.splitBarRef.style.left = 0 + "px";
-      }else {
+      } else {
         this.$refs.splitBarRef.style.left = leftOffset + "px";
       }
 
@@ -229,7 +236,6 @@ export default {
         splitLeft.classList.remove("left");
         splitRight.classList.remove("right");
       }
-      
     },
     updateResult: function () {
       if (this.$props.sliderType === "result" && !this.$props.disabled) {
@@ -350,12 +356,16 @@ export default {
             let sliderMain = this.$refs.sliderMainRef;
             this.totalWidth = sliderMain.offsetWidth;
 
-            let leftOffset = (this.$refs.sliderMainRef.offsetWidth * Number(this.$refs.leftSpanRef.textContent)) / 100 - this.$refs.splitBarRef.offsetWidth / 2;
+            let leftOffset =
+              (this.$refs.sliderMainRef.offsetWidth *
+                Number(this.$refs.leftSpanRef.textContent)) /
+                100 -
+              this.$refs.splitBarRef.offsetWidth / 2;
 
-            if(leftOffset > this.totalWidth - 42){
-              this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";  
+            if (leftOffset > this.totalWidth - 42) {
+              this.$refs.splitBarRef.style.left = this.totalWidth - 42 + "px";
               splitRight.classList.add("right");
-            }else{
+            } else {
               this.$refs.splitBarRef.style.left = leftOffset + "px";
             }
           }

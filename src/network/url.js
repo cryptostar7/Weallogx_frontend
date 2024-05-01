@@ -83,6 +83,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/illustration/`;
     case 'template-insurance-profile':
       return `${baseUrl}/auth/template-insurance-profile/`;
+      case 'combined-insurance-profile-template':
+        return `${baseUrl}/historical/combined-data/`;
     case 'illustration-id':
       return `${baseUrl}/auth/illustrationid/`;
     case 'illustration-template':

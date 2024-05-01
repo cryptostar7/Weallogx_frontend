@@ -160,8 +160,10 @@ export default {
     let widHalf = this.wid / 2;
 
     window.onresize = () => {
-      let totalWidth = document.getElementById("strategyWeightMid").offsetWidth;
-      resizingDiv.style.left = (totalWidth / 2 - widHalf) + "px";
+      if(document.getElementById("strategyWeightMid")){
+        let totalWidth = document.getElementById("strategyWeightMid").offsetWidth;
+        resizingDiv.style.left = (totalWidth / 2 - widHalf) + "px";
+      }
     }
 
     this.$refs.swInputMid1.addEventListener("focus", (e) => {

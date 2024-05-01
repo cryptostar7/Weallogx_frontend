@@ -29,7 +29,7 @@
             </div>
         </div>
         <div>
-            <button class="btn common-round-btn" data-bs-toggle="offcanvas" data-bs-target="#editClientCanvas">
+            <button class="btn common-round-btn" data-bs-toggle="offcanvas" data-bs-target="#editClientSimulationCanvas">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"  d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D" />
                     <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D" />
