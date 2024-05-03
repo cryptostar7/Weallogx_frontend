@@ -497,6 +497,17 @@ export default {
       let activeTabs = this.getActiveTabs();
       let templates = { 1: "", 2: "", 3: "" };
 
+      // premium charge fees validation
+      if (analysis && !analysis.pcf.same_all_year) {
+        if (
+          !this.$refs.globalParametersRef.$refs.globalFeesRef.validatePremiumChargeSchedules()
+        ) {
+          valid = false;
+          this.error.analysis = true;
+          this.$toast.warning("Please enter valid data for premimum charge.");
+        }
+      }
+
       if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 1) {
         valid = false;
         this.error.analysis = true;
@@ -538,7 +549,9 @@ export default {
       }
 
       // validate performance multiplier fees rate schedule
-      if (!this.$refs.indexParametersRef.validateFlatCreditBonusScheduleFees()) {
+      if (
+        !this.$refs.indexParametersRef.validateFlatCreditBonusScheduleFees()
+      ) {
         valid = false;
         this.$toast.warning(
           "Please enter valid data for flat credit/bonus fees."
@@ -1299,39 +1312,6 @@ export default {
       } else {
         this.error.portfolio_name = "";
       }
-
-      // premium charge fees validation
-      if (analysis && !analysis.pcf.same_all_year) {
-        if (
-          !this.$refs.globalParametersRef.$refs.globalFeesRef.validatePremiumChargeSchedules()
-        ) {
-          valid = false;
-          this.$toast.warning("Please enter valid data for premimum charge.");
-        }
-      }
-
-      // // flat credit credit validation
-      // if (fees && fees.fcf && !fees.fcf.same_all_year) {
-      //   let obj = fees.fcf.schedule;
-      //   let obj_valid = true;
-      //   if (obj) {
-      //     obj.forEach((item) => {
-      //       if (!item.value) {
-      //         obj_valid = false;
-      //       }
-      //     });
-      //   } else {
-      //     obj_valid = false;
-      //   }
-      //   if (!obj_valid) {
-      //     valid = false;
-      //     this.error[tab + 1].fees = true;
-      //     this.error[tab + 1].fee_fcf_schedule =
-      //       "Please fill flat credit/bonus fee rate for all years.";
-      //   } else {
-      //     this.error[tab + 1].fee_fcf_schedule = "";
-      //   }
-      // }
 
       return valid;
     },
