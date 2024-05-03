@@ -1165,10 +1165,12 @@ export default {
   methods: {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
     // showBonusHandler(e) {
-      // this.updateBarWidths();
+    //   console.log("yes, clicked");
+    //   this.updateBarWidths();
     // },
     collapseAction(){
       // console.log(this.isSeeAllActive);
+      console.log("clicked");
       if (this.isSeeAllActive) {
        this.updateBarWidths();
       }
@@ -1274,7 +1276,17 @@ export default {
                       ".amount-label-wrapper"
                     ).style.paddingLeft = `${barWidth + 6}px`;
                 }
+              }else{
+              document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                .classList.add("text-white");
+              if (document.getElementById("compare_wider_bar_" + i).closest(".compareLeftPart")) {
+                document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                  .querySelector(".amount-label-wrapper").style.paddingRight = `0px`;
+              } else {
+                document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                  .querySelector(".amount-label-wrapper").style.paddingLeft = `6px`;
               }
+            }
             }, 400);
           }
         }
@@ -1796,7 +1808,7 @@ export default {
         }
       }
       var largestSec = 0;
-      var largestSec = Math.max.apply(0, sub_array);
+      largestSec = Math.max.apply(0, sub_array);
       for (let i = 1; i <= allBar3.length; i++) {
         let currentCompareBar = document.getElementById(
           "compare_wider_bar_" + i
@@ -1844,9 +1856,11 @@ export default {
           if (finalResult < 1 || !finalResult) {
             eachBar.style.padding = "8px 2px";
             eachBar.classList.remove("text-white");
+            // console.log("removed", finalResult)
           } else {
             eachBar.style.padding = "8px 2px";
             eachBar.classList.add("text-white");
+            // console.log("added", finalResult)
           }
 
           setTimeout(() => {
@@ -1856,7 +1870,7 @@ export default {
               textWidth = textDiv.offsetWidth + 20;
             }
             let barWidth = eachBar.offsetWidth;
-
+            console.log(i, barWidth, textWidth);
             if (barWidth < textWidth) {
               document
                 .getElementById("compare_wider_bar_" + i)
@@ -1872,7 +1886,7 @@ export default {
                   .closest(".tax-details-each-bars")
                   .querySelector(
                     ".amount-label-wrapper"
-                  ).style.paddingRight = `${barWidth + 6}px`;
+                  ).style.paddingRight = `${barWidth}px`;
               } else {
                 document
                   .getElementById("compare_wider_bar_" + i)
@@ -1880,6 +1894,16 @@ export default {
                   .querySelector(
                     ".amount-label-wrapper"
                   ).style.paddingLeft = `${barWidth + 6}px`;
+              }
+            }else{
+              document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                .classList.add("text-white");
+              if (document.getElementById("compare_wider_bar_" + i).closest(".compareLeftPart")) {
+                document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                  .querySelector(".amount-label-wrapper").style.paddingRight = `0px`;
+              } else {
+                document.getElementById("compare_wider_bar_" + i).closest(".tax-details-each-bars")
+                  .querySelector(".amount-label-wrapper").style.paddingLeft = `6px`;
               }
             }
           }, 400);
