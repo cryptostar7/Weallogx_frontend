@@ -187,6 +187,7 @@
           <fees-component
             :currentTab="1"
             :update="$props.update.fees"
+            ref="feesComponentRef1"
             @setUpdated="() => $emit('setUpdated', 'fees')"
             :performance="strategies[0].enhancements.performance_multiplier"
             :flatCreditBonus="strategies[0].enhancements.credit_bonus_fee"
@@ -250,6 +251,7 @@
           <fees-component
             :currentTab="2"
             :update="$props.update.fees"
+            ref="feesComponentRef2"
             @setUpdated="() => $emit('setUpdated', 'fees')"
             :performance="strategies[1].enhancements.performance_multiplier"
             :flatCreditBonus="strategies[1].enhancements.credit_bonus_fee"
@@ -314,6 +316,7 @@
             :currentTab="3"
             :update="$props.update.fees"
             @setUpdated="() => $emit('setUpdated', 'fees')"
+            ref="feesComponentRef3"
             :performance="strategies[2].enhancements.performance_multiplier"
             :flatCreditBonus="strategies[2].enhancements.credit_bonus_fee"
             :applyPmfAllIndex="applyPmfAllIndex"
@@ -450,6 +453,60 @@ export default {
       }
 
       if(this.tabs.tab3 && !this.$refs.enhancementComponentRef3.$refs.performanceMultiplierRef.validateScheduleData()){
+        valid = false
+      }
+
+      return valid;
+    },
+
+    validateMultiplierScheduleFees: function() {
+      let valid = true;
+      
+      if(!this.$refs.feesComponentRef1.validateMultiplerScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab2 && !this.$refs.feesComponentRef2.validateMultiplerScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab3 && !this.$refs.feesComponentRef3.validateMultiplerScheduleData()){
+        valid = false
+      }
+
+      return valid;
+    },
+
+    validateFlatCreditBonusSchedule: function() {
+      let valid = true;
+      
+      if(!this.$refs.enhancementComponentRef1.$refs.creditBonusRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab2 && !this.$refs.enhancementComponentRef2.$refs.creditBonusRef.validateScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab3 && !this.$refs.enhancementComponentRef3.$refs.creditBonusRef.validateScheduleData()){
+        valid = false
+      }
+
+      return valid;
+    },
+
+    validateFlatCreditBonusScheduleFees: function() {
+      let valid = true;
+      
+      if(!this.$refs.feesComponentRef1.validateFlatCreditBonusScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab2 && !this.$refs.feesComponentRef2.validateFlatCreditBonusScheduleData()){
+        valid = false
+      }
+
+      if(this.tabs.tab3 && !this.$refs.feesComponentRef3.validateFlatCreditBonusScheduleData()){
         valid = false
       }
 

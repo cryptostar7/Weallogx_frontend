@@ -98,14 +98,12 @@
             <schedule-csv-extraction
               :prefixId="`multiplier_schedule${currentTab}`"
               :maxInputs="illustrateYear"
-              @clearError="
-                muliplierError = ''
-              "
+              @clearError="muliplierError = ''"
             />
             <div class="text-center mb-1">
-            <label class="error" v-if="muliplierError">{{
-              muliplierError
-            }}</label>
+              <label class="error" v-if="muliplierError">{{
+                muliplierError
+              }}</label>
             </div>
             <table class="table">
               <thead>
@@ -185,16 +183,19 @@ export default {
     },
     validateScheduleData: function () {
       var error_message = "";
-      if (this.$props.visible && this.tab === 'schedule') {
+      if (this.$props.visible && this.tab === "schedule") {
         for (var y = 1; y < this.illustrateYear + 1; y++) {
           let valid = true;
-          let input = document.getElementById(`multiplier_schedule${this.currentTab}${y}`);
+          let input = document.getElementById(
+            `multiplier_schedule${this.currentTab}${y}`
+          );
           let value = input.value;
           if (value) {
             if (getNumber(value) < 1 || getNumber(value) > 10) {
               valid = false;
               if (!error_message) {
-                error_message = "Multiplier rate cannot be less than 1 or greater than 10";
+                error_message =
+                  "Multiplier rate cannot be less than 1 or greater than 10";
               }
             }
           } else {

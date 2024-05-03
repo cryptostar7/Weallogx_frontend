@@ -379,7 +379,7 @@ export default {
             }
           }
 
-          if (!valid && value) {
+          if (!valid) {
             input.classList.add("invalid");
           }
         }
@@ -409,7 +409,7 @@ export default {
             }
           }
 
-          if (!valid && value) {
+          if (!valid) {
             input.classList.add("invalid");
           }
         }

@@ -328,7 +328,7 @@ export default {
             }
           }
 
-          if (!valid && value) {
+          if (!valid) {
             input.classList.add("invalid");
           }
         }
@@ -358,7 +358,7 @@ export default {
             }
           }
 
-          if (!valid && value) {
+          if (!valid) {
             input.classList.add("invalid");
           }
         }
@@ -374,6 +374,10 @@ export default {
 
       if (type === "pcf_schedule") {
         this.premium_charge_error = "";
+      }
+      
+      if (type === "lif_schedule") {
+        this.loan_interest_error = "";
       }
     },
   },

@@ -147,16 +147,16 @@
         }`"
       >
         <div class="schduleTableDiv mt-5">
-          <label
-            class="error text-center"
-            v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule"
-            >{{ errors[currentTab].fee_pmf_schedule }}</label
-          >
           <schedule-csv-extraction
             :prefixId="`pmf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
-            @clearError="$emit('clearError', currentTab, 'fee_pmf_schedule')"
+            @clearError="muliplierScheduleError = ''"
           />
+          <div class="text-center mb-1">
+            <label class="error" v-if="muliplierScheduleError">{{
+              muliplierScheduleError
+            }}</label>
+          </div>
           <table class="table">
             <thead>
               <th>Year</th>
@@ -172,12 +172,10 @@
                   <input
                     type="text"
                     class="form-control handleLimit"
-                    min="0"
+                    min="1"
                     max="10"
                     :id="`pmf_schedule${currentTab}${item}`"
-                    @keypress="
-                      $emit('clearError', currentTab, 'fee_pmf_schedule')
-                    "
+                    @keypress="(e) => clearScheduleError(e, 'pmf_schedule')"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -268,16 +266,18 @@
         }`"
       >
         <div class="schduleTableDiv mt-5">
-          <label
-            class="error text-center"
-            v-if="errors[currentTab] && errors[currentTab].fee_fcf_schedule"
-            >{{ errors[currentTab].fee_fcf_schedule }}</label
-          >
           <schedule-csv-extraction
             :prefixId="`fcf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
-            @clearError="$emit('clearError', currentTab, 'fee_fcf_schedule')"
+            @clearError="flatCreditBonusScheduleError = ''"
           />
+
+          <div class="text-center mb-1">
+            <label class="error" v-if="flatCreditBonusScheduleError">{{
+              flatCreditBonusScheduleError
+            }}</label>
+          </div>
+
           <table class="table">
             <thead>
               <th>Year</th>
@@ -296,9 +296,7 @@
                     min="0"
                     max="10"
                     :id="`fcf_schedule${currentTab}${item}`"
-                    @keypress="
-                      $emit('clearError', currentTab, 'fee_fcf_schedule')
-                    "
+                    @keypress="(e) => clearScheduleError(e, 'fcf_schedule')"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -382,6 +380,7 @@
 </template>
 <script>
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
+import { getNumber } from "../../../services/helper";
 
 export default {
   props: [
@@ -414,6 +413,8 @@ export default {
       flatAmount: 0,
       customHipCapAmount: "",
       hipCapAmount: 0,
+      muliplierScheduleError: "",
+      flatCreditBonusScheduleError: "",
     };
   },
   methods: {
@@ -761,6 +762,88 @@ export default {
 
       this.$emit("setUpdated");
     },
+    validateMultiplerScheduleData: function () {
+      var error_message = "";
+      if (this.$props.performance && !this.sameInAllYears.multiplier_fee) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(
+            `pmf_schedule${this.currentTab}${y}`
+          );
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) < 1 || getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message =
+                  "Multiplier rate cannot be less than 1 or greater than 10";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.muliplierScheduleError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    validateFlatCreditBonusScheduleData: function () {
+      var error_message = "";
+      if (
+        this.$props.flatCreditBonus &&
+        !this.sameInAllYears.credit_bonus_fee
+      ) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(
+            `fcf_schedule${this.currentTab}${y}`
+          );
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) < 0 || getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message =
+                  "Flat Credit/Bonus rate cannot be less than 0 or greater than 10";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.flatCreditBonusScheduleError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e, type) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+
+      if (type === "pmf_schedule") {
+        this.muliplierScheduleError = "";
+      }
+
+      if (type === "fcf_schedule") {
+        this.flatCreditBonusScheduleError = "";
+      }
+    },
   },
   computed: {
     illustrateYear() {
@@ -794,4 +877,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>

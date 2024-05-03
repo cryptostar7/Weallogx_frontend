@@ -478,7 +478,7 @@ export default {
           this.$toast.warning("Please enter valid data for premimum charge.");
         }
       }
-      
+
       // loan interest analysis validation
       if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 1) {
         valid = false;
@@ -486,12 +486,6 @@ export default {
         this.$toast.warning(
           "Loan interest rate field must be grater than or equals to 1"
         );
-      }
-
-      // validate multiplier schedules data
-      if (!this.$refs.indexParametersRef.validateMultiplierSchedule()) {
-        valid = false;
-        this.$toast.warning("Please enter valid data for multiplier rate.");
       }
 
       if (analysis && !analysis.lif.same_all_year) {
@@ -503,6 +497,36 @@ export default {
             "Please enter valid data for loan interest rate."
           );
         }
+      }
+
+      // validate multiplier schedules data
+      if (!this.$refs.indexParametersRef.validateMultiplierSchedule()) {
+        valid = false;
+        this.$toast.warning("Please enter valid data for multiplier rate.");
+      }
+
+      // validate flat credit bonus schedules data
+      if (!this.$refs.indexParametersRef.validateFlatCreditBonusSchedule()) {
+        valid = false;
+        this.$toast.warning("Please enter valid data for flat credit/bonus.");
+      }
+
+      // validate performance multiplier fees rate schedule
+      if (!this.$refs.indexParametersRef.validateMultiplierScheduleFees()) {
+        valid = false;
+        this.$toast.warning(
+          "Please enter valid data for performance multiplier fees rate."
+        );
+      }
+
+      // validate performance multiplier fees rate schedule
+      if (
+        !this.$refs.indexParametersRef.validateFlatCreditBonusScheduleFees()
+      ) {
+        valid = false;
+        this.$toast.warning(
+          "Please enter valid data for flat credit/bonus fees."
+        );
       }
 
       let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
@@ -1293,8 +1317,6 @@ export default {
     },
     validateForm: function (tab = 0) {
       var valid = true;
-      let analysis = this.analysis;
-      let fees = this.fees[tab];
       this.error[tab + 1].fees = false;
       this.error[tab + 1].enhancements = false;
       let portFolio = document.getElementById("saveSimulationPortfolioCheckbox")
@@ -1311,29 +1333,6 @@ export default {
         this.error.portfolio_name = "This field is required.";
       } else {
         this.error.portfolio_name = "";
-      }
-
-      // flat credit credit validation
-      if (fees && fees.fcf && !fees.fcf.same_all_year) {
-        let obj = fees.fcf.schedule;
-        let obj_valid = true;
-        if (obj) {
-          obj.forEach((item) => {
-            if (!item.value) {
-              obj_valid = false;
-            }
-          });
-        } else {
-          obj_valid = false;
-        }
-        if (!obj_valid) {
-          valid = false;
-          this.error[tab + 1].fees = true;
-          this.error[tab + 1].fee_fcf_schedule =
-            "Please fill flat credit/bonus fee rate for all years.";
-        } else {
-          this.error[tab + 1].fee_fcf_schedule = "";
-        }
       }
 
       return valid;

@@ -142,23 +142,16 @@
           >
             <div class="d-flex justify-content-center w-100">
               <div class="schduleTableDiv mt-5">
-                <label
-                  class="error text-center"
-                  v-if="
-                    errors[currentTab] &&
-                    errors[currentTab].enhancements_credit_schedule_rate
-                  "
-                  >{{
-                    errors[currentTab].enhancements_credit_schedule_rate
-                  }}</label
-                >
                 <schedule-csv-extraction
                   :prefixId="`crd_schedule_rate${currentTab}`"
                   :maxInputs="illustrateYear"
-                  @clearError="
-                    $emit('clearError', 'enhancements_credit_schedule_rate')
-                  "
+                  @clearError="scheduleError = ''"
                 />
+                <div class="text-center mb-1">
+                  <label class="error" v-if="scheduleError">{{
+                    scheduleError
+                  }}</label>
+                </div>
                 <table class="table">
                   <thead>
                     <th>Year</th>
@@ -175,12 +168,7 @@
                             min="0"
                             max="10"
                             :id="`crd_schedule_rate${currentTab}${item}`"
-                            @keypress="
-                              $emit(
-                                'clearError',
-                                'enhancements_credit_schedule_rate'
-                              )
-                            "
+                            @keypress="(e) => clearScheduleError(e)"
                             autocomplete="off"
                           />
                           <span class="percent-span">%</span>
@@ -202,23 +190,16 @@
           >
             <div class="d-flex justify-content-center w-100">
               <div class="schduleTableDiv mt-5">
-                <label
-                  class="error text-center"
-                  v-if="
-                    errors[currentTab] &&
-                    errors[currentTab].enhancements_credit_schedule_amount
-                  "
-                  >{{
-                    errors[currentTab].enhancements_credit_schedule_amount
-                  }}</label
-                >
                 <schedule-csv-extraction
                   :prefixId="`crd_schedule_amt${currentTab}`"
                   :maxInputs="illustrateYear"
-                  @clearError="
-                    $emit('clearError', 'enhancements_credit_schedule_amount')
-                  "
+                  @clearError="scheduleError = ''"
                 />
+                <div class="text-center mb-1">
+                  <label class="error" v-if="scheduleError">{{
+                    scheduleError
+                  }}</label>
+                </div>
                 <table class="table">
                   <thead>
                     <th>Year</th>
@@ -234,12 +215,7 @@
                           min="1"
                           max="999999"
                           :id="`crd_schedule_amt${currentTab}${item}`"
-                          @keypress="
-                            $emit(
-                              'clearError',
-                              'enhancements_credit_schedule_amount'
-                            )
-                          "
+                          @keypress="(e) => clearScheduleError(e)"
                           autocomplete="off"
                         />
                         <label for="amount">$</label>
@@ -267,6 +243,7 @@
   </div>
 </template>
 <script>
+import { getNumber } from "../../../services/helper";
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
 
 export default {
@@ -281,6 +258,7 @@ export default {
       startYear: 1,
       maxYear: 5,
       customAmount: "",
+      scheduleError: "",
     };
   },
   methods: {
@@ -304,6 +282,74 @@ export default {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;
       }
+    },
+    validateScheduleData: function () {
+      var error_message = "";
+      if (this.$props.visible && this.tab === "schedule") {
+        if (this.schedule_type === "rate") {
+          for (var y = 1; y < this.illustrateYear + 1; y++) {
+            let valid = true;
+            let input = document.getElementById(
+              `crd_schedule_rate${this.currentTab}${y}`
+            );
+            let value = input.value;
+            if (value) {
+              if (getNumber(value) < 0 || getNumber(value) > 10) {
+                valid = false;
+                if (!error_message) {
+                  error_message =
+                    "Flat Credit/Bonus rate cannot be less than 0 or greater than 10";
+                }
+              }
+            } else {
+              valid = false;
+              if (!error_message) {
+                error_message = "All fields are required.";
+              }
+            }
+
+            if (!valid) {
+              input.classList.add("invalid");
+            }
+          }
+        } else {
+          for (var y = 1; y < this.illustrateYear + 1; y++) {
+            let valid = true;
+            let input = document.getElementById(
+              `crd_schedule_amt${this.currentTab}${y}`
+            );
+            let value = input.value;
+            if (value) {
+              if (getNumber(value) < 1) {
+                valid = false;
+                if (!error_message) {
+                  error_message =
+                    "Flat Credit/Bonus rate cannot be less than 1";
+                }
+              }
+            } else {
+              valid = false;
+              if (!error_message) {
+                error_message = "All fields are required.";
+              }
+            }
+
+            if (!valid) {
+              input.classList.add("invalid");
+            }
+          }
+        }
+
+        this.scheduleError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+      this.scheduleError = "";
     },
   },
   computed: {
@@ -332,4 +378,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>
