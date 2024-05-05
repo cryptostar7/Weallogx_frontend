@@ -118,7 +118,9 @@
               v-model="sameInAllYears.multiplier_fee"
             />
           </div>
-          <label :for="`simulationMultiplierFee${currentTab}`" class="buttonSaveRadioPara"
+          <label
+            :for="`simulationMultiplierFee${currentTab}`"
+            class="buttonSaveRadioPara"
             >Same in All Years</label
           >
         </div>
@@ -147,16 +149,16 @@
         }`"
       >
         <div class="schduleTableDiv mt-5">
-          <label
-            class="error text-center"
-            v-if="errors[currentTab] && errors[currentTab].fee_pmf_schedule"
-            >{{ errors[currentTab].fee_pmf_schedule }}</label
-          >
           <schedule-csv-extraction
             :prefixId="`simulation_pmf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
-            @clearError="$emit('clearError', currentTab, 'fee_pmf_schedule')"
+            @clearError="muliplierScheduleError = ''"
           />
+          <div class="text-center mb-1">
+            <label class="error" v-if="muliplierScheduleError">{{
+              muliplierScheduleError
+            }}</label>
+          </div>
           <table class="table">
             <thead>
               <th>Year</th>
@@ -172,12 +174,10 @@
                   <input
                     type="text"
                     class="form-control handleLimit"
-                    min="0"
+                    min="1"
                     max="10"
                     :id="`simulation_pmf_schedule${currentTab}${item}`"
-                    @keypress="
-                      $emit('clearError', currentTab, 'fee_pmf_schedule')
-                    "
+                    @keypress="(e) => clearScheduleError(e, 'pmf_schedule')"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -268,16 +268,16 @@
         }`"
       >
         <div class="schduleTableDiv mt-5">
-          <label
-            class="error text-center"
-            v-if="errors[currentTab] && errors[currentTab].fee_fcf_schedule"
-            >{{ errors[currentTab].fee_fcf_schedule }}</label
-          >
           <schedule-csv-extraction
             :prefixId="`simulation_fcf_schedule${currentTab}`"
             :maxInputs="illustrateYear"
-            @clearError="$emit('clearError', currentTab, 'fee_fcf_schedule')"
+            @clearError="flatCreditBonusScheduleError = ''"
           />
+          <div class="text-center mb-1">
+            <label class="error" v-if="flatCreditBonusScheduleError">{{
+              flatCreditBonusScheduleError
+            }}</label>
+          </div>
           <table class="table">
             <thead>
               <th>Year</th>
@@ -296,9 +296,7 @@
                     min="0"
                     max="10"
                     :id="`simulation_fcf_schedule${currentTab}${item}`"
-                    @keypress="
-                      $emit('clearError', currentTab, 'fee_fcf_schedule')
-                    "
+                    @keypress="(e) => clearScheduleError(e, 'fcf_schedule')"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -381,6 +379,7 @@
   </form>
 </template>
 <script>
+import { getNumber } from "../../../../../services/helper";
 import ScheduleCsvExtraction from "../../../../components/common/ScheduleCsvExtraction.vue";
 
 export default {
@@ -393,11 +392,7 @@ export default {
   ],
   components: { ScheduleCsvExtraction },
   inject: ["errors"],
-  emits: [
-    "clearError",
-    "setApplyPmfAllIndex",
-    "setApplyFcfAllIndex",
-  ],
+  emits: ["clearError", "setApplyPmfAllIndex", "setApplyFcfAllIndex"],
   data() {
     return {
       MaxPerformanceMultiplierFee: 8,
@@ -412,6 +407,8 @@ export default {
       flatAmount: 0,
       customHighCapAmount: "",
       highCapAmount: 0,
+      muliplierScheduleError: "",
+      flatCreditBonusScheduleError: "",
     };
   },
   methods: {
@@ -445,10 +442,14 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`simulationApplyAllPmf${currentTab}`)) {
-        document.getElementById(`simulationApplyAllPmf${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllPmf${currentTab}`
+        ).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`simulationApplyAllPmf${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(
+            `simulationApplyAllPmf${tab}`
+          ).disabled = false; // enable the toggle input
           document
             .getElementById(`simulationApplyAllPmfLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
@@ -462,7 +463,10 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`simulationApplyAllPmf${tab}`) && currentTab !== tab) {
+        if (
+          this.isChecked(`simulationApplyAllPmf${tab}`) &&
+          currentTab !== tab
+        ) {
           toggle = true;
         }
       });
@@ -527,9 +531,13 @@ export default {
               .classList.toggle("disabled"); // disabled the label
 
             if (!pmf_all_year) {
-              document.getElementById(`simulationMultiplierFee${tab}`).checked = false; // open the schedule inputs in all tabs
+              document.getElementById(
+                `simulationMultiplierFee${tab}`
+              ).checked = false; // open the schedule inputs in all tabs
             } else {
-              document.getElementById(`simulationMultiplierFee${tab}`).checked = true; // close the schedule inputs in all tabs
+              document.getElementById(
+                `simulationMultiplierFee${tab}`
+              ).checked = true; // close the schedule inputs in all tabs
             }
 
             this.$emit("setApplyPmfAllIndex", true);
@@ -543,8 +551,9 @@ export default {
             ).value; // get current schedule input value
             tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(`simulation_pmf_schedule${tab}${i + 1}`).value =
-                  value; // set schedule value in all tabs
+                document.getElementById(
+                  `simulation_pmf_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
               }
             });
           }
@@ -574,10 +583,14 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       if (this.isChecked(`simulationApplyAllFcf${currentTab}`)) {
-        document.getElementById(`simulationApplyAllFcf${currentTab}`).checked = false;
+        document.getElementById(
+          `simulationApplyAllFcf${currentTab}`
+        ).checked = false;
 
         tabs.forEach((tab) => {
-          document.getElementById(`simulationApplyAllFcf${tab}`).disabled = false; // enable the toggle input
+          document.getElementById(
+            `simulationApplyAllFcf${tab}`
+          ).disabled = false; // enable the toggle input
           document
             .getElementById(`simulationApplyAllFcfLabel${tab}`)
             .classList.remove("disabled"); // disabled the label
@@ -591,7 +604,10 @@ export default {
       let toggle = false;
 
       tabs.forEach((tab) => {
-        if (this.isChecked(`simulationApplyAllFcf${tab}`) && currentTab !== tab) {
+        if (
+          this.isChecked(`simulationApplyAllFcf${tab}`) &&
+          currentTab !== tab
+        ) {
           toggle = true;
         }
       });
@@ -626,7 +642,8 @@ export default {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
       let fcf_all_year = Number(
-        document.getElementById(`simulation-flat-credit-fee-radio${currentTab}`).checked
+        document.getElementById(`simulation-flat-credit-fee-radio${currentTab}`)
+          .checked
       );
 
       // Show warning message if shedule data is not filled in all inputs
@@ -675,15 +692,18 @@ export default {
             ).value; // get current schedule input value
             tabs.forEach((tab) => {
               if (currentTab !== tab) {
-                document.getElementById(`simulation_fcf_schedule${tab}${i + 1}`).value =
-                  value; // set schedule value in all tabs
+                document.getElementById(
+                  `simulation_fcf_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
               }
             });
           }
         } else {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
-              document.getElementById(`simulation_flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
+              document.getElementById(
+                `simulation_flat_credit_fees${tab}`
+              ).value = pmf_fee; // set multiplier value in all tabs
             }
           });
         }
@@ -732,7 +752,9 @@ export default {
 
       if (this.sameInAllYears.credit_bonus_fee) {
         let ff = Number(
-          document.getElementById(`simulation_flat_credit_fees${this.currentTab}`).value
+          document.getElementById(
+            `simulation_flat_credit_fees${this.currentTab}`
+          ).value
         );
 
         if ([1, 2, 3].includes(ff)) {
@@ -747,7 +769,8 @@ export default {
 
       // high cap fee
       let hc = Number(
-        document.getElementById(`simulation_high_cap_fees${this.currentTab}`).value
+        document.getElementById(`simulation_high_cap_fees${this.currentTab}`)
+          .value
       );
       if ([1, 2, 3].includes(hc)) {
         this.highCapAmount = hc;
@@ -757,6 +780,88 @@ export default {
         this.highCapAmount = 0;
         this.customHighCapAmount = hc;
         this.$refs.hcCustomRef.value = hc;
+      }
+    },
+    validateMultiplerScheduleData: function () {
+      var error_message = "";
+      if (this.$props.performance && !this.sameInAllYears.multiplier_fee) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(
+            `simulation_pmf_schedule${this.currentTab}${y}`
+          );
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) < 1 || getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message =
+                  "Multiplier rate cannot be less than 1 or greater than 10";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.muliplierScheduleError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    validateFlatCreditBonusScheduleData: function () {
+      var error_message = "";
+      if (
+        this.$props.flatCreditBonus &&
+        !this.sameInAllYears.credit_bonus_fee
+      ) {
+        for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let valid = true;
+          let input = document.getElementById(
+            `simulation_fcf_schedule${this.currentTab}${y}`
+          );
+          let value = input.value;
+          if (value) {
+            if (getNumber(value) < 0 || getNumber(value) > 10) {
+              valid = false;
+              if (!error_message) {
+                error_message =
+                  "Flat Credit/Bonus rate cannot be less than 0 or greater than 10";
+              }
+            }
+          } else {
+            valid = false;
+            if (!error_message) {
+              error_message = "All fields are required.";
+            }
+          }
+
+          if (!valid) {
+            input.classList.add("invalid");
+          }
+        }
+        this.flatCreditBonusScheduleError = error_message;
+      }
+
+      return error_message ? false : true;
+    },
+    clearScheduleError: function (e, type) {
+      if (e.target) {
+        e.target.classList.remove("invalid");
+      }
+
+      if (type === "pmf_schedule") {
+        this.muliplierScheduleError = "";
+      }
+
+      if (type === "fcf_schedule") {
+        this.flatCreditBonusScheduleError = "";
       }
     },
   },
@@ -787,4 +892,9 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style>
+.invalid {
+  color: red;
+  border: 1px solid red !important;
+}
+</style>

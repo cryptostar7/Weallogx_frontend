@@ -144,6 +144,7 @@
       @clearError="clearError"
       :update="$props.update"
       :applyFcAllIndex="applyFcAllIndex"
+      ref="creditBonusRef"
       @setApplyFcAllIndex="(val) => $emit('setApplyFcAllIndex', val)"
       @validateFcValues="validateFcValues"
     />
