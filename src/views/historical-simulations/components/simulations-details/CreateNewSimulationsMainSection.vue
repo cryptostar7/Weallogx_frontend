@@ -750,6 +750,16 @@ export default {
       });
 
       if (defaultAge !== Number(this.clientAgeYearToIllustrate)) {
+        this.$store.dispatch(
+          "historical-clients",
+          this.$store.state.data.historical_clients.map((item) => {
+            if (Number(this.$route.query.client) === Number(item.id)) {
+              item.age = this.clientAgeYearToIllustrate;
+            }
+            return item;
+          })
+        );
+
         patch(
           `${getUrl("client")}${this.existingClientId}/`,
           { age: this.clientAgeYearToIllustrate },

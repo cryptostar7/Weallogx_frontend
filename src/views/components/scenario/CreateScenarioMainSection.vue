@@ -1227,6 +1227,7 @@ export default {
     },
     saveClientAge: function () {
       let defaultAge = "";
+
       this.$store.state.data.clients.forEach((element) => {
         if (Number(this.$route.query.client) === Number(element.id)) {
           defaultAge = element.age;
@@ -1234,6 +1235,16 @@ export default {
       });
 
       if (defaultAge !== Number(this.clientAgeYearToIllustrate)) {
+        this.$store.dispatch(
+          "clients",
+          this.$store.state.data.clients.map((item) => {
+            if (Number(this.$route.query.client) === Number(item.id)) {
+              item.age = this.clientAgeYearToIllustrate;
+            }
+            return item;
+          })
+        );
+
         patch(
           `${getUrl("client")}${this.existingClientId}/`,
           { age: this.clientAgeYearToIllustrate },
