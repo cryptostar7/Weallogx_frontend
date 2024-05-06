@@ -1,6 +1,6 @@
 <template>
   <section class="main-section">
-    <historical-simulation-steps :currentStep="1"/>
+    <historical-simulation-steps :currentStep="1" />
     <div class="container-fluid">
       <div class="row justify-content-center form-row">
         <div class="col-md-9">
@@ -269,7 +269,7 @@
   </section>
 </template>
 <script>
-import { get, post, put } from "../../../../network/requests";
+import { get, patch, post, put } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import HistoricalSimulationLabelComponent from "../../../components/common/HistoricalSimulationLabelComponent.vue";
 import HistoricalSimulationSteps from "../../../components/common/HistoricalSimulationSteps.vue";
@@ -282,6 +282,7 @@ import {
   getSimulationStep1,
   getCurrentSimulation,
   setCurrentSimulation,
+  getFirstError,
 } from "../../../../services/helper";
 
 export default {
@@ -340,7 +341,6 @@ export default {
         simulationData &&
         simulationData.id === Number(this.$route.params.simulation)
       ) {
-
         let details = simulationData.simulation_details;
         let id = details;
         if (typeof details === "object") {
@@ -524,7 +524,10 @@ export default {
       this.$store.dispatch("loader", true);
       get(getUrl("historical-clients"), authHeader())
         .then((response) => {
-          this.$store.dispatch("historicalClients", mapHistoricalClientList(response.data.data));
+          this.$store.dispatch(
+            "historicalClients",
+            mapHistoricalClientList(response.data.data)
+          );
           this.$store.dispatch("loader", false);
           if (this.setClientAsDefault) {
             this.$router.push(
@@ -557,10 +560,10 @@ export default {
       this.errors.client_age_year = false;
 
       this.illustrateYear = detail.years_to_illustrate;
-        this.setInputWithId(
-          "illustratedSimulationAge",
-          detail.years_to_illustrate
-        );
+      this.setInputWithId(
+        "illustratedSimulationAge",
+        detail.years_to_illustrate
+      );
       this.taxRate = detail.tax_rate ? detail.tax_rate : "";
       this.setInputWithId("taxRate", detail.tax_rate ? detail.tax_rate : "");
       this.taxRate = detail.tax_rate ? detail.tax_rate : "";
@@ -738,12 +741,41 @@ export default {
         this.createSimulationDetail(formData);
       }
     },
+    saveClientAge: function () {
+      let defaultAge = "";
+      this.$store.state.data.historical_clients.forEach((element) => {
+        if (Number(this.$route.query.client) === Number(element.id)) {
+          defaultAge = element.age;
+        }
+      });
+
+      if (defaultAge !== Number(this.clientAgeYearToIllustrate)) {
+        patch(
+          `${getUrl("client")}${this.existingClientId}/`,
+          { age: this.clientAgeYearToIllustrate },
+          authHeader()
+        )
+          .then()
+          .catch(() => {
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      }
+    },
     // create new secnario detail data
     createSimulationDetail: function (data) {
       post(getUrl("simulation-details"), data, authHeader())
         .then((response) => {
           let id = response.data.data.id;
           setSimulationStep1(response.data.data);
+          this.saveClientAge();
           this.getExistingSimulationDetails();
           this.detailId = id;
           if (id) {
@@ -753,6 +785,8 @@ export default {
           }
         })
         .catch((error) => {
+          console.log(error);
+
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -761,14 +795,16 @@ export default {
             this.$toast.error(error.message);
           } else {
             var serverErrors = getServerErrors(error);
-            this.errors = serverErrors;
-            this.errors.simulation_name = serverErrors.simulation_name;
-            this.errors.client_age_year =
-              serverErrors.client_age_1_year_illustration;
-            this.errors.illustrate_year = serverErrors.years_to_illustrate;
-            this.errors.tax_rate = serverErrors.tax_rate;
-            this.errors.details_template = serverErrors.template_name;
-            this.errors.description = serverErrors.description;
+            if (serverErrors) {
+              this.errors = serverErrors;
+              this.errors.simulation_name = serverErrors.simulation_name;
+              this.errors.client_age_year =
+                serverErrors.client_age_1_year_illustration;
+              this.errors.illustrate_year = serverErrors.years_to_illustrate;
+              this.errors.tax_rate = serverErrors.tax_rate;
+              this.errors.details_template = serverErrors.template_name;
+              this.errors.description = serverErrors.description;
+            }
           }
         });
     },
@@ -782,6 +818,7 @@ export default {
       )
         .then((response) => {
           setSimulationStep1(response.data.data);
+          this.saveClientAge();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
           let url = `/historical/illustration-data/${this.activeSimulation.id}`;
@@ -805,6 +842,7 @@ export default {
           }
         })
         .catch((error) => {
+          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -814,13 +852,15 @@ export default {
           } else {
             var serverErrors = getServerErrors(error);
             this.errors = serverErrors;
-            this.errors.simulation_name = serverErrors.simulation_name;
-            this.errors.client_age_year =
-              serverErrors.client_age_1_year_illustration;
-            this.errors.illustrate_year = serverErrors.years_to_illustrate;
-            this.errors.tax_rate = serverErrors.tax_rate;
-            this.errors.details_template = serverErrors.template_name;
-            this.errors.description = serverErrors.description;
+            if (serverErrors) {
+              this.errors.simulation_name = serverErrors.simulation_name;
+              this.errors.client_age_year =
+                serverErrors.client_age_1_year_illustration;
+              this.errors.illustrate_year = serverErrors.years_to_illustrate;
+              this.errors.tax_rate = serverErrors.tax_rate;
+              this.errors.details_template = serverErrors.template_name;
+              this.errors.description = serverErrors.description;
+            }
           }
         });
     },

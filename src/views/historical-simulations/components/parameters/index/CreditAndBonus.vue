@@ -303,7 +303,7 @@ export default {
             );
             let value = input.value;
             if (value) {
-              if (getNumber(value) < 0 || getNumber(value) > 10) {
+              if (getNumber(value) > 10) {
                 valid = false;
                 if (!error_message) {
                   error_message =
@@ -311,10 +311,10 @@ export default {
                 }
               }
             } else {
-              valid = false;
-              if (!error_message) {
-                error_message = "All fields are required.";
-              }
+              // valid = false;
+              // if (!error_message) {
+              //   error_message = "All fields are required.";
+              // }
             }
 
             if (!valid) {
@@ -329,18 +329,18 @@ export default {
             );
             let value = input.value;
             if (value) {
-              if (getNumber(value) < 1) {
-                valid = false;
-                if (!error_message) {
-                  error_message =
-                    "Flat Credit/Bonus rate cannot be less than 1";
-                }
-              }
+              // if (getNumber(value) < 1) {
+              //   valid = false;
+              //   if (!error_message) {
+              //     error_message =
+              //       "Flat Credit/Bonus rate cannot be less than 1";
+              //   }
+              // }
             } else {
-              valid = false;
-              if (!error_message) {
-                error_message = "All fields are required.";
-              }
+              // valid = false;
+              // if (!error_message) {
+              //   error_message = "All fields are required.";
+              // }
             }
 
             if (!valid) {

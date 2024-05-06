@@ -828,18 +828,18 @@ export default {
           );
           let value = input.value;
           if (value) {
-            if (getNumber(value) < 0 || getNumber(value) > 10) {
+            if (getNumber(value) > 10) {
               valid = false;
               if (!error_message) {
                 error_message =
-                  "Flat Credit/Bonus rate cannot be less than 0 or greater than 10";
+                  "Flat Credit/Bonus rate cannot be greater than 10";
               }
             }
           } else {
-            valid = false;
-            if (!error_message) {
-              error_message = "All fields are required.";
-            }
+            // valid = false;
+            // if (!error_message) {
+            //   error_message = "All fields are required.";
+            // }
           }
 
           if (!valid) {

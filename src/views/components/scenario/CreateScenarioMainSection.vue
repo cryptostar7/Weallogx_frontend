@@ -41,7 +41,10 @@
                   Create From Scratch
                 </h4>
                 <div class="form-group pt-2 less">
-                  <label for="scenarioName" class="fs-12 medium-fw"
+                  <label
+                    for="scenarioName"
+                    class="fs-12 medium-fw"
+                    @click="saveClientAge"
                     >Scenario Name</label
                   >
                   <input
@@ -570,7 +573,7 @@
   </section>
 </template>
 <script>
-import { get, post, put } from "./../../../network/requests";
+import { get, patch, post, put } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
@@ -583,6 +586,7 @@ import {
   getScenarioStep1,
   getCurrentScenario,
   setCurrentScenario,
+  getFirstError,
 } from "./../../../services/helper";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -1221,12 +1225,41 @@ export default {
         this.createScenarioDetail(formData);
       }
     },
+    saveClientAge: function () {
+      let defaultAge = "";
+      this.$store.state.data.clients.forEach((element) => {
+        if (Number(this.$route.query.client) === Number(element.id)) {
+          defaultAge = element.age;
+        }
+      });
+
+      if (defaultAge !== Number(this.clientAgeYearToIllustrate)) {
+        patch(
+          `${getUrl("client")}${this.existingClientId}/`,
+          { age: this.clientAgeYearToIllustrate },
+          authHeader()
+        )
+          .then()
+          .catch(() => {
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      }
+    },
     // create new secnario detail data
     createScenarioDetail: function (data) {
       post(getUrl("scenario-details"), data, authHeader())
         .then((response) => {
           let id = response.data.data.id;
           setScenarioStep1(response.data.data);
+          this.saveClientAge();
           this.getExistingScenarioDetails();
           this.detailId = id;
           if (id) {
@@ -1269,6 +1302,7 @@ export default {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then((response) => {
           setScenarioStep1(response.data.data);
+          this.saveClientAge();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
           let url = `/illustration-data/${this.activeScenario.id}`;
