@@ -141,7 +141,7 @@
 .form_section_input_row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.5rem;
 }
 .form_section_each_inputs.width25 {
     width: 25%;
