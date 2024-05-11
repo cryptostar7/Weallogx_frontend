@@ -603,7 +603,6 @@ export default {
     },
 
     getExistingSimulationDetails: function () {
-      // this.$store.dispatch("loader", true);
       get(getUrl("simulation-detail-templates"), authHeader())
         .then((response) => {
           this.$store.dispatch("template", {

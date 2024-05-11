@@ -222,9 +222,6 @@ export default {
     const swInput1 = this.$refs.swInput1;
     const swInput2 = this.$refs.swInput2;
     const swInput3 = this.$refs.swInput3;
-    const swInputDiv1 = this.$refs.swInputDiv1;
-    const swInputDiv2 = this.$refs.swInputDiv2;
-    const swInputDiv3 = this.$refs.swInputDiv3;
 
     const strategyWeight1 = this.$refs.strategyWeight1;
     const strategyWeight2 = this.$refs.strategyWeight2;
@@ -285,7 +282,6 @@ export default {
       if (tempInp2 < 0) {
         swInput3.value = (inp3 + tempInp2).toFixed(2) + "%";
         inp3 = Number(swInput3.value.split("%")[0]);
-        // swCustomRange2.max = 100 - numVal;
         tempInp2 = 0;
       }
 
@@ -319,8 +315,6 @@ export default {
 
       let val = e.target.value.split("%")[0];
       let numVal = Number(val);
-
-      // let total = 100 - inp1;
 
       if (!isNaN(numVal)) {
         if (Number(numVal) > 100) {

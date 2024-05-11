@@ -1906,7 +1906,6 @@ export default {
     // remove error
     clearError: function (key) {
       this.errors[key] = false;
-      // this.clearInsuranceTemplate();
     },
 
     // this function has return the input value
@@ -2618,7 +2617,6 @@ export default {
         if (obj && obj.headers) {
           let temp_data = [];
           let maxRowLen = this.csvPreview.data.length;
-          let maxColLen = this.csvPreview.data.length;
           if (obj.data.length < maxRowLen) {
             maxRowLen = obj.data.length;
           }

@@ -58,7 +58,6 @@ export default {
     },
     submitHandler: function(e) {
       e.preventDefault();
-      // setTimeout(() => this.$refs.input.blur(), 100);
       this.$refs.input.blur();
     },
   },

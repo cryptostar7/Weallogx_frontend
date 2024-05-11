@@ -761,7 +761,6 @@ export default {
           }${this.$route.query.review ? "&review=true" : ""}`
         );
       }
-      // this.existingClientId = false;
     },
 
     // set existing scenario detail template name on change the input
@@ -1063,10 +1062,7 @@ export default {
       }
 
       if (!this.existingScenarioDetailName) {
-        if (!this.scenarioName) {
-          // this.errors.scenario_name = ["This field is required."];
-          // validate = false;
-        } else {
+        if (this.scenarioName) {
           this.errors.scenario_name = "";
         }
 

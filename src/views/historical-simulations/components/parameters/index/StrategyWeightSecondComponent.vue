@@ -154,7 +154,6 @@ export default {
       this.pos3 = e.clientX;
       this.pos4 = e.clientY;
       let actualWidth = totalWidth - elmnt.offsetWidth;
-      let widHalf = elmnt.offsetWidth / 2;
 
       // Drag the element only left and right
       elmnt.style.top = "10px"; // fixed value for vertical position;
@@ -173,8 +172,6 @@ export default {
         strategyWeight1.style.width = percentVal.toFixed(2) + "%";
         strategyWeight2.style.width = this.$refs.swInput2.value.split("%")[0] + "%";
         strategyWeight3.style.width = this.$refs.swInput3.value.split("%")[0] + "%";
-        
-        let currentOffset = (totalWidth * (100 - +this.$refs.swInput3.value.split("%")[0]) / 100) - widHalf;
         
         if(elmnt.offsetLeft >= this.rightMax){
           elmnt.style.left = this.rightMax + "px";
@@ -222,9 +219,6 @@ export default {
     const swInput1 = this.$refs.swInput1;
     const swInput2 = this.$refs.swInput2;
     const swInput3 = this.$refs.swInput3;
-    const swInputDiv1 = this.$refs.swInputDiv1;
-    const swInputDiv2 = this.$refs.swInputDiv2;
-    const swInputDiv3 = this.$refs.swInputDiv3;
 
     const strategyWeight1 = this.$refs.strategyWeight1;
     const strategyWeight2 = this.$refs.strategyWeight2;
@@ -235,7 +229,6 @@ export default {
     resizingDiv1.addEventListener("mousedown", this.dragMouseDown);
     resizingDiv2.addEventListener("mousedown", this.dragMouseDown);
     let wid = resizingDiv1.offsetWidth;
-    let widHalf = wid / 2;
 
     // remove % from first input value
     swInput1.addEventListener("focus", (e) => {

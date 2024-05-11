@@ -301,44 +301,13 @@ export default {
                     "Flat Credit/Bonus rate cannot be greater than 10";
                 }
               }
-            } else {
-              // valid = false;
-              // if (!error_message) {
-              //   error_message = "All fields are required.";
-              // }
             }
 
             if (!valid) {
               input.classList.add("invalid");
             }
           }
-        } else {
-          for (var y = 1; y < this.illustrateYear + 1; y++) {
-            let valid = true;
-            let input = document.getElementById(
-              `crd_schedule_amt${this.currentTab}${y}`
-            );
-            let value = input.value;
-            if (value) {
-              if (getNumber(value) < 1) {
-                // valid = false;
-                // if (!error_message) {
-                //   error_message =
-                //     "Flat Credit/Bonus rate cannot be less than 1";
-                // }
-              }
-            } else {
-              // valid = false;
-              // if (!error_message) {
-              //   error_message = "All fields are required.";
-              // }
-            }
-
-            if (!valid) {
-              input.classList.add("invalid");
-            }
-          }
-        }
+        } 
 
         this.scheduleError = error_message;
       }

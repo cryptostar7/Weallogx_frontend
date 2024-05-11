@@ -30,10 +30,7 @@ export default {
           name: 'Hariom',
           phone: '88408680841',
         }
-      }).then(function(result) {
-        // this.sourceId = result.source.id;
-        // Access the token with result.token
-      });
+      }).then().catch();
     },
   },
 };

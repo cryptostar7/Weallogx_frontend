@@ -70,8 +70,8 @@
           <div
             v-for="(item, index) in data[0].categories"
             :class="`flex-1 ${index === tsa_type ? '' : 'd-none'} ${
-                index + 1 < totalCV ? 'd-none' : ''
-              }`"
+              index + 1 < totalCV ? 'd-none' : ''
+            }`"
           >
             <div class="tab-content h-100">
               <div
@@ -142,9 +142,11 @@
               </div>
             </div>
           </div>
-          <div class="flex-1" v-for="(card, index) in cards" :class="`${
-                index + 2 > totalCV ? 'd-none' : ''
-              }`">
+          <div
+            class="flex-1"
+            v-for="(card, index) in cards"
+            :class="`${index + 2 > totalCV ? 'd-none' : ''}`"
+          >
             <div
               :class="`distributionCard1 equalDistCard${
                 2 + index
@@ -633,7 +635,6 @@ export default {
             .filter((i) => i > 1)
             .map((i) => (years.includes(i / 5) ? i : "")),
         ],
-        // labels: years,
         datasets: [
           {
             borderColor:
@@ -653,7 +654,6 @@ export default {
             borderWidth: 4,
             pointBorderWidth: 1,
             radius: 0,
-            // data: !this.cards[0].active ? [] : cv.map(i => i.toFixed(0)),
             data: cv.map((i) => i.y),
             TooltipLabelStyle: {
               backgroundColor: "white",
@@ -677,8 +677,7 @@ export default {
             data:
               this.deletedItems.includes(1) || !this.cards[0].active
                 ? []
-                : // : cv1.map(i => i.toFixed(0)) || [],
-                  cv1.map((i) => i.y) || [],
+                : cv1.map((i) => i.y) || [],
           },
           {
             borderColor: "#763CA3",
@@ -689,8 +688,7 @@ export default {
             data:
               this.deletedItems.includes(2) || !this.cards[1].active
                 ? []
-                : // : cv2.map(i => i.toFixed(0)) || [],
-                  cv2.map((i) => i.y) || [],
+                : cv2.map((i) => i.y) || [],
           },
           {
             borderColor: "#9D2B2B",
@@ -701,8 +699,7 @@ export default {
             data:
               this.deletedItems.includes(3) || !this.cards[2].active
                 ? []
-                : // : cv3.map(i => i.toFixed(0)) || [],
-                  cv3.map((i) => i.y) || [],
+                : cv3.map((i) => i.y) || [],
           },
           {
             barPercentage: 0,
@@ -950,7 +947,6 @@ export default {
                 dataMetaSet.data.some((dataPoint) => dataPoint.active)
               ) {
                 data.datasets[index].borderColor = bordercolors[index];
-                // data.datasets[index].borderWidth = 6;
                 chart.update();
                 break;
               }
@@ -1052,10 +1048,8 @@ export default {
               },
               min: 0,
               suggestedMax: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
-              // stacked: true,
               ticks: {
                 padding: 8,
-                // stepSize: 125000,
                 callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -1079,7 +1073,6 @@ export default {
                 drawOnChartArea: false, // only want the grid lines for one axis to show up
                 borderColor: "#E9E9E9",
                 drawBorder: false,
-                // tickLength: 5
               },
               min: 0,
               suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(
@@ -1192,7 +1185,7 @@ export default {
               comparativeValuesConfig.options
             );
             let topTable = document.getElementById("comparativeTableTabView");
-            if(topTable){
+            if (topTable) {
               topTable.scrollIntoView();
             }
           });
@@ -1212,11 +1205,17 @@ export default {
       this.data[3] = this.mapColumn4Data().data;
 
       let cvCount = 4;
-      if (this.data[2] && !this.data[2].categories[this.tsa_type].account_value) {
+      if (
+        this.data[2] &&
+        !this.data[2].categories[this.tsa_type].account_value
+      ) {
         cvCount--;
       }
 
-      if (this.data[3] && !this.data[3].categories[this.tsa_type].account_value) {
+      if (
+        this.data[3] &&
+        !this.data[3].categories[this.tsa_type].account_value
+      ) {
         cvCount--;
       }
 
@@ -1277,9 +1276,6 @@ export default {
     },
   },
   watch: {
-    toggleActions() {
-      // this.setGraph();
-    },
     "$store.state.app.presentation_mode"(val) {
       if (
         this.$store.state.app.presentation_mode &&

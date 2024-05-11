@@ -242,11 +242,6 @@ export default {
           let { data } = chart;
           let { isOpen, idx0, idx1 } = dropdownStatus;
           const datasetMetaArray = chart.getSortedVisibleDatasetMetas();
-          // if(animationTimeout){
-          //   setTimeout(() => {
-          //     animationTimeout = false;
-          //   }, totalDuration);
-          // }else{
           lastPoint = data.datasets[0].data.length - 1;
           for (let i = 0; i < datasetMetaArray.length; i++) {
             const dataMetaSet = datasetMetaArray[i];
@@ -297,11 +292,9 @@ export default {
             if (!isOpen) {
               if (idx0 != -1) {
                 data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
-                // data.datasets[idx0].borderColor = lineColors[idx0];
               }
               if (idx1 != -1) {
                 data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
-                // data.datasets[idx1].borderColor = lineColors[idx1];
               }
             } else {
               if (idx0 == -1) {
@@ -310,7 +303,6 @@ export default {
               if (idx1 == -1) {
                 data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
               }
-              // return;
             }
             data.datasets[0].borderColor = setBorderColor(
               chart.getDatasetMeta(0).data[0].active,
@@ -340,21 +332,12 @@ export default {
                 ? pointImageArr[1]
                 : pointImageArr[2];
           } else {
-            // data.datasets[0].borderColor = lineColors[0];
-            // data.datasets[1].borderColor = lineColors[1];
-            if (!isOpen) {
-              // data.datasets[0].pointStyle[lastPoint] = pointImageArr[0];
-              // data.datasets[1].pointStyle[lastPoint] = pointImageArr[1];
-              // chart.update();
-              // return;
-            } else {
+            if (isOpen) {
               if (idx0 != -1) {
                 data.datasets[idx0].pointStyle[lastPoint] = pointImageArr[3];
-                // data.datasets[idx0].borderColor = lineColors[0];
               }
               if (idx1 != -1) {
                 data.datasets[idx1].pointStyle[lastPoint] = pointImageArr[3];
-                // data.datasets[idx1].borderColor = lineColors[1];
               }
               chart.update();
               return;
@@ -506,8 +489,6 @@ export default {
       function resetColors(chart) {
         chart.config.data.datasets[0].borderColor = lineColors[0];
         chart.config.data.datasets[1].borderColor = lineColors[1];
-        // chart.config.data.datasets[0].pointStyle[n] = pointImageArr[0];
-        // chart.config.data.datasets[1].pointStyle[n] = pointImageArr[1];  
         if(dropdownStatus.isOpen){
           document.getElementById('chartDropdown0').classList.remove("gray");
           document.getElementById('chartDropdown1').classList.remove("gray");  
@@ -516,18 +497,10 @@ export default {
       }
 
       window.iscChart.canvas.addEventListener("mouseleave", (e) => {
-        // if(animationTimeout){
-        //    setTimeout(() => {
-        //      animationTimeout = false;
-        //    }, totalDuration);
-        //  }else{
+
         setTimeout(() => {
           resetColors(window.iscChart);
         }, 500)
-        
-        // console.log(document.getElementById('chartDropdown0'), document.getElementById('chartDropdown1'))
-        
-        // }
       });
 
       document.addEventListener("mouseup", (e) => {

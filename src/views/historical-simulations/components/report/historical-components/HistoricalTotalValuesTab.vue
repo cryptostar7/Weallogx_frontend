@@ -811,12 +811,6 @@ export default {
             );
           }
         });
-
-      // document
-      //   .querySelector(".fullScreenCloseBtn")
-      //   .addEventListener("click", function() {
-      //     htmlLegendPlugin3.showAll(totalValueChart, totalValueConfig.options);
-      //   });
     },
   },
   computed: {
@@ -856,7 +850,6 @@ export default {
       }
     },
     "deletedItems.length"(val) {
-      // this.setGraph();
     },
   },
 };

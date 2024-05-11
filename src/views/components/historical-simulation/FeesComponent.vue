@@ -815,12 +815,7 @@ export default {
                   "Flat Credit/Bonus rate cannot be greater than 10";
               }
             }
-          } else {
-            // valid = false;
-            // if (!error_message) {
-            //   error_message = "All fields are required.";
-            // }
-          }
+          } 
 
           if (!valid) {
             input.classList.add("invalid");

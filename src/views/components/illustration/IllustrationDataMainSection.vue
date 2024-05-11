@@ -1886,7 +1886,6 @@ export default {
     // remove error
     clearError: function (key) {
       this.errors[key] = false;
-      // this.clearInsuranceTemplate();
     },
 
     // this function has return the input value
@@ -2468,7 +2467,6 @@ export default {
       formData.append("second_policy_return", data.second_policy_return);
       formData.append("change_year", data.change_year);
       formData.append("scenerio_id", this.$route.params.scenario);
-      // return false;
       this.$store.dispatch("loader", true);
 
       if (this.illustrationId) {

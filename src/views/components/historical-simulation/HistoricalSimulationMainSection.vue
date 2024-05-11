@@ -20,7 +20,6 @@
               <p class="historicalTopPara1">Add Historical Simulations?</p>
               <p class="historicalTopPara2">OPTIONALS</p>
               <div class="d-flex align-items-center justify-content-center mt-3">
-                <!-- <router-link :to="`/historical-index-strategy-allocation/${this.$route.params.scenario}`"> -->
                 <router-link :to="doNotShowAgreement ? `/historical-index-strategy-allocation/${this.$route.params.scenario}` : ''"  :data-bs-toggle="doNotShowAgreement ? '' : 'modal'" :data-bs-target="doNotShowAgreement ? '' : '#disclosureAgreementModal'">
                   <div class="historical-yesNo-mainDiv">
                     <div class="historical-yes-div">
@@ -130,9 +129,7 @@ export default {
     continueBtn.addEventListener("click", e => {
       if (!e.currentTarget.classList.contains("disabled")) {
         const modalBackDrop = document.querySelector(".modal-backdrop");
-        // const disclosureAgreementModal = document.querySelector("#disclosureAgreementModal");
         modalBackDrop.remove();
-        // disclosureAgreementModal.style.display = "none";
         document.body.removeAttribute("style");
       }
     });

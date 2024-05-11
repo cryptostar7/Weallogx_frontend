@@ -37,8 +37,6 @@
                 <div class="paymentMethodFormDiv">
                   <div>
                     <label for="card_no">Card Number</label>
-                    <!-- <img id="brand-icon" src="@/assets/images/user/master-card.svg" alt="Marter Card"> -->
-                    <!-- <span class="brand"><i class="pf pf-credit-card" id="brand-icon"></i></span> -->
                     <div ref="cardNumber" id='card_no' class="numberInputs card-number"></div>
                   </div>
                   <div>
@@ -52,7 +50,6 @@
                       <div id='expiry_date' ref="cardExpiry" class="card-expiry-date"></div><br />
                     </div>
                     <div class="cvvInputDiv">
-                      <!-- <img src="@/assets/images/user/password-view.svg" alt="Password" class="showHideImg"> -->
                       <label for="cvv_no">CVV</label>
                       <div ref="cardCvc" id='cvv_no' class="numberInputs card-cvv-number"></div>
                     </div>
@@ -121,9 +118,7 @@
     mounted() {
       if (this.$store.state.forms.temp_user) {
         this.user = this.$store.state.forms.temp_user;
-      } else {
-        // window.location.href = "/sign-up";
-      }
+      } 
   
       var style = {
         base: {
@@ -150,10 +145,6 @@
       cardNumber.mount(this.$refs.cardNumber);
       cardExpiry.mount(this.$refs.cardExpiry);
       cardCvc.mount(this.$refs.cardCvc);
-  
-      cardNumber.on("change", function(event) {
-        // Switch brand logo
-      });
     },
     methods: {
       getSource: async function(e) {
@@ -170,7 +161,6 @@
           })
           .then(response => {
             if (response.source) {
-              console.log(response.source);
               this.surceId = response.source.id;
               this.$store.dispatch("loader", false);
             } else {

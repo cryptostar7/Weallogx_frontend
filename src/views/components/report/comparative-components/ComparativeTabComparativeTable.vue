@@ -307,13 +307,11 @@
                         <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
                           <table class="table mt-1 secondTable td-first summaryTableFont">
                             <thead>
-                              <!-- :width="`${$props.sidebar ? 125 : 105}`" -->
                               <th style="background: none !important; border: 0 !important;"></th>
                             </thead>
                             <tbody>
                               <tr>
                                 <td style="border-right: 0 !important;" class="table1Td tableotalTd text-start" data-label="Year">Deposits</td>
-                                <!-- <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td> -->
                               </tr>
                               <tr>
                                 <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Distributions</td>
@@ -342,11 +340,9 @@
                               </tr>
                               <tr>
                                 <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
-                                <!-- <td class="w-75" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total) }}</td> -->
                               </tr>
                               <tr>
                                 <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
-                                <!-- <td class="" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].net_balance.total_value) }}</td> -->
                               </tr>
                             </tbody>
                           </table>
@@ -370,11 +366,9 @@
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
-                                    <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
-                                    <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.total_value) }}</td> -->
                                   </tr>
                                   <tr>
                                     <td class="extra-td-styles">
@@ -383,7 +377,6 @@
                                           <tr>
                                             <td class="inner-td"></td>
                                             <td width="50%" :class="`${summary_data.data[header.id].distribution.shortfall > 0 ? 'text-success':'text-danger'}`" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall).replace("-", "") }}</td>
-                                      <!-- <td width="50%" class="" data-label="">{{ $numFormatWithDollar(summary_data.data[header.id].net_balance.shortfall).replace("-", "") }}</td> -->
                                           </tr>
                                         </tbody>
                                       </table>

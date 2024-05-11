@@ -51,7 +51,6 @@
                     <label for="email" class="active" >Company Name</label>
                     <input type="text" id="email" v-model="user.company_name" @keyup="errors.company_name = false" >
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.company_name === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.company_name && errors.company_name[0]" >{{errors.company_name[0]}}</label>
                 </div>
 
@@ -78,7 +77,6 @@
                     <label for="confirmPassword" class="active" >Website</label>
                     <input type="text" id="confirmPassword" v-model="user.website" @keyup="errors.website = false" >
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.website === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.website && errors.website[0]" >{{errors.website[0]}}</label>
                 </div>
 
@@ -87,7 +85,6 @@
                     <label for="confirmPassword" class="active" >Address</label>
                     <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" >
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.street_address === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
                 </div>
 
@@ -96,7 +93,6 @@
                     <label for="confirmPassword" class="active" >City</label>
                     <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" >
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.city === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
                 </div>
 
@@ -105,7 +101,6 @@
                     <label for="confirmPassword" class="active" >State</label>
                     <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" >
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.state === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
                 </div>
 
@@ -137,7 +132,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <button class="btn remove-btn-logo" @click="logoRemove('green')">Remove Logo</button> -->
                   <button v-if="user.business_logo_green" class="btn round-btn delete-logo-btn" @click="logoRemove('green')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#298B74"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#298B74"></path></svg></button>
                 </div>
                 <div class="businessLogoUploadDiv blue drag-drop-label" @drop="handleDragFile2" @dragover="dragover2" @dragleave="dragleave2">
@@ -157,7 +151,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <button @click="logoRemove('blue')">Remove Logo</button> -->
                   <button v-if="user.business_logo_blue" class="btn round-btn delete-logo-btn" @click="logoRemove('blue')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#004885"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#004885"></path></svg></button>
                 </div>
                 <div class="businessLogoUploadDiv dark drag-drop-label" @drop="handleDragFile3" @dragover="dragover3" @dragleave="dragleave3">
@@ -177,7 +170,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <button @click="logoRemove('dark')">Remove Logo</button> -->
                   <button v-if="user.business_logo_dark" class="btn round-btn delete-logo-btn" @click="logoRemove('dark')"><span>Remove Logo</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.27159 12.4675H11.0086L12.0468 1.53235H2.17872L3.27159 12.4675ZM13.5127 1.50703C13.5855 0.739269 12.9818 0.0754395 12.2106 0.0754395H2.01414C1.24035 0.0754395 0.635718 0.74352 0.712665 1.51348L1.83531 12.7466C1.90214 13.4152 2.4648 13.9244 3.13679 13.9244H11.144C11.8185 13.9244 12.3823 13.4115 12.4462 12.7402L13.5127 1.50703Z" fill="#202124"></path><path d="M9.37198 7.53595C9.82346 7.53595 10.1895 7.16996 10.1895 6.71848C10.1895 6.267 9.82346 5.901 9.37198 5.901H4.85182C4.40034 5.901 4.03434 6.267 4.03434 6.71848C4.03434 7.16996 4.40034 7.53595 4.85182 7.53595H9.37198Z" fill="#202124"></path></svg></button>
                 </div>
               </div>

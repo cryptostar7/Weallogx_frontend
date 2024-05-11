@@ -67,7 +67,6 @@ export default {
       patch(`${getUrl("report")}${this.$props.id}/`, data, authHeader())
         .then(response => {
           this.$toast.success(response.data.message);
-          // this.getClient(true);
           this.$store.dispatch("loader", false);
         })
         .catch(error => {

@@ -547,7 +547,6 @@
                                     .list.length
                                 "
                               >
-                                <!-- this.table.data[0].categories[this.tsa_type].list -->
                                 <tr
                                   v-for="(item, index) in table.data[header.id]
                                     .categories[tsa_type].list"
@@ -582,7 +581,6 @@
                                 </tr>
                               </tbody>
                               <tbody v-else>
-                                <!-- this.table.data[0].categories[this.tsa_type].list -->
                                 <tr
                                   v-for="(item, index) in table.data[0]
                                     .categories[tsa_type].list.length"
@@ -688,7 +686,6 @@
                             )
                           }}
                         </td>
-                        <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total) }}</td> -->
                       </tr>
                       <tr>
                         <td width="50%" data-label="acount">
@@ -699,7 +696,6 @@
                             )
                           }}
                         </td>
-                        <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.total_value) }}</td> -->
                       </tr>
                       <tr>
                         <td
@@ -712,7 +708,6 @@
                               : 'text-danger'
                           "
                         ></td>
-                        <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[0].categories[tsa_type].net_balance.shortfall).replace("-", "") }}</td> -->
                       </tr>
                     </tbody>
                   </table>
@@ -783,7 +778,6 @@
                                 )
                               }}
                             </td>
-                            <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.total_value) }}</td> -->
                           </tr>
                           <tr>
                             <td class="extra-td-styles">
@@ -810,7 +804,6 @@
                                         ).replace("-", "")
                                       }}
                                     </td>
-                                    <!-- <td width="50%" data-label="blank">{{ $numFormatWithDollar(summary_data.data[header.id].categories[tsa_type].net_balance.shortfall).replace("-", "") }}</td> -->
                                   </tr>
                                 </tbody>
                               </table>
@@ -1245,8 +1238,6 @@ export default {
         type: type,
         list: [],
       };
-
-      console.log(data);
 
       if (data.chart_output) {
         let chart_data = data.chart_output;

@@ -563,7 +563,6 @@ export default {
         this.tabs.tab3 = false;
         this.tabs.tab2 = false;
         this.activeTab = 1;
-        // event.preventDefault();
         return false;
       }
       if (this.tabs.tab2 && this.tabs.tab3) {

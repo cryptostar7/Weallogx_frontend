@@ -324,12 +324,10 @@ export default {
 
       maxAxis = this.$roundFigureNum(maxAxis).toFixed(0);
 
-      const annualFeesChart = document.getElementById("annualFeesChart");
       const annualFeeGraphArea = document.querySelector("#annualFeeGraphArea");
 
       const totalDuration = 2500;
       const delayBetweenPoints = totalDuration / graphData.datasets[0].data.length;
-      const previousY = (annualFeesChart) => annualFeesChart.index === 0 ? annualFeesChart.chart.scales.y.getPixelForValue(graphData.datasets[0].data.length) : annualFeesChart.chart.getDatasetMeta(annualFeesChart.datasetIndex).data[annualFeesChart.index - 1].getProps(['y'], true).y;
 
       let animationTimeout = false;
 
