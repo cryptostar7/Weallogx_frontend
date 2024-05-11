@@ -1291,7 +1291,7 @@ color: #fff;
   top: 3px;
 }
 .offcanInputDiv input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   min-height: 42px;
@@ -1313,10 +1313,10 @@ color: #fff;
   border: 1.5px solid var(--green-clr);
   border-radius: 8px;
   padding: 0.7rem 0;
-  color: #ffffff;
+  color: #fff;
 }
 .offcanBtnDiv .SaveAddBtn:hover {
-  background: #FFFFFF;
+  background: #FFF;
   color: var(--green-clr);
 }
 .SaveAddBtn.btnDisabled {
@@ -1328,7 +1328,7 @@ color: #fff;
   opacity: 0.6;
 }
 .offcanBtnDiv .SaveclsBtn {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid var(--green-clr);
   border-radius: 8px;
   padding: 0.7rem 0;
@@ -1336,10 +1336,10 @@ color: #fff;
 }
 .offcanBtnDiv .SaveclsBtn:hover {
   background: var(--green-clr);
-  color: #ffffff;
+  color: #fff;
 }
 .SaveclsBtn.btnDisabled {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid #A0A0A0;
   color: #A0A0A0;
   pointer-events: none;
@@ -1377,19 +1377,6 @@ color: #fff;
   padding: 1.875rem;
   padding-bottom: 0.375rem;
 }
-/*.side-grey-line {
-  position: relative;
-}
-.side-grey-line::after {
-  content: "";
-  position: absolute;
-  right: 1.25rem;
-  top: 2.75rem;
-  background: #C8C8C8;
-  border-radius: 0.5rem;
-  width: 3px;
-  height: 103px;
-}*/
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -1776,7 +1763,7 @@ color: #fff;
 .autocomplete3-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete4-items {
   position: absolute;
   border-bottom: none;
@@ -1817,7 +1804,7 @@ color: #fff;
 .autocomplete4-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete5-items {
   position: absolute;
   border-bottom: none;
@@ -1858,7 +1845,7 @@ color: #fff;
 .autocomplete5-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete6-items {
   position: absolute;
   border-bottom: none;
@@ -1899,7 +1886,7 @@ color: #fff;
 .autocomplete6-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete7-items {
   position: absolute;
   border-bottom: none;
@@ -1940,7 +1927,7 @@ color: #fff;
 .autocomplete7-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete8-items {
   position: absolute;
   border-bottom: none;
@@ -1981,7 +1968,7 @@ color: #fff;
 .autocomplete8-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete9-items {
   position: absolute;
   border-bottom: none;
@@ -2022,7 +2009,7 @@ color: #fff;
 .autocomplete9-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete10-items {
   position: absolute;
   border-bottom: none;
@@ -2063,7 +2050,7 @@ color: #fff;
 .autocomplete10-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete11-items {
   position: absolute;
   border-bottom: none;
@@ -2104,7 +2091,7 @@ color: #fff;
 .autocomplete11-items div:hover {
   background-color: #f2f2f2;
 }
-/*  */
+
 .autocomplete12-items {
   position: absolute;
   border-bottom: none;
@@ -2337,7 +2324,7 @@ color: #fff;
 }
 .illusnTableMainDiv button:hover {
   border: 2px solid #F0F0F0;
-  background: #ffffff;
+  background: #fff;
   color: #999;
 }
 .illusnTableMainDiv button:focus {
@@ -2592,11 +2579,6 @@ color: #fff;
 .illustration-data-table tr th:hover input[type=checkbox], .illustration-data-table tr th.checked input[type=checkbox]{
   display: block;
 }
-/*.illustration-data-table tr td {
-  width: 175px;
-  min-width: 175px;
-  max-width: 175px;
- }*/
 .table > :not(caption) > * > *{
   border-bottom: 0;
 }
@@ -3045,7 +3027,6 @@ color: #fff;
     display: none;
   }
 }
-
 /* Historical simulations start */
 .historical-mainSection {
   background: #F5F5F5;
@@ -3074,7 +3055,7 @@ color: #fff;
   cursor: pointer;
 }
 .historical-yesNo-mainDiv:hover {
-  background: #ffffff;
+  background: #fff;
   border-radius: 20px;
   padding: 6rem;
   box-shadow: 0px 0.25px 6px rgba(0, 0, 0, 0.25);
@@ -3082,7 +3063,7 @@ color: #fff;
 .historical-yes-div {
   width: 89px;
   height: 89px;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid #DDDDDD;
   display: flex;
   justify-content: center;
@@ -3092,7 +3073,7 @@ color: #fff;
 .historical-no-div {
   width: 89px;
   height: 89px;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid #DDDDDD;
   display: flex;
   justify-content: center;
@@ -3136,7 +3117,7 @@ color: #fff;
   margin: 0;
 }
 .after-yes-middle-div {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   padding: 67px 28px 35px;
@@ -3151,7 +3132,7 @@ color: #fff;
   color: #000000;
 }
 .twoBtnSwtchMainDiv {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   display: flex !important;
@@ -3161,7 +3142,7 @@ color: #fff;
   flex-wrap: unset;
 }
 .twoBtnSwtchMainDiv div {
-  background: #FFFFFF;
+  background: #FFF;
   width: 100%;
   font-weight: 600;
   font-size: 14px;
@@ -3173,7 +3154,7 @@ color: #fff;
 }
 .twoBtnSwtchMainDiv div.active {
   background: var(--green-clr);
-  color: #FFFFFF;
+  color: #FFF;
 }
 .strategyAllocation label {
   font-weight: 600;
@@ -3216,7 +3197,7 @@ color: #fff;
   cursor: pointer;
 }
 .eachRadioBtnBgDiv.active {
-  background: #FFFFFF;
+  background: #FFF;
 }
 .historicalRadioNumberPara {
   margin: 0;
@@ -3233,7 +3214,7 @@ color: #fff;
   display: block;
 }
 .historicalYesDivCommon {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 12px;
   padding: 20px;
@@ -3300,9 +3281,7 @@ color: #fff;
 .indexStrategyallDivs.active .indexStrategyheadBrdr p {
   color: white;
 }
-/*.indexStrategyallDivs.active svg rect {
-  fill: #FFFFFF;
-}*/
+
 .indexStrategyallDivs.active .indexStrategyheadBrdr div {
   width: 13px;
   height: 2px;
@@ -3334,7 +3313,7 @@ color: #fff;
   display: none;
 }
 .analysisParametersContent {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-top: none;
   border-radius: 0 0 8px 8px;
@@ -3421,7 +3400,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 .customAmountInputDiv input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   width: 95px;
@@ -3439,7 +3418,7 @@ input[type=number] {
   background-image: none !important;
 }
 .creditBonusInputDiv input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   width: 182px;
@@ -3501,7 +3480,7 @@ input[type=number] {
   font-size: 11px;
   color: #000000;
   text-align: center;
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   left: 1.5rem;
@@ -3518,7 +3497,7 @@ input[type=number] {
   font-size: 11px;
   color: #000000;
   text-align: center;
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   left: 5rem;
@@ -3534,7 +3513,7 @@ input[type=number] {
   font-size: 11px;
   color: #000000;
   text-align: center;
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   left: 2.5rem;
@@ -3586,7 +3565,7 @@ input[type=number] {
   display: block;
 }
 .IndexStrategyBtn {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   display: flex;
@@ -3627,7 +3606,7 @@ input[type=number] {
   position: absolute;
   left: 50%;
   transform: translate(-50%);
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 1000px;
   padding: 0.5rem 1.2rem;
@@ -4047,7 +4026,7 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
+
 /* range slider 5 */
 .range-slider5 {
   width: 100%;
@@ -4136,7 +4115,7 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
+
 /* range slider 6 */
 .range-slider6 {
   width: 100%;
@@ -4227,7 +4206,7 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
+
 /* range slider 7 */
 .range-slider7 {
   width: 100%;
@@ -4318,7 +4297,7 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
+
 /* range slider 8 */
 .range-slider8 {
   width: 100%;
@@ -4407,8 +4386,6 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
-/* -------- */
 /* range slider 9 */
 .range-slider9 {
   width: 100%;
@@ -4499,8 +4476,8 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
-/* -------- */
+
+
 /* range slider 10 */
 .range-slider10 {
   width: 100%;
@@ -4679,8 +4656,6 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/* -------- */
-/* -------- */
 /* range slider 12 */
 .range-slider12 {
   width: 100%;
@@ -4771,9 +4746,8 @@ input[type=number] {
 .rangeSelectorLabel {
   margin-bottom: 1rem;
 }
-/*  */
 .enhancementFixedSheduleBtn {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   display: flex;
@@ -4804,13 +4778,13 @@ input[type=number] {
   color: #000000;
 }
 .multiplierInputDiv input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   width: 182px;
 }
 .fixeValueYearRadio {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   width: 70%;
@@ -4896,7 +4870,7 @@ input[type=number] {
   color: #000000;
 }
 .innerTableInputTd input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 3px;
   padding: 4px;
@@ -4912,7 +4886,7 @@ input[type=number] {
   vertical-align: middle;
 }
 .amountInnerTableInputTd input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 3px;
   padding: 4px;
@@ -4944,7 +4918,7 @@ input[type=number] {
   transform: translateY(-50%) !important;
 }
 .feesRadioDiv {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   width: 78%;
@@ -5031,7 +5005,7 @@ input[type=number] {
   color: #000000;
 }
 .saveZIndexTempContent input {
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
 }
@@ -5045,16 +5019,14 @@ input[type=number] {
   margin-bottom: 8px;
 }
 .strategyWeight {
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 100px;
   text-align: center;
   width: 427px;
   padding: 2px;
-/*  gap: 4px;*/
   position: relative;
   overflow: hidden;
-/*  pointer-events: none;*/
 }
 .strategyWeight .mainResizeDiv {
   background: var(--green-clr);
@@ -5083,17 +5055,13 @@ input[type=number] {
 }
 .resizing-right-div {
   position: absolute;
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 100px;
   width: 42px;
   height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-/*  vertical-align: middle;*/
-  /*top: 50%;
-  right: -1.4rem;
-  transform: translateY(-50%);*/
   cursor: move;
   z-index: 1;
 }
@@ -5109,22 +5077,18 @@ input[type=number] {
 }
 .resizing-left-div {
   position: absolute;
-  background: #FFFFFF;
+  background: #FFF;
   border-radius: 100px;
   width: 42px;
   height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-/*  vertical-align: middle;
-  top: 50%;
-  left: -1.4rem;
-  transform: translateY(-50%);*/
   cursor: move;
 }
 .mainResizeparaPer1 {
   position: absolute;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   font-weight: 400;
@@ -5138,7 +5102,7 @@ input[type=number] {
 }
 .mainResizeparaPer2 {
   position: absolute;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.25px solid #DFDFDF;
   border-radius: 5px;
   font-weight: 400;
@@ -5200,14 +5164,12 @@ input[type=number] {
   background-color: red;
 }
 .strategy-range-input::-moz-range-thumb {
-  /* This is for Mozilla Firefox */
   -webkit-appearance: none;
   width: 45px;
   height: 25px;
   border-radius: 50px;
 }
 .strategy-range-input::-ms-thumb {
-  /* This is for Internet Explorer */
   -webkit-appearance: none;
   z-index: 2;
   width: 45px;
@@ -5248,8 +5210,6 @@ input[type=number] {
   border-top: 1.25px solid #DFDFDF;
   padding-top: 3rem;
 }
-/* Historical simulations end */
-/* Create New Scenario - Comparative Vehicle*/
 .noVehicleTyupeSelectPadd {
   padding-bottom: 8rem;
 }
@@ -5317,12 +5277,12 @@ input[type=number] {
   font-weight: var(--semi-bold-fw);
   font-size: 14px;
   color: var(--green-clr);
-  background: #FFFFFF;
+  background: #FFF;
   border: 1.5px solid var(--green-clr);
   border-radius: 100px;
 }
 .AdtnlCmprtVhclBtn:hover {
-  color: #ffffff;
+  color: #fff;
   background: var(--green-clr);
   border: 1.5px solid var(--green-clr);
   border-radius: 100px;
@@ -5390,7 +5350,7 @@ input[type=number] {
 /* Chart Related CSS */
 .graph-container-div{
   position: relative;
-  background: #FFFFFF;
+  background: #FFF;
   border: 1px solid #DFDFDF;
   border-radius: 12px;
   padding: 30px 28px 8px;
@@ -5626,10 +5586,7 @@ input[type=number] {
   height: 1px;
   background-color: #DFDFDF;
 }
-
-
 /* New CSS Added for Historical Simulations Stand alone*/
-
 .outer-div-all-div {
   border-radius: 12px;
   background: #fff;
