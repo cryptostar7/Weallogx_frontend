@@ -500,8 +500,6 @@
 }
 .light-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active .form-check-input {
   background-image: url("../images/icons/blue-radio.svg");
-  background-size: 24px;
-  background-position: right .75px center;
 }
 .light-blue .twoBtnSwtchMainDiv {
   background: #FFF;
@@ -1273,11 +1271,17 @@ margin: o;
 .light-blue .reportTablesDiv7 .table tbody tr td{
   background: #FFFBF6;
 }
+.light-blue .add-table-column-btn.active{
+  background-color: #f6f6f6;
+  color: var(--blue-clr);
+  border-color: var(--blue-clr);
+}
 .light-blue .add-table-column-btn:hover{
   background-color: #f4f4f4;
   color: var(--blue-clr);
   border-color: #ddd;
 }
+
 .light-blue .add-data-btn{
   background-color: var(--blue-clr);;
 }

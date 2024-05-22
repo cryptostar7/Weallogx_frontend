@@ -525,7 +525,7 @@
                     <button
                       type="button"
                       v-if="removeColId.length"
-                      class="btn add-table-column-btn"
+                      :class="`btn add-table-column-btn ${removeColId.length ? 'active' : ''}`"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteColumnModal"
                     >

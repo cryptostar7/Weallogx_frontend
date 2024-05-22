@@ -61,8 +61,6 @@
 .dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active .form-check-input {
   background-color: #fff;
   background-image: url("../images/icons/blue-radio.svg");
-  background-size: 24px;
-  background-position: right .75px center;
 }
 
 .dark-blue .form-next-btn:focus,
@@ -4092,6 +4090,11 @@ color: #55575a !important;
 .dark-blue .add-table-column-btn{
   border-color: #404348;
 }
+.dark-blue .add-table-column-btn.active{
+  color: var(--blue-clr-3);
+  border-color: var(--blue-clr-3);
+  background-color: transparent;
+}
 .dark-blue .add-table-column-btn:hover{
   background-color: var(--blue-clr-2);
   color: #fff;
@@ -5455,4 +5458,10 @@ background-color: #ABD5F9;
   .dark-blue .compareBottomInnerProgreesBar {
     background-color: #A0A0A0;
   }
+  .dark-blue .select-cross-btn{
+  background-color: #000;
+}
+.dark-blue .select-cross-btn:hover{
+  background-color: #444;
+}
 /* Retirement Buffer CSS Ends*/

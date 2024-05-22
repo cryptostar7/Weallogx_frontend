@@ -380,10 +380,7 @@
                       @onSelectItem="setExistingScenarioScheduleId"
                       @inputText="setExistingScenarioScheduleName"
                     />
-                    <div class="form-group">
-                      <small class="text-danger" v-if="errors.tax_rate">{{
-                        errors.tax_rate[0]
-                      }}</small>
+                    <div class="form-group mb-0">
 
                       <div class="form-group mb-0">
                         <schedule-csv-extraction
@@ -391,8 +388,12 @@
                           :maxInputs="Number(illustrateYear)"
                           @clearError="checkTaxRate()"
                         />
+
                       </div>
 
+                      <small class="text-danger d-block text-center mb-2" v-if="errors.tax_rate">{{
+                        errors.tax_rate[0]
+                      }}</small>
                       <table
                         class="table tax-rate-table text-center"
                         id="scheduleTaxRateTable"
@@ -455,7 +456,7 @@
                           >
                         </div>
                         <div
-                          class="form-group pt-2"
+                          class="form-group pt-2 mb-2"
                           id="templateNameDiv"
                           :style="{
                             display: saveScheduleTemplate ? '' : 'none',

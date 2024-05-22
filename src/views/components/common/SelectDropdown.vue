@@ -13,12 +13,21 @@
               <path  d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
             </svg>
         </span>
-        <small class="text-danger" v-if="$props.error">{{$props.error[0]}}</small>
+
+        <!-- This cross button is for resetting or clearing the selection of the dropdown -->
+        <button type="button" class="btn select-cross-btn d-none">
+          <svg width="9" height="10" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5.78906" y="6.94922" width="8" height="1.5" rx="0.75" transform="rotate(-135 5.78906 6.94922)" fill="#8D8D8D"/>
+            <rect x="0.136719" y="5.99023" width="8" height="1.5" rx="0.75" transform="rotate(-45 0.136719 5.99023)" fill="#8D8D8D"/>
+          </svg>
+        </button>
+        
         <div v-if="dropdown" class="autocomplete-items" @click="e => e.stopPropagation()">
             <div v-if="$props.addNewClient && (!selectList.length || !templateText)"  data-bs-toggle="offcanvas" :data-bs-target="`#${$props.createItemModalId || 'addClientCanvas'}`" :aria-controls="`${$props.createItemModalId || 'addClientCanvas'}`">Create New Client</div>
             <div v-for="(item, index) in selectList" :key="index" @click="(e) => setInputValue(item.template_name, item.id)">{{item.template_name}}</div>
         </div>
       </div>
+      <small class="text-danger" v-if="$props.error">{{$props.error[0]}}</small>
     </div>
 </template>
 <script>

@@ -3721,15 +3721,17 @@
 .dark-green .bb-grey{
   border: none;
 }
-.dark-green  .add-table-column-btn{
-  border-color: #9d9d9d;
-}
 .dark-green .add-table-column-btn{
   border-color: #404348;
 }
+.dark-green .add-table-column-btn.active{
+  color: #26AB8B;
+  border-color: #26AB8B;
+  background-color: transparent;
+}
 .dark-green .add-table-column-btn:hover{
   background-color: #26AB8B;
-  color: #fff;;
+  color: #fff;
   border-color: #26AB8B;
 }
 .dark-green .illustration-data-table tr th{
@@ -4940,4 +4942,10 @@ background-color: #2e3135;
 }
 .dark-green .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
   background-color: #9d2b2b;
+}
+.dark-green .select-cross-btn{
+  background-color: #000;
+}
+.dark-green .select-cross-btn:hover{
+  background-color: #444;
 }

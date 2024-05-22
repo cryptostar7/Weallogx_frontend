@@ -534,7 +534,7 @@
                     <button
                       type="button"
                       v-if="removeColId.length"
-                      class="btn add-table-column-btn"
+                      :class="`btn add-table-column-btn ${removeColId.length ? 'active' : ''}`"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteColumnModal"
                     >
@@ -2671,6 +2671,7 @@ export default {
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
+        console.log(illustrationTable);
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }

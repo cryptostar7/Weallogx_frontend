@@ -1443,6 +1443,26 @@ color: #fff;
   display: inline-block;
   pointer-events: none;
 }
+.select-cross-btn{
+  position: absolute;
+  right: 2.25rem;
+  bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #eee;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  padding: 0;
+}
+.select-cross-btn svg{
+  flex-shrink: 0;
+}
+.select-cross-btn:hover{
+  background-color: #e5e5e5;
+}
 .tax-rate-tabs {
   max-width: 300px;
   margin: 0 auto;
@@ -2648,6 +2668,11 @@ color: #fff;
  border-bottom: 0;
  color: #ccc;
  margin-right: 10px;
+}
+.add-table-column-btn.active{
+  background-color: #f6f6f6;
+  color: var(--green-clr);
+  border-color: var(--green-clr);
 }
 .add-table-column-btn:hover{
   background-color: #f4f4f4;
@@ -5236,8 +5261,6 @@ input[type=number] {
 }
 .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.activeOnly .form-check-input {
   background-color: var(--green-clr);
-  background-size: 24px;
-  background-position: right 0.75px center;
 }
 .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link .form-check-input {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
@@ -5252,6 +5275,7 @@ input[type=number] {
   background-color: #fff;
 }
 .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active .form-check-input {
+  background-color: #fff !important;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7.5' cy='7.5' r='7.5' fill='%230E6651'/%3E%3C/svg%3E");
   background-size: 20px;
   background-position: right 1.25px center;
