@@ -653,9 +653,6 @@ body::-webkit-scrollbar {
   font-weight: 400;
   color: #000;
 }
-
-/*responsive*/
-/* responsive end*/
 .illusnTableMainDiv button {
   border: 2px solid #F0F0F0;
   background: #F0F0F0;
@@ -698,25 +695,6 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
 }
-
-/*.historyHead2 {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.historyHead2 p {
-  color: var(--green-clr);
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.historyHead2 .hisBorder {
-  width: 100%;
-  height: 1.75px;
-  background: var(--green-clr);
-}
-*/
 .SaveCloseButton {
   display: flex;
   justify-content: center;
@@ -928,7 +906,6 @@ body::-webkit-scrollbar {
   border-bottom: 1px solid #E4E4E4;
 }
 
-/*  */
 .backToscenario {
   text-decoration: none;
   color: #000;
@@ -1641,7 +1618,6 @@ body::-webkit-scrollbar {
   background: #1660A4 !important;
 }
 
-/*  */
 .switch2 .checkbox2:checked~.layer2 {
   background-color: #763CA3 !important;
 }
@@ -1712,7 +1688,6 @@ body::-webkit-scrollbar {
   background: #763CA3 !important;
 }
 
-/*  */
 .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
@@ -1803,8 +1778,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Green eye end */
-/* Green edit start */
 .editBtnLirp {
   text-decoration: none;
   background: #FFF;
@@ -1841,8 +1814,6 @@ body::-webkit-scrollbar {
   color: var(--green-clr);
 }
 
-/* Green edit end */
-/* Green delete start */
 .deleteBtnLirp {
   text-decoration: none;
   background: #FFF;
@@ -1873,7 +1844,6 @@ body::-webkit-scrollbar {
 }
 
 /* Green delete end */
-/* -------------------------- */
 /* Orange Eye start */
 .viewBtnMedian {
   text-decoration: none;
@@ -1957,8 +1927,6 @@ body::-webkit-scrollbar {
   color: #E8662F;
 }
 
-/* Orange edit end */
-/* Orange delete start */
 .deleteBtnMedian {
   text-decoration: none;
   background: #FFF;
@@ -1988,9 +1956,6 @@ body::-webkit-scrollbar {
   color: #E8662F;
 }
 
-/* Orange delete end */
-/* -------------------------- */
-/* red Eye start */
 .viewBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2019,8 +1984,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red eye end */
-/* red edit start */
 .editBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2050,8 +2013,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red edit end */
-/* red delete start */
 .deleteBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2081,9 +2042,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red delete end */
-/* -------------------------- */
-/* blue Eye start */
 .viewBtnAccount {
   text-decoration: none;
   background: #FFF;
@@ -2112,11 +2070,8 @@ body::-webkit-scrollbar {
   color: #1660A4;
 }
 
-/* Blue eye end */
-/* Blue edit start */
 .editBtnAccount {
   text-decoration: none;
-  /*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0;
   display: flex;
@@ -2162,15 +2117,12 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
   border: 1px solid #BBBBBB;
-  /*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0.5rem;
   white-space: nowrap;
   text-decoration: none;
 }
 
-/* Blue edit end */
-/* Blue delete start */
 .deleteBtnAccount {
   text-decoration: none;
   background: transparent;
@@ -2221,9 +2173,6 @@ body::-webkit-scrollbar {
   fill: transparent;
 }
 
-/* blue delete end */
-/* -------------------------- */
-/* Voilet Eye start */
 .viewBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2252,8 +2201,6 @@ body::-webkit-scrollbar {
   color: #763CA3;
 }
 
-/* Voilet eye end */
-/* Voilet edit start */
 .editBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2283,8 +2230,6 @@ body::-webkit-scrollbar {
   color: #763CA3;
 }
 
-/* Voilet edit end */
-/* Voilet delete start */
 .deleteBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2410,7 +2355,6 @@ body::-webkit-scrollbar {
   color: #000;
 }
 
-/* responsive end*/
 .blankTd {
   text-align: center !important;
   color: #CACACA !important;
@@ -2433,15 +2377,12 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 2 */
 .reportTablesDiv2 table thead th:first-child {
   background: #3C3C3C !important;
   color: white !important;
   border-radius: 6px;
-  /*padding: 0 20px 0 5px;*/
 }
 
-/* 3 */
 .reportTablesDiv3 table thead th {
   background: var(--green-clr) !important;
   color: white !important;
@@ -2455,7 +2396,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 4 */
 .reportTablesDiv4 table thead th {
   background: #1660A4 !important;
   color: white !important;
@@ -2469,7 +2409,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 5 */
 .reportTablesDiv5 table thead th {
   background: #763CA3 !important;
   color: white !important;
@@ -2483,7 +2422,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 6 */
 .reportTablesDiv6 table thead th {
   background: #9D2B2B !important;
   color: white !important;
@@ -2497,7 +2435,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 6 */
 .reportTablesDiv7 table thead th {
   background: #E8662F !important;
   color: white !important;
@@ -2511,9 +2448,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/*.reportTablesDiv7 .table th {
-  border-left-color: #DE835C !important;
-}*/
 .equalThingTabTxt {
   font-size: 14px;
   font-weight: 500;
@@ -2707,7 +2641,6 @@ p.allCardHeadPara1{
 
 .CardProgressnym {
   margin: 0;
-  /*margin-bottom: 2rem;*/
   font-weight: 600;
   font-size: 13px;
   color: var(--green-clr);
@@ -3045,9 +2978,6 @@ body.fullScreen .progressAllBarsDivMain{
     font-size: 9px !important;
   }
 
-  /* .progressBarEachDiv {
-    width: 55px;
-  }*/
   .illusnTableMainDiv .table thead {
     display: none;
   }
@@ -3159,8 +3089,6 @@ body.fullScreen .progressAllBarsDivMain{
   color: #1660A4 !important;
 }
 
-/* table four css for hide end*/
-/* table five css for hide start */
 .iraBottomTxt * {
   color: #cdcdcd !important;
 }
@@ -3212,8 +3140,6 @@ body.fullScreen .progressAllBarsDivMain{
   color: #763CA3 !important;
 }
 
-/* table five css for hide end */
-/* table five css for hide start */
 .annuityBottomTxt * {
   color: #cdcdcd !important;
 }
@@ -3381,18 +3307,9 @@ body.fullScreen .progressAllBarsDivMain{
 
 .CompProgressAbsltCls {
   width: 100%;
-/*  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1.90rem;*/
   display: flex;
   justify-content: space-between;
 }
-
-/*.comulativeProgBrdrDivs {
-  margin-bottom: 16px;
-}*/
-
 .comulativeProgBrdrPara {
   font-weight: 500;
   font-size: 11px;
@@ -3405,8 +3322,6 @@ body.fullScreen .progressAllBarsDivMain{
 .comulativeProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-/*  margin-top: 10px;*/
-/*  margin-bottom: 1rem;*/
   margin-inline: 5px;
 }
 .cumulative-value-bar, .legacy-vertical-bar{
@@ -3568,7 +3483,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount2 {
   background: #1660A4;
 }
@@ -3577,7 +3491,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #287BC7;
 }
 
-/*  */
 .cumulativeProgAccount1 {
   background: #0E6651;
 }
@@ -3586,7 +3499,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #25967B;
 }
 
-/*  */
 .cumulativeProgAccount3 {
   background: #763CA3;
 }
@@ -3595,7 +3507,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #9453C8;
 }
 
-/*  */
 .cumulativeProgAccount4 {
   background: #9D2B2B;
 }
@@ -3604,7 +3515,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount4 {
   background: #9D2B2B;
 }
@@ -3613,7 +3523,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount5 {
   background: #E8662F;
 }
@@ -4057,7 +3966,6 @@ Blank div css end here
   fill: #0E6651;
 }
 
-/* 8 */
 .reportTablesDiv8 table thead th {
   background: #0E6651 !important;
   color: white !important;
@@ -4300,10 +4208,8 @@ Blank div css end here
 .feeMainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-/*  margin-top: 10px;*/
   margin-left: 8px;
   margin-right: 8px;
-/*  margin-bottom: 1rem;*/
 }
 .feeMainProgrssBarDiv {
   position: relative;
@@ -4396,7 +4302,6 @@ background: #1D856C;
   background: #DA3D3D;
 }
       
-/*  */
 .feeProgressBarEachDiv {
   position: relative;
   width: var(--value-bar-width);
@@ -4415,7 +4320,7 @@ background: #1D856C;
   font-size: 11px;
   color: #000;
   text-align: center;
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   left: 5rem;
@@ -4512,10 +4417,6 @@ background: #1D856C;
   background: #25967B;
   margin: 0;
 }
-
-/*.bgChangerComGraph1 p:nth-child(2) {
-  color: #0E6651;
-}*/
 .bgChangerComGraph2 p:nth-child(2) {
   color: #1660A4;
 }
@@ -4660,7 +4561,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg2 {
   background: #25967B;
 }
@@ -4670,7 +4570,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg3 {
   background: #0F7ADC;
 }
@@ -4680,7 +4579,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg4 {
   background: #287BC7;
 }
@@ -4690,7 +4588,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg5 {
   background: #A35CDA;
 }
@@ -4700,7 +4597,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg6 {
   background: #9453C8;
 }
@@ -4710,7 +4606,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg7 {
   background: #E37647;
 }
@@ -4720,7 +4615,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg8 {
   background: #F67F4C;
 }
@@ -4730,7 +4624,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg9 {
   background: #DA3D3D;
 }
@@ -4740,7 +4633,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg10 {
   background: #C04141;
 }
@@ -4750,7 +4642,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .eachBarMainBgNone {
   background-image: none;
   background: none;
@@ -4802,7 +4693,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaBlue1 {
   font-size: 13px;
   font-weight: 600;
@@ -4820,7 +4710,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaVoilet1 {
   font-size: 13px;
   font-weight: 600;
@@ -4838,7 +4727,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaOrange1 {
   font-size: 13px;
   font-weight: 600;
@@ -4856,7 +4744,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaRed1 {
   font-size: 13px;
   font-weight: 600;

@@ -844,9 +844,8 @@
 .dark-green .loan-Intrest-para {
   color: #fff;
 }
-
 /* history simulation dark mose css end here */
-/* Index page dark mose css start here */
+
 /* Index page dark mose css start here */
 .dark-green .report-top-navbar {
   background: #202124;
@@ -1257,7 +1256,6 @@
 }
 
 /* Report buider dark css start */
-/*  */
 .dark-green .cumulativeProgAccount1 {
   background: #0F8266;
 }
@@ -1265,7 +1263,7 @@
 .dark-green .BottomcumulativeAccount1 {
   background: #20A584;
 }
-/*  */
+
 .dark-green .cumulativeProgAccount2 {
   background: #23669E;
 }
@@ -1273,18 +1271,12 @@
 .dark-green .BottomcumulativeAccount2 {
   background: #208DE8;
 }
-
-/*  */
 .dark-green .cumulativeProgAccount3 {
-  background: #8137BB
-  ;
+  background: #8137BB;
 }
-
 .dark-green .BottomcumulativeAccount3 {
   background: #9453C8;
 }
-
-/*  */
 .dark-green .cumulativeProgAccount4 {
   background:  #DA4343;
 }
@@ -1292,8 +1284,6 @@
 .dark-green .BottomcumulativeAccount4 {
   background: #F04F4F;
 }
-
-/*  */
 .dark-green .modalSharePara {
   color: white;
 }
@@ -1676,11 +1666,6 @@
 .dark-green .switch3 .deleteBtnAccount {
   color: #DA4343 !important;
 }
-
-/*.dark-green .deleteBtnAccount svg path,
-.dark-green .deleteBtnAccount svg circle {
-  fill: transparent;
-}*/
 .dark-green .lifeProPlusPara1 {
   color: #26AB8B;
 }
@@ -1696,11 +1681,6 @@
 .dark-green .viewBtnIra {
   background: transparent;
 }
-
-/*.dark-green .viewBtnIra svg path,
-.dark-green .viewBtnIra svg circle {
-  fill: transparent;
-}*/
 .dark-green .editBtnIra {
   background: transparent;
 }
@@ -1713,35 +1693,15 @@
 .dark-green .deleteBtnIra {
   background: transparent;
 }
-
-/*.dark-green .deleteBtnIra svg path,
-.dark-green .deleteBtnIra svg circle {
-  fill: transparent;
-}*/
 .dark-green .viewBtnAnnuity {
   background: transparent;
 }
-
-/*.dark-green .viewBtnAnnuity svg path,
-.dark-green .viewBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-green .editBtnAnnuity {
   background: transparent;
 }
-
-/*.dark-green .editBtnAnnuity svg path,
-.dark-green .editBtnAnnuity svg rect {
-  fill: transparent;
-}*/
 .dark-green .deleteBtnAnnuity {
   background: transparent;
 }
-
-/*.dark-green .deleteBtnAnnuity svg path,
-.dark-green .deleteBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-green .lifeProBtmDiv {
   background: #2E3135;
   border: 0.5px solid #353B46;
@@ -1750,27 +1710,12 @@
 .dark-green .hideBtnAccount {
   background: transparent;
 }
-
-/*.dark-green .hideBtnAccount svg path,
-.dark-green .hideBtnAccount svg circle {
-  fill: transparent;
-}*/
 .dark-green .hideBtnIra {
   background: transparent;
 }
-
-/*.dark-green .hideBtnIra svg path,
-.dark-green .hideBtnIra svg circle {
-  fill: transparent;
-}*/
 .dark-green .hideBtnAnnuity {
   background: transparent;
 }
-
-/*.dark-green .hideBtnAnnuity svg path,
-.dark-green .hideBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-green .reportTablesDiv .table tbody tr td {
   color: white;
   border: 1px solid #313D39;
@@ -1905,8 +1850,6 @@
   border: 1px solid #222425 !important
 }
 
-/* after hide tables 1 */
-/* after hide tables 2 */
 .dark-green .reportTablesDiv .table5Hide th,
 .dark-green .reportTablesDiv .table5Hide td {
   color: #3a3d41 !important;
@@ -1931,8 +1874,6 @@
   border: 1px solid #222425 !important
 }
 
-/* after hide tables 2 */
-/* after hide tables 3 */
 .dark-green .reportTablesDiv .table4Hide th,
 .dark-green .reportTablesDiv .table4Hide td {
   color: #3a3d41 !important;
@@ -1957,8 +1898,6 @@
   border: 1px solid #222425 !important
 }
 
-/* after hide tables 3 */
-/* background change on hide */
 .dark-green .reportTablesDiv4 .table4Hide tbody tr td {
   background: #3031315e;
 }
@@ -1977,8 +1916,6 @@
   color: #3a3d41 !important;
 }
 
-/* background change on hide */
-/* button disable */
 .dark-green .disableBtnsIra {
   pointer-events: none;
   cursor: default;
@@ -2009,7 +1946,7 @@
   stroke: #3a3d41;
 }
 
-/*  */
+
 .dark-green .comparativeSeeAllBtn button {
   background: #34383D;
   border: 1px solid #34383D;
@@ -2178,11 +2115,6 @@
 .dark-green .switch2 .checkbox2:checked~.layer2 {
   background-color: #8137BB !important;
 }
-
-/*.dark-green .switch3 .checkbox2:checked~.layer2 {
-  background-color: #DA4343 !important;
-}*/
-
 .dark-green .switch4 .checkbox2:checked~.layer2 {
   background-color: #E8662F !important;
 }
@@ -2344,8 +2276,8 @@
 .dark-green .rightLeftDoubleLIneDegine svg rect {
   fill: #6D6D6D;
 }
-
 /* report buider dark css end */
+
 /* Review summary dark css start */
 .dark-green .summary-heading p span {
   color: #fff;
@@ -2622,10 +2554,6 @@
   color: #53a9f1;
 }
 
-/*.dark-green .viewBtnAccount svg path,
-.dark-green .viewBtnAccount svg circle {
-  stroke: #53a9f1;
-}*/
 .dark-green .switch1 .editBtnAccount svg path,
 .dark-green .switch1 .editBtnAccount svg circle,
 .dark-green .switch1 .editBtnAccount svg rect {
@@ -2662,11 +2590,6 @@
   stroke: #DA4343;
 }
 
-/*.dark-green .hideBtnAccount svg path,
-.dark-green .hideBtnAccount svg circle,
-.dark-green .hideBtnAccount svg rect {
-  stroke: #53a9f1;
-}*/
 .dark-green .disableBtnsAccount {
   pointer-events: none;
   cursor: default;
@@ -2676,13 +2599,6 @@
 .dark-green .disableBtnsAccount svg rect {
   stroke: #3a3d41;
 }
-
-/*.dark-green .viewBtnAccount:hover {
-  color: #53a9f1;
-}*/
-/*.dark-green .hideBtnAccount:hover.hideBtnAccount::before {
-  color: #53a9f1;
-}*/
 .dark-green .switch1 .editBtnAccount:hover.editBtnAccount::before {
   color: #53a9f1;
 }
@@ -2761,8 +2677,8 @@
 .dark-green .lifeProBtmDiv3 p {
   color: #B556FF;
 }
-
 /* ira buttons modify end */
+
 /* annuity buttons modify start */
 .dark-green .lifeProPlusPara7 {
   color: #F04F4F;
@@ -2829,10 +2745,6 @@
 .dark-green .lifeProBtmDiv4 p {
   color: #F04F4F;
 }
-
-/* annuity buttons modify */
-/* Review summary dark css end */
-/* range slider history simulation from scratch */
 .dark-green #range1::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress1), #E9E9E9 var(--range-progress1));
 }
@@ -2854,7 +2766,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range2::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress2), #E9E9E9 var(--range-progress2));
 }
@@ -2876,7 +2788,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range3::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress3), #E9E9E9 var(--range-progress3));
 }
@@ -2898,7 +2810,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range4::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress4), #E9E9E9 var(--range-progress4));
 }
@@ -2920,7 +2832,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range5::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress5), #E9E9E9 var(--range-progress5));
 }
@@ -2942,7 +2854,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range6::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress6), #E9E9E9 var(--range-progress6));
 }
@@ -2964,7 +2876,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range7::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress7), #E9E9E9 var(--range-progress7));
 }
@@ -2986,7 +2898,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range8::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress8), #E9E9E9 var(--range-progress8));
 }
@@ -3008,7 +2920,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range9::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress9), #E9E9E9 var(--range-progress9));
 }
@@ -3030,7 +2942,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range10::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress10), #E9E9E9 var(--range-progress10));
 }
@@ -3052,7 +2964,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range11::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress11), #E9E9E9 var(--range-progress11));
 }
@@ -3074,7 +2986,7 @@
   color: #fff;
 }
 
-/*  */
+
 .dark-green #range12::-webkit-slider-runnable-track {
   background: linear-gradient(90deg, #26AB8B var(--range-progress12), #E9E9E9 var(--range-progress12));
 }
@@ -3358,13 +3270,6 @@
 .dark-green .clientNamePara:hover a {
   color: #26AB8B;
 }
-
-/* new css start */
-/*.dark-green .viewBtnLirp svg path,
-.dark-green .viewBtnLirp svg circle {
-  stroke: #26AB8B;
-  fill: transparent;
-}*/
 .dark-green .viewBtnLirp {
   background: transparent;
   color: #26AB8B;
@@ -3380,12 +3285,6 @@
   background: transparent;
   color: #26AB8B;
 }
-
-/*.dark-green .deleteBtnLirp svg path,
-.dark-green .deleteBtnLirp svg rect {
-  stroke: #26AB8B !important;
-  fill: transparent;
-}*/
 .dark-green .deleteBtnLirp {
   background: transparent;
   color: #26AB8B;
@@ -3418,7 +3317,6 @@
 .dark-green .viewBtnMedian svg path,
 .dark-green .viewBtnMedian svg circle {
   stroke: #E8662F;
-  /*  fill: transparent;*/
 }
 
 .dark-green .viewBtnMedian {
@@ -3429,7 +3327,6 @@
 .dark-green .editBtnMedian svg path,
 .dark-green .editBtnMedian svg rect {
   stroke: #E8662F;
-  /*  fill: transparent;*/
 }
 
 .dark-green .editBtnMedian {
@@ -3440,7 +3337,6 @@
 .dark-green .deleteBtnMedian svg path,
 .dark-green .deleteBtnMedian svg rect {
   stroke: #E8662F !important;
-  /*  fill: transparent;*/
 }
 
 .dark-green .deleteBtnMedian {
@@ -3605,20 +3501,6 @@
 .dark-green .commonTableCls .hideBtnLirp {
   background: transparent;
 }
-
-/*.dark-green .commonTableCls .hideBtnLirp:hover.hideBtnLirp::before {
-  color: #26ab8b;
-}*/
-/*.dark-green .commonTableCls .hideBtnLirp:hover {
-  border: 1px solid #BBBBBB;
-  background: transparent;
-}*/
-/*.dark-green .commonTableCls .hideBtnLirp svg path,
-.dark-green .hideBtnLirp svg circle,
-.dark-green .hideBtnLirp svg rect {
-  stroke: #26AB8B;
-  fill: transparent;
-}*/
 .dark-green .hideBtnLirp svg rect {
   fill: #53a9f1;
 }
@@ -3627,13 +3509,6 @@
 .dark-green .commonTableCls .deleteBtnLirp svg rect {
   stroke: #3a3d41 !important;
 }
-
-/*.dark-green .commonTableCls .hideBtnMedian svg path,
-.dark-green .hideBtnMedian svg circle,
-.dark-green .hideBtnMedian svg rect {
-  stroke: #E8662F;
-  fill: transparent;
-}*/
 .dark-green .commonTableCls .hideBtnMedian svg rect {
   fill: #53a9f1;
 }
@@ -3846,15 +3721,17 @@
 .dark-green .bb-grey{
   border: none;
 }
-.dark-green  .add-table-column-btn{
-  border-color: #9d9d9d;
-}
 .dark-green .add-table-column-btn{
   border-color: #404348;
 }
+.dark-green .add-table-column-btn.active{
+  color: #26AB8B;
+  border-color: #26AB8B;
+  background-color: transparent;
+}
 .dark-green .add-table-column-btn:hover{
   background-color: #26AB8B;
-  color: #fff;;
+  color: #fff;
   border-color: #26AB8B;
 }
 .dark-green .illustration-data-table tr th{
@@ -3947,8 +3824,8 @@
 .dark-green .return-btn-div .return-to-report-btn img{
   filter: contrast(0);
 }
-/* Calculator */
 
+/* Calculator */
 .dark-green .strategy-calc-main-div {
   border: 1px solid #26AB8B;
   background: transparent;
@@ -4351,8 +4228,6 @@ background: #262B29;
   background: #242629;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-
-
 .dark-green .tax-details-tab-ul {
   background: #2e3135;
   box-shadow: 0px 0.25px 2px 0px rgba(0, 0, 0, 0.25);
@@ -4470,8 +4345,8 @@ fill: #f5f5f5;
 .dark-green .show-bonus-switch label{
   color: #fff;
 }
-
 /* Extra New CSS for Historical Simulations Stand Alone */
+
 .dark-green .outer-div-all-div {
   background: #2E3135;
   box-shadow: none
@@ -5067,4 +4942,10 @@ background-color: #2e3135;
 }
 .dark-green .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
   background-color: #9d2b2b;
+}
+.dark-green .select-cross-btn{
+  background-color: #000;
+}
+.dark-green .select-cross-btn:hover{
+  background-color: #444;
 }

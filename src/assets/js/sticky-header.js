@@ -1,17 +1,3 @@
-/*!
- * sticky-header.js
- * http://github.com/Tyriar/sticky-header.js
- *
- * Copyright 2015 Daniel Imms
- * Released under the MIT license
- * http://github.com/Tyriar/sticky-header.js/blob/master/LICENSE
- */
-
-// (function() {
-  // 'use strict';
-
-// http://jsfiddle.net/enPZP/6/
-
   var tables = [];
 
   // Polyfills
@@ -127,10 +113,3 @@
     }
   }
   document.querySelector("body").addEventListener("scroll", windowScroll);
-
-  // listen('load', window, function () {
-  //   init();
-  //   window.onscroll = windowScroll;
-  //   window.onresize = refreshHeaderSizes;
-  // });
-// }());

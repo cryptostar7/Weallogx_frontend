@@ -513,7 +513,7 @@
                     <button
                       type="button"
                       v-if="removeColId.length"
-                      class="btn add-table-column-btn"
+                      :class="`btn add-table-column-btn ${removeColId.length ? 'active' : ''}`"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteColumnModal"
                     >
@@ -1639,6 +1639,7 @@ export default {
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
+        console.log(illustrationTable);
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
@@ -1723,6 +1724,9 @@ export default {
       } else {
         // this.resetCsv();
       }
+      setTimeout(() => {
+        this.setScrollbar();  
+      }, 2000)
     },
 
     // remove column from the illustration data table
@@ -2106,6 +2110,8 @@ export default {
         }
         this.$store.dispatch("loader", false);
       });
+
+      this.setScrollbar();
   },
   computed: {
     // return year of illustrations
