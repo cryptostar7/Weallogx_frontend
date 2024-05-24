@@ -19,7 +19,7 @@ COPY . .
 RUN npm run build
 
 # Expose ports for outside access
-EXPOSE 8081
+EXPOSE 5173
 
 # Command to run the application
 CMD npm start
