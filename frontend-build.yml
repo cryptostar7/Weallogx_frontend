@@ -5,7 +5,9 @@ phases:
     commands:
       - echo Logging in to Amazon ECR
       - aws --version
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 565453191102.dkr.ecr.ap-south-1.amazonaws.com
+      - DOCKER_USERNAME=$(aws secretsmanager get-secret-value --secret-id dockerUsername --query SecretString --output text)
+      - DOCKER_PASSWORD=$(aws secretsmanager get-secret-value --secret-id dockerPassword --query SecretString --output text)
+      - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin 565453191102.dkr.ecr.ap-south-1.amazonaws.com
       - REPOSITORY_URI=565453191102.dkr.ecr.ap-south-1.amazonaws.com/wlx-frontend
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
@@ -25,4 +27,4 @@ phases:
       - printf '[{"name":"prod-frontend","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - aws ecs update-service --cluster wlx-project --service wlx-frontend --region ap-south-1 --task-definition wlx-frontend --force-new-deployment
 artifacts:
-    files: imagedefinitions.json
+  files: imagedefinitions.json
