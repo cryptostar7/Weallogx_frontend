@@ -1,13 +1,16 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    DOCKER_USERNAME: ${DOCKER_USERNAME}
+    DOCKER_PASSWORD: ${DOCKER_PASSWORD}
+
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR
       - aws --version
-      - DOCKER_USERNAME=$(aws secretsmanager get-secret-value --arn:aws:secretsmanager:ap-south-1:565453191102:secret:DockerLoginCredentials-vjzg2b dockerUsername --query SecretString --output text)
-      - DOCKER_PASSWORD=$(aws secretsmanager get-secret-value --arn:aws:secretsmanager:ap-south-1:565453191102:secret:DockerLoginCredentials-vjzg2b dockerPassword --query SecretString --output text)
-      - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin 565453191102.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region ap-south-1 | docker login --username $DOCKER_USERNAME --password-stdin 565453191102.dkr.ecr.ap-south-1.amazonaws.com
       - REPOSITORY_URI=565453191102.dkr.ecr.ap-south-1.amazonaws.com/wlx-frontend
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
