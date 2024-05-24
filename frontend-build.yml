@@ -1,12 +1,19 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install awscli jq
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR
       - aws --version
-      - DOCKER_USERNAME=$(aws secretsmanager get-secret-value --secret-id dockerUsername --query SecretString --output text)
-      - DOCKER_PASSWORD=$(aws secretsmanager get-secret-value --secret-id dockerPassword --query SecretString --output text)
+      - DOCKER_CREDENTIALS=$(aws secretsmanager get-secret-value --secret-id <your-secret-id> --query SecretString --output text)
+      - DOCKER_USERNAME=$(echo $DOCKER_CREDENTIALS | jq -r .DOCKER_USERNAME)
+      - DOCKER_PASSWORD=$(echo $DOCKER_CREDENTIALS | jq -r .DOCKER_PASSWORD)
       - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin 565453191102.dkr.ecr.ap-south-1.amazonaws.com
       - REPOSITORY_URI=565453191102.dkr.ecr.ap-south-1.amazonaws.com/wlx-frontend
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
