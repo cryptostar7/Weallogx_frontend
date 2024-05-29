@@ -4,7 +4,7 @@
       sidebar.collapse ? 'active' : ''
     }`"
   >
-    <div class="inner-section reportbuilderRightInner" id="fsdfasdf">
+    <div class="inner-section reportbuilderRightInner">
       <div
         class="d-block sidebar reportSideBar collapse px-0 darkModeSidebarBg"
       >
