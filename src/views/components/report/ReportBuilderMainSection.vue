@@ -233,10 +233,33 @@ export default {
       if (this.$route.params.view_token) {
         api_url += `?view_token=${this.$route.params.view_token}`;
       }
-      get(api_url, authHeader())
+      // get(api_url, authHeader())
+      //   .then((response) => {
+      //     this.$store.dispatch(store, response.data);
+      //     this.$store.dispatch("loader", false);
+      //     setTimeout(() => {
+      //       if (!this.$store.state.app.loader_count) {
+      //         this.ComparativeDataLoaded = true;
+      //         setTimeout(() => this.updateElementJs(), 100);
+      //       }
+      //     }, 100);
+      //   })
+      //   .catch((error) => {
+      //     this.$toast.error(error.message);
+      //     this.$store.dispatch("loader", false);
+      //   });
+    },
+
+    // Temporary functions start
+    getComparativeReportRorDeathBenefit: function () {
+      get(getUrl("comparative_report_death_benefit_ror") + this.$route.params.report, authHeader())
         .then((response) => {
-          this.$store.dispatch(store, response.data);
+          this.$store.dispatch(
+            "comparativeReportRorDeathBenefit",
+            response.data
+          );
           this.$store.dispatch("loader", false);
+
           setTimeout(() => {
             if (!this.$store.state.app.loader_count) {
               this.ComparativeDataLoaded = true;
@@ -250,6 +273,84 @@ export default {
         });
     },
 
+    getComparativeReportRorEndingValue: function () {
+      get(getUrl("comparative_report_ending_value_ror") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch(
+            "comparativeReportRorEndingValue",
+            response.data
+          );
+          this.getComparativeReportRorDeathBenefit();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getComparativeReportRorLongevity: function () {
+      get(getUrl("comparative_report_longevity_ror") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch("comparativeReportRorLongevity", response.data);
+          this.getComparativeReportRorEndingValue();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getComparativeReportDeathBenefit: function () {
+      get(getUrl("comparative_report_death_benefit") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch("comparativeReportDeathBenefit", response.data);
+          this.getComparativeReportRorLongevity();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getComparativeReportEndingValue: function () {
+      get(getUrl("comparative_report_ending_value") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch("comparativeReportEndingValue", response.data);
+          this.getComparativeReportDeathBenefit();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    getComparativeReportLongevity: function () {
+      get(getUrl("comparative_report_longevity") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch("comparativeReportLongevity", response.data);
+          this.getComparativeReportEndingValue();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    // Temporary functions end
+    getReports: function () {
+      let id = this.$route.params.report;
+      this.$store.dispatch("loader", true);
+
+      get(getUrl("comparative_report") + this.$route.params.report, authHeader())
+        .then((response) => {
+          this.$store.dispatch("comparativeReport", response.data);
+          this.getComparativeReportLongevity();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
     // get historical report data
     getHistoricalData: function () {
       get(
@@ -367,7 +468,8 @@ export default {
 
     // fetch comarative reports data from API
     if (this.$route.params.report) {
-      this.getComparativeData(this.$route.params.report);
+      // this.getComparativeData(this.$route.params.report);
+      this.getReports();
       this.getHistoricalData();
       this.getCurrentReportInfo();
     }
