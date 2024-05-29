@@ -186,6 +186,7 @@ export default {
       // get default data
       this.getData(id, "comparative_report", "comparativeReport");
       // get longevity data
+
       this.getData(
         id,
         "comparative_report_longevity",
@@ -233,21 +234,23 @@ export default {
       if (this.$route.params.view_token) {
         api_url += `?view_token=${this.$route.params.view_token}`;
       }
-      get(api_url, authHeader())
-        .then((response) => {
-          this.$store.dispatch(store, response.data);
-          this.$store.dispatch("loader", false);
-          setTimeout(() => {
-            if (!this.$store.state.app.loader_count) {
-              this.ComparativeDataLoaded = true;
-              setTimeout(() => this.updateElementJs(), 100);
-            }
-          }, 100);
-        })
-        .catch((error) => {
-          this.$toast.error(error.message);
-          this.$store.dispatch("loader", false);
-        });
+      setTimeout(() => {
+        get(api_url, authHeader())
+          .then((response) => {
+            this.$store.dispatch(store, response.data);
+            this.$store.dispatch("loader", false);
+            setTimeout(() => {
+              if (!this.$store.state.app.loader_count) {
+                this.ComparativeDataLoaded = true;
+                setTimeout(() => this.updateElementJs(), 100);
+              }
+            }, 100);
+          })
+          .catch((error) => {
+            this.$toast.error(error.message);
+            this.$store.dispatch("loader", false);
+          });
+      }, [(this.$store.state.app.loader_count || 0) * 1000]);
     },
 
     // get historical report data

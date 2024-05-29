@@ -1,93 +1,335 @@
 <template lang="">
-  <div :class="`empty ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none':''}`" data-class="empty-wrapper" data-empty="0">
+  <div
+    :class="`empty ${
+      $store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none' : ''
+    }`"
+    data-class="empty-wrapper"
+    data-empty="0"
+  >
     <div class="fill" data-class="empty-fill" draggable="true" data-fill="1">
-      <div :class="`report-client-list-div ${keyId} ${activeTabs[keyId] ? '':'presentdeActive'}`"  id="comparativeTableTabView">
-        <div :class="`ComparativeTableMainDiv rightDivTop1 ${activeTabs[keyId] ? 'active':''}`">
-          <div class="d-flex justify-content-between px-3 py-2 bb-grey tab-head">
+      <div
+        :class="`report-client-list-div ${keyId} ${
+          activeTabs[keyId] ? '' : 'presentdeActive'
+        }`"
+        id="comparativeTableTabView"
+      >
+        <div
+          :class="`ComparativeTableMainDiv rightDivTop1 ${
+            activeTabs[keyId] ? 'active' : ''
+          }`"
+        >
+          <div
+            class="d-flex justify-content-between px-3 py-2 bb-grey tab-head"
+          >
             <div class="d-flex align-items-center">
               <div class="button-cover2 prstnRadioBtnHide">
                 <div class="radioBtnDiv r2" id="button-2">
-                  <input id="rightCheckBox1" type="checkbox" class="checkbox2 rightCheckBox1"  :checked="activeTabs[keyId]" rightCheckAttr="1"  @change="() => $store.dispatch('toggleReportTabByID', keyId)" />
+                  <input
+                    id="rightCheckBox1"
+                    type="checkbox"
+                    class="checkbox2 rightCheckBox1"
+                    :checked="activeTabs[keyId]"
+                    rightCheckAttr="1"
+                    @change="
+                      () => $store.dispatch('toggleReportTabByID', keyId)
+                    "
+                  />
                   <div class="knobs2"></div>
                   <div class="layer2"></div>
                 </div>
-              </div>                                   
-              <label for="rightCheckBox1" class="rghtTopHeadcommon">Comparative Table<span class="ms-3 equalThingTabTxt">{{tabDescription}}</span></label>
+              </div>
+              <label for="rightCheckBox1" class="rghtTopHeadcommon"
+                >Comparative Table<span class="ms-3 equalThingTabTxt">{{
+                  tabDescription
+                }}</span></label
+              >
             </div>
             <div class="rightLeftDoubleLIneDegine">
-              <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
+              <svg
+                width="13"
+                height="7"
+                viewBox="0 0 13 7"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  y="5.5"
+                  width="13"
+                  height="1.5"
+                  rx="0.75"
+                  fill="#C2C2C2"
+                />
                 <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2" />
               </svg>
             </div>
           </div>
           <div>
-            <div :class="`commonCollapse ${showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'} comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`" :style="{display:activeTabs[keyId] ? 'block':'none'}">
-              <hr class="collapseDivHr">
+            <div
+              :class="`commonCollapse ${
+                showAll ? 'comparativeFullDiv' : 'comparativeLessDiv'
+              } comparativeLessDiv2 collapseDiv1 position-relative tableDivHeight1`"
+              :style="{ display: activeTabs[keyId] ? 'block' : 'none' }"
+            >
+              <hr class="collapseDivHr" />
               <div class="px-3 py-3 whole-table-wrapper">
                 <div class="position-relative">
                   <div class="d-flex align-items-center float-end">
                     <div class="radioBtnDiv r2 prstnRadioBtnHide" id="button-2">
-                      <input type="checkbox" class="checkbox2 showAssetsCheckBox" id="showAssets" @change="() => $store.dispatch('toggleAssets1')"/>
+                      <input
+                        type="checkbox"
+                        class="checkbox2 showAssetsCheckBox"
+                        id="showAssets"
+                        @change="() => $store.dispatch('toggleAssets1')"
+                      />
                       <div class="knobs2"></div>
                       <div class="layer2"></div>
                     </div>
-                    <label for="showAssets" class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show assets one by one</label>
+                    <label
+                      for="showAssets"
+                      class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer"
+                      >Show assets one by one</label
+                    >
                   </div>
-                  <div class="collapseDivmdlHd text-center">Target Analysis</div>
-                </div><br>
+                  <div class="collapseDivmdlHd text-center">
+                    Target Analysis
+                  </div>
+                </div>
+                <br />
                 <div class="d-flex justify-content-center mt-2">
-                  <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-distribution" type="button"  role="tab" aria-controls="v-pills-distribution" aria-selected="true" @click="setCurrentTab('target_analysis')">Distribution</div>
-                    <div data-bs-toggle="pill" data-bs-target="#v-pills-rate-of-return" type="button" role="tab" aria-controls="v-pills-rate-of-return" aria-selected="false" @click="setCurrentTab('rate_of_return')">Rate of Return</div>
+                  <div
+                    class="nav SwtchBtnRprtBldr nav-pills"
+                    role="tablist"
+                    aria-orientation="vertical"
+                  >
+                    <div
+                      class="active"
+                      data-bs-toggle="pill"
+                      data-bs-target="#v-pills-distribution"
+                      type="button"
+                      role="tab"
+                      aria-controls="v-pills-distribution"
+                      aria-selected="true"
+                      @click="setCurrentTab('target_analysis')"
+                    >
+                      Distribution
+                    </div>
+                    <div
+                      data-bs-toggle="pill"
+                      data-bs-target="#v-pills-rate-of-return"
+                      type="button"
+                      role="tab"
+                      aria-controls="v-pills-rate-of-return"
+                      aria-selected="false"
+                      @click="setCurrentTab('rate_of_return')"
+                    >
+                      Rate of Return
+                    </div>
                   </div>
                 </div>
                 <div class="tab-content">
-                  <div class="tab-pane fade show active" id="v-pills-distribution" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div
+                    class="tab-pane fade show active"
+                    id="v-pills-distribution"
+                    role="tabpanel"
+                    aria-labelledby="pills-home-tab"
+                  >
                     <div class="d-flex justify-content-center mt-2">
-                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div :class="currentFilter === 'default' ? 'active' : ''" id="v-pills-default-tab" data-bs-toggle="pill"  data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true"  @click="setCurrentFilter('default')">Amount</div>
-                        <div :class="currentFilter === 'longevity' ? 'active' : ''" id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true" @click="setCurrentFilter('longevity')">
+                      <div
+                        class="nav mltplSwtchDiv nav-pills"
+                        role="tablist"
+                        aria-orientation="vertical"
+                      >
+                        <div
+                          :class="currentFilter === 'default' ? 'active' : ''"
+                          id="v-pills-default-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-default"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-default"
+                          aria-selected="true"
+                          @click="setCurrentFilter('default')"
+                        >
+                          Amount
+                        </div>
+                        <div
+                          :class="currentFilter === 'longevity' ? 'active' : ''"
+                          id="v-pills-longevity-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-longevity"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-longevity"
+                          aria-selected="true"
+                          @click="setCurrentFilter('longevity')"
+                        >
                           Longevity
                         </div>
-                        <div :class="currentFilter === 'endingvalue' ? 'active' : ''" id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue"  type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true"  @click="setCurrentFilter('endingvalue')">Ending  Value</div>
-                        <div :class="currentFilter === 'deathBenefit' ? 'active' : ''" id="v-pills-deathBenefit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenefit"  type="button" role="tab" aria-controls="v-pills-deathBenefit" aria-selected="true"  @click="setCurrentFilter('deathBenefit')">Death  Benefit</div>
+                        <div
+                          :class="
+                            currentFilter === 'endingvalue' ? 'active' : ''
+                          "
+                          id="v-pills-endingvalue-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-endingvalue"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-endingvalue"
+                          aria-selected="true"
+                          @click="setCurrentFilter('endingvalue')"
+                        >
+                          Ending Value
+                        </div>
+                        <div
+                          :class="
+                            currentFilter === 'deathBenefit' ? 'active' : ''
+                          "
+                          id="v-pills-deathBenefit-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-deathBenefit"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-deathBenefit"
+                          aria-selected="true"
+                          @click="setCurrentFilter('deathBenefit')"
+                        >
+                          Death Benefit
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="v-pills-rate-of-return" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div
+                    class="tab-pane fade"
+                    id="v-pills-rate-of-return"
+                    role="tabpanel"
+                    aria-labelledby="pills-home-tab"
+                  >
                     <div class="d-flex justify-content-center mt-2">
-                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                        <div :class="currentFilter === 'default' ? 'active' : ''" id="v-pills-default-tab" data-bs-toggle="pill" data-bs-target="#v-pills-default" type="button" role="tab" aria-controls="v-pills-default" aria-selected="true" @click="setCurrentFilter('default')">Default</div>
-                        <div :class="currentFilter === 'longevity' ? 'active' : ''" id="v-pills-longevity-tab" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" type="button" role="tab" aria-controls="v-pills-longevity" aria-selected="true" @click="setCurrentFilter('longevity')">
+                      <div
+                        class="nav mltplSwtchDiv nav-pills"
+                        role="tablist"
+                        aria-orientation="vertical"
+                      >
+                        <div
+                          :class="currentFilter === 'default' ? 'active' : ''"
+                          id="v-pills-default-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-default"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-default"
+                          aria-selected="true"
+                          @click="setCurrentFilter('default')"
+                        >
+                          Default
+                        </div>
+                        <div
+                          :class="currentFilter === 'longevity' ? 'active' : ''"
+                          id="v-pills-longevity-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-longevity"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-longevity"
+                          aria-selected="true"
+                          @click="setCurrentFilter('longevity')"
+                        >
                           Longevity
                         </div>
-                        <div :class="currentFilter === 'endingvalue' ? 'active' : ''" id="v-pills-endingvalue-tab" data-bs-toggle="pill" data-bs-target="#v-pills-endingvalue" type="button" role="tab" aria-controls="v-pills-endingvalue" aria-selected="true" @click="setCurrentFilter('endingvalue')">Ending Value</div>
-                        <div :class="currentFilter === 'deathBenefit' ? 'active' : ''" id="v-pills-deathBenefit-tab" data-bs-toggle="pill" data-bs-target="#v-pills-deathBenefit" type="button" role="tab" aria-controls="v-pills-deathBenefit" aria-selected="true" @click="setCurrentFilter('deathBenefit')">Death Benefit</div>
+                        <div
+                          :class="
+                            currentFilter === 'endingvalue' ? 'active' : ''
+                          "
+                          id="v-pills-endingvalue-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-endingvalue"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-endingvalue"
+                          aria-selected="true"
+                          @click="setCurrentFilter('endingvalue')"
+                        >
+                          Ending Value
+                        </div>
+                        <div
+                          :class="
+                            currentFilter === 'deathBenefit' ? 'active' : ''
+                          "
+                          id="v-pills-deathBenefit-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#v-pills-deathBenefit"
+                          type="button"
+                          role="tab"
+                          aria-controls="v-pills-deathBenefit"
+                          aria-selected="true"
+                          @click="setCurrentFilter('deathBenefit')"
+                        >
+                          Death Benefit
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="container-fluid table-fluid mt-5">
-                  <div class="row tablesMainDiv" v-if="target_analysis.data.length">
+                  <div
+                    class="row tablesMainDiv"
+                    v-if="target_analysis.data.length"
+                  >
                     <div class="col-3 col-md-2 ps-0 pe-1">
-                      <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden">
+                      <div
+                        class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr visible-hidden"
+                      >
                         <div class="dblLineAbslt">
-                          <img src="@/assets/images/icons/double-line.svg" alt="line">
+                          <img
+                            src="@/assets/images/icons/double-line.svg"
+                            alt="line"
+                          />
                         </div>
                         <div class="row">
                           <div class="col-12">
-                            <div class="d-flex alig-items-center justify-content-between mt-2 allActionBtns">
-                              <div class="radioBtnDiv r2 voiletRadioSwtch" id="button-2">
-                                <input type="checkbox" class="checkbox2" checked="true">
+                            <div
+                              class="d-flex alig-items-center justify-content-between mt-2 allActionBtns"
+                            >
+                              <div
+                                class="radioBtnDiv r2 voiletRadioSwtch"
+                                id="button-2"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="checkbox2"
+                                  checked="true"
+                                />
                                 <div class="knobs2"></div>
                                 <div class="layer2"></div>
                               </div>
                               <div class="d-flex align-items-center">
-                                <a href="javascript:void(0)" data-bs-target="#deleteAccountModal" data-bs-toggle="modal"  class="deleteBtnAccount disableBtnsForAll">&nbsp;
-                                  <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z" stroke="#1660A4" stroke-width="1.25"></path>
-                                    <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625" transform="rotate(90 8.35156 5.41406)" fill="#1660A4"></rect>
+                                <a
+                                  href="javascript:void(0)"
+                                  data-bs-target="#deleteAccountModal"
+                                  data-bs-toggle="modal"
+                                  class="deleteBtnAccount disableBtnsForAll"
+                                  >&nbsp;
+                                  <svg
+                                    width="12"
+                                    height="13"
+                                    viewBox="0 0 12 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
+                                      stroke="#1660A4"
+                                      stroke-width="1.25"
+                                    ></path>
+                                    <rect
+                                      x="8.35156"
+                                      y="5.41406"
+                                      width="1.25"
+                                      height="4.70588"
+                                      rx="0.625"
+                                      transform="rotate(90 8.35156 5.41406)"
+                                      fill="#1660A4"
+                                    ></rect>
                                   </svg>
                                 </a>
                               </div>
@@ -96,18 +338,35 @@
                         </div>
                         <div class="row eachCardParaRow">
                           <div class="col-md-5">
-                            <p class="lifeProPlusPara3" id="acountColorCommon">RoR</p>
-                            <p class="lifeProPlusPara2" id="acountColorCommon">6.50%</p>
+                            <p class="lifeProPlusPara3" id="acountColorCommon">
+                              RoR
+                            </p>
+                            <p class="lifeProPlusPara2" id="acountColorCommon">
+                              6.50%
+                            </p>
                           </div>
                           <div class="col-md-7">
-                            <p class="lifeProPlusPara3" id="acountColorCommon">IRR</p>
-                            <p class="lifeProPlusPara2" id="acountColorCommon">3.82%</p>
+                            <p class="lifeProPlusPara3" id="acountColorCommon">
+                              IRR
+                            </p>
+                            <p class="lifeProPlusPara2" id="acountColorCommon">
+                              3.82%
+                            </p>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-12">
-                            <div class="lifeProBtmDiv lifeProBtmDiv2 commonBottomTxt">
-                              <p><input type="text" value="Account" class="tableHeadInputs" readonly/></p>
+                            <div
+                              class="lifeProBtmDiv lifeProBtmDiv2 commonBottomTxt"
+                            >
+                              <p>
+                                <input
+                                  type="text"
+                                  value="Account"
+                                  class="tableHeadInputs"
+                                  readonly
+                                />
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -122,9 +381,18 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
-                                <td class="table1Td" data-label="Year">{{item.year}}</td>
-                                <td class="table1Td" data-label="Age">{{item.age}}</td>
+                              <tr
+                                v-for="(
+                                  item, index
+                                ) in target_analysis.distributions"
+                                :key="index"
+                              >
+                                <td class="table1Td" data-label="Year">
+                                  {{ item.year }}
+                                </td>
+                                <td class="table1Td" data-label="Age">
+                                  {{ item.age }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -135,37 +403,101 @@
                               <tr>
                                 <th>Deposits</th>
                               </tr>
-                             </thead>
+                            </thead>
                             <tbody>
-                              <tr v-for="(item, index) in target_analysis.distributions" :key="index">
-                                <td data-label="Year">{{$numFormatWithDollar(item.deposits)}}</td>
+                              <tr
+                                v-for="(
+                                  item, index
+                                ) in target_analysis.distributions"
+                                :key="index"
+                              >
+                                <td data-label="Year">
+                                  {{ $numFormatWithDollar(item.deposits) }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
-                    <div :class="`col-9 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'} ps-0 pe-0`">
+                    <div
+                      :class="`col-9 ${
+                        deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'
+                      } ps-0 pe-0`"
+                    >
                       <div class="reportTablesDiv reportTablesDiv3">
                         <div class="lifeProPlus">
                           <div class="row">
                             <div class="col-12">
-                              <div class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0 ">
-                                <router-link :to="`/illustration-data/${comparativeTable.scenerio_id}?report=${$route.params.report}`"  :class="`editBtnLirp disableBtnsForAll ${$store.state.app.presentation_mode ? 'share-hide' : ''}`">&nbsp;
-                                  <svg width="13"  height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425" fill="white" stroke="#1660A4" stroke-width="1.15"></rect>
-                                    <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25"></path>
+                              <div
+                                class="d-flex align-items-center justify-content-end mt-2 allActionBtns me-0"
+                              >
+                                <router-link
+                                  :to="`/illustration-data/${comparativeTable.scenerio_id}?report=${$route.params.report}`"
+                                  :class="`editBtnLirp disableBtnsForAll ${
+                                    $store.state.app.presentation_mode
+                                      ? 'share-hide'
+                                      : ''
+                                  }`"
+                                  >&nbsp;
+                                  <svg
+                                    width="13"
+                                    height="13"
+                                    viewBox="0 0 13 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <rect
+                                      x="0.575"
+                                      y="2.57598"
+                                      width="9.85"
+                                      height="9.85"
+                                      rx="1.425"
+                                      fill="white"
+                                      stroke="#1660A4"
+                                      stroke-width="1.15"
+                                    ></rect>
+                                    <path
+                                      d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                      stroke="#1660A4"
+                                      stroke-width="1.25"
+                                    ></path>
                                   </svg>
                                 </router-link>
-                                <a href="javascript:void(0)" class="d-none editBtnLirp doneBtnLirp disableBtnsForAll">&nbsp;
-                                  <svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <a
+                                  href="javascript:void(0)"
+                                  class="d-none editBtnLirp doneBtnLirp disableBtnsForAll"
+                                  >&nbsp;
+                                  <svg
+                                    width="13"
+                                    height="12"
+                                    viewBox="0 0 13 12"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
                                     <g clip-path="url(#clip0_1862_4)">
-                                      <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
-                                      <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"  stroke-linecap="round" stroke-linejoin="round" />
+                                      <path
+                                        d="M8.17391 1H1V10.4007H11.0435V7.26713"
+                                        stroke="#0E6651"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                      <path
+                                        d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532"
+                                        stroke="#0E6651"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
                                     </g>
                                     <defs>
                                       <clipPath id="clip0_1862_4">
-                                        <rect width="12.5" height="11.7" fill="white" />
+                                        <rect
+                                          width="12.5"
+                                          height="11.7"
+                                          fill="white"
+                                        />
                                       </clipPath>
                                     </defs>
                                   </svg>
@@ -175,20 +507,59 @@
                           </div>
                           <div class="row eachCardParaRow">
                             <div class="col-md-5">
-                              <p class="lifeProPlusPara1 d-flex p-relative ws-nowrap">RATE OF RETURN (RoR) 
-                                <img class="ms-2px info-icon-img" src="@/assets/images/icons/info-icon.svg" alt="Info"/>
-                                <img class="ms-2px dark-info-icon-img" src="@/assets/images/icons/dark-i-icon.svg" alt="Info"/> 
-                                <span class="info-message-participationRate">This value represents a weighted average rate of return</span>
+                              <p
+                                class="lifeProPlusPara1 d-flex p-relative ws-nowrap"
+                              >
+                                RATE OF RETURN (RoR)
+                                <img
+                                  class="ms-2px info-icon-img"
+                                  src="@/assets/images/icons/info-icon.svg"
+                                  alt="Info"
+                                />
+                                <img
+                                  class="ms-2px dark-info-icon-img"
+                                  src="@/assets/images/icons/dark-i-icon.svg"
+                                  alt="Info"
+                                />
+                                <span class="info-message-participationRate"
+                                  >This value represents a weighted average rate
+                                  of return</span
+                                >
                               </p>
-                              <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].ror || 0).toFixed(2)}}%</p>
+                              <p class="lifeProPlusPara2">
+                                {{
+                                  Number(
+                                    target_analysis.data[0].ror || 0
+                                  ).toFixed(2)
+                                }}%
+                              </p>
                             </div>
                             <div class="col-md-7">
-                              <p class="lifeProPlusPara1">INTERNAL RATE OF RETURN (IRR)</p>
-                              <p class="lifeProPlusPara2">{{Number(target_analysis.data[0].irr || 0).toFixed(2)}}%</p>
+                              <p class="lifeProPlusPara1">
+                                INTERNAL RATE OF RETURN (IRR)
+                              </p>
+                              <p class="lifeProPlusPara2">
+                                {{
+                                  Number(
+                                    target_analysis.data[0].irr || 0
+                                  ).toFixed(2)
+                                }}%
+                              </p>
                             </div>
                           </div>
                           <div class="lifeProBtmDiv lifeProBtmDiv1 mt-2">
-                            <p><input type="text" :value="cv_name[0]" :class="`tableHeadInputs ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @blur="e => saveCvName(0, e.target.value)"></p>
+                            <p>
+                              <input
+                                type="text"
+                                :value="cv_name[0]"
+                                :class="`tableHeadInputs ${
+                                  $store.state.app.presentation_mode
+                                    ? 'pointer-none'
+                                    : ''
+                                }`"
+                                @blur="(e) => saveCvName(0, e.target.value)"
+                              />
+                            </p>
                           </div>
                         </div>
                         <table class="table table3 mt-1 w-100 sticky-header">
@@ -201,59 +572,228 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="(item, index) in target_analysis.data[0].list" :key="index">
-                              <td data-label=""><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[0].list[index+1] ? `${target_analysis.data[0].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span></td>
-                              <td data-label="acount">{{ $numFormatWithDollar(item.account_value) }}</td> 
-                              <td data-label="surrender">{{ $numFormatWithDollar(item.surrender_value) }}</td>
-                              <td data-label="death">{{$numFormatWithDollar(item.death_benefit) }}</td>
+                            <tr
+                              v-for="(item, index) in target_analysis.data[0]
+                                .list"
+                              :key="index"
+                            >
+                              <td data-label="">
+                                <span
+                                  v-if="
+                                    $numFormatWithDollar(item.distributions)
+                                  "
+                                  :class="`td-bold ${
+                                    target_analysis.data[0].list[index + 1]
+                                      ? `${
+                                          target_analysis.data[0].list[
+                                            index + 1
+                                          ].distributions < 1
+                                            ? 'text-danger'
+                                            : ''
+                                        }`
+                                      : ''
+                                  }`"
+                                  >{{
+                                    $numFormatWithDollar(item.distributions)
+                                  }}</span
+                                >
+                              </td>
+                              <td data-label="acount">
+                                {{ $numFormatWithDollar(item.account_value) }}
+                              </td>
+                              <td data-label="surrender">
+                                {{ $numFormatWithDollar(item.surrender_value) }}
+                              </td>
+                              <td data-label="death">
+                                {{ $numFormatWithDollar(item.death_benefit) }}
+                              </td>
                             </tr>
                           </tbody>
-                        </table> 
+                        </table>
                       </div>
                     </div>
-                    <div :class="`col-12 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'}`">
-                      <draggable v-model="draggableColumns" :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                        <div v-for="header in draggableColumns" :key="header.id" :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} ${deletedItems.length} ps-1 pe-0 drag-col ${header.active ? '' : 'order-last'}`">
+                    <div
+                      :class="`col-12 ${
+                        deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'
+                      }`"
+                    >
+                      <draggable
+                        v-model="draggableColumns"
+                        :draggable="
+                          $store.state.app.presentation_mode ? '' : '.drag-item'
+                        "
+                        tag="div"
+                        class="row"
+                      >
+                        <div
+                          v-for="header in draggableColumns"
+                          :key="header.id"
+                          :class="`drag-item ${
+                            deletedItems.includes(header.id) ? 'd-none' : ''
+                          } col-md-${12 / (3 - deletedItems.length)} ${
+                            deletedItems.length
+                          } ps-1 pe-0 drag-col ${
+                            header.active ? '' : 'order-last'
+                          }`"
+                        >
                           <div class="empty-inner" data-empty="1">
                             <div class="fill-inner" data-fill="1">
-                              <div :class="`commonTableMainTopDiv${header.id} ${header.active ? '' : 'commonTableCls'}`">
-                                <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
-                                  <div class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr">
-                                    <div class="dblLineAbslt" :style="{'cursor': !$store.state.app.presentation_mode ? 'move' : 'default'}">
-                                      <img src="@/assets/images/icons/double-line.svg" alt="line" v-if="!$store.state.app.presentation_mode">
+                              <div
+                                :class="`commonTableMainTopDiv${header.id} ${
+                                  header.active ? '' : 'commonTableCls'
+                                }`"
+                              >
+                                <div
+                                  :class="`reportTablesDiv reportTablesDiv${
+                                    3 + header.id
+                                  }`"
+                                >
+                                  <div
+                                    class="lifeProPlus position-relative borderRghtTopNone tablesCmnClr"
+                                  >
+                                    <div
+                                      class="dblLineAbslt"
+                                      :style="{
+                                        cursor: !$store.state.app
+                                          .presentation_mode
+                                          ? 'move'
+                                          : 'default',
+                                      }"
+                                    >
+                                      <img
+                                        src="@/assets/images/icons/double-line.svg"
+                                        alt="line"
+                                        v-if="
+                                          !$store.state.app.presentation_mode
+                                        "
+                                      />
                                     </div>
                                     <div class="row">
                                       <div class="col-12">
-                                        <div :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`">
-                                          <div class="radioBtnDiv r2 blueRadioSwtch" id="button-2">
-                                            <input type="checkbox" :class="`checkbox2 commonRadioBtn${header.id}`" :checked="header.active" hideattr="1" @click="() => header.active = !header.active">
+                                        <div
+                                          :class="`d-flex align-items-center justify-content-between mt-2 allActionBtns switch${header.id}`"
+                                        >
+                                          <div
+                                            class="radioBtnDiv r2 blueRadioSwtch"
+                                            id="button-2"
+                                          >
+                                            <input
+                                              type="checkbox"
+                                              :class="`checkbox2 commonRadioBtn${header.id}`"
+                                              :checked="header.active"
+                                              hideattr="1"
+                                              @click="
+                                                () =>
+                                                  (header.active =
+                                                    !header.active)
+                                              "
+                                            />
                                             <div class="knobs2"></div>
                                             <div class="layer2"></div>
-                                          </div>                             
-                                          <div :class="`d-flex align-items-center ${$store.state.app.presentation_mode ? 'share-hide' : ''}`">
-                                            <router-link :to="`/comparative-vehicles/${comparativeTable.scenerio_id}?tab=${header.id}&report=${$route.params.report}`" class="editBtn editBtnAccount mx-2 disableBtnsForAll">&nbsp;
-                                              <svg width="13"  height="13" viewBox="0 0 13 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="0.575" y="2.57598" width="9.85" height="9.85" rx="1.425"  fill="white" stroke="#1660A4" stroke-width="1.15" />
-                                                <path  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"  stroke="#1660A4" stroke-width="1.25" />
+                                          </div>
+                                          <div
+                                            :class="`d-flex align-items-center ${
+                                              $store.state.app.presentation_mode
+                                                ? 'share-hide'
+                                                : ''
+                                            }`"
+                                          >
+                                            <router-link
+                                              :to="`/comparative-vehicles/${comparativeTable.scenerio_id}?tab=${header.id}&report=${$route.params.report}`"
+                                              class="editBtn editBtnAccount mx-2 disableBtnsForAll"
+                                              >&nbsp;
+                                              <svg
+                                                width="13"
+                                                height="13"
+                                                viewBox="0 0 13 13"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <rect
+                                                  x="0.575"
+                                                  y="2.57598"
+                                                  width="9.85"
+                                                  height="9.85"
+                                                  rx="1.425"
+                                                  fill="white"
+                                                  stroke="#1660A4"
+                                                  stroke-width="1.15"
+                                                />
+                                                <path
+                                                  d="M11.4833 1.08865C11.2099 0.815283 10.7667 0.815282 10.4933 1.08865L5.08918 6.49277C4.60103 6.98093 4.60103 7.77239 5.08918 8.26054C5.57734 8.7487 6.36879 8.7487 6.85695 8.26054L12.2611 2.85642C12.5344 2.58305 12.5344 2.13983 12.2611 1.86647L11.4833 1.08865Z"
+                                                  stroke="#1660A4"
+                                                  stroke-width="1.25"
+                                                />
                                               </svg>
                                             </router-link>
-                                             <a href="javascript:void(0)" class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll">&nbsp;
-                                              <svg width="13"  height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                  <g clip-path="url(#clip0_1862_4)">
-                                                    <path d="M8.17391 1H1V10.4007H11.0435V7.26713" stroke="#0E6651" stroke-width="1.5" stroke-linecap="round"  stroke-linejoin="round" />
-                                                    <path d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532" stroke="#0E6651" stroke-width="1.5"  stroke-linecap="round" stroke-linejoin="round" />
-                                                  </g>
-                                                  <defs>
-                                                    <clipPath id="clip0_1862_4">
-                                                      <rect width="12.5" height="11.7" fill="white" />
-                                                    </clipPath>
-                                                  </defs>
-                                                </svg>
-                                              </a>
-                                            <router-link to="" @click="setActionId(header.id)" data-bs-target="#DeleteComparativeCvModal"  data-bs-toggle="modal"  class="deleteBtn deleteBtnAccount disableBtnsForAll">&nbsp;
-                                              <svg width="12"  height="13" viewBox="0 0 12 13" fill="none"  xmlns="http://www.w3.org/2000/svg">
-                                                <path  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"  stroke="#1660A4" stroke-width="1.25" />
-                                                <rect x="8.35156" y="5.41406" width="1.25" height="4.70588" rx="0.625"  transform="rotate(90 8.35156 5.41406)" fill="#1660A4" />
+                                            <a
+                                              href="javascript:void(0)"
+                                              class="d-none editBtn editBtnAccount doneBtnAccount disableBtnsForAll"
+                                              >&nbsp;
+                                              <svg
+                                                width="13"
+                                                height="12"
+                                                viewBox="0 0 13 12"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <g
+                                                  clip-path="url(#clip0_1862_4)"
+                                                >
+                                                  <path
+                                                    d="M8.17391 1H1V10.4007H11.0435V7.26713"
+                                                    stroke="#0E6651"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                  />
+                                                  <path
+                                                    d="M3.86963 5.47654L6.26093 7.7148L12.0001 1.89532"
+                                                    stroke="#0E6651"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                  />
+                                                </g>
+                                                <defs>
+                                                  <clipPath id="clip0_1862_4">
+                                                    <rect
+                                                      width="12.5"
+                                                      height="11.7"
+                                                      fill="white"
+                                                    />
+                                                  </clipPath>
+                                                </defs>
+                                              </svg>
+                                            </a>
+                                            <router-link
+                                              to=""
+                                              @click="setActionId(header.id)"
+                                              data-bs-target="#DeleteComparativeCvModal"
+                                              data-bs-toggle="modal"
+                                              class="deleteBtn deleteBtnAccount disableBtnsForAll"
+                                              >&nbsp;
+                                              <svg
+                                                width="12"
+                                                height="13"
+                                                viewBox="0 0 12 13"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M1.9682 10.6877L1.10988 2.09945C1.05105 1.51078 1.51332 1 2.10492 1H9.90056C10.4902 1 10.9518 1.50753 10.8961 2.09452L10.0807 10.6828C10.0319 11.1961 9.60083 11.5882 9.08516 11.5882H2.96324C2.44947 11.5882 2.01929 11.1989 1.9682 10.6877Z"
+                                                  stroke="#1660A4"
+                                                  stroke-width="1.25"
+                                                />
+                                                <rect
+                                                  x="8.35156"
+                                                  y="5.41406"
+                                                  width="1.25"
+                                                  height="4.70588"
+                                                  rx="0.625"
+                                                  transform="rotate(90 8.35156 5.41406)"
+                                                  fill="#1660A4"
+                                                />
                                               </svg>
                                             </router-link>
                                           </div>
@@ -262,23 +802,81 @@
                                     </div>
                                     <div class="row eachCardParaRow">
                                       <div class="col-md-5">
-                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">RoR</p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{Number(target_analysis.data[header.id].ror || 0).toFixed(2)}}%</p>
+                                        <p
+                                          :class="`lifeProPlusPara${
+                                            1 + header.id + header.id
+                                          }`"
+                                          id="acountColorCommon"
+                                        >
+                                          RoR
+                                        </p>
+                                        <p
+                                          class="lifeProPlusPara2"
+                                          id="acountColorCommon"
+                                        >
+                                          {{
+                                            Number(
+                                              target_analysis.data[header.id]
+                                                .ror || 0
+                                            ).toFixed(2)
+                                          }}%
+                                        </p>
                                       </div>
                                       <div class="col-md-7">
-                                        <p :class="`lifeProPlusPara${1+header.id+header.id}`" id="acountColorCommon">IRR</p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">{{Number(target_analysis.data[header.id].irr || 0).toFixed(2)}}%</p>
+                                        <p
+                                          :class="`lifeProPlusPara${
+                                            1 + header.id + header.id
+                                          }`"
+                                          id="acountColorCommon"
+                                        >
+                                          IRR
+                                        </p>
+                                        <p
+                                          class="lifeProPlusPara2"
+                                          id="acountColorCommon"
+                                        >
+                                          {{
+                                            Number(
+                                              target_analysis.data[header.id]
+                                                .irr || 0
+                                            ).toFixed(2)
+                                          }}%
+                                        </p>
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-12">
-                                        <div :class="`lifeProBtmDiv lifeProBtmDiv${1+header.id} commonBottomTxt`">
-                                          <p><input type="text" :value="cv_name[header.id]" :class="`tableHeadInputs ${$store.state.app.presentation_mode ? 'pointer-none' : ''}`" @blur="e => saveCvName(header.id, e.target.value)" /></p>
+                                        <div
+                                          :class="`lifeProBtmDiv lifeProBtmDiv${
+                                            1 + header.id
+                                          } commonBottomTxt`"
+                                        >
+                                          <p>
+                                            <input
+                                              type="text"
+                                              :value="cv_name[header.id]"
+                                              :class="`tableHeadInputs ${
+                                                $store.state.app
+                                                  .presentation_mode
+                                                  ? 'pointer-none'
+                                                  : ''
+                                              }`"
+                                              @blur="
+                                                (e) =>
+                                                  saveCvName(
+                                                    header.id,
+                                                    e.target.value
+                                                  )
+                                              "
+                                            />
+                                          </p>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                  <table class="table sticky-header tableCommonForDisable mt-1 tableCommonHide">
+                                  <table
+                                    class="table sticky-header tableCommonForDisable mt-1 tableCommonHide"
+                                  >
                                     <thead class="heading-tr">
                                       <tr>
                                         <th>Distributions</th>
@@ -286,9 +884,45 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr v-for="(item, index) in target_analysis.data[header.id].list" :key="index">
-                                        <td><span v-if="$numFormatWithDollar(item.distributions)" :class="`td-bold ${target_analysis.data[header.id].list[index+1] ? `${target_analysis.data[header.id].list[index+1].distributions < 1 ? 'text-danger' : ''}`:''}`">{{$numFormatWithDollar(item.distributions)}}</span></td>
-                                        <td data-label="acount">{{ $numFormatWithDollar(item.net_balance) }}</td>
+                                      <tr
+                                        v-for="(item, index) in target_analysis
+                                          .data[header.id].list"
+                                        :key="index"
+                                      >
+                                        <td>
+                                          <span
+                                            v-if="
+                                              $numFormatWithDollar(
+                                                item.distributions
+                                              )
+                                            "
+                                            :class="`td-bold ${
+                                              target_analysis.data[header.id]
+                                                .list[index + 1]
+                                                ? `${
+                                                    target_analysis.data[
+                                                      header.id
+                                                    ].list[index + 1]
+                                                      .distributions < 1
+                                                      ? 'text-danger'
+                                                      : ''
+                                                  }`
+                                                : ''
+                                            }`"
+                                            >{{
+                                              $numFormatWithDollar(
+                                                item.distributions
+                                              )
+                                            }}</span
+                                          >
+                                        </td>
+                                        <td data-label="acount">
+                                          {{
+                                            $numFormatWithDollar(
+                                              item.net_balance
+                                            )
+                                          }}
+                                        </td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -297,78 +931,191 @@
                             </div>
                           </div>
                         </div>
-                      </draggable> 
+                      </draggable>
                     </div>
                   </div>
                   <p class="compSumAnlysPara mt-2">Summary Analysis</p>
                   <div class="mt-2 summary-analysis">
                     <div class="row">
                       <div class="col-3 col-md-2 ps-0 pe-1">
-                        <div class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1">
-                          <table class="table mt-1 secondTable td-first summaryTableFont">
+                        <div
+                          class="reportTablesDiv reportTablesDiv1 SummaryTableDiv1"
+                        >
+                          <table
+                            class="table mt-1 secondTable td-first summaryTableFont"
+                          >
                             <thead>
-                              <th style="background: none !important; border: 0 !important;"></th>
+                              <th
+                                style="
+                                  background: none !important;
+                                  border: 0 !important;
+                                "
+                              ></th>
                             </thead>
                             <tbody>
                               <tr>
-                                <td style="border-right: 0 !important;" class="table1Td tableotalTd text-start" data-label="Year">Deposits</td>
+                                <td
+                                  style="border-right: 0 !important"
+                                  class="table1Td tableotalTd text-start"
+                                  data-label="Year"
+                                >
+                                  Deposits
+                                </td>
                               </tr>
                               <tr>
-                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Distributions</td>
-                              </tr> 
-                              <tr>
-                                <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Total Value</td>
+                                <td
+                                  style="border-right: 0 !important"
+                                  class="table1Td totalValueTd"
+                                  data-label="Age"
+                                >
+                                  Distributions
+                                </td>
                               </tr>
                               <tr>
-                                <td style="border-right: 0 !important;" class="table1Td shortFallTd" data-label="Age"><span class="text-success">Surplus/</span><span class="text-danger">Shortfall</span></td>
+                                <td
+                                  style="border-right: 0 !important"
+                                  class="table1Td totalValueTd"
+                                  data-label="Age"
+                                >
+                                  Total Value
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="border-right: 0 !important"
+                                  class="table1Td shortFallTd"
+                                  data-label="Age"
+                                >
+                                  <span class="text-success">Surplus/</span
+                                  ><span class="text-danger">Shortfall</span>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                      <div :class="`col-9 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'} ps-0 pe-0`">
+                      <div
+                        :class="`col-9 ${
+                          deletedItems.length > 0 ? 'col-md-5' : 'col-md-4'
+                        } ps-0 pe-0`"
+                      >
                         <div class="reportTablesDiv reportTablesDiv3">
-                          <table class="table table3 mt-1 secondTable summaryTableFont">
+                          <table
+                            class="table table3 mt-1 secondTable summaryTableFont"
+                          >
                             <thead class="heading-tr">
                               <tr>
-                                <th style="border-radius:6px;vertical-align: middle;">{{ cv_name[0] }}</th>
+                                <th
+                                  style="
+                                    border-radius: 6px;
+                                    vertical-align: middle;
+                                  "
+                                >
+                                  {{ cv_name[0] }}
+                                </th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                                <td data-label="Age">
+                                  {{
+                                    $numFormatWithDollar(
+                                      summary_data.deposits.totals
+                                    )
+                                  }}
+                                </td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total) }}</td>
+                                <td data-label="surrender">
+                                  {{
+                                    $numFormatWithDollar(
+                                      summary_data.data[0].distribution.total
+                                    )
+                                  }}
+                                </td>
                               </tr>
                               <tr>
-                                <td data-label="surrender">{{ $numFormatWithDollar(summary_data.data[0].distribution.total_value) }}</td>
+                                <td data-label="surrender">
+                                  {{
+                                    $numFormatWithDollar(
+                                      summary_data.data[0].distribution
+                                        .total_value
+                                    )
+                                  }}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                      <div :class="`col-12 ${deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'}`">
+                      <div
+                        :class="`col-12 ${
+                          deletedItems.length > 0 ? 'col-md-5' : 'col-md-6'
+                        }`"
+                      >
                         <div class="row summary-row pb-2">
-                          <div v-for="(header, index) in draggableColumns" :key="header.id" :class="`col-4 ps-1 pe-0 ${deletedItems.includes(header.id) ? 'd-none':''} col-md-${12/(3-deletedItems.length)} commonBottomTableMainTopDiv${header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
-                            <div :class="`reportTablesDiv reportTablesDiv${3+header.id}`">
-                              <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
+                          <div
+                            v-for="(header, index) in draggableColumns"
+                            :key="header.id"
+                            :class="`col-4 ps-1 pe-0 ${
+                              deletedItems.includes(header.id) ? 'd-none' : ''
+                            } col-md-${
+                              12 / (3 - deletedItems.length)
+                            } commonBottomTableMainTopDiv${
+                              header.id
+                            } summary-draggable ${
+                              header.active ? '' : 'order-last'
+                            } ${header.active ? '' : 'commonTableCls'}`"
+                          >
+                            <div
+                              :class="`reportTablesDiv reportTablesDiv${
+                                3 + header.id
+                              }`"
+                            >
+                              <table
+                                class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont"
+                              >
                                 <thead class="heading-tr">
-                                 <tr>
-                                  <th style="border-radius:6px;vertical-align: middle;">
-                                    {{cv_name[header.id]}}
-                                  </th>
-                                 </tr>
+                                  <tr>
+                                    <th
+                                      style="
+                                        border-radius: 6px;
+                                        vertical-align: middle;
+                                      "
+                                    >
+                                      {{ cv_name[header.id] }}
+                                    </th>
+                                  </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals)}}</td>
+                                    <td data-label="Age">
+                                      {{
+                                        $numFormatWithDollar(
+                                          summary_data.deposits.totals
+                                        )
+                                      }}
+                                    </td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total)}}</td>
+                                    <td width="50%" data-label="acount">
+                                      {{
+                                        $numFormatWithDollar(
+                                          summary_data.data[header.id]
+                                            .distribution.total
+                                        )
+                                      }}
+                                    </td>
                                   </tr>
                                   <tr>
-                                    <td width="50%" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.total_value) }}</td>
+                                    <td width="50%" data-label="acount">
+                                      {{
+                                        $numFormatWithDollar(
+                                          summary_data.data[header.id]
+                                            .distribution.total_value
+                                        )
+                                      }}
+                                    </td>
                                   </tr>
                                   <tr>
                                     <td class="extra-td-styles">
@@ -376,11 +1123,27 @@
                                         <tbody>
                                           <tr>
                                             <td class="inner-td"></td>
-                                            <td width="50%" :class="`${summary_data.data[header.id].distribution.shortfall > 0 ? 'text-success':'text-danger'}`" data-label="acount">{{ $numFormatWithDollar(summary_data.data[header.id].distribution.shortfall).replace("-", "") }}</td>
+                                            <td
+                                              width="50%"
+                                              :class="`${
+                                                summary_data.data[header.id]
+                                                  .distribution.shortfall > 0
+                                                  ? 'text-success'
+                                                  : 'text-danger'
+                                              }`"
+                                              data-label="acount"
+                                            >
+                                              {{
+                                                $numFormatWithDollar(
+                                                  summary_data.data[header.id]
+                                                    .distribution.shortfall
+                                                ).replace("-", "")
+                                              }}
+                                            </td>
                                           </tr>
                                         </tbody>
                                       </table>
-                                    </td>                               
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -394,13 +1157,26 @@
               </div>
               <div class="pt-4">
                 <div class="px-3 pb-3 seeAllBtnMainDiv">
-                  <div class="comparativeSeeAllBtn mt-2" id="comparativeSeeAllBtn">
-                    <button class="btn form-control" @click="() => showAll = !showAll">{{showAll ? '- SEE LESS' : '+ SEE ALL'}}</button>
+                  <div
+                    class="comparativeSeeAllBtn mt-2"
+                    id="comparativeSeeAllBtn"
+                  >
+                    <button
+                      class="btn form-control"
+                      @click="() => (showAll = !showAll)"
+                    >
+                      {{ showAll ? "- SEE LESS" : "+ SEE ALL" }}
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <comparative-disclosure-component :containerFluid="true" v-if="activeTabs[keyId]" :currentTab="1" :hideFee="false"/>
+            <comparative-disclosure-component
+              :containerFluid="true"
+              v-if="activeTabs[keyId]"
+              :currentTab="1"
+              :hideFee="false"
+            />
           </div>
         </div>
       </div>
@@ -413,6 +1189,7 @@ import ComparativeDisclosureComponent from "./ComparativeDisclosureComponent.vue
 import { patch } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
+import { object } from "yup";
 
 let tables = [];
 let isPresentationClicked = false;
@@ -429,7 +1206,7 @@ function getOffset(element) {
 
 function Table(element) {
   this.element = element;
-  this.element.querySelectorAll("thead").forEach(thead => {
+  this.element.querySelectorAll("thead").forEach((thead) => {
     if (thead.classList.contains("cloned")) {
       thead.remove();
     }
@@ -453,7 +1230,7 @@ function Table(element) {
   this.attachFloatHeader();
 }
 
-Table.prototype.refreshHeaderSize = function() {
+Table.prototype.refreshHeaderSize = function () {
   var offset = getOffset(this.element);
   var trs = this.element.getElementsByTagName("tr");
   var padding;
@@ -466,7 +1243,7 @@ Table.prototype.refreshHeaderSize = function() {
   }
 };
 
-Table.prototype.refreshHeaderWidth = function() {
+Table.prototype.refreshHeaderWidth = function () {
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
     this.floatingThs[i].style.width = th.offsetWidth + "px";
@@ -474,7 +1251,7 @@ Table.prototype.refreshHeaderWidth = function() {
   }
 };
 
-Table.prototype.attachFloatHeader = function() {
+Table.prototype.attachFloatHeader = function () {
   this.element.insertBefore(this.floatingHeader, this.element.firstChild);
 };
 export default {
@@ -488,8 +1265,8 @@ export default {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTab: "target_analysis",
       currentFilter: "default",
-      draggableColumns: this.$store.state.data.reportTabs.active_cards
-        .cmp_comparative_table,
+      draggableColumns:
+        this.$store.state.data.reportTabs.active_cards.cmp_comparative_table,
       showAll: false,
       target_analysis: {
         distributions: [
@@ -565,6 +1342,9 @@ export default {
   },
   mounted() {
     let cr = this.comparativeTable;
+    if (!Object.keys(cr).length) {
+      return false;
+    }
     this.mapData(cr);
     let obj1 = cr.cv_1.comparison;
     let obj2 = cr.cv_2.comparison;
@@ -593,7 +1373,7 @@ export default {
     window.addEventListener("scroll", this.windowScroll);
   },
   methods: {
-    init: function() {
+    init: function () {
       tables = [];
       var matches = document.querySelectorAll("table.sticky-header");
       for (var i = 0; i < matches.length; i++) {
@@ -602,7 +1382,7 @@ export default {
         }
       }
     },
-    refreshHeaderSizes: function() {
+    refreshHeaderSizes: function () {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
       }
@@ -613,7 +1393,7 @@ export default {
         return;
       }
     },
-    getScrollTop: function() {
+    getScrollTop: function () {
       if (typeof window.pageYOffset !== "undefined") {
         return window.pageYOffset;
       }
@@ -623,18 +1403,20 @@ export default {
       }
       return docElement.scrollTop;
     },
-    windowScroll: function() {
+    windowScroll: function () {
       for (var i = 0; i < tables.length; i++) {
         var windowTop = this.getScrollTop();
         if (windowTop > tables[i].top) {
           tables[i].floatingHeader.style.top =
-            Math.min(windowTop - tables[i].top, tables[i].bottom) + (isPresentationClicked ? 0 : 55) + "px";
+            Math.min(windowTop - tables[i].top, tables[i].bottom) +
+            (isPresentationClicked ? 0 : 55) +
+            "px";
         } else {
           tables[i].floatingHeader.style.top = "0";
         }
       }
     },
-    handleSidebar: function(status) {
+    handleSidebar: function (status) {
       if (
         isPresentationClicked &&
         this.$store.state.app.presentation_mode == false
@@ -648,7 +1430,7 @@ export default {
       return status;
     },
     // to save and update the CV cards name
-    saveCvName: function(index, name) {
+    saveCvName: function (index, name) {
       this.$store.dispatch("cvName", { index: index, name: name });
       let cvId = this.comparativeTable.vehicle_1_id;
 
@@ -671,23 +1453,23 @@ export default {
         cvId = this.comparativeTable.illustration_id;
       }
 
-      patch(`${getUrl(url)}${cvId}/`, data, authHeader()).catch(error => {
+      patch(`${getUrl(url)}${cvId}/`, data, authHeader()).catch((error) => {
         this.$toast.error("Something went wrong.");
       });
     },
     // to update the current comparative report type with default filter data
-    setCurrentTab: function(tab) {
+    setCurrentTab: function (tab) {
       if (this.currentTab !== tab) {
         this.currentTab = tab;
         this.setCurrentFilter("default");
       }
     },
     // save the deleted cv id in hidden input
-    setActionId: function(id) {
+    setActionId: function (id) {
       document.getElementById("comparative_cv_delete_id").value = id;
     },
     // to filter the report data
-    setCurrentFilter: function(key) {
+    setCurrentFilter: function (key) {
       this.currentFilter = key;
       switch (key) {
         case "longevity":
@@ -713,7 +1495,7 @@ export default {
       }
     },
     // to map the API data for the table and cv cards
-    mapData: function(ct) {
+    mapData: function (ct) {
       let tempData = {
         distributions: [],
         data: [{}, {}, {}, {}],
@@ -884,18 +1666,18 @@ export default {
     "$store.state.app.presentation_mode"(val) {
       if (val) {
         isPresentationClicked = true;
-      }else{
+      } else {
         isPresentationClicked = false;
       }
       if (
         this.$store.state.app.presentation_mode &&
         this.$store.state.app.show_assets1
       ) {
-        this.draggableColumns.forEach(element => {
+        this.draggableColumns.forEach((element) => {
           element.active = false;
         });
       } else {
-        this.draggableColumns.forEach(element => {
+        this.draggableColumns.forEach((element) => {
           element.active = true;
         });
       }
@@ -915,38 +1697,38 @@ export default {
   computed: {
     tabDescription() {
       let description = "";
-      if(this.currentTab === "target_analysis"){
-        if(this.currentFilter === "default"){
+      if (this.currentTab === "target_analysis") {
+        if (this.currentFilter === "default") {
           description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "longevity"){
+        if (this.currentFilter === "longevity") {
           description = `What amount would the comparative vehicles need to adust their distributions to in order to match the longevity of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "endingvalue"){
+        if (this.currentFilter === "endingvalue") {
           description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending value of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "deathBenefit"){
+        if (this.currentFilter === "deathBenefit") {
           description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
         }
       }
 
-      if(this.currentTab === "rate_of_return"){
-        if(this.currentFilter === "default"){
+      if (this.currentTab === "rate_of_return") {
+        if (this.currentFilter === "default") {
           description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "longevity"){
+        if (this.currentFilter === "longevity") {
           description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the longevity of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "endingvalue"){
+        if (this.currentFilter === "endingvalue") {
           description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending value of the ${this.cv_name[0]}?`;
         }
 
-        if(this.currentFilter === "deathBenefit"){
+        if (this.currentFilter === "deathBenefit") {
           description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
         }
       }
