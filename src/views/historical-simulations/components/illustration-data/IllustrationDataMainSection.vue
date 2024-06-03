@@ -1900,15 +1900,16 @@ export default {
       } else {
         this.errors.illustration_template_name = false;
       }
-
-      if (this.uploadFromFile) {
-        this.errors.illustration_file = [
-          "Please upload illustration pdf data.",
-        ];
-        validate = false;
-      } else {
-        this.errors.illustration_text = ["CSV data is required."];
-        validate = false;
+      if (!this.csvPreview.data.length) {
+        if (this.uploadFromFile) {
+          this.errors.illustration_file = [
+            "Please upload illustration pdf data.",
+          ];
+          validate = false;
+        } else {
+          this.errors.illustration_text = ["CSV data is required."];
+          validate = false;
+        }
       }
 
       return validate;
