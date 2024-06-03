@@ -2,7 +2,6 @@
   <section
     class="main-section"
     id="main-section-element"
-    :style="{ 'scroll-padding-top': '100px' }"
   >
     <scenario-steps />
     <div class="container-fluid">
@@ -1909,16 +1908,17 @@ export default {
         this.errors.policy_return = "";
       }
 
-      if (this.uploadFromFile) {
-        this.errors.illustration_file = [
-          "Please upload illustration pdf data.",
-        ];
-        validate = false;
-      } else {
-        this.errors.illustration_text = ["CSV data is required."];
-        validate = false;
+      if (!this.csvPreview.data.length) {
+        if (this.uploadFromFile) {
+          this.errors.illustration_file = [
+            "Please upload illustration pdf data.",
+          ];
+          validate = false;
+        } else {
+          this.errors.illustration_text = ["CSV data is required."];
+          validate = false;
+        }
       }
-
       return validate;
     },
 
@@ -2998,5 +2998,9 @@ export default {
 .dark-blue .preview-cancel-btn:hover {
   border: 1px solid #fff;
   color: #fff;
+}
+input, div, label, span {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top : 300px;
 }
 </style>
