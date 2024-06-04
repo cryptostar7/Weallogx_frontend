@@ -18,8 +18,10 @@
                   <div class="after_heading_div">
                     <div class="accumulation_strategy_div">
                       <div class="accumulation_strategy_box">
-                        <!-- <retirement-buffer-params-form ref="formRef" @setAllowSubmit="(e) => allowSubmit = e"/> -->
-                        <income-rider-form ref="form" @valid="setSubmitEnabled" />
+                        <income-rider-form
+                          ref="form"
+                          @valid="setSubmitEnabled"
+                        />
                       </div>
                       <button
                         :class="`run_btn ${isSubmitEnabled ? '' : 'disable'}`"
@@ -27,7 +29,9 @@
                       >
                         Run
                       </button>
-                      <button class="reset_btn" @click="resetForm">Reset</button>
+                      <button class="reset_btn" @click="resetForm">
+                        Reset
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -41,21 +45,36 @@
 </template>
 
 <script>
-import LeftSidebarComponent from '@/views/components/common/LeftSidebarComponent.vue';
-import NavbarComponent from '@/views/components/common/NavbarComponent.vue';
-import IncomeRiderForm from './components/IncomeRiderForm.vue';
+import { mapState } from "vuex";
+import LeftSidebarComponent from "@/views/components/common/LeftSidebarComponent.vue";
+import NavbarComponent from "@/views/components/common/NavbarComponent.vue";
+import IncomeRiderForm from "./components/IncomeRiderForm.vue";
 
 export default {
-  name: 'IncomeRider',
+  name: "IncomeRider",
   components: {
     IncomeRiderForm,
     LeftSidebarComponent,
     NavbarComponent,
   },
-  data() {
-    return {
-      isSubmitEnabled: false
-    }
+  data() {},
+  computed: {
+    ...mapState({
+      inputs: (state) => state.incomeRider.data.inputs,
+    }),
+    isSubmitEnabled() {
+      return this.inputs.comparative_vehicle_account_name &&
+        this.inputs.account_type &&
+        this.inputs.current_age &&
+        this.inputs.plan_through_age &&
+        this.inputs.growth_rate &&
+        this.inputs.total_balance &&
+        this.inputs.income_rider_account_name &&
+        this.inputs.income_start_year &&
+        this.inputs.guaranteed_income
+        ? true
+        : false;
+    },
   },
   methods: {
     onSubmit() {
@@ -63,8 +82,8 @@ export default {
     },
     setSubmitEnabled(value) {
       this.isSubmitEnabled = value;
-    }
-  }
+    },
+  },
 };
 </script>
 

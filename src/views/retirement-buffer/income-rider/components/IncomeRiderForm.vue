@@ -5,7 +5,7 @@
       <img src="@/assets/images/icons/income-rider.svg" alt="Income Rider" />
     </div>
     <div class="accumulation_strategy_inner_box">
-      <p class="form_section_para">Comparative Vehicle</p>
+      <p class="form_section_para" @click="testFunction">Comparative Vehicle</p>
       <div class="form_section_input_row mb-3">
         <div class="w-25">
           <div class="form_section_label_div">
@@ -23,17 +23,19 @@
             <dollar-amount-input
               id="totalBalanceInput"
               class="dollar_inp"
-              :default="totalBalanceDefault"
               max="100000000"
               placeholder="Total Balance"
-              @amountUpdated="(e) => comparativeVehicle.totalBalance = e"
+              :default="inputs.total_balance"
+              @amountUpdated="(e) => updateInput('total_balance', e)"
             />
             <span class="dollar">$</span>
           </div>
         </div>
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="accountTypeSelect" class="main_label">Account Type</label>
+            <label for="accountTypeSelect" class="main_label"
+              >Account Type</label
+            >
           </div>
           <div class="select-menu accumulation_select_menu">
             <div class="select-btn">
@@ -42,18 +44,23 @@
                 class="sBtn-text"
                 readonly="true"
                 type="text"
-                :value="comparativeVehicle.accountType.label"
+                :value="inputs.account_type ? inputs.account_type.label : ''"
               />
               <i>
-                <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+                <img
+                  src="@/assets/images/icons/select-chevron.svg"
+                  alt="Chevron"
+                />
               </i>
             </div>
             <ul class="options">
               <li
-                v-for="item in comparativeVehicle.accountTypeOpts"
+                v-for="item in accountTypeOpts"
                 :key="item"
-                :class="`option ${comparativeVehicle.accountType === item ? 'active' : ''}`"
-                @click="comparativeVehicle.accountType = item"
+                :class="`option ${
+                  inputs.account_type === item ? 'active' : ''
+                }`"
+                @click="updateInput('account_type', item)"
               >
                 <span class="option-text">{{ item.label }}</span>
               </li>
@@ -73,7 +80,12 @@
             </label>
           </div>
           <div class="form_section_input_div">
-            <input id="accountNameInput" v-model="comparativeVehicle.accountName" type="text" />
+            <input
+              id="accountNameInput"
+              :value="inputs.comparative_vehicle_account_name"
+              @input="(e) => updateInput('comparative_vehicle_account_name', e)"
+              type="text"
+            />
           </div>
         </div>
         <div class="w-25">
@@ -84,11 +96,12 @@
             </label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="taxRateInput"
               class="percent_inp"
-              v-model.number="comparativeVehicle.taxRate"
-              type="number"
+              :default="inputs.tax_rate"
+              @amountUpdated="(e) => updateInput('tax_rate', e)"
+              max="100"
             />
             <span class="percent">%</span>
           </div>
@@ -102,32 +115,33 @@
               <span>
                 <common-tooltip-svg />
                 <span>
-                  This should match the age as shown on year one of the illustration.
+                  This should match the age as shown on year one of the
+                  illustration.
                 </span>
               </span>
             </label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="currentAgeInput"
-              v-model.number="comparativeVehicle.currentAge"
+              :default="inputs.current_age"
+              @amountUpdated="(e) => updateInput('current_age', e)"
               max="100"
-              step="1"
-              type="number"
             />
           </div>
         </div>
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="planThroughAgeInput" class="main_label">Plan Through Age</label>
+            <label for="planThroughAgeInput" class="main_label"
+              >Plan Through Age</label
+            >
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="planThroughAgeInput"
-              v-model.number="comparativeVehicle.planThroughAge"
+              :default="inputs.plan_through_age"
+              @amountUpdated="(e) => updateInput('plan_through_age', e)"
               max="100"
-              step="1"
-              type="number"
             />
           </div>
         </div>
@@ -136,11 +150,12 @@
             <label for="growthRateInput" class="main_label">Growth Rate</label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="growthRateInput"
               class="percent_inp"
-              v-model.number="comparativeVehicle.growthRate"
-              type="number"
+              :default="inputs.growth_rate"
+              @amountUpdated="(e) => updateInput('growth_rate', e)"
+              max="100"
             />
             <span class="percent">%</span>
           </div>
@@ -153,11 +168,12 @@
             </label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="feeInput"
               class="percent_inp"
-              v-model.number="comparativeVehicle.fee"
-              type="number"
+              :default="inputs.fee"
+              @amountUpdated="(e) => updateInput('fee', e)"
+              max="100"
             />
             <span class="percent">%</span>
           </div>
@@ -166,7 +182,9 @@
       <div class="form_section_input_row mb-3">
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="indexAllocationSelect" class="main_label">Index Allocation</label>
+            <label for="indexAllocationSelect" class="main_label"
+              >Index Allocation</label
+            >
           </div>
           <div class="select-menu accumulation_select_menu">
             <div class="select-btn">
@@ -175,18 +193,26 @@
                 class="sBtn-text"
                 readonly="true"
                 type="text"
-                :value="comparativeVehicle.indexAllocation.label"
+                :value="
+                  inputs.index_allocation ? inputs.index_allocation.label : ''
+                "
+                @amountUpdated="(e) => updateInput('index_allocation', e)"
               />
               <i>
-                <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+                <img
+                  src="@/assets/images/icons/select-chevron.svg"
+                  alt="Chevron"
+                />
               </i>
             </div>
             <ul class="options">
               <li
-                v-for="item in comparativeVehicle.indexAllocationOpts"
+                v-for="item in indexAllocationOpts"
                 :key="item"
-                :class="`option ${comparativeVehicle.indexAllocation === item ? 'active' : ''}`"
-                @click="comparativeVehicle.indexAllocation = item"
+                :class="`option ${
+                  inputs.index_allocation === item ? 'active' : ''
+                }`"
+                @click="updateInput('index_allocation', item)"
               >
                 <span class="option-text">{{ item.label }}</span>
               </li>
@@ -202,15 +228,26 @@
       <div class="form_section_input_row mb-3">
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="incomeRiderAccountNameInput" class="main_label">Account Name</label>
+            <label for="incomeRiderAccountNameInput" class="main_label"
+              >Account Name</label
+            >
           </div>
           <div class="form_section_input_div">
-            <input id="incomeRiderAccountNameInput" v-model="incomeRider.accountName" type="text" />
+            <input
+              id="incomeRiderAccountNameInput"
+              :value="inputs.income_rider_account_name"
+              @amountUpdated="
+                (e) => updateInput('income_rider_account_name', e)
+              "
+              type="text"
+            />
           </div>
         </div>
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="incomeStartYearSelect" class="main_label">Year Income Begins</label>
+            <label for="incomeStartYearSelect" class="main_label"
+              >Year Income Begins</label
+            >
           </div>
           <div class="select-menu accumulation_select_menu">
             <div class="select-btn">
@@ -219,18 +256,23 @@
                 class="sBtn-text"
                 readonly="true"
                 type="text"
-                :value="incomeRider.incomeStartYear"
+                :value="inputs.income_start_year"
               />
               <i>
-                <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+                <img
+                  src="@/assets/images/icons/select-chevron.svg"
+                  alt="Chevron"
+                />
               </i>
             </div>
             <ul class="options">
               <li
                 v-for="item in incomeRiderIncomeStartYearOpts"
                 :key="item"
-                :class="`option ${incomeRider.incomeStartYear === item ? 'active' : ''}`"
-                @click="incomeRider.incomeStartYear = item"
+                :class="`option ${
+                 inputs.income_start_year === item ? 'active' : ''
+                }`"
+                @click="updateInput('income_start_year', item)"
               >
                 <span class="option-text">{{ item }}</span>
               </li>
@@ -239,16 +281,18 @@
         </div>
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="guaranteedIncomeAmountInput" class="main_label">Guaranteed Income Amount</label>
+            <label for="guaranteedIncomeAmountInput" class="main_label"
+              >Guaranteed Income Amount</label
+            >
           </div>
           <div class="form_section_input_div">
             <dollar-amount-input
               id="guaranteedIncomeAmountInput"
               class="dollar_inp"
-              :default="guaranteedIncomeDefault"
               max="100000000"
               placeholder="Guaranteed Income Amount"
-              @amountUpdated="(e) => incomeRider.guaranteedIncome.amount = e"
+              :default="inputs.guaranteed_income"
+              @amountUpdated="(e) => updateInput('guaranteed_income', e)"
             />
             <span class="dollar">$</span>
           </div>
@@ -261,11 +305,14 @@
             </label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="guaranteedIncomeAnnualIncreaseInput"
               class="percent_inp"
-              v-model.number="incomeRider.guaranteedIncome.annualIncrease"
-              type="number"
+              :default="inputs.guaranteed_income_increase"
+              @amountUpdated="
+                (e) => updateInput('guaranteed_income_increase', e)
+              "
+              max="100"
             />
             <span class="percent">%</span>
           </div>
@@ -283,27 +330,33 @@
             <dollar-amount-input
               id="nonguaranteedIncomeAmountInput"
               class="dollar_inp"
-              :default="nonguaranteedIncomeDefault"
               max="100000000"
               placeholder="Non-guaranteed Income Amount"
-              @amountUpdated="(e) => incomeRider.nonguaranteedIncome.amount = e"
+              :default="inputs.non_guaranteed_income"
+              @amountUpdated="(e) => updateInput('non_guaranteed_income', e)"
             />
             <span class="dollar">$</span>
           </div>
         </div>
         <div class="w-25">
           <div class="form_section_label_div">
-            <label for="nonguaranteedIncomeAnnualIncreaseInput" class="main_label">
+            <label
+              for="nonguaranteedIncomeAnnualIncreaseInput"
+              class="main_label"
+            >
               Annual Increase
               <span class="optional">(Optional)</span>
             </label>
           </div>
           <div class="form_section_input_div">
-            <input
+            <number-amount-input
               id="nonguaranteedIncomeAnnualIncreaseInput"
               class="percent_inp"
-              v-model.number="incomeRider.nonguaranteedIncome.annualIncrease"
-              type="number"
+              :default="inputs.non_guaranteed_income_increase"
+              @amountUpdated="
+                (e) => updateInput('non_guaranteed_income_increase', e)
+              "
+              max="100"
             />
             <span class="percent">%</span>
           </div>
@@ -316,142 +369,117 @@
 </template>
 
 <script>
-import { cloneDeep, range } from 'lodash-es';
-import DollarAmountInput from '@/views/retirement-buffer/common-components/DollarAmountInput.vue';
-import CommonTooltipSvg from '@/views/components/common/CommonTooltipSvg.vue';
-
-const accountTypeOpts = [
-  { label: 'Taxable', value: 'taxable' },
-  { label: 'Pre-tax', value: 'pre_tax' }
-];
-
-const indexAllocationOpts = [
-  { label: 'Equities & Bonds 60/40', value: 'equities_and_bonds_60_40' },
-  { label: 'Equities & Bonds 50/50', value: 'equities_and_bonds_50_50' },
-  { label: 'Equities & Bonds 40/60', value: 'equities_and_bonds_40_60' },
-  { label: 'S&P 500', value: 's_and_p_500' }
-];
+import { range } from "lodash-es";
+import { mapState } from "vuex";
+import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
+import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
+import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
 
 export default {
-  name: 'IncomeRiderForm',
+  name: "IncomeRiderForm",
   components: {
     CommonTooltipSvg,
-    DollarAmountInput
+    DollarAmountInput,
+    NumberAmountInput,
   },
   data() {
     return {
-      comparativeVehicle: {
-        accountName: '',
-        accountType: accountTypeOpts[0],
-        accountTypeOpts,
-        currentAge: undefined,
-        fee: undefined,
-        growthRate: undefined,
-        indexAllocation: indexAllocationOpts[0],
-        indexAllocationOpts,
-        planThroughAge: undefined,
-        taxRate: undefined,
-        // XXX i hate that we're using strings for number values
-        totalBalance: ''
-      },
-      incomeRider: {
-        accountName: '',
-        guaranteedIncome: {
-          amount: '',
-          annualIncrease: undefined
-        },
-        incomeStartYear: undefined,
-        nonguaranteedIncome: {
-          amount: '',
-          annualIncrease: undefined
-        }
-      }
-    }
+      accountTypeOpts: [
+        { label: "Taxable", value: "taxable" },
+        { label: "Pre-tax", value: "pre_tax" },
+      ],
+      indexAllocationOpts: [
+        { label: "Equities & Bonds 60/40", value: "equities_and_bonds_60_40" },
+        { label: "Equities & Bonds 50/50", value: "equities_and_bonds_50_50" },
+        { label: "Equities & Bonds 40/60", value: "equities_and_bonds_40_60" },
+        { label: "S&P 500", value: "s_and_p_500" },
+      ],
+    };
   },
   computed: {
     incomeRiderIncomeStartYearOpts() {
-      return this.comparativeVehicle.currentAge && this.comparativeVehicle.planThroughAge
-        // we add 2 b/c we want the array to be inclusive of planThroughAge
-        ? range(1, this.comparativeVehicle.planThroughAge - this.comparativeVehicle.currentAge + 2)
+      return this.inputs.current_age && this.inputs.plan_through_age
+        ? // we add 2 b/c we want the array to be inclusive of planThroughAge
+          range(1, this.inputs.plan_through_age - this.inputs.current_age + 2)
         : [];
     },
-    isValid() {
-      return this.comparativeVehicle.accountName && this.comparativeVehicle.accountType &&
-        this.comparativeVehicle.currentAge && this.comparativeVehicle.planThroughAge &&
-        this.comparativeVehicle.growthRate && this.comparativeVehicle.totalBalance && this.incomeRider.accountName &&
-        this.incomeRider.incomeStartYear && this.incomeRider.guaranteedIncome.amount;
-    }
-  },
-  watch: {
-    isValid(val) {
-      this.$emit('valid', val);
-    }
+    ...mapState({
+      inputs: (state) => state.incomeRider.data.inputs,
+    }),
   },
   mounted() {
     // FIXME
     // Select Dropdown Start
-    let selectBtn = document.querySelectorAll('.select-btn');
+    let selectBtn = document.querySelectorAll(".select-btn");
     selectBtn.forEach((showHide) => {
-      showHide.addEventListener('click', () =>
-        showHide.closest('.select-menu').classList.toggle('active')
+      showHide.addEventListener("click", () =>
+        showHide.closest(".select-menu").classList.toggle("active")
       );
       var allOptions = showHide
-        .closest('.select-menu')
-        .querySelector('.options')
-        .querySelectorAll('.option');
+        .closest(".select-menu")
+        .querySelector(".options")
+        .querySelectorAll(".option");
       allOptions.forEach((option) => {
-        option.addEventListener('click', (e) => {
+        option.addEventListener("click", (e) => {
           e.stopPropagation();
-          option.parentElement.parentElement.classList.remove('active');
+          option.parentElement.parentElement.classList.remove("active");
         });
       });
     });
 
-    let dropdowns = document.querySelectorAll('.select-menu');
+    let dropdowns = document.querySelectorAll(".select-menu");
     dropdowns.forEach((element) => {
-      element.addEventListener('click', (e) => {
+      element.addEventListener("click", (e) => {
         dropdowns.forEach((item) => {
-          if (item.className.includes('active')) {
-            item.classList.remove('active');
+          if (item.className.includes("active")) {
+            item.classList.remove("active");
           }
         });
-        e.target.closest('.select-menu').classList.add('active');
+        e.target.closest(".select-menu").classList.add("active");
       });
     });
 
     // Close when click outside
     window.onclick = function (event) {
-      if (!event.target.matches('.select-menu')) {
-        var sharedowns = document.getElementsByClassName('select-menu');
+      if (!event.target.matches(".select-menu")) {
+        var sharedowns = document.getElementsByClassName("select-menu");
         var i;
         for (i = 0; i < sharedowns.length; i++) {
           var openSelectdropdown = sharedowns[i];
-          if (openSelectdropdown.classList.contains('active')) {
-            openSelectdropdown.classList.remove('active');
+          if (openSelectdropdown.classList.contains("active")) {
+            openSelectdropdown.classList.remove("active");
           }
         }
       }
     };
 
-    var allSelectMenus = document.querySelectorAll('.select-menu');
+    var allSelectMenus = document.querySelectorAll(".select-menu");
     allSelectMenus.forEach((eachSelectMenus) => {
-      eachSelectMenus.addEventListener('click', function (event) {
+      eachSelectMenus.addEventListener("click", function (event) {
         event.stopPropagation();
       });
     });
+
+    if (!this.inputs.account_type) {
+      this.updateInput("account_type", this.accountTypeOpts[0]);
+    }
+
+    if (!this.inputs.index_allocation) {
+      this.updateInput("index_allocation", this.indexAllocationOpts[0]);
+    }
   },
   methods: {
+    updateInput(field, value) {
+      let inputs = { ...this.inputs, [field]: value };
+      this.$store.dispatch("incomeRider/updateInputs", inputs);
+    },
     submit() {
-      this.$store.dispatch('loader', true);
-      this.$store.dispatch('incomeRider/submit', {
-        comparativeVehicle: cloneDeep(this.comparativeVehicle),
-        incomeRider: cloneDeep(this.incomeRider)
-      })
-        .finally(() => {
-          this.$store.dispatch('loader', false);
-        });
-    }
-  }
+      this.$store.dispatch("loader", true);
+      this.$store.dispatch("incomeRider/submit", this.inputs).finally(() => {
+        this.$store.dispatch("loader", false);
+      });
+    },
+  },
 };
 </script>
 
