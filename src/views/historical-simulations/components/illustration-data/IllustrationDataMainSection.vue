@@ -2377,12 +2377,6 @@ export default {
       }
 
       if (!this.validateForm()) {
-        // let mainSectionElement = document.getElementById(
-        //   "main-section-element"
-        // );
-        // if (mainSectionElement) {
-        //   mainSectionElement.scrollIntoView();
-        // }
         return false;
       }
 
@@ -2540,6 +2534,7 @@ export default {
             setSimulationStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
+            this.getClient();
             this.$toast.success(response.data.message);
             let url = `/${
               review ? "review-summary" : "historical/parameters"
@@ -2580,7 +2575,7 @@ export default {
             setSimulationStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
-
+            this.getClient();
             this.$router.push(
               `/historical/parameters/${this.$route.params.simulation}`
             );

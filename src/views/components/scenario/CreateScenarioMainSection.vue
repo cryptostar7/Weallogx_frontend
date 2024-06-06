@@ -121,6 +121,7 @@
                       <input
                         type="number"
                         id="illustratedAge"
+                        min="1"
                         max="100"
                         class="form-control handleLimit"
                         @keyup="
@@ -385,7 +386,7 @@
                         <schedule-csv-extraction
                           prefixId="schedule_tax_rate_"
                           :maxInputs="Number(illustrateYear)"
-                          @clearError="checkTaxRate()"
+                          @clearError="checkTaxRate(true)"
                         />
                       </div>
 
@@ -614,6 +615,7 @@ export default {
       simpleTaxRate: true,
       saveScheduleTemplate: false,
       saveDetailsTemplate: false,
+      isValidScheduleData: false,
       illustrateYear: "",
       firstTaxRate: "",
       secondTaxRate: "",
@@ -1026,19 +1028,28 @@ export default {
     },
 
     // check all inputs given in the schedule tax rate list, raturn false if any input has blank value otherwise return true.
-    checkTaxRate: function () {
-      this.clearScheduleTemplate();
-      if (this.illustrateYear) {
-        for (let index = 1; index <= this.illustrateYear; index++) {
-          var inp = document.getElementById(`schedule_tax_rate_${index}`);
-          var tax = inp ? inp.value : "";
-          if (!tax) {
-            return false;
+    checkTaxRate: function (delay = false) {
+      if (delay) {
+        // Check the schedule input if 
+        setTimeout(() => {
+          this.checkTaxRate();
+        }, 100);
+      } else {
+        this.clearScheduleTemplate();
+        if (this.illustrateYear) {
+          for (let index = 1; index <= this.illustrateYear; index++) {
+            var inp = document.getElementById(`schedule_tax_rate_${index}`);
+            var tax = inp ? inp.value : "";
+            if (!tax) {
+              this.isValidScheduleData = false;
+              return false;
+            }
           }
         }
+        this.errors.tax_rate = "";
+        this.isValidScheduleData = true;
+        return true;
       }
-      this.errors.tax_rate = "";
-      return true;
     },
 
     // validate the form
@@ -1153,6 +1164,11 @@ export default {
       if (e) {
         e.preventDefault();
       }
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -1160,10 +1176,6 @@ export default {
           var tax = inp ? inp.value : "";
           tempSchedule.push({ year: index, tax_rate: tax });
         }
-      }
-
-      if (!this.validateForm()) {
-        return false;
       }
 
       var data = {
@@ -1317,9 +1329,7 @@ export default {
           let url = `/illustration-data/${currentScenario.id}`;
 
           if (review) {
-            return this.$router.push(
-              `/review-summary/${currentScenario.id}`
-            );
+            return this.$router.push(`/review-summary/${currentScenario.id}`);
           }
 
           if (report) {
@@ -1330,8 +1340,9 @@ export default {
             currentScenario.scenerio_details &&
             currentScenario.scenerio_details.years_to_illustrate
           ) {
-            currentScenario.scenerio_details.years_to_illustrate =
-              Number(data.years_to_illustrate);
+            currentScenario.scenerio_details.years_to_illustrate = Number(
+              data.years_to_illustrate
+            );
             this.$store.dispatch("activeScenario", currentScenario);
             setCurrentScenario(currentScenario);
           }
@@ -1419,27 +1430,31 @@ export default {
       if (
         !this.scenarioName ||
         !this.clientAgeYearToIllustrate ||
-        !this.illustrateYear ||
-        !this.firstTaxRate
+        !this.illustrateYear
       ) {
         valid = false;
       }
 
-      if (this.secondTaxRate && !this.secondTaxRateYear) {
-        valid = false;
-      }
+      if (this.simpleTaxRate) {
+        if (!this.firstTaxRate) {
+          valid = false;
+        }
 
-      if (this.secondTaxRate && !this.secondTaxRateYear) {
-        valid = false;
+        if (this.secondTaxRate && !this.secondTaxRateYear) {
+          valid = false;
+        }
+      } else {
+        if (!this.isValidScheduleData) {
+          valid = false;
+        }
       }
 
       return valid;
     },
-    // active scenario data
+    // return active scenario data
     activeScenario() {
       return this.$store.state.data.active_scenario;
     },
-
     // existing client dropdown list data
     clients() {
       let initClient = [];

@@ -2525,6 +2525,7 @@ export default {
             setScenarioStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
+            this.getClient();
             this.$toast.success(response.data.message);
             let url = `/${review ? "review-summary" : "comparative-vehicles"}/${
               this.$route.params.scenario
@@ -2565,7 +2566,7 @@ export default {
             setScenarioStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
-
+            this.getClient();
             this.$router.push(
               `/comparative-vehicles/${this.$route.params.scenario}`
             );
