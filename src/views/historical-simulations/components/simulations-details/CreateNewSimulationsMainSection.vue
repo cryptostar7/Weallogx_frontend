@@ -827,13 +827,14 @@ export default {
       )
         .then((response) => {
           setSimulationStep1(response.data.data);
+          let currentSimulation = this.activeSimulation;
           this.saveClientAge();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          let url = `/historical/illustration-data/${this.activeSimulation.id}`;
+          let url = `/historical/illustration-data/${currentSimulation.id}`;
           if (review) {
             return this.$router.push(
-              `/historical/simulation-review/${this.activeSimulation.id}`
+              `/historical/simulation-review/${currentSimulation.id}`
             );
           }
 
@@ -841,7 +842,18 @@ export default {
             window.location.href = `/historical/report-builder/${this.reportId}`;
           }
 
-          if (this.activeSimulation.id) {
+          if (
+            currentSimulation.simulation_details &&
+            currentSimulation.simulation_details.years_to_illustrate
+          ) {
+            currentSimulation.simulation_details.years_to_illustrate =
+              Number(data.years_to_illustrate);
+            this.$store.dispatch("activeSimulation", currentSimulation);
+            setCurrentSimulation(currentSimulation);
+          }
+
+          
+          if (currentSimulation.id) {
             this.$router.push({
               path: url,
               query: this.$route.query,

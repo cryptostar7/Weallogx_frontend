@@ -2381,12 +2381,6 @@ export default {
       }
 
       if (!this.validateForm()) {
-        // let mainSectionelement = document.getElementById(
-        //   "main-section-element"
-        // );
-        // if (mainSectionelement) {
-        //   mainSectionelement.scrollIntoView({ behavior: "smooth" });
-        // }
         return false;
       }
 
@@ -2422,14 +2416,6 @@ export default {
         }
       }
 
-      // else {
-      //   if (this.uploadFromFile) {
-      //     return this.$toast.warning("Please upload illustration pdf data.");
-      //   } else {
-      //     return this.$toast.warning("CSV data is required.");
-      //   }
-      // }
-
       var data = {
         company: this.insuranceCompany,
         policy_name: this.insurancePolicyName,
@@ -2441,8 +2427,6 @@ export default {
         insurance_template: this.saveInsuranceTemplate,
         insurance_template_name: this.insuranceTemplateName,
         upload_file_checkbox: this.uploadFromFile ? true : false,
-
-        // upload_file_checkbox: true,
         illustration: {
           template: this.saveIllustrationTemplate,
           template_name: this.illustrationTemplateName,

@@ -381,19 +381,19 @@
                       @inputText="setExistingScenarioScheduleName"
                     />
                     <div class="form-group mb-0">
-
                       <div class="form-group mb-0">
                         <schedule-csv-extraction
                           prefixId="schedule_tax_rate_"
                           :maxInputs="Number(illustrateYear)"
                           @clearError="checkTaxRate()"
                         />
-
                       </div>
 
-                      <small class="text-danger d-block text-center mb-2" v-if="errors.tax_rate">{{
-                        errors.tax_rate[0]
-                      }}</small>
+                      <small
+                        class="text-danger d-block text-center mb-2"
+                        v-if="errors.tax_rate"
+                        >{{ errors.tax_rate[0] }}</small
+                      >
                       <table
                         class="table tax-rate-table text-center"
                         id="scheduleTaxRateTable"
@@ -1309,15 +1309,16 @@ export default {
     updateScenarioDetail: function (data, review, report) {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then((response) => {
+          let currentScenario = this.activeScenario;
           setScenarioStep1(response.data.data);
           this.saveClientAge();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          let url = `/illustration-data/${this.activeScenario.id}`;
+          let url = `/illustration-data/${currentScenario.id}`;
 
           if (review) {
             return this.$router.push(
-              `/review-summary/${this.activeScenario.id}`
+              `/review-summary/${currentScenario.id}`
             );
           }
 
@@ -1325,7 +1326,17 @@ export default {
             window.location.href = `/report-builder/${this.reportId}`;
           }
 
-          if (this.activeScenario.id) {
+          if (
+            currentScenario.scenerio_details &&
+            currentScenario.scenerio_details.years_to_illustrate
+          ) {
+            currentScenario.scenerio_details.years_to_illustrate =
+              Number(data.years_to_illustrate);
+            this.$store.dispatch("activeScenario", currentScenario);
+            setCurrentScenario(currentScenario);
+          }
+
+          if (currentScenario.id) {
             this.$router.push({
               path: url,
               query: this.$route.query,

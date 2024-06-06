@@ -2710,7 +2710,6 @@ export default {
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
-        console.log(illustrationTable);
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
