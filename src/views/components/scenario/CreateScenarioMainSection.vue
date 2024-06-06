@@ -964,15 +964,15 @@ export default {
           });
       }
     },
-    setScheduleData: function (data = [], template = false) {
+    setScheduleData: function (data = []) {
       this.errors.tax_rate = "";
       this.clearScheduleData();
       data.forEach((element) => {
         this.setInputWithId(
-          `schedule_tax_rate_${element.year}`,
-          element.year <= this.illustrateYear ? element.tax_rate : ""
+          `schedule_tax_rate_${element.year}`, element.year <= this.illustrateYear ? element.tax_rate : ""
         );
       });
+      this.checkTaxRate(true);
     },
 
     clearScheduleData: function (data = []) {
