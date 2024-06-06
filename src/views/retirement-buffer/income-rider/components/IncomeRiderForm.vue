@@ -83,7 +83,7 @@
             <input
               id="accountNameInput"
               :value="inputs.comparative_vehicle_account_name"
-              @input="(e) => updateInput('comparative_vehicle_account_name', e)"
+              @input="(e) => updateInput('comparative_vehicle_account_name', e.target.value)"
               type="text"
             />
           </div>
@@ -236,8 +236,8 @@
             <input
               id="incomeRiderAccountNameInput"
               :value="inputs.income_rider_account_name"
-              @amountUpdated="
-                (e) => updateInput('income_rider_account_name', e)
+              @input="
+                (e) => updateInput('income_rider_account_name', e.target.value)
               "
               type="text"
             />
@@ -459,14 +459,6 @@ export default {
         event.stopPropagation();
       });
     });
-
-    if (!this.inputs.account_type) {
-      this.updateInput("account_type", this.accountTypeOpts[0]);
-    }
-
-    if (!this.inputs.index_allocation) {
-      this.updateInput("index_allocation", this.indexAllocationOpts[0]);
-    }
   },
   methods: {
     updateInput(field, value) {

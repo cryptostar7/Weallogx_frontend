@@ -80,6 +80,10 @@ export default {
     onSubmit() {
       this.$refs.form.submit();
     },
+    resetForm() {
+      console.log('form reset');
+      this.$store.dispatch("incomeRider/reset");
+    },
     setSubmitEnabled(value) {
       this.isSubmitEnabled = value;
     },
