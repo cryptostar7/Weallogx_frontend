@@ -121,13 +121,13 @@
                 class="dragArea list-group w-full"
                 :list="list.historical"
               >
-                <!-- <historical-parent-tab
+                <historical-parent-tab
                   v-for="component in list.historical"
                   :key="component.id"
                   :tabID="component.id"
                   :keyId="component.key"
                   :sidebar="sidebar.collapse"
-                /> -->
+                />
               </draggable>
             </div>
             <ReportError
@@ -371,11 +371,6 @@ export default {
           }
         })
         .catch((error) => {
-
-
-          console.log('error.............');
-          console.log(error);
-
           this.$toast.error(error.message);
           this.HistoricalDataLoaded = true;
           if (this.sidebar.currentTab === "historical") {
@@ -474,15 +469,15 @@ export default {
     // fetch comarative reports data from API
     if (this.$route.params.report) {
       // this.getComparativeData(this.$route.params.report);
-      // this.getReports();
+      this.getReports();
       this.getHistoricalData();
-      // this.getCurrentReportInfo();
+      this.getCurrentReportInfo();
     }
   },
   watch: {
     "$route.params.report"() {
       if (this.$route.params.report) {
-        // this.getComparativeData(this.$route.params.report);
+        this.getComparativeData(this.$route.params.report);
         this.getHistoricalData();
       }
     },
