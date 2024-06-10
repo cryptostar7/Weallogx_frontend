@@ -1808,4 +1808,7 @@ color: #1660A4;
 .light-blue .compareBottomDivs .compareBottomEachDiv p {
   background: #1660A4;
 }
+.light-blue .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
+  stroke: #dfdfdf;
+}
 /* Retirement Buffer CSS Ends */

@@ -2600,7 +2600,7 @@
   color: #fff;
 }
 
-.dark-green .ModalHeasingPara {
+.dark-green .ModalHeadingPara {
   color: #fff
 }
 
@@ -5067,3 +5067,55 @@ background-color: #2e3135;
 .dark-green .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
   background-color: #9d2b2b;
 }
+
+.dark-green .income-rider-modal-tabs {
+  background-color: #2e3135;
+}
+.dark-green .income-rider-modal-tabs div {
+  background-color: transparent;
+  color: #fff;
+}
+.dark-green .income-rider-modal-tabs div.active {
+  background-color: #26ab8b;
+}
+
+
+/* Income rider details start */
+.dark-green .income-rider-table .tax-rate-table .table-input-div .form-control {
+  color: #fff;
+}
+.dark-green .income-rider-table .percent-input-div span.dollar-span {
+  color: #B1B1B1;
+}
+.dark-green .income-rider-table .tax-rate-table .table-input-div .form-control:not(:placeholder-shown) ~ span.dollar-span {
+  color: #fff;
+}
+
+.dark-green .form_section_label_div .label-right-div .label_checkbox span svg rect {
+  stroke: #fff;
+}
+.dark-green .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
+  stroke: #555;
+}
+.dark-green .form_section_label_div.disabled .label-right-div .label_checkbox span {
+  color: #555;
+}
+.dark-green .form_section_label_div.disabled label.main_label{
+  color: #555;
+}
+.dark-green .form_section_label_div.disabled label span.optional{
+  color: #555;
+}
+.dark-green .form_section_label_div.disabled label::before {
+  background-color: #555;
+}
+.dark-green .form_section_label_div .label-right-div .label_checkbox label{
+  background-color: transparent;
+}
+.dark-green .form_section_label_div.disabled .label-right-div .label_checkbox label{
+  border-color: #555;
+}
+.dark-green .form_section_label_div.disabled .label-right-div .label_checkbox input:checked ~ label{
+background-color: #555;
+}
+/* Income rider details start */

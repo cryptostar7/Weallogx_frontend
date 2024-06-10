@@ -8,7 +8,7 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body px-5">
-                        <p class="ModalHeasingPara">{{$props.title}} Schedule</p>
+                        <p class="ModalHeadingPara">{{$props.title}} Schedule</p>
                         <div class="modalTableDiv">
                             <table class="table">
                                 <thead>
