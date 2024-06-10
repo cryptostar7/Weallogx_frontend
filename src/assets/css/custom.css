@@ -1458,6 +1458,7 @@ body::-webkit-scrollbar {
   font-size: 11px;
   color: #000;
   text-align: center;
+  cursor: pointer;
 }
 
 .mltplSwtchDiv div.active {
@@ -5751,3 +5752,4 @@ body.presentationModeCommon .rghtTopHeadcommon{
 .top-surplus-div p:nth-child(2){
   font-size: 11px;
 }
+

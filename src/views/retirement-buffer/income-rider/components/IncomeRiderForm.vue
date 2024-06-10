@@ -315,7 +315,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
-              <div class="form_section_label_div">
+              <div class="form_section_label_div" id="annualIncrease1">
                 <label for="annual-ditribution" class="main_label"
                   >Annual Increase<span class="optional"
                     >(optional)</span
@@ -329,6 +329,7 @@
                       checkBoxAttr="2"
                       id="selectPercent"
                       hidden
+                      checked
                     />
                     <label for="selectPercent"></label>
                     <span>%</span>
@@ -345,7 +346,6 @@
                       checkBoxAttr="1"
                       id="selectDollar"
                       hidden
-                      checked
                     />
                     <label for="selectDollar"></label>
                     <span>
@@ -444,7 +444,7 @@
               </div>
             </div>
             <div class="col-6 mb-3">
-              <div class="form_section_label_div disabled">
+              <div class="form_section_label_div disabled" id="annualIncrease2">
                 <label for="annual-ditribution" class="main_label"
                   >Annual Increase<span class="optional"
                     >(optional)</span
@@ -640,30 +640,419 @@
                 <div
                   class="active"
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-market"
+                  data-bs-target="#year-by-year-tab"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-market"
+                  aria-controls="year-by-year-tab"
                   aria-selected="true"
                 >
                   Year by Year
                 </div>
                 <div
                   data-bs-toggle="pill"
-                  data-bs-target="#v-pills-buffer"
+                  data-bs-target="#first-and-last-year-tab"
                   type="button"
                   role="tab"
-                  aria-controls="v-pills-buffer"
+                  aria-controls="first-and-last-year-tab"
                   aria-selected="false"
                   class=""
                 >
                   First and Last Year
                 </div>
               </div>
-              <p class="para">
-                Enter the increasing income schedule from the illustration
-              </p>
-              <div class="income-rider-table form-group">
+              <div class="tab-content" id="nav-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="year-by-year-tab"
+                  role="tabpanel"
+                  aria-labelledby="year-by-year-tab"
+                >
+                <p class="para">Enter the increasing income schedule from the illustration</p>
+                  <div class="income-rider-table form-group">
+                    <table
+                      class="table tax-rate-table text-center"
+                      id="scheduleTaxRateTable"
+                    >
+                      <thead>
+                        <tr>
+                          <th width="50%">Year</th>
+                          <th width="50%">Annual Income Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!---->
+                        <tr class="">
+                          <td><div class="fs-15">1</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_1"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">2</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_2"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">3</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_3"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">4</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_4"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">5</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_5"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">6</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_6"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">7</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_7"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">8</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_8"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">9</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_9"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">10</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_10"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">11</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_11"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">12</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_12"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">13</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_13"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">14</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_14"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">15</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_15"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">16</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_16"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">17</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_17"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">18</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_18"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">19</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_19"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="">
+                          <td><div class="fs-15">20</div></td>
+                          <td>
+                            <div
+                              class="p-relative table-input-div percent-input-div"
+                            >
+                              <input
+                                type="number"
+                                class="form-control handleLimit"
+                                id="schedule_tax_rate_20"
+                                min="1"
+                                max="99"
+                                placeholder=""
+                              />
+                              <span class="dollar-span">$</span>
+                            </div>
+                          </td>
+                        </tr>                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="first-and-last-year-tab"
+                  role="tabpanel"
+                  aria-labelledby="first-and-last-year-tab"
+                >
+                <p class="para">Enter the first and last year’s income values from the illustration</p>
+                <div class="income-rider-table form-group">
                 <table
                   class="table tax-rate-table text-center"
                   id="scheduleTaxRateTable"
@@ -676,1756 +1065,9 @@
                   </thead>
                   <tbody>
                     <!---->
-                    <tr class="">
-                      <td><div class="fs-15">1</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_1"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">2</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_2"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">3</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_3"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">4</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_4"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">5</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_5"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">6</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_6"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">7</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_7"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">8</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_8"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">9</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_9"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">10</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_10"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">11</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_11"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">12</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_12"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">13</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_13"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">14</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_14"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">15</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_15"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">16</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_16"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">17</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_17"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">18</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_18"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">19</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_19"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="">
-                      <td><div class="fs-15">20</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_20"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">21</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_21"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">22</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_22"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">23</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_23"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">24</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_24"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">25</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_25"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">26</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_26"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">27</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_27"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">28</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_28"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">29</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_29"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">30</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_30"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">31</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_31"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">32</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_32"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">33</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_33"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">34</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_34"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">35</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_35"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">36</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_36"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">37</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_37"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">38</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_38"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">39</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_39"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">40</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_40"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">41</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_41"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">42</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_42"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">43</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_43"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">44</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_44"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">45</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_45"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">46</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_46"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">47</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_47"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">48</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_48"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">49</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_49"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">50</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_50"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">51</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_51"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">52</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_52"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">53</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_53"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">54</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_54"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">55</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_55"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">56</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_56"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">57</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_57"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">58</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_58"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">59</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_59"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">60</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_60"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">61</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_61"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">62</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_62"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">63</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_63"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">64</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_64"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">65</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_65"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          />
-                          <span class="dollar-span">$</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">66</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_66"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">67</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_67"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">68</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_68"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">69</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_69"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">70</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_70"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">71</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_71"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">72</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_72"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">73</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_73"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">74</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_74"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">75</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_75"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">76</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_76"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">77</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_77"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">78</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_78"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">79</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_79"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">80</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_80"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">81</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_81"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">82</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_82"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">83</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_83"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">84</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_84"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">85</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_85"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">86</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_86"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">87</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_87"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">88</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_88"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">89</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_89"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">90</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_90"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">91</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_91"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">92</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_92"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">93</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_93"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">94</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_94"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">95</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_95"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">96</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_96"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">97</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_97"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">98</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_98"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">99</div></td>
-                      <td>
-                        <div
-                          class="p-relative table-input-div percent-input-div"
-                        >
-                          <input
-                            type="number"
-                            class="form-control handleLimit"
-                            id="schedule_tax_rate_99"
-                            min="1"
-                            max="99"
-                            placeholder=""
-                          /><span class="percent-span">%</span>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="d-none">
-                      <td><div class="fs-15">100</div></td>
+                    
+                    <tr>
+                      <td><div class="fs-15">First Year</div></td>
                       <td>
                         <div
                           class="p-relative table-input-div percent-input-div"
@@ -2437,13 +1079,37 @@
                             min="1"
                             max="99"
                             placeholder=""
-                          /><span class="percent-span">%</span>
+                          /><span class="dollar-span">$</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><div class="fs-15 form_section_label_div justify-content-center">Last Year
+                       <label for="premium-bonus" class="main_label"><span><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="Group 1968"><circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0"></circle><circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white"></circle><rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75" fill="white"></rect></g></svg><span class="text-start"> This should be the value for the “Plan Through Age” you defined earlier. For example, if you entered “95”, you would put the income value at age 95 from the illustration here.</span></span></label>
+
+
+                      </div></td>
+                      <td>
+                        <div
+                          class="p-relative table-input-div percent-input-div"
+                        >
+                          <input
+                            type="number"
+                            class="form-control handleLimit"
+                            id="schedule_tax_rate_100"
+                            min="1"
+                            max="99"
+                            placeholder=""
+                          /><span class="dollar-span">$</span>
                         </div>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+                </div>
+              </div>
+
               <button class="mb-5 mt-4 run_btn /*disable*/">Save</button>
             </div>
           </div>

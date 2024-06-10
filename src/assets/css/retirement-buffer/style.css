@@ -770,6 +770,14 @@
 .table_graph_setting_tab div.active svg rect {
     stroke: #fff;
 }
+.table_graph_setting_tab div.active svg.income-rider-tab-svg rect{
+    fill: white;
+    stroke: transparent;
+}
+.table_graph_setting_tab div.active svg.income-rider-tab-svg path.svgstroke{
+    fill: transparent;
+    stroke: #fff;
+}
 
 .filter_buttons {
     border-radius: 4px;
@@ -1739,4 +1747,173 @@ canvas#retirementBufferGraph {
 }
 .income-rider-table .tax-rate-table .table-input-div .form-control:not(:placeholder-shown) ~ span.dollar-span {
     color: #000;
+}
+.income-rider-table .form_section_label_div{
+    position: relative;
+}
+.income-rider-table .form_section_label_div .main_label{
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+.income-rider-table .form_section_label_div .main_label::before{
+    display: none;
+}
+.annual-income-text-para{
+    color: #A5A5A5;
+font-size: 12px;
+font-weight: 500;
+line-height: 1.6;
+}
+
+
+.incomeRiderCard {
+    background: #FFF;
+    border: 1px solid #DFDFDF;
+    border-radius: 8px;
+    padding: 7px 12px 9px;
+    height: 100%;
+  }
+  
+  .incomeCard1 {
+    border-top: 6px solid var(--green-clr);
+  }
+  
+  .incomeCard2 {
+    border-top: 6px solid #1660A4;
+  }
+  
+  .incomeCard3 {
+    border-top: 6px solid #4A8ECD;
+  }
+  .incomeRiderCard.incomeCard3 .lightProgress3{
+    background: #4A8ECD;
+  }
+
+  .incomeRiderCard.incomeCard3 .cardRadioSwtchpara3{
+    color: #4A8ECD!important;
+  }
+  .incomeRiderCard .allCardHeadPara{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .incomeRiderCard .allCardHeadPara span{
+    color: #A1A1A1;
+font-size: 12px;
+font-weight: 700;
+user-select: none;
+text-align: end;
+  }
+  .incomeRiderCard .shortFall{
+    color: #EF391F;
+  }
+
+
+  .incomeRiderCard.disable .CardProgressBar {
+    background: #DFDFDF;
+  }
+
+  .incomeRiderCard.disable .cardRadioSwtchpara1, .incomeRiderCard.disable .cardRadioSwtchpara1 .shortFall,
+  .incomeRiderCard.disable .cardRadioSwtchpara2, .incomeRiderCard.disable .cardRadioSwtchpara2 .shortFall,
+  .incomeRiderCard.disable .cardRadioSwtchpara3, .incomeRiderCard.disable .cardRadioSwtchpara3 .shortFall
+  {
+color: #DFDFDF!important;
+  }
+
+
+  .each-target-analysis-bar {
+    margin-top: 10px;
+}
+.each-target-analysis-bar .heading {
+    position: relative;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+.each-target-analysis-bar .heading span{
+    cursor: pointer;
+}
+.each-target-analysis-bar .heading::before {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 10px;
+    left: 0;
+    bottom: 0;
+}
+.each-target-analysis-bar .heading.clr1::before {
+    background: #25967b;
+}
+.each-target-analysis-bar .heading.clr2::before {
+    background: #1660A4;
+}
+.each-target-analysis-bar .heading.clr3::before {
+    background: #4A8ECD;
+}
+.target-analysis-each-bars {
+    border-radius: 5px;
+    border: 1.25px solid #dfdfdf;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    color: #000;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 42px;
+    transition: 0.3s width ease-in-out;
+}
+.amount-label-wrapper {
+    transition: 0.35s ease-in-out;
+}
+.target-analysis-each-bars.barClr1 {
+    background: #0e6651;
+}
+.target-analysis-each-bars.barClr2 {
+    background: #1660a4;
+}
+.target-analysis-each-bars.barClr3 {
+    background: #4A8ECD;
+}
+.scalling-div{
+    border-top: 1px solid #E9E9E9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 5px;
+    margin-top: 15px;
+}
+.scalling-div span{
+    font-size: 10px;
+    color: #000;
+    font-weight: 400;
+}
+.scalling-div-label{
+    font-style: italic;
+    font-size: 10px;
+    color: #000;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 10px;
+}
+.income-rider-show-next-btn{
+    margin-inline: auto;
+    border-radius: 50px;
+background: #147D64;
+color: #FFF;
+font-size: 16px;
+font-weight: 600;
+padding: 5px 12px;
+border: inherit;
+display: flex;
+align-items: baseline;
+gap: 10px;
+margin-top: 10px;
+}
+.income-rider-show-next-btn.disable{
+    background: #DFDFDF;
+    pointer-events: none;
+    user-select: none;
 }
