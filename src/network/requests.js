@@ -5,7 +5,7 @@ import axios from 'axios';
 const timeout = import.meta.env.MODE === 'development' ? 300000 : 500000;
 const api = axios.create({
   Accept: '*/*',
-  timeout,
+  timeout: timeout,
   headers: { 
     'Accept' : 'application/json',
     },
