@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
-const timeout = import.meta.env.MODE === 'development' ? 300000 : 500000;
+const timeout = import.meta.env.MODE === 'development' ? 300000 : 600000;
 const api = axios.create({
   Accept: '*/*',
   timeout: timeout,
