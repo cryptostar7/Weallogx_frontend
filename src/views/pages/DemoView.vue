@@ -41,8 +41,6 @@ export default {
     //   .then((response) => response.text())
     //   .then((result) => console.log(result))
     //   .catch((error) => console.error(error));
-
-
     
 
     get(getUrl("historical_report") + this.$route.params.id)
