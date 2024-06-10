@@ -497,22 +497,22 @@ export default {
 
     // fetch comarative reports data from API
     if (this.$route.params.report) {
-      this.getComparativeData(this.$route.params.report);
-      // this.getReports();
+     // this.getComparativeData(this.$route.params.report);
+      this.getReports();
       this.getHistoricalData();
       this.getCurrentReportInfo();
     }
   },
   watch: {
-    // "$route.params.report"() {
-    //   if (this.$route.params.report) {
-    //     this.getComparativeData(this.$route.params.report);
-    //     this.getHistoricalData();
-    //   }
-    // },
-    // "sidebar.currentTab"(e) {
-    //   this.$store.dispatch("current_sidebar_tab", e);
-    // },
+    "$route.params.report"() {
+      if (this.$route.params.report) {
+        this.getComparativeData(this.$route.params.report);
+        this.getHistoricalData();
+      }
+    },
+    "sidebar.currentTab"(e) {
+      this.$store.dispatch("current_sidebar_tab", e);
+    },
   },
   computed: {
     list() {
