@@ -5720,4 +5720,82 @@ color: #fff;
 .dark-blue .income-rider-show-next-btn.disable{
   background-color: #2c2f33;
 }
+
+
+
+
+
+
+.dark-blue .target-analysis-bar {
+  background-image: url('../images/icons/dark-progressbar-design.svg');
+}
+
+.dark-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr1{
+  background: #23669E;
+}
+.dark-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr2{
+  background: #207ACD;
+}
+.dark-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1, .dark-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2{
+  background-color: #208DE8;
+}
+
+.dark-blue .target-analysis-bar-main-div .bar-long-para{
+  color: #fff;
+}
+
+.dark-blue .target-analysis-bar-main-div .bar-long-para span{
+  color: #26ab8b;
+  }
+
+  .dark-blue .target-analysis-success-prob-para{
+  color: #fff;
+}
+.dark-blue .pie.target-analysis-progress-pie svg text {
+  fill: #26ab8b;
+}
+
+.dark-blue .summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
+.dark-blue .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
+  stroke: #fafafa;
+}
+
+.dark-blue .pie.target-analysis-progress-pie .pie-long-para{
+  color: #fff;
+}
+.dark-blue .pie.target-analysis-progress-pie .pie-long-para span{
+color: #53a9f1;
+}
+.dark-blue .border-before-col::before{
+background: #485161;
+}
+
+
+.dark-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
+  stroke: #575b61;
+}
+.dark-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
+  stroke: #26ab8b;
+}
 /* Income rider details start */
+
+/* Graph part start */
+  
+.dark-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
+  border: 3px solid var(--green-clr);
+  background-color: #0e665120;
+}
+
+.dark-blue .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
+  border: 3px solid #4A8ECD;
+ background-color: #4a8ecd20;
+}
+.dark-blue .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+  border: 3px solid #1660A4;
+  background-color: #4a8ecd20;
+}
+.dark-blue .incomeRiderCard.graph-card.disable .CardProgressBar {
+  border-color:#55575a;
+  background-color: #55575a;
+}
+/* Graph part end */

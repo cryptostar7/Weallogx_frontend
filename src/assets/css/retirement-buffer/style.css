@@ -1854,6 +1854,8 @@ color: #DFDFDF!important;
     background: #4A8ECD;
 }
 .target-analysis-each-bars {
+    display: flex;
+    align-items: center;
     border-radius: 5px;
     border: 1.25px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -1876,6 +1878,13 @@ color: #DFDFDF!important;
 }
 .target-analysis-each-bars.barClr3 {
     background: #4A8ECD;
+}
+.target-analysis-each-bars .target-bar-span{
+    font-size: 10px;
+    color: #fff;
+    font-weight: 600;
+    font-style: italic;
+    margin-left: 10px;
 }
 .scalling-div{
     border-top: 1px solid #E9E9E9;
@@ -1917,3 +1926,182 @@ margin-top: 10px;
     pointer-events: none;
     user-select: none;
 }
+
+
+
+
+.target-analysis-bar {
+    width: var(--big-bar-width);
+    height: 265px;
+    background-image: url('../../images/icons/progreess-bar-design.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+  }
+  .target-analysis-bar .target-analysis-inner-bar{
+width: 100%;
+position: relative;
+width: 100%;
+vertical-align: middle;
+display: flex;
+align-items: flex-end;
+  }
+
+  .target-analysis-bar .target-analysis-inner-bar.inner-clr1{
+    background: #0E6651;
+  }
+  .target-analysis-bar .target-analysis-inner-bar.inner-clr2{
+    background: #147D64;
+  }
+  .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1, .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2{
+    background-color: #25967B;
+  }
+  .target-analysis-bar .target-analysis-bottom-bar-area{
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+    padding: 6px;
+  }
+  .target-analysis-bar .target-analysis-bottom-bar-area p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 11px;
+    color: #fff;
+  }
+
+  .target-analysis-bar-main-div{
+    max-width: 324px;
+    margin-inline: auto;
+width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 92%;
+    z-index: 1;
+    margin: 0 auto;
+    --big-bar-width: 150px;
+    --big-bar-height: 260px;
+    --gap: 4px;
+  }
+
+
+  .target-analysis-bar-main-div .bar-long-para{
+    color: #000;
+    text-align: justify;
+    font-size: 12px;
+    font-weight: 500;
+    margin-block: 10px 0;
+    width: 324px;
+    margin-inline: auto;
+    font-style: italic;
+  }
+
+  .target-analysis-bar-main-div .bar-long-para span{
+    color: #0E6651;
+    font-weight: 700;
+    }
+
+  .target-analysis-success-prob-para{
+    color: #000;
+text-align: center;
+font-size: 12px;
+font-style: italic;
+font-weight: 600;
+  }
+.pie.progress_pie {
+    width: 100% !important;
+    height: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pie.progress_pie svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    margin-inline: auto;
+}
+
+.pie.target-analysis-progress-pie svg circle[r] {
+    stroke-width: 20;
+    r: 40 !important;
+}
+.pie.target-analysis-progress-pie svg text {
+    font-size: 18px;
+    font-weight: 500;
+}
+.pie.target-analysis-progress-pie svg text {
+    fill: #1660a4;
+    text-align: center;
+text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+font-weight: 500;
+}
+
+.summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
+.each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
+    stroke: #fafafa;
+}
+
+.pie.target-analysis-progress-pie .pie-long-para{
+    color: #000;
+    text-align: justify;
+    font-size: 12px;
+    font-weight: 500;
+    margin-block: 10px 0;
+    margin-inline: auto;
+    width: 324px;
+    font-style: italic;
+}
+.pie.target-analysis-progress-pie .pie-long-para span{
+color: #1660A4;
+font-weight: 700;
+}
+.border-before-col::before{
+content: '';
+position: absolute;
+left: 0;
+width: 1px;
+height: calc(100% - 80px);
+background: #DFDFDF;
+}
+
+/* Graph part start */
+  
+  .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+    border: 3px solid var(--green-clr);
+    background-color: #0e665120;
+    
+  }
+  
+  .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
+    border: 3px solid #1660A4;
+    background-color: #165fa420;
+  }
+  
+  .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
+    border: 3px solid #4A8ECD;
+   background-color: #4a8ecd20;
+  }
+  .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+    border: 3px solid var(--green-clr);
+    background-color: #0e665120;
+  }
+  .incomeRiderCard.graph-card.disable .CardProgressBar {
+    border-color:#DFDFDF;
+    background: #DFDFDF;
+  }
+  .income-rider-graph-div{
+    height: 320px;
+  }
+  .income-rider-graph-div canvas{
+    height: 100%!important;
+    width: 100%!important;
+  }
+  /* Graph part end */

@@ -20,7 +20,7 @@
                         <path d="M0 17.5C0 17.2239 0.223858 17 0.5 17H11.5C11.7761 17 12 17.2239 12 17.5V19C12 19.2761 11.7761 19.5 11.5 19.5H0.5C0.223858 19.5 0 19.2761 0 19V17.5Z" fill="#0E6651" />
                       </svg>
                     </div>
-                    <div data-bs-toggle="pill" data-bs-target="#v-pills-graph" type="button" role="tab" aria-controls="v-pills-graph" aria-selected="false" class="">
+                    <div data-bs-toggle="pill" data-bs-target="#v-pills-graph" type="button" role="tab" aria-controls="v-pills-graph" aria-selected="false">
                       <svg class="income-rider-tab-svg income-svg-2" width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_6993_46716)">
                           <mask id="mask0_6993_46716" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="3" y="0" width="25" height="25">
@@ -62,523 +62,2071 @@
                     </svg>
                     Back to Parameters Screen</a>
                 </div>
-                <div class="ComparativeTableMainDiv rightDivTop4 active">
-                  <div class="d-flex justify-content-between px-3 py-2 bb-grey tab-head">
-                    <div class="d-flex align-items-center">
-                      <label for="rightCheckBox4" class="rghtTopHeadcommon nowrap">Annual Income</label>
-                      <label class="rghtTopHeadcommon">
-                        <div class="annual-income-text-para ms-2 fs-12">
-                          How long can the [COMPARATIVE VEHICLE ACCOUNT NAME]
-                          produce the same amount of income as the [INCOME RIDER
-                          ACCOUNT NAME]’s Income Rider?
+
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="v-pills-table" role="tabpanel" aria-labelledby="v-pills-table">
+                    <div class="ComparativeTableMainDiv rightDivTop4 active">
+                      <div class="d-flex justify-content-between px-3 py-2 bb-grey tab-head">
+                        <div class="d-flex align-items-center">
+                          <label for="rightCheckBox4" class="rghtTopHeadcommon nowrap">Annual Income</label>
+                          <label class="rghtTopHeadcommon">
+                            <div class="annual-income-text-para ms-2 fs-12">
+                              How long can the [COMPARATIVE VEHICLE ACCOUNT
+                              NAME] produce the same amount of income as the
+                              [INCOME RIDER ACCOUNT NAME]’s Income Rider?
+                            </div>
+                          </label>
                         </div>
-                      </label>
-                    </div>
-                    <div class="rightLeftDoubleLIneDegine">
-                      <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
-                        <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
-                      </svg>
+                        <div class="rightLeftDoubleLIneDegine">
+                          <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
+                            <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="collapseDivMain collapseDiv4" style="display: block">
+                        <hr class="collapseDivHr" />
+                        <div class="px-3 pt-3 pb-2">
+                          <div class="d-flex justify-content-center mt-2 tab-menu">
+                            <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                              <div class="active" id="v-pills-annualFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-annualFees1" type="button" role="tab" aria-controls="v-pills-annualFees1" aria-selected="true">
+                                Guaranteed
+                              </div>
+                              <div id="v-pills-comulativeFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees1" type="button" role="tab" aria-controls="v-pills-comulativeFees1" aria-selected="false">
+                                Potential
+                              </div>
+                            </div>
+                          </div>
+                          <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="v-pills-annualFees1" role="tabpanel" aria-labelledby="v-pills-annualFees1-tab">
+                              <div class="container-fluid cards-area">
+                                <div class="common-card-div1 d-flex justify-content-between flex-gap-12" id="card-amount-1">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div1 d-flex justify-content-between flex-gap-12 d-none" id="card-longevity-1">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div1 d-flex justify-content-between flex-gap-12 d-none" id="card-return-1">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-fluid">
+                                <div class="CompMainProgrssBarDiv graph-area">
+                                  <!-- Main tab 1 content start -->
+                                  <div class="w-100 p-3">
+                                    <div class="position-relative">
+                                      <div class="collapseDivmdlHd text-center">
+                                        Target Analysis
+                                      </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="d-flex justify-content-center mt-2">
+                                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical" id="card-area-1">
+                                        <div btnAttr="amount-1" class="active" data-bs-toggle="pill" data-bs-target="#v-pills-amount" type="button" role="tab" aria-controls="v-pills-amount">
+                                          Amount
+                                        </div>
+                                        <div btnAttr="longevity-1" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" role="tab" aria-controls="v-pills-longevity">
+                                          Longevity
+                                        </div>
+                                        <div btnAttr="return-1" data-bs-toggle="pill" data-bs-target="#v-pills-return" role="tab" aria-controls="v-pills-return">
+                                          Return
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="tab-content">
+                                      <div class="tab-pane fade active show" id="v-pills-amount" role="tabpanel">
+                                        <!-- Amount tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual1" type="button" role="tab" aria-controls="v-pills-individual" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-showall1" type="button" role="tab" aria-controls="v-pills-showall" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
+                                            <!-- Amount individual tab start -->
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr1">
+                                                FIA - Income Rider
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr1 text-white" style="width: 100%">
+                                                $<span id="wider_bar_1">127,000</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr2">
+                                                Schwab Brokerage Account - Flat
+                                                Rate of Return
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr2 text-white" style="width: 100%">
+                                                $<span id="wider_bar_2">73,500</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr3">
+                                                Schwab Brokerage Account -
+                                                Historical Market Returns
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr3 text-white" style="width: 100%">
+                                                $<span id="wider_bar_3">244,000</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="scalling-div">
+                                              <span>1</span>
+                                              <span>2</span>
+                                              <span>3</span>
+                                              <span>4</span>
+                                              <span>5</span>
+                                              <span>6</span>
+                                              <span>7</span>
+                                              <span>8</span>
+                                              <span>9</span>
+                                              <span>10</span>
+                                              <span>11</span>
+                                              <span>12</span>
+                                              <span>13</span>
+                                              <span>14</span>
+                                              <span>15</span>
+                                              <span>16</span>
+                                              <span>17</span>
+                                              <span>18</span>
+                                              <span>19</span>
+                                              <span>20</span>
+                                              <span>21</span>
+                                              <span>22</span>
+                                              <span>23</span>
+                                              <span>25</span>
+                                              <span>26</span>
+                                              <span>27</span>
+                                              <span>28</span>
+                                              <span>29</span>
+                                              <span>30</span>
+                                              <span>31</span>
+                                              <span>32</span>
+                                              <span>33</span>
+                                              <span>34</span>
+                                              <span>35</span>
+                                            </div>
+                                            <p class="scalling-div-label">
+                                              Years
+                                            </p>
+                                            <button class="income-rider-show-next-btn disable">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
+                                              </svg>
+                                            </button>
+                                            <!-- Amount individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-showall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Amount showall tab start -->
+                                            2
+                                            <!-- Amount showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Amount tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-longevity" role="tabpanel">
+                                        <!-- Longevity tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual2" type="button" role="tab" aria-controls="v-pills-distribution" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-showall2" type="button" role="tab" aria-controls="v-pills-showall2" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-individual2" role="tabpanel">
+                                            <!-- Longevity individual tab start -->
+                                            <div class="tab-content">
+                                              <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
+                                                <!-- Amount individual tab start -->
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr1">
+                                                    FIA - Income Rider
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr1 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_1">127,000</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr2">
+                                                    Schwab Brokerage Account -
+                                                    Flat Rate of Return
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr2 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_2">73,500</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr3">
+                                                    Schwab Brokerage Account -
+                                                    Historical Market Returns
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr3 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_3">244,000</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="scalling-div">
+                                                  <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span>
+                                                </div>
+                                                <p class="scalling-div-label">
+                                                  Years
+                                                </p>
+                                                <button class="income-rider-show-next-btn disable">
+                                                  Show Next
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                    <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white"></rect>
+                                                    <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white"></rect>
+                                                  </svg></button><!-- Amount individual tab end -->
+                                              </div>
+                                              <div class="tab-pane fade" id="v-pills-showall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                <!-- Amount showall tab start -->
+                                                2
+                                                <!-- Amount showall tab end -->
+                                              </div>
+                                            </div>
+                                            <!-- Longevity individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-showall2" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Longevity showall tab start -->
+                                            2
+                                            <!-- Longevity showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Longevity tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-return" role="tabpanel">
+                                        <!-- Return tab start -->
+                                        <div class="row mt-5">
+                                          <div class="col-md-6">
+                                            <div class="target-analysis-bar-main-div">
+                                              <div class="d-flex flex-column">
+                                                <div class="d-flex gap-4 justify-content-center w-100">
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr1" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr1">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr2" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr2">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <p class="bar-long-para">
+                                                  The required constant rate of
+                                                  return for the [COMPARATIVE
+                                                  VEHICLE ACCOUNT NAME] to match
+                                                  the [INCOME RIDER ACCOUNT
+                                                  NAME]’s income production is
+                                                  <span>[REQUIRED RATE OF
+                                                    RETURN]</span>.
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 position-relative border-before-col">
+                                            <p class="target-analysis-success-prob-para mb-2">
+                                              Success Probability
+                                            </p>
+                                            <div class="pie target-analysis-progress-pie" data-pie='{"speed":30,"percent":67.9,"colorSlice":"#1660A4","colorCircle":"#609BD2","round":true}' data-pie-index="2">
+                                              <svg class="mx-auto d-block" role="progressbar" width="240" height="240" viewBox="0 0 100 100" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68">
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" fill="none" stroke="#609BD2" stroke-width="10"></circle>
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" class="pie-circle-2" fill="none" stroke-width="10" stroke-dashoffset="84.47999999999999" stroke-dasharray="264" stroke-linecap="round" style="
+                                                    transform: rotate(-90deg);
+                                                    transform-origin: 50% 50%;
+                                                  " stroke="#1660A4" data-angel="68"></circle>
+                                                <text class="pie-text-2" x="50%" y="50%" fill="#000" text-anchor="middle" dy="0.35em" font-size="1.6rem" font-weight="400">
+                                                  <tspan class="pie-percent-2">
+                                                    68
+                                                  </tspan>
+                                                  <tspan class="pie-unit-2">
+                                                    %
+                                                  </tspan>
+                                                </text>
+                                              </svg>
+                                              <p class="pie-long-para">
+                                                The probability that the [COMPARATIVE VEHICLE ACCOUNT NAME] will match the [INCOME RIDER ACCOUNT NAME]’s income production relying upon market returns is <span>[SUCCESS PROBABILITY]</span>.
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- Retun tab end -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- Main tab 1 content end -->
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- ----------- -->
+                            <div class="tab-pane fade" id="v-pills-comulativeFees1" role="tabpanel" aria-labelledby="v-pills-comulativeFees1-tab">
+                              <div class="container-fluid cards-area">
+                                <div class="common-card-div2 d-flex justify-content-between flex-gap-12" id="card-amount-2">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div2 d-flex justify-content-between flex-gap-12 d-none" id="card-longevity-2">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div2 d-flex justify-content-between flex-gap-12 d-none" id="card-return-2">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard2 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard incomeCard3 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-fluid">
+                                <div class="CompMainProgrssBarDiv graph-area">
+                                  <!-- Main tab 1 content start -->
+                                  <div class="w-100 p-3">
+                                    <div class="position-relative">
+                                      <div class="collapseDivmdlHd text-center">
+                                        Target Analysis
+                                      </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="d-flex justify-content-center mt-2">
+                                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical" id="card-area-2">
+                                        <div btnAttr="amount-2" class="active" data-bs-toggle="pill" data-bs-target="#v-pills-amount2" type="button" role="tab" aria-controls="v-pills-amount2">
+                                          Amount
+                                        </div>
+                                        <div btnAttr="longevity-2" data-bs-toggle="pill" data-bs-target="#v-pills-longevity2" role="tab" aria-controls="v-pills-longevity2">
+                                          Longevity
+                                        </div>
+                                        <div btnAttr="return-2" data-bs-toggle="pill" data-bs-target="#v-pills-return2" role="tab" aria-controls="v-pills-return2">
+                                          Return
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="tab-content">
+                                      <div class="tab-pane fade active show" id="v-pills-amount2" role="tabpanel">
+                                        <!-- Amount tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual1" type="button" role="tab" aria-controls="v-pills-individual" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-showall1" type="button" role="tab" aria-controls="v-pills-showall" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
+                                            <!-- Amount individual tab start -->
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr1">
+                                                FIA - Income Rider
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr1 text-white" style="width: 100%">
+                                                $<span id="wider_bar_1">127,000</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr2">
+                                                Schwab Brokerage Account - Flat
+                                                Rate of Return
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr2 text-white" style="width: 100%">
+                                                $<span id="wider_bar_2">73,500</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="each-target-analysis-bar">
+                                              <p class="heading clr3">
+                                                Schwab Brokerage Account -
+                                                Historical Market Returns
+                                                <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
+                                                  <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                    <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
+                                                    <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
+                                                    <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                                  </svg>
+                                                </span>
+                                              </p>
+                                              <div class="target-analysis-each-bars barClr3 text-white" style="width: 100%">
+                                                $<span id="wider_bar_3">244,000</span>
+                                                <span class="target-bar-span">Increasing by [x] % per
+                                                  year</span>
+                                              </div>
+                                            </div>
+                                            <div class="scalling-div">
+                                              <span>1</span>
+                                              <span>2</span>
+                                              <span>3</span>
+                                              <span>4</span>
+                                              <span>5</span>
+                                              <span>6</span>
+                                              <span>7</span>
+                                              <span>8</span>
+                                              <span>9</span>
+                                              <span>10</span>
+                                              <span>11</span>
+                                              <span>12</span>
+                                              <span>13</span>
+                                              <span>14</span>
+                                              <span>15</span>
+                                              <span>16</span>
+                                              <span>17</span>
+                                              <span>18</span>
+                                              <span>19</span>
+                                              <span>20</span>
+                                              <span>21</span>
+                                              <span>22</span>
+                                              <span>23</span>
+                                              <span>25</span>
+                                              <span>26</span>
+                                              <span>27</span>
+                                              <span>28</span>
+                                              <span>29</span>
+                                              <span>30</span>
+                                              <span>31</span>
+                                              <span>32</span>
+                                              <span>33</span>
+                                              <span>34</span>
+                                              <span>35</span>
+                                            </div>
+                                            <p class="scalling-div-label">
+                                              Years
+                                            </p>
+                                            <button class="income-rider-show-next-btn disable">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
+                                              </svg>
+                                            </button>
+                                            <!-- Amount individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-showall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Amount showall tab start -->
+                                            2
+                                            <!-- Amount showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Amount tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-longevity2" role="tabpanel">
+                                        <!-- Longevity tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual2" type="button" role="tab" aria-controls="v-pills-distribution" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-showall2" type="button" role="tab" aria-controls="v-pills-showall2" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-individual2" role="tabpanel">
+                                            <!-- Longevity individual tab start -->
+                                            <div class="tab-content">
+                                              <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
+                                                <!-- Amount individual tab start -->
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr1">
+                                                    FIA - Income Rider
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr1 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_1">127,000</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr2">
+                                                    Schwab Brokerage Account -
+                                                    Flat Rate of Return
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr2 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_2">73,500</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="each-target-analysis-bar">
+                                                  <p class="heading clr3">
+                                                    Schwab Brokerage Account -
+                                                    Historical Market Returns
+                                                    <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
+                                                        <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black"></rect>
+                                                        <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308"></rect>
+                                                        <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308"></rect>
+                                                      </svg></span>
+                                                  </p>
+                                                  <div class="target-analysis-each-bars barClr3 text-white" style="width: 100%">
+                                                    $<span id="wider_bar_3">244,000</span><span class="target-bar-span">Increasing by [x] % per
+                                                      year</span>
+                                                  </div>
+                                                </div>
+                                                <div class="scalling-div">
+                                                  <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span>
+                                                </div>
+                                                <p class="scalling-div-label">
+                                                  Years
+                                                </p>
+                                                <button class="income-rider-show-next-btn disable">
+                                                  Show Next
+                                                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                    <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white"></rect>
+                                                    <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white"></rect>
+                                                  </svg></button><!-- Amount individual tab end -->
+                                              </div>
+                                              <div class="tab-pane fade" id="v-pills-showall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                <!-- Amount showall tab start -->
+                                                2
+                                                <!-- Amount showall tab end -->
+                                              </div>
+                                            </div>
+                                            <!-- Longevity individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-showall2" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Longevity showall tab start -->
+                                            2
+                                            <!-- Longevity showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Longevity tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-return2" role="tabpanel">
+                                        <!-- Return tab start -->
+                                        <div class="row mt-5">
+                                          <div class="col-md-6">
+                                            <div class="target-analysis-bar-main-div">
+                                              <div class="d-flex flex-column">
+                                                <div class="d-flex gap-4 justify-content-center w-100">
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr1" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr1">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr2" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr2">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <p class="bar-long-para">
+                                                  The required constant rate of
+                                                  return for the [COMPARATIVE
+                                                  VEHICLE ACCOUNT NAME] to match
+                                                  the [INCOME RIDER ACCOUNT
+                                                  NAME]’s income production is
+                                                  <span>[REQUIRED RATE OF
+                                                    RETURN]</span>.
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 position-relative border-before-col">
+                                            <p class="target-analysis-success-prob-para mb-2">
+                                              Success Probability
+                                            </p>
+                                            <div class="pie target-analysis-progress-pie" data-pie='{"speed":30,"percent":67.9,"colorSlice":"#1660A4","colorCircle":"#609BD2","round":true}' data-pie-index="2">
+                                              <svg class="mx-auto d-block" role="progressbar" width="240" height="240" viewBox="0 0 100 100" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68">
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" fill="none" stroke="#609BD2" stroke-width="10"></circle>
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" class="pie-circle-2" fill="none" stroke-width="10" stroke-dashoffset="84.47999999999999" stroke-dasharray="264" stroke-linecap="round" style="
+                                                    transform: rotate(-90deg);
+                                                    transform-origin: 50% 50%;
+                                                  " stroke="#1660A4" data-angel="68"></circle>
+                                                <text class="pie-text-2" x="50%" y="50%" fill="#000" text-anchor="middle" dy="0.35em" font-size="1.6rem" font-weight="400">
+                                                  <tspan class="pie-percent-2">
+                                                    68
+                                                  </tspan>
+                                                  <tspan class="pie-unit-2">
+                                                    %
+                                                  </tspan>
+                                                </text>
+                                              </svg>
+                                              <p class="pie-long-para">
+                                                The probability that the [COMPARATIVE VEHICLE ACCOUNT NAME] will match the [INCOME RIDER ACCOUNT NAME]’s income production relying upon market returns is <span>[SUCCESS PROBABILITY]</span>.
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- Retun tab end -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- Main tab 1 content end -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
+                          <div class="disclosure-textarea" contenteditable="true">
+                            <b>Disclosure:</b> This tool is designed to provide
+                            insight and opportunities for discussion regarding
+                            certain retirement income strategies, including
+                            annuities, that may prove beneficial amid a myriad
+                            of potential outcomes. THIS IS NOT AN ANNUITY
+                            ILLUSTRATION. IT IS A PORTRAYAL OF A CONCEPT.
+                            Certain elements of the financial vehicle presented
+                            may be guaranteed and will be under a heading
+                            indicating such. While every reasonable effort is
+                            made to ensure proper calculations and their
+                            portrayal, it is impossible for any software or
+                            advisor to accurately predict your future.
+                            Unpredictable variables can and likely will cause
+                            material changes in the outcomes projected, other
+                            than those that are guaranteed, if any. Any
+                            retirement strategy should only be undertaken after
+                            discussion with appropriate financial, legal, and
+                            tax advisors. The data presented in no way predicts
+                            what your future income will be in reality other
+                            than those that are guaranteed. No implication is
+                            asserted that undertaking any strategy, including
+                            the one contemplated here, is superior to a another
+                            strategy. Claims paying ability of an insurance
+                            company are backed by its financial ratings and
+                            fiscal health. Historical market returns use the raw
+                            data of the S&P 500 [(60%)] and a blended bond mix
+                            [(40%]) for the most recent [33] years. This does
+                            not constitute financial, legal, or tax advice to
+                            you. Past performance is never guarantee or
+                            indicative of future results.
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="collapseDivMain collapseDiv4" style="display: block">
-                    <hr class="collapseDivHr" />
-                    <div class="px-3 pt-3 pb-2">
-                      <div class="d-flex justify-content-center mt-2 tab-menu">
-                        <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                          <div class="active" id="v-pills-annualFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-annualFees1" type="button" role="tab" aria-controls="v-pills-annualFees1" aria-selected="true">
-                            Guaranteed
-                          </div>
-                          <div id="v-pills-comulativeFees1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeFees1" type="button" role="tab" aria-controls="v-pills-comulativeFees1" aria-selected="false" class="">
-                            Potential
-                          </div>
+                  <div class="tab-pane fade" id="v-pills-graph" role="tabpanel" aria-labelledby="v-pills-graph">
+                    <div class="ComparativeTableMainDiv rightDivTop4 active">
+                      <div class="d-flex justify-content-between px-3 py-2 bb-grey tab-head">
+                        <div class="d-flex align-items-center">
+                          <label for="rightCheckBox4" class="rghtTopHeadcommon nowrap">Cumulative Income</label>
+                          <label class="rghtTopHeadcommon">
+                            <div class="annual-income-text-para ms-2 fs-12">
+                              How long can the [Schwab Brokerage Account]
+                              produce the same amount of income as the [FIA]’s
+                              Income Rider?
+                            </div>
+                          </label>
+                        </div>
+                        <div class="rightLeftDoubleLIneDegine">
+                          <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="5.5" width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
+                            <rect width="13" height="1.5" rx="0.75" fill="#C2C2C2"></rect>
+                          </svg>
                         </div>
                       </div>
-                      <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade active show" id="v-pills-annualFees1" role="tabpanel" aria-labelledby="v-pills-annualFees1-tab">
-                          <div class="container-fluid cards-area">
-                            <div class="d-flex justify-content-between flex-gap-12">
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard1 w-100">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        FIA - Income Rider
-                                        <span hidden>Flat Rate of Return</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$1,512,980</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>35 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span>None</span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
+                      <div class="collapseDivMain collapseDiv4" style="display: block">
+                        <hr class="collapseDivHr" />
+                        <div class="px-3 pt-3 pb-2">
+                          <div class="d-flex justify-content-center mt-2 tab-menu">
+                            <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                              <div class="active" id="v-pills-comulativeIncome1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeIncome1" type="button" role="tab" aria-controls="v-pills-comulativeIncome1" aria-selected="true">
+                                Guaranteed
                               </div>
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard2 w-100 disable">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        Schwab Brokerage
-                                        <span>Flat Rate of Return</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$1,210,384</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>28 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span class="shortFall">7 Years - $302,596</span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard3 w-100">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        Schwab Brokerage
-                                        <span>Historical Returns</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$$1,037,472</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>28 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span class="shortFall">11 Years - $475,508</span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
+                              <div id="v-pills-comulativeIncome2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comulativeIncome2" type="button" role="tab" aria-controls="v-pills-comulativeIncome2" aria-selected="false">
+                                Potential
                               </div>
                             </div>
                           </div>
-                          <div class="container-fluid">
-                            <div class="CompMainProgrssBarDiv graph-area">
-                              <!-- Main tab 1 content start -->
-                              <div class="w-100 p-3">
-                                <div class="position-relative">
-                                  <div class="collapseDivmdlHd text-center">
-                                    Target Analysis
-                                  </div>
-                                </div>
-                                <br />
-
-                                <div class="d-flex justify-content-center mt-2">
-                                  <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical">
-                                    <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-amount" type="button" role="tab" aria-controls="v-pills-amount">
-                                      Amount
-                                    </div>
-                                    <div class="" data-bs-toggle="pill" data-bs-target="#v-pills-longevity" role="tab" aria-controls="v-pills-longevity">
-                                      Longevity
-                                    </div>
-                                    <div class="" data-bs-toggle="pill" data-bs-target="#v-pills-return" role="tab" aria-controls="v-pills-return">
-                                      Return
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="tab-content">
-                                  <div class="tab-pane fade active show" id="v-pills-amount" role="tabpanel">
-                                    <!-- Amount tab start -->
-                                    <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
-                                      <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                                        <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual1" type="button" role="tab" aria-controls="v-pills-individual" aria-selected="true">
-                                          Individual
+                          <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade active show" id="v-pills-comulativeIncome1" role="tabpanel" aria-labelledby="v-pills-comulativeIncome1-tab">
+                              <div class="container-fluid cards-area">
+                                <div class="common-card-div3 d-flex justify-content-between flex-gap-12" id="card-amount-3">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
                                         </div>
-                                        <div data-bs-toggle="pill" data-bs-target="#v-pills-showall1" type="button" role="tab" aria-controls="v-pills-showall" aria-selected="false" class="">
-                                          Show All
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div3 d-flex justify-content-between flex-gap-12 d-none" id="card-longevity-3">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div3 d-flex justify-content-between flex-gap-12 d-none" id="card-return-3">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-fluid">
+                                <div class="CompMainProgrssBarDiv graph-area">
+                                  <!-- Main tab 1 content start -->
+                                  <div class="w-100 p-3">
+                                    <div class="position-relative">
+                                      <div class="collapseDivmdlHd text-center">
+                                        Target Analysis
+                                      </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="d-flex justify-content-center mt-2">
+                                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical" id="card-area-3">
+                                        <div btnAttr="amount-3" class="active" data-bs-toggle="pill" data-bs-target="#v-pills-amount3" type="button" role="tab" aria-controls="v-pills-amount3">
+                                          Amount
+                                        </div>
+                                        <div btnAttr="longevity-3" data-bs-toggle="pill" data-bs-target="#v-pills-longevity3" role="tab" aria-controls="v-pills-longevity3">
+                                          Longevity
+                                        </div>
+                                        <div btnAttr="return-3" data-bs-toggle="pill" data-bs-target="#v-pills-return3" role="tab" aria-controls="v-pills-return3">
+                                          Return
                                         </div>
                                       </div>
                                     </div>
                                     <div class="tab-content">
-                                      <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
-                                        <!-- Amount individual tab start -->
-                                        <div class="each-target-analysis-bar">
-                                          <p class="heading clr1">FIA - Income Rider
-                                            <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
-                                              <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
-                                                <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
-                                                <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
-                                              </svg>
-                                            </span>
-                                          </p>
-                                          <div class="target-analysis-each-bars barClr1 text-white" style="width: 23.7605%">
-                                            $<span id="wider_bar_1">127,000</span>
+                                      <div class="tab-pane fade active show" id="v-pills-amount3" role="tabpanel">
+                                        <!-- Amount tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-graphIndividual1" type="button" role="tab" aria-controls="v-pills-graphIndividual1" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-graphShowall1" type="button" role="tab" aria-controls="v-pills-graphShowall1" aria-selected="false">
+                                              Show All
+                                            </div>
                                           </div>
                                         </div>
-                                        <div class="each-target-analysis-bar">
-                                          <p class="heading clr2">
-                                            Schwab Brokerage Account - Flat Rate of Return
-                                            <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
-                                              <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
-                                                <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
-                                                <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-graphIndividual1" role="tabpanel">
+                                            <!-- Amount individual tab start -->
+                                            <div class="income-rider-graph-div">
+                                              <canvas id="myChart"></canvas>
+                                            </div>
+                                            <button class="income-rider-show-next-btn */disable/*" id="showMoreBtn">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
                                               </svg>
-                                            </span>
-                                          </p>
-                                          <div class="target-analysis-each-bars barClr2 text-white" style="width: 13.7512%">
-                                            $<span id="wider_bar_2">73,500</span>
+                                            </button>
+                                            <!-- Amount individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-graphShowall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Amount showall tab start -->
+
+                                            <!-- Amount showall tab end -->
                                           </div>
                                         </div>
-                                        <div class="each-target-analysis-bar">
-                                          <p class="heading clr3">
-                                            Schwab Brokerage Account - Historical Market Returns
-                                            <span data-bs-toggle="modal" data-bs-target="#retirementBufferModal">
-                                              <svg class="ms-1" xmlns="http://www.w3.org/2000/svg" width="17" height="15" viewBox="0 0 13 11" fill="none">
-                                                <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
-                                                <rect x="6.1899" y="2.69772" width="0.317308" height="8.14423" rx="0.158654" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="2.69772" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 2.69772)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="5.23678" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 5.23678)" stroke="black" stroke-width="0.317308" />
-                                                <rect x="12.5367" y="7.77584" width="0.317308" height="12.375" rx="0.158654" transform="rotate(90 12.5367 7.77584)" stroke="black" stroke-width="0.317308" />
-                                              </svg>
-                                            </span>
-                                          </p>
-                                          <div class="target-analysis-each-bars barClr3 text-white" style="width: 45.6501%">
-                                            $<span id="wider_bar_3">244,000</span>
-                                          </div>
-                                        </div>
-                                        <div class="scalling-div">
-                                          <span>1</span>
-                                          <span>2</span>
-                                          <span>3</span>
-                                          <span>4</span>
-                                          <span>5</span>
-                                          <span>6</span>
-                                          <span>7</span>
-                                          <span>8</span>
-                                          <span>9</span>
-                                          <span>10</span>
-                                          <span>11</span>
-                                          <span>12</span>
-                                          <span>13</span>
-                                          <span>14</span>
-                                          <span>15</span>
-                                          <span>16</span>
-                                          <span>17</span>
-                                          <span>18</span>
-                                          <span>19</span>
-                                          <span>20</span>
-                                          <span>21</span>
-                                          <span>22</span>
-                                          <span>23</span>
-                                          <span>25</span>
-                                          <span>26</span>
-                                          <span>27</span>
-                                          <span>28</span>
-                                          <span>29</span>
-                                          <span>30</span>
-                                          <span>31</span>
-                                          <span>32</span>
-                                          <span>33</span>
-                                          <span>34</span>
-                                          <span>35</span>
-
-
-
-
-
-                                        </div>
-                                        <p class="scalling-div-label">Years</p>
-                                        <button class="income-rider-show-next-btn disable">Show Next
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
-                                            <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
-                                            <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
-                                          </svg>
-                                        </button>
-                                        <!-- Amount individual tab end -->
+                                        <!-- Amount tab end -->
                                       </div>
-                                      <div class="tab-pane fade" id="v-pills-showall1" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <!-- Amount showall tab start -->
-                                        2
-                                        <!-- Amount showall tab end -->
+                                      <div class="tab-pane fade" id="v-pills-longevity3" role="tabpanel">
+                                        <!-- Longevity tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-graphIndividual2" type="button" role="tab" aria-controls="v-pills-graphIndividual2" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-graphShowall2" type="button" role="tab" aria-controls="v-pills-graphShowall2" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-graphIndividual2" role="tabpanel">
+                                            <!-- Longevity individual tab start -->
+                                            <div class="income-rider-graph-div">
+                                              <canvas id="myChart2"></canvas>
+                                            </div>
+                                            <button class="income-rider-show-next-btn */disable/*" id="showMoreBtn2">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
+                                              </svg>
+                                            </button>
+                                            <!-- Longevity individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-graphShowall2" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Longevity showall tab start -->
+                                            2
+                                            <!-- Longevity showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Longevity tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-return3" role="tabpanel">
+                                        <!-- Return tab start -->
+                                        <div class="row mt-5">
+                                          <div class="col-md-6">
+                                            <div class="target-analysis-bar-main-div">
+                                              <div class="d-flex flex-column">
+                                                <div class="d-flex gap-4 justify-content-center w-100">
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr1" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr1">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr2" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr2">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <p class="bar-long-para">
+                                                  The required constant rate of
+                                                  return for the [COMPARATIVE
+                                                  VEHICLE ACCOUNT NAME] to match
+                                                  the [INCOME RIDER ACCOUNT
+                                                  NAME]’s income production is
+                                                  <span>[REQUIRED RATE OF
+                                                    RETURN]</span>.
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 position-relative border-before-col">
+                                            <p class="target-analysis-success-prob-para mb-2">
+                                              Success Probability
+                                            </p>
+                                            <div class="pie target-analysis-progress-pie" data-pie='{"speed":30,"percent":67.9,"colorSlice":"#1660A4","colorCircle":"#609BD2","round":true}' data-pie-index="2">
+                                              <svg class="mx-auto d-block" role="progressbar" width="240" height="240" viewBox="0 0 100 100" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68">
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" fill="none" stroke="#609BD2" stroke-width="10"></circle>
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" class="pie-circle-2" fill="none" stroke-width="10" stroke-dashoffset="84.47999999999999" stroke-dasharray="264" stroke-linecap="round" style="
+                                                    transform: rotate(-90deg);
+                                                    transform-origin: 50% 50%;
+                                                  " stroke="#1660A4" data-angel="68"></circle>
+                                                <text class="pie-text-2" x="50%" y="50%" fill="#000" text-anchor="middle" dy="0.35em" font-size="1.6rem" font-weight="400">
+                                                  <tspan class="pie-percent-2">
+                                                    68
+                                                  </tspan>
+                                                  <tspan class="pie-unit-2">
+                                                    %
+                                                  </tspan>
+                                                </text>
+                                              </svg>
+                                              <p class="pie-long-para">
+                                                The probability that the [COMPARATIVE VEHICLE ACCOUNT NAME] will match the [INCOME RIDER ACCOUNT NAME]’s income production relying upon market returns is <span>[SUCCESS PROBABILITY]</span>.
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- Retun tab end -->
                                       </div>
                                     </div>
-                                    <!-- Amount tab end -->
                                   </div>
-                                  <div class="tab-pane fade" id="v-pills-longevity" role="tabpanel">
-                                    <!-- Longevity tab start -->
-                                    <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
-                                      <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                                        <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual2" type="button" role="tab" aria-controls="v-pills-distribution" aria-selected="true">
-                                          Individual
+                                  <!-- Main tab 1 content end -->
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- ----------- -->
+                            <div class="tab-pane fade" id="v-pills-comulativeIncome2" role="tabpanel" aria-labelledby="v-pills-comulativeIncome2-tab">
+                              <div class="container-fluid cards-area">
+                                <div class="common-card-div4 d-flex justify-content-between flex-gap-12" id="card-amount-4">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
                                         </div>
-                                        <div data-bs-toggle="pill" data-bs-target="#v-pills-showall2" type="button" role="tab" aria-controls="v-pills-showall2" aria-selected="false" class="">
-                                          Show All
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div4 d-flex justify-content-between flex-gap-12 d-none" id="card-longevity-4">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100 disable">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="common-card-div4 d-flex justify-content-between flex-gap-12 d-none" id="card-return-4">
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard1 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            FIA - Income Rider
+                                            <span hidden>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,512,980</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>35 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span>None</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard2 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Flat Rate of Return</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$1,210,384</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">7 Years - $302,596</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="mt-3 flex-1">
+                                    <div class="incomeRiderCard graph-card incomeCard3 w-100">
+                                      <div class="d-flex gap-2 h-100">
+                                        <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
+                                        <div class="w-100">
+                                          <p class="allCardHeadPara mb-2">
+                                            Schwab Brokerage
+                                            <span>Historical Returns</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Total Distributions</span>
+                                            <span>$$1,037,472</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+                                            <span>Longevity</span>
+                                            <span>28 Years</span>
+                                          </p>
+                                          <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
+                                            <span>Shortfall</span>
+                                            <span class="shortFall">11 Years - $475,508</span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-fluid">
+                                <div class="CompMainProgrssBarDiv graph-area">
+                                  <!-- Main tab 1 content start -->
+                                  <div class="w-100 p-3">
+                                    <div class="position-relative">
+                                      <div class="collapseDivmdlHd text-center">
+                                        Target Analysis
+                                      </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="d-flex justify-content-center mt-2">
+                                      <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical" id="card-area-4">
+                                        <div btnAttr="amount-4" class="active" data-bs-toggle="pill" data-bs-target="#v-pills-amount4" type="button" role="tab" aria-controls="v-pills-amount4">
+                                          Amount
+                                        </div>
+                                        <div btnAttr="longevity-4" data-bs-toggle="pill" data-bs-target="#v-pills-longevity4" role="tab" aria-controls="v-pills-longevity4">
+                                          Longevity
+                                        </div>
+                                        <div btnAttr="return-4" data-bs-toggle="pill" data-bs-target="#v-pills-return4" role="tab" aria-controls="v-pills-return4">
+                                          Return
                                         </div>
                                       </div>
                                     </div>
                                     <div class="tab-content">
-                                      <div class="tab-pane fade active show" id="v-pills-individual2" role="tabpanel">
-                                        <!-- Longevity individual tab start -->
-                                        1
-                                        <!-- Longevity individual tab end -->
-                                      </div>
-                                      <div class="tab-pane fade" id="v-pills-showall2" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <!-- Longevity showall tab start -->
-                                        2
-                                        <!-- Longevity showall tab end -->
-                                      </div>
-                                    </div>
-                                    <!-- Longevity tab end -->
-                                  </div>
-                                  <div class="tab-pane fade" id="v-pills-return" role="tabpanel">
-                                    <!-- Return tab start -->
-                                    <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
-                                      <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
-                                        <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-individual3" type="button" role="tab" aria-controls="v-pills-individual3" aria-selected="true">
-                                          Individual
+                                      <div class="tab-pane fade active show" id="v-pills-amount4" role="tabpanel">
+                                        <!-- Amount tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-graphIndividual1" type="button" role="tab" aria-controls="v-pills-graphIndividual1" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-graphShowall1" type="button" role="tab" aria-controls="v-pills-graphShowall1" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
                                         </div>
-                                        <div data-bs-toggle="pill" data-bs-target="#v-pills-showall3" type="button" role="tab" aria-controls="v-pills-showall3" aria-selected="false" class="">
-                                          Show All
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="tab-content">
-                                      <div class="tab-pane fade active show" id="v-pills-individual3" role="tabpanel">
-                                        <!-- Return individual tab start -->
-                                        1
-                                        <!-- Return individual tab end -->
-                                      </div>
-                                      <div class="tab-pane fade" id="v-pills-showall3" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <!-- Return showall tab start -->
-                                        2
-                                        <!-- Return showall tab end -->
-                                      </div>
-                                    </div>
-                                    <!-- Retun tab end -->
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- Main tab 1 content end -->
-                            </div>
-                          </div>
-                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-graphIndividual1" role="tabpanel">
+                                            <!-- Amount individual tab start -->
+                                            <div class="income-rider-graph-div">
+                                              <canvas id="myChart3"></canvas>
+                                            </div>
+                                            <button class="income-rider-show-next-btn */disable/*" id="showMoreBtn3">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
+                                              </svg>
+                                            </button>
+                                            <!-- Amount individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-graphShowall1" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Amount showall tab start -->
 
-                        <!-- ----------- -->
-                        <div class="tab-pane fade" id="v-pills-comulativeFees1" role="tabpanel" aria-labelledby="v-pills-comulativeFees1-tab">
-                          <div class="container-fluid cards-area">
-                            <div class="d-flex justify-content-between flex-gap-12">
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard1 w-100">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        FIA - Income Rider
-                                        <span hidden>Flat Rate of Return</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$1,512,980</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>35 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara1 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span>None</span>
-                                      </p>
+                                            <!-- Amount showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Amount tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-longevity4" role="tabpanel">
+                                        <!-- Longevity tab start -->
+                                        <div class="d-flex justify-content-center mt-2 w-25 mx-auto">
+                                          <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
+                                            <div class="active" data-bs-toggle="pill" data-bs-target="#v-pills-graphIndividual2" type="button" role="tab" aria-controls="v-pills-graphIndividual2" aria-selected="true">
+                                              Individual
+                                            </div>
+                                            <div class="pe-none" data-bs-toggle="pill" data-bs-target="#v-pills-graphShowall2" type="button" role="tab" aria-controls="v-pills-graphShowall2" aria-selected="false">
+                                              Show All
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="tab-content">
+                                          <div class="tab-pane fade active show" id="v-pills-graphIndividual2" role="tabpanel">
+                                            <!-- Longevity individual tab start -->
+                                            <div class="income-rider-graph-div">
+                                              <canvas id="myChart4"></canvas>
+                                            </div>
+                                            <button class="income-rider-show-next-btn */disable/*" id="showMoreBtn4">
+                                              Show Next
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
+                                                <rect x="7.78125" y="10" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-135 7.78125 10)" fill="white" />
+                                                <rect x="6.03906" y="7.78125" width="10.9992" height="3.14262" rx="1.57131" transform="rotate(-45 6.03906 7.78125)" fill="white" />
+                                              </svg>
+                                            </button>
+                                            <!-- Longevity individual tab end -->
+                                          </div>
+                                          <div class="tab-pane fade" id="v-pills-graphShowall2" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <!-- Longevity showall tab start -->
+                                            2
+                                            <!-- Longevity showall tab end -->
+                                          </div>
+                                        </div>
+                                        <!-- Longevity tab end -->
+                                      </div>
+                                      <div class="tab-pane fade" id="v-pills-return4" role="tabpanel">
+                                        <!-- Return tab start -->
+                                        <div class="row mt-5">
+                                          <div class="col-md-6">
+                                            <div class="target-analysis-bar-main-div">
+                                              <div class="d-flex flex-column">
+                                                <div class="d-flex gap-4 justify-content-center w-100">
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr1" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr1">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="target-analysis-bar">
+                                                    <div class="target-analysis-inner-bar inner-clr2" style="height: 100%">
+                                                      <div class="target-analysis-bottom-bar-area bottom-clr2">
+                                                        <p>
+                                                          <span class="bigBarNumberJsCls2">$681,605</span>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <p class="bar-long-para">
+                                                  The required constant rate of
+                                                  return for the [COMPARATIVE
+                                                  VEHICLE ACCOUNT NAME] to match
+                                                  the [INCOME RIDER ACCOUNT
+                                                  NAME]’s income production is
+                                                  <span>[REQUIRED RATE OF
+                                                    RETURN]</span>.
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 position-relative border-before-col">
+                                            <p class="target-analysis-success-prob-para mb-2">
+                                              Success Probability
+                                            </p>
+                                            <div class="pie target-analysis-progress-pie" data-pie='{"speed":30,"percent":67.9,"colorSlice":"#1660A4","colorCircle":"#609BD2","round":true}' data-pie-index="2">
+                                              <svg class="mx-auto d-block" role="progressbar" width="240" height="240" viewBox="0 0 100 100" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68">
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" fill="none" stroke="#609BD2" stroke-width="10"></circle>
+                                                <circle cx="50%" cy="50%" r="42" shape-rendering="geometricPrecision" class="pie-circle-2" fill="none" stroke-width="10" stroke-dashoffset="84.47999999999999" stroke-dasharray="264" stroke-linecap="round" style="
+                                                    transform: rotate(-90deg);
+                                                    transform-origin: 50% 50%;
+                                                  " stroke="#1660A4" data-angel="68"></circle>
+                                                <text class="pie-text-2" x="50%" y="50%" fill="#000" text-anchor="middle" dy="0.35em" font-size="1.6rem" font-weight="400">
+                                                  <tspan class="pie-percent-2">
+                                                    68
+                                                  </tspan>
+                                                  <tspan class="pie-unit-2">
+                                                    %
+                                                  </tspan>
+                                                </text>
+                                              </svg>
+                                              <p class="pie-long-para">
+                                                The probability that the [COMPARATIVE VEHICLE ACCOUNT NAME] will match the [INCOME RIDER ACCOUNT NAME]’s income production relying upon market returns is <span>[SUCCESS PROBABILITY]</span>.
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- Retun tab end -->
+                                      </div>
                                     </div>
                                   </div>
+                                  <!-- Main tab 1 content end -->
                                 </div>
                               </div>
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard2 w-100">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        Schwab Brokerage
-                                        <span>Flat Rate of Return</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$1,210,384</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>28 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span class="shortFall">7 Years - $302,596</span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="mt-3 flex-1">
-                                <div class="incomeRiderCard incomeCard3 w-100">
-                                  <div class="d-flex gap-2 h-100">
-                                    <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
-                                    <div class="w-100">
-                                      <p class="allCardHeadPara mb-2">
-                                        Schwab Brokerage
-                                        <span>Historical Returns</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between">
-                                        <span>Total Distributions</span>
-                                        <span>$$1,037,472</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between">
-                                        <span>Longevity</span>
-                                        <span>28 Years</span>
-                                      </p>
-                                      <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
-                                        <span>Shortfall</span>
-                                        <span class="shortFall">11 Years - $475,508</span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="container-fluid">
-                            <div class="CompMainProgrssBarDiv graph-area">
-                              <!-- Main tab 2 content here -->
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
-                      <div class="container-fluid">
-                        <div class="disclosure-div">
-                          <div class="disclosure-header-div d-flex align-items-center justify-content-between">
-                            <h4 class="disclosure-heading">Disclosure</h4>
-                            <div class="disclosure-right-actions">
-                              <button class="btn round-btn disclosure-edit">
-                                <span>Edit</span><svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M10.8172 1.59583H2.33885C1.29631 1.59583 0.451172 2.44097 0.451172 3.4835V12.1384C0.451172 13.1809 1.29631 14.026 2.33885 14.026H10.9937C12.0362 14.026 12.8814 13.1809 12.8814 12.1384V4.69293L10.8814 6.69291V12.026H2.45117V3.59583H8.81725L10.8172 1.59583Z" fill="#9D9D9D"></path>
-                                  <path d="M5.51465 9.51606L6.66809 6.70245L8.3313 8.30895L5.51465 9.51606Z" fill="#9D9D9D"></path>
-                                  <path d="M12.7425 0.604405C12.7865 0.560484 12.8575 0.559852 12.9022 0.602984L14.4181 2.06566C14.4639 2.10987 14.4646 2.18305 14.4196 2.22811L8.37761 8.28205C8.33363 8.32611 8.26244 8.32672 8.21773 8.28341L6.69811 6.8118C6.6524 6.76754 6.65182 6.69441 6.69682 6.64942L12.7425 0.604405Z" fill="#9D9D9D"></path>
-                                </svg></button><!---->
-                            </div>
-                          </div>
-                          <div class="disclosure-text-wrapper">
-                            <div class="disclosure-textarea" contenteditable="true">
-                              This program illustrates the current values and
-                              assumptions of an Indexed Universal Life (IUL)
-                              cash value insurance policy. Comparisons made to
-                              Comparative Vehicles (CV) are for illustrative and
-                              educational purposes only, and are intended to
-                              produce insight and discussion points between you
-                              and a licensed agent. No claim is made that the
-                              IUL is superior to the CVs. Guarantees backed by
-                              the claims paying ability of the underwriting
-                              insurance company. These graphics and
-                              illustrations do not constitute tax, legal or
-                              accounting advice. Please consult your own legal
-                              or tax counsel to confirm how tax treatment
-                              applies to you. The hypothetical results are for
-                              illustrative purposes only and should not be
-                              deemed a representation of past or future results.
-                              Your experience may and likely will vary
-                              materially from these results. Tax-free access to
-                              cash values are typically done through a policy
-                              loan which can reduce death benefits, cash values,
-                              incur interest and could cause the policy to
-                              lapse. Additional premium payments may be needed
-                              to keep the policy in force and in the event of a
-                              lapse, outstanding policy loans in excess of
-                              unrecovered basis will be subject to ordinary
-                              income taxes. Tax laws are subject to change.
-                              These values are not guaranteed. Policies still
-                              incur costs and charges each year for
-                              administration and insurance. This could cause the
-                              cash value to go down. You may also lose cash
-                              value by surrendering the policy. Life Insurance
-                              costs, caps, and participation rates can be
-                              changed at the discretion of the insurance company
-                              within certain limits, which can positively or
-                              adversely affect the performance of the
-                              policy.Neither this software nor the presenting
-                              agent in any way guarantees future performance,
-                              and this presentation is null and void unless
-                              accompanied by an approved illustration from the
-                              insurance company presented.
-                            </div>
-                          </div>
-                          <div class="disclosure-footer">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <h6 class="bold-one">Fees assumed:</h6>
-                                <div>
-                                  <p>
-                                    <span>Mutual Funds: <b>1.5%</b> per annum; </span><span>401K/IRA: <b>1.5%</b> per annum; </span><span>LIRP:
-                                      <b>actual current costs of insurance, as
-                                        per the carrier illustration.</b>
-                                    </span>
-                                  </p>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div>
-                                  <h6 class="bold-one">Taxes assumed:</h6>
-                                  <p>
-                                    <span><b>37%</b><!----></span><!---->
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <!---->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal fade common-modal disclosure-modal" id="disclosureRequiredModal" tabindex="-1" aria-labelledby="disclosureRequiredLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                              <img src="/assets/cross-grey.f3ee30d0.svg" class="img-fluid" alt="Close Modal" draggable="false" />
-                            </button>
-                          </div>
-                          <div class="modal-body text-center">
-                            <h5 class="modal-title fs-24 semi-bold-fw" id="disclosureRequiredLabel">
-                              Disclosure Required
-                            </h5>
-                            <p class="fs-14">
-                              A discourse is required. You may use the default
-                              disclosure <br />
-                              or use your own.
-                            </p>
-                            <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
-                              <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal" aria-label="Close">
-                                Use Default</button><button type="button" class="btn modal-cancel-btn" data-bs-dismiss="modal" aria-label="Close">
-                                Use My Own
-                              </button>
-                            </div>
+                        <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
+                          <div class="disclosure-textarea" contenteditable="true">
+                            <b>Disclosure:</b> This tool is designed to provide
+                            insight and opportunities for discussion regarding
+                            certain retirement income strategies, including
+                            annuities, that may prove beneficial amid a myriad
+                            of potential outcomes. THIS IS NOT AN ANNUITY
+                            ILLUSTRATION. IT IS A PORTRAYAL OF A CONCEPT.
+                            Certain elements of the financial vehicle presented
+                            may be guaranteed and will be under a heading
+                            indicating such. While every reasonable effort is
+                            made to ensure proper calculations and their
+                            portrayal, it is impossible for any software or
+                            advisor to accurately predict your future.
+                            Unpredictable variables can and likely will cause
+                            material changes in the outcomes projected, other
+                            than those that are guaranteed, if any. Any
+                            retirement strategy should only be undertaken after
+                            discussion with appropriate financial, legal, and
+                            tax advisors. The data presented in no way predicts
+                            what your future income will be in reality other
+                            than those that are guaranteed. No implication is
+                            asserted that undertaking any strategy, including
+                            the one contemplated here, is superior to a another
+                            strategy. Claims paying ability of an insurance
+                            company are backed by its financial ratings and
+                            fiscal health. Historical market returns use the raw
+                            data of the S&P 500 [(60%)] and a blended bond mix
+                            [(40%]) for the most recent [33] years. This does
+                            not constitute financial, legal, or tax advice to
+                            you. Past performance is never guarantee or
+                            indicative of future results.
                           </div>
                         </div>
                       </div>
@@ -623,13 +2171,15 @@
                 <div class="active" data-bs-toggle="pill" data-bs-target="#year-by-year-tab" type="button" role="tab" aria-controls="year-by-year-tab" aria-selected="true">
                   Year by Year
                 </div>
-                <div data-bs-toggle="pill" data-bs-target="#first-and-last-year-tab" type="button" role="tab" aria-controls="first-and-last-year-tab" aria-selected="false" class="">
+                <div data-bs-toggle="pill" data-bs-target="#first-and-last-year-tab" type="button" role="tab" aria-controls="first-and-last-year-tab" aria-selected="false">
                   First and Last Year
                 </div>
               </div>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="year-by-year-tab" role="tabpanel" aria-labelledby="year-by-year-tab">
-                  <p class="para">Enter the increasing income schedule from the illustration</p>
+                  <p class="para">
+                    Enter the increasing income schedule from the illustration
+                  </p>
                   <div class="income-rider-table form-group">
                     <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                       <thead>
@@ -640,7 +2190,7 @@
                       </thead>
                       <tbody>
                         <!---->
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">1</div>
                           </td>
@@ -651,7 +2201,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">2</div>
                           </td>
@@ -662,7 +2212,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">3</div>
                           </td>
@@ -673,7 +2223,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">4</div>
                           </td>
@@ -684,7 +2234,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">5</div>
                           </td>
@@ -695,7 +2245,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">6</div>
                           </td>
@@ -706,7 +2256,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">7</div>
                           </td>
@@ -717,7 +2267,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">8</div>
                           </td>
@@ -728,7 +2278,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">9</div>
                           </td>
@@ -739,7 +2289,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">10</div>
                           </td>
@@ -750,7 +2300,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">11</div>
                           </td>
@@ -761,7 +2311,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">12</div>
                           </td>
@@ -772,7 +2322,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">13</div>
                           </td>
@@ -783,7 +2333,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">14</div>
                           </td>
@@ -794,7 +2344,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">15</div>
                           </td>
@@ -805,7 +2355,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">16</div>
                           </td>
@@ -816,7 +2366,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">17</div>
                           </td>
@@ -827,7 +2377,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">18</div>
                           </td>
@@ -838,7 +2388,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">19</div>
                           </td>
@@ -849,7 +2399,7 @@
                             </div>
                           </td>
                         </tr>
-                        <tr class="">
+                        <tr>
                           <td>
                             <div class="fs-15">20</div>
                           </td>
@@ -865,7 +2415,10 @@
                   </div>
                 </div>
                 <div class="tab-pane fade" id="first-and-last-year-tab" role="tabpanel" aria-labelledby="first-and-last-year-tab">
-                  <p class="para">Enter the first and last year’s income values from the illustration</p>
+                  <p class="para">
+                    Enter the first and last year’s income values from the
+                    illustration
+                  </p>
                   <div class="income-rider-table form-group">
                     <table class="table tax-rate-table text-center" id="scheduleTaxRateTable">
                       <thead>
@@ -889,14 +2442,20 @@
                         </tr>
                         <tr>
                           <td>
-                            <div class="fs-15 form_section_label_div justify-content-center">Last Year
+                            <div class="fs-15 form_section_label_div justify-content-center">
+                              Last Year
                               <label for="premium-bonus" class="main_label"><span><svg class="label-common-tooltip-svg" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="Group 1968">
                                       <circle id="Ellipse 190" cx="6.5" cy="6.5" r="6.5" fill="#D0D0D0"></circle>
                                       <circle id="Ellipse 191" cx="6.5" cy="3.5" r="1" fill="white"></circle>
                                       <rect id="Rectangle 753" x="5.75" y="5.5" width="1.5" height="5" rx="0.75" fill="white"></rect>
                                     </g>
-                                  </svg><span class="text-start"> This should be the value for the “Plan Through Age” you defined earlier. For example, if you entered “95”, you would put the income value at age 95 from the illustration here.</span></span></label>
+                                  </svg><span class="text-start">
+                                    This should be the value for the “Plan
+                                    Through Age” you defined earlier. For
+                                    example, if you entered “95”, you would put
+                                    the income value at age 95 from the
+                                    illustration here.</span></span></label>
                             </div>
                           </td>
                           <td>
@@ -925,7 +2484,7 @@ import { mapState } from "vuex";
 import LeftSidebarComponent from "@/views/components/common/LeftSidebarComponent.vue";
 import NavbarComponent from "@/views/components/common/NavbarComponent.vue";
 import IncomeRiderForm from "./components/IncomeRiderForm.vue";
-
+import "../../../assets/js/chart.min";
 export default {
   name: "IncomeRider",
   components: {
@@ -952,6 +2511,13 @@ export default {
         : false;
     },
   },
+  mounted() {
+    this.generateGraph();
+    this.generateGraph2();
+    this.generateGraph3();
+    this.generateGraph4();
+    this.showHidecardDiv();
+  },
   methods: {
     onSubmit() {
       this.$refs.form.submit();
@@ -962,6 +2528,612 @@ export default {
     },
     setSubmitEnabled(value) {
       this.isSubmitEnabled = value;
+    },
+
+    showHidecardDiv() {
+      // Card 1 start
+      const multiBtn1 = document.querySelectorAll('#card-area-1 div');
+      multiBtn1.forEach(function (allMultiBtn) {
+        allMultiBtn.addEventListener('click', function (e) {
+          var allBtnAttr =e.target.getAttribute("btnAttr");
+
+         var card3 =  document.querySelectorAll('.common-card-div1')
+         card3.forEach(function(allCard3){
+          allCard3.classList.add('d-none');
+          })
+          document.getElementById('card-'+ allBtnAttr).classList.remove('d-none');
+        })
+      })
+      // Card 1 start
+      // Card 2 start
+      const multiBtn2 = document.querySelectorAll('#card-area-2 div');
+      multiBtn2.forEach(function (allMultiBtn) {
+        allMultiBtn.addEventListener('click', function (e) {
+          var allBtnAttr =e.target.getAttribute("btnAttr");
+
+         var card3 =  document.querySelectorAll('.common-card-div2')
+         card3.forEach(function(allCard3){
+          allCard3.classList.add('d-none');
+          })
+          document.getElementById('card-'+ allBtnAttr).classList.remove('d-none');
+        })
+      })
+      // Card 2 start
+      // Card 3 start
+      const multiBtn = document.querySelectorAll('#card-area-3 div');
+      multiBtn.forEach(function (allMultiBtn) {
+        allMultiBtn.addEventListener('click', function (e) {
+          var allBtnAttr =e.target.getAttribute("btnAttr");
+
+         var card3 =  document.querySelectorAll('.common-card-div3')
+         card3.forEach(function(allCard3){
+          allCard3.classList.add('d-none');
+          })
+          document.getElementById('card-'+ allBtnAttr).classList.remove('d-none');
+        })
+      })
+      // Card 3 start
+           // Card 4 start
+           const multiBtn4 = document.querySelectorAll('#card-area-4 div');
+      multiBtn4.forEach(function (allMultiBtn) {
+        allMultiBtn.addEventListener('click', function (e) {
+          var allBtnAttr =e.target.getAttribute("btnAttr");
+
+         var card3 =  document.querySelectorAll('.common-card-div4')
+         card3.forEach(function(allCard3){
+          allCard3.classList.add('d-none');
+          })
+          document.getElementById('card-'+ allBtnAttr).classList.remove('d-none');
+        })
+      })
+      // Card 4 start
+
+    },
+
+    generateGraph() {
+      const ctx = document.getElementById("myChart").getContext("2d");
+
+      const datasets = [
+        {
+          label: "Amount1",
+          data: Array.from({ length: 10 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(74, 142, 205, 0.20)",
+          borderColor: "#4A8ECD",
+          borderWidth: 2,
+          borderDash: [5, 5],
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 1,
+        },
+        {
+          label: "Amount2",
+          data: Array.from({ length: 25 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(22, 96, 164, 0.20)",
+          borderColor: "#1660A4",
+          borderWidth: 2,
+          borderDash: [5, 5],
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 2,
+        },
+        {
+          label: "Amount3",
+          data: Array.from({ length: 35 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(14, 102, 81, 0.20)",
+          borderColor: "rgba(14, 102, 81, 1)",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 3,
+        },
+      ];
+
+      // Initialize chart data with empty datasets array
+      const data = {
+        labels: Array.from({ length: 35 }, (_, i) => i + 1), // Years 1 to 35
+        datasets: [datasets[2]],
+      };
+
+      // Custom plugin to draw vertical lines at the end of each dataset
+      const verticalLinePlugin = {
+        id: "verticalLinePlugin",
+        afterDatasetsDraw: (chart) => {
+          const ctx = chart.ctx;
+          chart.data.datasets.forEach((dataset, datasetIndex) => {
+            const meta = chart.getDatasetMeta(datasetIndex);
+            if (meta.data.length > 0) {
+              const lastPoint = meta.data[meta.data.length - 1];
+              const x = lastPoint.x;
+              const y = lastPoint.y;
+              const bottomY = chart.scales.y.bottom;
+
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x, y);
+              ctx.lineTo(x, bottomY);
+              ctx.lineWidth = 2;
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = dataset.borderColor;
+              ctx.stroke();
+              ctx.restore();
+            }
+          });
+        },
+      };
+
+      const config = {
+        type: "line",
+        data: data,
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Years",
+              },
+              grid: {
+                display: false, // Remove grid lines
+              },
+              border: {
+                display: true,
+                color: "rgba(14, 102, 81, 1)",
+                width: 2,
+              },
+            },
+            y: {
+              display: false, // Remove y-axis
+              grid: {
+                display: false, // Remove grid lines
+              },
+            },
+          },
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            },
+          },
+          elements: {
+            line: {
+              borderJoinStyle: "miter",
+              borderWidth: 2,
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+        plugins: [verticalLinePlugin],
+      };
+
+      const myChart = new Chart(ctx, config);
+
+      // Index to track which dataset to add next
+      let datasetIndex = 0;
+      let currentIndex = 1;
+
+      // Remove disable from tab
+      document.getElementById("showMoreBtn").addEventListener("click", () => {
+        const relatedAmountDiv1 = document.getElementById('card-amount-3');
+        const childAmountDiv1 = relatedAmountDiv1.querySelectorAll('.incomeRiderCard');
+        if (currentIndex < childAmountDiv1.length) {
+          childAmountDiv1[currentIndex].classList.remove('disable');
+          currentIndex++;
+        }
+        // ***
+
+        // Show lines
+        if (datasetIndex < datasets.length) {
+          myChart.data.datasets.push(datasets[datasetIndex]);
+          myChart.update();
+          datasetIndex++;
+        }
+      });
+    },
+    generateGraph2() {
+      const ctx = document.getElementById("myChart2").getContext("2d");
+
+      // Define the datasets
+      const datasets = [
+        {
+          label: "Dataset 1",
+          data: Array.from({ length: 35 }, (_, i) => i * 1.5), // Example data
+          backgroundColor: "rgba(74, 142, 205, 0.20)",
+          borderColor: "#034989",
+          borderWidth: 2,
+          fill: true,
+          borderDash: [5, 5], // Dashed line
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+        {
+          label: "Dataset 2",
+          data: Array.from({ length: 35 }, (_, i) => i * 2.5),
+          backgroundColor: "rgba(22, 96, 164, 0.20)",
+          borderColor: "#1660A4",
+          borderWidth: 2,
+          fill: true,
+          borderDash: [5, 5], // Dashed line
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+        {
+          label: "Dataset 3",
+          data: Array.from({ length: 35 }, (_, i) => i * 5.5),
+          backgroundColor: "rgba(14, 102, 81, 0.20)",
+          borderColor: "#0E6651",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+      ];
+
+      // Initialize chart data with empty datasets
+      const data = {
+        labels: Array.from({ length: 35 }, (_, i) => i + 1), // 1 to 35
+        datasets: [datasets[2]],
+      };
+
+      // Chart options
+      const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false, // Show legend
+          },
+        },
+        scales: {
+          x: {
+            stacked: true,
+            title: {
+              display: true,
+              text: "Years",
+            },
+            grid: {
+              display: false, // Remove grid lines
+            },
+            border: {
+              display: false,
+              color: "rgba(14, 102, 81, 1)",
+              width: 2,
+            },
+          },
+          y: {            
+            display: false,
+            stacked: true,
+            ticks: {
+              display: false, // Remove y-axis labels
+            },
+            grid: {
+              drawBorder: false, // Remove default border
+            },
+            grid: {
+              display: false, // Remove grid lines
+            },
+            border: {
+              display: false,
+              color: "rgba(14, 102, 81, 1)",
+              width: 2,
+            },
+          },
+        },
+        layout: {
+          padding: {
+            right: 10, // Adjust this padding to create a space for the right border outline
+          },
+        },
+      };
+
+      // Create the chart
+      const myChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: options,
+      });
+
+      // Show more datasets on button click
+      let datasetIndex = 0;
+      let currentIndex2 = 1;
+      document.getElementById("showMoreBtn2").addEventListener("click", () => {
+        
+        const relatedlongevityDivs2 = document.getElementById('card-longevity-3');
+        const childLongevityDivs2 = relatedlongevityDivs2.querySelectorAll('.incomeRiderCard');
+        if (currentIndex2 < childLongevityDivs2.length) {
+          childLongevityDivs2[currentIndex2].classList.remove('disable');
+          currentIndex2++;
+        }
+
+
+        if (datasetIndex < datasets.length - 1) {
+          console.log("Adding dataset:", datasets[datasetIndex]);
+          myChart.data.datasets.push(datasets[datasetIndex]);
+          myChart.update();
+          datasetIndex++;
+        } else {
+          console.log("No more datasets to add.");
+        }
+      });
+    },
+    generateGraph3() {
+      const ctx = document.getElementById("myChart3").getContext("2d");
+
+      const datasets = [
+        {
+          label: "Amount1",
+          data: Array.from({ length: 10 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(74, 142, 205, 0.20)",
+          borderColor: "#4A8ECD",
+          borderWidth: 2,
+          borderDash: [5, 5],
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 1,
+        },
+        {
+          label: "Amount2",
+          data: Array.from({ length: 25 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(22, 96, 164, 0.20)",
+          borderColor: "#1660A4",
+          borderWidth: 2,
+          borderDash: [5, 5],
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 2,
+        },
+        {
+          label: "Amount3",
+          data: Array.from({ length: 35 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
+          backgroundColor: "rgba(14, 102, 81, 0.20)",
+          borderColor: "rgba(14, 102, 81, 1)",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+          order: 3,
+        },
+      ];
+
+      // Initialize chart data with empty datasets array
+      const data = {
+        labels: Array.from({ length: 35 }, (_, i) => i + 1), // Years 1 to 35
+        datasets: [datasets[2]],
+      };
+
+      // Custom plugin to draw vertical lines at the end of each dataset
+      const verticalLinePlugin = {
+        id: "verticalLinePlugin",
+        afterDatasetsDraw: (chart) => {
+          const ctx = chart.ctx;
+          chart.data.datasets.forEach((dataset, datasetIndex) => {
+            const meta = chart.getDatasetMeta(datasetIndex);
+            if (meta.data.length > 0) {
+              const lastPoint = meta.data[meta.data.length - 1];
+              const firstPoint = meta.data[meta.data.length - 1];
+              const x = lastPoint.x;
+              const y = lastPoint.y;
+              const bottomY = chart.scales.y.bottom;
+
+              ctx.save();
+              ctx.beginPath();
+              ctx.moveTo(x, y);
+              ctx.lineTo(x, bottomY);
+              ctx.lineWidth = 2;
+              ctx.setLineDash([5, 5]);
+              ctx.strokeStyle = dataset.borderColor;
+              ctx.stroke();
+              ctx.restore();
+            }
+          });
+        },
+      };
+
+      const config = {
+        type: "line",
+        data: data,
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Years",
+              },
+              grid: {
+                display: false, // Remove grid lines
+              },
+              border: {
+                display: true,
+                color: "rgba(14, 102, 81, 1)",
+                width: 2,
+              },
+            },
+            y: {
+              display: false, // Remove y-axis
+              grid: {
+                display: false, // Remove grid lines
+              },
+            },
+          },
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            },
+          },
+          elements: {
+            line: {
+              borderJoinStyle: "miter",
+              borderWidth: 2,
+            },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+        plugins: [verticalLinePlugin],
+      };
+
+      const myChart = new Chart(ctx, config);
+
+      // Index to track which dataset to add next
+      let datasetIndex = 0;
+      let currentIndex = 1;
+      document.getElementById("showMoreBtn3").addEventListener("click", () => {
+        const relatedAmountCardsDiv3 = document.getElementById('card-amount-4');
+        const childAmountDivs3 = relatedAmountCardsDiv3.querySelectorAll('.incomeRiderCard');
+        if (currentIndex < childAmountDivs3.length) {
+          childAmountDivs3[currentIndex].classList.remove('disable');
+          currentIndex++;
+        }
+        if (datasetIndex < datasets.length) {
+          myChart.data.datasets.push(datasets[datasetIndex]);
+          myChart.update();
+          datasetIndex++;
+        }
+      });
+    },
+    generateGraph4() {
+      const ctx = document.getElementById("myChart4").getContext("2d");
+
+      // Define the datasets
+      const datasets = [
+        {
+          label: "Dataset 1",
+          data: Array.from({ length: 35 }, (_, i) => i * 1.5), // Example data
+          backgroundColor: "rgba(74, 142, 205, 0.20)",
+          borderColor: "#034989",
+          borderWidth: 2,
+          fill: true,
+          borderDash: [5, 5], // Dashed line
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+        {
+          label: "Dataset 2",
+          data: Array.from({ length: 35 }, (_, i) => i * 2.5),
+          backgroundColor: "rgba(22, 96, 164, 0.20)",
+          borderColor: "#1660A4",
+          borderWidth: 2,
+          fill: true,
+          borderDash: [5, 5], // Dashed line
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+        {
+          label: "Dataset 3",
+          data: Array.from({ length: 35 }, (_, i) => i * 5.5),
+          backgroundColor: "rgba(14, 102, 81, 0.20)",
+          borderColor: "#0E6651",
+          borderWidth: 2,
+          fill: true,
+          tension: 0.1, // Curved line
+          pointRadius: 0, // Remove dots
+        },
+      ];
+
+      // Initialize chart data with empty datasets
+      const data = {
+        labels: Array.from({ length: 35 }, (_, i) => i + 1), // 1 to 35
+        datasets: [datasets[2]],
+      };
+
+      // Chart options
+      const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false, // Show legend
+          },
+        },
+        scales: {
+          x: {
+            stacked: true,
+            title: {
+              display: true,
+              text: "Years",
+            },
+            grid: {
+              display: false, // Remove grid lines
+            },
+            border: {
+              display: false,
+              color: "rgba(14, 102, 81, 1)",
+              width: 2,
+            },
+          },
+          y: {
+            display: false,
+            stacked: true,
+            ticks: {
+              display: false, // Remove y-axis labels
+            },
+            grid: {
+              drawBorder: false, // Remove default border
+            },
+            grid: {
+              display: false, // Remove grid lines
+            },
+            border: {
+              display: false,
+              color: "rgba(14, 102, 81, 1)",
+              width: 2,
+            },
+          },
+        },
+        layout: {
+          padding: {
+            right: 10, // Adjust this padding to create a space for the right border outline
+          },
+        },
+      };
+
+      // Create the chart
+      const myChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: options,
+      });
+
+      // Show more datasets on button click
+      let datasetIndex = 0;
+      let currentIndex =1;
+      document.getElementById("showMoreBtn4").addEventListener("click", () => {
+        const relatedLongevityCardsDiv4 = document.getElementById('card-longevity-4');
+        const childLongevityDivs4 = relatedLongevityCardsDiv4.querySelectorAll('.incomeRiderCard');
+        if (currentIndex < childLongevityDivs4.length) {
+          childLongevityDivs4[currentIndex].classList.remove('disable');
+          currentIndex++;
+        }
+
+        if (datasetIndex < datasets.length - 1) {
+          console.log("Adding dataset:", datasets[datasetIndex]);
+          myChart.data.datasets.push(datasets[datasetIndex]);
+          myChart.update();
+          datasetIndex++;
+          // console.log('Dataset added. New dataset index:', datasetIndex);
+        } else {
+          console.log("No more datasets to add.");
+        }
+      });
     },
   },
 };
