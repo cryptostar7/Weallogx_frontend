@@ -10,7 +10,7 @@
           <p class="form_section_para" @click="testFunction">
             Comparative Vehicle
           </p>
-          <div class="row mb-3">
+          <div class="row">
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
                 <label for="totalBalanceInput" class="main_label">
@@ -156,7 +156,7 @@
                 />
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6">
               <div class="form_section_label_div">
                 <label for="growthRateInput" class="main_label"
                   >Growth Rate</label
@@ -173,7 +173,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-6">
               <div class="form_section_label_div">
                 <label for="feeInput" class="main_label">
                   Fee
@@ -191,7 +191,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <!-- <div class="col-6 mb-3">
               <div class="form_section_label_div">
                 <label for="indexAllocationSelect" class="main_label"
                   >Index Allocation</label
@@ -231,11 +231,7 @@
                   </li>
                 </ul>
               </div>
-            </div>
-            <!-- dumb, but needed to make this line up. switch to BS rows & cols -->
-            <div class="col-6 mb-3"></div>
-            <div class="col-6 mb-3"></div>
-            <div class="col-6 mb-3"></div>
+            </div> -->           
           </div>
         </div>
 
@@ -338,7 +334,7 @@
                     for="selectDollar"
                     class="label_checkbox"
                     data-bs-toggle="modal"
-                    data-bs-target="#retirementBufferModal"
+                    data-bs-target="#incomeRiderTableModal"
                   >
                     <input
                       type="radio"
@@ -555,7 +551,7 @@
 
     <div
       class="modal fade"
-      id="retirementBufferModal"
+      id="incomeRiderTableModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"

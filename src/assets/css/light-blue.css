@@ -1896,4 +1896,13 @@ color: #0E6651;
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
   stroke: #0E6651;
 }
+.light-blue .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar{
+  border-color: #1660A4;
+  background-color: #165fa420;
+}
+
+.light-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
+  border-color: #0e6651;
+  background-color: #0e665120;
+}
 /* Retirement Buffer CSS Ends */

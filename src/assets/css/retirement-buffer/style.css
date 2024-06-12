@@ -1815,6 +1815,7 @@ text-align: end;
     background: #DFDFDF;
   }
 
+  .incomeRiderCard.disable .allCardHeadPara ,   .incomeRiderCard.disable .allCardHeadPara span ,
   .incomeRiderCard.disable .cardRadioSwtchpara1, .incomeRiderCard.disable .cardRadioSwtchpara1 .shortFall,
   .incomeRiderCard.disable .cardRadioSwtchpara2, .incomeRiderCard.disable .cardRadioSwtchpara2 .shortFall,
   .incomeRiderCard.disable .cardRadioSwtchpara3, .incomeRiderCard.disable .cardRadioSwtchpara3 .shortFall
@@ -1885,6 +1886,7 @@ color: #DFDFDF!important;
     font-weight: 600;
     font-style: italic;
     margin-left: 10px;
+    white-space: nowrap;
 }
 .scalling-div{
     border-top: 1px solid #E9E9E9;
