@@ -243,9 +243,9 @@ const router = createRouter({
       component: () => import("@/views/retirement-buffer/income-rider/IncomeRider.vue"),
     },
     {
-      path: "/retirement-buffer/income-rider2",
-      name: "retirement-buffer-income-rider2",
-      component: () => import("@/views/retirement-buffer/income-rider/IncomeRider2.vue"),
+      path: "/retirement-buffer/income-rider/result",
+      name: "retirement-buffer-income-rider-result",
+      component: () => import("@/views/retirement-buffer/income-rider/IncomeRiderResultPage.vue"),
     },
     {
       path: "/:pathMatch(.*)*",

@@ -19,10 +19,10 @@ const defaultFields = {
   non_guaranteed_income: "",
   non_guaranteed_income_increase: undefined,
   // XXX fix following lines so they aren't hard-coded
-  guaranteed_income_type: "year_bounded",
+  guaranteed_income_type: "annual_increase",
   guaranteed_income_last_year: 300000,
   guaranteed_income_manual: null,
-  non_guaranteed_income_type: "year_bounded",
+  non_guaranteed_income_type: "annual_increase",
   non_guaranteed_income_last_year: 300000,
   non_guaranteed_income_manual: null
 };
@@ -56,14 +56,14 @@ const actions = {
   submit(context, data) {
     console.log(data);
     // build the request payload
-    var payload = data;
+    var payload = { ...data };
     payload.account_type = data.account_type.value;
     payload.tax_rate = data.tax_rate ? data.tax_rate / 100 : null;
     payload.growth_rate = data.growth_rate / 100;
     payload.fee = data.fee ? data.fee / 100 : null;
+    payload.index_allocation = data.index_allocation.value;
     payload.guaranteed_income_increase = data.guaranteed_income_increase ? data.guaranteed_income_increase / 100 : null;
     payload.non_guaranteed_income_increase = data.non_guaranteed_income_increase ? data.non_guaranteed_income_increase / 100 : null;
-
 
     console.log(payload);
     context.commit("setPayloadData", data);
@@ -75,21 +75,8 @@ const actions = {
       .catch((error) => {
         console.log(error);
       });
-    // incomeRider: {
-    //   accountName: '',
-    //   guaranteedIncome: {
-    //     amount: '',
-    //     annualIncrease: undefined
-    //   },
-    //   incomeStartYear: undefined,
-    //   nonguaranteedIncome: {
-    //     amount: '',
-    //     annualIncrease: undefined
-    //   }
-    // }
-
   },
-  reset(context ) {
+  reset(context) {
     localStorage.removeItem('income_rider_inputs');
     context.commit("resetFormInputs");
   },
