@@ -52,55 +52,55 @@ export default {
       });
 
 
-    // get(getUrl("comparative_report") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_longevity") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_ending_value") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_death_benefit") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_longevity_ror") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_ending_value_ror") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // get(getUrl("comparative_report_death_benefit_ror") + this.$route.params.id)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    get(getUrl("comparative_report") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_longevity") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_ending_value") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_death_benefit") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_longevity_ror") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_ending_value_ror") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    get(getUrl("comparative_report_death_benefit_ror") + this.$route.params.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 }
 </script>

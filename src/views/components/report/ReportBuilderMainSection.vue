@@ -67,6 +67,7 @@
                 :class="`btn reportSwtchLeft ${
                   sidebar.currentTab === 'historical' ? 'active' : ''
                 }`"
+                :disabled="HistoricalReportDisabled"
                 @click="showHistoricalReport()"
               >
                 Historical Simulations
@@ -173,6 +174,7 @@ export default {
       },
       ComparativeDataLoaded: false,
       HistoricalDataLoaded: false,
+      HistoricalReportDisabled: false,
       historicalDataErrorMessage: "",
     };
   },
@@ -264,7 +266,7 @@ export default {
             response.data
           );
           this.$store.dispatch("loader", false);
-
+          this.getHistoricalData();
           setTimeout(() => {
             if (!this.$store.state.app.loader_count) {
               this.ComparativeDataLoaded = true;
@@ -387,6 +389,8 @@ export default {
           } else {
             if(response.data && response.data.lirp_data){
               this.$store.dispatch("historicalReport", response.data)
+            }else{
+              this.HistoricalReportDisabled = true;
             }
           }
 
@@ -499,15 +503,15 @@ export default {
     if (this.$route.params.report) {
      // this.getComparativeData(this.$route.params.report);
       this.getReports();
-      this.getHistoricalData();
+      // this.getHistoricalData();
       this.getCurrentReportInfo();
     }
   },
   watch: {
     "$route.params.report"() {
       if (this.$route.params.report) {
-        this.getComparativeData(this.$route.params.report);
-        this.getHistoricalData();
+        // this.getComparativeData(this.$route.params.report);
+        // this.getHistoricalData();
       }
     },
     "sidebar.currentTab"(e) {
