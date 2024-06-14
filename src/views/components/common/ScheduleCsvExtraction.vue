@@ -39,7 +39,7 @@ export default {
     };
   },
   props: ["prefixId", "maxInputs"],
-  emits: ["clearError"],
+  emits: ["clearError", "dataUpdate"],
   methods: {
     // clear schedule inputs
     resetSchedule: function () {
@@ -118,7 +118,7 @@ export default {
     },
     populateScheduleInputs: function () {
       var data = this.csvPreview.data;
-
+      this.$emit('dataUpdate', data);
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
         if (data && data[index]) {

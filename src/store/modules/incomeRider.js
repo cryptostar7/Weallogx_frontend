@@ -14,7 +14,7 @@ const defaultFields = {
   index_allocation: { label: "Equities & Bonds 60/40", value: "equities_and_bonds_60_40" },
   income_rider_account_name: "",
   income_start_year: undefined,
-  guaranteed_income: "",
+  guaranteed_income_first_year: "",
   guaranteed_income_increase: undefined,
   non_guaranteed_income: "",
   non_guaranteed_income_increase: undefined,

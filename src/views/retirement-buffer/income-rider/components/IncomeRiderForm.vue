@@ -30,16 +30,14 @@
                   max="100000000"
                   placeholder="Total Balance"
                   :default="inputs.total_balance"
-                  @amountUpdated="(e) => updateInput('total_balance', e)"
-                />
+                  @amountUpdated="(e) => updateInput('total_balance', e)" />
                 <span class="dollar">$</span>
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="accountTypeSelect" class="main_label"
-                  >Account Type</label
-                >
+                <label for="accountTypeSelect" class="main_label">Account
+                  Type</label>
               </div>
               <div class="select-menu accumulation_select_menu">
                 <div class="select-btn">
@@ -50,13 +48,11 @@
                     type="text"
                     :value="
                       inputs.account_type ? inputs.account_type.label : ''
-                    "
-                  />
+                    " />
                   <i>
                     <img
                       src="@/assets/images/icons/select-chevron.svg"
-                      alt="Chevron"
-                    />
+                      alt="Chevron" />
                   </i>
                 </div>
                 <ul class="options">
@@ -66,8 +62,7 @@
                     :class="`option ${
                       inputs.account_type === item ? 'active' : ''
                     }`"
-                    @click="updateInput('account_type', item)"
-                  >
+                    @click="updateInput('account_type', item)">
                     <span class="option-text">{{ item.label }}</span>
                   </li>
                 </ul>
@@ -97,8 +92,7 @@
                         e.target.value
                       )
                   "
-                  type="text"
-                />
+                  type="text" />
               </div>
             </div>
             <div class="col-6 mb-3">
@@ -114,8 +108,7 @@
                   class="percent_inp"
                   :default="inputs.tax_rate"
                   @amountUpdated="(e) => updateInput('tax_rate', e)"
-                  max="100"
-                />
+                  max="100" />
                 <span class="percent">%</span>
               </div>
             </div>
@@ -137,30 +130,26 @@
                   id="currentAgeInput"
                   :default="inputs.current_age"
                   @amountUpdated="(e) => updateInput('current_age', e)"
-                  max="100"
-                />
+                  max="100" />
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="planThroughAgeInput" class="main_label"
-                  >Plan Through Age</label
-                >
+                <label for="planThroughAgeInput" class="main_label">Plan Through
+                  Age</label>
               </div>
               <div class="form_section_input_div">
                 <number-amount-input
                   id="planThroughAgeInput"
                   :default="inputs.plan_through_age"
                   @amountUpdated="(e) => updateInput('plan_through_age', e)"
-                  max="100"
-                />
+                  max="100" />
               </div>
             </div>
             <div class="col-6">
               <div class="form_section_label_div">
-                <label for="growthRateInput" class="main_label"
-                  >Growth Rate</label
-                >
+                <label for="growthRateInput" class="main_label">Growth
+                  Rate</label>
               </div>
               <div class="form_section_input_div">
                 <number-amount-input
@@ -168,8 +157,7 @@
                   class="percent_inp"
                   :default="inputs.growth_rate"
                   @amountUpdated="(e) => updateInput('growth_rate', e)"
-                  max="100"
-                />
+                  max="100" />
                 <span class="percent">%</span>
               </div>
             </div>
@@ -186,16 +174,14 @@
                   class="percent_inp"
                   :default="inputs.fee"
                   @amountUpdated="(e) => updateInput('fee', e)"
-                  max="100"
-                />
+                  max="100" />
                 <span class="percent">%</span>
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="indexAllocationSelect" class="main_label"
-                  >Index Allocation</label
-                >
+                <label for="indexAllocationSelect" class="main_label">Index
+                  Allocation</label>
               </div>
               <div class="select-menu accumulation_select_menu">
                 <div class="select-btn">
@@ -209,13 +195,11 @@
                         ? inputs.index_allocation.label
                         : ''
                     "
-                    @amountUpdated="(e) => updateInput('index_allocation', e)"
-                  />
+                    @amountUpdated="(e) => updateInput('index_allocation', e)" />
                   <i>
                     <img
                       src="@/assets/images/icons/select-chevron.svg"
-                      alt="Chevron"
-                    />
+                      alt="Chevron" />
                   </i>
                 </div>
                 <ul class="options">
@@ -225,13 +209,12 @@
                     :class="`option ${
                       inputs.index_allocation === item ? 'active' : ''
                     }`"
-                    @click="updateInput('index_allocation', item)"
-                  >
+                    @click="updateInput('index_allocation', item)">
                     <span class="option-text">{{ item.label }}</span>
                   </li>
                 </ul>
               </div>
-            </div>           
+            </div>
           </div>
         </div>
 
@@ -240,9 +223,8 @@
           <div class="row mb-3">
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="incomeRiderAccountNameInput" class="main_label"
-                  >Account Name</label
-                >
+                <label for="incomeRiderAccountNameInput"
+                  class="main_label">Account Name</label>
               </div>
               <div class="form_section_input_div">
                 <input
@@ -252,15 +234,13 @@
                     (e) =>
                       updateInput('income_rider_account_name', e.target.value)
                   "
-                  type="text"
-                />
+                  type="text" />
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="incomeStartYearSelect" class="main_label"
-                  >Year Income Begins</label
-                >
+                <label for="incomeStartYearSelect" class="main_label">Year
+                  Income Begins</label>
               </div>
               <div class="select-menu accumulation_select_menu">
                 <div class="select-btn">
@@ -269,13 +249,11 @@
                     class="sBtn-text"
                     readonly="true"
                     type="text"
-                    :value="inputs.income_start_year"
-                  />
+                    :value="inputs.income_start_year" />
                   <i>
                     <img
                       src="@/assets/images/icons/select-chevron.svg"
-                      alt="Chevron"
-                    />
+                      alt="Chevron" />
                   </i>
                 </div>
                 <ul class="options">
@@ -285,8 +263,7 @@
                     :class="`option ${
                       inputs.income_start_year === item ? 'active' : ''
                     }`"
-                    @click="updateInput('income_start_year', item)"
-                  >
+                    @click="updateInput('income_start_year', item)">
                     <span class="option-text">{{ item }}</span>
                   </li>
                 </ul>
@@ -294,9 +271,8 @@
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
-                <label for="guaranteedIncomeAmountInput" class="main_label"
-                  >Guaranteed Income Amount</label
-                >
+                <label for="guaranteedIncomeAmountInput"
+                  class="main_label">Guaranteed Income Amount</label>
               </div>
               <div class="form_section_input_div">
                 <dollar-amount-input
@@ -304,62 +280,53 @@
                   class="dollar_inp"
                   max="100000000"
                   placeholder="Guaranteed Income Amount"
-                  :default="inputs.guaranteed_income"
-                  @amountUpdated="(e) => updateInput('guaranteed_income', e)"
-                />
+                  :default="inputs.guaranteed_income_first_year"
+                  @amountUpdated="(e) => updateInput('guaranteed_income_first_year', e)" />
                 <span class="dollar">$</span>
               </div>
             </div>
             <div class="col-6 mb-3">
               <div class="form_section_label_div" id="annualIncrease1">
-                <label for="annual-ditribution" class="main_label"
-                  >Annual Increase<span class="optional"
-                    >(optional)</span
-                  ></label
-                >
+                <label for="annual-ditribution" class="main_label">Annual
+                  Increase<span class="optional">(optional)</span></label>
                 <div class="label-right-div">
-                  <label for="selectPercent" class="label_checkbox">
+                  <label for="gtSelectPercent" class="label_checkbox">
                     <input
                       type="radio"
                       name="annual-increase"
                       checkBoxAttr="2"
-                      id="selectPercent"
+                      id="gtSelectPercent"
                       hidden
-                      checked
-                    />
-                    <label for="selectPercent"></label>
+                      checked />
+                    <label for="gtSelectPercent"></label>
                     <span>%</span>
                   </label>
                   <label
-                    for="selectDollar"
+                    for="gtselectDollar"
                     class="label_checkbox"
                     data-bs-toggle="modal"
-                    data-bs-target="#incomeRiderTableModal"
-                  >
+                    data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal">
                     <input
                       type="radio"
                       name="annual-increase"
                       checkBoxAttr="1"
-                      id="selectDollar"
-                      hidden
-                    />
-                    <label for="selectDollar"></label>
+                      id="gtselectDollar"
+                      hidden />
+                    <label for="gtselectDollar"></label>
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="13"
                         height="11"
                         viewBox="0 0 13 11"
-                        fill="none"
-                      >
+                        fill="none">
                         <rect
                           x="0.5"
                           y="0.5"
                           width="11.6923"
                           height="10"
                           rx="0.5"
-                          stroke="black"
-                        />
+                          stroke="black" />
                         <rect
                           x="6.1899"
                           y="2.69772"
@@ -367,8 +334,7 @@
                           height="8.14423"
                           rx="0.158654"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="2.69772"
@@ -377,8 +343,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 2.69772)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="5.23678"
@@ -387,8 +352,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 5.23678)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="7.77584"
@@ -397,8 +361,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 7.77584)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                       </svg>
                     </span>
                   </label>
@@ -413,8 +376,7 @@
                     (e) => updateInput('guaranteed_income_increase', e)
                   "
                   max="100"
-                  placeholder=""
-                />
+                  placeholder />
                 <span class="percent">%</span>
               </div>
             </div>
@@ -431,59 +393,55 @@
                   class="dollar_inp"
                   max="100000000"
                   placeholder="Non-guaranteed Amount"
-                  :default="inputs.non_guaranteed_income"
+                  :default="inputs.non_guaranteed_income_first_year"
                   @amountUpdated="
-                    (e) => updateInput('non_guaranteed_income', e)
-                  "
-                />
+                    (e) => updateInput('non_guaranteed_income_first_year', e)
+                  " />
                 <span class="dollar">$</span>
               </div>
             </div>
             <div class="col-6 mb-3">
-              <div class="form_section_label_div disabled" id="annualIncrease2">
-                <label for="annual-ditribution" class="main_label"
-                  >Annual Increase<span class="optional"
-                    >(optional)</span
-                  ></label
-                >
+              <div class="form_section_label_div"
+                id="annualIncrease2">
+                <label for="annual-ditribution" class="main_label">Annual
+                  Increase<span class="optional">(optional)</span></label>
                 <div class="label-right-div">
-                  <label for="selectPercent2" class="label_checkbox">
+                  <label for="nonGtSelectPercent"
+                    class="label_checkbox">
                     <input
                       type="radio"
                       name="annual-increase2"
                       checkBoxAttr="2"
-                      id="selectPercent2"
-                      hidden
-                    />
-                    <label for="selectPercent2"></label>
+                      id="nonGtSelectPercent"
+                      hidden />
+                    <label for="nonGtSelectPercent"></label>
                     <span>%</span>
                   </label>
-                  <label for="selectModal" class="label_checkbox">
+                  <label for="nonGtselectScheduleModal" class="label_checkbox"
+                    data-bs-toggle="modal"
+                    data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal">
                     <input
                       type="radio"
                       name="annual-increase2"
                       checkBoxAttr="1"
-                      id="selectModal"
+                      id="nonGtselectScheduleModal"
                       hidden
-                      checked
-                    />
-                    <label for="selectModal"></label>
+                      checked />
+                    <label for="nonGtselectScheduleModal"></label>
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="13"
                         height="11"
                         viewBox="0 0 13 11"
-                        fill="none"
-                      >
+                        fill="none">
                         <rect
                           x="0.5"
                           y="0.5"
                           width="11.6923"
                           height="10"
                           rx="0.5"
-                          stroke="black"
-                        />
+                          stroke="black" />
                         <rect
                           x="6.1899"
                           y="2.69772"
@@ -491,8 +449,7 @@
                           height="8.14423"
                           rx="0.158654"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="2.69772"
@@ -501,8 +458,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 2.69772)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="5.23678"
@@ -511,8 +467,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 5.23678)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                         <rect
                           x="12.5367"
                           y="7.77584"
@@ -521,8 +476,7 @@
                           rx="0.158654"
                           transform="rotate(90 12.5367 7.77584)"
                           stroke="black"
-                          stroke-width="0.317308"
-                        />
+                          stroke-width="0.317308" />
                       </svg>
                     </span>
                   </label>
@@ -537,8 +491,7 @@
                     (e) => updateInput('non_guaranteed_income_increase', e)
                   "
                   max="100"
-                  placeholder=""
-                />
+                  placeholder />
                 <span class="percent">%</span>
               </div>
             </div>
@@ -549,80 +502,8 @@
       </div>
     </div>
 
-    <div
-      class="modal fade"
-      id="incomeRiderTableModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <a type="button" data-bs-dismiss="modal" class="preview-modal-close">
-        <svg
-          width="45"
-          height="48"
-          viewBox="0 0 45 48"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="Group 1974" filter="url(#filter0_d_346_5079)">
-            <rect
-              id="Rectangle 174"
-              width="49.4476"
-              height="5.7055"
-              rx="2.85275"
-              transform="matrix(0.707099 0.707114 -0.707099 0.707114 7.03516 0.000488281)"
-              fill="#26AB8B"
-            ></rect>
-            <rect
-              id="Rectangle 175"
-              width="49.4476"
-              height="5.7055"
-              rx="2.85275"
-              transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)"
-              fill="#26AB8B"
-            ></rect>
-          </g>
-          <defs>
-            <filter
-              id="filter0_d_346_5079"
-              x="0.181641"
-              y="1.18164"
-              width="44.6367"
-              height="46.6367"
-              filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
-              <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"
-              ></feColorMatrix>
-              <feOffset dy="6"></feOffset>
-              <feGaussianBlur stdDeviation="2"></feGaussianBlur>
-              <feComposite in2="hardAlpha" operator="out"></feComposite>
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-              ></feColorMatrix>
-              <feBlend
-                mode="normal"
-                in2="BackgroundImageFix"
-                result="effect1_dropShadow_346_5079"
-              ></feBlend>
-              <feBlend
-                mode="normal"
-                in="SourceGraphic"
-                in2="effect1_dropShadow_346_5079"
-                result="shape"
-              ></feBlend>
-            </filter>
-          </defs>
-        </svg>
-      </a>
-      <IncreasingAnnualIncomeScheduleModal />
-    </div>
+    <guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" />
+    <non-guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" />
   </div>
 </template>
 <!-- Modal -->
@@ -632,7 +513,8 @@ import { range } from "lodash-es";
 import { mapState } from "vuex";
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
-import IncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/IncreasingAnnualIncomeScheduleModal.vue";
+import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/GuaranteedIncreasingAnnualIncomeScheduleModal.vue";
+import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
 
 export default {
@@ -641,7 +523,8 @@ export default {
     CommonTooltipSvg,
     DollarAmountInput,
     NumberAmountInput,
-    IncreasingAnnualIncomeScheduleModal
+    GuaranteedIncreasingAnnualIncomeScheduleModal,
+    NonGuaranteedIncreasingAnnualIncomeScheduleModal
   },
   data() {
     return {
@@ -663,6 +546,12 @@ export default {
         ? // we add 2 b/c we want the array to be inclusive of planThroughAge
           range(1, this.inputs.plan_through_age - this.inputs.current_age + 2)
         : [];
+    },
+    illustrateYear() {
+      return this.inputs.current_age && this.inputs.plan_through_age
+        ? 
+          this.inputs.plan_through_age - this.inputs.current_age + 1
+        : 0;
     },
     ...mapState({
       inputs: (state) => state.incomeRider.data.inputs,
