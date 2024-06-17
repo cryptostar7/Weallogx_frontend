@@ -5,8 +5,11 @@
       id="GuaranteedIncreasingAnnualIncomeScheduleModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <a type="button" data-bs-dismiss="modal" class="preview-modal-close">
+      aria-hidden="true"
+      data-bs-backdrop='static'>
+      <a type="button" data-bs-dismiss="modal" class="preview-modal-close"
+        :data-bs-toggle="showFormModal ? 'modal' : ''"
+        :data-bs-target="showFormModal ? '#incomeRideFormModal' : ''">
         <svg
           width="45"
           height="48"
@@ -67,7 +70,7 @@
         <div class="modal-content">
           <div class="accumulation_strategy_box">
             <div class="accumulation_strategy_box_head border-0 rounded-0">
-              <h2 @click="testFunction">Increasing Annual Income Schedule</h2>
+              <h2>Increasing Annual Income Schedule</h2>
             </div>
             <div class="income-rider-modal-body">
               <div
@@ -75,29 +78,31 @@
                 role="tablist"
                 aria-orientation="vertical">
                 <div
-                  class="active"
+                  :class="this.inputs.guaranteed_income_type === 'mannual' ? 'active' : ''"
                   data-bs-toggle="pill"
                   data-bs-target="#year-by-year-tab"
                   type="button"
                   role="tab"
                   aria-controls="year-by-year-tab"
-                  aria-selected="true">
+                  :aria-selected="this.inputs.guaranteed_income_type === 'mannual'"
+                  @click="updateInput('guaranteed_income_type', 'mannual')">
                   Year by Year
                 </div>
                 <div
+                  :class="this.inputs.guaranteed_income_type === 'year_bounded' ? 'active' : ''"
                   data-bs-toggle="pill"
                   data-bs-target="#first-and-last-year-tab"
                   type="button"
                   role="tab"
                   aria-controls="first-and-last-year-tab"
-                  aria-selected="false"
-                  class>
+                  :aria-selected="this.inputs.guaranteed_income_type === 'year_bounded'"
+                  @click="updateInput('guaranteed_income_type', 'year_bounded')">
                   First and Last Year
                 </div>
               </div>
               <div class="tab-content" id="nav-tabContent">
                 <div
-                  class="tab-pane fade show active"
+                  :class="`tab-pane fade ${this.inputs.guaranteed_income_type === 'mannual' ? 'show active' : ''}`"
                   id="year-by-year-tab"
                   role="tabpanel"
                   aria-labelledby="year-by-year-tab">
@@ -140,7 +145,7 @@
                   </div>
                 </div>
                 <div
-                  class="tab-pane fade"
+                  :class="`tab-pane fade ${this.inputs.guaranteed_income_type === 'year_bounded' ? 'show active' : ''}`"
                   id="first-and-last-year-tab"
                   role="tabpanel"
                   aria-labelledby="first-and-last-year-tab">
@@ -221,7 +226,9 @@
                 </div>
               </div>
 
-              <button class="mb-5 mt-4 run_btn"
+              <button class="mb-5 mt-4 run_btn" data-bs-dismiss="modal"
+                :data-bs-toggle="showFormModal ? 'modal' : ''"
+                :data-bs-target="showFormModal ? '#incomeRideFormModal' : ''"
                 @click="saveScheduleData">Save</button>
             </div>
           </div>
@@ -242,24 +249,37 @@ import DollarAmountInput from "@/views/retirement-buffer/common-components/Dolla
 import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtraction.vue";
   export default {
   component: 'GuaranteedIncreasingAnnualIncomeScheduleModal',
-  props: ['illustrateYear'],
+  props: ['illustrateYear', 'showFormModal'],
   components: {DollarAmountInput, ScheduleCsvExtraction},
   data() {
     return {
-      // income_type: "year_bounded",
       income_type: "mannual",
       schedules: [],
     }
-  },  
+  }, 
+  mounted() {
+      if(this.inputs.guaranteed_income_type === 'mannual' && this.inputs.guaranteed_income_manual){
+        this.inputs.guaranteed_income_manual.forEach((item, index) => {
+          this.schedules[index] = item.toLocaleString('en-US');
+          document.getElementById(`gt_income_schedule_${index+1}`).value= item.toLocaleString('en-US');
+        });
+      }
+    }, 
   methods: {
     saveScheduleData() {
-       let array = [];
+      if(this.inputs.guaranteed_income_type === 'mannual'){
+        let array = [];
        for (let index = 0; index < this.$props.illustrateYear; index++) {
         array.push(getNumber(this.schedules[index]));
-       }
-       
-       let inputs = { ...this.inputs, ['guaranteed_income_manual']: array };
-       this.$store.dispatch("incomeRider/updateInputs", inputs);
+      }
+      let inputs =  { ...this.inputs, ['guaranteed_income_manual']: array };
+      this.$store.dispatch("incomeRider/updateInputs", inputs);
+
+      }else{
+        let cagr = Number(Number(((this.inputs.guaranteed_income_last_year/this.inputs.guaranteed_income_first_year)**(1/(this.$props.illustrateYear-this.inputs.income_start_year))-1)*100).toFixed(2));
+        let inputs = { ...this.inputs, ['guaranteed_income_increase']: cagr < 0 ? 0 : cagr};
+      this.$store.dispatch("incomeRider/updateInputs", inputs);
+      }
     },
     
     updateSchedule(index, value) {
@@ -273,10 +293,7 @@ import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtracti
           }
         });
       }
-    },
-    testFunction(){
-      console.log(this.$store.state.incomeRider.data.inputs);
-    },
+    },    
     updateInput(field, value) {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
@@ -286,16 +303,6 @@ import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtracti
     ...mapState({
       inputs: (state) => state.incomeRider.data.inputs,
     }),
-  },
-  watch: {
-    "inputs.guaranteed_income_first_year"(e){
-      console.log(e);
-      // guaranteed_income_increase
-    },
-    "inputs.guaranteed_income_last_year"(e){
-      console.log(e);
-      // guaranteed_income_increase
-    }
   }
 }
 </script>

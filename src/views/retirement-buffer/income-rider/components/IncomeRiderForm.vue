@@ -258,7 +258,7 @@
                 </div>
                 <ul class="options">
                   <li
-                    v-for="item in incomeRiderIncomeStartYearOpts"
+                    v-for="item in illustrateYear"
                     :key="item"
                     :class="`option ${
                       inputs.income_start_year === item ? 'active' : ''
@@ -290,14 +290,15 @@
                 <label for="annual-ditribution" class="main_label">Annual
                   Increase<span class="optional">(optional)</span></label>
                 <div class="label-right-div">
-                  <label for="gtSelectPercent" class="label_checkbox">
+                  <label for="gtSelectPercent" class="label_checkbox"
+                    @click="updateInput('guaranteed_income_type', 'annual_increase')">
                     <input
                       type="radio"
                       name="annual-increase"
                       checkBoxAttr="2"
                       id="gtSelectPercent"
                       hidden
-                      checked />
+                      :checked="inputs.guaranteed_income_type === 'annual_increase'" />
                     <label for="gtSelectPercent"></label>
                     <span>%</span>
                   </label>
@@ -305,12 +306,14 @@
                     for="gtselectDollar"
                     class="label_checkbox"
                     data-bs-toggle="modal"
-                    data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal">
+                    data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
+                    @click="inputs.guaranteed_income_type === 'annual_increase' ? updateInput('guaranteed_income_type', 'mannual') : ''">
                     <input
                       type="radio"
                       name="annual-increase"
                       checkBoxAttr="1"
                       id="gtselectDollar"
+                      :checked="inputs.guaranteed_income_type !== 'annual_increase'"
                       hidden />
                     <label for="gtselectDollar"></label>
                     <span>
@@ -367,7 +370,13 @@
                   </label>
                 </div>
               </div>
-              <div class="form_section_input_div">
+              <div v-if="inputs.guaranteed_income_type == 'mannual'"
+                class="form_section_input_div">
+                <input
+                  type="text" value="Scheduled">
+              </div>
+
+              <div v-else class="form_section_input_div">
                 <number-amount-input
                   id="guaranteedIncomeAnnualIncreaseInput"
                   class="percent_inp"
@@ -407,26 +416,29 @@
                   Increase<span class="optional">(optional)</span></label>
                 <div class="label-right-div">
                   <label for="nonGtSelectPercent"
-                    class="label_checkbox">
+                    class="label_checkbox"
+                    @click="updateInput('non_guaranteed_income_type', 'annual_increase')">
                     <input
                       type="radio"
                       name="annual-increase2"
                       checkBoxAttr="2"
                       id="nonGtSelectPercent"
+                      :checked="inputs.non_guaranteed_income_type === 'annual_increase'"
                       hidden />
                     <label for="nonGtSelectPercent"></label>
                     <span>%</span>
                   </label>
                   <label for="nonGtselectScheduleModal" class="label_checkbox"
                     data-bs-toggle="modal"
-                    data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal">
+                    data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
+                    @click="inputs.non_guaranteed_income_type === 'annual_increase' ? updateInput('non_guaranteed_income_type', 'mannual') : ''">
                     <input
                       type="radio"
                       name="annual-increase2"
                       checkBoxAttr="1"
                       id="nonGtselectScheduleModal"
                       hidden
-                      checked />
+                      :checked="inputs.non_guaranteed_income_type !== 'annual_increase'" />
                     <label for="nonGtselectScheduleModal"></label>
                     <span>
                       <svg
@@ -482,14 +494,20 @@
                   </label>
                 </div>
               </div>
-              <div class="form_section_input_div">
+              <div v-if="inputs.non_guaranteed_income_type == 'mannual'"
+                class="form_section_input_div">
+                <input
+                  type="text" value="Scheduled">
+              </div>
+
+              <div v-else class="form_section_input_div">
                 <number-amount-input
-                  id="nonguaranteedIncomeAnnualIncreaseInput"
+                  id="guaranteedIncomeAnnualIncreaseInput"
                   class="percent_inp"
                   :default="inputs.non_guaranteed_income_increase"
                   @amountUpdated="
-                    (e) => updateInput('non_guaranteed_income_increase', e)
-                  "
+                  (e) => updateInput('non_guaranteed_income_increase', e)
+                "
                   max="100"
                   placeholder />
                 <span class="percent">%</span>
@@ -501,20 +519,14 @@
         </div>
       </div>
     </div>
-
-    <guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" />
-    <non-guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" />
   </div>
 </template>
 <!-- Modal -->
 
 <script>
-import { range } from "lodash-es";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
-import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/GuaranteedIncreasingAnnualIncomeScheduleModal.vue";
-import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
 
 export default {
@@ -522,9 +534,7 @@ export default {
   components: {
     CommonTooltipSvg,
     DollarAmountInput,
-    NumberAmountInput,
-    GuaranteedIncreasingAnnualIncomeScheduleModal,
-    NonGuaranteedIncreasingAnnualIncomeScheduleModal
+    NumberAmountInput
   },
   data() {
     return {
@@ -541,20 +551,12 @@ export default {
     };
   },
   computed: {
-    incomeRiderIncomeStartYearOpts() {
-      return this.inputs.current_age && this.inputs.plan_through_age
-        ? // we add 2 b/c we want the array to be inclusive of planThroughAge
-          range(1, this.inputs.plan_through_age - this.inputs.current_age + 2)
-        : [];
-    },
-    illustrateYear() {
-      return this.inputs.current_age && this.inputs.plan_through_age
-        ? 
-          this.inputs.plan_through_age - this.inputs.current_age + 1
-        : 0;
-    },
+    ...mapGetters({
+      illustrateYear: "incomeRider/illustrateYear",
+    }),
     ...mapState({
       inputs: (state) => state.incomeRider.data.inputs,
+      // illustrateYear: (state) => state.incomeRider.getters.illustrateYear,
     }),
   },
   mounted() {
@@ -614,6 +616,9 @@ export default {
     updateInput(field, value) {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
+    },
+    testFunction: function(){
+      console.log(this.inputs);
     },
     submit() {
       this.$store.dispatch("loader", true);

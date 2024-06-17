@@ -14,16 +14,16 @@ const defaultFields = {
   index_allocation: { label: "Equities & Bonds 60/40", value: "equities_and_bonds_60_40" },
   income_rider_account_name: "",
   income_start_year: undefined,
-  guaranteed_income_first_year: "",
   guaranteed_income_increase: undefined,
   non_guaranteed_income: "",
   non_guaranteed_income_increase: undefined,
-  // XXX fix following lines so they aren't hard-coded
   guaranteed_income_type: "annual_increase",
-  guaranteed_income_last_year: 300000,
+  guaranteed_income_first_year: undefined,
+  guaranteed_income_last_year: null,
   guaranteed_income_manual: null,
   non_guaranteed_income_type: "annual_increase",
-  non_guaranteed_income_last_year: 300000,
+  non_guaranteed_income_first_year: undefined,
+  non_guaranteed_income_last_year: null,
   non_guaranteed_income_manual: null
 };
 
@@ -32,17 +32,29 @@ const state = () => {
     data: {
       inputs: localStorage.getItem('income_rider_inputs') ? JSON.parse(localStorage.getItem('income_rider_inputs')) : defaultFields,
       error: {},
-      result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : [],
+      result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : null,
     }
   };
 };
 
-const getters = {};
+const getters = {
+  illustrateYear(state) {
+    let year_count = 0;
+    if (state.data.inputs.current_age && state.data.inputs.plan_through_age) {
+      year_count = state.data.inputs.plan_through_age - state.data.inputs.current_age + 1;
+    }
+    return year_count < 0 ? 0 : year_count;
+  },
+};
 
 const mutations = {
   setPayloadData(state, payload) {
     localStorage.setItem('income_rider_inputs', JSON.stringify(payload))
     state.data.inputs = payload;
+  },
+  setResultData(state, payload) {
+    localStorage.setItem('income_rider_result', JSON.stringify(payload))
+    state.data.result = payload;
   },
   resetFormInputs(state) {
     state.data.inputs = defaultFields;
@@ -65,12 +77,12 @@ const actions = {
     payload.guaranteed_income_increase = data.guaranteed_income_increase ? data.guaranteed_income_increase / 100 : null;
     payload.non_guaranteed_income_increase = data.non_guaranteed_income_increase ? data.non_guaranteed_income_increase / 100 : null;
 
-    console.log(payload);
     context.commit("setPayloadData", data);
 
     return post(getUrl('incomeRider'), payload, authHeader())
       .then((response) => {
         console.log(response);
+        context.commit('setResultData', response.data);
       })
       .catch((error) => {
         console.log(error);

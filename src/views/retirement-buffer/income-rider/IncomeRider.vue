@@ -19,8 +19,8 @@
                     <div class="accumulation_strategy_div">
                       <div class="accumulation_strategy_box">
                         <income-rider-form
+                        :illustrateYear="illustrateYear"
                           ref="form"
-                          @valid="setSubmitEnabled"
                         />
                       </div>
                       <button
@@ -41,14 +41,20 @@
         </div>
       </div>
     </section>
+    <guaranteed-increasing-annual-income-schedule-modal
+    :illustrateYear="illustrateYear" />
+  <non-guaranteed-increasing-annual-income-schedule-modal
+    :illustrateYear="illustrateYear" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import LeftSidebarComponent from "@/views/components/common/LeftSidebarComponent.vue";
 import NavbarComponent from "@/views/components/common/NavbarComponent.vue";
 import IncomeRiderForm from "./components/IncomeRiderForm.vue";
+import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/GuaranteedIncreasingAnnualIncomeScheduleModal.vue";
+import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 
 export default {
   name: "IncomeRider",
@@ -56,9 +62,14 @@ export default {
     IncomeRiderForm,
     LeftSidebarComponent,
     NavbarComponent,
+    GuaranteedIncreasingAnnualIncomeScheduleModal,
+    NonGuaranteedIncreasingAnnualIncomeScheduleModal
   },
   data() {},
   computed: {
+    ...mapGetters({
+      illustrateYear: "incomeRider/illustrateYear",
+    }),
     ...mapState({
       inputs: (state) => state.incomeRider.data.inputs,
     }),
@@ -82,9 +93,6 @@ export default {
     },
     resetForm() {
       this.$store.dispatch("incomeRider/reset");
-    },
-    setSubmitEnabled(value) {
-      this.isSubmitEnabled = value;
     },
   },
 };
