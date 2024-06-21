@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /dist
+    destination: /var/www/app.wealthlogix.com
+permissions:
+  - object: /var/www/app.wealthlogix.com
+    pattern: "**"
+    owner: root
+    group: root
