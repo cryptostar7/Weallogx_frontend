@@ -66,7 +66,7 @@
           </defs> -->
         </svg>
       </a>
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="accumulation_strategy_box">
             <div class="accumulation_strategy_box_head border-0 rounded-0">
@@ -100,7 +100,8 @@
                   First and Last Year
                 </div>
               </div>
-              <div class="tab-content" id="nav-tabContent">
+              <div class="modal-scrooll-div">
+                <div class="tab-content" id="nav-tabContent">
                 <div
                   :class="`tab-pane fade ${this.inputs.guaranteed_income_type === 'mannual' ? 'show active' : ''}`"
                   id="year-by-year-tab"
@@ -224,6 +225,7 @@
                     </table>
                   </div>
                 </div>
+              </div>
               </div>
 
               <button class="mb-5 mt-4 run_btn" data-bs-dismiss="modal"
