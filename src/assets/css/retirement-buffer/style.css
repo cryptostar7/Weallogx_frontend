@@ -1692,7 +1692,7 @@ canvas#retirementBufferGraph {
     padding: 3px;
     flex-wrap: unset;
     margin-inline: auto;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .income-rider-modal-tabs div {
@@ -2107,3 +2107,7 @@ background: #DFDFDF;
     width: 100%!important;
   }
   /* Graph part end */
+.modal-scrooll-div{
+    height: calc(100vh - 260px);
+    overflow-y: auto;
+}
