@@ -2051,7 +2051,7 @@ font-weight: 500;
     stroke: #fafafa;
 }
 
-.pie.target-analysis-progress-pie .pie-long-para{
+.pie-long-para{
     color: #000;
     text-align: justify;
     font-size: 12px;
@@ -2061,7 +2061,7 @@ font-weight: 500;
     width: 324px;
     font-style: italic;
 }
-.pie.target-analysis-progress-pie .pie-long-para span{
+.pie-long-para span{
 color: #1660A4;
 font-weight: 700;
 }

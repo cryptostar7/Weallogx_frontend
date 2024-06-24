@@ -69,10 +69,10 @@
                             stroke="#0E6651" stroke-width="1.5" />
                         </g>
                         <defs>
-                          <clippath id="clip0_6993_46716">
+                          <clipPath id="clip0_6993_46716">
                             <rect width="25" height="25" fill="white"
                               transform="translate(3 0.125)" />
-                          </clippath>
+                          </clipPath>
                         </defs>
                       </svg>
                     </div>
@@ -134,7 +134,7 @@
               transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)"
               fill="#26AB8B"></rect>
           </g>
-          <defs>
+          <!-- <defs>
             <filter id="filter0_d_346_5079" x="0.181641" y="1.18164"
               width="44.6367" height="46.6367" filterUnits="userSpaceOnUse"
               color-interpolation-filters="sRGB">
@@ -154,7 +154,7 @@
                 in2="effect1_dropShadow_346_5079" result="shape">
               </feblend>
             </filter>
-          </defs>
+          </defs> -->
         </svg>
 
       </a>
@@ -162,7 +162,7 @@
         <div class="modal-content">
           <income-rider-form ref="form" />
           <button
-            :class="`mb-4 mt-4 run_btn ${isSubmitEnabled ? '' : 'disable'}`"
+            :class="`mb-4 mt-4 run_btn ${isValidForm ? '' : 'disable'}`"
             data-bs-dismiss="modal"
             @click="onSubmit">Save &amp;
             Run</button>
@@ -184,7 +184,7 @@
               transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)"
               fill="#26AB8B"></rect>
           </g>
-          <defs>
+          <!-- <defs>
             <filter id="filter0_d_346_5079" x="0.181641" y="1.18164"
               width="44.6367" height="46.6367" filterUnits="userSpaceOnUse"
               color-interpolation-filters="sRGB">
@@ -202,7 +202,7 @@
               <feblend mode="normal" in="SourceGraphic"
                 in2="effect1_dropShadow_346_5079" result="shape"></feblend>
             </filter>
-          </defs>
+          </defs> -->
         </svg>
       </a>
       <div class="modal-dialog modal-dialog-centered">
@@ -563,8 +563,6 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <!---->
-
                         <tr>
                           <td>
                             <div class="fs-15">First Year</div>
@@ -647,7 +645,6 @@ import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-bu
 import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 import "../../../assets/js/chart.min";
 export default {
-  name: "IncomeRider",
   components: {
     NavbarComponent,
     LeftSidebarComponent,
@@ -664,618 +661,18 @@ export default {
       inputs: (state) => state.incomeRider.data.result ? state.incomeRider.data.result.inputs : [],
     }),
     ...mapGetters({
+      isValidForm: "incomeRider/isValidForm",
       illustrateYear: "incomeRider/illustrateYear",
     }),
-    isSubmitEnabled() {
-      return this.formInputs.comparative_vehicle_account_name &&
-        this.formInputs.account_type &&
-        this.formInputs.current_age &&
-        this.formInputs.plan_through_age &&
-        this.formInputs.growth_rate &&
-        this.formInputs.total_balance &&
-        this.formInputs.income_rider_account_name &&
-        this.formInputs.income_start_year &&
-        this.formInputs.guaranteed_income
-        ? true
-        : false;
-    },
   },
   mounted() {
     if(!this.result){
       return this.$router.push('/retirement-buffer/income-rider');
     }
-
-    this.generateGraph();
-    this.generateGraph2();
-    this.generateGraph3();
-    this.generateGraph4();
   },
   methods: {
     onSubmit() {
       this.$refs.form.submit();
-    },
-    generateGraph() {
-      const ctx = document.getElementById("myChart").getContext("2d");
-
-      const datasets = [
-        {
-          label: "Amount1",
-          data: Array.from({ length: 10 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(74, 142, 205, 0.20)",
-          borderColor: "#4A8ECD",
-          borderWidth: 2,
-          borderDash: [5, 5],
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 1,
-        },
-        {
-          label: "Amount2",
-          data: Array.from({ length: 25 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(22, 96, 164, 0.20)",
-          borderColor: "#1660A4",
-          borderWidth: 2,
-          borderDash: [5, 5],
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 2,
-        },
-        {
-          label: "Amount3",
-          data: Array.from({ length: 35 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "rgba(14, 102, 81, 1)",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 3,
-        },
-      ];
-
-      // Initialize chart data with empty datasets array
-      const data = {
-        labels: Array.from({ length: 35 }, (_, i) => i + 1), // Years 1 to 35
-        datasets: [datasets[2]],
-      };
-
-      // Custom plugin to draw vertical lines at the end of each dataset
-      const verticalLinePlugin = {
-        id: "verticalLinePlugin",
-        afterDatasetsDraw: (chart) => {
-          const ctx = chart.ctx;
-          chart.data.datasets.forEach((dataset, datasetIndex) => {
-            const meta = chart.getDatasetMeta(datasetIndex);
-            if (meta.data.length > 0) {
-              const lastPoint = meta.data[meta.data.length - 1];
-              const x = lastPoint.x;
-              const y = lastPoint.y;
-              const bottomY = chart.scales.y.bottom;
-
-              ctx.save();
-              ctx.beginPath();
-              ctx.moveTo(x, y);
-              ctx.lineTo(x, bottomY);
-              ctx.lineWidth = 2;
-              ctx.setLineDash([5, 5]);
-              ctx.strokeStyle = dataset.borderColor;
-              ctx.stroke();
-              ctx.restore();
-            }
-          });
-        },
-      };
-
-      const config = {
-        type: "line",
-        data: data,
-        options: {
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Years",
-              },
-              grid: {
-                display: false, // Remove grid lines
-              },
-              border: {
-                display: true,
-                color: "rgba(14, 102, 81, 1)",
-                width: 2,
-              },
-            },
-            y: {
-              ticks: {
-                display: false, // Remove y-axis labels
-              },
-              grid: {
-                drawBorder: false, // Remove default border
-                // Remove grid lines
-                color: (context) => {
-                  if (context.tick.value === 0) {
-                    return '#0E6651'; // Your desired zeroLineColor
-                  }
-                  return 'transparent'; // Default color for other lines
-                },
-                lineWidth: (context) => {
-                  // Set line width for zero line
-                  if (context.tick.value === 0) {
-                    return 2; // Your desired zero line width
-                  }
-                  return 0; // Hide other grid lines
-                },
-              },
-            },
-          },
-          layout: {
-            padding: {
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-            },
-          },
-          elements: {
-            line: {
-              borderJoinStyle: "miter",
-              borderWidth: 2,
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-        plugins: [verticalLinePlugin],
-      };
-
-      const myChart = new Chart(ctx, config);
-
-      // Index to track which dataset to add next
-      let datasetIndex = 0;
-      let currentIndex = 1;
-
-      // Remove disable from tab
-      document.getElementById("showMoreBtn").addEventListener("click", () => {
-        const relatedAmountDiv1 = document.getElementById('card-amount-3');
-        const childAmountDiv1 = relatedAmountDiv1.querySelectorAll('.incomeRiderCard');
-        if (currentIndex < childAmountDiv1.length) {
-          childAmountDiv1[currentIndex].classList.remove('disable');
-          currentIndex++;
-        }
-        // ***
-
-        // Show lines
-        if (datasetIndex < datasets.length) {
-          myChart.data.datasets.push(datasets[datasetIndex]);
-          myChart.update();
-          datasetIndex++;
-        }
-      });
-    },
-    generateGraph2() {
-      const ctx = document.getElementById("myChart2").getContext("2d");
-
-      // Define the datasets
-      const datasets = [
-        {
-          label: "Dataset 1",
-          data: Array.from({ length: 35 }, (_, i) => i * 1.5), // Example data
-          backgroundColor: "rgba(74, 142, 205, 0.20)",
-          borderColor: "#034989",
-          borderWidth: 2,
-          fill: true,
-          borderDash: [5, 5], // Dashed line
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-        {
-          label: "Dataset 2",
-          data: Array.from({ length: 35 }, (_, i) => i * 2.5),
-          backgroundColor: "rgba(22, 96, 164, 0.20)",
-          borderColor: "#1660A4",
-          borderWidth: 2,
-          fill: true,
-          borderDash: [5, 5], // Dashed line
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-        {
-          label: "Dataset 3",
-          data: Array.from({ length: 35 }, (_, i) => i * 5.5),
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "#0E6651",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-      ];
-
-      // Initialize chart data with empty datasets
-      const data = {
-        labels: Array.from({ length: 35 }, (_, i) => i + 1), // 1 to 35
-        datasets: [datasets[2]],
-      };
-
-      // Chart options
-      const options = {
-        maintainAspectRatio: false,
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false, // Show legend
-          },
-        },
-        scales: {
-          x: {
-            stacked: true,
-            title: {
-              display: true,
-              text: "Years",
-            },
-            grid: {
-              display: false, // Remove grid lines
-            },
-            border: {
-              display: false,
-              color: "rgba(14, 102, 81, 1)",
-              width: 2,
-            },
-          },
-          y: {
-            ticks: {
-              display: false, // Remove y-axis labels
-            },
-            grid: {
-              drawBorder: false, // Remove default border
-              // Remove grid lines
-              color: (context) => {
-                if (context.tick.value === 0) {
-                  return '#0E6651'; // Your desired zeroLineColor
-                }
-                return 'transparent'; // Default color for other lines
-              },
-              lineWidth: (context) => {
-                  // Set line width for zero line
-                  if (context.tick.value === 0) {
-                    return 2; // Your desired zero line width
-                  }
-                  return 0; // Hide other grid lines
-                },
-            },
-          },
-        },
-        layout: {
-          padding: {
-            right: 10, // Adjust this padding to create a space for the right border outline
-          },
-        },
-      };
-
-      // Create the chart
-      const myChart = new Chart(ctx, {
-        type: "line",
-        data: data,
-        options: options,
-      });
-
-      // Show more datasets on button click
-      let datasetIndex = 0;
-      let currentIndex2 = 1;
-      document.getElementById("showMoreBtn2").addEventListener("click", () => {
-
-        const relatedlongevityDivs2 = document.getElementById('card-longevity-3');
-        const childLongevityDivs2 = relatedlongevityDivs2.querySelectorAll('.incomeRiderCard');
-        if (currentIndex2 < childLongevityDivs2.length) {
-          childLongevityDivs2[currentIndex2].classList.remove('disable');
-          currentIndex2++;
-        }
-
-
-        if (datasetIndex < datasets.length - 1) {
-          console.log("Adding dataset:", datasets[datasetIndex]);
-          myChart.data.datasets.push(datasets[datasetIndex]);
-          myChart.update();
-          datasetIndex++;
-        } else {
-          console.log("No more datasets to add.");
-        }
-      });
-    },
-    generateGraph3() {
-      const ctx = document.getElementById("myChart3").getContext("2d");
-
-      const datasets = [
-        {
-          label: "Amount1",
-          data: Array.from({ length: 10 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(74, 142, 205, 0.20)",
-          borderColor: "#4A8ECD",
-          borderWidth: 2,
-          borderDash: [5, 5],
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 1,
-        },
-        {
-          label: "Amount2",
-          data: Array.from({ length: 25 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(22, 96, 164, 0.20)",
-          borderColor: "#1660A4",
-          borderWidth: 2,
-          borderDash: [5, 5],
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 2,
-        },
-        {
-          label: "Amount3",
-          data: Array.from({ length: 35 }, (_, i) => Math.pow(i + 1, 1.1)), // Sample data, you can replace this with your actual data
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "rgba(14, 102, 81, 1)",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-          order: 3,
-        },
-      ];
-
-      // Initialize chart data with empty datasets array
-      const data = {
-        labels: Array.from({ length: 35 }, (_, i) => i + 1), // Years 1 to 35
-        datasets: [datasets[2]],
-      };
-
-      // Custom plugin to draw vertical lines at the end of each dataset
-      const verticalLinePlugin = {
-        id: "verticalLinePlugin",
-        afterDatasetsDraw: (chart) => {
-          const ctx = chart.ctx;
-          chart.data.datasets.forEach((dataset, datasetIndex) => {
-            const meta = chart.getDatasetMeta(datasetIndex);
-            if (meta.data.length > 0) {
-              const lastPoint = meta.data[meta.data.length - 1];
-              const x = lastPoint.x;
-              const y = lastPoint.y;
-              const bottomY = chart.scales.y.bottom;
-
-              ctx.save();
-              ctx.beginPath();
-              ctx.moveTo(x, y);
-              ctx.lineTo(x, bottomY);
-              ctx.lineWidth = 2;
-              ctx.setLineDash([5, 5]);
-              ctx.strokeStyle = dataset.borderColor;
-              ctx.stroke();
-              ctx.restore();
-            }
-          });
-        },
-      };
-
-      const config = {
-        type: "line",
-        data: data,
-        options: {
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Years",
-              },
-              grid: {
-                display: false, // Remove grid lines
-              },
-              border: {
-                display: true,
-                color: "rgba(14, 102, 81, 1)",
-                width: 2,
-              },
-            },
-            y: {
-              ticks: {
-                display: false, // Remove y-axis labels
-              },
-              grid: {
-                drawBorder: false, // Remove default border
-                // Remove grid lines
-                color: (context) => {
-                  if (context.tick.value === 0) {
-                    return '#0E6651'; // Your desired zeroLineColor
-                  }
-                  return 'transparent'; // Default color for other lines
-                },
-                lineWidth: (context) => {
-                  // Set line width for zero line
-                  if (context.tick.value === 0) {
-                    return 2; // Your desired zero line width
-                  }
-                  return 0; // Hide other grid lines
-                },
-              },
-            },
-          },
-          layout: {
-            padding: {
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-            },
-          },
-          elements: {
-            line: {
-              borderJoinStyle: "miter",
-              borderWidth: 2,
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: false,
-        },
-        plugins: [verticalLinePlugin],
-      };
-
-      const myChart = new Chart(ctx, config);
-
-      // Index to track which dataset to add next
-      let datasetIndex = 0;
-      let currentIndex = 1;
-      document.getElementById("showMoreBtn3").addEventListener("click", () => {
-        const relatedAmountCardsDiv3 = document.getElementById('card-amount-4');
-        const childAmountDivs3 = relatedAmountCardsDiv3.querySelectorAll('.incomeRiderCard');
-        if (currentIndex < childAmountDivs3.length) {
-          childAmountDivs3[currentIndex].classList.remove('disable');
-          currentIndex++;
-        }
-        if (datasetIndex < datasets.length) {
-          myChart.data.datasets.push(datasets[datasetIndex]);
-          myChart.update();
-          datasetIndex++;
-        }
-      });
-    },
-    generateGraph4() {
-      const ctx = document.getElementById("myChart4").getContext("2d");
-
-      // Define the datasets
-      const datasets = [
-        {
-          label: "Dataset 1",
-          data: Array.from({ length: 35 }, (_, i) => i * 1.5), // Example data
-          backgroundColor: "rgba(74, 142, 205, 0.20)",
-          borderColor: "#034989",
-          borderWidth: 2,
-          fill: true,
-          borderDash: [5, 5], // Dashed line
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-        {
-          label: "Dataset 2",
-          data: Array.from({ length: 35 }, (_, i) => i * 2.5),
-          backgroundColor: "rgba(22, 96, 164, 0.20)",
-          borderColor: "#1660A4",
-          borderWidth: 2,
-          fill: true,
-          borderDash: [5, 5], // Dashed line
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-        {
-          label: "Dataset 3",
-          data: Array.from({ length: 35 }, (_, i) => i * 5.5),
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "#0E6651",
-          borderWidth: 2,
-          fill: true,
-          tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
-        },
-      ];
-
-
-      // Initialize chart data with empty datasets
-      const data = {
-        labels: Array.from({ length: 35 }, (_, i) => i + 1), // 1 to 35
-        datasets: [datasets[2]],
-      };
-
-      // Chart options
-      const options = {
-        maintainAspectRatio: false,
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false, // Show legend
-          },
-        },
-        scales: {
-          x: {
-            stacked: true,
-            title: {
-              display: true,
-              text: "Years",
-            },
-            grid: {
-              display: false, // Remove grid lines
-            },
-            border: {
-              display: false,
-              color: "rgba(14, 102, 81, 1)",
-              width: 2,
-            },
-          },
-          y: {
-            ticks: {
-              display: false, // Remove y-axis labels
-            },
-            grid: {
-              drawBorder: false, // Remove default border
-              // Remove grid lines
-              color: (context) => {
-                if (context.tick.value === 0) {
-                  return '#0E6651'; // Your desired zeroLineColor
-                }
-                return 'transparent'; // Default color for other lines
-              },
-              lineWidth: (context) => {
-                  // Set line width for zero line
-                  if (context.tick.value === 0) {
-                    return 2; // Your desired zero line width
-                  }
-                  return 0; // Hide other grid lines
-                },
-            },
-          },
-        },
-        layout: {
-          padding: {
-            right: 10, // Adjust this padding to create a space for the right border outline
-          },
-        },
-      };
-
-      // Create the chart
-      const myChart = new Chart(ctx, {
-        type: "line",
-        data: data,
-        options: options,
-      });
-
-      // Show more datasets on button click
-      let datasetIndex = 0;
-      let currentIndex = 1;
-      document.getElementById("showMoreBtn4").addEventListener("click", () => {
-        const relatedLongevityCardsDiv4 = document.getElementById('card-longevity-4');
-        const childLongevityDivs4 = relatedLongevityCardsDiv4.querySelectorAll('.incomeRiderCard');
-        if (currentIndex < childLongevityDivs4.length) {
-          childLongevityDivs4[currentIndex].classList.remove('disable');
-          currentIndex++;
-        }
-
-        if (datasetIndex < datasets.length - 1) {
-          myChart.data.datasets.push(datasets[datasetIndex]);
-          myChart.update();
-          datasetIndex++;
-        } else {
-          console.log("No more datasets to add.");
-        }
-      });
     },
   },
 };

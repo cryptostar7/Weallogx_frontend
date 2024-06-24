@@ -33,6 +33,7 @@ const state = () => {
       inputs: localStorage.getItem('income_rider_inputs') ? JSON.parse(localStorage.getItem('income_rider_inputs')) : defaultFields,
       error: {},
       result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : null,
+      ir_simulation_result: localStorage.getItem('ir_simulation_result') ? JSON.parse(localStorage.getItem('ir_simulation_result')) : null,
     }
   };
 };
@@ -45,6 +46,20 @@ const getters = {
     }
     return year_count < 0 ? 0 : year_count;
   },
+  isValidForm(state) {
+    let inputs = state.data.inputs;
+    return inputs.comparative_vehicle_account_name &&
+      inputs.account_type &&
+      inputs.current_age &&
+      inputs.plan_through_age &&
+      inputs.growth_rate &&
+      inputs.total_balance &&
+      inputs.income_rider_account_name &&
+      inputs.income_start_year &&
+      inputs.guaranteed_income_first_year
+      ? true
+      : false;
+  },
 };
 
 const mutations = {
@@ -55,6 +70,10 @@ const mutations = {
   setResultData(state, payload) {
     localStorage.setItem('income_rider_result', JSON.stringify(payload))
     state.data.result = payload;
+  },
+  setSimulationResultData(state, payload) {
+    localStorage.setItem('ir_simulation_result', JSON.stringify(payload))
+    state.data.ir_simulation_result = payload;
   },
   resetFormInputs(state) {
     state.data.inputs = defaultFields;
@@ -70,14 +89,23 @@ const actions = {
     // build the request payload
     var payload = { ...data };
     payload.account_type = data.account_type.value;
-    payload.tax_rate = data.tax_rate ? data.tax_rate / 100 : null;
+    payload.tax_rate = data.tax_rate ? data.tax_rate / 100 : 0;
     payload.growth_rate = data.growth_rate / 100;
-    payload.fee = data.fee ? data.fee / 100 : null;
+    payload.fee = data.fee ? data.fee / 100 : 0;
     payload.index_allocation = data.index_allocation.value;
     payload.guaranteed_income_increase = data.guaranteed_income_increase ? data.guaranteed_income_increase / 100 : null;
-    payload.non_guaranteed_income_increase = data.non_guaranteed_income_increase ? data.non_guaranteed_income_increase / 100 : null;
+    payload.non_guaranteed_income_increase = data.non_guaranteed_income_increase ? Number((data.non_guaranteed_income_increase / 100).toFixed(2)) : null;
 
     context.commit("setPayloadData", data);
+
+    post(getUrl('incomeRiderSimulation'), payload, authHeader())
+      .then((response) => {
+        console.log(response);
+        context.commit('setSimulationResultData', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     return post(getUrl('incomeRider'), payload, authHeader())
       .then((response) => {

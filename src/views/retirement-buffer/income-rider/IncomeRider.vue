@@ -24,7 +24,7 @@
                         />
                       </div>
                       <button
-                        :class="`run_btn ${isSubmitEnabled ? '' : 'disable'}`"
+                        :class="`run_btn ${isValidForm ? '' : 'disable'}`"
                         @click="onSubmit"
                       >
                         Run
@@ -69,23 +69,11 @@ export default {
   computed: {
     ...mapGetters({
       illustrateYear: "incomeRider/illustrateYear",
+      isValidForm: "incomeRider/isValidForm",
     }),
     ...mapState({
       inputs: (state) => state.incomeRider.data.inputs,
     }),
-    isSubmitEnabled() {
-      return this.inputs.comparative_vehicle_account_name &&
-        this.inputs.account_type &&
-        this.inputs.current_age &&
-        this.inputs.plan_through_age &&
-        this.inputs.growth_rate &&
-        this.inputs.total_balance &&
-        this.inputs.income_rider_account_name &&
-        this.inputs.income_start_year &&
-        this.inputs.guaranteed_income
-        ? true
-        : false;
-    },
   },
   methods: {
     onSubmit() {
