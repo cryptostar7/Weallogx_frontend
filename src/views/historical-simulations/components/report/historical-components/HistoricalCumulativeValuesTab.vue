@@ -507,7 +507,7 @@ export default {
       data: {
         cummulative_income: [
           {
-            type: "LIRP",
+            type: "",
             income: "",
           },
           {
@@ -529,7 +529,7 @@ export default {
         ],
         total_income: [
           {
-            type: "LIRP",
+            type: "",
             income: "",
           },
           {
@@ -560,10 +560,10 @@ export default {
     let card5 = this.historical.max.result;
 
     if (card1) {
-      this.data.cummulative_income[0].type = "LIRP";
+      this.data.cummulative_income[0].type = this.historical.policy_nickname || "";
       this.data.cummulative_income[0].income = card1.cummulative_income;
 
-      this.data.total_income[0].type = "LIRP";
+      this.data.total_income[0].type = this.historical.policy_nickname || "";
       this.data.total_income[0].income = card1.cummulative_income_total_value;
     }
 
