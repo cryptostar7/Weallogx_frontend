@@ -248,11 +248,6 @@ const router = createRouter({
       component: () => import("@/views/retirement-buffer/income-rider/IncomeRiderResultPage.vue"),
     },
     {
-      path: "/retirement-buffer/income-rider/result-bkp",
-      name: "retirement-buffer-income-rider-result-bkp",
-      component: () => import("@/views/retirement-buffer/income-rider/IncomeRiderResultPageBkp.vue"),
-    },
-    {
       path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),

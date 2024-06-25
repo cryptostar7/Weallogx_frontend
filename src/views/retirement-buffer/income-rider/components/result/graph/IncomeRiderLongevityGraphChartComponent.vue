@@ -7,7 +7,6 @@
 import { mapState, mapGetters } from "vuex";
 
 export default {
-  props: ["showResult"],
   mounted() {
     this.setGraph();
   },
@@ -87,7 +86,7 @@ export default {
       let datasets = [
         {
           label: "Dataset 3",
-          data: this.result.cumulative_income_rider_distribution,
+          data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "#0E6651",
           borderWidth: 2,
@@ -97,10 +96,10 @@ export default {
         },
       ];
 
-      if (this.$props.showResult > 1) {
+      if (this.showResult > 1) {
         datasets.push({
           label: "Dataset 2",
-          data: this.result.cumulative_cv_distribution,
+          data: this.irResult.cumulative_cv_distribution,
           backgroundColor: "rgba(22, 96, 164, 0.20)",
           borderColor: "#1660A4",
           borderWidth: 2,
@@ -111,10 +110,10 @@ export default {
         });
       }
 
-      if (this.$props.showResult > 2) {
+      if (this.showResult > 2) {
         datasets.push({
           label: "Dataset 3",
-          data: this.historical_result.cumulative_cv_distribution,
+          data: this.targetAnalysis == 'amount'? this.irHistoricalResult.cumulative_cv_distribution : this.irResult.optimization.optimal_cumulative_cv_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "#0E6651",
           borderDash: [5, 5], // Dashed line
@@ -126,7 +125,7 @@ export default {
 
       // Initialize chart data with empty datasets array
       let data = {
-        labels: Array.from({ length: this.result.year_count }, (_, i) => i + 1), 
+        labels: Array.from({ length: this.irResult.year_count }, (_, i) => i + 1), 
         datasets: datasets,
       };
 
@@ -135,15 +134,13 @@ export default {
   },
   computed: {
     ...mapState({
-      ir_result: (state) => state.incomeRider.data.result,
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
+      targetAnalysis: (state) => state.incomeRider.data.target_analysis_type,
+      showResult: (state) => state.incomeRider.data.view_result,
     }),
-    result(){
-       return this.ir_result.income_rider_guaranteed_fixed_return || []
-    },
-    historical_result() {
-      return this.ir_result.income_rider_guaranteed_index_allocation ?? [];
-    },
+    ...mapGetters({
+      irResult: "incomeRider/irResult",
+      irHistoricalResult: "incomeRider/irHistoricalResult",
+    })
   },
   watch: {
     showResult(e) {

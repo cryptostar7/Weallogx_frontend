@@ -28,7 +28,7 @@
                     <span class="bigBarNumberJsCls2"
                       >{{
                         $percentFormat(
-                          result.optimization.optimal_growth_rate || 0
+                          irResult.optimization.optimal_growth_rate || 0
                         )
                       }}%</span
                     >
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="col-md-6 position-relative border-before-col">
-      <p class="target-analysis-success-prob-para mb-2" @click="testFunction">
+      <p class="target-analysis-success-prob-para mb-2">
         Success Probability
       </p>
       <div
@@ -68,8 +68,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
-// import CircularProgressBar from "../../../../assets/js/retirement-buffer/circularProgressBar.min.js";
+import { mapState, mapGetters } from "vuex";
 import CircularProgressBar from "../../../../../assets/js/retirement-buffer/circularProgressBar.min.js";
 
 export default {
@@ -140,7 +139,7 @@ export default {
       }
     },
     growthRateBarHeight() {
-      let value1 = Number(this.result.optimization.optimal_growth_rate);
+      let value1 = Number(this.irResult.optimization.optimal_growth_rate);
       let value2 = Number(this.inputs.growth_rate);
 
       if (value2 >= value1) {
@@ -152,7 +151,7 @@ export default {
     },
     optimalGrowthRateBarHeight() {
       let value1 = Number(this.inputs.growth_rate);
-      let value2 = Number(this.result.optimization.optimal_growth_rate);
+      let value2 = Number(this.irResult.optimization.optimal_growth_rate);
 
       if (value2 >= value1) {
         return 100;
@@ -160,22 +159,17 @@ export default {
 
       let unit = value2 / value1;
       return unit * 100;
-    },
-    testFunction() {
-      console.log(this.inputs);
-      //   console.log(this.optimalGrowthRateBarHeight());
-    },
+    }
   },
   computed: {
     ...mapState({
-      ir_result: (state) => state.incomeRider.data.result,
       ir_simulation_result: (state) =>
         state.incomeRider.data.ir_simulation_result,
       inputs: (state) => state.incomeRider.data.result.inputs || [],
     }),
-    result() {
-      return this.ir_result.income_rider_guaranteed_fixed_return ?? [];
-    },
+    ...mapGetters({
+      irResult: "incomeRider/irResult",
+    })
   },
   watch: {
     ir_simulation_result(e) {

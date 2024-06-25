@@ -7,8 +7,8 @@
         >
         <label class="rghtTopHeadcommon">
           <div class="annual-income-text-para ms-2 fs-12">
-            How long can the [Schwab Brokerage Account] produce the same amount
-            of income as the [FIA]’s Income Rider?
+            How long can the {{ inputs.comparative_vehicle_account_name }} produce the same amount
+            of income as the {{ inputs.income_rider_account_name }}’s Income Rider?
           </div>
         </label>
       </div>
@@ -35,7 +35,10 @@
             aria-orientation="vertical"
           >
             <div
-              class="active"
+              :class="resultType == 'guaranteed' ? 'active' : ''"
+              @click="
+                $store.dispatch('incomeRider/updateResultType', 'guaranteed')
+              "
               id="v-pills-comulativeIncome1-tab"
               data-bs-toggle="pill"
               type="button"
@@ -45,6 +48,10 @@
               Guaranteed
             </div>
             <div
+              :class="resultType == 'potential' ? 'active' : ''"
+              @click="
+                $store.dispatch('incomeRider/updateResultType', 'potential')
+              "
               id="v-pills-comulativeIncome2-tab"
               data-bs-toggle="pill"
               type="button"
@@ -64,9 +71,7 @@
           >
             <div class="container-fluid cards-area">
               <!-- Cards data -->
-              <annual-income-graph-card-details-component
-                :showResult="showResult"
-              />
+              <annual-income-graph-card-details-component />
             </div>
             <div class="container-fluid">
               <div class="CompMainProgrssBarDiv graph-area">
@@ -87,8 +92,13 @@
                       id="card-area-3"
                     >
                       <div
-                        @click="targetAnalysis = 'amount'"
-                        class="active"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateTargetAnalysisType',
+                            'amount'
+                          )
+                        "
+                        :class="targetAnalysis == 'amount' ? 'active' : ''"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-amount3"
                         type="button"
@@ -98,7 +108,13 @@
                         Amount
                       </div>
                       <div
-                        @click="targetAnalysis = 'longevity'"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateTargetAnalysisType',
+                            'longevity'
+                          )
+                        "
+                        :class="targetAnalysis == 'longevity' ? 'active' : ''"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-longevity3"
                         role="tab"
@@ -107,7 +123,13 @@
                         Longevity
                       </div>
                       <div
-                        @click="targetAnalysis = 'return'"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateTargetAnalysisType',
+                            'return'
+                          )
+                        "
+                        :class="targetAnalysis == '' ? 'active' : ''"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-return3"
                         role="tab"
@@ -117,6 +139,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="tab-content">
                     <div
                       v-if="targetAnalysis != 'return'"
@@ -132,7 +155,9 @@
                           type="button"
                           role="tab"
                           aria-selected="true"
-                          @click="showResult = 1"
+                          @click="
+                            $store.dispatch('incomeRider/updateViewResult', 1)
+                          "
                         >
                           Individual
                         </div>
@@ -141,7 +166,9 @@
                           type="button"
                           role="tab"
                           aria-selected="false"
-                          @click="showResult = 3"
+                          @click="
+                            $store.dispatch('incomeRider/updateViewResult', 3)
+                          "
                         >
                           Show All
                         </div>
@@ -162,9 +189,7 @@
                           role="tabpanel"
                         >
                           <!-- Income Rider Amount Graph Chart-->
-                          <income-rider-amount-graph-chart-component
-                            :showResult="showResult"
-                          />
+                          <income-rider-amount-graph-chart-component />
                           <button
                             :class="`income-rider-show-next-btn ${
                               showResult > 2 ? 'disable' : ''
@@ -228,9 +253,7 @@
                           role="tabpanel"
                         >
                           <!-- Income Rider Longevity Chart -->
-                          <income-rider-longevity-graph-chart-component
-                            :showResult="showResult"
-                          />
+                          <income-rider-longevity-graph-chart-component />
                           <button
                             :class="`income-rider-show-next-btn  ${
                               showResult > 2 ? 'disable' : ''
@@ -285,7 +308,9 @@
                       id="v-pills-return3"
                       role="tabpanel"
                     >
-                      <annual-income-rider-success-probability-chart currentTab="graph"/>
+                      <annual-income-rider-success-probability-chart
+                        currentTab="graph"
+                      />
                     </div>
                   </div>
                 </div>
@@ -315,21 +340,17 @@ export default {
     IncomeRiderLongevityGraphChartComponent,
     AnnualIncomeRiderSuccessProbabilityChart,
   },
-  data() {
-    return {
-      showResult: 1,
-      targetAnalysis: "amount",
-    };
-  },
   methods: {
     showNextHandler() {
-      this.showResult = this.showResult + 1;
+      this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
     },
   },
   computed: {
     ...mapState({
-      result: (state) => state.incomeRider.data.result,
+      targetAnalysis: (state) => state.incomeRider.data.target_analysis_type,
+      showResult: (state) => state.incomeRider.data.view_result,
       inputs: (state) => state.incomeRider.data.result.inputs || [],
+      resultType: (state) => state.incomeRider.data.result_type,
     }),
   },
 };

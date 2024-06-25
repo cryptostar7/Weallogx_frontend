@@ -6,8 +6,7 @@
     aria-labelledby="v-pills-annualFees1-tab"
   >
     <!-- Card -->
-    <!-- :result="result.income_rider_guaranteed_fixed_return || {}" -->
-    <annual-income-card-details-component :showResult="showResult" />
+    <annual-income-card-details-component />
     <div class="container-fluid">
       <div class="CompMainProgrssBarDiv graph-area">
         <!-- Main tab 1 content start -->
@@ -25,8 +24,13 @@
               id="card-area-1"
             >
               <div
-                @click="targetAnalysis = 'amount'"
-                class="active"
+                @click="
+                  $store.dispatch(
+                    'incomeRider/updateTargetAnalysisType',
+                    'amount'
+                  )
+                "
+                :class="targetAnalysis == 'amount' ? 'active' : ''"
                 type="button"
                 data-bs-toggle="pill"
                 role="tab"
@@ -35,14 +39,26 @@
               </div>
               <div
                 data-bs-toggle="pill"
-                @click="targetAnalysis = 'longevity'"
+                @click="
+                  $store.dispatch(
+                    'incomeRider/updateTargetAnalysisType',
+                    'longevity'
+                  )
+                "
+                :class="targetAnalysis == 'longevity' ? 'active' : ''"
                 role="tab"
               >
                 Longevity
               </div>
               <div
                 data-bs-toggle="pill"
-                @click="targetAnalysis = 'return'"
+                @click="
+                  $store.dispatch(
+                    'incomeRider/updateTargetAnalysisType',
+                    'return'
+                  )
+                "
+                :class="targetAnalysis == 'return' ? 'active' : ''"
                 role="tab"
               >
                 Return
@@ -63,7 +79,7 @@
                 type="button"
                 role="tab"
                 aria-selected="true"
-                @click="showResult = 1"
+                @click="$store.dispatch('incomeRider/updateViewResult', 1)"
               >
                 Individual
               </div>
@@ -72,7 +88,7 @@
                 type="button"
                 role="tab"
                 aria-selected="false"
-                @click="showResult = 3"
+                @click="$store.dispatch('incomeRider/updateViewResult', 3)"
               >
                 Show All
               </div>
@@ -97,8 +113,18 @@
                     <p class="heading clr1">
                       FIA - Income Rider
                       <span
+                        v-if="irResult.annual_income_increase"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateAnnualScheduleResultModal',
+                            {
+                              title: 'Increasing Annual Income Schedule',
+                              data: irResult.annual_income_rider_distribution,
+                            }
+                          )
+                        "
                         data-bs-toggle="modal"
-                        data-bs-target="#incomeRiderTableModal2"
+                        data-bs-target="#incomeRiderScheduleTableModal"
                       >
                         <svg
                           class="ms-1"
@@ -164,16 +190,16 @@
                     >
                       <span id="wider_bar_1">{{
                         $numFormatWithDollar(
-                          result.annual_income_rider_distribution.filter(
+                          irResult.annual_income_rider_distribution.filter(
                             (item) => item > 0
                           )[0]
                         )
                       }}</span>
                       <span
-                        v-if="result.annual_income_increase"
+                        v-if="irResult.annual_income_increase"
                         class="target-bar-span"
                         >Increasing by
-                        {{ $percentFormat(result.annual_income_increase) }}
+                        {{ $percentFormat(irResult.annual_income_increase) }}
                         % per year</span
                       >
                     </div>
@@ -182,8 +208,21 @@
                     <p class="heading clr2">
                       Schwab Brokerage Account - Flat Rate of Return
                       <span
+                        v-if="irResult.annual_income_increase"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateAnnualScheduleResultModal',
+                            {
+                              title: 'Increasing Annual Income Schedule',
+                              data:
+                                targetAnalysis == 'amount'
+                                  ? irResult.annual_cv_distribution
+                                  : irResult.optimization.optimal_distribution,
+                            }
+                          )
+                        "
                         data-bs-toggle="modal"
-                        data-bs-target="#incomeRiderTableModal2"
+                        data-bs-target="#incomeRiderScheduleTableModal"
                       >
                         <svg
                           class="ms-1"
@@ -245,25 +284,30 @@
                     </p>
                     <div
                       class="target-analysis-each-bars barClr2 text-white"
-                      :style="{ width: showResult >= 2 ? '100%' : 0 }"
+                      :style="{
+                        width:
+                          showResult >= 2
+                            ? getBarWidth(irResult.cv_longevity)
+                            : 0,
+                      }"
                     >
                       <span v-if="showResult >= 2">
                         <span id="wider_bar_2">{{
                           $numFormatWithDollar(
                             targetAnalysis == "amount"
-                              ? result.annual_cv_distribution.filter(
+                              ? irResult.annual_cv_distribution.filter(
                                   (item) => item > 0
                                 )[0]
-                              : result.optimization.optimal_distribution.filter(
+                              : irResult.optimization.optimal_distribution.filter(
                                   (item) => item > 0
                                 )[0]
                           )
                         }}</span>
                         <span
-                          v-if="result.annual_income_increase"
+                          v-if="irResult.annual_income_increase"
                           class="target-bar-span"
                           >Increasing by
-                          {{ $percentFormat(result.annual_income_increase) }}
+                          {{ $percentFormat(irResult.annual_income_increase) }}
                           % per year</span
                         >
                       </span>
@@ -273,8 +317,22 @@
                     <p class="heading clr3">
                       Schwab Brokerage Account - Historical Market Returns
                       <span
+                        v-if="irHistoricalResult.annual_income_increase"
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateAnnualScheduleResultModal',
+                            {
+                              title: 'Increasing Annual Income Schedule',
+                              data:
+                                targetAnalysis == 'amount'
+                                  ? irHistoricalResult.annual_cv_distribution
+                                  : irHistoricalResult.optimization
+                                      .optimal_distribution,
+                            }
+                          )
+                        "
                         data-bs-toggle="modal"
-                        data-bs-target="#incomeRiderTableModal2"
+                        data-bs-target="#incomeRiderScheduleTableModal"
                       >
                         <svg
                           class="ms-1"
@@ -336,33 +394,44 @@
                     </p>
                     <div
                       class="target-analysis-each-bars barClr3 text-white"
-                      :style="{ width: showResult > 2 ? '100%' : 0 }"
+                      :style="{
+                        width:
+                          showResult > 2
+                            ? getBarWidth(irHistoricalResult.cv_longevity)
+                            : 0,
+                      }"
                     >
-                      <span v-if="showResult > 2" id="wider_bar_3">{{
-                        $numFormatWithDollar(
-                          targetAnalysis == "amount"
-                              ? historical_result.annual_cv_distribution.filter(
+                      <span v-if="showResult > 2">
+                        <span id="wider_bar_3">{{
+                          $numFormatWithDollar(
+                            targetAnalysis == "amount"
+                              ? irHistoricalResult.annual_cv_distribution.filter(
                                   (item) => item > 0
                                 )[0]
-                              : historical_result.optimization.optimal_distribution.filter(
+                              : irHistoricalResult.optimization.optimal_distribution.filter(
                                   (item) => item > 0
                                 )[0]
-                        )
-                      }}</span>
-                      <span v-if="showResult > 2" class="target-bar-span"
-                        >Increasing by
-                        {{
-                          $percentFormat(
-                            historical_result.annual_income_increase
                           )
-                        }}
-                        % per year</span
-                      >
+                        }}</span>
+                        <span
+                          v-if="irHistoricalResult.annual_income_increase"
+                          class="target-bar-span"
+                          >Increasing by
+                          {{
+                            $percentFormat(
+                              irHistoricalResult.annual_income_increase
+                            )
+                          }}
+                          % per year</span
+                        >
+                      </span>
                     </div>
                   </div>
                   <div class="scalling-div">
                     <span
-                      v-for="(item, index) in result ? result.year_count : 0"
+                      v-for="(item, index) in irResult
+                        ? irResult.year_count
+                        : 0"
                       :key="index"
                       >{{ item }}</span
                     >
@@ -423,7 +492,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import AnnualIncomeCardDetailsComponent from "./AnnualIncomeCardDetailsComponent.vue";
 import AnnualIncomeRiderSuccessProbabilityChart from "./AnnualIncomeRiderSuccessProbabilityChart.vue";
 
@@ -432,28 +501,23 @@ export default {
     AnnualIncomeCardDetailsComponent,
     AnnualIncomeRiderSuccessProbabilityChart,
   },
-  data() {
-    return {
-      showResult: 1,
-      targetAnalysis: "amount",
-    };
-  },
   methods: {
     showNextHandler() {
-      this.showResult = this.showResult + 1;
+      this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
+    },
+    getBarWidth(longevity) {
+      return ((longevity / this.irResult.year_count) * 100).toFixed(2) + "%";
     },
   },
   computed: {
     ...mapState({
-      ir_result: (state) => state.incomeRider.data.result,
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
+      targetAnalysis: (state) => state.incomeRider.data.target_analysis_type,
+      showResult: (state) => state.incomeRider.data.view_result,
     }),
-    result() {
-      return this.ir_result.income_rider_guaranteed_fixed_return ?? [];
-    },
-    historical_result() {
-      return this.ir_result.income_rider_guaranteed_index_allocation ?? [];
-    },
+    ...mapGetters({
+      irResult: "incomeRider/irResult",
+      irHistoricalResult: "incomeRider/irHistoricalResult",
+    }),
   },
 };
 </script>

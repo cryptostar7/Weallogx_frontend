@@ -37,24 +37,27 @@
             aria-orientation="vertical"
           >
             <div
-              class="active"
+              :class="resultType == 'guaranteed' ? 'active' : ''"
+              @click="
+                $store.dispatch('incomeRider/updateResultType', 'guaranteed')
+              "
               id="v-pills-annualFees1-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-annualFees1"
               type="button"
               role="tab"
-              aria-controls="v-pills-annualFees1"
               aria-selected="true"
             >
               Guaranteed
             </div>
             <div
+              :class="resultType == 'potential' ? 'active' : ''"
+              @click="
+                $store.dispatch('incomeRider/updateResultType', 'potential')
+              "
               id="v-pills-comulativeFees1-tab"
               data-bs-toggle="pill"
-              data-bs-target="#v-pills-comulativeFees1"
               type="button"
               role="tab"
-              aria-controls="v-pills-comulativeFees1"
               aria-selected="false"
             >
               Potential
@@ -63,7 +66,6 @@
         </div>
         <div class="tab-content" id="pills-tabContent">
           <annual-income-guaranteed-component />
-          <annual-income-potential-component />
         </div>
       </div>
       <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
@@ -98,17 +100,15 @@
 <script>
 import { mapState } from "vuex";
 import AnnualIncomeGuaranteedComponent from "./AnnualIncomeGuaranteedComponent.vue";
-import AnnualIncomePotentialComponent from "./AnnualIncomePotentialComponent.vue";
 
 export default {
   components: {
     AnnualIncomeGuaranteedComponent,
-    AnnualIncomePotentialComponent,
   },
   computed: {
     ...mapState({
-      result: (state) => state.incomeRider.data.result,
       inputs: (state) => state.incomeRider.data.result.inputs || [],
+      resultType: (state) => state.incomeRider.data.result_type,
     }),
   },
 };

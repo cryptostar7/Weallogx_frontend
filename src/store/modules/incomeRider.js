@@ -31,9 +31,13 @@ const state = () => {
   return {
     data: {
       inputs: localStorage.getItem('income_rider_inputs') ? JSON.parse(localStorage.getItem('income_rider_inputs')) : defaultFields,
-      error: {},
       result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : null,
       ir_simulation_result: localStorage.getItem('ir_simulation_result') ? JSON.parse(localStorage.getItem('ir_simulation_result')) : null,
+      error: {},
+      annual_schedule_result_modal: { title: '', data: [] },
+      view_result: 1,
+      target_analysis_type: 'amount',
+      result_type: 'guaranteed',
     }
   };
 };
@@ -60,6 +64,24 @@ const getters = {
       ? true
       : false;
   },
+  irResult(state) {
+    let result = state.data.result;
+
+    if (state.data.result_type == 'guaranteed') {
+      return result.income_rider_guaranteed_fixed_return;
+    }
+
+    return result.income_rider_non_guaranteed_fixed_return;
+  },
+  irHistoricalResult(state) {
+    let result = state.data.result;
+
+    if (state.data.result_type == 'guaranteed') {
+      return result.income_rider_guaranteed_index_allocation;
+    }
+
+    return result.income_rider_non_guaranteed_index_allocation;
+  }
 };
 
 const mutations = {
@@ -80,6 +102,18 @@ const mutations = {
   },
   setFormInputs(state, payload) {
     state.data.inputs = payload;
+  },
+  setViewResult(state, payload) {
+    state.data.view_result = payload;
+  },
+  setTargetAnalysisType(state, payload) {
+    state.data.target_analysis_type = payload;
+  },
+  setResultType(state, payload) {
+    state.data.result_type = payload;
+  },
+  setAnnualScheduleResultModal(state, payload) {
+    state.data.annual_schedule_result_modal = payload;
   },
 };
 
@@ -124,6 +158,19 @@ const actions = {
     let inputs = { ...payload }
     localStorage.setItem("income_rider_inputs", JSON.stringify(inputs))
     context.commit("setFormInputs", inputs);
+  },
+  updateViewResult(context, payload) {
+    context.commit("setViewResult", payload);
+  },
+  updateTargetAnalysisType(context, payload) {
+    context.commit("setTargetAnalysisType", payload);
+  },
+  updateResultType(context, payload) {
+    context.commit("setResultType", payload);
+  },
+  updateAnnualScheduleResultModal(context, payload) {
+    console.log('..........', payload);
+    context.commit("setAnnualScheduleResultModal", payload);
   },
 };
 

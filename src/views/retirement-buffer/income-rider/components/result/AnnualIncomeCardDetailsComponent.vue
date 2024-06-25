@@ -18,24 +18,24 @@
                                 <span>Total Distributions</span>
                                 <span> {{
                                     $numFormatWithDollar(
-                                    $arraySum(result.annual_income_rider_distribution)
+                                    $arraySum(irResult.annual_income_rider_distribution)
                                     )
                                     }}</span>
                             </p>
                             <p
                                 class="cardRadioSwtchpara1 d-flex justify-content-between">
                                 <span>Longevity</span>
-                                <span>{{result.income_rider_longevity}}
+                                <span>{{irResult.income_rider_longevity}}
                                     Years</span>
                             </p>
                             <p
-                                :class="`cardRadioSwtchpara1 d-flex justify-content-between m-0 ${result.shortfall_surplus_years > 0 ? 'text-success' : 'text-danger'}`">
-                                <span>{{result.shortfall_surplus_years > 0 ?
+                                :class="`cardRadioSwtchpara1 d-flex justify-content-between m-0 ${irResult.shortfall_surplus_years > 0 ? 'text-success' : 'text-danger'}`">
+                                <span>{{irResult.shortfall_surplus_years > 0 ?
                                     'Surplus' : 'Shortfall'}}</span>
                                 <span
-                                    v-if="result.shortfall_surplus_years">{{result.shortfall_surplus_years}}
+                                    v-if="irResult.shortfall_surplus_years">{{irResult.shortfall_surplus_years}}
                                     -
-                                    {{$numFormatWithDollar(result.shortfall_surplus_value)}}</span>
+                                    {{$numFormatWithDollar(irResult.shortfall_surplus_value)}}</span>
                                 <span v-else>None</span>
                             </p>
                         </div>
@@ -58,23 +58,23 @@
                                 <span>Total Distributions</span>
                                 <span>{{
                                     $numFormatWithDollar(
-                                    $arraySum(result.annual_cv_distribution)
+                                    $arraySum(irResult.annual_cv_distribution)
                                     )
                                     }}</span>
                             </p>
                             <p
                                 class="cardRadioSwtchpara2 d-flex justify-content-between">
                                 <span>Longevity</span>
-                                <span>{{result.cv_longevity}} Years</span>
+                                <span>{{irResult.cv_longevity}} Years</span>
                             </p>
                             <p
-                                :class="`cardRadioSwtchpara2 d-flex justify-content-between m-0 ${result.shortfall_surplus_value > 0 ? 'text-success' : 'text-danger'}`">
-                                <span>{{result.shortfall_surplus_value > 0 ?
+                                :class="`cardRadioSwtchpara2 d-flex justify-content-between m-0 ${irResult.shortfall_surplus_value > 0 ? 'text-success' : 'text-danger'}`">
+                                <span>{{irResult.shortfall_surplus_value > 0 ?
                                     'Surplus' : 'Shortfall'}}</span>
                                 <span class
-                                    v-if="result.shortfall_surplus_value">{{result.shortfall_surplus_years}}
+                                    v-if="irResult.shortfall_surplus_value">{{irResult.shortfall_surplus_years}}
                                     -
-                                    {{$numFormatWithDollar(result.shortfall_surplus_value)}}</span>
+                                    {{$numFormatWithDollar(irResult.shortfall_surplus_value)}}</span>
                                 <span v-else>None</span>
                             </p>
 
@@ -98,26 +98,26 @@
                                 <span>Total Distributions</span>
                                 <span>{{
                                     $numFormatWithDollar(
-                                    $arraySum(historical_result.annual_cv_distribution)
+                                    $arraySum(irHistoricalResult.annual_cv_distribution)
                                     )
                                     }}</span>
                             </p>
                             <p
                                 class="cardRadioSwtchpara3 d-flex justify-content-between">
                                 <span>Longevity</span>
-                                <span>{{historical_result.cv_longevity}}
+                                <span>{{irHistoricalResult.cv_longevity}}
                                     Years</span>
                             </p>
 
                             <p
-                                :class="`cardRadioSwtchpara3 d-flex justify-content-between m-0 ${historical_result.shortfall_surplus_value > 0 ? 'text-success' : 'text-danger'}`">
-                                <span>{{historical_result.shortfall_surplus_value
+                                :class="`cardRadioSwtchpara3 d-flex justify-content-between m-0 ${irHistoricalResult.shortfall_surplus_value > 0 ? 'text-success' : 'text-danger'}`">
+                                <span>{{irHistoricalResult.shortfall_surplus_value
                                     > 0 ?
                                     'Surplus' : 'Shortfall'}}</span>
                                 <span class
-                                    v-if="historical_result.shortfall_surplus_value">{{historical_result.shortfall_surplus_years}}
+                                    v-if="irHistoricalResult.shortfall_surplus_value">{{irHistoricalResult.shortfall_surplus_years}}
                                     -
-                                    {{$numFormatWithDollar(historical_result.shortfall_surplus_value)}}</span>
+                                    {{$numFormatWithDollar(irHistoricalResult.shortfall_surplus_value)}}</span>
                                 <span v-else>None</span>
                             </p>
 
@@ -129,21 +129,17 @@
     </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
     
 export default {
-    props: ['showResult'],
     computed: {
     ...mapState({
-      ir_result: (state) => state.incomeRider.data.result,
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
+      showResult: (state) => state.incomeRider.data.view_result,
     }),
-    result() {
-      return this.ir_result.income_rider_guaranteed_fixed_return ?? [];
-    },
-    historical_result() {
-      return this.ir_result.income_rider_guaranteed_index_allocation ?? [];
-    },
+    ...mapGetters({
+      irResult: "incomeRider/irResult",
+      irHistoricalResult: "incomeRider/irHistoricalResult",
+    }),
   },
 }
 </script>
