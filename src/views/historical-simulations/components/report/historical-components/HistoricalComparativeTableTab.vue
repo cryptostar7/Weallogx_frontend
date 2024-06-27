@@ -585,7 +585,7 @@
                                             1 + header.id + header.id
                                           } m-0 mb-1`"
                                         >
-                                          Strategy Avg
+                                          Index Avg
                                         </p>
                                         <p class="lifeProPlusPara2 m-0 mb-1">
                                           {{
@@ -603,7 +603,7 @@
                                             1 + header.id + header.id
                                           } m-0 mb-1`"
                                         >
-                                          Strategy CARG
+                                          Index CAGR
                                         </p>
                                         <p class="lifeProPlusPara2 m-0 mb-1">
                                           {{
