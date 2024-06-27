@@ -427,11 +427,10 @@
                       </span>
                     </div>
                   </div>
-                  <div class="scalling-div">
+                  <div class="scalling-div all-number-div w-100">
                     <span
-                      v-for="(item, index) in irResult
-                        ? irResult.year_count
-                        : 0"
+                      class="all-number-div-span"
+                      v-for="(item, index) in yearsLable" :style="`left: ${(item / maxYearCount) * 100}%`"
                       :key="index"
                       >{{ item }}</span
                     >
@@ -518,6 +517,18 @@ export default {
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
     }),
+    maxYearCount() {
+      return this.irResult ? this.irResult.year_count : 0;
+    },
+    yearsLable() {
+      let stepSize = Math.ceil(this.maxYearCount / 35);
+      let lables = [];
+      for (let i = 0; i <= this.maxYearCount; i += stepSize) {
+        lables.push(i);
+      }
+
+      return lables;
+    },
   },
 };
 </script>

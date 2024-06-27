@@ -1,7 +1,3 @@
-import { post } from '@/network/requests';
-import { getUrl } from '@/network/url';
-import { authHeader } from '@/services/helper';
-
 const defaultFields = {
   total_balance: "",
   account_type: { label: "Taxable", value: "taxable" },
@@ -85,10 +81,6 @@ const getters = {
 };
 
 const mutations = {
-  setPayloadData(state, payload) {
-    localStorage.setItem('income_rider_inputs', JSON.stringify(payload))
-    state.data.inputs = payload;
-  },
   setResultData(state, payload) {
     localStorage.setItem('income_rider_result', JSON.stringify(payload))
     state.data.result = payload;
@@ -118,38 +110,6 @@ const mutations = {
 };
 
 const actions = {
-  submit(context, data) {
-    console.log(data);
-    // build the request payload
-    var payload = { ...data };
-    payload.account_type = data.account_type.value;
-    payload.tax_rate = data.tax_rate ? data.tax_rate / 100 : 0;
-    payload.growth_rate = data.growth_rate / 100;
-    payload.fee = data.fee ? data.fee / 100 : 0;
-    payload.index_allocation = data.index_allocation.value;
-    payload.guaranteed_income_increase = data.guaranteed_income_increase ? data.guaranteed_income_increase / 100 : null;
-    payload.non_guaranteed_income_increase = data.non_guaranteed_income_increase ? Number((data.non_guaranteed_income_increase / 100).toFixed(2)) : null;
-
-    context.commit("setPayloadData", data);
-
-    post(getUrl('incomeRiderSimulation'), payload, authHeader())
-      .then((response) => {
-        console.log(response);
-        context.commit('setSimulationResultData', response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    return post(getUrl('incomeRider'), payload, authHeader())
-      .then((response) => {
-        console.log(response);
-        context.commit('setResultData', response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  },
   reset(context) {
     localStorage.removeItem('income_rider_inputs');
     context.commit("resetFormInputs");
@@ -158,6 +118,12 @@ const actions = {
     let inputs = { ...payload }
     localStorage.setItem("income_rider_inputs", JSON.stringify(inputs))
     context.commit("setFormInputs", inputs);
+  },
+  updateSimulationResultData(context, payload){
+    context.commit("setSimulationResultData", payload);
+  },
+  updateResultData(context, payload){
+    context.commit("setResultData", payload);
   },
   updateViewResult(context, payload) {
     context.commit("setViewResult", payload);
@@ -169,7 +135,6 @@ const actions = {
     context.commit("setResultType", payload);
   },
   updateAnnualScheduleResultModal(context, payload) {
-    console.log('..........', payload);
     context.commit("setAnnualScheduleResultModal", payload);
   },
 };

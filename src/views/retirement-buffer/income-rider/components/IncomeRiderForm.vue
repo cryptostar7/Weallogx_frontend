@@ -7,9 +7,7 @@
     <div class="accumulation_strategy_inner_box">
       <div class="row">
         <div class="col-6 col-border-right pe-4">
-          <p class="form_section_para">
-            Comparative Vehicle
-          </p>
+          <p class="form_section_para">Comparative Vehicle</p>
           <div class="row">
             <div class="col-6 mb-3">
               <div class="form_section_label_div">
@@ -613,6 +611,9 @@ import { mapState, mapGetters } from "vuex";
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
 import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
+import { post } from "../../../../network/requests";
+import { getUrl } from "../../../../network/url";
+import { authHeader } from "../../../../services/helper";
 
 export default {
   name: "IncomeRiderForm",
@@ -701,12 +702,62 @@ export default {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
     },
+    handleResponseError(error) {
+      if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
+        this.$toast.error(error.message);
+      } else if (error.code === "ERR_BAD_REQUEST") {
+        if (error.response.data.error) {
+          this.$toast.error(error.response.data.error[0]);
+        } else {
+          let field = Object.entries(error.response.data)[0][0];
+          let message = Object.entries(error.response.data)[0][1][0];
+          this.$toast.error(
+            field.replaceAll("_", " ").toUpperCase() + " : " + message
+          );
+        }
+      } else {
+        this.$toast.error(error.message);
+      }
+    },
     submit() {
       this.$store.dispatch("loader", true);
-      this.$store.dispatch("incomeRider/submit", this.inputs).finally(() => {
-        this.$router.push("/retirement-buffer/income-rider/result");
-        this.$store.dispatch("loader", false);
-      });
+      var payload = { ...this.inputs };
+      payload.account_type = this.inputs.account_type.value;
+      payload.tax_rate = this.inputs.tax_rate ? this.inputs.tax_rate / 100 : 0;
+      payload.growth_rate = this.inputs.growth_rate / 100;
+      payload.fee = this.inputs.fee ? this.inputs.fee / 100 : 0;
+      payload.index_allocation = this.inputs.index_allocation.value;
+      payload.guaranteed_income_increase = this.inputs
+        .guaranteed_income_increase
+        ? this.inputs.guaranteed_income_increase / 100
+        : null;
+      payload.non_guaranteed_income_increase = this.inputs
+        .non_guaranteed_income_increase
+        ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
+        : null;
+
+      post(getUrl("incomeRider"), payload, authHeader())
+        .then((response) => {
+          this.$store.dispatch("incomeRider/updateResultData", response.data);
+          post(getUrl("incomeRiderSimulation"), payload, authHeader())
+            .then((response) => {
+              console.log(response);
+              this.$store.dispatch(
+                "incomeRider/updateSimulationResultData",
+                response.data
+              );
+              this.$router.push("/retirement-buffer/income-rider/result");
+              this.$store.dispatch("loader", false);
+            })
+            .catch((error) => {
+              this.$store.dispatch("loader", false);
+              this.handleResponseError(error);
+            });
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          this.handleResponseError(error);
+        });
     },
   },
 };

@@ -2111,3 +2111,20 @@ background: #DFDFDF;
     height: calc(100vh - 260px);
     overflow-y: auto;
 }
+
+.bottom-numbers {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.all-number-div {
+    position: relative;
+    height: 28px;
+}
+
+.all-number-div-span {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
