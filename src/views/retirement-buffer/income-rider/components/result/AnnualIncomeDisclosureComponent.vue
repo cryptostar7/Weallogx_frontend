@@ -1,4 +1,4 @@
-<template lang="">
+<template lang>
   <div class="bottom-disclosure pt-0 px-3" id="disclosure1" data-dc="1">
     <div class="disclosure-textarea" contenteditable="true">
       <b>Disclosure:</b> This tool is designed to provide insight and
@@ -18,14 +18,37 @@
       asserted that undertaking any strategy, including the one contemplated
       here, is superior to a another strategy. Claims paying ability of an
       insurance company are backed by its financial ratings and fiscal health.
-      Historical market returns use the raw data of the S&P 500 [(60%)] and a
-      blended bond mix [(40%]) for the most recent [33] years. This does not
-      constitute financial, legal, or tax advice to you. Past performance is
-      never guarantee or indicative of future results.
+      Historical market returns use the raw data of the S&P 500 ({{
+        indexAllocations[inputs.index_allocation]
+          ? indexAllocations[inputs.index_allocation].sp
+          : 0
+      }}%) and a blended bond mix ({{
+        indexAllocations[inputs.index_allocation]
+          ? indexAllocations[inputs.index_allocation].bond
+          : 0
+      }}%) for the most recent
+      {{ inputs ? inputs.plan_through_age - inputs.current_age+1 : 0 }} years.
+      This does not constitute financial, legal, or tax advice to you. Past
+      performance is never guarantee or indicative of future results.
     </div>
   </div>
 </template>
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState({
+      inputs: (state) => state.incomeRider.data.result.inputs || [],
+    }),
+    indexAllocations() {
+      return {
+        equities_and_bonds_60_40: { sp: 60, bond: 40 },
+        equities_and_bonds_50_50: { sp: 50, bond: 50 },
+        equities_and_bonds_40_60: { sp: 40, bond: 60 },
+        s_and_p_500: { sp: 100, bond: 0 },
+      };
+    },
+  },
+};
 </script>
-<style lang=""></style>
+<style lang></style>
