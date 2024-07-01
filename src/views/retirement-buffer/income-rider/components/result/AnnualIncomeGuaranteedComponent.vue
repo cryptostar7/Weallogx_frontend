@@ -510,8 +510,8 @@ export default {
   },
   computed: {
     ...mapState({
-      targetAnalysis: (state) => state.incomeRider.data.target_analysis_type,
-      showResult: (state) => state.incomeRider.data.view_result,
+      targetAnalysis: (state) => state.incomeRider.target_analysis_type,
+      showResult: (state) => state.incomeRider.view_result,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",

@@ -25,87 +25,63 @@ const defaultFields = {
 
 const state = () => {
   return {
-    data: {
-      inputs: localStorage.getItem('income_rider_inputs') ? JSON.parse(localStorage.getItem('income_rider_inputs')) : defaultFields,
-      result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : null,
-      ir_simulation_result: localStorage.getItem('ir_simulation_result') ? JSON.parse(localStorage.getItem('ir_simulation_result')) : null,
-      error: {},
-      annual_schedule_result_modal: { title: '', data: [] },
-      view_result: 1,
-      target_analysis_type: 'amount',
-      result_type: 'guaranteed',
-    }
+    inputs: localStorage.getItem('income_rider_inputs') ? JSON.parse(localStorage.getItem('income_rider_inputs')) : defaultFields,
+    result: localStorage.getItem('income_rider_result') ? JSON.parse(localStorage.getItem('income_rider_result')) : null,
+    ir_simulation_result: localStorage.getItem('ir_simulation_result') ? JSON.parse(localStorage.getItem('ir_simulation_result')) : null,
+    error: {},
+    annual_schedule_result_modal: { title: '', data: [] },
+    view_result: 1,
+    target_analysis_type: 'amount',
+    result_type: 'guaranteed',
   };
 };
 
 const getters = {
   illustrateYear(state) {
     let year_count = 0;
-    if (state.data.inputs.current_age && state.data.inputs.plan_through_age) {
-      year_count = state.data.inputs.plan_through_age - state.data.inputs.current_age + 1;
+    if (state.inputs.current_age && state.inputs.plan_through_age) {
+      year_count = state.inputs.plan_through_age - state.inputs.current_age + 1;
     }
     return year_count < 0 ? 0 : year_count;
   },
-  isValidForm(state) {
-    let inputs = state.data.inputs;
-    return inputs.comparative_vehicle_account_name &&
-      inputs.account_type &&
-      inputs.current_age &&
-      inputs.plan_through_age &&
-      inputs.growth_rate &&
-      inputs.total_balance &&
-      inputs.income_rider_account_name &&
-      inputs.income_start_year &&
-      inputs.guaranteed_income_first_year
-      ? true
-      : false;
-  },
   irResult(state) {
-    let result = state.data.result;
-
-    if (state.data.result_type == 'guaranteed') {
-      return result.income_rider_guaranteed_fixed_return;
-    }
-
-    return result.income_rider_non_guaranteed_fixed_return;
+    return state.result_type === 'guaranteed'
+      ? state.result.income_rider_guaranteed_fixed_return
+      : state.result.income_rider_non_guaranteed_fixed_return;
   },
   irHistoricalResult(state) {
-    let result = state.data.result;
-
-    if (state.data.result_type == 'guaranteed') {
-      return result.income_rider_guaranteed_index_allocation;
-    }
-
-    return result.income_rider_non_guaranteed_index_allocation;
+    return state.result_type === 'guaranteed'
+      ? state.result.income_rider_guaranteed_index_allocation
+      : state.result.income_rider_non_guaranteed_index_allocation;
   }
 };
 
 const mutations = {
   setResultData(state, payload) {
     localStorage.setItem('income_rider_result', JSON.stringify(payload))
-    state.data.result = payload;
+    state.result = payload;
   },
   setSimulationResultData(state, payload) {
     localStorage.setItem('ir_simulation_result', JSON.stringify(payload))
-    state.data.ir_simulation_result = payload;
+    state.ir_simulation_result = payload;
   },
   resetFormInputs(state) {
-    state.data.inputs = defaultFields;
+    state.inputs = defaultFields;
   },
   setFormInputs(state, payload) {
-    state.data.inputs = payload;
+    state.inputs = payload;
   },
   setViewResult(state, payload) {
-    state.data.view_result = payload;
+    state.view_result = payload;
   },
   setTargetAnalysisType(state, payload) {
-    state.data.target_analysis_type = payload;
+    state.target_analysis_type = payload;
   },
   setResultType(state, payload) {
-    state.data.result_type = payload;
+    state.result_type = payload;
   },
   setAnnualScheduleResultModal(state, payload) {
-    state.data.annual_schedule_result_modal = payload;
+    state.annual_schedule_result_modal = payload;
   },
 };
 
@@ -119,10 +95,10 @@ const actions = {
     localStorage.setItem("income_rider_inputs", JSON.stringify(inputs))
     context.commit("setFormInputs", inputs);
   },
-  updateSimulationResultData(context, payload){
+  updateSimulationResultData(context, payload) {
     context.commit("setSimulationResultData", payload);
   },
-  updateResultData(context, payload){
+  updateResultData(context, payload) {
     context.commit("setResultData", payload);
   },
   updateViewResult(context, payload) {

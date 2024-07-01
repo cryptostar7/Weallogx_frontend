@@ -164,8 +164,8 @@ export default {
   computed: {
     ...mapState({
       ir_simulation_result: (state) =>
-        state.incomeRider.data.ir_simulation_result,
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
+        state.incomeRider.ir_simulation_result,
+      inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",

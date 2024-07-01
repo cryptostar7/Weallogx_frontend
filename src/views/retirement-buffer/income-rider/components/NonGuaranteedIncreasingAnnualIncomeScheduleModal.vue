@@ -135,7 +135,7 @@ import {
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtraction.vue";
 export default {
-  component: 'GuaranteedIncreasingAnnualIncomeScheduleModal',
+  component: 'NonGuaranteedIncreasingAnnualIncomeScheduleModal',
   props: ['illustrateYear', 'showFormModal'],
   components: { DollarAmountInput, ScheduleCsvExtraction },
   data() {
@@ -188,7 +188,7 @@ export default {
   },
   computed: {
     ...mapState({
-      inputs: (state) => state.incomeRider.data.inputs,
+      inputs: (state) => state.incomeRider.inputs,
     }),
   }
 }

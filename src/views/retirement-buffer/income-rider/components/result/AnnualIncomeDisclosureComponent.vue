@@ -38,7 +38,7 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
+      inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     indexAllocations() {
       return {

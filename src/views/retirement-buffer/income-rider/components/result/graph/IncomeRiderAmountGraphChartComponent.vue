@@ -171,7 +171,7 @@ export default {
   },
   computed: {
     ...mapState({
-      showResult: (state) => state.incomeRider.data.view_result,
+      showResult: (state) => state.incomeRider.view_result,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",

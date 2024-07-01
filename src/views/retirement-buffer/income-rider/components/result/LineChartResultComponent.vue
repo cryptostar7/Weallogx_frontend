@@ -84,8 +84,8 @@ export default {
   },
   computed: {
     ...mapState({
-      inputs: (state) => state.incomeRider.data.result.inputs || [],
-      resultType: (state) => state.incomeRider.data.result_type,
+      inputs: (state) => state.incomeRider.result.inputs || [],
+      resultType: (state) => state.incomeRider.result_type,
     }),
   },
 };

@@ -111,8 +111,8 @@
                   id="taxRateInput"
                   class="percent_inp"
                   :default="inputs.tax_rate"
-                  @amountUpdated="(e) => updateInput('tax_rate', e)"
                   max="100"
+                  @amountUpdated="(e) => updateInput('tax_rate', e)"
                 />
                 <span class="percent">%</span>
               </div>
@@ -622,6 +622,7 @@ export default {
     DollarAmountInput,
     NumberAmountInput,
   },
+  emits: ["valid"],
   data() {
     return {
       accountTypeOpts: [
@@ -641,7 +642,7 @@ export default {
       illustrateYear: "incomeRider/illustrateYear",
     }),
     ...mapState({
-      inputs: (state) => state.incomeRider.data.inputs,
+      inputs: (state) => state.incomeRider.inputs,
     }),
   },
   mounted() {
@@ -698,9 +699,26 @@ export default {
     });
   },
   methods: {
+    setIsValidForm() {
+      let valid =
+        this.inputs.comparative_vehicle_account_name &&
+        this.inputs.account_type &&
+        this.inputs.current_age &&
+        this.inputs.plan_through_age &&
+        this.inputs.growth_rate &&
+        this.inputs.total_balance &&
+        this.inputs.income_rider_account_name &&
+        this.inputs.income_start_year &&
+        this.inputs.guaranteed_income_first_year
+          ? true
+          : false;
+
+      this.$emit("valid", valid);
+    },
     updateInput(field, value) {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
+      this.setIsValidForm();
     },
     handleResponseError(error) {
       if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
@@ -739,14 +757,17 @@ export default {
       post(getUrl("incomeRider"), payload, authHeader())
         .then((response) => {
           this.$store.dispatch("incomeRider/updateResultData", response.data);
+
+          // Get income rider simulation data to display the success probabilty chart
           post(getUrl("incomeRiderSimulation"), payload, authHeader())
             .then((response) => {
-              console.log(response);
               this.$store.dispatch(
                 "incomeRider/updateSimulationResultData",
                 response.data
               );
-              this.$router.push("/retirement-buffer/income-rider/result");
+              this.$router.push({
+                name: "retirement-buffer-income-rider-result",
+              });
               this.$store.dispatch("loader", false);
             })
             .catch((error) => {

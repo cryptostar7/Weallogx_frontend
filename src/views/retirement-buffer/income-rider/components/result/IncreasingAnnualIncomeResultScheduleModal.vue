@@ -210,7 +210,7 @@
 export default {
     computed:{
         schedules(){
-           return this.$store.state.incomeRider.data.annual_schedule_result_modal
+           return this.$store.state.incomeRider.annual_schedule_result_modal
         }
     }
 }

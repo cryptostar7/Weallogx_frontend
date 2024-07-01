@@ -18,15 +18,12 @@
                   <div class="after_heading_div">
                     <div class="accumulation_strategy_div">
                       <div class="accumulation_strategy_box">
-                        <income-rider-form
-                        :illustrateYear="illustrateYear"
-                          ref="form"
-                        />
+                        <income-rider-form ref="form"
+                          @valid="(e) => isSubmitEnabled = e" />
                       </div>
                       <button
-                        :class="`run_btn ${isValidForm ? '' : 'disable'}`"
-                        @click="onSubmit"
-                      >
+                        :class="`run_btn ${isSubmitEnabled ? '' : 'disable'}`"
+                        @click="onSubmit">
                         Run
                       </button>
                       <button class="reset_btn" @click="resetForm">
@@ -42,9 +39,9 @@
       </div>
     </section>
     <guaranteed-increasing-annual-income-schedule-modal
-    :illustrateYear="illustrateYear" />
-  <non-guaranteed-increasing-annual-income-schedule-modal
-    :illustrateYear="illustrateYear" />
+      :illustrateYear="illustrateYear" />
+    <non-guaranteed-increasing-annual-income-schedule-modal
+      :illustrateYear="illustrateYear" />
   </div>
 </template>
 
@@ -65,14 +62,15 @@ export default {
     GuaranteedIncreasingAnnualIncomeScheduleModal,
     NonGuaranteedIncreasingAnnualIncomeScheduleModal
   },
-  data() {},
+  data() {
+    return {isSubmitEnabled: false}
+  },
   computed: {
     ...mapGetters({
       illustrateYear: "incomeRider/illustrateYear",
-      isValidForm: "incomeRider/isValidForm",
     }),
     ...mapState({
-      inputs: (state) => state.incomeRider.data.inputs,
+      inputs: (state) => state.incomeRider.inputs,
     }),
   },
   methods: {
