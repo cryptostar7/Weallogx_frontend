@@ -224,7 +224,7 @@
                                           <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_average).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
-                                          <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CARG</p>
+                                          <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CAGR</p>
                                           <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_carg).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
