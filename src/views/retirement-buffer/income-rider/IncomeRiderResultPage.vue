@@ -312,7 +312,9 @@ export default {
   },
   mounted() {
     if (!this.result) {
-      return this.$router.push("/retirement-buffer/income-rider");
+      return this.$router.push({
+        name: "retirement-buffer-income-rider-result",
+      });
     }
   },
   methods: {
