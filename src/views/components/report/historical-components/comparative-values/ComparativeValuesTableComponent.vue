@@ -1439,9 +1439,9 @@ export default {
               distribution: {
                 total: this.historical.min.pre_tax_min.total_distribution,
                 total_value:
-                  this.historical.most_recent.pre_tax_most_recent.total_value,
+                  this.historical.min.pre_tax_min.total_value,
                 shortfall:
-                  this.historical.most_recent.pre_tax_most_recent.shortfall,
+                  this.historical.min.pre_tax_min.shortfall,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
