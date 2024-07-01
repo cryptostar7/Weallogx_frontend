@@ -53,7 +53,6 @@ RUN npm run build
 EXPOSE 8081
 EXPOSE 4173
 #CMD [ "http-server", "dist" ]
-CMD npm run preview
 
 
 ### docker build -t vuejs-cookbook/dockerize-vuejs-app .
