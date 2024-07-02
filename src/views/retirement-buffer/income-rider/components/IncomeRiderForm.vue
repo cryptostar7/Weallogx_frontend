@@ -111,7 +111,7 @@
                   id="taxRateInput"
                   class="percent_inp"
                   :default="inputs.tax_rate"
-                  max="100"
+                  :max="100"
                   @amountUpdated="(e) => updateInput('tax_rate', e)"
                 />
                 <span class="percent">%</span>
@@ -135,7 +135,7 @@
                   id="currentAgeInput"
                   :default="inputs.current_age"
                   @amountUpdated="(e) => updateInput('current_age', e)"
-                  max="100"
+                  :max="100"
                 />
               </div>
             </div>
@@ -150,7 +150,7 @@
                   id="planThroughAgeInput"
                   :default="inputs.plan_through_age"
                   @amountUpdated="(e) => updateInput('plan_through_age', e)"
-                  max="100"
+                  :max="100"
                 />
               </div>
             </div>
@@ -166,7 +166,7 @@
                   class="percent_inp"
                   :default="inputs.growth_rate"
                   @amountUpdated="(e) => updateInput('growth_rate', e)"
-                  max="100"
+                  :max="100"
                 />
                 <span class="percent">%</span>
               </div>
@@ -184,7 +184,7 @@
                   class="percent_inp"
                   :default="inputs.fee"
                   @amountUpdated="(e) => updateInput('fee', e)"
-                  max="100"
+                  :max="100"
                 />
                 <span class="percent">%</span>
               </div>
@@ -435,7 +435,7 @@
                   @amountUpdated="
                     (e) => updateInput('guaranteed_income_increase', e)
                   "
-                  max="100"
+                  :max="100"
                   placeholder
                 />
                 <span class="percent">%</span>
@@ -590,7 +590,7 @@
                   @amountUpdated="
                     (e) => updateInput('non_guaranteed_income_increase', e)
                   "
-                  max="100"
+                  :max="100"
                   placeholder
                 />
                 <span class="percent">%</span>

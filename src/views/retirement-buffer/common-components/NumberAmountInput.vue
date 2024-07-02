@@ -1,10 +1,14 @@
 <template>
-  <input v-model.number="amount" :class="$props.class" type="number"/>
+  <input v-model.number="amount" :class="$props.class" type="number" />
 </template>
 
 <script>
 export default {
-  props: ["default", "max", "class"],
+  props: {
+    default: [String, Number],
+    max: Number,
+    class: String,
+  },
   emits: ["amountUpdated"],
   data() {
     return {
@@ -23,7 +27,7 @@ export default {
       this.amount = defaultAmount;
     },
     amount: function (e) {
-      if (this.$props.max && e > Number(this.$props.max) || e < 0) {
+      if ((this.$props.max && e > Number(this.$props.max)) || e < 0) {
         this.amount = this.previousAmount;
       } else {
         this.previousAmount = e;
