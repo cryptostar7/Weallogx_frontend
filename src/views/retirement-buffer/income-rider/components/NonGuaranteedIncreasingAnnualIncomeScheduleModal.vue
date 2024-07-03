@@ -148,7 +148,10 @@ export default {
     if (this.inputs.non_guaranteed_income_type === 'mannual' && this.inputs.non_guaranteed_income_manual) {
       this.inputs.non_guaranteed_income_manual.forEach((item, index) => {
         this.schedules[index] = item.toLocaleString('en-US');
-        document.getElementById(`non_gt_income_schedule_${index + 1}`).value = item.toLocaleString('en-US');
+        let inputElement = document.getElementById(`non_gt_income_schedule_${index+1}`);
+          if(inputElement){
+            inputElement.value= item.toLocaleString('en-US');
+          }
       });
     }
   },
@@ -164,7 +167,8 @@ export default {
 
       } else {
         let cagr = Number(Number(((this.inputs.non_guaranteed_income_last_year / this.inputs.non_guaranteed_income_first_year) ** (1 / (this.$props.illustrateYear - this.inputs.income_start_year)) - 1) * 100).toFixed(2));
-        let inputs = { ...this.inputs, ['non_guaranteed_income_increase']: cagr < 0 ? 0 : cagr };
+        let inputs = { ...this.inputs, ['non_guaranteed_income_increase']: cagr < 0 ? 0 : cagr, ['non_guaranteed_income_manual'] : null};
+
         this.$store.dispatch("incomeRider/updateInputs", inputs);
       }
     },

@@ -32,38 +32,6 @@
               transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)"
               fill="#26AB8B"></rect>
           </g>
-          <!-- <defs>
-            <filter
-              id="filter0_d_346_5079"
-              x="0.181641"
-              y="1.18164"
-              width="44.6367"
-              height="46.6367"
-              filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB">
-              <feflood flood-opacity="0" result="BackgroundImageFix"></feflood>
-              <fecolormatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"></fecolormatrix>
-              <feoffset dy="6"></feoffset>
-              <fegaussianblur stdDeviation="2"></fegaussianblur>
-              <fecomposite in2="hardAlpha" operator="out"></fecomposite>
-              <fecolormatrix
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"></fecolormatrix>
-              <feblend
-                mode="normal"
-                in2="BackgroundImageFix"
-                result="effect1_dropShadow_346_5079"></feblend>
-              <feblend
-                mode="normal"
-                in="SourceGraphic"
-                in2="effect1_dropShadow_346_5079"
-                result="shape"></feblend>
-            </filter>
-          </defs> -->
         </svg>
       </a>
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -272,7 +240,10 @@ import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtracti
       if(this.inputs.guaranteed_income_type === 'mannual' && this.inputs.guaranteed_income_manual){
         this.inputs.guaranteed_income_manual.forEach((item, index) => {
           this.schedules[index] = item.toLocaleString('en-US');
-          document.getElementById(`gt_income_schedule_${index+1}`).value= item.toLocaleString('en-US');
+          let inputElement = document.getElementById(`gt_income_schedule_${index+1}`);
+          if(inputElement){
+            inputElement.value= item.toLocaleString('en-US');
+          }
         });
       }
     }, 
@@ -282,14 +253,14 @@ import ScheduleCsvExtraction from "@/views/components/common/ScheduleCsvExtracti
         let array = [];
        for (let index = 0; index < this.$props.illustrateYear; index++) {
         array.push(getNumber(this.schedules[index]));
-      }
+       }
       let inputs =  { ...this.inputs, ['guaranteed_income_manual']: array };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
 
       }else{
         let cagr = Number(Number(((this.inputs.guaranteed_income_last_year/this.inputs.guaranteed_income_first_year)**(1/(this.$props.illustrateYear-this.inputs.income_start_year))-1)*100).toFixed(2));
-        let inputs = { ...this.inputs, ['guaranteed_income_increase']: cagr < 0 ? 0 : cagr};
-      this.$store.dispatch("incomeRider/updateInputs", inputs);
+        let inputs = { ...this.inputs, ['guaranteed_income_increase']: cagr < 0 ? 0 : cagr, ['guaranteed_income_manual'] : null};
+        this.$store.dispatch("incomeRider/updateInputs", inputs);
       }
     },
     

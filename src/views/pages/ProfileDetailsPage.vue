@@ -57,7 +57,7 @@
                       alt="Profile Details"
                     />
                     <div>
-                      <h6>Business Name :</h6>
+                      <h6>Company Name :</h6>
                       <p>{{ user.company_name }}</p>
                     </div>
                   </div>
