@@ -58,9 +58,9 @@
                     </div>
                     <div class="col-md-6">
                       <router-link
-                        to=""
+                        id="incomeRiderLink"
                         class="accumulation_each_card"
-                        id="accum_2"
+                        :to="{ name: 'retirement-buffer-income-rider' }"
                       >
                         <div>
                           <svg
@@ -155,7 +155,11 @@
     </div>
   </main>
 </template>
+
 <script>
-export default {};
+export default {
+  name: "RetirementBufferChooseCategoryMainSection"
+};
 </script>
-<style lang=""></style>
+
+<style></style>

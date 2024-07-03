@@ -752,9 +752,9 @@ table.index-strategy-table tbody td {
 table.index-strategy-table tbody td.highlighted {
     color: #dd3611;
 }
-tbody tr td:first-child {
+/* tbody tr td:first-child {
     border-left: 1px solid #dfdfdf !important;
-}
+} */
 tbody tr:last-child td:first-child {
     border-bottom-left-radius: 6px;
 }

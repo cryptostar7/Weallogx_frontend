@@ -39,7 +39,7 @@ export default {
     };
   },
   props: ["prefixId", "maxInputs"],
-  emits: ["clearError"],
+  emits: ["clearError", "dataUpdate"],
   methods: {
     // clear schedule inputs
     resetSchedule: function () {

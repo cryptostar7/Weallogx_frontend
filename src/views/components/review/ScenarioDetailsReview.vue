@@ -98,7 +98,7 @@
                             <button type="button" class="btn-close btnWhite-darkTheme" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body px-5">
-                            <p class="ModalHeasingPara">Schedule Tax Rate</p>
+                            <p class="ModalHeadingPara">Schedule Tax Rate</p>
                             <div class="modalTableDiv">
                                 <table class="table">
                                     <thead>

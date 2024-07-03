@@ -1455,7 +1455,7 @@ background: #1660A4;
   background-color: #004885;
 }
 .light-blue .preview-modal-close svg rect{
-  fill: #004885;
+  fill: #007de7;
 }
 .light-blue .chart-dropdown.green .tool-tip-second-main-div {
   border: 3px solid #1660A4;
@@ -1619,7 +1619,9 @@ background: #1660A4;
 .light-blue .navbar-brand.dark{
   display: none;
 }
-
+.light-blue .income-rider-modal-tabs div.active {
+  background-color: #1660a4;
+}
 /* Retirement Buffer CSS */
 .light-blue .market_buffer_account_tab div.active{
   background-color: #1660A4;
@@ -1641,6 +1643,25 @@ background: #1660A4;
 }
 .light-blue .table_graph_setting_tab div.active svg rect{
   stroke: white;
+}
+.light-blue .table_graph_setting_tab div svg.income-rider-tab-svg rect{
+  fill: #1660A4;
+  stroke: transparent;
+}
+.light-blue .table_graph_setting_tab div svg.income-rider-tab-svg path.svgstroke{
+  fill: transparent;
+  stroke: #1660A4;
+}
+.light-blue .table_graph_setting_tab div.active svg.income-rider-tab-svg rect{
+  fill: #fff;
+  stroke: transparent;
+}
+.light-blue .table_graph_setting_tab div.active svg.income-rider-tab-svg path.svgstroke{
+  fill: transparent;
+  stroke: #fff;
+}
+.light-blue .table_graph_setting_tab div svg.income-rider-tab-svg.income-svg-2 path{
+  fill: #fff;
 }
 .light-blue .split_left , .light-blue .split_right{
   border-color: #1660A4;
@@ -1743,6 +1764,10 @@ color: #1660A4;
   content: '';
   background-color: #1660A4;
 }
+.light-blue .form_section_label_div.disabled label::before{
+  content: '';
+  background-color: #dfdfdf;
+}
 .light-blue .run_btn{
   border-color: #1660A4;
   background-color: #1660A4;
@@ -1751,6 +1776,10 @@ color: #1660A4;
 .light-blue .run_btn:hover{
   background-color: transparent;
   color: #1660A4;
+}
+.light-blue .run_btn.disable {
+  background-color: #a1a1a1;
+  border-color: #a1a1a1;
 }
 .light-blue .form_section_label_div .label-right-div .label_checkbox input:checked ~ label{
   background-color: #1660A4;
@@ -1779,5 +1808,73 @@ color: #1660A4;
 }
 .light-blue .compareBottomDivs .compareBottomEachDiv p {
   background: #1660A4;
+}
+.light-blue .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
+  stroke: #dfdfdf;
+}
+.light-blue .form_section_label_div.disabled .label-right-div .label_checkbox input:checked ~ label{
+background-color: #a1a1a1;
+}
+.light-blue .incomeCard1 {
+  border-top: 6px solid #1660A4;
+}
+.light-blue .incomeCard2 {
+  border-top: 6px solid var(--green-clr);
+}
+.light-blue .incomeCard3 {
+  border-top: 6px solid #4A8ECD;
+}
+
+
+
+.light-blue .each-target-analysis-bar .heading.clr1::before {
+  background: #1660A4;
+}
+.light-blue .each-target-analysis-bar .heading.clr2::before {
+  background: #25967b;
+}
+ .light-blue .target-analysis-each-bars.barClr1{
+  background: #1660A4;
+}
+.light-blue .target-analysis-each-bars.barClr2{
+  background: #0E6651;
+}
+
+
+
+
+.light-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr1{
+  background: #1660a4;
+}
+.light-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr2{
+  background: #207ACD;
+}
+.light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1, .light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2{
+  background-color: #609BD2;
+}
+
+.light-blue .target-analysis-bar-main-div .bar-long-para span{
+  color: #53a9f1;
+  }
+.light-blue .pie.target-analysis-progress-pie svg text {
+  fill: #0E6651;
+}
+.light-blue .pie.target-analysis-progress-pie .pie-long-para span{
+color: #0E6651;
+}
+.light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
+  stroke: #25967B;
+}
+.light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
+  stroke: #0E6651;
+}
+.light-blue .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar{
+  border-color: #1660A4;
+  background-color: #165fa420;
+}
+
+.light-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
+  border-color: #0e6651;
+  background-color: #0e665120;
 }
 /* Retirement Buffer CSS Ends */

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { authCheck, isPlanActive, isTscUser } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -237,6 +238,16 @@ const router = createRouter({
       component: () => import("../views/retirement-buffer/accumulation/RetirementBufferResultPage.vue"),
     },
     {
+      path: "/retirement-buffer/income-rider",
+      name: "retirement-buffer-income-rider",
+      component: () => import("@/views/retirement-buffer/income-rider/IncomeRider.vue"),
+    },
+    {
+      path: "/retirement-buffer/income-rider/result",
+      name: "retirement-buffer-income-rider-result",
+      component: () => import("@/views/retirement-buffer/income-rider/IncomeRiderResultPage.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
@@ -273,6 +284,8 @@ const authRoutes = [
   'retirement-buffer',
   'retirement-buffer-accumulation-params',
   'retirement-buffer-accumulation-result',
+  'retirement-buffer-income-rider',
+  'retirement-buffer-income-rider-result'
 ];
 
 // these routes are secure with active plans
