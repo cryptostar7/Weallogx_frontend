@@ -48,9 +48,7 @@
       </div>
     </div>
     <div class="col-md-6 position-relative border-before-col">
-      <p class="target-analysis-success-prob-para mb-2">
-        Success Probability
-      </p>
+      <p class="target-analysis-success-prob-para mb-2">Success Probability</p>
       <div
         :class="`ir${
           currentTab || ''
@@ -132,10 +130,12 @@ export default {
           this.ir_simulation_result.guaranteed.success_count;
         this.pieData.percent =
           this.ir_simulation_result.guaranteed.success_percentage;
-        window.circleProgress.animationTo({
-          index: 1,
-          percent: this.ir_simulation_result.guaranteed.success_percentage,
-        });
+        if (window.circleProgress) {
+          window.circleProgress.animationTo({
+            index: 1,
+            percent: this.ir_simulation_result.guaranteed.success_percentage,
+          });
+        }
       }
     },
     growthRateBarHeight() {
@@ -159,17 +159,16 @@ export default {
 
       let unit = value2 / value1;
       return unit * 100;
-    }
+    },
   },
   computed: {
     ...mapState({
-      ir_simulation_result: (state) =>
-        state.incomeRider.ir_simulation_result,
+      ir_simulation_result: (state) => state.incomeRider.ir_simulation_result,
       inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
-    })
+    }),
   },
   watch: {
     ir_simulation_result(e) {

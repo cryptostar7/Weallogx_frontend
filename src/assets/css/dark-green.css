@@ -213,12 +213,8 @@
 .dark-green .cur-ol-label::before {
   background-color: #666;
 }
-<<<<<<< HEAD
 .dark-green .cur-ol-label label{
   background-color: #292b2f;
-=======
-.dark-green .cur-ol-label label {
->>>>>>> e0f1b54407447e5965d5e1cfb2e79f26dd7a2ff0
   color: #f5f5f5;
 }
 .dark-green .after-yes-middle-div .form-wrapper-inner {
@@ -519,11 +515,7 @@
 
 .dark-green .custom-switch .form-check-input:checked,
 .dark-green .custom-switch .form-check-input:checked:focus {
-<<<<<<< HEAD
   background-color: #26AB8B !important;
-=======
-  background-color: #26ab8b;
->>>>>>> e0f1b54407447e5965d5e1cfb2e79f26dd7a2ff0
 }
 
 .dark-green .after-yes-middle-div {
@@ -1280,11 +1272,7 @@
   background: #208de8;
 }
 .dark-green .cumulativeProgAccount3 {
-<<<<<<< HEAD
   background: #8137BB;
-=======
-  background: #8137bb;
->>>>>>> e0f1b54407447e5965d5e1cfb2e79f26dd7a2ff0
 }
 .dark-green .BottomcumulativeAccount3 {
   background: #9453c8;
