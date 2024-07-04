@@ -9,7 +9,7 @@
           <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
           <div class="w-100">
             <p class="allCardHeadPara mb-2">
-              FIA - Income Rider
+              {{ inputs.income_rider_account_name }}
               <span hidden>Flat Rate of Return</span>
             </p>
             <p class="cardRadioSwtchpara1 d-flex justify-content-between">
@@ -25,21 +25,10 @@
               <span>{{ irResult.income_rider_longevity }} Years</span>
             </p>
             <p
-              :class="`cardRadioSwtchpara1 d-flex justify-content-between m-0 ${
-                irResult.shortfall_surplus_years > 0
-                  ? 'text-success'
-                  : 'text-danger'
-              }`"
+              class="cardRadioSwtchpara1 d-flex justify-content-between m-0 text-success"
             >
-              <span>{{
-                irResult.shortfall_surplus_years > 0 ? "Surplus" : "Shortfall"
-              }}</span>
-              <span v-if="irResult.shortfall_surplus_years"
-                >{{ irResult.shortfall_surplus_years }}
-                -
-                {{ $numFormatWithDollar(irResult.shortfall_surplus_value) }}</span
-              >
-              <span v-else>None</span>
+              <span>Shortfall</span>
+              <span>None</span>
             </p>
           </div>
         </div>
@@ -55,7 +44,7 @@
           <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
           <div class="w-100">
             <p class="allCardHeadPara mb-2">
-              Schwab Brokerage
+              {{ inputs.comparative_vehicle_account_name }}
               <span>Flat Rate of Return</span>
             </p>
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
@@ -66,24 +55,27 @@
             </p>
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
               <span>Longevity</span>
-              <span>{{ irResult.cv_longevity }} Years</span>
+              <span
+                >{{
+                  targetAnalysis != "longevity"
+                    ? irResult.cv_longevity
+                    : irResult.year_count
+                }}
+                Years</span
+              >
             </p>
             <p
-              :class="`cardRadioSwtchpara2 d-flex justify-content-between m-0 ${
-                irResult.shortfall_surplus_value > 0
-                  ? 'text-success'
-                  : 'text-danger'
-              }`"
+              :class="`cardRadioSwtchpara2 d-flex justify-content-between m-0`"
             >
-              <span>{{
-                irResult.shortfall_surplus_value > 0 ? "Surplus" : "Shortfall"
-              }}</span>
-              <span class="" v-if="irResult.shortfall_surplus_value"
-                >{{ irResult.shortfall_surplus_years }}
-                -
-                {{ $numFormatWithDollar(irResult.shortfall_surplus_value) }}</span
+              <span>Shortfall</span>
+              <span class="shortfall"
+                ><span v-if="targetAnalysis != 'longevity'"
+                  >{{ irResult.shortfall_surplus_years }} Years -
+                </span>
+                {{
+                  $numFormatWithDollar(irResult.shortfall_surplus_value)
+                }}</span
               >
-              <span v-else>None</span>
             </p>
           </div>
         </div>
@@ -99,7 +91,7 @@
           <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
           <div class="w-100">
             <p class="allCardHeadPara mb-2">
-              Schwab Brokerage
+              {{ inputs.comparative_vehicle_account_name }}
               <span>Historical Returns</span>
             </p>
             <p class="cardRadioSwtchpara3 d-flex justify-content-between">
@@ -112,7 +104,14 @@
             </p>
             <p class="cardRadioSwtchpara3 d-flex justify-content-between">
               <span>Longevity</span>
-              <span>{{ irHistoricalResult.cv_longevity }} Years</span>
+              <span
+                >{{
+                  targetAnalysis != "longevity"
+                    ? irHistoricalResult.cv_longevity
+                    : irResult.year_count
+                }}
+                Years</span
+              >
             </p>
 
             <p
@@ -122,21 +121,17 @@
                   : 'text-danger'
               }`"
             >
-              <span>{{
-                irHistoricalResult.shortfall_surplus_value > 0
-                  ? "Surplus"
-                  : "Shortfall"
-              }}</span>
-              <span class v-if="irHistoricalResult.shortfall_surplus_value"
-                >{{ irHistoricalResult.shortfall_surplus_years }}
-                -
+              <span>Shortfall</span>
+              <span class="shortfall">
+                <span class="shortfall" v-if="targetAnalysis != 'longevity'"
+                  >{{ irHistoricalResult.shortfall_surplus_years }} Years -
+                </span>
                 {{
                   $numFormatWithDollar(
                     irHistoricalResult.shortfall_surplus_value
                   )
                 }}</span
               >
-              <span v-else>None</span>
             </p>
           </div>
         </div>
@@ -150,12 +145,14 @@ import { mapState, mapGetters } from "vuex";
 export default {
   computed: {
     ...mapState({
+      inputs: (state) => state.incomeRider.result.inputs || [],
+      targetAnalysis: (state) => state.incomeRider.target_analysis_type,
       showResult: (state) => state.incomeRider.view_result,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
-    })
+    }),
   },
 };
 </script>

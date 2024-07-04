@@ -111,7 +111,7 @@
                   <!-- Amount individual tab start -->
                   <div class="each-target-analysis-bar">
                     <p class="heading clr1">
-                      FIA - Income Rider
+                      {{ inputs.income_rider_account_name }}
                       <span
                         v-if="irResult.annual_income_increase"
                         @click="
@@ -206,7 +206,8 @@
                   </div>
                   <div class="each-target-analysis-bar">
                     <p class="heading clr2">
-                      Schwab Brokerage Account - Flat Rate of Return
+                      {{ inputs.comparative_vehicle_account_name }}
+                      - Flat Rate of Return
                       <span
                         v-if="irResult.annual_income_increase"
                         @click="
@@ -315,7 +316,8 @@
                   </div>
                   <div class="each-target-analysis-bar">
                     <p class="heading clr3">
-                      Schwab Brokerage Account - Historical Market Returns
+                      {{ inputs.comparative_vehicle_account_name }} - Historical
+                      Market Returns
                       <span
                         v-if="irHistoricalResult.annual_income_increase"
                         @click="
@@ -430,7 +432,8 @@
                   <div class="scalling-div all-number-div w-100">
                     <span
                       class="all-number-div-span"
-                      v-for="(item, index) in yearsLable" :style="`left: ${(item / maxYearCount) * 100}%`"
+                      v-for="(item, index) in yearsLable"
+                      :style="`left: ${((item - 1) / maxYearCount) * 100}%`"
                       :key="index"
                       >{{ item }}</span
                     >
@@ -505,13 +508,16 @@ export default {
       this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
     },
     getBarWidth(longevity) {
-      return ((longevity / this.irResult.year_count) * 100).toFixed(2) + "%";
+      return this.targetAnalysis != "longevity"
+        ? (((longevity - 1) / this.irResult.year_count) * 100).toFixed(2) + "%"
+        : "100%";
     },
   },
   computed: {
     ...mapState({
       targetAnalysis: (state) => state.incomeRider.target_analysis_type,
       showResult: (state) => state.incomeRider.view_result,
+      inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
@@ -523,7 +529,7 @@ export default {
     yearsLable() {
       let stepSize = Math.ceil(this.maxYearCount / 35);
       let lables = [];
-      for (let i = 0; i <= this.maxYearCount; i += stepSize) {
+      for (let i = 1; i <= this.maxYearCount; i += stepSize) {
         lables.push(i);
       }
 
