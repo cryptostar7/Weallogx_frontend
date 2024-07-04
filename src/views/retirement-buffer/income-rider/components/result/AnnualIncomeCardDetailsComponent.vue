@@ -75,7 +75,7 @@
               </p>
               <p class="cardRadioSwtchpara2 d-flex justify-content-between m-0">
                 <span>Shortfall</span>
-                <span class="shortfall">
+                <span class="shortFall">
                   <span v-if="targetAnalysis != 'longevity'"
                     >{{ irResult.shortfall_surplus_years }} Years -</span
                   >
@@ -125,7 +125,7 @@
 
               <p class="cardRadioSwtchpara3 d-flex justify-content-between m-0">
                 <span>Shortfall</span>
-                <span class="shortfall">
+                <span class="shortFall">
                   <span v-if="targetAnalysis != 'longevity'"
                     >{{ irHistoricalResult.shortfall_surplus_years }} Years
                     -</span
