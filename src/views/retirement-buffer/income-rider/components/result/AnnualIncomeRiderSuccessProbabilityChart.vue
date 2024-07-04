@@ -41,7 +41,11 @@
             The required constant rate of return for the
             {{ inputs.comparative_vehicle_account_name }} to match the
             {{ inputs.income_rider_account_name }}’s income production is
-            <span>{{ success_required }}</span
+            <span>{{
+              $percentFormat(
+                irResult.optimization.optimal_growth_rate || 0
+              )
+            }}%</span
             >.
           </p>
         </div>
@@ -84,11 +88,11 @@ export default {
     };
   },
   mounted() {
-    if (this.ir_simulation_result && this.ir_simulation_result.guaranteed) {
+    if (this.irSimulationResult) {
       this.pieData.percent =
-        this.ir_simulation_result.guaranteed.success_percentage;
+        this.irSimulationResult.success_percentage;
       this.success_required =
-        this.ir_simulation_result.guaranteed.success_count;
+        this.irSimulationResult.success_count;
     }
 
     this.generatePieChart();
@@ -125,15 +129,15 @@ export default {
       }
     },
     updatePieChart: function () {
-      if (this.ir_simulation_result && this.ir_simulation_result.guaranteed) {
+      if (this.irSimulationResult) {
         this.success_required =
-          this.ir_simulation_result.guaranteed.success_count;
+          this.irSimulationResult.success_count;
         this.pieData.percent =
-          this.ir_simulation_result.guaranteed.success_percentage;
+          this.irSimulationResult.success_percentage;
         if (window.circleProgress) {
           window.circleProgress.animationTo({
             index: 1,
-            percent: this.ir_simulation_result.guaranteed.success_percentage,
+            percent: this.irSimulationResult.success_percentage,
           });
         }
       }
@@ -163,15 +167,15 @@ export default {
   },
   computed: {
     ...mapState({
-      ir_simulation_result: (state) => state.incomeRider.ir_simulation_result,
       inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
+      irSimulationResult: "incomeRider/irSimulationResult"
     }),
   },
   watch: {
-    ir_simulation_result(e) {
+    irSimulationResult(e) {
       this.updatePieChart();
     },
   },
