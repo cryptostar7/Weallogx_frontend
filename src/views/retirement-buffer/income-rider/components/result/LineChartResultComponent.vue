@@ -6,7 +6,7 @@
           >Annual Income</label
         >
         <label class="rghtTopHeadcommon">
-          <div class="annual-income-text-para ms-2 fs-12">
+          <div class="annual-income-text-para ms-2 fs-12 mt-1">
             How long can the
             {{ inputs.comparative_vehicle_account_name }} produce the same
             amount of income as the {{ inputs.income_rider_account_name }}’s
