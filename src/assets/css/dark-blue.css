@@ -5694,3 +5694,9 @@ background: #485161;
   background-color: #55575a;
 }
 /* Graph part end */
+
+/* Download file toast start */
+.dark-blue .download-toast {
+  border-color: #23669e;
+}
+/* Download file toast end */

@@ -1878,3 +1878,9 @@ color: #0E6651;
   background-color: #0e665120;
 }
 /* Retirement Buffer CSS Ends */
+
+/* Download file toast start */
+.light-blue .download-toast {
+  border-color: #004885;
+}
+/* Download file toast end */

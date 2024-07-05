@@ -186,22 +186,29 @@
                     </p>
                     <div
                       class="target-analysis-each-bars barClr1 text-white"
+                      ref="lineBarRef1"
+                      id="line_bar_1"
                       style="width: 100%"
                     >
-                      <span id="wider_bar_1">{{
-                        $numFormatWithDollar(
-                          irResult.annual_income_rider_distribution.filter(
-                            (item) => item > 0
-                          )[0]
-                        )
-                      }}</span>
-                      <span
-                        v-if="irResult.annual_income_increase"
-                        class="target-bar-span"
-                        >Increasing by
-                        {{ $percentFormat(irResult.annual_income_increase) }}
-                        % per year</span
+                      <label
+                        class="amount-label-wrapper"
+                        style="padding-left: 8px"
                       >
+                        <span id="wider_bar_1">{{
+                          $numFormatWithDollar(
+                            irResult.annual_income_rider_distribution.filter(
+                              (item) => item > 0
+                            )[0]
+                          )
+                        }}</span>
+                        <span
+                          v-if="irResult.annual_income_increase"
+                          class="target-bar-span"
+                          >Increasing by
+                          {{ $percentFormat(irResult.annual_income_increase) }}
+                          % per year</span
+                        >
+                      </label>
                     </div>
                   </div>
                   <div class="each-target-analysis-bar">
@@ -285,6 +292,8 @@
                     </p>
                     <div
                       class="target-analysis-each-bars barClr2 text-white"
+                      ref="lineBarRef2"
+                      id="line_bar_2"
                       :style="{
                         width:
                           showResult >= 2
@@ -292,26 +301,33 @@
                             : 0,
                       }"
                     >
-                      <span v-if="showResult >= 2">
-                        <span id="wider_bar_2">{{
-                          $numFormatWithDollar(
-                            targetAnalysis == "amount"
-                              ? irResult.annual_cv_distribution.filter(
-                                  (item) => item > 0
-                                )[0]
-                              : irResult.optimization.optimal_distribution.filter(
-                                  (item) => item > 0
-                                )[0]
-                          )
-                        }}</span>
-                        <span
-                          v-if="irResult.annual_income_increase"
-                          class="target-bar-span"
-                          >Increasing by
-                          {{ $percentFormat(irResult.annual_income_increase) }}
-                          % per year</span
-                        >
-                      </span>
+                      <label
+                        class="amount-label-wrapper"
+                        style="padding-left: 8px"
+                      >
+                        <span v-if="showResult >= 2">
+                          <span id="wider_bar_2">{{
+                            $numFormatWithDollar(
+                              targetAnalysis == "amount"
+                                ? irResult.annual_cv_distribution.filter(
+                                    (item) => item > 0
+                                  )[0]
+                                : irResult.optimization.optimal_distribution.filter(
+                                    (item) => item > 0
+                                  )[0]
+                            )
+                          }}</span>
+                          <span
+                            v-if="irResult.annual_income_increase"
+                            class="target-bar-span"
+                            >Increasing by
+                            {{
+                              $percentFormat(irResult.annual_income_increase)
+                            }}
+                            % per year</span
+                          >
+                        </span>
+                      </label>
                     </div>
                   </div>
                   <div class="each-target-analysis-bar">
@@ -396,6 +412,8 @@
                     </p>
                     <div
                       class="target-analysis-each-bars barClr3 text-white"
+                      ref="lineBarRef3"
+                      id="line_bar_3"
                       :style="{
                         width:
                           showResult > 2
@@ -403,30 +421,35 @@
                             : 0,
                       }"
                     >
-                      <span v-if="showResult > 2">
-                        <span id="wider_bar_3">{{
-                          $numFormatWithDollar(
-                            targetAnalysis == "amount"
-                              ? irHistoricalResult.annual_cv_distribution.filter(
-                                  (item) => item > 0
-                                )[0]
-                              : irHistoricalResult.optimization.optimal_distribution.filter(
-                                  (item) => item > 0
-                                )[0]
-                          )
-                        }}</span>
-                        <span
-                          v-if="irHistoricalResult.annual_income_increase"
-                          class="target-bar-span"
-                          >Increasing by
-                          {{
-                            $percentFormat(
-                              irHistoricalResult.annual_income_increase
+                      <label
+                        class="amount-label-wrapper"
+                        style="padding-left: 8px"
+                      >
+                        <span v-if="showResult > 2">
+                          <span id="wider_bar_3">{{
+                            $numFormatWithDollar(
+                              targetAnalysis == "amount"
+                                ? irHistoricalResult.annual_cv_distribution.filter(
+                                    (item) => item > 0
+                                  )[0]
+                                : irHistoricalResult.optimization.optimal_distribution.filter(
+                                    (item) => item > 0
+                                  )[0]
                             )
-                          }}
-                          % per year</span
-                        >
-                      </span>
+                          }}</span>
+                          <span
+                            v-if="irHistoricalResult.annual_income_increase"
+                            class="target-bar-span"
+                            >Increasing by
+                            {{
+                              $percentFormat(
+                                irHistoricalResult.annual_income_increase
+                              )
+                            }}
+                            % per year</span
+                          >
+                        </span>
+                      </label>
                     </div>
                   </div>
                   <div class="scalling-div all-number-div w-100">
@@ -504,6 +527,26 @@ export default {
     AnnualIncomeRiderSuccessProbabilityChart,
   },
   methods: {
+    adjustLabelPadding() {
+      for (let i = 1; i <= 3; i++) {
+        let lineBarRef = this.$refs[`lineBarRef${i}`];
+
+        setTimeout(() => {
+          let textLabel = lineBarRef.querySelector(".amount-label-wrapper");
+          if (textLabel) {
+            if (lineBarRef.offsetWidth <= textLabel.offsetWidth) {
+              textLabel.style.paddingLeft = `${lineBarRef.offsetWidth + 6}px`;
+              textLabel.style.color = `#000`;
+            }
+            else{
+              textLabel.style.paddingLeft = `${8}px`;
+              textLabel.style.color = `#fff`;
+            }
+          }
+        }, [400]);
+      }
+    },
+
     showNextHandler() {
       this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
     },
@@ -511,6 +554,14 @@ export default {
       return this.targetAnalysis != "longevity"
         ? (((longevity - 1) / this.irResult.year_count) * 100).toFixed(2) + "%"
         : "100%";
+    },
+  },
+  watch:{
+    targetAnalysis(){
+      this.adjustLabelPadding();
+    },
+    showResult(){
+      this.adjustLabelPadding();
     },
   },
   computed: {
