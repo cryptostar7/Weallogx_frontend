@@ -14,9 +14,6 @@
               <h1 class="headingArea">Sign in to <span>Account</span></h1>
               <div>
                 <div class="auth-form">
-                  <label for="email" :class="user.email ? 'active' : ''"
-                    >Email</label
-                  >
                   <input
                     type="text"
                     autocomplete="off"
@@ -25,6 +22,9 @@
                     @keyup="errors.email = false"
                     placeholder=" "
                   />
+                  <label for="email" :class="user.email ? 'active' : ''"
+                    >Email</label
+                  >
                 </div>
                 <label
                   class="error fs-14 text-center d-block"
@@ -39,9 +39,6 @@
               </div>
               <div>
                 <div class="auth-form">
-                  <label for="password" :class="user.password ? 'active' : ''"
-                    >Password</label
-                  >
                   <input
                     type="password"
                     id="password"
@@ -51,6 +48,9 @@
                     placeholder=" "
                     ref="passwordRef"
                   />
+                  <label for="password" :class="user.password ? 'active' : ''"
+                    >Password</label
+                  >
                   <button
                     type="button"
                     class="btn p-0 pwd-btn"
