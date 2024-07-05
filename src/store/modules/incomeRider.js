@@ -53,6 +53,11 @@ const getters = {
     return state.result_type === 'guaranteed'
       ? state.result.income_rider_guaranteed_index_allocation
       : state.result.income_rider_non_guaranteed_index_allocation;
+  },
+  irSimulationResult(state) {
+    return state.result_type === 'guaranteed'
+      ? state.ir_simulation_result.guaranteed
+      : state.ir_simulation_result.non_guaranteed;
   }
 };
 
