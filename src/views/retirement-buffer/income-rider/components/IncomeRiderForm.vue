@@ -5,11 +5,11 @@
       <img src="@/assets/images/icons/income-rider.svg" alt="Income Rider" />
     </div>
     <div class="accumulation_strategy_inner_box">
-      <div class="row">
-        <div class="col-6 col-border-right pe-4">
+   
+        
           <p class="form_section_para">Comparative Vehicle</p>
           <div class="row">
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="totalBalanceInput" class="main_label">
                   Total Balance
@@ -32,7 +32,7 @@
                 <span class="dollar">$</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="accountTypeSelect" class="main_label">Account
                   Type</label>
@@ -66,7 +66,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="accountNameInput" class="main_label">
                   Account Name
@@ -93,7 +93,7 @@
                   type="text" />
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="taxRateInput" class="main_label">
                   Tax Rate
@@ -110,7 +110,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="currentAgeInput" class="main_label">
                   Current Age
@@ -131,7 +131,7 @@
                   :max="100" />
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="planThroughAgeInput" class="main_label">Plan Through
                   Age</label>
@@ -144,7 +144,7 @@
                   :max="100" />
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-4 col-lg-3">
               <div class="form_section_label_div">
                 <label for="growthRateInput" class="main_label">Growth
                   Rate</label>
@@ -159,7 +159,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-4 col-lg-3">
               <div class="form_section_label_div">
                 <label for="feeInput" class="main_label">
                   Fee
@@ -176,7 +176,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="indexAllocationSelect" class="main_label">Index
                   Allocation</label>
@@ -214,12 +214,12 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-6 ps-4">
-          <p class="form_section_para">Income Rider Details</p>
+    
+<!-- Income rider details -->
+       
+          <p class="form_section_para mt-3">Income Rider Details</p>
           <div class="row mb-3">
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="incomeRiderAccountNameInput"
                   class="main_label">Account Name</label>
@@ -235,7 +235,7 @@
                   type="text" />
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="incomeStartYearSelect" class="main_label">Year
                   Income Begins</label>
@@ -267,7 +267,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="guaranteedIncomeAmountInput"
                   class="main_label">Guaranteed Income Amount</label>
@@ -285,7 +285,7 @@
                 <span class="dollar">$</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div" id="annualIncrease1">
                 <label for="annual-ditribution" class="main_label">Annual
                   Increase<span class="optional">(optional)</span></label>
@@ -401,7 +401,7 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div">
                 <label for="nonguaranteedIncomeAmountInput" class="main_label">
                   Non-guaranteed Amount
@@ -421,7 +421,7 @@
                 <span class="dollar">$</span>
               </div>
             </div>
-            <div class="col-6 mb-3">
+            <div class="col-md-4 col-lg-3 mb-3">
               <div class="form_section_label_div" id="annualIncrease2">
                 <label for="annual-ditribution" class="main_label">Annual
                   Increase<span class="optional">(optional)</span></label>
@@ -540,11 +540,8 @@
                 <span class="percent">%</span>
               </div>
             </div>
-            <div class="col-6 mb-3"></div>
-            <div class="col-6 mb-3"></div>
           </div>
-        </div>
-      </div>
+     
     </div>
   </div>
 </template>

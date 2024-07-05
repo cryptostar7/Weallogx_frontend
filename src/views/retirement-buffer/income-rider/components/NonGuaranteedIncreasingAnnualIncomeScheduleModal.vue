@@ -1,14 +1,6 @@
 <template lang>
   <div>
-    <div class="modal fade" id="NonGuaranteedIncreasingAnnualIncomeScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop='static'>
-      <a type="button" data-bs-dismiss="modal" class="preview-modal-close" :data-bs-toggle="showFormModal ? 'modal' : ''" :data-bs-target="showFormModal ? '#incomeRideFormModal' : ''">
-        <svg width="45" height="48" viewBox="0 0 45 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g id="Group 1974" filter="url(#filter0_d_346_5079)">
-            <rect id="Rectangle 174" width="49.4476" height="5.7055" rx="2.85275" transform="matrix(0.707099 0.707114 -0.707099 0.707114 7.03516 0.000488281)" fill="#26AB8B"></rect>
-            <rect id="Rectangle 175" width="49.4476" height="5.7055" rx="2.85275" transform="matrix(-0.707099 0.707114 -0.707099 -0.707114 42 4.03442)" fill="#26AB8B"></rect>
-          </g>
-        </svg>
-      </a>
+    <div class="modal fade" id="NonGuaranteedIncreasingAnnualIncomeScheduleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="accumulation_strategy_box">
