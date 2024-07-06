@@ -4,7 +4,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="accumulation_strategy_box">
-            <div class="accumulation_strategy_box_head border-0 rounded-0">
+            <div class="accumulation_strategy_box_head border-0 rounded-0 rounded-top">
               <h2>Increasing Annual Income Schedule</h2>
             </div>
             <div class="income-rider-modal-body">

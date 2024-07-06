@@ -536,11 +536,11 @@ export default {
           if (textLabel) {
             if (lineBarRef.offsetWidth <= textLabel.offsetWidth) {
               textLabel.style.paddingLeft = `${lineBarRef.offsetWidth + 6}px`;
-              textLabel.style.color = `#000`;
+              textLabel.classList.add('eachBarText')
             }
             else{
               textLabel.style.paddingLeft = `${8}px`;
-              textLabel.style.color = `#fff`;
+              textLabel.classList.remove('eachBarText')
             }
           }
         }, [400]);

@@ -68,7 +68,7 @@
               :class="`cardRadioSwtchpara2 d-flex justify-content-between m-0`"
             >
               <span>Shortfall</span>
-              <span class="shortfall"
+              <span class="shortFall"
                 ><span v-if="targetAnalysis != 'longevity'"
                   >{{ irResult.shortfall_surplus_years }} Years -
                 </span>
@@ -122,8 +122,8 @@
               }`"
             >
               <span>Shortfall</span>
-              <span class="shortfall">
-                <span class="shortfall" v-if="targetAnalysis != 'longevity'"
+              <span class="shortFall">
+                <span class="shortFall" v-if="targetAnalysis != 'longevity'"
                   >{{ irHistoricalResult.shortfall_surplus_years }} Years -
                 </span>
                 {{

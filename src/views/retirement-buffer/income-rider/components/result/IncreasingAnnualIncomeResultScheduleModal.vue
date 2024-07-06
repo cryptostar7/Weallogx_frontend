@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="accumulation_strategy_box">
                     <div
-                        class="accumulation_strategy_box_head border-0 rounded-0">
+                        class="accumulation_strategy_box_head border-0 rounded-0 rounded-top">
                         <h2>{{schedules.title}}</h2>
                     </div>
                     <div class="income-rider-modal-body">

@@ -5513,6 +5513,9 @@ background-color: #ABD5F9;
 .dark-blue .form_section_label_div .label-right-div .label_checkbox span svg rect {
   stroke: #fff;
 }
+.dark-blue .form_section_label_div .label-right-div .label_checkbox svg rect {
+  stroke: #fff;
+}
 .dark-blue .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
   stroke: #555;
 }
@@ -5564,9 +5567,9 @@ background-color: #555;
 }
 
 .dark-blue .incomeRiderCard.disable .allCardHeadPara ,   .dark-blue .incomeRiderCard.disable .allCardHeadPara span ,
-.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1 .shortFall,
-.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2 .shortFall,
-.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3 .shortFall
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1,
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2,
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3
 {
 color: #55575a!important;
 }
@@ -5654,7 +5657,9 @@ color: #fff;
 .dark-blue .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
   stroke: #fafafa;
 }
-
+.dark-blue .pie-long-para{
+  color: #fff;
+}
 .dark-blue .pie.target-analysis-progress-pie .pie-long-para{
   color: #fff;
 }
@@ -5693,6 +5698,9 @@ background: #485161;
   border-color:#55575a;
   background-color: #55575a;
 }
+.dark-blue .amount-label-wrapper.eachBarText , .dark-blue .amount-label-wrapper.eachBarText span{
+  color: #fff;
+  }
 /* Graph part end */
 
 /* Download file toast start */

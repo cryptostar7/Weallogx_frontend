@@ -5009,6 +5009,9 @@
 .dark-green .form_section_label_div .label-right-div .label_checkbox span svg rect {
   stroke: #fff;
 }
+.dark-green .form_section_label_div .label-right-div .label_checkbox svg rect {
+  stroke: #fff;
+}
 .dark-green .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
   stroke: #555;
 }
@@ -5064,11 +5067,11 @@
 .dark-green .incomeRiderCard.disable .allCardHeadPara,
 .dark-green .incomeRiderCard.disable .allCardHeadPara span,
 .dark-green .incomeRiderCard.disable .cardRadioSwtchpara1,
-.dark-green .incomeRiderCard.disable .cardRadioSwtchpara1 .shortFall,
+.dark-green .incomeRiderCard.disable .cardRadioSwtchpara1,
 .dark-green .incomeRiderCard.disable .cardRadioSwtchpara2,
-.dark-green .incomeRiderCard.disable .cardRadioSwtchpara2 .shortFall,
+.dark-green .incomeRiderCard.disable .cardRadioSwtchpara2,
 .dark-green .incomeRiderCard.disable .cardRadioSwtchpara3,
-.dark-green .incomeRiderCard.disable .cardRadioSwtchpara3 .shortFall {
+.dark-green .incomeRiderCard.disable .cardRadioSwtchpara3 {
   color: #55575a !important;
 }
 
@@ -5151,9 +5154,11 @@
 .dark-green .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
   stroke: #fafafa;
 }
-
-.dark-green .pie.target-analysis-progress-pie .pie-long-para {
+.dark-green .pie-long-para{
   color: #fff;
+}
+.dark-green .pie.target-analysis-progress-pie .pie-long-para {
+  color: #fff!important;
 }
 .dark-green .pie.target-analysis-progress-pie .pie-long-para span {
   color: #53a9f1;
@@ -5187,6 +5192,9 @@
   border-color: #55575a;
   background-color: #55575a;
 }
+.dark-green .amount-label-wrapper.eachBarText , .dark-green .amount-label-wrapper.eachBarText span{
+  color: #fff;
+  }
 /* Graph part end */
 
 /* Download file toast start */
