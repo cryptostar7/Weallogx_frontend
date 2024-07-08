@@ -38,7 +38,7 @@
                                                             class="form-control handleLimit"
                                                             id="schedule_tax_rate_1"
                                                             readonly
-                                                             :value="$numFormat(item)"
+                                                             :value="$numFormatNoDecimal(item)"
                                                             placeholder />
                                                         <span
                                                             class="dollar-span">$</span>
@@ -50,8 +50,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <button class="mb-5 mt-4 run_btn /*disable*/">Save</button> -->
                     </div>
                 </div>
             </div>

@@ -30,7 +30,7 @@ const state = () => {
     ir_simulation_result: localStorage.getItem('ir_simulation_result') ? JSON.parse(localStorage.getItem('ir_simulation_result')) : null,
     error: {},
     annual_schedule_result_modal: { title: '', data: [] },
-    view_result: 1,
+    view_result: 0,
     target_analysis_type: 'amount',
     result_type: 'guaranteed',
   };

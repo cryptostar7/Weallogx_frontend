@@ -156,7 +156,7 @@
                           role="tab"
                           aria-selected="true"
                           @click="
-                            $store.dispatch('incomeRider/updateViewResult', 1)
+                            $store.dispatch('incomeRider/updateViewResult', 0)
                           "
                         >
                           Individual

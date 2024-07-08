@@ -116,8 +116,10 @@ export default {
       window.irAmountGraphChart = new Chart(ctx, config);
     },
     getDataSet() {
-      let datasets = [
-        {
+      let datasets = [];
+
+      if (this.showResult > 0) {
+        datasets.push({
           label: "Amount3",
           data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
@@ -127,8 +129,8 @@ export default {
           tension: 0.1, // Curved line
           pointRadius: 0, // Remove dots
           order: 3,
-        },
-      ];
+        });
+      }
 
       if (this.showResult > 1) {
         datasets.push({

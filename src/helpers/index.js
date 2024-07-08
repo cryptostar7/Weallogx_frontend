@@ -9,7 +9,7 @@ const myPlugin = {
                 return Number(Number(key).toFixed(0)).toLocaleString('en-US');
             },
             app.config.globalProperties.$percentFormat = (key) => {
-                return (Number(key) * 100).toFixed(2);
+                return Number((Number(key) * 100).toFixed(2));
             },
             app.config.globalProperties.$numFormatWithDollar = (key) => {
                 key = Number(key || 0);
