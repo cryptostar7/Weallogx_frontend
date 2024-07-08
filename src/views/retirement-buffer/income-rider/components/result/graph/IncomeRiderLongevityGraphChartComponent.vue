@@ -96,10 +96,8 @@ export default {
       });
     },
     getDataSet() {
-      let datasets = [];
-      
-      if (this.showResult > 0) {
-        datasets.push({
+      let datasets = [
+        {
           label: "Longevity",
           data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
