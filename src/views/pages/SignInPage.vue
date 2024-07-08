@@ -22,9 +22,7 @@
                     @keyup="errors.email = false"
                     placeholder=" "
                   />
-                  <label for="email" :class="user.email ? 'active' : ''"
-                    >Email</label
-                  >
+                  <label for="email">Email</label>
                 </div>
                 <label
                   class="error fs-14 text-center d-block"
@@ -48,9 +46,7 @@
                     placeholder=" "
                     ref="passwordRef"
                   />
-                  <label for="password" :class="user.password ? 'active' : ''"
-                    >Password</label
-                  >
+                  <label for="password">Password</label>
                   <button
                     type="button"
                     class="btn p-0 pwd-btn"

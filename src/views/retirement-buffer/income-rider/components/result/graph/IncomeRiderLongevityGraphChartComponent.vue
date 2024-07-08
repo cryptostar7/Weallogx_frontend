@@ -24,6 +24,19 @@ export default {
           legend: {
             display: false, // Show legend
           },
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItems) {
+                let title = tooltipItems[0].label;
+                return "Year: " + title;
+              },
+              label: function (tooltipItem) {
+                let datasetLabel = tooltipItem.dataset.label || "";
+                let value = tooltipItem.raw;
+                return datasetLabel + ": " + value.toLocaleString(); // Adds commas to the number for better readability
+              },
+            },
+          },
         },
         scales: {
           x: {
@@ -147,7 +160,9 @@ export default {
           borderWidth: 2,
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, //  dots size
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         });
       }
 
@@ -161,7 +176,9 @@ export default {
           fill: true,
           borderDash: [5, 5], // Dashed line
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, // Remove dots
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         });
       }
 
@@ -174,7 +191,9 @@ export default {
           borderDash: [5, 5], // Dashed line
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, // Remove dots
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         });
       }
 

@@ -4811,12 +4811,20 @@ background: #1D856C;
 .commonTableCls .tablesCmnClr * {
   color: #CDCDCD;
 }
+.commonTableCls .tablesCmnClr .lifeProPlusPara2{
+visibility: hidden;
+user-select: none;
+}
 .commonTableCls .commonBottomTxt * {
   color: #cdcdcd !important;
 }
 .commonTableCls .tableCommonHide th,
 .commonTableCls .tableCommonHide td {
   color: #CDCDCD !important;
+}
+.commonTableCls .tableCommonHide td {
+  color: transparent !important;
+  user-select: none;
 }
 .commonTableCls .tableCommonHide tr td span.text-danger {
   color: rgb(245, 197, 201) !important;

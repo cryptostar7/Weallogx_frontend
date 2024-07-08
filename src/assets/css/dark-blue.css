@@ -3636,11 +3636,12 @@
   color: #3a3d41 !important;
 }
 
-.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide th,
-.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide td, .commonTableCls .tableCommonHide tr td span.text-danger {
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide th {
   color: #3a3d41 !important;
 }
-
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide td, .commonTableCls .tableCommonHide tr td span.text-danger {
+  color: transparent !important;
+}
 .dark-blue .commonTableCls .reportTablesDiv .tableCommonHide thead th {
   background: #2E3135 !important;
 }

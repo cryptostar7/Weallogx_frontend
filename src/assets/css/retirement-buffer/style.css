@@ -1402,13 +1402,13 @@ table.retirement_table_area tr td.zero_text {
     font-weight: 700;
 }
 .setting_modal {
-    margin-left: 170px;
+    margin-left: 150px;
 }
 body.wider .setting_modal {
     margin-left: 50px;
 }
 .setting_modal .modal-dialog {
-    max-width: 960px;
+    max-width: 1000px;
     width: 100%;
 }
 .setting_modal .preview-modal-close {
@@ -1811,9 +1811,16 @@ canvas#retirementBufferGraph {
 .incomeRiderCard .shortFall {
     color: #ef391f;
 }
+.incomeRiderCard .surPlus {
+    color: #00e2ac;
+}
 
 .incomeRiderCard.disable .CardProgressBar {
     background: #dfdfdf;
+}
+
+.incomeRiderCard.disable .allCardHeadPara span .ror-percent{
+    display: none;
 }
 
 .incomeRiderCard.disable .cardRadioSwtchpara1,
