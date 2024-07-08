@@ -131,8 +131,10 @@ export default {
       window.irAmountGraphChart = new Chart(ctx, config);
     },
     getDataSet() {
-      let datasets = [
-        {
+      let datasets = [];
+
+      if (this.showResult > 0) {
+        datasets.push({
           label: "Amount",
           data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",

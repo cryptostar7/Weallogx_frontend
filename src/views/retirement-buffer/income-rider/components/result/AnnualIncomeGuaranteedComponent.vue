@@ -79,7 +79,7 @@
                 type="button"
                 role="tab"
                 aria-selected="true"
-                @click="$store.dispatch('incomeRider/updateViewResult', 1)"
+                @click="$store.dispatch('incomeRider/updateViewResult', 0)"
               >
                 Individual
               </div>
@@ -188,11 +188,14 @@
                       class="target-analysis-each-bars barClr1 text-white"
                       ref="lineBarRef1"
                       id="line_bar_1"
-                      style="width: 100%"
+                      :style="{
+                        width: showResult >= 1 ? '100%' : 0,
+                      }"
                     >
                       <label
                         class="amount-label-wrapper"
                         style="padding-left: 8px"
+                        v-if="showResult >= 1"
                       >
                         <span id="wider_bar_1">{{
                           $numFormatWithDollar(
@@ -530,20 +533,20 @@ export default {
     adjustLabelPadding() {
       for (let i = 1; i <= 3; i++) {
         let lineBarRef = this.$refs[`lineBarRef${i}`];
-
-        setTimeout(() => {
-          let textLabel = lineBarRef.querySelector(".amount-label-wrapper");
-          if (textLabel) {
-            if (lineBarRef.offsetWidth <= textLabel.offsetWidth) {
-              textLabel.style.paddingLeft = `${lineBarRef.offsetWidth + 6}px`;
-              textLabel.classList.add('eachBarText')
+        if (lineBarRef) {
+          setTimeout(() => {
+            let textLabel = lineBarRef.querySelector(".amount-label-wrapper");
+            if (textLabel) {
+              if (lineBarRef.offsetWidth <= textLabel.offsetWidth) {
+                textLabel.style.paddingLeft = `${lineBarRef.offsetWidth + 6}px`;
+                textLabel.classList.add("eachBarText");
+              } else {
+                textLabel.style.paddingLeft = `${8}px`;
+                textLabel.classList.remove("eachBarText");
+              }
             }
-            else{
-              textLabel.style.paddingLeft = `${8}px`;
-              textLabel.classList.remove('eachBarText')
-            }
-          }
-        }, [400]);
+          }, [400]);
+        }
       }
     },
 
@@ -556,11 +559,11 @@ export default {
         : "100%";
     },
   },
-  watch:{
-    targetAnalysis(){
+  watch: {
+    targetAnalysis() {
       this.adjustLabelPadding();
     },
-    showResult(){
+    showResult() {
       this.adjustLabelPadding();
     },
   },
