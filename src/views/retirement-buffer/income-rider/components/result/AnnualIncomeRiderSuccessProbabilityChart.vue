@@ -64,7 +64,7 @@
         The probability that the
         {{ inputs.comparative_vehicle_account_name }} will match the
         {{ inputs.income_rider_account_name }}’s income production relying upon
-        market returns is <span>{{ pieData.percent }}%</span>.
+        market returns is <span>{{ pieData.percent.toFixed(0) }}%</span>.
       </p>
     </div>
   </div>
