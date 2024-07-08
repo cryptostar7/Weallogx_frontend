@@ -124,6 +124,12 @@ input:-webkit-autofill:active {
     transition: all 125ms;
     pointer-events: none;
 }
+.auth-form input:focus ~ label{
+    top: 0%;
+    color: #0E6651;
+    font-weight: 600;
+    font-size: 16px;
+}
 
 .auth-form input:not(:placeholder-shown) {
     border: 1px solid #298B74;
