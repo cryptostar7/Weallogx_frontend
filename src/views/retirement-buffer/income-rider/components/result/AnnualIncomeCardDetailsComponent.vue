@@ -37,7 +37,7 @@
                 class="cardRadioSwtchpara1 d-flex justify-content-between m-0 text-success"
               >
                 <span>Shortfall</span>
-                None
+               <span>None</span>
               </p>
             </div>
           </div>
@@ -57,8 +57,8 @@
               <p class="allCardHeadPara mb-2">
                 {{ inputs.comparative_vehicle_account_name }}
                 <span
-                  >Rate of Return -
-                  {{ $percentFormat(inputs.growth_rate) }}%</span
+                  >Rate of Return 
+                  <span class="ror-percent">- {{ $percentFormat(inputs.growth_rate) }}%</span></span
                 >
               </p>
               <p class="cardRadioSwtchpara2 d-flex justify-content-between">
