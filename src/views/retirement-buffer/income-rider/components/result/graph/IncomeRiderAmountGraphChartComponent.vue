@@ -120,7 +120,7 @@ export default {
 
       if (this.showResult > 0) {
         datasets.push({
-          label: "Amount3",
+          label: "Amount",
           data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "rgba(14, 102, 81, 1)",
@@ -134,7 +134,7 @@ export default {
 
       if (this.showResult > 1) {
         datasets.push({
-          label: "Amount2",
+          label: "Amount",
           data: this.irResult.cumulative_cv_distribution,
           backgroundColor: "rgba(22, 96, 164, 0.20)",
           borderColor: "#1660A4",
@@ -149,7 +149,7 @@ export default {
 
       if (this.showResult > 2) {
         datasets.push({
-          label: "Amount3",
+          label: "Amount",
           data: this.irHistoricalResult.cumulative_cv_distribution,
           backgroundColor: "rgba(74, 142, 205, 0.20)",
           borderColor: "#4A8ECD",

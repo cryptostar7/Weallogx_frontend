@@ -87,7 +87,7 @@ export default {
       
       if (this.showResult > 0) {
         datasets.push({
-          label: "Dataset 3",
+          label: "Longevity",
           data: this.irResult.cumulative_income_rider_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "#0E6651",
@@ -100,7 +100,7 @@ export default {
 
       if (this.showResult > 1) {
         datasets.push({
-          label: "Dataset 2",
+          label: "Longevity",
           data: this.irResult.cumulative_cv_distribution,
           backgroundColor: "rgba(22, 96, 164, 0.20)",
           borderColor: "#1660A4",
@@ -114,7 +114,7 @@ export default {
 
       if (this.showResult > 2) {
         datasets.push({
-          label: "Dataset 3",
+          label: "Longevity",
           data: this.targetAnalysis == 'amount'? this.irHistoricalResult.cumulative_cv_distribution : this.irResult.optimization.optimal_cumulative_cv_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "#0E6651",
