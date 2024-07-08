@@ -3461,7 +3461,10 @@
 .commonTableCls .tableCommonHide tr td span.text-danger {
   color: #3a3d41 !important;
 }
-
+.dark-green .commonTableCls .reportTablesDiv .tableCommonHide td{
+  color: transparent !important;
+  user-select: none;
+}
 .dark-green .commonTableCls .reportTablesDiv .tableCommonHide thead th {
   background: #2e3135 !important;
 }

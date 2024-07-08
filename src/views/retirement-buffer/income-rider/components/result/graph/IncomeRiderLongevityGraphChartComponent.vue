@@ -24,6 +24,19 @@ export default {
           legend: {
             display: false, // Show legend
           },
+          tooltip: {
+            callbacks: {
+              title: function (tooltipItems) {
+                let title = tooltipItems[0].label;
+                return "Year: " + title;
+              },
+              label: function (tooltipItem) {
+                let datasetLabel = tooltipItem.dataset.label || "";
+                let value = tooltipItem.raw;
+                return datasetLabel + ": " + value.toLocaleString(); // Adds commas to the number for better readability
+              },
+            },
+          },
         },
         scales: {
           x: {
@@ -50,17 +63,17 @@ export default {
               // Remove grid lines
               color: (context) => {
                 if (context.tick.value === 0) {
-                  return '#0E6651'; // Your desired zeroLineColor
+                  return "#0E6651"; // Your desired zeroLineColor
                 }
-                return 'transparent'; // Default color for other lines
+                return "transparent"; // Default color for other lines
               },
               lineWidth: (context) => {
-                  // Set line width for zero line
-                  if (context.tick.value === 0) {
-                    return 2; // Your desired zero line width
-                  }
-                  return 0; // Hide other grid lines
-                },
+                // Set line width for zero line
+                if (context.tick.value === 0) {
+                  return 2; // Your desired zero line width
+                }
+                return 0; // Hide other grid lines
+              },
             },
           },
         },
@@ -92,7 +105,9 @@ export default {
           borderWidth: 2,
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, //  dots size
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         },
       ];
 
@@ -106,26 +121,36 @@ export default {
           fill: true,
           borderDash: [5, 5], // Dashed line
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, // Remove dots
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         });
       }
 
       if (this.showResult > 2) {
         datasets.push({
           label: "Longevity",
-          data: this.targetAnalysis == 'amount'? this.irHistoricalResult.cumulative_cv_distribution : this.irResult.optimization.optimal_cumulative_cv_distribution,
+          data:
+            this.targetAnalysis == "amount"
+              ? this.irHistoricalResult.cumulative_cv_distribution
+              : this.irResult.optimization.optimal_cumulative_cv_distribution,
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "#0E6651",
           borderDash: [5, 5], // Dashed line
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 0, // Remove dots
+          pointRadius: 10, // Remove dots
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
         });
       }
 
       // Initialize chart data with empty datasets array
       let data = {
-        labels: Array.from({ length: this.irResult.year_count }, (_, i) => i + 1), 
+        labels: Array.from(
+          { length: this.irResult.year_count },
+          (_, i) => i + 1
+        ),
         datasets: datasets,
       };
 
@@ -140,7 +165,7 @@ export default {
     ...mapGetters({
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
-    })
+    }),
   },
   watch: {
     showResult(e) {
