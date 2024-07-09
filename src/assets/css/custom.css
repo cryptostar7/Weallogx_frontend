@@ -4847,7 +4847,7 @@ user-select: none;
 }
 .commonTableCls .lifeProBtmDiv{
 background: none;
-border: none;
+border-color: transparent;
 }
 .commonTableCls .tableCommonForDisable th:nth-of-type(odd) {
   border-left: 1px solid transparent;

@@ -25,6 +25,8 @@ export default {
             display: false, // Show legend
           },
           tooltip: {
+            mode: "nearest",
+            intersect: false,
             callbacks: {
               title: function (tooltipItems) {
                 let title = tooltipItems[0].label;
@@ -33,7 +35,7 @@ export default {
               label: function (tooltipItem) {
                 let datasetLabel = tooltipItem.dataset.label || "";
                 let value = tooltipItem.raw;
-                return datasetLabel + ": " + value.toLocaleString(); // Adds commas to the number for better readability
+                return datasetLabel + ": " + value.toLocaleString();
               },
             },
           },

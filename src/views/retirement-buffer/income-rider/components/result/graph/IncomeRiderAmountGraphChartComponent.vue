@@ -50,8 +50,8 @@ export default {
               display: false,
             },
             tooltip: {
-              mode: 'nearest', // Show tooltips only for the nearest point
-            intersect: false, // Do not intersect with other items
+              mode: "nearest",
+              intersect: false,
               callbacks: {
                 title: function (tooltipItems) {
                   let title = tooltipItems[0].label;
@@ -60,7 +60,7 @@ export default {
                 label: function (tooltipItem) {
                   let datasetLabel = tooltipItem.dataset.label || "";
                   let value = tooltipItem.raw;
-                  return datasetLabel + ": " + value.toLocaleString(); // Adds commas to the number for better readability
+                  return datasetLabel + ": " + value.toLocaleString();
                 },
               },
             },
@@ -183,7 +183,10 @@ export default {
 
       // Initialize chart data with empty datasets array
       let data = {
-        labels: Array.from({ length: this.irResult.year_count }, (_, i) => i + 1),
+        labels: Array.from(
+          { length: this.irResult.year_count },
+          (_, i) => i + 1
+        ),
         datasets: datasets,
       };
 
@@ -197,7 +200,7 @@ export default {
     ...mapGetters({
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
-    })
+    }),
   },
   watch: {
     showResult(e) {
