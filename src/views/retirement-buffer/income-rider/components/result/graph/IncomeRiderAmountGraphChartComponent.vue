@@ -1,5 +1,5 @@
 <template lang>
-  <div class="income-rider-graph-div">
+  <div class="income-rider-graph-div" @click="setGraph()">
     <canvas id="irAmountChart"></canvas>
   </div>
 </template>
@@ -10,6 +10,9 @@ export default {
     this.setGraph();
   },
   methods: {
+    testFunction() {
+      this.setGraph();
+    },
     setGraph() {
       const ctx = document.getElementById("irAmountChart").getContext("2d");
 
@@ -130,11 +133,66 @@ export default {
 
       window.irAmountGraphChart = new Chart(ctx, config);
     },
+    generateLabel(distribution1, distribution2 = [], distribution3 = []) {
+      if (!this.showResult) {
+        return [];
+      }
+
+      let maxYear = this.irResult.year_count;
+      let minYear = 1;
+      let yearsLabel = [];
+      let nonZeroFirstIndex = [];
+      if (this.showResult < 1) {
+        distribution1 = [];
+      }
+
+      if (this.showResult < 2) {
+        distribution2 = [];
+      }
+
+      if (this.showResult < 3) {
+        distribution3 = [];
+      }
+
+      for (let i = 0; i < maxYear; i++) {
+        if (distribution1[i] && !nonZeroFirstIndex.length) {
+          nonZeroFirstIndex.push(i + 1);
+        }
+
+        if (distribution2[i] && nonZeroFirstIndex.length < 2) {
+          nonZeroFirstIndex.push(i + 1);
+        }
+
+        if (distribution3[i] && nonZeroFirstIndex.length < 3) {
+          nonZeroFirstIndex.push(i + 1);
+        }
+      }
+      minYear = Math.min(...nonZeroFirstIndex) || 0;
+
+      for (let index = minYear; index <= maxYear; index++) {
+        yearsLabel.push(index);
+      }
+
+      return yearsLabel;
+    },
     getDataSet() {
-      let datasets = [
-        {
+      let datasets = [];
+      let distribution1 = this.irResult.cumulative_income_rider_distribution;
+      let distribution2 = this.irResult.cumulative_cv_distribution;
+      let distribution3 = this.irHistoricalResult.cumulative_cv_distribution;
+
+      let yearsLabel = this.generateLabel(
+        distribution1,
+        distribution2,
+        distribution3
+      );
+
+      let minYear = this.irResult.year_count - yearsLabel.length;
+
+      if (this.showResult > 0) {
+        datasets.push({
           label: "Amount",
-          data: this.irResult.cumulative_income_rider_distribution,
+          data: distribution1.filter((item, index) => index >= minYear),
           backgroundColor: "rgba(14, 102, 81, 0.20)",
           borderColor: "rgba(14, 102, 81, 1)",
           borderWidth: 2,
@@ -144,13 +202,13 @@ export default {
           order: 3,
           pointBackgroundColor: "transparent",
           pointBorderColor: "transparent",
-        },
-      ];
+        });
+      }
 
       if (this.showResult > 1) {
         datasets.push({
           label: "Amount",
-          data: this.irResult.cumulative_cv_distribution,
+          data: distribution2.filter((item, index) => index >= minYear),
           backgroundColor: "rgba(22, 96, 164, 0.20)",
           borderColor: "#1660A4",
           borderWidth: 2,
@@ -167,7 +225,7 @@ export default {
       if (this.showResult > 2) {
         datasets.push({
           label: "Amount",
-          data: this.irHistoricalResult.cumulative_cv_distribution,
+          data: distribution3.filter((item, index) => index >= minYear),
           backgroundColor: "rgba(74, 142, 205, 0.20)",
           borderColor: "#4A8ECD",
           borderWidth: 2,
@@ -183,10 +241,7 @@ export default {
 
       // Initialize chart data with empty datasets array
       let data = {
-        labels: Array.from(
-          { length: this.irResult.year_count },
-          (_, i) => i + 1
-        ),
+        labels: yearsLabel,
         datasets: datasets,
       };
 
