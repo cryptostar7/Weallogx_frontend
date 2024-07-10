@@ -315,4 +315,36 @@ export const clearSimulationCacheData = () => {
   localStorage.setItem('simulationStep3', null);
 }
 
+export const  getIncomeRiderYearLabels = (distribution1 = [], distribution2 = [], distribution3 = []) => {
+  if (!distribution1.length) {
+    return [];
+  }
+
+  let maxYear = distribution1.length;
+  let minYear = 1;
+  let yearsLabel = [];
+  let nonZeroFirstIndex = [];
+
+  for (let i = 0; i < maxYear; i++) {
+    if (distribution1[i] && !nonZeroFirstIndex.length) {
+      nonZeroFirstIndex.push(i + 1);
+    }
+
+    if (distribution2[i] && nonZeroFirstIndex.length < 2) {
+      nonZeroFirstIndex.push(i + 1);
+    }
+
+    if (distribution3[i] && nonZeroFirstIndex.length < 3) {
+      nonZeroFirstIndex.push(i + 1);
+    }
+  }
+  minYear = Math.min(...nonZeroFirstIndex) || 0;
+
+  for (let index = minYear; index <= maxYear; index++) {
+    yearsLabel.push(index);
+  }
+
+  return yearsLabel;
+}
+
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;

@@ -7,8 +7,10 @@
         >
         <label class="rghtTopHeadcommon">
           <div class="annual-income-text-para ms-2 fs-12">
-            How long can the {{ inputs.comparative_vehicle_account_name }} produce the same amount
-            of income as the {{ inputs.income_rider_account_name }}’s Income Rider?
+            How long can the
+            {{ inputs.comparative_vehicle_account_name }} produce the same
+            amount of income as the {{ inputs.income_rider_account_name }}’s
+            Income Rider?
           </div>
         </label>
       </div>
@@ -48,9 +50,13 @@
               Guaranteed
             </div>
             <div
-              :class="resultType == 'potential' ? 'active' : ''"
+              :class="`${resultType == 'potential' ? 'active' : ''} ${
+                !inputs.non_guaranteed_income_first_year ? 'disabled' : ''
+              }`"
               @click="
-                $store.dispatch('incomeRider/updateResultType', 'potential')
+                inputs.non_guaranteed_income_first_year
+                  ? $store.dispatch('incomeRider/updateResultType', 'potential')
+                  : false
               "
               id="v-pills-comulativeIncome2-tab"
               data-bs-toggle="pill"
@@ -176,7 +182,9 @@
                     </div>
 
                     <div
-                      class="tab-pane fade active show"
+                      :class="`tab-pane fade ${
+                        targetAnalysis == 'amount' ? 'active show' : ''
+                      }`"
                       id="v-pills-amount3"
                       role="tabpanel"
                     >
@@ -241,7 +249,9 @@
                       <!-- Amount tab end -->
                     </div>
                     <div
-                      class="tab-pane fade"
+                      :class="`tab-pane fade ${
+                        targetAnalysis == 'longevity' ? 'active show' : ''
+                      }`"
                       id="v-pills-longevity3"
                       role="tabpanel"
                     >
@@ -304,7 +314,9 @@
                       <!-- Longevity tab end -->
                     </div>
                     <div
-                      class="tab-pane fade"
+                      :class="`tab-pane fade ${
+                        targetAnalysis == 'return' ? 'active show' : ''
+                      }`"
                       id="v-pills-return3"
                       role="tabpanel"
                     >

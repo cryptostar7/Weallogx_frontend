@@ -732,10 +732,27 @@ export default {
         ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
         : null;
 
+      if (
+        !payload.non_guaranteed_income_first_year &&
+        this.$store.state.incomeRider.result_type !== "guaranteed"
+      ) {
+        this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+      }
+
       post(getUrl("incomeRider"), payload, authHeader())
         .then((response) => {
           this.$store.dispatch("incomeRider/updateResultData", response.data);
 
+          if (this.$route.name === "retirement-buffer-income-rider") {
+            this.$store.dispatch("incomeRider/updateViewResult", 0);
+          }
+
+          if (
+            !payload.non_guaranteed_income_first_year &&
+            this.$store.state.incomeRider.result_type !== "guaranteed"
+          ) {
+            this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+          }
           // Get income rider simulation data to display the success probabilty chart
           post(getUrl("incomeRiderSimulation"), payload, authHeader())
             .then((response) => {

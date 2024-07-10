@@ -41,16 +41,6 @@
                         <g mask="url(#mask2_6993_46716)">
                           <path class="svgstroke" d="M1.32031 26.1953L1.32031 1.35956" stroke="#0E6651" stroke-width="1.5" />
                         </g>
-                        <!-- <defs>
-                          <clippath id="clip0_6993_46716">
-                            <rect
-                              width="25"
-                              height="25"
-                              fill="white"
-                              transform="translate(3 0.125)"
-                            />
-                          </clippath>
-                        </defs> -->
                       </svg>
                     </div>
                     <div data-bs-toggle="modal" data-bs-target="#incomeRideFormModal">
@@ -138,6 +128,7 @@ export default {
     resultViewHandler() {
       this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
       this.$store.dispatch("incomeRider/updateTargetAnalysisType", "amount");
+      this.$store.dispatch("incomeRider/updateViewResult", 0);
     },
   },
   computed: {

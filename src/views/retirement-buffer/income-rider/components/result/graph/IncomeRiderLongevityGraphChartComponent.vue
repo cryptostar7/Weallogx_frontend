@@ -5,6 +5,7 @@
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
+import { getIncomeRiderYearLabels } from "../../../../../../services/helper";
 
 export default {
   mounted() {
@@ -97,15 +98,24 @@ export default {
         options: config,
       });
     },
-    generateLabel(distribution1, distribution2 = [], distribution3 = []) {
-      if (!this.showResult) {
-        return [];
-      }
+    updateGraph(){
+      if (window.irLongevityGraphChart) {
+        this.setGraph();
+      }  
+    },
+    getDataSet() {
+      let datasets = [];
+      let distribution1 = this.irResult.annual_income_rider_distribution.map(
+        (i) => Number(i.toFixed(0))
+      );
+      let distribution2 = this.irResult.optimization.optimal_distribution.map(
+        (i) => Number(i.toFixed(0))
+      );
+      let distribution3 =
+        this.irHistoricalResult.optimization.optimal_distribution.map((i) =>
+          Number(i.toFixed(0))
+        );
 
-      let maxYear = this.irResult.year_count;
-      let minYear = 1;
-      let yearsLabel = [];
-      let nonZeroFirstIndex = [];
       if (this.showResult < 1) {
         distribution1 = [];
       }
@@ -118,34 +128,7 @@ export default {
         distribution3 = [];
       }
 
-      for (let i = 0; i < maxYear; i++) {
-        if (distribution1[i] && !nonZeroFirstIndex.length) {
-          nonZeroFirstIndex.push(i + 1);
-        }
-
-        if (distribution2[i] && nonZeroFirstIndex.length < 2) {
-          nonZeroFirstIndex.push(i + 1);
-        }
-
-        if (distribution3[i] && nonZeroFirstIndex.length < 3) {
-          nonZeroFirstIndex.push(i + 1);
-        }
-      }
-      minYear = Math.min(...nonZeroFirstIndex) || 0;
-
-      for (let index = minYear; index <= maxYear; index++) {
-        yearsLabel.push(index);
-      }
-
-      return yearsLabel;
-    },
-    getDataSet() {
-      let datasets = [];
-      let distribution1 = this.irResult.annual_income_rider_distribution;
-      let distribution2 = this.irResult.optimization.optimal_distribution;
-      let distribution3 = this.irHistoricalResult.optimization.optimal_distribution;
-      
-      let yearsLabel = this.generateLabel(
+      let yearsLabel = getIncomeRiderYearLabels(
         distribution1,
         distribution2,
         distribution3
@@ -212,6 +195,8 @@ export default {
     ...mapState({
       targetAnalysis: (state) => state.incomeRider.target_analysis_type,
       showResult: (state) => state.incomeRider.view_result,
+      resultType: (state) => state.incomeRider.result_type,
+      inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
@@ -219,10 +204,14 @@ export default {
     }),
   },
   watch: {
-    showResult(e) {
-      if (window.irLongevityGraphChart) {
-        this.setGraph();
-      }
+    showResult() {
+      this.updateGraph();
+    },
+    resultType() {
+      this.updateGraph();
+    },
+    inputs() {
+      this.updateGraph();
     },
   },
 };

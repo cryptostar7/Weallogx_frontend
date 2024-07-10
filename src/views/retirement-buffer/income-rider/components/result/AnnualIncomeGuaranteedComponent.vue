@@ -455,11 +455,12 @@
                       </label>
                     </div>
                   </div>
+
                   <div class="scalling-div all-number-div w-100">
                     <span
                       class="all-number-div-span"
                       v-for="(item, index) in yearsLable"
-                      :style="`left: ${((item - 1) / maxYearCount) * 100}%`"
+                      :style="`left: ${(item / 33) * 100}%`"
                       :key="index"
                       >{{ item }}</span
                     >
@@ -523,6 +524,7 @@
 import { mapState, mapGetters } from "vuex";
 import AnnualIncomeCardDetailsComponent from "./AnnualIncomeCardDetailsComponent.vue";
 import AnnualIncomeRiderSuccessProbabilityChart from "./AnnualIncomeRiderSuccessProbabilityChart.vue";
+import { getIncomeRiderYearLabels } from "../../../../../services/helper";
 
 export default {
   components: {
@@ -581,13 +583,21 @@ export default {
       return this.irResult ? this.irResult.year_count : 0;
     },
     yearsLable() {
-      let stepSize = Math.ceil(this.maxYearCount / 35);
-      let lables = [];
-      for (let i = 1; i <= this.maxYearCount; i += stepSize) {
-        lables.push(i);
-      }
+      let distribution1 = this.irResult.annual_income_rider_distribution;
+      let distribution2 =
+        this.targetAnalysis == "amount"
+          ? this.irResult.annual_cv_distribution
+          : this.irResult.optimization.optimal_distribution;
+      let distribution3 =
+        this.targetAnalysis == "amount"
+          ? this.irHistoricalResult.annual_cv_distribution
+          : this.irHistoricalResult.optimization.optimal_distribution;
 
-      return lables;
+      return getIncomeRiderYearLabels(
+        distribution1,
+        distribution2,
+        distribution3
+      );
     },
   },
 };

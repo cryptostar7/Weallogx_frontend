@@ -41,11 +41,10 @@
             The required constant rate of return for the
             {{ inputs.comparative_vehicle_account_name }} to match the
             {{ inputs.income_rider_account_name }}’s income production is
-            <span>{{
-              $percentFormat(
-                irResult.optimization.optimal_growth_rate || 0
-              )
-            }}%</span
+            <span
+              >{{
+                $percentFormat(irResult.optimization.optimal_growth_rate || 0)
+              }}%</span
             >.
           </p>
         </div>
@@ -63,8 +62,9 @@
       <p class="pie-long-para">
         The probability that the
         {{ inputs.comparative_vehicle_account_name }} will match the
-        {{ inputs.income_rider_account_name }}’s income production relying upon
-        market returns is <span>{{ pieData.percent.toFixed(0) }}%</span>.
+        {{ inputs.income_rider_account_name }}’s {{ resultType }} income
+        production relying upon historical market returns is
+        <span>{{ pieData.percent.toFixed(0) }}%</span>.
       </p>
     </div>
   </div>
@@ -89,10 +89,8 @@ export default {
   },
   mounted() {
     if (this.irSimulationResult) {
-      this.pieData.percent =
-        this.irSimulationResult.success_percentage;
-      this.success_required =
-        this.irSimulationResult.success_count;
+      this.pieData.percent = this.irSimulationResult.success_percentage;
+      this.success_required = this.irSimulationResult.success_count;
     }
 
     this.generatePieChart();
@@ -130,10 +128,8 @@ export default {
     },
     updatePieChart: function () {
       if (this.irSimulationResult) {
-        this.success_required =
-          this.irSimulationResult.success_count;
-        this.pieData.percent =
-          this.irSimulationResult.success_percentage;
+        this.success_required = this.irSimulationResult.success_count;
+        this.pieData.percent = this.irSimulationResult.success_percentage;
         if (window.circleProgress) {
           window.circleProgress.animationTo({
             index: 1,
@@ -168,14 +164,15 @@ export default {
   computed: {
     ...mapState({
       inputs: (state) => state.incomeRider.result.inputs || [],
+      resultType: (state) => state.incomeRider.result_type,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
-      irSimulationResult: "incomeRider/irSimulationResult"
+      irSimulationResult: "incomeRider/irSimulationResult",
     }),
   },
   watch: {
-    irSimulationResult(e) {
+    irSimulationResult() {
       this.updatePieChart();
     },
   },

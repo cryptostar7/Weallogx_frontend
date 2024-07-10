@@ -50,9 +50,13 @@
               Guaranteed
             </div>
             <div
-              :class="resultType == 'potential' ? 'active' : ''"
+              :class="`${resultType == 'potential' ? 'active' : ''} ${
+                !inputs.non_guaranteed_income_first_year ? 'disabled' : ''
+              }`"
               @click="
-                $store.dispatch('incomeRider/updateResultType', 'potential')
+                inputs.non_guaranteed_income_first_year
+                  ? $store.dispatch('incomeRider/updateResultType', 'potential')
+                  : false
               "
               id="v-pills-comulativeFees1-tab"
               data-bs-toggle="pill"
