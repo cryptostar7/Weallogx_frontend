@@ -886,6 +886,23 @@
 .light-blue .switch1 .deleteBtnAccount:hover {
   color: #2E7665;
 }
+
+/* For show disable full card start*/
+.light-blue .distributionCard1.inactive{
+  border-top: 6px solid #dfdfdf;
+}
+.light-blue .distributionCard1.inactive a{
+  pointer-events: none;
+}
+.light-blue .distributionCard1.inactive a svg{
+  opacity: 0.5;
+  pointer-events: none;
+}
+.light-blue .distributionCard1.inactive *{
+  color: #dfdfdf !important;
+  }
+/* For show disable full card end */
+
 .light-blue .equalDistCard1 {
   border-top-color: #1660A4;
 }

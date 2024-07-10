@@ -2464,10 +2464,52 @@ body::-webkit-scrollbar {
   height: 100%;
 }
 
+/* For show disable full card start*/
+.distributionCard1.inactive{
+  border-top: 6px solid #dfdfdf;
+}
+.distributionCard1.inactive a , .distributionCard1.inactive label , .commonTableCls .tablesCmnClr p {
+  pointer-events: none;
+  cursor:default;
+}
+.distributionCard1.inactive a svg{
+  opacity: 0.5;
+  pointer-events: none;
+}
+.distributionCard1.inactive *{
+  color: #dfdfdf !important;
+  }
+
+/* For show disable full card end */
+
+
 .distributionCard1.inactive .compGraphtopPara p,
 .distributionCard1.inactive .compGraphtopParaTwo p {
   color: #dfdfdf !important;
 }
+.distributionCard1.inactive .compGraphtopPara p:nth-child(2) , .distributionCard1.inactive .compGraphtopParaTwo p:last-child{
+visibility: hidden;
+} 
+
+.distributionCard1.inactive .position-up p:last-child , .distributionCard1.inactive .makeEqualPara1{
+  visibility: hidden;
+}
+.distributionCard1.inactive .CardProgressnym{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .legacyCardPara2{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .legacyCardPara .age-span{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .irrAnalysisCardAllParas p:last-child{
+  visibility: hidden;
+}
+
 
 .distributionCard1.inactive .cardProjectTag,
 .distributionCard1.inactive .CardProgressnym,
@@ -2653,7 +2695,9 @@ p.allCardHeadPara1{
   color: #9D9D9D;
   display: block;
 }
-
+.distributionCard1.inactive .CardProgressnym span{
+  visibility: visible;
+}
 .AddNoteBtn {
   background: #FFF;
   border: 1px solid #DFDFDF;
@@ -4033,6 +4077,9 @@ Blank div css end here
   width: 100%;
   transform: translateX(-50%);
 }
+.distributionCard1.inactive .addNotesMainDiv{
+  pointer-events: none;
+}
 
 .addNotesMainDiv a {
   white-space: nowrap;
@@ -4156,6 +4203,7 @@ Blank div css end here
 .bigbarsmaincolorDisable * {
   background: transparent;
   color: transparent;
+  visibility: hidden;
 }
 
 .bigbarsmaincolorDisable p {

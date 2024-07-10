@@ -2287,6 +2287,24 @@
   border: 1px solid #43484e;
 }
 
+/* For show disable full card start*/
+.dark-blue .distributionCard1.inactive{
+  border-top: 6px solid #3a3d41;
+}
+.dark-blue .distributionCard1.inactive a , .dark-blue .distributionCard1.inactive a svg{
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+.dark-blue .distributionCard1.inactive *{
+  color: #55575a!important;
+  }
+  .dark-blue .distributionCard1.inactive label img , .dark-blue .commonTableCls .allActionBtns p img{
+    filter: grayscale(100%);
+    opacity: 0.3;
+  }
+/* For show disable full card end */
+
 .dark-blue .distributionCard1 {
   background: #2E3135;
   border: 1px solid #353B46;
