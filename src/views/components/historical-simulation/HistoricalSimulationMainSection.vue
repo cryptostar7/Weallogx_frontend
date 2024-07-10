@@ -20,7 +20,6 @@
               <p class="historicalTopPara1">Add Historical Simulations?</p>
               <p class="historicalTopPara2">OPTIONALS</p>
               <div class="d-flex align-items-center justify-content-center mt-3">
-                <!-- <router-link :to="`/historical-index-strategy-allocation/${this.$route.params.scenario}`"> -->
                 <router-link :to="doNotShowAgreement ? `/historical-index-strategy-allocation/${this.$route.params.scenario}` : ''"  :data-bs-toggle="doNotShowAgreement ? '' : 'modal'" :data-bs-target="doNotShowAgreement ? '' : '#disclosureAgreementModal'">
                   <div class="historical-yesNo-mainDiv">
                     <div class="historical-yes-div">
@@ -56,12 +55,12 @@
               </div>
               <div class="text-center mt-30">
                 <span class="d-block mb-2"></span>
-                <router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">
+                <router-link :to="`/comparative-vehicles/${$route.params.scenario}`" class="nav-link btn d-inline-block form-back-btn fs-14" disabled="true">
                   <img src="@/assets/images/icons/chevron-left-grey.svg" class="img-fluid" alt="Chevron" width="6"> Back
                 </router-link>
               </div>
               <div class="text-center mt-30">
-                <router-link :to="`/review-summary/${$route.params.scenario}`" class="nav-link btn form-back-btn fs-14" disabled="true">Return to Review</router-link>
+                <router-link :to="`/review-summary/${$route.params.scenario}`" class="nav-link btn d-inline-block form-back-btn fs-14" disabled="true">Return to Review</router-link>
               </div>
             </div>
           </div>
@@ -130,9 +129,7 @@ export default {
     continueBtn.addEventListener("click", e => {
       if (!e.currentTarget.classList.contains("disabled")) {
         const modalBackDrop = document.querySelector(".modal-backdrop");
-        // const disclosureAgreementModal = document.querySelector("#disclosureAgreementModal");
         modalBackDrop.remove();
-        // disclosureAgreementModal.style.display = "none";
         document.body.removeAttribute("style");
       }
     });

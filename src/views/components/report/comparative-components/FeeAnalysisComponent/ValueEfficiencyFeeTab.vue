@@ -86,12 +86,6 @@
 export default {
   data() {
     return {
-      // cards: [
-      //   { id: 1, active: true },
-      //   { id: 2, active: true },
-      //   { id: 3, active: true },
-      //   { id: 4, active: true },
-      // ],
       data: [
         {
           type: "",

@@ -653,9 +653,6 @@ body::-webkit-scrollbar {
   font-weight: 400;
   color: #000;
 }
-
-/*responsive*/
-/* responsive end*/
 .illusnTableMainDiv button {
   border: 2px solid #F0F0F0;
   background: #F0F0F0;
@@ -698,25 +695,6 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
 }
-
-/*.historyHead2 {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.historyHead2 p {
-  color: var(--green-clr);
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.historyHead2 .hisBorder {
-  width: 100%;
-  height: 1.75px;
-  background: var(--green-clr);
-}
-*/
 .SaveCloseButton {
   display: flex;
   justify-content: center;
@@ -795,7 +773,7 @@ body::-webkit-scrollbar {
   color: #000;
 }
 
-.ModalHeasingPara {
+.ModalHeadingPara {
   font-weight: 700;
   font-size: 16px;
   text-align: center;
@@ -928,7 +906,6 @@ body::-webkit-scrollbar {
   border-bottom: 1px solid #E4E4E4;
 }
 
-/*  */
 .backToscenario {
   text-decoration: none;
   color: #000;
@@ -1438,6 +1415,12 @@ body::-webkit-scrollbar {
   border-radius: 100px;
   color: #FFF;
 }
+.SwtchBtnRprtBldr div.disabled{
+  user-select: none;
+pointer-events: none;
+opacity: 0.8;
+color: #ccc;
+}
 
 .mltplSwtchDiv {
   background: #FFF;
@@ -1458,6 +1441,7 @@ body::-webkit-scrollbar {
   font-size: 11px;
   color: #000;
   text-align: center;
+  cursor: pointer;
 }
 
 .mltplSwtchDiv div.active {
@@ -1641,7 +1625,6 @@ body::-webkit-scrollbar {
   background: #1660A4 !important;
 }
 
-/*  */
 .switch2 .checkbox2:checked~.layer2 {
   background-color: #763CA3 !important;
 }
@@ -1712,7 +1695,6 @@ body::-webkit-scrollbar {
   background: #763CA3 !important;
 }
 
-/*  */
 .switch3 .checkbox2:checked~.layer2 {
   background-color: #DA4343 !important;
 }
@@ -1803,8 +1785,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Green eye end */
-/* Green edit start */
 .editBtnLirp {
   text-decoration: none;
   background: #FFF;
@@ -1841,8 +1821,6 @@ body::-webkit-scrollbar {
   color: var(--green-clr);
 }
 
-/* Green edit end */
-/* Green delete start */
 .deleteBtnLirp {
   text-decoration: none;
   background: #FFF;
@@ -1873,7 +1851,6 @@ body::-webkit-scrollbar {
 }
 
 /* Green delete end */
-/* -------------------------- */
 /* Orange Eye start */
 .viewBtnMedian {
   text-decoration: none;
@@ -1957,8 +1934,6 @@ body::-webkit-scrollbar {
   color: #E8662F;
 }
 
-/* Orange edit end */
-/* Orange delete start */
 .deleteBtnMedian {
   text-decoration: none;
   background: #FFF;
@@ -1988,9 +1963,6 @@ body::-webkit-scrollbar {
   color: #E8662F;
 }
 
-/* Orange delete end */
-/* -------------------------- */
-/* red Eye start */
 .viewBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2019,8 +1991,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red eye end */
-/* red edit start */
 .editBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2050,8 +2020,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red edit end */
-/* red delete start */
 .deleteBtnAnnuity {
   text-decoration: none;
   background: #FFF;
@@ -2081,9 +2049,6 @@ body::-webkit-scrollbar {
   color: #9D2B2B;
 }
 
-/* red delete end */
-/* -------------------------- */
-/* blue Eye start */
 .viewBtnAccount {
   text-decoration: none;
   background: #FFF;
@@ -2112,11 +2077,8 @@ body::-webkit-scrollbar {
   color: #1660A4;
 }
 
-/* Blue eye end */
-/* Blue edit start */
 .editBtnAccount {
   text-decoration: none;
-  /*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0;
   display: flex;
@@ -2162,15 +2124,12 @@ body::-webkit-scrollbar {
   margin: 0;
   padding: 0;
   border: 1px solid #BBBBBB;
-  /*  background: #FFF;*/
   border-radius: 100px;
   padding: 0.1rem 0.5rem;
   white-space: nowrap;
   text-decoration: none;
 }
 
-/* Blue edit end */
-/* Blue delete start */
 .deleteBtnAccount {
   text-decoration: none;
   background: transparent;
@@ -2221,9 +2180,6 @@ body::-webkit-scrollbar {
   fill: transparent;
 }
 
-/* blue delete end */
-/* -------------------------- */
-/* Voilet Eye start */
 .viewBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2252,8 +2208,6 @@ body::-webkit-scrollbar {
   color: #763CA3;
 }
 
-/* Voilet eye end */
-/* Voilet edit start */
 .editBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2283,8 +2237,6 @@ body::-webkit-scrollbar {
   color: #763CA3;
 }
 
-/* Voilet edit end */
-/* Voilet delete start */
 .deleteBtnIra {
   text-decoration: none;
   background: #FFF;
@@ -2410,7 +2362,6 @@ body::-webkit-scrollbar {
   color: #000;
 }
 
-/* responsive end*/
 .blankTd {
   text-align: center !important;
   color: #CACACA !important;
@@ -2433,15 +2384,12 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 2 */
 .reportTablesDiv2 table thead th:first-child {
   background: #3C3C3C !important;
   color: white !important;
   border-radius: 6px;
-  /*padding: 0 20px 0 5px;*/
 }
 
-/* 3 */
 .reportTablesDiv3 table thead th {
   background: var(--green-clr) !important;
   color: white !important;
@@ -2455,7 +2403,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 4 */
 .reportTablesDiv4 table thead th {
   background: #1660A4 !important;
   color: white !important;
@@ -2469,7 +2416,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 5 */
 .reportTablesDiv5 table thead th {
   background: #763CA3 !important;
   color: white !important;
@@ -2483,7 +2429,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 6 */
 .reportTablesDiv6 table thead th {
   background: #9D2B2B !important;
   color: white !important;
@@ -2497,7 +2442,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/* 6 */
 .reportTablesDiv7 table thead th {
   background: #E8662F !important;
   color: white !important;
@@ -2511,9 +2455,6 @@ body::-webkit-scrollbar {
   border-radius: 0 6px 6px 0;
 }
 
-/*.reportTablesDiv7 .table th {
-  border-left-color: #DE835C !important;
-}*/
 .equalThingTabTxt {
   font-size: 14px;
   font-weight: 500;
@@ -2529,10 +2470,52 @@ body::-webkit-scrollbar {
   height: 100%;
 }
 
+/* For show disable full card start*/
+.distributionCard1.inactive{
+  border-top: 6px solid #dfdfdf;
+}
+.distributionCard1.inactive a , .distributionCard1.inactive label , .commonTableCls .tablesCmnClr p {
+  pointer-events: none;
+  cursor:default;
+}
+.distributionCard1.inactive a svg{
+  opacity: 0.5;
+  pointer-events: none;
+}
+.distributionCard1.inactive *{
+  color: #dfdfdf !important;
+  }
+
+/* For show disable full card end */
+
+
 .distributionCard1.inactive .compGraphtopPara p,
 .distributionCard1.inactive .compGraphtopParaTwo p {
   color: #dfdfdf !important;
 }
+.distributionCard1.inactive .compGraphtopPara p:nth-child(2) , .distributionCard1.inactive .compGraphtopParaTwo p:last-child{
+visibility: hidden;
+} 
+
+.distributionCard1.inactive .position-up p:last-child , .distributionCard1.inactive .makeEqualPara1{
+  visibility: hidden;
+}
+.distributionCard1.inactive .CardProgressnym{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .legacyCardPara2{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .legacyCardPara .age-span{
+  visibility: hidden;
+}
+
+.distributionCard1.inactive .irrAnalysisCardAllParas p:last-child{
+  visibility: hidden;
+}
+
 
 .distributionCard1.inactive .cardProjectTag,
 .distributionCard1.inactive .CardProgressnym,
@@ -2707,7 +2690,6 @@ p.allCardHeadPara1{
 
 .CardProgressnym {
   margin: 0;
-  /*margin-bottom: 2rem;*/
   font-weight: 600;
   font-size: 13px;
   color: var(--green-clr);
@@ -2719,7 +2701,9 @@ p.allCardHeadPara1{
   color: #9D9D9D;
   display: block;
 }
-
+.distributionCard1.inactive .CardProgressnym span{
+  visibility: visible;
+}
 .AddNoteBtn {
   background: #FFF;
   border: 1px solid #DFDFDF;
@@ -3045,9 +3029,6 @@ body.fullScreen .progressAllBarsDivMain{
     font-size: 9px !important;
   }
 
-  /* .progressBarEachDiv {
-    width: 55px;
-  }*/
   .illusnTableMainDiv .table thead {
     display: none;
   }
@@ -3159,8 +3140,6 @@ body.fullScreen .progressAllBarsDivMain{
   color: #1660A4 !important;
 }
 
-/* table four css for hide end*/
-/* table five css for hide start */
 .iraBottomTxt * {
   color: #cdcdcd !important;
 }
@@ -3212,8 +3191,6 @@ body.fullScreen .progressAllBarsDivMain{
   color: #763CA3 !important;
 }
 
-/* table five css for hide end */
-/* table five css for hide start */
 .annuityBottomTxt * {
   color: #cdcdcd !important;
 }
@@ -3381,18 +3358,9 @@ body.fullScreen .progressAllBarsDivMain{
 
 .CompProgressAbsltCls {
   width: 100%;
-/*  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1.90rem;*/
   display: flex;
   justify-content: space-between;
 }
-
-/*.comulativeProgBrdrDivs {
-  margin-bottom: 16px;
-}*/
-
 .comulativeProgBrdrPara {
   font-weight: 500;
   font-size: 11px;
@@ -3405,8 +3373,6 @@ body.fullScreen .progressAllBarsDivMain{
 .comulativeProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-/*  margin-top: 10px;*/
-/*  margin-bottom: 1rem;*/
   margin-inline: 5px;
 }
 .cumulative-value-bar, .legacy-vertical-bar{
@@ -3568,7 +3534,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount2 {
   background: #1660A4;
 }
@@ -3577,7 +3542,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #287BC7;
 }
 
-/*  */
 .cumulativeProgAccount1 {
   background: #0E6651;
 }
@@ -3586,7 +3550,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #25967B;
 }
 
-/*  */
 .cumulativeProgAccount3 {
   background: #763CA3;
 }
@@ -3595,7 +3558,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #9453C8;
 }
 
-/*  */
 .cumulativeProgAccount4 {
   background: #9D2B2B;
 }
@@ -3604,7 +3566,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount4 {
   background: #9D2B2B;
 }
@@ -3613,7 +3574,6 @@ body.fullScreen .progressAllBarsDivMain{
   background: #C04141;
 }
 
-/*  */
 .cumulativeProgAccount5 {
   background: #E8662F;
 }
@@ -4057,7 +4017,6 @@ Blank div css end here
   fill: #0E6651;
 }
 
-/* 8 */
 .reportTablesDiv8 table thead th {
   background: #0E6651 !important;
   color: white !important;
@@ -4123,6 +4082,9 @@ Blank div css end here
   left: 50%;
   width: 100%;
   transform: translateX(-50%);
+}
+.distributionCard1.inactive .addNotesMainDiv{
+  pointer-events: none;
 }
 
 .addNotesMainDiv a {
@@ -4247,6 +4209,7 @@ Blank div css end here
 .bigbarsmaincolorDisable * {
   background: transparent;
   color: transparent;
+  visibility: hidden;
 }
 
 .bigbarsmaincolorDisable p {
@@ -4300,10 +4263,8 @@ Blank div css end here
 .feeMainProgBrdr {
   border-bottom: 1px solid #E9E9E9;
   width: 100%;
-/*  margin-top: 10px;*/
   margin-left: 8px;
   margin-right: 8px;
-/*  margin-bottom: 1rem;*/
 }
 .feeMainProgrssBarDiv {
   position: relative;
@@ -4396,7 +4357,6 @@ background: #1D856C;
   background: #DA3D3D;
 }
       
-/*  */
 .feeProgressBarEachDiv {
   position: relative;
   width: var(--value-bar-width);
@@ -4415,7 +4375,7 @@ background: #1D856C;
   font-size: 11px;
   color: #000;
   text-align: center;
-  background: #FFFFFF;
+  background: #FFF;
   box-shadow: 0px 0.25px 3px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   left: 5rem;
@@ -4512,10 +4472,6 @@ background: #1D856C;
   background: #25967B;
   margin: 0;
 }
-
-/*.bgChangerComGraph1 p:nth-child(2) {
-  color: #0E6651;
-}*/
 .bgChangerComGraph2 p:nth-child(2) {
   color: #1660A4;
 }
@@ -4660,7 +4616,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg2 {
   background: #25967B;
 }
@@ -4670,7 +4625,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg3 {
   background: #0F7ADC;
 }
@@ -4680,7 +4634,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg4 {
   background: #287BC7;
 }
@@ -4690,7 +4643,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg5 {
   background: #A35CDA;
 }
@@ -4700,7 +4652,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg6 {
   background: #9453C8;
 }
@@ -4710,7 +4661,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg7 {
   background: #E37647;
 }
@@ -4720,7 +4670,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg8 {
   background: #F67F4C;
 }
@@ -4730,7 +4679,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg9 {
   background: #DA3D3D;
 }
@@ -4740,7 +4688,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .irrvaluebarbg10 {
   background: #C04141;
 }
@@ -4750,7 +4697,6 @@ background: #1D856C;
   border-radius: 8px;
 }
 
-/*  */
 .eachBarMainBgNone {
   background-image: none;
   background: none;
@@ -4802,7 +4748,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaBlue1 {
   font-size: 13px;
   font-weight: 600;
@@ -4820,7 +4765,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaVoilet1 {
   font-size: 13px;
   font-weight: 600;
@@ -4838,7 +4782,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaOrange1 {
   font-size: 13px;
   font-weight: 600;
@@ -4856,7 +4799,6 @@ background: #1D856C;
   line-height: 1;
 }
 
-/*  */
 .irrCardParaRed1 {
   font-size: 13px;
   font-weight: 600;
@@ -4923,12 +4865,20 @@ background: #1D856C;
 .commonTableCls .tablesCmnClr * {
   color: #CDCDCD;
 }
+.commonTableCls .tablesCmnClr .lifeProPlusPara2{
+visibility: hidden;
+user-select: none;
+}
 .commonTableCls .commonBottomTxt * {
   color: #cdcdcd !important;
 }
 .commonTableCls .tableCommonHide th,
 .commonTableCls .tableCommonHide td {
   color: #CDCDCD !important;
+}
+.commonTableCls .tableCommonHide td {
+  color: transparent !important;
+  user-select: none;
 }
 .commonTableCls .tableCommonHide tr td span.text-danger {
   color: rgb(245, 197, 201) !important;
@@ -4951,7 +4901,7 @@ background: #1D856C;
 }
 .commonTableCls .lifeProBtmDiv{
 background: none;
-border: none;
+border-color: transparent;
 }
 .commonTableCls .tableCommonForDisable th:nth-of-type(odd) {
   border-left: 1px solid transparent;
@@ -5751,3 +5701,28 @@ body.presentationModeCommon .rghtTopHeadcommon{
 .top-surplus-div p:nth-child(2){
   font-size: 11px;
 }
+
+/* Download file toast start */
+.download-toast {
+  position: relative;
+  padding: 15px 20px 15px 30px!important;
+  border-radius: 5px;
+  border-bottom: 6px solid #0e6651;
+  background-color: #fff !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+}
+.download-toast::before {
+  position: absolute;
+  left: 20px;
+  top: 12px;
+  content:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="32" viewBox="0 0 28 32" fill="none"><path d="M9.7998 0.599609C8.84503 0.599609 7.92935 0.978894 7.25422 1.65402C6.57909 2.32916 6.1998 3.24483 6.1998 4.19961V13.5722C6.78823 13.4059 7.39081 13.2944 7.9998 13.2392V4.19961C7.9998 3.72222 8.18945 3.26438 8.52701 2.92682C8.86458 2.58925 9.32241 2.39961 9.7998 2.39961H16.9998V8.69961C16.9998 9.41569 17.2843 10.1025 17.7906 10.6088C18.297 11.1151 18.9837 11.3996 19.6998 11.3996H25.9998V25.7996C25.9998 26.277 25.8102 26.7348 25.4726 27.0724C25.135 27.41 24.6772 27.5996 24.1998 27.5996H17.7198C17.3922 28.2408 16.9957 28.8444 16.5372 29.3996H24.1998C25.1546 29.3996 26.0703 29.0203 26.7454 28.3452C27.4205 27.6701 27.7998 26.7544 27.7998 25.7996V10.3448C27.7992 9.62897 27.5143 8.94267 27.0078 8.43681L19.9626 1.38981C19.4564 0.883976 18.7702 0.599762 18.0546 0.599609H9.7998ZM25.6272 9.59961H19.6998C19.4611 9.59961 19.2322 9.50479 19.0634 9.33601C18.8946 9.16722 18.7998 8.9383 18.7998 8.69961V2.77221L25.6272 9.59961ZM8.8998 31.1996C11.0481 31.1996 13.1083 30.3462 14.6274 28.8272C16.1464 27.3081 16.9998 25.2479 16.9998 23.0996C16.9998 20.9514 16.1464 18.8911 14.6274 17.372C13.1083 15.853 11.0481 14.9996 8.8998 14.9996C6.75155 14.9996 4.69128 15.853 3.17224 17.372C1.65319 18.8911 0.799805 20.9514 0.799805 23.0996C0.799805 25.2479 1.65319 27.3081 3.17224 28.8272C4.69128 30.3462 6.75155 31.1996 8.8998 31.1996ZM4.6626 23.7368C4.49361 23.5678 4.39867 23.3386 4.39867 23.0996C4.39867 22.8606 4.49361 22.6314 4.6626 22.4624C4.8316 22.2934 5.06081 22.1985 5.2998 22.1985C5.5388 22.1985 5.76801 22.2934 5.937 22.4624L7.9998 24.527V19.4996C7.9998 19.2609 8.09463 19.032 8.26341 18.8632C8.43219 18.6944 8.66111 18.5996 8.8998 18.5996C9.1385 18.5996 9.36742 18.6944 9.5362 18.8632C9.70498 19.032 9.7998 19.2609 9.7998 19.4996V24.527L11.8626 22.4624C12.0316 22.2934 12.2608 22.1985 12.4998 22.1985C12.7388 22.1985 12.968 22.2934 13.137 22.4624C13.306 22.6314 13.4009 22.8606 13.4009 23.0996C13.4009 23.3386 13.306 23.5678 13.137 23.7368L9.537 27.3368C9.36922 27.5042 9.14219 27.5986 8.9052 27.5996H8.8944C8.6598 27.5982 8.43504 27.5052 8.268 27.3404L8.2626 27.335L4.6626 23.7368Z" fill="%23383838"/></svg>');
+}
+.download-toast::after {
+  content: "Your report is being generated...";
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+padding-left: 28px;
+}
+/* Download file toast end */

@@ -93,7 +93,6 @@
         >
           Market + Buffer Account {{ 100 - bufferPercent }}/{{ bufferPercent }}
         </div>
-        <!-- <div class="common_each_graph_div graph_clr_3 disable">Combined</div> -->
       </div>
       <canvas
         id="retirementBufferGraph"
@@ -213,14 +212,10 @@ export default {
                 drawBorder: false,
               },
               min: 0,
-              // max: 3000000,
               suggestedMax: this.$roundFigureNum(Number(maxAcc1)).toFixed(0),
-
-              // stacked: true,
               ticks: {
                 maxTicksLimit: 7,
                 padding: 8,
-                // stepSize: 1250000,
                 callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -244,17 +239,14 @@ export default {
                 drawOnChartArea: false, // only want the grid lines for one axis to show up
                 borderColor: "#E9E9E9",
                 drawBorder: false,
-                // tickLength: 5
               },
               min: 0,
-              // max: 3000000,
               suggestedMax: this.$roundFigureNum(Number(maxAcc2 * 2)).toFixed(
                 0
               ),
               ticks: {
                 maxTicksLimit: 7,
                 padding: 8,
-                // stepSize: 250000,
                 callback: function (value, index, ticks) {
                   value = value.toString();
                   value = value.split(/(?=(?:...)*$)/);
@@ -425,7 +417,6 @@ export default {
         }
       }
       window.rbaGraphChart.update();
-      // this.setGraph();
     },
     showDistribution(e) {
       if (e) {

@@ -16,7 +16,7 @@
                       <li class="nav-item" role="presentation" @click="setVehicleTab(1)">
                         <button :class="`nav-link ${vehicle.tab === 1 && tabs.vehicle1 ? 'active' : `${tabs.vehicle1 ? 'activeOnly':''}`}`" id="vehicleType1-tab" type="button" role="tab" aria-controls="vehicleType1">
                           <div class="form-check form-switch custom-switch"> 
-                            <input class="form-check-input" type="checkbox" role="switch" id="vehicleType1" checked="true"/> 
+                            <input class="form-check-input disabled" type="checkbox" role="switch" id="vehicleType1" checked="true"/> 
                             <label class="form-check-label no-event fs-12 semi-bold-fw mb-0" for="">Vehicle #1</label> 
                           </div>
                         </button> 

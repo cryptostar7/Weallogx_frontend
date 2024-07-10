@@ -115,12 +115,12 @@
                     id="templateNameDiv"
                     :style="{ display: saveInsuranceTemplate ? '' : 'none' }"
                   >
-                    <label for="templateName" class="fs-12 medium-fw"
+                    <label for="insTemplateNameInp" class="fs-12 medium-fw"
                       >Template Name</label
                     >
                     <input
                       type="text"
-                      id="templateName"
+                      id="insTemplateNameInp"
                       class="form-control"
                       :disabled="existingInsuranceProfileName ? true : false"
                       v-model="insuranceTemplateName"
@@ -371,7 +371,9 @@
                         for="file-uploading"
                         class="p-relative drag-drop-label d-block text-center p-relative overflow-hidden"
                         :style="{
-                          'border-color': errors.illustration_file ? 'red' : '',
+                          'border-color': errors.illustration_file
+                            ? 'rgba(var(--bs-danger-rgb)'
+                            : '',
                         }"
                         @drop="handleDragFile"
                         @dragover="dragover"
@@ -450,7 +452,14 @@
                       v-if="errors.illustration_text"
                       >{{ errors.illustration_text[0] }}</small
                     >
-                    <div class="copy-paste-area">
+                    <div
+                      class="copy-paste-area"
+                      :style="{
+                        'border-color': errors.illustration_text
+                          ? 'rgba(var(--bs-danger-rgb)'
+                          : '',
+                      }"
+                    >
                       <h6 class="semi-bold-fw drag-drop-heading text-center">
                         Copy/Paste from CSV
                       </h6>
@@ -496,12 +505,14 @@
                     id="templateNameDiv"
                     :style="{ display: saveIllustrationTemplate ? '' : 'none' }"
                   >
-                    <label for="templateName" class="fs-12 medium-fw"
+                    <label
+                      for="saveIllustrationtemplateName"
+                      class="fs-12 medium-fw"
                       >Template Name</label
                     >
                     <input
                       type="text"
-                      id="templateName"
+                      id="saveIllustrationtemplateName"
                       class="form-control"
                       :disabled="existingIllustrationName ? true : false"
                       v-model="illustrationTemplateName"
@@ -534,7 +545,9 @@
                     <button
                       type="button"
                       v-if="removeColId.length"
-                      class="btn add-table-column-btn"
+                      :class="`btn add-table-column-btn ${
+                        removeColId.length ? 'active' : ''
+                      }`"
                       data-bs-toggle="modal"
                       data-bs-target="#deleteColumnModal"
                     >
@@ -1788,6 +1801,7 @@ export default {
           this.errors.existing_insurance_profile = [
             "Please choose a valid template.",
           ];
+          document.getElementById("existingInsuranceProfiles").scrollIntoView();
         } else {
           this.existingInsuranceProfileId = templateId;
           this.errors.existing_insurance_profile = "";
@@ -1796,11 +1810,64 @@ export default {
         this.errors.existing_insurance_profile = "";
       }
 
+      if (!this.insuranceCompany) {
+        this.errors.insurance_company = ["This field is required."];
+        if (validate) {
+          document.getElementById("insuranceCompany").scrollIntoView();
+        }
+        validate = false;
+      } else {
+        this.errors.insurance_company = "";
+      }
+
+      if (!this.insurancePolicyName) {
+        this.errors.insurance_policy_name = ["This field is required."];
+        if (validate) {
+          document.getElementById("insurancePolicyName").scrollIntoView();
+        }
+        validate = false;
+      } else {
+        this.errors.insurance_policy_name = "";
+      }
+
+      if (!this.PolicyNickname) {
+        this.errors.policy_nickname = ["This field is required."];
+        if (validate) {
+          document.getElementById("insurancePolicyNickname").scrollIntoView();
+        }
+        validate = false;
+      } else {
+        this.errors.policy_nickname = "";
+      }
+
       if (this.saveInsuranceTemplate && !this.insuranceTemplateName) {
         this.errors.insurance_template_name = ["This field is required."];
+        if (validate) {
+          document.getElementById("insTemplateNameInp").scrollIntoView();
+        }
         validate = false;
       } else {
         this.errors.insurance_template_name = false;
+      }
+
+      if (!this.getInputWithId("simulationDeathBenefit")) {
+        this.errors.initial_death_benifit = ["This field is required."];
+        if (validate) {
+          document.getElementById("simulationDeathBenefit").scrollIntoView();
+        }
+        validate = false;
+      } else {
+        this.errors.initial_death_benifit = "";
+      }
+
+      if (!this.getInputWithId("simulationPolicyReturn")) {
+        this.errors.policy_return = ["This field is required."];
+        if (validate) {
+          document.getElementById("simulationPolicyReturn").scrollIntoView();
+        }
+        validate = false;
+      } else {
+        this.errors.policy_return = "";
       }
 
       if (this.existingIllustrationName) {
@@ -1809,73 +1876,40 @@ export default {
           this.existingIllustrationList
         );
         if (!templateId) {
-          validate = false;
           this.errors.existing_illustration = [
             "Please choose a valid template.",
           ];
+          if (validate) {
+            document.getElementById("existingIllustration").scrollIntoView();
+          }
+          validate = false;
         } else {
           this.existingIllustrationId = templateId;
           this.errors.existing_illustration = "";
-        }
-      } else {
-        this.errors.existing_illustration = "";
-        if (this.uploadFromFile) {
-          if (
-            !this.csvPreview.data.length &&
-            !this.existingInsuranceProfileName &&
-            !this.existingIllustrationName
-          ) {
-            this.errors.illustration_file = true;
-            validate = false;
-          } else {
-            this.errors.illustration_file = false;
-          }
-          this.errors.illustration_text = false;
-        } else {
-          this.errors.illustration_file = false;
         }
       }
 
       if (this.saveIllustrationTemplate && !this.illustrationTemplateName) {
         this.errors.illustration_template_name = ["This field is required."];
+        if (validate) {
+          document
+            .getElementById("saveIllustrationtemplateName")
+            .scrollIntoView();
+        }
         validate = false;
       } else {
         this.errors.illustration_template_name = false;
       }
-
-      if (!this.insuranceCompany) {
-        this.errors.insurance_company = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.insurance_company = "";
-      }
-
-      if (!this.insurancePolicyName) {
-        this.errors.insurance_policy_name = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.insurance_policy_name = "";
-      }
-
-      if (!this.PolicyNickname) {
-        this.errors.policy_nickname = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.policy_nickname = "";
-      }
-
-      if (!this.getInputWithId("simulationDeathBenefit")) {
-        this.errors.initial_death_benifit = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.initial_death_benifit = "";
-      }
-
-      if (!this.getInputWithId("simulationPolicyReturn")) {
-        this.errors.policy_return = ["This field is required."];
-        validate = false;
-      } else {
-        this.errors.policy_return = "";
+      if (!this.csvPreview.data.length) {
+        if (this.uploadFromFile) {
+          this.errors.illustration_file = [
+            "Please upload illustration pdf data.",
+          ];
+          validate = false;
+        } else {
+          this.errors.illustration_text = ["CSV data is required."];
+          validate = false;
+        }
       }
 
       return validate;
@@ -1906,7 +1940,6 @@ export default {
     // remove error
     clearError: function (key) {
       this.errors[key] = false;
-      // this.clearInsuranceTemplate();
     },
 
     // this function has return the input value
@@ -2040,6 +2073,8 @@ export default {
       let file = this.$refs.file.files[0];
       this.illustrationTemplateInput = 1;
       this.illustrationFile.type = "new";
+      this.errors.illustration_file = "";
+      this.errors.illustration_text = "";
       if (file) {
         if (file.type !== "application/pdf") {
           this.errors.illustration_file = ["Please upload a valid PDF file."];
@@ -2340,6 +2375,11 @@ export default {
       if (e) {
         e.preventDefault();
       }
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
       if (
         this.csvPreview &&
         this.csvPreview.headers &&
@@ -2376,16 +2416,6 @@ export default {
         } else {
           return this.$toast.warning("CSV data is required.");
         }
-      }
-
-      if (!this.validateForm()) {
-        let mainSectionElement = document.getElementById(
-          "main-section-element"
-        );
-        if (mainSectionElement) {
-          mainSectionElement.scrollIntoView();
-        }
-        return false;
       }
 
       var data = {
@@ -2504,6 +2534,7 @@ export default {
             setSimulationStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
+            this.getClient();
             this.$toast.success(response.data.message);
             let url = `/${
               review ? "review-summary" : "historical/parameters"
@@ -2544,7 +2575,7 @@ export default {
             setSimulationStep2(response.data.data);
             this.getExistingIllustration();
             this.getExistingInsurance();
-
+            this.getClient();
             this.$router.push(
               `/historical/parameters/${this.$route.params.simulation}`
             );
@@ -2618,7 +2649,6 @@ export default {
         if (obj && obj.headers) {
           let temp_data = [];
           let maxRowLen = this.csvPreview.data.length;
-          let maxColLen = this.csvPreview.data.length;
           if (obj.data.length < maxRowLen) {
             maxRowLen = obj.data.length;
           }
@@ -2646,6 +2676,10 @@ export default {
     },
     // exract the csv data
     handleCSV: function (e) {
+      this.errors.illustration_file = "";
+      this.errors.illustration_text = "";
+      this.illustrationFile.file = null;
+      this.illustrationFile.name = "";
       let txt = e.clipboardData.getData("text/plain");
       if (txt) {
         let obj = this.exractCsvText(txt);

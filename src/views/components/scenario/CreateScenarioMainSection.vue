@@ -41,7 +41,10 @@
                   Create From Scratch
                 </h4>
                 <div class="form-group pt-2 less">
-                  <label for="scenarioName" class="fs-12 medium-fw"
+                  <label
+                    for="scenarioName"
+                    class="fs-12 medium-fw"
+                    @click="saveClientAge"
                     >Scenario Name</label
                   >
                   <input
@@ -118,6 +121,7 @@
                       <input
                         type="number"
                         id="illustratedAge"
+                        min="1"
                         max="100"
                         class="form-control handleLimit"
                         @keyup="
@@ -377,19 +381,20 @@
                       @onSelectItem="setExistingScenarioScheduleId"
                       @inputText="setExistingScenarioScheduleName"
                     />
-                    <div class="form-group">
-                      <small class="text-danger" v-if="errors.tax_rate">{{
-                        errors.tax_rate[0]
-                      }}</small>
-
+                    <div class="form-group mb-0">
                       <div class="form-group mb-0">
                         <schedule-csv-extraction
                           prefixId="schedule_tax_rate_"
                           :maxInputs="Number(illustrateYear)"
-                          @clearError="checkTaxRate()"
+                          @clearError="checkTaxRate(true)"
                         />
                       </div>
 
+                      <small
+                        class="text-danger d-block text-center mb-2"
+                        v-if="errors.tax_rate"
+                        >{{ errors.tax_rate[0] }}</small
+                      >
                       <table
                         class="table tax-rate-table text-center"
                         id="scheduleTaxRateTable"
@@ -452,7 +457,7 @@
                           >
                         </div>
                         <div
-                          class="form-group pt-2"
+                          class="form-group pt-2 mb-2"
                           id="templateNameDiv"
                           :style="{
                             display: saveScheduleTemplate ? '' : 'none',
@@ -570,7 +575,7 @@
   </section>
 </template>
 <script>
-import { get, post, put } from "./../../../network/requests";
+import { get, patch, post, put } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
@@ -583,6 +588,7 @@ import {
   getScenarioStep1,
   getCurrentScenario,
   setCurrentScenario,
+  getFirstError,
 } from "./../../../services/helper";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -609,6 +615,7 @@ export default {
       simpleTaxRate: true,
       saveScheduleTemplate: false,
       saveDetailsTemplate: false,
+      isValidScheduleData: false,
       illustrateYear: "",
       firstTaxRate: "",
       secondTaxRate: "",
@@ -757,7 +764,6 @@ export default {
           }${this.$route.query.review ? "&review=true" : ""}`
         );
       }
-      // this.existingClientId = false;
     },
 
     // set existing scenario detail template name on change the input
@@ -958,15 +964,15 @@ export default {
           });
       }
     },
-    setScheduleData: function (data = [], template = false) {
+    setScheduleData: function (data = []) {
       this.errors.tax_rate = "";
       this.clearScheduleData();
       data.forEach((element) => {
         this.setInputWithId(
-          `schedule_tax_rate_${element.year}`,
-          element.year <= this.illustrateYear ? element.tax_rate : ""
+          `schedule_tax_rate_${element.year}`, element.year <= this.illustrateYear ? element.tax_rate : ""
         );
       });
+      this.checkTaxRate(true);
     },
 
     clearScheduleData: function (data = []) {
@@ -1022,19 +1028,28 @@ export default {
     },
 
     // check all inputs given in the schedule tax rate list, raturn false if any input has blank value otherwise return true.
-    checkTaxRate: function () {
-      this.clearScheduleTemplate();
-      if (this.illustrateYear) {
-        for (let index = 1; index <= this.illustrateYear; index++) {
-          var inp = document.getElementById(`schedule_tax_rate_${index}`);
-          var tax = inp ? inp.value : "";
-          if (!tax) {
-            return false;
+    checkTaxRate: function (delay = false) {
+      if (delay) {
+        // Check the schedule input if 
+        setTimeout(() => {
+          this.checkTaxRate();
+        }, 100);
+      } else {
+        this.clearScheduleTemplate();
+        if (this.illustrateYear) {
+          for (let index = 1; index <= this.illustrateYear; index++) {
+            var inp = document.getElementById(`schedule_tax_rate_${index}`);
+            var tax = inp ? inp.value : "";
+            if (!tax) {
+              this.isValidScheduleData = false;
+              return false;
+            }
           }
         }
+        this.errors.tax_rate = "";
+        this.isValidScheduleData = true;
+        return true;
       }
-      this.errors.tax_rate = "";
-      return true;
     },
 
     // validate the form
@@ -1059,10 +1074,7 @@ export default {
       }
 
       if (!this.existingScenarioDetailName) {
-        if (!this.scenarioName) {
-          // this.errors.scenario_name = ["This field is required."];
-          // validate = false;
-        } else {
+        if (this.scenarioName) {
           this.errors.scenario_name = "";
         }
 
@@ -1152,6 +1164,11 @@ export default {
       if (e) {
         e.preventDefault();
       }
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
       var tempSchedule = [];
       if (!this.simpleTaxRate && this.illustrateYear) {
         for (let index = 1; index <= this.illustrateYear; index++) {
@@ -1159,10 +1176,6 @@ export default {
           var tax = inp ? inp.value : "";
           tempSchedule.push({ year: index, tax_rate: tax });
         }
-      }
-
-      if (!this.validateForm()) {
-        return false;
       }
 
       var data = {
@@ -1221,12 +1234,52 @@ export default {
         this.createScenarioDetail(formData);
       }
     },
+    saveClientAge: function () {
+      let defaultAge = "";
+
+      this.$store.state.data.clients.forEach((element) => {
+        if (Number(this.$route.query.client) === Number(element.id)) {
+          defaultAge = element.age;
+        }
+      });
+
+      if (defaultAge !== Number(this.clientAgeYearToIllustrate)) {
+        this.$store.dispatch(
+          "clients",
+          this.$store.state.data.clients.map((item) => {
+            if (Number(this.$route.query.client) === Number(item.id)) {
+              item.age = this.clientAgeYearToIllustrate;
+            }
+            return item;
+          })
+        );
+
+        patch(
+          `${getUrl("client")}${this.existingClientId}/`,
+          { age: this.clientAgeYearToIllustrate },
+          authHeader()
+        )
+          .then()
+          .catch(() => {
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              this.$toast.error(getFirstError(error));
+            }
+          });
+      }
+    },
     // create new secnario detail data
     createScenarioDetail: function (data) {
       post(getUrl("scenario-details"), data, authHeader())
         .then((response) => {
           let id = response.data.data.id;
           setScenarioStep1(response.data.data);
+          this.saveClientAge();
           this.getExistingScenarioDetails();
           this.detailId = id;
           if (id) {
@@ -1268,22 +1321,33 @@ export default {
     updateScenarioDetail: function (data, review, report) {
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then((response) => {
+          let currentScenario = this.activeScenario;
           setScenarioStep1(response.data.data);
+          this.saveClientAge();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
-          let url = `/illustration-data/${this.activeScenario.id}`;
+          let url = `/illustration-data/${currentScenario.id}`;
 
           if (review) {
-            return this.$router.push(
-              `/review-summary/${this.activeScenario.id}`
-            );
+            return this.$router.push(`/review-summary/${currentScenario.id}`);
           }
 
           if (report) {
             window.location.href = `/report-builder/${this.reportId}`;
           }
 
-          if (this.activeScenario.id) {
+          if (
+            currentScenario.scenerio_details &&
+            currentScenario.scenerio_details.years_to_illustrate
+          ) {
+            currentScenario.scenerio_details.years_to_illustrate = Number(
+              data.years_to_illustrate
+            );
+            this.$store.dispatch("activeScenario", currentScenario);
+            setCurrentScenario(currentScenario);
+          }
+
+          if (currentScenario.id) {
             this.$router.push({
               path: url,
               query: this.$route.query,
@@ -1366,27 +1430,31 @@ export default {
       if (
         !this.scenarioName ||
         !this.clientAgeYearToIllustrate ||
-        !this.illustrateYear ||
-        !this.firstTaxRate
+        !this.illustrateYear
       ) {
         valid = false;
       }
 
-      if (this.secondTaxRate && !this.secondTaxRateYear) {
-        valid = false;
-      }
+      if (this.simpleTaxRate) {
+        if (!this.firstTaxRate) {
+          valid = false;
+        }
 
-      if (this.secondTaxRate && !this.secondTaxRateYear) {
-        valid = false;
+        if (this.secondTaxRate && !this.secondTaxRateYear) {
+          valid = false;
+        }
+      } else {
+        if (!this.isValidScheduleData) {
+          valid = false;
+        }
       }
 
       return valid;
     },
-    // active scenario data
+    // return active scenario data
     activeScenario() {
       return this.$store.state.data.active_scenario;
     },
-
     // existing client dropdown list data
     clients() {
       let initClient = [];

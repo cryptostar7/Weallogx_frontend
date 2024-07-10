@@ -41,10 +41,10 @@ body {
     justify-content: end;
 }
 .headingArea {
-    color: 333;
+    color: #333;
     font-size: 42px;
     position: relative;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
     font-weight: 800;
 }
 .headingArea2 {
@@ -115,6 +115,7 @@ input:-webkit-autofill:active {
     background-color: rgb(255, 255, 255);
     padding: 0 2px;
     margin-left: 30px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     color: #CACACA;
@@ -123,25 +124,23 @@ input:-webkit-autofill:active {
     transition: all 125ms;
     pointer-events: none;
 }
-
-.auth-form label.active {
-    position: absolute;
-    z-index: 1;
-    background-color: rgb(255, 255, 255);
-    padding: 0 2px;
-    margin-left: 30px;
+.auth-form input:focus ~ label{
     top: 0%;
-    transform: translateY(-50%);
     color: #0E6651;
     font-weight: 600;
     font-size: 16px;
-    transition: all 125ms;
 }
+
 .auth-form input:not(:placeholder-shown) {
     border: 1px solid #298B74;
     outline: none;
 }
-
+.auth-form input:not(:placeholder-shown)~label {
+    top: 0%;
+    color: #0E6651;
+    font-weight: 600;
+    font-size: 16px;
+}
 .planSelectMainDiv {
     width: 100%;
     background: #FFF;
@@ -1580,12 +1579,6 @@ input:checked+.paymentSlider:before {
     margin-top: 5rem !important;
 }
 
-/* .wraperDiv{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    min-height: 100vh;
-}  */
 .modalWithOverlayDiv {
     display: none;
 }
@@ -2462,7 +2455,6 @@ input:checked+.paymentSlider:before {
 }
 
 .businessLogoImageDiv {
-/*    border: 1px solid #DFDFDF;*/
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -2659,56 +2651,6 @@ margin-bottom: 10px;
             .thankYouBottomPara2 a:hover span{    
                 color: #0c725a;
                 }
-/* 
-.editProfileInpuDiv {
-    position: relative;
-    margin-top: 15px;
-    height: 45px;
-}
-
-.editProfileInpuDiv input {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #DFDFDF;
-    border-radius: 50px;
-    padding: 0 30px;
-}
-
-.editProfileInpuDiv input:focus,
-.editProfileInpuDiv input:valid {
-    border: 1px solid #298B74 !important;
-    outline: none;
-}
-
-.editProfileInpuDiv label {
-    position: absolute;
-    z-index: 1;
-    background-color: rgb(255, 255, 255);
-    padding: 0 2px;
-    margin-left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #CACACA;
-    font-weight: 400;
-    font-size: 14px;
-    transition: all 125ms;
-    pointer-events: none;
-}
-
-.editProfileInpuDiv input:focus + label,
-.editProfileInpuDiv input:valid + label{
-    position: absolute;
-    z-index: 1;
-    background-color: rgb(255, 255, 255);
-    padding: 0 2px;
-    margin-left: 30px;
-    top: 0%;
-    transform: translateY(-50%);
-    color: #0E6651;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 125ms;
-} */
 .notificationPlanPara{
     font-weight: 400!important;
 font-size: 14px!important;

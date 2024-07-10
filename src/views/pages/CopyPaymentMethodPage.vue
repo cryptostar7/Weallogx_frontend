@@ -54,8 +54,6 @@
               <div class="paymentMethodFormDiv">
                 <div>
                   <label for="card_no">Card Number</label>
-                  <!-- <img id="brand-icon" src="@/assets/images/user/master-card.svg" alt="Marter Card"> -->
-                  <!-- <span class="brand"><i class="pf pf-credit-card" id="brand-icon"></i></span> -->
                   <div ref="cardNumber" id='card_no' class="numberInputs card-number"></div>
                 </div>
                 <div>
@@ -169,12 +167,6 @@ export default {
     cardNumber.mount(this.$refs.cardNumber);
     cardExpiry.mount(this.$refs.cardExpiry);
     cardCvc.mount(this.$refs.cardCvc);
-
-    cardNumber.on("change", function(event) {
-      // Switch brand logo
-      if (event.brand) {
-      }
-    });
   },
   methods: {
     getSource: async function() {

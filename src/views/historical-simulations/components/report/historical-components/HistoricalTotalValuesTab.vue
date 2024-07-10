@@ -218,7 +218,7 @@ export default {
     let card5 = this.historical.max;
 
     if (card1) {
-      this.data[0].type = "LIRP";
+      this.data[0].type = this.historical.policy_nickname || "";
       this.data[0].total_value = card1.cummulative_income_total_value;
     }
 
@@ -811,12 +811,6 @@ export default {
             );
           }
         });
-
-      // document
-      //   .querySelector(".fullScreenCloseBtn")
-      //   .addEventListener("click", function() {
-      //     htmlLegendPlugin3.showAll(totalValueChart, totalValueConfig.options);
-      //   });
     },
   },
   computed: {
@@ -856,7 +850,6 @@ export default {
       }
     },
     "deletedItems.length"(val) {
-      // this.setGraph();
     },
   },
 };

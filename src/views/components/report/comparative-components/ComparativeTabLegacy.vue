@@ -49,7 +49,7 @@
                       </div>                      
                       <p :class="`cardRadioSwtchpara${1+index}`">{{cv_name[index]}}</p>
                       <div class="mt-2 ">
-                        <p class="legacyCardPara">Ending Value (Age {{item.age}})</p>
+                        <p class="legacyCardPara">Ending Value <span class="age-span">(Age {{item.age}})</span></p>
                       </div>
                     </div>
                   </div>

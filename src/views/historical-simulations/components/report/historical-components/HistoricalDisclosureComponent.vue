@@ -307,11 +307,6 @@ export default {
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
       let borrowing_rate = this.disclosure.borrowing_rate;
-      // `Index(es) Simulated: ${indexes[0]} ${
-      //   weightages.weight_1
-      // }% <br /> ${
-      //   indexes[1] ? `${indexes[1]} ${weightages.weight_2}% <br />` : ""
-      // } ${indexes[2] ? `${indexes[2]} ${weightages.weight_3}% <br />` : ""}
 
       return `This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
       It is not a real world insurance policy. It is not an official illustration. 

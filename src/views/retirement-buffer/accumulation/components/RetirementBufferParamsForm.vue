@@ -118,9 +118,9 @@
         </div>
         <div class="form_section_each_inputs width25">
           <div class="form_section_label_div">
-            <label for="tax-rate" class="main_label"
-              >Tax Rate <span class="optional">(optional)</span></label
-            >
+            <label for="tax-rate" class="main_label">
+              Tax Rate<span class="optional">(optional)</span>
+            </label>
           </div>
           <div class="form_section_input_div">
             <input
@@ -268,15 +268,15 @@
         </div>
         <div class="form_section_each_inputs width20">
           <div class="form_section_label_div">
-            <label for="premium-bonus" class="main_label"
-              >Premium Bonus <span class="optional">optional</span
-              ><span
-                ><common-tooltip-svg />
-                <span
-                  >If your buffer account offers a an upfront premium bonus,
-                  enter that amount here.</span
-                ></span
-              >
+            <label for="premium-bonus" class="main_label">
+              Premium Bonus
+              <span class="optional">(optional)</span>
+              <span>
+                <common-tooltip-svg />
+                <span>
+                  If your buffer account offers a an upfront premium bonus, enter that amount here.
+                </span>
+              </span>
             </label>
           </div>
           <div class="form_section_input_div">

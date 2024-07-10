@@ -224,7 +224,7 @@
                                           <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_average).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
-                                          <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CARG</p>
+                                          <p :class="`lifeProPlusPara${1+header.id+header.id} m-0 mb-1`">Strategy CAGR</p>
                                           <p class="lifeProPlusPara2 m-0 mb-1">{{ Number(data[header.id].strategy_carg).toFixed(2) }}%</p>
                                         </div>
                                         <div class="d-flex justify-content-between">
@@ -274,7 +274,6 @@
                             <tbody>
                               <tr>
                                 <td style="border-right: 0 !important;" class="table1Td tableotalTd text-start" data-label="Year">Deposits</td>
-                                <!-- <td class="table1Td" data-label="Age">{{$numFormatWithDollar(summary_data.deposits.totals) }}</td> -->
                               </tr>
                               <tr>
                                 <td style="border-right: 0 !important;" class="table1Td totalValueTd" data-label="Age">Distributions</td>
@@ -418,12 +417,10 @@ function Table(element) {
 Table.prototype.refreshHeaderSize = function() {
   var offset = getOffset(this.element);
   var trs = this.element.getElementsByTagName("tr");
-  var padding;
   this.top = offset.top;
   this.bottom = this.element.offsetHeight - trs[trs.length - 1].offsetHeight;
   for (var i = 0; i < this.originalThs.length; i++) {
     var th = this.originalThs[i];
-    // console.log(th, th.offsetWidth, th.offsetHeight);
     this.floatingThs[i].style.width = th.offsetWidth + "px";
     this.floatingThs[i].style.height = th.offsetHeight + "px";
   }
@@ -446,10 +443,6 @@ export default {
   components: { HistoricalDisclosureComponent, draggable: VueDraggableNext },
   data() {
     return {
-      // sidebar: {
-      //   collapse: false,
-      //   currentTab: "comparative",
-      // },
       activeTabs: this.$store.state.data.reportTabs.active,
       showAll: false,
       draggableColumns: [

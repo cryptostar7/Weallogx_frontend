@@ -124,7 +124,7 @@ export default {
       ],
       data: [
         {
-          type: "LIRP",
+          type: "",
           internal_rate_of_return: "",
           taxable_equivalent: "",
         },
@@ -175,7 +175,7 @@ export default {
     let card5 = this.historical.max.result;
 
     if (card1) {
-      this.data[0].type = "LIRP";
+      this.data[0].type = this.historical.policy_nickname || "";
       this.data[0].internal_rate_of_return = card1.irr_percent;
       this.data[0].taxable_equivalent = card1.taxable_equivalent;
     }

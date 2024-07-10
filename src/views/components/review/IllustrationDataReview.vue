@@ -82,9 +82,9 @@
               <input
                 type="text"
                 class="form-control"
-                :value="`$${Number(
-                  data.initial_death_benifit
-                ).toLocaleString('en-US')}`"
+                :value="`$${Number(data.initial_death_benifit).toLocaleString(
+                  'en-US'
+                )}`"
                 readonly
               />
             </div>
@@ -188,7 +188,13 @@
                       v-for="(items, index) in illustration.data"
                       :key="index"
                     >
-                      <td v-for="(item, i) in items" :key="i" :data-label="illustrationFields[illustration.headers[i]]">
+                      <td
+                        v-for="(item, i) in items"
+                        :key="i"
+                        :data-label="
+                          illustrationFields[illustration.headers[i]]
+                        "
+                      >
                         {{ item }}
                       </td>
                     </tr>
@@ -197,7 +203,7 @@
               </div>
               <div>
                 <button class="btn form-control mt-2" @click="handleTable">
-                  + SEE {{ showAll ? "LESS" : "ALL" }}
+                  {{ showAll ? "- SEE LESS" : "+ SEE ALL" }}
                 </button>
               </div>
             </div>
@@ -224,8 +230,10 @@ export default {
   methods: {
     handleTable: function () {
       this.showAll = !this.showAll;
-      let illustrationScheduleRateTable = document.getElementById("illustrationScheduleRateTable");
-      if(illustrationScheduleRateTable){
+      let illustrationScheduleRateTable = document.getElementById(
+        "illustrationScheduleRateTable"
+      );
+      if (illustrationScheduleRateTable) {
         illustrationScheduleRateTable.scrollIntoView();
       }
     },

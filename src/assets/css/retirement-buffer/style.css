@@ -9,7 +9,7 @@
     display: none;
 }
 /* For delete */
-.mt-15{
+.mt-15 {
     margin-top: 15px;
 }
 .padding_right_section {
@@ -69,8 +69,8 @@
 .accumulation_each_card div {
     width: 145px;
     height: 145px;
-    background-color: #ffffff;
-    border: 1.5px solid #dddddd;
+    background-color: #fff;
+    border: 1.5px solid #ddd;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -106,7 +106,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 18px 30px;
-    border-radius: 8px;
+    border-radius: 0.3rem;
     border: 1.25px solid #dfdfdf;
     background: #0e6651;
 }
@@ -130,7 +130,7 @@
 }
 
 .accumulation_strategy_inner_box {
-    padding: 20px 20px 40px 20px;
+    padding: 20px;
 }
 .accumulation_strategy_inner_box .form_section_para {
     color: #147d64;
@@ -141,7 +141,7 @@
 .form_section_input_row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.5rem;
 }
 .form_section_each_inputs.width25 {
     width: 25%;
@@ -166,6 +166,14 @@
     align-items: center;
     gap: 4px;
 }
+.form_section_label_div.disabled {
+    pointer-events: none;
+}
+.form_section_label_div.disabled label.main_label {
+    color: #dfdfdf;
+    font-size: 12px;
+    font-weight: 600;
+}
 .form_section_label_div label::before {
     position: absolute;
     left: 0;
@@ -175,8 +183,16 @@
     height: 2px;
     background-color: #0e6651;
 }
+.form_section_label_div.disabled label::before {
+    background-color: #dfdfdf;
+}
 .form_section_label_div label span.optional {
     color: #a1a1a1;
+    font-size: 12px;
+    font-weight: 600;
+}
+.form_section_label_div.disabled label span.optional {
+    color: #dfdfdf;
     font-size: 12px;
     font-weight: 600;
 }
@@ -208,6 +224,9 @@
 }
 .form_section_input_div {
     position: relative;
+}
+.form_section_label_div.disabled ~ .form_section_input_div {
+    pointer-events: none;
 }
 .form_section_input_div span.dollar {
     position: absolute;
@@ -248,7 +267,7 @@
 .form_section_input_div input.dollar_inp {
     padding-left: 21px;
 }
-.form_section_input_div input.gray{
+.form_section_input_div input.gray {
     background-color: #f4f4f4;
 }
 .form_section_input_div input.percent_inp {
@@ -302,7 +321,7 @@
     border-radius: 0 0 5px 5px;
     list-style: none;
     margin: 0;
-    padding:0;
+    padding: 0;
     overflow-x: hidden;
 }
 
@@ -334,7 +353,7 @@
 }
 
 .accumulation_select_menu.active .select-btn {
-/*    height: auto;*/
+    /*    height: auto;*/
     border: 1.25px solid #dfdfdf;
     border-bottom: none;
     border-radius: 5px 5px 0 0;
@@ -360,19 +379,19 @@
 .form_section_label_div .label-right-div {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
 }
 
 .form_section_label_div .label-right-div .label_checkbox {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .form_section_label_div .label-right-div .label_checkbox label {
     border-radius: 2px;
     border: 1.25px solid #dfdfdf;
-    background-color: #ffffff;
+    background-color: #fff;
     width: 11px;
     height: 11px;
     cursor: pointer;
@@ -382,10 +401,21 @@
     font-size: 12px;
     font-weight: 600;
 }
+.form_section_label_div.disabled .label-right-div .label_checkbox span {
+    color: #dfdfdf;
+}
+.form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
+    stroke: #dfdfdf;
+}
+.form_section_label_div.disabled .label-right-div .label_checkbox svg rect {
+    stroke: #dfdfdf;
+}
 .form_section_label_div .label-right-div .label_checkbox input:checked ~ label {
     background-color: #0e6651;
 }
-
+.form_section_label_div.disabled .label-right-div .label_checkbox input:checked ~ label {
+    background-color: #a1a1a1;
+}
 .slider_main {
     display: flex;
     align-items: center;
@@ -400,7 +430,7 @@
     border: 2px solid #0e6651;
     border-right: 0;
     background: #f1f1f1;
-/*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
+    /*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -419,7 +449,7 @@
     border: 2px solid #0e6651;
     border-left: 0;
     background: #f1f1f1;
-/*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
+    /*    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -448,7 +478,7 @@
 }
 .split_bar::before {
     position: absolute;
-    content: '';
+    content: "";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -461,7 +491,7 @@
 }
 .split_bar::after {
     position: absolute;
-    content: '';
+    content: "";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -491,11 +521,11 @@
     font-size: 12px;
     font-weight: 600;
 }
-.split_left.left::before{
+.split_left.left::before {
     left: 0;
     transform: none;
 }
-.split_right.right::before{
+.split_right.right::before {
     left: auto;
     right: 0;
     transform: none;
@@ -507,10 +537,12 @@
     margin-inline: auto;
     margin-top: 50px;
 }
-.table_graph_tab_main.disable .retirement_sliderm, .slider_main.disabled{
+.table_graph_tab_main.disable .retirement_sliderm,
+.slider_main.disabled {
     pointer-events: none;
 }
-.table_graph_tab_main.disable .retirement_slider .split_left, .slider_main.disabled .split_left {
+.table_graph_tab_main.disable .retirement_slider .split_left,
+.slider_main.disabled .split_left {
     border: 2px solid #dfdfdf;
     border-right: 0;
     background: #fafafa;
@@ -519,10 +551,12 @@
     user-select: none;
     width: 50% !important;
 }
-.table_graph_tab_main.disable .retirement_slider .split_left::before, .slider_main.disabled .split_left::before {
+.table_graph_tab_main.disable .retirement_slider .split_left::before,
+.slider_main.disabled .split_left::before {
     color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_right, .slider_main.disabled .split_right {
+.table_graph_tab_main.disable .retirement_slider .split_right,
+.slider_main.disabled .split_right {
     border: 2px solid #dfdfdf;
     border-left: 0;
     background: #fafafa;
@@ -531,24 +565,31 @@
     user-select: none;
     width: 50% !important;
 }
-.table_graph_tab_main.disable .split_right.right::before, .slider_main.disabled .split_right.right::before {
+.table_graph_tab_main.disable .split_right.right::before,
+.slider_main.disabled .split_right.right::before {
     left: unset;
     right: unset;
     transform: unset;
 }
-.table_graph_tab_main.disable .retirement_slider .split_right::before, .slider_main.disabled .split_right::before {
+.table_graph_tab_main.disable .retirement_slider .split_right::before,
+.slider_main.disabled .split_right::before {
     color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar, .slider_main.disabled .split_bar, .slider_main.disabled .split_bar::after {
+.table_graph_tab_main.disable .retirement_slider .split_bar,
+.slider_main.disabled .split_bar,
+.slider_main.disabled .split_bar::after {
     background-color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar::before, .slider_main.disabled .split_bar::before {
+.table_graph_tab_main.disable .retirement_slider .split_bar::before,
+.slider_main.disabled .split_bar::before {
     border-color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar::after, .slider_main.disabled .split_bar::after {
+.table_graph_tab_main.disable .retirement_slider .split_bar::after,
+.slider_main.disabled .split_bar::after {
     background-color: #dfdfdf;
 }
-.table_graph_tab_main.disable .retirement_slider .split_bar.disable, .slider_main.disabled .split_bar.disable{
+.table_graph_tab_main.disable .retirement_slider .split_bar.disable,
+.slider_main.disabled .split_bar.disable {
     left: calc(50% - 21px) !important;
 }
 .run_btn {
@@ -574,7 +615,7 @@
     background-color: transparent;
     color: #0e6651;
 }
-.run_btn:focus-visible{
+.run_btn:focus-visible {
     outline: none;
 }
 .run_btn.disable {
@@ -695,7 +736,7 @@
 .market_buffer_account_tab div:last-child.active {
     background-color: #1660a4;
 }
-.market_buffer_account_tab div.disable{
+.market_buffer_account_tab div.disable {
     color: #dfdfdf;
 }
 
@@ -730,6 +771,14 @@
     fill: #fff;
 }
 .table_graph_setting_tab div.active svg rect {
+    stroke: #fff;
+}
+.table_graph_setting_tab div.active svg.income-rider-tab-svg rect {
+    fill: white;
+    stroke: transparent;
+}
+.table_graph_setting_tab div.active svg.income-rider-tab-svg path.svgstroke {
+    fill: transparent;
     stroke: #fff;
 }
 
@@ -801,7 +850,7 @@
     color: #dfdfdf;
     user-select: none;
 }
-.table_graph_tab_main.disable .each_table_heading .buffer_value{
+.table_graph_tab_main.disable .each_table_heading .buffer_value {
     display: none;
 }
 .w-14 {
@@ -816,7 +865,10 @@
 .w-40 {
     width: 40%;
 }
-.table-wrapper-with-boarder{
+.w-50 {
+    width: 50%;
+}
+.table-wrapper-with-boarder {
     border: 1.5px solid #dfdfdf;
     border-bottom: 0;
     border-top-left-radius: 6px;
@@ -864,7 +916,7 @@ table.retirement_table_area thead tr th p {
     margin: 0;
     font-weight: 700;
 }
-th p.combined-th{
+th p.combined-th {
     padding: 3px 0 2px;
 }
 table.retirement_table_area tr {
@@ -901,7 +953,7 @@ table.retirement_table_area tr td {
     min-height: 39.2px;
 }
 
-.retirement_table_area.first tr td{
+.retirement_table_area.first tr td {
     background-color: #fff;
 }
 
@@ -1038,7 +1090,7 @@ table.retirement_table_area tr td.zero_text {
     display: block;
     z-index: 10;
 }
-.retirement_table_area .table_select_menu .select-btn{
+.retirement_table_area .table_select_menu .select-btn {
     border-bottom: 0;
 }
 
@@ -1233,7 +1285,7 @@ table.retirement_table_area tr td.zero_text {
     font-size: 13px;
     font-weight: 500;
 }
-.each_card_left_label span span.full-width{
+.each_card_left_label span span.full-width {
     max-width: 100%;
     width: 100%;
     white-space: nowrap;
@@ -1262,7 +1314,8 @@ table.retirement_table_area tr td.zero_text {
     text-align: center;
     margin-bottom: 12px;
 }
-.summary_each_card.disable .each_card_right_part .success_prob_para, .each_card_right_part.disabled .success_prob_para {
+.summary_each_card.disable .each_card_right_part .success_prob_para,
+.each_card_right_part.disabled .success_prob_para {
     opacity: 0;
 }
 
@@ -1328,10 +1381,12 @@ table.retirement_table_area tr td.zero_text {
     fill: #1660a4;
 }
 
-.summary_each_card.disable .pie.progress_pie svg circle[r], .each_card_right_part.disabled .pie.progress_pie svg circle[r] {
+.summary_each_card.disable .pie.progress_pie svg circle[r],
+.each_card_right_part.disabled .pie.progress_pie svg circle[r] {
     stroke: #fafafa;
 }
-.summary_each_card.disable .pie.progress_pie svg text, .each_card_right_part.disabled .pie.progress_pie svg text {
+.summary_each_card.disable .pie.progress_pie svg text,
+.each_card_right_part.disabled .pie.progress_pie svg text {
     fill: transparent;
     user-select: none;
 }
@@ -1346,14 +1401,14 @@ table.retirement_table_area tr td.zero_text {
 .disclosure_bottom_para span {
     font-weight: 700;
 }
-.setting_modal{
-    margin-left: 170px;
+.setting_modal {
+    margin-left: 150px;
 }
-body.wider .setting_modal{
+body.wider .setting_modal {
     margin-left: 50px;
 }
 .setting_modal .modal-dialog {
-    max-width: 960px;
+    max-width: 1000px;
     width: 100%;
 }
 .setting_modal .preview-modal-close {
@@ -1553,56 +1608,554 @@ body.wider .setting_modal{
 canvas#retirementBufferGraph {
     width: 100% !important;
 }
-.retirement_table_area tbody tr td:first-child{
+.retirement_table_area tbody tr td:first-child {
     border-left: 0 !important;
 }
 @media (min-width: 1355px) and (max-width: 1467px) {
-    .retirement_table_area thead th p{
+    .retirement_table_area thead th p {
         font-size: 14px;
     }
-    .right-area.wider .retirement_table_area th p{
+    .right-area.wider .retirement_table_area th p {
         font-size: 15px;
     }
 }
 @media (min-width: 1200px) and (max-width: 1403px) {
-    .retirement_table_area thead th p{
+    .retirement_table_area thead th p {
         font-size: 13px;
     }
-    .right-area.wider .retirement_table_area th p{
+    .right-area.wider .retirement_table_area th p {
         font-size: 15px;
     }
 }
 @media (min-width: 1169px) and (max-width: 1231px) {
-    .right-area.wider .retirement_table_area th p{
+    .right-area.wider .retirement_table_area th p {
         font-size: 14px;
     }
 }
 @media (max-width: 1168px) {
-    .right-area.wider .retirement_table_area th p{
+    .right-area.wider .retirement_table_area th p {
         font-size: 13px;
     }
 }
 
 @media (max-width: 1342px) {
-    .table_graph_tab_main table.retirement_table_area thead tr th{
+    .table_graph_tab_main table.retirement_table_area thead tr th {
         height: 64px;
         vertical-align: bottom;
     }
-    .right-area.wider .table_graph_tab_main table.retirement_table_area thead tr th{
+    .right-area.wider .table_graph_tab_main table.retirement_table_area thead tr th {
         height: 52px;
     }
-    .each_table_heading{
+    .each_table_heading {
         font-size: 13px;
     }
-    .filter_buttons button{
+    .filter_buttons button {
         height: 29px;
     }
 }
 @media (max-width: 1200px) {
-    .right-area.wider .table_graph_tab_main table.retirement_table_area thead tr th{
+    .right-area.wider .table_graph_tab_main table.retirement_table_area thead tr th {
         height: 64px;
     }
-    .retirement_table_area thead th p{
+    .retirement_table_area thead th p {
         font-size: 13px;
     }
+}
+.col-border-right {
+    position: relative;
+}
+.col-border-right::after {
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: calc(100% - 30px);
+    background-color: #dfdfdf;
+    right: 0;
+    bottom: 0;
+}
+
+#retirementBufferModal .modal-content {
+    min-width: 600px;
+    overflow: hidden;
+}
+.modalDivMain.annual-increase-modal {
+    border-radius: 8px;
+}
+.modalDivMain.annual-increase-modal .modal-header {
+    background-color: #0e6651;
+    padding: 20px;
+}
+
+.income-rider-modal-tabs {
+    display: flex !important;
+    background: #fff;
+    box-shadow: 0px 0.25px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 100px;
+    width: 434px;
+    padding: 3px;
+    flex-wrap: unset;
+    margin-inline: auto;
+    margin-top: 20px;
+}
+
+.income-rider-modal-tabs div {
+    background: #fff;
+    border-radius: 100px;
+    width: 100%;
+    text-align: center;
+    padding: 0.325rem 0;
+    font-weight: 600;
+    font-size: 13px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.income-rider-modal-tabs div.active {
+    background: #0e6651;
+    border-radius: 100px;
+    color: #fff;
+}
+.income-rider-modal-tabs div:last-child.active {
+    background-color: #0e6651;
+}
+
+.income-rider-modal-body .para {
+    text-align: center;
+    font-size: 10px;
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.income-rider-table {
+    max-width: 320px;
+    margin-inline: auto;
+    margin-top: 20px;
+}
+.income-rider-table .tax-rate-table .table-input-div .form-control {
+    background-color: transparent;
+    padding-left: 22px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 400;
+}
+.income-rider-table .percent-input-div span.dollar-span {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #dfdfdf;
+    left: 0.75rem;
+    font-size: 15px;
+    pointer-events: none;
+}
+.income-rider-table .tax-rate-table .table-input-div .form-control:not(:placeholder-shown) ~ span.dollar-span {
+    color: #000;
+}
+.income-rider-table .form_section_label_div {
+    position: relative;
+}
+.income-rider-table .form_section_label_div .main_label {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+.income-rider-table .form_section_label_div .main_label::before {
+    display: none;
+}
+.annual-income-text-para {
+    color: #a5a5a5;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.incomeRiderCard {
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    padding: 7px 12px 9px;
+    height: 100%;
+}
+
+.incomeCard1 {
+    border-top: 6px solid var(--green-clr);
+}
+
+.incomeCard2 {
+    border-top: 6px solid #1660a4;
+}
+
+.incomeCard3 {
+    border-top: 6px solid #4a8ecd;
+}
+.incomeRiderCard.incomeCard3 .lightProgress3 {
+    background: #4a8ecd;
+}
+
+.incomeRiderCard.incomeCard3 .cardRadioSwtchpara3 {
+    color: #4a8ecd !important;
+}
+.incomeRiderCard .allCardHeadPara {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.incomeRiderCard .allCardHeadPara span {
+    color: #a1a1a1;
+    font-size: 12px;
+    font-weight: 700;
+    user-select: none;
+    text-align: end;
+}
+.incomeRiderCard .shortFall {
+    color: #ef391f;
+}
+.incomeRiderCard .surPlus {
+    color: #3cb79a;
+}
+
+.incomeRiderCard.disable .CardProgressBar {
+    background: #dfdfdf;
+}
+
+.incomeRiderCard.disable .allCardHeadPara span .ror-percent {
+    display: none;
+}
+
+.incomeRiderCard.disable .cardRadioSwtchpara1,
+.incomeRiderCard.disable .cardRadioSwtchpara1 .shortFall,
+.incomeRiderCard.disable .cardRadioSwtchpara2,
+.incomeRiderCard.disable .cardRadioSwtchpara2 .shortFall,
+.incomeRiderCard.disable .cardRadioSwtchpara3,
+.incomeRiderCard.disable .cardRadioSwtchpara3 .shortFall {
+    color: #dfdfdf !important;
+}
+.incomeRiderCard.disable .cardRadioSwtchpara1 span:last-child,
+.incomeRiderCard.disable .cardRadioSwtchpara1 span:last-child .shortFall,
+.incomeRiderCard.disable .cardRadioSwtchpara2 span:last-child,
+.incomeRiderCard.disable .cardRadioSwtchpara2 span:last-child .shortFall,
+.incomeRiderCard.disable .cardRadioSwtchpara3 span:last-child,
+.incomeRiderCard.disable .cardRadioSwtchpara3 span:last-child .shortFall {
+    color: transparent !important;
+    user-select: none;
+}
+.incomeRiderCard.disable .allCardHeadPara {
+    color: #000;
+}
+.incomeRiderCard.disable .allCardHeadPara span {
+    color: #a1a1a1;
+}
+.each-target-analysis-bar {
+    margin-top: 10px;
+}
+.each-target-analysis-bar .heading {
+    position: relative;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+.each-target-analysis-bar .heading span {
+    cursor: pointer;
+}
+.each-target-analysis-bar .heading::before {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 10px;
+    left: 0;
+    bottom: 0;
+}
+.each-target-analysis-bar .heading.clr1::before {
+    background: #25967b;
+}
+.each-target-analysis-bar .heading.clr2::before {
+    background: #1660a4;
+}
+.each-target-analysis-bar .heading.clr3::before {
+    background: #4a8ecd;
+}
+.target-analysis-each-bars {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1.25px solid #dfdfdf;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-inline: 3px;
+    height: 48px;
+    color: #000;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 42px;
+    transition: 0.3s width ease-in-out;
+}
+.amount-label-wrapper {
+    transition: 0.35s ease-in-out;
+}
+.amount-label-wrapper.eachBarText,
+.amount-label-wrapper.eachBarText span {
+    color: #fff;
+}
+.target-analysis-each-bars.barClr1 {
+    background: #0e6651;
+}
+.target-analysis-each-bars.barClr2 {
+    background: #1660a4;
+}
+.target-analysis-each-bars.barClr3 {
+    background: #4a8ecd;
+}
+.target-analysis-each-bars .target-bar-span {
+    font-size: 10px;
+    color: #fff;
+    font-weight: 600;
+    font-style: italic;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+.numbering-top-line {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    background: #e9e9e9;
+    margin-top: 15px;
+    opacity: 1;
+}
+.scalling-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 5px;
+    width: calc(100% - 14px);
+}
+.scalling-div span {
+    font-size: 10px;
+    color: #000;
+    font-weight: 400;
+}
+.scalling-div-label {
+    font-style: italic;
+    font-size: 10px;
+    color: #000;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 10px;
+}
+.income-rider-show-next-btn {
+    margin-inline: auto;
+    border-radius: 50px;
+    background: #147d64;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border: inherit;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 10px;
+}
+.income-rider-show-next-btn.disable {
+    background: #dfdfdf;
+    pointer-events: none;
+    user-select: none;
+}
+
+.target-analysis-bar {
+    width: var(--big-bar-width);
+    height: 265px;
+    background-image: url("../../images/icons/progreess-bar-design.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+}
+.target-analysis-bar .target-analysis-inner-bar {
+    width: 100%;
+    position: relative;
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    align-items: flex-end;
+}
+
+.target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
+    background: #0e6651;
+}
+.target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
+    background: #147d64;
+}
+.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1,
+.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2 {
+    background-color: #25967b;
+}
+.target-analysis-bar .target-analysis-bottom-bar-area {
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+    padding: 6px;
+}
+.target-analysis-bar .target-analysis-bottom-bar-area p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 11px;
+    color: #fff;
+}
+
+.target-analysis-bar-main-div {
+    max-width: 324px;
+    margin-inline: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 92%;
+    z-index: 1;
+    margin: 0 auto;
+    --big-bar-width: 150px;
+    --big-bar-height: 260px;
+    --gap: 4px;
+}
+
+.target-analysis-bar-main-div .bar-long-para {
+    color: #000;
+    text-align: justify;
+    font-size: 12px;
+    font-weight: 500;
+    margin-block: 10px 0;
+    width: 324px;
+    margin-inline: auto;
+    font-style: italic;
+}
+
+.target-analysis-bar-main-div .bar-long-para span {
+    color: #0e6651;
+    font-weight: 700;
+}
+
+.target-analysis-success-prob-para {
+    color: #000;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+}
+.pie.progress_pie {
+    width: 100% !important;
+    height: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pie.progress_pie svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    margin-inline: auto;
+}
+
+.pie.target-analysis-progress-pie svg circle[r] {
+    stroke-width: 20;
+    r: 40 !important;
+}
+.pie.target-analysis-progress-pie svg text {
+    font-size: 18px;
+    font-weight: 500;
+}
+.pie.target-analysis-progress-pie svg text {
+    fill: #1660a4;
+    text-align: center;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 500;
+}
+
+.summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
+.each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
+    stroke: #fafafa;
+}
+
+.pie-long-para {
+    color: #000;
+    text-align: justify;
+    font-size: 12px;
+    font-weight: 500;
+    margin-block: 10px 0;
+    margin-inline: auto;
+    width: 324px;
+    font-style: italic;
+}
+.pie-long-para span {
+    color: #1660a4;
+    font-weight: 700;
+}
+.border-before-col::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: calc(100% - 80px);
+    background: #dfdfdf;
+}
+
+/* Graph part start */
+
+.incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+    border: 3px solid var(--green-clr);
+    background-color: #0e665120;
+}
+
+.incomeRiderCard.graph-card.incomeCard2 .CardProgressBar {
+    border: 3px solid #1660a4;
+    background-color: #165fa420;
+}
+
+.incomeRiderCard.graph-card.incomeCard3 .CardProgressBar {
+    border: 3px solid #4a8ecd;
+    background-color: #4a8ecd20;
+}
+.incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+    border: 3px solid var(--green-clr);
+    background-color: #0e665120;
+}
+.incomeRiderCard.graph-card.disable .CardProgressBar {
+    border-color: #dfdfdf;
+    background: #dfdfdf;
+}
+.income-rider-graph-div {
+    height: 320px;
+}
+.income-rider-graph-div canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
+/* Graph part end */
+.modal-scrooll-div {
+    height: calc(100vh - 260px);
+    overflow-y: auto;
+}
+
+.bottom-numbers {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.all-number-div {
+    position: relative;
+    height: 28px;
+}
+
+.all-number-div-span {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
 }

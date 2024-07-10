@@ -1164,13 +1164,7 @@ export default {
 
   methods: {
     // TODO - Consider refactoring this to use data from vuejs state instead of DOM.
-    // showBonusHandler(e) {
-    //   console.log("yes, clicked");
-    //   this.updateBarWidths();
-    // },
     collapseAction(){
-      // console.log(this.isSeeAllActive);
-      console.log("clicked");
       if (this.isSeeAllActive) {
        this.updateBarWidths();
       }
@@ -1570,8 +1564,6 @@ export default {
             sub_array2.push(barValueGets);
           }
         }
-        var largestSec2 = 0;
-        var largestSec2 = Math.max.apply(0, sub_array2);
 
         if (this.currentConversionBarIdx < allBar2.length) {
           this.currentConversionBarIdx += 1;
@@ -1856,11 +1848,9 @@ export default {
           if (finalResult < 1 || !finalResult) {
             eachBar.style.padding = "8px 2px";
             eachBar.classList.remove("text-white");
-            // console.log("removed", finalResult)
           } else {
             eachBar.style.padding = "8px 2px";
             eachBar.classList.add("text-white");
-            // console.log("added", finalResult)
           }
 
           setTimeout(() => {
@@ -1922,8 +1912,6 @@ export default {
           sub_array2.push(barValueGets);
         }
       }
-      var largestSec2 = 0;
-      var largestSec2 = Math.max.apply(0, sub_array2);
 
       for (let i = 1; i <= allBar2.length; i++) {
         let currentRothBar = document.getElementById("roth_wider_bar_" + i);

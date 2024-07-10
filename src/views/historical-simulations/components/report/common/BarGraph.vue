@@ -19,12 +19,8 @@ export default {
     redioInp.addEventListener("click", function(e) {
     let screenMode = localStorage.getItem("mode");
     if (screenMode == "light-blue" || screenMode == "dark-blue") {
-        // this.config.datasets.datasets[0].borderColor = "#1660A4";
-        // this.config.datasets.datasets[1].borderColor = "#0E6651";
         this.comparativeValuesChart.update();
     } else {
-        // this.config.datasets.datasets[0].borderColor = "#0E6651";
-        // this.config.datasets.datasets[1].borderColor = "#1660A4";
         this.comparativeValuesChart.update();
     }
     });

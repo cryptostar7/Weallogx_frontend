@@ -401,14 +401,10 @@ export default {
   },
   watch: {
     "$props.indexType"(e) {
-      console.log("indextype")
       if (e !== "Historical Returns") {
         this.$store.dispatch("retirementBufferMarketAlone", true);
       }
     },
-    // "$props.sidebar"(value) {
-    //   this.handleSidebar(value);
-    // },
     "$props.tabType"(e) {
       console.log(e);
       if(e == "table"){
@@ -435,12 +431,6 @@ export default {
       for (var i = 0; i < tables.length; i++) {
         tables[i].refreshHeaderSize();
       }
-      // if (this.$store.state.app.presentation_mode) {
-      //   for (var i = 0; i < tables.length; i++) {
-      //     tables[i].refreshHeaderSize();
-      //   }
-      //   return;
-      // }
     },
     getScrollTop: function() {
       if (typeof window.pageYOffset !== "undefined") {

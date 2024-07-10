@@ -2,33 +2,35 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
-const timeout = import.meta.env.MODE === 'development' ? 300000 : 500000;
+const timeout = import.meta.env.MODE === 'development' ? 300000 : 600000;
 const api = axios.create({
   Accept: '*/*',
-  timeout,
-  headers: { 
-    'Accept' : 'application/json',
-    },
-    responseType: 'json',
+  timeout: timeout,
+  headers: {
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+  },
+  // responseType: 'json',
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
-export const get = async (url, getHeader=false) => {
+export const get = async (url, getHeader = false) => {
   const response = await api.get(url, getHeader);
   return response;
 };
 
-export const post = async (url, data, getHeader=false) => {
+export const post = async (url, data, getHeader = false) => {
   const response = await api.post(url, data, getHeader);
   return response;
 };
 
-export const put = async (url, data,  getHeader=false) => {
+export const put = async (url, data, getHeader = false) => {
   const response = await api.put(url, data, getHeader);
   return response;
 };
 
-export const patch = async (url, data,  getHeader=false) => {
+export const patch = async (url, data, getHeader = false) => {
   const response = await api.patch(url, data, getHeader);
   return response;
 };

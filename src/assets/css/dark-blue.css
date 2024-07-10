@@ -61,8 +61,6 @@
 .dark-blue .comparative-vehicle-tab-wrapper .comparative-vehicle-tabs .nav-item .nav-link.active .form-check-input {
   background-color: #fff;
   background-image: url("../images/icons/blue-radio.svg");
-  background-size: 24px;
-  background-position: right .75px center;
 }
 
 .dark-blue .form-next-btn:focus,
@@ -172,7 +170,6 @@
   stroke: #ABD5F9;
 }
 
-/* ---- */
 .dark-blue .IndexStrategyBtn [type="radio"]:checked+label {
   background: var(--blue-clr-2);
   color: white;
@@ -1257,9 +1254,8 @@
 .dark-blue .loan-Intrest-para {
   color: #fff;
 }
-
 /* history simulation dark mose css end here */
-/* Index page dark mose css start here */
+
 /* Index page dark mose css start here */
 .dark-blue .report-top-navbar {
   background: #202124;
@@ -1989,6 +1985,9 @@
   background: var(--blue-clr-2);
   color: #FFF;
 }
+.dark-blue .SwtchBtnRprtBldr div.disabled{
+opacity: 0.1;
+}
 
 .dark-blue .mltplSwtchDiv {
   background: #2E3135;
@@ -2020,13 +2019,6 @@
   background: transparent;
 }
 
-/*.dark-blue .viewBtnAccount svg path,
-.dark-blue .viewBtnAccount svg circle {
-  fill: transparent;
-}*/
-/*.dark-blue .editBtnAccount {
-  background: transparent;
-}*/
 .dark-blue .editBtnAccount svg path,
 .dark-blue .editBtnAccount svg rect {
   fill: transparent;
@@ -2036,10 +2028,6 @@
   background: transparent;
 }
 
-/*.dark-blue .deleteBtnAccount svg path,
-.dark-blue .deleteBtnAccount svg circle {
-  fill: transparent;
-}*/
 .dark-blue .lifeProPlusPara2 {
   color: #fff;
 }
@@ -2048,50 +2036,24 @@
   background: transparent;
 }
 
-/*.dark-blue .viewBtnIra svg path,
-.dark-blue .viewBtnIra svg circle {
-  fill: transparent;
-}*/
 .dark-blue .editBtnIra {
   background: transparent;
 }
-
-/*.dark-blue .editBtnIra svg path,
-.dark-blue .editBtnIra svg rect {
-  fill: transparent;
-}*/
 .dark-blue .deleteBtnIra {
   background: transparent;
 }
-
-/*.dark-blue .deleteBtnIra svg path,
-.dark-blue .deleteBtnIra svg circle {
-  fill: transparent;
-}*/
 .dark-blue .viewBtnAnnuity {
   background: transparent;
 }
 
-/*.dark-blue .viewBtnAnnuity svg path,
-.dark-blue .viewBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-blue .editBtnAnnuity {
   background: transparent;
 }
 
-/*.dark-blue .editBtnAnnuity svg path,
-.dark-blue .editBtnAnnuity svg rect {
-  fill: transparent;
-}*/
 .dark-blue .deleteBtnAnnuity {
   background: transparent;
 }
 
-/*.dark-blue .deleteBtnAnnuity svg path,
-.dark-blue .deleteBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-blue .lifeProBtmDiv {
   background: #2E3135;
   border: 0.5px solid #353B46;
@@ -2100,25 +2062,6 @@
 .dark-blue .hideBtnAccount {
   background: transparent;
 }
-
-/*.dark-blue .hideBtnAccount svg path,
-.dark-blue .hideBtnAccount svg circle {
-  fill: transparent;
-}*/
-/*.dark-blue .hideBtnIra {
-  background: transparent;
-}*/
-/*.dark-blue .hideBtnIra svg path,
-.dark-blue .hideBtnIra svg circle {
-  fill: transparent;
-}*/
-/*.dark-blue .hideBtnAnnuity {
-  background: transparent;
-}*/
-/*.dark-blue .hideBtnAnnuity svg path,
-.dark-blue .hideBtnAnnuity svg circle {
-  fill: transparent;
-}*/
 .dark-blue .reportTablesDiv .table tbody tr td {
   color: white;
   border: 1px solid #313D39;
@@ -2248,17 +2191,13 @@
 .dark-blue .reportTablesDiv .table6Hide tr td {
   border: 1px solid #222425 !important
 }
-
-/* after hide tables 1 */
-/* after hide tables 2 */
 .dark-blue .reportTablesDiv .table5Hide th,
 .dark-blue .reportTablesDiv .table5Hide td {
   color: #3a3d41 !important;
 }
 
 .dark-blue .reportTablesDiv .table5Hide thead th {
-  background:
-    #2E3135 !important;
+  background: #2E3135 !important;
   opacity: 0.6;
   border: 1px solid #292c30;
 }
@@ -2275,8 +2214,6 @@
   border: 1px solid #222425 !important
 }
 
-/* after hide tables 2 */
-/* after hide tables 3 */
 .dark-blue .reportTablesDiv .table4Hide th,
 .dark-blue .reportTablesDiv .table4Hide td {
   color: #3a3d41 !important;
@@ -2300,8 +2237,6 @@
   border: 1px solid #222425 !important
 }
 
-/* after hide tables 3 */
-/* background change on hide */
 .dark-blue .reportTablesDiv4 .table4Hide tbody tr td {
   background: #3031315e;
 }
@@ -2314,8 +2249,6 @@
   background: #3031315e;
 }
 
-/* background change on hide */
-/* button disable */
 .dark-blue .disableBtnsIra {
   pointer-events: none;
   cursor: default;
@@ -2346,7 +2279,6 @@
   stroke: #3a3d41;
 }
 
-/*  */
 .dark-blue .comparativeSeeAllBtn button {
   background: #34383D;
   border: 1px solid #34383D;
@@ -2357,6 +2289,24 @@
   background: #43484e;
   border: 1px solid #43484e;
 }
+
+/* For show disable full card start*/
+.dark-blue .distributionCard1.inactive{
+  border-top: 6px solid #3a3d41;
+}
+.dark-blue .distributionCard1.inactive a , .dark-blue .distributionCard1.inactive a svg{
+  pointer-events: none;
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+.dark-blue .distributionCard1.inactive *{
+  color: #55575a!important;
+  }
+  .dark-blue .distributionCard1.inactive label img , .dark-blue .commonTableCls .allActionBtns p img{
+    filter: grayscale(100%);
+    opacity: 0.3;
+  }
+/* For show disable full card end */
 
 .dark-blue .distributionCard1 {
   background: #2E3135;
@@ -2490,7 +2440,7 @@
   fill: #F04F4F;
 }
 
-/* orane */
+/* orange */
 .dark-blue .deleteBtn5 {
   border: 1px solid #E8662F;
 }
@@ -2530,12 +2480,6 @@
 .dark-blue .switch2 .checkbox2:checked~.layer2 {
   background-color: #8137BB !important;
 }
-
-/*.dark-blue .switch3 .checkbox2:checked~.layer2 {
-  background-color: #DA4343 !important;
-}
-*/
-
 .dark-blue .AddNoteBtn {
   background: #2E3135;
   border: 1px solid #6D6D6D;
@@ -2717,9 +2661,6 @@
 .dark-blue .rightLeftDoubleLIneDegine svg rect {
   fill: #6D6D6D;
 }
-
-/* report buider dark css end */
-/* Review summary dark css start */
 .dark-blue .summary-heading p span {
   color: #fff;
 }
@@ -2981,7 +2922,7 @@
   color: #fff;
 }
 
-.dark-blue .ModalHeasingPara {
+.dark-blue .ModalHeadingPara {
   color: #fff
 }
 
@@ -3027,11 +2968,6 @@
   fill: var(--blue-clr-3);
   stroke: var(--blue-clr-3);
 }
-
-/*.dark-blue .viewBtnAccount svg path,
-.dark-blue .viewBtnAccount svg circle {
-  stroke: #26AB8B;
-}*/
 .dark-blue .switch1 .editBtnAccount svg path,
 .dark-blue .switch1 .editBtnAccount svg circle,
 .dark-blue .switch1 .editBtnAccount svg rect {
@@ -3074,13 +3010,6 @@
 .dark-blue .disableBtnsAccount svg rect {
   stroke: #3a3d41;
 }
-
-/*.dark-blue .viewBtnAccount:hover {
-  color: #26AB8B;
-}
-.dark-blue .hideBtnAccount:hover.hideBtnAccount::before {
-  color: #26AB8B;
-}*/
 .dark-blue .switch1 .editBtnAccount,
 .dark-blue .switch1 .deleteBtnAccount.dark-blue .switch1 .editBtnAccount,
 .dark-blue .switch1 .deleteBtnAccount {
@@ -3184,8 +3113,6 @@
   color: #B556FF;
 }
 
-/* ira buttons modify end */
-/* annuity buttons modify start */
 .dark-blue .lifeProPlusPara7 {
   color: #F04F4F;
 }
@@ -3252,7 +3179,6 @@
   color: #F04F4F;
 }
 
-/* annuity buttons modify */
 .dark-blue .table4CmnClr *,
 .dark-blue .table5CmnClr *,
 .dark-blue .table6CmnClr * {
@@ -3611,7 +3537,6 @@
   background: #39BE9E;
 }
 
-/*  */
 .dark-blue .feeGreenBar1 {
   background: #1660A4 !important;
 }
@@ -3732,11 +3657,12 @@
   color: #3a3d41 !important;
 }
 
-.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide th,
-.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide td, .commonTableCls .tableCommonHide tr td span.text-danger {
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide th {
   color: #3a3d41 !important;
 }
-
+.dark-blue .commonTableCls .reportTablesDiv .tableCommonHide td, .commonTableCls .tableCommonHide tr td span.text-danger {
+  color: transparent !important;
+}
 .dark-blue .commonTableCls .reportTablesDiv .tableCommonHide thead th {
   background: #2E3135 !important;
 }
@@ -3945,8 +3871,6 @@
   color: #a0a0a0;
 }
 
-
-
 .dark-blue .progressBarEachBtm.comparative .bar-container {
   background-color: #2E3135;
   border: 1px solid #353B46;
@@ -4075,7 +3999,6 @@
  color: #8137BB;
 }
 
-/*  */
 .dark-blue .cumulativeProgAccount1 {
   background: var(--blue-clr-2);
 }
@@ -4084,7 +4007,6 @@
   background: #208DE8;
 }
 
-/*  */
 .dark-blue .cumulativeProgAccount2 {
   background: #0F8266;
 }
@@ -4093,7 +4015,6 @@
   background: #20A584;
 }
 
-/*  */
 .dark-blue .cumulativeProgAccount3 {
   background: #8137BB
   ;
@@ -4103,7 +4024,6 @@
   background: #9453C8;
 }
 
-/*  */
 .dark-blue .cumulativeProgAccount4 {
   background:  #DA4343;
 }
@@ -4112,7 +4032,6 @@
   background: #F04F4F;
 }
 
-/*  */
 
 .dark-blue .irrGroupedBars1 .irrBarHeight1 {
   background: #1660A4;
@@ -4130,7 +4049,6 @@
   background: #287BC7;
 }
 
-/*  */
 
 .dark-blue .irrGroupedBars2 .irrBarHeight1 {
   background: #209579;
@@ -4147,11 +4065,6 @@
 .dark-blue .irrGroupedBars2 .irrvaluebarbg2 {
   background: #25967B;
 }
-
-/* .dark-blue .reportTablesDiv .table td input {
-  color: #fff;
-} */
-
 .dark-blue .distributionCard1.inactive .compGraphtopPara p,
 .dark-blue .distributionCard1.inactive .compGraphtopParaTwo p {
   color: #55575a!important;
@@ -4198,6 +4111,11 @@ color: #55575a !important;
 }
 .dark-blue .add-table-column-btn{
   border-color: #404348;
+}
+.dark-blue .add-table-column-btn.active{
+  color: var(--blue-clr-3);
+  border-color: var(--blue-clr-3);
+  background-color: transparent;
 }
 .dark-blue .add-table-column-btn:hover{
   background-color: var(--blue-clr-2);
@@ -4362,7 +4280,6 @@ background: #0C4A83;
   background-color: #3ECAA8;
 }
 /* Calculator */
-
 .dark-blue .strategy-calc-main-div {
   border: 1px solid var(--blue-clr-2);
   background: transparent;
@@ -4885,12 +4802,6 @@ background: #0C4A83;
 .dark-blue .tax-details-each-bars.barClr4{
   background: #E8662F;
 }
-/*.dark-blue .tax-details-each-bars.barClr5{
-  background: rgba(218, 67, 67, .55);
-}
-.dark-blue .tax-details-each-bars.barClr6{
-  background: rgba(186, 180, 44, .65);
-}*/
 .dark-blue .common-modal .modal-dialog.tax-score-preview-modal .modal-content{
   background-color: transparent;
 }
@@ -4912,7 +4823,6 @@ fill: #f5f5f5;
 .dark-blue .form-heading{
   color: var(--blue-clr-3);
 }
-
 .dark-blue .table-plus-btn.blue.collapsed::before{
     background-color: #147D64;
 }
@@ -5031,7 +4941,25 @@ fill: #f5f5f5;
 .dark-blue .table_graph_setting_tab div.active svg rect {
   stroke: white;
 }
-
+.dark-blue .table_graph_setting_tab div svg.income-rider-tab-svg rect{
+  fill: #53a9f1;
+  stroke: transparent;
+}
+.dark-blue .table_graph_setting_tab div svg.income-rider-tab-svg path.svgstroke{
+  fill: transparent;
+  stroke: #53a9f1;
+}
+.dark-blue .table_graph_setting_tab div.active svg.income-rider-tab-svg rect{
+  fill: #fff;
+  stroke: transparent;
+}
+.dark-blue .table_graph_setting_tab div.active svg.income-rider-tab-svg path.svgstroke{
+  fill: transparent;
+  stroke: #fff;
+}
+.dark-blue .table_graph_setting_tab div svg.income-svg-2 path {
+  fill: #fff;
+}
 .dark-blue .filter_buttons {
   background-color: #292b2f;
   border: 1px solid #353b46;
@@ -5446,6 +5374,10 @@ background-color: #23669e;
   background-color: transparent;
   color:  #23669e;
 }
+.dark-blue .run_btn.disable {
+  background-color: #a1a1a1;
+  border-color: #a1a1a1;
+}
 
 .dark-blue .reset_btn:hover{
   background: #2E3135;
@@ -5570,4 +5502,231 @@ background-color: #ABD5F9;
   .dark-blue .compareBottomInnerProgreesBar {
     background-color: #A0A0A0;
   }
+  .dark-blue .select-cross-btn{
+  background-color: #000;
+}
+.dark-blue .select-cross-btn:hover{
+  background-color: #444;
+}
 /* Retirement Buffer CSS Ends*/
+
+.dark-blue .income-rider-modal-tabs {
+  background-color: #2e3135;
+}
+.dark-blue .income-rider-modal-tabs div {
+  background-color: transparent;
+  color: #fff;
+}
+.dark-blue .income-rider-modal-tabs div.active {
+  background-color: #1660a4;
+}
+
+/* Income rider details start */
+.dark-blue .income-rider-table .tax-rate-table .table-input-div .form-control {
+  color: #fff;
+}
+.dark-blue .income-rider-table .percent-input-div span.dollar-span {
+  color: #B1B1B1;
+}
+.dark-blue .income-rider-table .tax-rate-table .table-input-div .form-control:not(:placeholder-shown) ~ span.dollar-span {
+  color: #fff;
+}
+
+.dark-blue .form_section_label_div .label-right-div .label_checkbox span svg rect {
+  stroke: #fff;
+}
+.dark-blue .form_section_label_div .label-right-div .label_checkbox svg rect {
+  stroke: #fff;
+}
+.dark-blue .form_section_label_div.disabled .label-right-div .label_checkbox span svg rect {
+  stroke: #555;
+}
+.dark-blue .form_section_label_div.disabled .label-right-div .label_checkbox span {
+  color: #555;
+}
+.dark-blue .form_section_label_div.disabled label.main_label{
+  color: #555;
+}
+.dark-blue .form_section_label_div.disabled label span.optional{
+  color: #555;
+}
+.dark-blue .form_section_label_div.disabled label::before {
+  background-color: #555;
+}
+.dark-blue .form_section_label_div .label-right-div .label_checkbox label{
+  background-color: transparent;
+}
+.dark-blue .form_section_label_div.disabled .label-right-div .label_checkbox label{
+  border-color: #555;
+}
+.dark-blue .form_section_label_div.disabled .label-right-div .label_checkbox input:checked ~ label{
+background-color: #555;
+}
+
+.dark-blue .form_section_label_div.disabled ~ .form_section_input_div span.percent{
+  color: #555;
+}
+.dark-blue .col-border-right::after{
+  background-color: #485161;
+}
+.dark-blue  .incomeRiderCard {
+  background: #2E3135;
+  border: 1px solid #353B46
+}
+.dark-blue .incomeRiderCard.incomeCard1 {
+  border-top: 6px solid #1660A4;
+}
+
+.dark-blue .incomeRiderCard.incomeCard2 {
+  border-top: 6px solid var(--green-clr);
+}
+
+.dark-blue .incomeRiderCard.incomeCard3 {
+  border-top: 6px solid #4A8ECD;
+}
+.dark-blue .incomeRiderCard.disable .CardProgressBar {
+  background: #55575a;
+}
+
+.dark-blue .incomeRiderCard.disable .allCardHeadPara ,   .dark-blue .incomeRiderCard.disable .allCardHeadPara span ,
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1,
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2,
+.dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara3
+{
+color: #55575a!important;
+}
+
+.dark-blue .each-target-analysis-bar .heading {
+  color: #fff;
+}
+.dark-blue .each-target-analysis-bar .heading span svg rect{
+  stroke: #fff;
+}
+.dark-blue .each-target-analysis-bar .heading.clr1::before {
+  background: #53A9F1;
+}
+
+.dark-blue .each-target-analysis-bar .heading.clr2::before {
+  background: #26AB8B;
+}
+
+.dark-blue .each-target-analysis-bar .heading.clr3::before {
+  background: #4A8ECD;
+}
+
+.dark-blue .target-analysis-each-bars {
+  border: 1.25px solid #353B46;
+  color: #fff;
+ }
+
+ .dark-blue .target-analysis-each-bars.barClr1{
+  background: #23669E;
+}
+.dark-blue .target-analysis-each-bars.barClr2{
+  background: #0F8266;
+}
+.dark-blue .target-analysis-each-bars.barClr3{
+  background: #4A8ECD;
+}
+.dark-blue .scalling-div{
+  border-color: #585858;
+}
+.dark-blue .scalling-div span{
+ color: #fff; 
+}
+.dark-blue .scalling-div-label{
+color: #fff;
+}
+.dark-blue .income-rider-show-next-btn.disable{
+  background-color: #2c2f33;
+}
+
+
+
+
+
+
+.dark-blue .target-analysis-bar {
+  background-image: url('../images/icons/dark-progressbar-design.svg');
+}
+
+.dark-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr1{
+  background: #23669E;
+}
+.dark-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr2{
+  background: #207ACD;
+}
+.dark-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1, .dark-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2{
+  background-color: #208DE8;
+}
+
+.dark-blue .target-analysis-bar-main-div .bar-long-para{
+  color: #fff;
+}
+
+.dark-blue .target-analysis-bar-main-div .bar-long-para span{
+  color: #26ab8b;
+  }
+
+  .dark-blue .target-analysis-success-prob-para{
+  color: #fff;
+}
+.dark-blue .pie.target-analysis-progress-pie svg text {
+  fill: #26ab8b;
+}
+
+.dark-blue .summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
+.dark-blue .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
+  stroke: #fafafa;
+}
+.dark-blue .pie-long-para{
+  color: #fff;
+}
+.dark-blue .pie.target-analysis-progress-pie .pie-long-para{
+  color: #fff;
+}
+.dark-blue .pie.target-analysis-progress-pie .pie-long-para span{
+color: #53a9f1;
+}
+.dark-blue .border-before-col::before{
+background: #485161;
+}
+
+
+.dark-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
+  stroke: #575b61;
+}
+.dark-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
+  stroke: #26ab8b;
+}
+/* Income rider details start */
+
+/* Graph part start */
+  
+.dark-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
+  border: 3px solid var(--green-clr);
+  background-color: #0e665120;
+}
+
+.dark-blue .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
+  border: 3px solid #4A8ECD;
+ background-color: #4a8ecd20;
+}
+.dark-blue .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
+  border: 3px solid #1660A4;
+  background-color: #4a8ecd20;
+}
+.dark-blue .incomeRiderCard.graph-card.disable .CardProgressBar {
+  border-color:#55575a;
+  background-color: #55575a;
+}
+.dark-blue .amount-label-wrapper.eachBarText , .dark-blue .amount-label-wrapper.eachBarText span{
+  color: #fff;
+  }
+/* Graph part end */
+
+/* Download file toast start */
+.dark-blue .download-toast {
+  border-color: #23669e;
+}
+/* Download file toast end */

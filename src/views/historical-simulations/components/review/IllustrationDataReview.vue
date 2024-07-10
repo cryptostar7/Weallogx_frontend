@@ -197,7 +197,7 @@
                 </div>
                 <div>
                   <button class="btn form-control mt-2" @click="handleTable">
-                    + SEE {{ showAll ? "LESS" : "ALL" }}
+                    {{ showAll ? "- SEE LESS" : "+ SEE ALL" }}
                   </button>
                 </div>
               </div>

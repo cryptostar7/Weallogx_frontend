@@ -1,11 +1,10 @@
-name: Push-to-AWS-EC2-Prod
+name: Push-to-development-testing
 
-# Trigger deployment only on push to master branch
 on:
   push:
     branches:
       - devwork
-  
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,17 +17,16 @@ jobs:
     - run: npm install
     - run: npx vite build
     - run: npm run build
-  
+
+    - name: Copy .env file
+      run: cp .env dist/
+
     - name: ssh deploy on aws ec2
       uses: easingthemes/ssh-deploy@v2.1.4
-            
+      with:
+        source: "dist/"
+        target: ${{ secrets.TARGET_DIR_M }}
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR_M }}
-          
-   # - name: Run script file
-    #  run: |
-           # cp -R /var/www/wlxvue.bizbybot.com/dist/* /var/www/wlxvue.bizbybot.com/
-          #  rm -R /var/www/wlxvue.bizbybot.com/dist/
+        SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.HOST_DNS }}
+        REMOTE_USER: ${{ secrets.USERNAME }}

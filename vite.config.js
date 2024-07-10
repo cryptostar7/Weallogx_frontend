@@ -11,6 +11,10 @@ export default defineConfig({
         port: 8081
     },
   plugins: [vue(), vueJsx()],
+  preview: {
+    host: true,
+    port: 8000
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -19,5 +23,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1600,
   },
-  
+
 });

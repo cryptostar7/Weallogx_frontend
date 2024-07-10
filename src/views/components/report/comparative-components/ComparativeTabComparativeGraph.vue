@@ -130,8 +130,6 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentTheme: this.$store.state.app.current_theme,
-      // cards: this.$store.state.data.reportTabs.active_cards.cmp_comparative_graph.cards,
-      // graphs: this.$store.state.data.reportTabs.active_cards.cmp_comparative_graph.graphs,
       data: [
         {
           type: "",
@@ -167,7 +165,6 @@ export default {
   mounted() {
     if (this.comparative.cv_1) {
       this.mapData(); // set longevity cards data
-      // cvGraphInputToogle${index}
       this.setGraph(); // generate graph
     }
   },
@@ -798,9 +795,6 @@ export default {
     },
   },
   watch: {
-    toggleActions() {
-      // this.setGraph();
-    },
     "$store.state.app.presentation_mode"(val) {
       if (
         this.$store.state.app.presentation_mode &&
