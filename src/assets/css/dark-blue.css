@@ -1985,6 +1985,9 @@
   background: var(--blue-clr-2);
   color: #FFF;
 }
+.dark-blue .SwtchBtnRprtBldr div.disabled{
+opacity: 0.1;
+}
 
 .dark-blue .mltplSwtchDiv {
   background: #2E3135;

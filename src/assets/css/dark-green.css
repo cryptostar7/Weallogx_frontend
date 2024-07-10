@@ -1610,7 +1610,9 @@
   background: #26ab8b;
   color: #fff;
 }
-
+.dark-green .SwtchBtnRprtBldr div.disabled{
+  opacity: 0.1;
+  }
 .dark-green .mltplSwtchDiv {
   background: #2e3135;
 }

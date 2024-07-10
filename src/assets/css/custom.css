@@ -1415,6 +1415,12 @@ body::-webkit-scrollbar {
   border-radius: 100px;
   color: #FFF;
 }
+.SwtchBtnRprtBldr div.disabled{
+  user-select: none;
+pointer-events: none;
+opacity: 0.8;
+color: #ccc;
+}
 
 .mltplSwtchDiv {
   background: #FFF;
