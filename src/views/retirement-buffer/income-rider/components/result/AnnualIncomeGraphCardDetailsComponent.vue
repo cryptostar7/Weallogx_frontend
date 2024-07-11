@@ -196,7 +196,7 @@ export default {
         return this.irResult.shortfall_surplus_value;
       } else {
         return (
-          this.$arraySum(this.irResult.annual_income_rider_distribution) -
+          this.$arraySum(this.irResult.cumulative_income_rider_distribution) -
           this.$arraySum(
             this.targetAnalysis == "amount"
               ? this.irResult.annual_cv_distribution
@@ -211,7 +211,7 @@ export default {
       } else {
         return (
           this.$arraySum(
-            this.irHistoricalResult.annual_income_rider_distribution
+            this.irHistoricalResult.cumulative_income_rider_distribution
           ) -
           this.$arraySum(
             this.targetAnalysis == "amount"

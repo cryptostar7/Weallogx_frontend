@@ -105,7 +105,7 @@ export default {
     },
     getDataSet() {
       let datasets = [];
-      let distribution1 = this.irResult.annual_income_rider_distribution.map(
+      let distribution1 = this.irResult.cumulative_income_rider_distribution.map(
         (i) => Number(i.toFixed(0))
       );
       let distribution2 = this.irResult.optimization.optimal_cumulative_cv_distribution.map(
