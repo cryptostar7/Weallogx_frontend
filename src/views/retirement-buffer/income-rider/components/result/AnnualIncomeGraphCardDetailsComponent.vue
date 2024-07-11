@@ -20,7 +20,11 @@
               <span>Total Distributions</span>
               <span>{{
                 $numFormatWithDollar(
-                  $arraySum(irResult.annual_income_rider_distribution)
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irResult.annual_income_rider_distribution
+                      : irHistoricalResult.annual_income_rider_distribution
+                  )
                 )
               }}</span>
             </p>
@@ -57,7 +61,13 @@
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
-                $numFormatWithDollar($arraySum(irResult.annual_cv_distribution))
+                $numFormatWithDollar(
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irResult.annual_cv_distribution
+                      : irResult.optimization.optimal_distribution
+                  )
+                )
               }}</span>
             </p>
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
@@ -117,7 +127,11 @@
               <span>Total Distributions</span>
               <span>{{
                 $numFormatWithDollar(
-                  $arraySum(irHistoricalResult.annual_cv_distribution)
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irHistoricalResult.annual_cv_distribution
+                      : irHistoricalResult.optimization.optimal_distribution
+                  )
                 )
               }}</span>
             </p>

@@ -24,7 +24,7 @@
                 <span>
                   {{
                     $numFormatWithDollar(
-                      $arraySum(irResult.annual_income_rider_distribution)
+                      $arraySum(targetAnalysis != "longevity" ? irResult.annual_income_rider_distribution : irHistoricalResult.annual_income_rider_distribution)
                     )
                   }}</span
                 >
@@ -37,7 +37,7 @@
                 class="cardRadioSwtchpara1 d-flex justify-content-between m-0 text-success"
               >
                 <span>Shortfall</span>
-               <span>None</span>
+                <span>None</span>
               </p>
             </div>
           </div>
@@ -57,15 +57,21 @@
               <p class="allCardHeadPara mb-2">
                 {{ inputs.comparative_vehicle_account_name }}
                 <span
-                  >Rate of Return 
-                  <span class="ror-percent">- {{ $percentFormat(inputs.growth_rate) }}%</span></span
+                  >Rate of Return
+                  <span class="ror-percent"
+                    >- {{ $percentFormat(inputs.growth_rate) }}%</span
+                  ></span
                 >
               </p>
               <p class="cardRadioSwtchpara2 d-flex justify-content-between">
                 <span>Total Distributions</span>
                 <span>{{
                   $numFormatWithDollar(
-                    $arraySum(irResult.annual_cv_distribution)
+                    $arraySum(
+                      targetAnalysis != "longevity"
+                        ? irResult.annual_cv_distribution
+                        : irResult.optimization.optimal_distribution
+                    )
                   )
                 }}</span>
               </p>
@@ -130,7 +136,11 @@
                 <span>Total Distributions</span>
                 <span>{{
                   $numFormatWithDollar(
-                    $arraySum(irHistoricalResult.annual_cv_distribution)
+                    $arraySum(
+                      targetAnalysis != "longevity"
+                        ? irHistoricalResult.annual_cv_distribution
+                        : irHistoricalResult.optimization.optimal_distribution
+                    )
                   )
                 }}</span>
               </p>

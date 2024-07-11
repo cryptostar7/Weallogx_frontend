@@ -732,11 +732,13 @@ export default {
         ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
         : null;
 
-      if (
-        !payload.non_guaranteed_income_first_year &&
-        this.$store.state.incomeRider.result_type !== "guaranteed"
-      ) {
-        this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+      if (!payload.non_guaranteed_income_first_year) {
+        payload.non_guaranteed_income_first_year = null;
+        payload.non_guaranteed_income_type = null;
+        
+        if (this.$store.state.incomeRider.result_type !== "guaranteed") {
+          this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+        }
       }
 
       post(getUrl("incomeRider"), payload, authHeader())
