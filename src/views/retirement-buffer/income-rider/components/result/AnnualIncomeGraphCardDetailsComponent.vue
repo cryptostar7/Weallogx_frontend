@@ -22,8 +22,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.cumulative_income_rider_distribution
-                      : irHistoricalResult.cumulative_income_rider_distribution
+                      ? irResult.annual_income_rider_distribution
+                      : irHistoricalResult.annual_income_rider_distribution
                   )
                 )
               }}</span>
@@ -64,8 +64,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.cumulative_cv_distribution
-                      : irResult.optimization.optimal_cumulative_cv_distribution
+                      ? irResult.annual_cv_distribution
+                      : irResult.optimization.optimal_distribution
                   )
                 )
               }}</span>
@@ -129,8 +129,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irHistoricalResult.cumulative_cv_distribution
-                      : irHistoricalResult.optimization.optimal_cumulative_cv_distribution
+                      ? irHistoricalResult.annual_cv_distribution
+                      : irHistoricalResult.optimization.optimal_distribution
                   )
                 )
               }}</span>
@@ -196,7 +196,7 @@ export default {
         return this.irResult.shortfall_surplus_value;
       } else {
         return (
-          this.$arraySum(this.irResult.cumulative_income_rider_distribution) -
+          this.$arraySum(this.irResult.annual_income_rider_distribution) -
           this.$arraySum(
             this.targetAnalysis == "amount"
               ? this.irResult.annual_cv_distribution
@@ -211,7 +211,7 @@ export default {
       } else {
         return (
           this.$arraySum(
-            this.irHistoricalResult.cumulative_income_rider_distribution
+            this.irHistoricalResult.annual_income_rider_distribution
           ) -
           this.$arraySum(
             this.targetAnalysis == "amount"
