@@ -4880,6 +4880,9 @@ user-select: none;
   color: transparent !important;
   user-select: none;
 }
+.commonTableCls .tableCommonHide td *{
+visibility: hidden!important;
+}
 .commonTableCls .tableCommonHide tr td span.text-danger {
   color: rgb(245, 197, 201) !important;
 }
