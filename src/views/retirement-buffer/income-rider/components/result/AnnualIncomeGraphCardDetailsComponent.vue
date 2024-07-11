@@ -22,8 +22,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.annual_income_rider_distribution
-                      : irHistoricalResult.annual_income_rider_distribution
+                      ? irResult.cumulative_income_rider_distribution
+                      : irHistoricalResult.cumulative_income_rider_distribution
                   )
                 )
               }}</span>
@@ -64,8 +64,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.annual_cv_distribution
-                      : irResult.optimization.optimal_distribution
+                      ? irResult.cumulative_cv_distribution
+                      : irResult.optimization.optimal_cumulative_cv_distribution
                   )
                 )
               }}</span>
@@ -129,8 +129,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irHistoricalResult.annual_cv_distribution
-                      : irHistoricalResult.optimization.optimal_distribution
+                      ? irHistoricalResult.cumulative_cv_distribution
+                      : irHistoricalResult.optimization.optimal_cumulative_cv_distribution
                   )
                 )
               }}</span>
