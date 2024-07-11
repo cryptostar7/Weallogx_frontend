@@ -142,11 +142,11 @@ export default {
         this.irResult.cumulative_income_rider_distribution.map((i) =>
           Number(i.toFixed(0))
         );
-      let distribution2 = this.irResult.cumulative_cv_distribution.map((i) =>
+      let distribution2 = this.irResult.cumulative_cv_distribution_for_area_graph.map((i) =>
         Number(i.toFixed(0))
       );
       let distribution3 =
-        this.irHistoricalResult.cumulative_cv_distribution.map((i) =>
+        this.irHistoricalResult.cumulative_cv_distribution_for_area_graph.map((i) =>
           Number(i.toFixed(0))
         );
 
