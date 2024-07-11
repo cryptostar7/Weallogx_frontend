@@ -2301,18 +2301,20 @@ opacity: 0.1;
 }
 .dark-blue .distributionCard1.inactive *{
   color: #55575a!important;
-  }
-  .dark-blue .distributionCard1.inactive label img , .dark-blue .commonTableCls .allActionBtns p img{
+}
+.dark-blue .distributionCard1.inactive label img , .dark-blue .commonTableCls .allActionBtns p img{
     filter: grayscale(100%);
     opacity: 0.3;
-  }
+}
+.dark-blue .distributionCard1.inactive .color::before {
+  background-color: #515151;
+}
 /* For show disable full card end */
 
 .dark-blue .distributionCard1 {
   background: #2E3135;
   border: 1px solid #353B46;
 }
-
 .dark-blue .distrbnCard1paras p:first-child {
   color: white;
 }
@@ -4101,7 +4103,7 @@ opacity: 0.1;
   background: #55575a !important;
 }
 .dark-blue .distributionCard1.inactive .irrAnalysisCardAllParas * {
-color: #55575a !important;
+  color: #55575a !important;
 }
 .dark-blue .commonTableCls .deleteBtnAccount svg rect {
   fill: #3a3d41;
@@ -5409,6 +5411,9 @@ background-color: #ABD5F9;
 .dark-blue .accumulation_each_card {
   background-color: #2e3135;
 }
+.dark-blue .accumulation_each_card:hover {
+  background-color: #202124;
+}
 .dark-blue .accumulation_each_card div {
   background-color: #242629;
   border: 1.5px solid #494848;
@@ -5728,5 +5733,11 @@ background: #485161;
 /* Download file toast start */
 .dark-blue .download-toast {
   border-color: #23669e;
+}
+.dark-blue .income-rider-show-next-btn{
+  background: var(--blue-clr) ;
+}
+.dark-blue .numbering-top-line {
+  background: #505663;
 }
 /* Download file toast end */

@@ -51,11 +51,6 @@ export default {
             grid: {
               display: false, // Remove grid lines
             },
-            border: {
-              display: false,
-              color: "rgba(14, 102, 81, 1)",
-              width: 2,
-            },
           },
           y: {
             ticks: {
@@ -65,7 +60,9 @@ export default {
               drawBorder: false, // Remove default border
               // Remove grid lines
               color: (context) => {
-                if (context.tick.value === 0) {
+                if ((this.$appTheme() == "light-blue") || (this.$appTheme() == "dark-blue")) {
+                  return "#1660A4"; // Your desired zeroLineColor
+                }else{
                   return "#0E6651"; // Your desired zeroLineColor
                 }
                 return "transparent"; // Default color for other lines
@@ -96,6 +93,29 @@ export default {
         type: "line",
         data: graphData,
         options: config,
+      });
+
+      var redioInp = document.querySelector(".dropdown-menu");
+      redioInp.addEventListener("click", function(e) {
+        let screenMode = localStorage.getItem("mode");
+        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
+          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
+          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
+          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#089875" : '';
+          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
+          config.scales.y.grid.color = (context) => "#1660A4";
+        } else {
+          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#0E6651" : '';
+          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#1660A4" : '';
+          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#0E6651" : '';
+          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#1660A4" : '';
+          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';          
+          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+          config.scales.y.grid.color = (context) => "#0E6651";
+        }
+        window.irLongevityGraphChart.update();
       });
     },
     updateGraph(){
@@ -136,18 +156,26 @@ export default {
 
       let minYear = this.irResult.year_count - yearsLabel.length;
 
+      let bordercolors = ["#0E6651", "#1660A4"], backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)"];
+      if ((this.$appTheme() == "light-blue") || (this.$appTheme() == "dark-blue")) {
+        bordercolors = ["#1660A4", "#089875"];
+        backgroundColors = ["rgba(22, 96, 164, 0.20)", "rgba(14, 102, 81, 0.20)"];
+      } else {
+        bordercolors = ["#0E6651", "#1660A4"];
+        backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)"];
+      }
+
       if (this.showResult > 0) {
         datasets.push({
           label: "Longevity",
           data: distribution1.filter((item, index) => index >= minYear),
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "#0E6651",
+          backgroundColor: backgroundColors[0],
+          borderColor: bordercolors[0],
           borderWidth: 2,
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 10, //  dots size
-          pointBackgroundColor: "transparent",
-          pointBorderColor: "transparent",
+          pointRadius: 0, //  dots size
+          pointBackgroundColor: bordercolors[0],
         });
       }
 
@@ -155,15 +183,14 @@ export default {
         datasets.push({
           label: "Longevity",
           data: distribution2.filter((item, index) => index >= minYear),
-          backgroundColor: "rgba(22, 96, 164, 0.20)",
-          borderColor: "#1660A4",
+          backgroundColor: backgroundColors[1],
+          borderColor: bordercolors[1],
           borderWidth: 2,
           fill: true,
           borderDash: [5, 5], // Dashed line
           tension: 0.1, // Curved line
-          pointRadius: 10, // Remove dots
-          pointBackgroundColor: "transparent",
-          pointBorderColor: "transparent",
+          pointRadius: 0, // Remove dots
+          pointBackgroundColor: bordercolors[1],
         });
       }
 
@@ -171,14 +198,13 @@ export default {
         datasets.push({
           label: "Longevity",
           data: distribution3.filter((item, index) => index >= minYear),
-          backgroundColor: "rgba(14, 102, 81, 0.20)",
-          borderColor: "#0E6651",
+          backgroundColor: "rgba(74, 142, 205, 0.20)",
+          borderColor: "#4A8ECD",
           borderDash: [5, 5], // Dashed line
           fill: true,
           tension: 0.1, // Curved line
-          pointRadius: 10, // Remove dots
-          pointBackgroundColor: "transparent",
-          pointBorderColor: "transparent",
+          pointRadius: 0, // Remove dots
+          pointBackgroundColor: "#4A8ECD",
         });
       }
 
