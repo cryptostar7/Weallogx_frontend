@@ -108,11 +108,11 @@ export default {
       let distribution1 = this.irResult.annual_income_rider_distribution.map(
         (i) => Number(i.toFixed(0))
       );
-      let distribution2 = this.irResult.optimization.optimal_distribution.map(
+      let distribution2 = this.irResult.optimization.optimal_cumulative_cv_distribution.map(
         (i) => Number(i.toFixed(0))
       );
       let distribution3 =
-        this.irHistoricalResult.optimization.optimal_distribution.map((i) =>
+        this.irHistoricalResult.optimization.optimal_cumulative_cv_distribution.map((i) =>
           Number(i.toFixed(0))
         );
 
