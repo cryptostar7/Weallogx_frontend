@@ -5665,7 +5665,7 @@ color: #fff;
 }
 
 .dark-blue .target-analysis-bar-main-div .bar-long-para span{
-  color: #26ab8b;
+  color: #53a9f1;
   }
 
   .dark-blue .target-analysis-success-prob-para{
@@ -5685,8 +5685,8 @@ color: #fff;
 .dark-blue .pie.target-analysis-progress-pie .pie-long-para{
   color: #fff;
 }
-.dark-blue .pie.target-analysis-progress-pie .pie-long-para span{
-color: #53a9f1;
+.dark-blue .pie-long-para span{
+color: #26ab8b;
 }
 .dark-blue .border-before-col::before{
 background: #485161;

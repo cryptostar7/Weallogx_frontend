@@ -1876,7 +1876,7 @@ background-color: #a1a1a1;
 .light-blue .pie.target-analysis-progress-pie svg text {
   fill: #0E6651;
 }
-.light-blue .pie.target-analysis-progress-pie .pie-long-para span{
+.light-blue .pie-long-para span{
 color: #0E6651;
 }
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {

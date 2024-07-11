@@ -5184,7 +5184,7 @@
 .dark-green .pie.target-analysis-progress-pie .pie-long-para {
   color: #fff!important;
 }
-.dark-green .pie.target-analysis-progress-pie .pie-long-para span {
+.dark-green  .pie-long-para span {
   color: #53a9f1;
 }
 .dark-green .border-before-col::before {
