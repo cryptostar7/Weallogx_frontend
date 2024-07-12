@@ -9,7 +9,7 @@
             </div>
             <div class="income-rider-modal-body">
               <div class="nav income-rider-modal-tabs table_top_tab nav-pills" role="tablist" aria-orientation="vertical">
-                <div :class="this.inputs.non_guaranteed_income_type === 'mannual' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#year-by-year-tab2" type="button" role="tab" aria-controls="year-by-year-tab2" :aria-selected="this.inputs.non_guaranteed_income_type === 'mannual'" @click="updateInput('non_guaranteed_income_type', 'mannual')">
+                <div :class="this.inputs.non_guaranteed_income_type === 'manual' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#year-by-year-tab2" type="button" role="tab" aria-controls="year-by-year-tab2" :aria-selected="this.inputs.non_guaranteed_income_type === 'manual'" @click="updateInput('non_guaranteed_income_type', 'manual')">
                   Year by Year
                 </div>
                 <div :class="this.inputs.non_guaranteed_income_type === 'year_bounded' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#first-and-last-year-tab2" type="button" role="tab" aria-controls="first-and-last-year-tab2" :aria-selected="this.inputs.non_guaranteed_income_type === 'year_bounded'" @click="updateInput('non_guaranteed_income_type', 'year_bounded')">
@@ -18,7 +18,7 @@
               </div>
               <div class="modal-scrooll-div">
                 <div class="tab-content" id="nav-tabContent">
-                  <div :class="`tab-pane fade ${this.inputs.non_guaranteed_income_type === 'mannual' ? 'show active' : ''}`" id="year-by-year-tab2" role="tabpanel" aria-labelledby="year-by-year-tab2">
+                  <div :class="`tab-pane fade ${this.inputs.non_guaranteed_income_type === 'manual' ? 'show active' : ''}`" id="year-by-year-tab2" role="tabpanel" aria-labelledby="year-by-year-tab2">
                     <p class="para">Enter the increasing income schedule from the
                       illustration</p>
                     <div class="income-rider-table form-group">
@@ -132,12 +132,12 @@ export default {
   components: { DollarAmountInput, ScheduleCsvExtraction },
   data() {
     return {
-      income_type: "mannual",
+      income_type: "manual",
       schedules: [],
     }
   },
   mounted() {
-    if (this.inputs.non_guaranteed_income_type === 'mannual' && this.inputs.non_guaranteed_income_manual) {
+    if (this.inputs.non_guaranteed_income_type === 'manual' && this.inputs.non_guaranteed_income_manual) {
       this.inputs.non_guaranteed_income_manual.forEach((item, index) => {
         this.schedules[index] = item.toLocaleString('en-US');
         let inputElement = document.getElementById(`non_gt_income_schedule_${index+1}`);
@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     saveScheduleData() {
-      if (this.inputs.non_guaranteed_income_type === 'mannual') {
+      if (this.inputs.non_guaranteed_income_type === 'manual') {
         let array = [];
         for (let index = 0; index < this.$props.illustrateYear; index++) {
           array.push(getNumber(this.schedules[index]));
