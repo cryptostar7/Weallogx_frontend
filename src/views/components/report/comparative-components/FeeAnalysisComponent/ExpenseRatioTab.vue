@@ -3,7 +3,7 @@
         <div class="container-fluid">
         <div class="d-flex justify-content-between flex-gap-12">
             <div v-for="(item, index) in data" :key="index" :class="`mt-3 flex-1 ${deletedItems.includes(index) ? 'd-none':''}`">
-                <div :class="`distributionCard1 equalDistCard{index+1} position-relative w-100`">
+                <div :class="`distributionCard1 equalDistCard{index+1} position-relative w-100 ${cards[index].active ? '' : 'inactive'}`">
                     <div class="d-flex justify-content-between align-items-center">
                         <div><p class="allCardHeadPara">Expense Ratio</p></div>
                         <div class="d-flex">

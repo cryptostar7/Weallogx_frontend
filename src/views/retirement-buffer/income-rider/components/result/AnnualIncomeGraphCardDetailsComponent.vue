@@ -6,7 +6,7 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard1 w-100 ${
-          showResult > 0 ? '' : 'disable'
+          showResult > 0 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
@@ -22,8 +22,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.cumulative_income_rider_distribution
-                      : irHistoricalResult.cumulative_income_rider_distribution
+                      ? irResult.annual_income_rider_distribution
+                      : irHistoricalResult.annual_income_rider_distribution
                   )
                 )
               }}</span>
@@ -45,7 +45,7 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard2 w-100 ${
-          showResult > 1 ? '' : 'disable'
+          showResult > 1 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
@@ -64,8 +64,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irResult.cumulative_cv_distribution
-                      : irResult.optimization.optimal_cumulative_cv_distribution
+                      ? irResult.annual_cv_distribution
+                      : irResult.optimization.optimal_distribution
                   )
                 )
               }}</span>
@@ -113,7 +113,7 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard3 w-100 ${
-          showResult > 2 ? '' : 'disable'
+          showResult > 2 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
@@ -129,8 +129,8 @@
                 $numFormatWithDollar(
                   $arraySum(
                     targetAnalysis != "longevity"
-                      ? irHistoricalResult.cumulative_cv_distribution
-                      : irHistoricalResult.optimization.optimal_cumulative_cv_distribution
+                      ? irHistoricalResult.annual_cv_distribution
+                      : irHistoricalResult.optimization.optimal_distribution
                   )
                 )
               }}</span>

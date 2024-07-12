@@ -135,7 +135,7 @@
                             'return'
                           )
                         "
-                        :class="targetAnalysis == '' ? 'active' : ''"
+                        :class="targetAnalysis == 'return' ? 'active' : ''"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-return3"
                         role="tab"

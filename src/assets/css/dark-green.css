@@ -1981,7 +1981,9 @@
   background: #2e3135;
   border: 1px solid #353b46;
 }
-
+.dark-green .distributionCard1.inactive .color::before {
+  background-color: #515151;
+}
 .dark-green .distrbnCard1paras p:first-child {
   color: white;
 }
@@ -4900,6 +4902,9 @@
 .dark-green .accumulation_each_card {
   background-color: #2e3135;
 }
+.dark-green .accumulation_each_card:hover {
+  background-color: #202124;
+}
 .dark-green .accumulation_each_card div {
   background-color: #242629;
   border: 1.5px solid #494848;
@@ -5226,3 +5231,6 @@
   border-color: #26ab8b;
 }
 /* Download file toast end */
+.dark-green .numbering-top-line {
+  background: #505663;
+}

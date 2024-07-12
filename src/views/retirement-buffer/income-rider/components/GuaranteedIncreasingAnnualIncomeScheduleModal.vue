@@ -9,7 +9,7 @@
             </div>
             <div class="income-rider-modal-body">
               <div class="nav income-rider-modal-tabs table_top_tab nav-pills" role="tablist" aria-orientation="vertical">
-                <div :class="this.inputs.guaranteed_income_type === 'mannual' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#year-by-year-tab" type="button" role="tab" aria-controls="year-by-year-tab" :aria-selected="this.inputs.guaranteed_income_type === 'mannual'" @click="updateInput('guaranteed_income_type', 'mannual')">
+                <div :class="this.inputs.guaranteed_income_type === 'manual' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#year-by-year-tab" type="button" role="tab" aria-controls="year-by-year-tab" :aria-selected="this.inputs.guaranteed_income_type === 'manual'" @click="updateInput('guaranteed_income_type', 'manual')">
                   Year by Year
                 </div>
                 <div :class="this.inputs.guaranteed_income_type === 'year_bounded' ? 'active' : ''" data-bs-toggle="pill" data-bs-target="#first-and-last-year-tab" type="button" role="tab" aria-controls="first-and-last-year-tab" :aria-selected="this.inputs.guaranteed_income_type === 'year_bounded'" @click="updateInput('guaranteed_income_type', 'year_bounded')">
@@ -18,7 +18,7 @@
               </div>
               <div class="modal-scrooll-div">
                 <div class="tab-content" id="nav-tabContent">
-                  <div :class="`tab-pane fade ${this.inputs.guaranteed_income_type === 'mannual' ? 'show active' : ''}`" id="year-by-year-tab" role="tabpanel" aria-labelledby="year-by-year-tab">
+                  <div :class="`tab-pane fade ${this.inputs.guaranteed_income_type === 'manual' ? 'show active' : ''}`" id="year-by-year-tab" role="tabpanel" aria-labelledby="year-by-year-tab">
                     <p class="para">Enter the increasing income schedule from
                       the
                       illustration</p>
@@ -139,12 +139,12 @@ export default {
   components: { DollarAmountInput, ScheduleCsvExtraction },
   data() {
     return {
-      income_type: "mannual",
+      income_type: "manual",
       schedules: [],
     }
   },
   mounted() {
-    if (this.inputs.guaranteed_income_type === 'mannual' && this.inputs.guaranteed_income_manual) {
+    if (this.inputs.guaranteed_income_type === 'manual' && this.inputs.guaranteed_income_manual) {
       this.inputs.guaranteed_income_manual.forEach((item, index) => {
         this.schedules[index] = item.toLocaleString('en-US');
         let inputElement = document.getElementById(`gt_income_schedule_${index + 1}`);
@@ -156,7 +156,7 @@ export default {
   },
   methods: {
     saveScheduleData() {
-      if (this.inputs.guaranteed_income_type === 'mannual') {
+      if (this.inputs.guaranteed_income_type === 'manual') {
         let array = [];
         for (let index = 0; index < this.$props.illustrateYear; index++) {
           array.push(getNumber(this.schedules[index]));

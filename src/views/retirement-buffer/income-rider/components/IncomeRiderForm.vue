@@ -330,7 +330,7 @@
                 data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
                 @click="
                   inputs.guaranteed_income_type === 'annual_increase'
-                    ? updateInput('guaranteed_income_type', 'mannual')
+                    ? updateInput('guaranteed_income_type', 'manual')
                     : ''
                 "
               >
@@ -402,7 +402,7 @@
             </div>
           </div>
           <div
-            v-if="inputs.guaranteed_income_type == 'mannual'"
+            v-if="inputs.guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
             <input type="text" value="Scheduled" />
@@ -476,7 +476,7 @@
                 data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
                 @click="
                   inputs.non_guaranteed_income_type === 'annual_increase'
-                    ? updateInput('non_guaranteed_income_type', 'mannual')
+                    ? updateInput('non_guaranteed_income_type', 'manual')
                     : ''
                 "
               >
@@ -550,7 +550,7 @@
             </div>
           </div>
           <div
-            v-if="inputs.non_guaranteed_income_type == 'mannual'"
+            v-if="inputs.non_guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
             <input type="text" value="Scheduled" />
