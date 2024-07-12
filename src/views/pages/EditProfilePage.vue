@@ -31,8 +31,9 @@
               <div class="edit-profile-inputs-div" >
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="firstName" v-model="user.first_name" @keyup="errors.first_name = false" placeholder="">
                     <label for="firstName" class="active" >First Name</label>
-                    <input type="text" id="firstName" v-model="user.first_name" @keyup="errors.first_name = false" >
+                   
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="user.first_name === ''" >*This field is required.</label>
                   <label class="error fs-14 d-block text-center" v-if="errors.first_name && errors.first_name[0]" >{{errors.first_name[0]}}</label>
@@ -40,24 +41,27 @@
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="lastName" v-model="user.last_name" @keyup="errors.last_name = false" placeholder="">
                     <label for="lastName" class="active" >Last Name</label>
-                    <input type="text" id="lastName" v-model="user.last_name" @keyup="errors.last_name = false" >
+                    
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.last_name && errors.last_name[0]" >{{errors.last_name[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="email" v-model="user.company_name" @keyup="errors.company_name = false" placeholder="">
                     <label for="email" class="active" >Company Name</label>
-                    <input type="text" id="email" v-model="user.company_name" @keyup="errors.company_name = false" >
+                    
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.company_name && errors.company_name[0]" >{{errors.company_name[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="phone" readonly v-model="user.email" @keyup="errors.email = false" placeholder="">
                     <label for="phone" class="active" >Email</label>
-                    <input type="text" id="phone" readonly v-model="user.email" @keyup="errors.email = false" >
+                   
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="user.email === ''" >*This field is required.</label>
                   <label class="error fs-14 d-block text-center" v-if="errors.email && errors.email[0]" >{{errors.email[0]}}</label>
@@ -65,8 +69,9 @@
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="password" v-model="user.phone_number" @keyup="errors.phone_number = false" placeholder="">
                     <label for="password" class="active" >Phone</label>
-                    <input type="text" id="password" v-model="user.phone_number" @keyup="errors.phone_number = false" >
+                  
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="user.phone_number === ''" >*This field is required.</label>
                   <label class="error fs-14 d-block text-center" v-if="errors.phone_number && errors.phone_number[0]" >{{errors.phone_number[0]}}</label>
@@ -74,40 +79,44 @@
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="confirmPassword" v-model="user.website" @keyup="errors.website = false" placeholder="">
                     <label for="confirmPassword" class="active" >Website</label>
-                    <input type="text" id="confirmPassword" v-model="user.website" @keyup="errors.website = false" >
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.website && errors.website[0]" >{{errors.website[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" placeholder="">
                     <label for="confirmPassword" class="active" >Address</label>
-                    <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" >
+                    
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" placeholder="">
                     <label for="confirmPassword" class="active" >City</label>
-                    <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" >
+                   
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" placeholder="">
                     <label for="confirmPassword" class="active" >State</label>
-                    <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" >
+                   
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
+                    <input type="text" id="confirmPassword" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" placeholder="">
                     <label for="confirmPassword" class="active" >Zip Code</label>
-                    <input type="text" id="confirmPassword" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" >
+                   
                   </div>
                   <!-- <label class="error fs-14 d-block text-center" v-if="user.zip_code === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.zip_code && errors.zip_code[0]" >{{errors.zip_code[0]}}</label>
