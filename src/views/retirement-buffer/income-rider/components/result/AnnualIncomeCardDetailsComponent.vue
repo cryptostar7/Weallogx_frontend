@@ -15,11 +15,11 @@
               class="CardProgressBar lightProgress1 boxProgressCommon1"
             ></div>
             <div class="w-100">
-              <p class="allCardHeadPara mb-2">
+              <p class="allCardHeadPara mb-1">
                 {{ inputs.income_rider_account_name }}
                 <span hidden>Flat Rate of Return</span>
               </p>
-              <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
                 <span>
                   {{
@@ -29,7 +29,7 @@
                   }}</span
                 >
               </p>
-              <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
                 <span>{{ irResult.income_rider_longevity }} Years</span>
               </p>
@@ -54,7 +54,7 @@
               class="CardProgressBar lightProgress2 boxProgressCommon1"
             ></div>
             <div class="w-100">
-              <p class="allCardHeadPara mb-2">
+              <p class="allCardHeadPara mb-1">
                 {{ inputs.comparative_vehicle_account_name }}
                 <span
                   >Rate of Return
@@ -63,7 +63,7 @@
                   ></span
                 >
               </p>
-              <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
                 <span>{{
                   $numFormatWithDollar(
@@ -75,7 +75,7 @@
                   )
                 }}</span>
               </p>
-              <p class="cardRadioSwtchpara2 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
                 <span
                   >{{
@@ -128,11 +128,11 @@
               class="CardProgressBar lightProgress3 boxProgressCommon1"
             ></div>
             <div class="w-100">
-              <p class="allCardHeadPara mb-2">
+              <p class="allCardHeadPara mb-1">
                 {{ inputs.comparative_vehicle_account_name }}
                 <span>Historical Returns</span>
               </p>
-              <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara3 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
                 <span>{{
                   $numFormatWithDollar(
@@ -144,7 +144,7 @@
                   )
                 }}</span>
               </p>
-              <p class="cardRadioSwtchpara3 d-flex justify-content-between">
+              <p class="cardRadioSwtchpara3 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
                 <span
                   >{{

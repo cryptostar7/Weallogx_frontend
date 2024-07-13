@@ -1816,7 +1816,7 @@ canvas#retirementBufferGraph {
 }
 
 .incomeRiderCard.disable .CardProgressBar {
-    background: #dfdfdf;
+    background: #dfdfdf !important;
 }
 
 .incomeRiderCard.disable .allCardHeadPara span .ror-percent {
@@ -1988,14 +1988,16 @@ canvas#retirementBufferGraph {
 }
 
 .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
-    background: #0e6651;
+    background: #1660A4;
 }
 .target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
-    background: #147d64;
+    background: #D4331C;
 }
-.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1,
+.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1{
+    background-color: #4A8ECD;
+}
 .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2 {
-    background-color: #25967b;
+    background-color: #A82A18;
 }
 .target-analysis-bar .target-analysis-bottom-bar-area {
     width: 100%;
@@ -2036,10 +2038,9 @@ canvas#retirementBufferGraph {
 }
 
 .target-analysis-bar-main-div .bar-long-para span {
-    color: #0e6651;
+    color: #D4331C;
     font-weight: 700;
 }
-
 .target-analysis-success-prob-para {
     color: #000;
     text-align: center;
@@ -2077,12 +2078,13 @@ canvas#retirementBufferGraph {
     text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     font-weight: 500;
 }
-
+.irPie.pie.target-analysis-progress-pie svg text {
+    fill: #4A8ECD;
+}
 .summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
 .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
     stroke: #fafafa;
 }
-
 .pie-long-para {
     color: #000;
     text-align: justify;
@@ -2096,6 +2098,9 @@ canvas#retirementBufferGraph {
 .pie-long-para span {
     color: #1660a4;
     font-weight: 700;
+}
+.pie-long-para span {
+    color: #4A8ECD;
 }
 .border-before-col::before {
     content: "";
@@ -2119,15 +2124,15 @@ canvas#retirementBufferGraph {
 }
 
 .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar {
-    border: 3px solid #4a8ecd;
-    background-color: #4a8ecd20;
+    border: 3px solid #147D64;
+    background-color: rgba(20, 125, 100, 0.2);
 }
 .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar {
     border: 3px solid var(--green-clr);
     background-color: #0e665120;
 }
 .incomeRiderCard.graph-card.disable .CardProgressBar {
-    border-color: #dfdfdf;
+    border-color: #dfdfdf !important;
     background: #dfdfdf;
 }
 .income-rider-graph-div {

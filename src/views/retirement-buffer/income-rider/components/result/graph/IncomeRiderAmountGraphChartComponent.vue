@@ -135,21 +135,38 @@ export default {
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue" || screenMode == "dark-blue") {
+        if (screenMode == "light-blue") {
           graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
+          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#0E6651" : '';
+          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
           graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#089875" : '';
+          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#0E6651" : '';
+          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
           graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
           graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
+          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
+          config.options.scales.y.grid.color = (context) => "#1660A4";
+        } if (screenMode == "dark-blue" || screenMode == "dark-blue") {
+          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
+          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
+          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
+          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
+          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#089875" : '';
+          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
+          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
+          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
           config.options.scales.y.grid.color = (context) => "#1660A4";
         } else {
           graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#0E6651" : '';
           graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#1660A4" : '';
+          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#4A8ECD" : '';
           graphData.datasets[0] ? graphData.datasets[0].borderColor = "#0E6651" : '';
           graphData.datasets[1] ? graphData.datasets[1].borderColor = "#1660A4" : '';
+          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#4A8ECD" : '';
           graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';          
           graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(74, 142, 205, 0.20)" : '';
           config.options.scales.y.grid.color = (context) => "#0E6651";
         }
         window.irAmountGraphChart.update();
@@ -195,13 +212,16 @@ export default {
 
       let minYear = this.irResult.year_count - yearsLabel.length;
 
-      let borderColors = ["#0E6651", "#1660A4"], backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)"];
-      if ((this.$appTheme() == "light-blue") || (this.$appTheme() == "dark-blue")) {
-        borderColors = ["#1660A4", "#089875"];
-        backgroundColors = ["rgba(22, 96, 164, 0.20)", "rgba(14, 102, 81, 0.20)"];
-      } else {
-        borderColors = ["#0E6651", "#1660A4"];
-        backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)"];
+      let borderColors = ["#0E6651", "#1660A4", "4A8ECD"], backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)", "rgba(74, 142, 205, 0.20)"];
+      if ((this.$appTheme() == "light-blue")) {
+        borderColors = ["#1660A4", "#0E6651", "#147D64"];
+        backgroundColors = ["rgba(22, 96, 164, 0.20)", "rgba(14, 102, 81, 0.20)", "rgba(20, 125, 100, 0.20)"];
+      }else if ((this.$appTheme() == "dark-blue")) {
+        borderColors = ["#1660A4", "#089875", "#147D64"];
+        backgroundColors = ["rgba(22, 96, 164, 0.20)", "rgba(14, 102, 81, 0.20)", "rgba(20, 125, 100, 0.20)"];
+      }else {
+        borderColors = ["#0E6651", "#1660A4", "#4A8ECD"];
+        backgroundColors = ["rgba(14, 102, 81, 0.20)", "rgba(22, 96, 164, 0.20)", "rgba(74, 142, 205, 0.20)"];
       }
 
       if (this.showResult > 0) {
@@ -239,15 +259,15 @@ export default {
         datasets.push({
           label: "Amount",
           data: distribution3.filter((item, index) => index >= minYear),
-          backgroundColor: "rgba(74, 142, 205, 0.20)",
-          borderColor: "#4A8ECD",
+          backgroundColor: backgroundColors[2],
+          borderColor: borderColors[2],
           borderWidth: 2,
           borderDash: [5, 5],
           fill: true,
           tension: 0.1, // Curved line
           pointRadius: 0, // Remove dots
           order: 1,
-          pointBackgroundColor: "#4A8ECD",
+          pointBackgroundColor: borderColors[2],
         });
       }
 

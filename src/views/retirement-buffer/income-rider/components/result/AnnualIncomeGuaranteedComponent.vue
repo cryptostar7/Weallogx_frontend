@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-content">
+          <div class="tab-content incomeRider-tab-content">
             <div v-if="targetAnalysis != 'return'" class="tab-pane fade active show" id="v-pills-amount" role="tabpanel">
               <!-- Amount tab start -->
               <div class="tab-content">
