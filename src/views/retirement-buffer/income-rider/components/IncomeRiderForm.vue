@@ -37,35 +37,11 @@
               >Account Type</label
             >
           </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="accountTypeSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="inputs.account_type ? inputs.account_type.label : ''"
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in accountTypeOpts"
-                :key="item"
-                :class="`option ${
-                  inputs.account_type === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('account_type', item)"
-              >
-                <span class="option-text">{{ item.label }}</span>
-              </li>
-            </ul>
-          </div>
+          <custom-select-dropdown
+            :default="inputs.account_type ? inputs.account_type.label : ''"
+            @selected="(value) => updateInput('account_type', value)"
+            :options="accountTypeOpts"
+          />
         </div>
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
@@ -188,37 +164,11 @@
               >Index Allocation</label
             >
           </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="indexAllocationSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="
-                  inputs.index_allocation ? inputs.index_allocation.label : ''
-                "
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in indexAllocationOpts"
-                :key="item"
-                :class="`option ${
-                  inputs.index_allocation === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('index_allocation', item)"
-              >
-                <span class="option-text">{{ item.label }}</span>
-              </li>
-            </ul>
-          </div>
+          <custom-select-dropdown
+            :default="inputs.index_allocation ? inputs.index_allocation.label : ''"
+            @selected="(value) => updateInput('index_allocation', value)"
+            :options="indexAllocationOpts"
+          />
         </div>
       </div>
 
@@ -249,35 +199,11 @@
               >Year Income Begins</label
             >
           </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="incomeStartYearSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="inputs.income_start_year"
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in illustrateYear"
-                :key="item"
-                :class="`option ${
-                  inputs.income_start_year === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('income_start_year', item)"
-              >
-                <span class="option-text">{{ item }}</span>
-              </li>
-            </ul>
-          </div>
+          <custom-select-dropdown
+            :default="inputs.income_start_year"
+            @selected="(value) => updateInput('income_start_year', value)"
+            :options="Array.from({ length: illustrateYear }, (_, i) => i + 1)"
+          />
         </div>
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
@@ -581,6 +507,7 @@ import { mapState, mapGetters } from "vuex";
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
 import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
+import CustomSelectDropdown from "@/views/components/common/CustomSelectDropdown.vue";
 import { post } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
@@ -591,6 +518,7 @@ export default {
     CommonTooltipSvg,
     DollarAmountInput,
     NumberAmountInput,
+    CustomSelectDropdown,
   },
   emits: ["valid"],
   data() {
@@ -615,59 +543,6 @@ export default {
       inputs: (state) => state.incomeRider.inputs,
     }),
   },
-  mounted() {
-    // FIXME
-    // Select Dropdown Start
-    let selectBtn = document.querySelectorAll(".select-btn");
-    selectBtn.forEach((showHide) => {
-      showHide.addEventListener("click", () =>
-        showHide.closest(".select-menu").classList.toggle("active")
-      );
-      var allOptions = showHide
-        .closest(".select-menu")
-        .querySelector(".options")
-        .querySelectorAll(".option");
-      allOptions.forEach((option) => {
-        option.addEventListener("click", (e) => {
-          e.stopPropagation();
-          option.parentElement.parentElement.classList.remove("active");
-        });
-      });
-    });
-
-    let dropdowns = document.querySelectorAll(".select-menu");
-    dropdowns.forEach((element) => {
-      element.addEventListener("click", (e) => {
-        dropdowns.forEach((item) => {
-          if (item.className.includes("active")) {
-            item.classList.remove("active");
-          }
-        });
-        e.target.closest(".select-menu").classList.add("active");
-      });
-    });
-
-    // Close when click outside
-    window.onclick = function (event) {
-      if (!event.target.matches(".select-menu")) {
-        var sharedowns = document.getElementsByClassName("select-menu");
-        var i;
-        for (i = 0; i < sharedowns.length; i++) {
-          var openSelectdropdown = sharedowns[i];
-          if (openSelectdropdown.classList.contains("active")) {
-            openSelectdropdown.classList.remove("active");
-          }
-        }
-      }
-    };
-
-    var allSelectMenus = document.querySelectorAll(".select-menu");
-    allSelectMenus.forEach((eachSelectMenus) => {
-      eachSelectMenus.addEventListener("click", function (event) {
-        event.stopPropagation();
-      });
-    });
-  },
   methods: {
     setIsValidForm() {
       let valid =
@@ -689,14 +564,6 @@ export default {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
       this.setIsValidForm();
-    },
-    updateDropdown(field, value) {
-      this.updateInput(field, value);
-      // Close dropdown
-      var allSelectMenus = document.querySelectorAll(".select-menu");
-      allSelectMenus.forEach((eachSelectMenus) => {
-        eachSelectMenus.classList.remove("active");
-      });
     },
     handleResponseError(error) {
       if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
@@ -735,7 +602,7 @@ export default {
       if (!payload.non_guaranteed_income_first_year) {
         payload.non_guaranteed_income_first_year = null;
         payload.non_guaranteed_income_type = null;
-        
+
         if (this.$store.state.incomeRider.result_type !== "guaranteed") {
           this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
         }
