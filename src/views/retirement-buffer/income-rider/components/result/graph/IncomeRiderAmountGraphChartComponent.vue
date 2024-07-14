@@ -1,5 +1,5 @@
 <template lang>
-  <div class="income-rider-graph-div" @click="setGraph()">
+  <div class="income-rider-graph-div mt-4" @click="setGraph()">
     <canvas id="irAmountChart"></canvas>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
       let graphData = this.getDataSet();
       // Custom plugin to draw vertical lines at the end of each dataset
 
-      console.log(graphData.datasets);
       const verticalLinePlugin = {
         id: "verticalLinePlugin",
         afterDatasetsDraw: (chart) => {
@@ -61,9 +60,8 @@ export default {
                   return "Year: " + title;
                 },
                 label: function (tooltipItem) {
-                  let datasetLabel = tooltipItem.dataset.label || "";
                   let value = tooltipItem.raw;
-                  return datasetLabel + ": " + value.toLocaleString();
+                  return "$" + value.toLocaleString();
                 },
               },
             },
@@ -135,41 +133,41 @@ export default {
       var redioInp = document.querySelector(".dropdown-menu");
       redioInp.addEventListener("click", function(e) {
         let screenMode = localStorage.getItem("mode");
-        if (screenMode == "light-blue") {
-          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#0E6651" : '';
-          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
-          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#0E6651" : '';
-          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
-          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
-          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
-          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
-          config.options.scales.y.grid.color = (context) => "#1660A4";
-        } if (screenMode == "dark-blue" || screenMode == "dark-blue") {
-          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
-          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
-          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
-          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#089875" : '';
-          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
-          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
-          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
-          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
-          config.options.scales.y.grid.color = (context) => "#1660A4";
-        } else {
-          graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#0E6651" : '';
-          graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#1660A4" : '';
-          graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#4A8ECD" : '';
-          graphData.datasets[0] ? graphData.datasets[0].borderColor = "#0E6651" : '';
-          graphData.datasets[1] ? graphData.datasets[1].borderColor = "#1660A4" : '';
-          graphData.datasets[2] ? graphData.datasets[2].borderColor = "#4A8ECD" : '';
-          graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';          
-          graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
-          graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(74, 142, 205, 0.20)" : '';
-          config.options.scales.y.grid.color = (context) => "#0E6651";
-        }
-        window.irAmountGraphChart.update();
+          if (screenMode == "light-blue") {
+            graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
+            graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#0E6651" : '';
+            graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
+            graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
+            graphData.datasets[1] ? graphData.datasets[1].borderColor = "#0E6651" : '';
+            graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
+            graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+            graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
+            graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
+            config.options.scales.y.grid.color = (context) => "#1660A4";
+          } else if (screenMode == "dark-blue") {
+            graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
+            graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
+            graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
+            graphData.datasets[0] ? graphData.datasets[0].borderColor = "#1660A4" : '';
+            graphData.datasets[1] ? graphData.datasets[1].borderColor = "#089875" : '';
+            graphData.datasets[2] ? graphData.datasets[2].borderColor = "#147D64" : '';
+            graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+            graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
+            graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
+            config.options.scales.y.grid.color = (context) => "#1660A4";
+          } else {
+            graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#0E6651" : '';
+            graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#1660A4" : '';
+            graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#4A8ECD" : '';
+            graphData.datasets[0] ? graphData.datasets[0].borderColor = "#0E6651" : '';
+            graphData.datasets[1] ? graphData.datasets[1].borderColor = "#1660A4" : '';
+            graphData.datasets[2] ? graphData.datasets[2].borderColor = "#4A8ECD" : '';
+            graphData.datasets[0] ? graphData.datasets[0].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';          
+            graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(22, 96, 164, 0.20)" : '';
+            graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(74, 142, 205, 0.20)" : '';
+            config.options.scales.y.grid.color = (context) => "#0E6651";
+          }
+          window.irAmountGraphChart.update();
       });
 
     },

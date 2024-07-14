@@ -1,5 +1,5 @@
 <template lang>
-  <div class="income-rider-graph-div">
+  <div class="income-rider-graph-div mt-4">
     <canvas id="irLongevityChart"></canvas>
   </div>
 </template>
@@ -34,9 +34,8 @@ export default {
                 return "Year: " + title;
               },
               label: function (tooltipItem) {
-                let datasetLabel = tooltipItem.dataset.label || "";
                 let value = tooltipItem.raw;
-                return datasetLabel + ": " + value.toLocaleString();
+                return "$" + value.toLocaleString();
               },
             },
           },
@@ -109,7 +108,7 @@ export default {
           graphData.datasets[1] ? graphData.datasets[1].backgroundColor = "rgba(14, 102, 81, 0.20)" : '';
           graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(20, 125, 100, 0.20)" : '';
           config.scales.y.grid.color = (context) => "#1660A4";
-        } if (screenMode == "dark-blue" || screenMode == "dark-blue") {
+        } else if (screenMode == "dark-blue") {
           graphData.datasets[0] ? graphData.datasets[0].pointBackgroundColor = "#1660A4" : '';
           graphData.datasets[1] ? graphData.datasets[1].pointBackgroundColor = "#089875" : '';
           graphData.datasets[2] ? graphData.datasets[2].pointBackgroundColor = "#147D64" : '';
@@ -132,7 +131,7 @@ export default {
           graphData.datasets[2] ? graphData.datasets[2].backgroundColor = "rgba(74, 142, 205, 0.20)" : '';
           config.scales.y.grid.color = (context) => "#0E6651";
         }
-        window.irAmountGraphChart.update();
+        window.irLongevityGraphChart.update();
       });
     },
     updateGraph(){

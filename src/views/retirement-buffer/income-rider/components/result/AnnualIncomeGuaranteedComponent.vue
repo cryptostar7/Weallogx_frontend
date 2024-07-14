@@ -266,7 +266,6 @@ export default {
       this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
     },
     getBarWidth(longevity) {
-      console.log(longevity, this.yearsLable);
       return this.targetAnalysis != "longevity"
         ? (((longevity - this.yearsLable[0]) / (this.yearsLable[this.yearsLable.length - 1] - this.yearsLable[0])) * 100).toFixed(2) + "%"
         : "100%";

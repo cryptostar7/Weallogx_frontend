@@ -1882,12 +1882,6 @@ background-color: #a1a1a1;
 .light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1{
   background-color: #6DAC9D;
 }
-.light-blue .target-analysis-bar-main-div .bar-long-para span{
-  color: #0E6651;
-}
-.light-blue .pie.target-analysis-progress-pie svg text {
-  fill: #0E6651;
-}
 .light-blue .pie-long-para span{
 color: #0E6651;
 }
@@ -1907,10 +1901,13 @@ color: #0E6651;
   border-color: #1660A4;
   background-color: #165fa420;
 }
-
 .light-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
   border-color: #0e6651;
   background-color: #0e665120;
+}
+.light-blue .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
+  border: 3px solid #147D64;
+  background-color: rgba(20, 125, 100, 0.2);
 }
 /* Retirement Buffer CSS Ends */
 
@@ -1920,5 +1917,8 @@ color: #0E6651;
 }
 .light-blue .income-rider-show-next-btn{
   background: var(--blue-clr) ;
+}
+.light-blue .pie.target-analysis-progress-pie svg text{
+  fill: #147D64;
 }
 /* Download file toast end */
