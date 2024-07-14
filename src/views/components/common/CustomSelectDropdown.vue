@@ -49,12 +49,11 @@ export default {
       dropdownRef.classList.toggle("active");
     });
 
-    // Close when click outside
-    window.onclick = function (event) {
-      if (!event.target.matches(".select-menu")) {
-        dropdownRef.classList.remove("active");
-      }
-    };
+    document.querySelector("body").addEventListener("click", (e) => {
+        if (!e.target.matches(".select-menu")) {
+          dropdownRef.classList.remove("active");
+        }
+    });
   },
   methods: {
     selectOption(value) {
