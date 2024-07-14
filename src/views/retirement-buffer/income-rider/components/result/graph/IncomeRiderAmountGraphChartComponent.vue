@@ -17,7 +17,6 @@ export default {
       let graphData = this.getDataSet();
       // Custom plugin to draw vertical lines at the end of each dataset
 
-      console.log(graphData.datasets);
       const verticalLinePlugin = {
         id: "verticalLinePlugin",
         afterDatasetsDraw: (chart) => {
