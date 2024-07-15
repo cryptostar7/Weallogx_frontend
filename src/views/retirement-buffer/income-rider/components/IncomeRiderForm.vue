@@ -337,7 +337,7 @@
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div align-items-end">
             <label for="nonguaranteedIncomeAmountInput" class="main_label d-block">
-              Non-guaranteed Amount
+              Non-guaranteed Income <br>Amount
               <span class="optional">(Optional)</span>
             </label>
             
