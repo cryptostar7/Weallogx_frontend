@@ -193,67 +193,16 @@
             />
           </div>
         </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div">
-            <label for="incomeStartYearSelect" class="main_label"
-              >Year Income Begins</label
-            >
-          </div>
-          <custom-select-dropdown
-            :default="inputs.income_start_year"
-            @selected="(value) => updateInput('income_start_year', value)"
-            :options="Array.from({ length: illustrateYear }, (_, i) => i + 1)"
-          />
-        </div>
+
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
             <label for="guaranteedIncomeAmountInput" class="main_label"
               >Guaranteed Income Amount</label
             >
-          </div>
-          <div class="form_section_input_div">
-            <dollar-amount-input
-              id="guaranteedIncomeAmountInput"
-              class="dollar_inp"
-              max="100000000"
-              placeholder="Guaranteed Income Amount"
-              :default="inputs.guaranteed_income_first_year"
-              @amountUpdated="
-                (e) => updateInput('guaranteed_income_first_year', e)
-              "
-            />
-            <span class="dollar">$</span>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div" id="annualIncrease1">
-            <label for="annual-ditribution" class="main_label"
-              >Annual Increase<span class="optional">(optional)</span></label
-            >
-            <div class="label-right-div">
-              <label
-                for="gtSelectPercent"
-                class="label_checkbox"
-                @click="
-                  updateInput('guaranteed_income_type', 'annual_increase')
-                "
-              >
-                <input
-                  type="radio"
-                  name="annual-increase"
-                  checkBoxAttr="2"
-                  id="gtSelectPercent"
-                  hidden
-                  :checked="inputs.guaranteed_income_type === 'annual_increase'"
-                />
-                <label for="gtSelectPercent"></label>
-                <span>%</span>
-              </label>
-              <label
-                for="gtselectDollar"
-                class="label_checkbox"
-                data-bs-toggle="modal"
-                data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
+            
+            <div class="label-right-div">              
+              <div
+                class="label_checkbox"                
                 @click="
                   inputs.guaranteed_income_type === 'annual_increase'
                     ? updateInput('guaranteed_income_type', 'manual')
@@ -261,7 +210,7 @@
                 "
               >
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="annual-increase"
                   checkBoxAttr="1"
                   id="gtselectDollar"
@@ -269,7 +218,8 @@
                   hidden
                 />
                 <label for="gtselectDollar"></label>
-                <svg
+                <svg class="cursor-pointer" data-bs-toggle="modal"
+                data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -324,8 +274,29 @@
                     stroke-width="0.317308"
                   />
                 </svg>
-              </label>
+              </div>
             </div>
+          </div>
+          <div class="form_section_input_div">
+            <dollar-amount-input
+              id="guaranteedIncomeAmountInput"
+              class="dollar_inp"
+              max="100000000"
+              placeholder="Guaranteed Income Amount"
+              :default="inputs.guaranteed_income_first_year"
+              @amountUpdated="
+                (e) => updateInput('guaranteed_income_first_year', e)
+              "
+            />
+            <span class="dollar">$</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div" id="annualIncrease1">
+            <label for="annual-ditribution" class="main_label"
+              >Annual Increase<span class="optional">(optional)</span></label
+            >
           </div>
           <div
             v-if="inputs.guaranteed_income_type == 'manual'"
@@ -348,58 +319,31 @@
             <span class="percent">%</span>
           </div>
         </div>
+
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
-            <label for="nonguaranteedIncomeAmountInput" class="main_label">
+            <label for="incomeStartYearSelect" class="main_label"
+              >Year Income Begins</label
+            >
+          </div>
+          <custom-select-dropdown
+            :default="inputs.income_start_year"
+            @selected="(value) => updateInput('income_start_year', value)"
+            :options="Array.from({ length: illustrateYear }, (_, i) => i + 1)"
+          />
+        </div>
+       
+
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div align-items-end">
+            <label for="nonguaranteedIncomeAmountInput" class="main_label d-block">
               Non-guaranteed Amount
               <span class="optional">(Optional)</span>
             </label>
-          </div>
-          <div class="form_section_input_div">
-            <dollar-amount-input
-              id="nonguaranteedIncomeAmountInput"
-              class="dollar_inp"
-              max="100000000"
-              placeholder="Non-guaranteed Amount"
-              :default="inputs.non_guaranteed_income_first_year"
-              @amountUpdated="
-                (e) => updateInput('non_guaranteed_income_first_year', e)
-              "
-            />
-            <span class="dollar">$</span>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div" id="annualIncrease2">
-            <label for="annual-ditribution" class="main_label"
-              >Annual Increase<span class="optional">(optional)</span></label
-            >
-            <div class="label-right-div">
-              <label
-                for="nonGtSelectPercent"
-                class="label_checkbox"
-                @click="
-                  updateInput('non_guaranteed_income_type', 'annual_increase')
-                "
-              >
-                <input
-                  type="radio"
-                  name="annual-increase2"
-                  checkBoxAttr="2"
-                  id="nonGtSelectPercent"
-                  :checked="
-                    inputs.non_guaranteed_income_type === 'annual_increase'
-                  "
-                  hidden
-                />
-                <label for="nonGtSelectPercent"></label>
-                <span>%</span>
-              </label>
-              <label
-                for="nonGtselectScheduleModal"
-                class="label_checkbox"
-                data-bs-toggle="modal"
-                data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
+            
+            <div class="label-right-div">              
+              <div
+                class="label_checkbox"               
                 @click="
                   inputs.non_guaranteed_income_type === 'annual_increase'
                     ? updateInput('non_guaranteed_income_type', 'manual')
@@ -407,7 +351,7 @@
                 "
               >
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="annual-increase2"
                   checkBoxAttr="1"
                   id="nonGtselectScheduleModal"
@@ -417,7 +361,8 @@
                   "
                 />
                 <label for="nonGtselectScheduleModal"></label>
-                <svg
+                <svg class="cursor-pointer"  data-bs-toggle="modal"
+                data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -472,8 +417,28 @@
                     stroke-width="0.317308"
                   />
                 </svg>
-              </label>
+              </div>
             </div>
+          </div>
+          <div class="form_section_input_div">
+            <dollar-amount-input
+              id="nonguaranteedIncomeAmountInput"
+              class="dollar_inp"
+              max="100000000"
+              placeholder="Non-guaranteed Amount"
+              :default="inputs.non_guaranteed_income_first_year"
+              @amountUpdated="
+                (e) => updateInput('non_guaranteed_income_first_year', e)
+              "
+            />
+            <span class="dollar">$</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div" id="annualIncrease2">
+            <label for="annual-ditribution" class="main_label d-block"
+              ><br class="d-none-big">Annual Increase<span class="optional"> (optional)</span></label
+            >
           </div>
           <div
             v-if="inputs.non_guaranteed_income_type == 'manual'"

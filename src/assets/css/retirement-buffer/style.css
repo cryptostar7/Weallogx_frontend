@@ -1,3 +1,7 @@
+.cursor-pointer{
+    cursor: pointer;
+}
+
 /* For delete */
 .navbar-brand.green {
     display: block;
@@ -2157,4 +2161,10 @@ canvas#retirementBufferGraph {
     position: absolute;
     bottom: 0;
     text-align: center;
+}
+
+@media (min-width:1552px) {
+    .d-none-big{
+        display: none;
+    }
 }
