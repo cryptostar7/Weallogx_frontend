@@ -25,7 +25,7 @@
                   {{
                     $numFormatWithDollar(
                       $arraySum(targetAnalysis != "longevity" ? irResult.annual_income_rider_distribution : irHistoricalResult.annual_income_rider_distribution)
-                    )
+                    ) || '$0'
                   }}</span
                 >
               </p>
@@ -72,7 +72,7 @@
                         ? irResult.annual_cv_distribution
                         : irResult.optimization.optimal_distribution
                     )
-                  )
+                  ) || '$0'
                 }}</span>
               </p>
               <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
@@ -141,7 +141,7 @@
                         ? irHistoricalResult.annual_cv_distribution
                         : irHistoricalResult.optimization.optimal_distribution
                     )
-                  )
+                  ) || '$0'
                 }}</span>
               </p>
               <p class="cardRadioSwtchpara3 mb-1 d-flex justify-content-between">
