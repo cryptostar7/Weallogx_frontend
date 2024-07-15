@@ -1147,7 +1147,7 @@
 .light-blue .cardRadioSwtchpara3{
   color:#763CA3 !important;
 }
-.light-blue .incomeRiderCard .cardRadioSwtchpara3{
+.light-blue .incomeRiderCard.incomeCard3 .cardRadioSwtchpara3{
   color:#147D64 !important;
 }
 .light-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .light-blue .incomeRiderCard.disable .cardRadioSwtchpara3{
@@ -1201,7 +1201,7 @@
 .light-blue .lightProgress3, .light-blue .lightProgress3.irr div{
   background: #763CA3;
 }
-.light-blue .incomeRiderCard .lightProgress3{
+.light-blue .incomeRiderCard.incomeCard3 .lightProgress3{
   background: #147D64;
 }
 .light-blue .lightProgress3 div, .light-blue .lightProgress3.irr{
@@ -1888,7 +1888,7 @@ color: #0E6651;
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
   stroke: #25967B;
 }
-.light-blue .irPiepie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
+.light-blue .irPie.pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
   stroke: #6DAC9D;
 }
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
@@ -1918,7 +1918,7 @@ color: #0E6651;
 .light-blue .income-rider-show-next-btn{
   background: var(--blue-clr) ;
 }
-.light-blue .pie.target-analysis-progress-pie svg text{
+.light-blue .irPie.pie.target-analysis-progress-pie svg text{
   fill: #147D64;
 }
 /* Download file toast end */

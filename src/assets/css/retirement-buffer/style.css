@@ -1709,16 +1709,11 @@ canvas#retirementBufferGraph {
     color: #000000;
     cursor: pointer;
 }
-
 .income-rider-modal-tabs div.active {
     background: #0e6651;
     border-radius: 100px;
     color: #fff;
 }
-.income-rider-modal-tabs div:last-child.active {
-    background-color: #0e6651;
-}
-
 .income-rider-modal-body .para {
     text-align: center;
     font-size: 10px;

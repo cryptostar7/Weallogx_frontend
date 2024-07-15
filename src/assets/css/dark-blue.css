@@ -3897,7 +3897,7 @@ opacity: 0.1;
 .dark-blue .cardRadioSwtchpara3 {
   color: #B556FF !important;
 }
-.dark-blue .incomeRiderCard .cardRadioSwtchpara3 {
+.dark-blue .incomeRiderCard.incomeCard3 .cardRadioSwtchpara3 {
   color: #147D64 !important;
 }
 
@@ -3953,7 +3953,7 @@ opacity: 0.1;
 .dark-blue .lightProgress3, .dark-blue .lightProgress3.irr div {
   background: #763CA3;
 }
-.dark-blue .incomeRiderCard .lightProgress3{
+.dark-blue .incomeRiderCard.incomeCard3 .lightProgress3{
   background: #147D64;
 }
 
@@ -5531,7 +5531,6 @@ background-color: #ABD5F9;
 .dark-blue .income-rider-modal-tabs div.active {
   background-color: #1660a4;
 }
-
 /* Income rider details start */
 .dark-blue .income-rider-table .tax-rate-table .table-input-div .form-control {
   color: #fff;
@@ -5596,7 +5595,6 @@ background-color: #555;
 .dark-blue .incomeRiderCard.disable .CardProgressBar {
   background: #55575a;
 }
-
 .dark-blue .incomeRiderCard.disable .allCardHeadPara ,   .dark-blue .incomeRiderCard.disable .allCardHeadPara span ,
 .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara1,
 .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .dark-blue .incomeRiderCard.disable .cardRadioSwtchpara2,
@@ -5604,10 +5602,10 @@ background-color: #555;
 {
 color: #55575a!important;
 }
-
 .dark-blue .each-target-analysis-bar .heading {
   color: #fff;
 }
+
 .dark-blue .each-target-analysis-bar .heading span svg rect{
   stroke: #fff;
 }
@@ -5670,10 +5668,9 @@ color: #fff;
 .dark-blue .target-analysis-success-prob-para{
   color: #fff;
 }
-.dark-blue .pie.target-analysis-progress-pie svg text {
+.dark-blue .irPie.pie.target-analysis-progress-pie svg text {
   fill: #26ab8b;
 }
-
 .dark-blue .summary_each_card.disable .pie.target-analysis-progress-pie svg circle[r],
 .dark-blue .each_card_right_part.disabled .pie.target-analysis-progress-pie svg circle[r] {
   stroke: #fafafa;
@@ -5698,13 +5695,11 @@ background: #485161;
 }
 /* Income rider details start */
 
-/* Graph part start */
-  
+/* Graph part start */  
 .dark-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
   border: 3px solid var(--green-clr);
   background-color: #0e665120;
 }
-
 .dark-blue .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
   border: 3px solid #147D64;
  background-color: rgba(20, 125, 100, 0.2);
