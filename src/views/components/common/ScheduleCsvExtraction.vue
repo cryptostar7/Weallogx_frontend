@@ -119,6 +119,7 @@ export default {
     },
     populateScheduleInputs: function () {
       var data = this.csvPreview.data;
+      this.$emit('dataUpdate', data);
       for (let index = 0; index < this.$props.maxInputs; index++) {
         var value = "";
         if (data && data[index]) {
