@@ -165,7 +165,9 @@
             >
           </div>
           <custom-select-dropdown
-            :default="inputs.index_allocation ? inputs.index_allocation.label : ''"
+            :default="
+              inputs.index_allocation ? inputs.index_allocation.label : ''
+            "
             @selected="(value) => updateInput('index_allocation', value)"
             :options="indexAllocationOpts"
           />
@@ -199,27 +201,23 @@
             <label for="guaranteedIncomeAmountInput" class="main_label"
               >Guaranteed Income Amount</label
             >
-            
-            <div class="label-right-div">              
-              <div
-                class="label_checkbox"                
-                @click="
-                  inputs.guaranteed_income_type === 'annual_increase'
-                    ? updateInput('guaranteed_income_type', 'manual')
-                    : ''
-                "
-              >
+
+            <div class="label-right-div">
+              <div class="label_checkbox">
                 <input
                   type="checkbox"
                   name="annual-increase"
-                  checkBoxAttr="1"
-                  id="gtselectDollar"
-                  :checked="inputs.guaranteed_income_type !== 'annual_increase'"
-                  hidden
+                  id="gtScheduleCheck"
+                  v-model="guaranteedIncomeSchedule"
+                  hidden="true"
                 />
-                <label for="gtselectDollar"></label>
-                <svg class="cursor-pointer" data-bs-toggle="modal"
-                data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
+                <label for="gtScheduleCheck"></label>
+                <svg
+                  :class="`cursor-pointer ${
+                    guaranteedIncomeSchedule ? '' : 'disabled'
+                  }`"
+                  :data-bs-toggle="guaranteedIncomeSchedule ? 'modal' : ''"
+                  data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -277,7 +275,13 @@
               </div>
             </div>
           </div>
-          <div class="form_section_input_div">
+          <div
+            v-if="inputs.guaranteed_income_type == 'manual'"
+            class="form_section_input_div"
+          >
+            <input type="text" value="Scheduled" readonly />
+          </div>
+          <div class="form_section_input_div" v-else>
             <dollar-amount-input
               id="guaranteedIncomeAmountInput"
               class="dollar_inp"
@@ -302,7 +306,7 @@
             v-if="inputs.guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
-            <input type="text" value="Scheduled" />
+            <input type="text" value="Scheduled" readonly />
           </div>
 
           <div v-else class="form_section_input_div">
@@ -329,40 +333,37 @@
           <custom-select-dropdown
             :default="inputs.income_start_year"
             @selected="(value) => updateInput('income_start_year', value)"
+            :disabled="inputs.guaranteed_income_type == 'manual'"
             :options="Array.from({ length: illustrateYear }, (_, i) => i + 1)"
           />
         </div>
-       
 
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div align-items-end">
-            <label for="nonguaranteedIncomeAmountInput" class="main_label d-block">
-              Non-guaranteed Income <br>Amount
+            <label
+              for="nonguaranteedIncomeAmountInput"
+              class="main_label d-block"
+            >
+              Non-guaranteed Income <br />Amount
               <span class="optional">(Optional)</span>
             </label>
-            
-            <div class="label-right-div">              
-              <div
-                class="label_checkbox"               
-                @click="
-                  inputs.non_guaranteed_income_type === 'annual_increase'
-                    ? updateInput('non_guaranteed_income_type', 'manual')
-                    : ''
-                "
-              >
+
+            <div class="label-right-div">
+              <div class="label_checkbox">
                 <input
                   type="checkbox"
                   name="annual-increase2"
-                  checkBoxAttr="1"
                   id="nonGtselectScheduleModal"
-                  hidden
-                  :checked="
-                    inputs.non_guaranteed_income_type !== 'annual_increase'
-                  "
+                  v-model="nonGuaranteedIncomeSchedule"
+                  hidden="true"
                 />
                 <label for="nonGtselectScheduleModal"></label>
-                <svg class="cursor-pointer"  data-bs-toggle="modal"
-                data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
+                <svg
+                  :class="`cursor-pointer ${
+                    nonGuaranteedIncomeSchedule ? '' : 'disabled'
+                  }`"
+                  :data-bs-toggle="nonGuaranteedIncomeSchedule ? 'modal' : ''"
+                  data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -420,7 +421,13 @@
               </div>
             </div>
           </div>
-          <div class="form_section_input_div">
+          <div
+            v-if="inputs.non_guaranteed_income_type == 'manual'"
+            class="form_section_input_div"
+          >
+            <input type="text" value="Scheduled" readonly />
+          </div>
+          <div class="form_section_input_div" v-else>
             <dollar-amount-input
               id="nonguaranteedIncomeAmountInput"
               class="dollar_inp"
@@ -437,14 +444,16 @@
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div" id="annualIncrease2">
             <label for="annual-ditribution" class="main_label d-block"
-              ><br class="d-none-big">Annual Increase<span class="optional"> (optional)</span></label
+              ><br class="d-none-big" />Annual Increase<span class="optional">
+                (optional)</span
+              ></label
             >
           </div>
           <div
             v-if="inputs.non_guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
-            <input type="text" value="Scheduled" />
+            <input type="text" value="Scheduled" readonly />
           </div>
 
           <div v-else class="form_section_input_div">
@@ -488,6 +497,8 @@ export default {
   emits: ["valid"],
   data() {
     return {
+      guaranteedIncomeSchedule: false,
+      nonGuaranteedIncomeSchedule: false,
       accountTypeOpts: [
         { label: "Taxable", value: "taxable" },
         { label: "Pre-tax", value: "pre_tax" },
@@ -500,6 +511,15 @@ export default {
       ],
     };
   },
+  mounted() {
+    if (this.inputs.guaranteed_income_type !== "annual_increase") {
+      this.guaranteedIncomeSchedule = true;
+    }
+
+    if (this.inputs.non_guaranteed_income_type !== "annual_increase") {
+      this.nonGuaranteedIncomeSchedule = true;
+    }
+  },
   computed: {
     ...mapGetters({
       illustrateYear: "incomeRider/illustrateYear",
@@ -507,6 +527,23 @@ export default {
     ...mapState({
       inputs: (state) => state.incomeRider.inputs,
     }),
+  },
+  watch: {
+    guaranteedIncomeSchedule(e) {
+      this.updateInput(
+        "guaranteed_income_type",
+        e ? "manual" : "annual_increase"
+      );
+    },
+    nonGuaranteedIncomeSchedule(e) {
+      this.updateInput(
+        "non_guaranteed_income_type",
+        e ? "manual" : "annual_increase"
+      );
+    },
+    inputs(){
+      this.setIsValidForm();
+    }
   },
   methods: {
     setIsValidForm() {
@@ -528,7 +565,6 @@ export default {
     updateInput(field, value) {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
-      this.setIsValidForm();
     },
     handleResponseError(error) {
       if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
@@ -564,10 +600,17 @@ export default {
         ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
         : null;
 
+      if (this.inputs.guaranteed_income_type != "manual") {
+        payload.guaranteed_income_manual = null;
+      }
+
+      if (this.inputs.non_guaranteed_income_type != "manual") {
+        payload.non_guaranteed_income_manual = null;
+      }
+
       if (!payload.non_guaranteed_income_first_year) {
         payload.non_guaranteed_income_first_year = null;
         payload.non_guaranteed_income_type = null;
-
         if (this.$store.state.incomeRider.result_type !== "guaranteed") {
           this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
         }

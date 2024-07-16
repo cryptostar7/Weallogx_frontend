@@ -1,5 +1,5 @@
 <template lang>
-  <div ref="dropdownRef" class="select-menu accumulation_select_menu">
+  <div ref="dropdownRef" :class="`select-menu accumulation_select_menu ${disabled ? 'disabled' : ''}`" :style="{'pointer-events': disabled ? 'none' : ''}">
     <div class="select-btn">
       <input
         id="indexAllocationSelect"
@@ -31,6 +31,7 @@ export default {
   props: {
     default: [String, Number],
     options: Array,
+    disabled: Boolean,
   },
   data() {
     return {

@@ -113,7 +113,6 @@
                     <p class="heading clr1">
                       {{ inputs.income_rider_account_name }}
                       <span
-                        v-if="irResult.annual_income_increase"
                         @click="
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
@@ -219,7 +218,6 @@
                       {{ inputs.comparative_vehicle_account_name }}
                       - Flat Rate of Return
                       <span
-                        v-if="irResult.annual_income_increase"
                         @click="
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
@@ -338,7 +336,6 @@
                       {{ inputs.comparative_vehicle_account_name }} - Historical
                       Market Returns
                       <span
-                        v-if="irHistoricalResult.annual_income_increase"
                         @click="
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
