@@ -42,6 +42,8 @@
       :illustrateYear="illustrateYear" />
     <non-guaranteed-increasing-annual-income-schedule-modal
       :illustrateYear="illustrateYear" />
+
+      <income-start-year-warning-modal />
   </div>
 </template>
 
@@ -52,6 +54,7 @@ import NavbarComponent from "@/views/components/common/NavbarComponent.vue";
 import IncomeRiderForm from "./components/IncomeRiderForm.vue";
 import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/GuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
+import IncomeStartYearWarningModal from "@/views/retirement-buffer/income-rider/components/IncomeStartYearWarningModal.vue";
 
 export default {
   name: "IncomeRider",
@@ -60,7 +63,8 @@ export default {
     LeftSidebarComponent,
     NavbarComponent,
     GuaranteedIncreasingAnnualIncomeScheduleModal,
-    NonGuaranteedIncreasingAnnualIncomeScheduleModal
+    NonGuaranteedIncreasingAnnualIncomeScheduleModal,
+    IncomeStartYearWarningModal
   },
   data() {
     return {isSubmitEnabled: false}

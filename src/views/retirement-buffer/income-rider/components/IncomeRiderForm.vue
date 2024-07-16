@@ -213,10 +213,9 @@
                 />
                 <label for="gtScheduleCheck"></label>
                 <svg
-                  :class="`cursor-pointer ${
-                    guaranteedIncomeSchedule ? '' : 'disabled'
-                  }`"
-                  :data-bs-toggle="guaranteedIncomeSchedule ? 'modal' : ''"
+                  @click="guaranteedIncomeSchedule = true"
+                  class="cursor-pointer"
+                  data-bs-toggle="modal"
                   data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
@@ -359,10 +358,9 @@
                 />
                 <label for="nonGtselectScheduleModal"></label>
                 <svg
-                  :class="`cursor-pointer ${
-                    nonGuaranteedIncomeSchedule ? '' : 'disabled'
-                  }`"
-                  :data-bs-toggle="nonGuaranteedIncomeSchedule ? 'modal' : ''"
+                  @click="nonGuaranteedIncomeSchedule = true"
+                  class="cursor-pointer"
+                  data-bs-toggle="modal"
                   data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
@@ -541,9 +539,9 @@ export default {
         e ? "manual" : "annual_increase"
       );
     },
-    inputs(){
+    inputs() {
       this.setIsValidForm();
-    }
+    },
   },
   methods: {
     setIsValidForm() {
@@ -583,8 +581,39 @@ export default {
         this.$toast.error(error.message);
       }
     },
+    validateForm() {
+      let valid = true;
+      console.log(this.inputs.non_guaranteed_income_manual);
+      if (this.inputs.non_guaranteed_income_manual) {
+        let income_start_year = 0;
+        for (
+          let index = 0;
+          index < this.inputs.non_guaranteed_income_manual.length;
+          index++
+        ) {
+          let value = this.inputs.non_guaranteed_income_manual[index];
+          if (!income_start_year && value) {
+            income_start_year = index + 1;
+          }
+        }
+
+        if (income_start_year !== this.inputs.income_start_year) {
+          valid = false;
+          new bootstrap.Modal(
+            document.getElementById("IncomeStartYearWarningModal")
+          ).show();
+
+          // alert("Non guaranteed income start year different");
+        }
+      }
+      valid = false;
+
+      return valid;
+    },
     submit() {
-      this.$store.dispatch("loader", true);
+      if (!this.validateForm()) {
+        return false;
+      }
       var payload = { ...this.inputs };
       payload.account_type = this.inputs.account_type.value;
       payload.tax_rate = this.inputs.tax_rate ? this.inputs.tax_rate / 100 : 0;
@@ -616,6 +645,7 @@ export default {
         }
       }
 
+      this.$store.dispatch("loader", true);
       post(getUrl("incomeRider"), payload, authHeader())
         .then((response) => {
           this.$store.dispatch("incomeRider/updateResultData", response.data);
