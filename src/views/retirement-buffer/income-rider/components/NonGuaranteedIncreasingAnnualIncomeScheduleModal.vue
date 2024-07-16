@@ -219,7 +219,7 @@ export default {
           }
         }
         this.schedules = [];
-        let inputs = { ...this.inputs, ['non_guaranteed_income_manual']: null, ['non_guaranteed_income_first_year'] : null, ['income_start_year'] : null };
+        let inputs = { ...this.inputs, ['non_guaranteed_income_manual']: null, ['non_guaranteed_income_first_year'] : null };
         this.$store.dispatch("incomeRider/updateInputs", inputs);
       }else{
         this.updateInput('non_guaranteed_income_first_year', null);

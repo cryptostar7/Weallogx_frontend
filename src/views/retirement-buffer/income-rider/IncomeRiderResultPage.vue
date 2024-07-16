@@ -85,6 +85,7 @@
     <increasing-annual-income-result-schedule-modal />
     <guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" :showFormModal="true" />
     <non-guaranteed-increasing-annual-income-schedule-modal :illustrateYear="illustrateYear" :showFormModal="true" />
+    <income-start-year-warning-modal :showFormModal="true" />
   </div>
 </template>
 
@@ -98,6 +99,7 @@ import GraphChartResultComponent from "./components/result/GraphChartResultCompo
 import IncreasingAnnualIncomeResultScheduleModal from "./components/result/IncreasingAnnualIncomeResultScheduleModal.vue";
 import GuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/GuaranteedIncreasingAnnualIncomeScheduleModal.vue";
 import NonGuaranteedIncreasingAnnualIncomeScheduleModal from "@/views/retirement-buffer/income-rider/components/NonGuaranteedIncreasingAnnualIncomeScheduleModal.vue";
+import IncomeStartYearWarningModal from "@/views/retirement-buffer/income-rider/components/IncomeStartYearWarningModal.vue";
 
 import "../../../assets/js/chart.min";
 export default {
@@ -110,6 +112,7 @@ export default {
     IncomeRiderForm,
     GuaranteedIncreasingAnnualIncomeScheduleModal,
     NonGuaranteedIncreasingAnnualIncomeScheduleModal,
+    IncomeStartYearWarningModal
   },
   data() {
     return { isSubmitEnabled: false };
