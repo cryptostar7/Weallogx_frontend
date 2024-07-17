@@ -534,16 +534,34 @@ export default {
   },
   watch: {
     guaranteedIncomeSchedule(e) {
-      this.updateInput(
-        "guaranteed_income_type",
-        e ? "manual" : "annual_increase"
-      );
+      let type = "annual_increase";
+      if (e) {
+        if (
+          !this.inputs.guaranteed_income_type ||
+          this.inputs.guaranteed_income_type !== "year_bounded"
+        ) {
+          type = "manual";
+        } else {
+          type = "year_bounded";
+        }
+      }
+
+      this.updateInput("guaranteed_income_type", type);
     },
     nonGuaranteedIncomeSchedule(e) {
-      this.updateInput(
-        "non_guaranteed_income_type",
-        e ? "manual" : "annual_increase"
-      );
+      let type = "annual_increase";
+      if (e) {
+        if (
+          !this.inputs.non_guaranteed_income_type ||
+          this.inputs.non_guaranteed_income_type !== "year_bounded"
+        ) {
+          type = "manual";
+        } else {
+          type = "year_bounded";
+        }
+      }
+
+      this.updateInput("non_guaranteed_income_type", type);
     },
     inputs() {
       this.setIsValidForm();
@@ -563,7 +581,6 @@ export default {
         this.inputs.guaranteed_income_first_year
           ? true
           : false;
-
       this.$emit("valid", valid);
     },
     updateInput(field, value) {
@@ -589,7 +606,7 @@ export default {
     },
     validateForm() {
       let valid = true;
-      if (this.inputs.non_guaranteed_income_manual) {
+      if (this.inputs.non_guaranteed_income_type == "manual" && this.inputs.non_guaranteed_income_manual) {
         let income_start_year = 0;
         for (
           let index = 0;
@@ -610,6 +627,11 @@ export default {
         }
       }
       return valid;
+    },
+    reset() {
+      this.guaranteedIncomeSchedule = false;
+      this.nonGuaranteedIncomeSchedule = false;
+      this.$store.dispatch("incomeRider/reset");
     },
     submit() {
       if (!this.validateForm()) {
@@ -640,10 +662,25 @@ export default {
 
       if (!payload.non_guaranteed_income_first_year) {
         payload.non_guaranteed_income_first_year = null;
+        payload.non_guaranteed_income_last_year = null;
         payload.non_guaranteed_income_type = null;
         if (this.$store.state.incomeRider.result_type !== "guaranteed") {
           this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
         }
+      }
+
+      if (
+        payload.non_guaranteed_income_increase &&
+        !payload.non_guaranteed_income_type
+      ) {
+        payload.non_guaranteed_income_increase = null;
+      }
+
+      if (
+        payload.non_guaranteed_income_type == "manual" &&
+        !payload.non_guaranteed_income_manual
+      ) {
+        payload.non_guaranteed_income_type = null;
       }
 
       this.$store.dispatch("loader", true);

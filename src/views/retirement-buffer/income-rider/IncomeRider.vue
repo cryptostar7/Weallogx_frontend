@@ -82,7 +82,7 @@ export default {
       this.$refs.form.submit();
     },
     resetForm() {
-      this.$store.dispatch("incomeRider/reset");
+      this.$refs.form.reset();
     },
   },
 };

@@ -117,7 +117,7 @@
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
                             {
-                              title: 'Increasing Annual Income Schedule',
+                              title: 'Annual Income Schedule',
                               data: irResult.annual_income_rider_distribution,
                             }
                           )
@@ -203,8 +203,9 @@
                             )[0]
                           ) || "$0"
                         }}</span>
+                        <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                         <span
-                          v-if="irResult.annual_income_increase"
+                          v-else-if="irResult.annual_income_increase"
                           class="target-bar-span"
                           >Increasing by
                           {{ $percentFormat(irResult.annual_income_increase) }}
@@ -222,7 +223,7 @@
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
                             {
-                              title: 'Increasing Annual Income Schedule',
+                              title: 'Annual Income Schedule',
                               data:
                                 targetAnalysis == 'amount'
                                   ? irResult.annual_cv_distribution
@@ -318,8 +319,9 @@
                                   )[0]
                             ) || "$0"
                           }}</span>
+                          <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                           <span
-                            v-if="irResult.annual_income_increase"
+                            v-else-if="irResult.annual_income_increase"
                             class="target-bar-span"
                             >Increasing by
                             {{
@@ -340,7 +342,7 @@
                           $store.dispatch(
                             'incomeRider/updateAnnualScheduleResultModal',
                             {
-                              title: 'Increasing Annual Income Schedule',
+                              title: 'Annual Income Schedule',
                               data:
                                 targetAnalysis == 'amount'
                                   ? irHistoricalResult.annual_cv_distribution
@@ -437,8 +439,9 @@
                                   )[0]
                             ) || "$0"
                           }}</span>
+                          <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                           <span
-                            v-if="irHistoricalResult.annual_income_increase"
+                            v-else-if="irHistoricalResult.annual_income_increase"
                             class="target-bar-span"
                             >Increasing by
                             {{
@@ -578,6 +581,7 @@ export default {
     ...mapState({
       targetAnalysis: (state) => state.incomeRider.target_analysis_type,
       showResult: (state) => state.incomeRider.view_result,
+      resultType: (state) => state.incomeRider.result_type,
       inputs: (state) => state.incomeRider.result.inputs || [],
     }),
     ...mapGetters({
