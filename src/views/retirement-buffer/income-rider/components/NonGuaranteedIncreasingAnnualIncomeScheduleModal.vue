@@ -243,7 +243,7 @@ export default {
         this.$store.dispatch("incomeRider/updateInputs", inputs);
 
       } else {
-        let cagr = Number(Number(((this.inputs.non_guaranteed_income_last_year / this.inputs.non_guaranteed_income_first_year) ** (1 / (this.$props.illustrateYear - this.inputs.income_start_year)) - 1) * 100).toFixed(2));
+        let cagr = Number(Number(((this.inputs.non_guaranteed_income_last_year / this.inputs.non_guaranteed_income_first_year) ** (1 / (this.$props.illustrateYear - Number(this.inputs.income_start_year || 0))) - 1) * 100).toFixed(2));
         let inputs = { ...this.inputs, ['non_guaranteed_income_increase']: cagr < 0 ? 0 : cagr, ['non_guaranteed_income_manual'] : null};
 
         this.$store.dispatch("incomeRider/updateInputs", inputs);

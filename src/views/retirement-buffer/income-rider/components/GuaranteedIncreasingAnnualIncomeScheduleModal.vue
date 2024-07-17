@@ -242,7 +242,7 @@ export default {
         let inputs = { ...this.inputs, ['guaranteed_income_manual']: array, ['guaranteed_income_first_year'] : guaranteed_income_first_year, ['income_start_year'] : income_start_year };
         this.$store.dispatch("incomeRider/updateInputs", inputs);
       } else {
-        let cagr = Number(Number(((this.inputs.guaranteed_income_last_year / this.inputs.guaranteed_income_first_year) ** (1 / (this.$props.illustrateYear - this.inputs.income_start_year)) - 1) * 100).toFixed(2));
+        let cagr = Number(Number(((this.inputs.guaranteed_income_last_year / this.inputs.guaranteed_income_first_year) ** (1 / (this.$props.illustrateYear - Number(this.inputs.income_start_year || 0))) - 1) * 100).toFixed(2));
         let inputs = { ...this.inputs, ['guaranteed_income_increase']: cagr < 0 ? 0 : cagr, ['guaranteed_income_manual']: null };
         this.$store.dispatch("incomeRider/updateInputs", inputs);
       }
