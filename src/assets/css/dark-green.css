@@ -5217,3 +5217,6 @@
   background-color: #ccc;
   color: #202020;
 }
+.dark-green .table_graph_setting_tab div.middle {
+    border-right: 1px solid #5a5a5a;
+}

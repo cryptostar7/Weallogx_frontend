@@ -234,6 +234,7 @@ export default {
           pointRadius: 0, // Remove dots
           order: 3,
           pointBackgroundColor: borderColors[0],
+          lineTension: 0,
         });
       }
 
@@ -250,6 +251,7 @@ export default {
           pointRadius: 0, // Remove dots
           order: 2,
           pointBackgroundColor: borderColors[1],
+          lineTension: 0,
         });
       }
 
@@ -266,6 +268,7 @@ export default {
           pointRadius: 0, // Remove dots
           order: 1,
           pointBackgroundColor: borderColors[2],
+          lineTension: 0,
         });
       }
 

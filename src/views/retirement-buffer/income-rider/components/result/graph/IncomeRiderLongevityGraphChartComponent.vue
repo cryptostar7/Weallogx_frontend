@@ -195,6 +195,7 @@ export default {
           tension: 0.1, // Curved line
           pointRadius: 0, //  dots size
           pointBackgroundColor: borderColors[0],
+          lineTension: 0,
         });
       }
 
@@ -210,6 +211,7 @@ export default {
           tension: 0.1, // Curved line
           pointRadius: 0, // Remove dots
           pointBackgroundColor: borderColors[1],
+          lineTension: 0,
         });
       }
 
@@ -224,6 +226,7 @@ export default {
           tension: 0.1, // Curved line
           pointRadius: 0, // Remove dots
           pointBackgroundColor: borderColors[2],
+          lineTension: 0,
         });
       }
 

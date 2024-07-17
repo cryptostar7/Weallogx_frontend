@@ -19,7 +19,7 @@
                         <path d="M0 17.5C0 17.2239 0.223858 17 0.5 17H11.5C11.7761 17 12 17.2239 12 17.5V19C12 19.2761 11.7761 19.5 11.5 19.5H0.5C0.223858 19.5 0 19.2761 0 19V17.5Z" fill="#0E6651" />
                       </svg>
                     </div>
-                    <div data-bs-toggle="pill" data-bs-target="#v-pills-graph" type="button" role="tab" aria-controls="v-pills-graph" aria-selected="false">
+                    <div data-bs-toggle="pill" data-bs-target="#v-pills-graph" type="button" role="tab" aria-controls="v-pills-graph" aria-selected="false" class="middle">
                       <svg class="income-rider-tab-svg income-svg-2" width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_6993_46716)">
                           <mask id="mask0_6993_46716" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="3" y="0" width="25" height="25">

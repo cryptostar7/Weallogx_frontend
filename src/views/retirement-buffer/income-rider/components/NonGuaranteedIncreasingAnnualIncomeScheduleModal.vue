@@ -164,12 +164,12 @@
                 </div>
               </div>
                 <div class="d-flex">
+                  <button class="mb-5 mt-4 reset_btn_gray"
+                    @click="resetScheduleData">Reset</button>
                   <button class="mb-5 mt-4 run_btn" data-bs-dismiss="modal"
                     :data-bs-toggle="showFormModal ? 'modal' : ''"
                     :data-bs-target="showFormModal ? '#incomeRideFormModal' : ''"
                     @click="saveScheduleData">Save</button>
-                  <button class="mb-5 mt-4 reset_btn_gray"
-                    @click="resetScheduleData">Reset</button>
                 </div>
             </div>
           </div>

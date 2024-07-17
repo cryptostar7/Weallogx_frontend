@@ -1,7 +1,6 @@
 .cursor-pointer{
     cursor: pointer;
 }
-
 /* For delete */
 .navbar-brand.green {
     display: block;
@@ -792,10 +791,15 @@
     font-weight: 600;
     cursor: pointer;
 }
-
+.table_graph_setting_tab div.middle {
+    border-right: 1px solid #dfdfdf;
+}
 .table_graph_setting_tab div.active {
     background: #0e6651;
     color: #fff;
+}
+.table_graph_setting_tab div.middle.active {
+    border-right: 0;
 }
 .table_graph_setting_tab div.active svg path {
     fill: #fff;
