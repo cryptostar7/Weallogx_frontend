@@ -5210,3 +5210,10 @@
 .dark-green .incomeRiderCard.disable .CardProgressBar {
   background: #55575a !important;
 }
+.dark-green .reset_btn_gray {
+  color: #fff;
+}
+.dark-green .reset_btn_gray:hover {
+  background-color: #ccc;
+  color: #202020;
+}

@@ -5731,3 +5731,10 @@ background: #485161;
 .dark-blue .incomeRiderCard.disable .CardProgressBar {
   background: #55575a !important;
 }
+.dark-blue .reset_btn_gray {
+  color: #fff;
+}
+.dark-blue .reset_btn_gray:hover {
+  background-color: #ccc;
+  color: #202020;
+}

@@ -1,5 +1,5 @@
 <template lang>
-  <div ref="dropdownRef" :class="`select-menu accumulation_select_menu ${disabled ? 'disabled' : ''}`" :style="{'pointer-events': disabled ? 'none' : ''}">
+  <div ref="dropdownRef" :class="`select-menu accumulation_select_menu ${disabled ? 'disabled' : ''}`">
     <div class="select-btn">
       <input
         id="indexAllocationSelect"
@@ -46,6 +46,9 @@ export default {
     const dropdownRef = this.$refs.dropdownRef;
 
     dropdownRef.addEventListener("click", (e) => {
+      if(e.currentTarget.classList.contains("disabled")){
+        return;
+      }
       e.stopPropagation();
       dropdownRef.classList.toggle("active");
     });

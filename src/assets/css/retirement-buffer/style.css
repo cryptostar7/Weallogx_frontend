@@ -380,6 +380,10 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.accumulation_select_menu.disabled .select-btn{
+    background-color: #eee;
+    pointer-events: none;
+}
 .form_section_label_div .label-right-div {
     display: flex;
     align-items: center;
@@ -417,9 +421,12 @@
 .form_section_label_div .label-right-div .label_checkbox input:checked ~ label {
     background-color: #0e6651;
 }
-.form_section_label_div.disabled .label-right-div .label_checkbox input:checked ~ label {
-    background-color: #a1a1a1;
+/*.form_section_label_div .label-right-div .label_checkbox input ~ label ~ svg rect {
+    stroke: #ddd;
 }
+.form_section_label_div .label-right-div .label_checkbox input:checked ~ label ~ svg rect {
+    stroke: black;
+}*/
 .slider_main {
     display: flex;
     align-items: center;
@@ -652,6 +659,25 @@
 .reset_btn:hover {
     background-color: transparent;
     color: #3c3c3c;
+}
+.reset_btn_gray {
+    border: 1px solid #ddd;
+    border-radius: 100px;
+    background: transparent;
+    text-decoration: none;
+    width: fit-content;
+    width: 190px;
+    height: 47px;
+    color: #202020;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-inline: auto;
+    margin-top: 18px;
+}
+.reset_btn_gray:hover {
+    background: #f3f3f3;
 }
 
 .retirement_buffer_section {
