@@ -37,35 +37,11 @@
               >Account Type</label
             >
           </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="accountTypeSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="inputs.account_type ? inputs.account_type.label : ''"
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in accountTypeOpts"
-                :key="item"
-                :class="`option ${
-                  inputs.account_type === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('account_type', item)"
-              >
-                <span class="option-text">{{ item.label }}</span>
-              </li>
-            </ul>
-          </div>
+          <custom-select-dropdown
+            :default="inputs.account_type ? inputs.account_type.label : ''"
+            @selected="(value) => updateInput('account_type', value)"
+            :options="accountTypeOpts"
+          />
         </div>
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
@@ -188,43 +164,25 @@
               >Index Allocation</label
             >
           </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="indexAllocationSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="
-                  inputs.index_allocation ? inputs.index_allocation.label : ''
-                "
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in indexAllocationOpts"
-                :key="item"
-                :class="`option ${
-                  inputs.index_allocation === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('index_allocation', item)"
-              >
-                <span class="option-text">{{ item.label }}</span>
-              </li>
-            </ul>
-          </div>
+          <custom-select-dropdown
+            :default="
+              inputs.index_allocation ? inputs.index_allocation.label : ''
+            "
+            @selected="(value) => updateInput('index_allocation', value)"
+            :options="indexAllocationOpts"
+          />
         </div>
       </div>
 
       <!-- Income rider details -->
 
-      <p class="form_section_para mt-3">Income Rider Details</p>
+      <p
+        class="form_section_para mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#mismatchIncomeModal"
+      >
+        Income Rider Details
+      </p>
       <div class="row mb-3">
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
@@ -243,107 +201,28 @@
             />
           </div>
         </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div">
-            <label for="incomeStartYearSelect" class="main_label"
-              >Year Income Begins</label
-            >
-          </div>
-          <div class="select-menu accumulation_select_menu">
-            <div class="select-btn">
-              <input
-                id="incomeStartYearSelect"
-                class="sBtn-text"
-                readonly="true"
-                type="text"
-                :value="inputs.income_start_year"
-              />
-              <i>
-                <img
-                  src="@/assets/images/icons/select-chevron.svg"
-                  alt="Chevron"
-                />
-              </i>
-            </div>
-            <ul class="options">
-              <li
-                v-for="item in illustrateYear"
-                :key="item"
-                :class="`option ${
-                  inputs.income_start_year === item ? 'active' : ''
-                }`"
-                @click="updateDropdown('income_start_year', item)"
-              >
-                <span class="option-text">{{ item }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
             <label for="guaranteedIncomeAmountInput" class="main_label"
               >Guaranteed Income Amount</label
             >
-          </div>
-          <div class="form_section_input_div">
-            <dollar-amount-input
-              id="guaranteedIncomeAmountInput"
-              class="dollar_inp"
-              max="100000000"
-              placeholder="Guaranteed Income Amount"
-              :default="inputs.guaranteed_income_first_year"
-              @amountUpdated="
-                (e) => updateInput('guaranteed_income_first_year', e)
-              "
-            />
-            <span class="dollar">$</span>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div" id="annualIncrease1">
-            <label for="annual-ditribution" class="main_label"
-              >Annual Increase<span class="optional">(optional)</span></label
-            >
+
             <div class="label-right-div">
-              <label
-                for="gtSelectPercent"
-                class="label_checkbox"
-                @click="
-                  updateInput('guaranteed_income_type', 'annual_increase')
-                "
-              >
+              <div class="label_checkbox">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="annual-increase"
-                  checkBoxAttr="2"
-                  id="gtSelectPercent"
-                  hidden
-                  :checked="inputs.guaranteed_income_type === 'annual_increase'"
+                  id="gtScheduleCheck"
+                  v-model="guaranteedIncomeSchedule"
+                  hidden="true"
                 />
-                <label for="gtSelectPercent"></label>
-                <span>%</span>
-              </label>
-              <label
-                for="gtselectDollar"
-                class="label_checkbox"
-                data-bs-toggle="modal"
-                data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
-                @click="
-                  inputs.guaranteed_income_type === 'annual_increase'
-                    ? updateInput('guaranteed_income_type', 'mannual')
-                    : ''
-                "
-              >
-                <input
-                  type="radio"
-                  name="annual-increase"
-                  checkBoxAttr="1"
-                  id="gtselectDollar"
-                  :checked="inputs.guaranteed_income_type !== 'annual_increase'"
-                  hidden
-                />
-                <label for="gtselectDollar"></label>
+                <label for="gtScheduleCheck"></label>
                 <svg
+                  @click="guaranteedIncomeSchedule = true"
+                  class="cursor-pointer"
+                  data-bs-toggle="modal"
+                  data-bs-target="#GuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -398,14 +277,41 @@
                     stroke-width="0.317308"
                   />
                 </svg>
-              </label>
+              </div>
             </div>
           </div>
           <div
-            v-if="inputs.guaranteed_income_type == 'mannual'"
+            v-if="inputs.guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
-            <input type="text" value="Scheduled" />
+            <input type="text" value="Scheduled" readonly />
+          </div>
+          <div class="form_section_input_div" v-else>
+            <dollar-amount-input
+              id="guaranteedIncomeAmountInput"
+              class="dollar_inp"
+              max="100000000"
+              placeholder="Guaranteed Income Amount"
+              :default="inputs.guaranteed_income_first_year"
+              @amountUpdated="
+                (e) => updateInput('guaranteed_income_first_year', e)
+              "
+            />
+            <span class="dollar">$</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div" id="annualIncrease1">
+            <label for="annual-ditribution" class="main_label"
+              >Annual Increase<span class="optional">(optional)</span></label
+            >
+          </div>
+          <div
+            v-if="inputs.guaranteed_income_type == 'manual'"
+            class="form_section_input_div"
+          >
+            <input type="text" value="Scheduled" readonly />
           </div>
 
           <div v-else class="form_section_input_div">
@@ -422,76 +328,46 @@
             <span class="percent">%</span>
           </div>
         </div>
+
         <div class="col-md-4 col-lg-3 mb-3">
           <div class="form_section_label_div">
-            <label for="nonguaranteedIncomeAmountInput" class="main_label">
-              Non-guaranteed Amount
+            <label for="incomeStartYearSelect" class="main_label"
+              >Year Income Begins</label
+            >
+          </div>
+          <custom-select-dropdown
+            :default="inputs.income_start_year"
+            @selected="(value) => updateInput('income_start_year', value)"
+            :disabled="inputs.guaranteed_income_type == 'manual'"
+            :options="Array.from({ length: illustrateYear }, (_, i) => i + 1)"
+          />
+        </div>
+
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div align-items-end">
+            <label
+              for="nonguaranteedIncomeAmountInput"
+              class="main_label d-block"
+            >
+              Non-guaranteed Income <br />Amount
               <span class="optional">(Optional)</span>
             </label>
-          </div>
-          <div class="form_section_input_div">
-            <dollar-amount-input
-              id="nonguaranteedIncomeAmountInput"
-              class="dollar_inp"
-              max="100000000"
-              placeholder="Non-guaranteed Amount"
-              :default="inputs.non_guaranteed_income_first_year"
-              @amountUpdated="
-                (e) => updateInput('non_guaranteed_income_first_year', e)
-              "
-            />
-            <span class="dollar">$</span>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-3 mb-3">
-          <div class="form_section_label_div" id="annualIncrease2">
-            <label for="annual-ditribution" class="main_label"
-              >Annual Increase<span class="optional">(optional)</span></label
-            >
+
             <div class="label-right-div">
-              <label
-                for="nonGtSelectPercent"
-                class="label_checkbox"
-                @click="
-                  updateInput('non_guaranteed_income_type', 'annual_increase')
-                "
-              >
+              <div class="label_checkbox">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="annual-increase2"
-                  checkBoxAttr="2"
-                  id="nonGtSelectPercent"
-                  :checked="
-                    inputs.non_guaranteed_income_type === 'annual_increase'
-                  "
-                  hidden
-                />
-                <label for="nonGtSelectPercent"></label>
-                <span>%</span>
-              </label>
-              <label
-                for="nonGtselectScheduleModal"
-                class="label_checkbox"
-                data-bs-toggle="modal"
-                data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
-                @click="
-                  inputs.non_guaranteed_income_type === 'annual_increase'
-                    ? updateInput('non_guaranteed_income_type', 'mannual')
-                    : ''
-                "
-              >
-                <input
-                  type="radio"
-                  name="annual-increase2"
-                  checkBoxAttr="1"
                   id="nonGtselectScheduleModal"
-                  hidden
-                  :checked="
-                    inputs.non_guaranteed_income_type !== 'annual_increase'
-                  "
+                  v-model="nonGuaranteedIncomeSchedule"
+                  hidden="true"
                 />
                 <label for="nonGtselectScheduleModal"></label>
                 <svg
+                  @click="nonGuaranteedIncomeSchedule = true"
+                  class="cursor-pointer"
+                  data-bs-toggle="modal"
+                  data-bs-target="#NonGuaranteedIncreasingAnnualIncomeScheduleModal"
                   xmlns="http://www.w3.org/2000/svg"
                   width="13"
                   height="11"
@@ -546,14 +422,42 @@
                     stroke-width="0.317308"
                   />
                 </svg>
-              </label>
+              </div>
             </div>
           </div>
           <div
-            v-if="inputs.non_guaranteed_income_type == 'mannual'"
+            v-if="inputs.non_guaranteed_income_type == 'manual'"
             class="form_section_input_div"
           >
-            <input type="text" value="Scheduled" />
+            <input type="text" value="Scheduled" readonly />
+          </div>
+          <div class="form_section_input_div" v-else>
+            <dollar-amount-input
+              id="nonguaranteedIncomeAmountInput"
+              class="dollar_inp"
+              max="100000000"
+              placeholder="Non-guaranteed Amount"
+              :default="inputs.non_guaranteed_income_first_year"
+              @amountUpdated="
+                (e) => updateInput('non_guaranteed_income_first_year', e)
+              "
+            />
+            <span class="dollar">$</span>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-3 mb-3">
+          <div class="form_section_label_div" id="annualIncrease2">
+            <label for="annual-ditribution" class="main_label d-block"
+              ><br class="d-none-big" />Annual Increase<span class="optional">
+                (optional)</span
+              ></label
+            >
+          </div>
+          <div
+            v-if="inputs.non_guaranteed_income_type == 'manual'"
+            class="form_section_input_div"
+          >
+            <input type="text" value="Scheduled" readonly />
           </div>
 
           <div v-else class="form_section_input_div">
@@ -581,6 +485,7 @@ import { mapState, mapGetters } from "vuex";
 import DollarAmountInput from "@/views/retirement-buffer/common-components/DollarAmountInput.vue";
 import NumberAmountInput from "@/views/retirement-buffer/common-components/NumberAmountInput.vue";
 import CommonTooltipSvg from "@/views/components/common/CommonTooltipSvg.vue";
+import CustomSelectDropdown from "@/views/components/common/CustomSelectDropdown.vue";
 import { post } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import { authHeader } from "../../../../services/helper";
@@ -591,10 +496,13 @@ export default {
     CommonTooltipSvg,
     DollarAmountInput,
     NumberAmountInput,
+    CustomSelectDropdown,
   },
   emits: ["valid"],
   data() {
     return {
+      guaranteedIncomeSchedule: false,
+      nonGuaranteedIncomeSchedule: false,
       accountTypeOpts: [
         { label: "Taxable", value: "taxable" },
         { label: "Pre-tax", value: "pre_tax" },
@@ -607,6 +515,15 @@ export default {
       ],
     };
   },
+  mounted() {
+    if (this.inputs.guaranteed_income_type !== "annual_increase") {
+      this.guaranteedIncomeSchedule = true;
+    }
+
+    if (this.inputs.non_guaranteed_income_type !== "annual_increase") {
+      this.nonGuaranteedIncomeSchedule = true;
+    }
+  },
   computed: {
     ...mapGetters({
       illustrateYear: "incomeRider/illustrateYear",
@@ -615,58 +532,40 @@ export default {
       inputs: (state) => state.incomeRider.inputs,
     }),
   },
-  mounted() {
-    // FIXME
-    // Select Dropdown Start
-    let selectBtn = document.querySelectorAll(".select-btn");
-    selectBtn.forEach((showHide) => {
-      showHide.addEventListener("click", () =>
-        showHide.closest(".select-menu").classList.toggle("active")
-      );
-      var allOptions = showHide
-        .closest(".select-menu")
-        .querySelector(".options")
-        .querySelectorAll(".option");
-      allOptions.forEach((option) => {
-        option.addEventListener("click", (e) => {
-          e.stopPropagation();
-          option.parentElement.parentElement.classList.remove("active");
-        });
-      });
-    });
-
-    let dropdowns = document.querySelectorAll(".select-menu");
-    dropdowns.forEach((element) => {
-      element.addEventListener("click", (e) => {
-        dropdowns.forEach((item) => {
-          if (item.className.includes("active")) {
-            item.classList.remove("active");
-          }
-        });
-        e.target.closest(".select-menu").classList.add("active");
-      });
-    });
-
-    // Close when click outside
-    window.onclick = function (event) {
-      if (!event.target.matches(".select-menu")) {
-        var sharedowns = document.getElementsByClassName("select-menu");
-        var i;
-        for (i = 0; i < sharedowns.length; i++) {
-          var openSelectdropdown = sharedowns[i];
-          if (openSelectdropdown.classList.contains("active")) {
-            openSelectdropdown.classList.remove("active");
-          }
+  watch: {
+    guaranteedIncomeSchedule(e) {
+      let type = "annual_increase";
+      if (e) {
+        if (
+          !this.inputs.guaranteed_income_type ||
+          this.inputs.guaranteed_income_type !== "year_bounded"
+        ) {
+          type = "manual";
+        } else {
+          type = "year_bounded";
         }
       }
-    };
 
-    var allSelectMenus = document.querySelectorAll(".select-menu");
-    allSelectMenus.forEach((eachSelectMenus) => {
-      eachSelectMenus.addEventListener("click", function (event) {
-        event.stopPropagation();
-      });
-    });
+      this.updateInput("guaranteed_income_type", type);
+    },
+    nonGuaranteedIncomeSchedule(e) {
+      let type = "annual_increase";
+      if (e) {
+        if (
+          !this.inputs.non_guaranteed_income_type ||
+          this.inputs.non_guaranteed_income_type !== "year_bounded"
+        ) {
+          type = "manual";
+        } else {
+          type = "year_bounded";
+        }
+      }
+
+      this.updateInput("non_guaranteed_income_type", type);
+    },
+    inputs() {
+      this.setIsValidForm();
+    },
   },
   methods: {
     setIsValidForm() {
@@ -682,21 +581,11 @@ export default {
         this.inputs.guaranteed_income_first_year
           ? true
           : false;
-
       this.$emit("valid", valid);
     },
     updateInput(field, value) {
       let inputs = { ...this.inputs, [field]: value };
       this.$store.dispatch("incomeRider/updateInputs", inputs);
-      this.setIsValidForm();
-    },
-    updateDropdown(field, value) {
-      this.updateInput(field, value);
-      // Close dropdown
-      var allSelectMenus = document.querySelectorAll(".select-menu");
-      allSelectMenus.forEach((eachSelectMenus) => {
-        eachSelectMenus.classList.remove("active");
-      });
     },
     handleResponseError(error) {
       if (error.code === "ERR_BAD_RESPONSE" || error.code === "ERR_NETWORK") {
@@ -715,8 +604,39 @@ export default {
         this.$toast.error(error.message);
       }
     },
+    validateForm() {
+      let valid = true;
+      if (this.inputs.non_guaranteed_income_type == "manual" && this.inputs.non_guaranteed_income_manual) {
+        let income_start_year = 0;
+        for (
+          let index = 0;
+          index < this.inputs.non_guaranteed_income_manual.length;
+          index++
+        ) {
+          let value = this.inputs.non_guaranteed_income_manual[index];
+          if (!income_start_year && value) {
+            income_start_year = index + 1;
+          }
+        }
+
+        if (income_start_year !== this.inputs.income_start_year) {
+          valid = false;
+          new bootstrap.Modal(
+            document.getElementById("mismatchIncomeStartYearWarningModal")
+          ).show();
+        }
+      }
+      return valid;
+    },
+    reset() {
+      this.guaranteedIncomeSchedule = false;
+      this.nonGuaranteedIncomeSchedule = false;
+      this.$store.dispatch("incomeRider/reset");
+    },
     submit() {
-      this.$store.dispatch("loader", true);
+      if (!this.validateForm()) {
+        return false;
+      }
       var payload = { ...this.inputs };
       payload.account_type = this.inputs.account_type.value;
       payload.tax_rate = this.inputs.tax_rate ? this.inputs.tax_rate / 100 : 0;
@@ -729,16 +649,41 @@ export default {
         : null;
       payload.non_guaranteed_income_increase = this.inputs
         .non_guaranteed_income_increase
-        ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
+        ? this.inputs.non_guaranteed_income_increase / 100
         : null;
 
-      if (
-        !payload.non_guaranteed_income_first_year &&
-        this.$store.state.incomeRider.result_type !== "guaranteed"
-      ) {
-        this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+      if (this.inputs.guaranteed_income_type != "manual") {
+        payload.guaranteed_income_manual = null;
       }
 
+      if (this.inputs.non_guaranteed_income_type != "manual") {
+        payload.non_guaranteed_income_manual = null;
+      }
+
+      if (!payload.non_guaranteed_income_first_year) {
+        payload.non_guaranteed_income_first_year = null;
+        payload.non_guaranteed_income_last_year = null;
+        payload.non_guaranteed_income_type = null;
+        if (this.$store.state.incomeRider.result_type !== "guaranteed") {
+          this.$store.dispatch("incomeRider/updateResultType", "guaranteed");
+        }
+      }
+
+      if (
+        payload.non_guaranteed_income_increase &&
+        !payload.non_guaranteed_income_type
+      ) {
+        payload.non_guaranteed_income_increase = null;
+      }
+
+      if (
+        payload.non_guaranteed_income_type == "manual" &&
+        !payload.non_guaranteed_income_manual
+      ) {
+        payload.non_guaranteed_income_type = null;
+      }
+
+      this.$store.dispatch("loader", true);
       post(getUrl("incomeRider"), payload, authHeader())
         .then((response) => {
           this.$store.dispatch("incomeRider/updateResultData", response.data);

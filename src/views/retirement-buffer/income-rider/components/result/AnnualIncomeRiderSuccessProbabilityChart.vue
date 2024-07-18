@@ -6,7 +6,7 @@
           <div class="d-flex gap-4 justify-content-center w-100">
             <div class="target-analysis-bar">
               <div
-                class="target-analysis-inner-bar inner-clr1"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr1"
                 :style="`height: ${growthRateBarHeight()}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr1">
@@ -20,7 +20,7 @@
             </div>
             <div class="target-analysis-bar">
               <div
-                class="target-analysis-inner-bar inner-clr2"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
                 :style="`height: ${optimalGrowthRateBarHeight()}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
@@ -81,8 +81,8 @@ export default {
       pieData: {
         speed: 30,
         percent: 0,
-        colorSlice: "#1660A4",
-        colorCircle: "#609BD2",
+        colorSlice: "#4A8ECD",
+        colorCircle: "#9DC6EB",
         round: true,
       },
     };

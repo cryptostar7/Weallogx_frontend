@@ -1,5 +1,5 @@
 <template lang>
-  <div ref="dropdownRef" class="select-menu accumulation_select_menu">
+  <div ref="dropdownRef" :class="`select-menu accumulation_select_menu ${disabled ? 'disabled' : ''}`">
     <div class="select-btn">
       <input
         id="indexAllocationSelect"
@@ -31,6 +31,7 @@ export default {
   props: {
     default: [String, Number],
     options: Array,
+    disabled: Boolean,
   },
   data() {
     return {
@@ -45,16 +46,18 @@ export default {
     const dropdownRef = this.$refs.dropdownRef;
 
     dropdownRef.addEventListener("click", (e) => {
+      if(e.currentTarget.classList.contains("disabled")){
+        return;
+      }
       e.stopPropagation();
       dropdownRef.classList.toggle("active");
     });
 
-    // Close when click outside
-    window.onclick = function (event) {
-      if (!event.target.matches(".select-menu")) {
-        dropdownRef.classList.remove("active");
-      }
-    };
+    document.querySelector("body").addEventListener("click", (e) => {
+        if (!e.target.matches(".select-menu")) {
+          dropdownRef.classList.remove("active");
+        }
+    });
   },
   methods: {
     selectOption(value) {

@@ -6,25 +6,29 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard1 w-100 ${
-          showResult > 0 ? '' : 'disable'
+          showResult > 0 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
           <div class="CardProgressBar lightProgress1 boxProgressCommon1"></div>
           <div class="w-100">
-            <p class="allCardHeadPara mb-2">
+            <p class="allCardHeadPara mb-1">
               {{ inputs.income_rider_account_name }}
               <span hidden>Flat Rate of Return</span>
             </p>
-            <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+            <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
                 $numFormatWithDollar(
-                  $arraySum(irResult.annual_income_rider_distribution)
-                )
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irResult.annual_income_rider_distribution
+                      : irHistoricalResult.annual_income_rider_distribution
+                  )
+                ) || '$0'
               }}</span>
             </p>
-            <p class="cardRadioSwtchpara1 d-flex justify-content-between">
+            <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
               <span>Longevity</span>
               <span>{{ irResult.income_rider_longevity }} Years</span>
             </p>
@@ -41,13 +45,13 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard2 w-100 ${
-          showResult > 1 ? '' : 'disable'
+          showResult > 1 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
           <div class="CardProgressBar lightProgress2 boxProgressCommon1"></div>
           <div class="w-100">
-            <p class="allCardHeadPara mb-2">
+            <p class="allCardHeadPara mb-1">
               {{ inputs.comparative_vehicle_account_name }}
               <span
                 >Rate of Return -
@@ -57,7 +61,13 @@
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
-                $numFormatWithDollar($arraySum(irResult.annual_cv_distribution))
+                $numFormatWithDollar(
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irResult.annual_cv_distribution
+                      : irResult.optimization.optimal_distribution
+                  )
+                ) || '$0'
               }}</span>
             </p>
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
@@ -103,13 +113,13 @@
     <div class="mt-3 flex-1">
       <div
         :class="`incomeRiderCard graph-card incomeCard3 w-100 ${
-          showResult > 2 ? '' : 'disable'
+          showResult > 2 || this.targetAnalysis == 'return' ? '' : 'disable'
         }`"
       >
         <div class="d-flex gap-2 h-100">
           <div class="CardProgressBar lightProgress3 boxProgressCommon1"></div>
           <div class="w-100">
-            <p class="allCardHeadPara mb-2">
+            <p class="allCardHeadPara mb-1">
               {{ inputs.comparative_vehicle_account_name }}
               <span>Historical Returns</span>
             </p>
@@ -117,8 +127,12 @@
               <span>Total Distributions</span>
               <span>{{
                 $numFormatWithDollar(
-                  $arraySum(irHistoricalResult.annual_cv_distribution)
-                )
+                  $arraySum(
+                    targetAnalysis != "longevity"
+                      ? irHistoricalResult.annual_cv_distribution
+                      : irHistoricalResult.optimization.optimal_distribution
+                  )
+                ) || '$0'
               }}</span>
             </p>
             <p class="cardRadioSwtchpara3 d-flex justify-content-between">

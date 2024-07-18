@@ -1141,8 +1141,17 @@
 .light-blue .cardRadioSwtchpara2{
   color:#089875 !important;
 }
+.light-blue .incomeRiderCard .cardRadioSwtchpara2{
+  color:#0e6651 !important;
+}
 .light-blue .cardRadioSwtchpara3{
-  color:#763CA3!important;
+  color:#763CA3 !important;
+}
+.light-blue .incomeRiderCard.incomeCard3 .cardRadioSwtchpara3{
+  color:#147D64 !important;
+}
+.light-blue .incomeRiderCard.disable .cardRadioSwtchpara2, .light-blue .incomeRiderCard.disable .cardRadioSwtchpara3{
+  color:#dfdfdf !important;
 }
 .light-blue .cardRadioSwtchpara4{
   color: #9D2B2B!important;
@@ -1183,11 +1192,17 @@
 .light-blue .lightProgress2, .light-blue .lightProgress2.irr div{
   background: #089875;
 }
+.light-blue .incomeRiderCard .lightProgress2{
+  background: #0E6651;
+}
 .light-blue .lightProgress2 div, .light-blue .lightProgress2.irr{
   background: #10B78E;
 }
 .light-blue .lightProgress3, .light-blue .lightProgress3.irr div{
   background: #763CA3;
+}
+.light-blue .incomeRiderCard.incomeCard3 .lightProgress3{
+  background: #147D64;
 }
 .light-blue .lightProgress3 div, .light-blue .lightProgress3.irr{
   background: #B770EF;
@@ -1375,6 +1390,11 @@ background: #0C4A83;
 .light-blue .equalDistCard2 .color3::before{
   background-color: #3ECAA8;
 }
+
+.light-blue .equalDistCard1 .color::before, .light-blue .equalDistCard2 .color::before{
+  background-color: #dfdfdf !important;
+}
+
 /* calculator */
 .light-blue .index-strategy-head-div h1::before {
   background-color: #1660A4;
@@ -1647,13 +1667,13 @@ background: #1660A4;
   background-color: #0E6651;
 }
 .light-blue .table_graph_setting_tab div svg path{
-  fill: #1660A4;
+  fill: #004885;
 }
 .light-blue .table_graph_setting_tab div svg rect{
   stroke: #1660A4;
 }
 .light-blue .table_graph_setting_tab div.active{
-  background-color: #1660A4;
+  background-color: #004885;
 }
 .light-blue .table_graph_setting_tab div.active svg path{
   fill: white;
@@ -1662,12 +1682,12 @@ background: #1660A4;
   stroke: white;
 }
 .light-blue .table_graph_setting_tab div svg.income-rider-tab-svg rect{
-  fill: #1660A4;
+  fill: #004885;
   stroke: transparent;
 }
 .light-blue .table_graph_setting_tab div svg.income-rider-tab-svg path.svgstroke{
   fill: transparent;
-  stroke: #1660A4;
+  stroke: #004885;
 }
 .light-blue .table_graph_setting_tab div.active svg.income-rider-tab-svg rect{
   fill: #fff;
@@ -1839,11 +1859,8 @@ background-color: #a1a1a1;
   border-top: 6px solid var(--green-clr);
 }
 .light-blue .incomeCard3 {
-  border-top: 6px solid #4A8ECD;
+  border-top: 6px solid #147D64;
 }
-
-
-
 .light-blue .each-target-analysis-bar .heading.clr1::before {
   background: #1660A4;
 }
@@ -1856,48 +1873,52 @@ background-color: #a1a1a1;
 .light-blue .target-analysis-each-bars.barClr2{
   background: #0E6651;
 }
-
-
-
-
+.light-blue .incomeRider-tab-content .target-analysis-each-bars.barClr3{
+  background: #147D64;
+}
 .light-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr1{
-  background: #1660a4;
+  background: #0E6651;
 }
-.light-blue .target-analysis-bar .target-analysis-inner-bar.inner-clr2{
-  background: #207ACD;
+.light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1{
+  background-color: #6DAC9D;
 }
-.light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1, .light-blue .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr2{
-  background-color: #609BD2;
-}
-
-.light-blue .target-analysis-bar-main-div .bar-long-para span{
-  color: #53a9f1;
-  }
-.light-blue .pie.target-analysis-progress-pie svg text {
-  fill: #0E6651;
-}
-.light-blue .pie.target-analysis-progress-pie .pie-long-para span{
+.light-blue .pie-long-para span{
 color: #0E6651;
 }
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
   stroke: #25967B;
 }
+.light-blue .irPie.pie.target-analysis-progress-pie svg circle[r]:nth-child(1) {
+  stroke: #6DAC9D;
+}
 .light-blue .pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
   stroke: #0E6651;
+}
+.light-blue .irPie.pie.target-analysis-progress-pie svg circle[r]:nth-child(2) {
+  stroke: #147D64;
 }
 .light-blue .incomeRiderCard.graph-card.incomeCard1 .CardProgressBar{
   border-color: #1660A4;
   background-color: #165fa420;
 }
-
 .light-blue .incomeRiderCard.graph-card.incomeCard2 .CardProgressBar{
   border-color: #0e6651;
   background-color: #0e665120;
+}
+.light-blue .incomeRiderCard.graph-card.incomeCard3 .CardProgressBar{
+  border: 3px solid #147D64;
+  background-color: rgba(20, 125, 100, 0.2);
 }
 /* Retirement Buffer CSS Ends */
 
 /* Download file toast start */
 .light-blue .download-toast {
   border-color: #004885;
+}
+.light-blue .income-rider-show-next-btn{
+  background: var(--blue-clr) ;
+}
+.light-blue .irPie.pie.target-analysis-progress-pie svg text{
+  fill: #147D64;
 }
 /* Download file toast end */
