@@ -649,7 +649,7 @@ export default {
         : null;
       payload.non_guaranteed_income_increase = this.inputs
         .non_guaranteed_income_increase
-        ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(2))
+        ? this.inputs.non_guaranteed_income_increase / 100
         : null;
 
       if (this.inputs.guaranteed_income_type != "manual") {
