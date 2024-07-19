@@ -49,10 +49,10 @@
               Account Name
               <span>
                 <common-tooltip-svg />
-                <span>
-                  What would you like the report to show as the account's name?
+                  <span>
+                    What would you like the report to show as the account's name?
+                  </span>
                 </span>
-              </span>
             </label>
           </div>
           <div class="form_section_input_div">

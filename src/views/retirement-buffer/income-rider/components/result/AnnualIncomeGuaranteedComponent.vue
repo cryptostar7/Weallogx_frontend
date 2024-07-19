@@ -336,7 +336,7 @@
                   <div class="each-target-analysis-bar">
                     <p class="heading clr3">
                       {{ inputs.comparative_vehicle_account_name }} - Historical
-                      Market Returns
+                      Market Returns - {{ inputs.index_allocation == "s_and_p_500" ? 'S&P 500' : inputs.index_allocation == "equities_and_bonds_60_40" ? 'Equities & Bonds 60/40' : inputs.index_allocation == "equities_and_bonds_50_50" ? 'Equities & Bonds 50/50' : 'Equities & Bonds 40/60' }}
                       <span
                         @click="
                           $store.dispatch(
