@@ -358,6 +358,51 @@ export default {
           this.$store.dispatch("loader", false);
         });
     },
+    //ROR Report
+    getComparativeReportRor: function () {
+      get(
+        getUrl("comparative_report_dist") +
+          this.$route.params.report,
+        authHeader()
+      )
+        .then((response) => {
+          const { longevity_ror, surrender_ror, death_ror } = response.data;
+          this.$store.dispatch("comparativeReportRorLongevity", longevity_ror);
+          this.$store.dispatch("comparativeReportRorEndingValue", surrender_ror);
+          this.$store.dispatch("comparativeReportRorDeathBenefit", death_ror);
+          this.$store.dispatch("loader", false);
+          this.getHistoricalData();
+          setTimeout(() => {
+            if (!this.$store.state.app.loader_count) {
+              this.ComparativeDataLoaded = true;
+              setTimeout(() => this.updateElementJs(), 100);
+            }
+          }, 100);
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    //Get Distribution Report
+    getComparativeReportDistributions: function () {
+      get(
+        getUrl("comparative_report_dist") + this.$route.params.report,
+        authHeader()
+      )
+        .then((response) => {
+          const { longevity_dist, surrender_dist, death_dist } = response.data;
+          this.$store.dispatch("comparativeReportLongevity", longevity_dist);
+          this.$store.dispatch("comparativeReportEndingValue", surrender_dist);
+          this.$store.dispatch("comparativeReportDeathBenefit", death_dist);
+          this.getComparativeReportRor();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
 
     // Temporary functions end
     getReports: function () {
@@ -370,7 +415,7 @@ export default {
       )
         .then((response) => {
           this.$store.dispatch("comparativeReport", response.data);
-          this.getComparativeReportLongevity();
+          this.getComparativeReportDistributions();
         })
         .catch((error) => {
           this.$toast.error(error.message);

@@ -143,6 +143,10 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/latest-report/`
     case 'comparative_report':
       return `${baseUrl}/report/calc/`
+    case 'comparative_report_dist':
+      return `${baseUrl}/report/dist-report/`
+    case 'comparative_report_ror':
+      return `${baseUrl}/report/ror-report/`
     case 'comparative_report_longevity':
       return `${baseUrl}/report/longegivity/`
     case 'comparative_report_ending_value':
