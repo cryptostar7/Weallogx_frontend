@@ -645,12 +645,11 @@ export default {
       payload.index_allocation = this.inputs.index_allocation.value;
       payload.guaranteed_income_increase = this.inputs
         .guaranteed_income_increase
-        ? this.inputs.guaranteed_income_increase / 100
+        ? Number((this.inputs.guaranteed_income_increase / 100).toFixed(5))
         : null;
       payload.non_guaranteed_income_increase = this.inputs
         .non_guaranteed_income_increase
-        ? this.inputs.non_guaranteed_income_increase / 100
-        : null;
+        ? Number((this.inputs.non_guaranteed_income_increase / 100).toFixed(5)) : null;
 
       if (this.inputs.guaranteed_income_type != "manual") {
         payload.guaranteed_income_manual = null;
