@@ -3,7 +3,7 @@ FROM node
 WORKDIR /app
 
 COPY . /app
-COPY docker/env_front /app/.env
+# COPY docker/env_front /app/.env
 
 RUN npm ci
 
