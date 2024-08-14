@@ -1,4 +1,4 @@
-FROM node
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-staging-frontend:node
 
 WORKDIR /app
 
