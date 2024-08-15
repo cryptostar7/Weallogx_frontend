@@ -6,7 +6,7 @@ COPY . /app
 # COPY docker/env_front /app/.env
 
 RUN ls
-
+RUN npm install
 RUN npm ci
 
 EXPOSE 8000
