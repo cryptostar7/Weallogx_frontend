@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import("../views/pages/DemoView.vue"),
     },
     {
+      path: "/health",
+      name: "health-check",
+      component: () => import("../views/pages/HealthCheck.vue"),
+    },
+    {
       path: "/stripe-source",
       name: "stripe-source",
       component: () => import("../views/pages/StripeSourceView.vue"), // Only for testing
