@@ -1,0 +1,80 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:196587924847:task-definition/stagingtaskdeffrontend:4",
+    "containerDefinitions": [
+        {
+            "name": "stagingtaskdeffrontend",
+            "image": "196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-staging-frontend:latest",
+            "cpu": 0,
+            "links": [],
+            "portMappings": [
+                {
+                    "name": "8000",
+                    "containerPort": 8000,
+                    "hostPort": 8000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "systemControls": [],
+            "credentialSpecs": []
+        }
+    ],
+    "family": "stagingtaskdeffrontend",
+    "taskRoleArn": "arn:aws:iam::196587924847:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::196587924847:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 4,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2024-08-19T21:47:11.383Z",
+    "registeredBy": "arn:aws:iam::196587924847:user/pedro@projectps2.com",
+    "tags": []
+}
