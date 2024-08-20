@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY . /app
 # COPY docker/env_front /app/.env
-# Testing deployment
 
 RUN ls
 RUN npm install
