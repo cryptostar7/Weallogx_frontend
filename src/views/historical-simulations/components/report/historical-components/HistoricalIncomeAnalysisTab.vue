@@ -272,10 +272,10 @@ export default {
   },
   mounted() {
     let card1 = this.historical.lirp_data;
-    let card2 = this.historical.most_recent.result;
-    let card3 = this.historical.min.result;
-    let card4 = this.historical.median.result;
-    let card5 = this.historical.max.result;
+    let card2 = this.historical.recent;
+    let card3 = this.historical.worst;
+    let card4 = this.historical.median;
+    let card5 = this.historical.best;
 
     if (card1) {
       this.data[0].type = this.historical.policy_nickname || "";
@@ -284,42 +284,30 @@ export default {
 
     if (card2) {
       this.data[1].type = "Most Recent";
-      this.data[1].annual_income = card2.annual_income;
-      this.data[1].starting_date = this.$customDateFormat(
-        card2.starting_date,
-        "M/D/y"
-      );
-      this.data[1].period = this.historical.discloser.period;
+      this.data[1].annual_income = card2.income_analysis.annual_income;
+      this.data[1].starting_date = card2.discloser.start_year;
+      this.data[1].period = card2.discloser.period;
     }
 
     if (card3) {
       this.data[2].type = "Worst";
-      this.data[2].annual_income = card3.annual_income;
-      this.data[2].starting_date = this.$customDateFormat(
-        card3.starting_date,
-        "M/D/y"
-      );
-      this.data[2].period = this.historical.discloser.period;
+      this.data[2].annual_income = card3.income_analysis.annual_income;
+      this.data[2].starting_date = card3.discloser.start_year;
+      this.data[2].period = card3.discloser.period;
     }
 
     if (card4) {
       this.data[3].type = "Median";
-      this.data[3].annual_income = card4.annual_income;
-      this.data[3].starting_date = this.$customDateFormat(
-        card4.starting_date,
-        "M/D/y"
-      );
-      this.data[3].period = this.historical.discloser.period;
+      this.data[3].annual_income = card4.income_analysis.annual_income;
+      this.data[3].starting_date = card4.discloser.start_year;
+      this.data[3].period = card4.discloser.period;
     }
 
     if (card5) {
       this.data[4].type = "Best";
-      this.data[4].annual_income = card5.annual_income;
-      this.data[4].starting_date = this.$customDateFormat(
-        card5.starting_date,
-        "M/D/y"
-      );
-      this.data[4].period = this.historical.discloser.period;
+      this.data[4].annual_income = card5.income_analysis.annual_income;
+      this.data[4].starting_date = card5.discloser.start_year;
+      this.data[4].period = card5.discloser.period;
     }
   },
   methods: {
