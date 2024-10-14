@@ -553,66 +553,66 @@ export default {
     };
   },
   mounted() {
-    let card1 = this.historical.lirp_data;
-    let card2 = this.historical.recent;
-    let card3 = this.historical.worst;
-    let card4 = this.historical.median;
-    let card5 = this.historical.best;
+    let lirpCard = this.historical.lirp_data;
+    let recentCard = this.historical.recent;
+    let worstCard = this.historical.worst;
+    let medianCard = this.historical.median;
+    let bestCard = this.historical.best;
 
-    if (card1) {
+    if (lirpCard) {
       this.data.cummulative_income[0].type = this.historical.policy_nickname || "";
-      this.data.cummulative_income[0].income = card1.cummulative_income;
+      this.data.cummulative_income[0].income = lirpCard.cummulative_income;
 
       this.data.total_income[0].type = this.historical.policy_nickname || "";
-      this.data.total_income[0].income = card1.cummulative_income_total_value;
+      this.data.total_income[0].income = lirpCard.cummulative_income_total_value;
     }
 
-    if (card2) {
+    if (recentCard) {
       this.data.cummulative_income[1].type = "Most Recent";
-      this.data.cummulative_income[1].income = card2.commulative_income.cummulative_icome;
-      this.data.cummulative_income[1].starting_date = card2.discloser.start_year;
-      this.data.cummulative_income[1].period = card2.discloser.period
+      this.data.cummulative_income[1].income = recentCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[1].starting_date = recentCard.discloser.start_year;
+      this.data.cummulative_income[1].period = recentCard.discloser.period
 
       this.data.total_income[1].type = "Most Recent";
-      this.data.total_income[1].income = card2.commulative_income.total_value;
-      this.data.total_income[1].starting_date = card2.discloser.start_year;
-      this.data.total_income[1].period = card2.discloser.period
+      this.data.total_income[1].income = recentCard.commulative_income.total_value;
+      this.data.total_income[1].starting_date = recentCard.discloser.start_year;
+      this.data.total_income[1].period = recentCard.discloser.period
     }
 
-    if (card3) {
+    if (worstCard) {
       this.data.cummulative_income[2].type = "Worst";
-      this.data.cummulative_income[2].income = card3.commulative_income.cummulative_icome;
-      this.data.cummulative_income[2].starting_date = card3.discloser.start_year;
-      this.data.cummulative_income[2].period = card3.discloser.period
+      this.data.cummulative_income[2].income = worstCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[2].starting_date = worstCard.discloser.start_year;
+      this.data.cummulative_income[2].period = worstCard.discloser.period
 
       this.data.total_income[2].type = "Worst";
-      this.data.total_income[2].income = card3.commulative_income.total_value;
-      this.data.total_income[2].starting_date = card3.discloser.start_year;
-      this.data.total_income[2].period = card3.discloser.period
+      this.data.total_income[2].income = worstCard.commulative_income.total_value;
+      this.data.total_income[2].starting_date = worstCard.discloser.start_year;
+      this.data.total_income[2].period = worstCard.discloser.period
     }
 
-    if (card4) {
+    if (medianCard) {
       this.data.cummulative_income[3].type = "Median";
-      this.data.cummulative_income[3].income = card4.commulative_income.cummulative_icome;
-      this.data.cummulative_income[3].starting_date = card4.discloser.start_year;
-      this.data.cummulative_income[3].period = card4.discloser.period
+      this.data.cummulative_income[3].income = medianCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[3].starting_date = medianCard.discloser.start_year;
+      this.data.cummulative_income[3].period = medianCard.discloser.period
 
       this.data.total_income[3].type = "Median";
-      this.data.total_income[3].income = card4.commulative_income.total_value;
-      this.data.total_income[3].starting_date = card4.discloser.start_year;
-      this.data.total_income[3].period = card4.discloser.period
+      this.data.total_income[3].income = medianCard.commulative_income.total_value;
+      this.data.total_income[3].starting_date = medianCard.discloser.start_year;
+      this.data.total_income[3].period = medianCard.discloser.period
     }
 
-    if (card5) {
+    if (bestCard) {
       this.data.cummulative_income[4].type = "Best";
-      this.data.cummulative_income[4].income = card5.commulative_income.cummulative_icome;
-      this.data.cummulative_income[4].starting_date = card5.discloser.start_year;
-      this.data.cummulative_income[4].period = card5.discloser.period
+      this.data.cummulative_income[4].income = bestCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[4].starting_date = bestCard.discloser.start_year;
+      this.data.cummulative_income[4].period = bestCard.discloser.period
 
       this.data.total_income[4].type = "Best";
-      this.data.total_income[4].income = card5.commulative_income.total_value;
-      this.data.total_income[4].starting_date = card5.discloser.start_year;
-      this.data.total_income[4].period = card5.discloser.period;
+      this.data.total_income[4].income = bestCard.commulative_income.total_value;
+      this.data.total_income[4].starting_date = bestCard.discloser.start_year;
+      this.data.total_income[4].period = bestCard.discloser.period;
     }
   },
   watch: {

@@ -92,43 +92,43 @@ export default {
     };
   },
   mounted() {
-    let card1 = this.historical.lirp_data;
-    let card2 = this.historical.recent;
-    let card3 = this.historical.worst;
-    let card4 = this.historical.median;
-    let card5 = this.historical.best;
+    let lirpCard = this.historical.lirp_data;
+    let recentCard = this.historical.recent;
+    let worstCard = this.historical.worst;
+    let medianCard = this.historical.median;
+    let bestCard = this.historical.best;
 
-    if (card1) {
+    if (lirpCard) {
       this.data[0].type = this.historical.policy_nickname || "LIRP";
-      this.data[0].total_value = card1.cummulative_income_total_value;
+      this.data[0].total_value = lirpCard.cummulative_income_total_value;
     }
 
-    if (card2) {
+    if (recentCard) {
       this.data[1].type = "Most Recent";
-      this.data[1].total_value = card2.total_value.total_value;
-      this.data[1].starting_date = card2.discloser.start_year;
-      this.data[1].period = card2.discloser.period;
+      this.data[1].total_value = recentCard.total_value.total_value;
+      this.data[1].starting_date = recentCard.discloser.start_year;
+      this.data[1].period = recentCard.discloser.period;
     }
 
-    if (card3) {
+    if (worstCard) {
       this.data[2].type = "Worst";
-      this.data[2].total_value = card3.total_value.total_value;
-      this.data[2].starting_date = card3.discloser.start_year;
-      this.data[2].period = card3.discloser.period;
+      this.data[2].total_value = worstCard.total_value.total_value;
+      this.data[2].starting_date = worstCard.discloser.start_year;
+      this.data[2].period = worstCard.discloser.period;
     }
 
-    if (card4) {
+    if (medianCard) {
       this.data[3].type = "Median";
-      this.data[3].total_value = card4.total_value.total_value;
-      this.data[3].starting_date = card4.discloser.start_year;
-      this.data[3].period = card4.discloser.period;
+      this.data[3].total_value = medianCard.total_value.total_value;
+      this.data[3].starting_date = medianCard.discloser.start_year;
+      this.data[3].period = medianCard.discloser.period;
     }
 
-    if (card5) {
+    if (bestCard) {
       this.data[4].type = "Best";
-      this.data[4].total_value = card5.total_value.total_value;
-      this.data[4].starting_date = card5.discloser.start_year;
-      this.data[4].period = card5.discloser.period;
+      this.data[4].total_value = bestCard.total_value.total_value;
+      this.data[4].starting_date = bestCard.discloser.start_year;
+      this.data[4].period = bestCard.discloser.period;
     }
 
     this.setGraph();
@@ -138,11 +138,11 @@ export default {
       document.getElementById("historical_cv_delete_id").value = id;
     },
     getDataSet: function() {
-      let card1 = this.historical.lirp_data;
-      let card2 = this.historical.recent;
-      let card3 = this.historical.worst;
-      let card4 = this.historical.median;
-      let card5 = this.historical.best;
+      let lirpCard = this.historical.lirp_data;
+      let recentCard = this.historical.recent;
+      let worstCard = this.historical.worst;
+      let medianCard = this.historical.median;
+      let bestCard = this.historical.best;
 
       let value1 = [];
       let value2 = [];
@@ -151,25 +151,25 @@ export default {
       let value5 = [];
       let years = [];
 
-      if (card1) {
-        value1 = card1.chart_output.total_values.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];
-        years = card1.chart_output.year;
+      if (lirpCard) {
+        value1 = lirpCard.chart_output.total_values.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];
+        years = lirpCard.chart_output.year;
       }
 
-      if (!this.deletedItems.includes(1) && card2) {
-        value2 = card2.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
+      if (!this.deletedItems.includes(1) && recentCard) {
+        value2 = recentCard.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
-      if (!this.deletedItems.includes(2) && card3) {
-        value3 = card3.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
+      if (!this.deletedItems.includes(2) && worstCard) {
+        value3 = worstCard.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
-      if (!this.deletedItems.includes(3) && card4) {
-        value4 = card4.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
+      if (!this.deletedItems.includes(3) && medianCard) {
+        value4 = medianCard.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
-      if (!this.deletedItems.includes(4) && card5) {
-        value5 = card5.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
+      if (!this.deletedItems.includes(4) && bestCard) {
+        value5 = bestCard.total_value.total_value_graph.map((i, idx) => { return {x: idx+1, y: i.toFixed(0)}}) || [];;
       }
 
       var dataset = {

@@ -1239,14 +1239,13 @@ export default {
       };
 
       if (data.net_balance) {
-        let chart_data = data;
         let list = data.net_balance;
         if (list.length) {
           let tempList = [];
           let distributions =
-            chart_data.distributions
+            data.distributions
           let account_value =
-            chart_data.net_balance
+            data.net_balance
           for (let i = 0; i < list.length; i++) {
             tempList.push({
               distributions: distributions ? distributions[i] : null,

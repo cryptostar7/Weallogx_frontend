@@ -271,43 +271,43 @@ export default {
     };
   },
   mounted() {
-    let card1 = this.historical.lirp_data;
-    let card2 = this.historical.recent;
-    let card3 = this.historical.worst;
-    let card4 = this.historical.median;
-    let card5 = this.historical.best;
+    let lirpCard = this.historical.lirp_data;
+    let recentCard = this.historical.recent;
+    let worstCard = this.historical.worst;
+    let medianCard = this.historical.median;
+    let bestCard = this.historical.best;
 
-    if (card1) {
+    if (lirpCard) {
       this.data[0].type = this.historical.policy_nickname || "";
-      this.data[0].annual_income = card1.annual_income;
+      this.data[0].annual_income = lirpCard.annual_income;
     }
 
-    if (card2) {
+    if (recentCard) {
       this.data[1].type = "Most Recent";
-      this.data[1].annual_income = card2.income_analysis.annual_income;
-      this.data[1].starting_date = card2.discloser.start_year;
-      this.data[1].period = card2.discloser.period;
+      this.data[1].annual_income = recentCard.income_analysis.annual_income;
+      this.data[1].starting_date = recentCard.discloser.start_year;
+      this.data[1].period = recentCard.discloser.period;
     }
 
-    if (card3) {
+    if (worstCard) {
       this.data[2].type = "Worst";
-      this.data[2].annual_income = card3.income_analysis.annual_income;
-      this.data[2].starting_date = card3.discloser.start_year;
-      this.data[2].period = card3.discloser.period;
+      this.data[2].annual_income = worstCard.income_analysis.annual_income;
+      this.data[2].starting_date = worstCard.discloser.start_year;
+      this.data[2].period = worstCard.discloser.period;
     }
 
-    if (card4) {
+    if (medianCard) {
       this.data[3].type = "Median";
-      this.data[3].annual_income = card4.income_analysis.annual_income;
-      this.data[3].starting_date = card4.discloser.start_year;
-      this.data[3].period = card4.discloser.period;
+      this.data[3].annual_income = medianCard.income_analysis.annual_income;
+      this.data[3].starting_date = medianCard.discloser.start_year;
+      this.data[3].period = medianCard.discloser.period;
     }
 
-    if (card5) {
+    if (bestCard) {
       this.data[4].type = "Best";
-      this.data[4].annual_income = card5.income_analysis.annual_income;
-      this.data[4].starting_date = card5.discloser.start_year;
-      this.data[4].period = card5.discloser.period;
+      this.data[4].annual_income = bestCard.income_analysis.annual_income;
+      this.data[4].starting_date = bestCard.discloser.start_year;
+      this.data[4].period = bestCard.discloser.period;
     }
   },
   methods: {

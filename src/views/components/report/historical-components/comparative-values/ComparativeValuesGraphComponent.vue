@@ -463,14 +463,13 @@ export default {
       let finalData = {};
 
       if (data) {
-        let chart_data = data;
-        let list = chart_data.net_balance;
+        let list = data.net_balance;
         let duration = this.historicalLirp.chart_output.year || [];
         if (list.length) {
           let distributions =
-            chart_data.distributions
+            data.distributions
           let account_value =
-            chart_data.net_balance 
+            data.net_balance 
           finalData = {
             cummulative_income: data.cummulative_income,
             type: type,
