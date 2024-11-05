@@ -361,7 +361,7 @@ export default {
     //ROR Report
     getComparativeReportRor: function () {
       get(
-        getUrl("comparative_report_dist") +
+        getUrl("comparative_report_ror") +
           this.$route.params.report,
         authHeader()
       )
