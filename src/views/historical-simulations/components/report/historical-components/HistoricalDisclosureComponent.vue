@@ -406,8 +406,6 @@ export default {
       saveDisclosure: false,
       disclosure_msg: "",
       disclosure_id: "",
-      schedule_index: 0,
-      schedule_value: 0,
       modal_true: false,
       disclosure_head: "",
       disclosure_message: [],
@@ -433,10 +431,6 @@ export default {
     if (this.disclosures) {
       this.mapData();
     }
-    document.addEventListener('click', this.handleButtonClick);
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleButtonClick);
   },
   methods: {
 
@@ -577,52 +571,7 @@ export default {
       }
     },
 
-    handleButtonClick(event) {
-      if (event.target.id === 'performannce_muli_schedule-0') {
-        this.schedule_value = 1;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-      else if (event.target.id === 'performannce_muli_schedule-1') {
-        this.schedule_value = 1;
-        this.schedule_index = 1;
-        console.log('Button 1 was clicked');
-      }
-      else if (event.target.id === 'performannce_muli_schedule-2') {
-        this.schedule_value = 1;
-        this.schedule_index = 2;
-        console.log('Button 2 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-0') {
-        this.schedule_value = 2;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-1') {
-        this.schedule_value = 2;
-        this.schedule_index = 1;
-        console.log('Button 1 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-2') {
-        this.schedule_value = 2;
-        this.schedule_index = 2;
-        console.log('Button 2 was clicked');
-      }
-      else if (event.target.id === 'loan_interest_schedule') {
-        this.schedule_value = 3;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-    },
-
     getDefaultDisclosure: function () {
-      let indexes = [
-        this.disclosure.index_1,
-        this.disclosure.index_2 || null,
-        this.disclosure.index_3 || null,
-      ];
-
-      let weightages = this.disclosure.weightages;
 
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
@@ -642,12 +591,6 @@ export default {
       It is entirely possible that the real world experience of the actual policy could be even worse than the worst ${period}-year period analyzed, 
       just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.</p>`;
       return content
-    },
-    closeModal() {
-    // Logic to close the modal
-    const modalElement = this.$refs.modal-hide-ref;
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    modal.hide()
     },
     setDefaultMessage: function () {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();

@@ -402,15 +402,11 @@
 <script>
 export default {
   props: ["hideFee", "containerFluid"],
-  emits: ["setSchedule"],
 
   data() {
     return {
       saveDisclosure: false,
       disclosure_msg: "",
-      schedules: [],
-      schedule_index: 0,
-      schedule_value: 0,
       modal_true: false,
       disclosure_head: "",
       disclosure_message: [],
@@ -422,11 +418,7 @@ export default {
   mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
     this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
-    document.addEventListener('click', this.handleButtonClick);
     this.mapData();
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleButtonClick);
   },
   methods: {
     showTableModal(word, index) {
@@ -559,47 +551,6 @@ export default {
       this.disclosure_message = disclosure_text;
       console.log('index strtageies are:', disclosure_text)
     },
-    setSchedule: function (data = [], type, title) {
-      this.$emit("setSchedule", data, type, title);
-    },
-
-    handleButtonClick(event) {
-      if (event.target.id === 'performannce_muli_schedule-0') {
-        this.schedule_value = 1;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-      else if (event.target.id === 'performannce_muli_schedule-1') {
-        this.schedule_value = 1;
-        this.schedule_index = 1;
-        console.log('Button 1 was clicked');
-      }
-      else if (event.target.id === 'performannce_muli_schedule-2') {
-        this.schedule_value = 1;
-        this.schedule_index = 2;
-        console.log('Button 2 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-0') {
-        this.schedule_value = 2;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-1') {
-        this.schedule_value = 2;
-        this.schedule_index = 1;
-        console.log('Button 1 was clicked');
-      }
-      else if (event.target.id === 'flat_credit_schedule-2') {
-        this.schedule_value = 2;
-        this.schedule_index = 2;
-        console.log('Button 2 was clicked');
-      }
-      else if (event.target.id === 'loan_interest_schedule') {
-        this.schedule_value = 3;
-        this.schedule_index = 0;
-        console.log('Button 0 was clicked');
-      }
-    },
 
     handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
@@ -636,12 +587,6 @@ export default {
       just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.</p>`;
 
       return content
-    },
-    closeModal() {
-    // Logic to close the modal
-    const modalElement = this.$refs.modal-hide-ref;
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    modal.hide()
     },
     setDefaultMessage: function () {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
