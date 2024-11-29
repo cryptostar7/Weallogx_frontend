@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
@@ -10,7 +11,10 @@ export default defineConfig({
         host: true,
         port: 8081
     },
-  plugins: [vue(), vueJsx()],
+  plugins: [vue(), vueJsx(), sentryVitePlugin({
+    org: "wlx-7b",
+    project: "wlx-ui"
+  })],
   preview: {
     host: true,
     port: 8000
@@ -22,6 +26,7 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 1600,
+    sourcemap: true
   },
 
 });
