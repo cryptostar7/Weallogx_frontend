@@ -8,6 +8,7 @@
     "preview": "vite preview ",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
+  "proxy": "http://localhost:8001",
   "dependencies": {
     "@meforma/vue-toaster": "^1.3.0",
     "@popperjs/core": "^2.11.8",
