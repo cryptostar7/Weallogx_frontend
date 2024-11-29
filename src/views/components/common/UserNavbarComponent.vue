@@ -148,7 +148,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://wealthlogix.com/"
+                                      href="/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="a4181dc8-4262-0783-7ebe-d19332c18b26"
@@ -163,7 +163,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://wealthlogix.com/solutions/"
+                                      href="/solutions/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="cbb728fd-ffa2-0e7c-094e-443b38251b0b"
@@ -178,7 +178,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://wealthlogix.com/plans/"
+                                      href="/plans/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="691566cd-5e76-30f6-d6dc-4a81e4453d9c"
@@ -193,7 +193,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://wealthlogix.com/samples/"
+                                      href="/samples/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="5671e6e8-d27a-14d3-a5f1-522fe5e97143"
@@ -208,7 +208,7 @@
                                   >
                                     <a
                                       data-widget-link="true"
-                                      href="https://wealthlogix.com/contact/"
+                                      href="/contact/"
                                       target="_top"
                                       data-link-type="site-route"
                                       data-route-guid="ee3ba1b3-d54f-2ee9-f369-7f73c2d26388"
@@ -322,7 +322,7 @@
                                         <p>You are using FREE plan.</p>
                                         <div>
                                           <router-link
-                                            to="https://wealthlogix.com/plans/"
+                                            to="/plans/"
                                             >Upgrade Now</router-link
                                           >
                                         </div>
@@ -423,7 +423,7 @@
                         <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
-                            href="https://wealthlogix.com/plans/"
+                            href="/plans/"
                             target="_top"
                             data-link-type="site-route"
                             data-route-guid="691566cd-5e76-30f6-d6dc-4a81e4453d9c"
@@ -531,7 +531,7 @@
                 <h6>Free Plan</h6>
                 <p>You are using FREE plan.</p>
                 <div>
-                  <a href="https://wealthlogix.com/plans/"
+                  <a href="/plans/"
                     >Upgrade Now</a
                   >
                 </div>

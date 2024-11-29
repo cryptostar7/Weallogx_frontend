@@ -7,10 +7,6 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  preview: {
-        host: true,
-        port: 8081
-    },
   plugins: [vue(), vueJsx(), sentryVitePlugin({
     org: "wlx-7b",
     project: "wlx-ui"
@@ -28,5 +24,4 @@ export default defineConfig({
     chunkSizeWarningLimit: 1600,
     sourcemap: true
   },
-
 });
