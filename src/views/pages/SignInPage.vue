@@ -94,7 +94,7 @@
               </div>
               <p class="authButtomPara">
                 Don’t have an account? &nbsp;<a
-                  href="/plans"
+                  href="https://wealthlogix.com/plans"
                   >Sign Up</a
                 >
               </p>
