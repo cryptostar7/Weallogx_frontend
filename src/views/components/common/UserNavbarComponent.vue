@@ -407,7 +407,7 @@
                             >HOME</a
                           >
                         </div>
-                        <div class="lp-nav__link-container css-1oevijs">
+                        <!-- <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
                             href="/solutions/"
@@ -419,7 +419,7 @@
                             contenteditable="false"
                             >SOLUTIONS</a
                           >
-                        </div>
+                        </div> -->
                         <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
@@ -433,7 +433,7 @@
                             >PLANS</a
                           >
                         </div>
-                        <div class="lp-nav__link-container css-1oevijs">
+                        <!-- <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
                             href="/samples/"
@@ -445,7 +445,7 @@
                             contenteditable="false"
                             >SAMPLES</a
                           >
-                        </div>
+                        </div> -->
                         <div class="lp-nav__link-container css-1oevijs">
                           <a
                             data-widget-link="true"
