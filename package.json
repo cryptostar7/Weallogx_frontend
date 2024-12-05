@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "npm run preview",
-    "dev": "vite --port 8000",
+    "dev-env": "node generate-env.js",
+    "dev": "npm run dev-env && vite --port 8000",
     "build": "vite build",
     "preview": "vite preview ",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
