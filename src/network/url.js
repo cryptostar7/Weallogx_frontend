@@ -34,15 +34,15 @@ export const getUrl = (type) => {
     case 'reset-password':
       return `${baseUrl}/auth/password-forget-complete`;
     case 'scenario':
-      return `${baseUrl}/auth/scenario/`;
+      return `${baseUrl}/scenario/scenario/`;
     case 'scenario-details':
-      return `${baseUrl}/auth/scenariodetails/`;
+      return `${baseUrl}/scenario/scenariodetails/`;
     case 'scenario-with-schedule_id':
-      return `${baseUrl}/auth/scenario-schedule/`;
+      return `${baseUrl}/scenario/scenario-schedule/`;
     case 'scenario-detail-templates':
-      return `${baseUrl}/auth/template-sceneriodetails/`;
+      return `${baseUrl}/scenario/template-sceneriodetails/`;
     case 'scenario-schedule-templates':
-      return `${baseUrl}/auth/template-schedule/`;
+      return `${baseUrl}/scenario/template-schedule/`;
     case 'simulations':
       return `${baseUrl}/historical/simulation/`;
     case 'simulation-details':
@@ -78,63 +78,63 @@ export const getUrl = (type) => {
     case 'historical-latest-report':
       return `${baseUrl}/report/historical-latest-report/`
     case 'schedule':
-      return `${baseUrl}/auth/schedule/`;
+      return `${baseUrl}/scenario/schedule/`;
     case 'illustration':
-      return `${baseUrl}/auth/illustration/`;
+      return `${baseUrl}/scenario/illustration/`;
     case 'template-insurance-profile':
-      return `${baseUrl}/auth/template-insurance-profile/`;
+      return `${baseUrl}/scenario/template-insurance-profile/`;
       case 'combined-insurance-profile-template':
         return `${baseUrl}/historical/combined-data/`;
     case 'illustration-id':
-      return `${baseUrl}/auth/illustrationid/`;
+      return `${baseUrl}/scenario/illustrationid/`;
     case 'illustration-template':
-      return `${baseUrl}/auth/template-exsiting-illustration/`;
+      return `${baseUrl}/scenario/template-exsiting-illustration/`;
     case 'pdf_extract':
       return `${baseUrl}/pdf/extract/`;
     case 'illustration-files':
-      return `${baseUrl}/auth/media/`;
+      return `${baseUrl}/scenario/media/`;
     case 'vehicle-type1':
-      return `${baseUrl}/auth/vehicle-type1/`;
+      return `${baseUrl}/scenario/vehicle-type1/`;
     case 'vehicle-type2':
-      return `${baseUrl}/auth/vehicle-type2/`;
+      return `${baseUrl}/scenario/vehicle-type2/`;
     case 'vehicle-type3':
-      return `${baseUrl}/auth/vehicle-type3/`;
+      return `${baseUrl}/scenario/vehicle-type3/`;
     case 'template-vehicle1':
-      return `${baseUrl}/auth/template-vehicle1/`;
+      return `${baseUrl}/scenario/template-vehicle1/`;
     case 'template-vehicle2':
-      return `${baseUrl}/auth/template-vehicle2/`;
+      return `${baseUrl}/scenario/template-vehicle2/`;
     case 'template-vehicle3':
-      return `${baseUrl}/auth/template-vehicle3/`;
+      return `${baseUrl}/scenario/template-vehicle3/`;
     case 'vehicles-templates':
-      return `${baseUrl}/auth/vehicle-template/`;
+      return `${baseUrl}/scenario/vehicle-template/`;
     case 'vehicles-templates':
-      return `${baseUrl}/auth/vehicle-template/`;
+      return `${baseUrl}/scenario/vehicle-template/`;
     case 'vehicle-portfolio':
-      return `${baseUrl}/auth/vehicle-portfolio/`;
+      return `${baseUrl}/scenario/vehicle-portfolio/`;
     case 'comparative':
-      return `${baseUrl}/auth/comperative/`
+      return `${baseUrl}/scenario/comparative/`
     case 'existing-comparative':
-      return `${baseUrl}/auth/exisiting-comperative/`
+      return `${baseUrl}/scenario/exisiting-comparative/`
     case 'historical':
-      return `${baseUrl}/auth/historical/`;
+      return `${baseUrl}/scenario/historical/`;
     case 'historical-template':
-      return `${baseUrl}/auth/template-index/`;
+      return `${baseUrl}/scenario/template-index/`;
     case 'historical-portfolio':
-      return `${baseUrl}/auth/historical-portfolio/`;
+      return `${baseUrl}/scenario/historical-portfolio/`;
     case 'historical-simulation-object':
-      return `${baseUrl}/auth/historical-media/`
+      return `${baseUrl}/scenario/historical-media/`
     case 'strategy-index1':
-      return `${baseUrl}/auth/indexstrategy1/`;
+      return `${baseUrl}/scenario/indexstrategy1/`;
     case 'strategy-index2':
-      return `${baseUrl}/auth/indexstrategy2/`;
+      return `${baseUrl}/scenario/indexstrategy2/`;
     case 'strategy-index3':
-      return `${baseUrl}/auth/indexstrategy3/`;
+      return `${baseUrl}/scenario/indexstrategy3/`;
     case 'strategy-index-template1':
-      return `${baseUrl}/auth/template-indexstrategy1/`;
+      return `${baseUrl}/scenario/template-indexstrategy1/`;
     case 'strategy-index-template2':
-      return `${baseUrl}/auth/template-indexstrategy2/`;
+      return `${baseUrl}/scenario/template-indexstrategy2/`;
     case 'strategy-index-template3':
-      return `${baseUrl}/auth/template-indexstrategy3/`;
+      return `${baseUrl}/scenario/template-indexstrategy3/`;
     case 'report':
       return `${baseUrl}/report/`
     case 'add-report':
@@ -143,6 +143,10 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/latest-report/`
     case 'comparative_report':
       return `${baseUrl}/report/calc/`
+    case 'comparative_report_dist':
+      return `${baseUrl}/report/dist-report/`
+    case 'comparative_report_ror':
+      return `${baseUrl}/report/ror-report/`
     case 'comparative_report_longevity':
       return `${baseUrl}/report/longegivity/`
     case 'comparative_report_ending_value':
