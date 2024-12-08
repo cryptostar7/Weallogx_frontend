@@ -1,0 +1,10 @@
+{
+    "awscloudformation": {
+        "Region": "us-east-1"
+    },
+    "hosting": {
+        "amplifyHosting": {
+            "appId": "wlx-ui"
+        }
+    }
+}

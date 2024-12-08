@@ -2137,7 +2137,7 @@ input:checked+.paymentSlider:before {
     color: #333;
 }
 
-.plan-upgrad-button {
+.plan-upgrade-button {
     text-decoration: none;
     border: 1.5px solid #0E6651;
     border-radius: 50px;
@@ -2149,7 +2149,7 @@ input:checked+.paymentSlider:before {
     display: block;
 }
 
-.plan-upgrad-button:hover {
+.plan-upgrade-button:hover {
     text-decoration: none;
     border: 1.5px solid #0E6651;
     background: #0E6651;
@@ -2157,7 +2157,7 @@ input:checked+.paymentSlider:before {
 }
 
 @media (max-width:576px) {
-    .plan-upgrad-button {
+    .plan-upgrade-button {
         padding: 12px 60px;
 
     }

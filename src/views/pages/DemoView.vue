@@ -102,7 +102,7 @@
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 let stripe = Stripe(
-    `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
+    import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
   ),
   elements = stripe.elements(),
   card,
