@@ -462,20 +462,18 @@ export default {
     filterData: function (data, type) {
       let finalData = {};
 
-      if (data.chart_output) {
-        let chart_data = data.chart_output;
-        let list = chart_data.age;
+      if (data) {
+        let list = data.net_balance;
         let duration = this.historicalLirp.chart_output.year || [];
         if (list.length) {
           let distributions =
-            chart_data.distributions || chart_data.tax_free_distributions;
+            data.distributions
           let account_value =
-            chart_data.net_balance ||
-            chart_data.eoy_accumulation_value_after_credit;
+            data.net_balance 
           finalData = {
-            cummulative_income: data.cummulative_income || data.final_balance,
+            cummulative_income: data.cummulative_income,
             type: type,
-            ror: data.index_average,
+            ror: data.ror,
             irr: data.irr_percent,
             longevity_years: this.getYear(account_value, duration) + " Years",
           };
@@ -490,15 +488,15 @@ export default {
           id: 0,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.result,
+              this.historical.recent.comparative_values.rolling_data.graph_data,
               "TSA - Most Recent"
             ),
-            worst: this.filterData(this.historical.min.result, "TSA - Worst"),
+            worst: this.filterData(this.historical.worst.comparative_values.rolling_data.graph_data, "TSA - Worst"),
             median: this.filterData(
-              this.historical.median.result,
+              this.historical.median.comparative_values.rolling_data.graph_data,
               "TSA - Median"
             ),
-            best: this.filterData(this.historical.max.result, "TSA - Best"),
+            best: this.filterData(this.historical.best.comparative_values.rolling_data.graph_data, "TSA - Best"),
           },
         },
       };
@@ -509,19 +507,19 @@ export default {
           id: 1,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.taxable_most_recent,
+              this.historical.recent.comparative_values.cv1_data.graph_data,
               "Brokerage Account - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.taxable_min,
+              this.historical.worst.comparative_values.cv1_data.graph_data,
               "Brokerage Account - Worst"
             ),
             median: this.filterData(
-              this.historical.median.taxable_median,
+              this.historical.median.comparative_values.cv1_data.graph_data,
               "Brokerage Account - Median"
             ),
             best: this.filterData(
-              this.historical.max.taxable_max,
+              this.historical.best.comparative_values.cv1_data.graph_data,
               "Brokerage Account - Best"
             ),
           },
@@ -534,19 +532,19 @@ export default {
           id: 2,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.pre_tax_most_recent,
+              this.historical.recent.comparative_values.cv2_data.graph_data,
               "401K/IRA - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.pre_tax_min,
+              this.historical.worst.comparative_values.cv2_data.graph_data,
               "401K/IRA - Worst"
             ),
             median: this.filterData(
-              this.historical.median.pre_tax_median,
+              this.historical.median.comparative_values.cv2_data.graph_data,
               "401K/IRA - Median"
             ),
             best: this.filterData(
-              this.historical.max.pre_tax_max,
+              this.historical.best.comparative_values.cv2_data.graph_data,
               "401K/IRA - Best"
             ),
           },
@@ -559,19 +557,19 @@ export default {
           id: 3,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.tda_most_recent,
+              this.historical.recent.comparative_values.cv3_data.graph_data,
               "Annuity - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.tda_min,
+              this.historical.worst.comparative_values.cv3_data.graph_data,
               "Annuity - Worst"
             ),
             median: this.filterData(
-              this.historical.median.tda_median,
+              this.historical.median.comparative_values.cv3_data.graph_data,
               "Annuity - Median"
             ),
             best: this.filterData(
-              this.historical.max.tda_max,
+              this.historical.best.comparative_values.cv3_data.graph_data,
               "Annuity - Best"
             ),
           },

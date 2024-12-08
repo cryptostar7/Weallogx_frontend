@@ -277,7 +277,7 @@ export default {
               "simulation_is_active_cap_rate_range" + i
             )
               ? this.getInputWithId("simulation_cap_rate_range" + i)
-              : 1000,
+              : 0,
             participation_range: this.getInputWithId(
               "simulation_participation_range" + i
             ),

@@ -327,7 +327,7 @@ export default {
             index: this.getInputWithId("analysis_index" + i),
             cap_rate_range: this.isChecked("is_active_cap_rate_range" + i)
               ? this.getInputWithId("cap_rate_range" + i)
-              : 1000,
+              : 0,
             participation_range: this.getInputWithId("participation_range" + i),
             margin_spread_range: this.getInputWithId("margin_spread_range" + i),
             floor_range: this.getInputWithId("floor_range" + i),
