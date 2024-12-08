@@ -11,7 +11,7 @@ frontend:
         - echo "VITE_DEPLOY_PLATFORM=AMPLIFY" >> .env
         - echo "VITE_DEPLOY_BRANCH=$AWS_BRANCH" >> .env
         - echo "VITE_DEPLOY_COMMIT=$AWS_COMMIT_ID" >> .env
-        - echo "VITE_DEPLOY_TIME==$(TZ="America/Denver" date "+%Y-%m-%d %I:%M:%S %p %Z")" >> .env
+        - echo "VITE_DEPLOY_TIME=$(TZ="America/Denver" date "+%Y-%m-%d %I:%M:%S %p %Z")" >> .env
       
         - npm run build
   artifacts:
