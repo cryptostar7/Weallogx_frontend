@@ -33,3 +33,4 @@ coverage
 /.github/*
 # Sentry Config File
 .env.sentry-build-plugin
+snyk-linux
