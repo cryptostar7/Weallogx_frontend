@@ -1,35 +1,28 @@
-# Base nginx static server (first - changes least)
-FROM nginx:alpine as nginx-base
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-
-# Node.js base layer with dependencies
+# Node.js base layer with dependencies installed
 FROM node:16-alpine as node-base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Development stage - combined build and serve
+# Development build stage (base for prod)
 FROM node-base as development
 WORKDIR /app
 COPY . .
-RUN npm install
+RUN npm run build
 EXPOSE 8000
-# Mount source at runtime, build and serve through nginx
-CMD ["sh", "-c", "npm run build && cp -r dist/* /usr/share/nginx/html/ && nginx -g 'daemon off;'"]
 
-# Production build stage - separate for security
-FROM node-base as production-build
-WORKDIR /app
-COPY . .
-RUN npm run build \
-    && npm prune --production
+# Production build stage - separate stage for security isolation (NodeJS/npm not needed for prod)
+FROM development as production-build
+RUN npm prune --production && \
+    mkdir -p /usr/share/nginx/html && \
+    cp -r dist/* /usr/share/nginx/html/
 
-# Final production stage - minimal nginx with built assets
-FROM nginx-base as production
+# Final production stage - minimal nginx with built static assets
+FROM nginx:alpine as production
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production-build /app/dist /usr/share/nginx/html
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
 
 # Stage selection - defaults to production
-ARG ENV=production
-FROM ${ENV} as final
+FROM ${BUILD_ENV:-production} as final
+CMD ["nginx", "-g", "daemon off;"]

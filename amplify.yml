@@ -7,7 +7,7 @@ frontend:
     build:
       commands:
         # inject Amplify build info
-        - unset VITE_DEPLOY_PLATFORM #not being override by below literal for some reason
+        - unset VITE_DEPLOY_PLATFORM #not being overridden by below literal for some reason
         - echo "VITE_DEPLOY_PLATFORM=AMPLIFY" >> .env
         - echo "VITE_DEPLOY_BRANCH=$AWS_BRANCH" >> .env
         - echo "VITE_DEPLOY_COMMIT=$AWS_COMMIT_ID" >> .env
