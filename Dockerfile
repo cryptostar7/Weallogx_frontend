@@ -26,4 +26,4 @@ EXPOSE 80
 # Stage selection - defaults to production
 FROM ${BUILD_ENV:-production} as final
 CMD ["nginx", "-g", "daemon off;"]
-# Trigger build
+# Trigger build2
