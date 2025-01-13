@@ -13,17 +13,11 @@ EXPOSE 8000
 
 # Production build stage - separate stage for security isolation (NodeJS/npm not needed for prod)
 FROM development as production-build
-RUN npm prune --production && \
-    mkdir -p /usr/share/nginx/html && \
-    cp -r dist/* /usr/share/nginx/html/
+RUN npm prune --production
 
-# Final production stage - minimal nginx with built static assets
-FROM nginx:alpine as production
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=production-build /app/dist /usr/share/nginx/html
-EXPOSE 80
-
-# Stage selection - defaults to production
-FROM ${BUILD_ENV:-production} as final
-CMD ["nginx", "-g", "daemon off;"]
-# Trigger build2
+# Final production stage
+FROM node:16-alpine as final
+WORKDIR /app
+COPY --from=production-build /app /app
+EXPOSE 8000
+CMD ["npm", "start"]
