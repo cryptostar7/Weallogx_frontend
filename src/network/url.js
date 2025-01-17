@@ -8,11 +8,11 @@ export const getUrl = (type) => {
     case 'user-exists':
       return `${baseUrl}/auth/user-exists/`;
     case 'profile':
-      return `${baseUrl}/auth/profile`;
+      return `${baseUrl}/auth/profile/`;
     case 'delete-account':
       return `${baseUrl}/auth/delete-logged-in-user/`;
     case 'remove-logo':
-      return `${baseUrl}/auth/remove-logo`;
+      return `${baseUrl}/auth/remove-logo/`;
     case 'login':
       return `${baseUrl}/auth/login/`;
     case 'login-with-token':
@@ -32,7 +32,7 @@ export const getUrl = (type) => {
     case 'forgot-password':
       return `${baseUrl}/auth/request-forget-email/`;
     case 'reset-password':
-      return `${baseUrl}/auth/password-forget-complete`;
+      return `${baseUrl}/auth/password-forget-complete/`;
     case 'scenario':
       return `${baseUrl}/scenario/scenario/`;
     case 'scenario-details':
@@ -176,9 +176,9 @@ export const getUrl = (type) => {
     case 'retirement-buffer':
       return `${baseUrl}/retirement_buffer/`
     case 'incomeRider':
-      return `${baseUrl}/retirement_buffer/income_rider`;
+      return `${baseUrl}/retirement_buffer/income_rider/`;
     case 'incomeRiderSimulation':
-      return `${baseUrl}/retirement_buffer/income_rider_simulation`;
+      return `${baseUrl}/retirement_buffer/income_rider_simulation/`;
     default:
       return baseUrl;
   }
