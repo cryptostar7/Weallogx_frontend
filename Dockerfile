@@ -1,24 +1,28 @@
-# Node.js base layer with dependencies installed
-FROM node:16-alpine as node-base
+# Use Node.js 18 for compatibility with dependencies
+FROM node:18-alpine as node-base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Development build stage (base for prod)
+# Development build stage
 FROM node-base as development
 WORKDIR /app
 COPY . .
 RUN npm run build
 EXPOSE 8000
 
-# Production build stage - separate stage for security isolation (NodeJS/npm not needed for prod)
+# Production build stage
 FROM development as production-build
-RUN npm prune --production
+WORKDIR /app
+RUN npm prune --production && \
+    mkdir -p /usr/share/nginx/html && \
+    cp -r dist/* /usr/share/nginx/html/
 
 # Final production stage
-FROM node:16-alpine as final
-WORKDIR /app
-COPY --from=production-build /app /app
+FROM nginx:alpine as production
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 EXPOSE 8000
-CMD ["npm", "start"]
-#trigger deployment2
+
+# Final CMD
+CMD ["nginx", "-g", "daemon off;"]
