@@ -32,23 +32,23 @@ app.config.unwrapInjectedRef = true;
 
 var environment = import.meta.env.MODE;
 var appUrl = import.meta.env.VITE_APP_URL;
-var sentryDSN = import.meta.env.VITE_SENTRY_DSN_KEY;
-if (environment !== 'development') {
-    Sentry.init({
-        app,
-        dsn: sentryDSN,
-        integrations: [
-          new BrowserTracing({
-            routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-            tracePropagationTargets: [environment, appUrl, /^\//],
-          }),
-        ],
-        // Set tracesSampleRate to 1.0 to capture 100%
-        // of transactions for performance monitoring.
-        // We recommend adjusting this value in production
-        tracesSampleRate: 1.0,
-      });
-}
+// var sentryDSN = import.meta.env.VITE_SENTRY_DSN_KEY;
+// if (environment !== 'development') {
+//     Sentry.init({
+//         app,
+//         dsn: sentryDSN,
+//         integrations: [
+//           new BrowserTracing({
+//             routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+//             tracePropagationTargets: [environment, appUrl, /^\//],
+//           }),
+//         ],
+//         // Set tracesSampleRate to 1.0 to capture 100%
+//         // of transactions for performance monitoring.
+//         // We recommend adjusting this value in production
+//         tracesSampleRate: 1.0,
+//       });
+// }
 
 app.mount("#app");
 
