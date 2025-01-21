@@ -670,7 +670,9 @@ export default {
         }
 
         let client_id = scenarioData.client;
+        console.log('scenrio data 1 is', scenarioData)
         this.$store.dispatch("activeScenario", scenarioData);
+        console.log('store data 1 is:',this.$store.state.data.active_scenario);
         if (id) {
           if (client_id) {
             if (this.clients && this.clients.length) {
@@ -723,7 +725,9 @@ export default {
           }
 
           let client_id = response.data.data.client;
+          console.log('scenrio data 2 is', response.data.data)
           this.$store.dispatch("activeScenario", response.data.data);
+          console.log('store data 2 is:',this.$store.state.data.active_scenario);
           setCurrentScenario(response.data.data);
           this.$store.dispatch("loader", false);
           if (id) {
@@ -1343,8 +1347,10 @@ export default {
             currentScenario.scenerio_details.years_to_illustrate = Number(
               data.years_to_illustrate
             );
+            console.log('scenrio data 3 is', currentScenario)
             this.$store.dispatch("activeScenario", currentScenario);
             setCurrentScenario(currentScenario);
+            console.log('store data 2 is:',this.$store.state.data.active_scenario);
           }
 
           if (currentScenario.id) {
