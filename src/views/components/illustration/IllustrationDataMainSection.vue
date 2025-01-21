@@ -2041,6 +2041,7 @@ export default {
     // save illustration file
     saveIllustrationFile(file_url, filename) {
       // create a new illustration file data
+      console.log('active scenario:',this.activeScenario)
       let data = {
         s3_url: file_url,
         client: this.activeScenario.client,
