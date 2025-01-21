@@ -1,5 +1,5 @@
 # Use Node.js 18 for compatibility with dependencies
-FROM node:18-alpine as node-base
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine as node-base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
