@@ -716,7 +716,9 @@ export default {
   methods: {
     // get previous scebario detail information
     getScenarionDetails: function () {
-      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      scenario_url = getUrl("scenario");
+      console.log('scenario_url is', scenario_url)
+      get(`${sceanrio_url}${this.$route.params.scenario}/`, authHeader())
         .then((response) => {
           let id = false;
           if (response.data.data.scenerio_details) {
