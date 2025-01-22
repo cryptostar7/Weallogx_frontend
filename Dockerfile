@@ -19,7 +19,7 @@ RUN npm prune --production && \
     cp -r dist/* /usr/share/nginx/html/
 
 # Final production stage
-FROM nginx:alpine as production
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine as production
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 EXPOSE 8000
