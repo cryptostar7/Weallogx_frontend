@@ -328,7 +328,7 @@ export default {
       payload.seed = null;
 
       post(
-        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        `${getUrl("retirement-buffer")}${endpoint}_combined/`,
         payload,
         authHeader()
       )

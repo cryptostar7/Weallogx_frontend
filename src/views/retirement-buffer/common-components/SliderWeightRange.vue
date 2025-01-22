@@ -254,7 +254,7 @@ export default {
       payload.buffer_account_allocation =
         this.getBufferAccountAllocation() / 100;
       post(
-        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        `${getUrl("retirement-buffer")}${endpoint}_combined/`,
         payload,
         authHeader()
       )
@@ -298,7 +298,7 @@ export default {
         this.getBufferAccountAllocation() / 100;
 
       post(
-        `${getUrl("retirement-buffer")}${endpoint}_simulation`,
+        `${getUrl("retirement-buffer")}${endpoint}_simulation/`,
         payload,
         authHeader()
       )

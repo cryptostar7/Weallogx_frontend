@@ -487,7 +487,7 @@ export default {
       payload.sort_type = this.$store.state.data.retirement_buffer.sort_type;
 
       post(
-        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        `${getUrl("retirement-buffer")}${endpoint}_combined/`,
         payload,
         authHeader()
       )
