@@ -509,7 +509,7 @@ export default {
             sort: payload.sort_type,
             data: response.data,
           }); // Update results in vuexy store
-          this.getSimulationData(`${endpoint}_simulation`, payload);
+          this.getSimulationData(`${endpoint}_simulation/`, payload);
         })
         .catch((error) => {
           this.$store.dispatch("loader", false);
