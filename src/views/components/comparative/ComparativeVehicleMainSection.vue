@@ -446,7 +446,7 @@ export default {
       }
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
           .then(response => {
             setCurrentScenario(response.data.data);
             let id = response.data.data.comperative;

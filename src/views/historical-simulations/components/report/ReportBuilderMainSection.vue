@@ -141,7 +141,7 @@ export default {
     getHistoricalData: function () {
       this.$store.dispatch("loader", true);
       get(
-        `${getUrl("standalone-report")}${this.$route.params.report}`,
+        `${getUrl("standalone-report")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -165,7 +165,7 @@ export default {
     getCurrentReportInfo: function () {
       let api_url = `${getUrl("simulation-report")}${
         this.$route.params.report
-      }`;
+      }/`;
       if (this.$route.params.view_token) {
         api_url += `?view_token=${this.$route.params.view_token}`;
       }
@@ -209,7 +209,7 @@ export default {
     // get all notes of current report
     getNotes: function () {
       get(
-        `${getUrl("historical-notes")}?report=${this.$route.params.report}`,
+        `${getUrl("historical-notes")}?report=${this.$route.params.report}/`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("notes", response.data);
@@ -221,7 +221,7 @@ export default {
       get(
         `${getUrl("historical-disclosures")}?report=${
           this.$route.params.report
-        }`,
+        }/`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("disclosures", response.data);

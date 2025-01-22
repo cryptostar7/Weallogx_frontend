@@ -1392,7 +1392,7 @@ export default {
 
     // populate historical data if historical data id exist in scenario
     this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+    get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
       .then((response) => {
         let id = response.data.data.historical;
         this.historicalId = id;

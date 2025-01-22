@@ -533,7 +533,7 @@ export default {
     },
     getSimulationData: function (endpoint, payload) {
       this.$store.dispatch("loader", true);
-      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+      post(`${getUrl("retirement-buffer")}${endpoint}/`, payload, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false);
 

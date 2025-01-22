@@ -1262,7 +1262,7 @@ export default {
       if (getSimulationAPI) {
         this.$store.dispatch("loader", true);
         get(
-          `${getUrl("simulations")}${this.$route.params.simulation}`,
+          `${getUrl("simulations")}${this.$route.params.simulation}/`,
           authHeader()
         )
           .then((response) => {
@@ -1562,7 +1562,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("historical-illustration-template")}${id}`, authHeader())
+      get(`${getUrl("historical-illustration-template")}${id}/`, authHeader())
         .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");

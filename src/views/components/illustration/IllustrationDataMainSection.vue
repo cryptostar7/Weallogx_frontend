@@ -1255,7 +1255,7 @@ export default {
 
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
           .then((response) => {
             let id = response.data.data.illustration;
             this.illustrationId = id;
@@ -1552,7 +1552,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("illustration-template")}${id}`, authHeader())
+      get(`${getUrl("illustration-template")}${id}/`, authHeader())
         .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");

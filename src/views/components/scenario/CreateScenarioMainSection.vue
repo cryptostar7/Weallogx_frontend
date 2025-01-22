@@ -951,7 +951,7 @@ export default {
         get(
           `${getUrl(
             template ? "scenario-detail-templates" : "scenario-details"
-          )}${id}`,
+          )}${id}/`,
           authHeader()
         )
           .then((response) => {

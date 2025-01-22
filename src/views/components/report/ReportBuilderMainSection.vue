@@ -256,8 +256,7 @@ export default {
     // Temporary functions start
     getComparativeReportRorDeathBenefit: function () {
       get(
-        getUrl("comparative_report_death_benefit_ror") +
-          this.$route.params.report,
+        `${getUrl("comparative_report_death_benefit_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -282,8 +281,7 @@ export default {
 
     getComparativeReportRorEndingValue: function () {
       get(
-        getUrl("comparative_report_ending_value_ror") +
-          this.$route.params.report,
+        `${getUrl("comparative_report_ending_value_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -301,7 +299,7 @@ export default {
 
     getComparativeReportRorLongevity: function () {
       get(
-        getUrl("comparative_report_longevity_ror") + this.$route.params.report,
+        `${getUrl("comparative_report_longevity_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -316,7 +314,7 @@ export default {
 
     getComparativeReportDeathBenefit: function () {
       get(
-        getUrl("comparative_report_death_benefit") + this.$route.params.report,
+        `${getUrl("comparative_report_death_benefit")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -331,7 +329,7 @@ export default {
 
     getComparativeReportEndingValue: function () {
       get(
-        getUrl("comparative_report_ending_value") + this.$route.params.report,
+        `${getUrl("comparative_report_ending_value")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -346,7 +344,7 @@ export default {
 
     getComparativeReportLongevity: function () {
       get(
-        getUrl("comparative_report_longevity") + this.$route.params.report,
+        `${getUrl("comparative_report_longevity")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -361,8 +359,7 @@ export default {
     //ROR Report
     getComparativeReportRor: function () {
       get(
-        getUrl("comparative_report_ror") +
-          this.$route.params.report,
+        `${getUrl("comparative_report_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -388,7 +385,7 @@ export default {
     //Get Distribution Report
     getComparativeReportDistributions: function () {
       get(
-        getUrl("comparative_report_dist") + this.$route.params.report,
+        `${getUrl("comparative_report_dist")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -410,7 +407,7 @@ export default {
       this.$store.dispatch("loader", true);
 
       get(
-        getUrl("comparative_report") + this.$route.params.report,
+        `${getUrl("comparative_report")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {

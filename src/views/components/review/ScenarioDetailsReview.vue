@@ -135,7 +135,7 @@ export default {
     getScenarioData: function() {
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("scenario-details")}${this.$props.id}`, authHeader())
+        get(`${getUrl("scenario-details")}${this.$props.id}/`, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
             let detail = response.data.data;

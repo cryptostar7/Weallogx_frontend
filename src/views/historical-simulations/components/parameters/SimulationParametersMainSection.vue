@@ -1440,7 +1440,7 @@ export default {
     // populate historical data if historical data id exist in simulation
     this.$store.dispatch("loader", true);
     get(
-      `${getUrl("simulations")}${this.$route.params.simulation}`,
+      `${getUrl("simulations")}${this.$route.params.simulation}/`,
       authHeader()
     )
       .then((response) => {

@@ -256,7 +256,7 @@ export default {
     // get historical report data
     getHistoricalData: function () {
       get(
-        `${getUrl("historical_report")}${this.$route.params.report}`,
+        `${getUrl("historical_report")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {

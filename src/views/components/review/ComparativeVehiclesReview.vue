@@ -184,7 +184,7 @@ export default {
     getComparativeData: function() {
       if (this.$props.id) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("comparative")}${this.$props.id}`, authHeader())
+        get(`${getUrl("comparative")}${this.$props.id}/`, authHeader())
           .then(response => {
             this.$store.dispatch("loader", false);
             let detail = response.data.data;
