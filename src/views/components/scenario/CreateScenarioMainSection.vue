@@ -1010,7 +1010,7 @@ export default {
     populateScheduleTax: function (id, template = false) {
       this.$store.dispatch("loader", true);
       get(
-        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}`,
+        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}/`,
         authHeader()
       )
         .then((response) => {

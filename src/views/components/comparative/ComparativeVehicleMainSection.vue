@@ -679,7 +679,7 @@ export default {
       if(!portfolio){
         this.cvId = id;
       }
-      get(`${getUrl(portfolio ? "vehicle-portfolio" : "comparative")}${id}`, authHeader())
+      get(`${getUrl(portfolio ? "vehicle-portfolio" : "comparative")}${id}/`, authHeader())
         .then(response => {
           var data = response.data.data;
           var vehicle1 = data.vehicle_type_1;

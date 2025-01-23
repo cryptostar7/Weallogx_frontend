@@ -1249,7 +1249,7 @@ export default {
     // get previous data
     populateHistoricalSimulationData: function (id, portfolio = false) {
       get(
-        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`,
+        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}/`,
         authHeader()
       )
         .then((response) => {

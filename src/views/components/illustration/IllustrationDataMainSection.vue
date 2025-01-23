@@ -1514,7 +1514,7 @@ export default {
       }
 
       get(
-        `${getUrl(template ? templateUrl : "illustration")}${id}`,
+        `${getUrl(template ? templateUrl : "illustration")}${id}/`,
         authHeader()
       )
         .then((response) => {
