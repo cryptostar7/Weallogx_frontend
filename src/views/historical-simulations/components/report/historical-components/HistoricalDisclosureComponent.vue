@@ -433,32 +433,36 @@ export default {
     }
   },
   methods: {
+
     showTableModal(word, index) {
+      console.log('table shown of:', word, index)
       let indexes = [
         this.disclosure.index_1,
         this.disclosure.index_2 || null,
         this.disclosure.index_3 || null,
       ];
-
-      if (word === 'performance') {
+      if(word === 'performance') {
         this.data_list = indexes[index].performace_multiplier;
         this.data_type = 'rate';
         this.data_title = 'Performance Multiplier';
-      } else if (word === 'flat') {
+      }
+      else if(word === 'flat') {
         this.data_list = indexes[index].flat_credit;
         this.data_type = 'rate';
         this.data_title = 'Flat Credit/Bonus';
       }
+      console.log('list is:', this.data_list);
       this.modal_true = true;
     },
     closeTableModal() {
+      console.log('closing table');
       this.modal_true = false;
       this.data_list = [];
       this.data_type = '';
       this.data_title = '';
 
     },
-    mapData() {
+    mapData: function () {
       let indexes = [
         this.disclosure.index_1,
         this.disclosure.index_2 || null,
@@ -518,46 +522,57 @@ export default {
             if (element) {
               if (element === 'Index Strategy') {
                 index_strat[`${element} ${index+1}`] = mappedObject[element]
-              } else if (percent_attributes.includes(element)) {
-                if (schedule_attributes.includes(element)) {
+              }
+              else if (percent_attributes.includes(element)) {
+                if(schedule_attributes.includes(element)) {
                   if (mappedObject["flat_credit_schedule"] === true) {
                     index_strat[`${element}`] = 'Scheduled'
-                  } else {
-                    if (mappedObject["Flat Credit/Bonus"] === 'N/A') {
+                  }
+                  else {
+                    if(mappedObject["Flat Credit/Bonus"] === 'N/A') {
                       index_strat[`${element}`] = mappedObject[element]
-                    } else {
+                    }
+                    else {
                       index_strat[`${element}`] = String(mappedObject[element]) + '%'
                       index_strat['start_year_flat'] =  mappedObject["flat_credit_start_year_value"]
                     }
                   }
-                } else {
+                }
+                else {
                   index_strat[`${element}`] = String(mappedObject[element]) + '%'
                 }
-              } else if (schedule_attributes.includes(element)) {
+              }
+              else if (schedule_attributes.includes(element)) {
                 if (mappedObject["performace_multiplier_schedule"] === true) {
                   index_strat[`${element}`] = 'Scheduled'
-                } else {
+                }
+                else {
                   index_strat[`${element}`] = mappedObject[element]
                   index_strat['start_year_multi'] = mappedObject["performace_multiplier_start_year_value"]
                 }
-              } else if (other_attributes.includes(element)) {
+              }
+              else if (other_attributes.includes(element)) {
                 index_strat[`${element}`] = mappedObject[element]
               }
             }
+
+
           });
           disclosure_text.push(index_strat)
         }
       });
       this.disclosure_message = disclosure_text;
+      console.log('index strtageies are:', disclosure_text)
     },
 
-    handleDisclosure() {
+    handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
     },
 
-    getDefaultDisclosure() {
+    getDefaultDisclosure: function () {
+
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
       let borrowing_rate = this.disclosure.borrowing_rate;
@@ -577,10 +592,10 @@ export default {
       just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.</p>`;
       return content
     },
-    setDefaultMessage() {
+    setDefaultMessage: function () {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
     },
-    saveMessage() {
+    saveMessage: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }

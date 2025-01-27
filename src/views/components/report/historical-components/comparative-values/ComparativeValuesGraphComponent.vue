@@ -600,8 +600,14 @@ export default {
 
         chart = this.mapColumn1Data().data.categories[this.tsa_type];
         let chart1 = this.mapColumn2Data().data.categories[this.tsa_type];
-        let chart2 = this.mapColumn3Data().data.categories[this.tsa_type];
-        let chart3 = this.mapColumn4Data().data.categories[this.tsa_type];
+        let chart2 = null
+        if(this.historical.recent.comparative_values.cv2_data) {
+          chart2 = this.mapColumn3Data().data.categories[this.tsa_type];
+        }
+        let chart3 = null
+        if(this.historical.recent.comparative_values.cv3_data) {
+          chart3 = this.mapColumn4Data().data.categories[this.tsa_type];
+        }
         cv = chart
           ? chart.account_value.map((i, idx) => {
               return { x: idx, y: i.toFixed(0) };
@@ -1199,21 +1205,18 @@ export default {
     mapData: function () {
       this.data[0] = this.mapColumn1Data().data;
       this.data[1] = this.mapColumn2Data().data;
-      this.data[2] = this.mapColumn3Data().data;
-      this.data[3] = this.mapColumn4Data().data;
 
       let cvCount = 4;
-      if (
-        this.data[2] &&
-        !this.data[2].categories[this.tsa_type].account_value
-      ) {
+      if(this.historical.recent.comparative_values.cv2_data) {
+        this.data[2] = this.mapColumn3Data().data;
+      }
+      else{
         cvCount--;
       }
-
-      if (
-        this.data[3] &&
-        !this.data[3].categories[this.tsa_type].account_value
-      ) {
+      if(this.historical.recent.comparative_values.cv3_data) {
+        this.data[3] = this.mapColumn4Data().data;
+      }
+      else {
         cvCount--;
       }
 

@@ -1534,20 +1534,16 @@ export default {
       let cvCount = 4;
       this.table.data[0] = this.mapColumn1Data().data;
       this.table.data[1] = this.mapColumn2Data().data;
-      this.table.data[2] = this.mapColumn3Data().data;
-      this.table.data[3] = this.mapColumn4Data().data;
-
-      if (
-        this.table.data[2] &&
-        !this.table.data[2].categories[this.tsa_type].list.length
-      ) {
+      if(this.historical.recent.comparative_values.cv2_data) {
+        this.table.data[2] = this.mapColumn3Data().data;
+      }
+      else{
         cvCount--;
       }
-
-      if (
-        this.table.data[3] &&
-        !this.table.data[3].categories[this.tsa_type].list.length
-      ) {
+      if(this.historical.recent.comparative_values.cv3_data) {
+        this.table.data[3] = this.mapColumn4Data().data;
+      }
+      else {
         cvCount--;
       }
 
@@ -1555,8 +1551,13 @@ export default {
 
       this.summary_data.data[0] = this.mapColumn1Data().summary;
       this.summary_data.data[1] = this.mapColumn2Data().summary;
-      this.summary_data.data[2] = this.mapColumn3Data().summary;
-      this.summary_data.data[3] = this.mapColumn4Data().summary;
+      if(this.historical.recent.comparative_values.cv2_data) {
+        this.summary_data.data[2] = this.mapColumn3Data().summary;
+      }
+      if(this.historical.recent.comparative_values.cv3_data) {
+        this.summary_data.data[3] = this.mapColumn4Data().summary;
+      }
+  
       this.summary_data.deposits.totals =
         this.historical.lirp_data.total_deposit;
     },
