@@ -62,7 +62,7 @@
         <div
           :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable' : ''}`"
         >
-        <div style="font-size: 10px;">
+        <div style="font-size: 10px; padding-left: 17px">
           {{disclosure_head}} <br/>
           </div>
           <div
@@ -80,7 +80,7 @@
                 }"
               >
                 <ul
-                  style="list-style-type: none; padding: 0; margin: 0;"
+                  style="list-style-type: none; padding-left: 17px; margin: 0;"
                 >
                   <li 
                     v-for="(value, key) in item" :key="key"
