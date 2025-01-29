@@ -1685,7 +1685,7 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        getPresignedUrl(import.meta.env.VITE_BUCKET_NAME, url)
+        getPresignedUrl('eps-textract-pdf', url)
          .then((presignedUrl) => {
           if (!presignedUrl) {
             console.error("Failed to generate presigned URL");
