@@ -282,7 +282,7 @@ export default {
     },
 
     getCurrentReportInfo: function () {
-      let api_url = `${getUrl("report")}${this.$route.params.report}`;
+      let api_url = `${getUrl("report")}${this.$route.params.report}/`;
       if (this.$route.params.view_token) {
         api_url += `?view_token=${this.$route.params.view_token}`;
       }
