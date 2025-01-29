@@ -1,3 +1,29 @@
+import {S3Client, GetObjectCommand} from "@aws-sdk/client-s3"
+import {getSignedUrl} from "@aws-sdk/s3-request-presigner"
+
+const s3Client = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY,
+    secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
+  },
+});
+
+export async function getPresignedUrl(bucketName, objectUrl){
+  try {
+    const objectKey = objectUrl.split('amazonaws.com/')[1];
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: objectKey,
+    });
+    const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+    return url;
+  } catch(error) {
+    console.error("Error generating presigned URL:", error);
+    return null;
+  }
+}
+
 export function authCheck() {
   return getAccessToken() ? true : false;
 }

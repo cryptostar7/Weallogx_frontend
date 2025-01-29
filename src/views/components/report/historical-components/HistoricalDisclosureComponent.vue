@@ -431,7 +431,6 @@ export default {
   },
   methods: {
     showTableModal(word, index) {
-      console.log('table shown of:', word, index)
       let indexes = [
         this.disclosure.index_1,
         this.disclosure.index_2 || null,
@@ -447,11 +446,9 @@ export default {
         this.data_type = 'rate';
         this.data_title = 'Flat Credit/Bonus';
       }
-      console.log('list is:', this.data_list);
       this.modal_true = true;
     },
     closeTableModal() {
-      console.log('closing table');
       this.modal_true = false;
       this.data_list = [];
       this.data_type = '';
@@ -558,7 +555,6 @@ export default {
         }
       });
       this.disclosure_message = disclosure_text;
-      console.log('index strtageies are:', disclosure_text)
     },
 
     handleDisclosure: function () {

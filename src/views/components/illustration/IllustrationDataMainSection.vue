@@ -1128,6 +1128,7 @@ import {
   getScenarioStep2,
   setScenarioStep2,
   mapClientList,
+  getPresignedUrl
 } from "../../../services/helper.js";
 
 // Refernce URL 1 - "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -1684,25 +1685,32 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(
-          function (pdf) {
-            // Fetch the pdf page
-            document.getElementById("pdfPreview").innerHTML = null;
-            for (var i = 1; i <= pdf.numPages; i++) {
-              generateCanvas(i, pdf);
-            }
-            document.getElementById("stopLoaderBtn").click();
-            return new bootstrap.Modal(
-              document.getElementById("pdfPreviewCanvasModal")
-            ).show();
-          },
-          function (reason) {
-            // PDF loading error
-            document.getElementById("stopLoaderBtn").click();
-            toast.error(reason.message);
+        getPresignedUrl(import.meta.env.VITE_BUCKET_NAME, url)
+         .then((presignedUrl) => {
+          if (!presignedUrl) {
+            console.error("Failed to generate presigned URL");
+            return;
           }
-        );
+          var loadingTask = pdfjsLib.getDocument(presignedUrl);
+          loadingTask.promise.then(
+            function (pdf) {
+              // Fetch the pdf page
+              document.getElementById("pdfPreview").innerHTML = null;
+              for (var i = 1; i <= pdf.numPages; i++) {
+                generateCanvas(i, pdf);
+              }
+              document.getElementById("stopLoaderBtn").click();
+              return new bootstrap.Modal(
+                document.getElementById("pdfPreviewCanvasModal")
+              ).show();
+            },
+            function (reason) {
+              // PDF loading error
+              document.getElementById("stopLoaderBtn").click();
+              toast.error(reason.message);
+            }
+          );
+        })
       }
 
       function generateCanvas(i, pdf) {
