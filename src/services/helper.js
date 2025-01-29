@@ -11,13 +11,14 @@ const s3Client = new S3Client({
 
 export async function getPresignedUrl(bucketName, objectUrl){
   try {
+    console.log('bucketname is:', bucketName);
     const objectKey = objectUrl.split('amazonaws.com/')[1];
     const command = new GetObjectCommand({
       Bucket: bucketName,
       Key: objectKey,
     });
     const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-    
+
     return url;
   } catch(error) {
     console.error("Error generating presigned URL:", error);
