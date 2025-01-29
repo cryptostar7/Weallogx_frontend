@@ -1,7 +1,11 @@
 import {S3Client, GetObjectCommand} from "@aws-sdk/client-s3"
 import {getSignedUrl} from "@aws-sdk/s3-request-presigner"
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 
-const s3Client = new S3Client({ region: "us-east-1" });
+const s3Client = new S3Client({ 
+  region: "us-east-1",
+  credentials: fromNodeProviderChain(),
+});
 
 export async function getPresignedUrl(bucketName, objectUrl){
   try {
