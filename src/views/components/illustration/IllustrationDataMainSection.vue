@@ -1128,7 +1128,6 @@ import {
   getScenarioStep2,
   setScenarioStep2,
   mapClientList,
-  getPresignedUrl
 } from "../../../services/helper.js";
 
 // Refernce URL 1 - "https://mozilla.github.io/pdf.js/build/pdf.js";
@@ -1685,33 +1684,45 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        getPresignedUrl('eps-textract-pdf', url)
-         .then((presignedUrl) => {
-          if (!presignedUrl) {
-            console.error("Failed to generate presigned URL");
-            return;
-          }
-          var loadingTask = pdfjsLib.getDocument(presignedUrl);
-          loadingTask.promise.then(
-            function (pdf) {
-              // Fetch the pdf page
-              document.getElementById("pdfPreview").innerHTML = null;
-              for (var i = 1; i <= pdf.numPages; i++) {
-                generateCanvas(i, pdf);
-              }
-              document.getElementById("stopLoaderBtn").click();
-              return new bootstrap.Modal(
-                document.getElementById("pdfPreviewCanvasModal")
-              ).show();
-            },
-            function (reason) {
-              // PDF loading error
-              document.getElementById("stopLoaderBtn").click();
-              toast.error(reason.message);
+        const objectKey = url.split('amazonaws.com/')[1];
+        let api_url = getUrl("s3_url") + `?object_key=${objectKey}`
+        get(api_url, authHeader())
+          .then((response) => {
+            if (!response) {
+              console.error("Failed to generate presigned URL");
+              return;
             }
-          );
-        })
-      }
+            const presignedUrl = response.data.url;
+            var loadingTask = pdfjsLib.getDocument(presignedUrl);
+            loadingTask.promise.then(
+              function (pdf) {
+                // Fetch the pdf page
+                document.getElementById("pdfPreview").innerHTML = null;
+                for (var i = 1; i <= pdf.numPages; i++) {
+                  generateCanvas(i, pdf);
+                }
+                document.getElementById("stopLoaderBtn").click();
+                return new bootstrap.Modal(
+                  document.getElementById("pdfPreviewCanvasModal")
+                ).show();
+              },
+              function (reason) {
+                // PDF loading error
+                document.getElementById("stopLoaderBtn").click();
+                toast.error(reason.message);
+              }
+            );
+          })
+          .catch((error) => {
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+        }
 
       function generateCanvas(i, pdf) {
         // Create a class attributes:

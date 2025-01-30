@@ -179,6 +179,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/retirement_buffer/income_rider/`;
     case 'incomeRiderSimulation':
       return `${baseUrl}/retirement_buffer/income_rider_simulation/`;
+    case 's3_url':
+      return `${baseUrl}/scenario/get-presigned-url/`
     default:
       return baseUrl;
   }
