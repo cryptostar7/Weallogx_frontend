@@ -38,7 +38,7 @@
             </router-link>
           </li>
           <li class="nav-item text-center">
-            <a :href="`${$apiUrl()}/report/html_to_pdf/${$route.params.report}`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Download Report" @click="showDownloadToast()">
+            <a :href="`${$apiUrl()}/report/html_to_pdf/${$route.params.report}/`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Download Report" @click="showDownloadToast()">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="17" y="15" width="2" height="4" rx="1" transform="rotate(-180 17 15)" fill="black" />
                 <rect x="2" y="15" width="2" height="4" rx="1" transform="rotate(-180 2 15)" fill="black" />
