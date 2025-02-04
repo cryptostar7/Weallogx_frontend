@@ -20,7 +20,7 @@ const store = createStore({
           { id: 3, name: "IRR Analysis", key: 'hst_irr_analysis' },
           { id: 4, name: "Total Values", key: 'hst_total_values' },
           { id: 5, name: "Cumulative Values", key: 'hst_cumulative_values' },
-          { id: 6, name: "Comparative Values", key: 'hst_comparative_values' },
+          // { id: 6, name: "Comparative Values", key: 'hst_comparative_values' },
         ],
         active: {
           cmp_comparative_table: true,
@@ -34,7 +34,7 @@ const store = createStore({
           hst_irr_analysis: true,
           hst_total_values: true,
           hst_cumulative_values: true,
-          hst_comparative_values: true,
+          // hst_comparative_values: true,
         },
         active_cards: {
           cmp_comparative_table: [
