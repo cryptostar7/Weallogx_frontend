@@ -263,7 +263,7 @@ export default {
 
     if (recentCard) {
       this.data.cummulative_income[1].type = "Most Recent";
-      this.data.cummulative_income[1].income = recentCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[1].income = recentCard.commulative_income.cummulative_income;
       this.data.cummulative_income[1].starting_date = recentCard.discloser.start_year;
       this.data.cummulative_income[1].period = recentCard.discloser.period;
 
@@ -275,7 +275,7 @@ export default {
 
     if (worstCard) {
       this.data.cummulative_income[2].type = "Worst";
-      this.data.cummulative_income[2].income = worstCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[2].income = worstCard.commulative_income.cummulative_income;
       this.data.cummulative_income[2].starting_date = worstCard.discloser.start_year;
       this.data.cummulative_income[2].period = worstCard.discloser.period;
 
@@ -287,7 +287,7 @@ export default {
 
     if (medianCard) {
       this.data.cummulative_income[3].type = "Median";
-      this.data.cummulative_income[3].income = medianCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[3].income = medianCard.commulative_income.cummulative_income;
       this.data.cummulative_income[3].starting_date = medianCard.discloser.start_year;
       this.data.cummulative_income[3].period = medianCard.discloser.period;
 
@@ -299,7 +299,7 @@ export default {
 
     if (bestCard) {
       this.data.cummulative_income[4].type = "Best";
-      this.data.cummulative_income[4].income = bestCard.commulative_income.cummulative_icome;
+      this.data.cummulative_income[4].income = bestCard.commulative_income.cummulative_income;
       this.data.cummulative_income[4].starting_date = bestCard.discloser.start_year;
       this.data.cummulative_income[4].period = bestCard.discloser.period;
 
