@@ -105,12 +105,18 @@
 <script>
 import HistoricalSimulationSteps from "../common/HistoricalSimulationSteps.vue";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
+import { get, patch } from "../../../network/requests.js";
+import { getUrl } from "../../../network/url.js";
+import {
+  authHeader,
+} from "../../../services/helper";
 
 export default {
   components: { HistoricalSimulationSteps, ScenarioLabelComponent },
   data() {
     return {
-      doNotShowAgreement: localStorage.getItem("histotcal-agreement-hide"),
+      doNotShowAgreement: false,
+      user: 0,
     };
   },
   mounted() {
@@ -133,13 +139,33 @@ export default {
         document.body.removeAttribute("style");
       }
     });
+
+    this.checkAgreement();
   },
 
   methods: {
     hideAgreement: function() {
-      localStorage.setItem("histotcal-agreement-hide", 1);
       this.doNotShowAgreement = true;
+      const data = { historical_disclosure_agreement: true };
+      patch(`${getUrl("user")}${this.user}/`, data, authHeader());
     },
+    checkAgreement: function() {
+      get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
+      .then(response => {
+        console.log(response.data.data)
+        this.doNotShowAgreement = response.data.data.user.historical_disclosure_agreement
+        this.user = response.data.data.user.id
+      })
+      .catch(error => {
+        if (
+          error.code === "ERR_BAD_RESPONSE" ||
+          error.code === "ERR_NETWORK"
+        ) {
+          this.$toast.error(error.message);
+        }
+        this.$store.dispatch("loader", false);
+      });
+    }
   },
 };
 </script>

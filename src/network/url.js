@@ -3,6 +3,8 @@ const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
 export const getUrl = (type) => {
   const baseUrl = getBaseUrl();
   switch (type) {
+    case 'user':
+      return `${baseUrl}/auth/users/`;
     case 'signup':
       return `${baseUrl}/auth/register/`;
     case 'user-exists':
