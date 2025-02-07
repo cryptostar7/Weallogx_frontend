@@ -375,6 +375,14 @@ export default {
           }
         });
       }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab && e.target.checked) {
+          const checkbox = document.getElementById(`enhancements1${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
     // Flat credit/bonus apply to all tabs
     removeFcApllyAllIndex: function () {
@@ -551,6 +559,14 @@ export default {
           }
         });
       }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab && e.target.checked) {
+          const checkbox = document.getElementById(`enhancements${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
   },
   computed: {

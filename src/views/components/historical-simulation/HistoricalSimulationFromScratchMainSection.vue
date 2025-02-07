@@ -1060,17 +1060,19 @@ export default {
         `performance_checkbox${tab}`,
         obj.performance_multiplier ? 1 : 0
       );
+      
+      if(tab == 1) {
+        this.setChecked(
+            `applyAllPm${tab}`,
+            obj.performance_multiplier_apply_for_all_indexes ? true : false
+        );
 
-      this.setChecked(
-          `applyAllPm${tab}`,
-          obj.performance_multiplier_apply_for_all_indexes ? true : false
-      );
-
-      this.setChecked(
-          `applyAllPmf${tab}`,
-          obj.performance_multiplier_fees_apply_for_all_indexes
-          ? true : false
-      );
+        this.setChecked(
+            `applyAllPmf${tab}`,
+            obj.performance_multiplier_fees_apply_for_all_indexes
+            ? true : false
+        );
+      };
 
       if (obj.performance_multiplier) {
         this.setInputWithId(
@@ -1103,15 +1105,17 @@ export default {
         obj.flat_credit_bonus ? 1 : 0
       );
 
-      this.setChecked(
-        `applyAllFc${tab}`,
-        obj.flat_credit_apply_for_all_indexes ? true : false // Set checked based on obj.applyAllPm
-      );
+      if(tab == 1 ) {
+        this.setChecked(
+          `applyAllFc${tab}`,
+          obj.flat_credit_apply_for_all_indexes ? true : false // Set checked based on obj.applyAllPm
+        );
 
-      this.setChecked(
-        `applyAllFcf${tab}`,
-        obj.flat_credit_bonus_fees_same_in_all_years ? true : false // Set checked based on obj.applyAllPm
-      );
+        this.setChecked(
+          `applyAllFcf${tab}`,
+          obj.flat_credit_bonus_fees_same_in_all_years ? true : false // Set checked based on obj.applyAllPm
+        );
+      }
 
       if (obj.flat_credit_bonus) {
         this.setInputWithId(
