@@ -55,6 +55,7 @@
               min="0"
               max="10"
               :id="`credit_bonus_input${currentTab}`"
+              @change="applyFcToAllIndex"
             />
           </div>
           <div class="multiplierInputDiv mt-3">
@@ -87,6 +88,7 @@
                   min="1"
                   :max="illustrateYear"
                   ref="customInputRef"
+                  @change="applyFcToAllIndex"
                 />
               </div>
             </div>
@@ -234,11 +236,13 @@
       type="hidden"
       :value="schedule_type"
       :id="`credit_schedule_type${currentTab}`"
+      @change="applyFcToAllIndex"
     />
     <input
       type="hidden"
       :value="customAmount || startYear"
       :id="`crd_start_year${currentTab}`"
+      @change="applyFcToAllIndex"
     />
   </div>
 </template>
@@ -266,6 +270,182 @@ export default {
       this.startYear = item;
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
+      let currentTab = Number(this.$props.currentTab);
+      document.getElementById(
+        `crd_start_year${currentTab}`
+      ).value = item
+      this.applyFcToAllIndex(item);
+    },
+    isChecked: function (id) {
+      return document.getElementById(id).checked;
+    },
+    isAnyFcAppliedToggle: function () {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach((tab) => {
+        if (this.isChecked(`applyAllFc${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+
+      return toggle;
+    },
+    // check data is valid or not for flat credit bonus
+    validateFcValues: function (tab, subTab) {
+      let valid = true;
+      let currentTab = Number(this.$props.currentTab);
+      let credit_type = document.getElementById(
+        `credit_type${currentTab}`
+      ).value;
+
+      if (tab) {
+        credit_type = tab;
+      }
+
+      if (credit_type === "schedule") {
+        let credit_schedule_type = document.getElementById(
+          `credit_schedule_type${currentTab}`
+        ).value;
+
+        if (subTab) {
+          credit_schedule_type = subTab;
+        }
+
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = "";
+          if (credit_schedule_type === "amount") {
+            value = document.getElementById(
+              `crd_schedule_amt${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+          } else {
+            value = document.getElementById(
+              `crd_schedule_rate${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+          }
+          if (!value) {
+            valid = false;
+          }
+        }
+      }
+
+      if (!valid) {
+        this.removeFcApllyAllIndex();
+      }
+
+      return valid;
+    },
+    // handle apply to all index strategies for flat credit bonus
+    applyFcToAllIndex: function (e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let credit_type = document.getElementById(
+        `credit_type${currentTab}`
+      ).value;
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyFcAppliedToggle() &&
+        credit_type === "schedule" &&
+        !this.validateFcValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let credit_bonus = document.getElementById(
+        `credit_bonus_input${currentTab}`
+      ).value; // get current tab credit bonus input value
+
+      let start_year = document.getElementById(
+        `crd_start_year${currentTab}`
+      ).value; // get current tab start year input value
+
+      if (!this.isAnyFcAppliedToggle()) {
+        tabs.forEach((tab) => {
+          if (currentTab !== tab) {
+            // document.getElementById(`applyAllFc${tab}`).checked =
+            //   !e.target.checked; // unchecked the toggle input
+            // document.getElementById(`applyAllFc${tab}`).disabled =
+            //   !e.target.checked; // disabled the toggle input
+            // document
+            //   .getElementById(`applyAllFcLabel${tab}`)
+            //   .classList.toggle("disabled"); // disabled the label
+            // document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
+
+            if (credit_type === "schedule") {
+              document.getElementById(`nav-flatSchedule-tab${tab}`).click(); // open the schedule value tab in all tabs
+              document.getElementById(`credit_type${tab}`).value = "schedule";
+            } else {
+              document
+                .getElementById(`navCreadit-flatfixedValue-tab${tab}`)
+                .click(); // open the fixed value tab in all tabs
+              document.getElementById(`credit_type${tab}`).value = "fixed";
+            }
+            this.$emit("setApplyFcAllIndex", true);
+          }
+        });
+
+        if (credit_type === "schedule") {
+          let credit_schedule_type = document.getElementById(
+            `credit_schedule_type${currentTab}`
+          ).value;
+          let schedule_input_id = `crd_schedule_rate`;
+
+          if (credit_schedule_type === "amount") {
+            schedule_input_id = `crd_schedule_amt`;
+          }
+
+          // set schedule type value in all tabs
+          tabs.forEach((tab) => {
+            if (currentTab !== tab) {
+              document.getElementById(`credit_schedule_type${tab}`).value =
+                credit_schedule_type;
+            }
+          });
+
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `${schedule_input_id}${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach((tab) => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `${schedule_input_id}${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach((tab) => {
+            if (currentTab !== tab) {
+              document.getElementById(`credit_bonus_input${tab}`).value =
+                credit_bonus; // set credit bonus value in all tabs
+
+              document.getElementById(`crd_start_year${tab}`).value =
+                start_year; // set start year value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach((tab) => {
+          if (currentTab !== tab && !this.isAnyFcAppliedToggle()) {
+            document
+              .getElementById(`applyAllFcLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab) {
+          const checkbox = document.getElementById(`enhancements${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
     updateLatestData: function () {
       this.tab = document.getElementById(`credit_type${this.currentTab}`).value;
@@ -278,6 +458,8 @@ export default {
       ).value;
       if (years.includes(year)) {
         this.startYear = year;
+        this.customAmount = "";
+        this.$refs.customInputRef.value = "";
       } else {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;

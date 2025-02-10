@@ -49,6 +49,7 @@
               max="10"
               value="1"
               :id="`multiplier_input${currentTab}`"
+              @change="applyPmToAllIndex"
             />
           </div>
           <div class="multiplierInputDiv mt-3">
@@ -81,6 +82,8 @@
                   min="1"
                   :max="illustrateYear"
                   ref="customInputRef"
+                  @change="applyPmToAllIndex"
+                  :id="`multiplier_input_year${currentTab}`"
                 />
               </div>
             </div>
@@ -134,11 +137,17 @@
         </div>
       </div>
     </div>
-    <input type="hidden" :value="tab" :id="`performance_type${currentTab}`" />
+    <input 
+      type="hidden" 
+      :value="tab" 
+      :id="`performance_type${currentTab}`" 
+      @change="applyPmToAllIndex"
+    />
     <input
       type="hidden"
       :value="customAmount || startYear"
       :id="`prf_start_year${currentTab}`"
+      @change="applyPmToAllIndex"
     />
   </div>
 </template>
@@ -165,6 +174,151 @@ export default {
       this.startYear = item;
       this.customAmount = "";
       this.$refs.customInputRef.value = "";
+      let currentTab = Number(this.$props.currentTab);
+      document.getElementById(
+        `prf_start_year${currentTab}`
+      ).value = item
+      this.applyPmToAllIndex(item);
+    },
+    isChecked: function (id) {
+      return document.getElementById(id).checked;
+    },
+    isAnyPmAppliedToggle: function () {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let toggle = false;
+
+      tabs.forEach((tab) => {
+        if (this.isChecked(`applyAllPm${tab}`) && currentTab !== tab) {
+          toggle = true;
+        }
+      });
+
+      return toggle;
+    },
+    // check data is valid or not for performance multiplier
+    validatePmValues: function (tab) {
+      let valid = true;
+      let currentTab = Number(this.$props.currentTab);
+      let performance_type = document.getElementById(
+        `performance_type${currentTab}`
+      ).value;
+
+      if (tab) {
+        performance_type = tab;
+      }
+
+      if (performance_type === "schedule") {
+        for (let i = 0; i < this.illustrateYear; i++) {
+          let value = document.getElementById(
+            `multiplier_schedule${this.$props.currentTab}${i + 1}`
+          ).value; // get current schedule input value
+
+          if (!value) {
+            valid = false;
+          }
+        }
+      }
+
+      if (!valid) {
+        this.removePmApllyAllIndex();
+      }
+
+      return valid;
+    },
+    applyPmToAllIndex: function (e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let performance_type = document.getElementById(
+        `performance_type${currentTab}`
+      ).value;
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyPmAppliedToggle() &&
+        performance_type === "schedule" &&
+        !this.validatePmValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let performance_multiplier = document.getElementById(
+        `multiplier_input${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      let start_year = document.getElementById(
+        `prf_start_year${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      if (!this.isAnyPmAppliedToggle()) {
+        tabs.forEach((tab) => {
+          if (currentTab !== tab) {
+            // document.getElementById(`applyAllPm${tab}`).checked =
+            //   !e.target.checked; // unchecked the toggle input
+            // document.getElementById(`applyAllPm${tab}`).disabled =
+            //   !e.target.checked; // disabled the toggle input
+            // document
+            //   .getElementById(`applyAllPmLabel${tab}`)
+            //   .classList.toggle("disabled"); // disabled the label
+            // document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
+
+            if (performance_type === "schedule") {
+              document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
+              document.getElementById(`performance_type${tab}`).value =
+                "schedule";
+            } else {
+              document.getElementById(`nav-fixedValue-tab${tab}`).click(); // open the fixed value tab in all tabs
+              document.getElementById(`performance_type${tab}`).value = "fixed";
+            }
+            this.$emit("setApplyPmAllIndex", true);
+          }
+        });
+
+        if (performance_type === "schedule") {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `multiplier_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach((tab) => {
+              if (currentTab !== tab) {
+                document.getElementById(
+                  `multiplier_schedule${tab}${i + 1}`
+                ).value = value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach((tab) => {
+            if (currentTab !== tab) {
+              performance_type;
+
+              document.getElementById(`multiplier_input${tab}`).value =
+                performance_multiplier; // set multiplier value in all tabs
+
+              document.getElementById(`prf_start_year${tab}`).value =
+                start_year; // set start year value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach((tab) => {
+          if (currentTab !== tab && !this.isAnyPmAppliedToggle()) {
+            document
+              .getElementById(`applyAllPmLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab) {
+          const checkbox = document.getElementById(`enhancements1${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
     updateLatestData: function () {
       this.tab = document.getElementById(
@@ -176,6 +330,8 @@ export default {
       );
       if (years.includes(year)) {
         this.startYear = year;
+        this.customAmount = "";
+        this.$refs.customInputRef.value = "";
       } else {
         this.customAmount = year;
         this.$refs.customInputRef.value = year;
