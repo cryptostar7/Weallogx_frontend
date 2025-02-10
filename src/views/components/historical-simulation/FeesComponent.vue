@@ -893,6 +893,7 @@ export default {
           this.customPerformanceFeeAmount = "";
           this.$refs.customPMRef.value = "";
         } else {
+          this.performanceFeeAmount = "0";
           this.customPerformanceFeeAmount = ml;
           this.$refs.customPMRef.value = ml;
         }
@@ -917,6 +918,7 @@ export default {
           this.customFlatAmount = "";
           this.$refs.customFCRef.value = "";
         } else {
+          this.flatAmount = "0";
           this.customFlatAmount = ff;
           this.$refs.customFCRef.value = ff;
         }
