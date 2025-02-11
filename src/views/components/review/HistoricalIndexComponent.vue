@@ -216,7 +216,7 @@
               }`"
               :value="
                 $props.data.flat_fixed_value
-                  ? $props.data.flat_fixed_credit_bonus
+                  ? `${$props.data.flat_fixed_credit_bonus}%`
                   : 'N/A'
               "
               readonly
@@ -330,11 +330,7 @@
               :class="`form-control ${
                 $props.data.performance_multiplier_fees ? '' : 'NAData'
               }`"
-              :value="
-                $props.data.performance_multiplier
-                  ? $props.data.performance_multiplier_fees
-                  : 'N/A'
-              "
+              :value="formattedPerformanceMultiplierFees"
               readonly
             />
             <p
@@ -443,11 +439,7 @@
               :class="`form-control ${
                 $props.data.flat_credit_bonus ? '' : 'NAData'
               }`"
-              :value="
-                $props.data.flat_credit_bonus
-                  ? $props.data.flat_credit_bonus_fees
-                  : 'N/A'
-              "
+              :value="formattedFlatCreditFees"
               readonly
             />
             <p
@@ -549,7 +541,7 @@
             <input
               type="text"
               class="form-control"
-              :value="`${$props.data.high_cap_fee}%`"
+              :value="formattedHighCapFees"
             />
           </div>
         </div>
@@ -571,6 +563,20 @@ export default {
       this.$emit("setSchedule", data, type, title);
     },
   },
+  computed: {
+    formattedPerformanceMultiplierFees() {
+      const value = this.$props.data.performance_multiplier_fees;
+      return ["0", "0.0", "0.00", 0].includes(value) ? "N/A" : `${value}%`;
+    },
+    formattedFlatCreditFees() {
+      const value = this.$props.data.flat_credit_bonus_fees;
+      return ["0", "0.0", "0.00", 0].includes(value) ? "N/A" : `${value}%`;
+    },
+    formattedHighCapFees() {
+      const value = this.$props.data.high_cap_fee;
+      return ["0", "0.0", "0.00", 0].includes(value) ? "N/A" : `${value}%`;
+    }
+  }
 };
 </script>
 <style lang=""></style>
