@@ -22,7 +22,7 @@
           these terms prior to purchasing a subscription through an Order Form
           access to the WealthLogix Content.  Once you purchase access to the
           WealthLogix Content, you acknowledge and agree that you are bound
-          by these terms.  
+          by these terms.   
         </p>
         <br></br>
         <p>
@@ -41,6 +41,7 @@
           WEATLHLOGIX CONTENT IS NOT A SUBSTITUTE FOR
           INDIVIDUALIZED,   PROFESSIONAL   OR   PRACTICAL
           RESEARCH AND ANALYSIS.  
+
           YOU ACKNOWLEDGE AND AGREE THAT THE SITES
           PROVIDE YOU WITH ACCESS TO INFORMATION AND
           OTHER DATA (“DATA”) INCLUDING FROM EXTERNAL
@@ -53,17 +54,18 @@
           NO RESPONSIBILITY FOR SUCH DATA  INCLUDING THE
           CREATION, USE OR MANAGEMENT OF SUCH DATA BY
           ANY SOURCES.  YOU ACKNOWLEDGE AND AGREE THAT
-          ANY   HISTORICAL   SIMULATIONS   AND   ANALYSIS
+          ANY   HISTORICAL   SIMULATIONS  AND  ANALYSIS
           RELATED THERETO IS BASED UPON THEORETICAL
           SYNTHETIC ASSETS AND ACTUAL RESULTS WILL VARY.
-          OTHER TYPES OF ANALYSES ARE ALSO AVAILABLE CAN
-          APPEAR TO BE PREDICTIVE IN NATURE, RELATING TO
-          EITHER   PAST   PERFORMANCE   OR   FUTURE
+          OTHER TYPES OF ANALYSES ARE ALSO AVAILABLE AND
+          CAN   APPEAR   TO   BE   PREDICTIVE   IN   NATURE,
+          SUGGESTING EITHER PAST PERFORMANCE OR FUTURE
           PERFORMANCE   OF   CERTAIN   ASSETS,   TOOLS,   OR
-          SITUATIONS. YOU ACKNOWLEDGE THESE OUTCOMES
-          ARE HYPOTHETICAL AND DO NOT REPRESENT ACTUAL
-          RESULTS   OR   A   GUARANTEED,   OR   EVEN   LIKELY,
-          FUTURE OUTCOME.
+          SITUATIONS   AND   YOU   ACKNOWLEDGE   THESE
+          OUTCOMES ARE ALSO HYPOTHETICAL AND DO NOT
+          REPRESENT ACTUAL RESULTS OR A GUARANTEED, OR
+          EVEN LIKELY, FUTURE OUTCOME.
+
           YOU   FURTHER   ACKNOWLEDGE   AND   AGREE   THAT
           LICENSOR HAS NO LIABILITY TO YOU FOR THE USE BY
           ANY SOURCE (INCLUDING WITHOUT LIMITATION, A
@@ -71,13 +73,19 @@
           DIRECTLY OR INDIRECTLY, TO SUCH SOURCE (EVEN IF
           YOU USE THE SITES TO PROVIDE YOUR INFORMATION
           TO THE SOURCE).
+          
           YOU   FURTHER   ACKNOWLEDGE   AND   AGREE   THAT
           LICENSOR IS NOT RESPONSIBLE FOR ANY ERRORS OR
           OMISSIONS IN THE DATA PROVIDED TO YOU OR IN THE
           DATA ACCESSIBLE TO YOU THROUGH THE SITES.
-          YOU FURTHER ACKNOWLEDGE THAT WEALGTHLOGIX
-          IS NOT LIABLE FOR HOW YOU USE THE DATA, TOOLS,
-          OR ANALYSES PROVIDED TO YOU OR CREATED BY YOU.
+
+          YOU FURTHER ACKNOWLEDGE THAT WEALTHLOGIX IS
+          NOT LIABLE TO YOU OR TO ANY THIRD PARTY FOR
+          HOW   YOU   OR   ANYONE   USES   THE   WEALTHLOGIX
+          CONTENT, SUBSCRIPTIONS, AND SITES INCLUDING ANY
+          DATA, TOOLS, OR ANALYSES PROVIDED TO YOU OR
+          ANYONE ELSE OR CREATED BY YOU OR ANYONE ELSE.
+
           LICENSOR PROVIDES ACCESS TO THE WEALTHLOGIX
           CONTENT   TO   LICENSEE   ON   THE   TERMS   AND
           CONDITIONS SET FORTH IN THIS AGREEMENT, THE
@@ -100,11 +108,39 @@
           NOT   LICENSE   ACCESS   TO   THE   WEALTHLOGIX
           CONTENT TO LICENSEE AND YOU MUST NOT ACCESS
           THE WEALTHLOGIX CONTENT. YOU ALSO REPRESENT
-          AND   WARRANT   THAT   YOU   ARE   DULY   LICENSED
-          THROUGH   THE   APPROPRIATE   REGULATORY
-          AUTHORITY(IES) AND/OR HAVE AUTHORITY TO USE
-          WEALTHLOGIX AND ITS SITES IN YOUR PROFESSIONAL
-          CAPACITY.</b>
+          AND WARRANT THAT ALL INFORMATION PROVIDED ON
+          THE ORDER FORM IS TRUE AND ACCURATE AND THAT
+          YOU   ARE   DULY   LICENSED   THROUGH   THE
+          APPROPRIATE   REGULATORY   AUTHORITY(IES)   TO
+          CONDUCT YOUR BUSINESS IN YOUR PROFESSIONAL
+          CAPACITY.
+          
+          YOU ACKNOWLEDGE AND AGREE THAT YOU WILL
+          INDEMNIFY THE COMPANY, ITS SUBSIDIARIES, AND ITS
+          AND   THEIR   RESPECTIVE   SUCCESSORS,   ASSIGNS,
+          DIRECTORS,   OFFICERS,   EMPLOYEES,   AGENTS,
+          STOCKHOLDERS   AND   AFFILIATES   (COLLECTIVELY,
+          “Indemnified Parties”) FROM AND AGAINST ALL CLAIMS,
+          DEMANDS,  ACTIONS,  SUITS,  DAMAGES,  LIABILITIES,
+          LOSSES,   SETTLEMENTS,   JUDGMENTS,   COSTS   AND
+          EXPENSES WHETHER OR NOT INVOLVING A CLAIM BY A
+          THIRD   PARTY   INCLUDING   BUT   NOT   LIMITED   TO
+          REASONABLE   ATTORNEYS’   FEES   AND   COSTS
+          (COLLECTIVELY, “Claims”), ACTUALLY OR ALLEGEDLY,
+          DIRECTLY   OR   INDIRECTLY,   ARISING   OUT   OF   OR
+          RELATED TO (A) ANY BREACH BY YOU (OR ANYONE
+          WHO GAINED ACCESS TO WEALTHLOGIX CONTENT
+          THROUGH   YOU)   OF   ANY   REPRESENTATION   OR
+          WARRANTY CONTAINED IN THIS AGREEMENT, (2) ANY
+          BREACH OR VIOLATION BY YOU (OR ANYONE WHO
+          GAINED   ACCESS   TO   WEALTHLOGIX   CONTENT
+          THROUGH   YOU)   OF   ANY   COVENANT   OR   OTHER
+          OBLIGATION OR DUTY UNDER THIS AGREEMENT OR
+          UNDER   APPLICABLE   LAW,   (3)   ANY   THIRD   PARTY
+          CLAIMS WHICH ARISE OUT OF, RELATE TO OR RESULT
+          FROM ANY ACT OR OMISSION BY YOU (OR ANYONE
+          WHO GAINED ACCESS TO WEALTHLOGIX CONTENT
+          THROUGH YOU).</b>
         </p>
 
         <h3>1. Definitions</h3>
@@ -113,10 +149,10 @@
           terms have the following meanings:
           <ul>
             <li>"<b>Authorized Users</b>" means solely the person or entity identified on the
-                Order Form who is purchasing access to the WealthLogix Content
-                subject to the terms of use set forth in the Order Form and subject to the
-                terms of this EULA and who is authorized to access the WealthLogix
-                Content pursuant to the license granted under this Agreement.
+            Order Form who is purchasing access to the WealthLogix Content
+            subject to the terms of use set forth in the Order Form and subject to the
+            terms of this EULA and who is authorized to access the WealthLogix
+            Content pursuant to the license granted under this Agreement.
             </li>
             <li>
               "<b>Documentation</b>" means the materials relating to the WealthLogix
@@ -325,14 +361,11 @@
           This Agreement and the license
           granted hereunder shall remain in effect until terminated as set forth
           herein this Section 9 (the "<b>Term</b>").  Licensee may terminate this
-          Agreement by ceasing to use and destroying all copies of the
-          WealthLogix Content and Documentation or by failing to renew a
-          subscription under an Order Form.  Licensor may terminate this
+          Agreement through notice to the Company of non-renewal of the
+          Order Form in accordance with its terms. Licensor may terminate this
           Agreement, effective upon written notice to Licensee, if Licensee,
           breaches this Agreement.  Upon expiration or earlier termination of
-          this Agreement, the license granted hereunder shall also terminate, and
-          Licensee shall cease using and destroy all copies of the WealthLogix
-          Content and Documentation.
+          this Agreement, the license granted hereunder shall also terminate.
         </p>
 
         <h3>10. Warranty Disclaimer</h3>
@@ -380,24 +413,24 @@
                 LICENSEE   OR   ANY   THIRD   PARTY   FOR   ANY   USE,
                 INTERRUPTION,   DELAY,   OR   INABILITY   TO   USE   THE
                 WEALTHLOGIX CONTENT; LOST REVENUES OR PROFITS;
-                DELAYS,   INTERRUPTION,   OR   LOSS   OF   SERVICES,
-                BUSINESS,   OR   GOODWILL;   LOSS   OR   CORRUPTION   OF
-                DATA;   LOSS   RESULTING   FROM   SYSTEM   OR   SYSTEM
-                SERVICE   FAILURE,   MALFUNCTION,   OR   SHUTDOWN;
-                FAILURE   TO   ACCURATELY   TRANSFER,   READ,   OR
-                TRANSMIT   INFORMATION;   FAILURE   TO   UPDATE   OR
-                PROVIDE   CORRECT   INFORMATION;   SYSTEM
-                INCOMPATIBILITY   OR   PROVISION   OF   INCORRECT
-                COMPATIBILITY INFORMATION; OR BREACHES IN SYSTEM
-                SECURITY; OR FOR ANY CONSEQUENTIAL, INCIDENTAL,
-                INDIRECT, EXEMPLARY, SPECIAL, OR PUNITIVE DAMAGES,
-                WHETHER ARISING OUT OF OR IN CONNECTION WITH THIS
+                DELAYS, INTERRUPTION, OR LOSS OF SERVICES, BUSINESS,
+                OR GOODWILL; LOSS OR CORRUPTION OF DATA; LOSS
+                RESULTING FROM SYSTEM OR SYSTEM SERVICE FAILURE,
+                MALFUNCTION,   OR   SHUTDOWN;   FAILURE   TO
+                ACCURATELY   TRANSFER,   READ,   OR   TRANSMIT
+                INFORMATION;   FAILURE   TO   UPDATE   OR   PROVIDE
+                CORRECT INFORMATION; SYSTEM INCOMPATIBILITY OR
+                PROVISION   OF   INCORRECT   COMPATIBILITY
+                INFORMATION; OR BREACHES IN SYSTEM SECURITY; OR
+                FOR   ANY   CONSEQUENTIAL,   INCIDENTAL,   INDIRECT,
+                EXEMPLARY, SPECIAL, OR PUNITIVE DAMAGES, WHETHER
+                ARISING   OUT   OF   OR   IN   CONNECTION   WITH   THIS
                 AGREEMENT,   BREACH   OF   CONTRACT,   REGULATORY
-                ACTIONS   OR   ENFORCEMENTS,   TORT   (INCLUDING
+                ACTIONS   OR   ENFORCEMENTS,  TORT   (INCLUDING
                 NEGLIGENCE), OR OTHERWISE, REGARDLESS OF WHETHER
                 SUCH DAMAGES WERE FORESEEABLE AND WHETHER OR
                 NOT THE LICENSOR WAS ADVISED OF THE POSSIBILITY OF
-                SUCH DAMAGES
+                SUCH DAMAGES.
               </li>
               <li>
                 IN NO EVENT WILL LICENSOR'S AND ITS
@@ -405,7 +438,6 @@
                 RESPECTIVE   LICENSORS'   AND   SERVICE   PROVIDERS',
                 COLLECTIVE   AGGREGATE   LIABILITY   UNDER   OR   IN
                 CONNECTION WITH THIS AGREEMENT OR ITS SUBJECT
-                MATTER, UNDER ANY LEGAL OR EQUITABLE THEORY,
                 MATTER, UNDER ANY LEGAL OR EQUITABLE THEORY,
                 INCLUDING BREACH OF CONTRACT, TORT (INCLUDING
                 NEGLIGENCE),   STRICT   LIABILITY,   AND   OTHERWISE,
@@ -423,7 +455,7 @@
 
         <h3>12. Export Regulation </h3>
         <p>
-          The WealthLogix Content and
+          The   WealthLogix   Content   and
           Documentation may be subject to US export control laws, including
           the Export Control Reform Act and its associated regulations. The
           Licensee shall not, directly or indirectly, export, re-export, or release
@@ -531,7 +563,7 @@
               Agreement shall operate or be construed as a waiver thereof; nor shall
               any single or partial exercise of any right, remedy, power, or privilege
               hereunder preclude any other or further exercise thereof or the exercise
-              of any other right, remedy, power, or privilege
+              of any other right, remedy, power, or privilege.
             </li>
             <li>
               If any term or provision of this Agreement is
