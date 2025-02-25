@@ -182,7 +182,7 @@ const store = createStore({
       plans: {
         free_trial: 'FREE_TRIAL_PLAN',
         monthly: 'MONTHLY_PLAN',
-        yearly: 'YEARLY_PLAN',
+        annual: 'YEARLY_PLAN',
       },
       share_report: {
         client: {
