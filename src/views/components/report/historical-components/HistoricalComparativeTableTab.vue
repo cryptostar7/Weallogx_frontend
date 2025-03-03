@@ -673,113 +673,113 @@ export default {
         }
       }
 
-      if (this.table.min.result) {
-        let data = this.table.min.result.chart_output;
-        let list = data.age;
+      if (this.table.worst) {
+        let data = this.table.worst.comparative_table;
+        let list = data.net_balance;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
             tempList.push({
-              distributions: data.tax_free_distributions
-                ? data.tax_free_distributions[i]
+              distributions: data.distributions
+                ? data.distributions[i]
                 : null,
-              net_balance: data.eoy_accumulation_value_after_credit
-                ? data.eoy_accumulation_value_after_credit[i]
+              net_balance: data.net_balance
+                ? data.net_balance[i]
                 : null,
             });
           }
           this.data[2].list = tempList;
-          this.data[2].period = this.table.discloser.period;
-          this.data[2].starting_date = this.$customDateFormat(this.table.min.result.starting_date, 'M/D/y');
-          this.data[2].strategy_average = this.table.min.result.stratgy_average;
-          this.data[2].strategy_carg = this.table.min.result.tsa_cagr_percent;
-          this.data[2].irr = this.table.min.result.irr_percent;
-          this.summary_data.data[2].distribution.total = this.table.min.result.cummulative_distribution;
-          this.summary_data.data[2].distribution.total_value = this.table.min.result.cummulative_income_total_value;
-          this.summary_data.data[2].distribution.surplus = this.table.min.result.Surplus;
+          this.data[2].period = this.table.worst.discloser.period;
+          this.data[2].starting_date = this.table.worst.discloser.start_year
+          this.data[2].strategy_average = data.strategy_avg;
+          this.data[2].strategy_carg = data.strategy_cagr;
+          this.data[2].irr = data.irr_percent;
+          this.summary_data.data[2].distribution.total = data.summary_analysis.distributions;
+          this.summary_data.data[2].distribution.total_value = data.summary_analysis.total_value;
+          this.summary_data.data[2].distribution.surplus = data.summary_analysis.surplus;
         }
       }
 
-      if (this.table.most_recent) {
-        let data = this.table.most_recent.result.chart_output;
-        let list = data.age;
+      if (this.table.recent) {
+        let data = this.table.recent.comparative_table;
+        let list = data.net_balance;
 
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
             tempList.push({
-              distributions: data.tax_free_distributions
-                ? data.tax_free_distributions[i]
+              distributions: data.distributions
+                ? data.distributions[i]
                 : null,
-              net_balance: data.eoy_accumulation_value_after_credit
-                ? data.eoy_accumulation_value_after_credit[i]
+              net_balance: data.net_balance
+                ? data.net_balance[i]
                 : null,
             });
           }
 
           this.data[1].list = tempList;
-          this.data[1].period = this.table.discloser.period;
-          this.data[1].starting_date = this.$customDateFormat(this.table.most_recent.result.starting_date, 'M/D/y');
-          this.data[1].strategy_average = this.table.most_recent.result.stratgy_average;
-          this.data[1].strategy_carg = this.table.most_recent.result.tsa_cagr_percent;
-          this.data[1].irr = this.table.most_recent.result.irr_percent;
-          this.summary_data.data[1].distribution.total = this.table.most_recent.result.cummulative_distribution;
-          this.summary_data.data[1].distribution.total_value = this.table.most_recent.result.cummulative_income_total_value;
-          this.summary_data.data[1].distribution.surplus = this.table.most_recent.result.Surplus;
+          this.data[1].period = this.table.recent.discloser.period;
+          this.data[1].starting_date = this.table.recent.discloser.start_year
+          this.data[1].strategy_average = data.strategy_avg;
+          this.data[1].strategy_carg = data.strategy_cagr;
+          this.data[1].irr = data.irr_percent;
+          this.summary_data.data[1].distribution.total = data.summary_analysis.distributions;
+          this.summary_data.data[1].distribution.total_value = data.summary_analysis.total_value;
+          this.summary_data.data[1].distribution.surplus = data.summary_analysis.surplus;
         }
       }
 
       if (this.table.median) {
-        let data = this.table.median.result.chart_output;
-        let list = data.age;
+        let data = this.table.median.comparative_table;
+        let list = data.net_balance;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
             tempList.push({
-              distributions: data.tax_free_distributions
-                ? data.tax_free_distributions[i]
+              distributions: data.distributions
+                ? data.distributions[i]
                 : null,
-              net_balance: data.eoy_accumulation_value_after_credit
-                ? data.eoy_accumulation_value_after_credit[i]
+              net_balance: data.net_balance
+                ? data.net_balance[i]
                 : null,
             });
           }
           this.data[3].list = tempList;
-          this.data[3].period = this.table.discloser.period;
-          this.data[3].starting_date = this.$customDateFormat(this.table.median.result.starting_date, 'M/D/y');
-          this.data[3].strategy_average = this.table.median.result.stratgy_average;
-          this.data[3].strategy_carg = this.table.median.result.tsa_cagr_percent;
-          this.data[3].irr = this.table.median.result.irr_percent;
-          this.summary_data.data[3].distribution.total = this.table.median.result.cummulative_distribution;
-          this.summary_data.data[3].distribution.total_value = this.table.median.result.cummulative_income_total_value;
-          this.summary_data.data[3].distribution.surplus = this.table.median.result.Surplus;
+          this.data[3].period = this.table.median.discloser.period;
+          this.data[3].starting_date = this.table.median.discloser.start_year;
+          this.data[3].strategy_average = data.strategy_avg;
+          this.data[3].strategy_carg = data.strategy_cagr;
+          this.data[3].irr = data.irr_percent;
+          this.summary_data.data[3].distribution.total = data.summary_analysis.distributions;
+          this.summary_data.data[3].distribution.total_value = data.summary_analysis.total_value;
+          this.summary_data.data[3].distribution.surplus = data.summary_analysis.surplus;
         }
       }
 
-      if (this.table.max) {
-        let data = this.table.max.result.chart_output;
-        let list = data.age;
+      if (this.table.best) {
+        let data = this.table.best.comparative_table;
+        let list = data.net_balance;
         if (list.length) {
           let tempList = [];
           for (let i = 0; i < list.length; i++) {
             tempList.push({
-              distributions: data.tax_free_distributions
-                ? data.tax_free_distributions[i]
+              distributions: data.distributions
+                ? data.distributions[i]
                 : null,
-              net_balance: data.eoy_accumulation_value_after_credit
-                ? data.eoy_accumulation_value_after_credit[i]
+              net_balance: data.net_balance
+                ? data.net_balance[i]
                 : null,
             });
           }
           this.data[4].list = tempList;
-          this.data[4].period = this.table.discloser.period;
-          this.data[4].starting_date = this.$customDateFormat(this.table.max.result.starting_date, 'M/D/y');
-          this.data[4].strategy_average = this.table.max.result.stratgy_average;
-          this.data[4].strategy_carg = this.table.max.result.tsa_cagr_percent;
-          this.data[4].irr = this.table.max.result.irr_percent;
-          this.summary_data.data[4].distribution.total = this.table.max.result.cummulative_distribution;
-          this.summary_data.data[4].distribution.total_value = this.table.max.result.cummulative_income_total_value;
-          this.summary_data.data[4].distribution.surplus = this.table.max.result.Surplus;
+          this.data[4].period = this.table.best.discloser.period;
+          this.data[4].starting_date = this.table.best.discloser.start_year;
+          this.data[4].strategy_average = data.strategy_avg;
+          this.data[4].strategy_carg = data.strategy_cagr;
+          this.data[4].irr = data.irr_percent;
+          this.summary_data.data[4].distribution.total = data.summary_analysis.distributions;
+          this.summary_data.data[4].distribution.total_value = data.summary_analysis.total_value;
+          this.summary_data.data[4].distribution.surplus = data.summary_analysis.surplus;
         }
       }
     },

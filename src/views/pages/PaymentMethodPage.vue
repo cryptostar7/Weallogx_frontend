@@ -54,6 +54,11 @@
                     <div ref="cardCvc" id='cvv_no' class="numberInputs card-cvv-number"></div>
                   </div>
                 </div>
+                <div>
+                  <label for="promo_code">Promo Code</label>
+                  <input type="text" id="promo_code" v-model="promoCode" placeholder="Enter promo code" class="promoCodeInput" />
+
+                </div>
                 <button type="submit" class="paymentformBtns">Save & Continue</button>
               </div>
             </div>
@@ -107,7 +112,7 @@ import {
   getSearchParams,
 } from "../../services/helper";
 let stripe = Stripe(
-    `pk_test_51M3zSZSJJRL1HZKGqUikA8saFoEGb9nskOEzUWqIGaNYau1EAnR063C61dUyroh1smFz30gZLm5R3horE7S6HoN300svIlgfZa`
+    `pk_test_51ObkK6AnNnieLLFYJX30BOvMWih1D2J9cuH6XJmaQPwXZwgmrsusGsuhcPgU69bR9ex4yaOFusg79z352cIsAJmo00tO5QURnS`
   ),
   elements = stripe.elements(),
   card,
@@ -121,6 +126,7 @@ export default {
     return {
       user: false,
       cardHolder: "",
+      promoCode: ""
     };
   },
   mounted() {
@@ -184,6 +190,9 @@ export default {
     createUser: function() {
       var formData = this.$store.state.forms.temp_user;
       formData["stripe_source_id"] = this.user.stripe_source_id;
+      if (this.promoCode) {
+        formData["promo_code"] = this.promoCode;
+      }
       this.$store.dispatch("userTempForm", formData);
 
       post(getUrl("signup"), formData)

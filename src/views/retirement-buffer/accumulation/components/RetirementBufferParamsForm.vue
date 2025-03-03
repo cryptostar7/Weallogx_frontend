@@ -487,7 +487,7 @@ export default {
       payload.sort_type = this.$store.state.data.retirement_buffer.sort_type;
 
       post(
-        `${getUrl("retirement-buffer")}${endpoint}_combined`,
+        `${getUrl("retirement-buffer")}${endpoint}_combined/`,
         payload,
         authHeader()
       )
@@ -509,7 +509,7 @@ export default {
             sort: payload.sort_type,
             data: response.data,
           }); // Update results in vuexy store
-          this.getSimulationData(`${endpoint}_simulation`, payload);
+          this.getSimulationData(`${endpoint}_simulation/`, payload);
         })
         .catch((error) => {
           this.$store.dispatch("loader", false);
@@ -533,7 +533,7 @@ export default {
     },
     getSimulationData: function (endpoint, payload) {
       this.$store.dispatch("loader", true);
-      post(`${getUrl("retirement-buffer")}${endpoint}`, payload, authHeader())
+      post(`${getUrl("retirement-buffer")}${endpoint}/`, payload, authHeader())
         .then((response) => {
           this.$store.dispatch("loader", false);
 

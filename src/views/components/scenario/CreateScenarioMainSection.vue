@@ -714,7 +714,8 @@ export default {
   methods: {
     // get previous scebario detail information
     getScenarionDetails: function () {
-      get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+      const scenario_url = getUrl("scenario");
+      get(`${scenario_url}${this.$route.params.scenario}/`, authHeader())
         .then((response) => {
           let id = false;
           if (response.data.data.scenerio_details) {
@@ -945,7 +946,7 @@ export default {
         get(
           `${getUrl(
             template ? "scenario-detail-templates" : "scenario-details"
-          )}${id}`,
+          )}${id}/`,
           authHeader()
         )
           .then((response) => {
@@ -1004,7 +1005,7 @@ export default {
     populateScheduleTax: function (id, template = false) {
       this.$store.dispatch("loader", true);
       get(
-        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}`,
+        `${getUrl(template ? "scenario-schedule-templates" : "schedule")}${id}/`,
         authHeader()
       )
         .then((response) => {

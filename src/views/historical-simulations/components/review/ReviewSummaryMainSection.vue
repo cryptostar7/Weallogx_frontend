@@ -101,7 +101,7 @@ mounted() {
 
   // get simulation data
   this.$store.dispatch("loader", true);
-  get(`${getUrl("simulations")}${this.$route.params.simulation}`, authHeader())
+  get(`${getUrl("simulations")}${this.$route.params.simulation}/`, authHeader())
     .then(response => {
       var detail = response.data.data;
       this.$store.dispatch("activeSimulation", detail);

@@ -1238,16 +1238,14 @@ export default {
         list: [],
       };
 
-      if (data.chart_output) {
-        let chart_data = data.chart_output;
-        let list = chart_data.age;
+      if (data.net_balance) {
+        let list = data.net_balance;
         if (list.length) {
           let tempList = [];
           let distributions =
-            chart_data.distributions || chart_data.tax_free_distributions;
+            data.distributions
           let account_value =
-            chart_data.net_balance ||
-            chart_data.eoy_accumulation_value_after_credit;
+            data.net_balance
           for (let i = 0; i < list.length; i++) {
             tempList.push({
               distributions: distributions ? distributions[i] : null,
@@ -1255,8 +1253,8 @@ export default {
             });
           }
           finalData.list = tempList;
-          finalData.strategy_average = data.stratgy_average;
-          finalData.strategy_cagr = data.tsa_cagr_percent || data.tsa_cagr;
+          finalData.strategy_average = data.strategy_avg;
+          finalData.strategy_cagr = data.strategy_cagr;
           finalData.irr = data.irr_percent;
         }
       }
@@ -1268,15 +1266,15 @@ export default {
           id: 0,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.result,
+              this.historical.recent.comparative_values.rolling_data,
               "TSA - Most Recent"
             ),
-            worst: this.filterData(this.historical.min.result, "TSA - Worst"),
+            worst: this.filterData(this.historical.worst.comparative_values.rolling_data, "TSA - Worst"),
             median: this.filterData(
-              this.historical.median.result,
+              this.historical.median.comparative_values.rolling_data,
               "TSA - Median"
             ),
-            best: this.filterData(this.historical.max.result, "TSA - Best"),
+            best: this.filterData(this.historical.best.comparative_values.rolling_data, "TSA - Best"),
           },
         },
         summary: {
@@ -1285,43 +1283,42 @@ export default {
             most_recent: {
               distribution: {
                 total:
-                  this.historical.most_recent.result.sum_of_all_total_value,
+                  this.historical.recent.comparative_values.rolling_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.most_recent.result
-                    .cummulative_income_total_value,
-                shortfall: this.historical.most_recent.result.Surplus,
+                  this.historical.recent.comparative_values.rolling_data.summary_analysis.total_value,
+                shortfall: 0
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.result.sum_of_all_total_value,
+                total: this.historical.worst.comparative_values.rolling_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.min.result.cummulative_income_total_value,
-                shortfall: this.historical.min.result.Surplus,
+                  this.historical.worst.comparative_values.rolling_data.summary_analysis.total_value,
+                shortfall: 0
               },
-              net_balance: { total: "", total_value: "", shortfall: "" },
+              net_balance: { total: "0", total_value: "0", shortfall: "0" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.result.sum_of_all_total_value,
+                total: this.historical.median.comparative_values.rolling_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.median.result.cummulative_income_total_value,
-                shortfall: this.historical.median.result.Surplus,
+                  this.historical.median.comparative_values.rolling_data.summary_analysis.total_value,
+                shortfall: 0
               },
-              net_balance: { total: "", total_value: "", shortfall: "" },
+              net_balance: { total: "0", total_value: "0", shortfall: "0" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.result.sum_of_all_total_value,
+                total: this.historical.best.comparative_values.rolling_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.max.result.cummulative_income_total_value,
-                shortfall: this.historical.max.result.Surplus,
+                  this.historical.best.comparative_values.rolling_data.summary_analysis.total_value,
+                shortfall: 0
               },
-              net_balance: { total: "", total_value: "", shortfall: "" },
+              net_balance: { total: "0", total_value: "0", shortfall: "0" },
             },
           },
         },
@@ -1333,19 +1330,19 @@ export default {
           id: 1,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.taxable_most_recent,
+              this.historical.recent.comparative_values.cv1_data,
               "Brokerage Account - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.taxable_min,
+              this.historical.worst.comparative_values.cv1_data,
               "Brokerage Account - Worst"
             ),
             median: this.filterData(
-              this.historical.median.taxable_median,
+              this.historical.median.comparative_values.cv1_data,
               "Brokerage Account - Median"
             ),
             best: this.filterData(
-              this.historical.max.taxable_max,
+              this.historical.best.comparative_values.cv1_data,
               "Brokerage Account - Best"
             ),
           },
@@ -1356,39 +1353,38 @@ export default {
             most_recent: {
               distribution: {
                 total:
-                  this.historical.most_recent.taxable_most_recent
-                    .total_distribution,
+                  this.historical.recent.comparative_values.cv1_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.most_recent.taxable_most_recent.total_value,
+                  this.historical.recent.comparative_values.cv1_data.summary_analysis.total_value,
                 shortfall:
-                  this.historical.most_recent.taxable_most_recent.shortfall,
+                  this.historical.recent.comparative_values.cv1_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.taxable_min.total_distribution,
-                total_value: this.historical.min.taxable_min.total_value,
-                shortfall: this.historical.min.taxable_min.shortfall,
+                total: this.historical.worst.comparative_values.cv1_data.distributions,
+                total_value: this.historical.worst.comparative_values.cv1_data.total_value,
+                shortfall: this.historical.worst.comparative_values.cv1_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.taxable_median.total_distribution,
-                total_value: this.historical.median.taxable_median.total_value,
-                shortfall: this.historical.median.taxable_median.shortfall,
+                total: this.historical.median.comparative_values.cv1_data.summary_analysis.distributions,
+                total_value: this.historical.median.comparative_values.cv1_data.summary_analysis.total_value,
+                shortfall: this.historical.median.comparative_values.cv1_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.taxable_max.total_distribution,
-                total_value: this.historical.max.taxable_max.total_value,
-                shortfall: this.historical.max.taxable_max.shortfall,
+                total: this.historical.best.comparative_values.cv1_data.summary_analysis.distributions,
+                total_value: this.historical.best.comparative_values.cv1_data.summary_analysis.total_value,
+                shortfall: this.historical.best.comparative_values.cv1_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -1402,19 +1398,19 @@ export default {
           id: 2,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.pre_tax_most_recent,
+              this.historical.recent.comparative_values.cv2_data,
               "401K/IRA - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.pre_tax_min,
+              this.historical.worst.comparative_values.cv2_data,
               "401K/IRA - Worst"
             ),
             median: this.filterData(
-              this.historical.median.pre_tax_median,
+              this.historical.median.comparative_values.cv2_data,
               "401K/IRA - Median"
             ),
             best: this.filterData(
-              this.historical.max.pre_tax_max,
+              this.historical.best.comparative_values.cv2_data,
               "401K/IRA - Best"
             ),
           },
@@ -1425,41 +1421,40 @@ export default {
             most_recent: {
               distribution: {
                 total:
-                  this.historical.most_recent.pre_tax_most_recent
-                    .total_distribution,
+                  this.historical.recent.comparative_values.cv2_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.most_recent.pre_tax_most_recent.total_value,
+                  this.historical.recent.comparative_values.cv2_data.summary_analysis.total_value,
                 shortfall:
-                  this.historical.most_recent.pre_tax_most_recent.shortfall,
+                  this.historical.recent.comparative_values.cv2_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.pre_tax_min.total_distribution,
+                total: this.historical.worst.comparative_values.cv2_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.min.pre_tax_min.total_value,
+                  this.historical.worst.comparative_values.cv2_data.summary_analysis.total_value,
                 shortfall:
-                  this.historical.min.pre_tax_min.shortfall,
+                  this.historical.worst.comparative_values.cv2_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.pre_tax_median.total_distribution,
-                total_value: this.historical.median.pre_tax_median.total_value,
-                shortfall: this.historical.median.pre_tax_median.shortfall,
+                total: this.historical.median.comparative_values.cv2_data.summary_analysis.distributions,
+                total_value: this.historical.median.comparative_values.cv2_data.summary_analysis.total_value,
+                shortfall: this.historical.median.comparative_values.cv2_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.pre_tax_max.total_distribution,
-                total_value: this.historical.max.pre_tax_max.total_value,
-                shortfall: this.historical.max.pre_tax_max.shortfall,
+                total: this.historical.best.comparative_values.cv2_data.summary_analysis.distributions,
+                total_value: this.historical.best.comparative_values.cv2_data.summary_analysis.total_value,
+                shortfall: this.historical.best.comparative_values.cv2_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -1473,19 +1468,19 @@ export default {
           id: 3,
           categories: {
             most_recent: this.filterData(
-              this.historical.most_recent.tda_most_recent,
+              this.historical.recent.comparative_values.cv3_data,
               "Annuity - Most Recent"
             ),
             worst: this.filterData(
-              this.historical.min.tda_min,
+              this.historical.worst.comparative_values.cv3_data,
               "Annuity - Worst"
             ),
             median: this.filterData(
-              this.historical.median.tda_median,
+              this.historical.median.comparative_values.cv3_data,
               "Annuity - Median"
             ),
             best: this.filterData(
-              this.historical.max.tda_max,
+              this.historical.best.comparative_values.cv3_data,
               "Annuity - Best"
             ),
           },
@@ -1496,39 +1491,38 @@ export default {
             most_recent: {
               distribution: {
                 total:
-                  this.historical.most_recent.tda_most_recent
-                    .total_distribution,
+                  this.historical.recent.comparative_values.cv3_data.summary_analysis.distributions,
                 total_value:
-                  this.historical.most_recent.tda_most_recent.total_value,
+                  this.historical.recent.comparative_values.cv3_data.summary_analysis.total_value,
                 shortfall:
-                  this.historical.most_recent.tda_most_recent.shortfall,
+                  this.historical.recent.comparative_values.cv3_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             worst: {
               distribution: {
-                total: this.historical.min.tda_min.total_distribution,
-                total_value: this.historical.min.tda_min.total_value,
-                shortfall: this.historical.min.tda_min.shortfall,
+                total: this.historical.worst.comparative_values.cv3_data.summary_analysis.distributions,
+                total_value: this.historical.worst.comparative_values.cv3_data.summary_analysis.total_value,
+                shortfall: this.historical.worst.comparative_values.cv3_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             median: {
               distribution: {
-                total: this.historical.median.tda_median.total_distribution,
-                total_value: this.historical.median.tda_median.total_value,
-                shortfall: this.historical.median.tda_median.shortfall,
+                total: this.historical.median.comparative_values.cv3_data.summary_analysis.distributions,
+                total_value: this.historical.median.comparative_values.cv3_data.summary_analysis.total_value,
+                shortfall: this.historical.median.comparative_values.cv3_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
 
             best: {
               distribution: {
-                total: this.historical.max.tda_max.total_distribution,
-                total_value: this.historical.max.tda_max.total_value,
-                shortfall: this.historical.max.tda_max.shortfall,
+                total: this.historical.best.comparative_values.cv3_data.summary_analysis.distributions,
+                total_value: this.historical.best.comparative_values.cv3_data.summary_analysis.total_value,
+                shortfall: this.historical.best.comparative_values.cv3_data.summary_analysis.surplus,
               },
               net_balance: { total: "", total_value: "", shortfall: "" },
             },
@@ -1540,20 +1534,16 @@ export default {
       let cvCount = 4;
       this.table.data[0] = this.mapColumn1Data().data;
       this.table.data[1] = this.mapColumn2Data().data;
-      this.table.data[2] = this.mapColumn3Data().data;
-      this.table.data[3] = this.mapColumn4Data().data;
-
-      if (
-        this.table.data[2] &&
-        !this.table.data[2].categories[this.tsa_type].list.length
-      ) {
+      if(this.historical.recent.comparative_values.cv2_data) {
+        this.table.data[2] = this.mapColumn3Data().data;
+      }
+      else{
         cvCount--;
       }
-
-      if (
-        this.table.data[3] &&
-        !this.table.data[3].categories[this.tsa_type].list.length
-      ) {
+      if(this.historical.recent.comparative_values.cv3_data) {
+        this.table.data[3] = this.mapColumn4Data().data;
+      }
+      else {
         cvCount--;
       }
 
@@ -1561,8 +1551,13 @@ export default {
 
       this.summary_data.data[0] = this.mapColumn1Data().summary;
       this.summary_data.data[1] = this.mapColumn2Data().summary;
-      this.summary_data.data[2] = this.mapColumn3Data().summary;
-      this.summary_data.data[3] = this.mapColumn4Data().summary;
+      if(this.historical.recent.comparative_values.cv2_data) {
+        this.summary_data.data[2] = this.mapColumn3Data().summary;
+      }
+      if(this.historical.recent.comparative_values.cv3_data) {
+        this.summary_data.data[3] = this.mapColumn4Data().summary;
+      }
+  
       this.summary_data.deposits.totals =
         this.historical.lirp_data.total_deposit;
     },
@@ -1600,8 +1595,8 @@ export default {
       return this.$store.state.data.report.historical;
     },
     rollingTime() {
-      return this.$store.state.data.report.historical.discloser
-        ? this.$store.state.data.report.historical.discloser.period
+      return this.$store.state.data.report.historical.best.discloser
+        ? this.$store.state.data.report.historical.best.discloser.period
         : "0";
     },
   },

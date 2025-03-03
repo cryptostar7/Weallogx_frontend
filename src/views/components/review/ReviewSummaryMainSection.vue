@@ -115,7 +115,7 @@ export default {
 
     // get scenario data
     this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+    get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
       .then(response => {
         var detail = response.data.data;
         this.$store.dispatch("activeScenario", detail);

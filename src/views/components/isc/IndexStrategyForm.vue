@@ -741,7 +741,8 @@ export default {
   computed: {
     years() {
       let array = [];
-      let currentYear = new Date().getFullYear();
+      // let currentYear = new Date().getFullYear();
+      let currentYear = 2024;
       for (let index = 1960; index < currentYear; index++) {
         array.push(index);
       }

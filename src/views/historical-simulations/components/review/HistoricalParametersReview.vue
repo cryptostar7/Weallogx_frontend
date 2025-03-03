@@ -370,7 +370,7 @@
       getHistoricalData: function () {
         if (this.$props.id) {
           this.$store.dispatch("loader", true);
-          get(`${getUrl("historical-parameters")}${this.$props.id}`, authHeader())
+          get(`${getUrl("historical-parameters")}${this.$props.id}/`, authHeader())
             .then((response) => {
               this.$store.dispatch("loader", false);
               let detail = response.data.data;

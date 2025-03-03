@@ -1669,7 +1669,7 @@ export default {
     },
     getIllustrationData: function (id) {
       this.$store.dispatch("loader", true);
-      get(`${getUrl("illustration")}${id}`, authHeader())
+      get(`${getUrl("illustration")}${id}/`, authHeader())
         .then((response) => {
           var result = response.data.data.illustration_data;
           let illustration_data = [];
@@ -2029,7 +2029,7 @@ export default {
     },
     //populate previous data
     populatePreviousData: function (id) {
-      get(`${getUrl("historical-simulation-object")}${id}`, authHeader()).then(
+      get(`${getUrl("historical-simulation-object")}${id}/`, authHeader()).then(
         (response) => {
           let data = response.data;
           if (data.use_current_illustration) {
@@ -2093,7 +2093,7 @@ export default {
 
     // populate previous data
     this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+    get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
       .then((response) => {
         let id = response.data.data.historical_media;
         this.historicalMedia = id;

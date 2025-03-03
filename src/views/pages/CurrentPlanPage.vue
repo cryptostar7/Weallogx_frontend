@@ -15,7 +15,7 @@
                 <h6 v-if="current_plan.active">You are using {{$getPlanName(current_plan.plan_type)}}</h6>
                 <p v-if="current_plan.active">{{timeleft}} <span>{{timeleft > 1 ? 'days' :'day'}} left</span></p>
                 <p class="notificationPlanPara">If cases or days are expired, the annual subscription will be automatically implemented.</p>
-                <a href="https://keithcooper439.lpages.co/plans/" class="plan-upgrad-button">Upgrade Plan</a>
+                <a href="https://wealthlogix.com/plans/" class="plan-upgrade-button">Upgrade Plan</a>
               </div>
             </div>
           </div>

@@ -1060,6 +1060,19 @@ export default {
         `performance_checkbox${tab}`,
         obj.performance_multiplier ? 1 : 0
       );
+      
+      if(tab == 1) {
+        this.setChecked(
+            `applyAllPm${tab}`,
+            obj.performance_multiplier_apply_for_all_indexes ? true : false
+        );
+
+        this.setChecked(
+            `applyAllPmf${tab}`,
+            obj.performance_multiplier_fees_apply_for_all_indexes
+            ? true : false
+        );
+      };
 
       if (obj.performance_multiplier) {
         this.setInputWithId(
@@ -1091,6 +1104,18 @@ export default {
         `credit_checkbox${tab}`,
         obj.flat_credit_bonus ? 1 : 0
       );
+
+      if(tab == 1 ) {
+        this.setChecked(
+          `applyAllFc${tab}`,
+          obj.flat_credit_apply_for_all_indexes ? true : false // Set checked based on obj.applyAllPm
+        );
+
+        this.setChecked(
+          `applyAllFcf${tab}`,
+          obj.flat_credit_bonus_fees_same_in_all_years ? true : false // Set checked based on obj.applyAllPm
+        );
+      }
 
       if (obj.flat_credit_bonus) {
         this.setInputWithId(
@@ -1249,7 +1274,7 @@ export default {
     // get previous data
     populateHistoricalSimulationData: function (id, portfolio = false) {
       get(
-        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}`,
+        `${getUrl(portfolio ? "historical-portfolio" : "historical")}${id}/`,
         authHeader()
       )
         .then((response) => {
@@ -1392,7 +1417,7 @@ export default {
 
     // populate historical data if historical data id exist in scenario
     this.$store.dispatch("loader", true);
-    get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+    get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
       .then((response) => {
         let id = response.data.data.historical;
         this.historicalId = id;

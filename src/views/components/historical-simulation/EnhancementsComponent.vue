@@ -325,7 +325,7 @@ export default {
             document
               .getElementById(`applyAllPmLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
-            document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
+            // document.getElementById(`enhancements1${tab}`).click(); // open the performance multiplier tab in all tabs
 
             if (performance_type === "schedule") {
               document.getElementById(`nav-schedule-tab${tab}`).click(); // open the schedule value tab in all tabs
@@ -375,6 +375,14 @@ export default {
           }
         });
       }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab) {
+          const checkbox = document.getElementById(`enhancements1${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
     // Flat credit/bonus apply to all tabs
     removeFcApllyAllIndex: function () {
@@ -485,7 +493,7 @@ export default {
             document
               .getElementById(`applyAllFcLabel${tab}`)
               .classList.toggle("disabled"); // disabled the label
-            document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
+            // document.getElementById(`enhancements${tab}`).click(); // open the flat credit bonus tab in all tabs
 
             if (credit_type === "schedule") {
               document.getElementById(`nav-flatSchedule-tab${tab}`).click(); // open the schedule value tab in all tabs
@@ -551,6 +559,14 @@ export default {
           }
         });
       }
+      tabs.forEach((tab) => {
+        if(currentTab !== tab) {
+          const checkbox = document.getElementById(`enhancements${tab}`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        }
+      });
     },
   },
   computed: {

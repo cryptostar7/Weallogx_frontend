@@ -1262,7 +1262,7 @@ export default {
       if (getSimulationAPI) {
         this.$store.dispatch("loader", true);
         get(
-          `${getUrl("simulations")}${this.$route.params.simulation}`,
+          `${getUrl("simulations")}${this.$route.params.simulation}/`,
           authHeader()
         )
           .then((response) => {
@@ -1524,7 +1524,7 @@ export default {
       }
 
       get(
-        `${getUrl(template ? templateUrl : "historical-illustrations")}${id}`,
+        `${getUrl(template ? templateUrl : "historical-illustrations")}${id}/`,
         authHeader()
       )
         .then((response) => {
@@ -1562,7 +1562,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("historical-illustration-template")}${id}`, authHeader())
+      get(`${getUrl("historical-illustration-template")}${id}/`, authHeader())
         .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");
@@ -1695,25 +1695,44 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(
-          function (pdf) {
-            // Fetch the pdf page
-            document.getElementById("pdfPreview2").innerHTML = null;
-            for (var i = 1; i <= pdf.numPages; i++) {
-              generateCanvas(i, pdf);
+        const objectKey = url.split('amazonaws.com/')[1];
+        let api_url = getUrl("s3_url") + `?object_key=${objectKey}`
+        get(api_url, authHeader())
+          .then((response) => {
+            if (!response) {
+              console.error("Failed to generate presigned URL");
+              return;
             }
-            document.getElementById("stopLoaderBtn2").click();
-            return new bootstrap.Modal(
-              document.getElementById("pdfPreview2CanvasModal")
-            ).show();
-          },
-          function (reason) {
-            // PDF loading error
-            document.getElementById("stopLoaderBtn2").click();
-            toast.error(reason.message);
-          }
-        );
+            const presignedUrl = response.data.url;
+            var loadingTask = pdfjsLib.getDocument(presignedUrl);
+            loadingTask.promise.then(
+              function (pdf) {
+                // Fetch the pdf page
+                document.getElementById("pdfPreview2").innerHTML = null;
+                for (var i = 1; i <= pdf.numPages; i++) {
+                  generateCanvas(i, pdf);
+                }
+                document.getElementById("stopLoaderBtn2").click();
+                return new bootstrap.Modal(
+                  document.getElementById("pdfPreview2CanvasModal")
+                ).show();
+              },
+              function (reason) {
+                // PDF loading error
+                document.getElementById("stopLoaderBtn2").click();
+                toast.error(reason.message);
+              }
+            );
+          })
+          .catch((error) => {
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
       }
 
       function generateCanvas(i, pdf) {

@@ -1152,11 +1152,12 @@ export default {
           this.comparative.lirp_data.rate_of_return;
 
         this.data.distribution[1].longevity =
-          this.comparative.cv_1.match_distributions.longevity;
+          this.death_benefit.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit =
-          this.comparative.cv_1.match_distributions.death_benefit;
+          this.death_benefit.cv_1.match_distributions.death_benefit;
+        console.log('this.comparative.cv_1.match_distributions is', this.comparative.cv_1.match_distributions)
         this.data.distribution[1].ending_value =
-          this.comparative.cv_1.match_distributions.surrender_value;
+          this.death_benefit.cv_1.match_distributions.surrender_value;
 
         this.data.rate_of_returns[1].longevity =
           this.comparative.cv_1.match_rates_of_return.longevity;
@@ -1168,11 +1169,11 @@ export default {
 
       if (Object.values(this.comparative.cv_2).length) {
         this.data.distribution[2].longevity =
-          this.comparative.cv_2.match_distributions.longevity;
+          this.death_benefit.cv_2.match_distributions.longevity;
         this.data.distribution[2].death_benefit =
-          this.comparative.cv_2.match_distributions.death_benefit;
+          this.death_benefit.cv_2.match_distributions.death_benefit;
         this.data.distribution[2].ending_value =
-          this.comparative.cv_2.match_distributions.surrender_value;
+          this.death_benefit.cv_2.match_distributions.surrender_value;
 
         this.data.rate_of_returns[2].longevity =
           this.comparative.cv_2.match_rates_of_return.longevity;
@@ -1184,11 +1185,11 @@ export default {
 
       if (Object.values(this.comparative.cv_3).length) {
         this.data.distribution[3].longevity =
-          this.comparative.cv_3.match_distributions.longevity;
+          this.death_benefit.cv_3.match_distributions.longevity;
         this.data.distribution[3].death_benefit =
-          this.comparative.cv_3.match_distributions.death_benefit;
+          this.death_benefit.cv_3.match_distributions.death_benefit;
         this.data.distribution[3].ending_value =
-          this.comparative.cv_3.match_distributions.surrender_value;
+          this.death_benefit.cv_3.match_distributions.surrender_value;
 
         this.data.rate_of_returns[3].longevity =
           this.comparative.cv_3.match_rates_of_return.longevity;
@@ -1198,17 +1199,17 @@ export default {
           this.comparative.cv_3.match_rates_of_return.surrender_value;
       }
 
-      if (this.$store.state.data.report.comparative_longevity) {
-        this.setLongevity();
-      }
+      // if (this.$store.state.data.report.comparative_longevity) {
+      //   this.setLongevity();
+      // }
 
-      if (this.$store.state.data.report.comparative_ending_value) {
-        this.setEndingValue();
-      }
+      // if (this.$store.state.data.report.comparative_ending_value) {
+      //   this.setEndingValue();
+      // }
 
-      if (this.$store.state.data.report.comparative_death_benefit) {
-        this.setDeathBenefit();
-      }
+      // if (this.$store.state.data.report.comparative_death_benefit) {
+      //   this.setDeathBenefit();
+      // }
     }
   },
   watch: {

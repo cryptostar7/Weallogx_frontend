@@ -1,74 +1,128 @@
 <template lang="">
   <div>
-    <navbar-component />
-    <section class="authMaindiv-area">
-      <div class="container middleContainer">
-        <div class="authMainDiv">
-          <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
-          <form class="authformRightPart" @submit="submitForm">
-            <div class="authInnerDiv">
-              <h1 class="headingArea2 fs-32">Create an Account</h1>
-              <p class="subheading">And let the epic journey begin...</p>
-              <span class="heading-underline"></span>
-              <div class="d-flex flex-gap-10">
+    <div v-if="!showTermsModal">
+      <navbar-component />
+      <section class="authMaindiv-area">
+        <div class="container middleContainer">
+          <div class="authMainDiv">
+            <img src="@/assets/images/user/auth-side-img.png" class="authImg" alt="image">
+            <form class="authformRightPart" @submit="submitForm">
+              <div class="authInnerDiv">
+                <h1 class="headingArea2 fs-32">Create an Account</h1>
+                <p class="subheading">And let the epic journey begin...</p>
+                <span class="heading-underline"></span>
+                <div class="d-flex flex-gap-10">
+                  <div>
+                    <div class="auth-form">
+                      <!-- <label for="first_name" :class="user.first_name ? 'active' : ''">First Name</label> -->
+                      <input 
+                        type="text" 
+                        id="first_name" 
+                        v-model="user.first_name" 
+                        autocomplete="off" 
+                        :placeholder="user.first_name ? user.first_name : 'First Name'"
+                      />
+                    </div>
+                    <label class="error fs-14 d-block text-center" v-if="user.first_name === ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
+                  </div>
+                  <div class="auth-form">
+                    <!-- <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label> -->
+                    <input 
+                      type="text" 
+                      id="lastName" 
+                      v-model="user.last_name" 
+                      autocomplete="off" 
+                      :placeholder="user.last_name ? user.last_name : 'Last Name'"
+                    />
+                  </div>
+                </div>
                 <div>
                   <div class="auth-form">
-                    <label for="first_name" :class="user.first_name ? 'active' : ''">First Name</label>
-                    <input type="text" id="first_name" v-model="user.first_name" autocomplete="off" placeholder=" ">
+                    <!-- <label for="email" :class="user.email ? 'active' : ''">Email</label> -->
+                    <input 
+                      type="text"
+                      id="email"
+                      v-model="user.email" 
+                      @keyup="errors.email = false" 
+                      autocomplete="off" 
+                      :placeholder="user.email ? user.email : 'Email'"
+                    />
                   </div>
-                  <label class="error fs-14 d-block text-center" v-if="user.first_name === ''">*This field is required.</label>
-                  <label class="error fs-14 d-block text-center" v-if="errors.first_name && errors.first_name[0]">{{errors.first_name[0]}}</label>
+                    <label class="error fs-14 d-block text-center" v-if="user.email === ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
                 </div>
-                <div class="auth-form">
-                  <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label>
-                  <input type="text" id="lastName" v-model="user.last_name" autocomplete="off" placeholder=" ">
+                <div>
+                  <div class="auth-form">
+                    <!-- <label for="phone" :class="user.phone_number ? 'active' : ''">Phone</label> -->
+                    <input 
+                      type="text" 
+                      id="phone" 
+                      v-model="user.phone_number" 
+                      @keyup="errors.phone_number = false" 
+                      autocomplete="off" 
+                      :placeholder="user.phone_number ? user.phone_number : 'Phone'"
+                    />
+                  </div>
+                    <label class="error fs-14 d-block text-center" v-if="user.phone_number === ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.phone_number && errors.phone_number[0]">{{errors.phone_number[0]}}</label>
                 </div>
-              </div>
-              <div>
-                <div class="auth-form">
-                  <label for="email" :class="user.email ? 'active' : ''">Email</label>
-                  <input type="text" id="email" v-model="user.email" @keyup="errors.email = false" autocomplete="off" placeholder=" ">
+                <div>
+                  <div class="auth-form">
+                    <!-- <label for="password" :class="user.password ? 'active' : ''">Password</label> -->
+                    <input 
+                      type="password" 
+                      id="password" 
+                      v-model="user.password" 
+                      @keyup="errors.password = false" 
+                      autocomplete="off" 
+                      :placeholder="user.password ? user.password : 'Password'"
+                    />
+                  </div>
+                    <label class="error fs-14 d-block text-center" v-if="user.password === ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
                 </div>
-                  <label class="error fs-14 d-block text-center" v-if="user.email === ''">*This field is required.</label>
-                  <label class="error fs-14 d-block text-center" v-if="errors.email && errors.email[0]">{{errors.email[0]}}</label>
-              </div>
-              <div>
-                <div class="auth-form">
-                  <label for="phone" :class="user.phone_number ? 'active' : ''">Phone</label>
-                  <input type="text" id="phone" v-model="user.phone_number" @keyup="errors.phone_number = false" autocomplete="off" placeholder=" ">
+                <div>
+                  <div class="auth-form">
+                    <!-- <label for="confirmPassword" :class="user.confirm_password ? 'active' : ''">Confirm Password</label> -->
+                    <input 
+                      type="password" 
+                      id="confirmPassword" 
+                      v-model="user.confirm_password" 
+                      @keyup="errors.confirm_password = false" 
+                      autocomplete="off" 
+                      :placeholder="user.confirm_password ? user.confirm_password : 'Confirm Password' "
+                    />
+                  </div>
+                    <label class="error fs-14 d-block text-center" v-if="user.confirm_password === ''">*This field is required.</label>
+                    <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
                 </div>
-                  <label class="error fs-14 d-block text-center" v-if="user.phone_number === ''">*This field is required.</label>
-                  <label class="error fs-14 d-block text-center" v-if="errors.phone_number && errors.phone_number[0]">{{errors.phone_number[0]}}</label>
-              </div>
-              <div>
-                <div class="auth-form">
-                  <label for="password" :class="user.password ? 'active' : ''">Password</label>
-                  <input type="password" id="password" v-model="user.password" @keyup="errors.password = false" autocomplete="off" placeholder=" ">
+                <div class="auth-form" style="display: flex; align-items: center;">
+ 
+                  <label for="terms" :class="user.terms_accepted ? 'active' : ''" style="font-size: 14px; display: inline-flex; align-items: center;">
+                    I agree to the Terms and Conditions
+                  </label>
+                  <input type="checkbox" id="terms" v-model="user.terms_accepted" @click="openTermsModal" style="width: 20px; height: 20px; margin-right: 10px;">
+                  <label class="error fs-14 d-block text-center" v-if="user.terms_accepted === ''">*This field is required.</label>
                 </div>
-                  <label class="error fs-14 d-block text-center" v-if="user.password === ''">*This field is required.</label>
-                  <label class="error fs-14 d-block text-center" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
-              </div>
-              <div>
-                <div class="auth-form">
-                  <label for="confirmPassword" :class="user.confirm_password ? 'active' : ''">Confirm Password</label>
-                  <input type="password" id="confirmPassword" v-model="user.confirm_password" @keyup="errors.confirm_password = false" autocomplete="off" placeholder=" ">
+                <div class="authButtonDiv">
+                  <p class="text-align-center mb-3 fs-14 pt-3">On signing up, you will get the <span class="bold">{{currentSignupPlan}}</span></p>
+                  <div>
+
+                  </div>
+                  <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
                 </div>
-                  <label class="error fs-14 d-block text-center" v-if="user.confirm_password === ''">*This field is required.</label>
-                  <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
+                <p class="authButtomPara">Already have an account? &nbsp;
+                  <router-link to="/sign-in">Sign In</router-link>
+                </p>
               </div>
-              <div class="authButtonDiv">
-                <p class="text-align-center mb-3 fs-14 pt-3">On signing up, you will get the <span class="bold">{{currentSignupPlan}}</span></p>
-                <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
-              </div>
-              <p class="authButtomPara">Already have an account? &nbsp;
-                <router-link to="/sign-in">Sign In</router-link>
-              </p>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
-    <fotter-component />
+      </section>
+      <fotter-component />
+    </div>
+    <eula-component :isVisible="showTermsModal" @close="showTermsModal = false" @agree="acceptTerms" />
   </div>
 </template>
 <script>
@@ -76,6 +130,7 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
+import EulaComponent from "../components/eula/EulaModal.vue";
 import {
   getServerErrors,
   setRefreshToken,
@@ -84,7 +139,7 @@ import {
   setCurrentUser,
 } from "../../services/helper";
 export default {
-  components: { NavbarComponent, FotterComponent },
+  components: { NavbarComponent, FotterComponent, EulaComponent },
   data() {
     return {
       user: {
@@ -96,13 +151,24 @@ export default {
         confirm_password: null,
         stripe_source_id: null,
         plan_type: null,
+        terms_accepted: false,
       },
+      showTermsModal: false,
       errors: [],
       serverError: [],
       server: [],
     };
   },
   methods: {
+    openTermsModal() {
+      if (!this.user.terms_accepted) {
+        this.showTermsModal = true;
+      }
+    },
+    acceptTerms() {
+      this.user.terms_accepted = true;
+      this.showTermsModal = false;
+    },
     isValidEmail: function() {
       if (
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/.test(this.user.email)
@@ -110,6 +176,10 @@ export default {
         return true;
       }
       return false;
+    },
+    proceedWithSignUp: function () {
+      this.showEULA = false;
+      console.log("User accepted the EULA. Proceeding...");
     },
     isValidPhone: function() {
       if (
@@ -171,6 +241,11 @@ export default {
           this.errors.confirm_password = ["Confirm password did not matched."];
           valid = false;
         }
+      }
+
+      if (!this.user.terms_accepted) {
+        this.errors.terms_accepted = ["You must accept the terms and conditions."];
+        valid = false;
       }
 
       return valid;

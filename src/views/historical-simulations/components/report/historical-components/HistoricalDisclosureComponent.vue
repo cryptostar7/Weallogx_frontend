@@ -61,14 +61,83 @@
         </div>
         <div
           :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable' : ''}`"
-        >
+        > 
+          <div style="font-size: 10px;">
+          {{disclosure_head}} <br/>
+          </div>
           <div
-            class="disclosure-textarea"
-            contenteditable="true"
-            ref="editableDiv"
-            @focus="() => (this.saveDisclosure = true)"
-            @input="handleDisclosure()"
-          ></div>
+          >
+            <div
+              style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;"
+            >
+              <div
+                v-for="(item, index) in disclosure_message"
+                :key="index"
+                :style="{
+                  borderLeft: index === 0 ? 'none' : '1px solid #ccc',
+                  padding: '0px',
+                  paddingLeft: index === 0 ? '0px' : '10px'
+                }"
+              >
+                <ul
+                  style="list-style-type: none; padding: 0; margin: 0;"
+                >
+                  <li 
+                    v-for="(value, key) in item" :key="key"
+                    :style="{
+                      fontSize: '10px'
+                    }"
+                  >
+                    <span v-if="
+                      key === 'start_year_multi' ||
+                      key === 'start_year_flat'
+                    ">
+                      Start Year: {{ value }}
+                    </span>
+
+                    <span v-else-if="
+                      value === 'Scheduled'
+                      "
+                    >
+                      {{ key }}: 
+                      <span 
+                        v-if="
+                          key === 'Performance Multiplier'
+                        "
+                        :style="{ color: 'blue' }"
+                        @click="showTableModal('performance', index)"
+                      >
+                      {{ value }}
+                      </span>
+ 
+                      <span 
+                        v-else-if="
+                          key === 'Flat Credit/Bonus'
+                        "
+                        :style="{ color: 'blue' }"
+                        @click="showTableModal('flat', index)"
+                      >
+                      {{ value }}
+                      </span>
+                    </span>
+
+                    <span v-else>
+                      {{ key }}: {{ value }}
+                    </span>
+                    
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <p
+              class="disclosure-msg"
+              contenteditable="true"
+              ref="editableDiv"
+              @focus="() => (this.saveDisclosure = true)"
+              @input="handleDisclosure()"
+            >
+            </p>
+          </div>
         </div>
         <div
           :class="`disclosure-footer d-none ${$props.hideFee ? 'd-none' : ''}`"
@@ -256,14 +325,80 @@
     </div>
   </div>
 
+  <section v-if="modal_true">
+    <div
+      class="modal fade show"
+      id="showHistoricalScheduleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      :style="{display: 'block'}"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content modalDivMain">
+          <div class="modal-header" style="border: none">
+            <button
+              type="button"
+              class="btn-close btnWhite-darkTheme"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              @click="closeTableModal()"
+            ></button>
+          </div>
+          <div class="modal-body px-5">
+            <p class="ModalHeasingPara">{{ data_title }} Schedule</p>
+            <div class="modalTableDiv">
+              <table class="table">
+                <thead v-if="data_title === 'Premium Charge'">
+                  <th>Year</th>
+                  <th>Premium Charge</th>
+                </thead>
+                <thead v-else-if="data_title === 'Flat Credit/Bonus'">
+                  <th>Year</th>
+                  <th>Amount</th>
+                </thead>
+                <thead v-else>
+                  <th>Year</th>
+                  <th>
+                    Multiplier {{ data_type === "rate" ? "Rate" : "Amount" }}
+                  </th>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in data_list" :key="index">
+                    <td data-label="Year">{{ item.year }}</td>
+                    <td
+                      data-label="Rate"
+                      v-if="$props.title === 'Performance Multiplier'"
+                    >
+                      {{ Number(item.value).toLocaleString("en-US") }}
+                    </td>
+                    <td data-label="Rate" v-else>
+                      {{ data_type === "rate" ? "" : "$" }}
+                      {{ Number(item.value).toLocaleString("en-US")
+                      }}{{ data_type === "rate" ? "%" : "" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Disclosure Required Ends -->
 </template>
 <script>
+import PerformanceMultiplier from '../../../../../views/components/modal/PerformanceMultiplierModal.vue'
 import { patch, post } from "../../../../../network/requests";
 import { getUrl } from "../../../../../network/url";
 import { authHeader } from "../../../../../services/helper";
 
 export default {
+  components: {
+    PerformanceMultiplier
+  },
   props: ["hideFee", "containerFluid", "tabType"],
 
   data() {
@@ -271,6 +406,12 @@ export default {
       saveDisclosure: false,
       disclosure_msg: "",
       disclosure_id: "",
+      modal_true: false,
+      disclosure_head: "",
+      disclosure_message: [],
+      data_list: [],
+      data_type: "",
+      data_title: "", 
     };
   },
   mounted() {
@@ -287,8 +428,139 @@ export default {
         this.$refs.editableDiv.innerHTML = item.text;
       }
     }
+    if (this.disclosures) {
+      this.mapData();
+    }
   },
   methods: {
+
+    showTableModal(word, index) {
+      let indexes = [
+        this.disclosure.index_1,
+        this.disclosure.index_2 || null,
+        this.disclosure.index_3 || null,
+      ];
+      if(word === 'performance') {
+        this.data_list = indexes[index].performace_multiplier;
+        this.data_type = 'rate';
+        this.data_title = 'Performance Multiplier';
+      }
+      else if(word === 'flat') {
+        this.data_list = indexes[index].flat_credit;
+        this.data_type = 'rate';
+        this.data_title = 'Flat Credit/Bonus';
+      }
+      this.modal_true = true;
+    },
+    closeTableModal() {
+      this.modal_true = false;
+      this.data_list = [];
+      this.data_type = '';
+      this.data_title = '';
+
+    },
+    mapData: function () {
+      let indexes = [
+        this.disclosure.index_1,
+        this.disclosure.index_2 || null,
+        this.disclosure.index_3 || null,
+      ];
+
+      let disclosure_heading = 'Index(es) Simulated:'
+      this.disclosure_head = disclosure_heading
+
+      let disclosure_text = [];
+
+      indexes.forEach((obj, index) => {
+        if(Object.keys(obj).length > 0) {
+
+          const keyMapping = {
+            index_name: "Index Strategy",
+            segment_duration: "Segment Duration",
+            cap_rate: "Cap Rate",
+            par_rate: "Participation Rate",
+            floor: "Floor",
+            margin: "Margin/Spread",
+            performace_multiplier: "Performance Multiplier",
+            flat_credit: "Flat Credit/Bonus",
+            allocation: "Allocation",
+            rolling_period: "Rolling Time Period",
+            rolling_period_analyzed: "Rolling Time Periods Analyzed" 
+          }
+
+          const percent_attributes = ["Allocation", "Cap Rate", "Participation Rate", "Margin/Spread", "Floor", "Flat Credit/Bonus"];
+          const schedule_attributes = ["Performance Multiplier", "Flat Credit/Bonus"];
+          const other_attributes = ["Segment Duration", "Rolling Time Period", "Rolling Time Periods Analyzed"];
+          const order = [
+            "Index Strategy",
+            "Allocation",
+            "Cap Rate",
+            "Participation Rate",
+            "Margin/Spread",
+            "Floor", 
+            "Performance Multiplier",
+            "Flat Credit/Bonus",
+            "Segment Duration",
+            "Rolling Time Period",
+            "Rolling Time Periods Analyzed"
+          ]
+
+          const mappedObject = Object.keys(obj).reduce((acc, key) => {
+            const newKey = keyMapping[key] || key;
+            if (newKey) {
+              acc[newKey] = obj[key];
+            }
+            return acc;
+          }, {});
+
+          let index_strat = {};
+
+          order.forEach((element) => {
+            if (element) {
+              if (element === 'Index Strategy') {
+                index_strat[`${element} ${index+1}`] = mappedObject[element]
+              }
+              else if (percent_attributes.includes(element)) {
+                if(schedule_attributes.includes(element)) {
+                  if (mappedObject["flat_credit_schedule"] === true) {
+                    index_strat[`${element}`] = 'Scheduled'
+                  }
+                  else {
+                    if(mappedObject["Flat Credit/Bonus"] === 'N/A') {
+                      index_strat[`${element}`] = mappedObject[element]
+                    }
+                    else {
+                      index_strat[`${element}`] = String(mappedObject[element]) + '%'
+                      index_strat['start_year_flat'] =  mappedObject["flat_credit_start_year_value"]
+                    }
+                  }
+                }
+                else {
+                  index_strat[`${element}`] = String(mappedObject[element]) + '%'
+                }
+              }
+              else if (schedule_attributes.includes(element)) {
+                if (mappedObject["performace_multiplier_schedule"] === true) {
+                  index_strat[`${element}`] = 'Scheduled'
+                }
+                else {
+                  index_strat[`${element}`] = mappedObject[element]
+                  index_strat['start_year_multi'] = mappedObject["performace_multiplier_start_year_value"]
+                }
+              }
+              else if (other_attributes.includes(element)) {
+                index_strat[`${element}`] = mappedObject[element]
+              }
+            }
+
+
+          });
+          disclosure_text.push(index_strat)
+        }
+      });
+      this.disclosure_message = disclosure_text;
+    },
+
     handleDisclosure: function () {
       if (!this.$refs.editableDiv.innerHTML) {
         new bootstrap.Modal(this.$refs.disclosureModal).show();
@@ -296,19 +568,12 @@ export default {
     },
 
     getDefaultDisclosure: function () {
-      let indexes = [
-        this.disclosure.index_1,
-        this.disclosure.index_2 || null,
-        this.disclosure.index_3 || null,
-      ];
-
-      let weightages = this.disclosure.weightages;
 
       let period = this.disclosure.period;
       let instance = this.disclosure.instance;
       let borrowing_rate = this.disclosure.borrowing_rate;
-
-      return `This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
+      let content = `
+      <p style="margin: 0;">This chart references data drawn from simulations of a Theoretical Synthetic Asset (TSA) that does not exist and cannot be purchased in the real world. 
       It is not a real world insurance policy. It is not an official illustration. 
       You may not assume the data presented here relating to the TSA infers or expresses any guarantee of how a real world insurance policy would perform. 
       Comparisons made to the official carrier illustration(s), which use hypothetical assumptions that are not guaranteed, are designed to be educational and instructive as to how the TSA as a proxy for the insurance policy(ies) compared <b>may have</b> performed through different historical periods. 
@@ -320,7 +585,8 @@ export default {
       Presented here are the most recent, worst, median, and best ${period}-year periods with respect to the insurance policy’s intended allocation in the index strategy(ies). 
       However, these results are not the results of an actual insurance policy, but those of the TSA, which does not exist in the real world. 
       It is entirely possible that the real world experience of the actual policy could be even worse than the worst ${period}-year period analyzed, 
-      just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.`;
+      just as it is entirely possible that the real world policy could perform better than the best ${period}-year period analyzed.</p>`;
+      return content
     },
     setDefaultMessage: function () {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();

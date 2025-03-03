@@ -84,6 +84,7 @@
                   : false
               "
               class="d-none"
+              @change="applyPmfToAll"
             />
             <span class="fixedStartYear" @click="handlePMCheckbox(item)"
               >{{ item }}%</span
@@ -103,6 +104,8 @@
               min="0"
               max="10"
               ref="customPMRef"
+              @change="applyPmfToAll"
+              :id="`multiplierFeeCustom${currentTab}`"
             />
           </div>
         </div>
@@ -116,6 +119,7 @@
               role="switch"
               :id="`multiplierFee${currentTab}`"
               v-model="sameInAllYears.multiplier_fee"
+              @change="applyPmfToAll"
             />
           </div>
           <label :for="`multiplierFee${currentTab}`" class="buttonSaveRadioPara"
@@ -176,6 +180,7 @@
                     max="10"
                     :id="`pmf_schedule${currentTab}${item}`"
                     @keypress="(e) => clearScheduleError(e, 'pmf_schedule')"
+                    @change="applyPmfToAll"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -202,6 +207,7 @@
               :name="`flatCredit${currentTab}`"
               class="d-none"
               :checked="!customFlatAmount && item === flatAmount ? true : false"
+              @change="applyFcfToAll"
             />
             <span class="fixedStartYear" @click="handleFCCheckbox(item)"
               >{{ item }}%</span
@@ -221,6 +227,7 @@
               min="0"
               max="10"
               ref="customFCRef"
+              @change="applyFcfToAll"
             />
           </div>
         </div>
@@ -234,6 +241,7 @@
               role="switch"
               :id="`flat-credit-fee-radio${currentTab}`"
               v-model="sameInAllYears.credit_bonus_fee"
+              @change="applyFcfToAll"
             />
           </div>
           <label
@@ -297,6 +305,7 @@
                     max="10"
                     :id="`fcf_schedule${currentTab}${item}`"
                     @keypress="(e) => clearScheduleError(e, 'fcf_schedule')"
+                    @change="applyFcfToAll"
                   />
                   <label for="amount">%</label>
                 </td>
@@ -355,21 +364,25 @@
       type="hidden"
       :value="customPerformanceFeeAmount || performanceFeeAmount"
       :id="`performance_multiplier_fees${currentTab}`"
+      @change="applyPmfToAll"
     />
     <input
       type="hidden"
       :value="sameInAllYears.multiplier_fee ? 1 : 0"
       :id="`pmf_all_year${currentTab}`"
+      @change="applyPmfToAll"
     />
     <input
       type="hidden"
       :value="customFlatAmount || flatAmount"
       :id="`flat_credit_fees${currentTab}`"
+      @change="applyFcfToAll"
     />
     <input
       type="hidden"
       :value="sameInAllYears.credit_bonus_fee ? 1 : 0"
       :id="`fcf_all_year${currentTab}`"
+      @change="applyFcfToAll"
     />
     <input
       type="hidden"
@@ -429,11 +442,21 @@ export default {
       this.performanceFeeAmount = item;
       this.customPerformanceFeeAmount = "";
       this.$refs.customPMRef.value = "";
+      let currentTab = Number(this.$props.currentTab);
+      document.getElementById(
+        `performance_multiplier_fees${currentTab}`
+      ).value = item
+      this.applyPmfToAll(item);
     },
     handleFCCheckbox: function (item) {
       this.flatAmount = item;
       this.customFlatAmount = "";
       this.$refs.customFCRef.value = "";
+      let currentTab = Number(this.$props.currentTab);
+      document.getElementById(
+        `flat_credit_fees${currentTab}`
+      ).value = item
+      this.applyFcfToAll(item);
     },
     handleHCCheckbox: function (item) {
       this.hipCapAmount = item;
@@ -554,6 +577,80 @@ export default {
         } else {
           tabs.forEach((tab) => {
             if (currentTab !== tab) {
+              document.getElementById(`multiplierFeeCustom${currentTab}`).value = "";
+              document.getElementById(
+                `performance_multiplier_fees${tab}`
+              ).value = pmf_fee;
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach((tab) => {
+          if (currentTab !== tab && !this.isAnyPmfAppliedToggle()) {
+            document
+              .getElementById(`applyAllPmfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
+    applyPmfToAll: function (e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let pmf_all_year = Number(
+        document.getElementById(`pmf_all_year${currentTab}`).value
+      );
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyPmfAppliedToggle() &&
+        !pmf_all_year &&
+        !this.validatePmfValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let pmf_fee = document.getElementById(
+        `performance_multiplier_fees${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      if (!this.isAnyPmfAppliedToggle()) {
+        tabs.forEach((tab) => {
+          if (currentTab !== tab) {
+            // document.getElementById(`applyAllPmf${tab}`).checked =
+            //   !e.target.checked; // unchecked the toggle input
+            // document.getElementById(`applyAllPmf${tab}`).disabled =
+            //   !e.target.checked; // disabled the toggle input
+            // document
+            //   .getElementById(`applyAllPmfLabel${tab}`)
+            //   .classList.toggle("disabled"); // disabled the label
+
+            // if (!pmf_all_year) {
+            //   document.getElementById(`multiplierFee${tab}`).checked = false; // open the schedule inputs in all tabs
+            // } else {
+            //   document.getElementById(`multiplierFee${tab}`).checked = true; // close the schedule inputs in all tabs
+            // }
+            this.$emit("setApplyPmfAllIndex", true);
+          }
+        });
+
+        if (!pmf_all_year) {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `pmf_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach((tab) => {
+              if (currentTab !== tab) {
+                document.getElementById(`pmf_schedule${tab}${i + 1}`).value =
+                  value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach((tab) => {
+            if (currentTab !== tab) {
               document.getElementById(
                 `performance_multiplier_fees${tab}`
               ).value = pmf_fee; // set multiplier value in all tabs
@@ -571,7 +668,6 @@ export default {
         });
       }
     },
-
     // Flat credit bonus fee apply to all tabs
     removeFcfApllyAllIndex: function () {
       let tabs = [1, 2, 3];
@@ -702,6 +798,81 @@ export default {
         });
       }
     },
+    applyFcfToAll: function (e) {
+      let tabs = [1, 2, 3];
+      let currentTab = Number(this.$props.currentTab);
+      let fcf_all_year = Number(
+        document.getElementById(`flat-credit-fee-radio${currentTab}`).checked
+      );
+
+      // Show warning message if shedule data is not filled in all inputs
+      if (
+        !this.isAnyFcfAppliedToggle() &&
+        !fcf_all_year &&
+        !this.validateFcfValues()
+      ) {
+        this.$toast.warning("Please enter all years schedule values");
+        return false;
+      }
+
+      let pmf_fee = document.getElementById(
+        `flat_credit_fees${currentTab}`
+      ).value; // get current tab multiplier input value
+
+      if (!this.isAnyFcfAppliedToggle()) {
+        tabs.forEach((tab) => {
+          if (currentTab !== tab) {
+            // document.getElementById(`applyAllFcf${tab}`).checked =
+            //   !e.target.checked; // unchecked the toggle input
+            // document.getElementById(`applyAllFcf${tab}`).disabled =
+            //   !e.target.checked; // disabled the toggle input
+            // document
+            //   .getElementById(`applyAllFcfLabel${tab}`)
+            //   .classList.toggle("disabled"); // disabled the label
+
+            // if (!fcf_all_year) {
+            //   document.getElementById(
+            //     `flat-credit-fee-radio${tab}`
+            //   ).checked = false; // open the schedule inputs in all tabs
+            // } else {
+            //   document.getElementById(
+            //     `flat-credit-fee-radio${tab}`
+            //   ).checked = true; // close the schedule inputs in all tabs
+            // }
+            this.$emit("setApplyFcfAllIndex", true);
+          }
+        });
+
+        if (!fcf_all_year) {
+          for (let i = 0; i < this.illustrateYear; i++) {
+            let value = document.getElementById(
+              `fcf_schedule${currentTab}${i + 1}`
+            ).value; // get current schedule input value
+            tabs.forEach((tab) => {
+              if (currentTab !== tab) {
+                document.getElementById(`fcf_schedule${tab}${i + 1}`).value =
+                  value; // set schedule value in all tabs
+              }
+            });
+          }
+        } else {
+          tabs.forEach((tab) => {
+            if (currentTab !== tab) {
+              document.getElementById(`flat_credit_fees${tab}`).value = pmf_fee; // set multiplier value in all tabs
+            }
+          });
+        }
+      } else {
+        e.target.checked = false;
+        tabs.forEach((tab) => {
+          if (currentTab !== tab && !this.isAnyFcfAppliedToggle()) {
+            document
+              .getElementById(`applyAllFcfLabel${tab}`)
+              .classList.toggle("disabled"); // disabled the label
+          }
+        });
+      }
+    },
     // populate latest data in input fields
     updateLatestData: function () {
       let charges = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -719,7 +890,10 @@ export default {
 
         if (charges.includes(ml)) {
           this.performanceFeeAmount = ml;
+          this.customPerformanceFeeAmount = "";
+          this.$refs.customPMRef.value = "";
         } else {
+          this.performanceFeeAmount = "0";
           this.customPerformanceFeeAmount = ml;
           this.$refs.customPMRef.value = ml;
         }
@@ -741,7 +915,10 @@ export default {
 
         if ([1, 2, 3].includes(ff)) {
           this.flatAmount = ff;
+          this.customFlatAmount = "";
+          this.$refs.customFCRef.value = "";
         } else {
+          this.flatAmount = "0";
           this.customFlatAmount = ff;
           this.$refs.customFCRef.value = ff;
         }

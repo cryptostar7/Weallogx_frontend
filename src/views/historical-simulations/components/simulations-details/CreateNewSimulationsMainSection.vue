@@ -393,7 +393,7 @@ export default {
     // get previous scebario detail information
     getSimulationnDetails: function () {
       get(
-        `${getUrl("simulations")}${this.$route.params.simulation}`,
+        `${getUrl("simulations")}${this.$route.params.simulation}/`,
         authHeader()
       )
         .then((response) => {

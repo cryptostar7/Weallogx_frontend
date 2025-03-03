@@ -1255,7 +1255,7 @@ export default {
 
       if (getScenarioAPI) {
         this.$store.dispatch("loader", true);
-        get(`${getUrl("scenario")}${this.$route.params.scenario}`, authHeader())
+        get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
           .then((response) => {
             let id = response.data.data.illustration;
             this.illustrationId = id;
@@ -1514,7 +1514,7 @@ export default {
       }
 
       get(
-        `${getUrl(template ? templateUrl : "illustration")}${id}`,
+        `${getUrl(template ? templateUrl : "illustration")}${id}/`,
         authHeader()
       )
         .then((response) => {
@@ -1552,7 +1552,7 @@ export default {
       }
 
       this.$store.dispatch("loader", true);
-      get(`${getUrl("illustration-template")}${id}`, authHeader())
+      get(`${getUrl("illustration-template")}${id}/`, authHeader())
         .then((response) => {
           let data = response.data.data;
           this.setFormInputs(data, "illustration");
@@ -1684,26 +1684,45 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(
-          function (pdf) {
-            // Fetch the pdf page
-            document.getElementById("pdfPreview").innerHTML = null;
-            for (var i = 1; i <= pdf.numPages; i++) {
-              generateCanvas(i, pdf);
+        const objectKey = url.split('amazonaws.com/')[1];
+        let api_url = getUrl("s3_url") + `?object_key=${objectKey}`
+        get(api_url, authHeader())
+          .then((response) => {
+            if (!response) {
+              console.error("Failed to generate presigned URL");
+              return;
             }
-            document.getElementById("stopLoaderBtn").click();
-            return new bootstrap.Modal(
-              document.getElementById("pdfPreviewCanvasModal")
-            ).show();
-          },
-          function (reason) {
-            // PDF loading error
-            document.getElementById("stopLoaderBtn").click();
-            toast.error(reason.message);
-          }
-        );
-      }
+            const presignedUrl = response.data.url;
+            var loadingTask = pdfjsLib.getDocument(presignedUrl);
+            loadingTask.promise.then(
+              function (pdf) {
+                // Fetch the pdf page
+                document.getElementById("pdfPreview").innerHTML = null;
+                for (var i = 1; i <= pdf.numPages; i++) {
+                  generateCanvas(i, pdf);
+                }
+                document.getElementById("stopLoaderBtn").click();
+                return new bootstrap.Modal(
+                  document.getElementById("pdfPreviewCanvasModal")
+                ).show();
+              },
+              function (reason) {
+                // PDF loading error
+                document.getElementById("stopLoaderBtn").click();
+                toast.error(reason.message);
+              }
+            );
+          })
+          .catch((error) => {
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            }
+            this.$store.dispatch("loader", false);
+          });
+        }
 
       function generateCanvas(i, pdf) {
         // Create a class attributes:
@@ -2041,6 +2060,7 @@ export default {
     // save illustration file
     saveIllustrationFile(file_url, filename) {
       // create a new illustration file data
+      console.log('active scenario:',this.activeScenario)
       let data = {
         s3_url: file_url,
         client: this.activeScenario.client,

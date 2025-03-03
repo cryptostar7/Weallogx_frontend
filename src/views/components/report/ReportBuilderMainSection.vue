@@ -234,7 +234,7 @@ export default {
       this.$store.dispatch("loader", true);
       let api_url = `${getUrl(url)}${this.$route.params.report}`;
       if (this.$route.params.view_token) {
-        api_url += `?view_token=${this.$route.params.view_token}`;
+        api_url += `?view_token=${this.$route.params.view_token}/`;
       }
       get(api_url, authHeader())
         .then((response) => {
@@ -256,8 +256,7 @@ export default {
     // Temporary functions start
     getComparativeReportRorDeathBenefit: function () {
       get(
-        getUrl("comparative_report_death_benefit_ror") +
-          this.$route.params.report,
+        `${getUrl("comparative_report_death_benefit_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -282,8 +281,7 @@ export default {
 
     getComparativeReportRorEndingValue: function () {
       get(
-        getUrl("comparative_report_ending_value_ror") +
-          this.$route.params.report,
+        `${getUrl("comparative_report_ending_value_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -301,7 +299,7 @@ export default {
 
     getComparativeReportRorLongevity: function () {
       get(
-        getUrl("comparative_report_longevity_ror") + this.$route.params.report,
+        `${getUrl("comparative_report_longevity_ror")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -316,7 +314,7 @@ export default {
 
     getComparativeReportDeathBenefit: function () {
       get(
-        getUrl("comparative_report_death_benefit") + this.$route.params.report,
+        `${getUrl("comparative_report_death_benefit")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -331,7 +329,7 @@ export default {
 
     getComparativeReportEndingValue: function () {
       get(
-        getUrl("comparative_report_ending_value") + this.$route.params.report,
+        `${getUrl("comparative_report_ending_value")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -346,12 +344,56 @@ export default {
 
     getComparativeReportLongevity: function () {
       get(
-        getUrl("comparative_report_longevity") + this.$route.params.report,
+        `${getUrl("comparative_report_longevity")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
           this.$store.dispatch("comparativeReportLongevity", response.data);
           this.getComparativeReportEndingValue();
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+    //ROR Report
+    getComparativeReportRor: function () {
+      get(
+        `${getUrl("comparative_report_ror")}${this.$route.params.report}/`,
+        authHeader()
+      )
+        .then((response) => {
+          const { longevity_ror, surrender_ror, death_ror } = response.data;
+          this.$store.dispatch("comparativeReportRorLongevity", longevity_ror);
+          this.$store.dispatch("comparativeReportRorEndingValue", surrender_ror);
+          this.$store.dispatch("comparativeReportRorDeathBenefit", death_ror);
+          this.$store.dispatch("loader", false);
+          this.getHistoricalData();
+          setTimeout(() => {
+            if (!this.$store.state.app.loader_count) {
+              this.ComparativeDataLoaded = true;
+              setTimeout(() => this.updateElementJs(), 100);
+            }
+          }, 100);
+        })
+        .catch((error) => {
+          this.$toast.error(error.message);
+          this.$store.dispatch("loader", false);
+        });
+    },
+
+    //Get Distribution Report
+    getComparativeReportDistributions: function () {
+      get(
+        `${getUrl("comparative_report_dist")}${this.$route.params.report}/`,
+        authHeader()
+      )
+        .then((response) => {
+          const { longevity_dist, surrender_dist, death_dist } = response.data;
+          this.$store.dispatch("comparativeReportLongevity", longevity_dist);
+          this.$store.dispatch("comparativeReportEndingValue", surrender_dist);
+          this.$store.dispatch("comparativeReportDeathBenefit", death_dist);
+          this.getComparativeReportRor();
         })
         .catch((error) => {
           this.$toast.error(error.message);
@@ -365,12 +407,12 @@ export default {
       this.$store.dispatch("loader", true);
 
       get(
-        getUrl("comparative_report") + this.$route.params.report,
+        `${getUrl("comparative_report")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
           this.$store.dispatch("comparativeReport", response.data);
-          this.getComparativeReportLongevity();
+          this.getComparativeReportDistributions();
         })
         .catch((error) => {
           this.$toast.error(error.message);
@@ -380,7 +422,7 @@ export default {
     // get historical report data
     getHistoricalData: function () {
       get(
-        `${getUrl("historical_report")}${this.$route.params.report}`,
+        `${getUrl("historical_report")}${this.$route.params.report}/`,
         authHeader()
       )
         .then((response) => {
@@ -413,9 +455,9 @@ export default {
     },
 
     getCurrentReportInfo: function () {
-      let api_url = `${getUrl("report")}${this.$route.params.report}`;
+      let api_url = `${getUrl("report")}${this.$route.params.report}/`;
       if (this.$route.params.view_token) {
-        api_url += `?view_token=${this.$route.params.view_token}`;
+        api_url += `?view_token=${this.$route.params.view_token}/`;
       }
       get(api_url, authHeader())
         .then((response) => {
@@ -454,7 +496,7 @@ export default {
     // get all notes of current report
     getNotes: function () {
       get(
-        `${getUrl("notes")}?report=${this.$route.params.report}`,
+        `${getUrl("notes")}?report=${this.$route.params.report}/`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("notes", response.data);
@@ -464,7 +506,7 @@ export default {
     // get all disclosures of current report
     getDesclosures: function () {
       get(
-        `${getUrl("disclosures")}?report=${this.$route.params.report}`,
+        `${getUrl("disclosures")}?report=${this.$route.params.report}/`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("disclosures", response.data);

@@ -100,13 +100,18 @@
                     >{{ capital_gains.length ? ";" : "" }}</span
                   >
                   <!-- [If capital gains are included for a taxable investment, then we include]: -->
+                  <br>
                   <span v-for="(item, index) in capital_gains" :key="index">
                     <span>
-                      Capital gains ratio: <b>{{ item.ratio }}%</b>;
+                      <b>{{ item.name }}:</b>;
+                    </span>
+                    <span>
+                      Capital gains ratio: <b>{{ item.ratio }}%</b>
                     </span>
                     <span
-                      >Capital gains tax rate: <b>{{ item.tax }}%</b>;</span
+                      >Capital gains tax rate: <b>{{ item.tax }}%</b>,</span
                     >
+                    <br>
                   </span>
                 </p>
               </div>
@@ -258,15 +263,15 @@ export default {
       let cg3_account = data.cv3_percentage_of_account_as_capital_gains;
 
       if (cg1_tax || cg1_account) {
-        cg.push({ name: "", tax: cg1_tax, ratio: cg1_account });
+        cg.push({ name: this.comparative.cv1_name, tax: cg1_tax, ratio: cg1_account });
       }
 
       if (cg2_tax || cg2_account) {
-        cg.push({ name: "", tax: cg2_tax, ratio: cg2_account });
+        cg.push({ name: this.comparative.cv2_name, tax: cg2_tax, ratio: cg2_account });
       }
 
       if (cg3_tax || cg3_account) {
-        cg.push({ name: "", tax: cg3_tax, ratio: cg3_account });
+        cg.push({ name: this.comparative.cv3_name, tax: cg3_tax, ratio: cg3_account });
       }
 
       this.capital_gains = cg;
