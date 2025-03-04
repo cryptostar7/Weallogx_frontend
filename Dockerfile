@@ -1,5 +1,5 @@
 # Use Node.js 18 for compatibility with dependencies
-FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine as node-base
+FROM node:16-alpine as node-base
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -19,10 +19,12 @@ RUN npm prune --production && \
     cp -r dist/* /usr/share/nginx/html/
 
 # Final production stage
-FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx as production
+FROM nginx:alpine as production
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 EXPOSE 8000
 
 # Final CMD
-CMD ["nginx", "-g", "daemon off;"]
+CMD envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && \
+    mv /tmp/default.conf /etc/nginx/conf.d/default.conf && \
+    nginx -g 'daemon off;'
