@@ -726,8 +726,9 @@ export default {
             this.isChecked("applyAllPm1"),
           performance_multiplier_fees_apply_for_all_indexes:
             this.isChecked("applyAllPmf1"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf1"),
+          flat_credit_bonus_fees_apply_for_all_indexes : enhancements[0].credit.checkbox 
+            ? this.isChecked("applyAllFcf1") 
+            : false
         },
         index_strategy_2: null,
         index_strategy_3: null,
@@ -838,8 +839,9 @@ export default {
             this.isChecked("applyAllPm2"),
           performance_multiplier_fees_apply_for_all_indexes:
             this.isChecked("applyAllPmf2"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf2"),
+          flat_credit_bonus_fees_apply_for_all_indexes : enhancements[1].credit.checkbox 
+            ? this.isChecked("applyAllFcf2") 
+            : false
         };
 
         if (formData.index_strategy_2.performance_multiplier) {
@@ -945,8 +947,9 @@ export default {
             this.isChecked("applyAllPm3"),
           performance_multiplier_fees_apply_for_all_indexes:
             this.isChecked("applyAllPmf3"),
-          flat_credit_bonus_fees_apply_for_all_indexes:
-            this.isChecked("applyAllFcf3"),
+          flat_credit_bonus_fees_apply_for_all_indexes : enhancements[2].credit.checkbox 
+            ? this.isChecked("applyAllFcf3") 
+            : false
         };
 
         if (formData.index_strategy_3.performance_multiplier) {
