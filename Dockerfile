@@ -25,4 +25,6 @@ COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 EXPOSE 8000
 
 # Final CMD
-CMD ["nginx", "-g", "daemon off;"]
+CMD envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && \
+    mv /tmp/default.conf /etc/nginx/conf.d/default.conf && \
+    nginx -g 'daemon off;'
