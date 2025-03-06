@@ -721,7 +721,9 @@ export default {
           save_this_index_strategy_as_template: templates[1] ? true : false,
           template_name: templates[1],
           strategy_weight: strategy_weight1,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc1"),
+          flat_credit_apply_for_all_indexes: enhancements[0].credit.checkbox
+            ? this.isChecked("applyAllFc1")
+            : false,
           performance_multiplier_apply_for_all_indexes:
             this.isChecked("applyAllPm1"),
           performance_multiplier_fees_apply_for_all_indexes:
@@ -834,7 +836,9 @@ export default {
           save_this_index_strategy_as_template: templates[2] ? true : false,
           template_name: templates[2],
           strategy_weight: strategy_weight2,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc2"),
+          flat_credit_apply_for_all_indexes: enhancements[1].credit.checkbox
+            ? this.isChecked("applyAllFc2")
+            : false,
           performance_multiplier_apply_for_all_indexes:
             this.isChecked("applyAllPm2"),
           performance_multiplier_fees_apply_for_all_indexes:
@@ -942,7 +946,9 @@ export default {
           save_this_index_strategy_as_template: templates[3] ? true : false,
           template_name: templates[3],
           strategy_weight: strategy_weight3,
-          flat_credit_apply_for_all_indexes: this.isChecked("applyAllFc3"),
+          flat_credit_apply_for_all_indexes: enhancements[2].credit.checkbox
+            ? this.isChecked("applyAllFc3")
+            : false,
           performance_multiplier_apply_for_all_indexes:
             this.isChecked("applyAllPm3"),
           performance_multiplier_fees_apply_for_all_indexes:
