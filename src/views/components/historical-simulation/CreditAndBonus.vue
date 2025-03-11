@@ -340,6 +340,11 @@ export default {
     applyFcToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
+      const checkbox = document.getElementById(`applyAllFc${currentTab}`);
+      if (checkbox.checked === false) {
+
+        return false
+      }
       let credit_type = document.getElementById(
         `credit_type${currentTab}`
       ).value;

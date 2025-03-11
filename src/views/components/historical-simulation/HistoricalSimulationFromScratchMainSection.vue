@@ -234,6 +234,11 @@ export default {
         document.getElementById(id).checked = true;
       }
     },
+    setVal: function(id, value) {
+      if (document.getElementById(id)) {
+        document.getElementById(id).checked = value;
+      }
+    },
     // this function is used to for making the unchecked input
     setUnChecked: function (id) {
       if (document.getElementById(id)) {
@@ -1071,12 +1076,12 @@ export default {
       );
       
       if(tab == 1) {
-        this.setChecked(
+        this.setVal(
             `applyAllPm${tab}`,
             obj.performance_multiplier_apply_for_all_indexes ? true : false
         );
 
-        this.setChecked(
+        this.setVal(
             `applyAllPmf${tab}`,
             obj.performance_multiplier_fees_apply_for_all_indexes
             ? true : false
@@ -1115,12 +1120,12 @@ export default {
       );
 
       if(tab == 1 ) {
-        this.setChecked(
+        this.setVal(
           `applyAllFc${tab}`,
           obj.flat_credit_apply_for_all_indexes ? true : false // Set checked based on obj.applyAllPm
         );
 
-        this.setChecked(
+        this.setVal(
           `applyAllFcf${tab}`,
           obj.flat_credit_bonus_fees_same_in_all_years ? true : false // Set checked based on obj.applyAllPm
         );

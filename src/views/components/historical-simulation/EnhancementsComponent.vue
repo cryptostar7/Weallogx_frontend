@@ -378,8 +378,11 @@ export default {
       tabs.forEach((tab) => {
         if(currentTab !== tab) {
           const checkbox = document.getElementById(`enhancements1${tab}`);
-          if (checkbox) {
+          if (checkbox.checked) {
             checkbox.checked = true;
+          }
+          else {
+            document.getElementById(`enhancements1${tab}`).click();
           }
         }
       });
@@ -562,8 +565,11 @@ export default {
       tabs.forEach((tab) => {
         if(currentTab !== tab) {
           const checkbox = document.getElementById(`enhancements${tab}`);
-          if (checkbox) {
+          if (checkbox.checked) {
             checkbox.checked = true;
+          }
+          else {
+          document.getElementById(`enhancements${tab}`).click();
           }
         }
       });
