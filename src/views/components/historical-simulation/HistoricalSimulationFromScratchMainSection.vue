@@ -729,10 +729,12 @@ export default {
           flat_credit_apply_for_all_indexes: enhancements[0].credit.checkbox
             ? this.isChecked("applyAllFc1")
             : false,
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm1"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf1"),
+          performance_multiplier_apply_for_all_indexes: enhancements[0].performance.checkbox
+            ? this.isChecked("applyAllPm1")
+            : false,
+          performance_multiplier_fees_apply_for_all_indexes: enhancements[0].performance.checkbox
+            ? this.isChecked("applyAllPmf1")
+            : false,
           flat_credit_bonus_fees_apply_for_all_indexes : enhancements[0].credit.checkbox 
             ? this.isChecked("applyAllFcf1") 
             : false
@@ -844,10 +846,12 @@ export default {
           flat_credit_apply_for_all_indexes: enhancements[1].credit.checkbox
             ? this.isChecked("applyAllFc2")
             : false,
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm2"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf2"),
+          performance_multiplier_apply_for_all_indexes: enhancements[1].performance.checkbox
+            ? this.isChecked("applyAllPm2")
+            : false,
+          performance_multiplier_fees_apply_for_all_indexes: enhancements[1].performance.checkbox
+            ? this.isChecked("applyAllPmf2")
+            : false,
           flat_credit_bonus_fees_apply_for_all_indexes : enhancements[1].credit.checkbox 
             ? this.isChecked("applyAllFcf2") 
             : false
@@ -954,10 +958,12 @@ export default {
           flat_credit_apply_for_all_indexes: enhancements[2].credit.checkbox
             ? this.isChecked("applyAllFc3")
             : false,
-          performance_multiplier_apply_for_all_indexes:
-            this.isChecked("applyAllPm3"),
-          performance_multiplier_fees_apply_for_all_indexes:
-            this.isChecked("applyAllPmf3"),
+          performance_multiplier_apply_for_all_indexes: enhancements[2].performance.checkbox
+            ? this.isChecked("applyAllPm3")
+            : false,
+          performance_multiplier_fees_apply_for_all_indexes: enhancements[2].performance.checkbox
+            ? this.isChecked("applyAllPmf3")
+            : false,
           flat_credit_bonus_fees_apply_for_all_indexes : enhancements[2].credit.checkbox 
             ? this.isChecked("applyAllFcf3") 
             : false
