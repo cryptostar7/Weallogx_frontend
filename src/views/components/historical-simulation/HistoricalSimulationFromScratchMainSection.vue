@@ -1074,6 +1074,78 @@ export default {
       );
       this.update.growth_parameters = true;
     },
+    setIndexEnhancementData: function (tab, obj = []) {
+      if (obj.performance_multiplier_apply_for_all_indexes) {
+        this.setInputWithId(
+          `performance_checkbox${tab}`,
+          obj.performance_multiplier ? 1 : 0
+        );
+        this.setInputWithId(
+          `performance_type${tab}`,
+          obj.performance_multiplier_fixed_value ? "fixed" : "schedule"
+        );
+
+        if (
+          !obj.performance_multiplier_fixed_value &&
+          obj.performance_multiplier_schedule
+        ) {
+          obj.performance_multiplier_schedule.forEach((i) => {
+            this.setInputWithId(`multiplier_schedule${tab}${i.year}`, i.value);
+          });
+        } else {
+          this.setInputWithId(
+            `multiplier_input${tab}`,
+            obj.performance_multiplier_fixed_value_multiplier
+          );
+          this.setInputWithId(
+            `prf_start_year${tab}`,
+            obj.performance_multiplier_fixed_value_start_year
+          );
+        }
+      }
+      if(obj.flat_credit_apply_for_all_indexes) {
+        this.setInputWithId(
+          `credit_checkbox${tab}`,
+          obj.flat_credit_bonus ? 1 : 0
+        );
+        this.setInputWithId(
+          `credit_type${tab}`,
+          obj.flat_fixed_value ? "fixed" : "schedule"
+        );
+        this.setInputWithId(
+          `credit_schedule_type${tab}`,
+          obj.flat_credit_schedule_rate ? "rate" : "amount"
+        );
+        if (
+          !obj.flat_fixed_value &&
+          (obj.flat_credit_schedule_amount || obj.flat_credit_schedule_rate)
+        ) {
+          let fcb_schedule =
+            obj.flat_credit_schedule_rate || obj.flat_credit_schedule_amount;
+          fcb_schedule.forEach((i) => {
+            this.setInputWithId(
+              `${
+                obj.flat_credit_schedule_rate
+                  ? "crd_schedule_rate"
+                  : "crd_schedule_amt"
+              }${tab}${i.year}`,
+              i.value
+            );
+          });
+        } else {
+          this.setInputWithId(
+            `credit_bonus_input${tab}`,
+            obj.flat_fixed_credit_bonus
+          );
+
+          this.setInputWithId(
+            `crd_start_year${tab}`,
+            obj.flat_fixed_start_year
+          );
+        }
+      }
+      this.update.enhancement = true;
+    },
     setEnhancementData: function (tab, obj = []) {
       // permformance multiplier
       this.setInputWithId(
@@ -1176,6 +1248,41 @@ export default {
       }
 
       this.update.enhancement = true;
+    },
+    setIndexFeesData: function(tab, obj = []) {
+      if (obj.performance_multiplier && obj.performance_multiplier_fees_apply_for_all_indexes) {
+        if (obj.performance_multiplier_fees_same_in_all_years_schedule) {
+          this.setUnChecked(`multiplierFee${tab}`);
+          this.setInputWithId(`performance_multiplier_fees${tab}`, "");
+          obj.performance_multiplier_fees_same_in_all_years_schedule.forEach(
+            (i) => {
+              this.setInputWithId(`pmf_schedule${tab}${i.year}`, i.value);
+            }
+          );
+        } else {
+          this.setChecked(`multiplierFee${tab}`);
+          this.setInputWithId(
+            `performance_multiplier_fees${tab}`,
+            obj.performance_multiplier_fees
+          );
+        }
+      }
+      if (obj.flat_credit_bonus && obj.flat_credit_bonus_fees_apply_for_all_indexes) {
+        if (!obj.flat_credit_bonus_fees_same_in_all_years) {
+          this.setUnChecked(`flat-credit-fee-radio${tab}`);
+          this.setInputWithId(`flat_credit_fees${tab}`, "");
+          obj.flat_credit_bonus_fees_same_in_all_years_schedule.forEach((i) => {
+            this.setInputWithId(`fcf_schedule${tab}${i.year}`, i.value);
+          });
+        } else {
+          this.setChecked(`flat-credit-fee-radio${tab}`);
+          this.setInputWithId(
+            `flat_credit_fees${tab}`,
+            obj.flat_credit_bonus_fees
+          );
+        }
+      }
+      this.update.fees = true;
     },
     setFeesData: function (tab, obj = []) {
       // performance multiplier fee
@@ -1306,12 +1413,29 @@ export default {
             this.setChecked("index_stategy_tab2");
             this.populateIndex(2, data.index_strategy_2);
           }
+          else if(
+            data.index_strategy_1.flat_credit_apply_for_all_indexes === true ||
+            data.index_strategy_1.flat_credit_bonus_fees_apply_for_all_indexes === true ||
+            data.index_strategy_1.performance_multiplier_apply_for_all_indexes === true ||
+            data.index_strategy_1.performance_multiplier_fees_apply_for_all_indexes === true
+          ) {
+            this.setIndexEnhancementData(2, data.index_strategy_1);
+            this.setIndexFeesData(2, data.index_strategy_1)
+          }
           if (data.index_strategy_3) {
             // this.tabs.tab3 = true;
             this.setChecked("index_stategy_tab3");
             this.populateIndex(3, data.index_strategy_3);
           }
-
+          else if(
+            data.index_strategy_1.flat_credit_apply_for_all_indexes === true ||
+            data.index_strategy_1.flat_credit_bonus_fees_apply_for_all_indexes === true ||
+            data.index_strategy_1.performance_multiplier_apply_for_all_indexes === true ||
+            data.index_strategy_1.performance_multiplier_fees_apply_for_all_indexes === true
+          ) {
+            this.setIndexEnhancementData(3, data.index_strategy_1);
+            this.setIndexFeesData(3, data.index_strategy_1)
+          }
           let indexTab = Number(this.$route.query.tab) || 1;
           if (indexTab) {
             if (indexTab === 1) {
