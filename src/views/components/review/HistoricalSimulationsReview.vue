@@ -49,8 +49,8 @@
                 >
                   <p class="fs-24">Global Parameters</p>
 
-                  <a
-                    href="/historical-simulations/658?tab=1&amp;review=true"
+                  <router-link
+                    :to="`/historical-simulations/${$route.params.scenario}?tab=1&amp;review=true`"
                     class="editbtnCommonAncor"
                   >
                     <button class="btn editBtnCommon">
@@ -83,7 +83,7 @@
                         ></path>
                       </svg>
                     </button>
-                  </a>
+                  </router-link>
                 </div>
                 <p class="hisBorder"></p>
               </div>
