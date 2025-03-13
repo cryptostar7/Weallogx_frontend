@@ -229,6 +229,10 @@ export default {
     applyPmToAllIndex: function (e) {
       let tabs = [1, 2, 3];
       let currentTab = Number(this.$props.currentTab);
+      const checkbox = document.getElementById(`applyAllPm${currentTab}`);
+      if (checkbox.checked === false) {
+        return false
+      }
       let performance_type = document.getElementById(
         `performance_type${currentTab}`
       ).value;

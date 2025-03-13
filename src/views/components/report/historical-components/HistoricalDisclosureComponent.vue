@@ -532,7 +532,12 @@ export default {
                   }
                 }
                 else {
+                  if(mappedObject[`${element}`] === 'N/A') {
+                      index_strat[`${element}`] = String(mappedObject[element])
+                  }
+                  else {
                   index_strat[`${element}`] = String(mappedObject[element]) + '%'
+                  }
                 }
               }
               else if (schedule_attributes.includes(element)) {
