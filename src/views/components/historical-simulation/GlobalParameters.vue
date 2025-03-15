@@ -45,13 +45,13 @@
           <img src="@/assets/images/icons/dark-i-icon.svg" alt="info" class="ms-1 dark-info-icon-img">
           <span class="info-message-analyze">
               The analysis will return the most recent, worst, median, and best historical results
-              based on the Index, Strategy, or Distributions.
+              based on the Index or Strategy.
           </span>
           </p>
           <p></p>
       </div>
       <div class="d-flex justify-content-center align-items-center px-4">
-          <div class="IndexStrategyBtn w-100">
+          <div class="IndexStrategyBtn w-66">
           <div class="w-100">
               <input type="radio" name="indexStrategy" id="index"  :checked="analyze === 'Index'">
               <label for="index" @click="analyze = 'Index'">Index </label>
@@ -59,10 +59,6 @@
           <div class="w-100">
               <input type="radio" name="indexStrategy" id="strategy"  :checked="analyze === 'Strategy'">
               <label for="strategy" @click="analyze = 'Strategy'">Strategy </label>
-          </div>
-          <div class="w-100">
-              <input type="radio" name="indexStrategy" id="distributions"  :checked="analyze === 'Distributions'">
-              <label for="distributions" @click="analyze = 'Distributions'">Distributions </label>
           </div>
           </div>
       </div>
