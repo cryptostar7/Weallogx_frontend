@@ -10,7 +10,7 @@
               </g>
               <defs>
                 <clipPath id="clip0_2598_4">
-                  <rect width="34" height="33" fill="white"/>
+                  <rect width="34" height="33" fill="white" />
                 </clipPath>
               </defs>
             </svg>
@@ -26,7 +26,8 @@
             <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M21.875 16.042H32.0834V18.9587H21.875V16.042ZM23.3334 21.8753H32.0834V24.792H23.3334V21.8753ZM20.4167 10.2087H32.0834V13.1253H20.4167V10.2087ZM5.83335 27.7087H20.4167V26.2503C20.4167 22.2297 17.1456 18.9587 13.125 18.9587H10.2084C6.18773 18.9587 2.91669 22.2297 2.91669 26.2503V27.7087H5.83335ZM11.6667 17.5003C14.5761 17.5003 16.7709 15.3055 16.7709 12.3962C16.7709 9.48678 14.5761 7.29199 11.6667 7.29199C8.75731 7.29199 6.56252 9.48678 6.56252 12.3962C6.56252 15.3055 8.75731 17.5003 11.6667 17.5003Z"
-                fill="#0E6651" />
+                fill="#0E6651"
+              />
             </svg>
           </div>
           <p>Profile Details</p>
@@ -43,7 +44,8 @@
                 fill="#3C3C3C" />
               <path
                 d="M12.528 12.7474C12.528 12.5434 12.3561 12.377 12.1446 12.377C12.1347 12.377 12.126 12.3816 12.1164 12.3825V12.377H11.3158C11.2142 12.377 11.1167 12.4161 11.0448 12.4857C10.9729 12.5552 10.9324 12.6496 10.9321 12.748V13.5531C10.9321 13.7565 11.104 13.9229 11.3158 13.9229H12.1168V13.9173C12.1264 13.918 12.1347 13.9229 12.1443 13.9229C12.3564 13.9229 12.5283 13.7565 12.5283 13.5531V12.748H12.528V12.7474ZM21.0659 12.7474C21.0659 12.5434 20.8941 12.377 20.6825 12.377H14.5078C14.4062 12.377 14.3087 12.4161 14.2368 12.4857C14.1649 12.5552 14.1244 12.6496 14.1241 12.748V13.5531C14.1241 13.7565 14.296 13.9229 14.5078 13.9229H20.6822C20.8944 13.9229 21.0662 13.7565 21.0662 13.5531V12.748H21.0659V12.7474ZM12.528 15.8397C12.528 15.6357 12.3561 15.4692 12.1446 15.4692C12.1347 15.4692 12.126 15.4739 12.1164 15.4748V15.4692H11.3158C11.2142 15.4693 11.1167 15.5084 11.0448 15.5779C10.9729 15.6475 10.9324 15.7418 10.9321 15.8403V16.6453C10.9321 16.8487 11.104 17.0152 11.3158 17.0152H12.1168V17.0096C12.1264 17.0102 12.1347 17.0152 12.1443 17.0152C12.3564 17.0152 12.5283 16.8487 12.5283 16.6453V15.8403H12.528V15.8397ZM21.0659 15.8397C21.0659 15.6357 20.8941 15.4692 20.6825 15.4692H14.5078C14.4062 15.4693 14.3087 15.5084 14.2368 15.5779C14.1649 15.6475 14.1244 15.7418 14.1241 15.8403V16.6453C14.1241 16.8487 14.296 17.0152 14.5078 17.0152H20.6822C20.8944 17.0152 21.0662 16.8487 21.0662 16.6453V15.8403H21.0659V15.8397ZM12.528 18.9319C12.528 18.7279 12.3561 18.5615 12.1446 18.5615C12.1347 18.5615 12.126 18.5661 12.1164 18.567V18.5615H11.3158C11.2142 18.5615 11.1167 18.6006 11.0448 18.6702C10.9729 18.7397 10.9324 18.8341 10.9321 18.9325V19.7376C10.9321 19.941 11.104 20.1074 11.3158 20.1074H12.1168V20.1018C12.1264 20.1025 12.1347 20.1074 12.1443 20.1074C12.3564 20.1074 12.5283 19.941 12.5283 19.7376V18.9325H12.528V18.9319ZM21.0659 18.9319C21.0659 18.7279 20.8941 18.5615 20.6825 18.5615H14.5078C14.4062 18.5615 14.3087 18.6006 14.2368 18.6702C14.1649 18.7397 14.1244 18.8341 14.1241 18.9325V19.7376C14.1241 19.941 14.296 20.1074 14.5078 20.1074H20.6822C20.8944 20.1074 21.0662 19.941 21.0662 19.7376V18.9325H21.0659V18.9319Z"
-                fill="#3C3C3C" />
+                fill="#3C3C3C"
+              />
             </svg>
           </div>
           <p>Current Plan</p>
@@ -51,18 +53,73 @@
       </div>
     </router-link>
     <router-link to="/payment-history">
-      <div  :class="`profile-left-card-div ${this.$router.currentRoute.value.name === 'payment-history' ? 'active':''}`">
+      <div :class="`profile-left-card-div ${this.$router.currentRoute.value.name === 'payment-history' ? 'active':''}`">
         <div class="profileLeftInnerDiv">
           <div class="profileLeftInnerCircleDiv">
             <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M28.3333 5.5H5.66665C4.09415 5.5 2.84748 6.72375 2.84748 8.25L2.83331 24.75C2.83331 26.2763 4.09415 27.5 5.66665 27.5H28.3333C29.9058 27.5 31.1666 26.2763 31.1666 24.75V8.25C31.1666 6.72375 29.9058 5.5 28.3333 5.5ZM15.5833 13.75H11.3333V15.125H15.5833C16.3625 15.125 17 15.7437 17 16.5V20.625C17 21.3813 16.3625 22 15.5833 22H14.1666C14.1666 22.7563 13.5291 23.375 12.75 23.375C11.9708 23.375 11.3333 22.7563 11.3333 22H9.91665C9.13748 22 8.49998 21.3813 8.49998 20.625C8.49998 19.8687 9.13748 19.25 9.91665 19.25H14.1666V17.875H9.91665C9.13748 17.875 8.49998 17.2563 8.49998 16.5V12.375C8.49998 11.6188 9.13748 11 9.91665 11H11.3333C11.3333 10.2438 11.9708 9.625 12.75 9.625C13.5291 9.625 14.1666 10.2438 14.1666 11H15.5833C16.3625 11 17 11.6188 17 12.375C17 13.1312 16.3625 13.75 15.5833 13.75ZM22.1708 21.8625L19.8333 19.5938H25.5L23.1625 21.8625C22.8933 22.1237 22.44 22.1237 22.1708 21.8625ZM19.8333 13.75L22.1708 11.4813C22.4541 11.2063 22.8933 11.2063 23.1766 11.4813L25.5 13.75H19.8333Z"
-                fill="#3C3C3C" />
+                fill="#3C3C3C"
+              />
             </svg>
           </div>
           <p>Payment History</p>
         </div>
       </div>
     </router-link>
+    <!-- <router-link to=""> -->
+    <div class="profile-left-card-div p-relative" style="pointer-events: none">
+      <div class="profileLeftInnerDiv">
+        <div class="profileLeftInnerCircleDiv">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 30 30" version="1.1">
+            <defs>
+              <filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+                <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+              </filter>
+              <image id="image15" width="30" height="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAAfUlEQVRIie3VvRWCMBSA0YvgENRsQ+UUtu7jFFYuAwPoCJ7410RkgUf1vnPSpHg3SZPGvxad2J54QVM3OhwxYheEvnHFuR4ADCj4BK9SreV2vfhnVo1+DW9ewgknnHDCCSe89Pv873hgH+wV3NbwhBMOgXjBBXPQ/CzLNu4LVo0oe0aWTUMAAAAASUVORK5CYII="/>
+              <mask id="mask0">
+                <g filter="url(#alpha)">
+                  <use xlink:href="#image15"/>
+                </g>
+              </mask>
+              <clipPath id="clip1">
+                <rect x="0" y="0" width="30" height="30"/>
+              </clipPath>
+              <g id="surface14" clip-path="url(#clip1)">
+                <path style="fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke:#3C3C3C;stroke-opacity:1;stroke-miterlimit:4;" d="M 2.001042 0.749609 L 14.998957 0.749609 C 15.552343 0.749609 15.999478 1.19987 15.999478 1.749089 L 15.999478 12.750782 C 15.999478 13.302474 15.552343 13.750261 14.998957 13.750261 L 2.001042 13.750261 C 1.447656 13.750261 1.000521 13.302474 1.000521 12.750782 L 1.000521 1.749089 C 1.000521 1.19987 1.447656 0.749609 2.001042 0.749609 Z M 2.001042 0.749609 " transform="matrix(1.764706,0,0,1.578947,0,0)"/>
+              </g>
+              <image id="image29" width="30" height="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAAZ0lEQVRIie3UwQ2CABBE0bdIgCLswiIoxVKowfqkAA4cjImBg6GF5cC+Bv5pJhC4yfVrMeKJPin6wSvwxj0pepgDW3IUNGdErxteT+iux34fGJKiC6ZAi87/SDJs+Ca1SimllFIubQe26QvbVqwVegAAAABJRU5ErkJggg=="/>
+              <mask id="mask1">
+                <g filter="url(#alpha)">
+                  <use xlink:href="#image29"/>
+                </g>
+              </mask>
+              <clipPath id="clip2">
+                <rect x="0" y="0" width="30" height="30"/>
+              </clipPath>
+              <g id="surface28" clip-path="url(#clip2)">
+                <path style="fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke:#3C3C3C;stroke-opacity:1;stroke-miterlimit:4;" d="M 1.000521 0.749609 L 15.999478 0.749609 C 16.552863 0.749609 16.999999 1.19987 16.999999 1.749089 L 16.999999 4.75 C 16.999999 5.304167 16.552863 5.751953 15.999478 5.751953 L 1.000521 5.751953 C 0.447135 5.751953 0 5.304167 0 4.75 L 0 1.749089 C 0 1.19987 0.447135 0.749609 1.000521 0.749609 Z M 1.000521 0.749609 " transform="matrix(1.764706,0,0,1.578947,0,0)"/>
+              </g>
+            </defs>
+            <g id="surface1">
+              <use xlink:href="#surface14" mask="url(#mask0)"/>
+              <path style="fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke:#3C3C3C;stroke-opacity:1;stroke-miterlimit:4;" d="M 8.499999 13.124349 C 8.708072 13.124349 8.874088 13.292579 8.874088 13.500391 L 8.874088 17.001042 C 8.874088 17.206381 8.708072 17.37461 8.499999 17.37461 C 8.291926 17.37461 8.125911 17.206381 8.125911 17.001042 L 8.125911 13.500391 C 8.125911 13.292579 8.291926 13.124349 8.499999 13.124349 Z M 8.499999 13.124349 " transform="matrix(1.764706,0,0,1.578947,0,0)"/>
+              <path style="fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke:#3C3C3C;stroke-opacity:1;stroke-miterlimit:4;" d="M 7.714014 13.626152 C 7.922279 13.627809 8.090217 13.795747 8.090125 14.002263 L 8.089019 18.502703 C 8.088927 18.709219 7.921449 18.876697 7.714934 18.876789 C 7.506853 18.878446 7.338915 18.710508 7.340572 18.502427 L 7.338363 14.001802 C 7.338456 13.795287 7.507498 13.626244 7.714014 13.626152 Z M 7.714014 13.626152 " transform="matrix(1.247835,1.116485,-1.247835,1.116485,20.799248,-1.892371)"/>
+              <path style="fill-rule:nonzero;fill:#FFFFFF;fill-opacity:1;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke:#3C3C3C;stroke-opacity:1;stroke-miterlimit:4;" d="M 13.743604 17.340696 C 13.950119 17.340788 14.117597 17.508266 14.117689 17.714781 L 14.118795 22.215222 C 14.118887 22.421738 13.950949 22.589676 13.742684 22.591333 C 13.534603 22.589676 13.367126 22.422198 13.367034 22.215682 L 13.369242 17.715057 C 13.367585 17.506977 13.535523 17.339039 13.743604 17.340696 Z M 13.743604 17.340696 " transform="matrix(-1.247835,1.116485,-1.247835,-1.116485,61.909172,31.812973)"/>
+              <use xlink:href="#surface28" mask="url(#mask1)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="coming-soon-icon-div">
+          <img
+            src="@/assets/images/icons/coming-soon.svg"
+            class="img-fluid"
+            alt="Coming Soon"
+          />
+        </div>
+        <p>Tutorials</p>
+      </div>
+    </div>
+    <!-- </router-link> -->
   </div>
 </template>
