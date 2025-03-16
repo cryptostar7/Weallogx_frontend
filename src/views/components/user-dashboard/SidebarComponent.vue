@@ -70,6 +70,7 @@
     <!-- <router-link to=""> -->
     <div class="profile-left-card-div p-relative" style="pointer-events: none">
       <div class="profileLeftInnerDiv">
+
         <div class="profileLeftInnerCircleDiv">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 30 30" version="1.1">
             <defs>
