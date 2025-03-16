@@ -271,17 +271,17 @@ export default {
       this.$store.dispatch("loader", true);
       remove(getUrl("delete-account"), authHeader())
         .then(() => {
-            localStorage.removeItem("refresh_token");
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("plan_active");
-            localStorage.removeItem("currentUser");
-            localStorage.removeItem("remember");
-            this.$store.dispatch("loader", false);
-            this.$store.dispatch("user", false);
-            this.$toast.success('Account deleted successfully.');
-            setTimeout(() => {
-              window.location.href = "/sign-in";
-            }, 1000)
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("plan_active");
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("remember");
+          this.$store.dispatch("loader", false);
+          this.$store.dispatch("user", false);
+          this.$toast.success('Account deleted successfully.');
+          setTimeout(() => {
+            window.location.href = "/sign-in";
+          }, 1000)
         })
         .catch((error) => {
           if (
