@@ -1,35 +1,67 @@
-<template lang="">
-   <div :class="$props.class ?? 'form-group'" id="selectDropdownMainComponent">
-      <label v-if="$props.label && !$props.optional" :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
-        <div v-if="$props.label && $props.optional" class="d-flex justify-content-between align-items-center mt-4 mb-1">
-          <label :for="$props.id ?? 'customSelectDropdown'" class="fs-14 bold-fw">{{$props.label ?? ''}}</label>
-          <label class="labelOptional">OPTIONAL</label>
-        </div>
-        <div class="p-relative">
-        <input type="text" :id="$props.id ?? 'customSelectDropdown'" ref="inputRef" @focus="dropdown = true" @keydown="e => e.key === 'Tab' ? dropdown = false: false" @input="handleChangeEvent" placeholder="Select or Start Typing"  class="form-control pe-5 autocomplete customSelectDropdown" autocomplete="off">
-        <span class="chevron-span" @click="closeDropdown()">
-            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
-              <path  d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
-            </svg>
-        </span>
+<template>
+  <div :class="$props.class ?? 'form-group'" id="selectDropdownMainComponent">
+    <label
+      v-if="$props.label && !$props.optional"
+      :for="$props.id ?? 'customSelectDropdown'"
+      class="fs-14 bold-fw"
+    >
+      {{ $props.label ?? '' }}
+    </label>
+    <div
+      v-if="$props.label && $props.optional"
+      class="d-flex justify-content-between align-items-center mt-4 mb-1"
+    >
+      <label class="fs-14 bold-fw" :for="$props.id ?? 'customSelectDropdown'">{{ $props.label ?? '' }}</label>
+      <label class="labelOptional">OPTIONAL</label>
+    </div>
+    <div class="p-relative">
+      <input
+        :id="$props.id ?? 'customSelectDropdown'"
+        ref="inputRef"
+        class="form-control pe-5 autocomplete customSelectDropdown"
+        autocomplete="off"
+        placeholder="Select or Start Typing"
+        type="text"
+        @focus="dropdown = true"
+        @keydown="(e) => (e.key === 'Tab' ? (dropdown = false) : false)"
+        @input="handleChangeEvent"
+      />
+      <span class="chevron-span" @click="closeDropdown()">
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z" fill="black" />
+          <path  d="M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z" fill="black" />
+        </svg>
+      </span>
 
-        <!-- This cross button is for resetting or clearing the selection of the dropdown -->
-        <button type="button" class="btn select-cross-btn d-none">
-          <svg width="9" height="10" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5.78906" y="6.94922" width="8" height="1.5" rx="0.75" transform="rotate(-135 5.78906 6.94922)" fill="#8D8D8D"/>
-            <rect x="0.136719" y="5.99023" width="8" height="1.5" rx="0.75" transform="rotate(-45 0.136719 5.99023)" fill="#8D8D8D"/>
-          </svg>
-        </button>
-        
-        <div v-if="dropdown" class="autocomplete-items" @click="e => e.stopPropagation()">
-            <div v-if="$props.addNewClient && (!selectList.length || !templateText)"  data-bs-toggle="offcanvas" :data-bs-target="`#${$props.createItemModalId || 'addClientCanvas'}`" :aria-controls="`${$props.createItemModalId || 'addClientCanvas'}`">Create New Client</div>
-            <div v-for="(item, index) in selectList" :key="index" @click="(e) => setInputValue(item.template_name, item.id)">{{item.template_name}}</div>
+      <!-- This cross button is for resetting or clearing the selection of the dropdown -->
+      <button class="btn select-cross-btn d-none" type="button">
+        <svg width="9" height="10" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5.78906" y="6.94922" width="8" height="1.5" rx="0.75" transform="rotate(-135 5.78906 6.94922)" fill="#8D8D8D"/>
+          <rect x="0.136719" y="5.99023" width="8" height="1.5" rx="0.75" transform="rotate(-45 0.136719 5.99023)" fill="#8D8D8D"/>
+        </svg>
+      </button>
+
+      <div v-if="dropdown" class="autocomplete-items" @click="(e) => e.stopPropagation()">
+        <div
+          v-if="$props.addNewClient && (!selectList.length || !templateText)"
+          :aria-controls="`${$props.createItemModalId || 'addClientCanvas'}`"
+          :data-bs-target="`#${$props.createItemModalId || 'addClientCanvas'}`"
+          data-bs-toggle="offcanvas"
+        >
+          Create New Client
+        </div>
+        <div
+          v-for="(item, index) in selectList"
+          :key="index" @click="(e) => setInputValue(item.template_name, item.id)"
+        >
+          {{ item.template_name }}
         </div>
       </div>
-      <small class="text-danger" v-if="$props.error">{{$props.error[0]}}</small>
     </div>
+    <small class="text-danger" v-if="$props.error">{{ $props.error[0] }}</small>
+  </div>
 </template>
+
 <script>
 export default {
   props: [
