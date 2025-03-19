@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     updateStrategyIndex(val) {
-      // XXX hmmm....
+      // XXX hmmm.... don't think this actually does anything
       let index = this.indexStrategies.filter((i) => {
         return i.template_name === document.getElementById(`analysis_index${this.currentTab}`).value;
       })[0];

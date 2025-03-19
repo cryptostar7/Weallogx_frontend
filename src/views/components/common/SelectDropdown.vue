@@ -84,7 +84,7 @@ export default {
     };
   },
   methods: {
-    setInputValue: function(template_name, id) {
+    setInputValue(template_name, id) {
       this.templateText = template_name;
       this.$refs.inputRef.value = template_name;
       this.$emit("onSelectItem", id);
@@ -92,7 +92,7 @@ export default {
       this.$emit("clearError");
       this.dropdown = false;
     },
-    closeDropdown: function(e = null) {
+    closeDropdown(e = null) {
       if (e && e.target && e.target.classList) {
         if (!e.target.classList.contains("customSelectDropdown")) {
           this.dropdown = false;
@@ -103,7 +103,7 @@ export default {
         }
       }
     },
-    handleChangeEvent: function(e) {
+    handleChangeEvent(e) {
       this.templateText = e.target.value;
       this.$emit("inputText", e.target.value);
       this.$emit("clearError");
