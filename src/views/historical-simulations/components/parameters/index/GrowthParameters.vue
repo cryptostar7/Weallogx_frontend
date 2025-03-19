@@ -15,7 +15,7 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p>index</p>
+            <p>Index</p>
             <p></p>
         </div>
         <SelectDropdown :list="indexStrategies" :id="`simulation_analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 

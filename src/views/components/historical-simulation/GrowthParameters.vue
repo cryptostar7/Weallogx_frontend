@@ -15,7 +15,7 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p>index</p>
+            <p>Index</p>
             <p></p>
         </div>
         <SelectDropdown
