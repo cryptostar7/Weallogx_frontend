@@ -22,7 +22,7 @@ git clone <wlx-api-repo>
 npm install
 ```
 
-3. Create `.env.local` for development:
+3. Create `.env.local` for development *(a precommit hook also runs this for automated updates)*:
 ```bash
 node generate-env.js
 ```
