@@ -17,7 +17,7 @@ export default {
             panelHover: false,
             persistPanel: false,
             deployNodeEnv: import.meta.env.VITE_DEPLOY_NODE_ENV || 'UNSET',
-            deployBuildEnv: import.meta.env.VITE_DEPLOY_BUILD_ENV || 'UNSET',
+            deployBuildEnv: import.meta.env.VITE_DEPLOY_APP_ENV || 'UNSET',
             deployBranch: import.meta.env.VITE_DEPLOY_BRANCH || 'UNSET',
             deployCommit: import.meta.env.VITE_DEPLOY_COMMIT || 'UNSET',
             deployTimestamp: import.meta.env.VITE_DEPLOY_TIME || 'UNSET',

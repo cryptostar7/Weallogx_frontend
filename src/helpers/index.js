@@ -78,7 +78,7 @@ const myPlugin = {
                 return import.meta.env.VITE_APP_URL || '/';
             },
             app.config.globalProperties.$apiUrl = () => {
-                return import.meta.env.VITE_API_BASE_UR = '/api';
+                return import.meta.env.VITE_API_BASE_URL || '/api';
             },
             app.config.globalProperties.$arraySum = (array = []) => {
                 let sum = 0;

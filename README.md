@@ -11,39 +11,40 @@ Vue 3 + Vite frontend for WealthLogix. Works with `wlx-api` backend service.
 
 ### Local Development
 
-1. Clone both UI and API repositories into the same parent folder:
-```bash
-git clone <wlx-ui-repo>
-git clone <wlx-api-repo>
-```
+1. Clone the UI and API repositories into the same parent folder:
+    ```bash
+    git clone <wlx-ui-repo>
+    git clone <wlx-api-repo>
+    ```
 
 2. Install dependencies:
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
 
-3. Create `.env.local` for development *(a precommit hook also runs this for automated updates)*:
-```bash
-node generate-env.js
-```
+3. Generate `.env.local` for local build info
+   - *(a precommit hook also runs this for automated updates)*
+    ```bash
+    node generate-env.js
+    ```
 
 4. Choose your development mode:
 
-**UI Only:**
-```bash
-npm run dev
-```
+    **UI Only:**
+    ```bash
+    npm run dev
+    ```
 
-**Full Stack with Docker:**
-```bash
-cd ../wlx-api
-docker compose up
-```
+    **Full Stack with Docker:**
+    ```bash
+    cd ../wlx-api
+    docker compose up
+    ```
 
-The app will be available at:
-- UI: http://localhost:8000
-- API: http://localhost:8001
-- API Docs: http://localhost:8001/docs
+5. The app will be available at:
+   - UI: <http://localhost:8000>
+   - API: <http://localhost:8001>
+   - API Docs: <http://localhost:8001/docs>
 
 ### Build for Production
 
@@ -51,7 +52,11 @@ The app will be available at:
 npm run build
 ```
 
+---
+
 ## Architecture
+
+*[TODO: update architecture section; proposed future state below]*
 
 This UI is designed to work with the `wlx-api` backend. In production:
 - UI is served as static assets by nginx

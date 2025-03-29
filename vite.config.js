@@ -15,7 +15,7 @@ export default defineConfig({
     org: "wlx-7b",
     project: "wlx-ui"
   })],
-  define: Object.keys(process.env)
+  define: Object.keys(process.env)  // think we can eliminate `define` call entirely once process env is fully adopted?
     .filter(key => key.startsWith('VITE_'))
     .reduce((env, key) => {
       env[`process.env.${key}`] = JSON.stringify(process.env[key]);
