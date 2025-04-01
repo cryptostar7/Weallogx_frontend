@@ -22,15 +22,9 @@ Vue 3 + Vite frontend for WealthLogix. Works with `wlx-api` backend service.
     npm install
     ```
 
-3. Generate `.env.local` for local build info
-   - *(a precommit hook also runs this for automated updates)*
-    ```bash
-    node generate-env.js
-    ```
+3. Choose your development mode:
 
-4. Choose your development mode:
-
-    **UI Only:**
+    **UI Only:** (also creates/updates `.env.local`)
     ```bash
     npm run dev
     ```
@@ -41,7 +35,7 @@ Vue 3 + Vite frontend for WealthLogix. Works with `wlx-api` backend service.
     docker compose up
     ```
 
-5. The app will be available at:
+4. The app will be available at:
    - UI: <http://localhost:8000>
    - API: <http://localhost:8001>
    - API Docs: <http://localhost:8001/docs>

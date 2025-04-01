@@ -1,8 +1,8 @@
 <template>
     <div class="env-wrapper" @click="toggleEnvData">
         <div class="env-panel" :class="{ 'env-panel-visible': persistPanel }" @click="toggleEnvData">
-            <p>Node ENV: {{ deployNodeEnv }}</p>
-            <p>Build ENV: {{ deployBuildEnv }}</p>
+            <p>NODE_ENV: {{ deployNodeEnv }}</p>
+            <p>BUILD_ENV: {{ deployBuildEnv }}</p>
             <p>Branch: {{ deployBranch }}</p>
             <p>Commit: {{ deployCommit }}</p>
             <p>Built: {{ deployTimestamp }}</p>

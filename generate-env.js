@@ -10,17 +10,17 @@ const buildTime = new Date().toLocaleString();
 
 // In dev, copy the contents of .env.development
 const nodeEnv = process.env.NODE_ENV || "development"
-const appEnv = process.env.APP_ENV || "local";
+const appEnv = process.env.APP_ENV || "development";
 console.log(`Current NODE_ENV: ${nodeEnv}`);
 console.log(`Current APP_ENV: ${appEnv}`);
 
 const viteKeys = Object.keys(process.env).filter(key => key.startsWith("VITE_"));
 console.log(`VITE environment keys loaded: ${viteKeys.length}`);
 for (const key of viteKeys) {
-    if (nodeEnv === "development" || process.env.NODE_ENV === "staging") {
-        console.log(`VITE Env key ${key}: ${process.env[key]}`);
+    if (nodeEnv === "development" || nodeEnv === "staging") {
+        console.log(`VITE env key ${key}: ${process.env[key]}`);
     } else {
-        console.log(`VITE Env key ${key}`);
+        console.log(`VITE env key ${key}`);
     }
 }
 
@@ -35,4 +35,4 @@ VITE_DEPLOY_TIME=${buildTime}
 
 // Write to .env.local
 fs.writeFileSync(".env.local", envContent, { flag: "w" });
-console.log(".env.local file created with dynamic build and branch info.");
+console.log(".env.local file updated with dynamic build and branch info.");

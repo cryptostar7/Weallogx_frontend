@@ -6,7 +6,7 @@
     "dev-env": "node generate-env.js",
     "dev": "npm run dev-env && vite --port 8000",
     "build": "vite build",
-    "preview": "vite preview ",
+    "preview": "vite build && vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "proxy": "http://localhost:8001",
