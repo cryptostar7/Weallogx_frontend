@@ -6,7 +6,7 @@
     "dev-env": "node generate-env.js",
     "dev": "npm run dev-env && vite --port 8000",
     "build": "vite build",
-    "preview": "vite preview ",
+    "preview": "vite build && vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "proxy": "http://localhost:8001",
@@ -28,6 +28,7 @@
     "pdfjs-dist": "^4.8.69",
     "vee-validate": "^4.6.7",
     "vite": "^3.0.4",
+    "vite-plugin-env-compatible": "^2.0.1",
     "vue": "^3.2.37",
     "vue-axios": "^3.5.2",
     "vue-disable-autocomplete": "^0.0.4",

@@ -17,6 +17,7 @@ coverage
 #env files
 *.env
 .env.*
+!.env.development
 
 /cypress/videos/
 /cypress/screenshots/
@@ -31,6 +32,7 @@ coverage
 *.sln
 *.sw?
 /.github/*
+
 # Sentry Config File
 .env.sentry-build-plugin
 snyk-linux

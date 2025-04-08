@@ -1,7 +1,8 @@
 <template>
     <div class="env-wrapper" @click="toggleEnvData">
         <div class="env-panel" :class="{ 'env-panel-visible': persistPanel }" @click="toggleEnvData">
-            <p>Platform: {{ deployPlatform }}</p>
+            <p>APP_ENV: {{ deployAppEnv }}</p>
+            <p>BUILD_ENV: {{ deployBuildEnv }}</p>
             <p>Branch: {{ deployBranch }}</p>
             <p>Commit: {{ deployCommit }}</p>
             <p>Built: {{ deployTimestamp }}</p>
@@ -15,7 +16,8 @@ export default {
         return {
             panelHover: false,
             persistPanel: false,
-            deployPlatform: import.meta.env.VITE_DEPLOY_PLATFORM || 'UNSET',
+            deployAppEnv: import.meta.env.VITE_DEPLOY_APP_ENV || 'UNSET',
+            deployBuildEnv: import.meta.env.VITE_DEPLOY_BUILD_ENV || 'UNSET',
             deployBranch: import.meta.env.VITE_DEPLOY_BRANCH || 'UNSET',
             deployCommit: import.meta.env.VITE_DEPLOY_COMMIT || 'UNSET',
             deployTimestamp: import.meta.env.VITE_DEPLOY_TIME || 'UNSET',
@@ -24,9 +26,21 @@ export default {
     methods: {
         toggleEnvData(event) {
             this.persistPanel = !this.persistPanel;
-            event.stopPropagation();
+            event?.stopPropagation();
         },
+        handleKeydown(event) {
+            // Toggle the panel when the user presses "?" (Shift + /)
+            if (event.key === '?' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA') {
+                this.toggleEnvData();
+            }
+        }
     },
+    mounted() {
+        window.addEventListener('keydown', this.handleKeydown);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keydown', this.handleKeydown);
+    }
 };
 </script>
 
