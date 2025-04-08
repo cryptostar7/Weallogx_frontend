@@ -16,12 +16,13 @@ RUN npm run dev
 EXPOSE 8000 5173 5174 9229
 
 # Production build stage
-FROM development as production-build
+FROM node-base as production-build
 WORKDIR /app
 RUN npm run build && \
     npm prune --production && \
     mkdir -p /usr/share/nginx/html && \
     cp -r dist/* /usr/share/nginx/html/
+EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 # ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
