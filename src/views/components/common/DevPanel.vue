@@ -1,7 +1,7 @@
 <template>
     <div class="env-wrapper" @click="toggleEnvData">
         <div class="env-panel" :class="{ 'env-panel-visible': persistPanel }" @click="toggleEnvData">
-            <p>NODE_ENV: {{ deployNodeEnv }}</p>
+            <p>APP_ENV: {{ deployAppEnv }}</p>
             <p>BUILD_ENV: {{ deployBuildEnv }}</p>
             <p>Branch: {{ deployBranch }}</p>
             <p>Commit: {{ deployCommit }}</p>
@@ -16,8 +16,8 @@ export default {
         return {
             panelHover: false,
             persistPanel: false,
-            deployNodeEnv: import.meta.env.VITE_DEPLOY_NODE_ENV || 'UNSET',
-            deployBuildEnv: import.meta.env.VITE_DEPLOY_APP_ENV || 'UNSET',
+            deployAppEnv: import.meta.env.VITE_DEPLOY_APP_ENV || 'UNSET',
+            deployBuildEnv: import.meta.env.VITE_DEPLOY_BUILD_ENV || 'UNSET',
             deployBranch: import.meta.env.VITE_DEPLOY_BRANCH || 'UNSET',
             deployCommit: import.meta.env.VITE_DEPLOY_COMMIT || 'UNSET',
             deployTimestamp: import.meta.env.VITE_DEPLOY_TIME || 'UNSET',

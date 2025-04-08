@@ -37,7 +37,7 @@ export function getServerErrors(error) {
 
 export function setRefreshToken(value) {
   const now = new Date();
-  const ttl = Number(import.meta.env.VITE_REFRESH_TOKEN_EXPIRE_IN) * 3600000;
+  const ttl = Number(import.meta.env.VITE_REFRESH_TOKEN_EXPIRE_IN || 168) * 3600000;
   const item = {
     value: value,
     expiry: now.getTime() + ttl,
@@ -47,7 +47,7 @@ export function setRefreshToken(value) {
 
 export function setAccessToken(value) {
   const now = new Date();
-  const ttl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN) * 600000;
+  const ttl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN || 72) * 600000;
   const item = {
     value: value,
     expiry: now.getTime() + ttl,
@@ -96,8 +96,8 @@ export const getCurrentUser = () => {
 
 export const isTscUser = () => {
   let user = getCurrentUser();
-  
-  if(user){
+
+  if (user) {
     return user.role_type === 'tsc';
   }
   return false;
@@ -315,7 +315,7 @@ export const clearSimulationCacheData = () => {
   localStorage.setItem('simulationStep3', null);
 }
 
-export const  getIncomeRiderYearLabels = (distribution1 = [], distribution2 = [], distribution3 = []) => {
+export const getIncomeRiderYearLabels = (distribution1 = [], distribution2 = [], distribution3 = []) => {
   if (!distribution1.length) {
     return [];
   }
