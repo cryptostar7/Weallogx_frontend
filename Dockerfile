@@ -2,21 +2,23 @@
 
 # pre-install dependencies and app code
 # ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
-# FROM ${NODE_IMAGE} as node-base
-FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine as node-base
+# FROM ${NODE_IMAGE} AS node-base
+FROM node:18-alpine AS node-base
+# FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine AS node-base
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 
 # Development build stage
-FROM node-base as development
+FROM node-base AS development
 WORKDIR /app
 RUN npm run dev
 EXPOSE 8000 5173 5174 9229
 
 # Production build stage
-FROM node-base as production-build
+FROM node-base AS production-build
 WORKDIR /app
 RUN npm run build && \
     npm prune --production && \
@@ -26,8 +28,11 @@ EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 # ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
-# FROM ${NGINX_IMAGE} as production
-FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx as production
+# FROM ${NGINX_IMAGE} AS production
+# FROM public.ecr.aws/nginx/nginx:stable-alpine3.20-slim AS production
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx AS production
+
+RUN apk update && apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 
@@ -36,6 +41,6 @@ RUN envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && 
 
 # Select build and run API
 # ARG BUILD_ENV=production
-# FROM ${BUILD_ENV:-production} as final
-FROM production as final
-CMD nginx -g 'daemon off;'
+# FROM ${BUILD_ENV:-production} AS final
+FROM production AS final
+CMD ["nginx", "-g", "daemon off;"]
