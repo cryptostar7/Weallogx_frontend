@@ -3,8 +3,8 @@
 # pre-install dependencies and app code
 # ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
 # FROM ${NODE_IMAGE} AS node-base
-FROM node:18-alpine AS node-base
-# FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine AS node-base
+# FROM node:18-alpine AS node-base
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine AS node-base
 
 WORKDIR /app
 COPY package*.json ./
