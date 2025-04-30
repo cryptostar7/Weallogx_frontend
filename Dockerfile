@@ -11,7 +11,7 @@ COPY . .
 # Development build stage
 FROM node-base as development
 WORKDIR /app
-RUN npm run dev
+CMD ["npm", "run", "dev"]
 EXPOSE 8000 5173 5174 9229
 
 # Production build stage
@@ -23,8 +23,12 @@ RUN npm run build && \
     cp -r dist/* /usr/share/nginx/html/
 
 # Final production stage (nginx proxy forwarding)
-ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
-FROM ${NGINX_IMAGE} as production
+# ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
+# FROM ${NGINX_IMAGE} AS production
+# FROM public.ecr.aws/nginx/nginx:stable-alpine3.20-slim AS production
+FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx AS production
+
+RUN apk update && apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 
