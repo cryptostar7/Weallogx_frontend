@@ -10,11 +10,9 @@
         <div class="select-menu">
           <div class="select-btn">
             <span class="sBtn-text">{{ $props.startYear }}</span>
-            <i
-              ><img
-                src="@/assets/images/icons/select-chevron.svg"
-                alt="Chevron"
-            /></i>
+            <i>
+              <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+            </i>
           </div>
           <ul class="options">
             <li
@@ -33,11 +31,9 @@
         <div class="select-menu">
           <div class="select-btn">
             <span class="sBtn-text">{{ endYear }}</span>
-            <i
-              ><img
-                src="@/assets/images/icons/select-chevron.svg"
-                alt="Chevron"
-            /></i>
+            <i>
+              <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+            </i>
           </div>
           <ul class="options">
             <li
@@ -58,11 +54,9 @@
         <div :class="`select-menu ${isValidIndex ? '' : 'error'}`">
           <div class="select-btn">
             <span class="sBtn-text">{{ indexStrategy }}</span>
-            <i
-              ><img
-                src="@/assets/images/icons/select-chevron.svg"
-                alt="Chevron"
-            /></i>
+            <i>
+              <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+            </i>
           </div>
           <ul class="options">
             <li
@@ -79,10 +73,10 @@
         </div>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label
-          >Segment Duration (Years)
-          <span
-            ><svg
+        <label>
+          Segment Duration (Years)
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -111,8 +105,8 @@
               </g>
             </svg>
             <span>Is your strategy a 1, 2, or 3 years strategy?</span>
-          </span></label
-        >
+          </span>
+        </label>
         <div class="three-radio-button-input-div">
           <div>
             <input
@@ -125,8 +119,9 @@
             <label
               :for="`segmentDuration1${$props.currentTab}`"
               @click="segment = 1"
-              >1</label
             >
+              1
+            </label>
           </div>
           <div>
             <input
@@ -139,8 +134,9 @@
             <label
               :for="`segmentDuration2${$props.currentTab}`"
               @click="segment = 2"
-              >2</label
             >
+              2
+            </label>
           </div>
           <div>
             <input
@@ -153,16 +149,17 @@
             <label
               :for="`segmentDuration3${$props.currentTab}`"
               @click="segment = 3"
-              >3</label
             >
+              3
+            </label>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Cap Rate
-          <span
-            ><svg
+        <label for="beginningBalance">
+          Cap Rate
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -191,8 +188,8 @@
               </g>
             </svg>
             <span>What is your strategy’s cap rate? If none, leave blank.</span>
-          </span></label
-        >
+          </span>
+        </label>
         <div class="index-strategy-each-inputs">
           <input
             type="text"
@@ -214,10 +211,10 @@
         </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Margin
-          <span
-            ><svg
+        <label for="beginningBalance">
+          Margin
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -245,14 +242,14 @@
                 />
               </g>
             </svg>
-            <span
-              >If your strategy uses a margin/spread, enter it here. Many
+            <span>
+              If your strategy uses a margin/spread, enter it here. Many
               multiyear strategies express the margin annually. For example, a 2
               year strategy might use a margin of 3% annually. You would put 6%
-              here, in that case. If none, leave blank or put 0.</span
-            >
-          </span></label
-        >
+              here, in that case. If none, leave blank or put 0.
+            </span>
+          </span>
+        </label>
         <div class="index-strategy-each-inputs">
           <input
             type="text"
@@ -310,10 +307,10 @@
         </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Performance Multiplier
-          <span
-            ><svg
+        <label for="beginningBalance">
+          Performance Multiplier
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -341,13 +338,13 @@
                 />
               </g>
             </svg>
-            <span
-              >If you are using a multiplier, enter that value here. For
+            <span>
+              If you are using a multiplier, enter that value here. For
               example, if your strategy has a 40% multiplier, you would enter
-              1.4 here. If none, enter 1.</span
-            >
-          </span></label
-        >
+              1.4 here. If none, enter 1.
+            </span>
+          </span>
+        </label>
         <div class="index-strategy-each-inputs">
           <input
             type="text"
@@ -360,9 +357,10 @@
         </div>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Start Year<span
-            ><svg
+        <label for="beginningBalance">
+          Start Year
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -391,16 +389,14 @@
               </g>
             </svg>
             <span>What year does the performance multiplier start?</span>
-          </span></label
-        >
+          </span>
+        </label>
         <div class="select-menu">
           <div class="select-btn">
             <span class="sBtn-text">{{ pmfStartYear }}</span>
-            <i
-              ><img
-                src="@/assets/images/icons/select-chevron.svg"
-                alt="Chevron"
-            /></i>
+            <i>
+              <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+            </i>
           </div>
           <ul class="options">
             <li
@@ -425,10 +421,10 @@
         </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Flat Credit/Bonus
-          <span
-            ><svg
+        <label for="beginningBalance">
+          Flat Credit/Bonus
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -456,12 +452,9 @@
                 />
               </g>
             </svg>
-            <span
-              >If your strategy uses a flat credit or bonus, enter that value
-              here.</span
-            >
-          </span></label
-        >
+            <span>If your strategy uses a flat credit or bonus, enter that value here.</span>
+          </span>
+        </label>
         <div class="index-strategy-each-inputs">
           <input
             type="text"
@@ -482,9 +475,10 @@
         </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Start Year<span
-            ><svg
+        <label for="beginningBalance">
+          Start Year
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -513,16 +507,14 @@
               </g>
             </svg>
             <span>What year does the credit or bonus start?</span>
-          </span></label
-        >
+          </span>
+        </label>
         <div class="select-menu">
           <div class="select-btn">
             <span class="sBtn-text">{{ fcStartYear }}</span>
-            <i
-              ><img
-                src="@/assets/images/icons/select-chevron.svg"
-                alt="Chevron"
-            /></i>
+            <i>
+              <img src="@/assets/images/icons/select-chevron.svg" alt="Chevron" />
+            </i>
           </div>
           <ul class="options">
             <li
@@ -547,9 +539,10 @@
         </p>
       </div>
       <div class="col-md-6 col-lg-3 inp-mar-top">
-        <label for="beginningBalance"
-          >Strategy Fee<span
-            ><svg
+        <label for="beginningBalance">
+          Strategy Fee
+          <span>
+            <svg
               class="label-common-tooltip-svg"
               width="13"
               height="13"
@@ -577,12 +570,9 @@
                 />
               </g>
             </svg>
-            <span
-              >Enter all strategy related fees here (i.e. multiplier fees, high
-              cap fees, etc.)</span
-            >
-          </span></label
-        >
+            <span>Enter all strategy related fees here (i.e. multiplier fees, high cap fees, etc.)</span>
+          </span>
+        </label>
         <div class="index-strategy-each-inputs">
           <input
             type="text"
@@ -661,8 +651,10 @@
     />
   </div>
 </template>
+
 <script>
-import config from "../../../services/config.js";
+import config from "@/services/config.js";
+
 export default {
   props: ["activeTab", "currentTab", "startYear", "endYear", "resetForm"],
   emits: ["clearError", "setStartYear", "setEndYear", "setResetForm"],
@@ -682,42 +674,62 @@ export default {
       StrategyFee: "",
     };
   },
+  computed: {
+    years() {
+      const array = [];
+      let currentYear = new Date().getFullYear();
+      // let currentYear = 2024;
+
+      for (let index = 1960; index < currentYear; index++) {
+        array.push(index);
+      }
+
+      return array;
+    },
+    indexStrategies() {
+      return config.ISC_INDEX_STRATEGIES;
+    },
+    isValidIndex() {
+      let item = this.indexStrategies.filter((i) => i.template_name === this.indexStrategy)[0];
+
+      return this.$props.startYear >= item.max_year;
+    }
+  },
+  watch: {
+    "$props.resetForm"(e) {
+      this.resetFormData();
+    },
+  },
   mounted() {
     this.populateData();
   },
   methods: {
-    populateData: function () {
+    populateData() {
       let inputs = JSON.parse(localStorage.getItem("isc_calculate_inputs"));
       let index = Number(this.$props.currentTab) - 1;
       if (inputs && inputs.strategies[index]) {
         this.segment = inputs.strategies[index].segment_duration;
-        this.pmfStartYear =
-          inputs.strategies[index].performance_multiplier_start_year;
-        this.fcStartYear =
-          inputs.strategies[index].flat_credit_bonus_start_year;
+        this.pmfStartYear = inputs.strategies[index].performance_multiplier_start_year;
+        this.fcStartYear = inputs.strategies[index].flat_credit_bonus_start_year;
         this.indexStrategy = inputs.strategies[index].index;
         let cap_rate = Number((inputs.strategies[index].cap_rate * 100).toFixed(2));
         this.capRate = cap_rate >= 1000 ? "" : this.$numFormat(cap_rate);
         this.margin = this.$numFormat(inputs.strategies[index].margin * 100);
         this.parRate = this.$numFormat(inputs.strategies[index].par_rate * 100);
         this.floor = this.$numFormat(inputs.strategies[index].floor * 100);
-        this.flatCreditBonus = this.$numFormat(
-          inputs.strategies[index].flat_credit_bonus * 100
-        );
-        this.PerformanceMultiplier =
-          inputs.strategies[index].performance_multiplier;
+        this.flatCreditBonus = this.$numFormat(inputs.strategies[index].flat_credit_bonus * 100);
+        this.PerformanceMultiplier = inputs.strategies[index].performance_multiplier;
         this.StrategyFee = this.$numFormat(inputs.strategies[index].fee * 100);
         this.$refs.capRateRef.value = cap_rate >= 1000 ? "" : cap_rate;
         this.$refs.marginRef.value = this.margin;
         this.$refs.parRateRef.value = this.parRate;
         this.$refs.floorRef.value = this.floor;
         this.$refs.flatCreditBonusRef.value = this.flatCreditBonus;
-        this.$refs.PerformanceMultiplierRef.value =
-          inputs.strategies[index].performance_multiplier;
+        this.$refs.PerformanceMultiplierRef.value = inputs.strategies[index].performance_multiplier;
         this.$refs.StrategyFeeRef.value = this.StrategyFee;
       }
     },
-    resetFormData: function () {
+    resetFormData() {
       this.segment = 1;
       this.pmfStartYear = 1;
       this.fcStartYear = 1;
@@ -737,31 +749,6 @@ export default {
       this.$refs.PerformanceMultiplierRef.value = this.PerformanceMultiplier;
       this.$refs.StrategyFeeRef.value = this.StrategyFee;
     },
-  },
-  computed: {
-    years() {
-      let array = [];
-      // let currentYear = new Date().getFullYear();
-      let currentYear = 2024;
-      for (let index = 1960; index < currentYear; index++) {
-        array.push(index);
-      }
-
-      return array;
-    },
-    indexStrategies() {
-      return config.ISC_INDEX_STRATEGIES;
-    },
-    isValidIndex: function() {
-      let item = this.indexStrategies.filter(i => i.template_name === this.indexStrategy)[0];
-      return this.$props.startYear >= item.max_year;
-    }
-  },
-  watch: {
-    "$props.resetForm"(e) {
-      this.resetFormData();
-    },
-  },
+  }
 };
 </script>
-<style lang=""></style>

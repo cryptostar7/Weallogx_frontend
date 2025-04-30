@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div class="indexStrategyallDivs active  mt-3 accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#growth-parameters1" aria-expanded="false" aria-controls="growth-parameters1">
         <div class="d-flex justify-content-between align-items-center">
         <div class="indexStrategyheadBrdr">
@@ -15,7 +15,7 @@
     </div>
     <form id="growth-parameters1" class="accordion-collapse collapse analysisParametersContent" data-bs-parent="#growth-parameters1" autocomplete="off">
         <div class="formParabrdrLavelDiv mb-1">
-            <p>index</p>
+            <p>Index</p>
             <p></p>
         </div>
         <SelectDropdown :list="indexStrategies" :id="`simulation_analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
@@ -55,13 +55,14 @@
         <segment-duration-year ref="customInputRef5" :hiddenInputId="`simulation_segment_year_range${currentTab}`" :currentTab="currentTab"/>
     </form>
 </template>
+
 <script>
-import CustomRangeInput from "../../../../components/common/CustomRangeInput.vue";
-import CustomRangeInput2 from "../../../../components/common/CustomRangeInput2.vue";
-import CustomRangeInput3 from "../../../../components/common/CustomRangeInput3.vue";
-import SegmentDurationYear from "./SegmentDurationYear.vue";
-import SelectDropdown from "../../../../components/common/SelectDropdown.vue";
-import config from "../../../../../services/config.js";
+import config from '@/services/config.js';
+import CustomRangeInput from '../../../../components/common/CustomRangeInput.vue';
+import CustomRangeInput2 from '../../../../components/common/CustomRangeInput2.vue';
+import CustomRangeInput3 from '../../../../components/common/CustomRangeInput3.vue';
+import SegmentDurationYear from './SegmentDurationYear.vue';
+import SelectDropdown from '../../../../components/common/SelectDropdown.vue';
 
 export default {
   components: {
@@ -69,13 +70,21 @@ export default {
     CustomRangeInput2,
     CustomRangeInput3,
     SegmentDurationYear,
-    SelectDropdown,
+    SelectDropdown
   },
-  props: ["currentTab", "rollingTime"],
+  props: ['currentTab', 'rollingTime'],
   data() {
     return {
       isCapActive: true,
     };
+  },
+  computed: {
+    indexStrategies() {
+      let rolling = this.$props.rollingTime || 30;
+      return (
+        config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
+      );
+    }
   },
   methods: {
     updateStrategyIndex: function(val) {
@@ -85,7 +94,6 @@ export default {
           document.getElementById(`simulation_analysis_index${this.currentTab}`).value
       )[0];
     },
-
     handleCapRate(e) {
       if (e.target.checked) {
         this.isCapActive = true;
@@ -105,14 +113,6 @@ export default {
       this.$refs.customInputRef4.updateData();
       this.$refs.customInputRef5.updateData();
     }
-  },
-  computed: {
-    indexStrategies() {
-      let rolling = this.$props.rollingTime || 30;
-      return (
-        config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
-      );
-    },
-  },
+  }
 };
 </script>

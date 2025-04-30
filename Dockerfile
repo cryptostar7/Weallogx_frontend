@@ -1,26 +1,30 @@
 # Default to staging/production images, override for development
 
 # pre-install dependencies and app code
-ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
-FROM ${NODE_IMAGE} as node-base
+# ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
+# FROM ${NODE_IMAGE} AS node-base
+FROM node:18-alpine AS node-base
+# FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine AS node-base
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 
 # Development build stage
-FROM node-base as development
+FROM node-base AS development
 WORKDIR /app
 CMD ["npm", "run", "dev"]
 EXPOSE 8000 5173 5174 9229
 
 # Production build stage
-FROM development as production-build
+FROM node-base AS production-build
 WORKDIR /app
 RUN npm run build && \
     npm prune --production && \
     mkdir -p /usr/share/nginx/html && \
     cp -r dist/* /usr/share/nginx/html/
+EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 # ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
@@ -36,6 +40,7 @@ RUN envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && 
     mv /tmp/default.conf /etc/nginx/conf.d/default.conf
 
 # Select build and run API
-ARG BUILD_ENV=production
-FROM ${BUILD_ENV:-production} as final
-CMD nginx -g 'daemon off;'
+# ARG BUILD_ENV=production
+# FROM ${BUILD_ENV:-production} AS final
+FROM production AS final
+CMD ["nginx", "-g", "daemon off;"]
