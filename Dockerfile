@@ -33,14 +33,13 @@ EXPOSE 8000
 FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx AS production
 
 RUN apk update && apk upgrade --no-cache
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf.template
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
-
-RUN envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && \
-    mv /tmp/default.conf /etc/nginx/conf.d/default.conf
 
 # Select build and run API
 # ARG BUILD_ENV=production
 # FROM ${BUILD_ENV:-production} AS final
 FROM production AS final
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
