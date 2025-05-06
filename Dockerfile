@@ -34,8 +34,8 @@ FROM 196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx AS production
 
 RUN apk update && apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf.template
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 
 # Select build and run API
