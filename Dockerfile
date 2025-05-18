@@ -32,15 +32,13 @@ EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 FROM ${NGINX_IMAGE} AS production
-# RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
+RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
 RUN apk update && apk upgrade --no-cache
-COPY nginx.conf /etc/nginx/conf.d/default.conf.template
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+# Copy static files and nginx config; nginx will auto-inject the env var ALB_URL
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/templates/default.conf.template
+EXPOSE 80
 
-# Select build and run API
-# ARG BUILD_ENV=production
-# FROM ${BUILD_ENV:-production} AS final
-FROM production AS final
+# Select build stage based on BUILD_ENV
+FROM ${BUILD_ENV:-production} AS final
 ENTRYPOINT ["/entrypoint.sh"]

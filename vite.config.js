@@ -22,6 +22,18 @@ export default defineConfig({
       console.log(`Added key ${key}`);
       return env;
     }, {}),
+  server: {
+    host: true,
+    port: 8000,
+    proxy: {
+      // Proxy /api requests to API server in development
+      '/api': {
+        target: process.env.VITE_API_BASE_URL || 'http://localhost:8001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   preview: {
     host: true,
     port: 8000
