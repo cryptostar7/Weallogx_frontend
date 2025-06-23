@@ -290,7 +290,6 @@
           none: "None",
           age: "Age",
           account_value: "Accumulation Value",
-          distribution_loan: "Distribution - Loan",
           death_benefit: "Death Benefit",
           distributions: "Distribution - Withdrawal",
           total_loan_charge: "Fees",
