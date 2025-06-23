@@ -1350,11 +1350,6 @@ export default {
           value: "account_value",
           multiple: false,
         },
-        {
-          name: "Distribution - Loan",
-          value: "distribution_loan",
-          multiple: false,
-        },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
         {
           name: "Distribution - Withdrawal",
