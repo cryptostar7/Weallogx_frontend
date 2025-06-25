@@ -1,8 +1,12 @@
 ARG APP_ENV=production
 ARG BUILD_ENV=production
-# Default to ECR images for production, override for local development
+
 ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
-ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
+ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine 
+
+FROM ${NODE_IMAGE} AS development
+ARG APP_ENV
+ARG BUILD_ENV
 
 FROM ${NODE_IMAGE} AS node-base
 RUN echo "Using APP_ENV: ${APP_ENV}"
