@@ -32,7 +32,7 @@ EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 FROM ${NGINX_IMAGE} AS production
-RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
+RUN echo "Using NGINX image: ${NGINX_IMAGE}"
 RUN apk update && apk upgrade --no-cache
 # Copy static files and nginx config; nginx will auto-inject the env var ALB_URL
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
