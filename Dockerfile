@@ -1,8 +1,9 @@
 ARG APP_ENV=production
 ARG BUILD_ENV=production
-
+# Default to ECR images for production, override for local development
 ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
-ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine 
+ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine
+
 
 FROM ${NODE_IMAGE} AS node-base
 RUN echo "Using APP_ENV: ${APP_ENV}"
@@ -32,7 +33,7 @@ EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 FROM ${NGINX_IMAGE} AS production
-RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
+RUN echo "Using NGINX image: ${NGINX_IMAGE}"
 RUN apk update && apk upgrade --no-cache
 # Copy static files and nginx config; nginx will auto-inject the env var ALB_URL
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html

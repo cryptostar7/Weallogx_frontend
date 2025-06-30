@@ -292,6 +292,7 @@
           account_value: "Accumulation Value",
           distribution_loan: "Distribution - Loan",
           death_benefit: "Death Benefit",
+          distributions: "Distribution - Withdrawal",
           total_loan_charge: "Fees",
           premium_outlay: "Premium",
           surrender_value: "Surrender Value",
