@@ -4,10 +4,6 @@ ARG BUILD_ENV=production
 ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
 ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine 
 
-FROM ${NODE_IMAGE} AS development
-ARG APP_ENV
-ARG BUILD_ENV
-
 FROM ${NODE_IMAGE} AS node-base
 RUN echo "Using APP_ENV: ${APP_ENV}"
 RUN echo "Using BUILD_ENV: ${BUILD_ENV}"
