@@ -10,7 +10,7 @@ FROM ${NODE_IMAGE} AS development
 ARG APP_ENV
 ARG BUILD_ENV
 
-# FROM ${NODE_IMAGE} AS node-base
+FROM ${NODE_IMAGE} AS node-base
 RUN echo "Using APP_ENV: ${APP_ENV}"
 RUN echo "Using BUILD_ENV: ${BUILD_ENV}"
 RUN echo "Using Node image: ${NODE_IMAGE}"
@@ -41,15 +41,17 @@ EXPOSE 8000
 
 # Final production stage (nginx proxy forwarding)
 FROM ${NGINX_IMAGE} AS production
-# RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
+
+RUN echo "Using NGINX image: ${NGINX_IMAGE}"
+
 RUN apk update && apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 
-# Select build and run API
-# ARG BUILD_ENV=production
-# FROM ${BUILD_ENV:-production} AS final
-FROM production AS final
+
+# Select build stage based on BUILD_ENV
+FROM ${BUILD_ENV:-production} AS final
 ENTRYPOINT ["/entrypoint.sh"]
+
