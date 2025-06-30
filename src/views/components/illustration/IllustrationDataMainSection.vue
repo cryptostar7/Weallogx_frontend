@@ -1347,6 +1347,11 @@ export default {
           multiple: false,
         },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
+        {
+          name: "Distribution - Withdrawal",
+          value: "distributions",
+          multiple: false,
+        },
         { name: "Fees", value: "total_loan_charge", multiple: true },
         { name: "Premium", value: "premium_outlay", multiple: false },
         { name: "Surrender Value", value: "surrender_value", multiple: false },
