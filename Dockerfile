@@ -6,9 +6,6 @@ ARG NGINX_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-nginx
 ARG NODE_IMAGE=196587924847.dkr.ecr.us-east-1.amazonaws.com/wlx-node18alpine 
 # ARG NODE_IMAGE=node:18-alpine 
 #ARG NODE_IMAGE=node:18-bullseye ## USE THIS FOR LOCAL 
-FROM ${NODE_IMAGE} AS development
-ARG APP_ENV
-ARG BUILD_ENV
 
 FROM ${NODE_IMAGE} AS node-base
 RUN echo "Using APP_ENV: ${APP_ENV}"
