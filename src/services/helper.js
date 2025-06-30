@@ -70,20 +70,32 @@ export function getRefreshToken() {
   return item.value
 }
 
+// export function getAccessToken() {
+//   const itemStr = localStorage.getItem('access_token');
+//   if (!itemStr) {
+//     return null
+//   }
+
+//   const item = JSON.parse(itemStr)
+//   const now = new Date();
+//   if (now.getTime() > item.expiry) {
+//     localStorage.removeItem('access_token')
+//     return null
+//   }
+
+//   return item.value
+// }
+
 export function getAccessToken() {
-  const itemStr = localStorage.getItem('access_token');
-  if (!itemStr) {
-    return null
-  }
+  const raw = localStorage.getItem("access_token");
+  if (!raw) return null;
 
-  const item = JSON.parse(itemStr)
-  const now = new Date();
-  if (now.getTime() > item.expiry) {
-    localStorage.removeItem('access_token')
-    return null
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && parsed.value ? parsed.value : null;
+  } catch (e) {
+    return null;
   }
-
-  return item.value
 }
 
 export const setCurrentUser = (name) => {
