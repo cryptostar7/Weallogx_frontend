@@ -1,11 +1,14 @@
 #!/bin/sh
-set -e
+set -ex
 
-envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
+envsubst '$ALB_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
 echo "---- NGINX CONFIG AT DEPLOY ----"
-cat /etc/nginx/conf.d/default.conf
+ls -l /etc/nginx/conf.d/
+ls -l /etc/nginx/conf.d/default.conf
+head -20 /etc/nginx/conf.d/default.conf
 
-# Start NGINX
 echo "Starting NGINX..."
+sleep 1
+
 exec nginx -g 'daemon off;' 
