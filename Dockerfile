@@ -34,7 +34,7 @@ EXPOSE 8000
 FROM ${NGINX_IMAGE} AS production
 # RUN echo "Using NGINX image: ${$NGINX_IMAGE}"
 RUN apk update && apk upgrade --no-cache
-COPY nginx.conf /etc/nginx/conf.d/default.conf.template
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
