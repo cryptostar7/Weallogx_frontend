@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
 
+// Increase timeout for all requests - especially helpful for login flow
 const timeout = import.meta.env.MODE === 'development' ? 300000 : 600000;
 const api = axios.create({
   Accept: '*/*',
@@ -14,6 +15,21 @@ const api = axios.create({
   // responseType: 'json',
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
+
+// Add response interceptor to handle common error cases
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    // Handle network errors or timeout errors
+    if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
+      console.error('Network error occurred:', error.message);
+      // You can add custom handling here
+    }
+    return Promise.reject(error);
+  }
+);
 
 export const get = async (url, getHeader = false) => {
   const response = await api.get(url, getHeader);
