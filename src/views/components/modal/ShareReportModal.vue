@@ -53,74 +53,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-10 offset-md-1 mt-4">
-                <p class="modalShareLinksPara m-0">Email Link</p>
-                <p class="modalSmallborder m-0"></p>
-                <button class="mt-2 modalAnyOneViewBtn">
-                  <img src="@/assets/images/icons/web-icon.svg" alt="web" />
-                  Anyone with the link can view
-                  <img
-                    src="@/assets/images/icons/right-arrow-icon.svg"
-                    alt=""
-                  />
-                </button>
-
                 <div class="modalShareReportForm mt-2 form-group">
-                  <label for="email">Email(s)</label>
-                  <div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="email"
-                      v-model="emails"
-                      @input="errors.email = false"
-                    />
-                    <small class="text-danger" v-if="errors.email">{{
-                      errors.email
-                    }}</small>
-                  </div>
-                  <label for="message" class="mt-3">Message</label>
-                  <div>
-                    <textarea
-                      name=""
-                      id="message"
-                      class="form-control"
-                      rows="2"
-                      v-model="message"
-                      @input="errors.message = false"
-                    ></textarea>
-                    <small class="text-danger" v-if="errors.message">{{
-                      errors.message
-                    }}</small>
-                  </div>
-                  <div class="mt-3 d-flex align-items-center">
-                    <div class="radioBtnDiv r2" id="button-2">
-                      <input
-                        type="checkbox"
-                        class="checkbox2"
-                        checked
-                        id="modalShareRadio"
-                        v-model="includePdf"
-                      />
-                      <div class="knobs2"></div>
-                      <div class="layer2"></div>
-                    </div>
-                    <label for="modalShareRadio" class="includePdfTxtModal"
-                      >Include PDF</label
-                    >
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <div
-                      class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2"
-                    >
-                      <button
-                        type="submit"
-                        class="btn yes-delete-btn"
-                        @click="handleForm()"
-                      >
-                        Send Presentation
-                      </button>
-                    </div>
-                  </div>
                   <p class="modalShareLinksPara m-0 mt-4">Copy Link</p>
                   <p class="modalSmallborder m-0"></p>
                   <div class="d-flex justify-content-between">
