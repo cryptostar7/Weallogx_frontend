@@ -209,7 +209,7 @@ export default {
     // get all notes of current report
     getNotes: function () {
       get(
-        `${getUrl("historical-notes")}?report=${this.$route.params.report}/`,
+        `${getUrl("historical-notes")}?report=${this.$route.params.report}`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("notes", response.data);
@@ -219,9 +219,7 @@ export default {
     // get all disclosures of current report
     getDesclosures: function () {
       get(
-        `${getUrl("historical-disclosures")}?report=${
-          this.$route.params.report
-        }/`,
+        `${getUrl("historical-disclosures")}?report=${this.$route.params.report}`,
         authHeader()
       ).then((response) => {
         this.$store.dispatch("disclosures", response.data);

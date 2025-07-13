@@ -18,7 +18,14 @@
             <p>Index</p>
             <p></p>
         </div>
-        <SelectDropdown :list="indexStrategies" :id="`simulation_analysis_index${currentTab}`" class="form-group less w-75" @onSelectItem="updateStrategyIndex" :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''" :showAll="true"/> 
+        <SelectDropdown
+          :id="`simulation_analysis_index${currentTab}`"
+          class="form-group less w-75"
+          :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''"
+          :list="indexStrategies"
+          :showAll="true"
+          @onSelectItem="updateStrategyIndex"
+        /> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p class="position-relative d-flex align-items-center">Cap Rate
           <img src="@/assets/images/icons/info-icon.svg" alt="info" class="ms-2 info-icon-img">

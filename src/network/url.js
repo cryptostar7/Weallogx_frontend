@@ -66,19 +66,19 @@ export const getUrl = (type) => {
     case 'historical-parameters-portfolio':
       return `${baseUrl}/historical/standalone-parameters-portfolio/`;
     case 'simulation-report':
-      return `${baseUrl}/report/historical-report/`
+      return `${baseUrl}/report/historical-report/`;
     case 'simulation-report-delete':
-      return `${baseUrl}/report/historical-delete/`
+      return `${baseUrl}/report/historical-delete/`;
     case 'add-historical-report':
-      return `${baseUrl}/report/historical-report/`
+      return `${baseUrl}/report/historical-report/`;
     case 'share-historical-report':
-      return `${baseUrl}/report/historical-share/`
+      return `${baseUrl}/report/historical-share/`;
     case 'standalone-report':
-      return `${baseUrl}/historical/standalone-report/`
+      return `${baseUrl}/historical/standalone-report/`;
     case 'latest-report':
-      return `${baseUrl}/report/latest-report/`
+      return `${baseUrl}/report/latest-report/`;
     case 'historical-latest-report':
-      return `${baseUrl}/report/historical-latest-report/`
+      return `${baseUrl}/report/historical-latest-report/`;
     case 'schedule':
       return `${baseUrl}/scenario/schedule/`;
     case 'illustration':
@@ -138,51 +138,51 @@ export const getUrl = (type) => {
     case 'strategy-index-template3':
       return `${baseUrl}/scenario/template-indexstrategy3/`;
     case 'report':
-      return `${baseUrl}/report/`
+      return `${baseUrl}/report/`;
     case 'add-report':
-      return `${baseUrl}/report/`
+      return `${baseUrl}/report/`;
     case 'latest-report':
-      return `${baseUrl}/report/latest-report/`
+      return `${baseUrl}/report/latest-report/`;
     case 'comparative_report':
-      return `${baseUrl}/report/calc/`
+      return `${baseUrl}/report/calc/`;
     case 'comparative_report_dist':
-      return `${baseUrl}/report/dist-report/`
+      return `${baseUrl}/report/dist-report/`;
     case 'comparative_report_ror':
-      return `${baseUrl}/report/ror-report/`
+      return `${baseUrl}/report/ror-report/`;
     case 'comparative_report_longevity':
-      return `${baseUrl}/report/longegivity/`
+      return `${baseUrl}/report/longegivity/`;
     case 'comparative_report_ending_value':
-      return `${baseUrl}/report/surrender/`
+      return `${baseUrl}/report/surrender/`;
     case 'comparative_report_death_benefit':
-      return `${baseUrl}/report/death/`
+      return `${baseUrl}/report/death/`;
     case 'comparative_report_longevity_ror':
-      return `${baseUrl}/report/longevity-ror/`
+      return `${baseUrl}/report/longevity-ror/`;
     case 'comparative_report_ending_value_ror':
-      return `${baseUrl}/report/surrender-ror/`
+      return `${baseUrl}/report/surrender-ror/`;
     case 'comparative_report_death_benefit_ror':
-      return `${baseUrl}/report/death-ror/`
+      return `${baseUrl}/report/death-ror/`;
     case 'notes':
-      return `${baseUrl}/report/add-note/`
+      return `${baseUrl}/report/add-note/`;
     case 'historical-notes':
-      return `${baseUrl}/report/historical-add-note/`
+      return `${baseUrl}/report/historical-add-note/`;
     case 'historical-disclosures':
-      return `${baseUrl}/report/historical-add-disclosure/`
+      return `${baseUrl}/report/historical-add-disclosure/`;
     case 'disclosures':
-      return `${baseUrl}/report/add-disclosure/`
+      return `${baseUrl}/report/add-disclosure/`;
     case 'historical_report':
-      return `${baseUrl}/historical/`
+      return `${baseUrl}/historical/`;
     case 'isc_calculate':
-      return `${baseUrl}/isc/calculate/`
+      return `${baseUrl}/isc/calculate/`;
     case 'tax_scorecard':
-      return `${baseUrl}/scorecard/`
+      return `${baseUrl}/scorecard/`;
     case 'retirement-buffer':
-      return `${baseUrl}/retirement_buffer/`
+      return `${baseUrl}/retirement_buffer/`;
     case 'incomeRider':
-      return `${baseUrl}/retirement_buffer/income_rider/`;
+      return `${baseUrl}/retirement_buffer/income_rider/`;;
     case 'incomeRiderSimulation':
       return `${baseUrl}/retirement_buffer/income_rider_simulation/`;
     case 's3_url':
-      return `${baseUrl}/scenario/get-presigned-url/`
+      return `${baseUrl}/scenario/get-presigned-url/`;
     default:
       return baseUrl;
   }
