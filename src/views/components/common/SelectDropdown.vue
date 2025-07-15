@@ -50,12 +50,18 @@
         >
           Create New Client
         </div>
-        <div
+        <span
           v-for="(item, index) in selectList"
-          :key="index" @click="(e) => setInputValue(item.template_name, item.id)"
+          :key="index" 
+          class="dropdown-item-container"
         >
-          {{ item.template_name }}
-        </div>
+          <span @click="(e) => setInputValue(item.template_name, item.id)" class="dropdown-item-text">
+            {{ item.template_name }}
+          </span>
+          <span v-if="$props.allowDelete" @click="(e) => deleteItem(item.id, item.template_name)" class="dropdown-item-delete">
+            <span class="remove-btn">Remove</span>
+          </span>
+        </span>
       </div>
     </div>
     <small class="text-danger" v-if="$props.error">{{ $props.error[0] }}</small>
@@ -76,6 +82,7 @@ export default {
     "error",
     "showAll",
     "createItemModalId",
+    "allowDelete"
   ],
   data() {
     return {
@@ -108,6 +115,11 @@ export default {
       this.$emit("inputText", e.target.value);
       this.$emit("clearError");
     },
+    deleteItem(id, name) {
+      this.$emit("deleteItem", { id, name });
+      // Keep dropdown open after deletion
+      event.stopPropagation();
+    }
   },
   mounted() {
     document.addEventListener("click", this.closeDropdown);
@@ -171,3 +183,43 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.dropdown-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #fff;
+}
+
+.dropdown-item-container:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-item-text {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.dropdown-item-delete {
+  margin-left: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-btn {
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #666;
+}
+
+.remove-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+</style>
