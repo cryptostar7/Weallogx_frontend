@@ -224,7 +224,6 @@
                   :clearInput="illustrationTemplateInput"
                   @setClearedInput="() => (illustrationTemplateInput = 0)"
                   @deleteItem="deleteIllustrationProfile"
-                  :allowDelete="true"
                   label="Use Existing Illustration"
                   id="existingIllustration"
                 />

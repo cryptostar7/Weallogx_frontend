@@ -190,6 +190,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
+  background-color: #fff;
 }
 
 .dropdown-item-container:hover {
