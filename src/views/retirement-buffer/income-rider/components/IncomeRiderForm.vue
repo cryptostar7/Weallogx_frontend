@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="accumulation_strategy_box_head">
-      <h2>Income Rider Strategy</h2>
+      <h2>Lifetime Income Strategy</h2>
       <img src="@/assets/images/icons/income-rider.svg" alt="Income Rider" />
     </div>
     <div class="accumulation_strategy_inner_box">
