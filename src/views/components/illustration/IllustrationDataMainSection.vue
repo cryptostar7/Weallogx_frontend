@@ -25,6 +25,8 @@
                   @inputText="setExistingInsuranceProfileName"
                   :clearInput="insuranceTemplateInput"
                   @setClearedInput="() => (insuranceTemplateInput = 0)"
+                  @deleteItem="deleteInsuranceProfile"
+                  :allowDelete="true"
                   label="Use Existing Insurance Company Profile"
                   id="existingInsuranceProfiles"
                   class="form-group less"
@@ -221,6 +223,8 @@
                   @inputText="setExistingIllustrationName"
                   :clearInput="illustrationTemplateInput"
                   @setClearedInput="() => (illustrationTemplateInput = 0)"
+                  @deleteItem="deleteIllustrationProfile"
+                  :allowDelete="true"
                   label="Use Existing Illustration"
                   id="existingIllustration"
                 />
@@ -1116,7 +1120,7 @@
 import DeleteColomnModal from "../../components/modal/DeleteColomnModal.vue";
 import SelectDropdown from "../common/SelectDropdown.vue";
 import ScenarioSteps from "../common/ScenarioSteps.vue";
-import { get, post, put } from "../../../network/requests.js";
+import { get, post, put, remove } from "../../../network/requests.js";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import { getUrl } from "../../../network/url.js";
 
@@ -2034,6 +2038,71 @@ export default {
           }
           this.$store.dispatch("loader", false);
         });
+    },
+
+    // delete insurance profile
+    deleteInsuranceProfile: function (item) {
+      const profileId = item.id;
+      
+      // Find the actual template in the list
+      const templateItem = this.existingInsuranceList.find(template => template.id === profileId);
+      
+      if (!templateItem) {
+        this.$toast.error("Profile not found");
+        return;
+      }
+      
+      // Confirm deletion with user
+      if (confirm(`Are you sure you want to delete the insurance profile "${templateItem.template_name}"?`)) {
+        this.$store.dispatch("loader", true);
+        
+        // Determine which endpoint to use based on the profile type
+        const endpoint = templateItem.type === "scenario" 
+          ? "template-insurance-profile" 
+          : "standalone-template-insurance-profile";
+        
+        // Make the GET request with delete parameter
+        get(`${getUrl(endpoint)}${templateItem.template_id}/?action=delete`, authHeader())
+          .then(response => {
+            // Refresh the list
+            this.getExistingInsurance();
+            this.$toast.success("Insurance profile deleted successfully");
+          })
+          .catch(error => {
+            this.$toast.error(error.message || "Failed to delete profile");
+            this.$store.dispatch("loader", false);
+          });
+      }
+    },
+
+    // delete illustration profile
+    deleteIllustrationProfile: function (item) {
+      const profileId = item.id;
+      
+      // Find the actual template in the list
+      const templateItem = this.existingIllustrationList.find(template => template.id === profileId);
+      
+      if (!templateItem) {
+        this.$toast.error("Illustration not found");
+        return;
+      }
+      
+      // Confirm deletion with user
+      if (confirm(`Are you sure you want to delete the illustration "${templateItem.template_name}"?`)) {
+        this.$store.dispatch("loader", true);
+        
+        // Make the GET request with delete parameter
+        get(`${getUrl("illustration-template")}${templateItem.id}/?action=delete`, authHeader())
+          .then(response => {
+            // Refresh the list
+            this.getExistingIllustration();
+            this.$toast.success("Illustration deleted successfully");
+          })
+          .catch(error => {
+            this.$toast.error(error.message || "Failed to delete illustration");
+            this.$store.dispatch("loader", false);
+          });
+      }
     },
 
     // get existing illustration data template
