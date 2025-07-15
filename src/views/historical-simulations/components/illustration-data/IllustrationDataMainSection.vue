@@ -1130,7 +1130,6 @@ import HistoricalSimulationSteps from "../../../components/common/HistoricalSimu
 import HistoricalSimulationLabelComponent from "../../../components/common/HistoricalSimulationLabelComponent.vue";
 import { get, post, put, remove } from "../../../../network/requests.js";
 import { getUrl } from "../../../../network/url.js";
-import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 import {
   getFirstError,
