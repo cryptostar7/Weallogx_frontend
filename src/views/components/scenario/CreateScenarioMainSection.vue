@@ -24,7 +24,7 @@
                   @onSelectItem="setExistingClientId"
                   @inputText="setExistingClientName"
                 />
-                <hr class="hr-separator" size="1.25" />
+                <!-- <hr class="hr-separator" size="1.25" />
                 <SelectDropdown
                   :list="existingScenarioList"
                   label="Use Existing Scenario"
@@ -39,7 +39,7 @@
                 <span class="or-text-span">or</span>
                 <h4 class="form-subheading fs-14 fw-bold">
                   Create From Scratch
-                </h4>
+                </h4> -->
                 <div class="form-group pt-2 less">
                   <label
                     for="scenarioName"
