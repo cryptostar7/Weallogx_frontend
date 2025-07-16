@@ -116,7 +116,7 @@
                           </svg>
                         </div>
                         <p>
-                          Income Rider
+                          Lifetime Income
                           <svg
                             width="11"
                             height="17"
