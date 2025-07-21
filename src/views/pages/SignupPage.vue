@@ -97,13 +97,14 @@
                     <label class="error fs-14 d-block text-center" v-if="user.confirm_password === ''">*This field is required.</label>
                     <label class="error fs-14 d-block text-center" v-if="errors.confirm_password && errors.confirm_password[0]">{{errors.confirm_password[0]}}</label>
                 </div>
-                <div class="auth-form" style="display: flex; align-items: center;">
- 
-                  <label for="terms" :class="user.terms_accepted ? 'active' : ''" style="font-size: 14px; display: inline-flex; align-items: center;">
-                    I agree to the Terms and Conditions
-                  </label>
-                  <input type="checkbox" id="terms" v-model="user.terms_accepted" @click="openTermsModal" style="width: 20px; height: 20px; margin-right: 10px;">
-                  <label class="error fs-14 d-block text-center" v-if="user.terms_accepted === ''">*This field is required.</label>
+                <div style="margin-top: 20px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="terms" v-model="user.terms_accepted" @click="openTermsModal" style="width: 20px; height: 20px;">
+                    <label for="terms" style="font-size: 14px; margin: 0;">
+                      I agree to the Terms and Conditions
+                    </label>
+                  </div>
+                  <label class="error fs-14 d-block text-center" v-if="errors.terms_accepted && errors.terms_accepted[0]">{{ errors.terms_accepted[0] }}</label>
                 </div>
                 <div class="authButtonDiv">
                   <p class="text-align-center mb-3 fs-14 pt-3">On signing up, you will get the <span class="bold">{{currentSignupPlan}}</span></p>
