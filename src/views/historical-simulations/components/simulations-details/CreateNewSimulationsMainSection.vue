@@ -894,13 +894,15 @@ export default {
         authHeader()
       )
         .then((response) => {
-          setCurrentSimulation(response.data);
+          // Backend returns data nested under response.data.data for standalone simulations
+          const simulationData = response.data.data || response.data;
+          setCurrentSimulation(simulationData);
           this.getClient();
           this.$toast.success("Simulation details created successfully!");
           this.$store.dispatch("loader", false);
-          if (response.data.id) {
+          if (simulationData && simulationData.id) {
             this.$router.push({
-              path: `/historical/illustration-data/${response.data.id}`,
+              path: `/historical/illustration-data/${simulationData.id}`,
               query: this.$route.query,
             });
           } else {

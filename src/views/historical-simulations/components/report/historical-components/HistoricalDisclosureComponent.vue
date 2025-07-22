@@ -472,7 +472,7 @@ export default {
       let disclosure_text = [];
 
       indexes.forEach((obj, index) => {
-        if(Object.keys(obj).length > 0) {
+        if(obj && typeof obj === 'object' && Object.keys(obj).length > 0) {
 
           const keyMapping = {
             index_name: "Index Strategy",
