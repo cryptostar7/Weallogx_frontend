@@ -2101,7 +2101,8 @@ export default {
         simulation_id: this.activeSimulation.id,
       };
 
-      post(getUrl("illustration-files"), data, authHeader());
+      // Use historical-simulation-object endpoint for standalone historical simulations
+      post(getUrl("historical-simulation-object"), data, authHeader());
     },
     dragover(event) {
       event.preventDefault();

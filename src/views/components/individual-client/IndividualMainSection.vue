@@ -752,11 +752,33 @@ export default {
     },
     // fetch illustration file data from API
     getIllsutrationFiles() {
-      get(getUrl("illustration-files"), authHeader()).then((response) => {
-        this.$store.dispatch("illustrationFiles", response.data.results);
+      // Fetch from both scenario media and historical media endpoints
+      Promise.all([
+        get(getUrl("illustration-files"), authHeader()),
+        get(getUrl("historical-simulation-object"), authHeader())
+      ]).then(([scenarioResponse, historicalResponse]) => {
+        // Merge results from both endpoints
+        const scenarioFiles = scenarioResponse.data.results || [];
+        const historicalFiles = historicalResponse.data.results || [];
+        const allFiles = [...scenarioFiles, ...historicalFiles];
+        
+        this.$store.dispatch("illustrationFiles", allFiles);
         setTimeout(() => {
           this.renderGridJs();
         }, 5000);
+      }).catch((error) => {
+        // If one endpoint fails, try to use data from the successful one
+        if (error.config && error.config.url.includes('historical-media')) {
+          // Historical endpoint failed, use only scenario files
+          get(getUrl("illustration-files"), authHeader()).then((response) => {
+            this.$store.dispatch("illustrationFiles", response.data.results);
+            setTimeout(() => {
+              this.renderGridJs();
+            }, 5000);
+          });
+        } else {
+          console.error('Error fetching illustration files:', error);
+        }
       });
     },
     // get client data from API

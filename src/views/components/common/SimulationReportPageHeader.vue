@@ -37,7 +37,7 @@
               </svg>
             </router-link>
           </li>
-          <li class="nav-item text-center">
+          <!-- <li class="nav-item text-center">
             <a :href="`${$apiUrl()}/historical/html_to_pdf/${$route.params.report}/`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Download Report" @click="showDownloadToast()">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="17" y="15" width="2" height="4" rx="1" transform="rotate(-180 17 15)" fill="black" />
@@ -50,7 +50,7 @@
                 <rect y="13" width="17" height="2" rx="1" fill="black" />
               </svg>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
               data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" title="Share Report">
