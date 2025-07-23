@@ -257,12 +257,12 @@
                                 :href="item.s3_url"
                                 class="illustration-file-name"
                                 target="new"
-                                >{{ item.name }}</a
+                                >{{ item.template_name }}</a
                               >
                             </td>
                             <td>
                               {{
-                                $customDateFormat(item.updated_at, "MMM D, Y")
+                                item.updated_at ? $customDateFormat(item.updated_at, "MMM D, Y") : 'N/A'
                               }}
                             </td>
                             <td>
@@ -277,7 +277,7 @@
                                     @click="
                                       () => {
                                         fileActionId = item.id;
-                                        fileName = item.name;
+                                        fileName = item.template_name;
                                       }
                                     "
                                   >
@@ -353,7 +353,7 @@
                             @click="
                               () => {
                                 fileActionId = item.id;
-                                fileName = item.name;
+                                fileName = item.template_name;
                               }
                             "
                           >
@@ -492,7 +492,7 @@
                           />
                         </svg>
                         <div class="grid-file-name text-center">
-                          {{ item.name }}
+                          {{ item.template_name }}
                         </div>
                       </a>
                     </div>
@@ -752,34 +752,19 @@ export default {
     },
     // fetch illustration file data from API
     getIllsutrationFiles() {
-      // Fetch from both scenario media and historical media endpoints
-      Promise.all([
-        get(getUrl("illustration-files"), authHeader()),
-        get(getUrl("historical-simulation-object"), authHeader())
-      ]).then(([scenarioResponse, historicalResponse]) => {
-        // Merge results from both endpoints
-        const scenarioFiles = scenarioResponse.data.results || [];
-        const historicalFiles = historicalResponse.data.results || [];
-        const allFiles = [...scenarioFiles, ...historicalFiles];
-        
-        this.$store.dispatch("illustrationFiles", allFiles);
-        setTimeout(() => {
-          this.renderGridJs();
-        }, 5000);
-      }).catch((error) => {
-        // If one endpoint fails, try to use data from the successful one
-        if (error.config && error.config.url.includes('historical-media')) {
-          // Historical endpoint failed, use only scenario files
-          get(getUrl("illustration-files"), authHeader()).then((response) => {
-            this.$store.dispatch("illustrationFiles", response.data.results);
-            setTimeout(() => {
-              this.renderGridJs();
-            }, 5000);
-          });
-        } else {
+      // Use the same endpoint as the dropdown for consistency
+      get(getUrl("historical-illustration-template"), authHeader())
+        .then((response) => {
+          const allFiles = response.data.data || [];
+          this.$store.dispatch("illustrationFiles", allFiles);
+          setTimeout(() => {
+            this.renderGridJs();
+          }, 5000);
+        })
+        .catch((error) => {
           console.error('Error fetching illustration files:', error);
-        }
-      });
+          this.$store.dispatch("illustrationFiles", []);
+        });
     },
     // get client data from API
     getClient: function () {
@@ -867,7 +852,7 @@ export default {
       var files = this.$store.state.data.illustration_files.filter((item) => {
         if (item.client === this.client.id) {
           if (this.searchFile) {
-            return item.name.toLowerCase().includes(this.searchFile);
+            return item.template_name && item.template_name.toLowerCase().includes(this.searchFile);
           }
           return true;
         }
@@ -884,14 +869,14 @@ export default {
       }
 
       function sortAsc(a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
+        if (a.template_name < b.template_name) return -1;
+        if (a.template_name > b.template_name) return 1;
         return 0;
       }
 
       function sortDesc(a, b) {
-        if (a.name > b.name) return -1;
-        if (a.name < b.name) return 1;
+        if (a.template_name > b.template_name) return -1;
+        if (a.template_name < b.template_name) return 1;
         return 0;
       }
 
