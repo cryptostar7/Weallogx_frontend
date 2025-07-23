@@ -22,11 +22,27 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    // Handle authentication errors (401 Unauthorized)
+    if (error.response && error.response.status === 401) {
+      // Clear all authentication data
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("plan_active");
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("remember");
+      localStorage.removeItem("login_from_admin");
+      
+      // Redirect to login page
+      if (typeof window !== 'undefined' && window.location.pathname !== '/sign-in') {
+        window.location.href = '/sign-in';
+      }
+    }
+    
     // Handle network errors or timeout errors
     if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       console.error('Network error occurred:', error.message);
-      // You can add custom handling here
     }
+    
     return Promise.reject(error);
   }
 );

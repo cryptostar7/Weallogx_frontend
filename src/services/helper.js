@@ -9,22 +9,42 @@ export function getParams(route) {
 
 export function getFirstError(error) {
   if (error.response && error.response.data) {
-    let values = [];
-    if (error.response.data.error) {
-      values = error.response.data.error;
-    } else {
-      values = error.response.data;
+    let data = error.response.data;
+    
+    // Handle JWT authentication errors specifically
+    if (data.detail && typeof data.detail === 'string') {
+      // Handle common JWT errors
+      if (data.detail.includes('Given token not valid')) {
+        return 'Your session has expired. Please log in again.';
+      }
+      if (data.detail.includes('token') && data.detail.includes('expired')) {
+        return 'Your session has expired. Please log in again.';
+      }
+      return data.detail;
     }
-
+    
+    // Handle other error formats
+    let values = data.error || data;
+    
+    // Drill down through nested objects, but preserve strings
     for (var i = 0; i < 5; i++) {
-      if (typeof values === 'object') {
-        values = Object.values(values)[0];
+      if (typeof values === 'object' && !Array.isArray(values)) {
+        let objectValues = Object.values(values);
+        if (objectValues.length > 0) {
+          values = objectValues[0];
+        } else {
+          break;
+        }
+      } else if (Array.isArray(values) && values.length > 0) {
+        values = values[0];
+      } else {
+        break;
       }
     }
 
-    return values ? values : `${error.message ? error.message : 'Something went wrong!'}`;
+    return values && values.toString ? values.toString() : `${error.message ? error.message : 'Something went wrong!'}`;
   }
-  return error.message;
+  return error.message || 'Something went wrong!';
 }
 
 export function getServerErrors(error) {
@@ -92,8 +112,22 @@ export function getAccessToken() {
 
   try {
     const parsed = JSON.parse(raw);
+    
+    // Check if token has expiry and is expired
+    if (parsed && parsed.expiry) {
+      const now = new Date().getTime();
+      if (now > parsed.expiry) {
+        // Token expired, clean up
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        return null;
+      }
+    }
+    
     return parsed && parsed.value ? parsed.value : null;
   } catch (e) {
+    // If parsing fails, remove the corrupted token
+    localStorage.removeItem("access_token");
     return null;
   }
 }

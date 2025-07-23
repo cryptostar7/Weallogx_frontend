@@ -567,11 +567,7 @@ export default {
           { headers: { Authorization: `Bearer ${getAccessToken()}` } }
         )
           .then((response) => {
-            localStorage.removeItem("refresh_token");
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("plan_active");
-            localStorage.removeItem("currentUser");
-
+            this.clearAuthData();
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
 
@@ -579,26 +575,40 @@ export default {
               localStorage.removeItem("login_from_admin");
               window.location.href = this.$adminUrl();
             }else{
-              this.$toast.success(response.data.message);
+              this.$toast.success(response.data.message || "Logged out successfully");
               this.$router.push("/sign-in");
             }
-
           })
           .catch((error) => {
             this.$store.dispatch("loader", false);
+            // Always clear auth data on logout, even if API fails
+            this.clearAuthData();
+            
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
             ) {
-              this.$toast.error(error.message);
+              this.$toast.error("Logout failed, but you have been signed out locally");
             }
-            localStorage.removeItem("refresh_token");
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("plan_active");
-            localStorage.removeItem("currentUser");
             this.$router.push("/sign-in");
           });
+      } else {
+        // Force logout even if not authenticated
+        this.clearAuthData();
+        this.$router.push("/sign-in");
       }
+    },
+
+    clearAuthData: function() {
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("plan_active");
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("remember");
+      localStorage.removeItem("login_from_admin");
+      
+      // Clear any other auth-related data
+      this.$store.dispatch("user", false);
     },
   },
   computed: {
