@@ -254,15 +254,15 @@
                           >
                             <td>
                               <a
-                                :href="item.s3_url"
+                                href="javascript:void(0)"
+                                @click="openFile(item.s3_url)"
                                 class="illustration-file-name"
-                                target="new"
-                                >{{ item.name }}</a
+                                >{{ item.template_name }}</a
                               >
                             </td>
                             <td>
                               {{
-                                $customDateFormat(item.updated_at, "MMM D, Y")
+                                item.updated_at ? $customDateFormat(item.updated_at, "MMM D, Y") : 'N/A'
                               }}
                             </td>
                             <td>
@@ -277,7 +277,7 @@
                                     @click="
                                       () => {
                                         fileActionId = item.id;
-                                        fileName = item.name;
+                                        fileName = item.template_name;
                                       }
                                     "
                                   >
@@ -353,7 +353,7 @@
                             @click="
                               () => {
                                 fileActionId = item.id;
-                                fileName = item.name;
+                                fileName = item.template_name;
                               }
                             "
                           >
@@ -382,7 +382,7 @@
                           </button>
                         </li>
                       </ul>
-                      <a :href="item.s3_url" class="grid-file-card">
+                      <a href="javascript:void(0)" @click="openFile(item.s3_url)" class="grid-file-card">
                         <svg
                           width="31"
                           height="36"
@@ -492,7 +492,7 @@
                           />
                         </svg>
                         <div class="grid-file-name text-center">
-                          {{ item.name }}
+                          {{ item.template_name }}
                         </div>
                       </a>
                     </div>
@@ -676,6 +676,40 @@ export default {
     };
   },
   methods: {
+    // Open file using presigned URL
+    async openFile(s3_url) {
+      if (!s3_url) return;
+      
+      // Extract the object key from the S3 URL
+      const urlParts = s3_url.split('.amazonaws.com/');
+      if (urlParts.length < 2) {
+        // If it's not a standard S3 URL, try to open it directly
+        window.open(s3_url, '_blank');
+        return;
+      }
+      
+      // Get the part after .amazonaws.com/ and remove any query parameters
+      let objectKey = urlParts[1];
+      const queryIndex = objectKey.indexOf('?');
+      if (queryIndex !== -1) {
+        objectKey = objectKey.substring(0, queryIndex);
+      }
+      
+      // Decode any URL encoding in the object key
+      objectKey = decodeURIComponent(objectKey);
+      
+      try {
+        const response = await get(`${getUrl("s3_url")}?object_key=${encodeURIComponent(objectKey)}`, authHeader());
+        if (response.data.url) {
+          window.open(response.data.url, '_blank');
+        } else {
+          this.$toast.error('Unable to open file');
+        }
+      } catch (error) {
+        console.error('Error getting presigned URL:', error);
+        this.$toast.error('Error opening file');
+      }
+    },
     // upload a new illustration file in s3
     uploadIllustrationFile(e) {
       if (!e.target.files[0]) {
@@ -738,7 +772,7 @@ export default {
           .then((response) => {
             var updatedData = this.illustrationFiles.map((item) => {
               if (item.id === this.fileActionId) {
-                item.name = this.fileName;
+                item.template_name = this.fileName;
                 item.updated_at = response.data.results.updated_at;
               }
               return item;
@@ -753,12 +787,19 @@ export default {
     },
     // fetch illustration file data from API
     getIllsutrationFiles() {
-      get(getUrl("illustration-files"), authHeader()).then((response) => {
-        this.$store.dispatch("illustrationFiles", response.data.results);
-        setTimeout(() => {
-          this.renderGridJs();
-        }, 5000);
-      });
+      // Use the same endpoint as the dropdown for consistency
+      get(getUrl("historical-illustration-template"), authHeader())
+        .then((response) => {
+          const allFiles = response.data.data || [];
+          this.$store.dispatch("illustrationFiles", allFiles);
+          setTimeout(() => {
+            this.renderGridJs();
+          }, 5000);
+        })
+        .catch((error) => {
+          console.error('Error fetching illustration files:', error);
+          this.$store.dispatch("illustrationFiles", []);
+        });
     },
     // get client data from API
     getClient: function () {
@@ -846,7 +887,7 @@ export default {
       var files = this.$store.state.data.illustration_files.filter((item) => {
         if (item.client === this.client.id) {
           if (this.searchFile) {
-            return item.name.toLowerCase().includes(this.searchFile);
+            return item.template_name && item.template_name.toLowerCase().includes(this.searchFile);
           }
           return true;
         }
@@ -863,14 +904,14 @@ export default {
       }
 
       function sortAsc(a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
+        if (a.template_name < b.template_name) return -1;
+        if (a.template_name > b.template_name) return 1;
         return 0;
       }
 
       function sortDesc(a, b) {
-        if (a.name > b.name) return -1;
-        if (a.name < b.name) return 1;
+        if (a.template_name > b.template_name) return -1;
+        if (a.template_name < b.template_name) return 1;
         return 0;
       }
 

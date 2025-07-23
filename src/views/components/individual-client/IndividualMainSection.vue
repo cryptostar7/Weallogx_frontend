@@ -254,9 +254,9 @@
                           >
                             <td>
                               <a
-                                :href="item.s3_url"
+                                href="javascript:void(0)"
+                                @click="openFile(item.s3_url)"
                                 class="illustration-file-name"
-                                target="new"
                                 >{{ item.template_name }}</a
                               >
                             </td>
@@ -382,7 +382,7 @@
                           </button>
                         </li>
                       </ul>
-                      <a :href="item.s3_url" class="grid-file-card">
+                      <a href="javascript:void(0)" @click="openFile(item.s3_url)" class="grid-file-card">
                         <svg
                           width="31"
                           height="36"
@@ -675,6 +675,40 @@ export default {
     };
   },
   methods: {
+    // Open file using presigned URL
+    async openFile(s3_url) {
+      if (!s3_url) return;
+      
+      // Extract the object key from the S3 URL
+      const urlParts = s3_url.split('.amazonaws.com/');
+      if (urlParts.length < 2) {
+        // If it's not a standard S3 URL, try to open it directly
+        window.open(s3_url, '_blank');
+        return;
+      }
+      
+      // Get the part after .amazonaws.com/ and remove any query parameters
+      let objectKey = urlParts[1];
+      const queryIndex = objectKey.indexOf('?');
+      if (queryIndex !== -1) {
+        objectKey = objectKey.substring(0, queryIndex);
+      }
+      
+      // Decode any URL encoding in the object key
+      objectKey = decodeURIComponent(objectKey);
+      
+      try {
+        const response = await get(`${getUrl("s3_url")}?object_key=${encodeURIComponent(objectKey)}`, authHeader());
+        if (response.data.url) {
+          window.open(response.data.url, '_blank');
+        } else {
+          this.$toast.error('Unable to open file');
+        }
+      } catch (error) {
+        console.error('Error getting presigned URL:', error);
+        this.$toast.error('Error opening file');
+      }
+    },
     // upload a new illustration file in s3
     uploadIllustrationFile(e) {
       if (!e.target.files[0]) {
