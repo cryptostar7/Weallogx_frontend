@@ -1687,8 +1687,25 @@ export default {
         // Using DocumentInitParameters object to load binary data.
         this.$store.dispatch("loader", true);
         var toast = this.$toast;
-        const objectKey = url.split('amazonaws.com/')[1];
-        let api_url = getUrl("s3_url") + `?object_key=${objectKey}`
+        // Extract object key from S3 URL
+        let objectKey = '';
+        if (url.includes('amazonaws.com/')) {
+          const urlParts = url.split('amazonaws.com/');
+          if (urlParts[1]) {
+            // Remove any query parameters from the object key
+            objectKey = urlParts[1].split('?')[0];
+            // Decode any URL encoding
+            objectKey = decodeURIComponent(objectKey);
+          }
+        }
+        
+        if (!objectKey) {
+          this.$toast.error("Invalid S3 URL format");
+          this.$store.dispatch("loader", false);
+          return;
+        }
+        
+        let api_url = getUrl("s3_url") + `?object_key=${encodeURIComponent(objectKey)}`
         get(api_url, authHeader())
           .then((response) => {
             if (!response) {
