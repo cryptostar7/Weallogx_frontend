@@ -43,4 +43,4 @@ COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 # ARG BUILD_ENV=production
 # FROM ${BUILD_ENV:-production} AS final
 FROM production AS final
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"] 
