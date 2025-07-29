@@ -93,6 +93,16 @@ export default {
       );
     }
   },
+  mounted() {
+    // Set default index to S&P 500 if no value is set
+    const indexElement = document.getElementById(`simulation_analysis_index${this.currentTab}`);
+    if (indexElement && !indexElement.value) {
+      const sp500 = this.indexStrategies.find(item => item.template_name === 'S&P 500');
+      if (sp500) {
+        indexElement.value = 'S&P 500';
+      }
+    }
+  },
   methods: {
     updateStrategyIndex: function(val) {
       let index = this.indexStrategies.filter(

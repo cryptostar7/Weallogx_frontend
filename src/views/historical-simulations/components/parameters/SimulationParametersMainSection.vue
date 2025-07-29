@@ -1034,7 +1034,9 @@ export default {
       }
     },
     setGrowthData: function (tab, obj = []) {
-      this.setInputWithId(`simulation_analysis_index${tab}`, obj.index);
+      // Default to S&P 500 if no index is provided
+      const indexValue = obj.index || 'S&P 500';
+      this.setInputWithId(`simulation_analysis_index${tab}`, indexValue);
       if (Number(obj.cap_rate) === 1000) {
         this.setUnChecked(`simulation_is_active_cap_rate_range${tab}`);
       } else {
