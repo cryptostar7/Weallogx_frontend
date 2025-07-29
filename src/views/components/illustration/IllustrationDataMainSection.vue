@@ -148,6 +148,7 @@
                         max="999999999"
                         v-model="deathBenefit"
                         @keyup="() => clearError('initial_death_benifit')"
+                        @blur="formatDeathBenefit"
                       />
                       <small
                         class="text-danger"
@@ -1378,6 +1379,13 @@ export default {
     },
   },
   methods: {
+    // format death benefit on blur
+    formatDeathBenefit: function () {
+      if (this.deathBenefit) {
+        const numericValue = getNumber(this.deathBenefit);
+        this.deathBenefit = numericValue.toLocaleString("en-US");
+      }
+    },
     // set existing insurance profile id on selecting the input dropdown data
     setExistingInsuranceProfileId: function (id) {
       let data = this.existingInsuranceList.filter((item) => item.id === id)[0];
