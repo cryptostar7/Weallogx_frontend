@@ -89,8 +89,22 @@ export default {
   computed: {
     indexStrategies() {
       let rolling = this.$props.rollingTime || 30;
+      const currentYear = new Date().getFullYear();
+      const earliestRequiredYear = currentYear - rolling;
+      
       return (
-        config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || []
+        config.INDEX_STRATEGIES.filter(item => {
+          // Check max_limit (rolling time period limit)
+          if (item.max_limit < rolling) return false;
+          
+          // Check if we have enough historical data for this rolling period
+          const iscConfig = config.ISC_INDEX_STRATEGIES.find(isc => isc.template_name === item.template_name);
+          if (iscConfig && earliestRequiredYear < iscConfig.max_year) {
+            return false;
+          }
+          
+          return true;
+        }) || []
       );
     }
   },
