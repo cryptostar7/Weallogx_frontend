@@ -9,7 +9,7 @@
   </div>
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar normal_navbar"  :style="{display:$store.state.app.presentation_mode ? 'none':'block'}">
     <div class="container-fluid">
-      <router-link class="navbar-brand backToscenario" :to="$route.params.report ? `/historical/simulation-details/${$route.params.report}` : ''" >
+      <router-link class="navbar-brand backToscenario" :to="historical && historical.simulation_id ? `/historical/simulation-details/${historical.simulation_id}?client=${historical.client_id || historical.client || ''}&report=${$route.params.report}` : ''" >
         <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect y="4.9502" width="7" height="2" rx="1" transform="rotate(-45 0 4.9502)" fill="black" />
           <rect x="1.41406" y="3.84473" width="7" height="2" rx="1" transform="rotate(45 1.41406 3.84473)"
