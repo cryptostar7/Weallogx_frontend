@@ -25,6 +25,7 @@
           :list="indexStrategies"
           :showAll="true"
           @onSelectItem="updateStrategyIndex"
+          ref="selectDropdownRef"
         /> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p class="position-relative d-flex align-items-center">Cap Rate
@@ -94,14 +95,8 @@ export default {
     }
   },
   mounted() {
-    // Set default index to S&P 500 if no value is set
-    const indexElement = document.getElementById(`simulation_analysis_index${this.currentTab}`);
-    if (indexElement && !indexElement.value) {
-      const sp500 = this.indexStrategies.find(item => item.template_name === 'S&P 500');
-      if (sp500) {
-        indexElement.value = 'S&P 500';
-      }
-    }
+    // Default logic is now handled by the parent component in setGrowthData()
+    // This prevents timing issues where this runs before database values are loaded
   },
   methods: {
     updateStrategyIndex: function(val) {
@@ -129,6 +124,22 @@ export default {
       this.$refs.customInputRef3.updateData();
       this.$refs.customInputRef4.updateData();
       this.$refs.customInputRef5.updateData();
+    },
+    setSelectedIndex: function(indexValue) {
+      // Update the SelectDropdown component with the new index value
+      console.log(`GrowthParameters[${this.currentTab}]: setSelectedIndex called with:`, indexValue);
+      
+      // Use nextTick to ensure DOM is updated
+      this.$nextTick(() => {
+        if (this.$refs.selectDropdownRef) {
+          console.log(`GrowthParameters[${this.currentTab}]: Updating SelectDropdown ref`);
+          this.$refs.selectDropdownRef.templateText = indexValue || 'S&P 500';
+          this.$refs.selectDropdownRef.$refs.inputRef.value = indexValue || 'S&P 500';
+          this.$refs.selectDropdownRef.$emit("inputText", indexValue || 'S&P 500');
+        } else {
+          console.log(`GrowthParameters[${this.currentTab}]: SelectDropdown ref not found`);
+        }
+      });
     }
   }
 };

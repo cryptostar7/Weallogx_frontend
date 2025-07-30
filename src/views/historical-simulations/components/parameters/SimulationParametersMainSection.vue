@@ -1036,7 +1036,20 @@ export default {
     setGrowthData: function (tab, obj = []) {
       // Default to S&P 500 if no index is provided
       const indexValue = obj.index || 'S&P 500';
+      console.log(`SimulationParametersMainSection: setGrowthData[${tab}] called with obj:`, obj);
+      console.log(`SimulationParametersMainSection: indexValue resolved to:`, indexValue);
+      
       this.setInputWithId(`simulation_analysis_index${tab}`, indexValue);
+      
+      // Also update the SelectDropdown component through the GrowthParameters ref
+      const growthRef = this.$refs.indexParametersRef?.$refs[`growthParametersRef${tab}`];
+      console.log(`SimulationParametersMainSection: growthRef for tab ${tab}:`, growthRef);
+      
+      if (growthRef && growthRef.setSelectedIndex) {
+        growthRef.setSelectedIndex(indexValue);
+      } else {
+        console.log(`SimulationParametersMainSection: Could not call setSelectedIndex for tab ${tab}`);
+      }
       if (Number(obj.cap_rate) === 1000) {
         this.setUnChecked(`simulation_is_active_cap_rate_range${tab}`);
       } else {
@@ -1452,6 +1465,8 @@ export default {
         if (id) {
           this.populateHistoricalSimulationData(id);
         } else {
+          // For new scenarios, set default values
+          this.populateIndex(1, {}); // Empty object will trigger S&P 500 default
           this.$store.dispatch("loader", false);
         }
       })
