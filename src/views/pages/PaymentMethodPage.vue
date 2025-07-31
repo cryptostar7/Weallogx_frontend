@@ -130,7 +130,12 @@ export default {
     };
   },
   mounted() {
+    console.log("=== PAYMENT METHOD PAGE MOUNTED ===");
+    console.log("Component mounted at:", new Date().toISOString());
+    console.log("Current URL:", window.location.href);
+    
     if (this.$store.state.forms.temp_user) {
+      console.log("Temp user found in store:", this.$store.state.forms.temp_user);
       this.user = this.$store.state.forms.temp_user;
     } 
 
@@ -163,8 +168,20 @@ export default {
   methods: {
     getSource: async function(e) {
       e.preventDefault();
+      console.log("=== PAYMENT FORM SUBMITTED ===");
+      console.log("Card holder name:", this.cardHolder);
+      console.log("Promo code:", this.promoCode);
+      
+      // Check if cardholder name is provided
+      if (!this.cardHolder || !this.cardHolder.trim()) {
+        console.error("Card holder name is required!");
+        this.$toast.error("Please enter the cardholder name");
+        return;
+      }
 
       this.$store.dispatch("loader", true);
+      console.log("Creating Stripe source...");
+      
       await stripe
         .createSource(cardNumber, {
           type: "card",
@@ -174,43 +191,78 @@ export default {
           },
         })
         .then(response => {
+          console.log("Stripe response:", response);
           if (response.source) {
+            console.log("Source created successfully:", response.source.id);
             this.user.stripe_source_id = response.source.id;
             this.createUser();
           } else {
+            console.error("Failed to create source:", response);
             if (response.error) {
+              console.error("Stripe error:", response.error);
               this.$toast.error(response.error.message);
             } else {
               this.$toast.error("Something went wrong!");
             }
             this.$store.dispatch("loader", false);
           }
+        })
+        .catch(error => {
+          console.error("Stripe createSource error:", error);
+          this.$toast.error("Failed to create payment source");
+          this.$store.dispatch("loader", false);
         });
     },
     createUser: function() {
+      console.log("=== CREATING USER ===");
       var formData = this.$store.state.forms.temp_user;
+      console.log("Temp user data from store:", formData);
+      
       formData["stripe_source_id"] = this.user.stripe_source_id;
-      if (this.promoCode) {
-        formData["promo_code"] = this.promoCode;
+      // Always include promo_code, even if empty
+      formData["promo_code"] = this.promoCode || "";
+      
+      // Strip phone number formatting for backend (remove spaces, dashes, parentheses)
+      if (formData.phone_number) {
+        formData.phone_number = formData.phone_number.replace(/[\s\-\(\)]/g, '');
+        console.log("Phone number after formatting:", formData.phone_number);
       }
+      
+      console.log("Form data to submit:", formData);
+      
       this.$store.dispatch("userTempForm", formData);
 
-      post(getUrl("signup"), formData)
+      const signupUrl = getUrl("signup");
+      console.log("Signup URL:", signupUrl);
+      console.log("Making POST request to create user...");
+      
+      post(signupUrl, formData)
         .then(response => {
+          console.log("User creation successful:", response);
           this.$store.dispatch("userTempForm", false);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.message);
+          console.log("Redirecting to /profile-details");
           this.$router.push("/profile-details");
         })
         .catch(error => {
+          console.error("User creation failed:", error);
+          console.error("Error details:", {
+            code: error.code,
+            message: error.message,
+            response: error.response
+          });
+          
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
           ) {
+            console.error("Network/Bad response error");
             this.$toast.error(error.message);
           } else {
+            console.error("Server error, redirecting back to signup");
             this.$store.dispatch("userTempFormError", getServerErrors(error));
             this.$store.dispatch("loader", false);
             this.$router.push(
