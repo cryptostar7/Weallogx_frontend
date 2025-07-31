@@ -886,9 +886,7 @@
                               removeColId.includes(index) ? 'checked' : ''
                             "
                           >
-                            <div
-                              class="d-flex justify-content-center align-items-center"
-                            >
+                            <div class="d-flex justify-content-center align-items-center">
                               <input
                                 :id="`c${index}`"
                                 type="checkbox"
@@ -896,17 +894,8 @@
                                 :checked="removeColId.includes(index)"
                                 @click="deleteCheckbox(index)"
                               />
-                              <label class="cursor-pointer" :for="`c${index}`"
-                                >{{
-                                  item
-                                    ? `${
-                                        illustrationFields[item].value !==
-                                        "none"
-                                          ? illustrationFields[item].name
-                                          : "--"
-                                      }`
-                                    : "--"
-                                }}
+                              <label class="cursor-pointer" :for="`c${index}`">
+                                {{ item ? `${illustrationFields[item].value !== "none" ? illustrationFields[item].name : "--"}` : "--"}}
                               </label>
                             </div>
                           </th>
@@ -1359,19 +1348,13 @@ export default {
     },
 
     illustrationFieldsIndex() {
-      return {
-        none: "0",
-        age: "1",
-        account_value: "2",
-        distribution_loan: "3",
-        death_benefit: "4",
-        distributions: "5",
-        total_loan_charge: "6",
-        premium_outlay: "7",
-        surrender_value: "8",
-        year: "9",
-      };
-    },
+      return this.illustrationFields.reduce((result, field, idx) => {
+        // XXX same question as in HistoricalSimulationAfterYesMainSection. why are we using strings instead of numbers?
+        result[field.value] = idx.toString();
+
+        return result;
+      }, {});
+    }
   },
   methods: {
     // format death benefit on blur
@@ -2503,24 +2486,20 @@ export default {
         if (!this.csvPreview.headers.includes("2")) {
           return alert(`${this.illustrationFields["2"].name} is required.`);
         }
+        if (!this.csvPreview.headers.includes("3")) {
+          return alert(`${this.illustrationFields["3"].name} is required.`);
+        }
         if (!this.csvPreview.headers.includes("4")) {
           return alert(`${this.illustrationFields["4"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("6")) {
+          return alert(`${this.illustrationFields["6"].name} is required.`);
         }
         if (!this.csvPreview.headers.includes("7")) {
           return alert(`${this.illustrationFields["7"].name} is required.`);
         }
         if (!this.csvPreview.headers.includes("8")) {
           return alert(`${this.illustrationFields["8"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("9")) {
-          return alert(`${this.illustrationFields["9"].name} is required.`);
-        }
-
-        if (
-          !this.csvPreview.headers.includes("3") &&
-          !this.csvPreview.headers.includes("5")
-        ) {
-          return alert(`Please select at least one distribution column.`);
         }
       }
 

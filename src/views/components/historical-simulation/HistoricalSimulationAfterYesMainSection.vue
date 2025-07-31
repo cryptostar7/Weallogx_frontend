@@ -837,9 +837,7 @@
                                   :selected="Number(header) === Number(index2)"
                                   :disabled="
                                     !illustrationFields[index2].multiple &&
-                                    csvPreview.headers.includes(
-                                      index2.toString()
-                                    )
+                                    csvPreview.headers.includes(index2.toString())
                                   "
                                 >
                                   {{ item.name }}
@@ -852,13 +850,9 @@
                           <th
                             v-for="(item, index) in csvPreview.headers"
                             :key="index"
-                            :class="
-                              removeColId.includes(index) ? 'checked' : ''
-                            "
+                            :class="removeColId.includes(index) ? 'checked' : ''"
                           >
-                            <div
-                              class="d-flex justify-content-center align-items-center"
-                            >
+                            <div class="d-flex justify-content-center align-items-center">
                               <input
                                 :id="`c${index}`"
                                 type="checkbox"
@@ -866,11 +860,11 @@
                                 :checked="removeColId.includes(index)"
                                 @click="deleteCheckbox(index)"
                               />
-                              <label class="cursor-pointer" :for="`c${index}`"
-                                >{{
+                              <label class="cursor-pointer" :for="`c${index}`">
+                                {{
                                   item
                                     ? `${
-                                        illustrationFields[item].value !==
+                                        illustrationFields[item]?.value !==
                                         "none"
                                           ? illustrationFields[item].name
                                           : "--"
@@ -909,8 +903,8 @@
                   <button
                     class="nav-link btn d-inline-block form-next-btn active fs-14"
                     id="nextBtnVsblOnSlct"
-                    @click="submitHandler()"
-                    :disabled="!isvalidCsvData"
+                    @click="submitHandler"
+                    :disabled="!isValidCsvData"
                   >
                     Next
                   </button>
@@ -933,7 +927,8 @@
                       style="position: relative; top: 0px"
                       alt="Chevron"
                       width="6"
-                    />Save & Return to Review
+                    />
+                    Save & Return to Review
                   </button>
                 </div>
                 <div class="d-flex justify-content-center">
@@ -947,8 +942,8 @@
                       alt="Chevron"
                       width="6"
                     />
-                    Back</router-link
-                  >
+                    Back
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -996,14 +991,16 @@
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 @click="extractPdf()"
-                >Done</a
               >
+                Done
+              </a>
               <a
                 class="nav-link btn preview-cancel-btn fs-14 d-block m-0 ms-1"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                >Cancel</a
               >
+                Cancel
+              </a>
             </div>
           </div>
         </div>
@@ -1012,6 +1009,7 @@
     <input type="hidden" id="extractPageNumber" />
   </section>
 </template>
+
 <script>
 import { get, post, put } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
@@ -1639,7 +1637,6 @@ export default {
         var illustrationTable = document.querySelector(
           ".illustration-data-table"
         );
-        console.log(illustrationTable);
         if (illustrationTable) {
           wrapperInner.style.width = illustrationTable.clientWidth + "px";
         }
@@ -1839,7 +1836,7 @@ export default {
       return false;
     },
     highlightInfo: function () {
-      if (!this.isvalidCsvData) {
+      if (!this.isValidCsvData) {
         document.getElementById("historicalChecboxLableTop").scrollIntoView();
         this.infoHighlight = true;
         setTimeout(() => {
@@ -1863,7 +1860,7 @@ export default {
       if (
         this.csvPreview &&
         this.csvPreview.headers &&
-        this.csvPreview.headers.length > 6
+        this.csvPreview.headers.length > 4
       ) {
         if (!this.csvPreview.headers.includes("1")) {
           return alert(`${this.illustrationFields["1"].name} is required.`);
@@ -1877,12 +1874,12 @@ export default {
           return alert(`${this.illustrationFields["4"].name} is required.`);
         }
 
-        if (!this.csvPreview.headers.includes("8")) {
-          return alert(`${this.illustrationFields["8"].name} is required.`);
+        if (!this.csvPreview.headers.includes("7")) {
+          return alert(`${this.illustrationFields["7"].name} is required.`);
         }
 
-        if (!this.csvPreview.headers.includes("9")) {
-          return alert(`${this.illustrationFields["9"].name} is required.`);
+        if (!this.csvPreview.headers.includes("8")) {
+          return alert(`${this.illustrationFields["8"].name} is required.`);
         }
       } else {
         if (this.uploadFromFile) {
@@ -2111,7 +2108,7 @@ export default {
         this.$store.dispatch("loader", false);
       });
 
-      this.setScrollbar();
+    this.setScrollbar();
   },
   computed: {
     // return year of illustrations
@@ -2143,66 +2140,44 @@ export default {
           multiple: true,
         },
         { name: "Premium", value: "premium_outlay", multiple: false },
-
         { name: "Surrender Value", value: "cash_value", multiple: false },
         { name: "Year", value: "duration", multiple: false },
       ];
     },
     illustrationFieldsIndex() {
-      return {
-        none: "0",
-        age: "1",
-        accumulation_value: "2",
-        index_loan_credits: "3",
-        death_benefit: "4",
-        net_distributions: "5",
-        total_loan_charges: "6",
-        premium_outlay: "7",
-        cash_value: "8",
-        duration: "9",
-      };
+      return this.illustrationFields.reduce((result, field, idx) => {
+        result[field.value] = idx.toString(); // XXX why are we using strings instead of numbers?
+
+        return result;
+      }, {});
     },
-    isvalidCsvData() {
+    isValidCsvData() {
       if (!this.createFormScratch) {
-        if (this.getPortfolioId()) {
-          return true;
-        } else {
-          return false;
-        }
+        return !!this.getPortfolioId();
       }
 
       if (
         this.csvPreview &&
         this.csvPreview.headers &&
-        this.csvPreview.headers.length > 6
+        this.csvPreview.headers.length > 4
       ) {
-        if (!this.csvPreview.headers.includes("1")) {
-          return false;
-        }
+        const requiredIndexes = [
+          '1', // age
+          '2', // accumulation value
+          '4', // death benefit
+          '7', // surrender value
+          '8' // year
+        ];
 
-        if (!this.csvPreview.headers.includes("2")) {
-          return false;
-        }
-
-        if (!this.csvPreview.headers.includes("4")) {
-          return false;
-        }
-
-        if (!this.csvPreview.headers.includes("8")) {
-          return false;
-        }
-
-        if (!this.csvPreview.headers.includes("9")) {
-          return false;
-        }
+        return requiredIndexes.every((idx) => this.csvPreview.headers.includes(idx));
       } else {
         return false;
       }
-      return true;
     },
   },
 };
 </script>
+
 <style>
 .previewCard {
   border: 1.25px solid #f2f2f2 !important;
