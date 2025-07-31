@@ -130,7 +130,7 @@
           />
           <span class="info-message-analyze">
             The analysis will return the most recent, worst, median, and best
-            historical results based on the Index, Strategy, or Distributions.
+            historical results based on the Index or Strategy.
           </span>
         </p>
         <p></p>
@@ -155,17 +155,6 @@
             />
             <label for="strategy" @click="analyze = 'Strategy'"
               >Strategy
-            </label>
-          </div>
-          <div class="w-100">
-            <input
-              type="radio"
-              name="indexStrategy"
-              id="distributions"
-              :checked="analyze === 'Distributions'"
-            />
-            <label for="distributions" @click="analyze = 'Distributions'"
-              >Distributions
             </label>
           </div>
         </div>
