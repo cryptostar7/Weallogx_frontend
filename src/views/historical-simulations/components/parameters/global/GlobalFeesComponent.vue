@@ -332,8 +332,8 @@ export default {
         if (charges.includes(pc)) {
           this.premiumCharge = pc;
         } else {
-          this.customPremiumCharge = pc;
-          this.$refs.customPCRef.value = pc;
+          this.customPremiumCharge = pc === 1.5 ? "" : pc;
+          this.$refs.customPCRef.value = pc === 1.5 ? "" : pc;
         }
       } else {
         this.premiumCharge = "";
@@ -351,8 +351,8 @@ export default {
         if (charges.includes(li)) {
           this.loanInterest = li;
         } else {
-          this.customInterestAmount = li;
-          this.$refs.customLIRef.value = li;
+          this.customInterestAmount = li === 4.5 ? "" : li;
+          this.$refs.customLIRef.value = li === 4.5 ? "" : li;
         }
       } else {
         this.loanInterest = "";
