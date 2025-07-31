@@ -2138,11 +2138,6 @@ export default {
         },
         { name: "Death Benefit", value: "death_benefit", multiple: false },
         {
-          name: "Distribution - Withdrawal",
-          value: "net_distributions",
-          multiple: false,
-        },
-        {
           name: "Fees",
           value: "total_loan_charges",
           multiple: true,
