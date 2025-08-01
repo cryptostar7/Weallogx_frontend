@@ -313,26 +313,40 @@ const tscRoutes = [
 ];
 
 router.beforeEach((to, from, next) => {
+  // Check if route requires authentication
   if (authRoutes.includes(to.name) || secureRoutes.includes(to.name) || tscRoutes.includes(to.name)) {
     if (!authCheck()) {
-      next(`${'/sign-in?next='}${to.fullPath}`);
-      this.$toast.warning('Authorization required, please login.');
+      // Clear expired tokens
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("plan_active");
+      
+      // Redirect to sign-in with return path
+      next(`/sign-in?next=${encodeURIComponent(to.fullPath)}`);
+      return; // Important: return early to prevent calling next() again
     }
 
+    // TSC user redirect
     if (isTscUser() && !tscRoutes.includes(to.name)) {
-      next('/tax-score-card'); // redirect to tax score card if user type TSC
+      next('/tax-score-card');
+      return;
     }
 
+    // Plan active check for secure routes
     if (secureRoutes.includes(to.name) && authCheck() && !isPlanActive()) {
       next('/current-plan');
-      // this.$toast.warning('Your plan has been expired, please upgrade your plan to continue the service.');
+      return;
     }
   }
-  if (to.name === 'sign-in') {
-    if (authCheck()) {
-      next('/profile-details');
-    }
+  
+  // Redirect to profile if already logged in and trying to access sign-in
+  if (to.name === 'sign-in' && authCheck()) {
+    next('/profile-details');
+    return;
   }
+  
+  // Allow navigation
   next();
 });
 
