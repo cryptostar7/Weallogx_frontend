@@ -65,12 +65,17 @@ export function setRefreshToken(value) {
   localStorage.setItem('refresh_token', JSON.stringify(item));
 }
 
-export function setAccessToken(value) {
+export function setAccessToken(value, rememberMe = false) {
   const now = new Date();
-  const ttl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN || 72) * 600000;
+  // If remember me is checked, extend token to 7 days, otherwise 12 hours
+  const baseTtl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN || 72) * 600000; // 12 hours
+  const extendedTtl = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+  const ttl = rememberMe ? extendedTtl : baseTtl;
+  
   const item = {
     value: value,
     expiry: now.getTime() + ttl,
+    rememberMe: rememberMe
   }
   localStorage.setItem('access_token', JSON.stringify(item));
 }
