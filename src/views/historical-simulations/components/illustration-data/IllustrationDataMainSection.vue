@@ -1365,21 +1365,14 @@ export default {
         { name: "Year", value: "year", multiple: false },
       ];
     },
-
     illustrationFieldsIndex() {
-      return {
-        none: "0",
-        age: "1",
-        account_value: "2",
-        distribution_loan: "3",
-        death_benefit: "4",
-        distributions: "5",
-        total_loan_charge: "6",
-        premium_outlay: "7",
-        surrender_value: "8",
-        year: "9",
-      };
-    },
+      return this.illustrationFields.reduce((result, field, idx) => {
+        // XXX same question as in HistoricalSimulationAfterYesMainSection. why are we using strings instead of numbers?
+        result[field.value] = idx.toString();
+
+        return result;
+      }, {});
+    }
   },
   methods: {
     // set existing insurance profile id on selecting the input dropdown data
@@ -2050,24 +2043,24 @@ export default {
     // delete insurance profile
     deleteInsuranceProfile: function (item) {
       const profileId = item.id;
-      
+
       // Find the actual template in the list
-      const templateItem = this.existingInsuranceList.find(template => template.id === profileId);
-      
+      const templateItem = this.existingInsuranceList.find((template) => template.id === profileId);
+
       if (!templateItem) {
         this.$toast.error("Profile not found");
         return;
       }
-      
+
       // Confirm deletion with user
       if (confirm(`Are you sure you want to delete the insurance profile "${templateItem.template_name}"?`)) {
         this.$store.dispatch("loader", true);
-        
+
         // Determine which endpoint to use based on the profile type
         const endpoint = templateItem.type === "scenario" 
           ? "template-insurance-profile" 
           : "standalone-template-insurance-profile";
-        
+
         // Make the GET request with delete parameter
         get(`${getUrl(endpoint)}${templateItem.template_id}/?action=delete`, authHeader())
           .then(response => {
@@ -2461,24 +2454,20 @@ export default {
         if (!this.csvPreview.headers.includes("2")) {
           return alert(`${this.illustrationFields["2"].name} is required.`);
         }
+        if (!this.csvPreview.headers.includes("3")) {
+          return alert(`${this.illustrationFields["3"].name} is required.`);
+        }
         if (!this.csvPreview.headers.includes("4")) {
           return alert(`${this.illustrationFields["4"].name} is required.`);
+        }
+        if (!this.csvPreview.headers.includes("6")) {
+          return alert(`${this.illustrationFields["6"].name} is required.`);
         }
         if (!this.csvPreview.headers.includes("7")) {
           return alert(`${this.illustrationFields["7"].name} is required.`);
         }
         if (!this.csvPreview.headers.includes("8")) {
           return alert(`${this.illustrationFields["8"].name} is required.`);
-        }
-        if (!this.csvPreview.headers.includes("9")) {
-          return alert(`${this.illustrationFields["9"].name} is required.`);
-        }
-
-        if (
-          !this.csvPreview.headers.includes("3") &&
-          !this.csvPreview.headers.includes("5")
-        ) {
-          return alert(`Please select at least one distribution column.`);
         }
       } else {
         if (this.uploadFromFile) {
@@ -2544,8 +2533,8 @@ export default {
       let currentFeeCol = 0;
       this.csvPreview.headers.forEach((item) => {
         if (this.illustrationFields[item]) {
-          var field = this.illustrationFields[item].value;
-          // set custome keys for multiple fees data
+          let field = this.illustrationFields[item].value;
+          // set custom keys for multiple fees data
           if (item === "6") {
             if (currentFeeCol) {
               field += currentFeeCol;

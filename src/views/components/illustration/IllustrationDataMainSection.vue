@@ -1346,7 +1346,6 @@ export default {
         { name: "Year", value: "year", multiple: false },
       ];
     },
-
     illustrationFieldsIndex() {
       return this.illustrationFields.reduce((result, field, idx) => {
         // XXX same question as in HistoricalSimulationAfterYesMainSection. why are we using strings instead of numbers?
