@@ -481,7 +481,7 @@ export default {
       },
       beginningBalance: "",
       startYear: 1960,
-      endYear: 2023,
+      endYear: new Date().getFullYear() - 1,
       taxRate: "0",
       vehicleFee: "1",
       vehicleType: "Taxable",
@@ -902,7 +902,7 @@ export default {
       this.tabs.tab2 = false;
       this.tabs.tab3 = false;
       this.startYear = 1960;
-      this.endYear = 2023;
+      this.endYear = new Date().getFullYear() - 1;
       this.submitBtn = false;
     },
     resetForm: function () {
