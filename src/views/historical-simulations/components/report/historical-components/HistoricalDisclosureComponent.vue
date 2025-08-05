@@ -62,13 +62,17 @@
         <div
           :class="`disclosure-text-wrapper ${saveDisclosure ? 'editable' : ''}`"
         > 
-          <div style="font-size: 10px;">
+          <div 
+            style="font-size: 10px;"
+            class="disclosure-textarea"
+          >
           {{disclosure_head}} <br/>
           </div>
           <div
           >
             <div
               style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;"
+              class="disclosure-textarea"
             >
               <div
                 v-for="(item, index) in disclosure_message"
