@@ -838,6 +838,10 @@ export default {
           data.percentage_of_account_as_capital_gains
         );
       }
+      // Clear the existing vehicle selection after populating the fields
+      // This ensures the form treats it as "from scratch" with pre-filled data
+      this.vehicle[`vehicle${vType}`].existing.name = "";
+      this.vehicle[`vehicle${vType}`].existing.id = null;
     },
 
     // populate existing vehicle details
@@ -993,7 +997,7 @@ export default {
           this.vehicle.vehicle1.existing.name,
           this.existingVehicles
         );
-        if (!templateId && this.getTemplateDataId(templateId)) {
+        if (!templateId || !this.getTemplateDataId(templateId)) {
           valid = false;
           this.errors.existing_vehicle1 = ["Please choose a valid template."];
         } else {
@@ -1064,7 +1068,7 @@ export default {
           this.vehicle.vehicle2.existing.name,
           this.existingVehicles
         );
-        if (!templateId) {
+        if (!templateId || !this.getTemplateDataId(templateId)) {
           valid = false;
           this.errors.existing_vehicle2 = ["Please choose a valid template."];
         } else {
@@ -1136,7 +1140,7 @@ export default {
           this.vehicle.vehicle3.existing.name,
           this.existingVehicles
         );
-        if (!templateId) {
+        if (!templateId || !this.getTemplateDataId(templateId)) {
           valid = false;
           this.errors.existing_vehicle3 = ["Please choose a valid template."];
         } else {
