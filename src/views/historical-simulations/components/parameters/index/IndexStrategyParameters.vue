@@ -165,6 +165,9 @@
             :currentTab="1"
             ref="growthParametersRef1"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab1"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="1"
@@ -224,6 +227,9 @@
             :currentTab="2"
             ref="growthParametersRef2"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab2"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="2"
@@ -283,6 +289,9 @@
             :currentTab="3"
             ref="growthParametersRef3"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab3"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="3"
@@ -352,6 +361,11 @@
         </div>
       </div>
     </div>
+    <!-- Incompatible Index Modal -->
+    <incompatible-index-modal 
+      :incompatibleIndexName="incompatibleIndexInfo.indexName"
+      :incompatibleTabs="incompatibleTabs"
+    />
   </div>
 </template>
 <script>
@@ -363,6 +377,7 @@ import SaveStrategyTemplate from "../index/SaveStrategyTemplate.vue";
 import StrategyWeightComponent from "../index/StrategyWeightComponent.vue";
 import StrategyWeightFirstComponent from "../index/StrategyWeightFirstComponent.vue";
 import StrategyWeightSecondComponent from "../index/StrategyWeightSecondComponent.vue";
+import IncompatibleIndexModal from "../../modals/IncompatibleIndexModal.vue";
 export default {
   components: {
     SelectDropdown,
@@ -373,6 +388,7 @@ export default {
     StrategyWeightComponent,
     StrategyWeightFirstComponent,
     StrategyWeightSecondComponent,
+    IncompatibleIndexModal,
   },
   props: ["rollingTime", "strategyWeight1", "strategyWeight2"],
   emits: ["clearError", "populateIndexTemplate"],
@@ -421,6 +437,12 @@ export default {
         2: [],
         3: [],
       },
+      incompatibleIndexInfo: {
+        indexName: '',
+        tabNumber: 1
+      },
+      incompatibleTabs: [], // Track all incompatible tabs
+      incompatibleEventTimeout: null // Debounce multiple events
     };
   },
   methods: {
@@ -642,6 +664,72 @@ export default {
       this.$refs.feesParametersRef2.updateData();
       this.$refs.feesParametersRef3.updateData();
     },
+    
+    // Handle when an index becomes incompatible with rolling period
+    handleIndexIncompatible(info) {
+      console.log('IndexStrategyParameters: handleIndexIncompatible called with:', info);
+      
+      // Check if modal is already showing - if so, ignore new events
+      const modalElement = document.getElementById('IncompatibleIndexModal');
+      const isModalVisible = modalElement && modalElement.classList.contains('show');
+      
+      if (isModalVisible) {
+        console.log('Modal already showing, ignoring new incompatible event');
+        return;
+      }
+      
+      // Add this incompatible index to our list (avoid duplicates)
+      const existingIndex = this.incompatibleTabs.findIndex(item => item.tabNumber === info.tabNumber);
+      if (existingIndex >= 0) {
+        this.incompatibleTabs[existingIndex] = info;
+      } else {
+        this.incompatibleTabs.push(info);
+      }
+      
+      // Clear any existing timeout
+      if (this.incompatibleEventTimeout) {
+        clearTimeout(this.incompatibleEventTimeout);
+      }
+      
+      // Set a longer timeout to collect all incompatible events before showing modal
+      this.incompatibleEventTimeout = setTimeout(() => {
+        this.showIncompatibleModal();
+      }, 300); // Wait 300ms for all events to come in
+    },
+    
+    // Show modal with all incompatible tabs
+    showIncompatibleModal() {
+      // Check if modal is already showing
+      const modalElement = document.getElementById('IncompatibleIndexModal');
+      const isModalVisible = modalElement && modalElement.classList.contains('show');
+      
+      if (isModalVisible) {
+        console.log('Modal already showing, skipping...');
+        return;
+      }
+      
+      if (this.incompatibleTabs.length === 0) {
+        return;
+      }
+      
+      console.log('Showing modal for incompatible tabs:', this.incompatibleTabs);
+      
+      // Set the modal info - use the first one for single index display
+      this.incompatibleIndexInfo = this.incompatibleTabs[0];
+      
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+        console.log('Modal show() called for tabs:', this.incompatibleTabs.map(t => t.tabNumber));
+        // Note: incompatibleTabs will be cleared when modal is hidden (see mounted event listener)
+      } else {
+        console.error('Modal element not found!');
+        // Fallback alert showing all incompatible tabs
+        const tabList = this.incompatibleTabs.map(t => `Tab ${t.tabNumber} (${t.indexName})`).join(', ');
+        alert(`The following indexes are incompatible with the selected rolling years: ${tabList}`);
+        this.incompatibleTabs = [];
+      }
+    },
   },
   computed: {
     illustrateYear() {
@@ -700,6 +788,24 @@ export default {
       }, 200);
     },
   },
+  
+  mounted() {
+    console.log('IndexStrategyParameters component mounted');
+    
+    // Add event listener for when modal is hidden to clear incompatible tabs
+    const modalElement = document.getElementById('IncompatibleIndexModal');
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        console.log('Modal hidden, clearing incompatible tabs');
+        this.incompatibleTabs = [];
+        // Also clear any pending timeout
+        if (this.incompatibleEventTimeout) {
+          clearTimeout(this.incompatibleEventTimeout);
+          this.incompatibleEventTimeout = null;
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang=""></style>

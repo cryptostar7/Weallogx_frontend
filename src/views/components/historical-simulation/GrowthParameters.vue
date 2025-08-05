@@ -21,10 +21,12 @@
         <SelectDropdown
           :id="`analysis_index${currentTab}`"
           class="form-group less w-75"
-          :defaultSelected="indexStrategies[0] ? indexStrategies[0].template_name : ''"
+          :defaultSelected="selectedIndex"
           :list="indexStrategies"
           :showAll="true"
           @onSelectItem="updateStrategyIndex"
+          @inputText="handleInputText"
+          ref="selectDropdownRef"
         /> 
         <div class="formParabrdrLavelDiv mt-3 rangeSelectorLabel">
         <p class="position-relative d-flex align-items-center">Cap Rate
@@ -79,18 +81,61 @@ export default {
     SegmentDurationYear,
     SelectDropdown,
   },
-  props: ['currentTab', 'update', 'rollingTime'],
-  emits: ['setUpdated'],
+  props: ['currentTab', 'update', 'rollingTime', 'activeTab', 'isTabEnabled'],
+  emits: ['setUpdated', 'indexBecameIncompatible'],
+  
+  mounted() {
+    // Initialize previous list
+    this.previousIndexList = [...this.indexStrategies];
+    
+    // Get initial value if it exists
+    this.$nextTick(() => {
+      const initialValue = document.getElementById(`analysis_index${this.currentTab}`)?.value;
+      if (initialValue) {
+        this.selectedIndex = initialValue;
+        // Don't set userSelectedIndex for initial values - only for user changes
+        console.log(`GrowthParameters[${this.currentTab}]: Initial value set to: ${initialValue}`);
+      } else {
+        // Set default if no initial value - prefer S&P 500
+        const sp500 = this.indexStrategies.find(item => item.template_name === 'S&P 500');
+        this.selectedIndex = sp500 ? 'S&P 500' : (this.indexStrategies[0]?.template_name || 'S&P 500');
+        console.log(`GrowthParameters[${this.currentTab}]: Initial default set to: ${this.selectedIndex}`);
+      }
+    });
+  },
   data() {
     return {
       isCapActive: true,
+      selectedIndex: '', // Track the selected index
+      previousIndexList: [], // Track previous list for comparison
+      userSelectedIndex: '', // Track what the user actually selected (not defaults)
     };
   },
   computed: {
     indexStrategies() {
       const rolling = this.rollingTime || 30;
-
-      return config.INDEX_STRATEGIES.filter(item => item.max_limit >= rolling) || [];
+      const currentYear = new Date().getFullYear();
+      const earliestRequiredYear = currentYear - rolling;
+      
+      const filtered = config.INDEX_STRATEGIES.filter(item => {
+        // Check max_limit (rolling time period limit)
+        if (item.max_limit < rolling) return false;
+        
+        // Check if we have enough historical data for this rolling period
+        const iscConfig = config.ISC_INDEX_STRATEGIES.find(isc => isc.template_name === item.template_name);
+        if (iscConfig && earliestRequiredYear < iscConfig.max_year) {
+          return false;
+        }
+        
+        return true;
+      }) || [];
+      
+      // Update selectedIndex when list changes
+      this.$nextTick(() => {
+        this.updateSelectedIndexForNewList(filtered);
+      });
+      
+      return filtered;
     }
   },
   watch: {
@@ -98,19 +143,96 @@ export default {
       if (e) {
         this.isCapActive = document.getElementById(`is_active_cap_rate_range${this.$props.currentTab}`).checked;
       }
+    },
+    
+    selectedIndex(newVal, oldVal) {
+      console.log(`GrowthParameters[${this.currentTab}]: selectedIndex changed from ${oldVal} to ${newVal}`);
     }
   },
   methods: {
     updateStrategyIndex(val) {
-      // XXX hmmm.... don't think this actually does anything
       let index = this.indexStrategies.filter((i) => {
         return i.template_name === document.getElementById(`analysis_index${this.currentTab}`).value;
       })[0];
+      
+      // Update selected index and track as user selection
+      const selectedValue = document.getElementById(`analysis_index${this.currentTab}`).value;
+      this.selectedIndex = selectedValue;
+      this.userSelectedIndex = selectedValue; // Track this as a user selection
+      console.log(`GrowthParameters[${this.currentTab}]: User selection updated to: ${selectedValue}`);
     },
+    
     handleCapRate(e) {
       if (e.target.checked) this.isCapActive = true;
       else this.isCapActive = false;
+    },
+    
+    handleInputText(val) {
+      console.log(`GrowthParameters[${this.currentTab}]: handleInputText called with: ${val}`);
+      this.selectedIndex = val;
+      this.userSelectedIndex = val; // Track this as a user selection too
+    },
+    
+    updateSelectedIndexForNewList(newList) {
+      console.log(`GrowthParameters[${this.currentTab}]: updateSelectedIndexForNewList called`, {
+        currentSelection: this.selectedIndex,
+        newListLength: newList.length,
+        rollingTime: this.rollingTime,
+        previousListLength: this.previousIndexList.length,
+        newListItems: newList.map(i => i.template_name),
+        previousListItems: this.previousIndexList.map(i => i.template_name)
+      });
+      
+      // If we have a user-selected index, check if it's still valid
+      if (this.userSelectedIndex) {
+        const stillValid = newList.find(item => item.template_name === this.userSelectedIndex);
+        
+        if (stillValid) {
+          console.log(`GrowthParameters[${this.currentTab}]: User selection ${this.userSelectedIndex} is still valid`);
+          // Keep the user's selection
+          this.selectedIndex = this.userSelectedIndex;
+          return;
+        } else {
+          // User selection became incompatible - always emit event for enabled tabs
+          console.log(`GrowthParameters[${this.currentTab}]: User selection ${this.userSelectedIndex} became incompatible`);
+          
+          // Only emit the incompatible event if this tab is enabled
+          if (this.isTabEnabled) {
+            console.log(`GrowthParameters[${this.currentTab}]: *** EMITTING indexBecameIncompatible for ${this.userSelectedIndex} (TAB ENABLED) ***`);
+            this.$emit('indexBecameIncompatible', {
+              indexName: this.userSelectedIndex,
+              tabNumber: this.currentTab
+            });
+          } else {
+            console.log(`GrowthParameters[${this.currentTab}]: Index ${this.userSelectedIndex} became incompatible but tab is disabled`);
+          }
+          
+          // Clear user selection since it's no longer valid
+          this.userSelectedIndex = '';
+        }
+      }
+      
+      // Set default if no valid selection - prefer S&P 500 if available
+      if (!this.selectedIndex || !newList.find(item => item.template_name === this.selectedIndex)) {
+        // First try to use S&P 500 if it's in the filtered list
+        const sp500 = newList.find(item => item.template_name === 'S&P 500');
+        const defaultValue = sp500 ? 'S&P 500' : (newList[0]?.template_name || 'S&P 500');
+        
+        console.log(`GrowthParameters[${this.currentTab}]: Setting default to: ${defaultValue} (S&P 500 available: ${!!sp500})`);
+        this.selectedIndex = defaultValue;
+        
+        // Also update the dropdown UI to reflect the new selection
+        this.$nextTick(() => {
+          const dropdown = document.getElementById(`analysis_index${this.currentTab}`);
+          if (dropdown) {
+            dropdown.value = defaultValue;
+          }
+        });
+      }
+      
+      // Update previous list for next comparison
+      this.previousIndexList = [...newList];
     }
-  }
+  },
 };
 </script>

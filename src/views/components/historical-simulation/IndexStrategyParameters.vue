@@ -166,6 +166,9 @@
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab1"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="1"
@@ -230,6 +233,9 @@
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab2"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="2"
@@ -294,6 +300,9 @@
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
             :rollingTime="$props.rollingTime"
+            :activeTab="activeTab"
+            :isTabEnabled="tabs.tab3"
+            @indexBecameIncompatible="handleIndexIncompatible"
           />
           <enhancements-component
             :currentTab="3"
@@ -365,6 +374,11 @@
         </div>
       </div>
     </div>
+    <!-- Incompatible Index Modal -->
+    <incompatible-index-modal 
+      :incompatibleIndexName="incompatibleIndexInfo.indexName"
+      :incompatibleTabs="incompatibleTabs"
+    />
   </div>
 </template>
 <script>
@@ -378,6 +392,7 @@ import SaveStrategyTemplate from "./SaveStrategyTemplate.vue";
 import StrategyWeightComponent from "./StrategyWeightComponent.vue";
 import StrategyWeightFirstComponent from "./StrategyWeightFirstComponent.vue";
 import StrategyWeightSecondComponent from "./StrategyWeightSecondComponent.vue";
+import IncompatibleIndexModal from "../../historical-simulations/components/modals/IncompatibleIndexModal.vue";
 export default {
   components: {
     SelectDropdown,
@@ -390,6 +405,7 @@ export default {
     StrategyWeightComponent,
     StrategyWeightFirstComponent,
     StrategyWeightSecondComponent,
+    IncompatibleIndexModal,
   },
   props: ["update", "rollingTime", "strategyWeight1", "strategyWeight2"],
   emits: ["clearError", "setUpdated", "populateIndexTemplate"],
@@ -438,6 +454,12 @@ export default {
         2: [],
         3: [],
       },
+      incompatibleIndexInfo: {
+        indexName: '',
+        tabNumber: 1
+      },
+      incompatibleTabs: [], // Track all incompatible tabs
+      incompatibleEventTimeout: null // Debounce multiple events
     };
   },
   methods: {
@@ -614,6 +636,77 @@ export default {
 
       return obj;
     },
+    
+    testMethod() {
+      console.log('TEST METHOD CALLED');
+      alert('Test method works!');
+    },
+    
+    // Handle when an index becomes incompatible with rolling period
+    handleIndexIncompatible(info) {
+      console.log('IndexStrategyParameters: handleIndexIncompatible called with:', info);
+      
+      // Check if modal is already showing - if so, ignore new events
+      const modalElement = document.getElementById('IncompatibleIndexModal');
+      const isModalVisible = modalElement && modalElement.classList.contains('show');
+      
+      if (isModalVisible) {
+        console.log('Modal already showing, ignoring new incompatible event');
+        return;
+      }
+      
+      // Add this incompatible index to our list (avoid duplicates)
+      const existingIndex = this.incompatibleTabs.findIndex(item => item.tabNumber === info.tabNumber);
+      if (existingIndex >= 0) {
+        this.incompatibleTabs[existingIndex] = info;
+      } else {
+        this.incompatibleTabs.push(info);
+      }
+      
+      // Clear any existing timeout
+      if (this.incompatibleEventTimeout) {
+        clearTimeout(this.incompatibleEventTimeout);
+      }
+      
+      // Set a longer timeout to collect all incompatible events before showing modal
+      this.incompatibleEventTimeout = setTimeout(() => {
+        this.showIncompatibleModal();
+      }, 300); // Wait 300ms for all events to come in
+    },
+    
+    // Show modal with all incompatible tabs
+    showIncompatibleModal() {
+      // Check if modal is already showing
+      const modalElement = document.getElementById('IncompatibleIndexModal');
+      const isModalVisible = modalElement && modalElement.classList.contains('show');
+      
+      if (isModalVisible) {
+        console.log('Modal already showing, skipping...');
+        return;
+      }
+      
+      if (this.incompatibleTabs.length === 0) {
+        return;
+      }
+      
+      console.log('Showing modal for incompatible tabs:', this.incompatibleTabs);
+      
+      // Set the modal info - use the first one for single index display
+      this.incompatibleIndexInfo = this.incompatibleTabs[0];
+      
+      if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+        console.log('Modal show() called for tabs:', this.incompatibleTabs.map(t => t.tabNumber));
+        // Note: incompatibleTabs will be cleared when modal is hidden (see mounted event listener)
+      } else {
+        console.error('Modal element not found!');
+        // Fallback alert showing all incompatible tabs
+        const tabList = this.incompatibleTabs.map(t => `Tab ${t.tabNumber} (${t.indexName})`).join(', ');
+        alert(`The following indexes are incompatible with the selected rolling years: ${tabList}`);
+        this.incompatibleTabs = [];
+      }
+    }
   },
   computed: {
     illustrateYear() {
@@ -675,8 +768,71 @@ export default {
           })
         );
       }, 200);
+    }
+  },
+  watch: {
+    illustrateYear() {
+      setTimeout(() => {
+        const inputs = document.querySelectorAll(".handleLimit");
+        inputs.forEach((element) =>
+          element.addEventListener("input", function (e) {
+            let len = e.target.value.length;
+            let current = e.target.value;
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (
+              Number(current) < min ||
+              Number(current) > max ||
+              isNaN(Number(current))
+            ) {
+              let actualValue = current.slice(0, len - 1);
+              e.target.value = actualValue;
+              return false;
+            }
+          })
+        );
+
+        // input validation for min and max value
+        const inputs2 = document.querySelectorAll(".onlyPositiveNum");
+        inputs2.forEach((element) =>
+          element.addEventListener("input", function (e) {
+            let len = e.target.value.length;
+            e.target.value = e.target.value.replace(".", "");
+            let current = e.target.value;
+            let min = Number(e.target.getAttribute("min"));
+            let max = Number(e.target.getAttribute("max"));
+            if (
+              Number(current) < min ||
+              Number(current) > max ||
+              isNaN(Number(current))
+            ) {
+              let actualValue = current.slice(0, len - 1);
+              e.target.value = actualValue;
+              return false;
+            }
+          })
+        );
+      }, 200);
     },
   },
+  
+  mounted() {
+    console.log('IndexStrategyParameters component mounted');
+    
+    // Add event listener for when modal is hidden to clear incompatible tabs
+    const modalElement = document.getElementById('IncompatibleIndexModal');
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        console.log('Modal hidden, clearing incompatible tabs');
+        this.incompatibleTabs = [];
+        // Also clear any pending timeout
+        if (this.incompatibleEventTimeout) {
+          clearTimeout(this.incompatibleEventTimeout);
+          this.incompatibleEventTimeout = null;
+        }
+      });
+    }
+  }
 };
 </script>
 <style lang=""></style>
