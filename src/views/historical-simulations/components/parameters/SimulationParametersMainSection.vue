@@ -1047,6 +1047,8 @@ export default {
       
       if (growthRef && growthRef.setSelectedIndex) {
         growthRef.setSelectedIndex(indexValue);
+        // Also update the current selection tracking
+        growthRef.currentSelectedIndex = indexValue;
       } else {
         console.log(`SimulationParametersMainSection: Could not call setSelectedIndex for tab ${tab}`);
       }
