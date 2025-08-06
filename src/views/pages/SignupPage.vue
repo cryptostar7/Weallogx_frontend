@@ -107,7 +107,16 @@
                   <label class="error fs-14 d-block text-center" v-if="errors.terms_accepted && errors.terms_accepted[0]">{{ errors.terms_accepted[0] }}</label>
                 </div>
                 <div class="authButtonDiv">
-                  <p class="text-align-center mb-3 fs-14 pt-3">On signing up, you will get the <span class="bold">{{currentSignupPlan}}</span></p>
+                  <p v-if="user.plan_type === 'MONTHLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
+                    You are signing up for the monthly plan. 
+                    <a href="https://app.wealthlogix.com/sign-up?plan=annual" class="bold">Switch to annual.</a>
+                  </p>
+                  <p v-else-if="user.plan_type === 'YEARLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
+                    You are signing up for the annual plan.
+                  </p>
+                  <p v-else class="text-align-center mb-3 fs-14 pt-3">
+                    On signing up, you will get the <span class="bold">7-Day Free Trial!</span>
+                  </p>
                   <div>
 
                   </div>
