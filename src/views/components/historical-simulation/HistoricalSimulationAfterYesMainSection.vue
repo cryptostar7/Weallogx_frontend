@@ -2031,6 +2031,12 @@ export default {
           let data = response.data;
           if (data.use_current_illustration) {
             this.useCurrentIllustration = true;
+            // Fetch current illustration data when use_current_illustration is true
+            let scenario = this.$store.state.data.active_scenario;
+            if (scenario && scenario.illustration) {
+              this.getIllustrationData(scenario.illustration);
+              return; // Exit early since we're loading current illustration
+            }
           } else {
             this.useCurrentIllustration = false;
           }
@@ -2098,7 +2104,13 @@ export default {
         if (id) {
           this.populatePreviousData(id);
         } else {
-          this.$store.dispatch("loader", false);
+          // No historical_media yet, check if there's illustration data to load
+          if (response.data.data.illustration) {
+            this.useCurrentIllustration = true;
+            this.getIllustrationData(response.data.data.illustration);
+          } else {
+            this.$store.dispatch("loader", false);
+          }
         }
       })
       .catch((error) => {
