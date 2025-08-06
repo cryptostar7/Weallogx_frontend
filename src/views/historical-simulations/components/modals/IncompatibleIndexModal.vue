@@ -12,17 +12,18 @@
             {{ incompatibleTabs && incompatibleTabs.length > 1 ? 'Multiple Indexes Incompatible' : 'Index Incompatible' }}
           </h5>
           <div v-if="incompatibleTabs && incompatibleTabs.length > 1" class="fs-14 mt-3">
-            <p>The following indexes are incompatible with the selected rolling years:</p>
+            <p>The following indexes are incompatible with the selected rolling time period of {{ rollingTimePeriod }} years:</p>
             <ul class="text-start mt-2 mb-3">
               <li v-for="tab in incompatibleTabs" :key="tab.tabNumber">
                 <strong>Index Strategy #{{ tab.tabNumber }}:</strong> {{ tab.indexName }}
               </li>
             </ul>
-            <p>Please update these indexes to compatible ones.</p>
+            <p>The index selection has been changed to the default value of S&P 500. Please select a different index from the dropdown or change your rolling time period selection.</p>
           </div>
           <p v-else class="fs-14 mt-3">
-            Your selected index "{{ incompatibleIndexName }}" is incompatible with the selected rolling years. 
-            Please select another index.
+            Your selected index "{{ incompatibleIndexName }}" is incompatible with the selected rolling time period of {{ rollingTimePeriod }} years. 
+            The index selection has been changed to the default value of S&P 500. 
+            Please select a different index from the dropdown or change your rolling time period selection.
           </p>
           <div class="d-inline-flex flex-column gap-13 pt-4 mt-2 pb-2">
             <button type="button" class="btn yes-delete-btn" data-bs-dismiss="modal">OK</button>
@@ -35,6 +36,6 @@
 
 <script>
 export default {
-  props: ['incompatibleIndexName', 'incompatibleTabs']
+  props: ['incompatibleIndexName', 'incompatibleTabs', 'rollingTimePeriod']
 };
 </script>
