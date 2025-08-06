@@ -378,6 +378,7 @@
     <incompatible-index-modal 
       :incompatibleIndexName="incompatibleIndexInfo.indexName"
       :incompatibleTabs="incompatibleTabs"
+      :rollingTimePeriod="rollingTime"
     />
   </div>
 </template>
