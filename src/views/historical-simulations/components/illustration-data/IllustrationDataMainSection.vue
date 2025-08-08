@@ -2460,6 +2460,9 @@ export default {
         if (!this.csvPreview.headers.includes("4")) {
           return alert(`${this.illustrationFields["4"].name} is required.`);
         }
+        if (!this.csvPreview.headers.includes("5")) {
+          return alert(`${this.illustrationFields["5"].name} is required.`);
+        }
         if (!this.csvPreview.headers.includes("6")) {
           return alert(`${this.illustrationFields["6"].name} is required.`);
         }
