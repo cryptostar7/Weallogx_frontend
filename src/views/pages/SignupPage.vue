@@ -109,10 +109,11 @@
                 <div class="authButtonDiv">
                   <p v-if="user.plan_type === 'MONTHLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
                     You are signing up for the monthly plan. 
-                    <a href="https://app.wealthlogix.com/sign-up?plan=annual" class="bold">Switch to annual.</a>
+                    <a href="/sign-up?plan=annual" class="bold">Switch to annual.</a>
                   </p>
                   <p v-else-if="user.plan_type === 'YEARLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
-                    You are signing up for the annual plan.
+                    You are signing up for the annual plan. 
+                    <a href="/sign-up?plan=monthly" class="bold">Switch to monthly.</a>
                   </p>
                   <p v-else class="text-align-center mb-3 fs-14 pt-3">
                     On signing up, you will get the <span class="bold">7-Day Free Trial!</span>
