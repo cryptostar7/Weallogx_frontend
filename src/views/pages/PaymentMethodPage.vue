@@ -111,6 +111,7 @@ import {
   setAccessToken,
   getSearchParams,
 } from "../../services/helper";
+console.log("STRIPE KEY DEBUG:", import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY, typeof import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 let stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY),
   elements = stripe.elements(),
   card,
