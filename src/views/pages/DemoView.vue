@@ -101,8 +101,8 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
-import { getRuntimeEnv } from "../../services/helper";
-let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
+console.log("STRIPE KEY DEBUG (DemoView):", "__VITE_STRIPE_PUBLISHABLE_KEY__");
+let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,
   cardNumber,

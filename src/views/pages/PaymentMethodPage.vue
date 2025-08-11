@@ -112,8 +112,8 @@ import {
   getSearchParams,
   getRuntimeEnv,
 } from "../../services/helper";
-console.log("STRIPE KEY DEBUG:", getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY'));
-let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
+console.log("STRIPE KEY DEBUG:", "__VITE_STRIPE_PUBLISHABLE_KEY__");
+let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,
   cardNumber,
