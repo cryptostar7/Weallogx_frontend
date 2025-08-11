@@ -8,9 +8,8 @@ h
 </template>
 
 <script>
-import { getRuntimeEnv } from "../../services/helper";
-
-let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
+console.log("STRIPE KEY DEBUG (StripeSource):", "__VITE_STRIPE_PUBLISHABLE_KEY__");
+let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card = undefined;
 
