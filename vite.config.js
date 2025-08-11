@@ -20,13 +20,6 @@ export default defineConfig({
       project: 'wlx-ui'
     })
   ],
-  define: Object.keys(process.env) // think we can eliminate `define` call entirely once process env is fully adopted?
-    .filter((key) => key.startsWith('VITE_'))
-    .reduce((env, key) => {
-      env[`process.env.${key}`] = JSON.stringify(process.env[key]);
-      console.log(`Added key ${key}`);
-      return env;
-    }, {}),
   server: {
     host: true,
     port: 8000,
