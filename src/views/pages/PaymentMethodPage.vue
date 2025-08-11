@@ -110,11 +110,9 @@ import {
   setRefreshToken,
   setAccessToken,
   getSearchParams,
+  getRuntimeEnv,
 } from "../../services/helper";
-console.log("STRIPE KEY DEBUG:", import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY, typeof import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-console.log("API BASE URL DEBUG:", import.meta.env.VITE_API_BASE_URL, typeof import.meta.env.VITE_API_BASE_URL);
-console.log("ALL VITE VARS:", import.meta.env);
-let stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || import.meta.env.VITE_STRIPE_PUBLIC_KEY),
+let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
   elements = stripe.elements(),
   card,
   cardNumber,

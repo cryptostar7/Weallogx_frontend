@@ -72,13 +72,13 @@ const myPlugin = {
                 return `${last || ''}, ${first || ''} ${middle || ''}`;
             },
             app.config.globalProperties.$adminUrl = () => {
-                return import.meta.env.VITE_ADMIN_PANEL_URL || '/api/admin/authentication/user/';
+                return "__VITE_ADMIN_PANEL_URL__" === "__VITE_ADMIN_PANEL_URL__" ? (import.meta.env.VITE_ADMIN_PANEL_URL || '/api/admin/authentication/user/') : "__VITE_ADMIN_PANEL_URL__";
             },
             app.config.globalProperties.$appUrl = () => {
-                return import.meta.env.VITE_APP_URL || '/';
+                return "__VITE_APP_URL__" === "__VITE_APP_URL__" ? (import.meta.env.VITE_APP_URL || '/') : "__VITE_APP_URL__";
             },
             app.config.globalProperties.$apiUrl = () => {
-                return import.meta.env.VITE_API_BASE_URL || '/api';
+                return "__VITE_API_BASE_URL__" === "__VITE_API_BASE_URL__" ? (import.meta.env.VITE_API_BASE_URL || '/api') : "__VITE_API_BASE_URL__";
             },
             app.config.globalProperties.$arraySum = (array = []) => {
                 let sum = 0;

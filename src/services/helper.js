@@ -57,7 +57,7 @@ export function getServerErrors(error) {
 
 export function setRefreshToken(value) {
   const now = new Date();
-  const ttl = Number(import.meta.env.VITE_REFRESH_TOKEN_EXPIRE_IN || 168) * 3600000;
+  const ttl = Number(getRuntimeEnv('VITE_REFRESH_TOKEN_EXPIRE_IN', '168')) * 3600000;
   const item = {
     value: value,
     expiry: now.getTime() + ttl,
@@ -68,7 +68,7 @@ export function setRefreshToken(value) {
 export function setAccessToken(value, rememberMe = false) {
   const now = new Date();
   // If remember me is checked, extend token to 7 days, otherwise 12 hours
-  const baseTtl = Number(import.meta.env.VITE_ACCESS_TOKEN_EXPIRE_IN || 72) * 600000; // 12 hours
+  const baseTtl = Number(getRuntimeEnv('VITE_ACCESS_TOKEN_EXPIRE_IN', '72')) * 600000; // 12 hours
   const extendedTtl = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
   const ttl = rememberMe ? extendedTtl : baseTtl;
   
@@ -398,4 +398,10 @@ export const getIncomeRiderYearLabels = (distribution1 = [], distribution2 = [],
   return yearsLabel;
 }
 
-export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL;
+// Runtime environment variable helper - falls back to import.meta.env for local development
+export const getRuntimeEnv = (key, fallback = '') => {
+  const placeholder = `__${key}__`;
+  return placeholder === `__${key}__` ? (import.meta.env[key] || fallback) : placeholder;
+};
+
+export const getBaseUrl = () => getRuntimeEnv('VITE_API_BASE_URL', '/api');

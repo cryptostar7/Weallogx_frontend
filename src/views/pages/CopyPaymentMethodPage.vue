@@ -117,8 +117,8 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { getFirstError, getServerErrors, setRefreshToken, setAccessToken } from "../../services/helper";
-let stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY),
+import { getFirstError, getServerErrors, setRefreshToken, setAccessToken, getRuntimeEnv } from "../../services/helper";
+let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
   elements = stripe.elements(),
   card,
   cardNumber,
