@@ -404,4 +404,4 @@ export const getRuntimeEnv = (key, fallback = '') => {
   return placeholder === `__${key}__` ? (import.meta.env[key] || fallback) : placeholder;
 };
 
-export const getBaseUrl = () => getRuntimeEnv('VITE_API_BASE_URL', '/api');
+export const getBaseUrl = () => getRuntimeEnv('VITE_API_BASE_URL');
