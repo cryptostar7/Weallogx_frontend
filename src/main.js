@@ -31,7 +31,7 @@ app.use(Toaster, { position: 'top-right', duration: 5000 });
 app.config.unwrapInjectedRef = true;
 
 var environment = import.meta.env.MODE;
-var appUrl = import.meta.env.VITE_APP_URL;
+var appUrl = "__VITE_APP_URL__" === "__VITE_APP_URL__" ? import.meta.env.VITE_APP_URL : "__VITE_APP_URL__";
 // var sentryDSN = import.meta.env.VITE_SENTRY_DSN_KEY;
 // if (environment !== 'development') {
 //     Sentry.init({

@@ -13,7 +13,7 @@ const api = axios.create({
     'Pragma': 'no-cache',
   },
   // responseType: 'json',
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: "__VITE_API_BASE_URL__" === "__VITE_API_BASE_URL__" ? (import.meta.env.VITE_API_BASE_URL || '/api') : "__VITE_API_BASE_URL__",
 });
 
 // Add response interceptor to handle common error cases
