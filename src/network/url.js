@@ -1,4 +1,4 @@
-const getBaseUrl = () => "__VITE_API_BASE_URL__" === "__VITE_API_BASE_URL__" ? import.meta.env.VITE_API_BASE_URL : "__VITE_API_BASE_URL__";
+const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const getUrl = (type) => {
   const baseUrl = getBaseUrl();
