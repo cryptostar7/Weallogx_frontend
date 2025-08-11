@@ -111,9 +111,7 @@ import {
   setAccessToken,
   getSearchParams,
 } from "../../services/helper";
-let stripe = Stripe(
-    `pk_test_51ObkK6AnNnieLLFYJX30BOvMWih1D2J9cuH6XJmaQPwXZwgmrsusGsuhcPgU69bR9ex4yaOFusg79z352cIsAJmo00tO5QURnS`
-  ),
+let stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY),
   elements = stripe.elements(),
   card,
   cardNumber,
