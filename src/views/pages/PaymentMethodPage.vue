@@ -40,7 +40,7 @@
                 <h3 v-else>Loading pricing...</h3>
                 <div class="pricing-details">
                   <div class="price-line">
-                    <span>{{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription (Save 18%)' }}</span>
+                    <span>{{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}</span>
                     <span class="price" v-if="!isLoadingPrices">{{ originalPrice }}</span>
                     <span class="price" v-else>...</span>
                   </div>
