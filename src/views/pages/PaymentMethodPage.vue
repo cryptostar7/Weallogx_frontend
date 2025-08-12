@@ -262,8 +262,8 @@ export default {
       this.isLoadingPrices = true;
       
       try {
-        const monthlyPriceId = import.meta.env.VITE_STRIPE_MONTHLY_PRICE_ID || "price_1QaKMbAnNnieLLFY9TJrGVSm";
-        const yearlyPriceId = import.meta.env.VITE_STRIPE_YEARLY_PRICE_ID || "price_1QaKLYAnNnieLLFYCd1nADpg";
+        const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
+        const yearlyPriceId = "__VITE_YEARLY_PLAN__";
         
         console.log("Using price IDs:", { monthlyPriceId, yearlyPriceId });
         

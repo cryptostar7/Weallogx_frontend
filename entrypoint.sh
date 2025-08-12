@@ -12,8 +12,10 @@ if [ -d "/usr/share/nginx/html/assets" ]; then
     echo "Replacing VITE_ environment variables in JavaScript files..."
     for file in /usr/share/nginx/html/assets/*.js; do
         if [ -f "$file" ]; then
-            # Replace only the Stripe key at runtime - other env vars use standard Vite handling
+            # Replace VITE environment variables at runtime
             sed -i "s|__VITE_STRIPE_PUBLISHABLE_KEY__|${VITE_STRIPE_PUBLISHABLE_KEY:-}|g" "$file"
+            sed -i "s|__VITE_MONTHLY_PLAN__|${MONTHLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_YEARLY_PLAN__|${YEARLY_PLAN:-}|g" "$file"
         fi
     done
     echo "Environment variable replacement completed."
