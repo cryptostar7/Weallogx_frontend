@@ -184,8 +184,8 @@ export default {
       isLoadingCoupons: false,
       appliedCoupon: null,
       planPrices: {
-        monthly: { price: 79.00, display: '$79.00/month', priceId: null },
-        yearly: { price: 780.00, display: '$65.00/month (billed yearly)', priceId: null }
+        monthly: { price: 0, display: 'Loading...', priceId: null },
+        yearly: { price: 0, display: 'Loading...', priceId: null }
       }
     };
   },
@@ -294,45 +294,44 @@ export default {
             throw new Error("Invalid response from pricing API");
           }
         } catch (apiError) {
-          console.warn("Backend pricing API not available, using default prices:", apiError.message);
+          console.error("Backend pricing API failed - cannot load pricing:", apiError.message);
+          this.$toast.error("Unable to load pricing from Stripe. Please try again.");
           
-          // Fallback to known pricing based on the price IDs provided
+          // No fallback - force user to retry or fix the API issue
           this.planPrices = {
             monthly: { 
-              price: 79.00, 
-              display: '$79.00/month', 
+              price: 0, 
+              display: 'Error loading pricing', 
               priceId: monthlyPriceId,
               interval: 'month'
             },
             yearly: { 
-              price: 780.00, 
-              display: '$780.00/year', 
+              price: 0, 
+              display: 'Error loading pricing', 
               priceId: yearlyPriceId,
-              interval: 'year',
-              monthlyEquivalent: 65.00
+              interval: 'year'
             }
           };
         }
         
         console.log("Final pricing:", this.planPrices);
       } catch (error) {
-        console.error("Failed to fetch pricing:", error);
-        this.$toast.error("Failed to load pricing information");
+        console.error("Critical error fetching pricing:", error);
+        this.$toast.error("Unable to load pricing. Please refresh the page.");
         
-        // Ultimate fallback
+        // No fallback - system must work with live Stripe data
         this.planPrices = {
           monthly: { 
-            price: 79.00, 
-            display: '$79.00/month', 
-            priceId: "price_1QaKMbAnNnieLLFY9TJrGVSm",
+            price: 0, 
+            display: 'Pricing unavailable', 
+            priceId: null,
             interval: 'month'
           },
           yearly: { 
-            price: 780.00, 
-            display: '$780.00/year', 
-            priceId: "price_1QaKLYAnNnieLLFYCd1nADpg",
-            interval: 'year',
-            monthlyEquivalent: 65.00
+            price: 0, 
+            display: 'Pricing unavailable', 
+            priceId: null,
+            interval: 'year'
           }
         };
       } finally {
