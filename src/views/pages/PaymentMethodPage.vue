@@ -537,7 +537,7 @@ export default {
       formData["stripe_source_id"] = this.user.stripe_source_id;
       // Include pricing information
       formData["price_id"] = this.planPrices[this.selectedPlan].priceId;
-      formData["plan_type"] = this.selectedPlan;
+      formData["plan_type"] = this.selectedPlan === 'monthly' ? 'MONTHLY_PLAN' : 'YEARLY_PLAN';
       formData["plan_price"] = this.planPrices[this.selectedPlan].price;
       formData["plan_interval"] = this.planPrices[this.selectedPlan].interval;
       // Always include promo_code, even if empty
