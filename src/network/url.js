@@ -183,6 +183,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/retirement_buffer/income_rider_simulation/`;
     case 's3_url':
       return `${baseUrl}/scenario/get-presigned-url/`;
+    case 'stripe/prices':
+      return `${baseUrl}/payment/stripe/prices/`;
+    case 'stripe/coupons':
+      return `${baseUrl}/payment/stripe/coupons/`;
+    case 'stripe/validate-coupon':
+      return `${baseUrl}/payment/stripe/validate-coupon/`;
     default:
       return baseUrl;
   }
