@@ -106,7 +106,6 @@ export default {
       });
       eachInputFun.addEventListener("blur", function(e) {
         let eachLabelSec = this.closest(".auth-form");
-        eachLabelSec.firstElementChild.classList.remove("active");
         if (this.value == "") {
           eachLabelSec.firstElementChild.classList.remove("active");
         } else {
