@@ -382,7 +382,7 @@ export default {
       userData.append("last_name", this.user.last_name);
       userData.append("phone_number", this.user.phone_number);
 
-      patch(`${getUrl("profile")}/${this.user.id}/`, userData, authHeader())
+      patch(`${getUrl("profile")}${this.user.id}/`, userData, authHeader())
         .then(response => {
           this.getProfile();
           this.$toast.success(response.data.message);
