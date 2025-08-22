@@ -405,7 +405,8 @@ const loginAsUser = async () => {
     const token = response.data.token
     
     // Open main app in new tab with the login token
-    window.open(`http://localhost:8000/user-login-with-token?token=${token}`, '_blank')
+    const frontendUrl = window.location.origin
+    window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
   } catch (err) {
     console.error('Failed to generate login token:', err)
     alert('Failed to login as user. This feature may not be implemented yet.')
