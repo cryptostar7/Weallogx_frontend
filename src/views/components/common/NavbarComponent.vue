@@ -36,6 +36,16 @@
                   >Profile</router-link
                 >
               </li>
+              <li v-if="$isAdminUser()">
+                <router-link to="/admin" class="dropdown-item"
+                  >Admin Panel</router-link
+                >
+              </li>
+              <li v-if="isLoggedInFromAdmin">
+                <a class="dropdown-item cursor-pointer" @click="returnToAdmin()"
+                  ><i class="fas fa-arrow-left me-1"></i>Return to Admin</a
+                >
+              </li>
               <li>
                 <a class="dropdown-item cursor-pointer" @click="logout()"
                   >Logout</a
@@ -90,6 +100,8 @@ import {
   setCurrentUser,
   authCheck,
   getCurrentUser,
+  hasAdminSession,
+  restoreAdminSessionFromBackup,
 } from "../../../services/helper";
 export default {
   components: { ThemeDropdown },
@@ -145,6 +157,11 @@ export default {
       }
     });
   },
+  computed: {
+    isLoggedInFromAdmin() {
+      return sessionStorage.getItem('login_from_admin') === '1' && hasAdminSession();
+    }
+  },
   methods: {
     getProfile: function () {
       get(getUrl("profile"), authHeader())
@@ -164,6 +181,8 @@ export default {
             last_name: user.last_name,
             role_type: user.role_type,
             avatar: user.avatar,
+            is_staff: user.is_staff,
+            is_superuser: user.is_superuser,
           });
         })
         .catch((error) => {
@@ -190,7 +209,15 @@ export default {
             localStorage.removeItem("currentUser");
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
-            if (localStorage.getItem("login_from_admin")) {
+            
+            // Check both sessionStorage and localStorage for admin login flag
+            const isFromAdmin = sessionStorage.getItem("login_from_admin") || localStorage.getItem("login_from_admin");
+            
+            if (isFromAdmin) {
+              // Clear both storages
+              sessionStorage.removeItem("login_from_admin");
+              sessionStorage.removeItem("access_token");
+              sessionStorage.removeItem("currentUser");
               localStorage.removeItem("login_from_admin");
               window.location.href = this.$adminUrl();
             } else {
@@ -210,6 +237,14 @@ export default {
               this.$toast.error(error.response.data.messages[0].message);
             }
           });
+      }
+    },
+    returnToAdmin: function() {
+      if (restoreAdminSessionFromBackup()) {
+        this.$toast.success('Returned to admin session');
+        this.$router.push('/admin');
+      } else {
+        this.$toast.error('Failed to restore admin session');
       }
     },
   },

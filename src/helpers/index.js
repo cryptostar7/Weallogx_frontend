@@ -1,4 +1,4 @@
-import { authCheck, isTscUser } from "../services/helper";
+import { authCheck, isTscUser, isAdminUser } from "../services/helper";
 import moment from "moment/moment";
 
 const myPlugin = {
@@ -38,6 +38,9 @@ const myPlugin = {
             },
             app.config.globalProperties.$isTscUser = () => {
                 return isTscUser();
+            },
+            app.config.globalProperties.$isAdminUser = () => {
+                return isAdminUser();
             },
             app.config.globalProperties.$currentUser = () => {
                 return localStorage.getItem("currentUser") ? JSON.parse(localStorage.getItem("currentUser")) : false;

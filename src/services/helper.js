@@ -112,6 +112,29 @@ export function getRefreshToken() {
 // }
 
 export function getAccessToken() {
+  // Check sessionStorage first (for admin-generated sessions)
+  if (sessionStorage.getItem("login_from_admin") === "1") {
+    const sessionRaw = sessionStorage.getItem("access_token");
+    if (sessionRaw) {
+      try {
+        const sessionParsed = JSON.parse(sessionRaw);
+        if (sessionParsed && sessionParsed.expiry) {
+          const now = new Date().getTime();
+          if (now > sessionParsed.expiry) {
+            sessionStorage.removeItem("access_token");
+            sessionStorage.removeItem("login_from_admin");
+            return null;
+          }
+        }
+        return sessionParsed && sessionParsed.value ? sessionParsed.value : null;
+      } catch (e) {
+        sessionStorage.removeItem("access_token");
+        return null;
+      }
+    }
+  }
+
+  // Fallback to localStorage for normal sessions
   const raw = localStorage.getItem("access_token");
   if (!raw) return null;
 
@@ -142,6 +165,15 @@ export const setCurrentUser = (name) => {
 }
 
 export const getCurrentUser = () => {
+  // Check sessionStorage first (for admin-generated sessions)
+  if (sessionStorage.getItem("login_from_admin") === "1") {
+    const sessionUser = sessionStorage.getItem('currentUser');
+    if (sessionUser) {
+      return JSON.parse(sessionUser);
+    }
+  }
+  
+  // Fallback to localStorage for normal sessions
   return localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
 }
 
@@ -185,6 +217,19 @@ export const authHeader = () => {
 export const isPlanActive = () => {
   let status = localStorage.getItem('plan_active') ?? 0;
   return Number(status) ? true : false;
+}
+
+export const isAdminUser = () => {
+  const user = getCurrentUser();
+  if (!user) return false;
+  
+  try {
+    // User data is already an object from getCurrentUser
+    return user.is_staff === true || user.is_superuser === true || user.role_type === 'admin';
+  } catch (error) {
+    console.error('Error checking admin status:', error);
+    return false;
+  }
 }
 
 export const rememberMe = () => {
@@ -405,3 +450,124 @@ export const getRuntimeEnv = (key, fallback = '') => {
 };
 
 export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || '/api';
+
+export const restoreAdminSession = () => {
+  const adminBackup = localStorage.getItem('admin_session_backup');
+  if (adminBackup) {
+    try {
+      const backup = JSON.parse(adminBackup);
+      
+      // Restore admin tokens
+      if (backup.access_token) {
+        localStorage.setItem('access_token', backup.access_token);
+      }
+      if (backup.refresh_token) {
+        localStorage.setItem('refresh_token', backup.refresh_token);
+      }
+      if (backup.currentUser) {
+        localStorage.setItem('currentUser', backup.currentUser);
+      }
+      
+      // Clean up backup
+      localStorage.removeItem('admin_session_backup');
+      localStorage.removeItem('login_from_admin');
+      
+      return true;
+    } catch (e) {
+      console.error('Failed to restore admin session:', e);
+      localStorage.removeItem('admin_session_backup');
+      return false;
+    }
+  }
+  return false;
+};
+
+export const hasAdminSessionBackup = () => {
+  return localStorage.getItem('admin_session_backup') !== null;
+};
+
+// Admin-specific token management (separate from user tokens)
+export const setAdminTokens = (accessToken, refreshToken = null, user = null) => {
+  const now = new Date();
+  const ttl = 12 * 60 * 60 * 1000; // 12 hours
+  
+  const accessData = {
+    value: accessToken,
+    expiry: now.getTime() + ttl,
+    isAdmin: true
+  };
+  localStorage.setItem('admin_access_token', JSON.stringify(accessData));
+  
+  if (refreshToken) {
+    const refreshTtl = 7 * 24 * 60 * 60 * 1000; // 7 days
+    const refreshData = {
+      value: refreshToken,
+      expiry: now.getTime() + refreshTtl,
+      isAdmin: true
+    };
+    localStorage.setItem('admin_refresh_token', JSON.stringify(refreshData));
+  }
+  
+  if (user) {
+    localStorage.setItem('admin_user', JSON.stringify(user));
+  }
+};
+
+export const getAdminAccessToken = () => {
+  const itemStr = localStorage.getItem('admin_access_token');
+  if (!itemStr) return null;
+  
+  try {
+    const item = JSON.parse(itemStr);
+    const now = new Date().getTime();
+    
+    if (now > item.expiry) {
+      localStorage.removeItem('admin_access_token');
+      return null;
+    }
+    
+    return item.value;
+  } catch (e) {
+    localStorage.removeItem('admin_access_token');
+    return null;
+  }
+};
+
+export const getAdminUser = () => {
+  const userStr = localStorage.getItem('admin_user');
+  return userStr ? JSON.parse(userStr) : null;
+};
+
+export const adminAuthHeader = () => {
+  const token = getAdminAccessToken();
+  if (!token) return {};
+  return { headers: { 'Authorization': `Bearer ${token}` } };
+};
+
+export const clearAdminTokens = () => {
+  localStorage.removeItem('admin_access_token');
+  localStorage.removeItem('admin_refresh_token');
+  localStorage.removeItem('admin_user');
+};
+
+export const hasAdminSession = () => {
+  return getAdminAccessToken() !== null && getAdminUser() !== null;
+};
+
+export const restoreAdminSessionFromBackup = () => {
+  const adminToken = getAdminAccessToken();
+  const adminUser = getAdminUser();
+  
+  if (adminToken && adminUser) {
+    // Restore admin as current user
+    setAccessToken(adminToken);
+    setCurrentUser(adminUser);
+    
+    // Clear the backup to avoid confusion
+    clearAdminTokens();
+    localStorage.removeItem('login_from_admin');
+    
+    return true;
+  }
+  return false;
+};
