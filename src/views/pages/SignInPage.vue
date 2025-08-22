@@ -215,6 +215,8 @@ export default {
                     last_name: response.data.data.last_name,
                     role_type: response.data.data.role_type,
                     avatar: response.data.data.avatar,
+                    is_staff: response.data.data.is_staff,
+                    is_superuser: response.data.data.is_superuser,
                   });
                   this.$store.dispatch("user", response.data.data);
                   this.$store.dispatch("loader", false);
@@ -223,6 +225,7 @@ export default {
                   if (getSearchParams("next")) {
                     this.$router.push(getSearchParams("next"));
                   } else {
+                    // All users go to profile-details
                     this.$router.push("/profile-details");
                   }
                 })

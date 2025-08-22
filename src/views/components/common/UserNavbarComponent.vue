@@ -284,6 +284,12 @@
                                           alt="Dashboard"
                                         />Dashboard</router-link
                                       >
+                                      <router-link v-if="$isAdminUser()" to="/admin"
+                                        ><img
+                                          src="@/assets/images/user/dashboard-icon.svg"
+                                          alt="Admin Panel"
+                                        />Admin Panel</router-link
+                                      >
                                       <router-link to="/"
                                         ><img
                                           src="@/assets/images/user/clients-line.svg"

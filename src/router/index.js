@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { authCheck, isPlanActive, isTscUser } from "../services/helper";
+import { authCheck, isPlanActive, isTscUser, isAdminUser } from "../services/helper";
 import HomePage from "../views/pages/HomePage.vue";
 
 const router = createRouter({
@@ -252,6 +252,37 @@ const router = createRouter({
       name: "retirement-buffer-income-rider-result",
       component: () => import("@/views/retirement-buffer/income-rider/IncomeRiderResultPage.vue"),
     },
+    // Admin Panel Routes
+    {
+      path: "/admin",
+      name: "AdminDashboard",
+      component: () => import("../views/admin/pages/AdminDashboard.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/users",
+      name: "AdminUserList",
+      component: () => import("../views/admin/pages/AdminUserList.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/users/create",
+      name: "AdminUserCreate",
+      component: () => import("../views/admin/pages/AdminUserCreate.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/users/:id",
+      name: "AdminUserDetail",
+      component: () => import("../views/admin/pages/AdminUserDetail.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
+      path: "/admin/users/:id/edit",
+      name: "AdminUserEdit",
+      component: () => import("../views/admin/pages/AdminUserEdit.vue"),
+      meta: { requiresAdmin: true }
+    },
     {
       path: "/:pathMatch(.*)*",
       name: "not found page",
@@ -313,6 +344,27 @@ const tscRoutes = [
 ];
 
 router.beforeEach((to, from, next) => {
+  // Check if route requires admin access
+  if (to.meta.requiresAdmin) {
+    if (!authCheck()) {
+      // Clear expired tokens
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("plan_active");
+      
+      // Redirect to sign-in with return path
+      next(`/sign-in?next=${encodeURIComponent(to.fullPath)}`);
+      return;
+    }
+    
+    if (!isAdminUser()) {
+      // Redirect non-admin users to home page
+      next('/profile-details');
+      return;
+    }
+  }
+
   // Check if route requires authentication
   if (authRoutes.includes(to.name) || secureRoutes.includes(to.name) || tscRoutes.includes(to.name)) {
     if (!authCheck()) {

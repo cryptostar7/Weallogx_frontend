@@ -189,6 +189,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/payment/stripe/coupons/`;
     case 'stripe/validate-coupon':
       return `${baseUrl}/payment/stripe/validate-coupon/`;
+    case 'admin/dashboard/stats':
+      return `${baseUrl}/auth/admin/dashboard/stats/`;
+    case 'admin/create-user':
+      return `${baseUrl}/auth/admin/create-user/`;
+    case 'admin/delete-user':
+      return `${baseUrl}/auth/admin/delete-user/`;
     default:
       return baseUrl;
   }

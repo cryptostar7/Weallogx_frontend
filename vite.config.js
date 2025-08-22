@@ -16,8 +16,8 @@ export default defineConfig({
     vueJsx(),
     envCompatible(),
     sentryVitePlugin({
-      org: 'wlx-7b',
-      project: 'wlx-ui'
+      org: 'wearemimiccom',
+      project: 'wealthlogix'
     })
   ],
   server: {
