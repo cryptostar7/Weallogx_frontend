@@ -362,7 +362,8 @@ const loginAsUser = async (user) => {
     addAdminBreadcrumb('Login as user successful', { target_user_id: user.id, target_user_email: user.email })
     
     // Open main app in new tab with the login token
-    window.open(`http://localhost:8000/user-login-with-token?token=${token}`, '_blank')
+    const frontendUrl = window.location.origin
+    window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
   } catch (error) {
     console.error('Failed to generate login token:', error)
     addAdminBreadcrumb('Login as user failed', { target_user_id: user.id, error: error.message })
