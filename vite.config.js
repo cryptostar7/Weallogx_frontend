@@ -30,6 +30,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
+    },
+    // Ensure SPA fallback for admin routes
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/admin.*/, to: '/index.html' }
+      ]
     }
   },
   preview: {
