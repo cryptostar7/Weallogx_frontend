@@ -113,7 +113,7 @@
                       </td>
                       <td>
                         <span class="badge bg-info">
-                          {{ user.plan_type || 'Free Trial' }}
+                          {{ formatPlanType(user.plan_type) }}
                         </span>
                       </td>
                       <td>
@@ -374,6 +374,21 @@ const getUserRoleText = (user) => {
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString()
+}
+
+const formatPlanType = (planType) => {
+  const planMap = {
+    'FREE_TRIAL_PLAN': 'Free Trial',
+    'MONTHLY_PLAN': 'Monthly Plan',
+    'YEARLY_PLAN': 'Yearly Plan',
+    'FOUNDERS_PLAN': 'Founders Plan',
+    // Handle legacy numeric values that might still exist
+    '1': 'Free Trial',
+    '2': 'Monthly Plan',
+    '3': 'Yearly Plan', 
+    '4': 'Founders Plan'
+  }
+  return planMap[planType] || planType || 'Free Trial'
 }
 
 
