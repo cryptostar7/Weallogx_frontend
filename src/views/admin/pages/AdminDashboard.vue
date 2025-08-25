@@ -242,6 +242,7 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import { getUrl } from '../../../network/url'
+import { getAccessToken } from '../../../services/helper'
 
 export default {
   name: 'AdminDashboard',
@@ -266,7 +267,7 @@ export default {
     const loadDashboardData = async () => {
       loading.value = true
       error.value = null
-      const token = localStorage.getItem('access_token')
+      const token = getAccessToken()
       const headers = { Authorization: `Bearer ${token}` }
       
       try {
