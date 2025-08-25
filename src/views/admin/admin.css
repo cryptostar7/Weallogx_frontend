@@ -34,6 +34,35 @@
   color: #26ab8b;
 }
 
+.stats-card h6 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stats-card .text-success {
+  color: #28a745 !important;
+}
+
+.stats-card .text-danger {
+  color: #dc3545 !important;
+}
+
+.stats-card .text-warning {
+  color: #ffc107 !important;
+}
+
+.stats-card .text-info {
+  color: #17a2b8 !important;
+}
+
+/* Loading spinner styles */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3em;
+}
+
 .btn-admin {
   background: #26ab8b;
   border-color: #26ab8b;

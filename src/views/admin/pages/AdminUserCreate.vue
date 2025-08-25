@@ -201,6 +201,12 @@
                       </div>
                     </div>
 
+                    <!-- General Error Display -->
+                    <div v-if="errors.general || errors.error" class="alert alert-danger mb-3">
+                      <i class="fas fa-exclamation-circle me-1"></i>
+                      {{ errors.general || errors.error }}
+                    </div>
+
                     <!-- Submit Buttons -->
                     <div class="d-flex justify-content-end gap-2">
                       <router-link to="/admin/users" class="btn btn-secondary">
@@ -336,17 +342,35 @@ const createUser = async () => {
       plan_type: form.plan_type
     }
     
+    console.log('Submitting user data:', userData)
+    
     const response = await axios.post(getUrl('admin/create-user'), userData, authHeader())
-    // Success - redirect to user detail page
-    router.push(`/admin/users/${response.data.id}`)
+    console.log('User created successfully:', response.data)
+    
+    // Success - redirect to user list page (since detail page might not exist)
+    router.push('/admin/users')
   } catch (error) {
     console.error('Failed to create user:', error)
+    console.error('Error response:', error.response?.data)
+    console.error('Error status:', error.response?.status)
     
     if (error.response?.data) {
       // Handle validation errors from server
-      errors.value = error.response.data
+      const serverErrors = error.response.data
+      
+      // If it's a field-specific error object
+      if (typeof serverErrors === 'object' && !serverErrors.error) {
+        errors.value = serverErrors
+      } else {
+        // If it's a general error message
+        errors.value = { general: serverErrors.error || 'Failed to create user. Please try again.' }
+      }
+    } else if (error.response?.status === 403) {
+      errors.value = { general: 'You do not have permission to create users.' }
+    } else if (error.response?.status === 500) {
+      errors.value = { general: 'Server error. Please try again later.' }
     } else {
-      errors.value = { general: 'Failed to create user. Please try again.' }
+      errors.value = { general: 'Network error. Please check your connection and try again.' }
     }
   } finally {
     loading.value = false
