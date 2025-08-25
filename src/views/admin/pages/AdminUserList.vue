@@ -22,7 +22,7 @@
                   class="form-control" 
                   placeholder="Search users by name or email..."
                   v-model="searchQuery"
-                  @input="searchUsers"
+                  @input="debouncedSearch"
                 >
               </div>
             </div>
@@ -54,7 +54,7 @@
           <!-- Users Table -->
           <div class="table-admin">
             <div class="card-header bg-light d-flex justify-content-between align-items-center">
-              <h5 class="mb-0">All Users ({{ filteredUsers.length }})</h5>
+              <h5 class="mb-0">All Users ({{ totalCount }})</h5>
               <div class="d-flex gap-2">
                 <button 
                   @click="refreshUsers" 
@@ -156,7 +156,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr v-if="filteredUsers.length === 0 && !loading">
+                    <tr v-if="users.length === 0 && !loading">
                       <td colspan="8" class="text-center py-4 text-muted">
                         <i class="fas fa-users fa-2x mb-2"></i><br>
                         No users found
@@ -174,7 +174,7 @@
             </div>
             
             <!-- Pagination -->
-            <div class="card-footer" v-if="filteredUsers.length > pageSize">
+            <div class="card-footer" v-if="totalPages > 1">
               <nav>
                 <ul class="pagination justify-content-center mb-0">
                   <li class="page-item" :class="{ disabled: currentPage === 1 }">
@@ -215,97 +215,58 @@ const sortField = ref('created_at')
 const sortDirection = ref('desc')
 const currentPage = ref(1)
 const pageSize = ref(20)
+const totalCount = ref(0)
+const totalPages = ref(0)
 
 const loadUsers = async () => {
   loading.value = true
   try {
-    console.log('🔍 Loading users...')
-    console.log('🌐 Current URL:', window.location.href)
-    console.log('🔑 Auth header:', authHeader())
-    console.log('📡 Making request to:', getUrl('user'))
+    const params = new URLSearchParams()
+    params.append('limit', pageSize.value.toString())
+    params.append('offset', ((currentPage.value - 1) * pageSize.value).toString())
     
-    // Use the getUrl helper to get the correct users endpoint
-    const response = await axios.get(getUrl('user'), authHeader())
+    if (searchQuery.value) {
+      params.append('search', searchQuery.value)
+    }
+    
+    if (statusFilter.value) {
+      params.append('status', statusFilter.value)
+    }
+    
+    if (roleFilter.value) {
+      params.append('role', roleFilter.value)
+    }
+    
+    // Set ordering parameter
+    let ordering = sortField.value
+    if (sortDirection.value === 'desc') {
+      ordering = `-${ordering}`
+    }
+    params.append('ordering', ordering)
+    
+    const url = `${getUrl('user')}?${params.toString()}`
+    console.log('📡 Making request to:', url)
+    
+    const response = await axios.get(url, authHeader())
     console.log('✅ Response received:', response.status, response.data)
-    console.log('📊 Response type:', typeof response.data)
-    console.log('🔍 Response keys:', Object.keys(response.data || {}))
     
     users.value = response.data.results || response.data
-    console.log('👥 Users set:', users.value.length, 'users')
-    console.log('👤 First user:', users.value[0])
+    totalCount.value = response.data.count || users.value.length
+    totalPages.value = Math.ceil(totalCount.value / pageSize.value)
+    
+    console.log(`👥 Loaded ${users.value.length} users (${totalCount.value} total)`)
   } catch (error) {
     console.error('❌ Failed to load users:', error)
     console.error('🚨 Error status:', error.response?.status)
     console.error('🚨 Error data:', error.response?.data)
-    console.error('🚨 Error config:', error.config)
-    console.error('🚨 Request URL:', error.config?.url)
   } finally {
     loading.value = false
   }
 }
 
-const filteredUsers = computed(() => {
-  let result = [...users.value]
-  
-  // Search filter
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    result = result.filter(user => 
-      `${user.first_name} ${user.last_name}`.toLowerCase().includes(query) ||
-      user.email.toLowerCase().includes(query) ||
-      (user.company_name && user.company_name.toLowerCase().includes(query))
-    )
-  }
-  
-  // Status filter
-  if (statusFilter.value) {
-    result = result.filter(user => 
-      statusFilter.value === 'active' ? user.is_active : !user.is_active
-    )
-  }
-  
-  // Role filter
-  if (roleFilter.value) {
-    result = result.filter(user => {
-      if (roleFilter.value === 'superuser') return user.is_superuser
-      if (roleFilter.value === 'staff') return user.is_staff && !user.is_superuser
-      if (roleFilter.value === 'user') return !user.is_staff && !user.is_superuser
-      return true
-    })
-  }
-  
-  // Sort
-  result.sort((a, b) => {
-    let aValue, bValue
-    
-    if (sortField.value === 'name') {
-      aValue = `${a.first_name} ${a.last_name}`.toLowerCase()
-      bValue = `${b.first_name} ${b.last_name}`.toLowerCase()
-    } else if (sortField.value === 'email') {
-      aValue = a.email.toLowerCase()
-      bValue = b.email.toLowerCase()
-    } else if (sortField.value === 'created_at') {
-      aValue = new Date(a.created_at)
-      bValue = new Date(b.created_at)
-    }
-    
-    if (sortDirection.value === 'asc') {
-      return aValue > bValue ? 1 : -1
-    } else {
-      return aValue < bValue ? 1 : -1
-    }
-  })
-  
-  return result
-})
-
-const totalPages = computed(() => Math.ceil(filteredUsers.value.length / pageSize.value))
-
-const paginatedUsers = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value
-  const end = start + pageSize.value
-  return filteredUsers.value.slice(start, end)
-})
+// Server-side pagination means we just return the users as-is
+const filteredUsers = computed(() => users.value)
+const paginatedUsers = computed(() => users.value)
 
 const visiblePages = computed(() => {
   const pages = []
@@ -319,12 +280,23 @@ const visiblePages = computed(() => {
   return pages
 })
 
+let searchTimeout = null
+
 const searchUsers = () => {
   currentPage.value = 1
+  loadUsers()
+}
+
+const debouncedSearch = () => {
+  clearTimeout(searchTimeout)
+  searchTimeout = setTimeout(() => {
+    searchUsers()
+  }, 500) // Wait 500ms after user stops typing
 }
 
 const filterUsers = () => {
   currentPage.value = 1
+  loadUsers()
 }
 
 const sortBy = (field) => {
@@ -335,11 +307,13 @@ const sortBy = (field) => {
     sortDirection.value = 'asc'
   }
   currentPage.value = 1
+  loadUsers()
 }
 
 const goToPage = (page) => {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page
+    loadUsers()
   }
 }
 
