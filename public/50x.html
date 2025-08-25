@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Temporarily Unavailable</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 72px;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+        h2 {
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            font-weight: 400;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .status-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .status-info h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>503</h1>
+        <h2>Service Temporarily Unavailable</h2>
+        <p>We're experiencing technical difficulties and our service is temporarily unavailable. Our team has been notified and is working to resolve the issue.</p>
+        <a href="/" class="btn" onclick="setTimeout(function(){ location.reload(); }, 1000); return false;">Try Again</a>
+        
+        <div class="status-info">
+            <h3>What's happening?</h3>
+            <p>Our backend service is currently not responding. This could be due to:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Scheduled maintenance</li>
+                <li>High traffic volume</li>
+                <li>Temporary connection issues</li>
+            </ul>
+            <p>Please try again in a few moments. If the problem persists, please contact support.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-retry after 30 seconds
+        setTimeout(function() {
+            console.log('Auto-retrying...');
+            location.reload();
+        }, 30000);
+    </script>
+</body>
+</html>

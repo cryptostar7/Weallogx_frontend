@@ -36,7 +36,8 @@ FROM ${NGINX_IMAGE} AS production
 RUN apk update && apk upgrade --no-cache
 COPY nginx.conf /etc/nginx/conf.d/default.conf.template
 COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
+COPY health-check.sh /
+RUN chmod +x /entrypoint.sh /health-check.sh
 COPY --from=production-build /usr/share/nginx/html /usr/share/nginx/html
 
 # Select build and run API
