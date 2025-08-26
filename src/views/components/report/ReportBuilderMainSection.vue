@@ -437,12 +437,11 @@ export default {
           }
 
           setTimeout(() => {
-          this.HistoricalDataLoaded = true;
+            this.HistoricalDataLoaded = true;
+            if (this.sidebar.currentTab === "historical") {
+              this.$store.dispatch("loader", false);
+            }
           }, 1000);
-          
-          if (this.sidebar.currentTab === "historical") {
-            this.$store.dispatch("loader", false);
-          }
         })
         .catch((error) => {
           console.log(error);
