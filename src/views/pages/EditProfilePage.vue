@@ -387,6 +387,8 @@ export default {
           this.getProfile();
           this.$toast.success(response.data.message);
           this.$store.dispatch("loader", false);
+          // Redirect to profile details page after successful update
+          this.$router.push('/profile-details');
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
