@@ -2277,7 +2277,26 @@ export default {
           }
 
           if (page && res) {
+            console.log("=== PDF EXTRACTION DEBUG START ===");
+            console.log("RAW BACKEND RESPONSE:", res);
+            console.log("PAGE REQUESTED:", page);
+            if (res[21]) {
+              console.log("PAGE 21 FIRST ROW SAMPLE:", res[21][0]);
+              console.log("PAGE 21 SECOND ROW SAMPLE:", res[21][1]);
+              console.log("PAGE 21 TOTAL ROWS:", res[21].length);
+            }
+            
             var finalObj = this.getSearializedData(res, page);
+            
+            console.log("FINAL TABLE OBJECT:", finalObj);
+            if (finalObj && finalObj.data && finalObj.data.length > 0) {
+              console.log("FIRST ROW TO TABLE:", finalObj.data[0]);
+              console.log("SECOND ROW TO TABLE:", finalObj.data[1]);
+              console.log("TABLE HEADERS:", finalObj.headers);
+              console.log("TOTAL TABLE ROWS:", finalObj.data.length);
+            }
+            console.log("=== PDF EXTRACTION DEBUG END ===");
+            
             if (!finalObj.headers.length) {
               this.$toast.warning(
                 "Sorry the data from the uploaded file could not be retrieved."
@@ -2368,7 +2387,18 @@ export default {
         let pdata = [];
         let maxLength = 0;
         p.forEach((item) => {
-          let tmp = response[item].map((a) => Object.values(a));
+          console.log(`PROCESSING PAGE ${item}:`);
+          console.log("BEFORE PROCESSING - First row:", response[item][0]);
+          console.log("BEFORE PROCESSING - Keys in first row:", Object.keys(response[item][0]));
+          
+          let tmp = response[item].map((a) => {
+            // Extract values in numerical key order (0, 1, 2, 3, ...)
+            const keys = Object.keys(a).filter(key => !isNaN(key)).sort((a, b) => parseInt(a) - parseInt(b));
+            return keys.map(key => a[key]);
+          });
+          
+          console.log("AFTER PROCESSING - First row:", tmp[0]);
+          console.log("AFTER PROCESSING - Keys used:", Object.keys(response[item][0]).filter(key => !isNaN(key)).sort((a, b) => parseInt(a) - parseInt(b)));
           pdata = [...pdata, ...tmp];
           if (total_rows < pdata.length) {
             total_rows = pdata.length;
