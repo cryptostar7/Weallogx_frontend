@@ -53,7 +53,7 @@
           </li> -->
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
-              data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" title="Share Report">
+              data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" title="Share Report" @click="populateShareData">
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 14.5V11C1.5 5 8.5 5 8.5 5L14 5.00007" stroke="black" stroke-width="2"
                   stroke-linecap="round" />
@@ -283,6 +283,64 @@ export default {
       this.$store.dispatch("presentation", false);
       this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
+    },
+    populateShareData: function() {
+      // Debug: Check what $appUrl() returns
+      console.log('Historical $appUrl() returns:', this.$appUrl());
+      console.log('Historical window.location.origin:', window.location.origin);
+      
+      // Get current report data from the route
+      const reportId = this.$route.params.report;
+      if (!reportId) return;
+
+      // Get historical simulation data from the store
+      const historical = this.$store.state.data.report.historical;
+      if (historical && historical.length > 0) {
+        const client = historical[0].client || {};
+        const simulation = historical[0] || {};
+        
+        // Populate share data in store for historical reports
+        this.$store.dispatch('shareSimulationReportData', {name: 'client', data: {
+          firstname: client.first_name || client.firstname || '',
+          middlename: client.middle_name || client.middlename || '',
+          lastname: client.last_name || client.lastname || ''
+        }});
+        this.$store.dispatch('shareSimulationReportData', {name: 'report_id', data: reportId});
+        this.$store.dispatch('shareSimulationReportData', {name: 'simulation', data: {name: simulation.simulation_name || simulation.name || 'Historical Simulation'}});
+        
+        // Get the view_token if available (for shared reports)
+        if (this.$route.params.view_token) {
+          this.$store.dispatch('shareSimulationReportData', {name: 'report_link', data: `${window.location.origin}/historical/report/${reportId}/${this.$route.params.view_token}`});
+        } else {
+          // For regular reports, we need to get the view_token from the API
+          this.getHistoricalReportToken(reportId);
+        }
+      } else {
+        // Fallback if no historical data available
+        this.$store.dispatch('shareSimulationReportData', {name: 'report_id', data: reportId});
+        this.$store.dispatch('shareSimulationReportData', {name: 'client', data: {firstname: '', middlename: '', lastname: ''}});
+        this.$store.dispatch('shareSimulationReportData', {name: 'simulation', data: {name: 'Historical Simulation'}});
+        this.getHistoricalReportToken(reportId);
+      }
+    },
+    getHistoricalReportToken: function(reportId) {
+      // Get the historical report details including view_token
+      get(`${getUrl("simulation-report")}${reportId}/`, authHeader())
+        .then((response) => {
+          const reportData = response.data.data;
+          this.$store.dispatch('shareSimulationReportData', {
+            name: 'report_link', 
+            data: `${window.location.origin}/historical/report/${reportId}/${reportData.view_token}`
+          });
+        })
+        .catch((error) => {
+          console.error('Failed to get historical report token:', error);
+          // Fallback without view_token (this won't work for sharing, but prevents errors)
+          this.$store.dispatch('shareSimulationReportData', {
+            name: 'report_link', 
+            data: `${window.location.origin}/historical/report/${reportId}/`
+          });
+        });
     },
   },
   beforeUnmount() {

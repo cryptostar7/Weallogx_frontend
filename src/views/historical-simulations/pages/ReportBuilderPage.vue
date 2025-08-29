@@ -17,7 +17,7 @@
 
     <create-new-client-report-modal />
 
-    <share-modal />
+    <share-report-modal />
 
     <!-- delete comparative vechile id hidden input -->
     <input type="hidden" id="historical_cv_delete_id" />
@@ -27,7 +27,7 @@
 import DeleteHistoricalCvModal from "../components/modals/DeleteHistoricalCvModal.vue";
 import DeleteAnnuityModal from "../components/modals/DeleteAnnuityModal.vue";
 import ReportBuilderNameCreateModal from "../components/modals/ReportBuilderNameCreateModal.vue";
-import ShareModal from "../components/modals/ShareModal.vue";
+import ShareReportModal from "../components/modals/ShareReportModal.vue";
 import ReportBuilderMainSection from "../components/report/ReportBuilderMainSection.vue";
 import NavbarComponent from "./../../components/common/NavbarComponent.vue";
 import ReportPageHeader from "../../components/common/SimulationReportPageHeader.vue";
@@ -39,7 +39,7 @@ export default {
     DeleteHistoricalCvModal,
     DeleteAnnuityModal,
     ReportBuilderNameCreateModal,
-    ShareModal,
+    ShareReportModal,
     ReportBuilderMainSection,
     NavbarComponent,
     ReportPageHeader,
