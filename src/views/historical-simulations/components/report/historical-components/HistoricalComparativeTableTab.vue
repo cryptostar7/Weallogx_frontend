@@ -89,7 +89,7 @@
                   <div class="collapseDivmdlHd text-center">
                     Historical Simulations of a Theoretical Synthetic Asset
                     (TSA) <br />
-                    as a Proxy for the LIRP
+                    as a Proxy for the {{ table?.policy_nickname || 'LIRP' }}
                   </div>
                 </div>
                 <div

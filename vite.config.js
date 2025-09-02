@@ -17,7 +17,8 @@ export default defineConfig({
     envCompatible(),
     sentryVitePlugin({
       org: 'wearemimiccom',
-      project: 'wealthlogix'
+      project: 'wealthlogix',
+      telemetry: process.env.APP_ENV === 'staging' || process.env.APP_ENV === 'production',
     })
   ],
   server: {
