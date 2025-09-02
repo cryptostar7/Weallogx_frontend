@@ -284,6 +284,12 @@ const router = createRouter({
       meta: { requiresAdmin: true }
     },
     {
+      path: "/admin/webhook-logs",
+      name: "AdminWebhookLogs",
+      component: () => import("../views/admin/pages/WebhookLogs.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
