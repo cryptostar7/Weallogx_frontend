@@ -195,6 +195,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/admin/create-user/`;
     case 'admin/delete-user':
       return `${baseUrl}/auth/admin/delete-user/`;
+    case 'auth/admin/webhook-logs/':
+      return `${baseUrl}/auth/admin/webhook-logs/`;
     default:
       return baseUrl;
   }

@@ -48,6 +48,42 @@
   color: #dc3545 !important;
 }
 
+/* System Health Metrics */
+.health-metric {
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.health-metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.health-number {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #495057;
+  text-transform: capitalize;
+}
+
+.health-metric .fa-2x {
+  margin-bottom: 0.5rem;
+}
+
+.health-metric small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .stats-card .text-warning {
   color: #ffc107 !important;
 }
