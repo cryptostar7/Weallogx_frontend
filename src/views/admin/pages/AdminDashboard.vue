@@ -210,16 +210,20 @@
                           </td>
                           <td>{{ formatDate(user.created_at) }}</td>
                           <td>
-                            <router-link 
-                              :to="`/admin/users/${user.id}`" 
-                              class="btn btn-sm btn-outline-primary me-1">
-                              <i class="fas fa-eye"></i>
-                            </router-link>
-                            <router-link 
-                              :to="`/admin/users/${user.id}/edit`" 
-                              class="btn btn-sm btn-outline-secondary">
-                              <i class="fas fa-edit"></i>
-                            </router-link>
+                            <div class="btn-group" role="group">
+                              <router-link 
+                                :to="`/admin/users/${user.id}`" 
+                                class="btn btn-sm btn-outline-primary"
+                                title="View Details">
+                                <i class="fas fa-eye me-1"></i>View
+                              </router-link>
+                              <button 
+                                @click="loginAsUser(user)"
+                                class="btn btn-sm btn-outline-success"
+                                title="Login as this user">
+                                <i class="fas fa-sign-in-alt me-1"></i>Login As
+                              </button>
+                            </div>
                           </td>
                         </tr>
                         <tr v-if="recentUsers.length === 0">
@@ -242,7 +246,8 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import { getUrl } from '../../../network/url'
-import { getAccessToken } from '../../../services/helper'
+import { getAccessToken, authHeader } from '../../../services/helper'
+import { addAdminBreadcrumb } from '../../../services/sentry'
 
 export default {
   name: 'AdminDashboard',
@@ -320,6 +325,29 @@ export default {
       }).format(amount)
     }
 
+    const loginAsUser = async (user) => {
+      if (!confirm(`Are you sure you want to login as "${user.first_name} ${user.last_name}"? This will open a new tab.`)) {
+        return
+      }
+      
+      try {
+        addAdminBreadcrumb('Login as user attempted', { target_user_id: user.id, target_user_email: user.email })
+        
+        // Generate a login token for the target user
+        const response = await axios.post(`${getUrl('user')}${user.id}/generate-login-token/`, {}, authHeader())
+        const token = response.data.token
+        
+        addAdminBreadcrumb('Login as user successful', { target_user_id: user.id, target_user_email: user.email })
+        
+        // Open main app in new tab with the login token
+        const frontendUrl = window.location.origin
+        window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
+      } catch (error) {
+        console.error('Failed to login as user:', error)
+        alert('Failed to login as user. Please try again.')
+      }
+    }
+
     onMounted(() => {
       loadDashboardData()
     })
@@ -332,7 +360,8 @@ export default {
       getUserRoleBadgeClass,
       getUserRoleText,
       formatDate,
-      formatRevenue
+      formatRevenue,
+      loginAsUser
     }
   }
 }
