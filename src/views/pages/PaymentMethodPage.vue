@@ -539,6 +539,11 @@ export default {
           this.$router.push("/profile-details");
         })
         .catch(error => {
+            code: error.code,
+            message: error.message,
+            response: error.response
+          });
+
           
           if (
             error.code === "ERR_BAD_RESPONSE" ||

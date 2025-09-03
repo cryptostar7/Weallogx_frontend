@@ -349,7 +349,6 @@ export default {
         })
         
       } catch (error) {
-        console.error('Failed to load webhook logs:', error)
         // Handle error appropriately
       } finally {
         loading.value = false
@@ -407,7 +406,6 @@ export default {
         await navigator.clipboard.writeText(errorMessage)
         // Could add a toast notification here
       } catch (err) {
-        console.error('Failed to copy error message:', err)
       }
     }
 

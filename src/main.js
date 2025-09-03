@@ -53,6 +53,7 @@ if (sentryDSN) {
             // of transactions for performance monitoring.
             // We recommend adjusting this value in production
             tracesSampleRate: environment === 'development' ? 1.0 : 0.1,
+
             // Add user context and additional data
             beforeSend(event) {
               // Add environment info to all events
@@ -65,16 +66,12 @@ if (sentryDSN) {
             }
         });
         
-        // Send a test event to verify connection in development
-        if (environment === 'development') {
-            setTimeout(() => {
-                Sentry.captureMessage('✅ WealthLogix Frontend Initialized - Sentry Connection Test', 'info');
-            }, 2000);
-        }
+
         
     } catch (error) {
-        // Sentry initialization failed - continue without error tracking
     }
+} else {
+
 }
 
 app.mount("#app");

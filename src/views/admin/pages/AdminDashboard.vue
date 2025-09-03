@@ -377,7 +377,6 @@ export default {
         recentUsers.value = usersResponse.data.results || usersResponse.data
 
       } catch (err) {
-        console.error('Failed to load dashboard data:', err)
         error.value = err.response?.data?.message || 'Failed to load dashboard statistics'
         
         // Still try to load recent users even if stats fail
@@ -385,7 +384,6 @@ export default {
           const usersResponse = await axios.get(`${getUrl('user')}?ordering=-created_at&limit=5`, { headers })
           recentUsers.value = usersResponse.data.results || usersResponse.data
         } catch (userError) {
-          console.error('Failed to load recent users:', userError)
         }
       } finally {
         loading.value = false
@@ -403,7 +401,6 @@ export default {
         systemHealth.value.data = response.data
         systemHealth.value.lastUpdated = new Date().toISOString()
       } catch (err) {
-        console.error('Failed to load system health:', err)
         systemHealth.value.data = { error: 'Failed to load system health data' }
       } finally {
         systemHealth.value.loading = false
@@ -524,7 +521,6 @@ export default {
         const frontendUrl = window.location.origin
         window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
       } catch (error) {
-        console.error('Failed to login as user:', error)
         alert('Failed to login as user. Please try again.')
       }
     }

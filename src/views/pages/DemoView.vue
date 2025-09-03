@@ -101,7 +101,6 @@
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
-console.log("STRIPE KEY DEBUG (DemoView):", "__VITE_STRIPE_PUBLISHABLE_KEY__");
 let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,
@@ -169,7 +168,6 @@ export default {
         })
         .then(response => {
           if (response.source) {
-            console.log(response.source);
             this.surceId = response.source.id;
             this.$store.dispatch("loader", false);
           } else {

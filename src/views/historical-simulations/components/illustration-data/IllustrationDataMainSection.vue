@@ -1601,7 +1601,6 @@ export default {
             function (reason) {
               // PDF loading error
               document.getElementById("stopLoaderBtn2").click();
-              console.error(reason);
             }
           );
         };
@@ -1708,7 +1707,6 @@ export default {
         get(api_url, authHeader())
           .then((response) => {
             if (!response) {
-              console.error("Failed to generate presigned URL");
               return;
             }
             const presignedUrl = response.data.url;

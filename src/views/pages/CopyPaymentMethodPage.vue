@@ -118,7 +118,6 @@ import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import { getFirstError, getServerErrors, setRefreshToken, setAccessToken, getRuntimeEnv } from "../../services/helper";
-console.log("STRIPE KEY DEBUG (CopyPayment):", "__VITE_STRIPE_PUBLISHABLE_KEY__");
 let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,

@@ -286,8 +286,6 @@ export default {
     },
     populateShareData: function() {
       // Debug: Check what $appUrl() returns
-      console.log('Historical $appUrl() returns:', this.$appUrl());
-      console.log('Historical window.location.origin:', window.location.origin);
       
       // Get current report data from the route
       const reportId = this.$route.params.report;
@@ -334,7 +332,6 @@ export default {
           });
         })
         .catch((error) => {
-          console.error('Failed to get historical report token:', error);
           // Fallback without view_token (this won't work for sharing, but prevents errors)
           this.$store.dispatch('shareSimulationReportData', {
             name: 'report_link', 
