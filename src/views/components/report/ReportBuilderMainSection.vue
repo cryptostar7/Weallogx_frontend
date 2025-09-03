@@ -180,10 +180,6 @@ export default {
   },
   methods: {
     testFunction: function () {
-      console.log(this.ComparativeDataLoaded);
-      console.log(this.HistoricalDataLoaded);
-      console.log(this.historicalDataErrorMessage);
-      console.log(Object.keys(this.$store.state.data.report.historical).length);
     },
     getComparativeData: function (id) {
       // get default data
@@ -444,7 +440,6 @@ export default {
           }, 1000);
         })
         .catch((error) => {
-          console.log(error);
           this.$toast.error(error.message);
           this.HistoricalDataLoaded = true;
           if (this.sidebar.currentTab === "historical") {

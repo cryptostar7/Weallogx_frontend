@@ -65,7 +65,6 @@ const loadCurrentUser = async () => {
     const userResponse = await axios.get('/api/auth/user/', { headers })
     currentUser.value = userResponse.data
   } catch (error) {
-    console.error('Failed to load current user:', error)
   }
 }
 

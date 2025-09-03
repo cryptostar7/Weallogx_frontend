@@ -272,10 +272,8 @@ const loadUser = async () => {
       const subResponse = await axios.get(`/api/payment/user/${userId}/subscription/`, authHeader())
       subscription.value = subResponse.data
     } catch (subError) {
-      console.log('No subscription found for user')
     }
   } catch (err) {
-    console.error('Failed to load user:', err)
     error.value = 'Failed to load user details'
   } finally {
     loading.value = false
@@ -296,7 +294,6 @@ const toggleUserStatus = async () => {
     )
     user.value = response.data
   } catch (err) {
-    console.error('Failed to update user status:', err)
     alert('Failed to update user status')
   } finally {
     actionLoading.value = false
@@ -313,7 +310,6 @@ const resetPassword = async () => {
     await axios.post(`${getUrl('user')}${user.value.id}/reset-password/`, {}, authHeader())
     alert('Password reset email sent successfully')
   } catch (err) {
-    console.error('Failed to reset password:', err)
     alert('Failed to send password reset email')
   } finally {
     actionLoading.value = false
@@ -330,7 +326,6 @@ const deleteUser = async () => {
     await axios.delete(`${getUrl('admin/delete-user')}${user.value.id}/`, authHeader())
     router.push('/admin/users')
   } catch (err) {
-    console.error('Failed to delete user:', err)
     alert('Failed to delete user')
     actionLoading.value = false
   }
@@ -408,7 +403,6 @@ const loginAsUser = async () => {
     const frontendUrl = window.location.origin
     window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
   } catch (err) {
-    console.error('Failed to generate login token:', err)
     alert('Failed to login as user. This feature may not be implemented yet.')
   } finally {
     actionLoading.value = false

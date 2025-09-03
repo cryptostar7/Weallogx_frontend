@@ -227,7 +227,6 @@ export const isAdminUser = () => {
     // User data is already an object from getCurrentUser
     return user.is_staff === true || user.is_superuser === true || user.role_type === 'admin';
   } catch (error) {
-    console.error('Error checking admin status:', error);
     return false;
   }
 }
@@ -474,7 +473,6 @@ export const restoreAdminSession = () => {
       
       return true;
     } catch (e) {
-      console.error('Failed to restore admin session:', e);
       localStorage.removeItem('admin_session_backup');
       return false;
     }

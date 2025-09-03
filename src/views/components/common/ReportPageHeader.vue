@@ -285,9 +285,6 @@ export default {
     },
     populateShareData: function() {
       // Debug: Check what $appUrl() returns
-      console.log('$appUrl() returns:', this.$appUrl());
-      console.log('window.location.origin:', window.location.origin);
-      console.log('import.meta.env.VITE_APP_URL:', import.meta.env.VITE_APP_URL);
       
       // Get current report data from the store or route
       const reportId = this.$route.params.report;
@@ -334,7 +331,6 @@ export default {
           });
         })
         .catch((error) => {
-          console.error('Failed to get report token:', error);
           // Fallback without view_token (this won't work for sharing, but prevents errors)
           this.$store.dispatch('shareReportData', {
             name: 'report_link', 

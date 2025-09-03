@@ -355,7 +355,6 @@ const loadUser = async () => {
       }
     })
   } catch (err) {
-    console.error('Failed to load user:', err)
     error.value = 'Failed to load user details'
   } finally {
     loading.value = false
@@ -428,7 +427,6 @@ const updateUser = async () => {
     // Success - redirect to user detail page
     router.push(`/admin/users/${route.params.id}`)
   } catch (err) {
-    console.error('Failed to update user:', err)
     
     if (err.response?.data) {
       // Handle validation errors from server

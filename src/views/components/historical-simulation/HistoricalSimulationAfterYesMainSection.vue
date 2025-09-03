@@ -1110,7 +1110,6 @@ export default {
             },
             function (reason) {
               // PDF loading error
-              console.error(reason);
             }
           );
         };

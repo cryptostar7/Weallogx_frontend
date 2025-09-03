@@ -15,7 +15,6 @@ export default {
     this.$refs.barRef.style.width = 0 + "%";
     this.$refs.barRef.style.padding = "8px 2px";
     this.$refs.barLabelRef.style.opacity = 0;
-    console.log('new component');
   },
   watch: {
     "$props.value"(){

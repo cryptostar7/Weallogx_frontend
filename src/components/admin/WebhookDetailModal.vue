@@ -275,7 +275,6 @@ export default {
         )
         details.value = response.data
       } catch (error) {
-        console.error('Failed to load webhook details:', error)
         // Use the basic webhook data if detailed fetch fails
         details.value = props.webhook
       } finally {
@@ -326,7 +325,6 @@ export default {
         await navigator.clipboard.writeText(text)
         // Could add a toast notification here
       } catch (err) {
-        console.error('Failed to copy to clipboard:', err)
       }
     }
 

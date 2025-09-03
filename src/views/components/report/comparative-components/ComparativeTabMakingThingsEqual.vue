@@ -1155,7 +1155,6 @@ export default {
           this.death_benefit.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit =
           this.death_benefit.cv_1.match_distributions.death_benefit;
-        console.log('this.comparative.cv_1.match_distributions is', this.comparative.cv_1.match_distributions)
         this.data.distribution[1].ending_value =
           this.death_benefit.cv_1.match_distributions.surrender_value;
 
