@@ -53,10 +53,7 @@ if (sentryDSN) {
             // of transactions for performance monitoring.
             // We recommend adjusting this value in production
             tracesSampleRate: environment === 'development' ? 1.0 : 0.1,
-            // Ensure events are sent in development
-            beforeSendTransaction(transaction) {
-                return transaction;
-            },
+
             // Add user context and additional data
             beforeSend(event) {
               // Add environment info to all events
@@ -69,10 +66,12 @@ if (sentryDSN) {
             }
         });
         
+
         
     } catch (error) {
     }
 } else {
+
 }
 
 app.mount("#app");
