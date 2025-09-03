@@ -245,20 +245,14 @@ const loadUsers = async () => {
     params.append('ordering', ordering)
     
     const url = `${getUrl('user')}?${params.toString()}`
-    console.log('📡 Making request to:', url)
     
     const response = await axios.get(url, authHeader())
-    console.log('✅ Response received:', response.status, response.data)
     
     users.value = response.data.results || response.data
     totalCount.value = response.data.count || users.value.length
     totalPages.value = Math.ceil(totalCount.value / pageSize.value)
     
-    console.log(`👥 Loaded ${users.value.length} users (${totalCount.value} total)`)
   } catch (error) {
-    console.error('❌ Failed to load users:', error)
-    console.error('🚨 Error status:', error.response?.status)
-    console.error('🚨 Error data:', error.response?.data)
   } finally {
     loading.value = false
   }
@@ -339,7 +333,6 @@ const loginAsUser = async (user) => {
     const frontendUrl = window.location.origin
     window.open(`${frontendUrl}/user-login-with-token?token=${token}`, '_blank')
   } catch (error) {
-    console.error('Failed to generate login token:', error)
     addAdminBreadcrumb('Login as user failed', { target_user_id: user.id, error: error.message })
     alert('Failed to login as user. This feature may not be implemented yet.')
   }
@@ -354,7 +347,6 @@ const deleteUser = async (user) => {
     await axios.delete(`${getUrl('admin/delete-user')}${user.id}/`, authHeader())
     users.value = users.value.filter(u => u.id !== user.id)
   } catch (error) {
-    console.error('Failed to delete user:', error)
     alert('Failed to delete user. Please try again.')
   }
 }

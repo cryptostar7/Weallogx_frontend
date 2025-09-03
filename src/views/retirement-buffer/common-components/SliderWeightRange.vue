@@ -266,7 +266,6 @@ export default {
           }); // Update results in vuexy store
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -311,7 +310,6 @@ export default {
           }); // Update results in vuexy store
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||

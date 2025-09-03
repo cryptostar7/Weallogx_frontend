@@ -639,20 +639,17 @@ export default {
     },
     
     testMethod() {
-      console.log('TEST METHOD CALLED');
       alert('Test method works!');
     },
     
     // Handle when an index becomes incompatible with rolling period
     handleIndexIncompatible(info) {
-      console.log('IndexStrategyParameters: handleIndexIncompatible called with:', info);
       
       // Check if modal is already showing - if so, ignore new events
       const modalElement = document.getElementById('IncompatibleIndexModal');
       const isModalVisible = modalElement && modalElement.classList.contains('show');
       
       if (isModalVisible) {
-        console.log('Modal already showing, ignoring new incompatible event');
         return;
       }
       
@@ -682,7 +679,6 @@ export default {
       const isModalVisible = modalElement && modalElement.classList.contains('show');
       
       if (isModalVisible) {
-        console.log('Modal already showing, skipping...');
         return;
       }
       
@@ -690,7 +686,6 @@ export default {
         return;
       }
       
-      console.log('Showing modal for incompatible tabs:', this.incompatibleTabs);
       
       // Set the modal info - use the first one for single index display
       this.incompatibleIndexInfo = this.incompatibleTabs[0];
@@ -698,10 +693,8 @@ export default {
       if (modalElement) {
         const modal = new bootstrap.Modal(modalElement);
         modal.show();
-        console.log('Modal show() called for tabs:', this.incompatibleTabs.map(t => t.tabNumber));
         // Note: incompatibleTabs will be cleared when modal is hidden (see mounted event listener)
       } else {
-        console.error('Modal element not found!');
         // Fallback alert showing all incompatible tabs
         const tabList = this.incompatibleTabs.map(t => `Tab ${t.tabNumber} (${t.indexName})`).join(', ');
         alert(`The following indexes are incompatible with the selected rolling years: ${tabList}`);
@@ -818,13 +811,11 @@ export default {
   },
   
   mounted() {
-    console.log('IndexStrategyParameters component mounted');
     
     // Add event listener for when modal is hidden to clear incompatible tabs
     const modalElement = document.getElementById('IncompatibleIndexModal');
     if (modalElement) {
       modalElement.addEventListener('hidden.bs.modal', () => {
-        console.log('Modal hidden, clearing incompatible tabs');
         this.incompatibleTabs = [];
         // Also clear any pending timeout
         if (this.incompatibleEventTimeout) {

@@ -40,7 +40,6 @@ api.interceptors.response.use(
     
     // Handle network errors or timeout errors
     if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
-      console.error('Network error occurred:', error.message);
     }
     
     return Promise.reject(error);

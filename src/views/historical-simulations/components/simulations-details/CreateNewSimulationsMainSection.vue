@@ -794,8 +794,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
-
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||
@@ -863,7 +861,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||

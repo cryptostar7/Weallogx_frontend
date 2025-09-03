@@ -8,7 +8,6 @@ h
 </template>
 
 <script>
-console.log("STRIPE KEY DEBUG (StripeSource):", "__VITE_STRIPE_PUBLISHABLE_KEY__");
 let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card = undefined;

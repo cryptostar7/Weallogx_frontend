@@ -190,18 +190,12 @@ export default {
     },
     proceedWithSignUp: function () {
       this.showEULA = false;
-      console.log("User accepted the EULA. Proceeding...");
     },
     isValidPhone: function() {
       const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
       const regexTest = phoneRegex.test(this.user.phone_number);
       const lengthValid = this.user.phone_number && this.user.phone_number.length > 5 && this.user.phone_number.length < 14;
       
-      console.log("Phone validation debug:");
-      console.log("  Phone number:", this.user.phone_number);
-      console.log("  Length:", this.user.phone_number ? this.user.phone_number.length : 0);
-      console.log("  Regex test:", regexTest);
-      console.log("  Length valid:", lengthValid);
       
       if (regexTest && lengthValid) {
         return true;
@@ -267,15 +261,10 @@ export default {
     },
     submitForm: function(e) {
       e.preventDefault();
-      console.log("=== SIGNUP FORM SUBMITTED ===");
-      console.log("Phone number:", this.user.phone_number);
-      console.log("Phone validation result:", this.isValidPhone());
 
       if (!this.checkValidation()) {
-        console.log("Validation failed, errors:", this.errors);
         return false;
       }
-      console.log("Validation passed, proceeding...");
 
       this.$store.dispatch("loader", true);
       if (this.user.stripe_source_id) {
@@ -318,9 +307,6 @@ export default {
         post(getUrl("user-exists"), {email:this.user.email})
          .then((response) => {
             const redirectUrl = `${"/payment-method"}${getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""}`;
-            console.log("=== SIGNUP REDIRECT ===");
-            console.log("Redirecting to:", redirectUrl);
-            console.log("Current path:", this.$route.path);
             this.$router.push(redirectUrl);
             this.$store.dispatch("loader", false);
          }).catch((error) => {
