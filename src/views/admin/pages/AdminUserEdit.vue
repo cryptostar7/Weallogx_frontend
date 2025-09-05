@@ -418,6 +418,16 @@ const updateUser = async () => {
       updateData.password = form.new_password
     }
     
+    // Debug logging
+    console.log('Admin Panel Update Request:')
+    console.log('URL:', `${getUrl('user')}${route.params.id}/`)
+    console.log('Method: PATCH')
+    console.log('Data being sent:', updateData)
+    console.log('Has password?', 'password' in updateData)
+    if ('password' in updateData) {
+      console.log('Password length:', updateData.password.length)
+    }
+    
     const response = await axios.patch(
       `${getUrl('user')}${route.params.id}/`, 
       updateData, 
