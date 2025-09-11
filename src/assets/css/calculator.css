@@ -1784,3 +1784,12 @@ margin-left: auto;
 .mx-wid-fit-content{
     max-width: fit-content;
 }
+
+.equalize-risk-switch p {
+    padding-left: 5px;
+}
+.each-radio-switch.equalize-risk-switch {
+    justify-content: left;
+    align-items: left;
+    padding-left: 20px;
+}

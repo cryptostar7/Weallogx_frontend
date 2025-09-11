@@ -109,11 +109,7 @@
         </div>
         <div class="col-sm-4">
           <p>
-            {{
-              $props.summary.average_return
-                ? ($props.summary.average_return * 100).toFixed(2)
-                : ""
-            }}%
+            {{average_return}}%
           </p>
         </div>
       </div>
@@ -123,11 +119,7 @@
         </div>
         <div class="col-sm-4">
           <p class="table-blue-clr">
-            {{
-              $props.summary.net_average_return
-                ? ($props.summary.net_average_return * 100).toFixed(2)
-                : ""
-            }}%
+            {{net_average_return}}%
           </p>
         </div>
       </div>
@@ -187,11 +179,7 @@
         </div>
         <div class="col-sm-4">
           <p>
-            {{
-              $props.summary.actual_return
-                ? ($props.summary.actual_return * 100).toFixed(2)
-                : "0"
-            }}%
+            {{actual_return}}%
           </p>
         </div>
       </div>
@@ -201,11 +189,7 @@
         </div>
         <div class="col-sm-4">
           <p class="table-blue-clr">
-            {{
-              $props.summary.net_actual_return
-                ? ($props.summary.net_actual_return * 100).toFixed(2)
-                : 0
-            }}%
+            {{net_actual_return}}%
           </p>
         </div>
       </div>
@@ -221,6 +205,59 @@
                 : 0
             }}%
           </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-switch each-radio-switch equalize-risk-switch">
+            <input
+              class="form-check-input"
+              @change="updateEqualizedRisk"
+              v-model="equalize_risk"
+              type="checkbox"
+            />
+            <p>
+              Equalize Risk     
+              <span class="tooltips"
+                ><svg
+                  class="label-common-tooltip-svg"
+                  width="13"
+                  height="13"
+                  viewBox="0 0 13 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="Group 1968">
+                    <circle
+                      id="Ellipse 190"
+                      cx="6.5"
+                      cy="6.5"
+                      r="6.5"
+                      fill="#D0D0D0"
+                    />
+                    <circle
+                      id="Ellipse 191"
+                      cx="6.5"
+                      cy="3.5"
+                      r="1"
+                      fill="white"
+                    />
+                    <rect
+                      id="Rectangle 753"
+                      x="5.75"
+                      y="5.5"
+                      width="1.5"
+                      height="5"
+                      rx="0.75"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+                <span class="w-250"
+                  >Text TBD</span>
+              </span>   
+            </p>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -243,6 +280,29 @@
 <script>
 export default {
   props: ["beginningBalance", "summary", "taxRate"],
+  data() {
+    return {
+        equalize_risk: false,
+        average_return: "",
+        net_average_return: "",
+        actual_return: "",
+        net_actual_return: "",
+    };
+  },
+  mounted() {
+    this.updateEqualizedRisk()
+  },
+  methods: {
+    updateEqualizedRisk() {
+      const summary = this.equalize_risk ? this.$props.summary.equalized_risk : this.$props.summary
+      this.average_return = (summary.average_return * 100).toFixed(2)
+      this.net_average_return = (summary.net_average_return * 100).toFixed(2)
+      this.actual_return = (summary.actual_return * 100).toFixed(2)
+      this.net_actual_return = (summary.net_actual_return * 100).toFixed(2)
+    }
+  }
 };
 </script>
 <style lang=""></style>
+
+
