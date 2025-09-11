@@ -1378,21 +1378,22 @@ export default {
   computed: {
     tabDescription() {
       let description = '';
+
       if (this.currentTab === 'target_analysis') {
         if (this.currentFilter === 'default') {
           description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
         }
 
-        if (this.currentFilter === 'longevity') {
-          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the longevity of the ${this.cv_name[0]}?`;
-        }
+        // if (this.currentFilter === 'longevity') {
+        //   description = `What amount would the comparative vehicles need to adust their distributions to in order to match the longevity of the ${this.cv_name[0]}?`;
+        // }
 
-        if (this.currentFilter === 'endingvalue') {
-          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending value of the ${this.cv_name[0]}?`;
-        }
+        // if (this.currentFilter === 'endingvalue') {
+        //   description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending value of the ${this.cv_name[0]}?`;
+        // }
 
         if (this.currentFilter === 'deathBenefit') {
-          description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
+          description = `What would the comparative vehicles need to adjust their distributions to in order to match the longevity and ending values of the ${this.cv_name[0]}?`;
         }
       }
 
@@ -1401,16 +1402,16 @@ export default {
           description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
         }
 
-        if (this.currentFilter === 'longevity') {
-          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the longevity of the ${this.cv_name[0]}?`;
-        }
+        // if (this.currentFilter === 'longevity') {
+        //   description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the longevity of the ${this.cv_name[0]}?`;
+        // }
 
-        if (this.currentFilter === 'endingvalue') {
-          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending value of the ${this.cv_name[0]}?`;
-        }
+        // if (this.currentFilter === 'endingvalue') {
+        //   description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending value of the ${this.cv_name[0]}?`;
+        // }
 
         if (this.currentFilter === 'deathBenefit') {
-          description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending death benefit of the ${this.cv_name[0]}?`;
+          description = `What would the comparative vehicles need to adjust their rate of return to in order to match the distributions and ending values of the ${this.cv_name[0]}?`;
         }
       }
 
