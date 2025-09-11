@@ -218,43 +218,10 @@
             />
             <p>
               Equalize Risk     
-              <span class="tooltips"
-                ><svg
-                  class="label-common-tooltip-svg"
-                  width="13"
-                  height="13"
-                  viewBox="0 0 13 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="Group 1968">
-                    <circle
-                      id="Ellipse 190"
-                      cx="6.5"
-                      cy="6.5"
-                      r="6.5"
-                      fill="#D0D0D0"
-                    />
-                    <circle
-                      id="Ellipse 191"
-                      cx="6.5"
-                      cy="3.5"
-                      r="1"
-                      fill="white"
-                    />
-                    <rect
-                      id="Rectangle 753"
-                      x="5.75"
-                      y="5.5"
-                      width="1.5"
-                      height="5"
-                      rx="0.75"
-                      fill="white"
-                    />
-                  </g>
-                </svg>
-                <span class="w-250"
-                  >Text TBD</span>
+              <span class="tooltips">
+                <common-tooltip-svg />
+                <span class="w-250">How would the rates of return change if we forced the risk
+                of Index Allocation to match the risk of the Index Strategy?</span>
               </span>   
             </p>
           </div>
@@ -278,7 +245,11 @@
   </div>
 </template>
 <script>
+import CommonTooltipSvg from "../../components/common/CommonTooltipSvg.vue";
 export default {
+  components: {
+    CommonTooltipSvg
+  },
   props: ["beginningBalance", "summary", "taxRate"],
   data() {
     return {
