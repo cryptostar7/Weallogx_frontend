@@ -2,11 +2,11 @@
   <div class="table-graph-bottom-content-div">
     <div class="container-fluid px-0">
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           <p>Beginning Balance</p>
         </div>
-        <div class="col-sm-4">
-          <p>
+        <div class="col-sm-5">
+          <p class="text-end">
             ${{
               $props.beginningBalance ? $numFormat($props.beginningBalance) : 0
             }}
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           <p>
             Ending Balance
             <span class="tooltips"
@@ -59,8 +59,8 @@
             </span>
           </p>
         </div>
-        <div class="col-sm-4">
-          <p class="">
+        <div class="col-sm-5">
+          <p class="text-end">
             ${{
               $props.summary.ending_balance
                 ? $numFormat($props.summary.ending_balance.toFixed(0))
@@ -74,7 +74,7 @@
           <p>Total Taxes</p>
         </div>
         <div class="col-sm-4">
-          <p class="highlighted">
+          <p class="highlighted text-end">
             ${{
               $props.summary.total_taxes
                 ? $numFormat($props.summary.total_taxes.toFixed(0))
@@ -88,7 +88,7 @@
           <p>Years with Market Losses</p>
         </div>
         <div class="col-sm-4">
-          <p class="highlighted">
+          <p class="highlighted text-end">
             {{ $props.summary.total_negative_years }}
           </p>
         </div>
@@ -96,7 +96,6 @@
       <div class="row">
         <div class="col-sm-8">
           <p class="p-relative">
-            Average Rate of Return
             <button
               class="btn table-chevron-btn blue collapsed"
               data-bs-toggle="collapse"
@@ -105,10 +104,11 @@
               aria-expanded="false"
               aria-controls="aror1"
             ></button>
+            Average Rate of Return
           </p>
         </div>
         <div class="col-sm-4">
-          <p>
+          <p class="text-end">
             {{average_return}}%
           </p>
         </div>
@@ -118,7 +118,7 @@
           <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
         </div>
         <div class="col-sm-4">
-          <p class="table-blue-clr">
+          <p class="table-blue-clr text-end">
             {{net_average_return}}%
           </p>
         </div>
@@ -126,6 +126,14 @@
       <div class="row">
         <div class="col-sm-8">
           <p class="p-relative">
+            <button
+              class="btn table-chevron-btn blue collapsed"
+              data-bs-toggle="collapse"
+              href="#aror2"
+              role="button"
+              aria-expanded="false"
+              aria-controls="aror2"
+            ></button>
             Actual Rate of Return
             <span class="tooltips"
               ><svg
@@ -167,18 +175,10 @@
                 measure of a portfolio’s performance</span
               >
             </span>
-            <button
-              class="btn table-chevron-btn blue collapsed"
-              data-bs-toggle="collapse"
-              href="#aror2"
-              role="button"
-              aria-expanded="false"
-              aria-controls="aror2"
-            ></button>
           </p>
         </div>
         <div class="col-sm-4">
-          <p>
+          <p class="text-end">
             {{actual_return}}%
           </p>
         </div>
@@ -188,7 +188,7 @@
           <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
         </div>
         <div class="col-sm-4">
-          <p class="table-blue-clr">
+          <p class="table-blue-clr text-end">
             {{net_actual_return}}%
           </p>
         </div>
@@ -197,7 +197,7 @@
         <div class="col-sm-8">
           <p>Standard Deviation</p>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 text-end">
           <p>
             {{
               $props.summary.standard_deviation
@@ -232,7 +232,7 @@
           <p>Sharpe Ratio</p>
         </div>
         <div class="col-sm-4">
-          <p>
+          <p class="text-end">
             {{
               $props.summary.sharpe_ratio
                 ? $props.summary.sharpe_ratio.toFixed(2)

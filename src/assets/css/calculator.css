@@ -1204,11 +1204,7 @@ table.index-strategy-table tr th {
     background-color: #147d64;
 }
 .table-chevron-btn {
-    position: absolute;
-    left: 5px;
-    width: 14px;
-    height: 14px;
-    padding: 0;
+    padding-right: 2px;
 }
 
 .table-chevron-btn.blue.collapsed {
