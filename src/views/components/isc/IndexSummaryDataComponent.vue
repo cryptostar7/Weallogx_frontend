@@ -98,7 +98,7 @@
           <p class="p-relative">
             Average Rate of Return
             <button
-              class="btn table-plus-btn blue collapsed"
+              class="btn table-chevron-btn blue collapsed"
               data-bs-toggle="collapse"
               href="#aror1"
               role="button"
@@ -176,7 +176,7 @@
               >
             </span>
             <button
-              class="btn table-plus-btn blue collapsed"
+              class="btn table-chevron-btn blue collapsed"
               data-bs-toggle="collapse"
               href="#aror2"
               role="button"
