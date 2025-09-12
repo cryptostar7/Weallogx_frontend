@@ -410,7 +410,25 @@
                       <div class="table-graph-bottom-each-main-div">
                         <div class="table-graph-bottom-head blueClr">
                           Summary
+                          <div class="index-strategy-head-radio inline">
+
+                            <span class="tooltips">
+                              <common-tooltip-svg />
+                              <span class="w-250">How would the rates of return change if we forced the risk
+                              of Index Allocation to match the risk of the Index Strategy?</span>
+                            </span>   
+                            <label>Equalize Risk</label>
+
+                            <input
+                              type="checkbox"
+                              class="switch_1 dont_add_event_listener"
+                              @change="toggleEqualizedRisk"
+                              v-model="equalize_risk"
+                            />
+
+                          </div>
                         </div>
+
                         <!-- index summary data -->
                         <index-summary-data-component
                           v-if="index_summary"
@@ -540,6 +558,7 @@ import IscFormEditModal from "./../components/isc/IscFormEditModal.vue";
 import IscGraphComponent from "./../components/isc/IscGraphComponent.vue";
 import StrategySummaryDataComponent from "../components/isc/StrategySummaryDataComponent.vue";
 import IndexSummaryDataComponent from "../components/isc/IndexSummaryDataComponent.vue";
+import CommonTooltipSvg from "../components/common/CommonTooltipSvg.vue";
 
 export default {
   components: {
@@ -549,6 +568,7 @@ export default {
     IscGraphComponent,
     StrategySummaryDataComponent,
     IndexSummaryDataComponent,
+    CommonTooltipSvg,
   },
   data() {
     return {

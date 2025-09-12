@@ -831,6 +831,24 @@ table.index-strategy-table tr th {
 .table-graph-bottom-head.greenClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after {
     background: #147d64;
 }
+
+.index-strategy-head-radio.inline {
+    right: 0;
+    text-align: right;
+    margin-right: 10px;
+    top: 14px;
+}
+.index-strategy-head-radio.inline label {
+    font-size: 13px;
+    font-style: italic;
+    margin-right: 7px;
+    top: 14px;
+    /* display: inline; */
+}
+.index-strategy-head-radio.inline input {
+    top: 3px;
+}
+
 .half-col.inactive .table-graph-bottom-head .table-graph-bottom-content-div {
     visibility: hidden;
 }
@@ -965,13 +983,16 @@ table.index-strategy-table tr th {
 .table-graph-bottom-content-div p.highlighted {
     color: #dd3611;
 }
+.index-strategy-head-radio .tooltips img,
 .table-graph-bottom-content-div p .tooltips img {
     cursor: pointer;
 }
+.index-strategy-head-radio .tooltips,
 .table-graph-bottom-content-div p .tooltips {
     position: relative;
     top: -3px;
 }
+.index-strategy-head-radio .tooltips span,
 .table-graph-bottom-content-div p .tooltips span {
     display: none;
     position: absolute;
@@ -988,9 +1009,15 @@ table.index-strategy-table tr th {
     font-size: 11px;
     font-weight: 500;
 }
-
+.index-strategy-head-radio .tooltips:hover span,
 .table-graph-bottom-content-div p .tooltips:hover span {
     display: block;
+}
+.index-strategy-head-radio .tooltips {
+    top: -2px;
+}
+.index-strategy-head-radio .tooltips span {
+    top: 75px
 }
 
 .common-modal .modal-dialog.calc-preview-modal {
@@ -1781,11 +1808,24 @@ margin-left: auto;
     max-width: fit-content;
 }
 
+
+
+
+
+
+.equalize-risk-switch {
+    position: relative;
+}
+
+
+/* 
+
 .equalize-risk-switch p {
     padding-left: 5px;
+    display: inline;
 }
 .each-radio-switch.equalize-risk-switch {
     justify-content: left;
     align-items: left;
     padding-left: 20px;
-}
+} */

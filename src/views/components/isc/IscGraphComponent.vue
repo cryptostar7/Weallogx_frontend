@@ -136,9 +136,8 @@ export default {
           }
         });
       });
-
       var inputAccess = document.querySelectorAll(
-        ".table-graph-bottom-head .index-strategy-head-radio input"
+        ".table-graph-bottom-head .index-strategy-head-radio input:not(.dont_add_event_listener)"
       );
       inputAccess.forEach((inputEachAccess) => {
         inputEachAccess.addEventListener("change", function (e) {

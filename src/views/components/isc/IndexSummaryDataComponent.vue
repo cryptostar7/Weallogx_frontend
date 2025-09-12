@@ -208,26 +208,6 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
-          <div class="form-switch each-radio-switch equalize-risk-switch">
-            <input
-              class="form-check-input"
-              @change="updateEqualizedRisk"
-              v-model="equalize_risk"
-              type="checkbox"
-            />
-            <p>
-              Equalize Risk     
-              <span class="tooltips">
-                <common-tooltip-svg />
-                <span class="w-250">How would the rates of return change if we forced the risk
-                of Index Allocation to match the risk of the Index Strategy?</span>
-              </span>   
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
         <div class="col-sm-8">
           <p>Sharpe Ratio</p>
         </div>
