@@ -423,7 +423,7 @@
                               type="checkbox"
                               class="switch_1 dont_add_event_listener"
                               @change="toggleEqualizedRisk"
-                              v-model="equalize_risk"
+                              v-model="equalizeRisk"
                             />
 
                           </div>
@@ -435,6 +435,7 @@
                           :summary="index_summary"
                           :taxRate="taxRate"
                           :beginningBalance="inputs.beginning_balance"
+                          :equalizeRisk="equalizeRisk"
                         />
                       </div>
                     </div>
@@ -580,6 +581,7 @@ export default {
       indexType: "Combined Indexes",
       taxRate: 0,
       reGenerateGraph: false,
+      equalizeRisk: false,
     };
   },
   mounted() {

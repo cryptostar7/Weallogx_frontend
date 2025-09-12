@@ -109,7 +109,7 @@
         </div>
         <div class="col-sm-4">
           <p class="text-end">
-            {{average_return}}%
+            {{averageReturn}}%
           </p>
         </div>
       </div>
@@ -119,7 +119,7 @@
         </div>
         <div class="col-sm-4">
           <p class="table-blue-clr text-end">
-            {{net_average_return}}%
+            {{netAverageReturn}}%
           </p>
         </div>
       </div>
@@ -179,7 +179,7 @@
         </div>
         <div class="col-sm-4">
           <p class="text-end">
-            {{actual_return}}%
+            {{actualReturn}}%
           </p>
         </div>
       </div>
@@ -189,7 +189,7 @@
         </div>
         <div class="col-sm-4">
           <p class="table-blue-clr text-end">
-            {{net_actual_return}}%
+            {{netActualReturn}}%
           </p>
         </div>
       </div>
@@ -225,31 +225,31 @@
   </div>
 </template>
 <script>
-import CommonTooltipSvg from "../../components/common/CommonTooltipSvg.vue";
 export default {
-  components: {
-    CommonTooltipSvg
-  },
-  props: ["beginningBalance", "summary", "taxRate"],
+  props: ["beginningBalance", "summary", "taxRate", "equalizeRisk"],
   data() {
     return {
-        equalize_risk: false,
-        average_return: "",
-        net_average_return: "",
-        actual_return: "",
-        net_actual_return: "",
+      averageReturn: "",
+      netAverageReturn: "",
+      actualReturn: "",
+      netActualReturn: "",
     };
   },
   mounted() {
     this.updateEqualizedRisk()
   },
+  watch: {
+    equalizeRisk(newValue, oldValue) {
+      this.updateEqualizedRisk()
+    },
+  },
   methods: {
     updateEqualizedRisk() {
-      const summary = this.equalize_risk ? this.$props.summary.equalized_risk : this.$props.summary
-      this.average_return = (summary.average_return * 100).toFixed(2)
-      this.net_average_return = (summary.net_average_return * 100).toFixed(2)
-      this.actual_return = (summary.actual_return * 100).toFixed(2)
-      this.net_actual_return = (summary.net_actual_return * 100).toFixed(2)
+      const summary = this.equalizeRisk ? this.$props.summary.equalized_risk : this.$props.summary
+      this.averageReturn = (summary.average_return * 100).toFixed(2)
+      this.netAverageReturn = (summary.net_average_return * 100).toFixed(2)
+      this.actualReturn = (summary.actual_return * 100).toFixed(2)
+      this.netActualReturn = (summary.net_actual_return * 100).toFixed(2)
     }
   }
 };

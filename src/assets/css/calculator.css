@@ -1014,10 +1014,11 @@ table.index-strategy-table tr th {
     display: block;
 }
 .index-strategy-head-radio .tooltips {
-    top: -2px;
+    top: 0px;
+    left: -2px;
 }
 .index-strategy-head-radio .tooltips span {
-    top: 75px
+    top: 75px;
 }
 
 .common-modal .modal-dialog.calc-preview-modal {
