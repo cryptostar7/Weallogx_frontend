@@ -98,14 +98,11 @@
         <div class="col-sm-8">
           <p class="p-relative">
             <button
-              :class="['btn', 'table-chevron-btn', 'collapsed',
-                this.equalizeRisk ? 'white' : 'blue'
+              :class="['btn', 'table-chevron-btn',
+                this.equalizeRisk ? 'white' : 'blue',
+                this.expandAverageReturn ? '' : 'collapsed',
               ]"
-              data-bs-toggle="collapse"
-              href="#aror1"
-              role="button"
-              aria-expanded="false"
-              aria-controls="aror1"
+              @click="toggleAverageReturnSection"
             ></button>
             Average Rate of Return
           </p>
@@ -117,7 +114,9 @@
         </div>
       </div>
 
-      <div  :class="['row', 'collapse', this.equalizeRisk ? 'highlighted' : '']" id="aror1">
+      <div :class="[
+        'row', this.expandAverageReturn ? '' : 'collapse', this.equalizeRisk ? 'highlighted' : ''
+      ]">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
         </div>
@@ -132,14 +131,11 @@
         <div class="col-sm-8">
           <p class="p-relative">
             <button
-              :class="['btn', 'table-chevron-btn', 'collapsed',
-                this.equalizeRisk ? 'white' : 'blue'
+              :class="['btn', 'table-chevron-btn',
+                this.equalizeRisk ? 'white' : 'blue',
+                this.expandActualReturn ? '' : 'collapsed',
               ]"
-              data-bs-toggle="collapse"
-              href="#aror2"
-              role="button"
-              aria-expanded="false"
-              aria-controls="aror2"
+              @click="toggleActualReturnSection"
             ></button>
             Actual Rate of Return
             <span class="tooltips"
@@ -191,7 +187,9 @@
         </div>
       </div>
 
-      <div :class="['row', 'collapse', this.equalizeRisk ? 'highlighted' : '']" id="aror2">
+      <div :class="[
+        'row', this.expandActualReturn ? '' : 'collapse', this.equalizeRisk ? 'highlighted' : ''
+      ]">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
         </div>
@@ -242,6 +240,8 @@ export default {
       netAverageReturn: "",
       actualReturn: "",
       netActualReturn: "",
+      expandAverageReturn: false,
+      expandActualReturn: false,
     };
   },
   mounted() {
@@ -259,6 +259,12 @@ export default {
       this.netAverageReturn = (summary.net_average_return * 100).toFixed(2)
       this.actualReturn = (summary.actual_return * 100).toFixed(2)
       this.netActualReturn = (summary.net_actual_return * 100).toFixed(2)
+    },
+    toggleAverageReturnSection() {
+      this.expandAverageReturn = !this.expandAverageReturn
+    },
+    toggleActualReturnSection() {
+      this.expandActualReturn = !this.expandActualReturn
     }
   }
 };
