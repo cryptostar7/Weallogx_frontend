@@ -93,11 +93,14 @@
           </p>
         </div>
       </div>
-      <div class="row">
+
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p class="p-relative">
             <button
-              class="btn table-chevron-btn blue collapsed"
+              :class="['btn', 'table-chevron-btn', 'collapsed',
+                this.equalizeRisk ? 'white' : 'blue'
+              ]"
               data-bs-toggle="collapse"
               href="#aror1"
               role="button"
@@ -113,7 +116,8 @@
           </p>
         </div>
       </div>
-      <div class="row collapse" id="aror1">
+
+      <div  :class="['row', 'collapse', this.equalizeRisk ? 'highlighted' : '']" id="aror1">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
         </div>
@@ -123,11 +127,14 @@
           </p>
         </div>
       </div>
-      <div class="row">
+      
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p class="p-relative">
             <button
-              class="btn table-chevron-btn blue collapsed"
+              :class="['btn', 'table-chevron-btn', 'collapsed',
+                this.equalizeRisk ? 'white' : 'blue'
+              ]"
               data-bs-toggle="collapse"
               href="#aror2"
               role="button"
@@ -183,7 +190,8 @@
           </p>
         </div>
       </div>
-      <div class="row collapse" id="aror2">
+
+      <div :class="['row', 'collapse', this.equalizeRisk ? 'highlighted' : '']" id="aror2">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
         </div>
@@ -193,7 +201,8 @@
           </p>
         </div>
       </div>
-      <div class="row">
+
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p>Standard Deviation</p>
         </div>

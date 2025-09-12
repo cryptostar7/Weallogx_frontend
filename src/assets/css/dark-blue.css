@@ -5755,3 +5755,12 @@ background: #485161;
 .dark-blue .table_graph_setting_tab div.middle {
     border-right: 1px solid #5a5a5a;
 }
+
+.dark-blue .table-graph-bottom-content-div .row.highlighted {
+    background-color: #089875;
+}
+
+.dark-blue .table-graph-bottom-each-main-div .blueClr ~
+            .table-graph-bottom-content-div .row.highlighted:hover p {
+    color: white;
+}

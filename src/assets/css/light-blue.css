@@ -1935,3 +1935,7 @@ color: #0E6651;
   fill: #147D64;
 }
 /* Download file toast end */
+
+.light-blue .table-graph-bottom-content-div .row.highlighted {
+    background-color: #089875;
+}

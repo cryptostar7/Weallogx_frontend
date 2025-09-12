@@ -5234,3 +5234,8 @@
 .dark-green .table_graph_setting_tab div.middle {
     border-right: 1px solid #5a5a5a;
 }
+
+.dark-green .table-graph-bottom-each-main-div .blueClr ~
+            .table-graph-bottom-content-div .row.highlighted:hover p {
+    color: white;
+}
