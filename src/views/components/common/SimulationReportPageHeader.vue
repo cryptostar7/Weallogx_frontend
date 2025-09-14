@@ -37,8 +37,11 @@
               </svg>
             </router-link>
           </li>
-          <!-- <li class="nav-item text-center">
-            <a :href="`${$apiUrl()}/historical/html_to_pdf/${$route.params.report}/`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Download Report" @click="showDownloadToast()">
+          <li class="nav-item text-center">
+            <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" 
+               title="Generate PDF Report"
+               data-bs-target="#PDFGeneratorModal" 
+               data-bs-toggle="modal">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="17" y="15" width="2" height="4" rx="1" transform="rotate(-180 17 15)" fill="black" />
                 <rect x="2" y="15" width="2" height="4" rx="1" transform="rotate(-180 2 15)" fill="black" />
@@ -50,7 +53,7 @@
                 <rect y="13" width="17" height="2" rx="1" fill="black" />
               </svg>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
               data-bs-target="#simulationReportShareModal" data-bs-toggle="modal" title="Share Report">
@@ -297,6 +300,36 @@ export default {
     },
     historical() {
       return this.$store.state.data.report.historical;
+    },
+    
+    reportType() {
+      // Historical simulations always use 'historical' type
+      return 'historical';
+    },
+    
+    reportTabs() {
+      // Get report tabs data from store or provide defaults
+      const storeData = this.$store.state.data.reportTabs;
+      
+      // If no data in store, provide default components
+      if (!storeData || (!storeData.comparative && !storeData.historical)) {
+        return {
+          comparative: [
+            { key: 'cmp_comparative_table', name: 'Comparative Table', description: 'Year-by-year comparison of account values' },
+            { key: 'cmp_comparative_graph', name: 'Comparative Graph', description: 'Visual chart comparing account performance' },
+            { key: 'cmp_making_things_equal', name: 'Making Things Equal', description: 'Break-even analysis and equal outcome scenarios' },
+            { key: 'cmp_cumulative_values', name: 'Cumulative Values', description: 'Cumulative income and total value projections' },
+            { key: 'cmp_legacy', name: 'Legacy Analysis', description: 'Legacy and death benefit analysis' },
+            { key: 'cmp_fee_analysis', name: 'Fee Analysis', description: 'Detailed fee structure and cost analysis' }
+          ],
+          historical: [
+            { key: 'hist_comparative_table', name: 'Historical Comparative Table', description: 'Historical simulation comparative data' },
+            { key: 'hist_comparative_graph', name: 'Historical Comparative Graph', description: 'Historical simulation visual charts' }
+          ]
+        };
+      }
+      
+      return storeData;
     },
   },
   watch: {

@@ -37,8 +37,11 @@
               </svg>
             </router-link>
           </li>
-          <!-- <li class="nav-item text-center">
-            <a :href="`${$apiUrl()}/report/html_to_pdf/${$route.params.report}/`" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" title="Download Report" @click="showDownloadToast()">
+          <li class="nav-item text-center">
+            <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll dwnldReportBtn" 
+               title="Generate PDF Report"
+               data-bs-target="#PDFGeneratorModal" 
+               data-bs-toggle="modal">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="17" y="15" width="2" height="4" rx="1" transform="rotate(-180 17 15)" fill="black" />
                 <rect x="2" y="15" width="2" height="4" rx="1" transform="rotate(-180 2 15)" fill="black" />
@@ -50,7 +53,7 @@
                 <rect y="13" width="17" height="2" rx="1" fill="black" />
               </svg>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
               data-bs-target="#reportShareModal" data-bs-toggle="modal" title="Share Report">
@@ -140,9 +143,19 @@
       </div>
     </div>
   </nav>
+  
+  <!-- PDF Generator Modal -->
+  <PDFGeneratorModal 
+    :scenario-id="scenarioId"
+    :scenario-name="scenarioName"
+    :client-name="clientName"
+    :report-type="reportType"
+    :report-tabs="reportTabs"
+    modal-id="PDFGeneratorModal" />
 </template>
 <script>
 import ThemeDropdown from "./ThemeDropdown.vue";
+import PDFGeneratorModal from "../modal/PDFGeneratorModal.vue";
 import {
   authHeader,
   getComapanyLogo,
@@ -153,10 +166,11 @@ import { patch, get } from "../../../network/requests";
 import { getUrl } from "../../../network/url";
 
 export default {
-  components: { ThemeDropdown },
+  components: { ThemeDropdown, PDFGeneratorModal },
   data() {
     return {
       pLoader: false,
+      shouldShowPDFModal: false,
     };
   },
   mounted() {
@@ -283,6 +297,10 @@ export default {
       this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
     },
+    initializePDFModal: function() {
+      // Initialize PDF modal when user clicks the PDF button
+      this.shouldShowPDFModal = true;
+    },
   },
   beforeUnmount() {
     if (this.$store.state.app.presentation_mode) {
@@ -296,6 +314,30 @@ export default {
     },
     comparative() {
       return this.$store.state.data.report.comparative;
+    },
+    scenarioId() {
+      // For PDF generation, we need the report ID from the URL, not scenario ID
+      return this.$route.params.report || this.comparative?.scenerio_id || null;
+    },
+    scenarioName() {
+      return this.comparative?.name || 'Financial Scenario';
+    },
+    clientName() {
+      const client = this.comparative?.client;
+      if (client) {
+        return `${client.first_name || ''} ${client.last_name || ''}`.trim() || 'Client Name';
+      }
+      return 'Client Name';
+    },
+    reportType() {
+      // Detect if we're on historical simulations page
+      if (this.$route.path.includes('historical-simulation')) {
+        return 'historical';
+      }
+      return 'comparative';
+    },
+    reportTabs() {
+      return this.$store.state.data.reportTabs || { comparative: [], historical: [] };
     },
   },
   watch: {
