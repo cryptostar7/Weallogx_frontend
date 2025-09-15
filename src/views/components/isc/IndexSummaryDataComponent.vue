@@ -2,11 +2,11 @@
   <div class="table-graph-bottom-content-div">
     <div class="container-fluid px-0">
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           <p>Beginning Balance</p>
         </div>
-        <div class="col-sm-4">
-          <p>
+        <div class="col-sm-5">
+          <p class="text-end">
             ${{
               $props.beginningBalance ? $numFormat($props.beginningBalance) : 0
             }}
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           <p>
             Ending Balance
             <span class="tooltips"
@@ -59,8 +59,8 @@
             </span>
           </p>
         </div>
-        <div class="col-sm-4">
-          <p class="">
+        <div class="col-sm-5">
+          <p class="text-end">
             ${{
               $props.summary.ending_balance
                 ? $numFormat($props.summary.ending_balance.toFixed(0))
@@ -74,7 +74,7 @@
           <p>Total Taxes</p>
         </div>
         <div class="col-sm-4">
-          <p class="highlighted">
+          <p class="highlighted text-end">
             ${{
               $props.summary.total_taxes
                 ? $numFormat($props.summary.total_taxes.toFixed(0))
@@ -88,52 +88,55 @@
           <p>Years with Market Losses</p>
         </div>
         <div class="col-sm-4">
-          <p class="highlighted">
+          <p class="highlighted text-end">
             {{ $props.summary.total_negative_years }}
           </p>
         </div>
       </div>
-      <div class="row">
+
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p class="p-relative">
-            Average Rate of Return
             <button
-              class="btn table-plus-btn blue collapsed"
-              data-bs-toggle="collapse"
-              href="#aror1"
-              role="button"
-              aria-expanded="false"
-              aria-controls="aror1"
+              :class="['btn', 'table-chevron-btn',
+                this.equalizeRisk ? 'white' : 'blue',
+                this.expandAverageReturn ? '' : 'collapsed',
+              ]"
+              @click="toggleAverageReturnSection"
             ></button>
+            Average Rate of Return
           </p>
         </div>
         <div class="col-sm-4">
-          <p>
-            {{
-              $props.summary.average_return
-                ? ($props.summary.average_return * 100).toFixed(2)
-                : ""
-            }}%
+          <p class="text-end">
+            {{averageReturn}}%
           </p>
         </div>
       </div>
-      <div class="row collapse" id="aror1">
+
+      <div :class="[
+        'row', this.expandAverageReturn ? '' : 'collapse', this.equalizeRisk ? 'highlighted' : ''
+      ]">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Average Rate of Return</p>
         </div>
         <div class="col-sm-4">
-          <p class="table-blue-clr">
-            {{
-              $props.summary.net_average_return
-                ? ($props.summary.net_average_return * 100).toFixed(2)
-                : ""
-            }}%
+          <p class="table-blue-clr text-end">
+            {{netAverageReturn}}%
           </p>
         </div>
       </div>
-      <div class="row">
+      
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p class="p-relative">
+            <button
+              :class="['btn', 'table-chevron-btn',
+                this.equalizeRisk ? 'white' : 'blue',
+                this.expandActualReturn ? '' : 'collapsed',
+              ]"
+              @click="toggleActualReturnSection"
+            ></button>
             Actual Rate of Return
             <span class="tooltips"
               ><svg
@@ -175,45 +178,33 @@
                 measure of a portfolio’s performance</span
               >
             </span>
-            <button
-              class="btn table-plus-btn blue collapsed"
-              data-bs-toggle="collapse"
-              href="#aror2"
-              role="button"
-              aria-expanded="false"
-              aria-controls="aror2"
-            ></button>
           </p>
         </div>
         <div class="col-sm-4">
-          <p>
-            {{
-              $props.summary.actual_return
-                ? ($props.summary.actual_return * 100).toFixed(2)
-                : "0"
-            }}%
+          <p class="text-end">
+            {{actualReturn}}%
           </p>
         </div>
       </div>
-      <div class="row collapse" id="aror2">
+
+      <div :class="[
+        'row', this.expandActualReturn ? '' : 'collapse', this.equalizeRisk ? 'highlighted' : ''
+      ]">
         <div class="col-sm-8">
           <p class="table-blue-clr ms-2">Net Actual Rate of Return</p>
         </div>
         <div class="col-sm-4">
-          <p class="table-blue-clr">
-            {{
-              $props.summary.net_actual_return
-                ? ($props.summary.net_actual_return * 100).toFixed(2)
-                : 0
-            }}%
+          <p class="table-blue-clr text-end">
+            {{netActualReturn}}%
           </p>
         </div>
       </div>
-      <div class="row">
+
+      <div :class="['row', this.equalizeRisk ? 'highlighted' : '']">
         <div class="col-sm-8">
           <p>Standard Deviation</p>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 text-end">
           <p>
             {{
               $props.summary.standard_deviation
@@ -228,7 +219,7 @@
           <p>Sharpe Ratio</p>
         </div>
         <div class="col-sm-4">
-          <p>
+          <p class="text-end">
             {{
               $props.summary.sharpe_ratio
                 ? $props.summary.sharpe_ratio.toFixed(2)
@@ -242,7 +233,42 @@
 </template>
 <script>
 export default {
-  props: ["beginningBalance", "summary", "taxRate"],
+  props: ["beginningBalance", "summary", "taxRate", "equalizeRisk"],
+  data() {
+    return {
+      averageReturn: "",
+      netAverageReturn: "",
+      actualReturn: "",
+      netActualReturn: "",
+      expandAverageReturn: false,
+      expandActualReturn: false,
+    };
+  },
+  mounted() {
+    this.updateEqualizedRisk()
+  },
+  watch: {
+    equalizeRisk(newValue, oldValue) {
+      this.updateEqualizedRisk()
+    },
+  },
+  methods: {
+    updateEqualizedRisk() {
+      const summary = this.equalizeRisk ? this.$props.summary.equalized_risk : this.$props.summary
+      this.averageReturn = (summary.average_return * 100).toFixed(2)
+      this.netAverageReturn = (summary.net_average_return * 100).toFixed(2)
+      this.actualReturn = (summary.actual_return * 100).toFixed(2)
+      this.netActualReturn = (summary.net_actual_return * 100).toFixed(2)
+    },
+    toggleAverageReturnSection() {
+      this.expandAverageReturn = !this.expandAverageReturn
+    },
+    toggleActualReturnSection() {
+      this.expandActualReturn = !this.expandActualReturn
+    }
+  }
 };
 </script>
 <style lang=""></style>
+
+

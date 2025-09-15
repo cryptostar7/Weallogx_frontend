@@ -831,6 +831,23 @@ table.index-strategy-table tr th {
 .table-graph-bottom-head.greenClr .index-strategy-head-radio input[type="checkbox"].switch_1:checked:after {
     background: #147d64;
 }
+
+.index-strategy-head-radio.inline {
+    right: 0;
+    text-align: right;
+    margin-right: 10px;
+    top: 14px;
+}
+.index-strategy-head-radio.inline label {
+    font-size: 12px;
+    font-style: italic;
+    margin-right: 7px;
+    top: 14px;
+}
+.index-strategy-head-radio.inline input {
+    top: 3px;
+}
+
 .half-col.inactive .table-graph-bottom-head .table-graph-bottom-content-div {
     visibility: hidden;
 }
@@ -877,7 +894,6 @@ table.index-strategy-table tr th {
     background: rgba(20, 125, 100, 0.15);
     cursor: pointer;
 }
-
 .setting-icon-div .setting-icon-div-span img {
     cursor: pointer;
 }
@@ -918,6 +934,7 @@ table.index-strategy-table tr th {
     font-weight: 700;
     text-align: center;
     border-radius: 30px 30px 0 0;
+    z-index: 1000;
 }
 .table-graph-bottom-each-main-div .table-graph-bottom-head.greenClr {
     background: #147d64;
@@ -965,13 +982,16 @@ table.index-strategy-table tr th {
 .table-graph-bottom-content-div p.highlighted {
     color: #dd3611;
 }
+.index-strategy-head-radio .tooltips img,
 .table-graph-bottom-content-div p .tooltips img {
     cursor: pointer;
 }
+.index-strategy-head-radio .tooltips,
 .table-graph-bottom-content-div p .tooltips {
     position: relative;
     top: -3px;
 }
+.index-strategy-head-radio .tooltips span,
 .table-graph-bottom-content-div p .tooltips span {
     display: none;
     position: absolute;
@@ -988,9 +1008,16 @@ table.index-strategy-table tr th {
     font-size: 11px;
     font-weight: 500;
 }
-
+.index-strategy-head-radio .tooltips:hover span,
 .table-graph-bottom-content-div p .tooltips:hover span {
     display: block;
+}
+.index-strategy-head-radio .tooltips {
+    top: 0px;
+    left: -2px;
+}
+.index-strategy-head-radio .tooltips span {
+    top: 75px;
 }
 
 .common-modal .modal-dialog.calc-preview-modal {
@@ -1203,6 +1230,46 @@ table.index-strategy-table tr th {
 .table-plus-btn.green::after {
     background-color: #147d64;
 }
+.table-chevron-btn {
+    padding-right: 2px;
+}
+
+.table-chevron-btn.blue.collapsed {
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2.41797' width='8' height='2.5' rx='1.25' transform='rotate(45 2.41797 0)' fill='rgb(22,96,164)'/%3E%3Crect x='8.07422' y='5.76562' width='8' height='2.5' rx='1.25' transform='rotate(135 8.07422 5.76562)' fill='rgb(22,96,164)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 13px;
+}
+
+.table-chevron-btn.blue {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z' fill='rgb(22,96,164)'/%3E%3Cpath d='M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z' fill='rgb(22,96,164)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 15px;
+}
+
+.table-chevron-btn.green.collapsed {
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2.41797' width='8' height='2.5' rx='1.25' transform='rotate(45 2.41797 0)' fill='rgb(20, 125, 100)'/%3E%3Crect x='8.07422' y='5.76562' width='8' height='2.5' rx='1.25' transform='rotate(135 8.07422 5.76562)' fill='rgb(20, 125, 100)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 13px;
+}
+
+.table-chevron-btn.green {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z' fill='rgb(20, 125, 100)'/%3E%3Cpath d='M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z' fill='rgb(20, 125, 100)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 15px;
+}
+
+.table-chevron-btn.white.collapsed {
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2.41797' width='8' height='2.5' rx='1.25' transform='rotate(45 2.41797 0)' fill='white'/%3E%3Crect x='8.07422' y='5.76562' width='8' height='2.5' rx='1.25' transform='rotate(135 8.07422 5.76562)' fill='white'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 13px;
+}
+
+.table-chevron-btn.white {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z' fill='white'/%3E%3Cpath d='M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z' fill='white'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    top: 15px;
+}
+
 /* Tax Score Card */
 .index-strategy-head-div.tax-scorcard h1::before {
     left: 58px;
@@ -1739,7 +1806,6 @@ margin-left: auto;
     height: 100%;
     border-radius: 5px;
     overflow: hidden;
-
 }
 .eachProgressBarDiv .tax-details-each-bars.barClr5 .nested-progress-bar-main-div .nested-progress-bar{
     height: 100%;
@@ -1751,4 +1817,16 @@ margin-left: auto;
 }
 .mx-wid-fit-content{
     max-width: fit-content;
+}
+
+.table-graph-bottom-content-div .row.highlighted {
+    background-color: #1660a4;
+}
+
+.table-graph-bottom-content-div .row.highlighted p {
+    color: white;
+}
+
+.table-graph-bottom-each-main-div .blueClr ~ .table-graph-bottom-content-div .row.highlighted:hover p {
+    color: black;
 }
