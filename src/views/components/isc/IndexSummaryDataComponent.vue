@@ -206,11 +206,7 @@
         </div>
         <div class="col-sm-4 text-end">
           <p>
-            {{
-              $props.summary.standard_deviation
-                ? ($props.summary.standard_deviation * 100).toFixed(2)
-                : 0
-            }}%
+            {{standardDeviation}}%
           </p>
         </div>
       </div>
@@ -259,6 +255,7 @@ export default {
       this.netAverageReturn = (summary.net_average_return * 100).toFixed(2)
       this.actualReturn = (summary.actual_return * 100).toFixed(2)
       this.netActualReturn = (summary.net_actual_return * 100).toFixed(2)
+      this.standardDeviation = (summary.standard_deviation * 100).toFixed(2)
     },
     toggleAverageReturnSection() {
       this.expandAverageReturn = !this.expandAverageReturn
