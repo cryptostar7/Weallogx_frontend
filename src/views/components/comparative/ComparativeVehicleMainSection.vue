@@ -930,13 +930,10 @@ export default {
       }
     }
 
-    if (!this.existingVehicles.length) {
-      this.getExistingVehicles();
-    }
-
-    if (!this.cvPortfolios.length) {
-      this.getExistingPortfolio();
-    }
+    // Always fetch fresh data on mount to ensure we have the latest templates and portfolios
+    // This fixes the issue where saved portfolios/templates don't appear in dropdowns
+    this.getExistingVehicles();
+    this.getExistingPortfolio();
   },
   computed: {
     // active scenario data
