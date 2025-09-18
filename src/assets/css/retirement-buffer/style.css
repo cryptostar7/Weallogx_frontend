@@ -2070,6 +2070,44 @@ canvas#retirementBufferGraph {
     color: #D4331C;
     font-weight: 700;
 }
+
+#target-analysis-amount-tab .target-analysis-bar.stacked {
+    flex-direction: column;
+    background-image: none;
+    justify-content: end;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.stacked > div:first-child {
+    margin-bottom: 1px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.stacked
+  > div:first-child .target-analysis-bottom-bar-area {
+    background-color: transparent;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
+    background: #0E6651;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar
+  .target-analysis-bottom-bar-area.bottom-clr1 {
+    background-color: #089875;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
+    background: #1660A4;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar
+  .target-analysis-bottom-bar-area.bottom-clr2 {
+    background-color: #4A8ECD;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr3 {
+    background: #D4331C;
+}
+
 .target-analysis-success-prob-para {
     color: #000;
     text-align: center;
