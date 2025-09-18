@@ -29,11 +29,7 @@
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
-                    <span class="bigBarNumberJsCls2"
-                      >{{
-                        $numFormatWithDollar(irResult.optimization.optimal_beginning_balance)
-                      }}</span
-                    >
+                    <span class="bigBarNumberJsCls2">{{optimalBalanceDifference()}}</span>
                   </p>
                 </div>                
               </div>
@@ -87,14 +83,12 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3"
-                :style="`height: ${historicalOptimalBalanceBarHeight()[1]}%`"
+                :style="`height: ${optimalHistoricalBalanceBarHeight()[1]}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
                     <span class="bigBarNumberJsCls2"
-                      >{{
-                        $numFormatWithDollar(irHistoricalResult.optimization.optimal_beginning_balance)
-                      }}</span
+                      >{{optimalHistoricalBalanceDifference()}}</span
                     >
                   </p>
                 </div>                
@@ -102,7 +96,7 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
-                :style="`height: ${historicalOptimalBalanceBarHeight()[0]}%`"
+                :style="`height: ${optimalHistoricalBalanceBarHeight()[0]}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
@@ -150,32 +144,19 @@ export default {
     optimalBalanceBarHeight() {
 
       const totalBalance = Number(this.inputs.total_balance);
-      const optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
+      let optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
 
-      if (optimalTotalBalance > totalBalance) {
-
-        const bottomHeight = totalBalance / optimalTotalBalance * 100
-        const topHeight = 100 - bottomHeight
-        return [bottomHeight, topHeight]
-
-      } else {
-        return [0, 0]
-      }
-    },
-
-    historicalOptimalBalanceBarHeight() {
-
-      const totalBalance = Number(this.inputs.total_balance);
-      const optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-
-      const historicalOptimalTotalBalance =
+      const optimalHistoricalTotalBalance =
             Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
 
-      if (historicalOptimalTotalBalance > totalBalance) {
+      const maxOptimalTotalBalance = Math.max(optimalTotalBalance, optimalHistoricalTotalBalance)
 
-        const bottomHeight = totalBalance / optimalTotalBalance * 100
-        const topHeight = (historicalOptimalTotalBalance - totalBalance) /
-                          optimalTotalBalance * 100
+      if (maxOptimalTotalBalance > totalBalance) {
+
+        const bottomHeight = totalBalance / maxOptimalTotalBalance * 100
+
+        const topHeight = (optimalTotalBalance - totalBalance) /
+                          maxOptimalTotalBalance * 100
 
         return [bottomHeight, topHeight]
 
@@ -183,6 +164,44 @@ export default {
         return [0, 0]
       }
     },
+
+    optimalBalanceDifference() {
+      const difference = this.irResult.optimization.optimal_beginning_balance -
+                         this.inputs.total_balance
+      const sign = difference < 0 ? '-' : '+'
+      return `${sign}${this.$numFormatWithDollar(difference)}`
+    },
+    
+    optimalHistoricalBalanceBarHeight() {
+
+      const totalBalance = Number(this.inputs.total_balance);
+      let optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
+
+      const optimalHistoricalTotalBalance =
+            Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
+
+      const maxOptimalTotalBalance = Math.max(optimalTotalBalance, optimalHistoricalTotalBalance)
+
+      if (maxOptimalTotalBalance > totalBalance) {
+
+        const bottomHeight = totalBalance / maxOptimalTotalBalance * 100
+
+        const topHeight = (optimalHistoricalTotalBalance - totalBalance) /
+                          maxOptimalTotalBalance * 100
+
+        return [bottomHeight, topHeight]
+
+      } else {
+        return [0, 0]
+      }
+    },
+
+    optimalHistoricalBalanceDifference() {
+      const difference = this.irHistoricalResult.optimization.optimal_beginning_balance -
+                         this.inputs.total_balance
+      const sign = difference < 0 ? '-' : '+'
+      return `${sign}${this.$numFormatWithDollar(difference)}`
+    }
   },
 
   computed: {

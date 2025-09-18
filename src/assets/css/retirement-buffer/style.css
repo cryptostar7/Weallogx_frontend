@@ -2073,7 +2073,6 @@ canvas#retirementBufferGraph {
 
 #target-analysis-amount-tab .target-analysis-bar.stacked {
     flex-direction: column;
-    background-image: none;
     justify-content: end;
 }
 
