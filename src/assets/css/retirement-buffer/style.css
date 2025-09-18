@@ -2077,12 +2077,21 @@ canvas#retirementBufferGraph {
 }
 
 #target-analysis-amount-tab .target-analysis-bar.stacked > div:first-child {
-    margin-bottom: 1px;
+    border-bottom: 1px solid white;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.stacked
   > div:first-child .target-analysis-bottom-bar-area {
     background-color: transparent;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.overlapping > div {
+    position: absolute;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.overlapping > div:first-child {
+    z-index: 1000;
+    border-top: 1px solid white;
 }
 
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {

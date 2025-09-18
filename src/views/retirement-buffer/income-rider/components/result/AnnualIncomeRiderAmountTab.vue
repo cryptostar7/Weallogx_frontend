@@ -9,7 +9,7 @@
             <div class="target-analysis-bar">
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr1"
-                :style="`height: ${balanceBarHeight()}%`"
+                :style="`height: ${this.barHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr1">
                   <p>
@@ -21,22 +21,22 @@
               </div>
             </div>
 
-            <div class="target-analysis-bar stacked">
+            <div :class="['target-analysis-bar', barType]">
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3"
-                :style="`height: ${optimalBalanceBarHeight()[1]}%`"
+                :style="`height: ${topOptimalBarHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
-                    <span class="bigBarNumberJsCls2">{{optimalBalanceDifference()}}</span>
+                    <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
                   </p>
                 </div>                
               </div>
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
-                :style="`height: ${optimalBalanceBarHeight()[0]}%`"
+                :style="`height: ${bottomOptimalBarHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
@@ -67,7 +67,7 @@
             <div class="target-analysis-bar">
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr1"
-                :style="`height: ${balanceBarHeight()}%`"
+                :style="`height: ${barHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr1">
                   <p>
@@ -79,16 +79,16 @@
               </div>
             </div>
 
-            <div class="target-analysis-bar stacked">
+            <div :class="['target-analysis-bar', historicalBarType]">
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3"
-                :style="`height: ${optimalHistoricalBalanceBarHeight()[1]}%`"
+                :style="`height: ${topOptimalHistoricalBarHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
                     <span class="bigBarNumberJsCls2"
-                      >{{optimalHistoricalBalanceDifference()}}</span
+                      >{{optimalBalanceDifferenceFormatted(irHistoricalResult)}}</span
                     >
                   </p>
                 </div>                
@@ -96,7 +96,7 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
-                :style="`height: ${optimalHistoricalBalanceBarHeight()[0]}%`"
+                :style="`height: ${bottomOptimalHistoricalBarHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr2">
                   <p>
@@ -126,97 +126,106 @@ import { mapState, mapGetters } from "vuex";
 import CircularProgressBar from "../../../../../assets/js/retirement-buffer/circularProgressBar.min.js";
 
 export default {
-  props: ["currentTab"],
+
   data() {
     return {
+      barType: "stacked",
+      historicalBarType: "stacked",
+      barHeight: 0,
+      bottomOptimalBarHeight: 0,
+      topOptimalBarHeight: 0,
+      bottomOptimalHistoricalBarHeight: 0,
+      topOptimalHistoricalBarHeight: 0
     };
   },
+
   mounted() {
+    this.updateParameters()
   },
+
+  updated() {
+    this.updateParameters()
+  },
+
   methods: {
 
+    updateParameters() {
+      this.barType = this.balanceType(this.irResult)
+      this.historicalBarType = this.balanceType(this.irHistoricalResult)
+
+      this.barHeight = this.balanceBarHeight()
+
+      const optimalBarHeights = this.optimalBalanceBarHeight(this.irResult)
+      this.bottomOptimalBarHeight = optimalBarHeights[0]
+      this.topOptimalBarHeight = optimalBarHeights[1]
+
+      const optimalHistoricalBarHeights = this.optimalBalanceBarHeight(this.irHistoricalResult)
+      this.bottomOptimalHistoricalBarHeight = optimalHistoricalBarHeights[0]
+      this.topOptimalHistoricalBarHeight = optimalHistoricalBarHeights[1]
+    },
+
+    balanceType(result) {
+      const balance = Number(this.inputs.total_balance);
+      const optimalBalance = Number(result.optimization.optimal_beginning_balance);
+      return balance < optimalBalance ? "stacked" : "overlapping"
+    },
+
     balanceBarHeight() {
-      const totalBalance = Number(this.inputs.total_balance);
-      const optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-      return totalBalance / optimalTotalBalance * 100
+      const balance = Number(this.inputs.total_balance);
+      const optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
+      if (balance < optimalBalance) {
+        return balance / optimalBalance * 100
+      } else {
+        return 100
+      }
     },
 
-    optimalBalanceBarHeight() {
+    optimalBalanceBarHeight(result) {
 
-      const totalBalance = Number(this.inputs.total_balance);
-      let optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
+      const balance = Number(this.inputs.total_balance);
+      let optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
 
-      const optimalHistoricalTotalBalance =
+      const optimalHistoricalBalance =
             Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
 
-      const maxOptimalTotalBalance = Math.max(optimalTotalBalance, optimalHistoricalTotalBalance)
+      const maxOptimalBalance = Math.max(optimalBalance, optimalHistoricalBalance)
 
-      if (maxOptimalTotalBalance > totalBalance) {
+      if (maxOptimalBalance > balance) {
 
-        const bottomHeight = totalBalance / maxOptimalTotalBalance * 100
+        const bottomHeight = 100 * balance / maxOptimalBalance
 
-        const topHeight = (optimalTotalBalance - totalBalance) /
-                          maxOptimalTotalBalance * 100
+        const topHeight = 100 * (result.optimization.optimal_beginning_balance - balance) /
+                          maxOptimalBalance
 
         return [bottomHeight, topHeight]
 
       } else {
-        return [0, 0]
-      }
-    },
-
-    optimalBalanceDifference() {
-      const difference = this.irResult.optimization.optimal_beginning_balance -
-                         this.inputs.total_balance
-      const sign = difference < 0 ? '-' : '+'
-      return `${sign}${this.$numFormatWithDollar(difference)}`
-    },
-    
-    optimalHistoricalBalanceBarHeight() {
-
-      const totalBalance = Number(this.inputs.total_balance);
-      let optimalTotalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-
-      const optimalHistoricalTotalBalance =
-            Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
-
-      const maxOptimalTotalBalance = Math.max(optimalTotalBalance, optimalHistoricalTotalBalance)
-
-      if (maxOptimalTotalBalance > totalBalance) {
-
-        const bottomHeight = totalBalance / maxOptimalTotalBalance * 100
-
-        const topHeight = (optimalHistoricalTotalBalance - totalBalance) /
-                          maxOptimalTotalBalance * 100
-
+        const bottomHeight = 100
+        const topHeight = 100 * result.optimization.optimal_beginning_balance / balance
         return [bottomHeight, topHeight]
-
-      } else {
-        return [0, 0]
       }
     },
+  
+    optimalBalanceDifference(result) {
+      return result.optimization.optimal_beginning_balance - this.inputs.total_balance
+    },
 
-    optimalHistoricalBalanceDifference() {
-      const difference = this.irHistoricalResult.optimization.optimal_beginning_balance -
-                         this.inputs.total_balance
-      const sign = difference < 0 ? '-' : '+'
+    optimalBalanceDifferenceFormatted(result) {
+      const difference = this.optimalBalanceDifference(result)
+      const sign = difference < 0 ? '' : '+'
       return `${sign}${this.$numFormatWithDollar(difference)}`
-    }
+    },
+
   },
 
   computed: {
     ...mapState({
       inputs: (state) => state.incomeRider.result.inputs || [],
-      resultType: (state) => state.incomeRider.result_type,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
     }),
-  },
-  watch: {
-    // irSimulationResult() {
-    // },
   },
 };
 </script>
