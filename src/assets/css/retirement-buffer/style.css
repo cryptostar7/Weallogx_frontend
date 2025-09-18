@@ -2094,6 +2094,17 @@ canvas#retirementBufferGraph {
     border-top: 1px solid white;
 }
 
+#target-analysis-amount-tab .overlapping .target-analysis-bottom-bar-area {
+    z-index: 1000;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.overlapping
+  > div:first-child .target-analysis-bottom-bar-area {
+    position: absolute;
+    top: 0px;
+    background-color: transparent;
+}
+
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
     background: #0E6651;
 }
