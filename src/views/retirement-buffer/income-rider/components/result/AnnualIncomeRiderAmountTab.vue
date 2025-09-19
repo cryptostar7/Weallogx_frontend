@@ -21,30 +21,41 @@
               </div>
             </div>
 
-            <div :class="['target-analysis-bar', barType]">
+
+
+
+
+
+
+            <div :class="['target-analysis-bar', direction]">
 
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr3"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
                 :style="`height: ${topOptimalBarHeight}%`"
               >
-                <div class="target-analysis-bottom-bar-area bottom-clr2">
-                  <p>
-                    <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
-                  </p>
-                </div>                
               </div>
 
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
                 :style="`height: ${bottomOptimalBarHeight}%`"
               >
-                <div class="target-analysis-bottom-bar-area bottom-clr2">
-                  <p>
-                    <span class="bigBarNumberJsCls2"
-                      >{{ $numFormatWithDollar(inputs.total_balance) }}</span>
-                  </p>
-                </div>                
               </div>
+
+              <div
+                class="target-analysis-bottom-bar-area bottom-clr1 bar1"
+                :style="`bottom: ${topOptimalBarHeight}%`">
+                <p>
+                  <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
+                </p>
+              </div>                
+
+              <div class="target-analysis-bottom-bar-area bottom-clr2 bar2">
+                <p>
+                  <span class="bigBarNumberJsCls2"
+                    >{{ $numFormatWithDollar(inputs.total_balance) }}</span>
+                </p>
+              </div>                
+
             </div>
 
           </div>
@@ -79,32 +90,37 @@
               </div>
             </div>
 
-            <div :class="['target-analysis-bar', historicalBarType]">
+            <div :class="['target-analysis-bar', historicalDirection]">
 
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr3"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
                 :style="`height: ${topOptimalHistoricalBarHeight}%`"
               >
-                <div class="target-analysis-bottom-bar-area bottom-clr2">
-                  <p>
-                    <span class="bigBarNumberJsCls2"
-                      >{{optimalBalanceDifferenceFormatted(irHistoricalResult)}}</span
-                    >
-                  </p>
-                </div>                
               </div>
 
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
                 :style="`height: ${bottomOptimalHistoricalBarHeight}%`"
               >
-                <div class="target-analysis-bottom-bar-area bottom-clr2">
-                  <p>
-                    <span class="bigBarNumberJsCls2"
-                      >{{ $numFormatWithDollar(inputs.total_balance) }}</span>
-                  </p>
-                </div>                
               </div>
+
+              <div
+                class="target-analysis-bottom-bar-area bottom-clr3 bar1"
+                :style="`bottom: ${historicalLabelPosition}%`">
+                <p>
+                  <span class="bigBarNumberJsCls2"
+                    >{{optimalBalanceDifferenceFormatted(irHistoricalResult)}}</span
+                  >
+                </p>
+              </div>                
+
+              <div class="target-analysis-bottom-bar-area bottom-clr2 bar2">
+                <p>
+                  <span class="bigBarNumberJsCls2"
+                    >{{ $numFormatWithDollar(inputs.total_balance) }}</span>
+                </p>
+              </div>                
+
             </div>
 
           </div>
@@ -129,13 +145,17 @@ export default {
 
   data() {
     return {
-      barType: "stacked",
-      historicalBarType: "stacked",
+
+      direction: "increase",
+      historicalDirection: "increase",
+
       barHeight: 0,
       bottomOptimalBarHeight: 0,
       topOptimalBarHeight: 0,
       bottomOptimalHistoricalBarHeight: 0,
-      topOptimalHistoricalBarHeight: 0
+      topOptimalHistoricalBarHeight: 0,
+
+      historicalLabelPosition: 0
     };
   },
 
@@ -150,24 +170,26 @@ export default {
   methods: {
 
     updateParameters() {
-      this.barType = this.balanceType(this.irResult)
-      this.historicalBarType = this.balanceType(this.irHistoricalResult)
-
+      this.direction = this.optimalBalanceDirection(this.irResult)
+      this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
       this.barHeight = this.balanceBarHeight()
 
-      const optimalBarHeights = this.optimalBalanceBarHeight(this.irResult)
+      const optimalBarHeights = this.optimalBalanceBarHeights()
       this.bottomOptimalBarHeight = optimalBarHeights[0]
       this.topOptimalBarHeight = optimalBarHeights[1]
 
-      const optimalHistoricalBarHeights = this.optimalBalanceBarHeight(this.irHistoricalResult)
+      const optimalHistoricalBarHeights = this.optimalHistoricalBalanceBarHeights()
       this.bottomOptimalHistoricalBarHeight = optimalHistoricalBarHeights[0]
       this.topOptimalHistoricalBarHeight = optimalHistoricalBarHeights[1]
+
+      this.historicalLabelPosition =
+          Math.min(this.bottomOptimalHistoricalBarHeight, this.topOptimalHistoricalBarHeight)
     },
 
-    balanceType(result) {
+    optimalBalanceDirection(result) {
       const balance = Number(this.inputs.total_balance);
       const optimalBalance = Number(result.optimization.optimal_beginning_balance);
-      return balance < optimalBalance ? "stacked" : "overlapping"
+      return balance < optimalBalance ? "increase" : "decrease"
     },
 
     balanceBarHeight() {
@@ -180,7 +202,27 @@ export default {
       }
     },
 
-    optimalBalanceBarHeight(result) {
+    optimalBalanceBarHeights() {
+
+      const balance = Number(this.inputs.total_balance);
+      let optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
+
+      if (optimalBalance > balance) {
+
+        const bottomHeight = 100 * balance / optimalBalance
+
+        const topHeight = 100 * (optimalBalance - balance) / optimalBalance
+
+        return [bottomHeight, topHeight]
+
+      } else {
+        const bottomHeight = 100
+        const topHeight = 100 * optimalBalance / balance
+        return [bottomHeight, topHeight]
+      }
+    },
+
+    optimalHistoricalBalanceBarHeights() {
 
       const balance = Number(this.inputs.total_balance);
       let optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
@@ -188,24 +230,16 @@ export default {
       const optimalHistoricalBalance =
             Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
 
-      const maxOptimalBalance = Math.max(optimalBalance, optimalHistoricalBalance)
+      const maxBalance = Math.max(balance, optimalBalance, optimalHistoricalBalance)
 
-      if (maxOptimalBalance > balance) {
+      const bottomHeight = 100 * balance / maxBalance
 
-        const bottomHeight = 100 * balance / maxOptimalBalance
+      const topHeight = 100 * optimalHistoricalBalance / maxBalance
 
-        const topHeight = 100 * (result.optimization.optimal_beginning_balance - balance) /
-                          maxOptimalBalance
+      return [bottomHeight, topHeight]
 
-        return [bottomHeight, topHeight]
-
-      } else {
-        const bottomHeight = 100
-        const topHeight = 100 * result.optimization.optimal_beginning_balance / balance
-        return [bottomHeight, topHeight]
-      }
     },
-  
+
     optimalBalanceDifference(result) {
       return result.optimization.optimal_beginning_balance - this.inputs.total_balance
     },

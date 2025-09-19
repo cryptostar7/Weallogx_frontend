@@ -2071,39 +2071,72 @@ canvas#retirementBufferGraph {
     font-weight: 700;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.stacked {
-    flex-direction: column;
-    justify-content: end;
-}
 
-#target-analysis-amount-tab .target-analysis-bar.stacked > div:first-child {
-    border-bottom: 1px solid white;
-}
 
-#target-analysis-amount-tab .target-analysis-bar.stacked
-  > div:first-child .target-analysis-bottom-bar-area {
-    background-color: transparent;
-}
 
-#target-analysis-amount-tab .target-analysis-bar.overlapping > div {
+
+
+
+
+#target-analysis-amount-tab .target-analysis-bar.increase .bar2 {
     position: absolute;
-}
-
-#target-analysis-amount-tab .target-analysis-bar.overlapping > div:first-child {
-    z-index: 1000;
+    z-index: 200;
     border-top: 1px solid white;
 }
 
-#target-analysis-amount-tab .overlapping .target-analysis-bottom-bar-area {
-    z-index: 1000;
+#target-analysis-amount-tab .target-analysis-bar.increase .bar1 {
+    position: absolute;
+    z-index: 100;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.overlapping
-  > div:first-child .target-analysis-bottom-bar-area {
+#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar1 {
     position: absolute;
-    top: 0px;
-    background-color: transparent;
+    border: none;
+    /* margin-bottom: -35px; */
+    z-index: 200;
 }
+
+#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar2 {
+    z-index: 300;
+    background-color: #4A8ECD;
+    border: none;
+}
+
+
+
+
+
+
+
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .bar2 {
+    position: absolute;
+    z-index: 100;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .bar1 {
+    position: absolute;
+    border-top: 1px solid white;
+    z-index: 200;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar1 {
+    position: absolute;
+    border: none;
+    margin-bottom: -35px
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar2 {
+    z-index: 300;
+    background-color: #4A8ECD;
+}
+
+
+
+
+
+
+
 
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
     background: #0E6651;
