@@ -2071,13 +2071,6 @@ canvas#retirementBufferGraph {
     font-weight: 700;
 }
 
-
-
-
-
-
-
-
 #target-analysis-amount-tab .target-analysis-bar.increase .bar2 {
     position: absolute;
     z-index: 200;
@@ -2092,7 +2085,6 @@ canvas#retirementBufferGraph {
 #target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar1 {
     position: absolute;
     border: none;
-    /* margin-bottom: -35px; */
     z-index: 200;
 }
 
@@ -2101,13 +2093,6 @@ canvas#retirementBufferGraph {
     background-color: #4A8ECD;
     border: none;
 }
-
-
-
-
-
-
-
 
 #target-analysis-amount-tab .target-analysis-bar.decrease .bar2 {
     position: absolute;
@@ -2123,20 +2108,13 @@ canvas#retirementBufferGraph {
 #target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar1 {
     position: absolute;
     border: none;
-    margin-bottom: -35px
+    margin-bottom: -30px
 }
 
 #target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar2 {
     z-index: 300;
     background-color: #4A8ECD;
 }
-
-
-
-
-
-
-
 
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
     background: #0E6651;

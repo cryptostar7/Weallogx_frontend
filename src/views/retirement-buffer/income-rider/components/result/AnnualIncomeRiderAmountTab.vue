@@ -21,12 +21,6 @@
               </div>
             </div>
 
-
-
-
-
-
-
             <div :class="['target-analysis-bar', direction]">
 
               <div
@@ -43,7 +37,7 @@
 
               <div
                 class="target-analysis-bottom-bar-area bottom-clr1 bar1"
-                :style="`bottom: ${topOptimalBarHeight}%`">
+                :style="`bottom: ${labelPosition}%`">
                 <p>
                   <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
                 </p>
@@ -57,7 +51,6 @@
               </div>                
 
             </div>
-
           </div>
 
           <p class="bar-long-para">
@@ -145,17 +138,15 @@ export default {
 
   data() {
     return {
-
       direction: "increase",
       historicalDirection: "increase",
-
       barHeight: 0,
       bottomOptimalBarHeight: 0,
       topOptimalBarHeight: 0,
       bottomOptimalHistoricalBarHeight: 0,
       topOptimalHistoricalBarHeight: 0,
-
-      historicalLabelPosition: 0
+      labelPosition: 0,
+      historicalLabelPosition: 0,
     };
   },
 
@@ -174,13 +165,16 @@ export default {
       this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
       this.barHeight = this.balanceBarHeight()
 
-      const optimalBarHeights = this.optimalBalanceBarHeights()
+      const optimalBarHeights = this.optimalBalanceBarHeights(this.irResult)
       this.bottomOptimalBarHeight = optimalBarHeights[0]
       this.topOptimalBarHeight = optimalBarHeights[1]
 
-      const optimalHistoricalBarHeights = this.optimalHistoricalBalanceBarHeights()
+      const optimalHistoricalBarHeights = this.optimalBalanceBarHeights(this.irHistoricalResult)
       this.bottomOptimalHistoricalBarHeight = optimalHistoricalBarHeights[0]
       this.topOptimalHistoricalBarHeight = optimalHistoricalBarHeights[1]
+
+      this.labelPosition =
+          Math.min(this.bottomOptimalBarHeight, this.topOptimalBarHeight)
 
       this.historicalLabelPosition =
           Math.min(this.bottomOptimalHistoricalBarHeight, this.topOptimalHistoricalBarHeight)
@@ -194,50 +188,28 @@ export default {
 
     balanceBarHeight() {
       const balance = Number(this.inputs.total_balance);
-      const optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-      if (balance < optimalBalance) {
-        return balance / optimalBalance * 100
+      const maxBalance = this.maxBalance()
+      if (balance < maxBalance) {
+        return balance / maxBalance * 100
       } else {
         return 100
       }
     },
 
-    optimalBalanceBarHeights() {
-
+    optimalBalanceBarHeights(result) {
       const balance = Number(this.inputs.total_balance);
-      let optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-
-      if (optimalBalance > balance) {
-
-        const bottomHeight = 100 * balance / optimalBalance
-
-        const topHeight = 100 * (optimalBalance - balance) / optimalBalance
-
-        return [bottomHeight, topHeight]
-
-      } else {
-        const bottomHeight = 100
-        const topHeight = 100 * optimalBalance / balance
-        return [bottomHeight, topHeight]
-      }
+      const maxBalance = this.maxBalance()
+      const bottomHeight = 100 * balance / maxBalance
+      const topHeight = 100 * result.optimization.optimal_beginning_balance / maxBalance
+      return [bottomHeight, topHeight]
     },
 
-    optimalHistoricalBalanceBarHeights() {
-
-      const balance = Number(this.inputs.total_balance);
-      let optimalBalance = Number(this.irResult.optimization.optimal_beginning_balance);
-
-      const optimalHistoricalBalance =
-            Number(this.irHistoricalResult.optimization.optimal_beginning_balance);
-
-      const maxBalance = Math.max(balance, optimalBalance, optimalHistoricalBalance)
-
-      const bottomHeight = 100 * balance / maxBalance
-
-      const topHeight = 100 * optimalHistoricalBalance / maxBalance
-
-      return [bottomHeight, topHeight]
-
+    maxBalance() {
+      return Math.max(
+        Number(this.inputs.total_balance),
+        Number(this.irResult.optimization.optimal_beginning_balance),
+        Number(this.irHistoricalResult.optimization.optimal_beginning_balance)
+      );
     },
 
     optimalBalanceDifference(result) {
@@ -249,7 +221,6 @@ export default {
       const sign = difference < 0 ? '' : '+'
       return `${sign}${this.$numFormatWithDollar(difference)}`
     },
-
   },
 
   computed: {
