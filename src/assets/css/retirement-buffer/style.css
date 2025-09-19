@@ -2075,17 +2075,21 @@ canvas#retirementBufferGraph {
     position: absolute;
     z-index: 200;
     border-top: 1px solid white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.increase .bar1 {
     position: absolute;
     z-index: 100;
+    border-radius: 8px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar1 {
     position: absolute;
     border: none;
     z-index: 200;
+    margin-bottom: -4px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar2 {
@@ -2094,15 +2098,30 @@ canvas#retirementBufferGraph {
     border: none;
 }
 
+#target-analysis-amount-tab .target-analysis-bottom-bar-area.above span {
+    color: #D4331C;
+}
+
+#target-analysis-amount-tab .target-analysis-bar {
+    overflow: visible
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.balance {
+    border-radius: 8px;
+}
+
 #target-analysis-amount-tab .target-analysis-bar.decrease .bar2 {
     position: absolute;
     z-index: 100;
+    border-radius: 8px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.decrease .bar1 {
     position: absolute;
     border-top: 1px solid white;
     z-index: 200;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar1 {

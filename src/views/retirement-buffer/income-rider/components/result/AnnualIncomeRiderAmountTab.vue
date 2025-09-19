@@ -8,7 +8,7 @@
 
             <div class="target-analysis-bar">
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr1"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr1 balance"
                 :style="`height: ${this.barHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr1">
@@ -25,18 +25,21 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
-                :style="`height: ${topOptimalBarHeight}%`"
+                :style="`height: ${optimalBarHeight}%`"
               >
               </div>
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
-                :style="`height: ${bottomOptimalBarHeight}%`"
+                :style="`height: ${barHeight}%`"
               >
               </div>
 
               <div
-                class="target-analysis-bottom-bar-area bottom-clr1 bar1"
+                :class="[
+                  'target-analysis-bottom-bar-area bottom-clr1', 'bar1',
+                  isLabelAbove ? 'above' : ''
+                ]"
                 :style="`bottom: ${labelPosition}%`">
                 <p>
                   <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
@@ -70,7 +73,7 @@
 
             <div class="target-analysis-bar">
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr1"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr1 balance"
                 :style="`height: ${barHeight}%`"
               >
                 <div class="target-analysis-bottom-bar-area bottom-clr1">
@@ -87,18 +90,21 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
-                :style="`height: ${topOptimalHistoricalBarHeight}%`"
+                :style="`height: ${optimalHistoricalBarHeight}%`"
               >
               </div>
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
-                :style="`height: ${bottomOptimalHistoricalBarHeight}%`"
+                :style="`height: ${barHeight}%`"
               >
               </div>
 
               <div
-                class="target-analysis-bottom-bar-area bottom-clr3 bar1"
+                :class="[
+                  'target-analysis-bottom-bar-area bottom-clr3', 'bar1',
+                  isHistoricalLabelAbove ? 'above' : ''
+                ]"
                 :style="`bottom: ${historicalLabelPosition}%`">
                 <p>
                   <span class="bigBarNumberJsCls2"
@@ -142,11 +148,13 @@ export default {
       historicalDirection: "increase",
       barHeight: 0,
       bottomOptimalBarHeight: 0,
-      topOptimalBarHeight: 0,
+      optimalBarHeight: 0,
       bottomOptimalHistoricalBarHeight: 0,
-      topOptimalHistoricalBarHeight: 0,
+      optimalHistoricalBarHeight: 0,
       labelPosition: 0,
+      isLabelAbove: false,
       historicalLabelPosition: 0,
+      isHistoricalLabelAbove: false,
     };
   },
 
@@ -161,23 +169,30 @@ export default {
   methods: {
 
     updateParameters() {
+
       this.direction = this.optimalBalanceDirection(this.irResult)
       this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
+
       this.barHeight = this.balanceBarHeight()
+      this.optimalBarHeight = this.optimalBalanceBarHeight(this.irResult)
+      this.optimalHistoricalBarHeight = this.optimalBalanceBarHeight(this.irHistoricalResult)
 
-      const optimalBarHeights = this.optimalBalanceBarHeights(this.irResult)
-      this.bottomOptimalBarHeight = optimalBarHeights[0]
-      this.topOptimalBarHeight = optimalBarHeights[1]
+      if (this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9) {
+        this.labelPosition = this.optimalBarHeight
+        this.isLabelAbove = true
+      } else {
+        this.labelPosition = Math.min(this.barHeight, this.optimalBarHeight)
+        this.isLabelAbove = false
+      }
 
-      const optimalHistoricalBarHeights = this.optimalBalanceBarHeights(this.irHistoricalResult)
-      this.bottomOptimalHistoricalBarHeight = optimalHistoricalBarHeights[0]
-      this.topOptimalHistoricalBarHeight = optimalHistoricalBarHeights[1]
-
-      this.labelPosition =
-          Math.min(this.bottomOptimalBarHeight, this.topOptimalBarHeight)
-
-      this.historicalLabelPosition =
-          Math.min(this.bottomOptimalHistoricalBarHeight, this.topOptimalHistoricalBarHeight)
+      if (this.optimalHistoricalBarHeight > this.barHeight &&
+          this.optimalHistoricalBarHeight - this.barHeight < 9) {
+        this.historicalLabelPosition = this.optimalHistoricalBarHeight
+        this.isHistoricalLabelAbove = true
+      } else {
+        this.historicalLabelPosition = Math.min(this.barHeight, this.optimalHistoricalBarHeight)
+        this.isHistoricalLabelAbove = false
+      }
     },
 
     optimalBalanceDirection(result) {
@@ -196,12 +211,11 @@ export default {
       }
     },
 
-    optimalBalanceBarHeights(result) {
+    optimalBalanceBarHeight(result) {
       const balance = Number(this.inputs.total_balance);
       const maxBalance = this.maxBalance()
-      const bottomHeight = 100 * balance / maxBalance
-      const topHeight = 100 * result.optimization.optimal_beginning_balance / maxBalance
-      return [bottomHeight, topHeight]
+      const height = 100 * result.optimization.optimal_beginning_balance / maxBalance
+      return height
     },
 
     maxBalance() {
