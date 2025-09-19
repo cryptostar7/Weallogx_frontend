@@ -95,7 +95,7 @@
               </div>
 
               <div
-                class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
+                class="target-analysis-inner-bar income-rider-inner-bar inner-clr4 bar2"
                 :style="`height: ${barHeight}%`"
               >
               </div>

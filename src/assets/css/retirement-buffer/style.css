@@ -2092,9 +2092,12 @@ canvas#retirementBufferGraph {
     margin-bottom: -4px;
 }
 
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #609BD2;
+}
+
 #target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar2 {
     z-index: 300;
-    background-color: #4A8ECD;
     border: none;
 }
 
@@ -2133,6 +2136,10 @@ canvas#retirementBufferGraph {
 #target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar2 {
     z-index: 300;
     background-color: #4A8ECD;
+}
+
+#target-analysis-amount-tab .inner-clr4 {
+    background: #4A8ECD;
 }
 
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {

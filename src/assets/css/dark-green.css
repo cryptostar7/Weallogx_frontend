@@ -5239,3 +5239,8 @@
             .table-graph-bottom-content-div .row.highlighted:hover p {
     color: white;
 }
+
+.dark-green #target-analysis-amount-tab
+.target-analysis-bottom-bar-area.above span {
+    color: white;
+}
