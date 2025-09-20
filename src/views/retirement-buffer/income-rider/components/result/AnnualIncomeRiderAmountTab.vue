@@ -60,7 +60,9 @@
             The required beginning balance for the {{ inputs.comparative_vehicle_account_name }}
             earning a flat {{ $percentFormat(inputs.growth_rate || 0) }}%
             to match the {{ inputs.income_rider_account_name }}'s income production is
-            {{ $numFormatWithDollar(irResult.optimization.optimal_beginning_balance) }}.
+            <span>{{
+              $numFormatWithDollar(irResult.optimization.optimal_beginning_balance)
+            }}</span>.
           </p>
         </div>
       </div>
@@ -125,10 +127,12 @@
           </div>
           <p class="bar-long-para">
             The required beginning balance for the {{ inputs.comparative_vehicle_account_name }}
-            using historical returns for the last [number of years]
+            using historical returns for the last {{yearCount}}
             years to match the {{ inputs.income_rider_account_name }}'s
             income production is
-            {{ $numFormatWithDollar(irHistoricalResult.optimization.optimal_beginning_balance) }}.
+            <span>{{
+              $numFormatWithDollar(irHistoricalResult.optimization.optimal_beginning_balance)
+            }}</span>.
           </p>
         </div>
       </div>
@@ -144,6 +148,7 @@ export default {
 
   data() {
     return {
+      yearCount: 0,
       direction: "increase",
       historicalDirection: "increase",
       barHeight: 0,
@@ -169,6 +174,8 @@ export default {
   methods: {
 
     updateParameters() {
+
+      this.yearCount = this.inputs.plan_through_age - this.inputs.current_age + 1
 
       this.direction = this.optimalBalanceDirection(this.irResult)
       this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
