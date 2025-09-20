@@ -31,7 +31,7 @@ const state = () => {
     error: {},
     annual_schedule_result_modal: { title: '', data: [] },
     view_result: 0,
-    target_analysis_type: 'amount',
+    target_analysis_type: 'income',
     result_type: 'guaranteed',
   };
 };

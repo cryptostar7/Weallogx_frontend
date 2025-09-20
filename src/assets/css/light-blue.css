@@ -1939,3 +1939,33 @@ color: #0E6651;
 .light-blue .table-graph-bottom-content-div .row.highlighted {
     background-color: #089875;
 }
+
+.light-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
+    background: #0E6651;
+}
+
+.light-blue .target-analysis-amount-tab
+.target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #089875;
+}
+
+.light-blue #target-analysis-amount-tab
+.inner-clr4 {
+    background-color: #089875;
+}
+
+.light-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #6DAC9D;
+}
+
+.light-blue #target-analysis-amount-tab
+.target-analysis-inner-bar.inner-clr1 {
+    background: #1660A4;
+}
+
+.light-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1 {
+    background-color: #609BD2;
+}

@@ -27,15 +27,15 @@
                 @click="
                   $store.dispatch(
                     'incomeRider/updateTargetAnalysisType',
-                    'amount'
+                    'income'
                   )
                 "
-                :class="targetAnalysis == 'amount' ? 'active' : ''"
+                :class="targetAnalysis == 'income' ? 'active' : ''"
                 type="button"
                 data-bs-toggle="pill"
                 role="tab"
               >
-                Amount
+                Income
               </div>
               <div
                 data-bs-toggle="pill"
@@ -63,10 +63,23 @@
               >
                 Return
               </div>
+              <div
+                data-bs-toggle="pill"
+                @click="
+                  $store.dispatch(
+                    'incomeRider/updateTargetAnalysisType',
+                    'amount'
+                  )
+                "
+                :class="targetAnalysis == 'amount' ? 'active' : ''"
+                role="tab"
+              >
+                Amount
+              </div>
             </div>
           </div>
           <div
-            v-if="targetAnalysis != 'return'"
+            v-if="!['return', 'amount'].includes(targetAnalysis)"
             class="d-flex justify-content-center mt-2 w-25 mx-auto"
           >
             <div
@@ -96,7 +109,7 @@
           </div>
           <div class="tab-content incomeRider-tab-content">
             <div
-              v-if="targetAnalysis != 'return'"
+              v-if="!['return', 'amount'].includes(targetAnalysis)"
               class="tab-pane fade active show"
               id="v-pills-amount"
               role="tabpanel"
@@ -225,7 +238,7 @@
                             {
                               title: 'Annual Income Schedule',
                               data:
-                                targetAnalysis == 'amount'
+                                targetAnalysis == 'income'
                                   ? irResult.annual_cv_distribution
                                   : irResult.optimization.optimal_distribution,
                             }
@@ -310,7 +323,7 @@
                         <span v-if="showResult >= 2">
                           <span id="wider_bar_2">{{
                             $numFormatWithDollar(
-                              targetAnalysis == "amount"
+                              targetAnalysis == "income"
                                 ? irResult.annual_cv_distribution.filter(
                                     (item) => item > 0
                                   )[0]
@@ -344,7 +357,7 @@
                             {
                               title: 'Annual Income Schedule',
                               data:
-                                targetAnalysis == 'amount'
+                                targetAnalysis == 'income'
                                   ? irHistoricalResult.annual_cv_distribution
                                   : irHistoricalResult.optimization
                                       .optimal_distribution,
@@ -430,7 +443,7 @@
                         <span v-if="showResult > 2">
                           <span id="wider_bar_3">{{
                             $numFormatWithDollar(
-                              targetAnalysis == "amount"
+                              targetAnalysis == "income"
                                 ? irHistoricalResult.annual_cv_distribution.filter(
                                     (item) => item > 0
                                   )[0]
@@ -509,13 +522,19 @@
               </div>
               <!-- Amount tab end -->
             </div>
-
             <div
               class="tab-pane fade active show"
               v-if="targetAnalysis == 'return'"
               role="tabpanel"
             >
               <annual-income-rider-success-probability-chart />
+            </div>
+            <div
+              class="tab-pane fade active show"
+              v-if="targetAnalysis == 'amount'"
+              role="tabpanel"
+            >
+              <annual-income-rider-amount-tab />
             </div>
           </div>
         </div>
@@ -528,12 +547,14 @@
 import { mapState, mapGetters } from "vuex";
 import AnnualIncomeCardDetailsComponent from "./AnnualIncomeCardDetailsComponent.vue";
 import AnnualIncomeRiderSuccessProbabilityChart from "./AnnualIncomeRiderSuccessProbabilityChart.vue";
+import AnnualIncomeRiderAmountTab from "./AnnualIncomeRiderAmountTab.vue";
 import { getIncomeRiderYearLabels } from "../../../../../services/helper";
 
 export default {
   components: {
     AnnualIncomeCardDetailsComponent,
     AnnualIncomeRiderSuccessProbabilityChart,
+    AnnualIncomeRiderAmountTab,
   },
   methods: {
     adjustLabelPadding() {
@@ -594,11 +615,11 @@ export default {
     yearsLable() {
       let distribution1 = this.irResult.annual_income_rider_distribution;
       let distribution2 =
-        this.targetAnalysis == "amount"
+        this.targetAnalysis == "income"
           ? this.irResult.annual_cv_distribution
           : this.irResult.optimization.optimal_distribution;
       let distribution3 =
-        this.targetAnalysis == "amount"
+        this.targetAnalysis == "income"
           ? this.irHistoricalResult.annual_cv_distribution
           : this.irHistoricalResult.optimization.optimal_distribution;
 
