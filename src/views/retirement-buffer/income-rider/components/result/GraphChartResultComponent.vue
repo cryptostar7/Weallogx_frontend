@@ -101,10 +101,10 @@
                         @click="
                           $store.dispatch(
                             'incomeRider/updateTargetAnalysisType',
-                            'amount'
+                            'income'
                           )
                         "
-                        :class="targetAnalysis == 'amount' ? 'active' : ''"
+                        :class="targetAnalysis == 'income' ? 'active' : ''"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-amount3"
                         type="button"
@@ -183,7 +183,7 @@
 
                     <div
                       :class="`tab-pane fade ${
-                        targetAnalysis == 'amount' ? 'active show' : ''
+                        targetAnalysis == 'income' ? 'active show' : ''
                       }`"
                       id="v-pills-amount3"
                       role="tabpanel"

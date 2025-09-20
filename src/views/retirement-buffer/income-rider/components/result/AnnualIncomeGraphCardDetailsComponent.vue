@@ -198,7 +198,7 @@ export default {
         return (
           this.$arraySum(this.irResult.annual_income_rider_distribution) -
           this.$arraySum(
-            this.targetAnalysis == "amount"
+            this.targetAnalysis == "income"
               ? this.irResult.annual_cv_distribution
               : this.irResult.optimization.optimal_distribution
           )
@@ -214,7 +214,7 @@ export default {
             this.irHistoricalResult.annual_income_rider_distribution
           ) -
           this.$arraySum(
-            this.targetAnalysis == "amount"
+            this.targetAnalysis == "income"
               ? this.irHistoricalResult.annual_cv_distribution
               : this.irHistoricalResult.optimization.optimal_distribution
           )
