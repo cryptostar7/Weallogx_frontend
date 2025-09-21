@@ -106,12 +106,12 @@
                         "
                         :class="targetAnalysis == 'income' ? 'active' : ''"
                         data-bs-toggle="pill"
-                        data-bs-target="#v-pills-amount3"
+                        data-bs-target="#v-pills-income3"
                         type="button"
                         role="tab"
-                        aria-controls="v-pills-amount3"
+                        aria-controls="v-pills-income3"
                       >
-                        Amount
+                        Income
                       </div>
                       <div
                         @click="
@@ -143,12 +143,27 @@
                       >
                         Return
                       </div>
+                      <div
+                        @click="
+                          $store.dispatch(
+                            'incomeRider/updateTargetAnalysisType',
+                            'amount'
+                          )
+                        "
+                        :class="targetAnalysis == 'amount' ? 'active' : ''"
+                        data-bs-toggle="pill"
+                        data-bs-target="#v-pills-amount3"
+                        role="tab"
+                        aria-controls="v-pills-amount3"
+                      >
+                        Amount
+                      </div>
                     </div>
                   </div>
 
                   <div class="tab-content">
                     <div
-                      v-if="targetAnalysis != 'return'"
+                      v-if="!['return', 'amount'].includes(targetAnalysis)"
                       class="d-flex justify-content-center mt-2 w-25 mx-auto"
                     >
                       <div
@@ -185,7 +200,7 @@
                       :class="`tab-pane fade ${
                         targetAnalysis == 'income' ? 'active show' : ''
                       }`"
-                      id="v-pills-amount3"
+                      id="v-pills-income3"
                       role="tabpanel"
                     >
                       <!-- Amount tab start -->
@@ -324,6 +339,15 @@
                         currentTab="graph"
                       />
                     </div>
+                    <div
+                      :class="`tab-pane fade ${
+                        targetAnalysis == 'amount' ? 'active show' : ''
+                      }`"
+                      id="v-pills-amount3"
+                      role="tabpanel"
+                    >
+                      <annual-income-rider-amount-tab />
+                    </div>
                   </div>
                 </div>
                 <!-- Main tab 1 content end -->
@@ -343,6 +367,7 @@ import AnnualIncomeGraphCardDetailsComponent from "./AnnualIncomeGraphCardDetail
 import IncomeRiderAmountGraphChartComponent from "./graph/IncomeRiderAmountGraphChartComponent.vue";
 import IncomeRiderLongevityGraphChartComponent from "./graph/IncomeRiderLongevityGraphChartComponent.vue";
 import AnnualIncomeRiderSuccessProbabilityChart from "./AnnualIncomeRiderSuccessProbabilityChart.vue";
+import AnnualIncomeRiderAmountTab from "./AnnualIncomeRiderAmountTab.vue";
 
 export default {
   components: {
@@ -351,6 +376,7 @@ export default {
     IncomeRiderAmountGraphChartComponent,
     IncomeRiderLongevityGraphChartComponent,
     AnnualIncomeRiderSuccessProbabilityChart,
+    AnnualIncomeRiderAmountTab,
   },
   methods: {
     showNextHandler() {

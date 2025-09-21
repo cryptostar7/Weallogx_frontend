@@ -7,7 +7,7 @@
       <div class="mt-3 flex-1">
         <div
           :class="`incomeRiderCard incomeCard1 w-100 ${
-            showResult > 0 || ['return', 'amount'].includes(this.targetAnalysis) ? '' : 'disable'
+            showResult > 0 || cardsVisible ? '' : 'disable'
           }`"
         >
           <div class="d-flex gap-2 h-100">
@@ -46,7 +46,7 @@
       <div class="mt-3 flex-1">
         <div
           :class="`incomeRiderCard incomeCard2 w-100 ${
-            showResult > 1 || this.targetAnalysis == 'return' ? '' : 'disable'
+            showResult > 1 || cardsVisible ? '' : 'disable'
           }`"
         >
           <div class="d-flex gap-2 h-100">
@@ -120,7 +120,7 @@
       <div class="mt-3 flex-1">
         <div
           :class="`incomeRiderCard incomeCard3 w-100 ${
-            showResult > 2 || this.targetAnalysis == 'return' ? '' : 'disable'
+            showResult > 2 || cardsVisible ? '' : 'disable'
           }`"
         >
           <div class="d-flex gap-2 h-100">
@@ -233,6 +233,9 @@ export default {
           )
         );
       }
+    },
+    cardsVisible() {
+        return ['return', 'amount'].includes(this.targetAnalysis)
     },
   },
 };
