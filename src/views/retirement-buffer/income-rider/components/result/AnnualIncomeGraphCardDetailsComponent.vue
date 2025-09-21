@@ -222,7 +222,6 @@ export default {
       }
     },
     cardsVisible() {
-      console.log(this.targetAnalysis)
       return ['return', 'amount'].includes(this.targetAnalysis)
     },
   },

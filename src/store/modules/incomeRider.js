@@ -33,6 +33,7 @@ const state = () => {
     view_result: 0,
     target_analysis_type: 'income',
     result_type: 'guaranteed',
+    income_type: 'annual',
   };
 };
 
@@ -88,6 +89,9 @@ const mutations = {
   setAnnualScheduleResultModal(state, payload) {
     state.annual_schedule_result_modal = payload;
   },
+  setIncomeType(state, payload) {
+    state.income_type = payload;
+  },
 };
 
 const actions = {
@@ -117,6 +121,9 @@ const actions = {
   },
   updateAnnualScheduleResultModal(context, payload) {
     context.commit("setAnnualScheduleResultModal", payload);
+  },
+  updateIncomeType(context, payload) {
+    context.commit("setIncomeType", payload);
   },
 };
 
