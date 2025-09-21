@@ -200,7 +200,6 @@
                       :class="`tab-pane fade ${
                         targetAnalysis == 'income' ? 'active show' : ''
                       }`"
-                      id="v-pills-income3"
                       role="tabpanel"
                     >
                       <!-- Amount tab start -->
@@ -248,7 +247,7 @@
                               />
                             </svg>
                           </button>
-                          <!-- Amount individual tab end -->
+                          <!-- Income individual tab end -->
                         </div>
                         <div
                           class="tab-pane fade"
@@ -256,18 +255,17 @@
                           role="tabpanel"
                           aria-labelledby="pills-home-tab"
                         >
-                          <!-- Amount showall tab start -->
+                          <!-- Income showall tab start -->
 
-                          <!-- Amount showall tab end -->
+                          <!-- Income showall tab end -->
                         </div>
                       </div>
-                      <!-- Amount tab end -->
+                      <!-- Income tab end -->
                     </div>
                     <div
                       :class="`tab-pane fade ${
                         targetAnalysis == 'longevity' ? 'active show' : ''
                       }`"
-                      id="v-pills-longevity3"
                       role="tabpanel"
                     >
                       <!-- Longevity tab start -->
@@ -333,7 +331,6 @@
                       :class="`tab-pane fade ${
                         targetAnalysis == 'return' ? 'active show' : ''
                       }`"
-                      id="v-pills-return3"
                       role="tabpanel"
                     >
                       <annual-income-rider-success-probability-chart
@@ -344,7 +341,6 @@
                       :class="`tab-pane fade ${
                         targetAnalysis == 'amount' ? 'active show' : ''
                       }`"
-                      id="v-pills-amount3"
                       role="tabpanel"
                     >
                       <annual-income-rider-amount-tab />
