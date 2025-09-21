@@ -84,6 +84,7 @@ export default {
         colorSlice: "#4A8ECD",
         colorCircle: "#9DC6EB",
         round: true,
+        circleProgressIndex: 0,
       },
     };
   },
@@ -102,6 +103,7 @@ export default {
       let className = `.ir${this.$props.currentTab || ""}Pie`;
       const elements = [].slice.call(document.querySelectorAll(className));
       window.circleProgress = new CircularProgressBar("pie");
+      this.circleProgressIndex = window.circleProgress.i.length
       if ("IntersectionObserver" in window) {
         const config = {
           root: null,
@@ -130,17 +132,10 @@ export default {
       if (this.irSimulationResult) {
         this.success_required = this.irSimulationResult.success_count;
         this.pieData.percent = this.irSimulationResult.success_percentage;
-
         if (window.circleProgress) {
-
-          // The index argument is used to target the correct circle
-          // animation. Currently there are two instances of the
-          // circle component.
-          const index = this.incomeType == "annual" ? 1 : 2
-
           window.circleProgress.animationTo({
-            index: index,
-            percent: this.irSimulationResult.success_percentage,
+          index: this.circleProgressIndex,
+          percent: this.irSimulationResult.success_percentage,
           });
         }
       }
