@@ -524,7 +524,7 @@
             </div>
             <div
               class="tab-pane fade active show"
-              v-if="targetAnalysis == 'return'"
+              v-if="targetAnalysis == 'return' && incomeType == 'annual'"
               role="tabpanel"
             >
               <annual-income-rider-success-probability-chart />
@@ -604,6 +604,7 @@ export default {
       showResult: (state) => state.incomeRider.view_result,
       resultType: (state) => state.incomeRider.result_type,
       inputs: (state) => state.incomeRider.result.inputs || [],
+      incomeType: (state) => state.incomeRider.income_type,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",

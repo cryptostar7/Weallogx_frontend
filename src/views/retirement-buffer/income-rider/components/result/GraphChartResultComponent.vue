@@ -329,6 +329,7 @@
                       <!-- Longevity tab end -->
                     </div>
                     <div
+                      v-if="targetAnalysis == 'return' && incomeType == 'cumulative'"
                       :class="`tab-pane fade ${
                         targetAnalysis == 'return' ? 'active show' : ''
                       }`"
@@ -389,6 +390,7 @@ export default {
       showResult: (state) => state.incomeRider.view_result,
       inputs: (state) => state.incomeRider.result.inputs || [],
       resultType: (state) => state.incomeRider.result_type,
+      incomeType: (state) => state.incomeRider.income_type,
     }),
   },
 };

@@ -84,7 +84,6 @@ export default {
         colorSlice: "#4A8ECD",
         colorCircle: "#9DC6EB",
         round: true,
-        circleProgressIndex: 0,
       },
     };
   },
@@ -103,7 +102,6 @@ export default {
       let className = `.ir${this.$props.currentTab || ""}Pie`;
       const elements = [].slice.call(document.querySelectorAll(className));
       window.circleProgress = new CircularProgressBar("pie");
-      this.circleProgressIndex = window.circleProgress.i.length
       if ("IntersectionObserver" in window) {
         const config = {
           root: null,
@@ -133,9 +131,9 @@ export default {
         this.success_required = this.irSimulationResult.success_count;
         this.pieData.percent = this.irSimulationResult.success_percentage;
         if (window.circleProgress) {
-          window.circleProgress.animationTo({
-          index: this.circleProgressIndex,
-          percent: this.irSimulationResult.success_percentage,
+            window.circleProgress.animationTo({
+            index: 1,
+            percent: this.irSimulationResult.success_percentage,
           });
         }
       }
