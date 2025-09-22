@@ -21,10 +21,9 @@
               </p>
               <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
-                <span>
-                  {{
-                    $numFormatWithDollar(cards.card1.totalDistribution) || '$0'
-                  }}</span
+                <span>{{
+                  $numFormatWithDollar(cards.card1.totalDistribution) || '$0'
+                }}</span
                 >
               </p>
               <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
@@ -63,7 +62,9 @@
               </p>
               <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
-                <span>{{ $numFormatWithDollar(cards.card2.totalDistribution) || '$0' }}</span>
+                <span>{{
+                  $numFormatWithDollar(cards.card2.totalDistribution) || '$0'
+                }}</span>
               </p>
               <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
@@ -178,15 +179,14 @@ export default {
     ...mapGetters({
       cards: "incomeRider/cards",
     }),
-
     card2_shortfall_surplus() {
-        return this.cards.card2["shortfall_surplus"]
+      return this.cards.card2["shortfall_surplus"]
     },
     card3_shortfall_surplus() {
-        return this.cards.card3["shortfall_surplus"]
+      return this.cards.card3["shortfall_surplus"]
     },
     cardsVisible() {
-        return ['return', 'amount'].includes(this.targetAnalysis)
+      return ['return', 'amount'].includes(this.targetAnalysis)
     },
   },
 };

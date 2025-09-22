@@ -19,18 +19,12 @@
             <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
-                $numFormatWithDollar(
-                  $arraySum(
-                    targetAnalysis != "longevity"
-                      ? irResult.annual_income_rider_distribution
-                      : irHistoricalResult.annual_income_rider_distribution
-                  )
-                ) || '$0'
+                $numFormatWithDollar(cards.card1.totalDistribution) || '$0'
               }}</span>
             </p>
             <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
               <span>Longevity</span>
-              <span>{{ irResult.income_rider_longevity }} Years</span>
+              <span>{{ cards.card1.longevity }} Years</span>
             </p>
             <p
               class="cardRadioSwtchpara1 d-flex justify-content-between m-0 text-success"
@@ -61,23 +55,13 @@
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
-                $numFormatWithDollar(
-                  $arraySum(
-                    targetAnalysis != "longevity"
-                      ? irResult.annual_cv_distribution
-                      : irResult.optimization.optimal_distribution
-                  )
-                ) || '$0'
+                $numFormatWithDollar(cards.card2.totalDistribution) || '$0'
               }}</span>
             </p>
             <p class="cardRadioSwtchpara2 d-flex justify-content-between">
               <span>Longevity</span>
               <span
-                >{{
-                  targetAnalysis != "longevity"
-                    ? irResult.cv_longevity
-                    : irResult.year_count
-                }}
+                >{{ cards.card2.longevity }}
                 Years</span
               >
             </p>
@@ -87,16 +71,16 @@
               }}</span>
               <span
                 v-if="
-                  card2_shortfall_surplus || irResult.shortfall_surplus_years
+                  card2_shortfall_surplus || cards.card2.shortfall_surplus_years
                 "
                 :class="card2_shortfall_surplus >= 0 ? 'shortFall' : 'surPlus'"
               >
                 <span
                   v-if="
                     targetAnalysis != 'longevity' &&
-                    irResult.shortfall_surplus_years
+                    cards.card2.shortfall_surplus_years
                   "
-                  >{{ irResult.shortfall_surplus_years }} Years -</span
+                  >{{ cards.card2.shortfall_surplus_years }} Years -</span
                 >
                 {{
                   $numFormatWithDollar(
@@ -126,23 +110,13 @@
             <p class="cardRadioSwtchpara3 d-flex justify-content-between">
               <span>Total Distributions</span>
               <span>{{
-                $numFormatWithDollar(
-                  $arraySum(
-                    targetAnalysis != "longevity"
-                      ? irHistoricalResult.annual_cv_distribution
-                      : irHistoricalResult.optimization.optimal_distribution
-                  )
-                ) || '$0'
+                $numFormatWithDollar(cards.card3.totalDistribution) || '$0'
               }}</span>
             </p>
             <p class="cardRadioSwtchpara3 d-flex justify-content-between">
               <span>Longevity</span>
               <span
-                >{{
-                  targetAnalysis != "longevity"
-                    ? irHistoricalResult.cv_longevity
-                    : irResult.year_count
-                }}
+                >{{ cards.card3.longevity }}
                 Years</span
               >
             </p>
@@ -152,7 +126,7 @@
               }}</span>
               <span
                 v-if="
-                  irHistoricalResult.shortfall_surplus_years ||
+                  cards.card3.shortfall_surplus_years ||
                   card3_shortfall_surplus
                 "
                 :class="card3_shortfall_surplus >= 0 ? 'shortFall' : 'surPlus'"
@@ -160,9 +134,9 @@
                 <span
                   v-if="
                     targetAnalysis != 'longevity' &&
-                    irHistoricalResult.shortfall_surplus_years
+                    cards.card3.shortfall_surplus_years
                   "
-                  >{{ irHistoricalResult.shortfall_surplus_years }} Years - </span
+                  >{{ cards.card3.shortfall_surplus_years }} Years - </span
                 >{{
                   $numFormatWithDollar(
                     card3_shortfall_surplus.toString().replace("-", "")
@@ -188,38 +162,13 @@ export default {
       showResult: (state) => state.incomeRider.view_result,
     }),
     ...mapGetters({
-      irResult: "incomeRider/irResult",
-      irHistoricalResult: "incomeRider/irHistoricalResult",
+      cards: "incomeRider/cards",
     }),
     card2_shortfall_surplus() {
-      if (this.targetAnalysis != "longevity") {
-        return this.irResult.shortfall_surplus_value;
-      } else {
-        return (
-          this.$arraySum(this.irResult.annual_income_rider_distribution) -
-          this.$arraySum(
-            this.targetAnalysis == "income"
-              ? this.irResult.annual_cv_distribution
-              : this.irResult.optimization.optimal_distribution
-          )
-        );
-      }
+      return this.cards.card2["shortfall_surplus"]
     },
     card3_shortfall_surplus() {
-      if (this.targetAnalysis != "longevity") {
-        return this.irHistoricalResult.shortfall_surplus_value;
-      } else {
-        return (
-          this.$arraySum(
-            this.irHistoricalResult.annual_income_rider_distribution
-          ) -
-          this.$arraySum(
-            this.targetAnalysis == "income"
-              ? this.irHistoricalResult.annual_cv_distribution
-              : this.irHistoricalResult.optimization.optimal_distribution
-          )
-        );
-      }
+      return this.cards.card3["shortfall_surplus"]
     },
     cardsVisible() {
       return ['return', 'amount'].includes(this.targetAnalysis)
