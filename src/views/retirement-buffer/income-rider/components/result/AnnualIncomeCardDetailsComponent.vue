@@ -23,15 +23,13 @@
                 <span>Total Distributions</span>
                 <span>
                   {{
-                    $numFormatWithDollar(
-                      $arraySum(targetAnalysis != "longevity" ? irResult.annual_income_rider_distribution : irHistoricalResult.annual_income_rider_distribution)
-                    ) || '$0'
+                    $numFormatWithDollar(this.cards.card1.totalDistribution) || '$0'
                   }}</span
                 >
               </p>
               <p class="cardRadioSwtchpara1 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
-                <span>{{ irResult.income_rider_longevity }} Years</span>
+                <span>{{ this.cards.card1.longevity }} Years</span>
               </p>
               <p
                 class="cardRadioSwtchpara1 d-flex justify-content-between m-0 text-success"
@@ -65,24 +63,12 @@
               </p>
               <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
-                <span>{{
-                  $numFormatWithDollar(
-                    $arraySum(
-                      targetAnalysis != "longevity"
-                        ? irResult.annual_cv_distribution
-                        : irResult.optimization.optimal_distribution
-                    )
-                  ) || '$0'
-                }}</span>
+                <span>{{ $numFormatWithDollar(this.cards.card2.totalDistribution) || '$0' }}</span>
               </p>
               <p class="cardRadioSwtchpara2 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
                 <span
-                  >{{
-                    targetAnalysis != "longevity"
-                      ? irResult.cv_longevity
-                      : irResult.year_count
-                  }}
+                  >{{ this.cards.card2.longevity }}
                   Years</span
                 >
               </p>
@@ -135,23 +121,13 @@
               <p class="cardRadioSwtchpara3 mb-1 d-flex justify-content-between">
                 <span>Total Distributions</span>
                 <span>{{
-                  $numFormatWithDollar(
-                    $arraySum(
-                      targetAnalysis != "longevity"
-                        ? irHistoricalResult.annual_cv_distribution
-                        : irHistoricalResult.optimization.optimal_distribution
-                    )
-                  ) || '$0'
+                  $numFormatWithDollar(this.cards.card3.totalDistribution) || '$0'
                 }}</span>
               </p>
               <p class="cardRadioSwtchpara3 mb-1 d-flex justify-content-between">
                 <span>Longevity</span>
                 <span
-                  >{{
-                    targetAnalysis != "longevity"
-                      ? irHistoricalResult.cv_longevity
-                      : irResult.year_count
-                  }}
+                  >{{ this.cards.card3.longevity }}
                   Years</span
                 >
               </p>
@@ -202,37 +178,14 @@ export default {
     ...mapGetters({
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
+      cards: "incomeRider/cards",
     }),
 
     card2_shortfall_surplus() {
-      if (this.targetAnalysis != "longevity") {
-        return this.irResult.shortfall_surplus_value;
-      } else {
-        return (
-          this.$arraySum(this.irResult.annual_income_rider_distribution) -
-          this.$arraySum(
-            this.targetAnalysis == "income"
-              ? this.irResult.annual_cv_distribution
-              : this.irResult.optimization.optimal_distribution
-          )
-        );
-      }
+        return this.cards.card2["shortfall_surplus"]
     },
     card3_shortfall_surplus() {
-      if (this.targetAnalysis != "longevity") {
-        return this.irHistoricalResult.shortfall_surplus_value;
-      } else {
-        return (
-          this.$arraySum(
-            this.irHistoricalResult.annual_income_rider_distribution
-          ) -
-          this.$arraySum(
-            this.targetAnalysis == "income"
-              ? this.irHistoricalResult.annual_cv_distribution
-              : this.irHistoricalResult.optimization.optimal_distribution
-          )
-        );
-      }
+        return this.cards.card3["shortfall_surplus"]
     },
     cardsVisible() {
         return ['return', 'amount'].includes(this.targetAnalysis)
