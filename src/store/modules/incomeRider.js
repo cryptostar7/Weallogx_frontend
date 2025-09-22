@@ -60,60 +60,67 @@ const getters = {
       ? state.ir_simulation_result.guaranteed
       : state.ir_simulation_result.non_guaranteed;
   },
+
   cards(state, getters) {
 
-    const result = {card1: {}, card2: {}, card3: {}}
+    const cards = {card1: {}, card2: {}, card3: {}}
     const irResult = getters.irResult
     const irHistoricalResult = getters.irHistoricalResult
 
     if (state.target_analysis_type == "amount") {
 
-        result.card1["totalDistribution"] = sum(irResult.annual_income_rider_distribution)
-        result.card1["longevity"] = irResult.income_rider_longevity
+        cards.card1["totalDistribution"] = sum(irResult.annual_income_rider_distribution)
+        cards.card1["longevity"] = irResult.income_rider_longevity
 
-        result.card2["longevity"] = sum([12])
-        result.card2["totalDistribution"] = sum([12])
-        result.card2["shortfall_surplus"] = 12
+        cards.card2["longevity"] = sum([12])
+        cards.card2["totalDistribution"] = sum([12])
+        cards.card2["shortfall_surplus"] = 12
+        cards.card2["shortfall_surplus_years"] = 1
 
-        result.card3["longevity"] = sum([12])
-        result.card3["totalDistribution"] = 12
-        result.card3["shortfall_surplus"] = sum([12])
+        cards.card3["longevity"] = sum([12])
+        cards.card3["totalDistribution"] = 12
+        cards.card3["shortfall_surplus"] = sum([12])
+        cards.card3["shortfall_surplus_years"] = 1
 
 
     } else if(state.target_analysis_type == "longevity") {
 
-        result.card1["totalDistribution"] = sum(irHistoricalResult.annual_income_rider_distribution)
-        result.card1["longevity"] = irResult.income_rider_longevity
+        cards.card1["totalDistribution"] = sum(irHistoricalResult.annual_income_rider_distribution)
+        cards.card1["longevity"] = irResult.income_rider_longevity
 
-        result.card2["longevity"] = irResult.year_count
-        result.card2["totalDistribution"] = sum(irResult.optimization.optimal_distribution)
+        cards.card2["longevity"] = irResult.year_count
+        cards.card2["totalDistribution"] = sum(irResult.optimization.optimal_distribution)
+        cards.card2["shortfall_surplus_years"] = irResult.shortfall_surplus_years
 
-        result.card2["shortfall_surplus"] =
+        cards.card2["shortfall_surplus"] =
             sum(irResult.annual_income_rider_distribution) -
             sum(irResult.optimization.optimal_distribution)
         
-        result.card3["totalDistribution"] = sum(irHistoricalResult.optimization.optimal_distribution)
-        result.card3["longevity"] = irResult.year_count
+        cards.card3["totalDistribution"] = sum(irHistoricalResult.optimization.optimal_distribution)
+        cards.card3["longevity"] = irResult.year_count
+        cards.card3["shortfall_surplus_years"] = irHistoricalResult.shortfall_surplus_years
 
-        result.card3["shortfall_surplus"] =
+        cards.card3["shortfall_surplus"] =
             sum(irHistoricalResult.annual_income_rider_distribution) -
             sum(irHistoricalResult.optimization.optimal_distribution)
 
     } else {
 
-        result.card1["totalDistribution"] = sum(irResult.annual_income_rider_distribution)
-        result.card1["longevity"] = irResult.income_rider_longevity
+        cards.card1["totalDistribution"] = sum(irResult.annual_income_rider_distribution)
+        cards.card1["longevity"] = irResult.income_rider_longevity
 
-        result.card2["totalDistribution"] = sum(irResult.annual_cv_distribution)
-        result.card2["longevity"] = irResult.cv_longevity
-        result.card2["shortfall_surplus"] = irResult.shortfall_surplus_value
+        cards.card2["totalDistribution"] = sum(irResult.annual_cv_distribution)
+        cards.card2["longevity"] = irResult.cv_longevity
+        cards.card2["shortfall_surplus_years"] = irResult.shortfall_surplus_years
+        cards.card2["shortfall_surplus"] = irResult.shortfall_surplus_value
 
-        result.card3["totalDistribution"] = sum(irHistoricalResult.annual_cv_distribution)
-        result.card3["longevity"] = irHistoricalResult.cv_longevity
-        result.card3["shortfall_surplus"] = irHistoricalResult.shortfall_surplus_value
+        cards.card3["totalDistribution"] = sum(irHistoricalResult.annual_cv_distribution)
+        cards.card3["longevity"] = irHistoricalResult.cv_longevity
+        cards.card3["shortfall_surplus_years"] = irHistoricalResult.shortfall_surplus_years
+        cards.card3["shortfall_surplus"] = irHistoricalResult.shortfall_surplus_value
     }
 
-    return result
+    return cards
   },
 };
 
