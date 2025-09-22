@@ -146,61 +146,7 @@ import CircularProgressBar from "../../../../../assets/js/retirement-buffer/circ
 
 export default {
 
-  data() {
-    return {
-      yearCount: 0,
-      direction: "increase",
-      historicalDirection: "increase",
-      barHeight: 0,
-      bottomOptimalBarHeight: 0,
-      optimalBarHeight: 0,
-      bottomOptimalHistoricalBarHeight: 0,
-      optimalHistoricalBarHeight: 0,
-      labelPosition: 0,
-      isLabelAbove: false,
-      historicalLabelPosition: 0,
-      isHistoricalLabelAbove: false,
-    };
-  },
-
-  mounted() {
-    this.updateParameters()
-  },
-
-  updated() {
-    this.updateParameters()
-  },
-
   methods: {
-
-    updateParameters() {
-
-      this.yearCount = this.inputs.plan_through_age - this.inputs.current_age + 1
-
-      this.direction = this.optimalBalanceDirection(this.irResult)
-      this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
-
-      this.barHeight = this.balanceBarHeight()
-      this.optimalBarHeight = this.optimalBalanceBarHeight(this.irResult)
-      this.optimalHistoricalBarHeight = this.optimalBalanceBarHeight(this.irHistoricalResult)
-
-      if (this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9) {
-        this.labelPosition = this.optimalBarHeight
-        this.isLabelAbove = true
-      } else {
-        this.labelPosition = Math.min(this.barHeight, this.optimalBarHeight)
-        this.isLabelAbove = false
-      }
-
-      if (this.optimalHistoricalBarHeight > this.barHeight &&
-          this.optimalHistoricalBarHeight - this.barHeight < 9) {
-        this.historicalLabelPosition = this.optimalHistoricalBarHeight
-        this.isHistoricalLabelAbove = true
-      } else {
-        this.historicalLabelPosition = Math.min(this.barHeight, this.optimalHistoricalBarHeight)
-        this.isHistoricalLabelAbove = false
-      }
-    },
 
     optimalBalanceDirection(result) {
       const balance = Number(this.inputs.total_balance);
@@ -252,6 +198,38 @@ export default {
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
     }),
+
+    yearCount() {return this.inputs.plan_through_age - this.inputs.current_age + 1},
+    direction() {return this.optimalBalanceDirection(this.irResult)},
+    historicalDirection() {return this.optimalBalanceDirection(this.irHistoricalResult)},
+    barHeight() {return this.balanceBarHeight()},
+    optimalBarHeight() {return this.optimalBalanceBarHeight(this.irResult)},
+    optimalHistoricalBarHeight() {return this.optimalBalanceBarHeight(this.irHistoricalResult)},
+
+    isLabelAbove() {
+      return this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9
+    },
+
+    labelPosition() {
+      if (this.isLabelAbove) {
+        return this.optimalBarHeight
+      } else {
+        return Math.min(this.barHeight, this.optimalBarHeight)
+      }
+    },
+
+    isHistoricalLabelAbove() {
+      return this.optimalHistoricalBarHeight > this.barHeight &&
+             this.optimalHistoricalBarHeight - this.barHeight < 9
+    },
+
+    historicalLabelPosition() {
+      if (this.isHistoricalLabelAbove) {
+        return this.optimalHistoricalBarHeight
+      } else {
+        return Math.min(this.barHeight, this.optimalHistoricalBarHeight)
+      }
+    },
   },
 };
 </script>
