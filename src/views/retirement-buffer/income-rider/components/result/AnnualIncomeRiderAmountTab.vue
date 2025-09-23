@@ -1,6 +1,5 @@
 <template lang>
   <div class="row mt-5" id="target-analysis-amount-tab">
-
     <div class="col-md-6">
       <div class="target-analysis-bar-main-div">
         <div class="d-flex flex-column">
@@ -42,7 +41,7 @@
                 ]"
                 :style="`bottom: ${labelPosition}%`">
                 <p>
-                  <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(irResult)}}</span>
+                  <span class="bigBarNumberJsCls2">{{optimalBalanceDifferenceFormatted(optimization)}}</span>
                 </p>
               </div>                
 
@@ -60,7 +59,9 @@
             The required beginning balance for the {{ inputs.comparative_vehicle_account_name }}
             earning a flat {{ $percentFormat(inputs.growth_rate || 0) }}%
             to match the {{ inputs.income_rider_account_name }}'s income production is
-            {{ $numFormatWithDollar(irResult.optimization.optimal_beginning_balance) }}.
+            <span>{{
+              $numFormatWithDollar(optimization.optimal_beginning_balance)
+            }}</span>.
           </p>
         </div>
       </div>
@@ -108,7 +109,7 @@
                 :style="`bottom: ${historicalLabelPosition}%`">
                 <p>
                   <span class="bigBarNumberJsCls2"
-                    >{{optimalBalanceDifferenceFormatted(irHistoricalResult)}}</span
+                    >{{optimalBalanceDifferenceFormatted(historicalOptimization)}}</span
                   >
                 </p>
               </div>                
@@ -125,10 +126,12 @@
           </div>
           <p class="bar-long-para">
             The required beginning balance for the {{ inputs.comparative_vehicle_account_name }}
-            using historical returns for the last [number of years]
+            using historical returns for the last {{yearCount}}
             years to match the {{ inputs.income_rider_account_name }}'s
             income production is
-            {{ $numFormatWithDollar(irHistoricalResult.optimization.optimal_beginning_balance) }}.
+            <span>{{
+              $numFormatWithDollar(historicalOptimization.optimal_beginning_balance)
+            }}</span>.
           </p>
         </div>
       </div>
@@ -142,62 +145,11 @@ import CircularProgressBar from "../../../../../assets/js/retirement-buffer/circ
 
 export default {
 
-  data() {
-    return {
-      direction: "increase",
-      historicalDirection: "increase",
-      barHeight: 0,
-      bottomOptimalBarHeight: 0,
-      optimalBarHeight: 0,
-      bottomOptimalHistoricalBarHeight: 0,
-      optimalHistoricalBarHeight: 0,
-      labelPosition: 0,
-      isLabelAbove: false,
-      historicalLabelPosition: 0,
-      isHistoricalLabelAbove: false,
-    };
-  },
-
-  mounted() {
-    this.updateParameters()
-  },
-
-  updated() {
-    this.updateParameters()
-  },
-
   methods: {
 
-    updateParameters() {
-
-      this.direction = this.optimalBalanceDirection(this.irResult)
-      this.historicalDirection = this.optimalBalanceDirection(this.irHistoricalResult)
-
-      this.barHeight = this.balanceBarHeight()
-      this.optimalBarHeight = this.optimalBalanceBarHeight(this.irResult)
-      this.optimalHistoricalBarHeight = this.optimalBalanceBarHeight(this.irHistoricalResult)
-
-      if (this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9) {
-        this.labelPosition = this.optimalBarHeight
-        this.isLabelAbove = true
-      } else {
-        this.labelPosition = Math.min(this.barHeight, this.optimalBarHeight)
-        this.isLabelAbove = false
-      }
-
-      if (this.optimalHistoricalBarHeight > this.barHeight &&
-          this.optimalHistoricalBarHeight - this.barHeight < 9) {
-        this.historicalLabelPosition = this.optimalHistoricalBarHeight
-        this.isHistoricalLabelAbove = true
-      } else {
-        this.historicalLabelPosition = Math.min(this.barHeight, this.optimalHistoricalBarHeight)
-        this.isHistoricalLabelAbove = false
-      }
-    },
-
-    optimalBalanceDirection(result) {
+    optimalBalanceDirection(optimization) {
       const balance = Number(this.inputs.total_balance);
-      const optimalBalance = Number(result.optimization.optimal_beginning_balance);
+      const optimalBalance = Number(optimization.optimal_beginning_balance);
       return balance < optimalBalance ? "increase" : "decrease"
     },
 
@@ -211,27 +163,27 @@ export default {
       }
     },
 
-    optimalBalanceBarHeight(result) {
+    optimalBalanceBarHeight(optimization) {
       const balance = Number(this.inputs.total_balance);
       const maxBalance = this.maxBalance()
-      const height = 100 * result.optimization.optimal_beginning_balance / maxBalance
+      const height = 100 * optimization.optimal_beginning_balance / maxBalance
       return height
     },
 
     maxBalance() {
       return Math.max(
         Number(this.inputs.total_balance),
-        Number(this.irResult.optimization.optimal_beginning_balance),
-        Number(this.irHistoricalResult.optimization.optimal_beginning_balance)
+        Number(this.optimization.optimal_beginning_balance),
+        Number(this.historicalOptimization.optimal_beginning_balance)
       );
     },
 
-    optimalBalanceDifference(result) {
-      return result.optimization.optimal_beginning_balance - this.inputs.total_balance
+    optimalBalanceDifference(optimization) {
+      return optimization.optimal_beginning_balance - this.inputs.total_balance
     },
 
-    optimalBalanceDifferenceFormatted(result) {
-      const difference = this.optimalBalanceDifference(result)
+    optimalBalanceDifferenceFormatted(optimization) {
+      const difference = this.optimalBalanceDifference(optimization)
       const sign = difference < 0 ? '' : '+'
       return `${sign}${this.$numFormatWithDollar(difference)}`
     },
@@ -245,6 +197,45 @@ export default {
       irResult: "incomeRider/irResult",
       irHistoricalResult: "incomeRider/irHistoricalResult",
     }),
+
+    yearCount() {return this.inputs.plan_through_age - this.inputs.current_age + 1},
+    direction() {return this.optimalBalanceDirection(this.optimization)},
+    historicalDirection() {return this.optimalBalanceDirection(this.historicalOptimization)},
+    barHeight() {return this.balanceBarHeight()},
+    optimalBarHeight() {return this.optimalBalanceBarHeight(this.optimization)},
+    optimalHistoricalBarHeight() {return this.optimalBalanceBarHeight(this.historicalOptimization)},
+
+    isLabelAbove() {
+      return this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9
+    },
+
+    labelPosition() {
+      if (this.isLabelAbove) {
+        return this.optimalBarHeight
+      } else {
+        return Math.min(this.barHeight, this.optimalBarHeight)
+      }
+    },
+
+    isHistoricalLabelAbove() {
+      return this.optimalHistoricalBarHeight > this.barHeight &&
+             this.optimalHistoricalBarHeight - this.barHeight < 9
+    },
+
+    historicalLabelPosition() {
+      if (this.isHistoricalLabelAbove) {
+        return this.optimalHistoricalBarHeight
+      } else {
+        return Math.min(this.barHeight, this.optimalHistoricalBarHeight)
+      }
+    },
+
+    optimization() {
+        return this.irResult.optimization.beginning_balance
+    },
+    historicalOptimization() {
+        return this.irHistoricalResult.optimization.beginning_balance
+    },
   },
 };
 </script>
