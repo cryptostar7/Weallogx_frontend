@@ -232,40 +232,42 @@ export default {
   props: ["beginningBalance", "summary", "taxRate", "equalizeRisk"],
   data() {
     return {
-      averageReturn: "",
-      netAverageReturn: "",
-      actualReturn: "",
-      netActualReturn: "",
       expandAverageReturn: false,
       expandActualReturn: false,
     };
   },
-  mounted() {
-    this.updateEqualizedRisk()
-  },
-  watch: {
-    equalizeRisk(newValue, oldValue) {
-      this.updateEqualizedRisk()
-    },
-  },
+
   methods: {
-    updateEqualizedRisk() {
-      const summary = this.equalizeRisk ? this.$props.summary.equalized_risk : this.$props.summary
-      this.averageReturn = (summary.average_return * 100).toFixed(2)
-      this.netAverageReturn = (summary.net_average_return * 100).toFixed(2)
-      this.actualReturn = (summary.actual_return * 100).toFixed(2)
-      this.netActualReturn = (summary.net_actual_return * 100).toFixed(2)
-      this.standardDeviation = (summary.standard_deviation * 100).toFixed(2)
-    },
     toggleAverageReturnSection() {
       this.expandAverageReturn = !this.expandAverageReturn
     },
     toggleActualReturnSection() {
       this.expandActualReturn = !this.expandActualReturn
     }
-  }
+  },
+
+  computed: {
+    summaryData() {
+      return this.equalizeRisk
+          ? this.$props.summary.equalized_risk
+          : this.$props.summary
+    },
+    averageReturn() {
+      return (this.summaryData.average_return * 100).toFixed(2)
+    },
+    netAverageReturn() {
+      return (this.summaryData.net_average_return * 100).toFixed(2)
+    },
+    actualReturn() {
+      return (this.summaryData.actual_return * 100).toFixed(2)
+    },
+    netActualReturn() {
+      return (this.summaryData.net_actual_return * 100).toFixed(2)
+    },
+    standardDeviation() {
+      return (this.summaryData.standard_deviation * 100).toFixed(2)
+    },
+  },
 };
 </script>
 <style lang=""></style>
-
-
