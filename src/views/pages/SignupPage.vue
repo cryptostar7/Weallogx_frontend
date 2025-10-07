@@ -28,14 +28,27 @@
                   </div>
                   <div class="auth-form">
                     <!-- <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label> -->
-                    <input 
-                      type="text" 
-                      id="lastName" 
-                      v-model="user.last_name" 
-                      autocomplete="off" 
+                    <input
+                      type="text"
+                      id="lastName"
+                      v-model="user.last_name"
+                      autocomplete="off"
                       :placeholder="user.last_name ? user.last_name : 'Last Name'"
                     />
                   </div>
+                </div>
+                <div>
+                  <div class="auth-form">
+                    <input
+                      type="text"
+                      id="company_name"
+                      v-model="user.company_name"
+                      autocomplete="off"
+                      :placeholder="user.company_name ? user.company_name : 'Company Name'"
+                    />
+                  </div>
+                  <label class="error fs-14 d-block text-center" v-if="user.company_name === ''">*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.company_name && errors.company_name[0]">{{errors.company_name[0]}}</label>
                 </div>
                 <div>
                   <div class="auth-form">
@@ -156,6 +169,7 @@ export default {
       user: {
         first_name: null,
         last_name: "",
+        company_name: null,
         email: null,
         phone_number: null,
         password: null,
@@ -207,6 +221,11 @@ export default {
       let valid = true;
       if (!this.user.first_name) {
         this.user.first_name = "";
+        valid = false;
+      }
+
+      if (!this.user.company_name) {
+        this.user.company_name = "";
         valid = false;
       }
 
