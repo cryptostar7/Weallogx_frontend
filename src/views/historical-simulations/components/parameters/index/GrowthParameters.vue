@@ -107,26 +107,46 @@ export default {
       let rolling = this.$props.rollingTime || 30;
       const currentYear = new Date().getFullYear();
       const earliestRequiredYear = currentYear - rolling;
-      
-      const filtered = config.INDEX_STRATEGIES.filter(item => {
+
+      // Map all indexes with disabled status and reason
+      const allIndexes = config.INDEX_STRATEGIES.map(item => {
+        let disabled = false;
+        let disabledReason = '';
+
         // Check max_limit (rolling time period limit)
-        if (item.max_limit < rolling) return false;
-        
+        if (item.max_limit < rolling) {
+          disabled = true;
+          disabledReason = `Requires ${item.max_limit} year or shorter rolling period`;
+        }
+
         // Check if we have enough historical data for this rolling period
         const iscConfig = config.ISC_INDEX_STRATEGIES.find(isc => isc.template_name === item.template_name);
         if (iscConfig && earliestRequiredYear < iscConfig.max_year) {
-          return false;
+          disabled = true;
+          disabledReason = `Historical data only available from ${iscConfig.max_year}`;
         }
-        
-        return true;
-      }) || [];
-      
+
+        return {
+          ...item,
+          disabled,
+          disabledReason
+        };
+      });
+
+      // Sort all indexes alphabetically by template_name
+      const sortedIndexes = allIndexes.sort((a, b) =>
+        a.template_name.localeCompare(b.template_name)
+      );
+
+      // Get compatible indexes for selection validation
+      const compatible = sortedIndexes.filter(item => !item.disabled);
+
       // Update selectedIndex if needed when list changes
       this.$nextTick(() => {
-        this.updateSelectedIndexForNewList(filtered);
+        this.updateSelectedIndexForNewList(compatible);
       });
-      
-      return filtered;
+
+      return sortedIndexes;
     },
   },
   mounted() {
