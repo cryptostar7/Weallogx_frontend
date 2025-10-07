@@ -27,7 +27,7 @@
                     }}
                   </p>
                 </div>
-                <div>
+                <div class="d-flex gap-2">
                   <router-link
                     to="/edit-profile"
                     class="paymentCardEditButton2"
@@ -44,7 +44,13 @@
                         fill="#333333"
                       />
                     </svg>
-                    Edit</router-link
+                    Edit Profile</router-link
+                  >
+                  <router-link
+                    to="/change-password"
+                    class="paymentCardEditButton2"
+                  >
+                    Change Password</router-link
                   >
                 </div>
               </div>
