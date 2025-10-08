@@ -14,8 +14,8 @@ if [ -d "/usr/share/nginx/html/assets" ]; then
         if [ -f "$file" ]; then
             # Replace VITE environment variables at runtime
             sed -i "s|__VITE_STRIPE_PUBLISHABLE_KEY__|${VITE_STRIPE_PUBLISHABLE_KEY:-}|g" "$file"
-            sed -i "s|__VITE_MONTHLY_PLAN__|${MONTHLY_PLAN:-}|g" "$file"
-            sed -i "s|__VITE_YEARLY_PLAN__|${YEARLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_MONTHLY_PLAN__|${VITE_MONTHLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_YEARLY_PLAN__|${VITE_YEARLY_PLAN:-}|g" "$file"
         fi
     done
     echo "Environment variable replacement completed."
