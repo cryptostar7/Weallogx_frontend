@@ -9,7 +9,7 @@
           <div class="d-flex flex-column">
             <div class="w-100 payment-right-card-main-div dashBoardRightDiv">
               <div class="tutorials-header">
-                <h1>Tutorials</h1>
+                <h1>Walkthroughs</h1>
               </div>
 
               <div class="tutorials-grid">
