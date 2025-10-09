@@ -110,7 +110,7 @@
               </g>
             </svg>
           </div>
-          <p>Tutorials</p>
+          <p>Walkthroughs</p>
         </div>
       </div>
     </router-link>
