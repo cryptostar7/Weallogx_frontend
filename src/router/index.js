@@ -106,6 +106,11 @@ const router = createRouter({
       component: () => import("../views/pages/ProfileDetailsPage.vue"),
     },
     {
+      path: "/tutorials",
+      name: "tutorials",
+      component: () => import("../views/pages/TutorialsPage.vue"),
+    },
+    {
       path: "/pricing",
       name: "pricing",
       component: () => import("../views/pages/PricingPage.vue"),
@@ -299,6 +304,7 @@ const router = createRouter({
 
 const authRoutes = [
   'profile-details',
+  'tutorials',
   'edit-profile',
   'edit-payment-method',
   'payment-history',

@@ -9,15 +9,27 @@
             <div class="right-area-wrapper pt-0 pb-5">
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div">
-                  <div class="index-strategy-head-div">
-                    <h1>Index Strategy Calculator</h1>
-                    <a href="#" class="back d-none"
-                      ><img
-                        src="@/assets/images/icons/back-small.svg"
-                        alt="Back"
-                      />
-                      Back to Parameters Screen</a
-                    >
+                  <div class="index-strategy-head-div" style="position: relative; display: flex; justify-content: center; align-items: center;">
+                    <h1 style="margin: 0; text-align: center;">Index Strategy Calculator</h1>
+                    <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);" class="d-flex align-items-center gap-3">
+                      <div class="run-reset-btn-div" style="margin: 0; margin-right: 15px;">
+                        <a
+                          href="javascript:void(0)"
+                          @click="showVideoModal = true"
+                          class="run-button"
+                          style="margin: 0; padding-left: 25px; padding-right: 25px;"
+                        >
+                          Walkthrough
+                        </a>
+                      </div>
+                      <a href="#" class="back d-none"
+                        ><img
+                          src="@/assets/images/icons/back-small.svg"
+                          alt="Back"
+                        />
+                        Back to Parameters Screen</a
+                      >
+                    </div>
                   </div>
                   <!-- Main section start -->
                   <index-strategy-calculator-main-component />
@@ -29,6 +41,41 @@
         </main>
       </div>
     </section>
+
+    <!-- Video Walkthrough Modal -->
+    <div
+      v-if="showVideoModal"
+      class="modal fade show d-block"
+      tabindex="-1"
+      style="background-color: rgba(0, 0, 0, 0.8)"
+      @click.self="showVideoModal = false"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Index Strategy Calculator Walkthrough</h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="showVideoModal = false"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe
+                src="https://www.loom.com/embed/424bdfbf478043e89845ce77ece619cd?sid=33827da9-9425-4fbe-a221-8bd2bdb2407b"
+                frameborder="0"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -40,6 +87,11 @@ export default {
     NavbarComponent,
     LeftSidebarComponent,
     IndexStrategyCalculatorMainComponent,
+  },
+  data() {
+    return {
+      showVideoModal: false,
+    };
   },
 };
 </script>

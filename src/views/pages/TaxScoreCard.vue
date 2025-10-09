@@ -10,8 +10,20 @@
                     <!-- Inner Content Area Start -->
                     <section class="strategy-calc-main-section mt-3 pt-4">
                         <div class="strategy-calc-main-div shadow-none">
-                          <div class="index-strategy-head-div tax-scorcard">
-                              <h1>Tax Scorecard</h1>
+                          <div class="index-strategy-head-div tax-scorcard" style="position: relative; display: flex; justify-content: center; align-items: center;">
+                              <h1 style="margin: 0; text-align: center;">Tax Scorecard</h1>
+                              <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);" class="d-flex align-items-center gap-3">
+                                <div class="run-reset-btn-div" style="margin: 0; margin-right: 15px;">
+                                  <a
+                                    href="javascript:void(0)"
+                                    @click="showVideoModal = true"
+                                    class="run-button"
+                                    style="margin: 0; padding-left: 25px; padding-right: 25px;"
+                                  >
+                                    Walkthrough
+                                  </a>
+                                </div>
+                              </div>
                           </div>
                           <div class="index-strategy-content-div">
                             <div class="index-strategy-content-inner-div withBoxShadow">
@@ -32,6 +44,41 @@
           </main>
       </div>
     </section>
+
+    <!-- Video Walkthrough Modal -->
+    <div
+      v-if="showVideoModal"
+      class="modal fade show d-block"
+      tabindex="-1"
+      style="background-color: rgba(0, 0, 0, 0.8)"
+      @click.self="showVideoModal = false"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tax Scorecard Walkthrough</h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="showVideoModal = false"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe
+                src="https://www.loom.com/embed/1e4cf0a97ac24cdca865349c645f3865?sid=1ac44a27-646a-4ef7-89b4-8295cd9e13db"
+                frameborder="0"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,6 +97,12 @@ export default {
     LeftSidebarComponent,
     TaxScoreCardComponent,
     TaxScoreCardFormButtons
+  },
+
+  data() {
+    return {
+      showVideoModal: false,
+    };
   },
 
   computed: {
