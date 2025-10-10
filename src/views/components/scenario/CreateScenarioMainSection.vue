@@ -572,10 +572,55 @@
         </div>
       </div>
     </div>
+
+    <!-- Years Increase Warning Modal -->
+    <div
+      v-if="showYearsIncreaseModal"
+      class="modal fade show d-block"
+      tabindex="-1"
+      style="background-color: rgba(0, 0, 0, 0.5)"
+      @click.self="closeYearsModal"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Years to Illustrate Increased</h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="closeYearsModal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              You have chosen to illustrate more years of data than are currently available.
+              You will have to reupload your illustration data on the next page.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="nav-link btn return-to-report-btn fs-14"
+              @click="revertYearsChange"
+            >
+              Revert to Previous Value
+            </button>
+            <button
+              type="button"
+              class="nav-link btn form-next-btn active fs-14"
+              @click="agreeAndProceed"
+            >
+              Agree and Keep Change
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 <script>
-import { get, patch, post, put } from "./../../../network/requests";
+import { get, patch, post, put, remove } from "./../../../network/requests";
 import { getUrl } from "./../../../network/url";
 import ScenarioLabelComponent from "../common/ScenarioLabelComponent.vue";
 import ScheduleCsvExtraction from "../common/ScheduleCsvExtraction.vue";
@@ -617,6 +662,7 @@ export default {
       saveDetailsTemplate: false,
       isValidScheduleData: false,
       illustrateYear: "",
+      originalYearsToIllustrate: 0,
       firstTaxRate: "",
       secondTaxRate: "",
       secondTaxRateYear: "",
@@ -627,6 +673,8 @@ export default {
       scheduleTaxRate: [],
       errors: [],
       reportId: "",
+      showYearsIncreaseModal: false,
+      pendingNavigationData: null,
     };
   },
   mounted() {
@@ -908,6 +956,7 @@ export default {
       this.errors.client_age_year = false;
 
       this.illustrateYear = detail.years_to_illustrate;
+      this.originalYearsToIllustrate = detail.years_to_illustrate;
       this.setInputWithId("illustratedAge", detail.years_to_illustrate);
 
       this.simpleTaxRate = !detail.schedule_tax_rate_checkbox;
@@ -1320,6 +1369,15 @@ export default {
 
     // update previous secnario detail data
     updateScenarioDetail: function (data, review, report) {
+      // Check if years to illustrate has increased (only for existing scenarios with illustration data)
+      if (this.originalYearsToIllustrate > 0 &&
+          Number(data.years_to_illustrate) > Number(this.originalYearsToIllustrate)) {
+        this.pendingNavigationData = { data, review, report };
+        this.showYearsIncreaseModal = true;
+        this.$store.dispatch("loader", false);
+        return;
+      }
+
       put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
         .then((response) => {
           let currentScenario = this.activeScenario;
@@ -1415,6 +1473,129 @@ export default {
     clearScheduleTemplate: function () {
       if (this.existingScenarioScheduleName) {
         this.scheduleTemplateInput = 1;
+      }
+    },
+
+    // Modal handler methods for years increase warning
+    closeYearsModal: function () {
+      this.showYearsIncreaseModal = false;
+      this.pendingNavigationData = null;
+    },
+
+    revertYearsChange: function () {
+      // Revert to original value
+      this.illustrateYear = this.originalYearsToIllustrate;
+      this.setInputWithId("illustratedAge", this.originalYearsToIllustrate);
+      this.showYearsIncreaseModal = false;
+      this.pendingNavigationData = null;
+    },
+
+    agreeAndProceed: async function () {
+      // User agreed to proceed with increased years
+      this.showYearsIncreaseModal = false;
+
+      if (this.pendingNavigationData) {
+        const { data, review, report } = this.pendingNavigationData;
+
+        // Update original years to new value to prevent modal on subsequent navigation
+        this.originalYearsToIllustrate = data.years_to_illustrate;
+
+        // Show loader while we handle deletion
+        this.$store.dispatch("loader", true);
+
+        // Debug logging
+        console.log("Active Scenario:", this.activeScenario);
+        console.log("Illustration ID:", this.activeScenario ? this.activeScenario.illustration : "No active scenario");
+
+        // Check if there's existing illustration table data that needs to be cleared
+        if (this.activeScenario && this.activeScenario.illustration) {
+          try {
+            // Clear ONLY the table data (illustration_data field), keep header info like company, policy, etc.
+            await patch(`${getUrl("illustration")}${this.activeScenario.illustration}/`,
+              { illustration_data: null },
+              {
+                headers: {
+                  ...authHeader().headers,
+                  'Content-Type': 'application/json'
+                }
+              }
+            );
+
+            this.$toast.success("Previous illustration table data cleared");
+          } catch (error) {
+            console.error("Error clearing illustration table:", error);
+            this.$toast.warning("Could not clear previous illustration table data");
+            // Continue anyway - user can still upload new data
+          }
+        }
+
+        this.pendingNavigationData = null;
+
+        // Now actually perform the update
+        put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
+          .then((response) => {
+            let currentScenario = this.activeScenario;
+            setScenarioStep1(response.data.data);
+            this.saveClientAge();
+            this.$toast.success(response.data.message);
+            this.$store.dispatch("loader", false);
+            let url = `/illustration-data/${currentScenario.id}`;
+
+            if (review) {
+              return this.$router.push(`/review-summary/${currentScenario.id}`);
+            }
+
+            if (report) {
+              window.location.href = `/report-builder/${this.reportId}`;
+            }
+
+            if (
+              currentScenario.scenerio_details &&
+              currentScenario.scenerio_details.years_to_illustrate
+            ) {
+              currentScenario.scenerio_details.years_to_illustrate = Number(
+                data.years_to_illustrate
+              );
+              this.$store.dispatch("activeScenario", currentScenario);
+              setCurrentScenario(currentScenario);
+            }
+
+            if (currentScenario.id) {
+              this.$router.push({
+                path: url,
+                query: this.$route.query,
+              });
+            } else {
+              this.$toast.error("Something went wrong. Please try again.");
+            }
+          })
+          .catch((error) => {
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              var serverErrors = getServerErrors(error);
+              this.errors = serverErrors;
+              this.errors.scenario_name = serverErrors.name;
+              this.errors.client_age_year =
+                serverErrors.client_age_1_year_illustration;
+              this.errors.illustrate_year = serverErrors.years_to_illustrate;
+              this.errors.first_tax = serverErrors.first_tax_rate;
+              this.errors.second_tax = serverErrors.second_tax_rate;
+              this.errors.second_tax_year = serverErrors.second_tax_rate_year;
+              this.errors.details_template = serverErrors.template_name;
+              this.errors.description = serverErrors.description;
+              if (
+                this.errors.schedule_tax_rate &&
+                this.errors.schedule_tax_rate.error
+              ) {
+                this.$toast.error(this.errors.schedule_tax_rate.error[0]);
+              }
+            }
+          });
       }
     },
   },

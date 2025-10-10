@@ -266,10 +266,54 @@
         </div>
       </div>
     </div>
+
+    <!-- Years Increase Warning Modal -->
+    <div
+      v-if="showYearsIncreaseModal"
+      class="modal fade show d-block"
+      tabindex="-1"
+      style="background-color: rgba(0, 0, 0, 0.5)"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Illustration Data Required</h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="closeYearsModal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              You have chosen to illustrate more years of data than are currently available.
+              You will need to re-upload your illustration data on the next page.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="nav-link btn return-to-report-btn fs-14"
+              @click="revertYearsChange"
+            >
+              Revert to Previous Value
+            </button>
+            <button
+              type="button"
+              class="nav-link btn form-next-btn active fs-14"
+              @click="agreeAndProceed"
+            >
+              Agree and Keep Change
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 <script>
-import { get, patch, post, put } from "../../../../network/requests";
+import { get, patch, post, put, remove } from "../../../../network/requests";
 import { getUrl } from "../../../../network/url";
 import HistoricalSimulationLabelComponent from "../../../components/common/HistoricalSimulationLabelComponent.vue";
 import HistoricalSimulationSteps from "../../../components/common/HistoricalSimulationSteps.vue";
@@ -304,11 +348,14 @@ export default {
       clientAgeYearToIllustrate: "",
       saveDetailsTemplate: false,
       illustrateYear: "",
+      originalYearsToIllustrate: 0,
       taxRate: "",
       detailsTemplate: "",
       detailTemplateInput: 0,
       errors: [],
       reportId: "",
+      showYearsIncreaseModal: false,
+      pendingNavigationData: null,
     };
   },
   mounted() {
@@ -560,6 +607,7 @@ export default {
       this.errors.client_age_year = false;
 
       this.illustrateYear = detail.years_to_illustrate;
+      this.originalYearsToIllustrate = detail.years_to_illustrate;
       this.setInputWithId(
         "illustratedSimulationAge",
         detail.years_to_illustrate
@@ -818,6 +866,15 @@ export default {
 
     // update previous secnario detail data
     updateSimulationDetail: function (data, review, report) {
+      // Check if years to illustrate has increased (only for existing simulations with illustration data)
+      if (this.originalYearsToIllustrate > 0 &&
+          Number(data.years_to_illustrate) > Number(this.originalYearsToIllustrate)) {
+        this.pendingNavigationData = { data, review, report };
+        this.showYearsIncreaseModal = true;
+        this.$store.dispatch("loader", false);
+        return;
+      }
+
       put(
         `${getUrl("simulation-details")}${this.detailId}/`,
         data,
@@ -850,7 +907,6 @@ export default {
             setCurrentSimulation(currentSimulation);
           }
 
-          
           if (currentSimulation.id) {
             this.$router.push({
               path: url,
@@ -916,6 +972,125 @@ export default {
       return false;
       if (this.existingSimulationDetailName) {
         this.detailTemplateInput = 1;
+      }
+    },
+
+    // Modal handler: Close modal
+    closeYearsModal: function () {
+      this.showYearsIncreaseModal = false;
+      this.pendingNavigationData = null;
+    },
+
+    // Modal handler: Revert years to original value
+    revertYearsChange: function () {
+      this.illustrateYear = this.originalYearsToIllustrate;
+      this.setInputWithId("illustratedSimulationAge", this.originalYearsToIllustrate);
+      this.showYearsIncreaseModal = false;
+      this.pendingNavigationData = null;
+      this.$toast.info("Years to illustrate reverted to original value");
+    },
+
+    // Modal handler: Proceed with increased years (will need to re-upload PDF)
+    agreeAndProceed: async function () {
+      this.showYearsIncreaseModal = false;
+
+      if (this.pendingNavigationData) {
+        const { data, review, report } = this.pendingNavigationData;
+
+        // Update original years to new value to prevent modal on subsequent navigation
+        this.originalYearsToIllustrate = data.years_to_illustrate;
+
+        // Show loader while we handle deletion
+        this.$store.dispatch("loader", true);
+
+        // Debug logging
+        console.log("Active Simulation:", this.activeSimulation);
+        console.log("Illustration ID:", this.activeSimulation ? this.activeSimulation.illustration : "No active simulation");
+
+        // Check if there's existing illustration table data that needs to be cleared
+        if (this.activeSimulation && this.activeSimulation.illustration) {
+          try {
+            // Clear ONLY the table data (illustration_data field), keep header info like company, policy, etc.
+            await patch(`${getUrl("illustration")}${this.activeSimulation.illustration}/`,
+              { illustration_data: null },
+              {
+                headers: {
+                  ...authHeader().headers,
+                  'Content-Type': 'application/json'
+                }
+              }
+            );
+
+            this.$toast.success("Previous illustration table data cleared");
+          } catch (error) {
+            console.error("Error clearing illustration table:", error);
+            this.$toast.warning("Could not clear previous illustration table data");
+            // Continue anyway - user can still upload new data
+          }
+        }
+
+        this.pendingNavigationData = null;
+
+        // Now actually perform the update
+        put(`${getUrl("simulation-details")}${this.detailId}/`, data, authHeader())
+          .then((response) => {
+            setSimulationStep1(response.data.data);
+            let currentSimulation = this.activeSimulation;
+            this.saveClientAge();
+            this.$toast.success(response.data.message);
+            this.$store.dispatch("loader", false);
+            let url = `/historical/illustration-data/${currentSimulation.id}`;
+
+            if (review) {
+              return this.$router.push(
+                `/historical/simulation-review/${currentSimulation.id}`
+              );
+            }
+
+            if (report) {
+              window.location.href = `/historical/report-builder/${this.reportId}`;
+            }
+
+            if (
+              currentSimulation.simulation_details &&
+              currentSimulation.simulation_details.years_to_illustrate
+            ) {
+              currentSimulation.simulation_details.years_to_illustrate =
+                Number(data.years_to_illustrate);
+              this.$store.dispatch("activeSimulation", currentSimulation);
+              setCurrentSimulation(currentSimulation);
+            }
+
+            if (currentSimulation.id) {
+              this.$router.push({
+                path: url,
+                query: this.$route.query,
+              });
+            } else {
+              this.$toast.error("Something went wrong. Please try again.");
+            }
+          })
+          .catch((error) => {
+            this.$store.dispatch("loader", false);
+            if (
+              error.code === "ERR_BAD_RESPONSE" ||
+              error.code === "ERR_NETWORK"
+            ) {
+              this.$toast.error(error.message);
+            } else {
+              var serverErrors = getServerErrors(error);
+              this.errors = serverErrors;
+              if (serverErrors) {
+                this.errors.simulation_name = serverErrors.simulation_name;
+                this.errors.client_age_year =
+                  serverErrors.client_age_1_year_illustration;
+                this.errors.illustrate_year = serverErrors.years_to_illustrate;
+                this.errors.tax_rate = serverErrors.tax_rate;
+                this.errors.details_template = serverErrors.template_name;
+                this.errors.description = serverErrors.description;
+              }
+            }
+          });
       }
     },
   },
