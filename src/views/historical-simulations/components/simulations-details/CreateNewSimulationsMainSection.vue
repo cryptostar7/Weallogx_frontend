@@ -1003,15 +1003,25 @@ export default {
         // Show loader while we handle deletion
         this.$store.dispatch("loader", true);
 
-        // Debug logging
-        console.log("Active Simulation:", this.activeSimulation);
-        console.log("Illustration ID:", this.activeSimulation ? this.activeSimulation.illustration : "No active simulation");
+        // Get simulation from multiple sources for debugging
+        const activeSimulation = this.activeSimulation;
+        const currentSimulation = getCurrentSimulation();
+        const simulationFromRoute = this.$route.params.simulation;
+
+        // Try to get illustration ID from multiple sources
+        const illustrationId = (activeSimulation && activeSimulation.illustration) ||
+                               (currentSimulation && currentSimulation.illustration);
+
+        console.log("Final illustration ID to use:", illustrationId);
 
         // Check if there's existing illustration table data that needs to be cleared
-        if (this.activeSimulation && this.activeSimulation.illustration) {
+        if (illustrationId) {
           try {
             // Clear ONLY the table data (illustration_data field), keep header info like company, policy, etc.
-            await patch(`${getUrl("illustration")}${this.activeSimulation.illustration}/`,
+            const patchUrl = `${getUrl("illustration")}${illustrationId}/`;
+            console.log("Sending PATCH request to:", patchUrl);
+
+            await patch(patchUrl,
               { illustration_data: null },
               {
                 headers: {
@@ -1021,12 +1031,24 @@ export default {
               }
             );
 
+            console.log("PATCH request succeeded");
             this.$toast.success("Previous illustration table data cleared");
+
+            // Clear any cached simulation data to force fresh load on next page
+            const updatedSimulation = { ...activeSimulation };
+            if (updatedSimulation.illustration_data) {
+              delete updatedSimulation.illustration_data;
+            }
+            this.$store.dispatch("activeSimulation", updatedSimulation);
+            setCurrentSimulation(updatedSimulation);
+
           } catch (error) {
             console.error("Error clearing illustration table:", error);
             this.$toast.warning("Could not clear previous illustration table data");
             // Continue anyway - user can still upload new data
           }
+        } else {
+          console.log("No illustration ID found - skipping table data clearing");
         }
 
         this.pendingNavigationData = null;
@@ -1035,7 +1057,7 @@ export default {
         put(`${getUrl("simulation-details")}${this.detailId}/`, data, authHeader())
           .then((response) => {
             setSimulationStep1(response.data.data);
-            let currentSimulation = this.activeSimulation;
+            let currentSimulation = activeSimulation || this.activeSimulation;
             this.saveClientAge();
             this.$toast.success(response.data.message);
             this.$store.dispatch("loader", false);
@@ -1062,9 +1084,15 @@ export default {
             }
 
             if (currentSimulation.id) {
+              // Add cache-busting parameter to force fresh data load
+              const queryParams = {
+                ...this.$route.query,
+                refresh: Date.now() // Force reload of illustration data
+              };
+
               this.$router.push({
                 path: url,
-                query: this.$route.query,
+                query: queryParams,
               });
             } else {
               this.$toast.error("Something went wrong. Please try again.");

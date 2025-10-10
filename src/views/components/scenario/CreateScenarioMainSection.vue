@@ -1503,15 +1503,32 @@ export default {
         // Show loader while we handle deletion
         this.$store.dispatch("loader", true);
 
-        // Debug logging
-        console.log("Active Scenario:", this.activeScenario);
-        console.log("Illustration ID:", this.activeScenario ? this.activeScenario.illustration : "No active scenario");
+        // Get scenario from multiple sources for debugging
+        const activeScenario = this.activeScenario;
+        const currentScenario = getCurrentScenario();
+        const scenarioFromRoute = this.$route.params.scenario;
+
+        console.log("=== Debugging Scenario Sources ===");
+        console.log("Active Scenario (from Vuex):", activeScenario);
+        console.log("Current Scenario (from localStorage):", currentScenario);
+        console.log("Scenario ID from route:", scenarioFromRoute);
+        console.log("Illustration ID from active:", activeScenario ? activeScenario.illustration : "none");
+        console.log("Illustration ID from current:", currentScenario ? currentScenario.illustration : "none");
+
+        // Try to get illustration ID from multiple sources
+        const illustrationId = (activeScenario && activeScenario.illustration) ||
+                               (currentScenario && currentScenario.illustration);
+
+        console.log("Final illustration ID to use:", illustrationId);
 
         // Check if there's existing illustration table data that needs to be cleared
-        if (this.activeScenario && this.activeScenario.illustration) {
+        if (illustrationId) {
           try {
             // Clear ONLY the table data (illustration_data field), keep header info like company, policy, etc.
-            await patch(`${getUrl("illustration")}${this.activeScenario.illustration}/`,
+            const patchUrl = `${getUrl("illustration")}${illustrationId}/`;
+            console.log("Sending PATCH request to:", patchUrl);
+
+            await patch(patchUrl,
               { illustration_data: null },
               {
                 headers: {
@@ -1521,12 +1538,24 @@ export default {
               }
             );
 
+            console.log("PATCH request succeeded");
             this.$toast.success("Previous illustration table data cleared");
+
+            // Clear any cached scenario data to force fresh load on next page
+            const updatedScenario = { ...activeScenario };
+            if (updatedScenario.illustration_data) {
+              delete updatedScenario.illustration_data;
+            }
+            this.$store.dispatch("activeScenario", updatedScenario);
+            setCurrentScenario(updatedScenario);
+
           } catch (error) {
             console.error("Error clearing illustration table:", error);
             this.$toast.warning("Could not clear previous illustration table data");
             // Continue anyway - user can still upload new data
           }
+        } else {
+          console.log("No illustration ID found - skipping table data clearing");
         }
 
         this.pendingNavigationData = null;
@@ -1534,7 +1563,7 @@ export default {
         // Now actually perform the update
         put(`${getUrl("scenario-details")}${this.detailId}/`, data, authHeader())
           .then((response) => {
-            let currentScenario = this.activeScenario;
+            let currentScenario = activeScenario || this.activeScenario;
             setScenarioStep1(response.data.data);
             this.saveClientAge();
             this.$toast.success(response.data.message);
@@ -1561,9 +1590,15 @@ export default {
             }
 
             if (currentScenario.id) {
+              // Add cache-busting parameter to force fresh data load
+              const queryParams = {
+                ...this.$route.query,
+                refresh: Date.now() // Force reload of illustration data
+              };
+
               this.$router.push({
                 path: url,
-                query: this.$route.query,
+                query: queryParams,
               });
             } else {
               this.$toast.error("Something went wrong. Please try again.");
