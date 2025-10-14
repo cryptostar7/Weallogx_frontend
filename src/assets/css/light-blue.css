@@ -1969,3 +1969,8 @@ color: #0E6651;
 .target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1 {
     background-color: #609BD2;
 }
+
+/* User Icon Blue Color */
+.light-blue .user-icon-bg {
+  fill: var(--blue-clr);
+}
