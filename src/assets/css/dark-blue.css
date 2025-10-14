@@ -5798,3 +5798,8 @@ background: #485161;
 .dark-blue #target-analysis-amount-tab .target-analysis-bottom-bar-area.above span {
     color: white;
 }
+
+/* User Icon Blue Color */
+.dark-blue .user-icon-bg {
+  fill: var(--blue-clr-2);
+}

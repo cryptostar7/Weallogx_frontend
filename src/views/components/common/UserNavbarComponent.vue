@@ -264,10 +264,39 @@
                                     v-else
                                   >
                                     <img
+                                      v-if="$store.state.data.user && $store.state.data.user.avatar || (getCurrentUser() && getCurrentUser().avatar)"
                                       :src="avatar"
                                       alt="User Icon"
                                       class="top-profile-img"
                                     />
+                                    <svg
+                                      v-else
+                                      class="top-profile-img user-icon-svg"
+                                      width="94"
+                                      height="94"
+                                      viewBox="0 0 94 94"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <circle cx="47" cy="47" r="47" class="user-icon-bg" />
+                                      <circle
+                                        opacity="0.75"
+                                        cx="47"
+                                        cy="32.8988"
+                                        r="14.1"
+                                        fill="white"
+                                        fill-opacity="0.9"
+                                      />
+                                      <ellipse
+                                        opacity="0.75"
+                                        cx="45.825"
+                                        cy="65.7988"
+                                        rx="22.325"
+                                        ry="11.75"
+                                        fill="white"
+                                        fill-opacity="0.9"
+                                      />
+                                    </svg>
                                     <div class="navDropMenuItems">
                                       <h5 class="navDropDownHeader">
                                         {{
@@ -493,7 +522,34 @@
 
         <div v-if="$authCheck()" class="css-1qtcj7h">
           <div class="navDropMenu">
-            <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon" />
+            <svg
+              class="user-icon-svg"
+              width="94"
+              height="94"
+              viewBox="0 0 94 94"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="width: 40px; height: 40px;"
+            >
+              <circle cx="47" cy="47" r="47" class="user-icon-bg" />
+              <circle
+                opacity="0.75"
+                cx="47"
+                cy="32.8988"
+                r="14.1"
+                fill="white"
+                fill-opacity="0.9"
+              />
+              <ellipse
+                opacity="0.75"
+                cx="45.825"
+                cy="65.7988"
+                rx="22.325"
+                ry="11.75"
+                fill="white"
+                fill-opacity="0.9"
+              />
+            </svg>
             <div class="navDropMenuItems navDropMenuItemsMobile">
               <h5 class="navDropDownHeader">
                 {{

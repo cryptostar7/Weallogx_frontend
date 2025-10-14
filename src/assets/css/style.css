@@ -5632,3 +5632,7 @@ input[type=number] {
 .navbar-brand.dark{
   display: none;
 }
+/* User Icon Theme Colors */
+.light-green .user-icon-bg {
+  fill: var(--green-clr);
+}
