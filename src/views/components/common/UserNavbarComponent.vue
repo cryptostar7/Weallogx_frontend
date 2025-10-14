@@ -264,7 +264,7 @@
                                     v-else
                                   >
                                     <img
-                                      v-if="$store.state.data.user && $store.state.data.user.avatar || (getCurrentUser() && getCurrentUser().avatar)"
+                                      v-if="avatar !== UserIcon"
                                       :src="avatar"
                                       alt="User Icon"
                                       class="top-profile-img"
@@ -619,6 +619,11 @@ import UserIcon from "../../../assets/images/icons/user.svg";
 
 export default {
   props: ["scroll"],
+  data() {
+    return {
+      UserIcon: UserIcon,
+    };
+  },
   methods: {
     logout: function () {
       if (authCheck()) {
