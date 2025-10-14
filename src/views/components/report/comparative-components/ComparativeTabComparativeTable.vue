@@ -1399,7 +1399,7 @@ export default {
 
       if (this.currentTab === 'rate_of_return') {
         if (this.currentFilter === 'default') {
-          description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
+          description = `What would the comparative vehicles need to adjust their rate of return to in order to match the distributions and ending values of the ${this.cv_name[0]}?`;
         }
 
         // if (this.currentFilter === 'longevity') {
