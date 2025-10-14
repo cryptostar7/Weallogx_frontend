@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div
     :class="`empty report-card-wrapper ${$store.state.app.presentation_mode && !activeTabs[keyId] ? 'd-none' : ''}`"
     data-class="empty-wrapper"
@@ -77,7 +77,6 @@
                   role="tabpanel"
                   aria-labelledby="v-pills-distributions-tab"
                 >
-                  <!-- XXX update ids, click handlers, etc -->
                   <div class="d-flex justify-content-center mt-2">
                     <div class="nav mltplSwtchDiv nav-pills w-25" role="tablist" aria-orientation="horizontal">
                       <div
@@ -110,7 +109,7 @@
                   </div>
                   <div class="d-flex justify-content-center mt-2">
                     <div class="nav mltplSwtchDiv nav-pills w-20" role="tablist" aria-orientation="horizontal">
-                      <!-- XXX these should be setting currentFilter -->
+                      <!-- XXX these shouldn't be setting currentFilter -->
                       <div
                         :class="currentFilter === 'default' ? 'active' : ''"
                         id="v-pills-default-tab"
@@ -142,7 +141,7 @@
                   <div class="container-fluid">
                     <div class="mainProgrssBarDiv graph-area">
                       <div class="progressAbsltCls makeThinkEqualDiv p-relative">
-                        <div class="lines-div d-flex flex-column justify-content-between h-100">
+                        <!-- <div class="lines-div d-flex flex-column justify-content-between h-100">
                           <div
                             v-for="(item, index) in 6"
                             :key="index"
@@ -150,9 +149,9 @@
                           >
                             <p class="mainProgBrdr"></p>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="progressAllBarsDivMain makeThinkEqualDivInner">
-                          <div class="progressBarEachDivMain">
+                          <!-- <div class="progressBarEachDivMain">
                             <div
                               :class="`d-flex groupedFourBars1 ${
                                 graphs.distributions.longevity ? '' : 'disableGroupedBar'
@@ -232,7 +231,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                           <div class="progressBarEachDivMain">
                             <div
                               :class="`d-flex groupedFourBars3 ${
@@ -277,7 +276,7 @@
                           </div>
                         </div>
                       </div>
-                      <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
+                      <!-- <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
                         <div class="progressBarEachBtm">
                           <div class="d-flex align-items-center justify-content-between">
                             <div class="progressBarBtnDiv">
@@ -344,7 +343,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

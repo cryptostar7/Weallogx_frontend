@@ -1,4 +1,4 @@
-<template lang>
+<template>
   <div
     class="tab-pane fade active show"
     id="v-pills-annualFees1"
@@ -17,19 +17,9 @@
           <br />
 
           <div class="d-flex justify-content-center mt-2">
-            <div
-              class="nav mltplSwtchDiv nav-pills"
-              role="tablist"
-              aria-orientation="vertical"
-              id="card-area-1"
-            >
+            <div class="nav mltplSwtchDiv nav-pills" role="tablist" aria-orientation="vertical" id="card-area-1">
               <div
-                @click="
-                  $store.dispatch(
-                    'incomeRider/updateTargetAnalysisType',
-                    'income'
-                  )
-                "
+                @click="$store.dispatch('incomeRider/updateTargetAnalysisType', 'income')"
                 :class="targetAnalysis == 'income' ? 'active' : ''"
                 type="button"
                 data-bs-toggle="pill"
@@ -39,12 +29,7 @@
               </div>
               <div
                 data-bs-toggle="pill"
-                @click="
-                  $store.dispatch(
-                    'incomeRider/updateTargetAnalysisType',
-                    'longevity'
-                  )
-                "
+                @click="$store.dispatch('incomeRider/updateTargetAnalysisType', 'longevity')"
                 :class="targetAnalysis == 'longevity' ? 'active' : ''"
                 role="tab"
               >
@@ -52,12 +37,7 @@
               </div>
               <div
                 data-bs-toggle="pill"
-                @click="
-                  $store.dispatch(
-                    'incomeRider/updateTargetAnalysisType',
-                    'return'
-                  )
-                "
+                @click="$store.dispatch('incomeRider/updateTargetAnalysisType', 'return')"
                 :class="targetAnalysis == 'return' ? 'active' : ''"
                 role="tab"
               >
@@ -65,12 +45,7 @@
               </div>
               <div
                 data-bs-toggle="pill"
-                @click="
-                  $store.dispatch(
-                    'incomeRider/updateTargetAnalysisType',
-                    'amount'
-                  )
-                "
+                @click="$store.dispatch('incomeRider/updateTargetAnalysisType', 'amount')"
                 :class="targetAnalysis == 'amount' ? 'active' : ''"
                 role="tab"
               >
@@ -82,11 +57,7 @@
             v-if="!['return', 'amount'].includes(targetAnalysis)"
             class="d-flex justify-content-center mt-2 w-25 mx-auto"
           >
-            <div
-              class="nav SwtchBtnRprtBldr nav-pills"
-              role="tablist"
-              aria-orientation="vertical"
-            >
+            <div class="nav SwtchBtnRprtBldr nav-pills" role="tablist" aria-orientation="vertical">
               <div
                 :class="`${showResult < 3 ? 'active' : ''}`"
                 type="button"
@@ -116,24 +87,17 @@
             >
               <!-- Amount tab start -->
               <div class="tab-content">
-                <div
-                  class="tab-pane fade active show"
-                  id="v-pills-individual1"
-                  role="tabpanel"
-                >
+                <div class="tab-pane fade active show" id="v-pills-individual1" role="tabpanel">
                   <!-- Amount individual tab start -->
                   <div class="each-target-analysis-bar">
                     <p class="heading clr1">
                       {{ inputs.income_rider_account_name }}
                       <span
                         @click="
-                          $store.dispatch(
-                            'incomeRider/updateAnnualScheduleResultModal',
-                            {
-                              title: 'Annual Income Schedule',
-                              data: irResult.annual_income_rider_distribution,
-                            }
-                          )
+                          $store.dispatch('incomeRider/updateAnnualScheduleResultModal', {
+                            title: 'Annual Income Schedule',
+                            data: irResult.annual_income_rider_distribution
+                          })
                         "
                         data-bs-toggle="modal"
                         data-bs-target="#incomeRiderScheduleTableModal"
@@ -146,14 +110,7 @@
                           viewBox="0 0 13 11"
                           fill="none"
                         >
-                          <rect
-                            x="0.5"
-                            y="0.5"
-                            width="11.6923"
-                            height="10"
-                            rx="0.5"
-                            stroke="black"
-                          />
+                          <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
                           <rect
                             x="6.1899"
                             y="2.69772"
@@ -201,25 +158,26 @@
                       ref="lineBarRef1"
                       id="line_bar_1"
                       :style="{
-                        width: showResult >= 1 ? '100%' : 0,
+                        width: showResult >= 1 ? '100%' : 0
                       }"
                     >
-                      <label
-                        class="amount-label-wrapper"
-                        style="padding-left: 8px"
-                        v-if="showResult >= 1"
-                      >
+                      <label class="amount-label-wrapper" style="padding-left: 8px" v-if="showResult >= 1">
                         <span id="wider_bar_1">{{
                           $numFormatWithDollar(
-                            irResult.annual_income_rider_distribution.filter(
-                              (item) => item > 0
-                            )[0]
-                          ) || "$0"
+                            irResult.annual_income_rider_distribution.filter((item) => item > 0)[0]
+                          ) || '$0'
                         }}</span>
-                        <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                         <span
-                          v-else-if="irResult.annual_income_increase"
                           class="target-bar-span"
+                          v-if="
+                            inputs[
+                              resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'
+                            ] == 'manual'
+                          "
+                        >
+                          Increasing According to Schedule</span
+                        >
+                        <span v-else-if="irResult.annual_income_increase" class="target-bar-span"
                           >Increasing by
                           {{ $percentFormat(irResult.annual_income_increase) }}
                           % per year</span
@@ -233,16 +191,13 @@
                       - Flat Rate of Return
                       <span
                         @click="
-                          $store.dispatch(
-                            'incomeRider/updateAnnualScheduleResultModal',
-                            {
-                              title: 'Annual Income Schedule',
-                              data:
-                                targetAnalysis == 'income'
-                                  ? irResult.annual_cv_distribution
-                                  : irResult.optimization.optimal_distribution,
-                            }
-                          )
+                          $store.dispatch('incomeRider/updateAnnualScheduleResultModal', {
+                            title: 'Annual Income Schedule',
+                            data:
+                              targetAnalysis == 'income'
+                                ? irResult.annual_cv_distribution
+                                : irResult.optimization.optimal_distribution
+                          })
                         "
                         data-bs-toggle="modal"
                         data-bs-target="#incomeRiderScheduleTableModal"
@@ -255,14 +210,7 @@
                           viewBox="0 0 13 11"
                           fill="none"
                         >
-                          <rect
-                            x="0.5"
-                            y="0.5"
-                            width="11.6923"
-                            height="10"
-                            rx="0.5"
-                            stroke="black"
-                          />
+                          <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
                           <rect
                             x="6.1899"
                             y="2.69772"
@@ -310,36 +258,31 @@
                       ref="lineBarRef2"
                       id="line_bar_2"
                       :style="{
-                        width:
-                          showResult >= 2
-                            ? getBarWidth(irResult.cv_longevity)
-                            : 0,
+                        width: showResult >= 2 ? getBarWidth(irResult.cv_longevity) : 0
                       }"
                     >
-                      <label
-                        class="amount-label-wrapper"
-                        style="padding-left: 8px"
-                      >
+                      <label class="amount-label-wrapper" style="padding-left: 8px">
                         <span v-if="showResult >= 2">
                           <span id="wider_bar_2">{{
                             $numFormatWithDollar(
-                              targetAnalysis == "income"
-                                ? irResult.annual_cv_distribution.filter(
-                                    (item) => item > 0
-                                  )[0]
-                                : irResult.optimization.optimal_distribution.filter(
-                                    (item) => item > 0
-                                  )[0]
-                            ) || "$0"
+                              targetAnalysis == 'income'
+                                ? irResult.annual_cv_distribution.filter((item) => item > 0)[0]
+                                : irResult.optimization.optimal_distribution.filter((item) => item > 0)[0]
+                            ) || '$0'
                           }}</span>
-                          <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                           <span
-                            v-else-if="irResult.annual_income_increase"
                             class="target-bar-span"
+                            v-if="
+                              inputs[
+                                resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'
+                              ] == 'manual'
+                            "
+                          >
+                            Increasing According to Schedule</span
+                          >
+                          <span v-else-if="irResult.annual_income_increase" class="target-bar-span"
                             >Increasing by
-                            {{
-                              $percentFormat(irResult.annual_income_increase)
-                            }}
+                            {{ $percentFormat(irResult.annual_income_increase) }}
                             % per year</span
                           >
                         </span>
@@ -348,21 +291,25 @@
                   </div>
                   <div class="each-target-analysis-bar">
                     <p class="heading clr3">
-                      {{ inputs.comparative_vehicle_account_name }} - Historical
-                      Market Returns - {{ inputs.index_allocation == "s_and_p_500" ? 'S&P 500' : inputs.index_allocation == "equities_and_bonds_60_40" ? 'Equities & Bonds 60/40' : inputs.index_allocation == "equities_and_bonds_50_50" ? 'Equities & Bonds 50/50' : 'Equities & Bonds 40/60' }}
+                      {{ inputs.comparative_vehicle_account_name }} - Historical Market Returns -
+                      {{
+                        inputs.index_allocation == 's_and_p_500'
+                          ? 'S&P 500'
+                          : inputs.index_allocation == 'equities_and_bonds_60_40'
+                          ? 'Equities & Bonds 60/40'
+                          : inputs.index_allocation == 'equities_and_bonds_50_50'
+                          ? 'Equities & Bonds 50/50'
+                          : 'Equities & Bonds 40/60'
+                      }}
                       <span
                         @click="
-                          $store.dispatch(
-                            'incomeRider/updateAnnualScheduleResultModal',
-                            {
-                              title: 'Annual Income Schedule',
-                              data:
-                                targetAnalysis == 'income'
-                                  ? irHistoricalResult.annual_cv_distribution
-                                  : irHistoricalResult.optimization
-                                      .optimal_distribution,
-                            }
-                          )
+                          $store.dispatch('incomeRider/updateAnnualScheduleResultModal', {
+                            title: 'Annual Income Schedule',
+                            data:
+                              targetAnalysis == 'income'
+                                ? irHistoricalResult.annual_cv_distribution
+                                : irHistoricalResult.optimization.optimal_distribution
+                          })
                         "
                         data-bs-toggle="modal"
                         data-bs-target="#incomeRiderScheduleTableModal"
@@ -375,14 +322,7 @@
                           viewBox="0 0 13 11"
                           fill="none"
                         >
-                          <rect
-                            x="0.5"
-                            y="0.5"
-                            width="11.6923"
-                            height="10"
-                            rx="0.5"
-                            stroke="black"
-                          />
+                          <rect x="0.5" y="0.5" width="11.6923" height="10" rx="0.5" stroke="black" />
                           <rect
                             x="6.1899"
                             y="2.69772"
@@ -430,38 +370,31 @@
                       ref="lineBarRef3"
                       id="line_bar_3"
                       :style="{
-                        width:
-                          showResult > 2
-                            ? getBarWidth(irHistoricalResult.cv_longevity)
-                            : 0,
+                        width: showResult > 2 ? getBarWidth(irHistoricalResult.cv_longevity) : 0
                       }"
                     >
-                      <label
-                        class="amount-label-wrapper"
-                        style="padding-left: 8px"
-                      >
+                      <label class="amount-label-wrapper" style="padding-left: 8px">
                         <span v-if="showResult > 2">
                           <span id="wider_bar_3">{{
                             $numFormatWithDollar(
-                              targetAnalysis == "income"
-                                ? irHistoricalResult.annual_cv_distribution.filter(
-                                    (item) => item > 0
-                                  )[0]
-                                : irHistoricalResult.optimization.optimal_distribution.filter(
-                                    (item) => item > 0
-                                  )[0]
-                            ) || "$0"
+                              targetAnalysis == 'income'
+                                ? irHistoricalResult.annual_cv_distribution.filter((item) => item > 0)[0]
+                                : irHistoricalResult.optimization.optimal_distribution.filter((item) => item > 0)[0]
+                            ) || '$0'
                           }}</span>
-                          <span class="target-bar-span" v-if="inputs[resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'] == 'manual'"> Increasing According to Schedule</span>
                           <span
-                            v-else-if="irHistoricalResult.annual_income_increase"
                             class="target-bar-span"
+                            v-if="
+                              inputs[
+                                resultType == 'guaranteed' ? 'guaranteed_income_type' : 'non_guaranteed_income_type'
+                              ] == 'manual'
+                            "
+                          >
+                            Increasing According to Schedule</span
+                          >
+                          <span v-else-if="irHistoricalResult.annual_income_increase" class="target-bar-span"
                             >Increasing by
-                            {{
-                              $percentFormat(
-                                irHistoricalResult.annual_income_increase
-                              )
-                            }}
+                            {{ $percentFormat(irHistoricalResult.annual_income_increase) }}
                             % per year</span
                           >
                         </span>
@@ -472,11 +405,9 @@
                   <div class="scalling-div all-number-div">
                     <span
                       class="all-number-div-span"
-                      v-for="(item, index) in yearsLable"
+                      v-for="(item, index) in yearsLabel"
                       :style="`left: ${
-                        ((item - yearsLable[0]) /
-                          (yearsLable[yearsLable.length - 1] - yearsLable[0])) *
-                        100
+                        ((item - yearsLabel[0]) / (yearsLabel[yearsLabel.length - 1] - yearsLabel[0])) * 100
                       }%`"
                       :key="index"
                       >{{ item }}</span
@@ -484,19 +415,11 @@
                   </div>
                   <p class="scalling-div-label">Years</p>
                   <button
-                    :class="`income-rider-show-next-btn ${
-                      showResult > 2 ? 'disable' : ''
-                    }`"
+                    :class="`income-rider-show-next-btn ${showResult > 2 ? 'disable' : ''}`"
                     @click="showNextHandler"
                   >
                     Show Next
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="17"
-                      height="10"
-                      viewBox="0 0 17 10"
-                      fill="none"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10" fill="none">
                       <rect
                         x="7.78125"
                         y="10"
@@ -529,11 +452,7 @@
             >
               <annual-income-rider-success-probability-chart />
             </div>
-            <div
-              class="tab-pane fade active show"
-              v-if="targetAnalysis == 'amount'"
-              role="tabpanel"
-            >
+            <div class="tab-pane fade active show" v-if="targetAnalysis == 'amount'" role="tabpanel">
               <annual-income-rider-amount-tab />
             </div>
           </div>
@@ -544,17 +463,17 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
-import AnnualIncomeCardDetailsComponent from "./AnnualIncomeCardDetailsComponent.vue";
-import AnnualIncomeRiderSuccessProbabilityChart from "./AnnualIncomeRiderSuccessProbabilityChart.vue";
-import AnnualIncomeRiderAmountTab from "./AnnualIncomeRiderAmountTab.vue";
-import { getIncomeRiderYearLabels } from "../../../../../services/helper";
+import { mapState, mapGetters } from 'vuex';
+import AnnualIncomeCardDetailsComponent from './AnnualIncomeCardDetailsComponent.vue';
+import AnnualIncomeRiderSuccessProbabilityChart from './AnnualIncomeRiderSuccessProbabilityChart.vue';
+import AnnualIncomeRiderAmountTab from './AnnualIncomeRiderAmountTab.vue';
+import { getIncomeRiderYearLabels } from '../../../../../services/helper';
 
 export default {
   components: {
     AnnualIncomeCardDetailsComponent,
     AnnualIncomeRiderSuccessProbabilityChart,
-    AnnualIncomeRiderAmountTab,
+    AnnualIncomeRiderAmountTab
   },
   methods: {
     adjustLabelPadding() {
@@ -562,14 +481,14 @@ export default {
         let lineBarRef = this.$refs[`lineBarRef${i}`];
         if (lineBarRef) {
           setTimeout(() => {
-            let textLabel = lineBarRef.querySelector(".amount-label-wrapper");
+            let textLabel = lineBarRef.querySelector('.amount-label-wrapper');
             if (textLabel) {
               if (lineBarRef.offsetWidth <= textLabel.offsetWidth) {
                 textLabel.style.paddingLeft = `${lineBarRef.offsetWidth + 6}px`;
-                textLabel.classList.add("eachBarText");
+                textLabel.classList.add('eachBarText');
               } else {
                 textLabel.style.paddingLeft = `${8}px`;
-                textLabel.classList.remove("eachBarText");
+                textLabel.classList.remove('eachBarText');
               }
             }
           }, [400]);
@@ -577,18 +496,16 @@ export default {
       }
     },
     showNextHandler() {
-      this.$store.dispatch("incomeRider/updateViewResult", this.showResult + 1);
+      this.$store.dispatch('incomeRider/updateViewResult', this.showResult + 1);
     },
     getBarWidth(longevity) {
-      return this.targetAnalysis != "longevity"
+      return this.targetAnalysis != 'longevity'
         ? (
-            ((longevity - this.yearsLable[0]) /
-              (this.yearsLable[this.yearsLable.length - 1] -
-                this.yearsLable[0])) *
+            ((longevity - this.yearsLabel[0]) / (this.yearsLabel[this.yearsLabel.length - 1] - this.yearsLabel[0])) *
             100
-          ).toFixed(2) + "%"
-        : "100%";
-    },
+          ).toFixed(2) + '%'
+        : '100%';
+    }
   },
   watch: {
     targetAnalysis() {
@@ -596,7 +513,7 @@ export default {
     },
     showResult() {
       this.adjustLabelPadding();
-    },
+    }
   },
   computed: {
     ...mapState({
@@ -604,33 +521,28 @@ export default {
       showResult: (state) => state.incomeRider.view_result,
       resultType: (state) => state.incomeRider.result_type,
       inputs: (state) => state.incomeRider.result.inputs || [],
-      incomeType: (state) => state.incomeRider.income_type,
+      incomeType: (state) => state.incomeRider.income_type
     }),
     ...mapGetters({
-      irResult: "incomeRider/irResult",
-      irHistoricalResult: "incomeRider/irHistoricalResult",
+      irResult: 'incomeRider/irResult',
+      irHistoricalResult: 'incomeRider/irHistoricalResult'
     }),
     maxYearCount() {
       return this.irResult ? this.irResult.year_count : 0;
     },
-    yearsLable() {
+    yearsLabel() {
       let distribution1 = this.irResult.annual_income_rider_distribution;
       let distribution2 =
-        this.targetAnalysis == "income"
+        this.targetAnalysis == 'income'
           ? this.irResult.annual_cv_distribution
           : this.irResult.optimization.optimal_distribution;
       let distribution3 =
-        this.targetAnalysis == "income"
+        this.targetAnalysis == 'income'
           ? this.irHistoricalResult.annual_cv_distribution
           : this.irHistoricalResult.optimization.optimal_distribution;
 
-      return getIncomeRiderYearLabels(
-        distribution1,
-        distribution2,
-        distribution3
-      );
-    },
-  },
+      return getIncomeRiderYearLabels(distribution1, distribution2, distribution3);
+    }
+  }
 };
 </script>
-<style lang></style>
