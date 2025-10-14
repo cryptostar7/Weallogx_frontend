@@ -188,7 +188,7 @@
                     <!-- draggable column -->
                     <div class="col">
                         <draggable v-model="draggableColumns"  :draggable="$store.state.app.presentation_mode ? '' : '.drag-item'" tag="div" class="row">
-                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/4}  ps-0 pe-1 drag-col ${header.active ? '' : 'order-last'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="0" :class="`drag-item col-3 col-md-${12/4}  ps-0 pe-1 drag-col`">
                             <div class="empty-inner" data-empty="1">
                               <div class="fill-inner" draggable="true" data-fill="1">
                                 <div :class="`commonTableMainTopDiv${4+header.id} ${header.active ? '' : 'commonTableCls'}`">
@@ -316,7 +316,7 @@
                       </div>
                       <div class="col-12 col-md-8">
                         <div class="row summary-row">
-                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 ps-0 pe-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'order-last'} ${ header.active ? '' : 'commonTableCls'}`">
+                          <div v-for="(header, index) in draggableColumns" :key="index" :class="`col-3 ps-0 pe-1 commonBottomTableMainTopDiv${4+header.id} summary-draggable ${ header.active ? '' : 'commonTableCls'}`">
                             <div :class="`reportTablesDiv reportTablesDiv${3+header.id} `">
                               <table class="table mt-1 w-100 tableCommonForDisable tableCommonHide summaryTableFont">
                                 <thead class="heading-tr">
