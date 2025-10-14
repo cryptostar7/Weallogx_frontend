@@ -492,9 +492,7 @@
                           v-for="header in draggableColumns"
                           :key="header.id"
                           :class="`drag-item ${deletedItems.includes(header.id) ? 'd-none' : ''}
-                            col-md-${12 / (3 - deletedItems.length)} ${deletedItems.length} ps-1 pe-0 drag-col ${
-                            header.active ? '' : 'order-last'
-                          }`"
+                            col-md-${12 / (3 - deletedItems.length)} ${deletedItems.length} ps-1 pe-0 drag-col`"
                         >
                           <div class="empty-inner" data-empty="1">
                             <div class="fill-inner" data-fill="1">
@@ -792,8 +790,8 @@
                             :class="`col-4 ps-1 pe-0 ${deletedItems.includes(header.id) ? 'd-none' : ''} col-md-${
                               12 / (3 - deletedItems.length)
                             } commonBottomTableMainTopDiv${header.id} summary-draggable ${
-                              header.active ? '' : 'order-last'
-                            } ${header.active ? '' : 'commonTableCls'}`"
+                              header.active ? '' : 'commonTableCls'
+                            }`"
                           >
                             <div :class="`reportTablesDiv reportTablesDiv${3 + header.id}`">
                               <table class="table tableCommonForDisable mt-1 tableCommonHide summaryTableFont">
