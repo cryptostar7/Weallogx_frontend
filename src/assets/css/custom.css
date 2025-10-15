@@ -3335,10 +3335,13 @@ body.fullScreen .progressAllBarsDivMain{
   line-height: 1.35;
   font-weight: 600;
 }
-.commonRedRadioSwtchpara {  
+.commonRedRadioSwtchpara {
   color: #EA0000;
 }
-.commonRedRadioSwtchpara.surplus {  
+.commonRedRadioSwtchpara.text-danger {
+  color: #dc3545 !important;
+}
+.commonRedRadioSwtchpara.surplus {
   color: #0E6651;
 }
 
@@ -3487,6 +3490,17 @@ body.fullScreen .progressAllBarsDivMain{
 .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(1), .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(2){
   color: #000;
 }
+
+/* Shortfall text should be red/danger color */
+.shortFallCount.text-danger p:nth-child(1),
+.shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+.cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(1),
+.cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+
 .bottomComulativeIncome {
   width: 100%;
   text-align: center;

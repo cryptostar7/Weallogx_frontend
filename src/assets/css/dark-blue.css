@@ -2593,6 +2593,16 @@ opacity: 0.1;
   color: #fff;
 }
 
+/* Shortfall text should be red/danger color */
+.dark-blue .shortFallCount.text-danger p:nth-child(1),
+.dark-blue .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+.dark-blue .cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(1),
+.dark-blue .cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+
 .dark-blue .cumulativeProgAccount {
   background: #0F8266;
 }

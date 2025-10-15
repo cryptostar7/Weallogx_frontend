@@ -67,7 +67,7 @@
                               <span>Cumulative Income</span>
                               {{$numFormatWithDollar(item.cumulative_income)}}
                             </p> 
-                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
+                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 text-danger ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
                               <span>Shortfall</span>
                               {{$numFormatWithDollar(item.shortfall).replace("-", "")}}
                             </p>
@@ -92,7 +92,7 @@
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
                                 </div>
-                                <div :class="`shortFallCount ${Number(item.shortfall)} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
+                                <div :class="`shortFallCount text-danger ${Number(item.shortfall)} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
                                   <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                                   <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p>
                                 </div>
@@ -141,7 +141,7 @@
                               <span>Total Value</span>
                               {{$numFormatWithDollar(item.total_value)}}
                             </p> 
-                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) > 0 ? 'surplus' : ''} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
+                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) > 0 ? 'surplus' : 'text-danger'} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
                               <span>Shortfall/Surplus</span>
                               {{ $numFormatWithDollar(item.shortfall).replace("-", "") }}
                             </p>
@@ -168,7 +168,7 @@
                                 <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
                                   <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.total_value)}}</span></p>
                                 </div>
-                                <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
+                                <div :class="`shortFallCount text-danger ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
                                   <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
                                   <p>{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
                                 </div>
