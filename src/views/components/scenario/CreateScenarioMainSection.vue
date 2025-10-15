@@ -704,37 +704,8 @@ export default {
     this.getExistingScenarioSchedule();
 
     // populate scenario details if scenario detail id exist in url
-    let scenarioData = getCurrentScenario();
-
+    // Always fetch fresh data from API to ensure breadcrumbs show correct state
     if (this.$route.params.scenario) {
-      if (
-        scenarioData &&
-        scenarioData.id === Number(this.$route.params.scenario)
-      ) {
-        let details = scenarioData.scenerio_details;
-        let id = details;
-        if (typeof details === "object") {
-          id = details.id;
-        }
-
-        let client_id = scenarioData.client;
-        this.$store.dispatch("activeScenario", scenarioData);
-        if (id) {
-          if (client_id) {
-            if (this.clients && this.clients.length) {
-              this.$router.push(
-                `?client=${client_id}${
-                  this.reportId ? `&report=${this.reportId}` : ""
-                }${this.$route.query.review ? "&review=true" : ""}`
-              );
-            } else {
-              this.setClientAsDefault = client_id;
-            }
-          }
-        }
-        return this.populateScenarioDetail(id);
-      }
-
       this.$store.dispatch("loader", true);
       this.getScenarionDetails();
     }
