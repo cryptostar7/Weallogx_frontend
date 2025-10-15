@@ -212,10 +212,10 @@
 
 <script>
 import axios from 'axios';
-import { authHeader } from '../../../services/helper';
+import { authHeader } from '../../../../services/helper';
 
 export default {
-  name: 'PDFGeneratorModal',
+  name: 'StandaloneHistoricalPDFModal',
   props: {
     modalId: {
       type: String,
@@ -658,10 +658,10 @@ export default {
         
         // Get base URL from environment or use default
         const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
-        console.log('Making API call to:', `${baseURL}/report/pdf-generator/generate/`);
+        console.log('Making API call to STANDALONE HISTORICAL endpoint:', `${baseURL}/report/standalone-historical-pdf-generator/generate/`);
         console.log('Payload being sent:', JSON.stringify(payload, null, 2));
-        
-        const response = await axios.post(`${baseURL}/report/pdf-generator/generate/`, payload, authHeader());
+
+        const response = await axios.post(`${baseURL}/report/standalone-historical-pdf-generator/generate/`, payload, authHeader());
         console.log('API Response Status:', response.status);
         console.log('API Response Data:', JSON.stringify(response.data, null, 2));
         

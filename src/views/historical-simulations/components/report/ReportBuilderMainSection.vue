@@ -103,8 +103,8 @@
     </div>
     <share-report-modal />
     
-    <!-- PDF Generator Modal -->
-    <PDFGeneratorModal
+    <!-- Standalone Historical PDF Generator Modal -->
+    <StandaloneHistoricalPDFModal
       modal-id="PDFGeneratorModal"
       :scenario-id="parseInt($route.params.report)"
       :scenario-name="historicalData ? historicalData.name || 'Historical Simulation' : 'Historical Simulation'"
@@ -119,7 +119,7 @@ import SidebarTabsList from "./SidebarTabsList.vue";
 import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
 import ShareReportModal from "./../modals/ShareReportModal.vue";
-import PDFGeneratorModal from "../../../components/modal/PDFGeneratorModal.vue";
+import StandaloneHistoricalPDFModal from "../modal/StandaloneHistoricalPDFModal.vue";
 import ReportError from "../../../components/common/ReportError.vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import { get } from "../../../../network/requests";
@@ -132,7 +132,7 @@ export default {
     HistoricalParentTab,
     ClientDetailComponent,
     ShareReportModal,
-    PDFGeneratorModal,
+    StandaloneHistoricalPDFModal,
     ReportError,
     draggable: VueDraggableNext,
   },
