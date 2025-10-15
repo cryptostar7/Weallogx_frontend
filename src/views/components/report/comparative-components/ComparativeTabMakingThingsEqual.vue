@@ -112,9 +112,9 @@
                   </div>
                   <div class="d-flex justify-content-center mt-2">
                     <div class="nav mltplSwtchDiv nav-pills w-20" role="tablist" aria-orientation="horizontal">
-                      <!-- XXX these shouldn't be setting currentFilter -->
+
                       <div
-                        :class="currentFilter === 'default' ? 'active' : ''"
+                        :class="horizontalBarsCollapsed ? 'active' : ''"
                         id="v-pills-default-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-default"
@@ -122,12 +122,13 @@
                         role="tab"
                         aria-controls="v-pills-default"
                         aria-selected="true"
-                        @click="setCurrentFilter('default')"
+                        @click="collapseHorizontalBars(true)"
                       >
                         Individual
                       </div>
+
                       <div
-                        :class="currentFilter === 'deathBenefit' ? 'active' : ''"
+                        :class="!horizontalBarsCollapsed ? 'active' : ''"
                         id="v-pills-deathBenefit-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-deathBenefit"
@@ -135,10 +136,11 @@
                         role="tab"
                         aria-controls="v-pills-deathBenefit"
                         aria-selected="true"
-                        @click="setCurrentFilter('deathBenefit')"
+                        @click="collapseHorizontalBars(false)"
                       >
                         Show All
                       </div>
+
                     </div>
                   </div>
 
@@ -151,7 +153,7 @@
                             v-for="(item, index) in data.distribution.length"
                             :key="index"
                             :title="cvName(index)"
-                            :collapsed="false"
+                            :collapsed="horizontalBarsCollapsed"
                             :value="distribution(index)"
                             :maxValue="maxDistribution"
                             :color="`barClr${1 + index}`"
@@ -459,6 +461,7 @@ export default {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentFilter: 'amount', // 'amount' | 'longevity' | 'default' | 'values'
       currentTab: 'distribution',
+      horizontalBarsCollapsed: true,
       data: {
         distribution: [
           {
@@ -749,7 +752,11 @@ export default {
       return Number(index
         ? this.data.distribution[index].death_benefit
         : this.data.distribution[0].distributions
-    )}
+      )
+    },
+    collapseHorizontalBars(collapse) {
+      this.horizontalBarsCollapsed = collapse
+    }
   }
 };
 </script>
