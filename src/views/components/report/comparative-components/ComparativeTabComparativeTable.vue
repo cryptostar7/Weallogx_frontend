@@ -641,7 +641,7 @@
                                         >
                                           RoR
                                         </p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">
+                                        <p class="lifeProPlusPara2 text-danger" id="acountColorCommon">
                                           {{ Number(target_analysis.data[header.id].ror || 0).toFixed(2) }}%
                                         </p>
                                       </div>
@@ -652,7 +652,7 @@
                                         >
                                           IRR
                                         </p>
-                                        <p class="lifeProPlusPara2" id="acountColorCommon">
+                                        <p class="lifeProPlusPara2 text-danger" id="acountColorCommon">
                                           {{ Number(target_analysis.data[header.id].irr || 0).toFixed(2) }}%
                                         </p>
                                       </div>
