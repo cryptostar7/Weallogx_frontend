@@ -70,10 +70,13 @@
                   </div>
                 </div>
               </div>
+
               <div class="tab-content" id="pills-tabContent">
+                
+                <!-- Distribution tab start -->
                 <div
                   id="v-pills-distributions"
-                  class="tab-pane fade show active"
+                  class="tab-pane fade show active distribution"
                   role="tabpanel"
                   aria-labelledby="v-pills-distributions-tab"
                 >
@@ -138,215 +141,28 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="container-fluid">
                     <div class="mainProgrssBarDiv graph-area">
                       <div class="progressAbsltCls makeThinkEqualDiv p-relative">
-                        <!-- <div class="lines-div d-flex flex-column justify-content-between h-100">
-                          <div
-                            v-for="(item, index) in 6"
+
+                        <div class="progressAllBarsDivMain makeThingsEqualDivInner">
+                          <horizontal-graph-bar
+                            v-for="(item, index) in data.distribution.length"
                             :key="index"
-                            :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0' : ''}`"
-                          >
-                            <p class="mainProgBrdr"></p>
-                          </div>
-                        </div> -->
-                        <div class="progressAllBarsDivMain makeThinkEqualDivInner">
-                          <!-- <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars1 ${
-                                graphs.distributions.longevity ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.distribution.length"
-                                :key="index"
-                                :class="`progressBarEachDiv progressBarEachHeight${index + 1}
-                                  groupedBarsSigleClr${index + 1} ${
-                                  cards.distributions[index].active ? '' : 'disableGroupedBar'
-                                } ${deletedItems.includes(index) ? 'd-none' : ''}`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${index + 1} thingEqualPercent${1 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index ? data.distribution[index].longevity : data.distribution[0].distributions
-                                      ) *
-                                        100) /
-                                      maxDistribution
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${index + 1}`">
-                                  $<span :class="`thingEqualProg${index + 1}`">
-                                    {{
-                                      $numFormat(
-                                        index ? data.distribution[index].longevity : data.distribution[0].distributions
-                                      )
-                                    }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars2 ${
-                                graphs.distributions.ending_value ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.distribution.length"
-                                :key="index"
-                                :class="`progressBarEachDiv  progressBarEachHeight${index + 5} groupedSecBarsSigleClr${
-                                  index + 1
-                                } ${cards.distributions[index].active ? '' : 'disableGroupedBar'} ${
-                                  deletedItems.includes(index) ? 'd-none' : ''
-                                }`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${1 + index} thingEqualPercent${5 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index
-                                          ? data.distribution[index].ending_value
-                                          : data.distribution[0].distributions
-                                      ) *
-                                        100) /
-                                      maxDistribution
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1 + index}`">
-                                  $<span :class="`thingEqualProg${5 + index}`">
-                                    {{
-                                      $numFormat(
-                                        index
-                                          ? data.distribution[index].ending_value
-                                          : data.distribution[0].distributions
-                                      )
-                                    }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div> -->
-                          <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars3 ${
-                                graphs.distributions.death_benefit ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.distribution.length"
-                                :key="index"
-                                :class="`progressBarEachDiv  progressBarEachHeight${9 + index}
-                                  groupedThirdBarsSigleClr${1 + index} ${
-                                  cards.distributions[index].active ? '' : 'disableGroupedBar'
-                                } ${deletedItems.includes(index) ? 'd-none' : ''}`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${1 + index} thingEqualPercent${9 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index
-                                          ? data.distribution[index].death_benefit
-                                          : data.distribution[0].distributions
-                                      ) *
-                                        100) /
-                                      maxDistribution
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1 + index}`">
-                                  $<span :class="`thingEqualProg${9 + index}`">
-                                    {{
-                                      $numFormat(
-                                        index
-                                          ? data.distribution[index].death_benefit
-                                          : data.distribution[0].distributions
-                                      )
-                                    }}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                            :title="cvName(index)"
+                            :collapsed="false"
+                            :value="distribution(index)"
+                            :maxValue="maxDistribution"
+                            :color="`barClr${1 + index}`"
+                          />
                         </div>
+
                       </div>
-                      <!-- <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Longevity</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 longevityMatchJSCls1 commonRadioBtn1"
-                                    :checked="graphs.distributions.longevity"
-                                    v-model="graphs.distributions.longevity"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Ending Value</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"
-                                    checked
-                                    v-model="graphs.distributions.ending_value"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Death Benefit</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 commonRadioBtn1 longevityMatchJSCls3"
-                                    checked
-                                    v-model="graphs.distributions.death_benefit"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
                     </div>
                   </div>
                 </div>
+
                 <!-- Rate of return tab start -->
                 <div
                   id="v-pills-rateOfReturn"
@@ -428,7 +244,8 @@
                             <p class="mainProgBrdr"></p>
                           </div>
                         </div>
-                        <div class="progressAllBarsDivMain makeThinkEqualDivInner">
+
+                        <div class="progressAllBarsDivMain makeThingsEqualDivInner">
                           <div class="progressBarEachDivMain">
                             <div
                               :class="`d-flex groupedFourBars1 ${
@@ -545,6 +362,7 @@
                           </div>
                         </div>
                       </div>
+
                       <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
                         <div class="progressBarEachBtm">
                           <div class="d-flex align-items-center justify-content-between">
@@ -631,11 +449,10 @@
 
 <script>
 import ComparativeDisclosureComponent from './ComparativeDisclosureComponent.vue';
-// import AddNoteInputComponent from '../common/AddNoteInputComponent.vue';
+import HorizontalGraphBar from './HorizontalGraphBar.vue';
 
 export default {
-  // components: { ComparativeDisclosureComponent, AddNoteInputComponent },
-  components: { ComparativeDisclosureComponent },
+  components: { ComparativeDisclosureComponent, HorizontalGraphBar },
   props: ['keyId'],
   data() {
     return {
@@ -737,7 +554,7 @@ export default {
     comparative() {
       return this.$store.state.data.report.comparative || false;
     },
-    cvName() {
+    policyNickname() {
       return this.$store.state.data.report.cv_names[0];
     },
     death_benefit() {
@@ -756,8 +573,7 @@ export default {
       return this.$store.state.data.report.comparative_longevity || false;
     },
     maxDistribution() {
-      let dst = this.data.distribution;
-
+      const dst = this.data.distribution;
       return Math.max(
         ...[
           ...dst.map((i) => Number(i.distributions)),
@@ -811,8 +627,8 @@ export default {
     },
     tabSubtitle() {
       return this.currentTab === 'distribution'
-        ? `How long do the comparative vehicles last when matching the annual distributions of the ${this.cvName}?`
-        : `What rate of return is required for the comparative vehicles to match the ${this.cvName}’s longevity and ending values?`;
+        ? `How long do the comparative vehicles last when matching the annual distributions of the ${this.policyNickname}?`
+        : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}’s longevity and ending values?`;
     }
   },
   watch: {
@@ -925,7 +741,15 @@ export default {
       )[0];
 
       this.data.rate_of_returns[1].ror = this.longevity.cv_1.comparison.ror;
-    }
+    },
+    cvName(index) {
+      return this.$store.state.data.report.cv_names[index];
+    },
+    distribution(index) {
+      return Number(index
+        ? this.data.distribution[index].death_benefit
+        : this.data.distribution[0].distributions
+    )}
   }
 };
 </script>

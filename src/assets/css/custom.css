@@ -2788,9 +2788,27 @@ body.fullScreen .irrGraphBarWrapper{
 body.fullScreen .graph-container-inner{
   height: 75%;
 }
-body.fullScreen .makeThinkEqualDivInner{
+
+.makeThingsEqualDivInner {
   height: 100%;
 }
+
+.distribution .makeThingsEqualDivInner {
+  flex-direction: column;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar {
+  width: 100%;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar .barClr3 {
+    background: #763ca3;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar .barClr4 {
+    background: #9d2b2b;
+}
+
 body.fullScreen .progressAllBarsDivMain{
   --bar-width: 85px;
   --big-bar-width: 165px;
