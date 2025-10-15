@@ -595,7 +595,7 @@
           <div class="modal-body">
             <p>
               You have chosen to illustrate more years of data than are currently available.
-              You will have to reupload your illustration data on the next page.
+              You will have to do a fresh extraction of your current illustration or upload a new illustration on the next page.
             </p>
           </div>
           <div class="modal-footer">
