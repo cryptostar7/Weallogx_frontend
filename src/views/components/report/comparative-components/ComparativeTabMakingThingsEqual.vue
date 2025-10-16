@@ -153,7 +153,7 @@
                             v-for="(item, index) in data.distribution.length"
                             :key="index"
                             :title="cvName(index)"
-                            :collapsed="horizontalBarsCollapsed"
+                            :defaultCollapsed="horizontalBarsCollapsed"
                             :value="distribution(index)"
                             :maxValue="maxDistribution"
                             :color="`barClr${1 + index}`"

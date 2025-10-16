@@ -2809,6 +2809,10 @@ body.fullScreen .graph-container-inner{
     background: #9d2b2b;
 }
 
+.makeThingsEqualDivInner .table-chevron-btn {
+    margin-left:10px
+}
+
 body.fullScreen .progressAllBarsDivMain{
   --bar-width: 85px;
   --big-bar-width: 165px;
