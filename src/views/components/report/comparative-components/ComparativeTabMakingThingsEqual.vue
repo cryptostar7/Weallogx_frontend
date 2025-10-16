@@ -154,9 +154,10 @@
                             :key="index"
                             :title="cvName(index)"
                             :defaultCollapsed="horizontalBarsCollapsed"
-                            :value="distribution(index)"
-                            :maxValue="maxDistribution"
+                            :value="distributionYears(index)"
+                            :maxValue="distributionYears(0)"
                             :color="`barClr${1 + index}`"
+                            :label="$numFormatWithDollar(distribution(index))"
                           />
                         </div>
 
@@ -450,8 +451,11 @@
 </template>
 
 <script>
+import { first } from 'lodash-es';
 import ComparativeDisclosureComponent from './ComparativeDisclosureComponent.vue';
 import HorizontalGraphBar from './HorizontalGraphBar.vue';
+
+import { toRaw } from 'vue'
 
 export default {
   components: { ComparativeDisclosureComponent, HorizontalGraphBar },
@@ -472,7 +476,8 @@ export default {
             ending_value: 0,
             ending_value_in_percent: '',
             death_benefit_in_percent: '',
-            death_benefit: ''
+            death_benefit: '',
+            distribution_years: 0
           },
           {
             type: '',
@@ -482,7 +487,8 @@ export default {
             ending_value: 0,
             ending_value_in_percent: '',
             death_benefit_in_percent: '',
-            death_benefit: ''
+            death_benefit: '',
+            distribution_years: 0
           },
           {
             type: '',
@@ -492,7 +498,8 @@ export default {
             ending_value: 0,
             ending_value_in_percent: '',
             death_benefit_in_percent: '',
-            death_benefit: ''
+            death_benefit: '',
+            distribution_years: 0
           },
           {
             type: '',
@@ -502,7 +509,8 @@ export default {
             ending_value: 0,
             ending_value_in_percent: '',
             death_benefit_in_percent: '',
-            death_benefit: ''
+            death_benefit: '',
+            distribution_years: 0
           }
         ],
         rate_of_returns: [
@@ -558,7 +566,7 @@ export default {
       return this.$store.state.data.report.comparative || false;
     },
     policyNickname() {
-      return this.$store.state.data.report.cv_names[0];
+      return this.comparative.lirp_data.insurance_policy_nickname;
     },
     death_benefit() {
       return this.$store.state.data.report.comparative_death_benefit || false;
@@ -669,13 +677,26 @@ export default {
   },
   mounted() {
     if (this.comparative && Object.keys(this.comparative).length) {
+
+      const distributions = this.comparative.lirp_data.chart_output.distributions
+      const firstDistributionYear = distributions.findIndex((d) => d > 0)
+
       if (this.comparative.cv_1) {
+
         this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
         this.data.rate_of_returns[0].ror = this.comparative.lirp_data.rate_of_return;
+
+        // TODO - Is it possible that the lirp distributions don't last until the end?
+        this.data.distribution[0].distribution_years =
+            distributions.length - firstDistributionYear
 
         this.data.distribution[1].longevity = this.death_benefit.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.death_benefit.cv_1.match_distributions.death_benefit;
         this.data.distribution[1].ending_value = this.death_benefit.cv_1.match_distributions.surrender_value;
+
+        this.data.distribution[1].distribution_years =
+          this.computDistributionYears(this.comparative.cv_1.comparison.chart_output.distributions,
+          firstDistributionYear)
 
         this.data.rate_of_returns[1].longevity = this.comparative.cv_1.match_rates_of_return.longevity;
         this.data.rate_of_returns[1].death_benefit = this.comparative.cv_1.match_rates_of_return.death_benefit;
@@ -687,6 +708,10 @@ export default {
         this.data.distribution[2].death_benefit = this.death_benefit.cv_2.match_distributions.death_benefit;
         this.data.distribution[2].ending_value = this.death_benefit.cv_2.match_distributions.surrender_value;
 
+        this.data.distribution[2].distribution_years =
+          this.computDistributionYears(this.comparative.cv_2.comparison.chart_output.distributions,
+          firstDistributionYear)
+
         this.data.rate_of_returns[2].longevity = this.comparative.cv_2.match_rates_of_return.longevity;
         this.data.rate_of_returns[2].death_benefit = this.comparative.cv_2.match_rates_of_return.death_benefit;
         this.data.rate_of_returns[2].ending_value = this.comparative.cv_2.match_rates_of_return.surrender_value;
@@ -697,22 +722,14 @@ export default {
         this.data.distribution[3].death_benefit = this.death_benefit.cv_3.match_distributions.death_benefit;
         this.data.distribution[3].ending_value = this.death_benefit.cv_3.match_distributions.surrender_value;
 
+        this.data.distribution[3].distribution_years =
+          this.computDistributionYears(this.comparative.cv_3.comparison.chart_output.distributions,
+          firstDistributionYear)
+
         this.data.rate_of_returns[3].longevity = this.comparative.cv_3.match_rates_of_return.longevity;
         this.data.rate_of_returns[3].death_benefit = this.comparative.cv_3.match_rates_of_return.death_benefit;
         this.data.rate_of_returns[3].ending_value = this.comparative.cv_3.match_rates_of_return.surrender_value;
       }
-
-      // if (this.$store.state.data.report.comparative_longevity) {
-      //   this.setLongevity();
-      // }
-
-      // if (this.$store.state.data.report.comparative_ending_value) {
-      //   this.setEndingValue();
-      // }
-
-      // if (this.$store.state.data.report.comparative_death_benefit) {
-      //   this.setDeathBenefit();
-      // }
     }
   },
   methods: {
@@ -756,6 +773,29 @@ export default {
     },
     collapseHorizontalBars(collapse) {
       this.horizontalBarsCollapsed = collapse
+    },
+    computDistributionYears(distributions, firstDistributionYear) {
+
+      let lastDistributionYear = distributions.findLastIndex(
+        (d, i) => i > firstDistributionYear && d > 0
+      )
+      // If distributions last until the end then we're done.
+      if (lastDistributionYear < -1) {
+        return distributions.length - firstDistributionYear
+      }
+      const firstDistribution = distributions[firstDistributionYear]
+      const lastDistribution = distributions[lastDistributionYear]
+      // The last distribution might not last a full year. So we'll add just a fraction
+      // of the last year's distribution. 
+      if (lastDistribution < firstDistribution) {
+        return lastDistributionYear - firstDistributionYear +
+          lastDistribution / firstDistribution
+      } else {
+        return lastDistributionYear - firstDistributionYear + 1
+      }
+    },
+    distributionYears(index) {
+      return this.data.distribution[index].distribution_years
     }
   }
 };

@@ -14,7 +14,7 @@
       :style="{width: collapsed ? 0 : width}"
     >
       <label class="amount-label-wrapper" style="padding-left: 8px" v-if="!collapsed">
-        <span id="wider_bar_1">{{$numFormatWithDollar(value)}}</span>
+        <span id="wider_bar_1">{{label}}</span>
       </label>
     </div>
 
@@ -29,7 +29,8 @@ export default {
     defaultCollapsed: Boolean,
     value: Number,
     maxValue: Number,
-    color: String
+    color: String,
+    label: String
   },
   data() {
     return {
