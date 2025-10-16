@@ -84,27 +84,27 @@
                     <div class="nav mltplSwtchDiv nav-pills w-25" role="tablist" aria-orientation="horizontal">
                       <div
                         id="v-pills-amount-tab"
-                        :class="{ active: currentFilter === 'amount' }"
+                        :class="{ active: distributionType === 'amount' }"
                         data-bs-target="#v-pills-amount"
                         data-bs-toggle="pill"
                         role="tab"
                         type="button"
                         aria-controls="v-pills-amount"
                         aria-selected="true"
-                        @click="setCurrentFilter('amount')"
+                        @click="setDistributionType('amount')"
                       >
                         Amount
                       </div>
                       <div
                         id="v-pills-longevity-tab"
-                        :class="{ active: currentFilter === 'longevity' }"
+                        :class="{ active: distributionType === 'longevity' }"
                         data-bs-target="#v-pills-longevity"
                         data-bs-toggle="pill"
                         role="tab"
                         type="button"
                         aria-controls="v-pills-longevity"
                         aria-selected="true"
-                        @click="setCurrentFilter('longevity')"
+                        @click="setDistributionType('longevity')"
                       >
                         Match Longevity
                       </div>
@@ -162,7 +162,10 @@
                         </div>
 
                       </div>
-                    </div>
+
+                      <!-- year/age chart -->
+
+                    </div>                    
                   </div>
                 </div>
 
@@ -455,8 +458,6 @@ import { first } from 'lodash-es';
 import ComparativeDisclosureComponent from './ComparativeDisclosureComponent.vue';
 import HorizontalGraphBar from './HorizontalGraphBar.vue';
 
-import { toRaw } from 'vue'
-
 export default {
   components: { ComparativeDisclosureComponent, HorizontalGraphBar },
   props: ['keyId'],
@@ -464,6 +465,7 @@ export default {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
       currentFilter: 'amount', // 'amount' | 'longevity' | 'default' | 'values'
+      distributionType: 'amount',
       currentTab: 'distribution',
       horizontalBarsCollapsed: true,
       data: {
@@ -638,7 +640,7 @@ export default {
     },
     tabSubtitle() {
       return this.currentTab === 'distribution'
-        ? `How long do the comparative vehicles last when matching the annual distributions of the ${this.policyNickname}?`
+        ? `How long do the comparative vehicles last matching the annual distributions of the ${this.policyNickname}?`
         : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}’s longevity and ending values?`;
     }
   },
@@ -687,15 +689,14 @@ export default {
         this.data.rate_of_returns[0].ror = this.comparative.lirp_data.rate_of_return;
 
         // TODO - Is it possible that the lirp distributions don't last until the end?
-        this.data.distribution[0].distribution_years =
-            distributions.length - firstDistributionYear
+        this.data.distribution[0].distribution_years = distributions.length - firstDistributionYear
 
         this.data.distribution[1].longevity = this.death_benefit.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.death_benefit.cv_1.match_distributions.death_benefit;
         this.data.distribution[1].ending_value = this.death_benefit.cv_1.match_distributions.surrender_value;
 
         this.data.distribution[1].distribution_years =
-          this.computDistributionYears(this.comparative.cv_1.comparison.chart_output.distributions,
+          this.computeDistributionYears(this.comparative.cv_1.comparison.chart_output.distributions,
           firstDistributionYear)
 
         this.data.rate_of_returns[1].longevity = this.comparative.cv_1.match_rates_of_return.longevity;
@@ -709,7 +710,7 @@ export default {
         this.data.distribution[2].ending_value = this.death_benefit.cv_2.match_distributions.surrender_value;
 
         this.data.distribution[2].distribution_years =
-          this.computDistributionYears(this.comparative.cv_2.comparison.chart_output.distributions,
+          this.computeDistributionYears(this.comparative.cv_2.comparison.chart_output.distributions,
           firstDistributionYear)
 
         this.data.rate_of_returns[2].longevity = this.comparative.cv_2.match_rates_of_return.longevity;
@@ -723,7 +724,7 @@ export default {
         this.data.distribution[3].ending_value = this.death_benefit.cv_3.match_distributions.surrender_value;
 
         this.data.distribution[3].distribution_years =
-          this.computDistributionYears(this.comparative.cv_3.comparison.chart_output.distributions,
+          this.computeDistributionYears(this.comparative.cv_3.comparison.chart_output.distributions,
           firstDistributionYear)
 
         this.data.rate_of_returns[3].longevity = this.comparative.cv_3.match_rates_of_return.longevity;
@@ -738,6 +739,9 @@ export default {
     },
     setCurrentFilter(filter) {
       this.currentFilter = filter;
+    },
+    setDistributionType(type) {
+      this.distributionType = type;
     },
     setDeathBenefit() {
       this.data.distribution[3].distributions = this.death_benefit.cv_1.comparison.chart_output.distributions.filter(
@@ -765,17 +769,10 @@ export default {
     cvName(index) {
       return this.$store.state.data.report.cv_names[index];
     },
-    distribution(index) {
-      return Number(index
-        ? this.data.distribution[index].death_benefit
-        : this.data.distribution[0].distributions
-      )
-    },
     collapseHorizontalBars(collapse) {
       this.horizontalBarsCollapsed = collapse
     },
-    computDistributionYears(distributions, firstDistributionYear) {
-
+    computeDistributionYears(distributions, firstDistributionYear) {
       let lastDistributionYear = distributions.findLastIndex(
         (d, i) => i > firstDistributionYear && d > 0
       )
@@ -794,8 +791,19 @@ export default {
         return lastDistributionYear - firstDistributionYear + 1
       }
     },
+    distribution(index) {
+      if (this.distributionType === 'amount') {
+        return this.data.distribution[0].distributions
+      }
+      return index
+        ? this.data.distribution[index].death_benefit
+        : this.data.distribution[0].distributions
+    },
     distributionYears(index) {
-      return this.data.distribution[index].distribution_years
+      if (this.distributionType === 'amount') {
+        return this.data.distribution[index].distribution_years
+      }
+      return this.data.distribution[0].distribution_years
     }
   }
 };
