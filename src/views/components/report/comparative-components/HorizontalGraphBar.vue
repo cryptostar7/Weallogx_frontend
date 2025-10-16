@@ -1,11 +1,11 @@
 <template>
 
   <div class="each-target-analysis-bar">
-    <p class="heading clr1">
+    <p class="heading clr1" @click="toggleCollapsed">
       {{ title }}
       <button
         :class="`btn table-chevron-btn blue ${collapsed ? 'collapsed' : ''}`"
-        @click="toggleCollapsed">
+      >
       </button>
     </p>
 
