@@ -87,38 +87,41 @@
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
-                    <input type="text" id="confirmPassword" v-model="user.street_address" @keyup="errors.street_address = false" placeholder="">
-                    <label for="confirmPassword" class="active" >Address</label>
-                    
+                    <input type="text" id="address" v-model="user.street_address" @keyup="errors.street_address = false" placeholder="">
+                    <label for="address" class="active" >Address</label>
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.street_address && errors.street_address[0]" >{{errors.street_address[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
-                    <input type="text" id="confirmPassword" v-model="user.city" @keyup="errors.city = false" placeholder="">
-                    <label for="confirmPassword" class="active" >City</label>
-                   
+                    <input type="text" id="address2" v-model="user.street_address_2" @keyup="errors.street_address_2 = false" placeholder="">
+                    <label for="address2" class="active" >Address 2</label>
+                  </div>
+                  <label class="error fs-14 d-block text-center" v-if="errors.street_address_2 && errors.street_address_2[0]" >{{errors.street_address_2[0]}}</label>
+                </div>
+
+                <div class="editProfileInpuDiv">
+                  <div class="auth-form" >
+                    <input type="text" id="city" v-model="user.city" @keyup="errors.city = false" placeholder="">
+                    <label for="city" class="active" >City</label>
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.city && errors.city[0]" >{{errors.city[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
-                    <input type="text" id="confirmPassword" v-model="user.state" @keyup="errors.state = false" placeholder="">
-                    <label for="confirmPassword" class="active" >State</label>
-                   
+                    <input type="text" id="state" v-model="user.state" @keyup="errors.state = false" placeholder="">
+                    <label for="state" class="active" >State</label>
                   </div>
                   <label class="error fs-14 d-block text-center" v-if="errors.state && errors.state[0]" >{{errors.state[0]}}</label>
                 </div>
 
                 <div class="editProfileInpuDiv">
                   <div class="auth-form" >
-                    <input type="text" id="confirmPassword" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" placeholder="">
-                    <label for="confirmPassword" class="active" >Zip Code</label>
-                   
+                    <input type="text" id="zipCode" maxlength="7" v-model="user.zip_code" @keyup="errors.zip_code = false" placeholder="">
+                    <label for="zipCode" class="active" >Zip Code</label>
                   </div>
-                  <!-- <label class="error fs-14 d-block text-center" v-if="user.zip_code === ''" >*This field is required.</label> -->
                   <label class="error fs-14 d-block text-center" v-if="errors.zip_code && errors.zip_code[0]" >{{errors.zip_code[0]}}</label>
                 </div>
 
@@ -219,6 +222,7 @@ export default {
       user: {
         company_name: "",
         street_address: "",
+        street_address_2: "",
         city: "",
         state: "",
         avatar: "",
@@ -360,6 +364,7 @@ export default {
       var userData = new FormData();
       userData.append("company_name", this.user.company_name);
       userData.append("street_address", this.user.street_address);
+      userData.append("street_address_2", this.user.street_address_2);
       userData.append("city", this.user.city);
       userData.append("state", this.user.state);
       if (this.profileImgFile) {
