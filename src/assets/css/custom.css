@@ -2817,6 +2817,10 @@ body.fullScreen .graph-container-inner{
     left: 0px;
 }
 
+#makingThingsEqualTabView .mainProgrssBarDiv {
+    padding-top: 8px;
+}
+
 div.year-age-chart {
     display: flex;
     flex-direction: row;

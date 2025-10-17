@@ -150,14 +150,14 @@
 
                         <div class="progressAllBarsDivMain makeThingsEqualDivInner">
                           <horizontal-graph-bar
-                            v-for="(item, index) in data.distribution.length"
+                            v-for="(item, index) in activeDistributions"
                             :key="index"
-                            :title="cvName(index)"
+                            :title="cvName(item.index)"
                             :defaultCollapsed="horizontalBarsCollapsed"
-                            :value="distributionYears(index)"
+                            :value="distributionYears(item.index)"
                             :maxValue="distributionYears(0)"
                             :color="`barClr${1 + index}`"
-                            :label="$numFormatWithDollar(distribution(index))"
+                            :label="$numFormatWithDollar(distribution(item.index))"
                           />
 
                           <year-age-chart />
@@ -470,6 +470,8 @@ export default {
       data: {
         distribution: [
           {
+            index: 0,
+            active: true,
             type: '',
             distributions: 0,
             longevity: 0,
@@ -481,6 +483,8 @@ export default {
             distribution_years: 0
           },
           {
+            index: 1,
+            active: false,
             type: '',
             distributions: 0,
             longevity: 0,
@@ -492,6 +496,8 @@ export default {
             distribution_years: 0
           },
           {
+            index: 2,
+            active: false,
             type: '',
             distributions: 0,
             longevity: 0,
@@ -503,6 +509,8 @@ export default {
             distribution_years: 0
           },
           {
+            index: 3,
+            active: false,
             type: '',
             distributions: 0,
             longevity: 0,
@@ -641,7 +649,10 @@ export default {
       return this.currentTab === 'distribution'
         ? `How long do the comparative vehicles last matching the annual distributions of the ${this.policyNickname}?`
         : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}’s longevity and ending values?`;
-    }
+    },
+    activeDistributions() {
+      return this.data.distribution.filter((d) => d.active)
+    },
   },
   watch: {
     '$store.state.app.presentation_mode'(val) {
@@ -684,6 +695,8 @@ export default {
 
       if (this.comparative.cv_1) {
 
+        this.data.distribution[1].active = true
+
         this.data.distribution[0].distributions = this.comparative.lirp_data.making_things_equal_distribution;
         this.data.rate_of_returns[0].ror = this.comparative.lirp_data.rate_of_return;
 
@@ -704,6 +717,9 @@ export default {
       }
 
       if (Object.values(this.comparative.cv_2).length) {
+
+        this.data.distribution[2].active = true
+
         this.data.distribution[2].longevity = this.death_benefit.cv_2.match_distributions.longevity;
         this.data.distribution[2].death_benefit = this.death_benefit.cv_2.match_distributions.death_benefit;
         this.data.distribution[2].ending_value = this.death_benefit.cv_2.match_distributions.surrender_value;
@@ -718,6 +734,9 @@ export default {
       }
 
       if (Object.values(this.comparative.cv_3).length) {
+
+        this.data.distribution[3].active = true
+
         this.data.distribution[3].longevity = this.death_benefit.cv_3.match_distributions.longevity;
         this.data.distribution[3].death_benefit = this.death_benefit.cv_3.match_distributions.death_benefit;
         this.data.distribution[3].ending_value = this.death_benefit.cv_3.match_distributions.surrender_value;
@@ -733,37 +752,11 @@ export default {
     }
   },
   methods: {
-    setActionId(id) {
-      document.getElementById('comparative_cv_delete_id').value = id;
-    },
     setCurrentFilter(filter) {
       this.currentFilter = filter;
     },
     setDistributionType(type) {
       this.distributionType = type;
-    },
-    setDeathBenefit() {
-      this.data.distribution[3].distributions = this.death_benefit.cv_1.comparison.chart_output.distributions.filter(
-        (v) => v
-      )[0];
-      this.data.rate_of_returns[3].ror = this.death_benefit.cv_1.comparison.ror;
-    },
-    setEndingValue() {
-      this.data.distribution[2].distributions = this.ending_value.cv_1.comparison.chart_output.distributions.filter(
-        (v) => v
-      )[0];
-      this.data.rate_of_returns[2].ror = this.ending_value.cv_1.comparison.ror;
-    },
-    setLongevity() {
-      this.data.distribution[1].distributions = this.longevity.cv_1.comparison.chart_output.distributions.filter(
-        (v) => v
-      )[0];
-
-      this.data.distribution[1].longevity = this.longevity.cv_1.comparison.chart_output.distributions.filter(
-        (v) => v
-      )[0];
-
-      this.data.rate_of_returns[1].ror = this.longevity.cv_1.comparison.ror;
     },
     cvName(index) {
       return this.$store.state.data.report.cv_names[index];
