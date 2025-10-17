@@ -4,7 +4,7 @@
     <p class="heading clr1" @click="toggleCollapsed">
       {{ title }}
       <button
-        :class="`btn table-chevron-btn blue ${collapsed ? 'collapsed' : ''}`"
+        :class="`btn table-chevron-btn black ${collapsed ? 'collapsed' : ''}`"
       >
       </button>
     </p>
