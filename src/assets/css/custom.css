@@ -2820,7 +2820,7 @@ body.fullScreen .graph-container-inner{
 div.year-age-chart {
     display: flex;
     flex-direction: row;
-    margin-left: -30px;
+    margin-left: -32px;
     margin-top: 20px;
     font-size: 10px;
     font-weight: 500;
@@ -2832,7 +2832,7 @@ div.year-age-chart .labels {
     flex-direction: column;
     justify-content: flex-end;
     font-style: italic;
-    width: 30px;
+    width: 32px;
 }
 
 div.year-age-chart .numbers-container {
