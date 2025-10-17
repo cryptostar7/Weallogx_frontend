@@ -2813,6 +2813,47 @@ body.fullScreen .graph-container-inner{
     margin-left:10px
 }
 
+.makeThinkEqualDiv.progressAbsltCls {
+    left: 0px;
+}
+
+div.year-age-chart {
+    display: flex;
+    flex-direction: row;
+    margin-left: -30px;
+    margin-top: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #A5A5A5;
+}
+
+div.year-age-chart .labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-style: italic;
+    width: 30px;
+}
+
+div.year-age-chart .numbers-container {
+    padding-top: 10px;
+    border-top: 1px solid #DFDFDF;
+    width: 100%;
+}
+
+div.year-age-chart .numbers {
+    display: flex;
+    flex-direction: row;
+}
+
+div.year-age-chart .numbers div {
+    flex-grow: 1;
+}
+
+div.year-age-chart .numbers div:last-child {
+    flex-grow: 0;
+}
+
 body.fullScreen .progressAllBarsDivMain{
   --bar-width: 85px;
   --big-bar-width: 165px;

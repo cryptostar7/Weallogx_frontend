@@ -159,12 +159,11 @@
                             :color="`barClr${1 + index}`"
                             :label="$numFormatWithDollar(distribution(index))"
                           />
+
+                          <year-age-chart />
+
                         </div>
-
                       </div>
-
-                      <!-- year/age chart -->
-
                     </div>                    
                   </div>
                 </div>
@@ -454,12 +453,12 @@
 </template>
 
 <script>
-import { first } from 'lodash-es';
 import ComparativeDisclosureComponent from './ComparativeDisclosureComponent.vue';
 import HorizontalGraphBar from './HorizontalGraphBar.vue';
+import YearAgeChart from './YearAgeChart.vue';
 
 export default {
-  components: { ComparativeDisclosureComponent, HorizontalGraphBar },
+  components: { ComparativeDisclosureComponent, HorizontalGraphBar, YearAgeChart },
   props: ['keyId'],
   data() {
     return {
