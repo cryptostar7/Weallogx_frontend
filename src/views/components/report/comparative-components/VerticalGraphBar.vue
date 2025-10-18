@@ -1,14 +1,15 @@
 <template>
-  
+
   <div class="vertical-graph-bar">
 
-    <div class="cumulativeProgLifePro1" :style="{height: collapsed ? 0 : height}">
+    <div :class="`${color}`" :style="{height: collapsed ? 0 : height}">
 
         <div :class="`${color}`" @click="toggleCollapsed">
-          
+
+          <button :class="`btn table-chevron-btn white ${collapsed ? 'collapsed' : 'up'}`">
+          </button>
+
           <p class="p-relative">
-            <button :class="`btn table-chevron-btn white ${collapsed ? 'collapsed' : 'up'}`">
-            </button>
             {{title}}
           </p>
 
