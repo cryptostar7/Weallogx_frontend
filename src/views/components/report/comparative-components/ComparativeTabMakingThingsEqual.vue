@@ -168,6 +168,13 @@
                   </div>
                 </div>
 
+
+
+
+
+
+
+                
                 <!-- Rate of return tab start -->
                 <div
                   id="v-pills-rateOfReturn"
@@ -175,7 +182,7 @@
                   role="tabpanel"
                   aria-labelledby="v-pills-rateOfReturn-tab"
                 >
-                  <!-- XXX update ids, click handlers, etc -->
+
                   <div class="d-flex justify-content-center mt-2">
                     <div class="nav mltplSwtchDiv nav-pills w-25" role="tablist" aria-orientation="horizontal">
                       <div
@@ -208,9 +215,9 @@
                   </div>
                   <div class="d-flex justify-content-center mt-2">
                     <div class="nav mltplSwtchDiv nav-pills w-20" role="tablist" aria-orientation="horizontal">
-                      <!-- XXX -->
+
                       <div
-                        :class="currentFilter === 'default' ? 'active' : ''"
+                        :class="rateOfReturnBarsCollapsed ? 'active' : ''"
                         id="v-pills-default-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-default"
@@ -218,12 +225,13 @@
                         role="tab"
                         aria-controls="v-pills-default"
                         aria-selected="true"
-                        @click="setCurrentFilter('default')"
+                        @click="collapseRateOfReturnBars(true)"
                       >
                         Individual
                       </div>
+
                       <div
-                        :class="currentFilter === 'deathBenefit' ? 'active' : ''"
+                        :class="!rateOfReturnBarsCollapsed ? 'active' : ''"
                         id="v-pills-deathBenefit-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#v-pills-deathBenefit"
@@ -231,211 +239,38 @@
                         role="tab"
                         aria-controls="v-pills-deathBenefit"
                         aria-selected="true"
-                        @click="setCurrentFilter('deathBenefit')"
+                        @click="collapseRateOfReturnBars(false)"
                       >
                         Show All
                       </div>
                     </div>
                   </div>
-                  <div class="container-fluid">
-                    <div class="mainProgrssBarDiv graph-area">
-                      <div class="progressAbsltCls makeThinkEqualDiv p-relative">
-                        <div class="lines-div d-flex flex-column justify-content-between h-100">
-                          <div
-                            v-for="(item, index) in 6"
-                            :key="index"
-                            :class="`d-flex mainProgBrdrDivs ${item > 5 ? 'm-0 p-0' : ''}`"
-                          >
-                            <p class="mainProgBrdr"></p>
-                          </div>
-                        </div>
 
-                        <div class="progressAllBarsDivMain makeThingsEqualDivInner">
-                          <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars1 ${
-                                graphs.rate_of_returns.longevity ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.rate_of_returns.length"
-                                :key="index"
-                                :class="`progressBarEachDiv progressBarEachHeight${1 + index}
-                                  groupedBarsSigleClr${1 + index} ${
-                                  cards.rate_of_returns[index].active ? '' : 'disableGroupedBar'
-                                } ${deletedItems.includes(index) ? 'd-none' : ''}`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${1 + index} thingEqualPercent${1 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror
-                                      ) *
-                                        100) /
-                                      maxRor
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1 + index}`">
-                                  <span :class="`thingEqualProg${1 + index}`">
-                                    {{
-                                      Number(
-                                        index ? data.rate_of_returns[index].longevity : data.rate_of_returns[0].ror
-                                      ).toFixed(2)
-                                    }}%
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars2 ${
-                                graphs.rate_of_returns.ending_value ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.rate_of_returns.length"
-                                :key="index"
-                                :class="`progressBarEachDiv  progressBarEachHeight${5 + index}
-                                  groupedSecBarsSigleClr${1 + index} ${
-                                  cards.rate_of_returns[index].active ? '' : 'disableGroupedBar'
-                                } ${deletedItems.includes(index) ? 'd-none' : ''}`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${1 + index} thingEqualPercent${5 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror
-                                      ) *
-                                        100) /
-                                      maxRor
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1 + index}`">
-                                  <span :class="`thingEqualProg${5 + index}`">
-                                    {{
-                                      Number(
-                                        index ? data.rate_of_returns[index].ending_value : data.rate_of_returns[0].ror
-                                      ).toFixed(2)
-                                    }}%
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="progressBarEachDivMain">
-                            <div
-                              :class="`d-flex groupedFourBars3 ${
-                                graphs.rate_of_returns.death_benefit ? '' : 'disableGroupedBar'
-                              }`"
-                            >
-                              <div
-                                v-for="(item, index) in data.rate_of_returns.length"
-                                :key="index"
-                                :class="`progressBarEachDiv  progressBarEachHeight${9 + index}
-                                  groupedThirdBarsSigleClr${1 + index} ${
-                                  cards.rate_of_returns[index].active ? '' : 'disableGroupedBar'
-                                } ${deletedItems.includes(index) ? 'd-none' : ''}`"
-                              >
-                                <div
-                                  :class="`CardProgressBig CardProgressBig${1 + index} thingEqualPercent${9 + index}`"
-                                  :style="{
-                                    height: `${
-                                      (Number(
-                                        index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror
-                                      ) *
-                                        100) /
-                                      maxRor
-                                    }%`
-                                  }"
-                                ></div>
-                                <div :class="`position-absolute progressBarbtmNum progressBarOvrwrt${1 + index}`">
-                                  <span :class="`thingEqualProg${9 + index}`">
-                                    {{
-                                      Number(
-                                        index ? data.rate_of_returns[index].death_benefit : data.rate_of_returns[0].ror
-                                      ).toFixed(2)
-                                    }}%
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                  <div class="container-fluid">
+
+                    <div class="CompMainProgrssBarDiv graph-area">
+                      <div class="CompProgressAbsltCls p-relative">
+                      <div class="lines-div d-flex flex-column justify-content-between">
+                        <div v-for="(item, index) in 7" :key="index"
+                          :class="`d-flex comulativeProgBrdrDivs ${index > 5 ? 'm-0 p-0':''}`"
+                        >
+                          <p class="comulativeProgBrdr"></p>
                         </div>
                       </div>
+                        <div :class="`progressAllBarsDivMain ${activeDistributions.length == 2 ? 'twoEffect' : ''}`">
+                          <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
 
-                      <div :class="`progressAllBarsDivMain barItems${data.distribution.length - deletedItems.length}`">
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Longevity</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 longevityMatchJSCls1 commonRadioBtn1"
-                                    :checked="graphs.rate_of_returns.longevity"
-                                    v-model="graphs.rate_of_returns.longevity"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                              <!-- <a class="ms-2 deleteButtonAncor" data-bs-target="#deleteAccountModal" data-bs-toggle="modal">
-                                  <img src="@/assets/images/icons/delete-icon.svg" alt="delete">
-                                </a> -->
-                            </div>
-                          </div>
-                        </div>
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Ending Value</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 commonRadioBtn1 longevityMatchJSCls2"
-                                    :checked="graphs.rate_of_returns.ending_value"
-                                    v-model="graphs.rate_of_returns.ending_value"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="progressBarEachBtm">
-                          <div class="d-flex align-items-center justify-content-between">
-                            <div class="progressBarBtnDiv">
-                              <p>MATCH</p>
-                              <p>Death Benefit</p>
-                            </div>
-                            <div class="d-flex">
-                              <div class="button-cover2">
-                                <div class="radioBtnDiv r2" id="button-2">
-                                  <input
-                                    type="checkbox"
-                                    class="checkbox2 commonRadioBtn1 longevityMatchJSCls3"
-                                    :checked="graphs.rate_of_returns.death_benefit"
-                                    v-model="graphs.rate_of_returns.death_benefit"
-                                  />
-                                  <div class="knobs2"></div>
-                                  <div class="layer2"></div>
-                                </div>
-                              </div>
-                            </div>
+                            <vertical-graph-bar
+                              v-for="(item, index) in activeDistributions"
+                              :key="index"
+                              :title="cvName(item.index)"
+                              :defaultCollapsed="rateOfReturnBarsCollapsed"
+                              :value="distributionYears(item.index)"
+                              :maxValue="distributionYears(0)"
+                              :color="`BottomcumulativeLifePro${1 + index}`"
+                              :label="$numFormatWithDollar(distribution(item.index))"
+                            />
+
                           </div>
                         </div>
                       </div>
@@ -456,9 +291,12 @@
 import ComparativeDisclosureComponent from './ComparativeDisclosureComponent.vue';
 import HorizontalGraphBar from './HorizontalGraphBar.vue';
 import YearAgeChart from './YearAgeChart.vue';
+import VerticalGraphBar from './VerticalGraphBar.vue';
 
 export default {
-  components: { ComparativeDisclosureComponent, HorizontalGraphBar, YearAgeChart },
+  components: {
+    ComparativeDisclosureComponent, HorizontalGraphBar, YearAgeChart, VerticalGraphBar
+  },
   props: ['keyId'],
   data() {
     return {
@@ -467,6 +305,7 @@ export default {
       distributionType: 'amount',
       currentTab: 'distribution',
       horizontalBarsCollapsed: true,
+      rateOfReturnBarsCollapsed: true,
       data: {
         distribution: [
           {
@@ -524,6 +363,8 @@ export default {
         ],
         rate_of_returns: [
           {
+            index: 0,
+            active: true,
             type: '',
             ror: '',
             longevity: '',
@@ -534,6 +375,8 @@ export default {
             death_benefit_in_percent: ''
           },
           {
+            index: 1,
+            active: false,
             type: '',
             ror: '',
             longevity: '',
@@ -544,6 +387,8 @@ export default {
             death_benefit_in_percent: ''
           },
           {
+            index: 2,
+            active: false,
             type: '',
             ror: '',
             longevity: '',
@@ -554,6 +399,8 @@ export default {
             death_benefit_in_percent: ''
           },
           {
+            index: 3,
+            active: false,
             type: '',
             ror: '',
             longevity: '',
@@ -763,6 +610,9 @@ export default {
     },
     collapseHorizontalBars(collapse) {
       this.horizontalBarsCollapsed = collapse
+    },
+    collapseRateOfReturnBars(collapse) {
+      this.rateOfReturnBarsCollapsed = collapse
     },
     computeDistributionYears(distributions, firstDistributionYear) {
       let lastDistributionYear = distributions.findLastIndex(

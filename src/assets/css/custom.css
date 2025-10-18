@@ -2817,6 +2817,36 @@ body.fullScreen .graph-container-inner{
     left: 0px;
 }
 
+.vertical-graph-bar {
+  width: var(--big-bar-width);
+  height: var(--big-bar-height);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+
+.vertical-graph-bar > div {
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.vertical-graph-bar > div > div {
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+.vertical-graph-bar > div > div p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 11px;
+  color: #FFF;
+}
+
 #makingThingsEqualTabView .mainProgrssBarDiv {
     padding-top: 8px;
 }
