@@ -267,7 +267,8 @@
                               :defaultCollapsed="rateOfReturnBarsCollapsed"
                               :value="distributionYears(item.index)"
                               :maxValue="distributionYears(0)"
-                              :color="`BottomcumulativeLifePro${1 + index}`"
+                              :barColor="`cumulativeProgLifePro${1 + index}`"
+                              :labelColor="`BottomcumulativeLifePro${1 + index}`"
                               :label="$numFormatWithDollar(distribution(item.index))"
                             />
 

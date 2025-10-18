@@ -2831,6 +2831,7 @@ body.fullScreen .graph-container-inner{
   border-radius: 8px;
   display: flex;
   align-items: flex-end;
+  transition: 0.3s height ease-in-out;
 }
 
 .vertical-graph-bar > div > div {
@@ -2861,7 +2862,7 @@ body.fullScreen .graph-container-inner{
 div.year-age-chart {
     display: flex;
     flex-direction: row;
-    margin-left: -32px;
+    margin-left: -31px;
     margin-top: 20px;
     font-size: 10px;
     font-weight: 500;
@@ -2873,7 +2874,7 @@ div.year-age-chart .labels {
     flex-direction: column;
     justify-content: flex-end;
     font-style: italic;
-    width: 32px;
+    width: 34px;
 }
 
 div.year-age-chart .numbers-container {

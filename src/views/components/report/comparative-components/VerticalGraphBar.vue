@@ -2,18 +2,14 @@
 
   <div class="vertical-graph-bar">
 
-    <div :class="`${color}`" :style="{height: collapsed ? 0 : height}">
+    <div :class="`${barColor}`" :style="{height: collapsed ? 0 : height}">
 
-        <div :class="`${color}`" @click="toggleCollapsed">
+      <div :class="`${labelColor}`" @click="toggleCollapsed">
+        <button :class="`btn table-chevron-btn white ${collapsed ? 'collapsed' : 'up'}`">
+        </button>
+        <p>{{title}}</p>
+      </div>
 
-          <button :class="`btn table-chevron-btn white ${collapsed ? 'collapsed' : 'up'}`">
-          </button>
-
-          <p class="p-relative">
-            {{title}}
-          </p>
-
-        </div>
     </div>
   </div>
 
@@ -26,7 +22,8 @@ export default {
     defaultCollapsed: Boolean,
     value: Number,
     maxValue: Number,
-    color: String,
+    barColor: String,
+    labelColor: String,
     label: String
   },
   data() {
