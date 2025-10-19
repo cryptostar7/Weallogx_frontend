@@ -2779,7 +2779,7 @@ body.fullScreen .CompProgressAbsltCls, body.fullScreen .comparative-graph-contai
 body.fullScreen .feeProgressAbsltCls{
   height: 70%; 
 }
-body.fullScreen .makeThinkEqualDiv{
+body.fullScreen .makeThingsEqualDiv{
   height: 65%;
 }
 body.fullScreen .irrGraphBarWrapper{
@@ -2813,28 +2813,45 @@ body.fullScreen .graph-container-inner{
     margin-left:10px
 }
 
-.makeThinkEqualDiv.progressAbsltCls {
+.makeThingsEqualDiv.progressAbsltCls {
     left: 0px;
+}
+
+#makingThingsEqualTabView .CompMainProgrssBarDiv .progressAllBarsDivMain > div{
+    padding-top: 0;
+}
+
+#makingThingsEqualTabView .CompProgressAbsltCls {
+    left: 0px
 }
 
 .vertical-graph-bar {
   width: var(--big-bar-width);
-  height: var(--big-bar-height);
+  height: 400px;
   display: flex;
+  /* flex-direction: column; */
   align-items: flex-end;
+  justify-content: flex-end;
   overflow: hidden;
   position: relative;
 }
 
 .vertical-graph-bar > div {
-  width: 100%;
-  border-radius: 8px;
   display: flex;
   align-items: flex-end;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
   transition: 0.3s height ease-in-out;
 }
 
-.vertical-graph-bar > div > div {
+.vertical-graph-bar div.value {
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.vertical-graph-bar div.label {
   display: flex;
   width: 100%;
   text-align: center;
@@ -2843,14 +2860,22 @@ body.fullScreen .graph-container-inner{
   cursor: pointer;
 }
 
-.vertical-graph-bar > div > div button {
+.vertical-graph-bar div.label button {
   flex-grow: 0;
 }
 
-.vertical-graph-bar > div > div p {
+.vertical-graph-bar div.label p {
   flex-grow: 1;
   padding-right: 12px;
   margin: 0;
+  font-weight: 600;
+  font-size: 11px;
+  color: #FFF;
+}
+
+.vertical-graph-bar .value {
+  width: 100%;
+  padding-top: 10px;
   font-weight: 600;
   font-size: 11px;
   color: #FFF;

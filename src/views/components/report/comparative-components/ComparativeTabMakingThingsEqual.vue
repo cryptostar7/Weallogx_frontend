@@ -146,7 +146,7 @@
 
                   <div class="container-fluid">
                     <div class="mainProgrssBarDiv graph-area">
-                      <div class="progressAbsltCls makeThinkEqualDiv p-relative">
+                      <div class="progressAbsltCls makeThingsEqualDiv p-relative">
 
                         <div class="progressAllBarsDivMain makeThingsEqualDivInner">
                           <horizontal-graph-bar
@@ -167,13 +167,6 @@
                     </div>                    
                   </div>
                 </div>
-
-
-
-
-
-
-
                 
                 <!-- Rate of return tab start -->
                 <div

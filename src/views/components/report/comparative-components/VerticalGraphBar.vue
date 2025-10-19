@@ -4,7 +4,9 @@
 
     <div :class="`${barColor}`" :style="{height: collapsed ? 0 : height}">
 
-      <div :class="`${labelColor}`" @click="toggleCollapsed">
+      <div v-if="!collapsed" class="value">{{value}}%</div>
+
+      <div :class="`label ${labelColor}`" @click="toggleCollapsed">
         <button :class="`btn table-chevron-btn white ${collapsed ? 'collapsed' : 'up'}`">
         </button>
         <p>{{title}}</p>
