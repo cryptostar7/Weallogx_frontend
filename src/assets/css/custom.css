@@ -2858,6 +2858,7 @@ body.fullScreen .graph-container-inner{
   border-radius: 8px;
   padding: 6px;
   cursor: pointer;
+  z-index: 100;
 }
 
 .vertical-graph-bar div.label button {
