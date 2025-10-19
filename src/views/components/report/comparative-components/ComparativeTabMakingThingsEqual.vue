@@ -368,6 +368,7 @@ export default {
             active: true,
             type: '',
             ror: '',
+            ror_death_benefit: '',
             longevity: '',
             ending_value: '',
             death_benefit: '',
@@ -380,6 +381,7 @@ export default {
             active: false,
             type: '',
             ror: '',
+            ror_death_benefit: '',
             longevity: '',
             ending_value: '',
             death_benefit: '',
@@ -392,6 +394,7 @@ export default {
             active: false,
             type: '',
             ror: '',
+            ror_death_benefit: '',
             longevity: '',
             ending_value: '',
             death_benefit: '',
@@ -404,6 +407,7 @@ export default {
             active: false,
             type: '',
             ror: '',
+            ror_death_benefit: '',
             longevity: '',
             ending_value: '',
             death_benefit: '',
@@ -418,6 +422,9 @@ export default {
   computed: {
     comparative() {
       return this.$store.state.data.report.comparative || false;
+    },
+    comparative_ror_death_benefit() {
+      return this.$store.state.data.report.comparative_ror_death_benefit || false;
     },
     policyNickname() {
       return this.comparative.lirp_data.insurance_policy_nickname;
@@ -513,6 +520,13 @@ export default {
         this.data.rate_of_returns[1].longevity = this.comparative.cv_1.match_rates_of_return.longevity;
         this.data.rate_of_returns[1].death_benefit = Number(this.comparative.cv_1.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[1].ending_value = this.comparative.cv_1.match_rates_of_return.surrender_value;
+
+        this.data.rate_of_returns[1].ror =
+          this.comparative.cv_1.comparison.chart_output["Rate of Return"][0];
+
+        this.data.rate_of_returns[1].ror_death_benefit =
+          this.comparative_ror_death_benefit.cv_1.comparison.chart_output["Rate of Return"][0];
+
       }
 
       if (Object.values(this.comparative.cv_2).length) {
@@ -531,6 +545,13 @@ export default {
         this.data.rate_of_returns[2].longevity = this.comparative.cv_2.match_rates_of_return.longevity;
         this.data.rate_of_returns[2].death_benefit = Number(this.comparative.cv_2.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[2].ending_value = this.comparative.cv_2.match_rates_of_return.surrender_value;
+
+        this.data.rate_of_returns[2].ror =
+          this.comparative.cv_2.comparison.chart_output["Rate of Return"][0];
+
+        this.data.rate_of_returns[2].ror_death_benefit =
+          this.comparative_ror_death_benefit.cv_2.comparison.chart_output["Rate of Return"][0];
+
       }
 
       if (Object.values(this.comparative.cv_3).length) {
@@ -549,6 +570,12 @@ export default {
         this.data.rate_of_returns[3].longevity = this.comparative.cv_3.match_rates_of_return.longevity;
         this.data.rate_of_returns[3].death_benefit = Number(this.comparative.cv_3.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[3].ending_value = this.comparative.cv_3.match_rates_of_return.surrender_value;
+
+        this.data.rate_of_returns[3].ror =
+          this.comparative.cv_3.comparison.chart_output["Rate of Return"][0];
+
+        this.data.rate_of_returns[3].ror_death_benefit =
+          this.comparative_ror_death_benefit.cv_3.comparison.chart_output["Rate of Return"][0];
       }
     }
   },
@@ -557,7 +584,7 @@ export default {
       this.distributionType = type;
     },
     setRateOfReturnType(type) {
-      this.distributionType = type;
+      this.rateOfReturnType = type;
     },
     cvName(index) {
       return this.$store.state.data.report.cv_names[index];
@@ -603,10 +630,11 @@ export default {
     },
     deathBenefit(index) {
       if (this.rateOfReturnType === 'default') {
-        return index
-          ? this.data.rate_of_returns[index].death_benefit
-          : this.data.rate_of_returns[0].ror
-      }      
+        return this.data.rate_of_returns[index].ror
+      }
+      return index
+        ? this.data.rate_of_returns[index].ror_death_benefit
+        : this.data.rate_of_returns[index].ror
     }
   }
 };
