@@ -2840,6 +2840,7 @@ body.fullScreen .graph-container-inner{
   text-align: center;
   border-radius: 8px;
   padding: 6px;
+  cursor: pointer;
 }
 
 .vertical-graph-bar > div > div button {

@@ -187,27 +187,27 @@
                     <div class="nav mltplSwtchDiv nav-pills w-25" role="tablist" aria-orientation="horizontal">
                       <div
                         id="v-pills-default-tab"
-                        :class="{ active: currentFilter === 'default' }"
+                        :class="{ active: rateOfReturnType === 'default' }"
                         data-bs-target="#v-pills-default"
                         data-bs-toggle="pill"
                         role="tab"
                         type="button"
                         aria-controls="v-pills-default"
                         aria-selected="true"
-                        @click="setCurrentFilter('default')"
+                        @click="setRateOfReturnType('default')"
                       >
                         Default
                       </div>
                       <div
                         id="v-pills-values-tab"
-                        :class="{ active: currentFilter === 'values' }"
+                        :class="{ active: rateOfReturnType === 'values' }"
                         data-bs-target="#v-pills-values"
                         data-bs-toggle="pill"
                         role="tab"
                         type="button"
                         aria-controls="v-pills-values"
                         aria-selected="true"
-                        @click="setCurrentFilter('values')"
+                        @click="setRateOfReturnType('values')"
                       >
                         Match Values
                       </div>
@@ -261,12 +261,12 @@
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
 
                             <vertical-graph-bar
-                              v-for="(item, index) in activeDistributions"
+                              v-for="(item, index) in activeRatesOfReturn"
                               :key="index"
                               :title="cvName(item.index)"
                               :defaultCollapsed="rateOfReturnBarsCollapsed"
-                              :value="distributionYears(item.index)"
-                              :maxValue="distributionYears(0)"
+                              :value="deathBenefit(item.index)"
+                              :maxValue="maxRor"
                               :barColor="`cumulativeProgLifePro${1 + index}`"
                               :labelColor="`BottomcumulativeLifePro${1 + index}`"
                               :label="$numFormatWithDollar(distribution(item.index))"
@@ -302,8 +302,8 @@ export default {
   data() {
     return {
       activeTabs: this.$store.state.data.reportTabs.active,
-      currentFilter: 'amount', // 'amount' | 'longevity' | 'default' | 'values'
       distributionType: 'amount',
+      rateOfReturnType: 'default',
       currentTab: 'distribution',
       horizontalBarsCollapsed: true,
       rateOfReturnBarsCollapsed: true,
@@ -416,9 +416,6 @@ export default {
     };
   },
   computed: {
-    cards() {
-      return this.$store.state.data.reportTabs.active_cards.cmp_making_things.cards;
-    },
     comparative() {
       return this.$store.state.data.report.comparative || false;
     },
@@ -428,28 +425,11 @@ export default {
     death_benefit() {
       return this.$store.state.data.report.comparative_death_benefit || false;
     },
-    deletedItems() {
-      return this.$store.state.data.report.deleted_cv_ids;
-    },
     ending_value() {
       return this.$store.state.data.report.comparative_ending_value || false;
     },
-    graphs() {
-      return this.$store.state.data.reportTabs.active_cards.cmp_making_things.graphs;
-    },
     longevity() {
       return this.$store.state.data.report.comparative_longevity || false;
-    },
-    maxDistribution() {
-      const dst = this.data.distribution;
-      return Math.max(
-        ...[
-          ...dst.map((i) => Number(i.distributions)),
-          ...dst.map((i) => Number(i.longevity)),
-          ...dst.map((i) => Number(i.ending_value)),
-          ...dst.map((i) => Number(i.death_benefit))
-        ]
-      );
     },
     maxRor() {
       let ror = this.data.rate_of_returns;
@@ -501,41 +481,11 @@ export default {
     activeDistributions() {
       return this.data.distribution.filter((d) => d.active)
     },
-  },
-  watch: {
-    '$store.state.app.presentation_mode'(val) {
-      if (this.$store.state.app.presentation_mode && this.$store.state.app.show_assets1) {
-        this.cards.distributions.forEach((element) => {
-          element.active = false;
-        });
-        this.cards.rate_of_returns.forEach((element) => {
-          element.active = false;
-        });
-        this.graphs.distributions.longevity = false;
-        this.graphs.distributions.ending_value = false;
-        this.graphs.distributions.death_benefit = false;
-
-        this.graphs.rate_of_returns.longevity = false;
-        this.graphs.rate_of_returns.ending_value = false;
-        this.graphs.rate_of_returns.death_benefit = false;
-      } else {
-        this.cards.distributions.forEach((element) => {
-          element.active = true;
-        });
-        this.cards.rate_of_returns.forEach((element) => {
-          element.active = true;
-        });
-
-        this.graphs.distributions.longevity = true;
-        this.graphs.distributions.ending_value = true;
-        this.graphs.distributions.death_benefit = true;
-        this.graphs.rate_of_returns.longevity = true;
-        this.graphs.rate_of_returns.ending_value = true;
-        this.graphs.rate_of_returns.death_benefit = true;
-      }
+    activeRatesOfReturn() {
+      return this.data.rate_of_returns.filter((r) => r.active)
     }
   },
-  mounted() {
+  beforeMount() {
     if (this.comparative && Object.keys(this.comparative).length) {
 
       const distributions = this.comparative.lirp_data.chart_output.distributions
@@ -559,8 +509,9 @@ export default {
           this.computeDistributionYears(this.comparative.cv_1.comparison.chart_output.distributions,
           firstDistributionYear)
 
+        this.data.rate_of_returns[1].active = true
         this.data.rate_of_returns[1].longevity = this.comparative.cv_1.match_rates_of_return.longevity;
-        this.data.rate_of_returns[1].death_benefit = this.comparative.cv_1.match_rates_of_return.death_benefit;
+        this.data.rate_of_returns[1].death_benefit = Number(this.comparative.cv_1.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[1].ending_value = this.comparative.cv_1.match_rates_of_return.surrender_value;
       }
 
@@ -576,8 +527,9 @@ export default {
           this.computeDistributionYears(this.comparative.cv_2.comparison.chart_output.distributions,
           firstDistributionYear)
 
+        this.data.rate_of_returns[2].active = true
         this.data.rate_of_returns[2].longevity = this.comparative.cv_2.match_rates_of_return.longevity;
-        this.data.rate_of_returns[2].death_benefit = this.comparative.cv_2.match_rates_of_return.death_benefit;
+        this.data.rate_of_returns[2].death_benefit = Number(this.comparative.cv_2.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[2].ending_value = this.comparative.cv_2.match_rates_of_return.surrender_value;
       }
 
@@ -593,17 +545,18 @@ export default {
           this.computeDistributionYears(this.comparative.cv_3.comparison.chart_output.distributions,
           firstDistributionYear)
 
+        this.data.rate_of_returns[3].active = true
         this.data.rate_of_returns[3].longevity = this.comparative.cv_3.match_rates_of_return.longevity;
-        this.data.rate_of_returns[3].death_benefit = this.comparative.cv_3.match_rates_of_return.death_benefit;
+        this.data.rate_of_returns[3].death_benefit = Number(this.comparative.cv_3.match_rates_of_return.death_benefit);
         this.data.rate_of_returns[3].ending_value = this.comparative.cv_3.match_rates_of_return.surrender_value;
       }
     }
   },
   methods: {
-    setCurrentFilter(filter) {
-      this.currentFilter = filter;
-    },
     setDistributionType(type) {
+      this.distributionType = type;
+    },
+    setRateOfReturnType(type) {
       this.distributionType = type;
     },
     cvName(index) {
@@ -647,6 +600,13 @@ export default {
         return this.data.distribution[index].distribution_years
       }
       return this.data.distribution[0].distribution_years
+    },
+    deathBenefit(index) {
+      if (this.rateOfReturnType === 'default') {
+        return index
+          ? this.data.rate_of_returns[index].death_benefit
+          : this.data.rate_of_returns[0].ror
+      }      
     }
   }
 };
