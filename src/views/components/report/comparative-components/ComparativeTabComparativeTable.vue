@@ -28,7 +28,7 @@
               </div>
               <label for="rightCheckBox1" class="rghtTopHeadcommon">
                 Comparative Table<span class="ms-3 equalThingTabTxt">{{ tabDescription }}</span>
-            </label>
+              </label>
             </div>
             <div class="rightLeftDoubleLIneDegine">
               <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,32 +117,6 @@
                         >
                           Amount
                         </div>
-                        <!-- <div
-                          :class="currentFilter === 'longevity' ? 'active' : ''"
-                          id="v-pills-longevity-tab"
-                          data-bs-toggle="pill"
-                          data-bs-target="#v-pills-longevity"
-                          type="button"
-                          role="tab"
-                          aria-controls="v-pills-longevity"
-                          aria-selected="true"
-                          @click="setCurrentFilter('longevity')"
-                        >
-                          Longevity
-                        </div>
-                        <div
-                          :class="currentFilter === 'endingvalue' ? 'active' : ''"
-                          id="v-pills-endingvalue-tab"
-                          data-bs-toggle="pill"
-                          data-bs-target="#v-pills-endingvalue"
-                          type="button"
-                          role="tab"
-                          aria-controls="v-pills-endingvalue"
-                          aria-selected="true"
-                          @click="setCurrentFilter('endingvalue')"
-                        >
-                          Ending Value
-                        </div> -->
                         <div
                           :class="currentFilter === 'deathBenefit' ? 'active' : ''"
                           id="v-pills-deathBenefit-tab"
@@ -155,7 +129,7 @@
                           @click="setCurrentFilter('deathBenefit')"
                         >
                           <!-- Death Benefit -->
-                           Match Longevity
+                          Match Longevity
                         </div>
                       </div>
                     </div>
@@ -181,32 +155,6 @@
                         >
                           Default
                         </div>
-                        <!-- <div
-                          :class="currentFilter === 'longevity' ? 'active' : ''"
-                          id="v-pills-longevity-tab"
-                          data-bs-toggle="pill"
-                          data-bs-target="#v-pills-longevity"
-                          type="button"
-                          role="tab"
-                          aria-controls="v-pills-longevity"
-                          aria-selected="true"
-                          @click="setCurrentFilter('longevity')"
-                        >
-                          Longevity
-                        </div>
-                        <div
-                          :class="currentFilter === 'endingvalue' ? 'active' : ''"
-                          id="v-pills-endingvalue-tab"
-                          data-bs-toggle="pill"
-                          data-bs-target="#v-pills-endingvalue"
-                          type="button"
-                          role="tab"
-                          aria-controls="v-pills-endingvalue"
-                          aria-selected="true"
-                          @click="setCurrentFilter('endingvalue')"
-                        >
-                          Ending Value
-                        </div> -->
                         <div
                           :class="currentFilter === 'deathBenefit' ? 'active' : ''"
                           id="v-pills-deathBenefit-tab"
@@ -218,7 +166,6 @@
                           aria-selected="true"
                           @click="setCurrentFilter('deathBenefit')"
                         >
-                          <!-- Death Benefit -->
                           Match Values
                         </div>
                       </div>
@@ -1382,14 +1329,6 @@ export default {
           description = `How long do the comparative vehicles last when forced to match the potential distribution amount of the ${this.cv_name[0]}?`;
         }
 
-        // if (this.currentFilter === 'longevity') {
-        //   description = `What amount would the comparative vehicles need to adust their distributions to in order to match the longevity of the ${this.cv_name[0]}?`;
-        // }
-
-        // if (this.currentFilter === 'endingvalue') {
-        //   description = `What amount would the comparative vehicles need to adust their distributions to in order to match the ending value of the ${this.cv_name[0]}?`;
-        // }
-
         if (this.currentFilter === 'deathBenefit') {
           description = `What would the comparative vehicles need to adjust their distributions to in order to match the longevity and ending values of the ${this.cv_name[0]}?`;
         }
@@ -1399,14 +1338,6 @@ export default {
         if (this.currentFilter === 'default') {
           description = `What would the comparative vehicles need to adjust their rate of return to in order to match the distributions and ending values of the ${this.cv_name[0]}?`;
         }
-
-        // if (this.currentFilter === 'longevity') {
-        //   description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the longevity of the ${this.cv_name[0]}?`;
-        // }
-
-        // if (this.currentFilter === 'endingvalue') {
-        //   description = `What amount would the comparative vehicles need to adust their rate of return to in order to match the ending value of the ${this.cv_name[0]}?`;
-        // }
 
         if (this.currentFilter === 'deathBenefit') {
           description = `What would the comparative vehicles need to adjust their rate of return to in order to match the distributions and ending values of the ${this.cv_name[0]}?`;
