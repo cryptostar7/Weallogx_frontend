@@ -113,7 +113,13 @@
                     />
                     <div>
                       <h6>Address :</h6>
-                      <p>{{ user.street_address }}</p>
+                      <p>
+                        <span v-if="user.street_address">{{ user.street_address }}</span>
+                        <span v-if="user.street_address_2"><br>{{ user.street_address_2 }}</span>
+                        <span v-if="user.city || user.state || user.zip_code">
+                          <br>{{ user.city }}<span v-if="user.city && user.state">, </span>{{ user.state }} {{ user.zip_code }}
+                        </span>
+                      </p>
                     </div>
                   </div>
                 </div>

@@ -186,6 +186,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/payment/stripe/validate-coupon/`;
     case 'payment-history':
       return `${baseUrl}/payment/my-invoice-history/`;
+    case 'current-subscription':
+      return `${baseUrl}/payment/my-subscription/`;
     case 'admin/dashboard/stats':
       return `${baseUrl}/auth/admin/dashboard/stats/`;
     case 'admin/create-user':
