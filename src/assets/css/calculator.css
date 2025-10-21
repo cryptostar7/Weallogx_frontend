@@ -750,7 +750,7 @@ table.index-strategy-table tbody td {
     font-weight: 500;
 }
 table.index-strategy-table tbody td.highlighted {
-    color: #dd3611;
+    color: #dd3611 !important;
 }
 /* tbody tr td:first-child {
     border-left: 1px solid #dfdfdf !important;
@@ -980,7 +980,7 @@ table.index-strategy-table tr th {
     padding-right: 10px;
 }
 .table-graph-bottom-content-div p.highlighted {
-    color: #dd3611;
+    color: #dd3611 !important;
 }
 .index-strategy-head-radio .tooltips img,
 .table-graph-bottom-content-div p .tooltips img {
