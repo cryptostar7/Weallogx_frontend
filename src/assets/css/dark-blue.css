@@ -2628,19 +2628,19 @@ opacity: 0.1;
   background: #DA4343 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro1, .dark-blue .topSurplusDiv1 {
+.dark-blue .BottomcumulativeLifePro1, .dark-blue .topSurplusDiv1, .dark-blue .topShortfallDiv1 {
   background: #208DE8 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro2, .dark-blue .topSurplusDiv2 {
+.dark-blue .BottomcumulativeLifePro2, .dark-blue .topSurplusDiv2, .dark-blue .topShortfallDiv2 {
   background: #20A584 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro3 {
+.dark-blue .BottomcumulativeLifePro3, .dark-blue .topShortfallDiv3 {
   background: #9453C8 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro4 {
+.dark-blue .BottomcumulativeLifePro4, .dark-blue .topShortfallDiv4 {
   background: #F04F4F !important;
 }
 

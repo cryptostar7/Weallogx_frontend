@@ -3677,19 +3677,19 @@
   background: #da4343 !important;
 }
 
-.dark-green .BottomcumulativeLifePro2 {
+.dark-green .BottomcumulativeLifePro2, .dark-green .topSurplusDiv2, .dark-green .topShortfallDiv2 {
   background: #208de8 !important;
 }
 
-.dark-green .BottomcumulativeLifePro1 {
+.dark-green .BottomcumulativeLifePro1, .dark-green .topSurplusDiv1, .dark-green .topShortfallDiv1 {
   background: #20a584 !important;
 }
 
-.dark-green .BottomcumulativeLifePro3 {
+.dark-green .BottomcumulativeLifePro3, .dark-green .topShortfallDiv3 {
   background: #9453c8 !important;
 }
 
-.dark-green .BottomcumulativeLifePro4 {
+.dark-green .BottomcumulativeLifePro4, .dark-green .topShortfallDiv4 {
   background: #f04f4f !important;
 }
 
