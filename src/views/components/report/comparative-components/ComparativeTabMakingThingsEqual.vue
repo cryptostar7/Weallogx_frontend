@@ -431,18 +431,28 @@ export default {
     longevity() {
       return this.$store.state.data.report.comparative_longevity || false;
     },
-    maxRor() {
-      let ror = this.data.rate_of_returns;
 
-      return Math.max(
-        ...[
-          ...ror.map((i) => Number(i.ror)),
-          ...ror.map((i) => Number(i.longevity)),
-          ...ror.map((i) => Number(i.ending_value)),
-          ...ror.map((i) => Number(i.death_benefit))
-        ]
-      );
+    maxRor() {
+
+      if (this.rateOfReturnType === 'default') {
+
+        const ror = this.data.rate_of_returns;
+        return Math.max(
+          ...[
+            ...ror.map((i) => Number(i.ror)),
+            ...ror.map((i) => Number(i.longevity)),
+            ...ror.map((i) => Number(i.ending_value)),
+            ...ror.map((i) => Number(i.death_benefit))
+          ]
+        )
+
+      } else {
+        return this.activeRatesOfReturn.reduce((max, rateOfReturn) => {
+          return Math.max(max, this.deathBenefit(rateOfReturn.index))
+        }, 0)
+      }
     },
+
     notes() {
       let note = this.$store.state.data.report.notes || [];
 
