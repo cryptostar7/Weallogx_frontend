@@ -89,7 +89,7 @@
                   <div class="collapseDivmdlHd text-center">
                     Historical Simulations of a Theoretical Synthetic Asset
                     (TSA) <br />
-                    as a Proxy for the LIRP
+                    as a Proxy for the {{ table?.policy_nickname || 'LIRP' }}
                   </div>
                 </div>
                 <div
@@ -404,9 +404,7 @@
                           :key="0"
                           :class="`drag-item col-3 col-md-${
                             12 / 4
-                          }  ps-0 pe-1 drag-col ${
-                            header.active ? '' : 'order-last'
-                          }`"
+                          }  ps-0 pe-1 drag-col`"
                         >
                           <div class="empty-inner" data-empty="1">
                             <div
@@ -820,9 +818,7 @@
                             :key="index"
                             :class="`col-3 ps-0 pe-1 commonBottomTableMainTopDiv${
                               4 + header.id
-                            } summary-draggable ${
-                              header.active ? '' : 'order-last'
-                            } ${header.active ? '' : 'commonTableCls'}`"
+                            } summary-draggable ${header.active ? '' : 'commonTableCls'}`"
                           >
                             <div
                               :class="`reportTablesDiv reportTablesDiv${

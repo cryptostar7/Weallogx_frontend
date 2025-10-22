@@ -12,7 +12,7 @@
               <div v-if="current_plan">
                 <img src="@/assets/images/user/plan-rocket.svg" alt="Plan">
                 <h6 v-if="!current_plan.active" class="text-danger">No active plan!</h6>
-                <h6 v-if="current_plan.active">You are using {{$getPlanName(current_plan.plan_type)}}</h6>
+                <h6 v-if="current_plan.active">You are using {{current_plan.plan_name}}</h6>
                 <p v-if="current_plan.active">{{timeleft}} <span>{{timeleft > 1 ? 'days' :'day'}} left</span></p>
                 <p class="notificationPlanPara">If cases or days are expired, the annual subscription will be automatically implemented.</p>
                 <a href="https://wealthlogix.com/plans/" class="plan-upgrade-button">Upgrade Plan</a>
@@ -78,7 +78,7 @@ export default {
       return remainingTime;
     },
     getCurrentPlan: function() {
-      get(getUrl("current_plan"), authHeader())
+      get(getUrl("current-subscription"), authHeader())
         .then(response => {
           this.getRemainingTime(
             response.data.data.start_date,

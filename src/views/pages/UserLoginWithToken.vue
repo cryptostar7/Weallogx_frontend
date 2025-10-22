@@ -70,7 +70,6 @@ export default {
             this.getUseData();
           })
           .catch((error) => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"

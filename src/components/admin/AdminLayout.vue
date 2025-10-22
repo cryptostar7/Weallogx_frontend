@@ -6,7 +6,7 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <h1 class="h3 mb-0">
-              <img src="@/assets/images/wlx-logo-green.png" alt="WealthLogix" height="32" class="me-2">
+              <img src="/logo/wlx-logo-white.png" alt="WealthLogix" height="32" class="me-2">
               Admin
             </h1>
           </div>
@@ -65,7 +65,6 @@ const loadCurrentUser = async () => {
     const userResponse = await axios.get('/api/auth/user/', { headers })
     currentUser.value = userResponse.data
   } catch (error) {
-    console.error('Failed to load current user:', error)
   }
 }
 

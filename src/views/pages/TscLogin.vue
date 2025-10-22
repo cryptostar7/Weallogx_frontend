@@ -36,7 +36,6 @@ export default {
           this.$router.push("/tax-score-card");
         })
         .catch((error) => {
-          console.log(error);
           this.$store.dispatch("loader", false);
           if (
             error.code === "ERR_BAD_RESPONSE" ||

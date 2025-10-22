@@ -178,9 +178,6 @@ export default {
   },
   methods: {
     testFunction: function () {
-      console.log(this.ComparativeDataLoaded);
-      console.log(this.historicalDataErrorMessage);
-      console.log(Object.keys(this.$store.state.data.report.historical).length);
     },
     getComparativeData: function (id) {
       // get default data

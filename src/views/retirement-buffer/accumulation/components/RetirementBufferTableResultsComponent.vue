@@ -406,7 +406,6 @@ export default {
       }
     },
     "$props.tabType"(e) {
-      console.log(e);
       if(e == "table"){
         setTimeout(() => {
           this.refreshHeaderSizes();
@@ -454,7 +453,6 @@ export default {
       }
     },
     handleSidebar: function(status) {
-      console.log(status);
       this.refreshHeaderSizes();
       return status;
     },

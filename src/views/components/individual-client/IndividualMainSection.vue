@@ -705,7 +705,6 @@ export default {
           this.$toast.error('Unable to open file');
         }
       } catch (error) {
-        console.error('Error getting presigned URL:', error);
         this.$toast.error('Error opening file');
       }
     },
@@ -796,7 +795,6 @@ export default {
           }, 5000);
         })
         .catch((error) => {
-          console.error('Error fetching illustration files:', error);
           this.$store.dispatch("illustrationFiles", []);
         });
     },

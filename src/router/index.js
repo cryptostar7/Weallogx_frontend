@@ -106,6 +106,11 @@ const router = createRouter({
       component: () => import("../views/pages/ProfileDetailsPage.vue"),
     },
     {
+      path: "/tutorials",
+      name: "tutorials",
+      component: () => import("../views/pages/TutorialsPage.vue"),
+    },
+    {
       path: "/pricing",
       name: "pricing",
       component: () => import("../views/pages/PricingPage.vue"),
@@ -284,6 +289,12 @@ const router = createRouter({
       meta: { requiresAdmin: true }
     },
     {
+      path: "/admin/webhook-logs",
+      name: "AdminWebhookLogs",
+      component: () => import("../views/admin/pages/WebhookLogs.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
@@ -293,6 +304,7 @@ const router = createRouter({
 
 const authRoutes = [
   'profile-details',
+  'tutorials',
   'edit-profile',
   'edit-payment-method',
   'payment-history',

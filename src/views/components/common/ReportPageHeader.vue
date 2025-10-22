@@ -56,7 +56,7 @@
           </li>
           <li class="nav-item text-center">
             <a href="javascript:void(0)" class="btn my-2 my-lg-0 navbar-nav-scroll frwrdReportBtn"
-              data-bs-target="#reportShareModal" data-bs-toggle="modal" title="Share Report">
+              data-bs-target="#reportShareModal" data-bs-toggle="modal" title="Share Report" @click="populateShareData">
               <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 14.5V11C1.5 5 8.5 5 8.5 5L14 5.00007" stroke="black" stroke-width="2"
                   stroke-linecap="round" />
@@ -297,9 +297,60 @@ export default {
       this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
     },
-    initializePDFModal: function() {
-      // Initialize PDF modal when user clicks the PDF button
-      this.shouldShowPDFModal = true;
+    populateShareData: function() {
+      // Debug: Check what $appUrl() returns
+      
+      // Get current report data from the store or route
+      const reportId = this.$route.params.report;
+      if (!reportId) return;
+
+      // Get client and scenario data from the comparative report data
+      const comparative = this.$store.state.data.report.comparative;
+      if (comparative && comparative.length > 0) {
+        const client = comparative[0].client || {};
+        const scenario = comparative[0] || {};
+        
+        // Populate share data in store
+        this.$store.dispatch('shareReportData', {name: 'client', data: {
+          firstname: client.first_name || '',
+          middlename: client.middle_name || '',
+          lastname: client.last_name || ''
+        }});
+        this.$store.dispatch('shareReportData', {name: 'report_id', data: reportId});
+        this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: scenario.scenerio_details_name || scenario.name || ''}});
+        
+        // Get the view_token if available (for shared reports)
+        if (this.$route.params.view_token) {
+          this.$store.dispatch('shareReportData', {name: 'report_link', data: `${window.location.origin}/report/${reportId}/${this.$route.params.view_token}`});
+        } else {
+          // For regular reports, we need to get the view_token from the API
+          this.getReportToken(reportId);
+        }
+      } else {
+        // Fallback if no comparative data available
+        this.$store.dispatch('shareReportData', {name: 'report_id', data: reportId});
+        this.$store.dispatch('shareReportData', {name: 'client', data: {firstname: '', middlename: '', lastname: ''}});
+        this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: ''}});
+        this.getReportToken(reportId);
+      }
+    },
+    getReportToken: function(reportId) {
+      // Get the report details including view_token
+      get(`${getUrl("report")}${reportId}/`, authHeader())
+        .then((response) => {
+          const reportData = response.data.data;
+          this.$store.dispatch('shareReportData', {
+            name: 'report_link', 
+            data: `${window.location.origin}/report/${reportId}/${reportData.view_token}`
+          });
+        })
+        .catch((error) => {
+          // Fallback without view_token (this won't work for sharing, but prevents errors)
+          this.$store.dispatch('shareReportData', {
+            name: 'report_link', 
+            data: `${window.location.origin}/report/${reportId}/`
+          });
+        });
     },
   },
   beforeUnmount() {

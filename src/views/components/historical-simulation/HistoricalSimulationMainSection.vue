@@ -152,7 +152,6 @@ export default {
     checkAgreement: function() {
       get(`${getUrl("scenario")}${this.$route.params.scenario}/`, authHeader())
       .then(response => {
-        console.log(response.data.data)
         this.doNotShowAgreement = response.data.data.user.historical_disclosure_agreement
         this.user = response.data.data.user.id
       })

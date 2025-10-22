@@ -2070,6 +2070,100 @@ canvas#retirementBufferGraph {
     color: #D4331C;
     font-weight: 700;
 }
+
+#target-analysis-amount-tab .target-analysis-bar.increase .bar2 {
+    position: absolute;
+    z-index: 200;
+    border-top: 1px solid white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.increase .bar1 {
+    position: absolute;
+    z-index: 100;
+    border-radius: 8px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar1 {
+    position: absolute;
+    border: none;
+    z-index: 200;
+    margin-bottom: -4px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #609BD2;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar2 {
+    z-index: 300;
+    border: none;
+}
+
+#target-analysis-amount-tab .target-analysis-bottom-bar-area.above span {
+    color: #D4331C;
+}
+
+#target-analysis-amount-tab .target-analysis-bar {
+    overflow: visible
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.balance {
+    border-radius: 8px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .bar2 {
+    position: absolute;
+    z-index: 100;
+    border-radius: 8px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .bar1 {
+    position: absolute;
+    border-top: 1px solid white;
+    z-index: 200;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar1 {
+    position: absolute;
+    border: none;
+    margin-bottom: -30px
+}
+
+#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar2 {
+    z-index: 300;
+    background-color: #4A8ECD;
+}
+
+#target-analysis-amount-tab .inner-clr4 {
+    background: #4A8ECD;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
+    background: #0E6651;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar
+  .target-analysis-bottom-bar-area.bottom-clr1 {
+    background-color: #089875;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
+    background: #1660A4;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar
+  .target-analysis-bottom-bar-area.bottom-clr2 {
+    background-color: #4A8ECD;
+}
+
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-inner-bar.inner-clr3 {
+    background: #D4331C;
+}
+
 .target-analysis-success-prob-para {
     color: #000;
     text-align: center;

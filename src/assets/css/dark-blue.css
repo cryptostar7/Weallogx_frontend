@@ -2593,6 +2593,16 @@ opacity: 0.1;
   color: #fff;
 }
 
+/* Shortfall text should be red/danger color */
+.dark-blue .shortFallCount.text-danger p:nth-child(1),
+.dark-blue .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+.dark-blue .cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(1),
+.dark-blue .cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+
 .dark-blue .cumulativeProgAccount {
   background: #0F8266;
 }
@@ -2618,19 +2628,19 @@ opacity: 0.1;
   background: #DA4343 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro1, .dark-blue .topSurplusDiv1 {
+.dark-blue .BottomcumulativeLifePro1, .dark-blue .topSurplusDiv1, .dark-blue .topShortfallDiv1 {
   background: #208DE8 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro2, .dark-blue .topSurplusDiv2 {
+.dark-blue .BottomcumulativeLifePro2, .dark-blue .topSurplusDiv2, .dark-blue .topShortfallDiv2 {
   background: #20A584 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro3 {
+.dark-blue .BottomcumulativeLifePro3, .dark-blue .topShortfallDiv3 {
   background: #9453C8 !important;
 }
 
-.dark-blue .BottomcumulativeLifePro4 {
+.dark-blue .BottomcumulativeLifePro4, .dark-blue .topShortfallDiv4 {
   background: #F04F4F !important;
 }
 
@@ -4855,6 +4865,20 @@ fill: #f5f5f5;
 .dark-blue .table-plus-btn.green::after{
     background-color: #1660A4;
 }
+
+.dark-blue .table-chevron-btn.blue.collapsed {
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2.41797' width='8' height='2.5' rx='1.25' transform='rotate(45 2.41797 0)' fill='rgb(20, 125, 100)'/%3E%3Crect x='8.07422' y='5.76562' width='8' height='2.5' rx='1.25' transform='rotate(135 8.07422 5.76562)' fill='rgb(20, 125, 100)'/%3E%3C/svg%3E");
+}
+.dark-blue .table-chevron-btn.blue {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z' fill='rgb(20, 125, 100)'/%3E%3Cpath d='M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z' fill='rgb(20, 125, 100)'/%3E%3C/svg%3E");
+}
+.dark-blue .table-chevron-btn.green.collapsed {
+    background-image: url("data:image/svg+xml,%3Csvg width='9' height='12' viewBox='0 0 9 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2.41797' width='8' height='2.5' rx='1.25' transform='rotate(45 2.41797 0)' fill='rgb(22, 96, 164)'/%3E%3Crect x='8.07422' y='5.76562' width='8' height='2.5' rx='1.25' transform='rotate(135 8.07422 5.76562)' fill='rgb(22, 96, 164)'/%3E%3C/svg%3E");
+}
+.dark-blue .table-chevron-btn.green {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.56303 1.06185L5.32039 5.30449C4.92986 5.69501 4.92986 6.32818 5.32039 6.7187C5.71091 7.10923 6.34408 7.10923 6.7346 6.7187L10.9772 2.47606C11.3678 2.08554 11.3678 1.45237 10.9772 1.06185C10.5867 0.671325 9.95355 0.671325 9.56303 1.06185Z' fill='rgb(22, 96, 164)'/%3E%3Cpath d='M6.7183 5.30448L2.47566 1.06184C2.08514 0.671319 1.45197 0.671319 1.06145 1.06184C0.670923 1.45237 0.670923 2.08553 1.06145 2.47606L5.30409 6.7187C5.69461 7.10922 6.32778 7.10922 6.7183 6.7187C7.10883 6.32817 7.10883 5.69501 6.7183 5.30448Z' fill='rgb(22, 96, 164)'/%3E%3C/svg%3E");
+}
+
 .dark-blue .show-next-btn{
     background: var(--blue-clr);
     border: 1px solid var(--blue-clr);
@@ -5740,4 +5764,52 @@ background: #485161;
 }
 .dark-blue .table_graph_setting_tab div.middle {
     border-right: 1px solid #5a5a5a;
+}
+
+.dark-blue .table-graph-bottom-content-div .row.highlighted {
+    background-color: #089875;
+}
+
+.dark-blue .table-graph-bottom-each-main-div .blueClr ~
+            .table-graph-bottom-content-div .row.highlighted:hover p {
+    color: white;
+}
+
+.dark-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-inner-bar.inner-clr2 {
+    background: #0E6651;
+}
+
+.dark-blue .target-analysis-amount-tab
+.target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #089875;
+}
+
+.dark-blue #target-analysis-amount-tab
+.inner-clr4 {
+    background-color: #089875;
+}
+
+.dark-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
+    background-color: #6DAC9D;
+}
+
+.dark-blue #target-analysis-amount-tab
+.target-analysis-inner-bar.inner-clr1 {
+    background: #1660A4;
+}
+
+.dark-blue #target-analysis-amount-tab
+.target-analysis-bar .target-analysis-inner-bar .target-analysis-bottom-bar-area.bottom-clr1 {
+    background-color: #609BD2;
+}
+
+.dark-blue #target-analysis-amount-tab .target-analysis-bottom-bar-area.above span {
+    color: white;
+}
+
+/* User Icon Blue Color */
+.dark-blue .user-icon-bg {
+  fill: var(--blue-clr-2);
 }

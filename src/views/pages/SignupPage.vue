@@ -28,14 +28,27 @@
                   </div>
                   <div class="auth-form">
                     <!-- <label for="lastName" :class="user.last_name ? 'active' : ''">Last Name</label> -->
-                    <input 
-                      type="text" 
-                      id="lastName" 
-                      v-model="user.last_name" 
-                      autocomplete="off" 
+                    <input
+                      type="text"
+                      id="lastName"
+                      v-model="user.last_name"
+                      autocomplete="off"
                       :placeholder="user.last_name ? user.last_name : 'Last Name'"
                     />
                   </div>
+                </div>
+                <div>
+                  <div class="auth-form">
+                    <input
+                      type="text"
+                      id="company_name"
+                      v-model="user.company_name"
+                      autocomplete="off"
+                      :placeholder="user.company_name ? user.company_name : 'Company Name'"
+                    />
+                  </div>
+                  <label class="error fs-14 d-block text-center" v-if="user.company_name === ''">*This field is required.</label>
+                  <label class="error fs-14 d-block text-center" v-if="errors.company_name && errors.company_name[0]">{{errors.company_name[0]}}</label>
                 </div>
                 <div>
                   <div class="auth-form">
@@ -156,6 +169,7 @@ export default {
       user: {
         first_name: null,
         last_name: "",
+        company_name: null,
         email: null,
         phone_number: null,
         password: null,
@@ -190,18 +204,12 @@ export default {
     },
     proceedWithSignUp: function () {
       this.showEULA = false;
-      console.log("User accepted the EULA. Proceeding...");
     },
     isValidPhone: function() {
       const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
       const regexTest = phoneRegex.test(this.user.phone_number);
       const lengthValid = this.user.phone_number && this.user.phone_number.length > 5 && this.user.phone_number.length < 14;
       
-      console.log("Phone validation debug:");
-      console.log("  Phone number:", this.user.phone_number);
-      console.log("  Length:", this.user.phone_number ? this.user.phone_number.length : 0);
-      console.log("  Regex test:", regexTest);
-      console.log("  Length valid:", lengthValid);
       
       if (regexTest && lengthValid) {
         return true;
@@ -213,6 +221,11 @@ export default {
       let valid = true;
       if (!this.user.first_name) {
         this.user.first_name = "";
+        valid = false;
+      }
+
+      if (!this.user.company_name) {
+        this.user.company_name = "";
         valid = false;
       }
 
@@ -267,15 +280,10 @@ export default {
     },
     submitForm: function(e) {
       e.preventDefault();
-      console.log("=== SIGNUP FORM SUBMITTED ===");
-      console.log("Phone number:", this.user.phone_number);
-      console.log("Phone validation result:", this.isValidPhone());
 
       if (!this.checkValidation()) {
-        console.log("Validation failed, errors:", this.errors);
         return false;
       }
-      console.log("Validation passed, proceeding...");
 
       this.$store.dispatch("loader", true);
       if (this.user.stripe_source_id) {
@@ -318,9 +326,6 @@ export default {
         post(getUrl("user-exists"), {email:this.user.email})
          .then((response) => {
             const redirectUrl = `${"/payment-method"}${getSearchParams("plan") ? `?plan=${getSearchParams("plan")}` : ""}`;
-            console.log("=== SIGNUP REDIRECT ===");
-            console.log("Redirecting to:", redirectUrl);
-            console.log("Current path:", this.$route.path);
             this.$router.push(redirectUrl);
             this.$store.dispatch("loader", false);
          }).catch((error) => {

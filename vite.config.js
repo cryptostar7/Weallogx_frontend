@@ -6,7 +6,6 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import envCompatible from 'vite-plugin-env-compatible';
 
-console.log('loading vite.config.js');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +16,8 @@ export default defineConfig({
     envCompatible(),
     sentryVitePlugin({
       org: 'wearemimiccom',
-      project: 'wealthlogix'
+      project: 'wealthlogix',
+      telemetry: process.env.APP_ENV === 'staging' || process.env.APP_ENV === 'production',
     })
   ],
   server: {

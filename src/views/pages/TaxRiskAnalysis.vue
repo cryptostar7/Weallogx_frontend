@@ -1860,7 +1860,6 @@ export default {
               textWidth = textDiv.offsetWidth + 20;
             }
             let barWidth = eachBar.offsetWidth;
-            console.log(i, barWidth, textWidth);
             if (barWidth < textWidth) {
               document
                 .getElementById("compare_wider_bar_" + i)

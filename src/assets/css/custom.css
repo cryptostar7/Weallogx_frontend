@@ -2779,7 +2779,7 @@ body.fullScreen .CompProgressAbsltCls, body.fullScreen .comparative-graph-contai
 body.fullScreen .feeProgressAbsltCls{
   height: 70%; 
 }
-body.fullScreen .makeThinkEqualDiv{
+body.fullScreen .makeThingsEqualDiv{
   height: 65%;
 }
 body.fullScreen .irrGraphBarWrapper{
@@ -2788,9 +2788,141 @@ body.fullScreen .irrGraphBarWrapper{
 body.fullScreen .graph-container-inner{
   height: 75%;
 }
-body.fullScreen .makeThinkEqualDivInner{
+
+.makeThingsEqualDivInner {
   height: 100%;
 }
+
+.distribution .makeThingsEqualDivInner {
+  flex-direction: column;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar {
+  width: 100%;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar .barClr3 {
+    background: #763ca3;
+}
+
+.makeThingsEqualDivInner .each-target-analysis-bar .barClr4 {
+    background: #9d2b2b;
+}
+
+.makeThingsEqualDivInner .table-chevron-btn {
+    margin-left:10px
+}
+
+.makeThingsEqualDiv.progressAbsltCls {
+    left: 0px;
+}
+
+#makingThingsEqualTabView .CompMainProgrssBarDiv .progressAllBarsDivMain > div{
+    padding-top: 0;
+}
+
+#makingThingsEqualTabView .CompProgressAbsltCls {
+    left: 0px
+}
+
+.vertical-graph-bar {
+  width: var(--big-bar-width);
+  height: 400px;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+
+.vertical-graph-bar > div {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  transition: 0.3s height ease-in-out;
+}
+
+.vertical-graph-bar div.value {
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.vertical-graph-bar div.label {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.vertical-graph-bar div.label button {
+  flex-grow: 0;
+}
+
+.vertical-graph-bar div.label p {
+  flex-grow: 1;
+  padding-right: 12px;
+  margin: 0;
+  font-weight: 600;
+  font-size: 11px;
+  color: #FFF;
+}
+
+.vertical-graph-bar .value {
+  width: 100%;
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 11px;
+  color: #FFF;
+}
+
+#makingThingsEqualTabView .mainProgrssBarDiv {
+    padding-top: 8px;
+}
+
+div.year-age-chart {
+    display: flex;
+    flex-direction: row;
+    margin-left: -31px;
+    margin-top: 20px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #A5A5A5;
+}
+
+div.year-age-chart .labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-style: italic;
+    width: 34px;
+}
+
+div.year-age-chart .numbers-container {
+    padding-top: 10px;
+    border-top: 1px solid #DFDFDF;
+    width: 100%;
+}
+
+div.year-age-chart .numbers {
+    display: flex;
+    flex-direction: row;
+}
+
+div.year-age-chart .numbers div {
+    flex-grow: 1;
+}
+
+div.year-age-chart .numbers div:last-child {
+    flex-grow: 0;
+}
+
 body.fullScreen .progressAllBarsDivMain{
   --bar-width: 85px;
   --big-bar-width: 165px;
@@ -3335,10 +3467,13 @@ body.fullScreen .progressAllBarsDivMain{
   line-height: 1.35;
   font-weight: 600;
 }
-.commonRedRadioSwtchpara {  
+.commonRedRadioSwtchpara {
   color: #EA0000;
 }
-.commonRedRadioSwtchpara.surplus {  
+.commonRedRadioSwtchpara.text-danger {
+  color: #dc3545 !important;
+}
+.commonRedRadioSwtchpara.surplus {
   color: #0E6651;
 }
 
@@ -3487,6 +3622,17 @@ body.fullScreen .progressAllBarsDivMain{
 .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(1), .cumulativeprogreeDivcommon.p-static .shortFallCount p:nth-child(2){
   color: #000;
 }
+
+/* Shortfall text should be red/danger color */
+.shortFallCount.text-danger p:nth-child(1),
+.shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+.cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(1),
+.cumulativeprogreeDivcommon.p-static .shortFallCount.text-danger p:nth-child(2) {
+  color: #dc3545 !important;
+}
+
 .bottomComulativeIncome {
   width: 100%;
   text-align: center;
@@ -5703,6 +5849,33 @@ body.presentationModeCommon .rghtTopHeadcommon{
 }
 .top-surplus-div p:nth-child(2){
   font-size: 11px;
+}
+.bar-with-label-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35px;
+}
+.top-shortfall-div{
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  font-weight: 700;
+  color: #dc3545;
+  z-index: 1;
+}
+.top-shortfall-div p:nth-child(1){
+  font-size: 8px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 700 !important;
+}
+.top-shortfall-div p:nth-child(2){
+  font-size: 11px;
+  font-weight: 700 !important;
 }
 
 /* Download file toast start */

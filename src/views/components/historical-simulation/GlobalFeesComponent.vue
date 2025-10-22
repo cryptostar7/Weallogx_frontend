@@ -314,17 +314,20 @@ export default {
           let valid = true;
           let input = document.getElementById(`pcf_schedule${y}`);
           let value = input.value;
-          if (value) {
-            if (getNumber(value) > 15) {
+          // Allow blank (will default to 0) or zero values
+          if (value !== "" && value !== null && value !== undefined) {
+            const numValue = getNumber(value);
+            if (numValue > 15) {
               valid = false;
               if (!error_message) {
-                error_message = "Premium charge rate cannot be grater than 15";
+                error_message = "Premium charge rate cannot be greater than 15";
               }
             }
-          } else {
-            valid = false;
-            if (!error_message) {
-              error_message = "All fields are required.";
+            if (numValue < 0) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Premium charge rate cannot be negative";
+              }
             }
           }
 
@@ -344,17 +347,20 @@ export default {
           let valid = true;
           let input = document.getElementById(`lif_schedule${y}`);
           let value = input.value;
-          if (value) {
-            if (getNumber(value) > 12) {
+          // Allow blank (will default to 0) or zero values
+          if (value !== "" && value !== null && value !== undefined) {
+            const numValue = getNumber(value);
+            if (numValue > 12) {
               valid = false;
               if (!error_message) {
-                error_message = "Loan interest cannot be grater than 12";
+                error_message = "Loan interest cannot be greater than 12";
               }
             }
-          } else {
-            valid = false;
-            if (!error_message) {
-              error_message = "All fields are required.";
+            if (numValue < 0) {
+              valid = false;
+              if (!error_message) {
+                error_message = "Loan interest rate cannot be negative";
+              }
             }
           }
 

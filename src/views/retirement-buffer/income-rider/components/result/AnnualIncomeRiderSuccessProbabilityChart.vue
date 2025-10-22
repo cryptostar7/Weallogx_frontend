@@ -131,7 +131,7 @@ export default {
         this.success_required = this.irSimulationResult.success_count;
         this.pieData.percent = this.irSimulationResult.success_percentage;
         if (window.circleProgress) {
-          window.circleProgress.animationTo({
+            window.circleProgress.animationTo({
             index: 1,
             percent: this.irSimulationResult.success_percentage,
           });
@@ -165,6 +165,7 @@ export default {
     ...mapState({
       inputs: (state) => state.incomeRider.result.inputs || [],
       resultType: (state) => state.incomeRider.result_type,
+      incomeType: (state) => state.incomeRider.income_type,
     }),
     ...mapGetters({
       irResult: "incomeRider/irResult",

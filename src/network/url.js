@@ -2,6 +2,7 @@ const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const getUrl = (type) => {
   const baseUrl = getBaseUrl();
+
   switch (type) {
     case 'user':
       return `${baseUrl}/auth/users/`;
@@ -63,8 +64,6 @@ export const getUrl = (type) => {
       return `${baseUrl}/historical/standalone-template-insurance-profile/`;
     case 'historical-parameters-index-template':
       return `${baseUrl}/historical/parameters-template-index/`;
-    case 'historical-parameters-portfolio':
-      return `${baseUrl}/historical/standalone-parameters-portfolio/`;
     case 'simulation-report':
       return `${baseUrl}/report/historical-report/`;
     case 'simulation-report-delete':
@@ -75,8 +74,6 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/historical-share/`;
     case 'standalone-report':
       return `${baseUrl}/historical/standalone-report/`;
-    case 'latest-report':
-      return `${baseUrl}/report/latest-report/`;
     case 'historical-latest-report':
       return `${baseUrl}/report/historical-latest-report/`;
     case 'schedule':
@@ -85,8 +82,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/scenario/illustration/`;
     case 'template-insurance-profile':
       return `${baseUrl}/scenario/template-insurance-profile/`;
-      case 'combined-insurance-profile-template':
-        return `${baseUrl}/historical/combined-data/`;
+    case 'combined-insurance-profile-template':
+      return `${baseUrl}/historical/combined-data/`;
     case 'illustration-id':
       return `${baseUrl}/scenario/illustrationid/`;
     case 'illustration-template':
@@ -109,14 +106,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/scenario/template-vehicle3/`;
     case 'vehicles-templates':
       return `${baseUrl}/scenario/vehicle-template/`;
-    case 'vehicles-templates':
-      return `${baseUrl}/scenario/vehicle-template/`;
     case 'vehicle-portfolio':
       return `${baseUrl}/scenario/vehicle-portfolio/`;
     case 'comparative':
-      return `${baseUrl}/scenario/comparative/`
+      return `${baseUrl}/scenario/comparative/`;
     case 'existing-comparative':
-      return `${baseUrl}/scenario/exisiting-comparative/`
+      return `${baseUrl}/scenario/exisiting-comparative/`;
     case 'historical':
       return `${baseUrl}/scenario/historical/`;
     case 'historical-template':
@@ -124,7 +119,7 @@ export const getUrl = (type) => {
     case 'historical-portfolio':
       return `${baseUrl}/scenario/historical-portfolio/`;
     case 'historical-simulation-object':
-      return `${baseUrl}/scenario/historical-media/`
+      return `${baseUrl}/scenario/historical-media/`;
     case 'strategy-index1':
       return `${baseUrl}/scenario/indexstrategy1/`;
     case 'strategy-index2':
@@ -178,7 +173,7 @@ export const getUrl = (type) => {
     case 'retirement-buffer':
       return `${baseUrl}/retirement_buffer/`;
     case 'incomeRider':
-      return `${baseUrl}/retirement_buffer/income_rider/`;;
+      return `${baseUrl}/retirement_buffer/income_rider/`;
     case 'incomeRiderSimulation':
       return `${baseUrl}/retirement_buffer/income_rider_simulation/`;
     case 's3_url':
@@ -189,12 +184,18 @@ export const getUrl = (type) => {
       return `${baseUrl}/payment/stripe/coupons/`;
     case 'stripe/validate-coupon':
       return `${baseUrl}/payment/stripe/validate-coupon/`;
+    case 'payment-history':
+      return `${baseUrl}/payment/my-invoice-history/`;
+    case 'current-subscription':
+      return `${baseUrl}/payment/my-subscription/`;
     case 'admin/dashboard/stats':
       return `${baseUrl}/auth/admin/dashboard/stats/`;
     case 'admin/create-user':
       return `${baseUrl}/auth/admin/create-user/`;
     case 'admin/delete-user':
       return `${baseUrl}/auth/admin/delete-user/`;
+    case 'auth/admin/webhook-logs/':
+      return `${baseUrl}/auth/admin/webhook-logs/`;
     default:
       return baseUrl;
   }
