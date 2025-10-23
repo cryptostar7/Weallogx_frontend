@@ -1270,7 +1270,7 @@ export default {
     // populate existing vehicle details
     populateVehicleTemplate(vType = 1, id = null, type = 1) {
       this.$store.dispatch('loader', true);
-      get(`${getUrl(`template-vehicle${type}`)}${id}`, authHeader())
+      get(`${getUrl(`template-vehicle${type}`)}${id}/`, authHeader())
         .then((response) => {
           var data = response.data.data;
           this.populateVehicle(vType, type, data);
