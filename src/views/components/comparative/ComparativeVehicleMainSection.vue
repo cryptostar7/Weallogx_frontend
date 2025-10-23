@@ -158,14 +158,15 @@
                             </small>
                           </div>
                           <div class="form-group-wrapper">
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="ror1" class="fs-12 medium-fw">Rate of Return</label>
-                              <div class="percent-input-div"> 
+                              <div class="percent-input-div">
                                 <input
                                   type="number"
                                   min="1"
                                   max="99"
                                   id="ror1"
+                                  v-model="vehicle.vehicle1.ror"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle1.ror = false)"
                                 />
@@ -173,14 +174,15 @@
                               </div>
                               <small class="text-danger" v-if="errors.vehicle1.ror">{{ errors.vehicle1.ror[0] }}</small>
                             </div>
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="fees1" class="fs-12 medium-fw">Fees</label>
-                              <div class="percent-input-div"> 
+                              <div class="percent-input-div">
                                 <input
                                   type="number"
                                   min="0"
                                   max="99"
                                   id="fees1"
+                                  v-model="vehicle.vehicle1.fees"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle1.fees = false)"
                                 />
@@ -217,7 +219,7 @@
                               } pt-2`"
                               id="capitalGainTaxInputs1"
                             >
-                              <div class="form-group pb-0 m-0"> 
+                              <div class="form-group pb-0 m-0">
                                 <label for="cg_tax_rate1" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
                                 <div class="percent-input-div">
                                   <input
@@ -225,6 +227,7 @@
                                     min="1"
                                     max="99"
                                     id="cg_tax_rate1"
+                                    v-model="vehicle.vehicle1.cg_tax_rate"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle1.cg_tax = false)"
                                   />
@@ -244,6 +247,7 @@
                                     min="1"
                                     max="100"
                                     id="percent_of_account_as_cg1"
+                                    v-model="vehicle.vehicle1.percent_of_account_as_cg"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle1.cg_percent = false)"
                                   />
@@ -343,14 +347,15 @@
                             </small>
                           </div>
                           <div class="form-group-wrapper">
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="ror2" class="fs-12 medium-fw">Rate of Return</label>
-                              <div class="percent-input-div"> 
+                              <div class="percent-input-div">
                                 <input
                                   type="number"
                                   min="1"
                                   max="99"
                                   id="ror2"
+                                  v-model="vehicle.vehicle2.ror"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle2.ror = false)"
                                 />
@@ -358,7 +363,7 @@
                               </div>
                               <small class="text-danger" v-if="errors.vehicle2.ror">{{ errors.vehicle2.ror[0] }}</small>
                             </div>
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="fees2" class="fs-12 medium-fw">Fees</label>
                               <div class="percent-input-div">
                                 <input
@@ -366,6 +371,7 @@
                                   min="0"
                                   max="99"
                                   id="fees2"
+                                  v-model="vehicle.vehicle2.fees"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle2.fees = false)"
                                 />
@@ -400,15 +406,15 @@
                               } pt-2`"
                               id="capitalGainTaxInputs2"
                             >
-                              <div class="form-group pb-0 m-0"> 
+                              <div class="form-group pb-0 m-0">
                                 <label for="cg_tax_rate2" class="fs-12 semi-bold-fw">Capital Gains Tax Rate</label>
-                                <div class="percent-input-div"> 
+                                <div class="percent-input-div">
                                   <input
                                     type="number"
                                     min="1"
                                     max="99"
                                     id="cg_tax_rate2"
-                                    value=""
+                                    v-model="vehicle.vehicle2.cg_tax_rate"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle2.cg_tax = false)"
                                   />
@@ -418,7 +424,7 @@
                                   {{ errors.vehicle2.cg_tax[0] }}
                                 </small>
                               </div>
-                              <div class="form-group pb-0 m-0"> 
+                              <div class="form-group pb-0 m-0">
                                 <label for="percent_of_account_as_cg2" class="fs-12 semi-bold-fw">
                                   % of Account as Capital Gains
                                 </label>
@@ -428,6 +434,7 @@
                                     min="1"
                                     max="100"
                                     id="percent_of_account_as_cg2"
+                                    v-model="vehicle.vehicle2.percent_of_account_as_cg"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle2.cg_percent = false)"
                                   />
@@ -526,7 +533,7 @@
                             </small>
                           </div>
                           <div class="form-group-wrapper">
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="ror3" class="fs-12 medium-fw">Rate of Return</label>
                               <div class="percent-input-div">
                                 <input
@@ -534,14 +541,15 @@
                                   min="1"
                                   max="99"
                                   id="ror3"
+                                  v-model="vehicle.vehicle3.ror"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle3.ror = false)"
                                 />
-                                <span class="percent-span">%</span> 
+                                <span class="percent-span">%</span>
                               </div>
                               <small class="text-danger" v-if="errors.vehicle3.ror">{{ errors.vehicle3.ror[0] }}</small>
                             </div>
-                            <div class="form-group"> 
+                            <div class="form-group">
                               <label for="fees3" class="fs-12 medium-fw">Fees</label>
                               <div class="percent-input-div">
                                 <input
@@ -549,6 +557,7 @@
                                   min="0"
                                   max="99"
                                   id="fees3"
+                                  v-model="vehicle.vehicle3.fees"
                                   class="form-control handleLimit"
                                   @keyup="() => (errors.vehicle3.fees = false)"
                                 />
@@ -593,6 +602,7 @@
                                     min="1"
                                     max="99"
                                     id="cg_tax_rate3"
+                                    v-model="vehicle.vehicle3.cg_tax_rate"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle3.cg_tax = false)"
                                   />
@@ -612,6 +622,7 @@
                                     min="1"
                                     max="100"
                                     id="percent_of_account_as_cg3"
+                                    v-model="vehicle.vehicle3.percent_of_account_as_cg"
                                     class="form-control handleLimit"
                                     @keyup="() => (errors.vehicle3.cg_percent = false)"
                                   />
