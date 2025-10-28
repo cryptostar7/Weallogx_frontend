@@ -8,6 +8,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/users/`;
     case 'signup':
       return `${baseUrl}/auth/register/`;
+    case 'team-member-signup':
+      return `${baseUrl}/auth/team-member-register/`;
     case 'user-exists':
       return `${baseUrl}/auth/user-exists/`;
     case 'profile':
@@ -196,6 +198,23 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/admin/delete-user/`;
     case 'auth/admin/webhook-logs/':
       return `${baseUrl}/auth/admin/webhook-logs/`;
+    // Team Management
+    case 'team-create':
+      return `${baseUrl}/payment/team/`;
+    case 'team-detail':
+      return `${baseUrl}/payment/team/`;
+    case 'team-members':
+      return `${baseUrl}/payment/team/`;
+    case 'team-invite':
+      return `${baseUrl}/payment/team/`;
+    case 'team-member-remove':
+      return `${baseUrl}/payment/team/`;
+    case 'invitation-detail':
+      return `${baseUrl}/payment/team/invitation/`;
+    case 'invitation-accept':
+      return `${baseUrl}/payment/team/invitation/`;
+    case 'invitation-revoke':
+      return `${baseUrl}/payment/team/invitation/`;
     default:
       return baseUrl;
   }
