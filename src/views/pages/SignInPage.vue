@@ -217,6 +217,7 @@ export default {
                     avatar: response.data.data.avatar,
                     is_staff: response.data.data.is_staff,
                     is_superuser: response.data.data.is_superuser,
+                    team_role: response.data.data.team_role,
                   });
                   this.$store.dispatch("user", response.data.data);
                   this.$store.dispatch("loader", false);
