@@ -172,6 +172,14 @@
       <fotter-component />
     </div>
     <eula-component :isVisible="showTermsModal" @close="showTermsModal = false" @agree="acceptTerms" />
+
+    <!-- Email Verification Modal for Cognito -->
+    <email-verification-modal
+      v-if="showEmailVerificationModal"
+      :email="user.email"
+      @verified="handleEmailVerified"
+      @close="showEmailVerificationModal = false"
+    />
   </div>
 </template>
 <script>
@@ -180,6 +188,8 @@ import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import EulaComponent from "../components/eula/EulaModal.vue";
+import EmailVerificationModal from "../components/auth/EmailVerificationModal.vue";
+import authService from "../../services/authService";
 import {
   getServerErrors,
   setRefreshToken,
@@ -188,7 +198,12 @@ import {
   setCurrentUser,
 } from "../../services/helper";
 export default {
-  components: { NavbarComponent, FotterComponent, EulaComponent },
+  components: {
+    NavbarComponent,
+    FotterComponent,
+    EulaComponent,
+    EmailVerificationModal
+  },
   data() {
     return {
       user: {
@@ -204,6 +219,7 @@ export default {
         terms_accepted: false,
       },
       showTermsModal: false,
+      showEmailVerificationModal: false,
       errors: [],
       serverError: [],
       server: [],
@@ -218,6 +234,56 @@ export default {
     acceptTerms() {
       this.user.terms_accepted = true;
       this.showTermsModal = false;
+    },
+    handleEmailVerified() {
+      // Email verified successfully - now log the user in
+      this.showEmailVerificationModal = false;
+      this.$store.dispatch("loader", true);
+
+      // Login with the credentials
+      authService.login({
+        email: this.user.email,
+        password: this.user.password,
+        remember_me: false
+      })
+        .then(response => {
+          if (response.mfaRequired) {
+            // MFA is required - should not happen for new users, but handle it
+            this.$toast.error('MFA required. Please contact support.');
+            this.$store.dispatch("loader", false);
+            return;
+          }
+
+          // Login successful - set user data and redirect
+          if (response.data && response.data.user) {
+            setCurrentUser({
+              first_name: response.data.user.first_name || this.user.first_name,
+              last_name: response.data.user.last_name || this.user.last_name,
+              role_type: response.data.user.role_type,
+              avatar: response.data.user.avatar,
+            });
+          }
+
+          localStorage.setItem("plan_active", 1);
+          this.$store.dispatch("loader", false);
+
+          // Check if team plan - redirect to team management
+          const isTeamPlan = this.user.plan_type === 'TEAM_MONTHLY_PLAN' ||
+                             this.user.plan_type === 'TEAM_YEARLY_PLAN';
+
+          if (isTeamPlan) {
+            this.$toast.success('Welcome! Your team has been created. You can now invite team members.');
+            this.$router.push("/team-management");
+          } else {
+            this.$toast.success('Email verified successfully! Welcome to WealthLogix.');
+            this.$router.push("/profile-details");
+          }
+        })
+        .catch(error => {
+          this.$toast.error('Login failed after verification. Please try logging in manually.');
+          this.$store.dispatch("loader", false);
+          this.$router.push("/sign-in");
+        });
     },
     isValidEmail: function() {
       if (
@@ -312,20 +378,34 @@ export default {
 
       this.$store.dispatch("loader", true);
       if (this.user.stripe_source_id) {
-        post(getUrl("signup"), this.user)
+        // Use authService for registration (supports both Cognito and Django)
+        authService.register(this.user)
           .then(response => {
             this.$store.dispatch("userTempForm", false);
-            setRefreshToken(response.data.data.tokens.refresh);
-            setAccessToken(response.data.data.tokens.access);
+
+            // Check if email verification is required (Cognito only)
+            if (response.verificationRequired && response.cognitoEnabled) {
+              this.$store.dispatch("loader", false);
+              this.$toast.info('Please check your email for a verification code.');
+              this.showEmailVerificationModal = true;
+              return;
+            }
+
+            // Standard flow - store tokens and redirect
+            if (response.data && response.data.tokens) {
+              setRefreshToken(response.data.tokens.refresh);
+              setAccessToken(response.data.tokens.access);
+            }
+
             setCurrentUser({
               first_name: this.user.first_name,
               last_name: this.user.last_name,
               role_type: this.user.role_type,
-            avatar: this.user.avatar,
+              avatar: this.user.avatar,
             });
             localStorage.setItem("plan_active", 1);
             this.server.status = true;
-            this.server.message = response.data.message;
+            this.server.message = response.message;
             this.$store.dispatch("loader", false);
 
             // Check if team plan - redirect to team management

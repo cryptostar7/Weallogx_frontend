@@ -36,6 +36,7 @@ import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
 import { getUrl } from "../../network/url";
 import { post } from "../../network/requests";
+import authService from "../../services/authService";
 import { authHeader, getServerErrors, getFirstError } from "../../services/helper";
 export default {
   components: { NavbarComponent, FotterComponent },
@@ -72,11 +73,22 @@ export default {
         return false;
       }
       this.$store.dispatch("loader", true);
-      post(getUrl("forgot-password"), { email: this.email }, authHeader())
+
+      // Use authService for password reset request (supports both Cognito and Django)
+      authService.requestPasswordReset(this.email)
         .then(response => {
           this.$store.dispatch("loader", false);
-          this.$toast.success(response.data.success);
-          this.$router.push("/sign-in");
+
+          // Check if this is Cognito flow (6-digit code) or Django flow (email link)
+          if (response.cognitoReset) {
+            this.$toast.success('A 6-digit verification code has been sent to your email. Please enter it on the reset password page.');
+            // Redirect to reset password page with email parameter
+            this.$router.push(`/reset-password?email=${encodeURIComponent(this.email)}`);
+          } else {
+            // Django flow - email link sent
+            this.$toast.success(response.success || 'Password reset link has been sent to your email.');
+            this.$router.push("/sign-in");
+          }
         })
         .catch(error => {
           this.$store.dispatch("loader", false);
@@ -84,7 +96,7 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.errors = getServerErrors(error);
-            this.$toast.error(error.response.data.message);
+            this.$toast.error(error.response?.data?.message || 'Failed to send reset request');
           }
         });
     },

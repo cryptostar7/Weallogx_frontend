@@ -20,6 +20,10 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/remove-logo/`;
     case 'login':
       return `${baseUrl}/auth/login/`;
+    case 'login-cognito':
+      return `${baseUrl}/auth/login-cognito/`;
+    case 'mfa-verify':
+      return `${baseUrl}/auth/mfa/verify/`;
     case 'login-with-token':
       return `${baseUrl}/auth/remember-token/verify/`;
     case 'current_plan':
@@ -36,8 +40,16 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/change_password/`;
     case 'forgot-password':
       return `${baseUrl}/auth/request-forget-email/`;
+    case 'forgot-password-cognito':
+      return `${baseUrl}/auth/password-reset-cognito/request/`;
     case 'reset-password':
       return `${baseUrl}/auth/password-forget-complete/`;
+    case 'reset-password-cognito':
+      return `${baseUrl}/auth/password-reset-cognito/confirm/`;
+    case 'signup-cognito':
+      return `${baseUrl}/auth/register-cognito/`;
+    case 'email-verify-cognito':
+      return `${baseUrl}/auth/email-verify-cognito/`;
     case 'scenario':
       return `${baseUrl}/scenario/scenario/`;
     case 'scenario-details':

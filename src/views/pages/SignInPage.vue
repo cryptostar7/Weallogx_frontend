@@ -104,13 +104,24 @@
       </div>
     </section>
     <!-- <fotter-component /> -->
+
+    <!-- MFA Verification Modal for Cognito -->
+    <mfa-verification-modal
+      v-if="showMfaVerificationModal"
+      :email="user.email"
+      :session="mfaSession"
+      @verified="handleMfaVerified"
+      @close="showMfaVerificationModal = false"
+    />
   </div>
 </template>
 <script>
 import NavbarComponent from "./../components/common/UserNavbarComponent.vue";
 import FotterComponent from "./../components/common/UserFooterComponent.vue";
+import MfaVerificationModal from "../components/auth/MfaVerificationModal.vue";
 import { post, get } from "../../network/requests";
 import { getUrl } from "../../network/url";
+import authService from "../../services/authService";
 
 import {
   getServerErrors,
@@ -124,7 +135,11 @@ import {
   rememberMe,
 } from "../../services/helper";
 export default {
-  components: { NavbarComponent, FotterComponent },
+  components: {
+    NavbarComponent,
+    FotterComponent,
+    MfaVerificationModal
+  },
   data() {
     return {
       user: {
@@ -133,6 +148,8 @@ export default {
       },
       passwordVisible: false,
       rememberMe: rememberMe() ? true : false,
+      showMfaVerificationModal: false,
+      mfaSession: null,
       errors: [],
       serverError: [],
       server: [],
@@ -184,13 +201,27 @@ export default {
         return false;
       }
       this.$store.dispatch("loader", true);
-      post(getUrl("login"), this.user)
+
+      // Use authService for login (supports both Cognito and Django)
+      authService.login({
+        email: this.user.email,
+        password: this.user.password,
+        remember_me: this.rememberMe
+      })
         .then((response) => {
-          // set token in local storage
-          setRefreshToken(response.data.data.tokens.refresh);
-          setAccessToken(response.data.data.tokens.access);
+          // Check if MFA is required (Cognito only)
+          if (response.mfaRequired && response.cognitoEnabled) {
+            this.$store.dispatch("loader", false);
+            this.$toast.info('Please enter your MFA code.');
+            this.mfaSession = response.session;
+            this.showMfaVerificationModal = true;
+            return;
+          }
+
+          // Standard login flow - tokens are already stored by authService
           this.server.status = true;
-          this.server.message = response.data.message;
+          this.server.message = response.message;
+
           if (this.rememberMe) {
             setRememberMe({
               email: window.btoa(this.user.email),
@@ -199,6 +230,7 @@ export default {
           } else {
             localStorage.removeItem("remember");
           }
+
           // get plan status
           get(getUrl("current_plan"), authHeader())
             .then((response) => {
@@ -266,6 +298,79 @@ export default {
             this.$toast.error(error.message);
           } else {
             this.$toast.error(this.server.message);
+          }
+        });
+    },
+    handleMfaVerified() {
+      // MFA verified successfully - tokens are already stored by authService
+      this.showMfaVerificationModal = false;
+      this.$store.dispatch("loader", true);
+
+      // Continue with post-login flow
+      this.server.status = true;
+      this.server.message = 'Login successful';
+
+      if (this.rememberMe) {
+        setRememberMe({
+          email: window.btoa(this.user.email),
+          password: window.btoa(this.user.password),
+        });
+      } else {
+        localStorage.removeItem("remember");
+      }
+
+      // get plan status
+      get(getUrl("current_plan"), authHeader())
+        .then((response) => {
+          localStorage.setItem(
+            "plan_active",
+            response.data.data.active ? 1 : 0
+          );
+          this.$store.dispatch("currentPlan", response.data.data);
+          // to save the profile detail in vuex store
+          get(getUrl("profile"), authHeader())
+            .then((response) => {
+              setCurrentUser({
+                first_name: response.data.data.first_name,
+                last_name: response.data.data.last_name,
+                role_type: response.data.data.role_type,
+                avatar: response.data.data.avatar,
+                is_staff: response.data.data.is_staff,
+                is_superuser: response.data.data.is_superuser,
+                team_role: response.data.data.team_role,
+              });
+              this.$store.dispatch("user", response.data.data);
+              this.$store.dispatch("loader", false);
+              this.$toast.success('MFA verified successfully! Welcome back.');
+              // redrect to next url if next param exist in url
+              if (getSearchParams("next")) {
+                this.$router.push(getSearchParams("next"));
+              } else {
+                // All users go to profile-details
+                this.$router.push("/profile-details");
+              }
+            })
+            .catch((error) => {
+              this.$store.dispatch("loader", false);
+              if (
+                error.code === "ERR_BAD_RESPONSE" ||
+                error.code === "ERR_NETWORK"
+              ) {
+                this.$toast.error(error.message);
+              } else {
+                this.$toast.error(getFirstError(error));
+              }
+            });
+        })
+        .catch((error) => {
+          this.$store.dispatch("loader", false);
+          if (
+            error.code === "ERR_BAD_RESPONSE" ||
+            error.code === "ERR_NETWORK"
+          ) {
+            this.$toast.error(error.message);
+          } else {
+            this.$toast.error(getFirstError(error));
           }
         });
     },
