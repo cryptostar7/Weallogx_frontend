@@ -120,14 +120,39 @@
                   <label class="error fs-14 d-block text-center" v-if="errors.terms_accepted && errors.terms_accepted[0]">{{ errors.terms_accepted[0] }}</label>
                 </div>
                 <div class="authButtonDiv">
+                  <!-- Individual Monthly -->
                   <p v-if="user.plan_type === 'MONTHLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
-                    You are signing up for the monthly plan. 
-                    <a href="/sign-up?plan=annual" class="bold">Switch to annual.</a>
+                    You are signing up for the <span class="bold">Individual Monthly</span> plan ($129/month).
+                    <br>
+                    <a href="/sign-up?plan=annual" class="bold">Switch to annual</a>
                   </p>
+
+                  <!-- Individual Annual -->
                   <p v-else-if="user.plan_type === 'YEARLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
-                    You are signing up for the annual plan. 
-                    <a href="/sign-up?plan=monthly" class="bold">Switch to monthly.</a>
+                    You are signing up for the <span class="bold">Individual Annual</span> plan ($1,188/year).
+                    <br>
+                    <a href="/sign-up?plan=monthly" class="bold">Switch to monthly</a>
                   </p>
+
+                  <!-- Team Monthly -->
+                  <p v-else-if="user.plan_type === 'TEAM_MONTHLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
+                    You are signing up for the <span class="bold">Team Monthly</span> plan.
+                    <br>
+                    <span class="bold">$387/month</span> for up to <span class="bold">5 team members</span>
+                    <br>
+                    <a href="/sign-up?plan=team_annual" class="bold">Switch to annual</a>
+                  </p>
+
+                  <!-- Team Annual -->
+                  <p v-else-if="user.plan_type === 'TEAM_YEARLY_PLAN'" class="text-align-center mb-3 fs-14 pt-3">
+                    You are signing up for the <span class="bold">Team Annual</span> plan.
+                    <br>
+                    <span class="bold">$3,564/year</span> for up to <span class="bold">5 team members</span>
+                    <br>
+                    <a href="/sign-up?plan=team_monthly" class="bold">Switch to monthly</a>
+                  </p>
+
+                  <!-- Free Trial -->
                   <p v-else class="text-align-center mb-3 fs-14 pt-3">
                     On signing up, you will get the <span class="bold">7-Day Free Trial!</span>
                   </p>
@@ -302,8 +327,18 @@ export default {
             this.server.status = true;
             this.server.message = response.data.message;
             this.$store.dispatch("loader", false);
-            this.$toast.success(this.server.message);
-            this.$router.push("/profile-details");
+
+            // Check if team plan - redirect to team management
+            const isTeamPlan = this.user.plan_type === 'TEAM_MONTHLY_PLAN' ||
+                               this.user.plan_type === 'TEAM_YEARLY_PLAN';
+
+            if (isTeamPlan) {
+              this.$toast.success('Welcome! Your team has been created. You can now invite team members.');
+              this.$router.push("/team-management");
+            } else {
+              this.$toast.success(this.server.message);
+              this.$router.push("/profile-details");
+            }
           })
           .catch(error => {
             if (
