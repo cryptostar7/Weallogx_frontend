@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-undef */
 import axios from 'axios';
+import { getAccessToken } from '../services/helper';
 
 // Increase timeout for all requests - especially helpful for login flow
 const timeout = import.meta.env.MODE === 'development' ? 300000 : 600000;
@@ -19,8 +20,8 @@ const api = axios.create({
 // Add request interceptor to attach auth token to all requests
 api.interceptors.request.use(
   (config) => {
-    // Get access token from localStorage
-    const accessToken = localStorage.getItem('access_token');
+    // Get access token using helper (handles JSON format and expiry)
+    const accessToken = getAccessToken();
 
     if (accessToken) {
       // Attach token to Authorization header
