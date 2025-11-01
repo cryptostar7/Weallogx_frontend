@@ -231,15 +231,33 @@ class AuthService {
    * @param {boolean} rememberMe - Whether to persist login
    */
   storeTokens(tokens, rememberMe = false) {
+    const now = new Date();
+
     if (tokens.access) {
-      localStorage.setItem('access_token', tokens.access)
+      // Store access token in the format expected by getAccessToken() helper
+      const baseTtl = 72 * 600000; // 12 hours (72 * 10 minutes)
+      const extendedTtl = 7 * 24 * 60 * 60 * 1000; // 7 days
+      const ttl = rememberMe ? extendedTtl : baseTtl;
+
+      const accessTokenData = {
+        value: tokens.access,
+        expiry: now.getTime() + ttl,
+        rememberMe: rememberMe
+      };
+      localStorage.setItem('access_token', JSON.stringify(accessTokenData))
     }
 
     if (tokens.refresh) {
-      localStorage.setItem('refresh_token', tokens.refresh)
+      // Store refresh token in the format expected by getRefreshToken() helper
+      const refreshTtl = 168 * 3600000; // 168 hours (7 days)
+      const refreshTokenData = {
+        value: tokens.refresh,
+        expiry: now.getTime() + refreshTtl
+      };
+      localStorage.setItem('refresh_token', JSON.stringify(refreshTokenData))
     }
 
-    // Cognito ID token
+    // Cognito ID token (stored as plain string, not used by existing helpers)
     if (tokens.id_token) {
       localStorage.setItem('id_token', tokens.id_token)
     }
@@ -272,7 +290,24 @@ class AuthService {
    * @returns {string|null} Access token or null
    */
   getAccessToken() {
-    return localStorage.getItem('access_token')
+    const raw = localStorage.getItem('access_token')
+    if (!raw) return null
+
+    try {
+      const parsed = JSON.parse(raw)
+      // Check expiry
+      if (parsed && parsed.expiry) {
+        const now = new Date().getTime()
+        if (now > parsed.expiry) {
+          localStorage.removeItem('access_token')
+          return null
+        }
+      }
+      return parsed && parsed.value ? parsed.value : null
+    } catch (e) {
+      // If parsing fails, assume it's a plain token (backward compatibility)
+      return raw
+    }
   }
 
   /**
@@ -281,7 +316,24 @@ class AuthService {
    * @returns {string|null} Refresh token or null
    */
   getRefreshToken() {
-    return localStorage.getItem('refresh_token')
+    const raw = localStorage.getItem('refresh_token')
+    if (!raw) return null
+
+    try {
+      const parsed = JSON.parse(raw)
+      // Check expiry
+      if (parsed && parsed.expiry) {
+        const now = new Date().getTime()
+        if (now > parsed.expiry) {
+          localStorage.removeItem('refresh_token')
+          return null
+        }
+      }
+      return parsed && parsed.value ? parsed.value : null
+    } catch (e) {
+      // If parsing fails, assume it's a plain token (backward compatibility)
+      return raw
+    }
   }
 
   /**
