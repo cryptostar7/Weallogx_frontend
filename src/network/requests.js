@@ -16,6 +16,24 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+// Add request interceptor to attach auth token to all requests
+api.interceptors.request.use(
+  (config) => {
+    // Get access token from localStorage
+    const accessToken = localStorage.getItem('access_token');
+
+    if (accessToken) {
+      // Attach token to Authorization header
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 // Add response interceptor to handle common error cases
 api.interceptors.response.use(
   (response) => {
