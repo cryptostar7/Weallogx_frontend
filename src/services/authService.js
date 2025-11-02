@@ -107,7 +107,8 @@ class AuthService {
 
         return {
           ...response.data,
-          cognitoEnabled
+          cognitoEnabled,
+          passwordNeedsReset: data.password_needs_reset || false
         }
       }
 
