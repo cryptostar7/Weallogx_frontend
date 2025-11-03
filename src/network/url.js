@@ -10,6 +10,8 @@ export const getUrl = (type) => {
       return `${baseUrl}/auth/register/`;
     case 'team-member-signup':
       return `${baseUrl}/auth/team-member-register/`;
+    case 'team-member-signup-cognito':
+      return `${baseUrl}/auth/team-member-register-cognito/`;
     case 'user-exists':
       return `${baseUrl}/auth/user-exists/`;
     case 'profile':
