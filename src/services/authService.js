@@ -92,6 +92,9 @@ class AuthService {
       if (response.data.status) {
         const data = response.data.data;
 
+        console.log('🔍 LOGIN RESPONSE DATA:', JSON.stringify(data, null, 2));
+        console.log('🔍 cognitoEnabled:', cognitoEnabled);
+
         // Check if MFA is required (Cognito only)
         if (data.mfa_required) {
           return {
@@ -104,6 +107,7 @@ class AuthService {
 
         // Store tokens - Cognito sends cognito_tokens, Django sends tokens
         const tokens = cognitoEnabled ? data.cognito_tokens : data.tokens;
+        console.log('🔍 TOKENS EXTRACTED:', JSON.stringify(tokens, null, 2));
 
         // Transform Cognito token format to match storeTokens() expectations
         const tokenData = cognitoEnabled ? {
@@ -112,7 +116,9 @@ class AuthService {
           id_token: tokens.id_token
         } : tokens;
 
+        console.log('🔍 TOKEN DATA TO STORE:', JSON.stringify(tokenData, null, 2));
         this.storeTokens(tokenData, credentials.remember_me);
+        console.log('🔍 TOKENS STORED IN LOCALSTORAGE');
 
         return {
           ...response.data,
