@@ -10,7 +10,7 @@
               <section class="strategy-calc-main-section mt-3 pt-4">
                 <div class="strategy-calc-main-div">
                   <div class="index-strategy-head-div" style="position: relative; display: flex; justify-content: center; align-items: center;">
-                    <h1 style="margin: 0; text-align: center;">Index Strategy Calculator</h1>
+                    <h1 style="margin: 0; text-align: center;">Index Strategy Analyzer</h1>
                     <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);" class="d-flex align-items-center gap-3">
                       <div class="run-reset-btn-div" style="margin: 0; margin-right: 15px;">
                         <a
@@ -53,7 +53,7 @@
       <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Index Strategy Calculator Walkthrough</h5>
+            <h5 class="modal-title">Index Strategy Analyzer Walkthrough</h5>
             <button
               type="button"
               class="btn-close"
