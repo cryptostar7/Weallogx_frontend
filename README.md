@@ -70,3 +70,4 @@ wlx-ui/
 ├── nginx.conf      # nginx reverse proxy configuration
 └── generate-env.js # Local environment setup script
 ```
+# Trigger rebuild for Cognito configuration
