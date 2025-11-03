@@ -105,19 +105,13 @@ class AuthService {
           };
         }
 
-        // Store tokens - Cognito sends cognito_tokens, Django sends tokens
-        const tokens = cognitoEnabled ? data.cognito_tokens : data.tokens;
+        // Store tokens - backend serializer already transforms both Cognito and Django tokens to standard format
+        const tokens = data.tokens;
         console.log('🔍 TOKENS EXTRACTED:', JSON.stringify(tokens, null, 2));
 
-        // Transform Cognito token format to match storeTokens() expectations
-        const tokenData = cognitoEnabled ? {
-          access: tokens.access_token,
-          refresh: tokens.refresh_token,
-          id_token: tokens.id_token
-        } : tokens;
-
-        console.log('🔍 TOKEN DATA TO STORE:', JSON.stringify(tokenData, null, 2));
-        this.storeTokens(tokenData, credentials.remember_me);
+        // Tokens are already in the correct format (access, refresh, id_token)
+        console.log('🔍 TOKEN DATA TO STORE:', JSON.stringify(tokens, null, 2));
+        this.storeTokens(tokens, credentials.remember_me);
         console.log('🔍 TOKENS STORED IN LOCALSTORAGE');
 
         return {
