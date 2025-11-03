@@ -14,9 +14,9 @@
  * - Legacy authentication flow
  */
 
-import { post } from '../network/requests'
-import { getUrl } from '../network/url'
-import { cognitoEnabled } from './amplify-config'
+import { post } from '../network/requests';
+import { getUrl } from '../network/url';
+import { cognitoEnabled } from './amplify-config';
 
 class AuthService {
   /**
@@ -36,11 +36,11 @@ class AuthService {
    * @returns {Promise} API response
    */
   async register(userData) {
-    const endpoint = cognitoEnabled ? 'signup-cognito' : 'signup'
-    const url = getUrl(endpoint)
+    const endpoint = cognitoEnabled ? 'signup-cognito' : 'signup';
+    const url = getUrl(endpoint);
 
     try {
-      const response = await post(url, userData)
+      const response = await post(url, userData);
 
       if (cognitoEnabled) {
         // Cognito response includes verification_required flag
@@ -48,12 +48,12 @@ class AuthService {
           ...response.data,
           verificationRequired: response.data.verification_required || false,
           cognitoEnabled: true
-        }
+        };
       }
 
-      return response.data
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -66,11 +66,11 @@ class AuthService {
    */
   async verifyEmail(email, code) {
     if (!cognitoEnabled) {
-      throw new Error('Email verification is only available with Cognito')
+      throw new Error('Email verification is only available with Cognito');
     }
 
-    const url = getUrl('email-verify-cognito')
-    return await post(url, { email, code })
+    const url = getUrl('email-verify-cognito');
+    return await post(url, { email, code });
   }
 
   /**
@@ -83,14 +83,14 @@ class AuthService {
    * @returns {Promise} API response with tokens and user data
    */
   async login(credentials) {
-    const endpoint = cognitoEnabled ? 'login-cognito' : 'login'
-    const url = getUrl(endpoint)
+    const endpoint = cognitoEnabled ? 'login-cognito' : 'login';
+    const url = getUrl(endpoint);
 
     try {
-      const response = await post(url, credentials)
+      const response = await post(url, credentials);
 
       if (response.data.status) {
-        const data = response.data.data
+        const data = response.data.data;
 
         // Check if MFA is required (Cognito only)
         if (data.mfa_required) {
@@ -99,22 +99,31 @@ class AuthService {
             session: data.session,
             email: credentials.email,
             cognitoEnabled: true
-          }
+          };
         }
 
-        // Store tokens
-        this.storeTokens(data.tokens, credentials.remember_me)
+        // Store tokens - Cognito sends cognito_tokens, Django sends tokens
+        const tokens = cognitoEnabled ? data.cognito_tokens : data.tokens;
+
+        // Transform Cognito token format to match storeTokens() expectations
+        const tokenData = cognitoEnabled ? {
+          access: tokens.access_token,
+          refresh: tokens.refresh_token,
+          id_token: tokens.id_token
+        } : tokens;
+
+        this.storeTokens(tokenData, credentials.remember_me);
 
         return {
           ...response.data,
           cognitoEnabled,
           passwordNeedsReset: data.password_needs_reset || false
-        }
+        };
       }
 
-      return response.data
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -129,30 +138,33 @@ class AuthService {
    */
   async verifyMFA(mfaData) {
     if (!cognitoEnabled) {
-      throw new Error('MFA is only available with Cognito')
+      throw new Error('MFA is only available with Cognito');
     }
 
-    const url = getUrl('mfa-verify')
+    const url = getUrl('mfa-verify');
 
     try {
-      const response = await post(url, mfaData)
+      const response = await post(url, mfaData);
 
       if (response.data.status) {
-        const data = response.data.data
+        const data = response.data.data;
 
         // Store tokens from MFA response
-        this.storeTokens({
-          access: data.access_token,
-          refresh: data.refresh_token,
-          id_token: data.id_token
-        }, false)
+        this.storeTokens(
+          {
+            access: data.access_token,
+            refresh: data.refresh_token,
+            id_token: data.id_token
+          },
+          false
+        );
 
-        return response.data
+        return response.data;
       }
 
-      return response.data
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -163,17 +175,17 @@ class AuthService {
    * @returns {Promise} API response
    */
   async requestPasswordReset(email) {
-    const endpoint = cognitoEnabled ? 'forgot-password-cognito' : 'forgot-password'
-    const url = getUrl(endpoint)
+    const endpoint = cognitoEnabled ? 'forgot-password-cognito' : 'forgot-password';
+    const url = getUrl(endpoint);
 
     try {
-      const response = await post(url, { email })
+      const response = await post(url, { email });
       return {
         ...response.data,
         cognitoReset: cognitoEnabled // Indicates if 6-digit code flow
-      }
+      };
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -192,14 +204,14 @@ class AuthService {
    * @returns {Promise} API response
    */
   async confirmPasswordReset(resetData) {
-    const endpoint = cognitoEnabled ? 'reset-password-cognito' : 'reset-password'
-    const url = getUrl(endpoint)
+    const endpoint = cognitoEnabled ? 'reset-password-cognito' : 'reset-password';
+    const url = getUrl(endpoint);
 
     try {
-      const response = await post(url, resetData)
-      return response.data
+      const response = await post(url, resetData);
+      return response.data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -211,14 +223,14 @@ class AuthService {
   async logout() {
     try {
       // Call backend logout endpoint (revokes session)
-      const url = getUrl('logout')
-      await post(url, {})
+      const url = getUrl('logout');
+      await post(url, {});
     } catch (error) {
-      console.error('Logout API error:', error)
+      console.error('Logout API error:', error);
       // Continue with local cleanup even if API fails
     } finally {
       // Clear all auth data
-      this.clearTokens()
+      this.clearTokens();
     }
   }
 
@@ -245,7 +257,7 @@ class AuthService {
         expiry: now.getTime() + ttl,
         rememberMe: rememberMe
       };
-      localStorage.setItem('access_token', JSON.stringify(accessTokenData))
+      localStorage.setItem('access_token', JSON.stringify(accessTokenData));
     }
 
     if (tokens.refresh) {
@@ -255,34 +267,34 @@ class AuthService {
         value: tokens.refresh,
         expiry: now.getTime() + refreshTtl
       };
-      localStorage.setItem('refresh_token', JSON.stringify(refreshTokenData))
+      localStorage.setItem('refresh_token', JSON.stringify(refreshTokenData));
     }
 
     // Cognito ID token (stored as plain string, not used by existing helpers)
     if (tokens.id_token) {
-      localStorage.setItem('id_token', tokens.id_token)
+      localStorage.setItem('id_token', tokens.id_token);
     }
 
     if (rememberMe) {
-      localStorage.setItem('remember', 'true')
+      localStorage.setItem('remember', 'true');
     }
 
     // Store auth method for debugging
-    localStorage.setItem('auth_method', cognitoEnabled ? 'cognito' : 'django')
+    localStorage.setItem('auth_method', cognitoEnabled ? 'cognito' : 'django');
   }
 
   /**
    * Clear all authentication tokens from localStorage
    */
   clearTokens() {
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('plan_active')
-    localStorage.removeItem('currentUser')
-    localStorage.removeItem('remember')
-    localStorage.removeItem('login_from_admin')
-    localStorage.removeItem('auth_method')
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('plan_active');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('remember');
+    localStorage.removeItem('login_from_admin');
+    localStorage.removeItem('auth_method');
   }
 
   /**
@@ -291,23 +303,23 @@ class AuthService {
    * @returns {string|null} Access token or null
    */
   getAccessToken() {
-    const raw = localStorage.getItem('access_token')
-    if (!raw) return null
+    const raw = localStorage.getItem('access_token');
+    if (!raw) return null;
 
     try {
-      const parsed = JSON.parse(raw)
+      const parsed = JSON.parse(raw);
       // Check expiry
       if (parsed && parsed.expiry) {
-        const now = new Date().getTime()
+        const now = new Date().getTime();
         if (now > parsed.expiry) {
-          localStorage.removeItem('access_token')
-          return null
+          localStorage.removeItem('access_token');
+          return null;
         }
       }
-      return parsed && parsed.value ? parsed.value : null
+      return parsed && parsed.value ? parsed.value : null;
     } catch (e) {
       // If parsing fails, assume it's a plain token (backward compatibility)
-      return raw
+      return raw;
     }
   }
 
@@ -317,23 +329,23 @@ class AuthService {
    * @returns {string|null} Refresh token or null
    */
   getRefreshToken() {
-    const raw = localStorage.getItem('refresh_token')
-    if (!raw) return null
+    const raw = localStorage.getItem('refresh_token');
+    if (!raw) return null;
 
     try {
-      const parsed = JSON.parse(raw)
+      const parsed = JSON.parse(raw);
       // Check expiry
       if (parsed && parsed.expiry) {
-        const now = new Date().getTime()
+        const now = new Date().getTime();
         if (now > parsed.expiry) {
-          localStorage.removeItem('refresh_token')
-          return null
+          localStorage.removeItem('refresh_token');
+          return null;
         }
       }
-      return parsed && parsed.value ? parsed.value : null
+      return parsed && parsed.value ? parsed.value : null;
     } catch (e) {
       // If parsing fails, assume it's a plain token (backward compatibility)
-      return raw
+      return raw;
     }
   }
 
@@ -343,7 +355,7 @@ class AuthService {
    * @returns {boolean} True if user has access token
    */
   isAuthenticated() {
-    return !!this.getAccessToken()
+    return !!this.getAccessToken();
   }
 
   /**
@@ -352,9 +364,9 @@ class AuthService {
    * @returns {string} 'cognito' or 'django'
    */
   getAuthMethod() {
-    return localStorage.getItem('auth_method') || (cognitoEnabled ? 'cognito' : 'django')
+    return localStorage.getItem('auth_method') || (cognitoEnabled ? 'cognito' : 'django');
   }
 }
 
 // Export singleton instance
-export default new AuthService()
+export default new AuthService();
