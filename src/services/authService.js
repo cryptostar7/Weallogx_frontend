@@ -224,7 +224,14 @@ class AuthService {
     try {
       // Call backend logout endpoint (revokes session)
       const url = getUrl('logout');
-      await post(url, {});
+      const accessToken = this.getAccessToken();
+      const refreshToken = this.getRefreshToken();
+
+      // Send both access token in header and refresh token in body
+      await post(url,
+        { refresh: refreshToken || '' },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
     } catch (error) {
       console.error('Logout API error:', error);
       // Continue with local cleanup even if API fails
