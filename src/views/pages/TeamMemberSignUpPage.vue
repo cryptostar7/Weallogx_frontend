@@ -190,9 +190,10 @@
 <script>
 import NavbarComponent from "../components/common/UserNavbarComponent.vue";
 import FotterComponent from "../components/common/UserFooterComponent.vue";
-import { post } from "../../network/requests";
+import { post, get } from "../../network/requests";
 import { getUrl } from "../../network/url";
-import { setAccessToken, setRefreshToken, setCurrentUser, authHeader } from "../../services/helper";
+import authService from "../../services/authService";
+import { cognitoEnabled } from "../../services/amplify-config";
 
 export default {
   name: "TeamMemberSignUpPage",
@@ -232,9 +233,6 @@ export default {
         this.loadingInvitation = true;
 
         // Fetch invitation details using the token (public endpoint)
-        const { get } = await import("../../network/requests");
-        const { getUrl } = await import("../../network/url");
-
         const response = await get(`${getUrl('invitation-detail')}${this.invitationToken}/`);
 
         this.invitation = response.data;
@@ -312,7 +310,8 @@ export default {
       this.submitErrorMessage = '';
 
       try {
-        // Step 1: Register the user (using dedicated team member endpoint)
+        // Step 1: Register the user using dedicated team member endpoint (Cognito-aware)
+        const endpoint = cognitoEnabled ? 'team-member-signup-cognito' : 'team-member-signup';
         const registerPayload = {
           email: this.form.email,
           first_name: this.form.first_name,
@@ -323,45 +322,31 @@ export default {
           company_name: '', // Optional
         };
 
-        console.log('Step 1: Registering user...');
-        const registerResponse = await post(getUrl('team-member-signup'), registerPayload);
+        console.log(`Step 1: Registering team member via ${endpoint}...`);
+        const registerResponse = await post(getUrl(endpoint), registerPayload);
         console.log('Registration response:', registerResponse.data);
 
-        // Step 2: Login automatically
-        const loginPayload = {
+        // Step 2: Login automatically using authService (handles both Cognito and Django)
+        console.log('Step 2: Logging in via authService...');
+        const loginResult = await authService.login({
           email: this.form.email,
           password: this.form.password,
-        };
-
-        console.log('Step 2: Logging in...');
-        const loginResponse = await post(getUrl('login'), loginPayload);
-        console.log('Login response:', loginResponse.data);
-
-        // Store tokens (tokens are nested in loginResponse.data.data.tokens)
-        setAccessToken(loginResponse.data.data.tokens.access);
-        setRefreshToken(loginResponse.data.data.tokens.refresh);
-
-        // Store user info
-        setCurrentUser({
-          email: loginResponse.data.data.email,
-          first_name: loginResponse.data.data.first_name,
-          last_name: loginResponse.data.data.last_name,
-          role_type: loginResponse.data.data.role_type,
-          avatar: loginResponse.data.data.avatar,
-          is_staff: loginResponse.data.data.is_staff,
-          is_superuser: loginResponse.data.data.is_superuser,
-          team_role: loginResponse.data.data.team_role,
+          remember_me: false
         });
 
-        // Step 3: Accept the invitation
-        // NOTE: Must construct header object correctly for axios
-        const token = loginResponse.data.data.tokens?.access;
-        console.log('Step 3: Accepting invitation...');
-        console.log('Token from login response:', token);
-        console.log('Full login response:', loginResponse.data);
+        console.log('Login result:', loginResult);
 
-        if (!token) {
-          throw new Error('Login succeeded but no access token received');
+        // Check if password needs reset (for Cognito lazy migration)
+        if (loginResult.passwordNeedsReset) {
+          this.$toast.warning('Please set a new password after login');
+        }
+
+        // Step 3: Accept the invitation
+        const accessToken = authService.getAccessToken();
+        console.log('Step 3: Accepting invitation with token:', accessToken);
+
+        if (!accessToken) {
+          throw new Error('Login succeeded but no access token available');
         }
 
         const acceptResponse = await post(
@@ -369,7 +354,7 @@ export default {
           { accept: true },
           {
             headers: {
-              'Authorization': `Bearer ${token}`,
+              'Authorization': `Bearer ${accessToken}`,
               'Content-Type': 'application/json'
             }
           }
@@ -378,7 +363,7 @@ export default {
         console.log('Invitation accepted:', acceptResponse.data);
 
         if (acceptResponse.data.success) {
-          // Update user role to team_member
+          // Update user role to team_member in localStorage
           const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
           currentUser.team_role = 'team_member';
           localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -396,7 +381,7 @@ export default {
         console.error('Sign up error:', error);
         console.error('Error response:', error.response);
 
-        if (error.response?.data?.email) {
+        if (error.response?.data?.email || error.response?.data?.data?.email) {
           this.submitErrorMessage = 'This email is already registered. Please contact support.';
         } else if (error.response?.data?.message) {
           this.submitErrorMessage = error.response.data.message;
