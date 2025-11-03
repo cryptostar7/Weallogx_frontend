@@ -119,6 +119,12 @@
                   </button>
                 </div>
                 <label class="error fs-14 d-block text-center" v-if="errors.password">{{ errors.password }}</label>
+                <PasswordRequirements
+                  v-if="cognitoEnabled"
+                  :password="form.password"
+                  :show-requirements="true"
+                  @validation-change="handlePasswordValidation"
+                />
               </div>
 
               <!-- Confirm Password -->
@@ -190,6 +196,7 @@
 <script>
 import NavbarComponent from "../components/common/UserNavbarComponent.vue";
 import FotterComponent from "../components/common/UserFooterComponent.vue";
+import PasswordRequirements from "../../components/PasswordRequirements.vue";
 import { post, get } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import authService from "../../services/authService";
@@ -200,6 +207,7 @@ export default {
   components: {
     NavbarComponent,
     FotterComponent,
+    PasswordRequirements,
   },
   data() {
     return {
@@ -221,6 +229,8 @@ export default {
       errorMessage: '',
       submitErrorMessage: '',
       loading: false,
+      cognitoEnabled: cognitoEnabled,
+      isPasswordValid: false,
     };
   },
   async mounted() {
@@ -256,6 +266,10 @@ export default {
       } finally {
         this.loadingInvitation = false;
       }
+    },
+
+    handlePasswordValidation(isValid) {
+      this.isPasswordValid = isValid;
     },
 
     validateForm() {

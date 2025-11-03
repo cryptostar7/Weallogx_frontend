@@ -94,6 +94,12 @@
                   </div>
                     <label class="error fs-14 d-block text-center" v-if="user.password === ''">*This field is required.</label>
                     <label class="error fs-14 d-block text-center" v-if="errors.password && errors.password[0]">{{errors.password[0]}}</label>
+                    <PasswordRequirements
+                      v-if="cognitoEnabled"
+                      :password="user.password"
+                      :show-requirements="true"
+                      @validation-change="handlePasswordValidation"
+                    />
                 </div>
                 <div>
                   <div class="auth-form">
@@ -189,7 +195,9 @@ import { post } from "../../network/requests";
 import { getUrl } from "../../network/url";
 import EulaComponent from "../components/eula/EulaModal.vue";
 import EmailVerificationModal from "../components/auth/EmailVerificationModal.vue";
+import PasswordRequirements from "../../components/PasswordRequirements.vue";
 import authService from "../../services/authService";
+import { cognitoEnabled } from "../../services/amplify-config";
 import {
   getServerErrors,
   setRefreshToken,
@@ -202,7 +210,8 @@ export default {
     NavbarComponent,
     FotterComponent,
     EulaComponent,
-    EmailVerificationModal
+    EmailVerificationModal,
+    PasswordRequirements
   },
   data() {
     return {
@@ -223,6 +232,8 @@ export default {
       errors: [],
       serverError: [],
       server: [],
+      cognitoEnabled: cognitoEnabled,
+      isPasswordValid: false,
     };
   },
   methods: {
@@ -234,6 +245,9 @@ export default {
     acceptTerms() {
       this.user.terms_accepted = true;
       this.showTermsModal = false;
+    },
+    handlePasswordValidation(isValid) {
+      this.isPasswordValid = isValid;
     },
     handleEmailVerified() {
       // Email verified successfully - now log the user in
