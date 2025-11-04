@@ -36,11 +36,23 @@
               
               <!-- Pricing Summary Section -->
               <div class="pricing-summary-section">
-                <h3 v-if="!isLoadingPrices">{{ selectedPlan === 'monthly' ? 'Monthly Plan' : 'Annual Plan' }}</h3>
+                <h3 v-if="!isLoadingPrices">
+                  <span v-if="selectedPlan === 'monthly'">Individual Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'yearly'">Individual Annual Plan</span>
+                  <span v-else-if="selectedPlan === 'team_monthly'">Team Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'team_annual'">Team Annual Plan</span>
+                  <span v-else>Subscription Plan</span>
+                </h3>
                 <h3 v-else>Loading pricing...</h3>
                 <div class="pricing-details">
                   <div class="price-line">
-                    <span>{{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}</span>
+                    <span v-if="selectedPlan === 'monthly' || selectedPlan === 'yearly'">
+                      {{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}
+                    </span>
+                    <span v-else-if="selectedPlan === 'team_monthly' || selectedPlan === 'team_annual'">
+                      {{ selectedPlan === 'team_monthly' ? 'Team Monthly (up to 5 members)' : 'Team Annual (up to 5 members)' }}
+                    </span>
+                    <span v-else>Subscription</span>
                     <span class="price" v-if="!isLoadingPrices">{{ originalPrice }}</span>
                     <span class="price" v-else>...</span>
                   </div>
@@ -184,7 +196,9 @@ export default {
       appliedCoupon: null,
       planPrices: {
         monthly: { price: 0, display: 'Loading...', priceId: null },
-        yearly: { price: 0, display: 'Loading...', priceId: null }
+        yearly: { price: 0, display: 'Loading...', priceId: null },
+        team_monthly: { price: 0, display: 'Loading...', priceId: null },
+        team_annual: { price: 0, display: 'Loading...', priceId: null }
       }
     };
   },
@@ -199,6 +213,10 @@ export default {
         this.selectedPlan = 'monthly';
       } else if (planParam === 'annual' || planParam === 'yearly') {
         this.selectedPlan = 'yearly';
+      } else if (planParam === 'team_monthly') {
+        this.selectedPlan = 'team_monthly';
+      } else if (planParam === 'team_annual' || planParam === 'team_yearly') {
+        this.selectedPlan = 'team_annual';
       }
     }
     
@@ -252,15 +270,17 @@ export default {
   methods: {
     async fetchPricing() {
       this.isLoadingPrices = true;
-      
+
       try {
         const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
         const yearlyPriceId = "__VITE_YEARLY_PLAN__";
-        
-        
+        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__";
+        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__";
+
+
         // Fetch pricing from backend API
         try {
-          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}`;
+          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}&team_monthly_price_id=${teamMonthlyPriceId}&team_yearly_price_id=${teamYearlyPriceId}`;
           const response = await get(url);
           
           if (response.data && response.data.prices) {
@@ -278,7 +298,20 @@ export default {
                 priceId: yearlyPriceId,
                 interval: prices.yearly.recurring.interval,
                 monthlyEquivalent: (prices.yearly.unit_amount / 100) / 12
-              }
+              },
+              team_monthly: prices.team_monthly ? {
+                price: prices.team_monthly.unit_amount / 100,
+                display: `$${(prices.team_monthly.unit_amount / 100).toFixed(2)}/${prices.team_monthly.recurring.interval}`,
+                priceId: teamMonthlyPriceId,
+                interval: prices.team_monthly.recurring.interval
+              } : { price: 0, display: 'N/A', priceId: teamMonthlyPriceId, interval: 'month' },
+              team_annual: prices.team_yearly ? {
+                price: prices.team_yearly.unit_amount / 100,
+                display: `$${(prices.team_yearly.unit_amount / 100).toFixed(2)}/${prices.team_yearly.recurring.interval}`,
+                priceId: teamYearlyPriceId,
+                interval: prices.team_yearly.recurring.interval,
+                monthlyEquivalent: (prices.team_yearly.unit_amount / 100) / 12
+              } : { price: 0, display: 'N/A', priceId: teamYearlyPriceId, interval: 'year' }
             };
           } else {
             throw new Error("Invalid response from pricing API");
@@ -288,16 +321,28 @@ export default {
           
           // No fallback - force user to retry or fix the API issue
           this.planPrices = {
-            monthly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            monthly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: monthlyPriceId,
               interval: 'month'
             },
-            yearly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            yearly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: yearlyPriceId,
+              interval: 'year'
+            },
+            team_monthly: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamMonthlyPriceId,
+              interval: 'month'
+            },
+            team_annual: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamYearlyPriceId,
               interval: 'year'
             }
           };
@@ -308,15 +353,27 @@ export default {
         
         // No fallback - system must work with live Stripe data
         this.planPrices = {
-          monthly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'month'
           },
-          yearly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          yearly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'year'
+          },
+          team_monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'month'
+          },
+          team_annual: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'year'
           }
@@ -508,7 +565,14 @@ export default {
       formData["stripe_source_id"] = this.user.stripe_source_id;
       // Include pricing information
       formData["price_id"] = this.planPrices[this.selectedPlan].priceId;
-      formData["plan_type"] = this.selectedPlan === 'monthly' ? 'MONTHLY_PLAN' : 'YEARLY_PLAN';
+      // Map selectedPlan to plan_type (supports individual and team plans)
+      const planTypeMap = {
+        'monthly': 'MONTHLY_PLAN',
+        'yearly': 'YEARLY_PLAN',
+        'team_monthly': 'TEAM_MONTHLY_PLAN',
+        'team_annual': 'TEAM_YEARLY_PLAN'
+      };
+      formData["plan_type"] = planTypeMap[this.selectedPlan] || 'MONTHLY_PLAN';
       formData["plan_price"] = this.planPrices[this.selectedPlan].price;
       formData["plan_interval"] = this.planPrices[this.selectedPlan].interval;
       // Always include promo_code, even if empty
