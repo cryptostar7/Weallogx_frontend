@@ -165,7 +165,7 @@
                   <div>
 
                   </div>
-                  <button class="btn" type="submit">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
+                  <button class="btn" type="submit" :disabled="cognitoEnabled && !isPasswordValid">{{user.stripe_source_id ? 'Continue': 'Sign Up'}}</button>
                 </div>
                 <p class="authButtomPara">Already have an account? &nbsp;
                   <router-link to="/sign-in">Sign In</router-link>
@@ -525,5 +525,11 @@ export default {
 <style>
 .error {
   color: red;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #6c757d !important;
 }
 </style>

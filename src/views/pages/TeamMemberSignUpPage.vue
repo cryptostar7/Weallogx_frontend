@@ -179,7 +179,7 @@
 
               <!-- Submit Button -->
               <div class="authButtonDiv">
-                <button class="btn" type="submit" :disabled="loading || !form.consent">
+                <button class="btn" type="submit" :disabled="loading || !form.consent || (cognitoEnabled && !isPasswordValid)">
                   <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
                   {{ loading ? 'Creating Account...' : 'Create Account' }}
                 </button>
@@ -445,5 +445,11 @@ export default {
   background-color: #f8f9fa !important;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #6c757d !important;
 }
 </style>
