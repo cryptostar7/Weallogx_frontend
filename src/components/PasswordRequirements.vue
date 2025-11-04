@@ -44,12 +44,12 @@ export default {
     }
   },
   setup(props, { emit }) {
-    // Validation rules
-    const hasMinLength = computed(() => props.password.length >= 8);
-    const hasUppercase = computed(() => /[A-Z]/.test(props.password));
-    const hasLowercase = computed(() => /[a-z]/.test(props.password));
-    const hasNumber = computed(() => /[0-9]/.test(props.password));
-    const hasSpecialChar = computed(() => /[!@#$%^&*]/.test(props.password));
+    // Validation rules - check if password exists first to avoid null/undefined issues
+    const hasMinLength = computed(() => props.password && props.password.length >= 8);
+    const hasUppercase = computed(() => props.password && /[A-Z]/.test(props.password));
+    const hasLowercase = computed(() => props.password && /[a-z]/.test(props.password));
+    const hasNumber = computed(() => props.password && /[0-9]/.test(props.password));
+    const hasSpecialChar = computed(() => props.password && /[!@#$%^&*]/.test(props.password));
 
     // Overall validation
     const isValid = computed(() =>
