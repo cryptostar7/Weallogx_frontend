@@ -168,7 +168,7 @@ import {
   getSearchParams,
   getRuntimeEnv,
 } from "../../services/helper";
-let stripe = Stripe(getRuntimeEnv('VITE_STRIPE_PUBLISHABLE_KEY')),
+let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,
   cardNumber,
@@ -272,10 +272,10 @@ export default {
       this.isLoadingPrices = true;
 
       try {
-        const monthlyPriceId = getRuntimeEnv('VITE_MONTHLY_PLAN');
-        const yearlyPriceId = getRuntimeEnv('VITE_YEARLY_PLAN');
-        const teamMonthlyPriceId = getRuntimeEnv('VITE_TEAM_MONTHLY_PLAN');
-        const teamYearlyPriceId = getRuntimeEnv('VITE_TEAM_YEARLY_PLAN');
+        const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
+        const yearlyPriceId = "__VITE_YEARLY_PLAN__";
+        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__";
+        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__";
 
 
         // Fetch pricing from backend API
