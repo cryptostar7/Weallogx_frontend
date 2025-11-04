@@ -17,7 +17,7 @@ if [ -d "/usr/share/nginx/html/assets" ]; then
             sed -i "s|__VITE_MONTHLY_PLAN__|${VITE_MONTHLY_PLAN:-}|g" "$file"
             sed -i "s|__VITE_YEARLY_PLAN__|${VITE_YEARLY_PLAN:-}|g" "$file"
             # Replace Cognito environment variables at runtime
-            sed -i "s|__VITE_COGNITO_ENABLED__|${VITE_COGNITO_ENABLED:-false}|g" "$file"
+            sed -i "s|__VITE_COGNITO_ENABLED__|${VITE_COGNITO_ENABLED:-true}|g" "$file"
             sed -i "s|__VITE_COGNITO_USER_POOL_ID__|${VITE_COGNITO_USER_POOL_ID:-}|g" "$file"
             sed -i "s|__VITE_COGNITO_WEB_CLIENT_ID__|${VITE_COGNITO_WEB_CLIENT_ID:-}|g" "$file"
             sed -i "s|__VITE_COGNITO_REGION__|${VITE_COGNITO_REGION:-}|g" "$file"
