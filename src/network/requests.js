@@ -62,9 +62,8 @@ api.interceptors.response.use(
       // Redirect based on session type
       if (typeof window !== 'undefined') {
         if (isImpersonation) {
-          // Impersonation session expired - redirect back to admin panel
-          const adminUrl = import.meta.env.VITE_ADMIN_PANEL_URL || 'http://localhost:8000/admin';
-          window.location.href = adminUrl;
+          // Impersonation session expired - redirect back to admin panel (frontend route)
+          window.location.href = '/admin';
         } else if (window.location.pathname !== '/sign-in') {
           // Regular session expired - redirect to login
           window.location.href = '/sign-in';

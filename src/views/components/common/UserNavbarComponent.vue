@@ -648,8 +648,8 @@ export default {
               sessionStorage.removeItem("login_from_admin");
               localStorage.removeItem("login_from_admin");
 
-              // Redirect back to admin panel
-              window.location.href = this.$adminUrl();
+              // Redirect back to admin panel (frontend route)
+              window.location.href = "/admin";
             }else{
               this.$toast.success(response.data.message || "Logged out successfully");
               this.$router.push("/sign-in");
@@ -671,7 +671,7 @@ export default {
             if(isImpersonation || localStorage.getItem("login_from_admin")){
               sessionStorage.removeItem("login_from_admin");
               localStorage.removeItem("login_from_admin");
-              window.location.href = this.$adminUrl();
+              window.location.href = "/admin";
             } else {
               this.$router.push("/sign-in");
             }
