@@ -43,17 +43,32 @@ api.interceptors.response.use(
   (error) => {
     // Handle authentication errors (401 Unauthorized)
     if (error.response && error.response.status === 401) {
-      // Clear all authentication data
+      // Check if this is an impersonation session before clearing
+      const isImpersonation = sessionStorage.getItem("login_from_admin") === "1" ||
+                              localStorage.getItem("login_from_admin") === "1";
+
+      // Clear all authentication data from BOTH storages
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("plan_active");
       localStorage.removeItem("currentUser");
       localStorage.removeItem("remember");
       localStorage.removeItem("login_from_admin");
-      
-      // Redirect to login page
-      if (typeof window !== 'undefined' && window.location.pathname !== '/sign-in') {
-        window.location.href = '/sign-in';
+
+      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("login_from_admin");
+
+      // Redirect based on session type
+      if (typeof window !== 'undefined') {
+        if (isImpersonation) {
+          // Impersonation session expired - redirect back to admin panel
+          const adminUrl = import.meta.env.VITE_ADMIN_PANEL_URL || 'http://localhost:8000/admin';
+          window.location.href = adminUrl;
+        } else if (window.location.pathname !== '/sign-in') {
+          // Regular session expired - redirect to login
+          window.location.href = '/sign-in';
+        }
       }
     }
     
