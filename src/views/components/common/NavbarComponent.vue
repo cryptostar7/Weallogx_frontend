@@ -250,7 +250,7 @@ export default {
               sessionStorage.removeItem("access_token");
               sessionStorage.removeItem("currentUser");
               localStorage.removeItem("login_from_admin");
-              window.location.href = this.$adminUrl();
+              window.location.href = "/admin";
             } else {
               this.$toast.success(response.data.message);
               window.location.href = "/sign-in";
