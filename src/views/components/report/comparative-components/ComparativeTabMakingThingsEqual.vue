@@ -485,8 +485,8 @@ export default {
     },
     tabSubtitle() {
       return this.currentTab === 'distribution'
-        ? `How long do the comparative vehicles last matching the annual distributions of the ${this.policyNickname}?`
-        : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}’s longevity and ending values?`;
+        ? `How do the annual distributions need to be adjusted to match the longevity and ending values of the ${this.policyNickname}?`
+        : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}'s longevity and ending values?`;
     },
     activeDistributions() {
       return this.data.distribution.filter((d) => d.active)
