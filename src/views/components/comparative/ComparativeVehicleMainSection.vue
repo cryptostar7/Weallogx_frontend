@@ -224,7 +224,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate1"
                                     v-model="vehicle.vehicle1.cg_tax_rate"
@@ -411,7 +411,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate2"
                                     v-model="vehicle.vehicle2.cg_tax_rate"
@@ -599,7 +599,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate3"
                                     v-model="vehicle.vehicle3.cg_tax_rate"
