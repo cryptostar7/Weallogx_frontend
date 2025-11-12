@@ -224,7 +224,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate1"
                                     v-model="vehicle.vehicle1.cg_tax_rate"
@@ -411,7 +411,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate2"
                                     v-model="vehicle.vehicle2.cg_tax_rate"
@@ -599,7 +599,7 @@
                                 <div class="percent-input-div">
                                   <input
                                     type="number"
-                                    min="1"
+                                    min="0"
                                     max="99"
                                     id="cg_tax_rate3"
                                     v-model="vehicle.vehicle3.cg_tax_rate"
@@ -1435,7 +1435,7 @@ export default {
           }
 
           if (this.vehicle.vehicle1.capitalGains && this.vehicle.vehicle1.type_id === 1) {
-            if (!this.vehicle.vehicle1.cg_tax_rate) {
+            if (this.vehicle.vehicle1.cg_tax_rate === null || this.vehicle.vehicle1.cg_tax_rate === undefined || this.vehicle.vehicle1.cg_tax_rate === '') {
               this.errors.vehicle1.cg_tax = ['This field is required'];
               valid = false;
             }
@@ -1496,7 +1496,7 @@ export default {
           }
 
           if (this.vehicle.vehicle2.capitalGains && this.vehicle.vehicle2.type_id === 1) {
-            if (!this.vehicle.vehicle2.cg_tax_rate) {
+            if (this.vehicle.vehicle2.cg_tax_rate === null || this.vehicle.vehicle2.cg_tax_rate === undefined || this.vehicle.vehicle2.cg_tax_rate === '') {
               this.errors.vehicle2.cg_tax = ['This field is required'];
               valid = false;
             }
@@ -1557,7 +1557,7 @@ export default {
           }
 
           if (this.vehicle.vehicle3.capitalGains && this.vehicle.vehicle3.type_id === 1) {
-            if (!this.vehicle.vehicle3.cg_tax_rate) {
+            if (this.vehicle.vehicle3.cg_tax_rate === null || this.vehicle.vehicle3.cg_tax_rate === undefined || this.vehicle.vehicle3.cg_tax_rate === '') {
               this.errors.vehicle3.cg_tax = ['This field is required'];
               valid = false;
             }
