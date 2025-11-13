@@ -39,4 +39,8 @@ head -20 /etc/nginx/conf.d/default.conf
 echo "Starting NGINX..."
 sleep 1
 
+# Start nginx reload monitor in background to handle ALB IP cycling
+# Reloads nginx every 5 minutes to refresh DNS cache without dropping connections
+nohup sh -c 'while true; do sleep 300; echo "$(date): Refreshing DNS cache"; nginx -s reload; done' &
+
 exec nginx -g 'daemon off;' 
