@@ -566,8 +566,15 @@ export default {
     },
 
     handleDisclosure: function () {
-      if (!this.$refs.editableDiv.innerHTML) {
-        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      // Get text content without HTML tags
+      const textContent = this.$refs.editableDiv.innerText || this.$refs.editableDiv.textContent || '';
+      const cleanText = textContent.trim();
+
+      // Show modal if text is less than 10 characters
+      if (cleanText.length < 10) {
+        if (!this.$refs.disclosureModal.classList.contains("show")) {
+          new bootstrap.Modal(this.$refs.disclosureModal).show();
+        }
       }
     },
 
@@ -596,9 +603,15 @@ export default {
       this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
     },
     saveMessage: function () {
-      if (!this.$refs.editableDiv.innerHTML) {
+      // Get text content without HTML tags
+      const textContent = this.$refs.editableDiv.innerText || this.$refs.editableDiv.textContent || '';
+      const cleanText = textContent.trim();
+
+      // Show modal if text is less than 10 characters
+      if (cleanText.length < 10) {
         return new bootstrap.Modal(this.$refs.disclosureModal).show();
       }
+
       this.saveDisclosure = false;
       let data = {
         report_id: this.$route.params.report,
