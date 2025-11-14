@@ -430,8 +430,14 @@ export default {
   },
   mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
-    this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
-    this.mapData();
+    // Only set disclosure content if data is already available
+    if (this.disclosure && Object.keys(this.disclosure).length > 0) {
+      this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
+      this.mapData();
+    } else {
+      // Set default message while waiting for data
+      this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+    }
   },
   methods: {
     showTableModal(word, index) {
@@ -619,6 +625,20 @@ export default {
     discloser_cv() {
       return this.$store.state.data.report.historical.best.comparative_values.disclosures || {};
     },
+  },
+  watch: {
+    disclosure: {
+      handler(newVal) {
+        if (newVal && Object.keys(newVal).length > 0) {
+          this.mapData();
+          if (this.$refs.editableDiv) {
+            this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
+          }
+        }
+      },
+      deep: true,
+      immediate: false
+    }
   },
 };
 </script>
