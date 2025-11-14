@@ -423,7 +423,7 @@ export default {
         userData = {business_logo_green: null};
       }
 
-      patch(`${getUrl("remove-logo")}/`, userData, authHeader())
+      patch(getUrl("remove-logo"), userData, authHeader())
         .then(response => {
         if (type === "green") {
           this.businessLogoGreenFile = false;

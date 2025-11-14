@@ -64,7 +64,7 @@
                   </div>
                 </div>
 
-                <!-- Index Strategy Calculator -->
+                <!-- Index Strategy Analyzer -->
                 <div class="tutorial-card" @click="openVideo('index-strategy')">
                   <div class="tutorial-card-inner">
                     <div class="play-button-circle active">
@@ -87,7 +87,7 @@
                         <rect x="3" y="9.42859" width="2.57143" height="2.57143" rx="1.28571" fill="#0E6651"/>
                         <rect x="3" y="12.8572" width="2.57143" height="2.57143" rx="1.28571" fill="#0E6651"/>
                       </svg>
-                      <span>Index Strategy Calculator</span>
+                      <span>Index Strategy Analyzer</span>
                     </div>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default {
         },
         "index-strategy": {
           url: "https://www.loom.com/embed/424bdfbf478043e89845ce77ece619cd?sid=33827da9-9425-4fbe-a221-8bd2bdb2407b",
-          title: "Index Strategy Calculator Walkthrough"
+          title: "Index Strategy Analyzer Walkthrough"
         },
         "tax-scorecard": {
           url: "https://www.loom.com/embed/1e4cf0a97ac24cdca865349c645f3865?sid=1ac44a27-646a-4ef7-89b4-8295cd9e13db",

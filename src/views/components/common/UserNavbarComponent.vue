@@ -628,6 +628,10 @@ export default {
     logout: function () {
       if (authCheck()) {
         this.$store.dispatch("loader", true);
+
+        // Check if this is an impersonation session (stored in sessionStorage)
+        const isImpersonation = sessionStorage.getItem("login_from_admin") === "1";
+
         post(
           getUrl("logout"),
           { refresh: getRefreshToken() },
@@ -638,9 +642,14 @@ export default {
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
 
-            if(localStorage.getItem("login_from_admin")){
+            // Check BOTH sessionStorage and localStorage for backward compatibility
+            if(isImpersonation || localStorage.getItem("login_from_admin")){
+              // Clear impersonation flag from both storages
+              sessionStorage.removeItem("login_from_admin");
               localStorage.removeItem("login_from_admin");
-              window.location.href = this.$adminUrl();
+
+              // Redirect back to admin panel (frontend route)
+              window.location.href = "/admin";
             }else{
               this.$toast.success(response.data.message || "Logged out successfully");
               this.$router.push("/sign-in");
@@ -650,14 +659,22 @@ export default {
             this.$store.dispatch("loader", false);
             // Always clear auth data on logout, even if API fails
             this.clearAuthData();
-            
+
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
             ) {
               this.$toast.error("Logout failed, but you have been signed out locally");
             }
-            this.$router.push("/sign-in");
+
+            // Check if impersonation for error case too
+            if(isImpersonation || localStorage.getItem("login_from_admin")){
+              sessionStorage.removeItem("login_from_admin");
+              localStorage.removeItem("login_from_admin");
+              window.location.href = "/admin";
+            } else {
+              this.$router.push("/sign-in");
+            }
           });
       } else {
         // Force logout even if not authenticated
@@ -667,13 +684,19 @@ export default {
     },
 
     clearAuthData: function() {
+      // Clear localStorage
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("access_token");
       localStorage.removeItem("plan_active");
       localStorage.removeItem("currentUser");
       localStorage.removeItem("remember");
       localStorage.removeItem("login_from_admin");
-      
+
+      // Clear sessionStorage (for impersonation sessions)
+      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("login_from_admin");
+
       // Clear any other auth-related data
       this.$store.dispatch("user", false);
     },

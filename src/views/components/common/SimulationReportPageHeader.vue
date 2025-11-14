@@ -106,9 +106,9 @@
   <nav class="navbar navbar-expand-lg fixed-top report-top-navbar presentation_navbar" :style="{display:$store.state.app.presentation_mode ? 'block':'none'}">
     <div class="container-fluid">
       <router-link class="navbar-brand" :to="$route.params.view_token ? '' : '/'">
-        <img :src="companyLogo.green" class="img-fluid logo-green" alt="WealthLogix Logo" width="170">
-        <img :src="companyLogo.blue" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170">
-        <img :src="companyLogo.dark" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170">
+        <img :src="companyLogo.green" class="img-fluid logo-green" alt="WealthLogix Logo" width="170" style="max-height: 50px; object-fit: contain;">
+        <img :src="companyLogo.blue" class="img-fluid logo-blue" alt="WealthLogix Logo" width="170" style="max-height: 50px; object-fit: contain;">
+        <img :src="companyLogo.dark" class="img-fluid logo-dark" alt="WealthLogix Logo" width="170" style="max-height: 50px; object-fit: contain;">
       </router-link>
       <button class="navbar-toggler menu-icon-report-btn" type="button" data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

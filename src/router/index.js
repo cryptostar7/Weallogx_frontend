@@ -106,6 +106,21 @@ const router = createRouter({
       component: () => import("../views/pages/ProfileDetailsPage.vue"),
     },
     {
+      path: "/team-management/:teamId?",
+      name: "team-management",
+      component: () => import("../views/pages/TeamManagementPage.vue"),
+    },
+    {
+      path: "/team/accept-invitation/:token",
+      name: "accept-team-invitation",
+      component: () => import("../views/pages/AcceptTeamInvitationPage.vue"),
+    },
+    {
+      path: "/team/accept-invitation/:token/signup",
+      name: "team-member-signup",
+      component: () => import("../views/pages/TeamMemberSignUpPage.vue"),
+    },
+    {
       path: "/tutorials",
       name: "tutorials",
       component: () => import("../views/pages/TutorialsPage.vue"),
@@ -312,6 +327,7 @@ const authRoutes = [
   'current-plan',
   'pricing',
   'change-password',
+  'team-management',
   'home',
   'scenario-details',
   'illustration-data',

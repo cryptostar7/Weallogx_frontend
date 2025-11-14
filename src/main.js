@@ -7,6 +7,9 @@ import Toaster from "@meforma/vue-toaster";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
+// AWS Amplify Configuration for Cognito (must be imported before app creation)
+import './services/amplify-config'
+
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
 import './assets/css/user/style.css';

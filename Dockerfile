@@ -24,6 +24,8 @@ EXPOSE 8000 5173 5174 9229
 # Production build stage
 FROM node-base AS production-build
 WORKDIR /app
+# Increase Node.js heap size to prevent out of memory errors during build
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build && \
     npm prune --production && \
     mkdir -p /usr/share/nginx/html && \

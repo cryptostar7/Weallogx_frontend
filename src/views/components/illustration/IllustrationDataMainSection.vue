@@ -1410,30 +1410,32 @@ export default {
         this.PolicyNickname = data.insurance_policy_nickname;
       }
 
-      // Always populate policy fields if they exist in the data
-      // This ensures insurance profiles properly load all saved fields
-      if (data.initial_death_benifit) {
-        this.deathBenefit =
-          data.initial_death_benifit.toLocaleString("en-US");
-        this.setInputWithId("deathBenefit", this.deathBenefit);
-      }
+      // Only populate policy fields if NOT loading an insurance template
+      // Insurance templates should only contain company, policy name, and nickname
+      if (type !== "insurance") {
+        if (data.initial_death_benifit) {
+          this.deathBenefit =
+            data.initial_death_benifit.toLocaleString("en-US");
+          this.setInputWithId("deathBenefit", this.deathBenefit);
+        }
 
-      if (data.initial_policy_return) {
-        this.policyReturn = Number(
-          Number(data.initial_policy_return).toFixed(2)
-        );
-        this.setInputWithId("policyReturn", this.policyReturn);
-      }
+        if (data.initial_policy_return) {
+          this.policyReturn = Number(
+            Number(data.initial_policy_return).toFixed(2)
+          );
+          this.setInputWithId("policyReturn", this.policyReturn);
+        }
 
-      if (data.second_policy_return) {
-        this.setInputWithId(
-          "policyReturn2",
-          Number(data.second_policy_return).toFixed(2)
-        );
-      }
+        if (data.second_policy_return) {
+          this.setInputWithId(
+            "policyReturn2",
+            Number(data.second_policy_return).toFixed(2)
+          );
+        }
 
-      if (data.change_year) {
-        this.setInputWithId("changeTaxYear", data.change_year);
+        if (data.change_year) {
+          this.setInputWithId("changeTaxYear", data.change_year);
+        }
       }
 
       // Handle illustration data separately (only for non-insurance types)

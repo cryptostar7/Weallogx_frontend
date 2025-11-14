@@ -308,10 +308,6 @@ export default {
             type: '',
             distributions: 0,
             longevity: 0,
-            longevity_in_percent: '',
-            ending_value: 0,
-            ending_value_in_percent: '',
-            death_benefit_in_percent: '',
             death_benefit: '',
             distribution_years: 0
           },
@@ -321,10 +317,6 @@ export default {
             type: '',
             distributions: 0,
             longevity: 0,
-            longevity_in_percent: '',
-            ending_value: 0,
-            ending_value_in_percent: '',
-            death_benefit_in_percent: '',
             death_benefit: '',
             distribution_years: 0
           },
@@ -334,10 +326,6 @@ export default {
             type: '',
             distributions: 0,
             longevity: 0,
-            longevity_in_percent: '',
-            ending_value: 0,
-            ending_value_in_percent: '',
-            death_benefit_in_percent: '',
             death_benefit: '',
             distribution_years: 0
           },
@@ -347,10 +335,6 @@ export default {
             type: '',
             distributions: 0,
             longevity: 0,
-            longevity_in_percent: '',
-            ending_value: 0,
-            ending_value_in_percent: '',
-            death_benefit_in_percent: '',
             death_benefit: '',
             distribution_years: 0
           }
@@ -363,11 +347,8 @@ export default {
             ror: '',
             ror_death_benefit: '',
             longevity: '',
-            ending_value: '',
             death_benefit: '',
             longevity_in_percent: '',
-            ending_value_in_percent: '',
-            death_benefit_in_percent: ''
           },
           {
             index: 1,
@@ -376,11 +357,8 @@ export default {
             ror: '',
             ror_death_benefit: '',
             longevity: '',
-            ending_value: '',
             death_benefit: '',
             longevity_in_percent: '',
-            ending_value_in_percent: '',
-            death_benefit_in_percent: ''
           },
           {
             index: 2,
@@ -389,11 +367,8 @@ export default {
             ror: '',
             ror_death_benefit: '',
             longevity: '',
-            ending_value: '',
             death_benefit: '',
             longevity_in_percent: '',
-            ending_value_in_percent: '',
-            death_benefit_in_percent: ''
           },
           {
             index: 3,
@@ -402,11 +377,8 @@ export default {
             ror: '',
             ror_death_benefit: '',
             longevity: '',
-            ending_value: '',
             death_benefit: '',
             longevity_in_percent: '',
-            ending_value_in_percent: '',
-            death_benefit_in_percent: ''
           }
         ]
       }
@@ -425,24 +397,29 @@ export default {
     death_benefit() {
       return this.$store.state.data.report.comparative_death_benefit || false;
     },
-    ending_value() {
-      return this.$store.state.data.report.comparative_ending_value || false;
-    },
     longevity() {
       return this.$store.state.data.report.comparative_longevity || false;
     },
-    maxRor() {
-      let ror = this.data.rate_of_returns;
 
-      return Math.max(
-        ...[
-          ...ror.map((i) => Number(i.ror)),
-          ...ror.map((i) => Number(i.longevity)),
-          ...ror.map((i) => Number(i.ending_value)),
-          ...ror.map((i) => Number(i.death_benefit))
-        ]
-      );
+    maxRor() {
+
+      if (this.rateOfReturnType === 'default') {
+
+        const ror = this.data.rate_of_returns;
+        return Math.max(
+          ...[
+            ...ror.map((i) => Number(i.ror)),
+            ...ror.map((i) => Number(i.longevity)),
+          ]
+        )
+
+      } else {
+        return this.activeRatesOfReturn.reduce((max, rateOfReturn) => {
+          return Math.max(max, this.deathBenefit(rateOfReturn.index))
+        }, 0)
+      }
     },
+
     notes() {
       let note = this.$store.state.data.report.notes || [];
 
@@ -475,8 +452,8 @@ export default {
     },
     tabSubtitle() {
       return this.currentTab === 'distribution'
-        ? `How long do the comparative vehicles last matching the annual distributions of the ${this.policyNickname}?`
-        : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}’s longevity and ending values?`;
+        ? `How do the annual distributions need to be adjusted to match the longevity and ending values of the ${this.policyNickname}?`
+        : `What rate of return is required for the comparative vehicles to match the ${this.policyNickname}'s longevity and ending values?`;
     },
     activeDistributions() {
       return this.data.distribution.filter((d) => d.active)
@@ -503,7 +480,6 @@ export default {
 
         this.data.distribution[1].longevity = this.death_benefit.cv_1.match_distributions.longevity;
         this.data.distribution[1].death_benefit = this.death_benefit.cv_1.match_distributions.death_benefit;
-        this.data.distribution[1].ending_value = this.death_benefit.cv_1.match_distributions.surrender_value;
 
         this.data.distribution[1].distribution_years =
           this.computeDistributionYears(this.comparative.cv_1.comparison.chart_output.distributions,
@@ -512,7 +488,6 @@ export default {
         this.data.rate_of_returns[1].active = true
         this.data.rate_of_returns[1].longevity = this.comparative.cv_1.match_rates_of_return.longevity;
         this.data.rate_of_returns[1].death_benefit = Number(this.comparative.cv_1.match_rates_of_return.death_benefit);
-        this.data.rate_of_returns[1].ending_value = this.comparative.cv_1.match_rates_of_return.surrender_value;
 
         this.data.rate_of_returns[1].ror =
           this.comparative.cv_1.comparison.chart_output["Rate of Return"][0];
@@ -528,7 +503,6 @@ export default {
 
         this.data.distribution[2].longevity = this.death_benefit.cv_2.match_distributions.longevity;
         this.data.distribution[2].death_benefit = this.death_benefit.cv_2.match_distributions.death_benefit;
-        this.data.distribution[2].ending_value = this.death_benefit.cv_2.match_distributions.surrender_value;
 
         this.data.distribution[2].distribution_years =
           this.computeDistributionYears(this.comparative.cv_2.comparison.chart_output.distributions,
@@ -537,7 +511,6 @@ export default {
         this.data.rate_of_returns[2].active = true
         this.data.rate_of_returns[2].longevity = this.comparative.cv_2.match_rates_of_return.longevity;
         this.data.rate_of_returns[2].death_benefit = Number(this.comparative.cv_2.match_rates_of_return.death_benefit);
-        this.data.rate_of_returns[2].ending_value = this.comparative.cv_2.match_rates_of_return.surrender_value;
 
         this.data.rate_of_returns[2].ror =
           this.comparative.cv_2.comparison.chart_output["Rate of Return"][0];
@@ -553,7 +526,6 @@ export default {
 
         this.data.distribution[3].longevity = this.death_benefit.cv_3.match_distributions.longevity;
         this.data.distribution[3].death_benefit = this.death_benefit.cv_3.match_distributions.death_benefit;
-        this.data.distribution[3].ending_value = this.death_benefit.cv_3.match_distributions.surrender_value;
 
         this.data.distribution[3].distribution_years =
           this.computeDistributionYears(this.comparative.cv_3.comparison.chart_output.distributions,
@@ -562,7 +534,6 @@ export default {
         this.data.rate_of_returns[3].active = true
         this.data.rate_of_returns[3].longevity = this.comparative.cv_3.match_rates_of_return.longevity;
         this.data.rate_of_returns[3].death_benefit = Number(this.comparative.cv_3.match_rates_of_return.death_benefit);
-        this.data.rate_of_returns[3].ending_value = this.comparative.cv_3.match_rates_of_return.surrender_value;
 
         this.data.rate_of_returns[3].ror =
           this.comparative.cv_3.comparison.chart_output["Rate of Return"][0];
