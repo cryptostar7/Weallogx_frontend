@@ -15,9 +15,13 @@ const config = {
     { id: 8, max_limit: 30, template_name: 'Nasdaq 100' },
     { id: 9, max_limit: 15, template_name: 'PIMCO Tactical Balanced ER' },
     { id: 10, max_limit: 30, template_name: 'Putnam Dynamic Low Volatility Excess Return Index' },
-    { id: 11, max_limit: 45, template_name: 'Russell 2000' },
-    { id: 12, max_limit: 55, template_name: 'S&P 500' },
-    { id: 13, max_limit: 30, template_name: 'S&P Prism' }
+    { id: 11, max_limit: 15, template_name: 'RAFI Global Multi-Asset Index' },
+    { id: 12, max_limit: 45, template_name: 'Russell 2000' },
+    { id: 13, max_limit: 55, template_name: 'S&P 500' },
+    { id: 14, max_limit: 30, template_name: 'S&P Prism' },
+    { id: 15, max_limit: 20, template_name: 'SG Global Alpha Index' },
+    { id: 16, max_limit: 15, template_name: 'BNP Global H Factor Index' },
+    { id: 17, max_limit: 25, template_name: 'S&P 500 Futures ER 5% Index' }
   ],
   ISC_INDEX_STRATEGIES: [
     { id: 1, max_year: 2004, template_name: 'Barclays Trailblazer Sectors 5' },
@@ -30,9 +34,13 @@ const config = {
     { id: 8, max_year: 1986, template_name: 'Nasdaq 100' },
     { id: 9, max_year: 2005, template_name: 'PIMCO Tactical Balanced ER' },
     { id: 10, max_year: 1990, template_name: 'Putnam Dynamic Low Volatility Excess Return Index' },
-    { id: 11, max_year: 1979, template_name: 'Russell 2000' },
-    { id: 12, max_year: 1960, template_name: 'S&P 500' },
-    { id: 13, max_year: 1991, template_name: 'S&P Prism' }
+    { id: 11, max_year: 2005, template_name: 'RAFI Global Multi-Asset Index' },
+    { id: 12, max_year: 1979, template_name: 'Russell 2000' },
+    { id: 13, max_year: 1960, template_name: 'S&P 500' },
+    { id: 14, max_year: 1991, template_name: 'S&P Prism' },
+    { id: 15, max_year: 2000, template_name: 'SG Global Alpha Index' },
+    { id: 16, max_year: 2007, template_name: 'BNP Global H Factor Index' },
+    { id: 17, max_year: 1998, template_name: 'S&P 500 Futures ER 5% Index' }
   ]
 };
 
