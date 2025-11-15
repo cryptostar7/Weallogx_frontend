@@ -600,7 +600,7 @@
                                           IRR
                                         </p>
                                         <p :class="`lifeProPlusPara2 ${currentTab === 'rate_of_return' && currentFilter === 'deathBenefit' ? 'text-danger' : ''}`" id="acountColorCommon">
-                                          {{ Number(target_analysis.data[header.id].irr || 0).toFixed(2) }}%
+                                          {{ formatIrr(header.id) }}
                                         </p>
                                       </div>
                                     </div>
@@ -624,7 +624,8 @@
                                   <table class="table sticky-header tableCommonForDisable mt-1 tableCommonHide">
                                     <thead class="heading-tr">
                                       <tr>
-                                        <th>Distributions</th>
+                                        <th v-if="allDistributionsNegative(header.id)">Add'l Funding</th>
+                                        <th v-else="allDistributionsNegative(header.id)">Distributions</th>
                                         <th>Net Balance</th>
                                       </tr>
                                     </thead>
@@ -643,7 +644,7 @@
                                                 : ''
                                             }`"
                                           >
-                                            {{ $numFormatWithDollar(item.distributions) }}
+                                            {{ formatVehicleDistribution(header.id, item, index) }}
                                           </span>
                                         </td>
                                         <td data-label="acount">
@@ -1196,16 +1197,18 @@ export default {
           irr: ct.cv_1.comparison.irr_percent
         };
 
+        let maxDistribution = -999999999
         obj1.year.forEach((item, index) => {
           let ar = {
             distributions: obj1.distributions[index],
             net_balance: obj1.net_balance[index]
           };
-
           list.push(ar);
+          maxDistribution = Math.max(maxDistribution, obj1.distributions[index])
         });
 
         details.list = list;
+        details.max_distribution = maxDistribution
         tempData.data[1] = details;
 
         this.summary_data.data[1] = {
@@ -1230,14 +1233,17 @@ export default {
           ror: ct.cv_2.comparison.ror || obj2['Rate of Return'][0],
           irr: ct.cv_2.comparison.irr_percent
         };
+        let maxDistribution = -999999999
         obj2.distributions.forEach((item, index) => {
           let ar = {
             distributions: item,
             net_balance: obj2.net_balance[index]
           };
           list.push(ar);
+          maxDistribution = Math.max(maxDistribution, obj2.distributions[index])
         });
         details.list = list;
+        details.max_distribution = maxDistribution
         tempData.data[2] = details;
 
         this.summary_data.data[2] = {
@@ -1262,14 +1268,17 @@ export default {
           ror: ct.cv_3.comparison.ror || obj3['Rate of Return'][0],
           irr: ct.cv_3.comparison.irr_percent
         };
+        let maxDistribution = -999999999
         obj3.distributions.forEach((item, index) => {
           let ar = {
             distributions: item,
             net_balance: obj3.net_balance[index]
           };
           list.push(ar);
+          maxDistribution = Math.max(maxDistribution, obj3.distributions[index])
         });
         details.list = list;
+        details.max_distribution = maxDistribution
         tempData.data[3] = details;
 
         this.summary_data.data[3] = {
@@ -1290,6 +1299,35 @@ export default {
       this.target_analysis = tempData;
       return tempData;
     },
+
+    // Return true if we're on distribution/match and all the vehicle's
+    // distributions are negative.
+    allDistributionsNegative(vehicleId) {
+      return this.currentTab == "target_analysis" &&
+        this.currentFilter == "deathBenefit" &&
+        this.target_analysis.data[vehicleId].max_distribution <= 0
+    },
+
+    // If this is distribution/match then:
+    // If the distributions are all less than zero then format as additional funding.
+    // In all other cases just return the distribution.
+    formatVehicleDistribution(vehicleId, item, index) {
+      if (this.allDistributionsNegative(vehicleId)) {
+        return `(${this.$numFormatWithDollar(-item.distributions)})`
+      }
+      return this.$numFormatWithDollar(item.distributions)
+    },
+
+    // If this is distribution/match then:
+    // If the distributions are all less than zero then display a dash.
+    // In all other cases just return the irr.
+    formatIrr(vehicleId) {
+      if (this.allDistributionsNegative(vehicleId)) {
+        return "-"
+      }
+      return `${Number(this.target_analysis.data[vehicleId].irr || 0).toFixed(2)}%`
+    }
+
   },
   watch: {
     '$store.state.app.presentation_mode'(val) {
