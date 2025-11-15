@@ -641,7 +641,7 @@ export default {
   },
   computed: {
     disclosure() {
-      return this.$store.state.data.report.historical.discloser || [];
+      return this.$store.state.data.report.historical.disclosure || [];
     },
     disclosures() {
       return this.$store.state.data.report.disclosures || [];
