@@ -432,7 +432,7 @@ export default {
         this.$refs.editableDiv.innerHTML = item.text;
       }
     }
-    if (this.disclosures) {
+    if (this.disclosure && Object.keys(this.disclosure).length > 0) {
       this.mapData();
     }
   },
