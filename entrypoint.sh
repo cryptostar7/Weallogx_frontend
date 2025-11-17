@@ -43,4 +43,4 @@ sleep 1
 # Reloads nginx every 5 minutes to refresh DNS cache without dropping connections
 nohup sh -c 'while true; do sleep 300; echo "$(date): Refreshing DNS cache"; nginx -s reload; done' &
 
-exec nginx -g 'daemon off;' 
+exec nginx -g 'daemon off;'  
