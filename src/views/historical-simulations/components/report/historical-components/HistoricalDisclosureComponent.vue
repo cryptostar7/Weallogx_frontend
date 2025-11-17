@@ -432,7 +432,7 @@ export default {
         this.$refs.editableDiv.innerHTML = item.text;
       }
     }
-    if (this.disclosures) {
+    if (this.disclosure && Object.keys(this.disclosure).length > 0) {
       this.mapData();
     }
   },
@@ -641,7 +641,7 @@ export default {
   },
   computed: {
     disclosure() {
-      return this.$store.state.data.report.historical.discloser || [];
+      return this.$store.state.data.report.historical.disclosure || [];
     },
     disclosures() {
       return this.$store.state.data.report.disclosures || [];
