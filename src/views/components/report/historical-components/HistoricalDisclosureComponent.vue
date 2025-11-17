@@ -573,8 +573,13 @@ export default {
     },
 
     handleDisclosure: function () {
-      if (!this.$refs.editableDiv.innerHTML) {
-        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      if (this.$refs.editableDiv) {
+        const content = this.$refs.editableDiv.textContent.trim();
+        if (content === '' || this.$refs.editableDiv.innerHTML.trim() === '') {
+          if (this.$refs.disclosureModal) {
+            new bootstrap.Modal(this.$refs.disclosureModal).show();
+          }
+        }
       }
     },
 
@@ -623,7 +628,16 @@ export default {
       return this.$store.state.data.report.historical.discloser || {};
     },
     discloser_cv() {
-      return this.$store.state.data.report.historical.best.comparative_values.disclosures || {};
+      const historical = this.$store.state.data.report.historical;
+      if (!historical || !historical.best || !historical.best.comparative_values) {
+        return {
+          cv_1: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          cv_2: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          cv_3: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          tax_rates: { first_tax_rate: '', second_tax_rate: '', second_tax_rate_value: false, year_switch: '', schedule: false }
+        };
+      }
+      return historical.best.comparative_values.disclosures || {};
     },
   },
   watch: {
