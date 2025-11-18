@@ -213,8 +213,8 @@ export default {
 
       // Use authService for login (supports both Cognito and Django)
       authService.login({
-        email: this.user.email,
-        password: this.user.password,
+        email: this.user.email.trim(),
+        password: this.user.password.trim(),
         remember_me: this.rememberMe
       })
         .then((response) => {
