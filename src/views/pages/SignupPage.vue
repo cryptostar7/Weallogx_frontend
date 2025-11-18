@@ -256,8 +256,8 @@ export default {
 
       // Login with the credentials
       authService.login({
-        email: this.user.email,
-        password: this.user.password,
+        email: this.user.email.trim(),
+        password: this.user.password.trim(),
         remember_me: false
       })
         .then(response => {
