@@ -141,10 +141,8 @@ export default {
       // Get compatible indexes for selection validation
       const compatible = sortedIndexes.filter(item => !item.disabled);
 
-      // Update selectedIndex if needed when list changes
-      this.$nextTick(() => {
-        this.updateSelectedIndexForNewList(compatible);
-      });
+      // Note: Selection validation is handled in the watcher below
+      // to avoid side effects in computed properties
 
       return sortedIndexes;
     },
@@ -223,7 +221,6 @@ export default {
     },
     
     handleInputText: function(val) {
-      
       // Always preserve what the user types/selects
       this.preservedSelection = val;
       this.selectedIndex = val;
@@ -231,18 +228,17 @@ export default {
     },
     
     updateSelectedIndexForNewList: function(newList) {
-      
       // If we have a user-selected index, check if it's still valid
       if (this.userSelectedIndex) {
         const stillValid = newList.find(item => item.template_name === this.userSelectedIndex);
-        
+
         if (stillValid) {
           // Keep the user's selection
           this.selectedIndex = this.userSelectedIndex;
           return;
         } else {
           // User selection became incompatible - always emit event for enabled tabs
-          
+
           // Only emit the incompatible event if this tab is enabled
           if (this.isTabEnabled) {
             this.$emit('indexBecameIncompatible', {
@@ -281,13 +277,22 @@ export default {
   watch: {
     indexStrategies: {
       handler(newList, oldList) {
-        
+
+        // Get compatible indexes for validation
+        const compatible = newList.filter(item => !item.disabled);
+
+        // Check if currently selected index is still compatible
+        // This will emit the incompatible event if needed
+        this.$nextTick(() => {
+          this.updateSelectedIndexForNewList(compatible);
+        });
+
         // Update previous list for next comparison
         this.previousIndexList = [...newList];
       },
       deep: true
     },
-    
+
     selectedIndex(newVal, oldVal) {
     }
   }
