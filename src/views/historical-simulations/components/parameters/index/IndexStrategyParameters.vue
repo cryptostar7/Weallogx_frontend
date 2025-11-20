@@ -362,9 +362,10 @@
       </div>
     </div>
     <!-- Incompatible Index Modal -->
-    <incompatible-index-modal 
+    <incompatible-index-modal
       :incompatibleIndexName="incompatibleIndexInfo.indexName"
       :incompatibleTabs="incompatibleTabs"
+      :rollingTimePeriod="$props.rollingTime"
     />
   </div>
 </template>
