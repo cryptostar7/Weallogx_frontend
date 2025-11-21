@@ -1,7 +1,7 @@
 <template>
-  <div class="modal fade common-modal" id="IncompatibleIndexModal" tabindex="-1" aria-labelledby="IncompatibleIndexModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+  <div class="modal fade common-modal" id="IncompatibleIndexModal" tabindex="-1" aria-labelledby="IncompatibleIndexModalLabel" aria-hidden="true" style="z-index: 999999 !important;">
+    <div class="modal-dialog" style="z-index: 999999 !important;">
+      <div class="modal-content" style="z-index: 999999 !important;">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <img src="@/assets/images/icons/cross-grey.svg" class="img-fluid" alt="Close Modal">
@@ -39,3 +39,28 @@ export default {
   props: ['incompatibleIndexName', 'incompatibleTabs', 'rollingTimePeriod']
 };
 </script>
+
+<style>
+#IncompatibleIndexModal {
+  z-index: 9999 !important;
+}
+#IncompatibleIndexModal .modal-dialog {
+  min-width: 500px !important;
+  min-height: 300px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important;
+  position: relative !important;
+}
+#IncompatibleIndexModal .modal-content {
+  min-width: 500px !important;
+  min-height: 300px !important;
+  display: block !important;
+  z-index: 9999 !important;
+  position: relative !important;
+}
+.modal-backdrop.show {
+  z-index: 1040 !important;
+}
+</style>
