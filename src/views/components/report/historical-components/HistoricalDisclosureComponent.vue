@@ -625,7 +625,7 @@ export default {
   },
   computed: {
     disclosure() {
-      return this.$store.state.data.report.historical.discloser || {};
+      return this.$store.state.data.report.historical.disclosure || {};
     },
     discloser_cv() {
       const historical = this.$store.state.data.report.historical;
