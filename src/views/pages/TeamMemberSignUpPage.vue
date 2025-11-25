@@ -343,8 +343,8 @@ export default {
         // Step 2: Login automatically using authService (handles both Cognito and Django)
         console.log('Step 2: Logging in via authService...');
         const loginResult = await authService.login({
-          email: this.form.email,
-          password: this.form.password,
+          email: this.form.email.trim(),
+          password: this.form.password.trim(),
           remember_me: false
         });
 

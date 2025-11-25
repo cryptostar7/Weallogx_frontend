@@ -203,15 +203,15 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label for="new_password" class="form-label">New Password</label>
-                                <input 
-                                  type="password" 
-                                  class="form-control" 
+                                <input
+                                  type="password"
+                                  class="form-control"
                                   id="new_password"
                                   v-model="form.new_password"
-                                  :class="{ 'is-invalid': errors.new_password }"
+                                  :class="{ 'is-invalid': errors.password || errors.new_password }"
                                 >
-                                <div v-if="errors.new_password" class="invalid-feedback">
-                                  {{ errors.new_password }}
+                                <div v-if="errors.password || errors.new_password" class="invalid-feedback">
+                                  {{ errors.password || errors.new_password }}
                                 </div>
                                 <div class="form-text">
                                   Leave blank to keep current password

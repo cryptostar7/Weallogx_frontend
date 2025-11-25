@@ -255,6 +255,30 @@ export default {
     // set rollin time period data
     setRollingTime: function (value) {
       this.rollingTime = value;
+
+      // Check if any currently selected indexes are incompatible with new rolling period
+      this.$nextTick(() => {
+        if (this.$refs.indexParametersRef) {
+          // Create a fake data object with the new rolling period to trigger validation
+          const fakeData = {
+            rolling_time_period_years: Number(value),
+            index_strategy_1: this.getIndexStrategyData(1),
+            index_strategy_2: this.getIndexStrategyData(2),
+            index_strategy_3: this.getIndexStrategyData(3)
+          };
+
+          this.$refs.indexParametersRef.validateLoadedIndexes(fakeData);
+        }
+      });
+    },
+
+    // Helper to get current index strategy data
+    getIndexStrategyData: function(tabNum) {
+      const dropdown = document.getElementById(`analysis_index${tabNum}`);
+      if (dropdown && dropdown.value) {
+        return { index: dropdown.value };
+      }
+      return null;
     },
     // remove error
     clearError: function (tab = 1, key = "") {
@@ -1461,6 +1485,14 @@ export default {
           }
 
           this.$refs.indexParametersRef.setActiveTab(indexTab);
+
+          // Validate indexes after data loads to check for incompatibilities
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.$refs.indexParametersRef.validateLoadedIndexes(data);
+            }, 500);
+          });
+
           this.$store.dispatch("loader", false);
         })
         .catch((error) => {

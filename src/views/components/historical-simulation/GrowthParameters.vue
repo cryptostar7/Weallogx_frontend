@@ -142,7 +142,24 @@ export default {
         this.isCapActive = document.getElementById(`is_active_cap_rate_range${this.$props.currentTab}`).checked;
       }
     },
-    
+
+    indexStrategies: {
+      handler(newList, oldList) {
+        // Get compatible indexes for validation
+        const compatible = newList.filter(item => !item.disabled);
+
+        // Check if currently selected index is still compatible
+        // This will emit the incompatible event if needed
+        this.$nextTick(() => {
+          this.updateSelectedIndexForNewList(compatible);
+        });
+
+        // Update previous list for next comparison
+        this.previousIndexList = [...newList];
+      },
+      deep: true
+    },
+
     selectedIndex(newVal, oldVal) {
     }
   },
