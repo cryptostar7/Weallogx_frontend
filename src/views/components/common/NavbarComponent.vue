@@ -7,6 +7,7 @@
           class="img-fluid"
           alt="Wealthlogix Logo"
           width="170"
+          style="max-height: 50px; object-fit: contain;"
       /></router-link>
       <div
         class="collapse navbar-collapse overWriteNavCollapse show"
@@ -23,9 +24,38 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <span
+              <span v-if="avatar !== UserIcon"
                 ><img :src="avatar" class="img-fluid" alt="User"
               /></span>
+              <svg
+                v-else
+                class="user-icon-svg"
+                width="94"
+                height="94"
+                viewBox="0 0 94 94"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid #aaa; padding: 1px;"
+              >
+                <circle cx="47" cy="47" r="47" class="user-icon-bg" />
+                <circle
+                  opacity="0.75"
+                  cx="47"
+                  cy="32.8988"
+                  r="14.1"
+                  fill="white"
+                  fill-opacity="0.9"
+                />
+                <ellipse
+                  opacity="0.75"
+                  cx="45.825"
+                  cy="65.7988"
+                  rx="22.325"
+                  ry="11.75"
+                  fill="white"
+                  fill-opacity="0.9"
+                />
+              </svg>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-end"
@@ -108,6 +138,7 @@ export default {
   data() {
     return {
       profileImage: "",
+      UserIcon: UserIcon,
     };
   },
   mounted() {
@@ -219,14 +250,13 @@ export default {
               sessionStorage.removeItem("access_token");
               sessionStorage.removeItem("currentUser");
               localStorage.removeItem("login_from_admin");
-              window.location.href = this.$adminUrl();
+              window.location.href = "/admin";
             } else {
               this.$toast.success(response.data.message);
               window.location.href = "/sign-in";
             }
           })
           .catch((error) => {
-            console.log(error);
             this.$store.dispatch("loader", false);
             if (
               error.code === "ERR_BAD_RESPONSE" ||

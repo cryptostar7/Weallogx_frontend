@@ -106,6 +106,26 @@ const router = createRouter({
       component: () => import("../views/pages/ProfileDetailsPage.vue"),
     },
     {
+      path: "/team-management/:teamId?",
+      name: "team-management",
+      component: () => import("../views/pages/TeamManagementPage.vue"),
+    },
+    {
+      path: "/team/accept-invitation/:token",
+      name: "accept-team-invitation",
+      component: () => import("../views/pages/AcceptTeamInvitationPage.vue"),
+    },
+    {
+      path: "/team/accept-invitation/:token/signup",
+      name: "team-member-signup",
+      component: () => import("../views/pages/TeamMemberSignUpPage.vue"),
+    },
+    {
+      path: "/tutorials",
+      name: "tutorials",
+      component: () => import("../views/pages/TutorialsPage.vue"),
+    },
+    {
       path: "/pricing",
       name: "pricing",
       component: () => import("../views/pages/PricingPage.vue"),
@@ -284,6 +304,12 @@ const router = createRouter({
       meta: { requiresAdmin: true }
     },
     {
+      path: "/admin/webhook-logs",
+      name: "AdminWebhookLogs",
+      component: () => import("../views/admin/pages/WebhookLogs.vue"),
+      meta: { requiresAdmin: true }
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not found page",
       component: () => import("../views/pages/NotFoundPageView.vue"),
@@ -293,6 +319,7 @@ const router = createRouter({
 
 const authRoutes = [
   'profile-details',
+  'tutorials',
   'edit-profile',
   'edit-payment-method',
   'payment-history',
@@ -300,6 +327,7 @@ const authRoutes = [
   'current-plan',
   'pricing',
   'change-password',
+  'team-management',
   'home',
   'scenario-details',
   'illustration-data',

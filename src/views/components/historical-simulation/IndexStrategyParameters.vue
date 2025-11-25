@@ -162,6 +162,7 @@
             </div>
           </div>
           <growth-parameters
+            ref="growthParametersRef1"
             :currentTab="1"
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
@@ -229,6 +230,7 @@
             </div>
           </div>
           <growth-parameters
+            ref="growthParametersRef2"
             :currentTab="2"
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
@@ -296,6 +298,7 @@
             </div>
           </div>
           <growth-parameters
+            ref="growthParametersRef3"
             :currentTab="3"
             :update="$props.update.growth_parameters"
             @setUpdated="() => $emit('setUpdated', 'growth_parameters')"
@@ -374,13 +377,15 @@
         </div>
       </div>
     </div>
-    <!-- Incompatible Index Modal -->
-    <incompatible-index-modal 
+  </div>
+  <!-- Incompatible Index Modal - OUTSIDE main div so it's at same level as backdrop -->
+  <Teleport to="body">
+    <incompatible-index-modal
       :incompatibleIndexName="incompatibleIndexInfo.indexName"
       :incompatibleTabs="incompatibleTabs"
-      :rollingTimePeriod="rollingTime"
+      :rollingTimePeriod="actualRollingPeriod"
     />
-  </div>
+  </Teleport>
 </template>
 <script>
 import SelectDropdown from "../common/SelectDropdown.vue";
@@ -394,6 +399,7 @@ import StrategyWeightComponent from "./StrategyWeightComponent.vue";
 import StrategyWeightFirstComponent from "./StrategyWeightFirstComponent.vue";
 import StrategyWeightSecondComponent from "./StrategyWeightSecondComponent.vue";
 import IncompatibleIndexModal from "../../historical-simulations/components/modals/IncompatibleIndexModal.vue";
+import config from '@/services/config.js';
 export default {
   components: {
     SelectDropdown,
@@ -460,7 +466,9 @@ export default {
         tabNumber: 1
       },
       incompatibleTabs: [], // Track all incompatible tabs
-      incompatibleEventTimeout: null // Debounce multiple events
+      incompatibleEventTimeout: null, // Debounce multiple events
+      actualRollingPeriod: 30, // Store actual loaded rolling period for modal display
+      isModalShowing: false // Flag to prevent multiple modal calls
     };
   },
   methods: {
@@ -639,23 +647,13 @@ export default {
     },
     
     testMethod() {
-      console.log('TEST METHOD CALLED');
       alert('Test method works!');
     },
     
     // Handle when an index becomes incompatible with rolling period
     handleIndexIncompatible(info) {
-      console.log('IndexStrategyParameters: handleIndexIncompatible called with:', info);
-      
-      // Check if modal is already showing - if so, ignore new events
-      const modalElement = document.getElementById('IncompatibleIndexModal');
-      const isModalVisible = modalElement && modalElement.classList.contains('show');
-      
-      if (isModalVisible) {
-        console.log('Modal already showing, ignoring new incompatible event');
-        return;
-      }
-      
+      console.log('🎭 handleIndexIncompatible called with:', info);
+
       // Add this incompatible index to our list (avoid duplicates)
       const existingIndex = this.incompatibleTabs.findIndex(item => item.tabNumber === info.tabNumber);
       if (existingIndex >= 0) {
@@ -663,49 +661,137 @@ export default {
       } else {
         this.incompatibleTabs.push(info);
       }
-      
+
+      console.log('📋 Current incompatibleTabs:', this.incompatibleTabs);
+
       // Clear any existing timeout
       if (this.incompatibleEventTimeout) {
         clearTimeout(this.incompatibleEventTimeout);
       }
-      
+
       // Set a longer timeout to collect all incompatible events before showing modal
       this.incompatibleEventTimeout = setTimeout(() => {
+        console.log('⏰ 300ms timeout complete, showing modal');
         this.showIncompatibleModal();
       }, 300); // Wait 300ms for all events to come in
     },
     
     // Show modal with all incompatible tabs
     showIncompatibleModal() {
-      // Check if modal is already showing
-      const modalElement = document.getElementById('IncompatibleIndexModal');
-      const isModalVisible = modalElement && modalElement.classList.contains('show');
-      
-      if (isModalVisible) {
-        console.log('Modal already showing, skipping...');
-        return;
-      }
-      
+      console.log('🎬 showIncompatibleModal called, incompatibleTabs:', this.incompatibleTabs);
+
       if (this.incompatibleTabs.length === 0) {
+        console.log('⚠️ No incompatible tabs, returning');
         return;
       }
-      
-      console.log('Showing modal for incompatible tabs:', this.incompatibleTabs);
-      
+
       // Set the modal info - use the first one for single index display
       this.incompatibleIndexInfo = this.incompatibleTabs[0];
-      
+      console.log('📝 Set incompatibleIndexInfo to:', this.incompatibleIndexInfo);
+
+      const modalElement = document.getElementById('IncompatibleIndexModal');
+      console.log('🔍 Modal element:', modalElement);
+
       if (modalElement) {
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-        console.log('Modal show() called for tabs:', this.incompatibleTabs.map(t => t.tabNumber));
-        // Note: incompatibleTabs will be cleared when modal is hidden (see mounted event listener)
+        // Get existing modal instance or create new one
+        let modal = bootstrap.Modal.getInstance(modalElement);
+
+        if (modal) {
+          console.log('♻️ Using existing modal instance');
+          // Modal already exists, just hide and show it again to refresh content
+          modal.hide();
+          setTimeout(() => {
+            modal.show();
+            console.log('🎉 Existing modal.show() called');
+          }, 200);
+        } else {
+          console.log('✅ Creating NEW Bootstrap modal instance');
+          modal = new bootstrap.Modal(modalElement);
+          modal.show();
+          console.log('🎉 New modal.show() called');
+        }
       } else {
-        console.error('Modal element not found!');
+        console.log('❌ Modal element NOT found, showing alert');
         // Fallback alert showing all incompatible tabs
         const tabList = this.incompatibleTabs.map(t => `Tab ${t.tabNumber} (${t.indexName})`).join(', ');
         alert(`The following indexes are incompatible with the selected rolling years: ${tabList}`);
         this.incompatibleTabs = [];
+      }
+    },
+
+    // Validate loaded indexes against rolling period when editing scenarios
+    validateLoadedIndexes(data) {
+      console.log('🔍 validateLoadedIndexes called with data:', data);
+
+      // Get the actual rolling period from loaded data
+      const rollingTime = data.rolling_time_period_years;
+      this.actualRollingPeriod = rollingTime;
+      console.log('📊 Rolling period:', rollingTime);
+
+      const incompatibleIndexes = [];
+
+      // Helper function to get index configuration
+      const getIndexConfig = (indexName) => {
+        return config.INDEX_STRATEGIES.find(i => i.template_name === indexName);
+      };
+
+      // Check all 3 index strategies
+      [1, 2, 3].forEach(tabNum => {
+        const strategyKey = `index_strategy_${tabNum}`;
+        const strategy = data[strategyKey];
+
+        console.log(`Tab ${tabNum} strategy:`, strategy);
+
+        if (!strategy) return; // Skip if strategy doesn't exist
+
+        const indexName = strategy.index;
+        const indexConfig = getIndexConfig(indexName);
+
+        console.log(`Tab ${tabNum} - Index: ${indexName}, Config:`, indexConfig);
+
+        // Check if index is incompatible with rolling period
+        if (indexConfig && indexConfig.max_limit < rollingTime) {
+          console.log(`🚨 INCOMPATIBLE: ${indexName} max_limit (${indexConfig.max_limit}) < rolling period (${rollingTime})`);
+
+          incompatibleIndexes.push({
+            indexName: indexName,
+            tabNumber: tabNum
+          });
+
+          // Update the growth parameters ref to trigger the watcher
+          const ref = this.$refs[`growthParametersRef${tabNum}`];
+          if (ref) {
+            // Set the selectedIndex to S&P 500 which will trigger the watcher
+            ref.selectedIndex = 'S&P 500';
+            ref.userSelectedIndex = indexName; // Set this so watcher knows what was incompatible
+
+            // Update DOM as well
+            this.$nextTick(() => {
+              const dropdown = document.getElementById(`analysis_index${tabNum}`);
+              if (dropdown) {
+                dropdown.value = 'S&P 500';
+              }
+              // Now clear userSelectedIndex to trigger incompatibility check
+              ref.userSelectedIndex = '';
+            });
+          }
+        }
+      });
+
+      console.log('💥 Incompatible indexes found:', incompatibleIndexes);
+
+      // Show modal if any incompatible indexes were found
+      // Use the SAME event mechanism that works when user changes index
+      if (incompatibleIndexes.length > 0) {
+        console.log('🎯 Triggering via handleIndexIncompatible (same as watcher)');
+
+        // Call handleIndexIncompatible for each incompatible index
+        // This uses the same 300ms debounce mechanism that works
+        incompatibleIndexes.forEach(info => {
+          this.handleIndexIncompatible(info);
+        });
+      } else {
+        console.log('✅ No incompatible indexes');
       }
     }
   },
@@ -818,13 +904,11 @@ export default {
   },
   
   mounted() {
-    console.log('IndexStrategyParameters component mounted');
     
     // Add event listener for when modal is hidden to clear incompatible tabs
     const modalElement = document.getElementById('IncompatibleIndexModal');
     if (modalElement) {
       modalElement.addEventListener('hidden.bs.modal', () => {
-        console.log('Modal hidden, clearing incompatible tabs');
         this.incompatibleTabs = [];
         // Also clear any pending timeout
         if (this.incompatibleEventTimeout) {

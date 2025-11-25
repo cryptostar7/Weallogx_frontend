@@ -7,6 +7,9 @@ import Toaster from "@meforma/vue-toaster";
 import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing";
 
+// AWS Amplify Configuration for Cognito (must be imported before app creation)
+import './services/amplify-config'
+
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
 import './assets/css/user/style.css';
@@ -35,15 +38,8 @@ var appUrl = "__VITE_APP_URL__" === "__VITE_APP_URL__" ? import.meta.env.VITE_AP
 var sentryDSN = import.meta.env.VITE_SENTRY_DSN_KEY;
 
 // Initialize Sentry for error tracking and performance monitoring
-console.log('🔍 Checking Sentry configuration...');
-console.log('Environment:', environment);
-console.log('Sentry DSN found:', !!sentryDSN);
-console.log('Sentry DSN (first 50 chars):', sentryDSN ? sentryDSN.substring(0, 50) + '...' : 'NOT SET');
-console.log('🔍 FULL DSN:', sentryDSN);
-console.log('🔍 Project ID from DSN:', sentryDSN ? sentryDSN.split('/').pop() : 'N/A');
 
 if (sentryDSN) {
-    console.log('🔍 Initializing Sentry with DSN:', sentryDSN.substring(0, 50) + '...');
     try {
         Sentry.init({
             app,
@@ -60,14 +56,9 @@ if (sentryDSN) {
             // of transactions for performance monitoring.
             // We recommend adjusting this value in production
             tracesSampleRate: environment === 'development' ? 1.0 : 0.1,
-            // Ensure events are sent in development
-            beforeSendTransaction(transaction) {
-                console.log('📊 Sentry sending transaction:', transaction.name);
-                return transaction;
-            },
+
             // Add user context and additional data
             beforeSend(event) {
-              console.log('📤 Sentry sending event:', event.type || 'unknown', event.message || event.exception?.values?.[0]?.value);
               // Add environment info to all events
               event.tags = {
                 ...event.tags,
@@ -78,32 +69,12 @@ if (sentryDSN) {
             }
         });
         
-        console.log('✅ Sentry initialized successfully');
-        
-        // Send a test event to verify connection
-        setTimeout(() => {
-            console.log('🧪 Sending initial Sentry test message...');
-            const client = Sentry.getCurrentHub().getClient();
-            if (client) {
-                console.log('🔍 Sentry client DSN:', client.getDsn()?.toString());
-                console.log('🔍 Sentry client options:', client.getOptions());
-            }
-            
-            Sentry.captureMessage('✅ WealthLogix Frontend Initialized - Sentry Connection Test', 'info');
-            
-            // Also send a test exception to verify error tracking
-            setTimeout(() => {
-                console.log('🧪 Sending test exception...');
-                Sentry.captureException(new Error('✅ Test Exception - Frontend Init Verification'));
-            }, 1000);
-        }, 2000);
+
         
     } catch (error) {
-        console.error('❌ Failed to initialize Sentry:', error);
     }
 } else {
-    console.warn('⚠️ Sentry DSN not found in environment variables');
-    console.warn('Available env vars:', Object.keys(import.meta.env).filter(key => key.includes('SENTRY')));
+
 }
 
 app.mount("#app");

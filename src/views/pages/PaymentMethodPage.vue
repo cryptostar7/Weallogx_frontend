@@ -36,11 +36,23 @@
               
               <!-- Pricing Summary Section -->
               <div class="pricing-summary-section">
-                <h3 v-if="!isLoadingPrices">{{ selectedPlan === 'monthly' ? 'Monthly Plan' : 'Annual Plan' }}</h3>
+                <h3 v-if="!isLoadingPrices">
+                  <span v-if="selectedPlan === 'monthly'">Individual Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'yearly'">Individual Annual Plan</span>
+                  <span v-else-if="selectedPlan === 'team_monthly'">Team Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'team_annual'">Team Annual Plan</span>
+                  <span v-else>Subscription Plan</span>
+                </h3>
                 <h3 v-else>Loading pricing...</h3>
                 <div class="pricing-details">
                   <div class="price-line">
-                    <span>{{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}</span>
+                    <span v-if="selectedPlan === 'monthly' || selectedPlan === 'yearly'">
+                      {{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}
+                    </span>
+                    <span v-else-if="selectedPlan === 'team_monthly' || selectedPlan === 'team_annual'">
+                      {{ selectedPlan === 'team_monthly' ? 'Team Monthly (up to 5 members)' : 'Team Annual (up to 5 members)' }}
+                    </span>
+                    <span v-else>Subscription</span>
                     <span class="price" v-if="!isLoadingPrices">{{ originalPrice }}</span>
                     <span class="price" v-else>...</span>
                   </div>
@@ -156,7 +168,6 @@ import {
   getSearchParams,
   getRuntimeEnv,
 } from "../../services/helper";
-console.log("STRIPE KEY DEBUG:", "__VITE_STRIPE_PUBLISHABLE_KEY__");
 let stripe = Stripe("__VITE_STRIPE_PUBLISHABLE_KEY__"),
   elements = stripe.elements(),
   card,
@@ -185,29 +196,30 @@ export default {
       appliedCoupon: null,
       planPrices: {
         monthly: { price: 0, display: 'Loading...', priceId: null },
-        yearly: { price: 0, display: 'Loading...', priceId: null }
+        yearly: { price: 0, display: 'Loading...', priceId: null },
+        team_monthly: { price: 0, display: 'Loading...', priceId: null },
+        team_annual: { price: 0, display: 'Loading...', priceId: null }
       }
     };
   },
   mounted() {
-    console.log("=== PAYMENT METHOD PAGE MOUNTED ===");
-    console.log("Component mounted at:", new Date().toISOString());
-    console.log("Current URL:", window.location.href);
     
     // Get plan from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const planParam = urlParams.get('plan');
-    console.log("URL plan parameter:", planParam);
     
     if (planParam) {
       if (planParam === 'monthly') {
         this.selectedPlan = 'monthly';
       } else if (planParam === 'annual' || planParam === 'yearly') {
         this.selectedPlan = 'yearly';
+      } else if (planParam === 'team_monthly') {
+        this.selectedPlan = 'team_monthly';
+      } else if (planParam === 'team_annual' || planParam === 'team_yearly') {
+        this.selectedPlan = 'team_annual';
       }
     }
     
-    console.log("Selected plan:", this.selectedPlan);
     
     // Fetch pricing from backend or use defaults
     this.fetchPricing();
@@ -216,7 +228,6 @@ export default {
     this.fetchAvailableCoupons();
     
     if (this.$store.state.forms.temp_user) {
-      console.log("Temp user found in store:", this.$store.state.forms.temp_user);
       this.user = this.$store.state.forms.temp_user;
     } 
 
@@ -258,18 +269,18 @@ export default {
   },
   methods: {
     async fetchPricing() {
-      console.log("Fetching pricing information...");
       this.isLoadingPrices = true;
-      
+
       try {
         const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
         const yearlyPriceId = "__VITE_YEARLY_PLAN__";
-        
-        console.log("Using price IDs:", { monthlyPriceId, yearlyPriceId });
-        
+        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__";
+        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__";
+
+
         // Fetch pricing from backend API
         try {
-          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}`;
+          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}&team_monthly_price_id=${teamMonthlyPriceId}&team_yearly_price_id=${teamYearlyPriceId}`;
           const response = await get(url);
           
           if (response.data && response.data.prices) {
@@ -287,49 +298,82 @@ export default {
                 priceId: yearlyPriceId,
                 interval: prices.yearly.recurring.interval,
                 monthlyEquivalent: (prices.yearly.unit_amount / 100) / 12
-              }
+              },
+              team_monthly: prices.team_monthly ? {
+                price: prices.team_monthly.unit_amount / 100,
+                display: `$${(prices.team_monthly.unit_amount / 100).toFixed(2)}/${prices.team_monthly.recurring.interval}`,
+                priceId: teamMonthlyPriceId,
+                interval: prices.team_monthly.recurring.interval
+              } : { price: 0, display: 'N/A', priceId: teamMonthlyPriceId, interval: 'month' },
+              team_annual: prices.team_yearly ? {
+                price: prices.team_yearly.unit_amount / 100,
+                display: `$${(prices.team_yearly.unit_amount / 100).toFixed(2)}/${prices.team_yearly.recurring.interval}`,
+                priceId: teamYearlyPriceId,
+                interval: prices.team_yearly.recurring.interval,
+                monthlyEquivalent: (prices.team_yearly.unit_amount / 100) / 12
+              } : { price: 0, display: 'N/A', priceId: teamYearlyPriceId, interval: 'year' }
             };
-            console.log("Loaded pricing from backend:", this.planPrices);
           } else {
             throw new Error("Invalid response from pricing API");
           }
         } catch (apiError) {
-          console.error("Backend pricing API failed - cannot load pricing:", apiError.message);
           this.$toast.error("Unable to load pricing from Stripe. Please try again.");
           
           // No fallback - force user to retry or fix the API issue
           this.planPrices = {
-            monthly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            monthly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: monthlyPriceId,
               interval: 'month'
             },
-            yearly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            yearly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: yearlyPriceId,
+              interval: 'year'
+            },
+            team_monthly: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamMonthlyPriceId,
+              interval: 'month'
+            },
+            team_annual: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamYearlyPriceId,
               interval: 'year'
             }
           };
         }
         
-        console.log("Final pricing:", this.planPrices);
       } catch (error) {
-        console.error("Critical error fetching pricing:", error);
         this.$toast.error("Unable to load pricing. Please refresh the page.");
         
         // No fallback - system must work with live Stripe data
         this.planPrices = {
-          monthly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'month'
           },
-          yearly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          yearly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'year'
+          },
+          team_monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'month'
+          },
+          team_annual: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'year'
           }
@@ -341,7 +385,6 @@ export default {
     },
     
     async fetchAvailableCoupons() {
-      console.log("Fetching available coupons from Stripe...");
       this.isLoadingCoupons = true;
       
       try {
@@ -357,10 +400,8 @@ export default {
                    (!coupon.max_redemptions || coupon.times_redeemed < coupon.max_redemptions);
           });
           
-          console.log("Available coupons:", this.availableCoupons);
         }
       } catch (error) {
-        console.warn("Could not fetch coupons:", error.message);
         // Don't show error to user as coupons are optional
         this.availableCoupons = [];
       } finally {
@@ -466,7 +507,6 @@ export default {
           }
         }
       } catch (error) {
-        console.error("Error applying promo code:", error);
         this.promoError = 'Error applying promo code. Please try again.';
       } finally {
         this.isApplyingPromo = false;
@@ -484,19 +524,14 @@ export default {
     },
     getSource: async function(e) {
       e.preventDefault();
-      console.log("=== PAYMENT FORM SUBMITTED ===");
-      console.log("Card holder name:", this.cardHolder);
-      console.log("Promo code:", this.promoCode);
       
       // Check if cardholder name is provided
       if (!this.cardHolder || !this.cardHolder.trim()) {
-        console.error("Card holder name is required!");
         this.$toast.error("Please enter the cardholder name");
         return;
       }
 
       this.$store.dispatch("loader", true);
-      console.log("Creating Stripe source...");
       
       await stripe
         .createSource(cardNumber, {
@@ -507,15 +542,11 @@ export default {
           },
         })
         .then(response => {
-          console.log("Stripe response:", response);
           if (response.source) {
-            console.log("Source created successfully:", response.source.id);
             this.user.stripe_source_id = response.source.id;
             this.createUser();
           } else {
-            console.error("Failed to create source:", response);
             if (response.error) {
-              console.error("Stripe error:", response.error);
               this.$toast.error(response.error.message);
             } else {
               this.$toast.error("Something went wrong!");
@@ -524,20 +555,24 @@ export default {
           }
         })
         .catch(error => {
-          console.error("Stripe createSource error:", error);
           this.$toast.error("Failed to create payment source");
           this.$store.dispatch("loader", false);
         });
     },
     createUser: function() {
-      console.log("=== CREATING USER ===");
       var formData = this.$store.state.forms.temp_user;
-      console.log("Temp user data from store:", formData);
       
       formData["stripe_source_id"] = this.user.stripe_source_id;
       // Include pricing information
       formData["price_id"] = this.planPrices[this.selectedPlan].priceId;
-      formData["plan_type"] = this.selectedPlan === 'monthly' ? 'MONTHLY_PLAN' : 'YEARLY_PLAN';
+      // Map selectedPlan to plan_type (supports individual and team plans)
+      const planTypeMap = {
+        'monthly': 'MONTHLY_PLAN',
+        'yearly': 'YEARLY_PLAN',
+        'team_monthly': 'TEAM_MONTHLY_PLAN',
+        'team_annual': 'TEAM_YEARLY_PLAN'
+      };
+      formData["plan_type"] = planTypeMap[this.selectedPlan] || 'MONTHLY_PLAN';
       formData["plan_price"] = this.planPrices[this.selectedPlan].price;
       formData["plan_interval"] = this.planPrices[this.selectedPlan].interval;
       // Always include promo_code, even if empty
@@ -551,44 +586,31 @@ export default {
       // Strip phone number formatting for backend (remove spaces, dashes, parentheses)
       if (formData.phone_number) {
         formData.phone_number = formData.phone_number.replace(/[\s\-\(\)]/g, '');
-        console.log("Phone number after formatting:", formData.phone_number);
       }
       
-      console.log("Form data to submit:", formData);
       
       this.$store.dispatch("userTempForm", formData);
 
       const signupUrl = getUrl("signup");
-      console.log("Signup URL:", signupUrl);
-      console.log("Making POST request to create user...");
       
       post(signupUrl, formData)
         .then(response => {
-          console.log("User creation successful:", response);
           this.$store.dispatch("userTempForm", false);
           setRefreshToken(response.data.data.tokens.refresh);
           setAccessToken(response.data.data.tokens.access);
           this.$store.dispatch("loader", false);
           this.$toast.success(response.data.message);
-          console.log("Redirecting to /profile-details");
           this.$router.push("/profile-details");
         })
         .catch(error => {
-          console.error("User creation failed:", error);
-          console.error("Error details:", {
-            code: error.code,
-            message: error.message,
-            response: error.response
-          });
+
           
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
           ) {
-            console.error("Network/Bad response error");
             this.$toast.error(error.message);
           } else {
-            console.error("Server error, redirecting back to signup");
             this.$store.dispatch("userTempFormError", getServerErrors(error));
             this.$store.dispatch("loader", false);
             this.$router.push(

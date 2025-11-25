@@ -52,13 +52,17 @@
         </div>
         <span
           v-for="(item, index) in selectList"
-          :key="index" 
-          class="dropdown-item-container"
+          :key="index"
+          :class="['dropdown-item-container', { 'disabled-item': item.disabled }]"
+          :title="item.disabled ? item.disabledReason : ''"
         >
-          <span @click="(e) => setInputValue(item.template_name, item.id)" class="dropdown-item-text">
+          <span
+            @click="(e) => !item.disabled && setInputValue(item.template_name, item.id)"
+            :class="['dropdown-item-text', { 'disabled-text': item.disabled }]"
+          >
             {{ item.template_name }}
           </span>
-          <span v-if="$props.allowDelete" @click="(e) => deleteItem(item.id, item.template_name)" class="dropdown-item-delete">
+          <span v-if="$props.allowDelete && !item.disabled" @click="(e) => deleteItem(item.id, item.template_name)" class="dropdown-item-delete">
             <span class="remove-btn">Remove</span>
           </span>
         </span>
@@ -185,6 +189,10 @@ export default {
 </script>
 
 <style scoped>
+.autocomplete-items {
+  background-color: #fff;
+}
+
 .dropdown-item-container {
   display: flex;
   justify-content: space-between;
@@ -221,5 +229,19 @@ export default {
 .remove-btn:hover {
   background-color: #f0f0f0;
   color: #333;
+}
+
+.disabled-item {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled-item:hover {
+  background-color: #fff !important;
+}
+
+.disabled-text {
+  color: #999;
+  cursor: not-allowed;
 }
 </style>

@@ -255,6 +255,30 @@ export default {
     // set rollin time period data
     setRollingTime: function (value) {
       this.rollingTime = value;
+
+      // Check if any currently selected indexes are incompatible with new rolling period
+      this.$nextTick(() => {
+        if (this.$refs.indexParametersRef) {
+          // Create a fake data object with the new rolling period to trigger validation
+          const fakeData = {
+            rolling_time_period_years: Number(value),
+            index_strategy_1: this.getIndexStrategyData(1),
+            index_strategy_2: this.getIndexStrategyData(2),
+            index_strategy_3: this.getIndexStrategyData(3)
+          };
+
+          this.$refs.indexParametersRef.validateLoadedIndexes(fakeData);
+        }
+      });
+    },
+
+    // Helper to get current index strategy data
+    getIndexStrategyData: function(tabNum) {
+      const dropdown = document.getElementById(`analysis_index${tabNum}`);
+      if (dropdown && dropdown.value) {
+        return { index: dropdown.value };
+      }
+      return null;
     },
     // remove error
     clearError: function (tab = 1, key = "") {
@@ -292,9 +316,14 @@ export default {
       if (!pcf_all_year) {
         let tempData = [];
         for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let inputValue = this.getInputWithId(`pcf_schedule${y}`);
+          // Convert blank/empty to 0
+          let numericValue = inputValue === "" || inputValue === null || inputValue === undefined
+            ? 0
+            : getNumber(inputValue);
           tempData.push({
             year: y,
-            value: getNumber(this.getInputWithId(`pcf_schedule${y}`)) || 0,
+            value: numericValue,
           });
         }
         pcfobj.schedule = tempData;
@@ -312,9 +341,14 @@ export default {
       if (!lif_all_year) {
         let tempData = [];
         for (var y = 1; y < this.illustrateYear + 1; y++) {
+          let inputValue = this.getInputWithId(`lif_schedule${y}`);
+          // Convert blank/empty to 0
+          let numericValue = inputValue === "" || inputValue === null || inputValue === undefined
+            ? 0
+            : getNumber(inputValue);
           tempData.push({
             year: y,
-            value: getNumber(this.getInputWithId(`lif_schedule${y}`)) || 0,
+            value: numericValue,
           });
         }
         lifobj.schedule = tempData;
@@ -513,11 +547,12 @@ export default {
         }
       }
 
-      if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 1) {
+      // loan interest analysis validation - allow zero or positive values
+      if (analysis.lif.same_all_year && Number(analysis.lif.fees) < 0) {
         valid = false;
         this.error.analysis = true;
         this.$toast.warning(
-          "Loan interest rate field must be grater than or equals to 1"
+          "Loan interest rate cannot be negative"
         );
       }
 
@@ -645,13 +680,13 @@ export default {
         credit_base_method: analysis.credit_method,
         distributions: analysis.distributions,
 
-        premium_charge: analysis.pcf.fees || 0,
+        premium_charge: Number(analysis.pcf.fees) || 0,
         premium_same_in_all_years: analysis.pcf.same_all_year ? true : false,
         premium_charges_same_in_all_years: !analysis.pcf.same_all_year
           ? analysis.pcf.schedule
           : null,
 
-        loan_intrest_rate: analysis.lif.fees || 1,
+        loan_intrest_rate: Number(analysis.lif.fees) || 0,
         loan_same_in_all_years: analysis.lif.same_all_year ? true : false,
         loan_intrest_rate_same_in_all_years: !analysis.lif.same_all_year
           ? analysis.lif.schedule
@@ -1450,6 +1485,14 @@ export default {
           }
 
           this.$refs.indexParametersRef.setActiveTab(indexTab);
+
+          // Validate indexes after data loads to check for incompatibilities
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.$refs.indexParametersRef.validateLoadedIndexes(data);
+            }, 500);
+          });
+
           this.$store.dispatch("loader", false);
         })
         .catch((error) => {

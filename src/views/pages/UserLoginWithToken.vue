@@ -27,7 +27,7 @@ export default {
       if (!token) {
         this.$toast.error("No login token provided.");
         this.$store.dispatch("loader", false);
-        window.location.href = this.$adminUrl();
+        window.location.href = "/admin";
         return;
       }
 
@@ -70,7 +70,6 @@ export default {
             this.getUseData();
           })
           .catch((error) => {
-            console.log(error);
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
@@ -81,7 +80,7 @@ export default {
             }
 
             this.$store.dispatch("loader", false);
-            window.location.href = this.$adminUrl();
+            window.location.href = "/admin";
           });
       }
     },
@@ -103,7 +102,7 @@ export default {
         })
         .catch(() => {
           this.$toast.error("Token expired or invalid.");
-          window.location.href = this.$adminUrl();
+          window.location.href = "/admin";
         });
     },
     getUseDataWithSessionToken: function () {
@@ -135,7 +134,7 @@ export default {
         })
         .catch(() => {
           this.$toast.error("Token expired or invalid.");
-          window.location.href = this.$adminUrl();
+          window.location.href = "/admin";
         });
     },
   },

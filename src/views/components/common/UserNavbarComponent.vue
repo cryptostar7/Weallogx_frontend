@@ -264,10 +264,39 @@
                                     v-else
                                   >
                                     <img
+                                      v-if="avatar !== UserIcon"
                                       :src="avatar"
                                       alt="User Icon"
                                       class="top-profile-img"
                                     />
+                                    <svg
+                                      v-else
+                                      class="top-profile-img user-icon-svg"
+                                      width="94"
+                                      height="94"
+                                      viewBox="0 0 94 94"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <circle cx="47" cy="47" r="47" class="user-icon-bg" />
+                                      <circle
+                                        opacity="0.75"
+                                        cx="47"
+                                        cy="32.8988"
+                                        r="14.1"
+                                        fill="white"
+                                        fill-opacity="0.9"
+                                      />
+                                      <ellipse
+                                        opacity="0.75"
+                                        cx="45.825"
+                                        cy="65.7988"
+                                        rx="22.325"
+                                        ry="11.75"
+                                        fill="white"
+                                        fill-opacity="0.9"
+                                      />
+                                    </svg>
                                     <div class="navDropMenuItems">
                                       <h5 class="navDropDownHeader">
                                         {{
@@ -493,7 +522,34 @@
 
         <div v-if="$authCheck()" class="css-1qtcj7h">
           <div class="navDropMenu">
-            <img src="@/assets/images/user/nav-user-icon.svg" alt="User Icon" />
+            <svg
+              class="user-icon-svg"
+              width="94"
+              height="94"
+              viewBox="0 0 94 94"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style="width: 40px; height: 40px;"
+            >
+              <circle cx="47" cy="47" r="47" class="user-icon-bg" />
+              <circle
+                opacity="0.75"
+                cx="47"
+                cy="32.8988"
+                r="14.1"
+                fill="white"
+                fill-opacity="0.9"
+              />
+              <ellipse
+                opacity="0.75"
+                cx="45.825"
+                cy="65.7988"
+                rx="22.325"
+                ry="11.75"
+                fill="white"
+                fill-opacity="0.9"
+              />
+            </svg>
             <div class="navDropMenuItems navDropMenuItemsMobile">
               <h5 class="navDropDownHeader">
                 {{
@@ -563,10 +619,19 @@ import UserIcon from "../../../assets/images/icons/user.svg";
 
 export default {
   props: ["scroll"],
+  data() {
+    return {
+      UserIcon: UserIcon,
+    };
+  },
   methods: {
     logout: function () {
       if (authCheck()) {
         this.$store.dispatch("loader", true);
+
+        // Check if this is an impersonation session (stored in sessionStorage)
+        const isImpersonation = sessionStorage.getItem("login_from_admin") === "1";
+
         post(
           getUrl("logout"),
           { refresh: getRefreshToken() },
@@ -577,9 +642,14 @@ export default {
             this.$store.dispatch("loader", false);
             this.$store.dispatch("user", false);
 
-            if(localStorage.getItem("login_from_admin")){
+            // Check BOTH sessionStorage and localStorage for backward compatibility
+            if(isImpersonation || localStorage.getItem("login_from_admin")){
+              // Clear impersonation flag from both storages
+              sessionStorage.removeItem("login_from_admin");
               localStorage.removeItem("login_from_admin");
-              window.location.href = this.$adminUrl();
+
+              // Redirect back to admin panel (frontend route)
+              window.location.href = "/admin";
             }else{
               this.$toast.success(response.data.message || "Logged out successfully");
               this.$router.push("/sign-in");
@@ -589,14 +659,22 @@ export default {
             this.$store.dispatch("loader", false);
             // Always clear auth data on logout, even if API fails
             this.clearAuthData();
-            
+
             if (
               error.code === "ERR_BAD_RESPONSE" ||
               error.code === "ERR_NETWORK"
             ) {
               this.$toast.error("Logout failed, but you have been signed out locally");
             }
-            this.$router.push("/sign-in");
+
+            // Check if impersonation for error case too
+            if(isImpersonation || localStorage.getItem("login_from_admin")){
+              sessionStorage.removeItem("login_from_admin");
+              localStorage.removeItem("login_from_admin");
+              window.location.href = "/admin";
+            } else {
+              this.$router.push("/sign-in");
+            }
           });
       } else {
         // Force logout even if not authenticated
@@ -606,13 +684,19 @@ export default {
     },
 
     clearAuthData: function() {
+      // Clear localStorage
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("access_token");
       localStorage.removeItem("plan_active");
       localStorage.removeItem("currentUser");
       localStorage.removeItem("remember");
       localStorage.removeItem("login_from_admin");
-      
+
+      // Clear sessionStorage (for impersonation sessions)
+      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("login_from_admin");
+
       // Clear any other auth-related data
       this.$store.dispatch("user", false);
     },

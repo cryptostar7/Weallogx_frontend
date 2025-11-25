@@ -157,7 +157,7 @@
             `"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
-            title="Index Strategy Calculator"
+            title="Index Strategy Analyzer"
           >
             <label class="cursor-pointer otherModecls">
               <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
@@ -246,7 +246,7 @@
                   fill="#282627"
                 />
               </svg>
-              <span>Index Strategy Calculator</span>
+              <span>Index Strategy Analyzer</span>
             </label>
           </router-link>
         </li>

@@ -1422,32 +1422,35 @@ export default {
         this.PolicyNickname = data.insurance_policy_nickname;
       }
 
+      // Always populate policy fields if they exist in the data
+      // This ensures insurance profiles properly load all saved fields
+      if (data.initial_death_benifit) {
+        this.setInputWithId(
+          "simulationDeathBenefit",
+          data.initial_death_benifit.toLocaleString("en-US")
+        );
+      }
+
+      if (data.initial_policy_return) {
+        this.setInputWithId(
+          "simulationPolicyReturn",
+          Number(data.initial_policy_return).toFixed(2)
+        );
+      }
+
+      if (data.second_policy_return) {
+        this.setInputWithId(
+          "simulationPolicyReturn2",
+          Number(data.second_policy_return).toFixed(2)
+        );
+      }
+
+      if (data.change_year) {
+        this.setInputWithId("changeTaxYear2", data.change_year);
+      }
+
+      // Handle historical data separately (only for non-insurance types)
       if (type !== "insurance") {
-        if (data.initial_death_benifit) {
-          this.setInputWithId(
-            "simulationDeathBenefit",
-            data.initial_death_benifit.toLocaleString("en-US")
-          );
-        }
-
-        if (data.initial_policy_return) {
-          this.setInputWithId(
-            "simulationPolicyReturn",
-            Number(data.initial_policy_return).toFixed(2)
-          );
-        }
-
-        if (data.second_policy_return) {
-          this.setInputWithId(
-            "simulationPolicyReturn2",
-            Number(data.second_policy_return).toFixed(2)
-          );
-        }
-
-        if (data.change_year) {
-          this.setInputWithId("changeTaxYear2", data.change_year);
-        }
-
         if (type === "illustration") {
           data.historical_data = data;
         }
@@ -1502,9 +1505,13 @@ export default {
         return false;
       }
 
-      let step2 = getSimulationStep2();
-      if (step2 && step2.id === Number(id)) {
-        return this.setFormInputs(step2);
+      // Only use cached data when NOT loading a template
+      // Templates should always be fetched fresh from the API
+      if (!template) {
+        let step2 = getSimulationStep2();
+        if (step2 && step2.id === Number(id)) {
+          return this.setFormInputs(step2);
+        }
       }
 
       this.$store.dispatch("loader", true);
@@ -1601,7 +1608,6 @@ export default {
             function (reason) {
               // PDF loading error
               document.getElementById("stopLoaderBtn2").click();
-              console.error(reason);
             }
           );
         };
@@ -1708,7 +1714,6 @@ export default {
         get(api_url, authHeader())
           .then((response) => {
             if (!response) {
-              console.error("Failed to generate presigned URL");
               return;
             }
             const presignedUrl = response.data.url;

@@ -66,8 +66,8 @@
                             <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
                               <span>Cumulative Income</span>
                               {{$numFormatWithDollar(item.cumulative_income)}}
-                            </p> 
-                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
+                            </p>
+                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 text-danger ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
                               <span>Shortfall</span>
                               {{$numFormatWithDollar(item.shortfall).replace("-", "")}}
                             </p>
@@ -87,14 +87,16 @@
                       </div>
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
-                            <div v-for="(item, index) in data.cumulative_income" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''}`">
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.shortfall) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.shortfall)}%`}">
-                                <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
-                                  <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
+                            <div v-for="(item, index) in data.cumulative_income" :key="index" class="bar-with-label-wrapper p-relative" :class="`${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.cumulative_income[index].active ? '': 'bigbarsmaincolorDisable'}`" style="position: relative;">
+                                <div :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index" :style="{position: 'absolute', top: '30px', left: '0', width: '100%', zIndex: 10, backgroundColor: $store.state.app.current_theme.includes('dark') ? 'transparent' : 'rgba(255, 255, 255, 0.2)', padding: '4px 8px', borderRadius: '4px'}">
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', lineHeight: '1.2', textAlign: 'center', width: '100%'}">Shortfall</p>
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', fontWeight: 'bold', lineHeight: '1.2', textAlign: 'center', width: '100%'}">{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
                                 </div>
-                                <div :class="`shortFallCount ${Number(item.shortfall)} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index">
-                                  <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
-                                  <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p>
+                                <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValueForCI(data.cumulative_income[0].cumulative_income, item.shortfall)}%`}">
+                                  <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
+                                    <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.cumulative_income)}}</span></p>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -140,8 +142,8 @@
                             <p :class="`ms-2 CardProgressnym cardRadioSwtchpara${1+index} position-up2`">
                               <span>Total Value</span>
                               {{$numFormatWithDollar(item.total_value)}}
-                            </p> 
-                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) > 0 ? 'surplus' : ''} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
+                            </p>
+                            <p :class="`ms-4 CardProgressnym commonRedRadioSwtchpara position-up2 ${Number(item.shortfall) > 0 ? 'surplus' : 'text-danger'} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index">
                               <span>Shortfall/Surplus</span>
                               {{ $numFormatWithDollar(item.shortfall).replace("-", "") }}
                             </p>
@@ -161,16 +163,20 @@
                         </div>
                         <div :class="`progressAllBarsDivMain ${activeCards == 2 ? 'twoEffect' : ''}`">
                           <div class="d-flex justify-content-between align-items-end w-100 cumulative-value-bar">
-                            <div v-for="(item, index) in data.total_value" :key="index" :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${deletedItems.includes(index) ? 'd-none':''} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`">
-                              <div :class="`top-surplus-div topSurplusDiv${1+index} ${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index"><p :class="`${$numFormat(item.shortfall) == 0 ? '' : ''}`">SURPLUS</p>
-                                  <p>{{ $numFormatWithDollar(item.shortfall).replace("-", "") }}</p></div>
-                              <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index} ${getPercentValueForTV(data.total_value[0].total_value, item.total_value) > 80 ? '' : 'p-static'}`" :style="{height: `${getPercentValueForTV(data.total_value[0].total_value, item.total_value)}%`}">
-                                <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
-                                  <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.total_value)}}</span></p>
+                            <div v-for="(item, index) in data.total_value" :key="index" class="bar-with-label-wrapper p-relative" :class="`${deletedItems.includes(index) ? 'd-none':''}`">
+                              <div :class="`cumulativeValuesProgrees progBarSecEachDiv${1+index} cumulativeProgCommon${1+index} bigBarsAreaJsCls${1+index} ${cards.total_value[index].active ? '': 'bigbarsmaincolorDisable'} ${Number(item.shortfall) > 0 ? 'surplus' : ''}`" style="position: relative;">
+                                <div :class="`${Number(item.shortfall) > 0 ? 'd-none' : ''} ${Number(item.shortfall) == 0 ? 'd-none' : ''}`" v-if="index" :style="{position: 'absolute', top: '30px', left: '0', width: '100%', zIndex: 10, backgroundColor: $store.state.app.current_theme.includes('dark') ? 'transparent' : 'rgba(255, 255, 255, 0.2)', padding: '4px 8px', borderRadius: '4px'}">
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', lineHeight: '1.2', textAlign: 'center', width: '100%'}">Shortfall</p>
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', fontWeight: 'bold', lineHeight: '1.2', textAlign: 'center', width: '100%'}">{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
                                 </div>
-                                <div :class="`shortFallCount ${Number(item.shortfall) > 0 ? 'd-none' : ''}`" v-if="index">
-                                  <p :class="`${Number(item.shortfall) == 0 ? 'd-none' : ''}`">SHORTFALL</p>
-                                  <p>{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
+                                <div :class="`${Number(item.shortfall) > 0 ? '' : 'd-none'}`" v-if="index" :style="{position: 'absolute', top: '30px', left: '0', width: '100%', zIndex: 10, backgroundColor: $store.state.app.current_theme.includes('dark') ? 'transparent' : 'rgba(255, 255, 255, 0.2)', padding: '4px 8px', borderRadius: '4px'}">
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', lineHeight: '1.2', textAlign: 'center', width: '100%'}">Surplus</p>
+                                  <p :style="{color: $store.state.app.current_theme.includes('dark') ? 'white' : 'red', margin: 0, padding: 0, fontSize: '11px', fontWeight: 'bold', lineHeight: '1.2', textAlign: 'center', width: '100%'}">{{$numFormatWithDollar(item.shortfall).replace("-", "")}}</p>
+                                </div>
+                                <div :class="`cumulativeprogreeDivcommon cumulativeProgLifePro${1+index} bigBarHeightJs${1+index}`" :style="{height: `${getPercentValueForTV(data.total_value[0].total_value, item.total_value)}%`}">
+                                  <div :class="`bottomComulativeIncome BottomcumulativeLifePro${1+index}`">
+                                    <p><span :class="`bigBarNumberJsCls${1+index}`">{{$numFormatWithDollar(item.total_value)}}</span></p>
+                                  </div>
                                 </div>
                               </div>
                             </div>

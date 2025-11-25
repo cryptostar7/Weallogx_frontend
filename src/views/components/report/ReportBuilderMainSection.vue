@@ -180,10 +180,6 @@ export default {
   },
   methods: {
     testFunction: function () {
-      console.log(this.ComparativeDataLoaded);
-      console.log(this.HistoricalDataLoaded);
-      console.log(this.historicalDataErrorMessage);
-      console.log(Object.keys(this.$store.state.data.report.historical).length);
     },
     getComparativeData: function (id) {
       // get default data
@@ -411,12 +407,77 @@ export default {
         authHeader()
       )
         .then((response) => {
-          this.$store.dispatch("comparativeReport", response.data);
-          this.getComparativeReportDistributions();
+          // Check if we got a 202 response (calculation in progress)
+          if (response.status === 202 || response.data.status === "calculating") {
+            // Calculation started - poll for status
+            const taskId = response.data.task_id;
+            this.pollCalculationStatus(taskId);
+          } else {
+            // Got immediate result (cached or not edited)
+            this.$store.dispatch("comparativeReport", response.data);
+            this.getComparativeReportDistributions();
+          }
         })
         .catch((error) => {
           this.$toast.error(error.message);
           this.$store.dispatch("loader", false);
+        });
+    },
+
+    // Poll calculation status for async calculations
+    pollCalculationStatus: function (taskId, pollCount = 0) {
+      const maxPolls = 300; // 10 minutes at 2-second intervals
+      const pollInterval = 2000; // 2 seconds
+
+      if (pollCount >= maxPolls) {
+        this.$toast.error("Calculation timed out. Please refresh and try again.");
+        this.$store.dispatch("loader", false);
+        return;
+      }
+
+      // Add polling indicator message
+      if (pollCount === 0) {
+        this.$toast.info("Calculation in progress. This may take a few moments for large scenarios...");
+      }
+
+      get(
+        `${getUrl("comparative_report")}${this.$route.params.report}/status/?task_id=${taskId}`,
+        authHeader()
+      )
+        .then((response) => {
+          const { state, data, error, status: statusMessage } = response.data;
+
+          if (state === "SUCCESS") {
+            // Calculation complete - use the data
+            this.$toast.success("Calculation complete!");
+            this.$store.dispatch("comparativeReport", data);
+            this.getComparativeReportDistributions();
+          } else if (state === "FAILURE" || state === "failed") {
+            // Calculation failed
+            this.$toast.error(`Calculation failed: ${error || "Unknown error"}`);
+            this.$store.dispatch("loader", false);
+          } else if (state === "PROGRESS" || state === "PENDING") {
+            // Still calculating - poll again
+            setTimeout(() => {
+              this.pollCalculationStatus(taskId, pollCount + 1);
+            }, pollInterval);
+          } else {
+            // Unknown state
+            setTimeout(() => {
+              this.pollCalculationStatus(taskId, pollCount + 1);
+            }, pollInterval);
+          }
+        })
+        .catch((error) => {
+          // Error checking status - retry a few times
+          if (pollCount < 3) {
+            setTimeout(() => {
+              this.pollCalculationStatus(taskId, pollCount + 1);
+            }, pollInterval);
+          } else {
+            this.$toast.error("Error checking calculation status: " + error.message);
+            this.$store.dispatch("loader", false);
+          }
         });
     },
     // get historical report data
@@ -444,7 +505,6 @@ export default {
           }, 1000);
         })
         .catch((error) => {
-          console.log(error);
           this.$toast.error(error.message);
           this.HistoricalDataLoaded = true;
           if (this.sidebar.currentTab === "historical") {

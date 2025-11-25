@@ -203,15 +203,15 @@
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label for="new_password" class="form-label">New Password</label>
-                                <input 
-                                  type="password" 
-                                  class="form-control" 
+                                <input
+                                  type="password"
+                                  class="form-control"
                                   id="new_password"
                                   v-model="form.new_password"
-                                  :class="{ 'is-invalid': errors.new_password }"
+                                  :class="{ 'is-invalid': errors.password || errors.new_password }"
                                 >
-                                <div v-if="errors.new_password" class="invalid-feedback">
-                                  {{ errors.new_password }}
+                                <div v-if="errors.password || errors.new_password" class="invalid-feedback">
+                                  {{ errors.password || errors.new_password }}
                                 </div>
                                 <div class="form-text">
                                   Leave blank to keep current password
@@ -325,6 +325,7 @@ const originalUser = ref(null)
 const changePassword = ref(false)
 
 const form = reactive({
+  id: null,
   first_name: '',
   last_name: '',
   email: '',
@@ -354,7 +355,6 @@ const loadUser = async () => {
       }
     })
   } catch (err) {
-    console.error('Failed to load user:', err)
     error.value = 'Failed to load user details'
   } finally {
     loading.value = false
@@ -418,6 +418,16 @@ const updateUser = async () => {
       updateData.password = form.new_password
     }
     
+    // Debug logging
+    console.log('Admin Panel Update Request:')
+    console.log('URL:', `${getUrl('user')}${route.params.id}/`)
+    console.log('Method: PATCH')
+    console.log('Data being sent:', updateData)
+    console.log('Has password?', 'password' in updateData)
+    if ('password' in updateData) {
+      console.log('Password length:', updateData.password.length)
+    }
+    
     const response = await axios.patch(
       `${getUrl('user')}${route.params.id}/`, 
       updateData, 
@@ -427,7 +437,6 @@ const updateUser = async () => {
     // Success - redirect to user detail page
     router.push(`/admin/users/${route.params.id}`)
   } catch (err) {
-    console.error('Failed to update user:', err)
     
     if (err.response?.data) {
       // Handle validation errors from server

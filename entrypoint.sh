@@ -14,8 +14,16 @@ if [ -d "/usr/share/nginx/html/assets" ]; then
         if [ -f "$file" ]; then
             # Replace VITE environment variables at runtime
             sed -i "s|__VITE_STRIPE_PUBLISHABLE_KEY__|${VITE_STRIPE_PUBLISHABLE_KEY:-}|g" "$file"
-            sed -i "s|__VITE_MONTHLY_PLAN__|${MONTHLY_PLAN:-}|g" "$file"
-            sed -i "s|__VITE_YEARLY_PLAN__|${YEARLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_MONTHLY_PLAN__|${VITE_MONTHLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_YEARLY_PLAN__|${VITE_YEARLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_TEAM_MONTHLY_PLAN__|${VITE_TEAM_MONTHLY_PLAN:-}|g" "$file"
+            sed -i "s|__VITE_TEAM_YEARLY_PLAN__|${VITE_TEAM_YEARLY_PLAN:-}|g" "$file"
+            # Replace Cognito environment variables at runtime
+            sed -i "s|__VITE_COGNITO_ENABLED__|${VITE_COGNITO_ENABLED:-true}|g" "$file"
+            sed -i "s|__VITE_COGNITO_USER_POOL_ID__|${VITE_COGNITO_USER_POOL_ID:-}|g" "$file"
+            sed -i "s|__VITE_COGNITO_WEB_CLIENT_ID__|${VITE_COGNITO_WEB_CLIENT_ID:-}|g" "$file"
+            sed -i "s|__VITE_COGNITO_REGION__|${VITE_COGNITO_REGION:-}|g" "$file"
+            sed -i "s|__VITE_COGNITO_DOMAIN__|${VITE_COGNITO_DOMAIN:-}|g" "$file"
         fi
     done
     echo "Environment variable replacement completed."
@@ -31,4 +39,8 @@ head -20 /etc/nginx/conf.d/default.conf
 echo "Starting NGINX..."
 sleep 1
 
-exec nginx -g 'daemon off;' 
+# Start nginx reload monitor in background to handle ALB IP cycling
+# Reloads nginx every 5 minutes to refresh DNS cache without dropping connections
+nohup sh -c 'while true; do sleep 300; echo "$(date): Refreshing DNS cache"; nginx -s reload; done' &
+
+exec nginx -g 'daemon off;'  

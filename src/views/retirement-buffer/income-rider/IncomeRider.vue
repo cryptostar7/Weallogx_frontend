@@ -11,8 +11,20 @@
             <div class="right-area-wrapper">
               <section class="padding_right_section">
                 <div class="common_box_div">
-                  <div class="common_heading_div">
-                    <h1>Retirement Buffer</h1>
+                  <div class="common_heading_div" style="position: relative; display: flex; justify-content: center; align-items: center;">
+                    <h1 style="margin: 0; text-align: center;">Retirement Buffer</h1>
+                    <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);" class="d-flex align-items-center gap-3">
+                      <div class="run-reset-btn-div" style="margin: 0; margin-right: 15px;">
+                        <a
+                          href="javascript:void(0)"
+                          @click="showVideoModal = true"
+                          class="run-button"
+                          style="margin: 0; padding-left: 25px; padding-right: 25px;"
+                        >
+                          Walkthrough
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <!-- Form -->
                   <div class="after_heading_div">
@@ -44,6 +56,41 @@
       :illustrateYear="illustrateYear" />
 
       <income-start-year-warning-modal />
+
+    <!-- Video Walkthrough Modal -->
+    <div
+      v-if="showVideoModal"
+      class="modal fade show d-block"
+      tabindex="-1"
+      style="background-color: rgba(0, 0, 0, 0.8)"
+      @click.self="showVideoModal = false"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Retirement Buffer - Lifetime Income Walkthrough</h5>
+            <button
+              type="button"
+              class="btn-close"
+              @click="showVideoModal = false"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe
+                src="https://www.loom.com/embed/a072ca549abc4b158e38e39c958eb5f7?sid=f0a98282-c1ae-4c3e-8f8f-742e2de5bad0"
+                frameborder="0"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -67,7 +114,10 @@ export default {
     IncomeStartYearWarningModal
   },
   data() {
-    return {isSubmitEnabled: false}
+    return {
+      isSubmitEnabled: false,
+      showVideoModal: false,
+    }
   },
   computed: {
     ...mapGetters({

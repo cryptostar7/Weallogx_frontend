@@ -430,8 +430,14 @@ export default {
   },
   mounted() {
     this.disclosure_msg = this.$store.state.data.disclosure.historical_msg;
-    this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
-    this.mapData();
+    // Only set disclosure content if data is already available
+    if (this.disclosure && Object.keys(this.disclosure).length > 0) {
+      this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
+      this.mapData();
+    } else {
+      // Set default message while waiting for data
+      this.$refs.editableDiv.innerHTML = this.disclosure_msg;
+    }
   },
   methods: {
     showTableModal(word, index) {
@@ -567,8 +573,13 @@ export default {
     },
 
     handleDisclosure: function () {
-      if (!this.$refs.editableDiv.innerHTML) {
-        new bootstrap.Modal(this.$refs.disclosureModal).show();
+      if (this.$refs.editableDiv) {
+        const content = this.$refs.editableDiv.textContent.trim();
+        if (content === '' || this.$refs.editableDiv.innerHTML.trim() === '') {
+          if (this.$refs.disclosureModal) {
+            new bootstrap.Modal(this.$refs.disclosureModal).show();
+          }
+        }
       }
     },
 
@@ -614,11 +625,34 @@ export default {
   },
   computed: {
     disclosure() {
-      return this.$store.state.data.report.historical.discloser || {};
+      return this.$store.state.data.report.historical.disclosure || {};
     },
     discloser_cv() {
-      return this.$store.state.data.report.historical.best.comparative_values.disclosures || {};
+      const historical = this.$store.state.data.report.historical;
+      if (!historical || !historical.best || !historical.best.comparative_values) {
+        return {
+          cv_1: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          cv_2: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          cv_3: { name: '', fees: '', capital_checkbox: false, capital_gain_ratio: '', cpaital_gains_tax_rate: '' },
+          tax_rates: { first_tax_rate: '', second_tax_rate: '', second_tax_rate_value: false, year_switch: '', schedule: false }
+        };
+      }
+      return historical.best.comparative_values.disclosures || {};
     },
+  },
+  watch: {
+    disclosure: {
+      handler(newVal) {
+        if (newVal && Object.keys(newVal).length > 0) {
+          this.mapData();
+          if (this.$refs.editableDiv) {
+            this.$refs.editableDiv.innerHTML = this.getDefaultDisclosure();
+          }
+        }
+      },
+      deep: true,
+      immediate: false
+    }
   },
 };
 </script>

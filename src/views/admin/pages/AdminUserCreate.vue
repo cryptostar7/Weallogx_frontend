@@ -342,17 +342,12 @@ const createUser = async () => {
       plan_type: form.plan_type
     }
     
-    console.log('Submitting user data:', userData)
     
     const response = await axios.post(getUrl('admin/create-user'), userData, authHeader())
-    console.log('User created successfully:', response.data)
     
     // Success - redirect to user list page (since detail page might not exist)
     router.push('/admin/users')
   } catch (error) {
-    console.error('Failed to create user:', error)
-    console.error('Error response:', error.response?.data)
-    console.error('Error status:', error.response?.status)
     
     if (error.response?.data) {
       // Handle validation errors from server
