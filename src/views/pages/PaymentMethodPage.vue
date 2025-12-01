@@ -564,7 +564,9 @@ export default {
           }
         })
         .catch(error => {
-          this.$toast.error("Failed to create payment source");
+          console.error("Stripe createSource error:", error);
+          const errorMessage = error?.message || "Failed to create payment source";
+          this.$toast.error(errorMessage);
           this.$store.dispatch("loader", false);
         });
     },
