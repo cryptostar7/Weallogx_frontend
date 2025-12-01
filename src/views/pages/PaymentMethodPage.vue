@@ -272,10 +272,19 @@ export default {
       this.isLoadingPrices = true;
 
       try {
-        const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
-        const yearlyPriceId = "__VITE_YEARLY_PLAN__";
-        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__";
-        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__";
+        // Use import.meta.env in development, fall back to placeholder for production (replaced by entrypoint.sh)
+        const monthlyPriceId = "__VITE_MONTHLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_MONTHLY_PLAN
+          : "__VITE_MONTHLY_PLAN__";
+        const yearlyPriceId = "__VITE_YEARLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_YEARLY_PLAN
+          : "__VITE_YEARLY_PLAN__";
+        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_TEAM_MONTHLY_PLAN
+          : "__VITE_TEAM_MONTHLY_PLAN__";
+        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_TEAM_YEARLY_PLAN
+          : "__VITE_TEAM_YEARLY_PLAN__";
 
 
         // Fetch pricing from backend API
@@ -603,27 +612,50 @@ export default {
           this.$router.push("/profile-details");
         })
         .catch(error => {
+          this.$store.dispatch("loader", false);
 
-          
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
           ) {
             this.$toast.error(error.message);
           } else {
-            this.$store.dispatch("userTempFormError", getServerErrors(error));
-            this.$store.dispatch("loader", false);
-            this.$router.push(
-              `${"/sign-up"}${
-                getSearchParams("plan")
-                  ? `?plan=${getSearchParams("plan")}`
-                  : ""
-              }`
-            );
-            this.$toast.error(getFirstError(error));
+            // Check if this is a card error - stay on page so user can re-enter card
+            const isCardError = error.response?.data?.card_error === true;
+
+            if (isCardError) {
+              // Card error - stay on this page and let user try a different card
+              this.$toast.error(getFirstError(error));
+              // Clear the card elements so user can re-enter
+              this.clearCardElements();
+            } else {
+              // Non-card error (email exists, validation error, etc.) - redirect to sign-up
+              this.$store.dispatch("userTempFormError", getServerErrors(error));
+              this.$router.push(
+                `${"/sign-up"}${
+                  getSearchParams("plan")
+                    ? `?plan=${getSearchParams("plan")}`
+                    : ""
+                }`
+              );
+              this.$toast.error(getFirstError(error));
+            }
           }
-          this.$store.dispatch("loader", false);
         });
+    },
+    clearCardElements() {
+      // Clear all Stripe card input elements so user can re-enter their card details
+      if (cardNumber) {
+        cardNumber.clear();
+      }
+      if (cardExpiry) {
+        cardExpiry.clear();
+      }
+      if (cardCvc) {
+        cardCvc.clear();
+      }
+      // Also clear the cardholder name
+      this.cardHolder = '';
     },
   },
 };
