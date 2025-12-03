@@ -102,6 +102,16 @@
       </main>
     </div>
     <share-report-modal />
+    
+    <!-- Standalone Historical PDF Generator Modal -->
+    <StandaloneHistoricalPDFModal
+      modal-id="PDFGeneratorModal"
+      :scenario-id="parseInt($route.params.report)"
+      :scenario-name="historicalData ? historicalData.name || 'Historical Simulation' : 'Historical Simulation'"
+      :client-name="historicalData ? (historicalData.client_name || 'Client Name') : 'Client Name'"
+      report-type="historical"
+      :report-tabs="reportTabs"
+    />
   </section>
 </template>
 <script>
@@ -109,6 +119,7 @@ import SidebarTabsList from "./SidebarTabsList.vue";
 import HistoricalParentTab from "./HistoricalParentTab.vue";
 import ClientDetailComponent from "./ClientDetailComponent.vue";
 import ShareReportModal from "./../modals/ShareReportModal.vue";
+import StandaloneHistoricalPDFModal from "../modal/StandaloneHistoricalPDFModal.vue";
 import ReportError from "../../../components/common/ReportError.vue";
 import { VueDraggableNext } from "vue-draggable-next";
 import { get } from "../../../../network/requests";
@@ -121,6 +132,7 @@ export default {
     HistoricalParentTab,
     ClientDetailComponent,
     ShareReportModal,
+    StandaloneHistoricalPDFModal,
     ReportError,
     draggable: VueDraggableNext,
   },
@@ -263,6 +275,23 @@ export default {
   computed: {
     list() {
       return this.$store.state.data.simulationReportTabs;
+    },
+    historicalData() {
+      return this.$store.state.data.report.historical;
+    },
+    reportTabs() {
+      // Get report tabs data from store or provide defaults
+      const storeData = this.$store.state.data.reportTabs;
+      
+      // If no data in store, provide default components
+      if (!storeData || (!storeData.comparative && !storeData.historical)) {
+        return {
+          comparative: [],
+          historical: []
+        };
+      }
+      
+      return storeData;
     },
   },
 };
