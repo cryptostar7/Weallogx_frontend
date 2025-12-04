@@ -693,13 +693,20 @@ export default {
         this.errorMessage = 'No PDF available for download';
         return;
       }
-      
+
       try {
-        // Make authenticated request to download PDF
-        const response = await axios.get(`${getBaseUrl()}${this.downloadUrl}`, {
-          ...authHeader(),
-          responseType: 'blob' // Important for file download
-        });
+        // Check if downloadUrl is already a full URL (S3 presigned URL)
+        // or a relative path that needs the base URL
+        const isFullUrl = this.downloadUrl.startsWith('http://') || this.downloadUrl.startsWith('https://');
+        const downloadEndpoint = isFullUrl ? this.downloadUrl : `${getBaseUrl()}${this.downloadUrl}`;
+
+        // For S3 presigned URLs, don't send auth headers (they conflict with S3 signature)
+        const requestConfig = isFullUrl
+          ? { responseType: 'blob' }
+          : { ...authHeader(), responseType: 'blob' };
+
+        // Download PDF
+        const response = await axios.get(downloadEndpoint, requestConfig);
         
         // Create blob URL and trigger download
         const blob = new Blob([response.data], { type: 'application/pdf' });
@@ -723,7 +730,7 @@ export default {
       } catch (error) {
         console.error('PDF download error:', error);
         console.error('Error response:', error.response);
-        console.error('Download URL:', `${baseURL}${this.downloadUrl}`);
+        console.error('Download URL:', this.downloadUrl);
         
         if (error.response?.status === 401) {
           this.errorMessage = 'Authentication expired. Please log in again.';
