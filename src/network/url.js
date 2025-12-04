@@ -1,4 +1,4 @@
-const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || '/api';
+export const getBaseUrl = () => import.meta.env.VITE_API_BASE_URL || '/api';
 
 export const getUrl = (type) => {
   const baseUrl = getBaseUrl();
@@ -180,6 +180,12 @@ export const getUrl = (type) => {
       return `${baseUrl}/report/historical-add-disclosure/`;
     case 'disclosures':
       return `${baseUrl}/report/add-disclosure/`;
+    case 'pdf-generator':
+      return `${baseUrl}/report/pdf-generator/generate/`;
+    case 'pdf-generator-download':
+      return `${baseUrl}/report/pdf-generator/download/`;
+    case 'standalone-historical-pdf-generator':
+      return `${baseUrl}/report/standalone-historical-pdf-generator/generate/`;
     case 'historical_report':
       return `${baseUrl}/historical/`;
     case 'isc_calculate':
