@@ -213,6 +213,7 @@
 <script>
 import axios from 'axios';
 import { authHeader } from '../../../services/helper';
+import { getUrl, getBaseUrl } from '../../../network/url';
 
 export default {
   name: 'PDFGeneratorModal',
@@ -621,12 +622,11 @@ export default {
           theme: this.selectedTheme
         };
         
-        // Get base URL from environment or use default
-        const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
-        console.log('Making API call to:', `${baseURL}/report/pdf-generator/generate/`);
+        const apiUrl = getUrl('pdf-generator');
+        console.log('Making API call to:', apiUrl);
         console.log('Payload being sent:', JSON.stringify(payload, null, 2));
-        
-        const response = await axios.post(`${baseURL}/report/pdf-generator/generate/`, payload, authHeader());
+
+        const response = await axios.post(apiUrl, payload, authHeader());
         console.log('API Response Status:', response.status);
         console.log('API Response Data:', JSON.stringify(response.data, null, 2));
         
@@ -695,11 +695,8 @@ export default {
       }
       
       try {
-        // Get base URL from environment
-        const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
-        
         // Make authenticated request to download PDF
-        const response = await axios.get(`${baseURL}${this.downloadUrl}`, {
+        const response = await axios.get(`${getBaseUrl()}${this.downloadUrl}`, {
           ...authHeader(),
           responseType: 'blob' // Important for file download
         });
