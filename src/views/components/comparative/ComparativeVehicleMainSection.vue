@@ -1246,7 +1246,6 @@ export default {
       this.updateVehicleType(vType, type, data[`vehicle_type_${tempType}`]);
 
       this.vehicle[`vehicle${vType}`].templateCheckbox = false;
-      this.vehicle[`vehicle${vType}`].capitalGains = data.capital_gain_tax_checkbox;
       this.vehicle[`vehicle${vType}`].name = data.name;
       this.vehicle[`vehicle${vType}`].description = data.description;
       this.vehicle[`vehicle${vType}`].ror = data.rate_of_return;
@@ -1255,9 +1254,6 @@ export default {
       this.vehicle[`vehicle${vType}`].percent_of_account_as_cg = data.percentage_of_account_as_capital_gains;
       this.setInputWithId(`ror${vType}`, data.rate_of_return);
       this.setInputWithId(`fees${vType}`, data.fees);
-      if (data.pre_age_59_penality && type !== 1) {
-        this.vehicle[`vehicle${vType}`].capitalGains = true;
-      }
       if (data.capital_gain_tax_checkbox && type === 1) {
         this.setInputWithId(`cg_tax_rate${vType}`, data.capital_gains_tax_rate);
         this.setInputWithId(`percent_of_account_as_cg${vType}`, data.percentage_of_account_as_capital_gains);
@@ -1266,6 +1262,14 @@ export default {
       // This ensures the form treats it as "from scratch" with pre-filled data
       this.vehicle[`vehicle${vType}`].existing.name = '';
       this.vehicle[`vehicle${vType}`].existing.id = null;
+
+      // Set capitalGains after a delay to ensure it's not overwritten by dropdown events
+      // triggered by updateVehicleType setting the default selection
+      setTimeout(() => {
+        if (data.capital_gain_tax_checkbox || data.pre_age_59_penality) {
+          this.vehicle[`vehicle${vType}`].capitalGains = true;
+        }
+      }, 150);
     },
     // populate existing vehicle details
     populateVehicleTemplate(vType = 1, id = null, type = 1) {
@@ -1602,14 +1606,8 @@ export default {
           description: this.vehicle.vehicle2.description ?? '',
           rate_of_return: this.vehicle.vehicle2.ror,
           fees: this.vehicle.vehicle2.fees,
-          _capital_gain_tax_checkbox:
+          capital_gain_tax_checkbox:
             this.vehicle.vehicle2.capitalGains && this.vehicle.vehicle2.type_id === 1 ? true : false,
-          get capital_gain_tax_checkbox() {
-            return this._capital_gain_tax_checkbox;
-          },
-          set capital_gain_tax_checkbox(value) {
-            this._capital_gain_tax_checkbox = value;
-          },
           pre_age_59_penality: this.vehicle.vehicle2.capitalGains && this.vehicle.vehicle2.type_id !== 1 ? true : false,
           save_this_vehicle_as_template: this.vehicle.vehicle2.templateCheckbox,
           vehicle_template_name: this.vehicle.vehicle2.templateCheckbox ? this.vehicle.vehicle2.template_name : ''
