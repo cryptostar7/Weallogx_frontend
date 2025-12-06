@@ -1,7 +1,7 @@
 <template lang="">
     <div :class="`container large my-5 darkbgClrDiv ${data ? '' : 'd-none'}`">
       <div class="summary-heading">
-        <p><span>4 </span>Historical Simulations</p>
+        <p><span>3 </span>Historical Simulations</p>
         <router-link
           :to="`/historical/parameters/${$route.params.simulation}?review=true`"
           class="editbtnCommonAncor"
