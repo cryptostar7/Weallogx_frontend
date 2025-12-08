@@ -3,23 +3,24 @@
       <historical-simulation-steps :active_all_tab="true" />
       <div class="commonBgColor  py-2">
 
-          <div class="summaryMainDiv py-4">
+          <div class="summaryMainDiv py-4 position-relative">
               <div>
                   <h5>NEW SIMULATION</h5>
                   <div class="d-flex align-items-center justify-content-center">
-                      <p class="mb-0" style="margin-right: 50px;">Summary</p>
-                      <a
-                        href="javascript:void(0)"
-                        @click="showVideoModal = true"
-                        class="walkthrough-button"
-                      >
-                        Walkthrough
-                      </a>
+                      <p class="mb-0">Summary</p>
                   </div>
                   <div class="d-flex justify-content-center">
                       <p class="summarySmallBorder"></p>
                   </div>
               </div>
+              <a
+                href="javascript:void(0)"
+                @click="showVideoModal = true"
+                class="walkthrough-button"
+                style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);"
+              >
+                Walkthrough
+              </a>
           </div>
 
           <!-- Video Walkthrough Modal -->

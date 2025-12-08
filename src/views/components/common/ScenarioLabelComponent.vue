@@ -1,18 +1,18 @@
 <template lang="">
     <div class="main-form-heading">
-        <div class="heading-container d-flex align-items-center">
-            <h2 class="fs-34 bold-fw main-tab-heading me-2"  id="stopLoaderBtn" @click="$store.dispatch('loader', false)">
+        <div class="heading-container d-flex align-items-center justify-content-center">
+            <h2 class="fs-34 bold-fw main-tab-heading"  id="stopLoaderBtn" @click="$store.dispatch('loader', false)">
                 New Scenario
             </h2>
-            <a
-              v-if="showWalkthroughButton"
-              href="javascript:void(0)"
-              @click="showVideoModal = true"
-              class="walkthrough-button"
-            >
-              Walkthrough
-            </a>
         </div>
+        <a
+          v-if="showWalkthroughButton"
+          href="javascript:void(0)"
+          @click="showVideoModal = true"
+          class="walkthrough-button"
+        >
+          Walkthrough
+        </a>
     </div>
 
     <!-- Video Walkthrough Modal -->
@@ -71,6 +71,10 @@ export default {
                 'historical-index-strategy-allocation': {
                     url: 'https://www.loom.com/embed/57ae225effc94127b5e31e0f94e467a2',
                     title: 'New Scenario - Step 4'
+                },
+                'historical-simulations': {
+                    url: 'https://www.loom.com/embed/57ae225effc94127b5e31e0f94e467a2',
+                    title: 'New Scenario - Step 4'
                 }
             }
         };
@@ -82,6 +86,7 @@ export default {
             if (path.includes('illustration-data') && !path.includes('historical')) return 'illustration-data';
             if (path.includes('comparative-vehicles')) return 'comparative-vehicles';
             if (path.includes('historical-index-strategy-allocation')) return 'historical-index-strategy-allocation';
+            if (path.includes('historical-simulations')) return 'historical-simulations';
             return null;
         },
         showWalkthroughButton() {
@@ -102,9 +107,8 @@ export default {
 }
 </script>
 <style scoped>
-    .heading-container {
-        max-width: 600px;
-        justify-content: center;
+    .main-form-heading {
+        position: relative;
     }
 
     .main-tab-heading {
@@ -124,8 +128,11 @@ export default {
         text-decoration: none;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-left: 15px;
         white-space: nowrap;
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .walkthrough-button:hover {
