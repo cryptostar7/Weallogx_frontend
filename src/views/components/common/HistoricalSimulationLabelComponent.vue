@@ -1,17 +1,17 @@
 <template lang="">
     <div class="main-form-heading">
-        <div class="heading-container d-flex align-items-center">
-            <h2 class="fs-34 bold-fw main-tab-heading me-2"  id="stopLoaderBtn2" @click="$store.dispatch('loader', false)">
+        <div class="heading-container d-flex align-items-center justify-content-center">
+            <h2 class="fs-34 bold-fw main-tab-heading"  id="stopLoaderBtn2" @click="$store.dispatch('loader', false)">
                 Historical Simulations
             </h2>
-            <a
-              href="javascript:void(0)"
-              @click="showVideoModal = true"
-              class="walkthrough-button"
-            >
-              Walkthrough
-            </a>
         </div>
+        <a
+          href="javascript:void(0)"
+          @click="showVideoModal = true"
+          class="walkthrough-button"
+        >
+          Walkthrough
+        </a>
     </div>
 
     <!-- Video Walkthrough Modal -->
@@ -56,7 +56,7 @@ export default {
             showVideoModal: false,
             walkthroughVideos: {
                 'simulation-details': {
-                    url: 'https://www.loom.com/embed/0132884d21eb400e81d6986906bac6fb',
+                    url: 'https://www.loom.com/embed/e0608583ad2b4edf93bde822e06d1863',
                     title: 'Historical Simulation Walkthrough - Step 1'
                 },
                 'illustration-data': {
@@ -93,9 +93,8 @@ export default {
 }
 </script>
 <style scoped>
-    .heading-container {
-        max-width: 600px;
-        justify-content: center;
+    .main-form-heading {
+        position: relative;
     }
 
     .main-tab-heading {
@@ -115,8 +114,11 @@ export default {
         text-decoration: none;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-left: 15px;
         white-space: nowrap;
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .walkthrough-button:hover {
