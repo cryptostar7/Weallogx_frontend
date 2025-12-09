@@ -1961,7 +1961,7 @@ color: #0E6651;
 }
 
 .light-blue #target-analysis-amount-tab
-.target-analysis-inner-bar.inner-clr1 {
+.target-analysis-bar .target-analysis-inner-bar.inner-clr1 {
     background: #1660A4;
 }
 

@@ -2071,32 +2071,28 @@ canvas#retirementBufferGraph {
     font-weight: 700;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.increase .bar2 {
+#target-analysis-amount-tab .target-analysis-bar .bar2 {
     position: absolute;
     z-index: 200;
     border-top: 1px solid white;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-radius: 0 0 8px 8px;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.increase .bar1 {
+#target-analysis-amount-tab .target-analysis-bar .bar1 {
     position: absolute;
     z-index: 100;
     border-radius: 8px;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar1 {
+#target-analysis-amount-tab .target-analysis-bar .target-analysis-bottom-bar-area.bar1 {
     position: absolute;
     border: none;
-    z-index: 200;
-    margin-bottom: -4px;
+    z-index: 300;
+    margin-bottom: 5px;
 }
 
 #target-analysis-amount-tab .target-analysis-bar .target-analysis-bottom-bar-area.bar2 {
     background-color: #609BD2;
-}
-
-#target-analysis-amount-tab .target-analysis-bar.increase .target-analysis-bottom-bar-area.bar2 {
     z-index: 300;
     border: none;
 }
@@ -2113,30 +2109,6 @@ canvas#retirementBufferGraph {
     border-radius: 8px;
 }
 
-#target-analysis-amount-tab .target-analysis-bar.decrease .bar2 {
-    position: absolute;
-    z-index: 100;
-    border-radius: 8px;
-}
-
-#target-analysis-amount-tab .target-analysis-bar.decrease .bar1 {
-    position: absolute;
-    border-top: 1px solid white;
-    z-index: 200;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar1 {
-    position: absolute;
-    border: none;
-    margin-bottom: -30px
-}
-
-#target-analysis-amount-tab .target-analysis-bar.decrease .target-analysis-bottom-bar-area.bar2 {
-    z-index: 300;
-    background-color: #4A8ECD;
-}
 
 #target-analysis-amount-tab .inner-clr4 {
     background: #4A8ECD;

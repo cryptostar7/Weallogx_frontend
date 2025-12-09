@@ -1066,7 +1066,7 @@
                           insight and opportunities for discussion regarding
                           certain tax-efficient strategies that may prove
                           beneficial amid a myriad of potential outcomes but
-                          that are not guaranteed to to prove so. While every
+                          that are not guaranteed to prove so. While every
                           reasonable effort is made to ensure proper
                           calculations and their portrayal, it is impossible for
                           any software or advisor to accurately predict your

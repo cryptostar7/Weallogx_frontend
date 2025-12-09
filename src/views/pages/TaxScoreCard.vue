@@ -13,16 +13,13 @@
                           <div class="index-strategy-head-div tax-scorcard" style="position: relative; display: flex; justify-content: center; align-items: center;">
                               <h1 style="margin: 0; text-align: center;">Tax Scorecard</h1>
                               <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);" class="d-flex align-items-center gap-3">
-                                <div class="run-reset-btn-div" style="margin: 0; margin-right: 15px;">
-                                  <a
-                                    href="javascript:void(0)"
-                                    @click="showVideoModal = true"
-                                    class="run-button"
-                                    style="margin: 0; padding-left: 25px; padding-right: 25px;"
-                                  >
-                                    Walkthrough
-                                  </a>
-                                </div>
+                                <a
+                                  href="javascript:void(0)"
+                                  @click="showVideoModal = true"
+                                  class="walkthrough-button"
+                                >
+                                  Walkthrough
+                                </a>
                               </div>
                           </div>
                           <div class="index-strategy-content-div">
@@ -124,3 +121,27 @@ export default {
 };
 
 </script>
+<style scoped>
+.walkthrough-button {
+  display: inline-grid;
+  place-items: center;
+  padding: 0 25px;
+  height: 45px;
+  background: #e67e22;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+  white-space: nowrap;
+}
+
+.walkthrough-button:hover {
+  background: #d35400;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+}
+</style>
