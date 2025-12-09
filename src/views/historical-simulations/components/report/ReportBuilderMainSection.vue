@@ -168,6 +168,13 @@ export default {
           this.$store.dispatch("loader", false);
         })
         .catch((error) => {
+          // Handle 403 Forbidden - redirect to client list
+          if (error.response && error.response.status === 403) {
+            this.$toast.error("You do not have permission to access this report.");
+            this.$store.dispatch("loader", false);
+            this.$router.push("/client");
+            return;
+          }
           this.$toast.error(error.message);
           this.HistoricalDataLoaded = true;
           this.$store.dispatch("loader", false);
@@ -208,6 +215,13 @@ export default {
           }
         })
         .catch((error) => {
+          // Handle 403 Forbidden - redirect to client list
+          if (error.response && error.response.status === 403) {
+            this.$toast.error("You do not have permission to access this report.");
+            this.$store.dispatch("loader", false);
+            this.$router.push("/client");
+            return;
+          }
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
