@@ -135,6 +135,7 @@
                       <thead>
                         <tr>
                           <th>Email</th>
+                          <th>Invitation Link</th>
                           <th>Expires</th>
                           <th>Actions</th>
                         </tr>
@@ -142,13 +143,37 @@
                       <tbody>
                         <!-- No invitations -->
                         <tr v-if="!team || !team.invitations || team.invitations.length === 0">
-                          <td colspan="3" class="text-center text-muted">
+                          <td colspan="4" class="text-center text-muted">
                             No pending invitations
                           </td>
                         </tr>
                         <!-- Invitations list -->
                         <tr v-for="invitation in (team && team.invitations ? team.invitations : [])" :key="invitation.token">
                           <td>{{ invitation.email }}</td>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <input
+                                type="text"
+                                class="form-control form-control-sm invitation-link-input"
+                                :value="getInvitationUrl(invitation.token)"
+                                readonly
+                                @click="$event.target.select()"
+                              />
+                              <button
+                                @click="copyInvitationLink(invitation.token)"
+                                class="btn btn-sm btn-outline-secondary copy-btn"
+                                :title="copiedToken === invitation.token ? 'Copied!' : 'Copy link'"
+                              >
+                                <svg v-if="copiedToken !== invitation.token" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                                  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                                </svg>
+                                <svg v-else width="14" height="14" fill="currentColor" class="text-success" viewBox="0 0 16 16">
+                                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                              </button>
+                            </div>
+                          </td>
                           <td>{{ formatDate(invitation.expires_at) }}</td>
                           <td>
                             <button
@@ -399,6 +424,8 @@ export default {
       // Transfer clients modal state
       memberToRemove: null,
       transferToUserId: '',
+      // Copy link state
+      copiedToken: null,
     };
   },
   computed: {
@@ -642,6 +669,28 @@ export default {
         month: 'short',
         day: 'numeric'
       });
+    },
+    getInvitationUrl(token) {
+      // Use the current origin to build the invitation URL
+      const baseUrl = window.location.origin;
+      return `${baseUrl}/team/accept-invitation/${token}`;
+    },
+    async copyInvitationLink(token) {
+      const url = this.getInvitationUrl(token);
+      try {
+        await navigator.clipboard.writeText(url);
+        this.copiedToken = token;
+        this.$toast.success('Invitation link copied to clipboard!');
+        // Reset the copied state after 2 seconds
+        setTimeout(() => {
+          if (this.copiedToken === token) {
+            this.copiedToken = null;
+          }
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+        this.$toast.error('Failed to copy link to clipboard');
+      }
     }
   }
 };
@@ -677,5 +726,26 @@ button.paymentCardEditButton2 {
 
 button.paymentCardEditButton2:hover {
   background: #f8f9fa;
+}
+
+/* Invitation link styles */
+.invitation-link-input {
+  max-width: 220px;
+  font-size: 0.75rem;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.invitation-link-input:focus {
+  background-color: #fff;
+}
+
+.copy-btn {
+  padding: 0.25rem 0.5rem;
+  min-width: 32px;
+}
+
+.copy-btn:hover {
+  background-color: #e9ecef;
 }
 </style>

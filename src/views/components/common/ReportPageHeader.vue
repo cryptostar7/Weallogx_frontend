@@ -297,9 +297,16 @@ export default {
       this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
     },
+<<<<<<< HEAD
+=======
+    initializePDFModal: function() {
+      // Initialize PDF modal when user clicks the PDF button
+      this.shouldShowPDFModal = true;
+    },
+>>>>>>> 9143dd84f4ba8126bab0fc3087417666e320802b
     populateShareData: function() {
       // Debug: Check what $appUrl() returns
-      
+
       // Get current report data from the store or route
       const reportId = this.$route.params.report;
       if (!reportId) return;
@@ -309,7 +316,7 @@ export default {
       if (comparative && comparative.length > 0) {
         const client = comparative[0].client || {};
         const scenario = comparative[0] || {};
-        
+
         // Populate share data in store
         this.$store.dispatch('shareReportData', {name: 'client', data: {
           firstname: client.first_name || '',
@@ -318,7 +325,7 @@ export default {
         }});
         this.$store.dispatch('shareReportData', {name: 'report_id', data: reportId});
         this.$store.dispatch('shareReportData', {name: 'scenario', data: {name: scenario.scenerio_details_name || scenario.name || ''}});
-        
+
         // Get the view_token if available (for shared reports)
         if (this.$route.params.view_token) {
           this.$store.dispatch('shareReportData', {name: 'report_link', data: `${window.location.origin}/report/${reportId}/${this.$route.params.view_token}`});
@@ -340,14 +347,14 @@ export default {
         .then((response) => {
           const reportData = response.data.data;
           this.$store.dispatch('shareReportData', {
-            name: 'report_link', 
+            name: 'report_link',
             data: `${window.location.origin}/report/${reportId}/${reportData.view_token}`
           });
         })
         .catch((error) => {
           // Fallback without view_token (this won't work for sharing, but prevents errors)
           this.$store.dispatch('shareReportData', {
-            name: 'report_link', 
+            name: 'report_link',
             data: `${window.location.origin}/report/${reportId}/`
           });
         });

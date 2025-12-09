@@ -28,7 +28,7 @@
                   id="selectAll"
                   style="width: 20px; height: 20px; border-color: #20c997;">
                 <label class="form-check-label ms-2" for="selectAll" style="cursor: pointer;">
-                  <strong style="font-size: 16px; color: #20c997;">Select All ({{ selectedComponents.length }} selected)</strong>
+                  <strong style="font-size: 16px; color: #20c997;">Select All ({{ actualSelectedCount }} selected)</strong>
                 </label>
               </div>
             </div>
@@ -183,7 +183,7 @@
                       @click="generatePDF"
                       style="background-color: #20c997; border-color: #20c997;">
                 <span v-if="!isGenerating">
-                  Generate PDF ({{ selectedComponents.length }})
+                  Generate PDF ({{ actualSelectedCount }})
                 </span>
                 <span v-else>
                   <i class="fas fa-spinner fa-spin"></i> Generating PDF...
@@ -213,6 +213,7 @@
 <script>
 import axios from 'axios';
 import { authHeader } from '../../../../services/helper';
+import { getUrl, getBaseUrl } from '../../../../network/url';
 
 export default {
   name: 'StandaloneHistoricalPDFModal',
@@ -290,8 +291,16 @@ export default {
       }
     },
     isAllSelected() {
-      return this.allComponents.length > 0 && 
+      return this.allComponents.length > 0 &&
              this.selectedComponents.length === this.allComponents.length;
+    },
+    // Count only actual components, not parent group selectors
+    actualSelectedCount() {
+      return this.selectedComponents.filter(key => {
+        // If this key has sub-items, it's a parent group selector - don't count it
+        const subItems = this.getSubItems(key);
+        return !subItems || subItems.length === 0;
+      }).length;
     }
   },
   mounted() {
@@ -343,13 +352,9 @@ export default {
       const subItemsMap = {
         'cmp_comparative_table': [
           { key: 'cmp_table_dist_amount', name: 'Distribution - Amount' },
-          { key: 'cmp_table_dist_longevity', name: 'Distribution - Longevity' },
-          { key: 'cmp_table_dist_irr', name: 'Distribution - IRR' },
-          { key: 'cmp_table_dist_ror', name: 'Distribution - Rate of Return' },
-          { key: 'cmp_table_ror_amount', name: 'Rate of Return - Amount' },
-          { key: 'cmp_table_ror_longevity', name: 'Rate of Return - Longevity' },
-          { key: 'cmp_table_ror_irr', name: 'Rate of Return - IRR' },
-          { key: 'cmp_table_ror_dist', name: 'Rate of Return - Distribution' }
+          { key: 'cmp_table_dist_longevity', name: 'Distribution - Match Longevity' },
+          { key: 'cmp_table_ror_default', name: 'Rate of Return - Default' },
+          { key: 'cmp_table_ror_match_values', name: 'Rate of Return - Match Values' }
         ],
         'cmp_making_things': [
           { key: 'cmp_making_dist', name: 'Equal Distribution' },
@@ -358,26 +363,12 @@ export default {
         'cmp_cumulative_values': [
           { key: 'cmp_cumulative_income', name: 'Cumulative Income' },
           { key: 'cmp_cumulative_total', name: 'Total Value' }
-        ],
-        'hst_comparative_table': [
-          { key: 'hst_table_worst', name: 'Worst Period' },
-          { key: 'hst_table_best', name: 'Best Period' },
-          { key: 'hst_table_median', name: 'Median Period' },
-          { key: 'hst_table_recent', name: 'Recent Period' }
-        ],
-        'hst_income_analysis': [
-          { key: 'hst_income_dist', name: 'Income Distribution' },
-          { key: 'hst_income_growth', name: 'Income Growth' },
-          { key: 'hst_income_cumulative', name: 'Cumulative Income' }
-        ],
-        'hst_total_values': [
-          { key: 'hst_total_account', name: 'Account Values' },
-          { key: 'hst_total_death', name: 'Death Benefit' }
-        ],
-        'hst_cumulative_values': [
-          { key: 'hst_cumulative_income', name: 'Cumulative Income' },
-          { key: 'hst_cumulative_total', name: 'Total Value' }
         ]
+        // Historical Simulation components have no sub-items - selecting them prints the full component
+        // hst_comparative_table: prints all 4 periods (worst/best/median/recent)
+        // hst_income_analysis: prints full income analysis
+        // hst_total_values: prints all total values
+        // hst_cumulative_values: prints all cumulative values
       };
       return subItemsMap[componentKey] || null;
     },
@@ -503,18 +494,14 @@ export default {
         'cmp_legacy': 'legacy',
         'cmp_fee_analysis': 'fee_analysis',
         
-        // Sub-item mappings for Comparative Table
+        // Sub-item mappings for Comparative Table (maps to existing backend keys)
         'cmp_table_dist_amount': 'comparative_table_dist_amount',
         'cmp_table_dist_longevity': 'comparative_table_dist_longevity',
-        'cmp_table_dist_irr': 'comparative_table_dist_irr',
-        'cmp_table_dist_ror': 'comparative_table_dist_ror',
-        'cmp_table_ror_amount': 'comparative_table_ror_amount',
-        'cmp_table_ror_longevity': 'comparative_table_ror_longevity',
-        'cmp_table_ror_irr': 'comparative_table_ror_irr',
-        'cmp_table_ror_dist': 'comparative_table_ror_dist',
-        
+        'cmp_table_ror_default': 'comparative_table_ror_amount',
+        'cmp_table_ror_match_values': 'comparative_table_ror_dist',
+
         // Sub-item mappings for Making Things Equal
-        'cmp_making_dist': 'making_things_equal_dist',
+        'cmp_making_dist': 'making_things_equal_dist_amount',
         'cmp_making_ror': 'making_things_equal_ror',
         
         // Sub-item mappings for Cumulative Values
@@ -529,18 +516,7 @@ export default {
         'hst_irr_analysis': 'hst_irr_analysis',
         'hst_comparative_values': 'hst_comparative_values',
         
-        // Historical sub-item mappings
-        'hst_table_worst': 'historical_table_worst',
-        'hst_table_best': 'historical_table_best',
-        'hst_table_median': 'historical_table_median',
-        'hst_table_recent': 'historical_table_recent',
-        'hst_income_dist': 'historical_income_dist',
-        'hst_income_growth': 'historical_income_growth',
-        'hst_income_cumulative': 'historical_income_cumulative',
-        'hst_total_account': 'historical_total_account',
-        'hst_total_death': 'historical_total_death',
-        'hst_cumulative_income': 'historical_cumulative_income',
-        'hst_cumulative_total': 'historical_cumulative_total'
+        // Note: Historical Simulation components have no sub-items - they print full content when selected
       };
       
       return frontendKeys.map(key => keyMapping[key] || key);
@@ -562,24 +538,14 @@ export default {
             this.selectedComponents.includes(item.key)
           );
           
-          if (selectedSubItems.length === subItems.length) {
-            // All sub-items are selected - send parent key only
+          if (selectedSubItems.length > 0) {
+            // Send all selected sub-item keys (parent is just a UI group selector)
             if (!processedKeys.has(key)) {
-              finalSelection.push(key);
-              processedKeys.add(key);
-              // Mark all sub-items as processed
-              subItems.forEach(item => processedKeys.add(item.key));
-            }
-          } else if (selectedSubItems.length > 0) {
-            // Only some sub-items selected - send parent AND individual sub-item keys
-            // The backend will use the sub-item keys to filter templates
-            if (!processedKeys.has(key)) {
-              finalSelection.push(key); // Parent needed for component recognition
               processedKeys.add(key);
             }
             selectedSubItems.forEach(item => {
               if (!processedKeys.has(item.key)) {
-                finalSelection.push(item.key); // Individual sub-items for filtering
+                finalSelection.push(item.key);
                 processedKeys.add(item.key);
               }
             });
@@ -649,19 +615,19 @@ export default {
         console.log('Components to send:', componentsToSend);
         console.log('Mapped components:', mappedComponents);
         
-        // Note: scenarioId prop actually contains the report ID from the URL
+        // Note: scenarioId prop contains the actual Report model ID from the store
+        // (set by getCurrentReportInfo which fetches the real Report ID associated with the HistoricalReport)
         const payload = {
-          report_id: this.scenarioId,  // This is actually the report ID from the URL
+          report_id: this.scenarioId,  // This is the Report model ID that the backend expects
           selected_components: mappedComponents,
           theme: this.selectedTheme
         };
         
-        // Get base URL from environment or use default
-        const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
-        console.log('Making API call to STANDALONE HISTORICAL endpoint:', `${baseURL}/report/standalone-historical-pdf-generator/generate/`);
+        const apiUrl = getUrl('standalone-historical-pdf-generator');
+        console.log('Making API call to STANDALONE HISTORICAL endpoint:', apiUrl);
         console.log('Payload being sent:', JSON.stringify(payload, null, 2));
 
-        const response = await axios.post(`${baseURL}/report/standalone-historical-pdf-generator/generate/`, payload, authHeader());
+        const response = await axios.post(apiUrl, payload, authHeader());
         console.log('API Response Status:', response.status);
         console.log('API Response Data:', JSON.stringify(response.data, null, 2));
         
@@ -728,17 +694,21 @@ export default {
         this.errorMessage = 'No PDF available for download';
         return;
       }
-      
+
       try {
-        // Get base URL from environment
-        const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
-        
-        // Make authenticated request to download PDF
-        const response = await axios.get(`${baseURL}${this.downloadUrl}`, {
-          ...authHeader(),
-          responseType: 'blob' // Important for file download
-        });
-        
+        // Check if downloadUrl is already a full URL (S3 presigned URL)
+        // or a relative path that needs the base URL
+        const isFullUrl = this.downloadUrl.startsWith('http://') || this.downloadUrl.startsWith('https://');
+        const downloadEndpoint = isFullUrl ? this.downloadUrl : `${getBaseUrl()}${this.downloadUrl}`;
+
+        // For S3 presigned URLs, don't send auth headers (they conflict with S3 signature)
+        const requestConfig = isFullUrl
+          ? { responseType: 'blob' }
+          : { ...authHeader(), responseType: 'blob' };
+
+        // Download PDF
+        const response = await axios.get(downloadEndpoint, requestConfig);
+
         // Create blob URL and trigger download
         const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
@@ -749,7 +719,7 @@ export default {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        
+
         // Track download for analytics
         if (window.gtag) {
           window.gtag('event', 'pdf_downloaded', {
@@ -757,11 +727,11 @@ export default {
             'component_count': this.selectedComponents.length
           });
         }
-        
+
       } catch (error) {
         console.error('PDF download error:', error);
         console.error('Error response:', error.response);
-        console.error('Download URL:', `${baseURL}${this.downloadUrl}`);
+        console.error('Download URL:', this.downloadUrl);
         
         if (error.response?.status === 401) {
           this.errorMessage = 'Authentication expired. Please log in again.';
