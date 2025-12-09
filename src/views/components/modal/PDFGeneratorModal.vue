@@ -344,35 +344,16 @@ export default {
         'cmp_comparative_table': [
           { key: 'cmp_table_dist_amount', name: 'Distribution - Amount' },
           { key: 'cmp_table_dist_longevity', name: 'Distribution - Longevity' },
-          { key: 'cmp_table_dist_irr', name: 'Distribution - IRR' },
-          { key: 'cmp_table_dist_ror', name: 'Distribution - Rate of Return' },
-          { key: 'cmp_table_ror_amount', name: 'Rate of Return - Amount' },
           { key: 'cmp_table_ror_longevity', name: 'Rate of Return - Longevity' },
-          { key: 'cmp_table_ror_irr', name: 'Rate of Return - IRR' },
-          { key: 'cmp_table_ror_dist', name: 'Rate of Return - Distribution' }
         ],
         'cmp_making_things': [
-          { key: 'cmp_making_dist', name: 'Equal Distribution' },
+          { key: 'cmp_making_dist_amount', name: 'Equal Distribution Amount' },
+          { key: 'cmp_making_dist_long', name: 'Equal Distribution Longevity' },
           { key: 'cmp_making_ror', name: 'Equal Rate of Return' }
         ],
         'cmp_cumulative_values': [
           { key: 'cmp_cumulative_income', name: 'Cumulative Income' },
           { key: 'cmp_cumulative_total', name: 'Total Value' }
-        ],
-        'hst_comparative_table': [
-          { key: 'hst_table_worst', name: 'Worst Period' },
-          { key: 'hst_table_best', name: 'Best Period' },
-          { key: 'hst_table_median', name: 'Median Period' },
-          { key: 'hst_table_recent', name: 'Recent Period' }
-        ],
-        'hst_income_analysis': [
-          { key: 'hst_income_dist', name: 'Income Distribution' },
-          { key: 'hst_income_growth', name: 'Income Growth' },
-          { key: 'hst_income_cumulative', name: 'Cumulative Income' }
-        ],
-        'hst_total_values': [
-          { key: 'hst_total_account', name: 'Account Values' },
-          { key: 'hst_total_death', name: 'Death Benefit' }
         ],
         'hst_cumulative_values': [
           { key: 'hst_cumulative_income', name: 'Cumulative Income' },
@@ -493,6 +474,8 @@ export default {
     },
     
     mapToBackendComponentKeys(frontendKeys) {
+
+      console.log('✨✨✨Mapping frontend keys to backend keys:', frontendKeys);
       // Map frontend component keys to backend expected keys
       const keyMapping = {
         // Parent component mappings
@@ -514,7 +497,8 @@ export default {
         'cmp_table_ror_dist': 'comparative_table_ror_dist',
         
         // Sub-item mappings for Making Things Equal
-        'cmp_making_dist': 'making_things_equal_dist',
+        'cmp_making_dist_amount': 'making_things_equal_dist_amount',
+        'cmp_making_dist_long': 'making_things_equal_dist_longevity',
         'cmp_making_ror': 'making_things_equal_ror',
         
         // Sub-item mappings for Cumulative Values
@@ -542,7 +526,24 @@ export default {
         'hst_cumulative_income': 'historical_cumulative_income',
         'hst_cumulative_total': 'historical_cumulative_total'
       };
+
+      // const result = [];
+
+      // frontendKeys.forEach(key => {
+      //   const mappedKey = keyMapping[key] || key;
+      //   result.push(mappedKey);
+
+      //   const subItems = this.getSubItems(key);
+      //   if (subItems) {
+      //     subItems.forEach(item => {
+      //       const mappedSubKey = keyMapping[item.key] || item.key;
+      //       result.push(mappedSubKey);
+      //     })
+      //   }
+      // })
       
+      // return result;
+
       return frontendKeys.map(key => keyMapping[key] || key);
     },
     
@@ -551,6 +552,8 @@ export default {
       // Now handles both parent-level and sub-item level selections
       const finalSelection = [];
       const processedKeys = new Set();
+
+      console.log('Selected Components: ', this.selectedComponents)
       
       this.selectedComponents.forEach(key => {
         // Check if this is a parent component

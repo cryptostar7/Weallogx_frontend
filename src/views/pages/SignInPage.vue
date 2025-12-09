@@ -286,6 +286,7 @@ export default {
                   ) {
                     this.$toast.error(error.message);
                   } else {
+                    this.$toast.error("Profile Error");
                     this.$toast.error(getFirstError(error));
                   }
                 });
@@ -298,6 +299,7 @@ export default {
               ) {
                 this.$toast.error(error.message);
               } else {
+                this.$toast.error("Plan Error");
                 this.$toast.error(getFirstError(error));
               }
             });
@@ -374,6 +376,7 @@ export default {
               ) {
                 this.$toast.error(error.message);
               } else {
+                this.$toast.error("MFA Profile Error");
                 this.$toast.error(getFirstError(error));
               }
             });
@@ -386,6 +389,7 @@ export default {
           ) {
             this.$toast.error(error.message);
           } else {
+            this.$toast.error("MFA Plan Error");
             this.$toast.error(getFirstError(error));
           }
         });
@@ -447,6 +451,7 @@ export default {
               ) {
                 this.$toast.error(error.message);
               } else {
+                this.$toast.error("Passsword Warning Profile Error");
                 this.$toast.error(getFirstError(error));
               }
             });
@@ -459,6 +464,7 @@ export default {
           ) {
             this.$toast.error(error.message);
           } else {
+            this.$toast.error("Passsword Warning Plan Error");
             this.$toast.error(getFirstError(error));
           }
         });

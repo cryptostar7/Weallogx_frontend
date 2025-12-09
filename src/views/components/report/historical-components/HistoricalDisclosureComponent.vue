@@ -373,18 +373,24 @@
             <div class="modalTableDiv">
               <table class="table">
                 <thead v-if="data_title === 'Premium Charge'">
-                  <th>Year</th>
-                  <th>Premium Charge</th>
+                  <tr>
+                    <th>Year</th>
+                    <th>Premium Charge</th>
+                  </tr>
                 </thead>
                 <thead v-else-if="data_title === 'Flat Credit/Bonus'">
-                  <th>Year</th>
-                  <th>Amount</th>
+                  <tr>
+                    <th>Year</th>
+                    <th>Amount</th>
+                  </tr>
                 </thead>
                 <thead v-else>
-                  <th>Year</th>
-                  <th>
-                    Multiplier {{ data_type === "rate" ? "Rate" : "Amount" }}
-                  </th>
+                  <tr>
+                    <th>Year</th>
+                    <th>
+                      Multiplier {{ data_type === "rate" ? "Rate" : "Amount" }}
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, index) in data_list" :key="index">
