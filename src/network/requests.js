@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-undef */
 import axios from 'axios';
+import { getAccessToken } from '../services/helper';
 
 // Increase timeout for all requests - especially helpful for login flow
 const timeout = import.meta.env.MODE === 'development' ? 300000 : 600000;
@@ -16,6 +17,24 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+// Add request interceptor to attach auth token to all requests
+api.interceptors.request.use(
+  (config) => {
+    // Get access token using helper (handles JSON format and expiry)
+    const accessToken = getAccessToken();
+
+    if (accessToken) {
+      // Attach token to Authorization header
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 // Add response interceptor to handle common error cases
 api.interceptors.response.use(
   (response) => {
@@ -24,17 +43,31 @@ api.interceptors.response.use(
   (error) => {
     // Handle authentication errors (401 Unauthorized)
     if (error.response && error.response.status === 401) {
-      // Clear all authentication data
+      // Check if this is an impersonation session before clearing
+      const isImpersonation = sessionStorage.getItem("login_from_admin") === "1" ||
+                              localStorage.getItem("login_from_admin") === "1";
+
+      // Clear all authentication data from BOTH storages
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("plan_active");
       localStorage.removeItem("currentUser");
       localStorage.removeItem("remember");
       localStorage.removeItem("login_from_admin");
-      
-      // Redirect to login page
-      if (typeof window !== 'undefined' && window.location.pathname !== '/sign-in') {
-        window.location.href = '/sign-in';
+
+      sessionStorage.removeItem("access_token");
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("login_from_admin");
+
+      // Redirect based on session type
+      if (typeof window !== 'undefined') {
+        if (isImpersonation) {
+          // Impersonation session expired - redirect back to admin panel (frontend route)
+          window.location.href = '/admin';
+        } else if (window.location.pathname !== '/sign-in') {
+          // Regular session expired - redirect to login
+          window.location.href = '/sign-in';
+        }
       }
     }
     

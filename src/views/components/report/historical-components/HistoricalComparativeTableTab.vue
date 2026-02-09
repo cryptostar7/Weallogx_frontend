@@ -35,7 +35,7 @@
                     <label for="showAssets2" class="ms-2 fs-12 semi-bold-fw showAssetsTxt prstnRadioBtnHide cursor-pointer">Show assets one by one</label>
                   </div>
                   <div class="collapseDivmdlHd text-center">Historical Simulations of a Theoretical Synthetic Asset
-                    (TSA) <br> as a Proxy for the LIRP</div>
+                    (TSA) <br> as a Proxy for the {{ cv_name[0] || table?.policy_nickname || 'LIRP' }}</div>
                 </div>
                 <div class="container-fluid table-fluid reportbuilder-container-div">
                   <div class="row tablesMainDiv">

@@ -13,14 +13,59 @@
           </div>
         <div class="commonBgColor  py-2">
 
-            <div class="summaryMainDiv py-4">
+            <div class="summaryMainDiv py-4 position-relative">
                 <div>
                     <h5>NEW SCENARIO</h5>
-                    <p>Summary</p>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <p class="mb-0">Summary</p>
+                    </div>
                     <div class="d-flex justify-content-center">
                         <p class="summarySmallBorder"></p>
                     </div>
                 </div>
+                <a
+                  href="javascript:void(0)"
+                  @click="showVideoModal = true"
+                  class="walkthrough-button"
+                  style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);"
+                >
+                  Walkthrough
+                </a>
+            </div>
+
+            <!-- Video Walkthrough Modal -->
+            <div
+              v-if="showVideoModal"
+              class="modal fade show d-block"
+              tabindex="-1"
+              style="background-color: rgba(0, 0, 0, 0.8); z-index: 9999;"
+              @click.self="showVideoModal = false"
+            >
+              <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">New Scenario - Summary</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      @click="showVideoModal = false"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body p-0">
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0;">
+                      <iframe
+                        src="https://www.loom.com/embed/ab1ddc4871ec47c4b573bb566d39e8be"
+                        frameborder="0"
+                        webkitallowfullscreen
+                        mozallowfullscreen
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- Scenario Details start -->
               <scenario-details-review :scenarioId="scenario ? scenario.id : ''" :id="scenario ? scenario.scenerio_details.id : false" :client="client" />
@@ -76,6 +121,7 @@ export default {
     return {
       client: false,
       reportId: "",
+      showVideoModal: false,
     };
   },
   methods: {
@@ -144,3 +190,27 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.walkthrough-button {
+    display: inline-grid;
+    place-items: center;
+    padding: 0 25px;
+    height: 45px;
+    background: #e67e22;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.walkthrough-button:hover {
+    background: #d35400;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #fff;
+}
+</style>

@@ -247,12 +247,22 @@ const loadUsers = async () => {
     const url = `${getUrl('user')}?${params.toString()}`
     
     const response = await axios.get(url, authHeader())
-    
+
     users.value = response.data.results || response.data
     totalCount.value = response.data.count || users.value.length
     totalPages.value = Math.ceil(totalCount.value / pageSize.value)
-    
+
   } catch (error) {
+    console.error('Failed to load users:', error)
+    console.error('Error response:', error.response?.data)
+    console.error('Error status:', error.response?.status)
+    addAdminBreadcrumb('Failed to load users', {
+      error: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    })
+    users.value = []
+    totalCount.value = 0
   } finally {
     loading.value = false
   }

@@ -11,7 +11,7 @@
                 <section class="strategy-calc-main-section mt-3 pt-4">
                   <div class="strategy-calc-main-div">
                     <div class="index-strategy-head-div">
-                      <h1>Index Strategy Calculator</h1>
+                      <h1>Index Strategy Analyzer</h1>
                       <router-link to="/index-strategy-calculator" class="back"
                         ><img
                           src="@/assets/images/icons/back-small.svg"

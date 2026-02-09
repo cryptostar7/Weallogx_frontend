@@ -55,11 +55,11 @@
                         <div class="irrAnalysisCardAllParas irrCard">
                           <div class="irrTopDiv">
                             <p class="ms-2 irrCardPara1">Internal Rate of Return</p>
-                          <p :class="`ms-2 irrCardParaTop${1+index}`">{{Number(item.internal_rate_of_return).toFixed(2)}}%</p>
+                          <p :class="`ms-2 irrCardParaBtm${1+index}`">{{Number(item.internal_rate_of_return).toFixed(2)}}%</p>
                           </div>
                           <div>
                             <p class="ms-2 irrCardPara1">Taxable Equivalent</p>
-                          <p :class="`ms-2 irrCardParaBtm${1+index}`">{{Number(item.taxable_equivalent).toFixed(2)}}%</p>
+                          <p :class="`ms-2 irrCardParaTop${1+index}`">{{Number(item.taxable_equivalent).toFixed(2)}}%</p>
                           </div>
                         </div>
                       </div>

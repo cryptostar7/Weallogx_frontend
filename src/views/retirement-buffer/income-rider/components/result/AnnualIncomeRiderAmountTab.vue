@@ -24,13 +24,13 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
-                :style="`height: ${optimalBarHeight}%`"
+                :style="`height: ${bar1Height}%`"
               >
               </div>
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr2 bar2"
-                :style="`height: ${barHeight}%`"
+                :style="`height: ${bar2Height}%`"
               >
               </div>
 
@@ -91,13 +91,13 @@
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr3 bar1"
-                :style="`height: ${optimalHistoricalBarHeight}%`"
+                :style="`height: ${bar1HistoricalHeight}%`"
               >
               </div>
 
               <div
                 class="target-analysis-inner-bar income-rider-inner-bar inner-clr4 bar2"
-                :style="`height: ${barHeight}%`"
+                :style="`height: ${bar2HistoricalHeight}%`"
               >
               </div>
 
@@ -205,29 +205,28 @@ export default {
     optimalBarHeight() {return this.optimalBalanceBarHeight(this.optimization)},
     optimalHistoricalBarHeight() {return this.optimalBalanceBarHeight(this.historicalOptimization)},
 
+    // bar1 (orange, behind) should always be taller so it shows at top
+    bar1Height() {return Math.max(this.barHeight, this.optimalBarHeight)},
+    bar2Height() {return Math.min(this.barHeight, this.optimalBarHeight)},
+    bar1HistoricalHeight() {return Math.max(this.barHeight, this.optimalHistoricalBarHeight)},
+    bar2HistoricalHeight() {return Math.min(this.barHeight, this.optimalHistoricalBarHeight)},
+
     isLabelAbove() {
-      return this.optimalBarHeight > this.barHeight && this.optimalBarHeight - this.barHeight < 9
+      return this.bar1Height - this.bar2Height < 9
     },
 
     labelPosition() {
-      if (this.isLabelAbove) {
-        return this.optimalBarHeight
-      } else {
-        return Math.min(this.barHeight, this.optimalBarHeight)
-      }
+      // Position label at top of bar2 (the shorter front bar with white line)
+      return this.bar2Height
     },
 
     isHistoricalLabelAbove() {
-      return this.optimalHistoricalBarHeight > this.barHeight &&
-             this.optimalHistoricalBarHeight - this.barHeight < 9
+      return this.bar1HistoricalHeight - this.bar2HistoricalHeight < 9
     },
 
     historicalLabelPosition() {
-      if (this.isHistoricalLabelAbove) {
-        return this.optimalHistoricalBarHeight
-      } else {
-        return Math.min(this.barHeight, this.optimalHistoricalBarHeight)
-      }
+      // Position label at top of bar2 (the shorter front bar with white line)
+      return this.bar2HistoricalHeight
     },
 
     optimization() {

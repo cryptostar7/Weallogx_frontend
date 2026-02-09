@@ -36,11 +36,23 @@
               
               <!-- Pricing Summary Section -->
               <div class="pricing-summary-section">
-                <h3 v-if="!isLoadingPrices">{{ selectedPlan === 'monthly' ? 'Monthly Plan' : 'Annual Plan' }}</h3>
+                <h3 v-if="!isLoadingPrices">
+                  <span v-if="selectedPlan === 'monthly'">Individual Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'yearly'">Individual Annual Plan</span>
+                  <span v-else-if="selectedPlan === 'team_monthly'">Team Monthly Plan</span>
+                  <span v-else-if="selectedPlan === 'team_annual'">Team Annual Plan</span>
+                  <span v-else>Subscription Plan</span>
+                </h3>
                 <h3 v-else>Loading pricing...</h3>
                 <div class="pricing-details">
                   <div class="price-line">
-                    <span>{{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}</span>
+                    <span v-if="selectedPlan === 'monthly' || selectedPlan === 'yearly'">
+                      {{ selectedPlan === 'monthly' ? 'Monthly Subscription' : 'Annual Subscription' }}
+                    </span>
+                    <span v-else-if="selectedPlan === 'team_monthly' || selectedPlan === 'team_annual'">
+                      {{ selectedPlan === 'team_monthly' ? 'Team Monthly (up to 5 members)' : 'Team Annual (up to 5 members)' }}
+                    </span>
+                    <span v-else>Subscription</span>
                     <span class="price" v-if="!isLoadingPrices">{{ originalPrice }}</span>
                     <span class="price" v-else>...</span>
                   </div>
@@ -184,7 +196,9 @@ export default {
       appliedCoupon: null,
       planPrices: {
         monthly: { price: 0, display: 'Loading...', priceId: null },
-        yearly: { price: 0, display: 'Loading...', priceId: null }
+        yearly: { price: 0, display: 'Loading...', priceId: null },
+        team_monthly: { price: 0, display: 'Loading...', priceId: null },
+        team_annual: { price: 0, display: 'Loading...', priceId: null }
       }
     };
   },
@@ -199,6 +213,10 @@ export default {
         this.selectedPlan = 'monthly';
       } else if (planParam === 'annual' || planParam === 'yearly') {
         this.selectedPlan = 'yearly';
+      } else if (planParam === 'team_monthly') {
+        this.selectedPlan = 'team_monthly';
+      } else if (planParam === 'team_annual' || planParam === 'team_yearly') {
+        this.selectedPlan = 'team_annual';
       }
     }
     
@@ -252,15 +270,26 @@ export default {
   methods: {
     async fetchPricing() {
       this.isLoadingPrices = true;
-      
+
       try {
-        const monthlyPriceId = "__VITE_MONTHLY_PLAN__";
-        const yearlyPriceId = "__VITE_YEARLY_PLAN__";
-        
-        
+        // Use import.meta.env in development, fall back to placeholder for production (replaced by entrypoint.sh)
+        const monthlyPriceId = "__VITE_MONTHLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_MONTHLY_PLAN
+          : "__VITE_MONTHLY_PLAN__";
+        const yearlyPriceId = "__VITE_YEARLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_YEARLY_PLAN
+          : "__VITE_YEARLY_PLAN__";
+        const teamMonthlyPriceId = "__VITE_TEAM_MONTHLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_TEAM_MONTHLY_PLAN
+          : "__VITE_TEAM_MONTHLY_PLAN__";
+        const teamYearlyPriceId = "__VITE_TEAM_YEARLY_PLAN__".startsWith("__VITE_")
+          ? import.meta.env.VITE_TEAM_YEARLY_PLAN
+          : "__VITE_TEAM_YEARLY_PLAN__";
+
+
         // Fetch pricing from backend API
         try {
-          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}`;
+          const url = `${getUrl('stripe/prices')}?monthly_price_id=${monthlyPriceId}&yearly_price_id=${yearlyPriceId}&team_monthly_price_id=${teamMonthlyPriceId}&team_yearly_price_id=${teamYearlyPriceId}`;
           const response = await get(url);
           
           if (response.data && response.data.prices) {
@@ -278,7 +307,20 @@ export default {
                 priceId: yearlyPriceId,
                 interval: prices.yearly.recurring.interval,
                 monthlyEquivalent: (prices.yearly.unit_amount / 100) / 12
-              }
+              },
+              team_monthly: prices.team_monthly ? {
+                price: prices.team_monthly.unit_amount / 100,
+                display: `$${(prices.team_monthly.unit_amount / 100).toFixed(2)}/${prices.team_monthly.recurring.interval}`,
+                priceId: teamMonthlyPriceId,
+                interval: prices.team_monthly.recurring.interval
+              } : { price: 0, display: 'N/A', priceId: teamMonthlyPriceId, interval: 'month' },
+              team_annual: prices.team_yearly ? {
+                price: prices.team_yearly.unit_amount / 100,
+                display: `$${(prices.team_yearly.unit_amount / 100).toFixed(2)}/${prices.team_yearly.recurring.interval}`,
+                priceId: teamYearlyPriceId,
+                interval: prices.team_yearly.recurring.interval,
+                monthlyEquivalent: (prices.team_yearly.unit_amount / 100) / 12
+              } : { price: 0, display: 'N/A', priceId: teamYearlyPriceId, interval: 'year' }
             };
           } else {
             throw new Error("Invalid response from pricing API");
@@ -288,16 +330,28 @@ export default {
           
           // No fallback - force user to retry or fix the API issue
           this.planPrices = {
-            monthly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            monthly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: monthlyPriceId,
               interval: 'month'
             },
-            yearly: { 
-              price: 0, 
-              display: 'Error loading pricing', 
+            yearly: {
+              price: 0,
+              display: 'Error loading pricing',
               priceId: yearlyPriceId,
+              interval: 'year'
+            },
+            team_monthly: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamMonthlyPriceId,
+              interval: 'month'
+            },
+            team_annual: {
+              price: 0,
+              display: 'Error loading pricing',
+              priceId: teamYearlyPriceId,
               interval: 'year'
             }
           };
@@ -308,15 +362,27 @@ export default {
         
         // No fallback - system must work with live Stripe data
         this.planPrices = {
-          monthly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'month'
           },
-          yearly: { 
-            price: 0, 
-            display: 'Pricing unavailable', 
+          yearly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'year'
+          },
+          team_monthly: {
+            price: 0,
+            display: 'Pricing unavailable',
+            priceId: null,
+            interval: 'month'
+          },
+          team_annual: {
+            price: 0,
+            display: 'Pricing unavailable',
             priceId: null,
             interval: 'year'
           }
@@ -498,7 +564,9 @@ export default {
           }
         })
         .catch(error => {
-          this.$toast.error("Failed to create payment source");
+          console.error("Stripe createSource error:", error);
+          const errorMessage = error?.message || "Failed to create payment source";
+          this.$toast.error(errorMessage);
           this.$store.dispatch("loader", false);
         });
     },
@@ -508,7 +576,14 @@ export default {
       formData["stripe_source_id"] = this.user.stripe_source_id;
       // Include pricing information
       formData["price_id"] = this.planPrices[this.selectedPlan].priceId;
-      formData["plan_type"] = this.selectedPlan === 'monthly' ? 'MONTHLY_PLAN' : 'YEARLY_PLAN';
+      // Map selectedPlan to plan_type (supports individual and team plans)
+      const planTypeMap = {
+        'monthly': 'MONTHLY_PLAN',
+        'yearly': 'YEARLY_PLAN',
+        'team_monthly': 'TEAM_MONTHLY_PLAN',
+        'team_annual': 'TEAM_YEARLY_PLAN'
+      };
+      formData["plan_type"] = planTypeMap[this.selectedPlan] || 'MONTHLY_PLAN';
       formData["plan_price"] = this.planPrices[this.selectedPlan].price;
       formData["plan_interval"] = this.planPrices[this.selectedPlan].interval;
       // Always include promo_code, even if empty
@@ -539,27 +614,50 @@ export default {
           this.$router.push("/profile-details");
         })
         .catch(error => {
+          this.$store.dispatch("loader", false);
 
-          
           if (
             error.code === "ERR_BAD_RESPONSE" ||
             error.code === "ERR_NETWORK"
           ) {
             this.$toast.error(error.message);
           } else {
-            this.$store.dispatch("userTempFormError", getServerErrors(error));
-            this.$store.dispatch("loader", false);
-            this.$router.push(
-              `${"/sign-up"}${
-                getSearchParams("plan")
-                  ? `?plan=${getSearchParams("plan")}`
-                  : ""
-              }`
-            );
-            this.$toast.error(getFirstError(error));
+            // Check if this is a card error - stay on page so user can re-enter card
+            const isCardError = error.response?.data?.card_error === true;
+
+            if (isCardError) {
+              // Card error - stay on this page and let user try a different card
+              this.$toast.error(getFirstError(error));
+              // Clear the card elements so user can re-enter
+              this.clearCardElements();
+            } else {
+              // Non-card error (email exists, validation error, etc.) - redirect to sign-up
+              this.$store.dispatch("userTempFormError", getServerErrors(error));
+              this.$router.push(
+                `${"/sign-up"}${
+                  getSearchParams("plan")
+                    ? `?plan=${getSearchParams("plan")}`
+                    : ""
+                }`
+              );
+              this.$toast.error(getFirstError(error));
+            }
           }
-          this.$store.dispatch("loader", false);
         });
+    },
+    clearCardElements() {
+      // Clear all Stripe card input elements so user can re-enter their card details
+      if (cardNumber) {
+        cardNumber.clear();
+      }
+      if (cardExpiry) {
+        cardExpiry.clear();
+      }
+      if (cardCvc) {
+        cardCvc.clear();
+      }
+      // Also clear the cardholder name
+      this.cardHolder = '';
     },
   },
 };

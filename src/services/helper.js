@@ -15,7 +15,7 @@ export function getFirstError(error) {
     if (data.detail && typeof data.detail === 'string') {
       // Handle common JWT errors
       if (data.detail.includes('Given token not valid')) {
-        return 'Your session has expired. Please log in again.';
+        return 'The token is not valid. Please log in again.';
       }
       if (data.detail.includes('token') && data.detail.includes('expired')) {
         return 'Your session has expired. Please log in again.';
