@@ -297,13 +297,10 @@ export default {
       this.$router.push("");
       document.querySelector("body").classList.remove("fullScreen");
     },
-<<<<<<< HEAD
-=======
     initializePDFModal: function() {
       // Initialize PDF modal when user clicks the PDF button
       this.shouldShowPDFModal = true;
     },
->>>>>>> 9143dd84f4ba8126bab0fc3087417666e320802b
     populateShareData: function() {
       // Debug: Check what $appUrl() returns
 
