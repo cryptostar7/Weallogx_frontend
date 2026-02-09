@@ -1,6 +1,6 @@
 #!/bin/sh
 
-OLD_EMAIL="mannese@wearemimic.com"
+OLD_EMAIL="princecoder000@gmail.com"
 NEW_EMAIL="133494886+cryptostar7@users.noreply.github.com"
 NEW_NAME="cryptostar7"
 
